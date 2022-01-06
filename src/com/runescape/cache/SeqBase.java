@@ -35,7 +35,6 @@ public class SeqBase {
             instance[index].types = transformTypes;
             instance[index].groupLabels = groups;
         }
-
     }
 
     public SeqBase() {

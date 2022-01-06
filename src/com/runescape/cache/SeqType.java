@@ -40,7 +40,7 @@ public class SeqType {
                         anIntArray367[k] = -1;
                     instances[k] = class38_sub2_sub3.readWord();
                     if (instances[k] == 0)
-                        instances[k] = SeqFrame.seqFrames[primaryFrames[k]].anInt236;
+                        instances[k] = SeqFrame.instance[primaryFrames[k]].delay;
                     if (instances[k] == 0)
                         instances[k] = 1;
                 }

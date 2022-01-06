@@ -4,96 +4,106 @@ import com.runescape.util.Buffer;
 
 public class SeqFrame {
 
-    public static void method213(boolean flag, FileArchive fileArchive) {
-        if (flag)
-            throw new NullPointerException();
-        Buffer class38_sub2_sub3 = new Buffer(
-                fileArchive.read("frame_head.dat", null));
-        Buffer class38_sub2_sub3_1 = new Buffer(
-                fileArchive.read("frame_tran1.dat", null));
-        Buffer class38_sub2_sub3_2 = new Buffer(
-                fileArchive.read("frame_tran2.dat", null));
-        Buffer class38_sub2_sub3_3 = new Buffer(
-                fileArchive.read("frame_del.dat", null));
-        int i = class38_sub2_sub3.readWord();
-        int j = class38_sub2_sub3.readWord();
-        seqFrames = new SeqFrame[j + 1];
-        int[] ai = new int[500];
-        int[] ai1 = new int[500];
-        int[] ai2 = new int[500];
-        int[] ai3 = new int[500];
-        for (int k = 0; k < i; k++) {
-            int l = class38_sub2_sub3.readWord();
-            SeqFrame seqFrame = seqFrames[l] = new SeqFrame();
-            seqFrame.anInt236 = class38_sub2_sub3_3.readByte();
-            int i1 = class38_sub2_sub3.readWord();
-            SeqBase seqBase = SeqBase.instance[i1];
-            seqFrame.seqBase = seqBase;
-            int j1 = class38_sub2_sub3.readByte();
-            int k1 = -1;
-            int l1 = 0;
-            for (int i2 = 0; i2 < j1; i2++) {
-                int j2 = class38_sub2_sub3_1.readByte();
-                if (j2 > 0) {
-                    if (seqBase.types[i2] != 0) {
-                        for (int l2 = i2 - 1; l2 > k1; l2--) {
-                            if (seqBase.types[l2] != 0)
+    public static void load(FileArchive fileArchive) {
+        Buffer head = new Buffer(fileArchive.read("frame_head.dat", null));
+        Buffer tran1 = new Buffer(fileArchive.read("frame_tran1.dat", null));
+        Buffer tran2 = new Buffer(fileArchive.read("frame_tran2.dat", null));
+        Buffer del = new Buffer(fileArchive.read("frame_del.dat", null));
+
+        int frameCount = head.readWord();
+        int totalFrames = head.readWord();
+
+        instance = new SeqFrame[totalFrames + 1];
+
+        int[] labels = new int[500];
+        int[] x = new int[500];
+        int[] y = new int[500];
+        int[] z = new int[500];
+
+        for (int i = 0; i < frameCount; i++) {
+            SeqFrame frame = instance[head.readWord()] = new SeqFrame();
+            frame.delay = del.readByte();
+            
+            SeqBase base = SeqBase.instance[head.readWord()];
+            frame.transform = base;
+
+            int groupCount = head.readByte();
+            int lastGroup = -1;
+            int count = 0;
+
+            for (int n = 0; n < groupCount; n++) {
+                int flags = tran1.readByte();
+
+                if (flags > 0) {
+                    if (base.types[n] != 0) {
+                        for (int group = n - 1; group > lastGroup; group--) {
+                            if (base.types[group] != 0) {
                                 continue;
-                            ai[l1] = l2;
-                            ai1[l1] = 0;
-                            ai2[l1] = 0;
-                            ai3[l1] = 0;
-                            l1++;
+                            }
+
+                            labels[count] = group;
+                            x[count] = 0;
+                            y[count] = 0;
+                            z[count] = 0;
+                            count++;
                             break;
                         }
-
                     }
-                    ai[l1] = i2;
-                    char c = '\0';
-                    if (seqBase.types[ai[l1]] == 3)
-                        c = '\200';
-                    if ((j2 & 1) != 0)
-                        ai1[l1] = class38_sub2_sub3_2.readSmartSigned();
-                    else
-                        ai1[l1] = c;
-                    if ((j2 & 2) != 0)
-                        ai2[l1] = class38_sub2_sub3_2.readSmartSigned();
-                    else
-                        ai2[l1] = c;
-                    if ((j2 & 4) != 0)
-                        ai3[l1] = class38_sub2_sub3_2.readSmartSigned();
-                    else
-                        ai3[l1] = c;
-                    k1 = i2;
-                    l1++;
+
+                    labels[count] = n;
+
+                    int defaultValue = 0;
+                    if (base.types[labels[count]] == 3) {
+                        defaultValue = 128;
+                    }
+
+                    if ((flags & 1) != 0) {
+                        x[count] = tran2.readSmartSigned();
+                    } else {
+                        x[count] = defaultValue;
+                    }
+
+                    if ((flags & 2) != 0) {
+                        y[count] = tran2.readSmartSigned();
+                    } else {
+                        y[count] = defaultValue;
+                    }
+
+                    if ((flags & 4) != 0) {
+                        z[count] = tran2.readSmartSigned();
+                    } else {
+                        z[count] = defaultValue;
+                    }
+
+                    lastGroup = n;
+                    count++;
                 }
             }
 
-            seqFrame.anInt238 = l1;
-            seqFrame.anIntArray239 = new int[l1];
-            seqFrame.anIntArray240 = new int[l1];
-            seqFrame.anIntArray241 = new int[l1];
-            seqFrame.anIntArray242 = new int[l1];
-            for (int k2 = 0; k2 < l1; k2++) {
-                seqFrame.anIntArray239[k2] = ai[k2];
-                seqFrame.anIntArray240[k2] = ai1[k2];
-                seqFrame.anIntArray241[k2] = ai2[k2];
-                seqFrame.anIntArray242[k2] = ai3[k2];
+            frame.groupCount = count;
+            frame.groups = new int[count];
+            frame.x = new int[count];
+            frame.y = new int[count];
+            frame.z = new int[count];
+
+            for (int j = 0; j < count; j++) {
+                frame.groups[j] = labels[j];
+                frame.x[j] = x[j];
+                frame.y[j] = y[j];
+                frame.z[j] = z[j];
             }
-
         }
-
     }
 
     public SeqFrame() {
     }
 
-    public static SeqFrame[] seqFrames;
-    public int anInt236;
-    public SeqBase seqBase;
-    public int anInt238;
-    public int[] anIntArray239;
-    public int[] anIntArray240;
-    public int[] anIntArray241;
-    public int[] anIntArray242;
+    public static SeqFrame[] instance;
+    public int delay;
+    public SeqBase transform;
+    public int groupCount;
+    public int[] groups;
+    public int[] x;
+    public int[] y;
+    public int[] z;
 }
