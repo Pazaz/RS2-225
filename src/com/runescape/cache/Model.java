@@ -1924,12 +1924,38 @@ public class Model extends CacheableNode {
     public static int[] anIntArray1301;
     public static int[] anIntArray1302;
     public static int[] anIntArray1303;
-    public static boolean aBoolean1304;
 
     static {
         anIntArray1300 = Draw3D.anIntArray1446;
         anIntArray1301 = Draw3D.anIntArray1447;
         anIntArray1302 = Draw3D.anIntArray1458;
         anIntArray1303 = Draw3D.anIntArray1445;
+    }
+
+    public static class Metadata {
+
+        public Metadata() {
+        }
+
+        public int vertexCount;
+        public int triangleCount;
+        public int texturedCount;
+
+        public int vertexFlagDataOffset;
+
+        public int vertexXDataOffset;
+        public int vertexYDataOffset;
+        public int vertexZDataOffset;
+
+        public int vertexLabelDataOffset;
+        public int vertexIndexDataOffset;
+
+        public int triangleTypeDataOffset;
+        public int triangleColorDataOffset;
+        public int triangleInfoDataOffset;
+        public int trianglePriorityDataOffset;
+        public int triangleAlphaDataOffset;
+        public int triangleSkinDataOffset;
+        public int triangleTextureDataOffset;
     }
 }
