@@ -210,12 +210,12 @@ public class Class14 {
             return class38_sub2_sub1;
         Class38_Sub2_Sub1 class38_sub2_sub1_1 = new Class38_Sub2_Sub1(class38_sub2_sub1, true, true, anInt262, false);
         if (i != -1 || j != -1)
-            class38_sub2_sub1_1.method357(4);
+            class38_sub2_sub1_1.applyGroups(4);
         if (i != -1)
-            class38_sub2_sub1_1.method358(-16599, i);
+            class38_sub2_sub1_1.applyFrame(-16599, i);
         if (j != -1)
-            class38_sub2_sub1_1.method358(-16599, j);
-        class38_sub2_sub1_1.method367(64, 768, -50, -10, -50, true);
+            class38_sub2_sub1_1.applyFrame(-16599, j);
+        class38_sub2_sub1_1.applyLighting(64, 768, -50, -10, -50, true);
         return class38_sub2_sub1_1;
     }
 

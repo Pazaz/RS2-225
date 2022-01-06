@@ -32,9 +32,9 @@ public class Class20 {
             else if (j == 2) {
                 anInt390 = class38_sub2_sub3.method448();
                 if (Class18.aClass18Array364 != null)
-                    aClass18_391 = Class18.aClass18Array364[anInt390];
+                    seq = Class18.aClass18Array364[anInt390];
             } else if (j == 3)
-                aBoolean392 = true;
+                disposeAlpha = true;
             else if (j == 4)
                 anInt395 = class38_sub2_sub3.method448();
             else if (j == 5)
@@ -54,7 +54,7 @@ public class Class20 {
         } while (true);
     }
 
-    public Class38_Sub2_Sub1 method226() {
+    public Class38_Sub2_Sub1 getModel() {
         Class38_Sub2_Sub1 class38_sub2_sub1 = (Class38_Sub2_Sub1) aClass34_400.method341(anInt388);
         if (class38_sub2_sub1 != null)
             return class38_sub2_sub1;
@@ -69,7 +69,7 @@ public class Class20 {
 
     public Class20() {
         anInt390 = -1;
-        aBoolean392 = false;
+        disposeAlpha = false;
         anIntArray393 = new int[6];
         anIntArray394 = new int[6];
         anInt395 = 128;
@@ -82,8 +82,8 @@ public class Class20 {
     public int anInt388;
     public int anInt389;
     public int anInt390;
-    public Class18 aClass18_391;
-    public boolean aBoolean392;
+    public Class18 seq;
+    public boolean disposeAlpha;
     public int[] anIntArray393;
     public int[] anIntArray394;
     public int anInt395;

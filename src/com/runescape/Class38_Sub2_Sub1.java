@@ -696,8 +696,8 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         if (i != 0)
             anInt1220 = 213;
         anInt1237 = class38_sub2_sub1.anInt1237;
-        anIntArrayArray1255 = class38_sub2_sub1.anIntArrayArray1255;
-        anIntArrayArray1254 = class38_sub2_sub1.anIntArrayArray1254;
+        skinTriangle = class38_sub2_sub1.skinTriangle;
+        labelVertices = class38_sub2_sub1.labelVertices;
         anIntArray1227 = class38_sub2_sub1.anIntArray1227;
         anIntArray1228 = class38_sub2_sub1.anIntArray1228;
         anIntArray1229 = class38_sub2_sub1.anIntArray1229;
@@ -811,7 +811,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         anInt1249 = anInt1250 + (int) Math.sqrt(anInt1246 * anInt1246 + anInt1248 * anInt1248);
     }
 
-    public void method357(int i) {
+    public void applyGroups(int i) {
         if (i != 4)
             return;
         if (anIntArray1252 != null) {
@@ -824,15 +824,15 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
                     j = j1;
             }
 
-            anIntArrayArray1254 = new int[j + 1][];
+            labelVertices = new int[j + 1][];
             for (int k1 = 0; k1 <= j; k1++) {
-                anIntArrayArray1254[k1] = new int[ai[k1]];
+                labelVertices[k1] = new int[ai[k1]];
                 ai[k1] = 0;
             }
 
             for (int j2 = 0; j2 < anInt1222; j2++) {
                 int l2 = anIntArray1252[j2];
-                anIntArrayArray1254[l2][ai[l2]++] = j2;
+                labelVertices[l2][ai[l2]++] = j2;
             }
 
             anIntArray1252 = null;
@@ -847,23 +847,23 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
                     k = l1;
             }
 
-            anIntArrayArray1255 = new int[k + 1][];
+            skinTriangle = new int[k + 1][];
             for (int i2 = 0; i2 <= k; i2++) {
-                anIntArrayArray1255[i2] = new int[ai1[i2]];
+                skinTriangle[i2] = new int[ai1[i2]];
                 ai1[i2] = 0;
             }
 
             for (int k2 = 0; k2 < anInt1226; k2++) {
                 int i3 = anIntArray1253[k2];
-                anIntArrayArray1255[i3][ai1[i3]++] = k2;
+                skinTriangle[i3][ai1[i3]++] = k2;
             }
 
             anIntArray1253 = null;
         }
     }
 
-    public void method358(int i, int j) {
-        if (anIntArrayArray1254 == null)
+    public void applyFrame(int i, int j) {
+        if (labelVertices == null)
             return;
         if (j == -1)
             return;
@@ -886,7 +886,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         if (k == -1)
             return;
         if (ai == null || i == -1) {
-            method358(-16599, k);
+            applyFrame(-16599, k);
             return;
         }
         Class11 class11 = Class11.aClass11Array235[k];
@@ -933,8 +933,8 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
             anInt1294 = 0;
             for (int k2 = 0; k2 < i1; k2++) {
                 int l3 = ai[k2];
-                if (l3 < anIntArrayArray1254.length) {
-                    int[] ai5 = anIntArrayArray1254[l3];
+                if (l3 < labelVertices.length) {
+                    int[] ai5 = labelVertices[l3];
                     for (int i5 = 0; i5 < ai5.length; i5++) {
                         int j6 = ai5[i5];
                         anInt1292 += anIntArray1223[j6];
@@ -961,8 +961,8 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         if (i == 1) {
             for (int k1 = 0; k1 < i1; k1++) {
                 int l2 = ai[k1];
-                if (l2 < anIntArrayArray1254.length) {
-                    int[] ai1 = anIntArrayArray1254[l2];
+                if (l2 < labelVertices.length) {
+                    int[] ai1 = labelVertices[l2];
                     for (int i4 = 0; i4 < ai1.length; i4++) {
                         int j5 = ai1[i4];
                         anIntArray1223[j5] += j;
@@ -978,8 +978,8 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         if (i == 2) {
             for (int l1 = 0; l1 < i1; l1++) {
                 int i3 = ai[l1];
-                if (i3 < anIntArrayArray1254.length) {
-                    int[] ai2 = anIntArrayArray1254[i3];
+                if (i3 < labelVertices.length) {
+                    int[] ai2 = labelVertices[i3];
                     for (int j4 = 0; j4 < ai2.length; j4++) {
                         int k5 = ai2[j4];
                         anIntArray1223[k5] -= anInt1292;
@@ -1022,8 +1022,8 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         if (i == 3) {
             for (int i2 = 0; i2 < i1; i2++) {
                 int j3 = ai[i2];
-                if (j3 < anIntArrayArray1254.length) {
-                    int[] ai3 = anIntArrayArray1254[j3];
+                if (j3 < labelVertices.length) {
+                    int[] ai3 = labelVertices[j3];
                     for (int k4 = 0; k4 < ai3.length; k4++) {
                         int l5 = ai3[k4];
                         anIntArray1223[l5] -= anInt1292;
@@ -1042,11 +1042,11 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
 
             return;
         }
-        if (i == 5 && anIntArrayArray1255 != null && anIntArray1235 != null) {
+        if (i == 5 && skinTriangle != null && anIntArray1235 != null) {
             for (int j2 = 0; j2 < i1; j2++) {
                 int k3 = ai[j2];
-                if (k3 < anIntArrayArray1255.length) {
-                    int[] ai4 = anIntArrayArray1255[k3];
+                if (k3 < skinTriangle.length) {
+                    int[] ai4 = skinTriangle[k3];
                     for (int l4 = 0; l4 < ai4.length; l4++) {
                         int i6 = ai4[l4];
                         anIntArray1235[i6] += j * 8;
@@ -1073,7 +1073,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
 
     }
 
-    public void method362(byte byte0, int i) {
+    public void rotatePitch(byte byte0, int i) {
         int j = anIntArray1300[i];
         int k = anIntArray1301[i];
         for (int l = 0; l < anInt1222; l++) {
@@ -1120,7 +1120,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         }
     }
 
-    public void method366(int i, int j, int k, int l) {
+    public void scale(int i, int j, int k, int l) {
         for (int i1 = 0; i1 < anInt1222; i1++) {
             anIntArray1223[i1] = (anIntArray1223[i1] * l) / 128;
             anIntArray1224[i1] = (anIntArray1224[i1] * k) / 128;
@@ -1132,7 +1132,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
                 ;
     }
 
-    public void method367(int i, int j, int k, int l, int i1, boolean flag) {
+    public void applyLighting(int i, int j, int k, int l, int i1, boolean flag) {
         int j1 = (int) Math.sqrt(k * k + l * l + i1 * i1);
         int k1 = j * j1 >> 8;
         if (anIntArray1230 == null) {
@@ -1868,8 +1868,8 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
     public int anInt1251;
     public int[] anIntArray1252;
     public int[] anIntArray1253;
-    public int[][] anIntArrayArray1254;
-    public int[][] anIntArrayArray1255;
+    public int[][] labelVertices;
+    public int[][] skinTriangle;
     public boolean aBoolean1256;
     public VertexNormal[] vertexNormalArray1;
     public VertexNormal[] vertexNormalArray2;

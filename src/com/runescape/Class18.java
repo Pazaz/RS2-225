@@ -28,17 +28,17 @@ public class Class18 {
                 break;
             if (j == 1) {
                 anInt365 = class38_sub2_sub3.method446();
-                anIntArray366 = new int[anInt365];
+                primaryFrames = new int[anInt365];
                 anIntArray367 = new int[anInt365];
                 anIntArray368 = new int[anInt365];
                 for (int k = 0; k < anInt365; k++) {
-                    anIntArray366[k] = class38_sub2_sub3.method448();
+                    primaryFrames[k] = class38_sub2_sub3.method448();
                     anIntArray367[k] = class38_sub2_sub3.method448();
                     if (anIntArray367[k] == 65535)
                         anIntArray367[k] = -1;
                     anIntArray368[k] = class38_sub2_sub3.method448();
                     if (anIntArray368[k] == 0)
-                        anIntArray368[k] = Class11.aClass11Array235[anIntArray366[k]].anInt236;
+                        anIntArray368[k] = Class11.aClass11Array235[primaryFrames[k]].anInt236;
                     if (anIntArray368[k] == 0)
                         anIntArray368[k] = 1;
                 }
@@ -67,8 +67,8 @@ public class Class18 {
         } while (true);
         if (anInt365 == 0) {
             anInt365 = 1;
-            anIntArray366 = new int[1];
-            anIntArray366[0] = -1;
+            primaryFrames = new int[1];
+            primaryFrames[0] = -1;
             anIntArray367 = new int[1];
             anIntArray367[0] = -1;
             anIntArray368 = new int[1];
@@ -90,7 +90,7 @@ public class Class18 {
     public static int anInt363;
     public static Class18[] aClass18Array364;
     public int anInt365;
-    public int[] anIntArray366;
+    public int[] primaryFrames;
     public int[] anIntArray367;
     public int[] anIntArray368;
     public int anInt369;

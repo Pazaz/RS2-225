@@ -545,10 +545,10 @@ public class client extends Applet_Sub1 {
                 l5 = l5 * 128 + 64;
                 i8 = i8 * 128 + 64;
                 i10 = i10 * 128 + 64;
-                Class38_Sub7_Sub1 class38_sub7_sub1 = new Class38_Sub7_Sub1(i15, i17, l5, j16 + anInt955, anInt880, l11,
-                        k15 + anInt955, k17, 0, method33(anInt880, k3, (byte) 5, l5) - k14, k13, k3);
-                class38_sub7_sub1.method463(method33(anInt880, i8, (byte) 5, i10) - i15, i10, i8, -855, k15 + anInt955);
-                linkedList4.method267(class38_sub7_sub1);
+                ProjectileEntity projectileEntity = new ProjectileEntity(i15, i17, l5, j16 + anInt955, anInt880, l11,
+                        k15 + anInt955, k17, method33(anInt880, k3, (byte) 5, l5) - k14, k13, k3);
+                projectileEntity.setTarget(method33(anInt880, i8, (byte) 5, i10) - i15, i10, i8, k15 + anInt955);
+                linkedList4.method267(projectileEntity);
             }
             return;
         }
@@ -2897,7 +2897,7 @@ public class client extends Applet_Sub1 {
                         class38_sub2_sub1 = class14_1.method219(-1, -1, flag);
                     } else {
                         Class18 class18 = Class18.aClass18Array364[j8];
-                        class38_sub2_sub1 = class14_1.method219(class18.anIntArray366[class14_1.anInt267],
+                        class38_sub2_sub1 = class14_1.method219(class18.primaryFrames[class14_1.anInt267],
                                 class18.anIntArray367[class14_1.anInt267], flag);
                     }
                     if (class38_sub2_sub1 != null)
@@ -3297,7 +3297,7 @@ public class client extends Applet_Sub1 {
         if (class38_sub7_sub3.anInt1412 != -1 && anInt955 >= class38_sub7_sub3.anInt1415) {
             if (class38_sub7_sub3.anInt1413 < 0)
                 class38_sub7_sub3.anInt1413 = 0;
-            Class18 class18_2 = Class20.aClass20Array387[class38_sub7_sub3.anInt1412].aClass18_391;
+            Class18 class18_2 = Class20.aClass20Array387[class38_sub7_sub3.anInt1412].seq;
             for (class38_sub7_sub3.anInt1414++; class38_sub7_sub3.anInt1413 < class18_2.anInt365
                     && class38_sub7_sub3.anInt1414 > class18_2.anIntArray368[class38_sub7_sub3.anInt1413]; class38_sub7_sub3.anInt1413++)
                 class38_sub7_sub3.anInt1414 -= class18_2.anIntArray368[class38_sub7_sub3.anInt1413];
@@ -4232,10 +4232,10 @@ public class client extends Applet_Sub1 {
                             class38_sub2_sub1.method364(anIntArray1073[0], anIntArray1073[anIntArray742[j1]]);
                     }
 
-                class38_sub2_sub1.method357(4);
-                class38_sub2_sub1.method358(-16599,
-                        Class18.aClass18Array364[aClass38_Sub7_Sub3_Sub2_967.anInt1385].anIntArray366[0]);
-                class38_sub2_sub1.method367(64, 850, -30, -50, -30, true);
+                class38_sub2_sub1.applyGroups(4);
+                class38_sub2_sub1.applyFrame(-16599,
+                        Class18.aClass18Array364[aClass38_Sub7_Sub3_Sub2_967.anInt1385].primaryFrames[0]);
+                class38_sub2_sub1.applyLighting(64, 850, -30, -50, -30, true);
                 class14.aClass38_Sub2_Sub1_310 = class38_sub2_sub1;
             }
             return;
@@ -4989,44 +4989,44 @@ public class client extends Applet_Sub1 {
     public void method86(byte byte0) {
         if (byte0 != -26)
             anInt780 = -1;
-        for (Class38_Sub7_Sub1 class38_sub7_sub1 = (Class38_Sub7_Sub1) linkedList4
-                .method270(); class38_sub7_sub1 != null; class38_sub7_sub1 = (Class38_Sub7_Sub1) linkedList4
+        for (ProjectileEntity projectileEntity = (ProjectileEntity) linkedList4
+                .method270(); projectileEntity != null; projectileEntity = (ProjectileEntity) linkedList4
                 .method272())
-            if (class38_sub7_sub1.anInt1344 != anInt880 || anInt955 > class38_sub7_sub1.anInt1350)
-                class38_sub7_sub1.unlink();
-            else if (anInt955 >= class38_sub7_sub1.anInt1349) {
-                if (class38_sub7_sub1.anInt1353 > 0) {
-                    Class38_Sub7_Sub3_Sub1 class38_sub7_sub3_sub1 = aClass38_Sub7_Sub3_Sub1Array927[class38_sub7_sub1.anInt1353
+            if (projectileEntity.level != anInt880 || anInt955 > projectileEntity.lastCycle)
+                projectileEntity.unlink();
+            else if (anInt955 >= projectileEntity.firstCycle) {
+                if (projectileEntity.targetIndex > 0) {
+                    Class38_Sub7_Sub3_Sub1 class38_sub7_sub3_sub1 = aClass38_Sub7_Sub3_Sub1Array927[projectileEntity.targetIndex
                             - 1];
                     if (class38_sub7_sub3_sub1 != null)
-                        class38_sub7_sub1.method463(
-                                method33(class38_sub7_sub1.anInt1344,
+                        projectileEntity.setTarget(
+                                method33(projectileEntity.level,
                                         class38_sub7_sub3_sub1.anInt1380, (byte) 5,
                                         class38_sub7_sub3_sub1.anInt1381)
-                                        - class38_sub7_sub1.anInt1348,
+                                        - projectileEntity.baseZ,
                                 class38_sub7_sub3_sub1.anInt1381,
-                                class38_sub7_sub3_sub1.anInt1380, -855, anInt955);
+                                class38_sub7_sub3_sub1.anInt1380, anInt955);
                 }
-                if (class38_sub7_sub1.anInt1353 < 0) {
-                    int i = -class38_sub7_sub1.anInt1353 - 1;
+                if (projectileEntity.targetIndex < 0) {
+                    int i = -projectileEntity.targetIndex - 1;
                     Class38_Sub7_Sub3_Sub2 class38_sub7_sub3_sub2;
                     if (i == anInt734)
                         class38_sub7_sub3_sub2 = aClass38_Sub7_Sub3_Sub2_967;
                     else
                         class38_sub7_sub3_sub2 = aClass38_Sub7_Sub3_Sub2Array822[i];
                     if (class38_sub7_sub3_sub2 != null)
-                        class38_sub7_sub1.method463(
-                                method33(class38_sub7_sub1.anInt1344,
+                        projectileEntity.setTarget(
+                                method33(projectileEntity.level,
                                         class38_sub7_sub3_sub2.anInt1380, (byte) 5,
                                         class38_sub7_sub3_sub2.anInt1381)
-                                        - class38_sub7_sub1.anInt1348,
+                                        - projectileEntity.baseZ,
                                 class38_sub7_sub3_sub2.anInt1381,
-                                class38_sub7_sub3_sub2.anInt1380, -855, anInt955);
+                                class38_sub7_sub3_sub2.anInt1380, anInt955);
                 }
-                class38_sub7_sub1.method464((byte) -30, anInt969);
-                aClass32_831.method292(-44713, (int) class38_sub7_sub1.aDouble1356, 60, class38_sub7_sub1.anInt1363,
-                        (int) class38_sub7_sub1.aDouble1355, -1, false, null, class38_sub7_sub1,
-                        (int) class38_sub7_sub1.aDouble1357, anInt880);
+                projectileEntity.update(anInt969);
+                aClass32_831.method292(-44713, (int) projectileEntity.y, 60, projectileEntity.yaw,
+                        (int) projectileEntity.x, -1, false, null, projectileEntity,
+                        (int) projectileEntity.z, anInt880);
             }
 
     }
@@ -7439,7 +7439,7 @@ public class client extends Applet_Sub1 {
                     Class1 class1 = Class1.method142(class38_sub5.anInt1210);
                     int j2 = -1;
                     if (class38_sub5.anInt1212 != -1)
-                        j2 = class38_sub5.aClass18_1211.anIntArray366[class38_sub5.anInt1212];
+                        j2 = class38_sub5.aClass18_1211.primaryFrames[class38_sub5.anInt1212];
                     if (class38_sub5.anInt1207 == 2) {
                         int k2 = aClass32_831.method312(j, k, l, i1);
                         int j3 = k2 & 0x1f;

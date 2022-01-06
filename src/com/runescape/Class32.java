@@ -1188,7 +1188,7 @@ public class Class32 {
                         if (class28 != null) {
                             Class38_Sub2_Sub1 class38_sub2_sub1 = class28.aClass38_Sub2_Sub1_488;
                             if (class38_sub2_sub1 == null)
-                                class38_sub2_sub1 = class28.entity.method462(true);
+                                class38_sub2_sub1 = class28.entity.getDrawMethod();
                             class38_sub2_sub1.method371(class28.anInt490, anInt548, anInt549, anInt550, anInt551,
                                     class28.anInt486 - anInt545, class28.anInt485 - anInt546,
                                     class28.anInt487 - anInt547, class28.anInt497);
@@ -1416,7 +1416,7 @@ public class Class32 {
                     class28_3.anInt496 = anInt538;
                     Class38_Sub2_Sub1 class38_sub2_sub1_1 = class28_3.aClass38_Sub2_Sub1_488;
                     if (class38_sub2_sub1_1 == null)
-                        class38_sub2_sub1_1 = class28_3.entity.method462(true);
+                        class38_sub2_sub1_1 = class28_3.entity.getDrawMethod();
                     if (!method331(l, class28_3.anInt491, class28_3.anInt492, class28_3.anInt493, class28_3.anInt494,
                             class38_sub2_sub1_1.anInt1247))
                         class38_sub2_sub1_1.method371(class28_3.anInt490, anInt548, anInt549, anInt550, anInt551,

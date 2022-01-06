@@ -69,7 +69,8 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
         aLong1512 += anInt1507;
     }
 
-    public Class38_Sub2_Sub1 method462(boolean flag) {
+    @Override
+    public Class38_Sub2_Sub1 getDrawMethod() {
         if (!aBoolean1506)
             return null;
         Class38_Sub2_Sub1 class38_sub2_sub1 = method471(false);
@@ -79,16 +80,16 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
             return class38_sub2_sub1;
         if (super.anInt1412 != -1 && super.anInt1413 != -1) {
             Class20 class20 = Class20.aClass20Array387[super.anInt1412];
-            Class38_Sub2_Sub1 class38_sub2_sub1_2 = new Class38_Sub2_Sub1(class20.method226(), true,
-                    !class20.aBoolean392, anInt1503, false);
+            Class38_Sub2_Sub1 class38_sub2_sub1_2 = new Class38_Sub2_Sub1(class20.getModel(), true,
+                    !class20.disposeAlpha, anInt1503, false);
             class38_sub2_sub1_2.method363(-super.anInt1416, 0, -122, 0);
-            class38_sub2_sub1_2.method357(4);
-            class38_sub2_sub1_2.method358(-16599, class20.aClass18_391.anIntArray366[super.anInt1413]);
-            class38_sub2_sub1_2.anIntArrayArray1255 = null;
-            class38_sub2_sub1_2.anIntArrayArray1254 = null;
+            class38_sub2_sub1_2.applyGroups(4);
+            class38_sub2_sub1_2.applyFrame(-16599, class20.seq.primaryFrames[super.anInt1413]);
+            class38_sub2_sub1_2.skinTriangle = null;
+            class38_sub2_sub1_2.labelVertices = null;
             if (class20.anInt395 != 128 || class20.anInt396 != 128)
-                class38_sub2_sub1_2.method366(class20.anInt395, 2, class20.anInt396, class20.anInt395);
-            class38_sub2_sub1_2.method367(64 + class20.anInt398, 850 + class20.anInt399, -30, -50, -30, true);
+                class38_sub2_sub1_2.scale(class20.anInt395, 2, class20.anInt396, class20.anInt395);
+            class38_sub2_sub1_2.applyLighting(64 + class20.anInt398, 850 + class20.anInt399, -30, -50, -30, true);
             Class38_Sub2_Sub1[] aclass38_sub2_sub1_1 = {
                     class38_sub2_sub1, class38_sub2_sub1_2
             };
@@ -129,10 +130,6 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
             }
         }
         class38_sub2_sub1.aBoolean1256 = true;
-        if (!flag) {
-            for (int i = 1; i > 0; i++)
-                ;
-        }
         return class38_sub2_sub1;
     }
 
@@ -144,9 +141,9 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
         int i1 = -1;
         if (super.anInt1407 >= 0 && super.anInt1410 == 0) {
             Class18 class18 = Class18.aClass18Array364[super.anInt1407];
-            i = class18.anIntArray366[super.anInt1408];
+            i = class18.primaryFrames[super.anInt1408];
             if (super.anInt1404 >= 0 && super.anInt1404 != super.anInt1385)
-                j = Class18.aClass18Array364[super.anInt1404].anIntArray366[super.anInt1405];
+                j = Class18.aClass18Array364[super.anInt1404].primaryFrames[super.anInt1405];
             if (class18.anInt373 >= 0) {
                 k = class18.anInt373;
                 l += k - anIntArray1509[5] << 40;
@@ -156,7 +153,7 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
                 l += i1 - anIntArray1509[3] << 48;
             }
         } else if (super.anInt1404 >= 0)
-            i = Class18.aClass18Array364[super.anInt1404].anIntArray366[super.anInt1405];
+            i = Class18.aClass18Array364[super.anInt1404].primaryFrames[super.anInt1405];
         Class38_Sub2_Sub1 class38_sub2_sub1 = (Class38_Sub2_Sub1) aClass34_1525.method341(l);
         if (class38_sub2_sub1 == null) {
             Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[12];
@@ -187,8 +184,8 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
                                 client.anIntArray1073[anIntArray1510[i2]]);
                 }
 
-            class38_sub2_sub1.method357(4);
-            class38_sub2_sub1.method367(64, 850, -30, -50, -30, true);
+            class38_sub2_sub1.applyGroups(4);
+            class38_sub2_sub1.applyLighting(64, 850, -30, -50, -30, true);
             aClass34_1525.method342(6, l, class38_sub2_sub1);
         }
         if (aBoolean1524)
@@ -199,10 +196,10 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
         if (i != -1 && j != -1)
             class38_sub2_sub1_1.method359(j, 3, i, Class18.aClass18Array364[super.anInt1407].anIntArray370);
         else if (i != -1)
-            class38_sub2_sub1_1.method358(-16599, i);
+            class38_sub2_sub1_1.applyFrame(-16599, i);
         class38_sub2_sub1_1.method354(2992);
-        class38_sub2_sub1_1.anIntArrayArray1255 = null;
-        class38_sub2_sub1_1.anIntArrayArray1254 = null;
+        class38_sub2_sub1_1.skinTriangle = null;
+        class38_sub2_sub1_1.labelVertices = null;
         return class38_sub2_sub1_1;
     }
 

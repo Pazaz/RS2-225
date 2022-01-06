@@ -19,11 +19,11 @@ public class Class38_Sub7_Sub2 extends Entity {
     public void method465(int i, int j) {
         if (j != 0)
             anInt1368 = -255;
-        for (anInt1376 += i; anInt1376 > aClass20_1369.aClass18_391.anIntArray368[anInt1375]; ) {
-            anInt1376 -= aClass20_1369.aClass18_391.anIntArray368[anInt1375] + 1;
+        for (anInt1376 += i; anInt1376 > aClass20_1369.seq.anIntArray368[anInt1375]; ) {
+            anInt1376 -= aClass20_1369.seq.anIntArray368[anInt1375] + 1;
             anInt1375++;
-            if (anInt1375 >= aClass20_1369.aClass18_391.anInt365
-                    && (anInt1375 < 0 || anInt1375 >= aClass20_1369.aClass18_391.anInt365)) {
+            if (anInt1375 >= aClass20_1369.seq.anInt365
+                    && (anInt1375 < 0 || anInt1375 >= aClass20_1369.seq.anInt365)) {
                 anInt1375 = 0;
                 aBoolean1377 = true;
             }
@@ -31,20 +31,19 @@ public class Class38_Sub7_Sub2 extends Entity {
 
     }
 
-    public Class38_Sub2_Sub1 method462(boolean flag) {
-        Class38_Sub2_Sub1 class38_sub2_sub1 = aClass20_1369.method226();
+    @Override
+    public Class38_Sub2_Sub1 getDrawMethod() {
+        Class38_Sub2_Sub1 class38_sub2_sub1 = aClass20_1369.getModel();
         Class38_Sub2_Sub1 class38_sub2_sub1_1 = new Class38_Sub2_Sub1(class38_sub2_sub1, true,
-                !aClass20_1369.aBoolean392, anInt1367, false);
-        if (!flag)
-            throw new NullPointerException();
+                !aClass20_1369.disposeAlpha, anInt1367, false);
         if (!aBoolean1377) {
-            class38_sub2_sub1_1.method357(4);
-            class38_sub2_sub1_1.method358(-16599, aClass20_1369.aClass18_391.anIntArray366[anInt1375]);
-            class38_sub2_sub1_1.anIntArrayArray1255 = null;
-            class38_sub2_sub1_1.anIntArrayArray1254 = null;
+            class38_sub2_sub1_1.applyGroups(4);
+            class38_sub2_sub1_1.applyFrame(-16599, aClass20_1369.seq.primaryFrames[anInt1375]);
+            class38_sub2_sub1_1.skinTriangle = null;
+            class38_sub2_sub1_1.labelVertices = null;
         }
         if (aClass20_1369.anInt395 != 128 || aClass20_1369.anInt396 != 128)
-            class38_sub2_sub1_1.method366(aClass20_1369.anInt395, 2, aClass20_1369.anInt396, aClass20_1369.anInt395);
+            class38_sub2_sub1_1.scale(aClass20_1369.anInt395, 2, aClass20_1369.anInt396, aClass20_1369.anInt395);
         if (aClass20_1369.anInt397 != 0) {
             if (aClass20_1369.anInt397 == 90)
                 class38_sub2_sub1_1.method361(0);
@@ -58,7 +57,7 @@ public class Class38_Sub7_Sub2 extends Entity {
                 class38_sub2_sub1_1.method361(0);
             }
         }
-        class38_sub2_sub1_1.method367(64 + aClass20_1369.anInt398, 850 + aClass20_1369.anInt399, -30, -50, -30, true);
+        class38_sub2_sub1_1.applyLighting(64 + aClass20_1369.anInt398, 850 + aClass20_1369.anInt399, -30, -50, -30, true);
         return class38_sub2_sub1_1;
     }
 

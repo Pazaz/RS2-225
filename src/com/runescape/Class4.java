@@ -227,7 +227,7 @@ public class Class4 {
                 class38_sub2_sub1.method364(anIntArray147[l], anIntArray148[l]);
 
         }
-        class38_sub2_sub1.method367(64, 768, -50, -10, -50, true);
+        class38_sub2_sub1.applyLighting(64, 768, -50, -10, -50, true);
         class38_sub2_sub1.aBoolean1256 = true;
         aClass34_178.method342(6, anInt143, class38_sub2_sub1);
         return class38_sub2_sub1;

@@ -240,10 +240,10 @@ public class Class1 {
         Class38_Sub2_Sub1 class38_sub2_sub1_2 = new Class38_Sub2_Sub1(class38_sub2_sub1_1, anIntArray46 == null,
                 !aBoolean61, anInt33, j == 0 && k1 == -1 && !flag1 && !flag2);
         if (k1 != -1) {
-            class38_sub2_sub1_2.method357(4);
-            class38_sub2_sub1_2.method358(-16599, k1);
-            class38_sub2_sub1_2.anIntArrayArray1255 = null;
-            class38_sub2_sub1_2.anIntArrayArray1254 = null;
+            class38_sub2_sub1_2.applyGroups(4);
+            class38_sub2_sub1_2.applyFrame(-16599, k1);
+            class38_sub2_sub1_2.skinTriangle = null;
+            class38_sub2_sub1_2.labelVertices = null;
         }
         while (j-- > 0)
             class38_sub2_sub1_2.method361(0);
@@ -253,10 +253,10 @@ public class Class1 {
 
         }
         if (flag1)
-            class38_sub2_sub1_2.method366(anInt68, 2, anInt67, anInt66);
+            class38_sub2_sub1_2.scale(anInt68, 2, anInt67, anInt66);
         if (flag2)
             class38_sub2_sub1_2.method363(anInt70, anInt69, -122, anInt71);
-        class38_sub2_sub1_2.method367(64 + aByte58, 768 + aByte59 * 5, -50, -10, -50, !aBoolean54);
+        class38_sub2_sub1_2.applyLighting(64 + aByte58, 768 + aByte59 * 5, -50, -10, -50, !aBoolean54);
         if (aBoolean50)
             class38_sub2_sub1_2.anInt1251 = class38_sub2_sub1_2.anInt1247;
         aClass34_75.method342(6, l2, class38_sub2_sub1_2);

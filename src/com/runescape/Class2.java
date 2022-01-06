@@ -128,20 +128,20 @@ public class Class2 {
                     class38_sub2_sub1_1.method364(anIntArray94[l], anIntArray95[l]);
 
             }
-            class38_sub2_sub1_1.method357(4);
-            class38_sub2_sub1_1.method367(64, 850, -30, -50, -30, true);
+            class38_sub2_sub1_1.applyGroups(4);
+            class38_sub2_sub1_1.applyLighting(64, 850, -30, -50, -30, true);
             aClass34_104.method342(6, aLong82, class38_sub2_sub1_1);
         }
         class38_sub2_sub1 = new Class38_Sub2_Sub1(0, class38_sub2_sub1_1, !aBoolean93);
         if (i != -1 && j != -1)
             class38_sub2_sub1.method359(j, 3, i, ai);
         else if (i != -1)
-            class38_sub2_sub1.method358(-16599, i);
+            class38_sub2_sub1.applyFrame(-16599, i);
         if (anInt102 != 128 || anInt103 != 128)
-            class38_sub2_sub1.method366(anInt102, 2, anInt103, anInt102);
+            class38_sub2_sub1.scale(anInt102, 2, anInt103, anInt102);
         class38_sub2_sub1.method354(2992);
-        class38_sub2_sub1.anIntArrayArray1255 = null;
-        class38_sub2_sub1.anIntArrayArray1254 = null;
+        class38_sub2_sub1.skinTriangle = null;
+        class38_sub2_sub1.labelVertices = null;
         if (aByte85 == 1)
             class38_sub2_sub1.aBoolean1256 = true;
         return class38_sub2_sub1;
