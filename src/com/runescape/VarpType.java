@@ -1,20 +1,20 @@
 package com.runescape;
 
-public class Class22 {
+public class VarpType {
 
     public static void method227(FileArchive fileArchive, int i) {
         Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read("varp.dat", null));
         anInt421 = 0;
         i = 28 / i;
         anInt419 = class38_sub2_sub3.method448();
-        if (aClass22Array420 == null)
-            aClass22Array420 = new Class22[anInt419];
+        if (varpTypes == null)
+            varpTypes = new VarpType[anInt419];
         if (anIntArray422 == null)
             anIntArray422 = new int[anInt419];
         for (int j = 0; j < anInt419; j++) {
-            if (aClass22Array420[j] == null)
-                aClass22Array420[j] = new Class22();
-            aClass22Array420[j].method228(anInt418, j, class38_sub2_sub3);
+            if (varpTypes[j] == null)
+                varpTypes[j] = new VarpType();
+            varpTypes[j].method228(anInt418, j, class38_sub2_sub3);
         }
 
     }
@@ -50,7 +50,7 @@ public class Class22 {
         } while (true);
     }
 
-    public Class22() {
+    public VarpType() {
         aBoolean426 = false;
         aBoolean427 = true;
         aBoolean429 = false;
@@ -60,7 +60,7 @@ public class Class22 {
     public static int anInt417 = 473;
     public static int anInt418 = 13703;
     public static int anInt419;
-    public static Class22[] aClass22Array420;
+    public static VarpType[] varpTypes;
     public static int anInt421;
     public static int[] anIntArray422;
     public String aString423;

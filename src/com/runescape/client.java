@@ -2950,7 +2950,7 @@ public class client extends Applet_Sub1 {
 
     public void method61(int i, int j) {
         j = 19 / j;
-        int k = Class22.aClass22Array420[i].anInt428;
+        int k = VarpType.varpTypes[i].anInt428;
         if (k == 0)
             return;
         int l = anIntArray938[i];
@@ -4724,7 +4724,7 @@ public class client extends Applet_Sub1 {
             NpcType.method146(fileArchive);
             IdkType.method214(fileArchive, 473);
             SpotAnimType.method224(fileArchive, 473);
-            Class22.method227(fileArchive, 473);
+            VarpType.method227(fileArchive, 473);
             ObjType.aBoolean142 = aBoolean888;
             if (!aBoolean889) {
                 method13(true, "Unpacking sounds", 90);
@@ -5797,7 +5797,7 @@ public class client extends Applet_Sub1 {
         SeqType.seqTypes = null;
         SpotAnimType.spotAnimTypes = null;
         SpotAnimType.aClass34_400 = null;
-        Class22.aClass22Array420 = null;
+        VarpType.varpTypes = null;
         super.drawArea = null;
         Class38_Sub7_Sub3_Sub2.aClass34_1525 = null;
         Class38_Sub2_Sub2_Sub1.method384(true);
