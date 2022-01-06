@@ -1,6 +1,7 @@
 package com.runescape;
 
 import com.runescape.sign.signlink;
+import net.burtleburtle.bob.rand.IsaacRandom;
 
 import java.awt.*;
 import java.io.DataInputStream;
@@ -28,7 +29,7 @@ public class client extends Applet_Sub1 {
     public void method15(int i) {
         anInt1091 = 0;
         while (i >= 0)
-            anInt883 = aClass37_753.method346();
+            anInt883 = isaacState.nextInt();
         for (int j = -1; j < anInt823 + anInt928; j++) {
             Object obj;
             if (j == -1)
@@ -361,7 +362,7 @@ public class client extends Applet_Sub1 {
         }
 
         if (j <= 0)
-            anInt756 = aClass37_753.method346();
+            anInt756 = isaacState.nextInt();
     }
 
     public void method21(long l, byte byte0) {
@@ -1469,7 +1470,7 @@ public class client extends Applet_Sub1 {
 
     public void method35(int i) {
         if (i != 7)
-            anInt1132 = aClass37_753.method346();
+            anInt1132 = isaacState.nextInt();
         do {
             int j = method5(false);
             if (j == -1)
@@ -3074,7 +3075,7 @@ public class client extends Applet_Sub1 {
         int l = class38_sub7_sub3.anInt1419 * 128 + class38_sub7_sub3.anInt1384 * 64;
         class38_sub7_sub3.anInt1380 += (k - class38_sub7_sub3.anInt1380) / j;
         if (i != -25115)
-            anInt733 = aClass37_753.method346();
+            anInt733 = isaacState.nextInt();
         class38_sub7_sub3.anInt1381 += (l - class38_sub7_sub3.anInt1381) / j;
         class38_sub7_sub3.anInt1431 = 0;
         if (class38_sub7_sub3.anInt1423 == 0)
@@ -5392,11 +5393,11 @@ public class client extends Applet_Sub1 {
 
             aClass38_Sub2_Sub3_743.method444(aClass38_Sub2_Sub3_798.aByteArray1328, aClass38_Sub2_Sub3_798.anInt1329, 0,
                     (byte) -106);
-            aClass38_Sub2_Sub3_798.aClass37_1333 = new Class37((byte) 1, ai);
+            aClass38_Sub2_Sub3_798.isaacState = new IsaacRandom(ai);
             for (int j = 0; j < 4; j++)
                 ai[j] += 50;
 
-            aClass37_753 = new Class37((byte) 1, ai);
+            isaacState = new IsaacRandom(ai);
             bufferedStream.write(aClass38_Sub2_Sub3_743.aByteArray1328, aClass38_Sub2_Sub3_743.anInt1329, 0);
             int k = bufferedStream.read();
             if (k == 1) {
@@ -5673,7 +5674,7 @@ public class client extends Applet_Sub1 {
         anIntArray773[anInt1089] = 0;
         anInt1089++;
         if (i >= 0)
-            anInt1039 = aClass37_753.method346();
+            anInt1039 = isaacState.nextInt();
         aBoolean964 = true;
         aClass38_Sub2_Sub3_798.method435((byte) -34, 118);
         aClass38_Sub2_Sub3_798.method442(true, l);
@@ -5817,7 +5818,7 @@ public class client extends Applet_Sub1 {
 
     public void method102(boolean flag, int i, int j, Class38_Sub7_Sub3_Sub2 class38_sub7_sub3_sub2, int k) {
         if (flag)
-            anInt1022 = aClass37_753.method346();
+            anInt1022 = isaacState.nextInt();
         if (class38_sub7_sub3_sub2 == aClass38_Sub7_Sub3_Sub2_967)
             return;
         if (anInt1074 >= 400)
@@ -6774,7 +6775,7 @@ public class client extends Applet_Sub1 {
 
     public void method118(int i) {
         if (i != 29286)
-            anInt771 = aClass37_753.method346();
+            anInt771 = isaacState.nextInt();
         if (super.anInt23 == 1) {
             if (super.anInt24 >= 549 && super.anInt24 <= 583 && super.anInt25 >= 195 && super.anInt25 < 231
                     && anIntArray861[0] != -1) {
@@ -6872,7 +6873,7 @@ public class client extends Applet_Sub1 {
     public boolean method119(Class14 class14, byte byte0) {
         int i = class14.anInt273;
         if (byte0 != aByte790)
-            anInt1039 = aClass37_753.method346();
+            anInt1039 = isaacState.nextInt();
         if (i >= 1 && i <= 200) {
             if (i >= 101)
                 i -= 101;
@@ -7874,8 +7875,8 @@ public class client extends Applet_Sub1 {
             if (anInt780 == -1) {
                 bufferedStream.read(aClass38_Sub2_Sub3_795.aByteArray1328, 0, 1);
                 anInt780 = aClass38_Sub2_Sub3_795.aByteArray1328[0] & 0xff;
-                if (aClass37_753 != null)
-                    anInt780 = anInt780 - aClass37_753.method346() & 0xff;
+                if (isaacState != null)
+                    anInt780 = anInt780 - isaacState.nextInt() & 0xff;
                 anInt779 = Packet.packetLengths[anInt780];
                 i--;
             }
@@ -9341,7 +9342,7 @@ public class client extends Applet_Sub1 {
     public int anInt750;
     public boolean aBoolean751;
     public LinkedList linkedList2;
-    public Class37 aClass37_753;
+    public IsaacRandom isaacState;
     public boolean[] aBooleanArray754;
     public int anInt755;
     public int anInt756;

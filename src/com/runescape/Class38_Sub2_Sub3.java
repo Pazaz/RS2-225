@@ -2,6 +2,8 @@ package com.runescape;
 
 import java.math.BigInteger;
 
+import net.burtleburtle.bob.rand.IsaacRandom;
+
 public class Class38_Sub2_Sub3 extends CacheableNode {
 
     public static Class38_Sub2_Sub3 method433(int i, int j) {
@@ -85,7 +87,7 @@ public class Class38_Sub2_Sub3 extends CacheableNode {
     }
 
     public void method435(byte byte0, int i) {
-        aByteArray1328[anInt1329++] = (byte) (i + aClass37_1333.method346());
+        aByteArray1328[anInt1329++] = (byte) (i + isaacState.nextInt());
         if (byte0 != aByte1320)
             aBoolean1326 = !aBoolean1326;
     }
@@ -323,7 +325,7 @@ public class Class38_Sub2_Sub3 extends CacheableNode {
             0xfffff, 0x1fffff, 0x3fffff, 0x7fffff, 0xffffff, 0x1ffffff, 0x3ffffff, 0x7ffffff, 0xfffffff, 0x1fffffff,
             0x3fffffff, 0x7fffffff, -1
     };
-    public Class37 aClass37_1333;
+    public IsaacRandom isaacState;
     public static int anInt1334;
     public static int anInt1335;
     public static int anInt1336;
