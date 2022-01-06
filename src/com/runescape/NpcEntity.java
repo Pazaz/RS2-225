@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class38_Sub7_Sub3_Sub1 extends PathingEntity {
+public class NpcEntity extends PathingEntity {
 
     @Override
     public Class38_Sub2_Sub1 getDrawMethod() {
@@ -53,7 +53,7 @@ public class Class38_Sub7_Sub3_Sub1 extends PathingEntity {
         return npcType != null;
     }
 
-    public Class38_Sub7_Sub3_Sub1() {
+    public NpcEntity() {
         aBoolean1501 = false;
     }
 
