@@ -1,6 +1,5 @@
 package com.runescape;
 
-import com.runescape.sign.signlink;
 import net.burtleburtle.bob.rand.IsaacRandom;
 
 import java.awt.*;
@@ -212,8 +211,8 @@ public class Game extends GameShell {
     public void method17(int i) {
         if (i != 0)
             method6();
-        signlink.midifade = 0;
-        signlink.midi = "stop";
+        Signlink.midifade = 0;
+        Signlink.midi = "stop";
     }
 
     public void method18(int i) {
@@ -865,7 +864,7 @@ public class Game extends GameShell {
                 anInt726 = 0;
             }
             if (s != null) {
-                byte[] abyte0 = signlink.cacheload(s + ".mid");
+                byte[] abyte0 = Signlink.cacheload(s + ".mid");
                 if (abyte0 != null && i != 0xbc614e) {
                     aCRC32_996.reset();
                     aCRC32_996.update(abyte0);
@@ -892,7 +891,7 @@ public class Game extends GameShell {
                         }
 
                         datainputstream.close();
-                        signlink.cachesave(s + ".mid", abyte0);
+                        Signlink.cachesave(s + ".mid", abyte0);
                     } catch (Exception _ex) {
                     }
                 if (abyte0 == null)
@@ -1764,7 +1763,7 @@ public class Game extends GameShell {
 
     public FileArchive method37(String s, int i, String s1, int j, int k) {
         int l = 5;
-        byte[] abyte0 = signlink.cacheload(s1);
+        byte[] abyte0 = Signlink.cacheload(s1);
         if (abyte0 != null) {
             aCRC32_996.reset();
             aCRC32_996.update(abyte0);
@@ -1817,7 +1816,7 @@ public class Game extends GameShell {
                     l = 60;
             }
         }
-        signlink.cachesave(s1, abyte0);
+        Signlink.cachesave(s1, abyte0);
         if (k != 0) {
             for (int l1 = 1; l1 > 0; l1++)
                 ;
@@ -2067,8 +2066,8 @@ public class Game extends GameShell {
     public Component method11(byte byte0) {
         if (byte0 != 3)
             anInt759 = 260;
-        if (signlink.mainapp != null)
-            return signlink.mainapp;
+        if (Signlink.mainapp != null)
+            return Signlink.mainapp;
         if (super.frame != null)
             return super.frame;
         else
@@ -2314,21 +2313,21 @@ public class Game extends GameShell {
         }
 
         if (class38_sub2_sub3.offset != i) {
-            signlink.reporterror(
+            Signlink.reporterror(
                     aString1066 + " size mismatch in getnpcpos - pos:" + class38_sub2_sub3.offset + " psize:" + i);
             throw new RuntimeException("eek");
         }
         for (int l = 0; l < anInt928; l++)
             if (npcEntities[anIntArray929[l]] == null) {
-                signlink.reporterror(aString1066 + " null entry in npc list - pos:" + l + " size:" + anInt928);
+                Signlink.reporterror(aString1066 + " null entry in npc list - pos:" + l + " size:" + anInt928);
                 throw new RuntimeException("eek");
             }
 
     }
 
     public void method12(Runnable runnable, int i) {
-        if (signlink.mainapp != null) {
-            signlink.startthread(runnable, i);
+        if (Signlink.mainapp != null) {
+            Signlink.startthread(runnable, i);
             return;
         } else {
             super.method12(runnable, i);
@@ -2418,7 +2417,7 @@ public class Game extends GameShell {
 
         }
         if (k > anInt823) {
-            signlink.reporterror(aString1066 + " Too many players");
+            Signlink.reporterror(aString1066 + " Too many players");
             throw new RuntimeException("eek");
         }
         anInt823 = 0;
@@ -2502,8 +2501,8 @@ public class Game extends GameShell {
     public void method52(byte[] abyte0, int i, int j, boolean flag) {
         if (i <= 0)
             aBoolean849 = !aBoolean849;
-        signlink.midifade = flag ? 1 : 0;
-        signlink.midisave(abyte0, j);
+        Signlink.midifade = flag ? 1 : 0;
+        Signlink.midisave(abyte0, j);
     }
 
     public void method53(boolean flag) {
@@ -2538,10 +2537,10 @@ public class Game extends GameShell {
     }
 
     public void method54(int i, int j, boolean flag) {
-        signlink.midivol = j;
+        Signlink.midivol = j;
         anInt779 += i;
         if (flag)
-            signlink.midi = "voladjust";
+            Signlink.midi = "voladjust";
     }
 
     public void method55(int i) {
@@ -4080,8 +4079,8 @@ public class Game extends GameShell {
     public String method73(int i) {
         if (i != -7437)
             aClass38_Sub2_Sub3_798.method436(216);
-        if (signlink.mainapp != null)
-            return signlink.mainapp.getDocumentBase().getHost().toLowerCase();
+        if (Signlink.mainapp != null)
+            return Signlink.mainapp.getDocumentBase().getHost().toLowerCase();
         if (super.frame != null)
             return "runescape.com";
         else
@@ -4298,7 +4297,7 @@ public class Game extends GameShell {
                     s = "yesterday";
                 else
                     s = anInt873 + " days ago";
-                interfaceComponent.aString303 = "You last logged in " + s + " from: " + signlink.dns;
+                interfaceComponent.aString303 = "You last logged in " + s + " from: " + Signlink.dns;
             } else {
                 interfaceComponent.aString303 = "";
             }
@@ -4357,19 +4356,19 @@ public class Game extends GameShell {
         if (abyte0 == null)
             return true;
         else
-            return signlink.wavesave(abyte0, i);
+            return Signlink.wavesave(abyte0, i);
     }
 
     public boolean method78(int i) {
         if (i <= 0)
             aClass38_Sub2_Sub3_798.method436(77);
-        return signlink.wavereplay();
+        return Signlink.wavereplay();
     }
 
     public void method79(int i, int j) {
         if (j != 0)
             linkedList3dArray = null;
-        signlink.wavevol = i;
+        Signlink.wavevol = i;
     }
 
     public void method80(boolean flag, Buffer class38_sub2_sub3, int i) {
@@ -4510,7 +4509,7 @@ public class Game extends GameShell {
     }
 
     public void method6() {
-        if (signlink.sunjava)
+        if (Signlink.sunjava)
             super.anInt9 = 5;
         if (!aBoolean889) {
             aBoolean799 = true;
@@ -5230,8 +5229,8 @@ public class Game extends GameShell {
 
     public DataInputStream method94(String s)
             throws IOException {
-        if (signlink.mainapp != null)
-            return signlink.openurl(s);
+        if (Signlink.mainapp != null)
+            return Signlink.openurl(s);
         else
             return new DataInputStream((new URL(getCodeBase(), s)).openStream());
     }
@@ -5354,7 +5353,7 @@ public class Game extends GameShell {
     }
 
     public void method98(String s, String s1, boolean flag) {
-        signlink.errorname = s;
+        Signlink.errorname = s;
         try {
             if (!flag) {
                 aString1083 = "";
@@ -5376,7 +5375,7 @@ public class Game extends GameShell {
             aClass38_Sub2_Sub3_798.method440(ai[1]);
             aClass38_Sub2_Sub3_798.method440(ai[2]);
             aClass38_Sub2_Sub3_798.method440(ai[3]);
-            aClass38_Sub2_Sub3_798.method440(signlink.uid);
+            aClass38_Sub2_Sub3_798.method440(Signlink.uid);
             aClass38_Sub2_Sub3_798.method443(s);
             aClass38_Sub2_Sub3_798.method443(s1);
             aClass38_Sub2_Sub3_798.method461(aBigInteger1062, aBigInteger922, anInt733);
@@ -5681,7 +5680,7 @@ public class Game extends GameShell {
     }
 
     public void method8(byte byte0) {
-        signlink.reporterror = false;
+        Signlink.reporterror = false;
         try {
             if (bufferedStream != null)
                 bufferedStream.close();
@@ -5810,8 +5809,8 @@ public class Game extends GameShell {
 
     public Socket method101(int i)
             throws IOException {
-        if (signlink.mainapp != null)
-            return signlink.opensocket(i);
+        if (Signlink.mainapp != null)
+            return Signlink.opensocket(i);
         else
             return new Socket(InetAddress.getByName(getCodeBase().getHost()), i);
     }
@@ -6173,8 +6172,8 @@ public class Game extends GameShell {
     }
 
     public URL getCodeBase() {
-        if (signlink.mainapp != null)
-            return signlink.mainapp.getCodeBase();
+        if (Signlink.mainapp != null)
+            return Signlink.mainapp.getCodeBase();
         try {
             if (super.frame != null)
                 return new URL("http://127.0.0.1:" + (80 + anInt887));
@@ -6417,13 +6416,13 @@ public class Game extends GameShell {
         if (j <= 0)
             return;
         if (class38_sub2_sub3.offset != i) {
-            signlink.reporterror(
+            Signlink.reporterror(
                     "Error packet size mismatch in getplayer pos:" + class38_sub2_sub3.offset + " psize:" + i);
             throw new RuntimeException("eek");
         }
         for (int i1 = 0; i1 < anInt823; i1++)
             if (playerEntities[anIntArray824[i1]] == null) {
-                signlink.reporterror(aString1066 + " null entry in pl list - pos:" + i1 + " size:" + anInt823);
+                Signlink.reporterror(aString1066 + " null entry in pl list - pos:" + i1 + " size:" + anInt823);
                 throw new RuntimeException("eek");
             }
 
@@ -6908,7 +6907,7 @@ public class Game extends GameShell {
 
         }
         if (k > anInt928) {
-            signlink.reporterror(aString1066 + " Too many npcs");
+            Signlink.reporterror(aString1066 + " Too many npcs");
             throw new RuntimeException("eek");
         }
         anInt928 = 0;
@@ -6951,8 +6950,8 @@ public class Game extends GameShell {
     }
 
     public String getParameter(String s) {
-        if (signlink.mainapp != null)
-            return signlink.mainapp.getParameter(s);
+        if (Signlink.mainapp != null)
+            return Signlink.mainapp.getParameter(s);
         else
             return super.getParameter(s);
     }
@@ -7982,7 +7981,7 @@ public class Game extends GameShell {
                         k16 = k21;
 
                 if (k16 != -1) {
-                    signlink.cachesave("m" + k + "_" + i10, aByteArrayArray770[k16]);
+                    Signlink.cachesave("m" + k + "_" + i10, aByteArrayArray770[k16]);
                     anInt1078 = 1;
                 }
                 anInt780 = -1;
@@ -8009,7 +8008,7 @@ public class Game extends GameShell {
                 indexedFont2.method421(151, (byte) 6, 0, "Loading - please wait.", 257);
                 indexedFont2.method421(150, (byte) 6, 0xffffff, "Loading - please wait.", 256);
                 drawArea22.drawImage(11, super.aGraphics14, 8);
-                signlink.looprate(5);
+                Signlink.looprate(5);
                 int l16 = (anInt779 - 2) / 10;
                 aByteArrayArray770 = new byte[l16][];
                 aByteArrayArray1000 = new byte[l16][];
@@ -8024,7 +8023,7 @@ public class Game extends GameShell {
                     int i31 = aClass38_Sub2_Sub3_795.method451();
                     anIntArray925[i25] = (i27 << 8) + j29;
                     if (k30 != 0) {
-                        byte[] abyte1 = signlink.cacheload("m" + i27 + "_" + j29);
+                        byte[] abyte1 = Signlink.cacheload("m" + i27 + "_" + j29);
                         if (abyte1 != null) {
                             aCRC32_996.reset();
                             aCRC32_996.update(abyte1);
@@ -8042,7 +8041,7 @@ public class Game extends GameShell {
                         }
                     }
                     if (i31 != 0) {
-                        byte[] abyte2 = signlink.cacheload("l" + i27 + "_" + j29);
+                        byte[] abyte2 = Signlink.cacheload("l" + i27 + "_" + j29);
                         if (abyte2 != null) {
                             aCRC32_996.reset();
                             aCRC32_996.update(abyte2);
@@ -8062,7 +8061,7 @@ public class Game extends GameShell {
                 }
 
                 aClass38_Sub2_Sub3_798.method445(0, i22);
-                signlink.looprate(50);
+                Signlink.looprate(50);
                 drawArea22.init2D();
                 if (anInt1078 == 0) {
                     indexedFont2.method421(166, (byte) 6, 0,
@@ -8217,7 +8216,7 @@ public class Game extends GameShell {
                         j17 = j22;
 
                 if (j17 != -1) {
-                    signlink.cachesave("l" + k1 + "_" + l10, aByteArrayArray1000[j17]);
+                    Signlink.cachesave("l" + k1 + "_" + l10, aByteArrayArray1000[j17]);
                     anInt1078 = 1;
                 }
                 anInt780 = -1;
@@ -8371,7 +8370,7 @@ public class Game extends GameShell {
                 anInt901 = aClass38_Sub2_Sub3_795.method446();
                 anInt1054 = aClass38_Sub2_Sub3_795.method448();
                 if (anInt1061 != 0 && anInt971 == -1) {
-                    signlink.dnslookup(StringUtils.fromIPv4(anInt1061));
+                    Signlink.dnslookup(StringUtils.fromIPv4(anInt1061));
                     method16((byte) -60);
                     char c = '\u028A';
                     if (anInt901 != 201)
@@ -8602,7 +8601,7 @@ public class Game extends GameShell {
                         else
                             method111(3, s7, (byte) 4, StringUtils.formatName(StringUtils.fromBase37(l5)));
                     } catch (Exception exception1) {
-                        signlink.reporterror("cde1");
+                        Signlink.reporterror("cde1");
                     }
                 anInt780 = -1;
                 return true;
@@ -8896,7 +8895,7 @@ public class Game extends GameShell {
                 anInt780 = -1;
                 return true;
             }
-            signlink.reporterror("T1 - " + anInt780 + "," + anInt779 + " - " + anInt829 + "," + anInt830);
+            Signlink.reporterror("T1 - " + anInt780 + "," + anInt779 + " - " + anInt829 + "," + anInt830);
             method58(-780);
         } catch (IOException _ex) {
             method121(false);
@@ -8907,7 +8906,7 @@ public class Game extends GameShell {
             for (int i16 = 0; i16 < anInt779 && i16 < 50; i16++)
                 s2 = s2 + aClass38_Sub2_Sub3_795.aByteArray1328[i16] + ",";
 
-            signlink.reporterror(s2);
+            Signlink.reporterror(s2);
             method58(-780);
         }
         return true;
@@ -9040,7 +9039,7 @@ public class Game extends GameShell {
                         else
                             method111(2, s, (byte) 4, playerEntity.aString1505);
                     } catch (Exception exception) {
-                        signlink.reporterror("cde2");
+                        Signlink.reporterror("cde2");
                     }
             }
             class38_sub2_sub3.offset = j2 + i2;
@@ -9131,7 +9130,7 @@ public class Game extends GameShell {
                 System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
                 return;
             }
-            signlink.startpriv(InetAddress.getLocalHost());
+            Signlink.startpriv(InetAddress.getLocalHost());
             Game game = new Game();
             game.method1(532, 789, 0);
             return;

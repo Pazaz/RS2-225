@@ -1,4 +1,4 @@
-package com.runescape.sign;
+package com.runescape;
 
 import java.applet.Applet;
 import java.io.*;
@@ -6,7 +6,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
 
-public class signlink
+public class Signlink
         implements Runnable {
 
     public static void startpriv(InetAddress inetaddress) {
@@ -25,7 +25,7 @@ public class signlink
         savereq = null;
         urlreq = null;
         socketip = inetaddress;
-        Thread thread = new Thread(new signlink());
+        Thread thread = new Thread(new Signlink());
         thread.setDaemon(true);
         thread.start();
         while (!active)
@@ -301,7 +301,7 @@ public class signlink
         }
     }
 
-    public signlink() {
+    public Signlink() {
     }
 
     public static final int clientversion = 225;
