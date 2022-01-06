@@ -3,7 +3,7 @@ package com.runescape;
 public class Class38_Sub1 extends Node {
 
     public Class38_Sub1(int i, int j, int k) {
-        aClass28Array1172 = new Class28[5];
+        locArray = new Loc[5];
         anIntArray1173 = new int[5];
         anInt1164 = anInt1161 = i;
         anInt1162 = j;
@@ -21,7 +21,7 @@ public class Class38_Sub1 extends Node {
     public Class17 aClass17_1169;
     public ObjEntity objEntity;
     public int anInt1171;
-    public Class28[] aClass28Array1172;
+    public Loc[] locArray;
     public int[] anIntArray1173;
     public int anInt1174;
     public int anInt1175;

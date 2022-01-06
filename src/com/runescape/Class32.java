@@ -6,7 +6,7 @@ public class Class32 {
         aBoolean519 = false;
         aByte520 = 6;
         aByte522 = 1;
-        aClass28Array534 = new Class28[5000];
+        locArray1 = new Loc[5000];
         anIntArray576 = new int[10000];
         anIntArray577 = new int[10000];
         anInt527 = k;
@@ -20,7 +20,7 @@ public class Class32 {
     }
 
     public static void method280(boolean flag) {
-        aClass28Array552 = null;
+        locArray2 = null;
         anIntArray563 = null;
         if (!flag)
             aBoolean525 = !aBoolean525;
@@ -49,11 +49,11 @@ public class Class32 {
         }
 
         for (int k1 = 0; k1 < anInt533; k1++)
-            aClass28Array534[k1] = null;
+            locArray1[k1] = null;
 
         anInt533 = 0;
-        for (int l1 = 0; l1 < aClass28Array552.length; l1++)
-            aClass28Array552[l1] = null;
+        for (int l1 = 0; l1 < locArray2.length; l1++)
+            locArray2[l1] = null;
 
     }
 
@@ -184,7 +184,7 @@ public class Class32 {
         Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[j][i1][l];
         if (class38_sub1 != null) {
             for (int l1 = 0; l1 < class38_sub1.anInt1171; l1++) {
-                int i2 = class38_sub1.aClass28Array1172[l1].aClass38_Sub2_Sub1_488.anInt1251;
+                int i2 = class38_sub1.locArray[l1].model.anInt1251;
                 if (i2 > k1)
                     k1 = i2;
             }
@@ -310,20 +310,20 @@ public class Class32 {
 
         }
 
-        Class28 class28 = new Class28();
-        class28.anInt497 = j2;
-        class28.aByte498 = byte0;
-        class28.anInt484 = i;
-        class28.anInt486 = j1;
-        class28.anInt487 = k1;
-        class28.anInt485 = l1;
-        class28.aClass38_Sub2_Sub1_488 = class38_sub2_sub1;
-        class28.entity = entity;
-        class28.anInt490 = i2;
-        class28.anInt491 = j;
-        class28.anInt493 = k;
-        class28.anInt492 = (j + l) - 1;
-        class28.anInt494 = (k + i1) - 1;
+        Loc loc = new Loc();
+        loc.bitset = j2;
+        loc.info = byte0;
+        loc.plane = i;
+        loc.x = j1;
+        loc.z = k1;
+        loc.y = l1;
+        loc.model = class38_sub2_sub1;
+        loc.entity = entity;
+        loc.yaw = i2;
+        loc.minSceneTileX = j;
+        loc.minSceneTileZ = k;
+        loc.maxSceneTileX = (j + l) - 1;
+        loc.maxSceneTileZ = (k + i1) - 1;
         for (int i3 = j; i3 < j + l; i3++) {
             for (int j3 = k; j3 < k + i1; j3++) {
                 int k3 = 0;
@@ -340,7 +340,7 @@ public class Class32 {
                         aClass38_Sub1ArrayArrayArray531[l3][i3][j3] = new Class38_Sub1(l3, i3, j3);
 
                 Class38_Sub1 class38_sub1_1 = aClass38_Sub1ArrayArrayArray531[i][i3][j3];
-                class38_sub1_1.aClass28Array1172[class38_sub1_1.anInt1171] = class28;
+                class38_sub1_1.locArray[class38_sub1_1.anInt1171] = loc;
                 class38_sub1_1.anIntArray1173[class38_sub1_1.anInt1171] = k3;
                 class38_sub1_1.anInt1174 |= k3;
                 class38_sub1_1.anInt1171++;
@@ -349,15 +349,15 @@ public class Class32 {
         }
 
         if (flag)
-            aClass28Array534[anInt533++] = class28;
+            locArray1[anInt533++] = loc;
         return true;
     }
 
     public void method295(int i) {
         for (int j = 0; j < anInt533; j++) {
-            Class28 class28 = aClass28Array534[j];
-            method296(class28, (byte) 1);
-            aClass28Array534[j] = null;
+            Loc loc = locArray1[j];
+            method296(loc, (byte) 1);
+            locArray1[j] = null;
         }
 
         if (i != 0)
@@ -365,21 +365,21 @@ public class Class32 {
         anInt533 = 0;
     }
 
-    public void method296(Class28 class28, byte byte0) {
-        for (int i = class28.anInt491; i <= class28.anInt492; i++) {
-            for (int j = class28.anInt493; j <= class28.anInt494; j++) {
-                Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[class28.anInt484][i][j];
+    public void method296(Loc loc, byte byte0) {
+        for (int i = loc.minSceneTileX; i <= loc.maxSceneTileX; i++) {
+            for (int j = loc.minSceneTileZ; j <= loc.maxSceneTileZ; j++) {
+                Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[loc.plane][i][j];
                 if (class38_sub1 != null) {
                     for (int k = 0; k < class38_sub1.anInt1171; k++) {
-                        if (class38_sub1.aClass28Array1172[k] != class28)
+                        if (class38_sub1.locArray[k] != loc)
                             continue;
                         class38_sub1.anInt1171--;
                         for (int l = k; l < class38_sub1.anInt1171; l++) {
-                            class38_sub1.aClass28Array1172[l] = class38_sub1.aClass28Array1172[l + 1];
+                            class38_sub1.locArray[l] = class38_sub1.locArray[l + 1];
                             class38_sub1.anIntArray1173[l] = class38_sub1.anIntArray1173[l + 1];
                         }
 
-                        class38_sub1.aClass28Array1172[class38_sub1.anInt1171] = null;
+                        class38_sub1.locArray[class38_sub1.anInt1171] = null;
                         break;
                     }
 
@@ -407,9 +407,9 @@ public class Class32 {
         if (class38_sub1 == null)
             return;
         for (int j1 = 0; j1 < class38_sub1.anInt1171; j1++) {
-            Class28 class28 = class38_sub1.aClass28Array1172[j1];
-            if ((class28.anInt497 >> 29 & 3) == 2) {
-                class28.aClass38_Sub2_Sub1_488 = class38_sub2_sub1;
+            Loc loc = class38_sub1.locArray[j1];
+            if ((loc.bitset >> 29 & 3) == 2) {
+                loc.model = class38_sub2_sub1;
                 return;
             }
         }
@@ -533,9 +533,9 @@ public class Class32 {
         if (class38_sub1 == null)
             return;
         for (int i1 = 0; i1 < class38_sub1.anInt1171; i1++) {
-            Class28 class28 = class38_sub1.aClass28Array1172[i1];
-            if ((class28.anInt497 >> 29 & 3) == 2 && class28.anInt491 == i && class28.anInt493 == j) {
-                method296(class28, (byte) 1);
+            Loc loc = class38_sub1.locArray[i1];
+            if ((loc.bitset >> 29 & 3) == 2 && loc.minSceneTileX == i && loc.minSceneTileZ == j) {
+                method296(loc, (byte) 1);
                 return;
             }
         }
@@ -591,9 +591,9 @@ public class Class32 {
         if (class38_sub1 == null)
             return 0;
         for (int l = 0; l < class38_sub1.anInt1171; l++) {
-            Class28 class28 = class38_sub1.aClass28Array1172[l];
-            if ((class28.anInt497 >> 29 & 3) == 2 && class28.anInt491 == j && class28.anInt493 == k)
-                return class28.anInt497;
+            Loc loc = class38_sub1.locArray[l];
+            if ((loc.bitset >> 29 & 3) == 2 && loc.minSceneTileX == j && loc.minSceneTileZ == k)
+                return loc.bitset;
         }
 
         return 0;
@@ -618,8 +618,8 @@ public class Class32 {
         if (class38_sub1.aClass17_1169 != null && class38_sub1.aClass17_1169.anInt359 == l)
             return class38_sub1.aClass17_1169.aByte360 & 0xff;
         for (int i1 = 0; i1 < class38_sub1.anInt1171; i1++)
-            if (class38_sub1.aClass28Array1172[i1].anInt497 == l)
-                return class38_sub1.aClass28Array1172[i1].aByte498 & 0xff;
+            if (class38_sub1.locArray[i1].bitset == l)
+                return class38_sub1.locArray[i1].info & 0xff;
 
         return -1;
     }
@@ -648,13 +648,13 @@ public class Class32 {
                             class30.aClass38_Sub2_Sub1_508.method368(j, k1, k, i, i1);
                         }
                         for (int k2 = 0; k2 < class38_sub1.anInt1171; k2++) {
-                            Class28 class28 = class38_sub1.aClass28Array1172[k2];
-                            if (class28 != null && class28.aClass38_Sub2_Sub1_488 != null
-                                    && class28.aClass38_Sub2_Sub1_488.vertexNormalArray1 != null) {
-                                method315(i2, (class28.anInt492 - class28.anInt491) + 1,
-                                        (class28.anInt494 - class28.anInt493) + 1, l1, 872,
-                                        class28.aClass38_Sub2_Sub1_488, j2);
-                                class28.aClass38_Sub2_Sub1_488.method368(j, k1, k, i, i1);
+                            Loc loc = class38_sub1.locArray[k2];
+                            if (loc != null && loc.model != null
+                                    && loc.model.vertexNormalArray1 != null) {
+                                method315(i2, (loc.maxSceneTileX - loc.minSceneTileX) + 1,
+                                        (loc.maxSceneTileZ - loc.minSceneTileZ) + 1, l1, 872,
+                                        loc.model, j2);
+                                loc.model.method368(j, k1, k, i, i1);
                             }
                         }
 
@@ -735,14 +735,14 @@ public class Class32 {
                                                 (l2 - i) * 128 + (1 - j) * 64, j3, (i3 - j1) * 128 + (1 - k) * 64,
                                                 flag);
                                     for (int k3 = 0; k3 < class38_sub1.anInt1171; k3++) {
-                                        Class28 class28 = class38_sub1.aClass28Array1172[k3];
-                                        if (class28 != null && class28.aClass38_Sub2_Sub1_488 != null
-                                                && class28.aClass38_Sub2_Sub1_488.vertexNormalArray1 != null) {
-                                            int l3 = (class28.anInt492 - class28.anInt491) + 1;
-                                            int i4 = (class28.anInt494 - class28.anInt493) + 1;
-                                            method316(class38_sub2_sub1, class28.aClass38_Sub2_Sub1_488,
-                                                    (class28.anInt491 - i) * 128 + (l3 - j) * 64, j3,
-                                                    (class28.anInt493 - j1) * 128 + (i4 - k) * 64, flag);
+                                        Loc loc = class38_sub1.locArray[k3];
+                                        if (loc != null && loc.model != null
+                                                && loc.model.vertexNormalArray1 != null) {
+                                            int l3 = (loc.maxSceneTileX - loc.minSceneTileX) + 1;
+                                            int i4 = (loc.maxSceneTileZ - loc.minSceneTileZ) + 1;
+                                            method316(class38_sub2_sub1, loc.model,
+                                                    (loc.minSceneTileX - i) * 128 + (l3 - j) * 64, j3,
+                                                    (loc.minSceneTileZ - j1) * 128 + (i4 - k) * 64, flag);
                                         }
                                     }
 
@@ -1184,14 +1184,14 @@ public class Class32 {
                                 class30.anInt504 - anInt545, class30.anInt503 - anInt546, class30.anInt505 - anInt547,
                                 class30.anInt510);
                     for (int i2 = 0; i2 < class38_sub1_7.anInt1171; i2++) {
-                        Class28 class28 = class38_sub1_7.aClass28Array1172[i2];
-                        if (class28 != null) {
-                            Class38_Sub2_Sub1 class38_sub2_sub1 = class28.aClass38_Sub2_Sub1_488;
+                        Loc loc = class38_sub1_7.locArray[i2];
+                        if (loc != null) {
+                            Class38_Sub2_Sub1 class38_sub2_sub1 = loc.model;
                             if (class38_sub2_sub1 == null)
-                                class38_sub2_sub1 = class28.entity.getDrawMethod();
-                            class38_sub2_sub1.method371(class28.anInt490, anInt548, anInt549, anInt550, anInt551,
-                                    class28.anInt486 - anInt545, class28.anInt485 - anInt546,
-                                    class28.anInt487 - anInt547, class28.anInt497);
+                                class38_sub2_sub1 = loc.entity.getDrawMethod();
+                            class38_sub2_sub1.method371(loc.yaw, anInt548, anInt549, anInt550, anInt551,
+                                    loc.x - anInt545, loc.y - anInt546,
+                                    loc.z - anInt547, loc.bitset);
                         }
                     }
 
@@ -1335,7 +1335,7 @@ public class Class32 {
             if (class38_sub1_1.anInt1179 != 0) {
                 boolean flag2 = true;
                 for (int k1 = 0; k1 < class38_sub1_1.anInt1171; k1++) {
-                    if (class38_sub1_1.aClass28Array1172[k1].anInt496 == anInt538 || (class38_sub1_1.anIntArray1173[k1]
+                    if (class38_sub1_1.locArray[k1].cycle == anInt538 || (class38_sub1_1.anIntArray1173[k1]
                             & class38_sub1_1.anInt1179) != class38_sub1_1.anInt1180)
                         continue;
                     flag2 = false;
@@ -1357,11 +1357,11 @@ public class Class32 {
                 int l1 = 0;
                 label0:
                 for (int k2 = 0; k2 < i1; k2++) {
-                    Class28 class28_1 = class38_sub1_1.aClass28Array1172[k2];
-                    if (class28_1.anInt496 == anInt538)
+                    Loc loc_1 = class38_sub1_1.locArray[k2];
+                    if (loc_1.cycle == anInt538)
                         continue;
-                    for (int k3 = class28_1.anInt491; k3 <= class28_1.anInt492; k3++) {
-                        for (int l4 = class28_1.anInt493; l4 <= class28_1.anInt494; l4++) {
+                    for (int k3 = loc_1.minSceneTileX; k3 <= loc_1.maxSceneTileX; k3++) {
+                        for (int l4 = loc_1.minSceneTileZ; l4 <= loc_1.maxSceneTileZ; l4++) {
                             Class38_Sub1 class38_sub1_21 = aclass38_sub1[k3][l4];
                             if (class38_sub1_21.aBoolean1176) {
                                 class38_sub1_1.aBoolean1178 = true;
@@ -1369,13 +1369,13 @@ public class Class32 {
                                 if (class38_sub1_21.anInt1179 == 0)
                                     continue;
                                 int l6 = 0;
-                                if (k3 > class28_1.anInt491)
+                                if (k3 > loc_1.minSceneTileX)
                                     l6++;
-                                if (k3 < class28_1.anInt492)
+                                if (k3 < loc_1.maxSceneTileX)
                                     l6 += 4;
-                                if (l4 > class28_1.anInt493)
+                                if (l4 > loc_1.minSceneTileZ)
                                     l6 += 8;
-                                if (l4 < class28_1.anInt494)
+                                if (l4 < loc_1.maxSceneTileZ)
                                     l6 += 2;
                                 if ((l6 & class38_sub1_21.anInt1179) != class38_sub1_1.anInt1181)
                                     continue;
@@ -1386,44 +1386,44 @@ public class Class32 {
 
                     }
 
-                    aClass28Array552[l1++] = class28_1;
-                    int i5 = anInt543 - class28_1.anInt491;
-                    int i6 = class28_1.anInt492 - anInt543;
+                    locArray2[l1++] = loc_1;
+                    int i5 = anInt543 - loc_1.minSceneTileX;
+                    int i6 = loc_1.maxSceneTileX - anInt543;
                     if (i6 > i5)
                         i5 = i6;
-                    int i7 = anInt544 - class28_1.anInt493;
-                    int l7 = class28_1.anInt494 - anInt544;
+                    int i7 = anInt544 - loc_1.minSceneTileZ;
+                    int l7 = loc_1.maxSceneTileZ - anInt544;
                     if (l7 > i7)
-                        class28_1.anInt495 = i5 + l7;
+                        loc_1.distance = i5 + l7;
                     else
-                        class28_1.anInt495 = i5 + i7;
+                        loc_1.distance = i5 + i7;
                 }
 
                 while (l1 > 0) {
                     int i3 = -50;
                     int l3 = -1;
                     for (int j5 = 0; j5 < l1; j5++) {
-                        Class28 class28_2 = aClass28Array552[j5];
-                        if (class28_2.anInt495 > i3 && class28_2.anInt496 != anInt538) {
-                            i3 = class28_2.anInt495;
+                        Loc loc_2 = locArray2[j5];
+                        if (loc_2.distance > i3 && loc_2.cycle != anInt538) {
+                            i3 = loc_2.distance;
                             l3 = j5;
                         }
                     }
 
                     if (l3 == -1)
                         break;
-                    Class28 class28_3 = aClass28Array552[l3];
-                    class28_3.anInt496 = anInt538;
-                    Class38_Sub2_Sub1 class38_sub2_sub1_1 = class28_3.aClass38_Sub2_Sub1_488;
+                    Loc loc_3 = locArray2[l3];
+                    loc_3.cycle = anInt538;
+                    Class38_Sub2_Sub1 class38_sub2_sub1_1 = loc_3.model;
                     if (class38_sub2_sub1_1 == null)
-                        class38_sub2_sub1_1 = class28_3.entity.getDrawMethod();
-                    if (!method331(l, class28_3.anInt491, class28_3.anInt492, class28_3.anInt493, class28_3.anInt494,
+                        class38_sub2_sub1_1 = loc_3.entity.getDrawMethod();
+                    if (!method331(l, loc_3.minSceneTileX, loc_3.maxSceneTileX, loc_3.minSceneTileZ, loc_3.maxSceneTileZ,
                             class38_sub2_sub1_1.anInt1247))
-                        class38_sub2_sub1_1.method371(class28_3.anInt490, anInt548, anInt549, anInt550, anInt551,
-                                class28_3.anInt486 - anInt545, class28_3.anInt485 - anInt546,
-                                class28_3.anInt487 - anInt547, class28_3.anInt497);
-                    for (int i8 = class28_3.anInt491; i8 <= class28_3.anInt492; i8++) {
-                        for (int i9 = class28_3.anInt493; i9 <= class28_3.anInt494; i9++) {
+                        class38_sub2_sub1_1.method371(loc_3.yaw, anInt548, anInt549, anInt550, anInt551,
+                                loc_3.x - anInt545, loc_3.y - anInt546,
+                                loc_3.z - anInt547, loc_3.bitset);
+                    for (int i8 = loc_3.minSceneTileX; i8 <= loc_3.maxSceneTileX; i8++) {
+                        for (int i9 = loc_3.minSceneTileZ; i9 <= loc_3.maxSceneTileZ; i9++) {
                             Class38_Sub1 class38_sub1_22 = aclass38_sub1[i8][i9];
                             if (class38_sub1_22.anInt1179 != 0)
                                 linkedList.method267(class38_sub1_22);
@@ -2106,7 +2106,7 @@ public class Class32 {
     public Class38_Sub1[][][] aClass38_Sub1ArrayArrayArray531;
     public int anInt532;
     public int anInt533;
-    public Class28[] aClass28Array534;
+    public Loc[] locArray1;
     public int[][][] anIntArrayArrayArray535;
     public static int anInt536;
     public static int anInt537;
@@ -2124,7 +2124,7 @@ public class Class32 {
     public static int anInt549;
     public static int anInt550;
     public static int anInt551;
-    public static Class28[] aClass28Array552 = new Class28[100];
+    public static Loc[] locArray2 = new Loc[100];
     public static final int[] anIntArray553 = {
             53, -53, -53, 53
     };
