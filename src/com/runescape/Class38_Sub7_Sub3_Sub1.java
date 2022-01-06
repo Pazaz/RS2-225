@@ -31,17 +31,17 @@ public class Class38_Sub7_Sub3_Sub1 extends Class38_Sub7_Sub3 {
 
     public Class38_Sub2_Sub1 method469(boolean flag) {
         if (super.anInt1407 >= 0 && super.anInt1410 == 0) {
-            int i = Class18.aClass18Array364[super.anInt1407].primaryFrames[super.anInt1408];
+            int i = SeqType.seqTypes[super.anInt1407].primaryFrames[super.anInt1408];
             int k = -1;
             if (super.anInt1404 >= 0 && super.anInt1404 != super.anInt1385)
-                k = Class18.aClass18Array364[super.anInt1404].primaryFrames[super.anInt1405];
-            return npcType.method150(i, k, Class18.aClass18Array364[super.anInt1407].anIntArray370);
+                k = SeqType.seqTypes[super.anInt1404].primaryFrames[super.anInt1405];
+            return npcType.method150(i, k, SeqType.seqTypes[super.anInt1407].anIntArray370);
         }
         int j = -1;
         if (flag)
             throw new NullPointerException();
         if (super.anInt1404 >= 0)
-            j = Class18.aClass18Array364[super.anInt1404].primaryFrames[super.anInt1405];
+            j = SeqType.seqTypes[super.anInt1404].primaryFrames[super.anInt1405];
         Class38_Sub2_Sub1 class38_sub2_sub1 = npcType.method150(j, -1, null);
         super.anInt1425 = class38_sub2_sub1.anInt1247;
         return class38_sub2_sub1;

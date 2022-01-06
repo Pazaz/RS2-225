@@ -31,8 +31,8 @@ public class Class20 {
                 anInt389 = class38_sub2_sub3.method448();
             else if (j == 2) {
                 anInt390 = class38_sub2_sub3.method448();
-                if (Class18.aClass18Array364 != null)
-                    seq = Class18.aClass18Array364[anInt390];
+                if (SeqType.seqTypes != null)
+                    seq = SeqType.seqTypes[anInt390];
             } else if (j == 3)
                 disposeAlpha = true;
             else if (j == 4)
@@ -82,7 +82,7 @@ public class Class20 {
     public int anInt388;
     public int anInt389;
     public int anInt390;
-    public Class18 seq;
+    public SeqType seq;
     public boolean disposeAlpha;
     public int[] anIntArray393;
     public int[] anIntArray394;

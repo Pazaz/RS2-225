@@ -1,18 +1,18 @@
 package com.runescape;
 
-public class Class18 {
+public class SeqType {
 
     public static void method222(FileArchive fileArchive, int i) {
         Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read("seq.dat", null));
         if (i <= 0)
             aBoolean361 = !aBoolean361;
         anInt363 = class38_sub2_sub3.method448();
-        if (aClass18Array364 == null)
-            aClass18Array364 = new Class18[anInt363];
+        if (seqTypes == null)
+            seqTypes = new SeqType[anInt363];
         for (int j = 0; j < anInt363; j++) {
-            if (aClass18Array364[j] == null)
-                aClass18Array364[j] = new Class18();
-            aClass18Array364[j].method223(false, class38_sub2_sub3);
+            if (seqTypes[j] == null)
+                seqTypes[j] = new SeqType();
+            seqTypes[j].method223(false, class38_sub2_sub3);
         }
 
     }
@@ -76,7 +76,7 @@ public class Class18 {
         }
     }
 
-    public Class18() {
+    public SeqType() {
         anInt369 = -1;
         aBoolean371 = false;
         anInt372 = 5;
@@ -88,7 +88,7 @@ public class Class18 {
     public static boolean aBoolean361 = true;
     public static int anInt362 = 473;
     public static int anInt363;
-    public static Class18[] aClass18Array364;
+    public static SeqType[] seqTypes;
     public int anInt365;
     public int[] primaryFrames;
     public int[] anIntArray367;

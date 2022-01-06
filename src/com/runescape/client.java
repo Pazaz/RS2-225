@@ -310,8 +310,8 @@ public class client extends Applet_Sub1 {
                     class38_sub7_sub3_sub1.anInt1411 = 0;
                 int l1 = class38_sub2_sub3.method446();
                 if (j1 == -1 || class38_sub7_sub3_sub1.anInt1407 == -1
-                        || Class18.aClass18Array364[j1].anInt372 > Class18.aClass18Array364[class38_sub7_sub3_sub1.anInt1407].anInt372
-                        || Class18.aClass18Array364[class38_sub7_sub3_sub1.anInt1407].anInt372 == 0) {
+                        || SeqType.seqTypes[j1].anInt372 > SeqType.seqTypes[class38_sub7_sub3_sub1.anInt1407].anInt372
+                        || SeqType.seqTypes[class38_sub7_sub3_sub1.anInt1407].anInt372 == 0) {
                     class38_sub7_sub3_sub1.anInt1407 = j1;
                     class38_sub7_sub3_sub1.anInt1408 = 0;
                     class38_sub7_sub3_sub1.anInt1409 = 0;
@@ -480,7 +480,7 @@ public class client extends Applet_Sub1 {
                     j14 = aClass32_831.method311(anInt880, l2, i5);
                 if (j14 != 0) {
                     Class38_Sub5 class38_sub5 = new Class38_Sub5(false, j14 >> 14 & 0x7fff, anInt880, 0, k11,
-                            Class18.aClass18Array364[j13], i5, l2);
+                            SeqType.seqTypes[j13], i5, l2);
                     linkedList2.method267(class38_sub5);
                 }
             }
@@ -2897,9 +2897,9 @@ public class client extends Applet_Sub1 {
                     if (j8 == -1) {
                         class38_sub2_sub1 = interfaceComponent_1.method219(-1, -1, flag);
                     } else {
-                        Class18 class18 = Class18.aClass18Array364[j8];
-                        class38_sub2_sub1 = interfaceComponent_1.method219(class18.primaryFrames[interfaceComponent_1.anInt267],
-                                class18.anIntArray367[interfaceComponent_1.anInt267], flag);
+                        SeqType seqType = SeqType.seqTypes[j8];
+                        class38_sub2_sub1 = interfaceComponent_1.method219(seqType.primaryFrames[interfaceComponent_1.anInt267],
+                                seqType.anIntArray367[interfaceComponent_1.anInt267], flag);
                     }
                     if (class38_sub2_sub1 != null)
                         class38_sub2_sub1.method370(0, interfaceComponent_1.anInt316, 0, interfaceComponent_1.anInt315, 0, l4, k5);
@@ -3092,7 +3092,7 @@ public class client extends Applet_Sub1 {
         anInt779 += i;
         if (class38_sub7_sub3.anInt1422 == anInt955 || class38_sub7_sub3.anInt1407 == -1
                 || class38_sub7_sub3.anInt1410 != 0 || class38_sub7_sub3.anInt1409
-                + 1 > Class18.aClass18Array364[class38_sub7_sub3.anInt1407].anIntArray368[class38_sub7_sub3.anInt1408]) {
+                + 1 > SeqType.seqTypes[class38_sub7_sub3.anInt1407].anIntArray368[class38_sub7_sub3.anInt1408]) {
             int j = class38_sub7_sub3.anInt1422 - class38_sub7_sub3.anInt1421;
             int k = anInt955 - class38_sub7_sub3.anInt1421;
             int l = class38_sub7_sub3.anInt1417 * 128 + class38_sub7_sub3.anInt1384 * 64;
@@ -3122,8 +3122,8 @@ public class client extends Applet_Sub1 {
             return;
         }
         if (class38_sub7_sub3.anInt1407 != -1 && class38_sub7_sub3.anInt1410 == 0) {
-            Class18 class18 = Class18.aClass18Array364[class38_sub7_sub3.anInt1407];
-            if (class18.anIntArray370 == null) {
+            SeqType seqType = SeqType.seqTypes[class38_sub7_sub3.anInt1407];
+            if (seqType.anIntArray370 == null) {
                 class38_sub7_sub3.anInt1431++;
                 return;
             }
@@ -3265,46 +3265,46 @@ public class client extends Applet_Sub1 {
             return;
         class38_sub7_sub3.aBoolean1383 = false;
         if (class38_sub7_sub3.anInt1404 != -1) {
-            Class18 class18 = Class18.aClass18Array364[class38_sub7_sub3.anInt1404];
+            SeqType seqType = SeqType.seqTypes[class38_sub7_sub3.anInt1404];
             class38_sub7_sub3.anInt1406++;
-            if (class38_sub7_sub3.anInt1405 < class18.anInt365
-                    && class38_sub7_sub3.anInt1406 > class18.anIntArray368[class38_sub7_sub3.anInt1405]) {
+            if (class38_sub7_sub3.anInt1405 < seqType.anInt365
+                    && class38_sub7_sub3.anInt1406 > seqType.anIntArray368[class38_sub7_sub3.anInt1405]) {
                 class38_sub7_sub3.anInt1406 = 0;
                 class38_sub7_sub3.anInt1405++;
             }
-            if (class38_sub7_sub3.anInt1405 >= class18.anInt365) {
+            if (class38_sub7_sub3.anInt1405 >= seqType.anInt365) {
                 class38_sub7_sub3.anInt1406 = 0;
                 class38_sub7_sub3.anInt1405 = 0;
             }
         }
         if (class38_sub7_sub3.anInt1407 != -1 && class38_sub7_sub3.anInt1410 == 0) {
-            Class18 class18_1 = Class18.aClass18Array364[class38_sub7_sub3.anInt1407];
-            for (class38_sub7_sub3.anInt1409++; class38_sub7_sub3.anInt1408 < class18_1.anInt365
-                    && class38_sub7_sub3.anInt1409 > class18_1.anIntArray368[class38_sub7_sub3.anInt1408]; class38_sub7_sub3.anInt1408++)
-                class38_sub7_sub3.anInt1409 -= class18_1.anIntArray368[class38_sub7_sub3.anInt1408];
+            SeqType seqType_1 = SeqType.seqTypes[class38_sub7_sub3.anInt1407];
+            for (class38_sub7_sub3.anInt1409++; class38_sub7_sub3.anInt1408 < seqType_1.anInt365
+                    && class38_sub7_sub3.anInt1409 > seqType_1.anIntArray368[class38_sub7_sub3.anInt1408]; class38_sub7_sub3.anInt1408++)
+                class38_sub7_sub3.anInt1409 -= seqType_1.anIntArray368[class38_sub7_sub3.anInt1408];
 
-            if (class38_sub7_sub3.anInt1408 >= class18_1.anInt365) {
-                class38_sub7_sub3.anInt1408 -= class18_1.anInt369;
+            if (class38_sub7_sub3.anInt1408 >= seqType_1.anInt365) {
+                class38_sub7_sub3.anInt1408 -= seqType_1.anInt369;
                 class38_sub7_sub3.anInt1411++;
-                if (class38_sub7_sub3.anInt1411 >= class18_1.anInt375)
+                if (class38_sub7_sub3.anInt1411 >= seqType_1.anInt375)
                     class38_sub7_sub3.anInt1407 = -1;
-                if (class38_sub7_sub3.anInt1408 < 0 || class38_sub7_sub3.anInt1408 >= class18_1.anInt365)
+                if (class38_sub7_sub3.anInt1408 < 0 || class38_sub7_sub3.anInt1408 >= seqType_1.anInt365)
                     class38_sub7_sub3.anInt1407 = -1;
             }
-            class38_sub7_sub3.aBoolean1383 = class18_1.aBoolean371;
+            class38_sub7_sub3.aBoolean1383 = seqType_1.aBoolean371;
         }
         if (class38_sub7_sub3.anInt1410 > 0)
             class38_sub7_sub3.anInt1410--;
         if (class38_sub7_sub3.anInt1412 != -1 && anInt955 >= class38_sub7_sub3.anInt1415) {
             if (class38_sub7_sub3.anInt1413 < 0)
                 class38_sub7_sub3.anInt1413 = 0;
-            Class18 class18_2 = Class20.aClass20Array387[class38_sub7_sub3.anInt1412].seq;
-            for (class38_sub7_sub3.anInt1414++; class38_sub7_sub3.anInt1413 < class18_2.anInt365
-                    && class38_sub7_sub3.anInt1414 > class18_2.anIntArray368[class38_sub7_sub3.anInt1413]; class38_sub7_sub3.anInt1413++)
-                class38_sub7_sub3.anInt1414 -= class18_2.anIntArray368[class38_sub7_sub3.anInt1413];
+            SeqType seqType_2 = Class20.aClass20Array387[class38_sub7_sub3.anInt1412].seq;
+            for (class38_sub7_sub3.anInt1414++; class38_sub7_sub3.anInt1413 < seqType_2.anInt365
+                    && class38_sub7_sub3.anInt1414 > seqType_2.anIntArray368[class38_sub7_sub3.anInt1413]; class38_sub7_sub3.anInt1413++)
+                class38_sub7_sub3.anInt1414 -= seqType_2.anIntArray368[class38_sub7_sub3.anInt1413];
 
-            if (class38_sub7_sub3.anInt1413 >= class18_2.anInt365
-                    && (class38_sub7_sub3.anInt1413 < 0 || class38_sub7_sub3.anInt1413 >= class18_2.anInt365))
+            if (class38_sub7_sub3.anInt1413 >= seqType_2.anInt365
+                    && (class38_sub7_sub3.anInt1413 < 0 || class38_sub7_sub3.anInt1413 >= seqType_2.anInt365))
                 class38_sub7_sub3.anInt1412 = -1;
         }
     }
@@ -4235,7 +4235,7 @@ public class client extends Applet_Sub1 {
 
                 class38_sub2_sub1.applyGroups(4);
                 class38_sub2_sub1.applyFrame(-16599,
-                        Class18.aClass18Array364[aClass38_Sub7_Sub3_Sub2_967.anInt1385].primaryFrames[0]);
+                        SeqType.seqTypes[aClass38_Sub7_Sub3_Sub2_967.anInt1385].primaryFrames[0]);
                 class38_sub2_sub1.applyLighting(64, 850, -30, -50, -30, true);
                 interfaceComponent.aClass38_Sub2_Sub1_310 = class38_sub2_sub1;
             }
@@ -4717,7 +4717,7 @@ public class client extends Applet_Sub1 {
             SeqBase.method208(false, fileArchive_3);
             SeqFrame.method213(false, fileArchive_3);
             method13(true, "Unpacking config", 86);
-            Class18.method222(fileArchive, 473);
+            SeqType.method222(fileArchive, 473);
             LocType.load(fileArchive);
             FloType.method209(fileArchive, 473);
             ObjType.method167(fileArchive);
@@ -5794,7 +5794,7 @@ public class client extends Applet_Sub1 {
         FloType.floTypes = null;
         IdkType.idkTypes = null;
         InterfaceComponent.interfaceComponentArray = null;
-        Class18.aClass18Array364 = null;
+        SeqType.seqTypes = null;
         Class20.aClass20Array387 = null;
         Class20.aClass34_400 = null;
         Class22.aClass22Array420 = null;
@@ -6446,13 +6446,13 @@ public class client extends Applet_Sub1 {
                 else
                     i1 = interfaceComponent_1.anInt312;
                 if (i1 != -1) {
-                    Class18 class18 = Class18.aClass18Array364[i1];
-                    for (interfaceComponent_1.anInt268 += j; interfaceComponent_1.anInt268 > class18.anIntArray368[interfaceComponent_1.anInt267]; ) {
-                        interfaceComponent_1.anInt268 -= class18.anIntArray368[interfaceComponent_1.anInt267] + 1;
+                    SeqType seqType = SeqType.seqTypes[i1];
+                    for (interfaceComponent_1.anInt268 += j; interfaceComponent_1.anInt268 > seqType.anIntArray368[interfaceComponent_1.anInt267]; ) {
+                        interfaceComponent_1.anInt268 -= seqType.anIntArray368[interfaceComponent_1.anInt267] + 1;
                         interfaceComponent_1.anInt267++;
-                        if (interfaceComponent_1.anInt267 >= class18.anInt365) {
-                            interfaceComponent_1.anInt267 -= class18.anInt369;
-                            if (interfaceComponent_1.anInt267 < 0 || interfaceComponent_1.anInt267 >= class18.anInt365)
+                        if (interfaceComponent_1.anInt267 >= seqType.anInt365) {
+                            interfaceComponent_1.anInt267 -= seqType.anInt369;
+                            if (interfaceComponent_1.anInt267 < 0 || interfaceComponent_1.anInt267 >= seqType.anInt365)
                                 interfaceComponent_1.anInt267 = 0;
                         }
                         flag = true;
@@ -7403,14 +7403,14 @@ public class client extends Applet_Sub1 {
                 class38_sub5.anInt1212 = 0;
                 flag = true;
             }
-            while (class38_sub5.anInt1213 > class38_sub5.aClass18_1211.anIntArray368[class38_sub5.anInt1212]) {
-                class38_sub5.anInt1213 -= class38_sub5.aClass18_1211.anIntArray368[class38_sub5.anInt1212] + 1;
+            while (class38_sub5.anInt1213 > class38_sub5.seqType.anIntArray368[class38_sub5.anInt1212]) {
+                class38_sub5.anInt1213 -= class38_sub5.seqType.anIntArray368[class38_sub5.anInt1212] + 1;
                 class38_sub5.anInt1212++;
                 flag = true;
-                if (class38_sub5.anInt1212 < class38_sub5.aClass18_1211.anInt365)
+                if (class38_sub5.anInt1212 < class38_sub5.seqType.anInt365)
                     continue;
-                class38_sub5.anInt1212 -= class38_sub5.aClass18_1211.anInt369;
-                if (class38_sub5.anInt1212 >= 0 && class38_sub5.anInt1212 < class38_sub5.aClass18_1211.anInt365)
+                class38_sub5.anInt1212 -= class38_sub5.seqType.anInt369;
+                if (class38_sub5.anInt1212 >= 0 && class38_sub5.anInt1212 < class38_sub5.seqType.anInt365)
                     continue;
                 class38_sub5.unlink();
                 flag = false;
@@ -7439,7 +7439,7 @@ public class client extends Applet_Sub1 {
                     LocType locType = LocType.get(class38_sub5.anInt1210);
                     int j2 = -1;
                     if (class38_sub5.anInt1212 != -1)
-                        j2 = class38_sub5.aClass18_1211.primaryFrames[class38_sub5.anInt1212];
+                        j2 = class38_sub5.seqType.primaryFrames[class38_sub5.anInt1212];
                     if (class38_sub5.anInt1207 == 2) {
                         int k2 = aClass32_831.method312(j, k, l, i1);
                         int j3 = k2 & 0x1f;
@@ -8977,8 +8977,8 @@ public class client extends Applet_Sub1 {
                 class38_sub7_sub3_sub2.anInt1411 = 0;
             int k1 = class38_sub2_sub3.method446();
             if (l == -1 || class38_sub7_sub3_sub2.anInt1407 == -1
-                    || Class18.aClass18Array364[l].anInt372 > Class18.aClass18Array364[class38_sub7_sub3_sub2.anInt1407].anInt372
-                    || Class18.aClass18Array364[class38_sub7_sub3_sub2.anInt1407].anInt372 == 0) {
+                    || SeqType.seqTypes[l].anInt372 > SeqType.seqTypes[class38_sub7_sub3_sub2.anInt1407].anInt372
+                    || SeqType.seqTypes[class38_sub7_sub3_sub2.anInt1407].anInt372 == 0) {
                 class38_sub7_sub3_sub2.anInt1407 = l;
                 class38_sub7_sub3_sub2.anInt1408 = 0;
                 class38_sub7_sub3_sub2.anInt1409 = 0;

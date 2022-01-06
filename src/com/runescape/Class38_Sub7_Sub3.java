@@ -3,7 +3,7 @@ package com.runescape;
 public class Class38_Sub7_Sub3 extends Entity {
 
     public void method466(boolean flag, boolean flag1, int i, int j) {
-        if (anInt1407 != -1 && Class18.aClass18Array364[anInt1407].anInt372 <= 1)
+        if (anInt1407 != -1 && SeqType.seqTypes[anInt1407].anInt372 <= 1)
             anInt1407 = -1;
         if (!flag1) {
             int k = i - anIntArray1428[0];
@@ -67,7 +67,7 @@ public class Class38_Sub7_Sub3 extends Entity {
             j++;
             k--;
         }
-        if (anInt1407 != -1 && Class18.aClass18Array364[anInt1407].anInt372 <= 1)
+        if (anInt1407 != -1 && SeqType.seqTypes[anInt1407].anInt372 <= 1)
             anInt1407 = -1;
         if (anInt1427 < 9)
             anInt1427++;

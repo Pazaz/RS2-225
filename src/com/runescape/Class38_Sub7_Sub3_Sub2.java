@@ -140,20 +140,20 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
         int k = -1;
         int i1 = -1;
         if (super.anInt1407 >= 0 && super.anInt1410 == 0) {
-            Class18 class18 = Class18.aClass18Array364[super.anInt1407];
-            i = class18.primaryFrames[super.anInt1408];
+            SeqType seqType = SeqType.seqTypes[super.anInt1407];
+            i = seqType.primaryFrames[super.anInt1408];
             if (super.anInt1404 >= 0 && super.anInt1404 != super.anInt1385)
-                j = Class18.aClass18Array364[super.anInt1404].primaryFrames[super.anInt1405];
-            if (class18.anInt373 >= 0) {
-                k = class18.anInt373;
+                j = SeqType.seqTypes[super.anInt1404].primaryFrames[super.anInt1405];
+            if (seqType.anInt373 >= 0) {
+                k = seqType.anInt373;
                 l += k - anIntArray1509[5] << 40;
             }
-            if (class18.anInt374 >= 0) {
-                i1 = class18.anInt374;
+            if (seqType.anInt374 >= 0) {
+                i1 = seqType.anInt374;
                 l += i1 - anIntArray1509[3] << 48;
             }
         } else if (super.anInt1404 >= 0)
-            i = Class18.aClass18Array364[super.anInt1404].primaryFrames[super.anInt1405];
+            i = SeqType.seqTypes[super.anInt1404].primaryFrames[super.anInt1405];
         Class38_Sub2_Sub1 class38_sub2_sub1 = (Class38_Sub2_Sub1) aClass34_1525.method341(l);
         if (class38_sub2_sub1 == null) {
             Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[12];
@@ -194,7 +194,7 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
         if (flag)
             aBoolean1504 = !aBoolean1504;
         if (i != -1 && j != -1)
-            class38_sub2_sub1_1.method359(j, 3, i, Class18.aClass18Array364[super.anInt1407].anIntArray370);
+            class38_sub2_sub1_1.method359(j, 3, i, SeqType.seqTypes[super.anInt1407].anIntArray370);
         else if (i != -1)
             class38_sub2_sub1_1.applyFrame(-16599, i);
         class38_sub2_sub1_1.method354(2992);
