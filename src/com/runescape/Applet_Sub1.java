@@ -12,7 +12,7 @@ public class Applet_Sub1 extends Applet
             anInt3 = 411;
         anInt12 = j;
         anInt13 = i;
-        aFrame_Sub1_17 = new Frame_Sub1(anInt13, 35731, this, anInt12);
+        frame = new GameFrame(anInt13, this, anInt12);
         aGraphics14 = method11(aByte5).getGraphics();
         drawArea = new DrawArea(method11(aByte5), anInt12, anInt13);
         method12(this, 1);
@@ -33,8 +33,8 @@ public class Applet_Sub1 extends Applet
         method11(aByte5).addMouseMotionListener(this);
         method11(aByte5).addKeyListener(this);
         method11(aByte5).addFocusListener(this);
-        if (aFrame_Sub1_17 != null)
-            aFrame_Sub1_17.addWindowListener(this);
+        if (frame != null)
+            frame.addWindowListener(this);
         method13(true, "Loading...", 0);
         method6();
         int i = 0;
@@ -158,7 +158,7 @@ public class Applet_Sub1 extends Applet
     public void mousePressed(MouseEvent mouseevent) {
         int i = mouseevent.getX();
         int j = mouseevent.getY();
-        if (aFrame_Sub1_17 != null) {
+        if (frame != null) {
             i -= 4;
             j -= 22;
         }
@@ -199,7 +199,7 @@ public class Applet_Sub1 extends Applet
     public void mouseDragged(MouseEvent mouseevent) {
         int i = mouseevent.getX();
         int j = mouseevent.getY();
-        if (aFrame_Sub1_17 != null) {
+        if (frame != null) {
             i -= 4;
             j -= 22;
         }
@@ -213,7 +213,7 @@ public class Applet_Sub1 extends Applet
     public void mouseMoved(MouseEvent mouseevent) {
         int i = mouseevent.getX();
         int j = mouseevent.getY();
-        if (aFrame_Sub1_17 != null) {
+        if (frame != null) {
             i -= 4;
             j -= 22;
         }
@@ -372,8 +372,8 @@ public class Applet_Sub1 extends Applet
     public Component method11(byte byte0) {
         if (byte0 != 3)
             throw new NullPointerException();
-        if (aFrame_Sub1_17 != null)
-            return aFrame_Sub1_17;
+        if (frame != null)
+            return frame;
         else
             return this;
     }
@@ -453,7 +453,7 @@ public class Applet_Sub1 extends Applet
     public Graphics aGraphics14;
     public DrawArea drawArea;
     public Class38_Sub2_Sub2_Sub2[] aClass38_Sub2_Sub2_Sub2Array16;
-    public Frame_Sub1 aFrame_Sub1_17;
+    public GameFrame frame;
     public boolean aBoolean18;
     public int anInt19;
     public int anInt20;

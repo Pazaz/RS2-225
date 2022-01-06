@@ -1561,7 +1561,7 @@ public class client extends Applet_Sub1 {
                 }
                 if ((j == 13 || j == 10) && aString1137.length() > 0) {
                     if (aString1137.equals("::clientdrop")
-                            && (super.aFrame_Sub1_17 != null || method73(-7437).indexOf("192.168.1.") != -1))
+                            && (super.frame != null || method73(-7437).indexOf("192.168.1.") != -1))
                         method121(false);
                     else if (aString1137.startsWith("::")) {
                         aClass38_Sub2_Sub3_798.method435((byte) -34, 4);
@@ -2068,8 +2068,8 @@ public class client extends Applet_Sub1 {
             anInt759 = 260;
         if (signlink.mainapp != null)
             return signlink.mainapp;
-        if (super.aFrame_Sub1_17 != null)
-            return super.aFrame_Sub1_17;
+        if (super.frame != null)
+            return super.frame;
         else
             return this;
     }
@@ -4081,7 +4081,7 @@ public class client extends Applet_Sub1 {
             aClass38_Sub2_Sub3_798.method436(216);
         if (signlink.mainapp != null)
             return signlink.mainapp.getDocumentBase().getHost().toLowerCase();
-        if (super.aFrame_Sub1_17 != null)
+        if (super.frame != null)
             return "runescape.com";
         else
             return super.getDocumentBase().getHost().toLowerCase();
@@ -6175,7 +6175,7 @@ public class client extends Applet_Sub1 {
         if (signlink.mainapp != null)
             return signlink.mainapp.getCodeBase();
         try {
-            if (super.aFrame_Sub1_17 != null)
+            if (super.frame != null)
                 return new URL("http://127.0.0.1:" + (80 + anInt887));
         } catch (Exception _ex) {
         }
