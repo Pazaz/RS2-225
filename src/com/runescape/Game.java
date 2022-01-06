@@ -2903,7 +2903,7 @@ public class Game extends GameShell {
                     } else {
                         SeqType seqType = SeqType.animations[j8];
                         class38_sub2_sub1 = interfaceComponent_1.method219(seqType.primaryFrames[interfaceComponent_1.anInt267],
-                                seqType.anIntArray367[interfaceComponent_1.anInt267], flag);
+                                seqType.secondaryFrames[interfaceComponent_1.anInt267], flag);
                     }
                     if (class38_sub2_sub1 != null)
                         class38_sub2_sub1.drawSimple(0, interfaceComponent_1.anInt316, 0, interfaceComponent_1.anInt315, 0, l4, k5);
@@ -3096,7 +3096,7 @@ public class Game extends GameShell {
         anInt779 += i;
         if (pathingEntity.anInt1422 == anInt955 || pathingEntity.primarySeq == -1
                 || pathingEntity.primarySeqDelay != 0 || pathingEntity.anInt1409
-                + 1 > SeqType.animations[pathingEntity.primarySeq].instances[pathingEntity.primarySeqFrame]) {
+                + 1 > SeqType.animations[pathingEntity.primarySeq].frameDelay[pathingEntity.primarySeqFrame]) {
             int j = pathingEntity.anInt1422 - pathingEntity.anInt1421;
             int k = anInt955 - pathingEntity.anInt1421;
             int l = pathingEntity.anInt1417 * 128 + pathingEntity.index * 64;
@@ -3272,7 +3272,7 @@ public class Game extends GameShell {
             SeqType seqType = SeqType.animations[pathingEntity.secondarySeq];
             pathingEntity.anInt1406++;
             if (pathingEntity.secondarySeqFrame < seqType.frameCount
-                    && pathingEntity.anInt1406 > seqType.instances[pathingEntity.secondarySeqFrame]) {
+                    && pathingEntity.anInt1406 > seqType.frameDelay[pathingEntity.secondarySeqFrame]) {
                 pathingEntity.anInt1406 = 0;
                 pathingEntity.secondarySeqFrame++;
             }
@@ -3284,18 +3284,18 @@ public class Game extends GameShell {
         if (pathingEntity.primarySeq != -1 && pathingEntity.primarySeqDelay == 0) {
             SeqType seqType_1 = SeqType.animations[pathingEntity.primarySeq];
             for (pathingEntity.anInt1409++; pathingEntity.primarySeqFrame < seqType_1.frameCount
-                    && pathingEntity.anInt1409 > seqType_1.instances[pathingEntity.primarySeqFrame]; pathingEntity.primarySeqFrame++)
-                pathingEntity.anInt1409 -= seqType_1.instances[pathingEntity.primarySeqFrame];
+                    && pathingEntity.anInt1409 > seqType_1.frameDelay[pathingEntity.primarySeqFrame]; pathingEntity.primarySeqFrame++)
+                pathingEntity.anInt1409 -= seqType_1.frameDelay[pathingEntity.primarySeqFrame];
 
             if (pathingEntity.primarySeqFrame >= seqType_1.frameCount) {
-                pathingEntity.primarySeqFrame -= seqType_1.loopOffset;
+                pathingEntity.primarySeqFrame -= seqType_1.delta;
                 pathingEntity.anInt1411++;
-                if (pathingEntity.anInt1411 >= seqType_1.anInt375)
+                if (pathingEntity.anInt1411 >= seqType_1.replays)
                     pathingEntity.primarySeq = -1;
                 if (pathingEntity.primarySeqFrame < 0 || pathingEntity.primarySeqFrame >= seqType_1.frameCount)
                     pathingEntity.primarySeq = -1;
             }
-            pathingEntity.animationStretches = seqType_1.aBoolean371;
+            pathingEntity.animationStretches = seqType_1.renderPadding;
         }
         if (pathingEntity.primarySeqDelay > 0)
             pathingEntity.primarySeqDelay--;
@@ -3304,8 +3304,8 @@ public class Game extends GameShell {
                 pathingEntity.spotAnimFrame = 0;
             SeqType seqType_2 = SpotAnimType.instances[pathingEntity.spotAnimIndex].seq;
             for (pathingEntity.anInt1414++; pathingEntity.spotAnimFrame < seqType_2.frameCount
-                    && pathingEntity.anInt1414 > seqType_2.instances[pathingEntity.spotAnimFrame]; pathingEntity.spotAnimFrame++)
-                pathingEntity.anInt1414 -= seqType_2.instances[pathingEntity.spotAnimFrame];
+                    && pathingEntity.anInt1414 > seqType_2.frameDelay[pathingEntity.spotAnimFrame]; pathingEntity.spotAnimFrame++)
+                pathingEntity.anInt1414 -= seqType_2.frameDelay[pathingEntity.spotAnimFrame];
 
             if (pathingEntity.spotAnimFrame >= seqType_2.frameCount
                     && (pathingEntity.spotAnimFrame < 0 || pathingEntity.spotAnimFrame >= seqType_2.frameCount))
@@ -4721,7 +4721,7 @@ public class Game extends GameShell {
             SeqBase.load(fileArchive_3);
             SeqFrame.load(fileArchive_3);
             method13(true, "Unpacking config", 86);
-            SeqType.method222(fileArchive, 473);
+            SeqType.load(fileArchive);
             LocType.load(fileArchive);
             FloType.load(fileArchive);
             ObjType.load(fileArchive);
@@ -6451,11 +6451,11 @@ public class Game extends GameShell {
                     i1 = interfaceComponent_1.anInt312;
                 if (i1 != -1) {
                     SeqType seqType = SeqType.animations[i1];
-                    for (interfaceComponent_1.anInt268 += j; interfaceComponent_1.anInt268 > seqType.instances[interfaceComponent_1.anInt267]; ) {
-                        interfaceComponent_1.anInt268 -= seqType.instances[interfaceComponent_1.anInt267] + 1;
+                    for (interfaceComponent_1.anInt268 += j; interfaceComponent_1.anInt268 > seqType.frameDelay[interfaceComponent_1.anInt267]; ) {
+                        interfaceComponent_1.anInt268 -= seqType.frameDelay[interfaceComponent_1.anInt267] + 1;
                         interfaceComponent_1.anInt267++;
                         if (interfaceComponent_1.anInt267 >= seqType.frameCount) {
-                            interfaceComponent_1.anInt267 -= seqType.loopOffset;
+                            interfaceComponent_1.anInt267 -= seqType.delta;
                             if (interfaceComponent_1.anInt267 < 0 || interfaceComponent_1.anInt267 >= seqType.frameCount)
                                 interfaceComponent_1.anInt267 = 0;
                         }
@@ -7407,13 +7407,13 @@ public class Game extends GameShell {
                 locEntity.currentFrameId = 0;
                 flag = true;
             }
-            while (locEntity.currentFrameDuration > locEntity.seq.instances[locEntity.currentFrameId]) {
-                locEntity.currentFrameDuration -= locEntity.seq.instances[locEntity.currentFrameId] + 1;
+            while (locEntity.currentFrameDuration > locEntity.seq.frameDelay[locEntity.currentFrameId]) {
+                locEntity.currentFrameDuration -= locEntity.seq.frameDelay[locEntity.currentFrameId] + 1;
                 locEntity.currentFrameId++;
                 flag = true;
                 if (locEntity.currentFrameId < locEntity.seq.frameCount)
                     continue;
-                locEntity.currentFrameId -= locEntity.seq.loopOffset;
+                locEntity.currentFrameId -= locEntity.seq.delta;
                 if (locEntity.currentFrameId >= 0 && locEntity.currentFrameId < locEntity.seq.frameCount)
                     continue;
                 locEntity.unlink();

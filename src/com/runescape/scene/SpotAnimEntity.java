@@ -22,8 +22,8 @@ public class SpotAnimEntity extends Entity {
     public void method465(int i, int j) {
         if (j != 0)
             anInt1368 = -255;
-        for (anInt1376 += i; anInt1376 > spotAnimType.seq.instances[anInt1375]; ) {
-            anInt1376 -= spotAnimType.seq.instances[anInt1375] + 1;
+        for (anInt1376 += i; anInt1376 > spotAnimType.seq.frameDelay[anInt1375]; ) {
+            anInt1376 -= spotAnimType.seq.frameDelay[anInt1375] + 1;
             anInt1375++;
             if (anInt1375 >= spotAnimType.seq.frameCount
                     && (anInt1375 < 0 || anInt1375 >= spotAnimType.seq.frameCount)) {

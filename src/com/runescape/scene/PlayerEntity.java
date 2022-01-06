@@ -154,12 +154,12 @@ public class PlayerEntity extends PathingEntity {
             i = seqType.primaryFrames[super.primarySeqFrame];
             if (super.secondarySeq >= 0 && super.secondarySeq != super.standSeq)
                 j = SeqType.animations[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
-            if (seqType.anInt373 >= 0) {
-                k = seqType.anInt373;
+            if (seqType.shieldOverride >= 0) {
+                k = seqType.shieldOverride;
                 l += k - anIntArray1509[5] << 40;
             }
-            if (seqType.anInt374 >= 0) {
-                i1 = seqType.anInt374;
+            if (seqType.weaponOverride >= 0) {
+                i1 = seqType.weaponOverride;
                 l += i1 - anIntArray1509[3] << 48;
             }
         } else if (super.secondarySeq >= 0)

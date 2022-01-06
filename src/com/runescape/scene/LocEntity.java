@@ -13,9 +13,9 @@ public class LocEntity extends Node {
         anInt1210 = i;
         this.seq = seq;
 
-        if (flag && seq.loopOffset != -1) {
+        if (flag && seq.delta != -1) {
             currentFrameId = (int) (Math.random() * (double) this.seq.frameCount);
-            currentFrameDuration = (int) (Math.random() * (double) this.seq.instances[currentFrameId]);
+            currentFrameDuration = (int) (Math.random() * (double) this.seq.frameDelay[currentFrameId]);
         } else {
             currentFrameId = -1;
             currentFrameDuration = 0;

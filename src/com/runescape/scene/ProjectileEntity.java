@@ -52,8 +52,8 @@ public class ProjectileEntity extends Entity {
         yaw = (int) (Math.atan2(velocityX, velocityY) * 325.94900000000001D) + 1024 & 0x7ff;
         pitch = (int) (Math.atan2(velocityZ, velocity) * 325.94900000000001D) & 0x7ff;
         if (spotAnim.seq != null) {
-            for (frameCycle += cycle; frameCycle > spotAnim.seq.instances[seqFrame]; ) {
-                frameCycle -= spotAnim.seq.instances[seqFrame] + 1;
+            for (frameCycle += cycle; frameCycle > spotAnim.seq.frameDelay[seqFrame]; ) {
+                frameCycle -= spotAnim.seq.frameDelay[seqFrame] + 1;
                 seqFrame++;
                 if (seqFrame >= spotAnim.seq.frameCount) {
                     seqFrame = 0;
