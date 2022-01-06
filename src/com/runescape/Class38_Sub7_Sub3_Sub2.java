@@ -165,7 +165,7 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
                 if (k >= 0 && k1 == 5)
                     l1 = k;
                 if (l1 >= 256 && l1 < 512)
-                    aclass38_sub2_sub1[j1++] = Class12.aClass12Array247[l1 - 256].method216();
+                    aclass38_sub2_sub1[j1++] = IdkType.idkTypes[l1 - 256].method216();
                 if (l1 >= 512) {
                     ObjType objType = ObjType.method169(l1 - 512);
                     Class38_Sub2_Sub1 class38_sub2_sub1_2 = objType.method175((byte) 6, anInt1507);
@@ -211,7 +211,7 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
         for (int k = 0; k < 12; k++) {
             int l = anIntArray1509[k];
             if (l >= 256 && l < 512)
-                aclass38_sub2_sub1[j++] = Class12.aClass12Array247[l - 256].method217(false);
+                aclass38_sub2_sub1[j++] = IdkType.idkTypes[l - 256].method217(false);
             if (l >= 512) {
                 Class38_Sub2_Sub1 class38_sub2_sub1_1 = ObjType.method169(l - 512).method176(-22246, anInt1507);
                 if (class38_sub2_sub1_1 != null)

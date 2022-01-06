@@ -1,16 +1,16 @@
 package com.runescape;
 
-public class Class12 {
+public class IdkType {
 
     public static void method214(FileArchive fileArchive, int i) {
         Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read("idk.dat", null));
         anInt246 = class38_sub2_sub3.method448();
-        if (aClass12Array247 == null)
-            aClass12Array247 = new Class12[anInt246];
+        if (idkTypes == null)
+            idkTypes = new IdkType[anInt246];
         for (int j = 0; j < anInt246; j++) {
-            if (aClass12Array247[j] == null)
-                aClass12Array247[j] = new Class12();
-            aClass12Array247[j].method215(false, class38_sub2_sub3);
+            if (idkTypes[j] == null)
+                idkTypes[j] = new IdkType();
+            idkTypes[j].method215(false, class38_sub2_sub3);
         }
 
         i = 87 / i;
@@ -86,7 +86,7 @@ public class Class12 {
         return class38_sub2_sub1;
     }
 
-    public Class12() {
+    public IdkType() {
         aBoolean245 = false;
         anInt248 = -1;
         anIntArray250 = new int[6];
@@ -98,7 +98,7 @@ public class Class12 {
     public static int anInt244 = 473;
     public boolean aBoolean245;
     public static int anInt246;
-    public static Class12[] aClass12Array247;
+    public static IdkType[] idkTypes;
     public int anInt248;
     public int[] anIntArray249;
     public int[] anIntArray250;

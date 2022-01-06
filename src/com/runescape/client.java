@@ -2487,9 +2487,9 @@ public class client extends Applet_Sub1 {
             linkedList3dArray = null;
         for (int i = 0; i < 7; i++) {
             anIntArray789[i] = -1;
-            for (int j = 0; j < Class12.anInt246; j++) {
-                if (Class12.aClass12Array247[j].aBoolean253
-                        || Class12.aClass12Array247[j].anInt248 != i + (aBoolean836 ? 0 : 7))
+            for (int j = 0; j < IdkType.anInt246; j++) {
+                if (IdkType.idkTypes[j].aBoolean253
+                        || IdkType.idkTypes[j].anInt248 != i + (aBoolean836 ? 0 : 7))
                     continue;
                 anIntArray789[i] = j;
                 break;
@@ -4221,7 +4221,7 @@ public class client extends Applet_Sub1 {
                 for (int l = 0; l < 7; l++) {
                     int i1 = anIntArray789[l];
                     if (i1 >= 0)
-                        aclass38_sub2_sub1[k++] = Class12.aClass12Array247[i1].method216();
+                        aclass38_sub2_sub1[k++] = IdkType.idkTypes[i1].method216();
                 }
 
                 Class38_Sub2_Sub1 class38_sub2_sub1 = new Class38_Sub2_Sub1(0, aclass38_sub2_sub1, k);
@@ -4456,11 +4456,11 @@ public class client extends Applet_Sub1 {
             if (l1 != -1) {
                 do {
                     if (i1 == 0 && --l1 < 0)
-                        l1 = Class12.anInt246 - 1;
-                    if (i1 == 1 && ++l1 >= Class12.anInt246)
+                        l1 = IdkType.anInt246 - 1;
+                    if (i1 == 1 && ++l1 >= IdkType.anInt246)
                         l1 = 0;
-                } while (Class12.aClass12Array247[l1].aBoolean253
-                        || Class12.aClass12Array247[l1].anInt248 != j + (aBoolean836 ? 0 : 7));
+                } while (IdkType.idkTypes[l1].aBoolean253
+                        || IdkType.idkTypes[l1].anInt248 != j + (aBoolean836 ? 0 : 7));
                 anIntArray789[j] = l1;
                 aBoolean788 = true;
             }
@@ -4722,7 +4722,7 @@ public class client extends Applet_Sub1 {
             FloType.method209(fileArchive, 473);
             ObjType.method167(fileArchive);
             NpcType.method146(fileArchive);
-            Class12.method214(fileArchive, 473);
+            IdkType.method214(fileArchive, 473);
             Class20.method224(fileArchive, 473);
             Class22.method227(fileArchive, 473);
             ObjType.aBoolean142 = aBoolean888;
@@ -5792,7 +5792,7 @@ public class client extends Applet_Sub1 {
         NpcType.method147(true);
         ObjType.method168(true);
         FloType.floTypes = null;
-        Class12.aClass12Array247 = null;
+        IdkType.idkTypes = null;
         Class14.aClass14Array264 = null;
         Class18.aClass18Array364 = null;
         Class20.aClass20Array387 = null;
