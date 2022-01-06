@@ -1,8 +1,8 @@
 package com.runescape;
 
-public class Class3 {
+public class SceneBuilder {
 
-    public Class3(int i, byte[][][] abyte0, int j, int[][][] ai, int k) {
+    public SceneBuilder(int i, byte[][][] abyte0, int j, int[][][] ai, int k) {
         aBoolean106 = true;
         anInt107 = 8;
         anInt111 = j;

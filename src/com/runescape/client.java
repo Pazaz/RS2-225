@@ -911,7 +911,7 @@ public class client extends Applet_Sub1 {
         Scene.aBoolean526 = true;
         Draw3D.aBoolean1437 = true;
         aBoolean889 = true;
-        Class3.aBoolean108 = true;
+        SceneBuilder.aBoolean108 = true;
     }
 
     public void method28(boolean flag) {
@@ -5641,7 +5641,7 @@ public class client extends Applet_Sub1 {
                 int j3 = l1;
                 if (j3 < 3 && (aByteArrayArrayArray840[1][j][k] & 2) == 2)
                     j3++;
-                Class3.method166(j, linkedList2, collisionMaps[l1], k, i, anIntArrayArrayArray794, 0, l1, i1, j1,
+                SceneBuilder.method166(j, linkedList2, collisionMaps[l1], k, i, anIntArrayArrayArray794, 0, l1, i1, j1,
                         scene, j3);
             }
         }
@@ -6190,7 +6190,7 @@ public class client extends Applet_Sub1 {
             return;
         } else {
             aBoolean889 = false;
-            Class3.aBoolean108 = false;
+            SceneBuilder.aBoolean108 = false;
             return;
         }
     }
@@ -7091,18 +7091,18 @@ public class client extends Applet_Sub1 {
                 collisionMaps[j].method196((byte) 74);
 
             System.gc();
-            Class3 class3 = new Class3(104, aByteArrayArrayArray840, 104, anIntArrayArrayArray794, anInt1106);
+            SceneBuilder sceneBuilder = new SceneBuilder(104, aByteArrayArrayArray840, 104, anIntArrayArrayArray794, anInt1106);
             byte[] abyte0 = new byte[0x186a0];
             int k = aByteArrayArray770.length;
-            Class3.aBoolean108 = Scene.aBoolean526;
+            SceneBuilder.aBoolean108 = Scene.aBoolean526;
             for (int l = 0; l < k; l++) {
                 int i1 = anIntArray925[l] >> 8;
                 int k1 = anIntArray925[l] & 0xff;
                 if (i1 == 33 && k1 >= 71 && k1 <= 73)
-                    Class3.aBoolean108 = false;
+                    SceneBuilder.aBoolean108 = false;
             }
 
-            if (Class3.aBoolean108)
+            if (SceneBuilder.aBoolean108)
                 scene.method282(0, anInt880);
             else
                 scene.method282(0, 0);
@@ -7114,9 +7114,9 @@ public class client extends Applet_Sub1 {
                 if (abyte2 != null) {
                     int i3 = (new Buffer(363, abyte2)).method451();
                     BZip2InputStream.read(abyte0, i3, abyte2, abyte2.length - 4, 4);
-                    class3.method153(abyte0, (anInt838 - 6) * 8, 1, j2, l1, (anInt839 - 6) * 8);
+                    sceneBuilder.method153(abyte0, (anInt838 - 6) * 8, 1, j2, l1, (anInt839 - 6) * 8);
                 } else if (anInt839 < 800)
-                    class3.method152(l1, j2, 3, 64, 64);
+                    sceneBuilder.method152(l1, j2, 3, 64, 64);
             }
 
             aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
@@ -7127,12 +7127,12 @@ public class client extends Applet_Sub1 {
                     BZip2InputStream.read(abyte0, k2, abyte1, abyte1.length - 4, 4);
                     int j3 = (anIntArray925[i2] >> 8) * 64 - anInt761;
                     int l3 = (anIntArray925[i2] & 0xff) * 64 - anInt762;
-                    class3.method154(abyte0, scene, collisionMaps, linkedList2, true, l3, j3);
+                    sceneBuilder.method154(abyte0, scene, collisionMaps, linkedList2, true, l3, j3);
                 }
             }
 
             aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
-            class3.method156(scene, -270, collisionMaps);
+            sceneBuilder.method156(scene, -270, collisionMaps);
             drawArea22.init2D();
             aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
             for (LocEntity locEntity = (LocEntity) linkedList2
@@ -8878,15 +8878,15 @@ public class client extends Applet_Sub1 {
                 method109(aClass38_Sub2_Sub3_795, anInt779, 822);
                 if (anInt1078 == 1) {
                     anInt1078 = 2;
-                    Class3.anInt109 = anInt880;
+                    SceneBuilder.anInt109 = anInt880;
                     method124(869);
                 }
-                if (aBoolean889 && anInt1078 == 2 && Class3.anInt109 != anInt880) {
+                if (aBoolean889 && anInt1078 == 2 && SceneBuilder.anInt109 != anInt880) {
                     drawArea22.init2D();
                     indexedFont2.method421(151, (byte) 6, 0, "Loading - please wait.", 257);
                     indexedFont2.method421(150, (byte) 6, 0xffffff, "Loading - please wait.", 256);
                     drawArea22.drawImage(11, super.aGraphics14, 8);
-                    Class3.anInt109 = anInt880;
+                    SceneBuilder.anInt109 = anInt880;
                     method124(869);
                 }
                 if (anInt880 != anInt774 && anInt1078 == 2) {
