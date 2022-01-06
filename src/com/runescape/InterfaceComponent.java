@@ -80,7 +80,7 @@ public class InterfaceComponent {
                 interfaceComponent.anInt294 = class38_sub2_sub3.method446();
                 interfaceComponent.anIntArray296 = new int[20];
                 interfaceComponent.anIntArray297 = new int[20];
-                interfaceComponent.aClass38_Sub2_Sub2_Sub2Array295 = new Class38_Sub2_Sub2_Sub2[20];
+                interfaceComponent.aClass38_Sub2_Sub2_Sub2Array295 = new Sprite[20];
                 for (int k2 = 0; k2 < 20; k2++) {
                     int l3 = class38_sub2_sub3.method446();
                     if (l3 == 1) {
@@ -219,15 +219,15 @@ public class InterfaceComponent {
         return class38_sub2_sub1_1;
     }
 
-    public static Class38_Sub2_Sub2_Sub2 method220(FileArchive fileArchive, int i, String s, int j) {
+    public static Sprite method220(FileArchive fileArchive, int i, String s, int j) {
         long l = (StringUtils.genHash(s) << 8) + (long) i;
-        Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2 = (Class38_Sub2_Sub2_Sub2) aClass34_321.method341(l);
+        Sprite class38_sub2_sub2_sub2 = (Sprite) aClass34_321.method341(l);
         if (j != -36068)
             throw new NullPointerException();
         if (class38_sub2_sub2_sub2 != null)
             return class38_sub2_sub2_sub2;
         try {
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive, s, i);
+            class38_sub2_sub2_sub2 = new Sprite(fileArchive, s, i);
             aClass34_321.method342(6, l, class38_sub2_sub2_sub2);
         } catch (Exception _ex) {
             return null;
@@ -284,7 +284,7 @@ public class InterfaceComponent {
     public boolean aBoolean292;
     public int anInt293;
     public int anInt294;
-    public Class38_Sub2_Sub2_Sub2[] aClass38_Sub2_Sub2_Sub2Array295;
+    public Sprite[] aClass38_Sub2_Sub2_Sub2Array295;
     public int[] anIntArray296;
     public int[] anIntArray297;
     public String[] aStringArray298;
@@ -297,8 +297,8 @@ public class InterfaceComponent {
     public int anInt305;
     public int anInt306;
     public int anInt307;
-    public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_308;
-    public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_309;
+    public Sprite aClass38_Sub2_Sub2_Sub2_308;
+    public Sprite aClass38_Sub2_Sub2_Sub2_309;
     public Model aClass38_Sub2_Sub1_310;
     public Model aClass38_Sub2_Sub1_311;
     public int anInt312;

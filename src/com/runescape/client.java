@@ -2345,8 +2345,8 @@ public class client extends Applet_Sub1 {
         for (int j = 0; j < 12; j++)
             indexedSpritesArray3[j] = new IndexedSprite(fileArchive, "runes", j);
 
-        aClass38_Sub2_Sub2_Sub2_978 = new Class38_Sub2_Sub2_Sub2(128, 265);
-        aClass38_Sub2_Sub2_Sub2_979 = new Class38_Sub2_Sub2_Sub2(128, 265);
+        aClass38_Sub2_Sub2_Sub2_978 = new Sprite(128, 265);
+        aClass38_Sub2_Sub2_Sub2_979 = new Sprite(128, 265);
         for (int k = 0; k < 33920; k++)
             aClass38_Sub2_Sub2_Sub2_978.anIntArray1465[k] = drawArea14.pixels[k];
 
@@ -2758,7 +2758,7 @@ public class client extends Applet_Sub1 {
                                 int i9 = interfaceComponent_1.anIntArray265[i3] - 1;
                                 if (j5 >= -32 && j5 <= 512 && i6 >= -32 && i6 <= 334
                                         || anInt846 != 0 && anInt845 == i3) {
-                                    Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2_2 = ObjType.method174(i9, 24638,
+                                    Sprite class38_sub2_sub2_sub2_2 = ObjType.method174(i9, 24638,
                                             interfaceComponent_1.anIntArray266[i3]);
                                     if (anInt846 != 0 && anInt845 == i3 && anInt844 == interfaceComponent_1.anInt269) {
                                         k6 = super.anInt21 - anInt847;
@@ -2785,7 +2785,7 @@ public class client extends Applet_Sub1 {
                                     }
                                 }
                             } else if (interfaceComponent_1.aClass38_Sub2_Sub2_Sub2Array295 != null && i3 < 20) {
-                                Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2_1 = interfaceComponent_1.aClass38_Sub2_Sub2_Sub2Array295[i3];
+                                Sprite class38_sub2_sub2_sub2_1 = interfaceComponent_1.aClass38_Sub2_Sub2_Sub2Array295[i3];
                                 if (class38_sub2_sub2_sub2_1 != null)
                                     class38_sub2_sub2_sub2_1.method405(i6, j5, false);
                             }
@@ -2873,7 +2873,7 @@ public class client extends Applet_Sub1 {
                     }
 
                 } else if (interfaceComponent_1.anInt271 == 5) {
-                    Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2;
+                    Sprite class38_sub2_sub2_sub2;
                     if (method114(interfaceComponent_1, 65))
                         class38_sub2_sub2_sub2 = interfaceComponent_1.aClass38_Sub2_Sub2_Sub2_309;
                     else
@@ -4592,7 +4592,7 @@ public class client extends Applet_Sub1 {
             for (int l = 0; l < 4; l++)
                 aClass8Array954[l] = new Class8(104, -708, 104);
 
-            aClass38_Sub2_Sub2_Sub2_1053 = new Class38_Sub2_Sub2_Sub2(512, 512);
+            aClass38_Sub2_Sub2_Sub2_1053 = new Sprite(512, 512);
             method13(true, "Unpacking media", 75);
             indexedSprite18 = new IndexedSprite(fileArchive_2, "invback", 0);
             indexedSprite20 = new IndexedSprite(fileArchive_2, "chatback", 0);
@@ -4603,7 +4603,7 @@ public class client extends Applet_Sub1 {
             for (int i1 = 0; i1 < 13; i1++)
                 indexedSpritesArray2[i1] = new IndexedSprite(fileArchive_2, "sideicons", i1);
 
-            aClass38_Sub2_Sub2_Sub2_1145 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "compass", 0);
+            aClass38_Sub2_Sub2_Sub2_1145 = new Sprite(fileArchive_2, "compass", 0);
             try {
                 for (int j1 = 0; j1 < 50; j1++)
                     indexedSpritesArray1[j1] = new IndexedSprite(fileArchive_2, "mapscene", j1);
@@ -4612,30 +4612,30 @@ public class client extends Applet_Sub1 {
             }
             try {
                 for (int k1 = 0; k1 < 50; k1++)
-                    aClass38_Sub2_Sub2_Sub2Array1138[k1] = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "mapfunction", k1);
+                    aClass38_Sub2_Sub2_Sub2Array1138[k1] = new Sprite(fileArchive_2, "mapfunction", k1);
 
             } catch (Exception _ex) {
             }
             try {
                 for (int l1 = 0; l1 < 20; l1++)
-                    aClass38_Sub2_Sub2_Sub2Array776[l1] = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "hitmarks", l1);
+                    aClass38_Sub2_Sub2_Sub2Array776[l1] = new Sprite(fileArchive_2, "hitmarks", l1);
 
             } catch (Exception _ex) {
             }
             try {
                 for (int i2 = 0; i2 < 20; i2++)
-                    aClass38_Sub2_Sub2_Sub2Array956[i2] = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "headicons", i2);
+                    aClass38_Sub2_Sub2_Sub2Array956[i2] = new Sprite(fileArchive_2, "headicons", i2);
 
             } catch (Exception _ex) {
             }
-            aClass38_Sub2_Sub2_Sub2_997 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "mapflag", 0);
+            aClass38_Sub2_Sub2_Sub2_997 = new Sprite(fileArchive_2, "mapflag", 0);
             for (int j2 = 0; j2 < 8; j2++)
-                aClass38_Sub2_Sub2_Sub2Array1120[j2] = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "cross", j2);
+                aClass38_Sub2_Sub2_Sub2Array1120[j2] = new Sprite(fileArchive_2, "cross", j2);
 
-            aClass38_Sub2_Sub2_Sub2_1057 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "mapdots", 0);
-            aClass38_Sub2_Sub2_Sub2_1058 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "mapdots", 1);
-            aClass38_Sub2_Sub2_Sub2_1059 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "mapdots", 2);
-            aClass38_Sub2_Sub2_Sub2_1060 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "mapdots", 3);
+            aClass38_Sub2_Sub2_Sub2_1057 = new Sprite(fileArchive_2, "mapdots", 0);
+            aClass38_Sub2_Sub2_Sub2_1058 = new Sprite(fileArchive_2, "mapdots", 1);
+            aClass38_Sub2_Sub2_Sub2_1059 = new Sprite(fileArchive_2, "mapdots", 2);
+            aClass38_Sub2_Sub2_Sub2_1060 = new Sprite(fileArchive_2, "mapdots", 3);
             indexedSprite6 = new IndexedSprite(fileArchive_2, "scrollbar", 0);
             indexedSprite7 = new IndexedSprite(fileArchive_2, "scrollbar", 1);
             indexedSprite10 = new IndexedSprite(fileArchive_2, "redstone1", 0);
@@ -4657,43 +4657,43 @@ public class client extends Applet_Sub1 {
             indexedSprite5 = new IndexedSprite(fileArchive_2, "redstone2", 0);
             indexedSprite5.method416(-725);
             indexedSprite5.method417((byte) -74);
-            Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backleft1", 0);
+            Sprite class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backleft1", 0);
             drawArea1 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backleft2", 0);
+            class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backleft2", 0);
             drawArea2 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backright1", 0);
+            class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backright1", 0);
             drawArea3 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backright2", 0);
+            class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backright2", 0);
             drawArea4 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backtop1", 0);
+            class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backtop1", 0);
             drawArea5 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backtop2", 0);
+            class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backtop2", 0);
             drawArea6 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backvmid1", 0);
+            class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backvmid1", 0);
             drawArea7 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backvmid2", 0);
+            class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backvmid2", 0);
             drawArea8 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backvmid3", 0);
+            class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backvmid3", 0);
             drawArea9 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backhmid2", 0);
+            class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backhmid2", 0);
             drawArea10 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
@@ -5038,7 +5038,7 @@ public class client extends Applet_Sub1 {
         aBoolean751 = true;
     }
 
-    public void method87(int i, int j, Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2, int k) {
+    public void method87(int i, int j, Sprite class38_sub2_sub2_sub2, int k) {
         int l = anInt817 + anInt1085 & 0x7ff;
         int i1 = k * k + i * i;
         if (j != 4)
@@ -7334,7 +7334,7 @@ public class client extends Applet_Sub1 {
 
     public void method128(byte byte0) {
         byte[] abyte0 = fileArchive.read("title.dat", null);
-        Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(abyte0, this);
+        Sprite class38_sub2_sub2_sub2 = new Sprite(abyte0, this);
         drawArea14.init2D();
         class38_sub2_sub2_sub2.method403(34676, 0, 0);
         drawArea15.init2D();
@@ -7384,7 +7384,7 @@ public class client extends Applet_Sub1 {
         class38_sub2_sub2_sub2.method403(34676, 212, -186);
         drawArea19.init2D();
         class38_sub2_sub2_sub2.method403(34676, -180, -186);
-        class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive, "logo", 0);
+        class38_sub2_sub2_sub2 = new Sprite(fileArchive, "logo", 0);
         drawArea11.init2D();
         class38_sub2_sub2_sub2.method405(18, super.anInt12 / 2 - class38_sub2_sub2_sub2.anInt1466 / 2 - 128, false);
         class38_sub2_sub2_sub2 = null;
@@ -9160,7 +9160,7 @@ public class client extends Applet_Sub1 {
         anIntArray773 = new int[100];
         anInt774 = -1;
         aString775 = "";
-        aClass38_Sub2_Sub2_Sub2Array776 = new Class38_Sub2_Sub2_Sub2[20];
+        aClass38_Sub2_Sub2_Sub2Array776 = new Sprite[20];
         anInt778 = 332;
         aString784 = "";
         anInt786 = -1;
@@ -9168,7 +9168,7 @@ public class client extends Applet_Sub1 {
         aBoolean788 = false;
         anIntArray789 = new int[7];
         aByte790 = 8;
-        aClass38_Sub2_Sub2_Sub2Array791 = new Class38_Sub2_Sub2_Sub2[1000];
+        aClass38_Sub2_Sub2_Sub2Array791 = new Sprite[1000];
         anInt792 = 78;
         aClass38_Sub2_Sub3_795 = Buffer.method433(1, -737);
         aClass38_Sub2_Sub3_798 = Buffer.method433(1, -737);
@@ -9230,7 +9230,7 @@ public class client extends Applet_Sub1 {
         aLongArray943 = new long[100];
         anIntArray953 = new int[151];
         aClass8Array954 = new Class8[4];
-        aClass38_Sub2_Sub2_Sub2Array956 = new Class38_Sub2_Sub2_Sub2[20];
+        aClass38_Sub2_Sub2_Sub2Array956 = new Sprite[20];
         anIntArray959 = new int[5];
         aBoolean960 = false;
         aBoolean964 = false;
@@ -9284,7 +9284,7 @@ public class client extends Applet_Sub1 {
         anInt1106 = -35388;
         anIntArray1117 = new int[33];
         anIntArrayArray1118 = new int[104][104];
-        aClass38_Sub2_Sub2_Sub2Array1120 = new Class38_Sub2_Sub2_Sub2[8];
+        aClass38_Sub2_Sub2_Sub2Array1120 = new Sprite[8];
         aBoolean1121 = false;
         aByte1122 = 94;
         anObject1123 = new Object();
@@ -9298,7 +9298,7 @@ public class client extends Applet_Sub1 {
         anIntArray1133 = new int[151];
         anInt1135 = 1;
         aString1137 = "";
-        aClass38_Sub2_Sub2_Sub2Array1138 = new Class38_Sub2_Sub2_Sub2[50];
+        aClass38_Sub2_Sub2_Sub2Array1138 = new Sprite[50];
         anIntArray1139 = new int[500];
         anIntArray1140 = new int[500];
         anIntArray1141 = new int[500];
@@ -9365,7 +9365,7 @@ public class client extends Applet_Sub1 {
     public int[] anIntArray773;
     public int anInt774;
     public String aString775;
-    public Class38_Sub2_Sub2_Sub2[] aClass38_Sub2_Sub2_Sub2Array776;
+    public Sprite[] aClass38_Sub2_Sub2_Sub2Array776;
     public long aLong777;
     public int anInt778;
     public int anInt779;
@@ -9380,7 +9380,7 @@ public class client extends Applet_Sub1 {
     public boolean aBoolean788;
     public int[] anIntArray789;
     public byte aByte790;
-    public Class38_Sub2_Sub2_Sub2[] aClass38_Sub2_Sub2_Sub2Array791;
+    public Sprite[] aClass38_Sub2_Sub2_Sub2Array791;
     public int anInt792;
     public int anInt793;
     public int[][][] anIntArrayArrayArray794;
@@ -9568,13 +9568,13 @@ public class client extends Applet_Sub1 {
     public int[] anIntArray953;
     public Class8[] aClass8Array954;
     public static int anInt955;
-    public Class38_Sub2_Sub2_Sub2[] aClass38_Sub2_Sub2_Sub2Array956;
+    public Sprite[] aClass38_Sub2_Sub2_Sub2Array956;
     public int anInt957;
     public static int anInt958 = 3;
     public int[] anIntArray959;
     public boolean aBoolean960;
-    public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_961;
-    public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_962;
+    public Sprite aClass38_Sub2_Sub2_Sub2_961;
+    public Sprite aClass38_Sub2_Sub2_Sub2_962;
     public int anInt963;
     public boolean aBoolean964;
     public boolean aBoolean965;
@@ -9590,8 +9590,8 @@ public class client extends Applet_Sub1 {
     public boolean aBoolean975;
     public int anInt976;
     public int anInt977;
-    public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_978;
-    public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_979;
+    public Sprite aClass38_Sub2_Sub2_Sub2_978;
+    public Sprite aClass38_Sub2_Sub2_Sub2_979;
     public int anInt980;
     public IndexedSprite indexedSprite18;
     public IndexedSprite indexedSprite19;
@@ -9609,7 +9609,7 @@ public class client extends Applet_Sub1 {
     public int[] anIntArray994;
     public int[] anIntArray995;
     public CRC32 aCRC32_996;
-    public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_997;
+    public Sprite aClass38_Sub2_Sub2_Sub2_997;
     public static int anInt998;
     public BufferedStream bufferedStream;
     public byte[][] aByteArrayArray1000;
@@ -9667,14 +9667,14 @@ public class client extends Applet_Sub1 {
     public int anInt1050;
     public int anInt1051;
     public int anInt1052;
-    public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_1053;
+    public Sprite aClass38_Sub2_Sub2_Sub2_1053;
     public int anInt1054;
     public boolean aBoolean1055;
     public LinkedList linkedList1;
-    public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_1057;
-    public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_1058;
-    public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_1059;
-    public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_1060;
+    public Sprite aClass38_Sub2_Sub2_Sub2_1057;
+    public Sprite aClass38_Sub2_Sub2_Sub2_1058;
+    public Sprite aClass38_Sub2_Sub2_Sub2_1059;
+    public Sprite aClass38_Sub2_Sub2_Sub2_1060;
     public int anInt1061;
     public static BigInteger aBigInteger1062 = new BigInteger(
             "7162900525229798032761816791230527296329313291232324290237849263501208207972894053929065636522363163621000728841182238772712427862772219676577293600221789");
@@ -9742,7 +9742,7 @@ public class client extends Applet_Sub1 {
     public int[] anIntArray1117;
     public int[][] anIntArrayArray1118;
     public String aString1119;
-    public Class38_Sub2_Sub2_Sub2[] aClass38_Sub2_Sub2_Sub2Array1120;
+    public Sprite[] aClass38_Sub2_Sub2_Sub2Array1120;
     public boolean aBoolean1121;
     public byte aByte1122;
     public Object anObject1123;
@@ -9760,14 +9760,14 @@ public class client extends Applet_Sub1 {
     public int anInt1135;
     public FileArchive fileArchive;
     public String aString1137;
-    public Class38_Sub2_Sub2_Sub2[] aClass38_Sub2_Sub2_Sub2Array1138;
+    public Sprite[] aClass38_Sub2_Sub2_Sub2Array1138;
     public int[] anIntArray1139;
     public int[] anIntArray1140;
     public int[] anIntArray1141;
     public int[] anIntArray1142;
     public int anInt1143;
     public boolean aBoolean1144;
-    public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_1145;
+    public Sprite aClass38_Sub2_Sub2_Sub2_1145;
     public long aLong1146;
     public boolean aBoolean1147;
     public int anInt1148;

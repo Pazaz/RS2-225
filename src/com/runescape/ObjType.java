@@ -233,8 +233,8 @@ public class ObjType {
         return class38_sub2_sub1;
     }
 
-    public static Class38_Sub2_Sub2_Sub2 method174(int i, int j, int k) {
-        Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2 = (Class38_Sub2_Sub2_Sub2) aClass34_179.method341(i);
+    public static Sprite method174(int i, int j, int k) {
+        Sprite class38_sub2_sub2_sub2 = (Sprite) aClass34_179.method341(i);
         if (class38_sub2_sub2_sub2 != null && class38_sub2_sub2_sub2.anInt1471 != k
                 && class38_sub2_sub2_sub2.anInt1471 != -1) {
             class38_sub2_sub2_sub2.unlink();
@@ -254,7 +254,7 @@ public class ObjType {
             if (l != -1)
                 objType = method169(l);
         }
-        class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(32, 32);
+        class38_sub2_sub2_sub2 = new Sprite(32, 32);
         int i1 = Draw3D.anInt1442;
         int k1 = Draw3D.anInt1443;
         int[] ai = Draw3D.anIntArray1448;
@@ -299,7 +299,7 @@ public class ObjType {
         }
 
         if (objType.anInt177 != -1) {
-            Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2_1 = method174(objType.anInt176, 24638, 10);
+            Sprite class38_sub2_sub2_sub2_1 = method174(objType.anInt176, 24638, 10);
             int l4 = class38_sub2_sub2_sub2_1.anInt1470;
             int i5 = class38_sub2_sub2_sub2_1.anInt1471;
             class38_sub2_sub2_sub2_1.anInt1470 = 32;

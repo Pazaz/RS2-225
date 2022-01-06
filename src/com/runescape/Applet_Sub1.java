@@ -431,7 +431,7 @@ public class Applet_Sub1 extends Applet
         anInt8 = 20;
         anInt9 = 1;
         aLongArray10 = new long[10];
-        aClass38_Sub2_Sub2_Sub2Array16 = new Class38_Sub2_Sub2_Sub2[6];
+        aClass38_Sub2_Sub2_Sub2Array16 = new Sprite[6];
         aBoolean18 = true;
         anIntArray26 = new int[128];
         anIntArray27 = new int[128];
@@ -452,7 +452,7 @@ public class Applet_Sub1 extends Applet
     public int anInt13;
     public Graphics aGraphics14;
     public DrawArea drawArea;
-    public Class38_Sub2_Sub2_Sub2[] aClass38_Sub2_Sub2_Sub2Array16;
+    public Sprite[] aClass38_Sub2_Sub2_Sub2Array16;
     public GameFrame frame;
     public boolean aBoolean18;
     public int anInt19;

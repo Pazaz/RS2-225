@@ -3,9 +3,9 @@ package com.runescape;
 import java.awt.*;
 import java.awt.image.PixelGrabber;
 
-public class Class38_Sub2_Sub2_Sub2 extends Draw2D {
+public class Sprite extends Draw2D {
 
-    public Class38_Sub2_Sub2_Sub2(int i, int j) {
+    public Sprite(int i, int j) {
         aBoolean1460 = false;
         aBoolean1462 = false;
         anInt1463 = 15223;
@@ -16,7 +16,7 @@ public class Class38_Sub2_Sub2_Sub2 extends Draw2D {
         anInt1468 = anInt1469 = 0;
     }
 
-    public Class38_Sub2_Sub2_Sub2(byte[] abyte0, Component component) {
+    public Sprite(byte[] abyte0, Component component) {
         aBoolean1460 = false;
         aBoolean1462 = false;
         anInt1463 = 15223;
@@ -42,7 +42,7 @@ public class Class38_Sub2_Sub2_Sub2 extends Draw2D {
         }
     }
 
-    public Class38_Sub2_Sub2_Sub2(FileArchive fileArchive, String s, int i) {
+    public Sprite(FileArchive fileArchive, String s, int i) {
         aBoolean1460 = false;
         aBoolean1462 = false;
         anInt1463 = 15223;
