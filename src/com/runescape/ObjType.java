@@ -20,8 +20,8 @@ public class ObjType {
     }
 
     public static void method168(boolean flag) {
-        aClass34_178 = null;
-        aClass34_179 = null;
+        cache1 = null;
+        cache2 = null;
         anIntArray138 = null;
         objTypes = null;
         aClass38_Sub2_Sub3_139 = null;
@@ -218,7 +218,7 @@ public class ObjType {
             if (j != -1)
                 return method169(j).method173(1);
         }
-        Model class38_sub2_sub1 = (Model) aClass34_178.method341(anInt143);
+        Model class38_sub2_sub1 = (Model) cache1.method341(anInt143);
         if (class38_sub2_sub1 != null)
             return class38_sub2_sub1;
         class38_sub2_sub1 = new Model(false, anInt144);
@@ -229,12 +229,12 @@ public class ObjType {
         }
         class38_sub2_sub1.applyLighting(64, 768, -50, -10, -50, true);
         class38_sub2_sub1.aBoolean1256 = true;
-        aClass34_178.method342(6, anInt143, class38_sub2_sub1);
+        cache1.method342(6, anInt143, class38_sub2_sub1);
         return class38_sub2_sub1;
     }
 
     public static Sprite method174(int i, int j, int k) {
-        Sprite class38_sub2_sub2_sub2 = (Sprite) aClass34_179.method341(i);
+        Sprite class38_sub2_sub2_sub2 = (Sprite) cache2.method341(i);
         if (class38_sub2_sub2_sub2 != null && class38_sub2_sub2_sub2.anInt1471 != k
                 && class38_sub2_sub2_sub2.anInt1471 != -1) {
             class38_sub2_sub2_sub2.unlink();
@@ -308,7 +308,7 @@ public class ObjType {
             class38_sub2_sub2_sub2_1.anInt1470 = l4;
             class38_sub2_sub2_sub2_1.anInt1471 = i5;
         }
-        aClass34_179.method342(6, i, class38_sub2_sub2_sub2);
+        cache2.method342(6, i, class38_sub2_sub2_sub2);
         Draw2D.init(l1, ai1, -657, i2);
         Draw2D.method378(i3, l2, k2, 789, j2);
         Draw3D.anInt1442 = i1;
@@ -443,7 +443,7 @@ public class ObjType {
     public int[] anIntArray175;
     public int anInt176;
     public int anInt177;
-    public static Class34 aClass34_178 = new Class34((byte) 0, 50);
-    public static Class34 aClass34_179 = new Class34((byte) 0, 200);
+    public static Cache cache1 = new Cache((byte) 0, 50);
+    public static Cache cache2 = new Cache((byte) 0, 200);
 
 }

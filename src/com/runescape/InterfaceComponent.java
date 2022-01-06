@@ -5,8 +5,8 @@ public class InterfaceComponent {
     public static void method218(FileArchive fileArchive, IndexedFont[] aclass38_sub2_sub2_sub4, int i,
                                  FileArchive fileArchive_1) {
         i = 17 / i;
-        aClass34_321 = new Class34((byte) 0, 50000);
-        aClass34_322 = new Class34((byte) 0, 50000);
+        cache1 = new Cache((byte) 0, 50000);
+        cache2 = new Cache((byte) 0, 50000);
         Buffer class38_sub2_sub3 = new Buffer(363, fileArchive_1.read("data", null));
         int j = -1;
         int k = class38_sub2_sub3.method448();
@@ -196,8 +196,8 @@ public class InterfaceComponent {
                 }
             }
         }
-        aClass34_321 = null;
-        aClass34_322 = null;
+        cache1 = null;
+        cache2 = null;
     }
 
     public Model method219(int i, int j, boolean flag) {
@@ -221,14 +221,14 @@ public class InterfaceComponent {
 
     public static Sprite method220(FileArchive fileArchive, int i, String s, int j) {
         long l = (StringUtils.genHash(s) << 8) + (long) i;
-        Sprite class38_sub2_sub2_sub2 = (Sprite) aClass34_321.method341(l);
+        Sprite class38_sub2_sub2_sub2 = (Sprite) cache1.method341(l);
         if (j != -36068)
             throw new NullPointerException();
         if (class38_sub2_sub2_sub2 != null)
             return class38_sub2_sub2_sub2;
         try {
             class38_sub2_sub2_sub2 = new Sprite(fileArchive, s, i);
-            aClass34_321.method342(6, l, class38_sub2_sub2_sub2);
+            cache1.method342(6, l, class38_sub2_sub2_sub2);
         } catch (Exception _ex) {
             return null;
         }
@@ -236,14 +236,14 @@ public class InterfaceComponent {
     }
 
     public static Model method221(int i, int j) {
-        Model class38_sub2_sub1 = (Model) aClass34_322.method341(j);
+        Model class38_sub2_sub1 = (Model) cache2.method341(j);
         if (i != 4)
             aBoolean263 = !aBoolean263;
         if (class38_sub2_sub1 != null) {
             return class38_sub2_sub1;
         } else {
             Model class38_sub2_sub1_1 = new Model(false, j);
-            aClass34_322.method342(6, j, class38_sub2_sub1_1);
+            cache2.method342(6, j, class38_sub2_sub1_1);
             return class38_sub2_sub1_1;
         }
     }
@@ -310,6 +310,6 @@ public class InterfaceComponent {
     public String aString318;
     public int anInt319;
     public String aString320;
-    public static Class34 aClass34_321;
-    public static Class34 aClass34_322;
+    public static Cache cache1;
+    public static Cache cache2;
 }

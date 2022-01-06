@@ -20,7 +20,7 @@ public class NpcType {
     }
 
     public static void method147(boolean flag) {
-        aClass34_104 = null;
+        cache = null;
         anIntArray78 = null;
         npcTypes = null;
         if (!flag) {
@@ -113,7 +113,7 @@ public class NpcType {
 
     public Model method150(int i, int j, int[] ai) {
         Model class38_sub2_sub1 = null;
-        Model class38_sub2_sub1_1 = (Model) aClass34_104.method341(aLong82);
+        Model class38_sub2_sub1_1 = (Model) cache.method341(aLong82);
         if (class38_sub2_sub1_1 == null) {
             Model[] aclass38_sub2_sub1 = new Model[anIntArray86.length];
             for (int k = 0; k < anIntArray86.length; k++)
@@ -130,7 +130,7 @@ public class NpcType {
             }
             class38_sub2_sub1_1.applyGroups(4);
             class38_sub2_sub1_1.applyLighting(64, 850, -30, -50, -30, true);
-            aClass34_104.method342(6, aLong82, class38_sub2_sub1_1);
+            cache.method342(6, aLong82, class38_sub2_sub1_1);
         }
         class38_sub2_sub1 = new Model(0, class38_sub2_sub1_1, !aBoolean93);
         if (i != -1 && j != -1)
@@ -216,6 +216,6 @@ public class NpcType {
     public int anInt101;
     public int anInt102;
     public int anInt103;
-    public static Class34 aClass34_104 = new Class34((byte) 0, 30);
+    public static Cache cache = new Cache((byte) 0, 30);
 
 }

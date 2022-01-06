@@ -2963,7 +2963,7 @@ public class client extends Applet_Sub1 {
                 Draw3D.method393(true, 0.69999999999999996D);
             if (l == 4)
                 Draw3D.method393(true, 0.59999999999999998D);
-            ObjType.aClass34_179.method343();
+            ObjType.cache2.method343();
             aBoolean751 = true;
         }
         if (k == 3) {
@@ -4867,11 +4867,11 @@ public class client extends Applet_Sub1 {
     public void method83(byte byte0) {
         LocType.models.method343();
         LocType.builtModels.method343();
-        NpcType.aClass34_104.method343();
-        ObjType.aClass34_178.method343();
-        ObjType.aClass34_179.method343();
-        PlayerEntity.aClass34_1525.method343();
-        SpotAnimType.aClass34_400.method343();
+        NpcType.cache.method343();
+        ObjType.cache1.method343();
+        ObjType.cache2.method343();
+        PlayerEntity.cache.method343();
+        SpotAnimType.cache.method343();
         if (byte0 == aByte843) {
             byte0 = 0;
             return;
@@ -5796,10 +5796,10 @@ public class client extends Applet_Sub1 {
         InterfaceComponent.interfaceComponentArray = null;
         SeqType.seqTypes = null;
         SpotAnimType.spotAnimTypes = null;
-        SpotAnimType.aClass34_400 = null;
+        SpotAnimType.cache = null;
         VarpType.varpTypes = null;
         super.drawArea = null;
-        PlayerEntity.aClass34_1525 = null;
+        PlayerEntity.cache = null;
         Draw3D.method384(true);
         Scene.method280(true);
         Model.method351(true);

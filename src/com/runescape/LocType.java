@@ -364,7 +364,7 @@ public class LocType {
     public int anInt71;
     public int interactionSideFlags;
     public boolean aBoolean73;
-    public static Class34 models = new Class34((byte) 0, 500);
-    public static Class34 builtModels = new Class34((byte) 0, 30);
+    public static Cache models = new Cache((byte) 0, 500);
+    public static Cache builtModels = new Cache((byte) 0, 30);
 
 }

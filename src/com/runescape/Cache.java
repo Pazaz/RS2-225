@@ -1,8 +1,8 @@
 package com.runescape;
 
-public class Class34 {
+public class Cache {
 
-    public Class34(byte byte0, int i) {
+    public Cache(byte byte0, int i) {
         aBoolean590 = false;
         hashtable = new Hashtable(1024);
         stack = new Stack();

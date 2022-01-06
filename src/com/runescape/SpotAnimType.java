@@ -55,7 +55,7 @@ public class SpotAnimType {
     }
 
     public Model getModel() {
-        Model class38_sub2_sub1 = (Model) aClass34_400.method341(anInt388);
+        Model class38_sub2_sub1 = (Model) cache.method341(anInt388);
         if (class38_sub2_sub1 != null)
             return class38_sub2_sub1;
         class38_sub2_sub1 = new Model(false, anInt389);
@@ -63,7 +63,7 @@ public class SpotAnimType {
             if (anIntArray393[0] != 0)
                 class38_sub2_sub1.method364(anIntArray393[i], anIntArray394[i]);
 
-        aClass34_400.method342(6, anInt388, class38_sub2_sub1);
+        cache.method342(6, anInt388, class38_sub2_sub1);
         return class38_sub2_sub1;
     }
 
@@ -91,6 +91,6 @@ public class SpotAnimType {
     public int anInt397;
     public int anInt398;
     public int anInt399;
-    public static Class34 aClass34_400 = new Class34((byte) 0, 30);
+    public static Cache cache = new Cache((byte) 0, 30);
 
 }
