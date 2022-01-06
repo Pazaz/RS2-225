@@ -8,7 +8,7 @@ public class SpotAnimEntity extends Entity {
     public SpotAnimEntity(int i, int j, boolean flag, int k, int l, int i1, int j1,
                           int k1) {
         aBoolean1377 = false;
-        spotAnimType = SpotAnimType.spotAnimTypes[j];
+        spotAnimType = SpotAnimType.instances[j];
         anInt1371 = j1;
         if (flag)
             anInt1368 = -147;
@@ -45,22 +45,22 @@ public class SpotAnimEntity extends Entity {
             class38_sub2_sub1_1.skinTriangle = null;
             class38_sub2_sub1_1.labelVertices = null;
         }
-        if (spotAnimType.anInt395 != 128 || spotAnimType.anInt396 != 128)
-            class38_sub2_sub1_1.scale(spotAnimType.anInt395, 2, spotAnimType.anInt396, spotAnimType.anInt395);
-        if (spotAnimType.anInt397 != 0) {
-            if (spotAnimType.anInt397 == 90)
+        if (spotAnimType.breadthScale != 128 || spotAnimType.depthScale != 128)
+            class38_sub2_sub1_1.scale(spotAnimType.breadthScale, 2, spotAnimType.depthScale, spotAnimType.breadthScale);
+        if (spotAnimType.orientation != 0) {
+            if (spotAnimType.orientation == 90)
                 class38_sub2_sub1_1.method361(0);
-            if (spotAnimType.anInt397 == 180) {
+            if (spotAnimType.orientation == 180) {
                 class38_sub2_sub1_1.method361(0);
                 class38_sub2_sub1_1.method361(0);
             }
-            if (spotAnimType.anInt397 == 270) {
+            if (spotAnimType.orientation == 270) {
                 class38_sub2_sub1_1.method361(0);
                 class38_sub2_sub1_1.method361(0);
                 class38_sub2_sub1_1.method361(0);
             }
         }
-        class38_sub2_sub1_1.applyLighting(64 + spotAnimType.anInt398, 850 + spotAnimType.anInt399, -30, -50, -30, true);
+        class38_sub2_sub1_1.applyLighting(64 + spotAnimType.ambience, 850 + spotAnimType.modelShadow, -30, -50, -30, true);
         return class38_sub2_sub1_1;
     }
 

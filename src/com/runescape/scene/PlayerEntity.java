@@ -89,7 +89,7 @@ public class PlayerEntity extends PathingEntity {
         if (aBoolean1524)
             return class38_sub2_sub1;
         if (super.anInt1412 != -1 && super.anInt1413 != -1) {
-            SpotAnimType spotAnimType = SpotAnimType.spotAnimTypes[super.anInt1412];
+            SpotAnimType spotAnimType = SpotAnimType.instances[super.anInt1412];
             Model class38_sub2_sub1_2 = new Model(spotAnimType.getModel(), true,
                     !spotAnimType.disposeAlpha, anInt1503, false);
             class38_sub2_sub1_2.translate(-super.anInt1416, 0, -122, 0);
@@ -97,9 +97,9 @@ public class PlayerEntity extends PathingEntity {
             class38_sub2_sub1_2.applyFrame(-16599, spotAnimType.seq.primaryFrames[super.anInt1413]);
             class38_sub2_sub1_2.skinTriangle = null;
             class38_sub2_sub1_2.labelVertices = null;
-            if (spotAnimType.anInt395 != 128 || spotAnimType.anInt396 != 128)
-                class38_sub2_sub1_2.scale(spotAnimType.anInt395, 2, spotAnimType.anInt396, spotAnimType.anInt395);
-            class38_sub2_sub1_2.applyLighting(64 + spotAnimType.anInt398, 850 + spotAnimType.anInt399, -30, -50, -30, true);
+            if (spotAnimType.breadthScale != 128 || spotAnimType.depthScale != 128)
+                class38_sub2_sub1_2.scale(spotAnimType.breadthScale, 2, spotAnimType.depthScale, spotAnimType.breadthScale);
+            class38_sub2_sub1_2.applyLighting(64 + spotAnimType.ambience, 850 + spotAnimType.modelShadow, -30, -50, -30, true);
             Model[] aclass38_sub2_sub1_1 = {
                     class38_sub2_sub1, class38_sub2_sub1_2
             };

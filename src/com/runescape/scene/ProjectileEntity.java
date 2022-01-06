@@ -7,7 +7,7 @@ public class ProjectileEntity extends Entity {
 
     public ProjectileEntity(int baseZ, int elevationPitch, int sourceY, int lastCycle, int level, int targetIndex, int firstCycle,
                             int arcScale, int sourceZ, int spotAnim, int sourceX) {
-        this.spotAnim = SpotAnimType.spotAnimTypes[spotAnim];
+        this.spotAnim = SpotAnimType.instances[spotAnim];
         this.level = level;
         this.sourceX = sourceX;
         this.sourceY = sourceY;
@@ -74,12 +74,12 @@ public class ProjectileEntity extends Entity {
             m.labelVertices = null;
         }
 
-        if (spotAnim.anInt395 != 128 || spotAnim.anInt396 != 128) {
-            m.scale(spotAnim.anInt395, 2, spotAnim.anInt396, spotAnim.anInt395);
+        if (spotAnim.breadthScale != 128 || spotAnim.depthScale != 128) {
+            m.scale(spotAnim.breadthScale, 2, spotAnim.depthScale, spotAnim.breadthScale);
         }
 
         m.rotatePitch((byte) 7, pitch);
-        m.applyLighting(64 + spotAnim.anInt398, 850 + spotAnim.anInt399, -30, -50, -30, true);
+        m.applyLighting(64 + spotAnim.ambience, 850 + spotAnim.modelShadow, -30, -50, -30, true);
         return m;
     }
 

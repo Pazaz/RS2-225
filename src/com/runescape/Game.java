@@ -3302,7 +3302,7 @@ public class Game extends GameShell {
         if (pathingEntity.anInt1412 != -1 && anInt955 >= pathingEntity.anInt1415) {
             if (pathingEntity.anInt1413 < 0)
                 pathingEntity.anInt1413 = 0;
-            SeqType seqType_2 = SpotAnimType.spotAnimTypes[pathingEntity.anInt1412].seq;
+            SeqType seqType_2 = SpotAnimType.instances[pathingEntity.anInt1412].seq;
             for (pathingEntity.anInt1414++; pathingEntity.anInt1413 < seqType_2.anInt365
                     && pathingEntity.anInt1414 > seqType_2.anIntArray368[pathingEntity.anInt1413]; pathingEntity.anInt1413++)
                 pathingEntity.anInt1414 -= seqType_2.anIntArray368[pathingEntity.anInt1413];
@@ -4727,7 +4727,7 @@ public class Game extends GameShell {
             ObjType.load(fileArchive);
             NpcType.load(fileArchive);
             IdkType.load(fileArchive);
-            SpotAnimType.method224(fileArchive, 473);
+            SpotAnimType.load(fileArchive);
             VarpType.method227(fileArchive, 473);
             ObjType.isMember = aBoolean888;
             if (!aBoolean889) {
@@ -4875,7 +4875,7 @@ public class Game extends GameShell {
         ObjType.modelCache.method343();
         ObjType.iconCache.method343();
         PlayerEntity.cache.method343();
-        SpotAnimType.cache.method343();
+        SpotAnimType.models.method343();
         if (byte0 == aByte843) {
             byte0 = 0;
             return;
@@ -5799,8 +5799,8 @@ public class Game extends GameShell {
         IdkType.instances = null;
         InterfaceComponent.interfaceComponentArray = null;
         SeqType.seqTypes = null;
-        SpotAnimType.spotAnimTypes = null;
-        SpotAnimType.cache = null;
+        SpotAnimType.instances = null;
+        SpotAnimType.models = null;
         VarpType.varpTypes = null;
         super.drawArea = null;
         PlayerEntity.cache = null;
