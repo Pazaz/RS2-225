@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class38_Sub7_Sub3 extends Class38_Sub7 {
+public class Class38_Sub7_Sub3 extends Entity {
 
     public void method466(boolean flag, boolean flag1, int i, int j) {
         if (anInt1407 != -1 && Class18.aClass18Array364[anInt1407].anInt372 <= 1)

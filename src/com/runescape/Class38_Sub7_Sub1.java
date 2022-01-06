@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class38_Sub7_Sub1 extends Class38_Sub7 {
+public class Class38_Sub7_Sub1 extends Entity {
 
     public Class38_Sub7_Sub1(int i, int j, int k, int l, int i1, int j1, int k1,
                              int l1, int i2, int j2, int k2, int l2) {

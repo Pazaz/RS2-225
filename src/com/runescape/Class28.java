@@ -10,7 +10,7 @@ public class Class28 {
     public int anInt486;
     public int anInt487;
     public Class38_Sub2_Sub1 aClass38_Sub2_Sub1_488;
-    public Class38_Sub7 aClass38_Sub7_489;
+    public Entity entity;
     public int anInt490;
     public int anInt491;
     public int anInt492;

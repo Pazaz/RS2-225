@@ -241,21 +241,21 @@ public class Class32 {
         aClass38_Sub1ArrayArrayArray531[j2][i2][j].aClass13_1168 = class13;
     }
 
-    public boolean method291(int i, int j, int k, Class38_Sub7 class38_sub7, int l, int i1, int j1,
+    public boolean method291(int i, int j, int k, Entity entity, int l, int i1, int j1,
                              int k1, byte byte0, Class38_Sub2_Sub1 class38_sub2_sub1, int l1, int i2) {
         j = 79 / j;
-        if (class38_sub2_sub1 == null && class38_sub7 == null) {
+        if (class38_sub2_sub1 == null && entity == null) {
             return true;
         } else {
             int j2 = j1 * 128 + 64 * k1;
             int k2 = i1 * 128 + 64 * i2;
-            return method294(k, j1, i1, k1, i2, j2, k2, i, class38_sub2_sub1, class38_sub7, l1, false, l, byte0);
+            return method294(k, j1, i1, k1, i2, j2, k2, i, class38_sub2_sub1, entity, l1, false, l, byte0);
         }
     }
 
     public boolean method292(int i, int j, int k, int l, int i1, int j1, boolean flag,
-                             Class38_Sub2_Sub1 class38_sub2_sub1, Class38_Sub7 class38_sub7, int k1, int l1) {
-        if (class38_sub2_sub1 == null && class38_sub7 == null)
+                             Class38_Sub2_Sub1 class38_sub2_sub1, Entity entity, int k1, int l1) {
+        if (class38_sub2_sub1 == null && entity == null)
             return true;
         int i2 = i1 - k;
         int j2 = j - k;
@@ -277,27 +277,27 @@ public class Class32 {
         j2 /= 128;
         k2 /= 128;
         l2 /= 128;
-        return method294(l1, i2, j2, (k2 - i2) + 1, (l2 - j2) + 1, i1, j, k1, class38_sub2_sub1, class38_sub7, l, true,
+        return method294(l1, i2, j2, (k2 - i2) + 1, (l2 - j2) + 1, i1, j, k1, class38_sub2_sub1, entity, l, true,
                 j1, (byte) 0);
     }
 
     public boolean method293(int i, int j, Class38_Sub2_Sub1 class38_sub2_sub1, int k, int l, int i1, int j1,
-                             int k1, int l1, Class38_Sub7 class38_sub7, boolean flag, int i2, int j2, int k2) {
+                             int k1, int l1, Entity entity, boolean flag, int i2, int j2, int k2) {
         if (flag) {
             for (int l2 = 1; l2 > 0; l2++)
                 ;
         }
-        if (class38_sub2_sub1 == null && class38_sub7 == null)
+        if (class38_sub2_sub1 == null && entity == null)
             return true;
         else
-            return method294(i2, l1, k1, (i - l1) + 1, (j2 - k1) + 1, k2, k, l, class38_sub2_sub1, class38_sub7, j1,
+            return method294(i2, l1, k1, (i - l1) + 1, (j2 - k1) + 1, k2, k, l, class38_sub2_sub1, entity, j1,
                     true, i1, (byte) 0);
     }
 
     public boolean method294(int i, int j, int k, int l, int i1, int j1, int k1,
-                             int l1, Class38_Sub2_Sub1 class38_sub2_sub1, Class38_Sub7 class38_sub7, int i2, boolean flag, int j2,
+                             int l1, Class38_Sub2_Sub1 class38_sub2_sub1, Entity entity, int i2, boolean flag, int j2,
                              byte byte0) {
-        if (class38_sub2_sub1 == null && class38_sub7 == null)
+        if (class38_sub2_sub1 == null && entity == null)
             return false;
         for (int k2 = j; k2 < j + l; k2++) {
             for (int l2 = k; l2 < k + i1; l2++) {
@@ -318,7 +318,7 @@ public class Class32 {
         class28.anInt487 = k1;
         class28.anInt485 = l1;
         class28.aClass38_Sub2_Sub1_488 = class38_sub2_sub1;
-        class28.aClass38_Sub7_489 = class38_sub7;
+        class28.entity = entity;
         class28.anInt490 = i2;
         class28.anInt491 = j;
         class28.anInt493 = k;
@@ -1188,7 +1188,7 @@ public class Class32 {
                         if (class28 != null) {
                             Class38_Sub2_Sub1 class38_sub2_sub1 = class28.aClass38_Sub2_Sub1_488;
                             if (class38_sub2_sub1 == null)
-                                class38_sub2_sub1 = class28.aClass38_Sub7_489.method462(true);
+                                class38_sub2_sub1 = class28.entity.method462(true);
                             class38_sub2_sub1.method371(class28.anInt490, anInt548, anInt549, anInt550, anInt551,
                                     class28.anInt486 - anInt545, class28.anInt485 - anInt546,
                                     class28.anInt487 - anInt547, class28.anInt497);
@@ -1416,7 +1416,7 @@ public class Class32 {
                     class28_3.anInt496 = anInt538;
                     Class38_Sub2_Sub1 class38_sub2_sub1_1 = class28_3.aClass38_Sub2_Sub1_488;
                     if (class38_sub2_sub1_1 == null)
-                        class38_sub2_sub1_1 = class28_3.aClass38_Sub7_489.method462(true);
+                        class38_sub2_sub1_1 = class28_3.entity.method462(true);
                     if (!method331(l, class28_3.anInt491, class28_3.anInt492, class28_3.anInt493, class28_3.anInt494,
                             class38_sub2_sub1_1.anInt1247))
                         class38_sub2_sub1_1.method371(class28_3.anInt490, anInt548, anInt549, anInt550, anInt551,
