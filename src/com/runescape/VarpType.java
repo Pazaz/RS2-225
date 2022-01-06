@@ -3,7 +3,7 @@ package com.runescape;
 public class VarpType {
 
     public static void method227(FileArchive fileArchive, int i) {
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read("varp.dat", null));
+        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive.read("varp.dat", null));
         anInt421 = 0;
         i = 28 / i;
         anInt419 = class38_sub2_sub3.method448();
@@ -19,7 +19,7 @@ public class VarpType {
 
     }
 
-    public void method228(int i, int j, Class38_Sub2_Sub3 class38_sub2_sub3) {
+    public void method228(int i, int j, Buffer class38_sub2_sub3) {
         if (i != 13703)
             return;
         do {

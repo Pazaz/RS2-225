@@ -3,8 +3,8 @@ package com.runescape;
 public class LocType {
 
     public static void load(FileArchive fileArchive) {
-        data = new Class38_Sub2_Sub3(363, fileArchive.read("loc.dat", null));
-        Class38_Sub2_Sub3 buffer = new Class38_Sub2_Sub3(363, fileArchive.read("loc.idx", null));
+        data = new Buffer(363, fileArchive.read("loc.dat", null));
+        Buffer buffer = new Buffer(363, fileArchive.read("loc.idx", null));
 
         count = buffer.method448();
         offsets = new int[count];
@@ -81,7 +81,7 @@ public class LocType {
         aBoolean73 = false;
     }
 
-    public void read(Class38_Sub2_Sub3 buffer) {
+    public void read(Buffer buffer) {
         int bool = -1;
 
         do {
@@ -328,7 +328,7 @@ public class LocType {
     public static boolean aBoolean35;
     public static int count;
     public static int[] offsets;
-    public static Class38_Sub2_Sub3 data;
+    public static Buffer data;
     public static LocType[] cache;
     public static int position;
     public int index;

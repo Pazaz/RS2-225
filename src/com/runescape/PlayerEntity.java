@@ -2,7 +2,7 @@ package com.runescape;
 
 public class PlayerEntity extends PathingEntity {
 
-    public void method470(boolean flag, Class38_Sub2_Sub3 class38_sub2_sub3) {
+    public void method470(boolean flag, Buffer class38_sub2_sub3) {
         class38_sub2_sub3.offset = 0;
         anInt1507 = class38_sub2_sub3.method446();
         anInt1508 = class38_sub2_sub3.method446();

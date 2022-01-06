@@ -3,26 +3,26 @@ package com.runescape;
 public class WordEncoding {
 
     public static void method229(FileArchive fileArchive) {
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363,
+        Buffer class38_sub2_sub3 = new Buffer(363,
                 fileArchive.read("fragmentsenc.txt", null));
-        Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(363,
+        Buffer class38_sub2_sub3_1 = new Buffer(363,
                 fileArchive.read("badenc.txt", null));
-        Class38_Sub2_Sub3 class38_sub2_sub3_2 = new Class38_Sub2_Sub3(363,
+        Buffer class38_sub2_sub3_2 = new Buffer(363,
                 fileArchive.read("domainenc.txt", null));
-        Class38_Sub2_Sub3 class38_sub2_sub3_3 = new Class38_Sub2_Sub3(363,
+        Buffer class38_sub2_sub3_3 = new Buffer(363,
                 fileArchive.read("tldlist.txt", null));
         method230(class38_sub2_sub3, class38_sub2_sub3_1, class38_sub2_sub3_2, class38_sub2_sub3_3);
     }
 
-    public static void method230(Class38_Sub2_Sub3 class38_sub2_sub3, Class38_Sub2_Sub3 class38_sub2_sub3_1,
-                                 Class38_Sub2_Sub3 class38_sub2_sub3_2, Class38_Sub2_Sub3 class38_sub2_sub3_3) {
+    public static void method230(Buffer class38_sub2_sub3, Buffer class38_sub2_sub3_1,
+                                 Buffer class38_sub2_sub3_2, Buffer class38_sub2_sub3_3) {
         method232(-33152, class38_sub2_sub3_1);
         method233(class38_sub2_sub3_2, -717);
         method234(24882, class38_sub2_sub3);
         method231(true, class38_sub2_sub3_3);
     }
 
-    public static void method231(boolean flag, Class38_Sub2_Sub3 class38_sub2_sub3) {
+    public static void method231(boolean flag, Buffer class38_sub2_sub3) {
         int i = class38_sub2_sub3.method451();
         aCharArrayArray463 = new char[i][];
         anIntArray464 = new int[i];
@@ -39,7 +39,7 @@ public class WordEncoding {
 
     }
 
-    public static void method232(int i, Class38_Sub2_Sub3 class38_sub2_sub3) {
+    public static void method232(int i, Buffer class38_sub2_sub3) {
         int j = class38_sub2_sub3.method451();
         if (i != -33152) {
             for (int k = 1; k > 0; k++)
@@ -50,7 +50,7 @@ public class WordEncoding {
         method235(aByteArrayArrayArray461, aCharArrayArray460, class38_sub2_sub3, (byte) 1);
     }
 
-    public static void method233(Class38_Sub2_Sub3 class38_sub2_sub3, int i) {
+    public static void method233(Buffer class38_sub2_sub3, int i) {
         int j = class38_sub2_sub3.method451();
         if (i >= 0) {
             return;
@@ -61,7 +61,7 @@ public class WordEncoding {
         }
     }
 
-    public static void method234(int i, Class38_Sub2_Sub3 class38_sub2_sub3) {
+    public static void method234(int i, Buffer class38_sub2_sub3) {
         anIntArray459 = new int[class38_sub2_sub3.method451()];
         for (int j = 0; j < anIntArray459.length; j++)
             anIntArray459[j] = class38_sub2_sub3.method448();
@@ -70,7 +70,7 @@ public class WordEncoding {
             aBoolean450 = !aBoolean450;
     }
 
-    public static void method235(byte[][][] abyte0, char[][] ac, Class38_Sub2_Sub3 class38_sub2_sub3, byte byte0) {
+    public static void method235(byte[][][] abyte0, char[][] ac, Buffer class38_sub2_sub3, byte byte0) {
         if (byte0 == 1)
             byte0 = 0;
         else
@@ -93,7 +93,7 @@ public class WordEncoding {
 
     }
 
-    public static void method236(int i, Class38_Sub2_Sub3 class38_sub2_sub3, char[][] ac) {
+    public static void method236(int i, Buffer class38_sub2_sub3, char[][] ac) {
         while (i >= 0) {
             for (int j = 1; j > 0; j++)
                 ;

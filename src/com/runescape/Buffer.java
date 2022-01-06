@@ -4,30 +4,30 @@ import java.math.BigInteger;
 
 import net.burtleburtle.bob.rand.IsaacRandom;
 
-public class Class38_Sub2_Sub3 extends CacheableNode {
+public class Buffer extends CacheableNode {
 
-    public static Class38_Sub2_Sub3 method433(int i, int j) {
+    public static Buffer method433(int i, int j) {
         synchronized (linkedList2) {
-            Class38_Sub2_Sub3 class38_sub2_sub3_2 = null;
+            Buffer class38_sub2_sub3_2 = null;
             if (i == 0 && anInt1334 > 0) {
                 anInt1334--;
-                class38_sub2_sub3_2 = (Class38_Sub2_Sub3) linkedList1.method269();
+                class38_sub2_sub3_2 = (Buffer) linkedList1.method269();
             } else if (i == 1 && anInt1335 > 0) {
                 anInt1335--;
-                class38_sub2_sub3_2 = (Class38_Sub2_Sub3) linkedList2.method269();
+                class38_sub2_sub3_2 = (Buffer) linkedList2.method269();
             } else if (i == 2 && anInt1336 > 0) {
                 anInt1336--;
-                class38_sub2_sub3_2 = (Class38_Sub2_Sub3) linkedList3.method269();
+                class38_sub2_sub3_2 = (Buffer) linkedList3.method269();
             }
             if (class38_sub2_sub3_2 != null) {
                 class38_sub2_sub3_2.offset = 0;
-                Class38_Sub2_Sub3 class38_sub2_sub3 = class38_sub2_sub3_2;
+                Buffer class38_sub2_sub3 = class38_sub2_sub3_2;
                 return class38_sub2_sub3;
             }
         }
         if (j >= 0)
             aBoolean1326 = !aBoolean1326;
-        Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(anInt1319);
+        Buffer class38_sub2_sub3_1 = new Buffer(anInt1319);
         class38_sub2_sub3_1.offset = 0;
         if (i == 0)
             class38_sub2_sub3_1.aByteArray1328 = new byte[100];
@@ -61,7 +61,7 @@ public class Class38_Sub2_Sub3 extends CacheableNode {
             anInt1319 = -173;
     }
 
-    public Class38_Sub2_Sub3(int i) {
+    public Buffer(int i) {
         aByte1320 = -34;
         aByte1321 = -106;
         anInt1322 = 3;
@@ -73,7 +73,7 @@ public class Class38_Sub2_Sub3 extends CacheableNode {
             aBoolean1326 = !aBoolean1326;
     }
 
-    public Class38_Sub2_Sub3(int i, byte[] abyte0) {
+    public Buffer(int i, byte[] abyte0) {
         aByte1320 = -34;
         aByte1321 = -106;
         anInt1322 = 3;

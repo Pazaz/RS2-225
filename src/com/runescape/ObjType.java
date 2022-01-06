@@ -3,8 +3,8 @@ package com.runescape;
 public class ObjType {
 
     public static void method167(FileArchive fileArchive) {
-        aClass38_Sub2_Sub3_139 = new Class38_Sub2_Sub3(363, fileArchive.read("obj.dat", null));
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read("obj.idx", null));
+        aClass38_Sub2_Sub3_139 = new Buffer(363, fileArchive.read("obj.dat", null));
+        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive.read("obj.idx", null));
         anInt137 = class38_sub2_sub3.method448();
         anIntArray138 = new int[anInt137];
         int i = 2;
@@ -88,7 +88,7 @@ public class ObjType {
         anInt177 = -1;
     }
 
-    public void method171(boolean flag, Class38_Sub2_Sub3 class38_sub2_sub3) {
+    public void method171(boolean flag, Buffer class38_sub2_sub3) {
         if (flag)
             throw new NullPointerException();
         do {
@@ -404,7 +404,7 @@ public class ObjType {
     public int anInt136;
     public static int anInt137;
     public static int[] anIntArray138;
-    public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_139;
+    public static Buffer aClass38_Sub2_Sub3_139;
     public static ObjType[] objTypes;
     public static int anInt141;
     public static boolean aBoolean142 = true;

@@ -47,8 +47,8 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
         aBoolean1462 = false;
         anInt1463 = 15223;
         aByte1464 = 5;
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read(s + ".dat", null));
-        Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(363,
+        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive.read(s + ".dat", null));
+        Buffer class38_sub2_sub3_1 = new Buffer(363,
                 fileArchive.read("index.dat", null));
         class38_sub2_sub3_1.offset = class38_sub2_sub3.method448();
         anInt1470 = class38_sub2_sub3_1.method448();

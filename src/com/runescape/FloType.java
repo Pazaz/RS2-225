@@ -3,7 +3,7 @@ package com.runescape;
 public class FloType {
 
     public static void method209(FileArchive fileArchive, int i) {
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read("flo.dat", null));
+        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive.read("flo.dat", null));
         anInt222 = class38_sub2_sub3.method448();
         i = 35 / i;
         if (floTypes == null)
@@ -16,7 +16,7 @@ public class FloType {
 
     }
 
-    public void method210(boolean flag, Class38_Sub2_Sub3 class38_sub2_sub3) {
+    public void method210(boolean flag, Buffer class38_sub2_sub3) {
         if (flag)
             throw new NullPointerException();
         do {

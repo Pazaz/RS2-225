@@ -19,8 +19,8 @@ public class IndexedFont extends Class38_Sub2_Sub2 {
         anIntArray1495 = new int[95];
         anIntArray1496 = new int[256];
         aRandom1498 = new Random();
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read(s + ".dat", null));
-        Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(363,
+        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive.read(s + ".dat", null));
+        Buffer class38_sub2_sub3_1 = new Buffer(363,
                 fileArchive.read("index.dat", null));
         class38_sub2_sub3_1.offset = class38_sub2_sub3.method448() + 4;
         int j = class38_sub2_sub3_1.method446();

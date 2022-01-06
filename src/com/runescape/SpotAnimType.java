@@ -4,7 +4,7 @@ public class SpotAnimType {
 
     public static void method224(FileArchive fileArchive, int i) {
         i = 91 / i;
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363,
+        Buffer class38_sub2_sub3 = new Buffer(363,
                 fileArchive.read("spotanim.dat", null));
         anInt386 = class38_sub2_sub3.method448();
         if (spotAnimTypes == null)
@@ -18,7 +18,7 @@ public class SpotAnimType {
 
     }
 
-    public void method225(boolean flag, Class38_Sub2_Sub3 class38_sub2_sub3) {
+    public void method225(boolean flag, Buffer class38_sub2_sub3) {
         if (flag) {
             for (int i = 1; i > 0; i++)
                 ;

@@ -2,7 +2,7 @@ package com.runescape;
 
 public class SoundEnvelope {
 
-    public void readShape(Class38_Sub2_Sub3 buffer) {
+    public void readShape(Buffer buffer) {
         form = buffer.method446();
         start = buffer.method451();
         end = buffer.method451();

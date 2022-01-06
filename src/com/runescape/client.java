@@ -297,7 +297,7 @@ public class client extends Applet_Sub1 {
 
     }
 
-    public void method20(Class38_Sub2_Sub3 class38_sub2_sub3, int i, int j) {
+    public void method20(Buffer class38_sub2_sub3, int i, int j) {
         for (int k = 0; k < anInt825; k++) {
             int l = anIntArray826[k];
             NpcEntity npcEntity = npcEntities[l];
@@ -396,7 +396,7 @@ public class client extends Applet_Sub1 {
         }
     }
 
-    public void method22(byte byte0, Class38_Sub2_Sub3 class38_sub2_sub3, int i) {
+    public void method22(byte byte0, Buffer class38_sub2_sub3, int i) {
         if (byte0 != -45)
             method6();
         if (i == 59 || i == 76) {
@@ -897,7 +897,7 @@ public class client extends Applet_Sub1 {
                     }
                 if (abyte0 == null)
                     return;
-                int l = (new Class38_Sub2_Sub3(363, abyte0)).method451();
+                int l = (new Buffer(363, abyte0)).method451();
                 byte[] abyte1 = new byte[l];
                 BZip2InputStream.read(abyte1, l, abyte0, j, 4);
                 method52(abyte1, 625, l, true);
@@ -1783,7 +1783,7 @@ public class client extends Applet_Sub1 {
                 DataInputStream datainputstream = method94(s1 + i);
                 byte[] abyte1 = new byte[6];
                 datainputstream.readFully(abyte1, 0, 6);
-                Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, abyte1);
+                Buffer class38_sub2_sub3 = new Buffer(363, abyte1);
                 class38_sub2_sub3.offset = 3;
                 int i2 = class38_sub2_sub3.method450() + 6;
                 int j2 = 6;
@@ -2297,7 +2297,7 @@ public class client extends Applet_Sub1 {
         }
     }
 
-    public void method47(Class38_Sub2_Sub3 class38_sub2_sub3, int i, boolean flag) {
+    public void method47(Buffer class38_sub2_sub3, int i, boolean flag) {
         anInt939 = 0;
         anInt825 = 0;
         method120(-542, class38_sub2_sub3, i);
@@ -2406,7 +2406,7 @@ public class client extends Applet_Sub1 {
         }
     }
 
-    public void method49(int i, Class38_Sub2_Sub3 class38_sub2_sub3, int j) {
+    public void method49(int i, Buffer class38_sub2_sub3, int j) {
         int k = class38_sub2_sub3.method457(9, 8);
         if (j != 0) {
             for (int l = 1; l > 0; l++)
@@ -2649,7 +2649,7 @@ public class client extends Applet_Sub1 {
         }
     }
 
-    public void method57(int i, int j, Class38_Sub2_Sub3 class38_sub2_sub3) {
+    public void method57(int i, int j, Buffer class38_sub2_sub3) {
         if (i < 2 || i > 2) {
             for (int k = 1; k > 0; k++)
                 ;
@@ -2935,7 +2935,7 @@ public class client extends Applet_Sub1 {
         Class38_Sub2_Sub2.method378(l1, j1, k1, 789, i1);
     }
 
-    public void method60(boolean flag, int i, Class38_Sub2_Sub3 class38_sub2_sub3) {
+    public void method60(boolean flag, int i, Buffer class38_sub2_sub3) {
         for (int j = 0; j < anInt825; j++) {
             int k = anIntArray826[j];
             PlayerEntity playerEntity = playerEntities[k];
@@ -4372,7 +4372,7 @@ public class client extends Applet_Sub1 {
         signlink.wavevol = i;
     }
 
-    public void method80(boolean flag, Class38_Sub2_Sub3 class38_sub2_sub3, int i) {
+    public void method80(boolean flag, Buffer class38_sub2_sub3, int i) {
         if (flag)
             method6();
         do {
@@ -4551,7 +4551,7 @@ public class client extends Applet_Sub1 {
                 method13(true, "Connecting to fileserver", 10);
                 try {
                     DataInputStream datainputstream = method94("crc" + (int) (Math.random() * 99999999D));
-                    Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, new byte[36]);
+                    Buffer class38_sub2_sub3 = new Buffer(363, new byte[36]);
                     datainputstream.readFully(class38_sub2_sub3.aByteArray1328, 0, 36);
                     for (int k = 0; k < 9; k++)
                         anIntArray811[k] = class38_sub2_sub3.method451();
@@ -4729,7 +4729,7 @@ public class client extends Applet_Sub1 {
             if (!aBoolean889) {
                 method13(true, "Unpacking sounds", 90);
                 byte[] abyte0 = fileArchive_6.read("sounds.dat", null);
-                Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(363, abyte0);
+                Buffer class38_sub2_sub3_1 = new Buffer(363, abyte0);
                 SoundTrack.load(class38_sub2_sub3_1);
             }
             method13(true, "Unpacking interfaces", 92);
@@ -5914,7 +5914,7 @@ public class client extends Applet_Sub1 {
                         if (!method78(anInt778))
                             flag1 = true;
                     } else {
-                        Class38_Sub2_Sub3 class38_sub2_sub3_1 = SoundTrack.generate(anIntArray809[j],
+                        Buffer class38_sub2_sub3_1 = SoundTrack.generate(anIntArray809[j],
                                 anIntArray1124[j]);
                         if (System.currentTimeMillis() + (long) (class38_sub2_sub3_1.offset / 22) > aLong777
                                 + (long) (anInt815 / 22)) {
@@ -5953,7 +5953,7 @@ public class client extends Applet_Sub1 {
             if (anInt744 == 0 && aBoolean835 && !aBoolean889)
                 method14(false, anInt1110, aString1119, anInt1155);
         }
-        Class38_Sub2_Sub3 class38_sub2_sub3 = InputTracking.method184(-809);
+        Buffer class38_sub2_sub3 = InputTracking.method184(-809);
         if (class38_sub2_sub3 != null) {
             aClass38_Sub2_Sub3_798.method435((byte) -34, 81);
             aClass38_Sub2_Sub3_798.method437(class38_sub2_sub3.offset);
@@ -6401,7 +6401,7 @@ public class client extends Applet_Sub1 {
             return i / 0xf4240 + "M";
     }
 
-    public void method109(Class38_Sub2_Sub3 class38_sub2_sub3, int i, int j) {
+    public void method109(Buffer class38_sub2_sub3, int i, int j) {
         anInt939 = 0;
         anInt825 = 0;
         method134(11522, i, class38_sub2_sub3);
@@ -6897,7 +6897,7 @@ public class client extends Applet_Sub1 {
         }
     }
 
-    public void method120(int i, Class38_Sub2_Sub3 class38_sub2_sub3, int j) {
+    public void method120(int i, Buffer class38_sub2_sub3, int j) {
         while (i >= 0)
             return;
         class38_sub2_sub3.method456(223);
@@ -7112,7 +7112,7 @@ public class client extends Applet_Sub1 {
                 int j2 = (anIntArray925[j1] & 0xff) * 64 - anInt762;
                 byte[] abyte2 = aByteArrayArray770[j1];
                 if (abyte2 != null) {
-                    int i3 = (new Class38_Sub2_Sub3(363, abyte2)).method451();
+                    int i3 = (new Buffer(363, abyte2)).method451();
                     BZip2InputStream.read(abyte0, i3, abyte2, abyte2.length - 4, 4);
                     class3.method153(abyte0, (anInt838 - 6) * 8, 1, j2, l1, (anInt839 - 6) * 8);
                 } else if (anInt839 < 800)
@@ -7123,7 +7123,7 @@ public class client extends Applet_Sub1 {
             for (int i2 = 0; i2 < k; i2++) {
                 byte[] abyte1 = aByteArrayArray1000[i2];
                 if (abyte1 != null) {
-                    int k2 = (new Class38_Sub2_Sub3(363, abyte1)).method451();
+                    int k2 = (new Buffer(363, abyte1)).method451();
                     BZip2InputStream.read(abyte0, k2, abyte1, abyte1.length - 4, 4);
                     int j3 = (anIntArray925[i2] >> 8) * 64 - anInt761;
                     int l3 = (anIntArray925[i2] & 0xff) * 64 - anInt762;
@@ -7716,7 +7716,7 @@ public class client extends Applet_Sub1 {
             aClass38_Sub2_Sub2_Sub2Array956[2].method405(anInt1020 - 28, anInt1019 - 12, false);
     }
 
-    public void method134(int i, int j, Class38_Sub2_Sub3 class38_sub2_sub3) {
+    public void method134(int i, int j, Buffer class38_sub2_sub3) {
         class38_sub2_sub3.method456(223);
         int k = class38_sub2_sub3.method457(9, 1);
         if (i != 11522)
@@ -8309,7 +8309,7 @@ public class client extends Applet_Sub1 {
                 return true;
             }
             if (anInt780 == 133) {
-                Class38_Sub2_Sub3 class38_sub2_sub3 = InputTracking.method185(854);
+                Buffer class38_sub2_sub3 = InputTracking.method185(854);
                 if (class38_sub2_sub3 != null) {
                     aClass38_Sub2_Sub3_798.method435((byte) -34, 81);
                     aClass38_Sub2_Sub3_798.method437(class38_sub2_sub3.offset);
@@ -8957,14 +8957,14 @@ public class client extends Applet_Sub1 {
         method2(532, false, 789);
     }
 
-    public void method139(boolean flag, int i, int j, Class38_Sub2_Sub3 class38_sub2_sub3,
+    public void method139(boolean flag, int i, int j, Buffer class38_sub2_sub3,
                           PlayerEntity playerEntity) {
         if (!flag)
             aBoolean849 = !aBoolean849;
         if ((j & 1) == 1) {
             int k = class38_sub2_sub3.method446();
             byte[] abyte0 = new byte[k];
-            Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(363, abyte0);
+            Buffer class38_sub2_sub3_1 = new Buffer(363, abyte0);
             class38_sub2_sub3.method455(k, -110, 0, abyte0);
             aClass38_Sub2_Sub3Array827[i] = class38_sub2_sub3_1;
             playerEntity.method470(false, class38_sub2_sub3_1);
@@ -9144,7 +9144,7 @@ public class client extends Applet_Sub1 {
         anInt733 = 24676;
         anInt734 = -1;
         anIntArray742 = new int[5];
-        aClass38_Sub2_Sub3_743 = Class38_Sub2_Sub3.method433(1, -737);
+        aClass38_Sub2_Sub3_743 = Buffer.method433(1, -737);
         aBoolean751 = false;
         linkedList2 = new LinkedList();
         aBooleanArray754 = new boolean[5];
@@ -9170,8 +9170,8 @@ public class client extends Applet_Sub1 {
         aByte790 = 8;
         aClass38_Sub2_Sub2_Sub2Array791 = new Class38_Sub2_Sub2_Sub2[1000];
         anInt792 = 78;
-        aClass38_Sub2_Sub3_795 = Class38_Sub2_Sub3.method433(1, -737);
-        aClass38_Sub2_Sub3_798 = Class38_Sub2_Sub3.method433(1, -737);
+        aClass38_Sub2_Sub3_795 = Buffer.method433(1, -737);
+        aClass38_Sub2_Sub3_798 = Buffer.method433(1, -737);
         aBoolean799 = false;
         anInt803 = 3;
         anInt805 = -655;
@@ -9188,7 +9188,7 @@ public class client extends Applet_Sub1 {
         playerEntities = new PlayerEntity[anInt820];
         anIntArray824 = new int[anInt820];
         anIntArray826 = new int[anInt820];
-        aClass38_Sub2_Sub3Array827 = new Class38_Sub2_Sub3[anInt820];
+        aClass38_Sub2_Sub3Array827 = new Buffer[anInt820];
         linkedList4 = new LinkedList();
         aStringArray834 = new String[500];
         aBoolean835 = true;
@@ -9332,7 +9332,7 @@ public class client extends Applet_Sub1 {
     public int anInt740;
     public int anInt741;
     public int[] anIntArray742;
-    public Class38_Sub2_Sub3 aClass38_Sub2_Sub3_743;
+    public Buffer aClass38_Sub2_Sub3_743;
     public int anInt744;
     public int anInt745;
     public int anInt746;
@@ -9384,10 +9384,10 @@ public class client extends Applet_Sub1 {
     public int anInt792;
     public int anInt793;
     public int[][][] anIntArrayArrayArray794;
-    public Class38_Sub2_Sub3 aClass38_Sub2_Sub3_795;
+    public Buffer aClass38_Sub2_Sub3_795;
     public int anInt796;
     public static int anInt797;
-    public Class38_Sub2_Sub3 aClass38_Sub2_Sub3_798;
+    public Buffer aClass38_Sub2_Sub3_798;
     public boolean aBoolean799;
     public int anInt800;
     public int anInt801;
@@ -9416,7 +9416,7 @@ public class client extends Applet_Sub1 {
     public int[] anIntArray824;
     public int anInt825;
     public int[] anIntArray826;
-    public Class38_Sub2_Sub3[] aClass38_Sub2_Sub3Array827;
+    public Buffer[] aClass38_Sub2_Sub3Array827;
     public int anInt828;
     public int anInt829;
     public int anInt830;

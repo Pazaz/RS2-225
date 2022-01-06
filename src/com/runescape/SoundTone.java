@@ -164,7 +164,7 @@ public class SoundTone {
         }
     }
 
-    public void read(Class38_Sub2_Sub3 buffer) {
+    public void read(Buffer buffer) {
         frequencyBase = new SoundEnvelope();
         frequencyBase.readShape(buffer);
         amplitudeBase = new SoundEnvelope();

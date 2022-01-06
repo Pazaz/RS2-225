@@ -3,8 +3,8 @@ package com.runescape;
 public class NpcType {
 
     public static void method146(FileArchive fileArchive) {
-        aClass38_Sub2_Sub3_79 = new Class38_Sub2_Sub3(363, fileArchive.read("npc.dat", null));
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read("npc.idx", null));
+        aClass38_Sub2_Sub3_79 = new Buffer(363, fileArchive.read("npc.dat", null));
+        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive.read("npc.idx", null));
         anInt77 = class38_sub2_sub3.method448();
         anIntArray78 = new int[anInt77];
         int i = 2;
@@ -43,7 +43,7 @@ public class NpcType {
         return npcType;
     }
 
-    public void method149(boolean flag, Class38_Sub2_Sub3 class38_sub2_sub3) {
+    public void method149(boolean flag, Buffer class38_sub2_sub3) {
         if (flag)
             throw new NullPointerException();
         do {
@@ -191,7 +191,7 @@ public class NpcType {
     public boolean aBoolean76;
     public static int anInt77;
     public static int[] anIntArray78;
-    public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_79;
+    public static Buffer aClass38_Sub2_Sub3_79;
     public static NpcType[] npcTypes;
     public static int anInt81;
     public long aLong82;

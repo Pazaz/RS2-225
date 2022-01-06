@@ -3,7 +3,7 @@ package com.runescape;
 public class InputTracking {
 
     public static synchronized void method182(int i) {
-        aClass38_Sub2_Sub3_199 = Class38_Sub2_Sub3.method433(1, -737);
+        aClass38_Sub2_Sub3_199 = Buffer.method433(1, -737);
         aClass38_Sub2_Sub3_200 = null;
         aLong201 = System.currentTimeMillis();
         if (i != -31717)
@@ -22,8 +22,8 @@ public class InputTracking {
         }
     }
 
-    public static synchronized Class38_Sub2_Sub3 method184(int i) {
-        Class38_Sub2_Sub3 class38_sub2_sub3 = null;
+    public static synchronized Buffer method184(int i) {
+        Buffer class38_sub2_sub3 = null;
         if (aClass38_Sub2_Sub3_200 != null && aBoolean198)
             class38_sub2_sub3 = aClass38_Sub2_Sub3_200;
         aClass38_Sub2_Sub3_200 = null;
@@ -32,10 +32,10 @@ public class InputTracking {
         return class38_sub2_sub3;
     }
 
-    public static synchronized Class38_Sub2_Sub3 method185(int i) {
+    public static synchronized Buffer method185(int i) {
         if (i <= 0)
             aBoolean197 = !aBoolean197;
-        Class38_Sub2_Sub3 class38_sub2_sub3 = null;
+        Buffer class38_sub2_sub3 = null;
         if (aClass38_Sub2_Sub3_199 != null && aClass38_Sub2_Sub3_199.offset > 0 && aBoolean198)
             class38_sub2_sub3 = aClass38_Sub2_Sub3_199;
         method183((byte) 65);
@@ -46,8 +46,8 @@ public class InputTracking {
         if (i <= 0)
             aBoolean196 = !aBoolean196;
         if (aClass38_Sub2_Sub3_199.offset + j >= 500) {
-            Class38_Sub2_Sub3 class38_sub2_sub3 = aClass38_Sub2_Sub3_199;
-            aClass38_Sub2_Sub3_199 = Class38_Sub2_Sub3.method433(1, -737);
+            Buffer class38_sub2_sub3 = aClass38_Sub2_Sub3_199;
+            aClass38_Sub2_Sub3_199 = Buffer.method433(1, -737);
             aClass38_Sub2_Sub3_200 = class38_sub2_sub3;
         }
     }
@@ -255,8 +255,8 @@ public class InputTracking {
     public static boolean aBoolean196;
     public static boolean aBoolean197;
     public static boolean aBoolean198;
-    public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_199 = null;
-    public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_200 = null;
+    public static Buffer aClass38_Sub2_Sub3_199 = null;
+    public static Buffer aClass38_Sub2_Sub3_200 = null;
     public static long aLong201;
     public static int anInt202;
     public static long aLong203;

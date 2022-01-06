@@ -7,7 +7,7 @@ public class InterfaceComponent {
         i = 17 / i;
         aClass34_321 = new Class34((byte) 0, 50000);
         aClass34_322 = new Class34((byte) 0, 50000);
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive_1.read("data", null));
+        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive_1.read("data", null));
         int j = -1;
         int k = class38_sub2_sub3.method448();
         interfaceComponentArray = new InterfaceComponent[k];

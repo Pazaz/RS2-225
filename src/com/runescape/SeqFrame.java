@@ -5,13 +5,13 @@ public class SeqFrame {
     public static void method213(boolean flag, FileArchive fileArchive) {
         if (flag)
             throw new NullPointerException();
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363,
+        Buffer class38_sub2_sub3 = new Buffer(363,
                 fileArchive.read("frame_head.dat", null));
-        Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(363,
+        Buffer class38_sub2_sub3_1 = new Buffer(363,
                 fileArchive.read("frame_tran1.dat", null));
-        Class38_Sub2_Sub3 class38_sub2_sub3_2 = new Class38_Sub2_Sub3(363,
+        Buffer class38_sub2_sub3_2 = new Buffer(363,
                 fileArchive.read("frame_tran2.dat", null));
-        Class38_Sub2_Sub3 class38_sub2_sub3_3 = new Class38_Sub2_Sub3(363,
+        Buffer class38_sub2_sub3_3 = new Buffer(363,
                 fileArchive.read("frame_del.dat", null));
         int i = class38_sub2_sub3.method448();
         int j = class38_sub2_sub3.method448();

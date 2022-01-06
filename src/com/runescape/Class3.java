@@ -52,7 +52,7 @@ public class Class3 {
     }
 
     public void method153(byte[] abyte0, int i, int j, int k, int l, int i1) {
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, abyte0);
+        Buffer class38_sub2_sub3 = new Buffer(363, abyte0);
         if (j != 1)
             aBoolean106 = !aBoolean106;
         for (int j1 = 0; j1 < 4; j1++) {
@@ -117,7 +117,7 @@ public class Class3 {
                           int j) {
         label0:
         {
-            Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, abyte0);
+            Buffer class38_sub2_sub3 = new Buffer(363, abyte0);
             if (!flag)
                 aBoolean106 = !aBoolean106;
             int k = -1;

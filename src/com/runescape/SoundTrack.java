@@ -2,10 +2,10 @@ package com.runescape;
 
 public class SoundTrack {
 
-    public static void load(Class38_Sub2_Sub3 src) {
+    public static void load(Buffer src) {
         bbuf = new byte[441000];
 
-        buffer = new Class38_Sub2_Sub3(363, bbuf);
+        buffer = new Buffer(363, bbuf);
         SoundTone.init();
 
         do {
@@ -19,7 +19,7 @@ public class SoundTrack {
         } while (true);
     }
 
-    public static Class38_Sub2_Sub3 generate(int loopCount, int id) {
+    public static Buffer generate(int loopCount, int id) {
         if (tracks[id] != null) {
             SoundTrack soundTrack = tracks[id];
             return soundTrack.getWaveform(loopCount);
@@ -28,7 +28,7 @@ public class SoundTrack {
         }
     }
 
-    public void read(Class38_Sub2_Sub3 buffer) {
+    public void read(Buffer buffer) {
         for (int tone = 0; tone < 10; tone++) {
             if (buffer.method446() != 0) {
                 buffer.offset--;
@@ -71,7 +71,7 @@ public class SoundTrack {
         return start;
     }
 
-    public Class38_Sub2_Sub3 getWaveform(int loopCount) {
+    public Buffer getWaveform(int loopCount) {
         int j = generate(loopCount);
         buffer.offset = 0;
         buffer.method440(0x52494646);
@@ -156,7 +156,7 @@ public class SoundTrack {
     public static SoundTrack[] tracks = new SoundTrack[1000];
     public static int[] delays = new int[1000];
     public static byte[] bbuf;
-    public static Class38_Sub2_Sub3 buffer;
+    public static Buffer buffer;
     public SoundTone[] tones;
     public int loopBegin;
     public int loopEnd;

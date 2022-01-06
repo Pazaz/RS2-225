@@ -2,7 +2,7 @@ package com.runescape;
 
 public class TextEncoder {
 
-    public static String read(Class38_Sub2_Sub3 buffer, int len) {
+    public static String read(Buffer buffer, int len) {
         int pos = 0;
         int last = -1;
 
@@ -48,7 +48,7 @@ public class TextEncoder {
         return new String(builder, 0, pos);
     }
 
-    public static void write(Class38_Sub2_Sub3 buffer, String str) {
+    public static void write(Buffer buffer, String str) {
         if (str.length() > 80) {
             str = str.substring(0, 80);
         }

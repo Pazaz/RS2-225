@@ -3,7 +3,7 @@ package com.runescape;
 public class IdkType {
 
     public static void method214(FileArchive fileArchive, int i) {
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read("idk.dat", null));
+        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive.read("idk.dat", null));
         anInt246 = class38_sub2_sub3.method448();
         if (idkTypes == null)
             idkTypes = new IdkType[anInt246];
@@ -16,7 +16,7 @@ public class IdkType {
         i = 87 / i;
     }
 
-    public void method215(boolean flag, Class38_Sub2_Sub3 class38_sub2_sub3) {
+    public void method215(boolean flag, Buffer class38_sub2_sub3) {
         if (flag)
             anInt243 = 65;
         do {

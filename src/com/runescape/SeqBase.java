@@ -3,11 +3,11 @@ package com.runescape;
 public class SeqBase {
 
     public static void method208(boolean flag, FileArchive fileArchive) {
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363,
+        Buffer class38_sub2_sub3 = new Buffer(363,
                 fileArchive.read("base_head.dat", null));
-        Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(363,
+        Buffer class38_sub2_sub3_1 = new Buffer(363,
                 fileArchive.read("base_type.dat", null));
-        Class38_Sub2_Sub3 class38_sub2_sub3_2 = new Class38_Sub2_Sub3(363,
+        Buffer class38_sub2_sub3_2 = new Buffer(363,
                 fileArchive.read("base_label.dat", null));
         int i = class38_sub2_sub3.method448();
         int j = class38_sub2_sub3.method448();

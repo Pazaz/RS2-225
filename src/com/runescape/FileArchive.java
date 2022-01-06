@@ -7,7 +7,7 @@ public class FileArchive {
     }
 
     public void parse(byte[] src) {
-        Class38_Sub2_Sub3 buffer = new Class38_Sub2_Sub3(363, src);
+        Buffer buffer = new Buffer(363, src);
         
         int unpackedSize = buffer.method450();
         int packedSize = buffer.method450();
@@ -16,7 +16,7 @@ public class FileArchive {
             byte[] temp = new byte[unpackedSize];
             BZip2InputStream.read(temp, unpackedSize, src, packedSize, 6);
             data = temp;
-            buffer = new Class38_Sub2_Sub3(363, data);
+            buffer = new Buffer(363, data);
             isCompressedWhole = true;
         } else {
             data = src;
