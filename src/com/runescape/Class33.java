@@ -3,39 +3,39 @@ package com.runescape;
 public class Class33 {
 
     public static int method333(byte[] abyte0, int i, byte[] abyte1, int j, int k) {
-        synchronized (aClass35_589) {
-            aClass35_589.aByteArray605 = abyte1;
-            aClass35_589.anInt606 = k;
-            aClass35_589.aByteArray610 = abyte0;
-            aClass35_589.anInt611 = 0;
-            aClass35_589.anInt607 = j;
-            aClass35_589.anInt612 = i;
-            aClass35_589.anInt619 = 0;
-            aClass35_589.anInt618 = 0;
-            aClass35_589.anInt608 = 0;
-            aClass35_589.anInt609 = 0;
-            aClass35_589.anInt613 = 0;
-            aClass35_589.anInt614 = 0;
-            aClass35_589.anInt621 = 0;
-            method335(aClass35_589);
-            i -= aClass35_589.anInt612;
+        synchronized (context) {
+            context.src = abyte1;
+            context.srcOff = k;
+            context.dest = abyte0;
+            context.anInt611 = 0;
+            context.srcLen = j;
+            context.destLen = i;
+            context.anInt619 = 0;
+            context.anInt618 = 0;
+            context.anInt608 = 0;
+            context.anInt609 = 0;
+            context.anInt613 = 0;
+            context.anInt614 = 0;
+            context.anInt621 = 0;
+            method335(context);
+            i -= context.destLen;
             int l = i;
             return l;
         }
     }
 
-    public static void method334(Class35 class35) {
-        byte byte4 = class35.aByte615;
-        int i = class35.anInt616;
-        int j = class35.anInt626;
-        int k = class35.anInt624;
-        int[] ai = Class35.anIntArray629;
-        int l = class35.anInt623;
-        byte[] abyte0 = class35.aByteArray610;
-        int i1 = class35.anInt611;
-        int j1 = class35.anInt612;
+    public static void method334(BZip2Context context) {
+        byte byte4 = context.aByte615;
+        int i = context.anInt616;
+        int j = context.anInt626;
+        int k = context.anInt624;
+        int[] ai = BZip2Context.anIntArray629;
+        int l = context.anInt623;
+        byte[] abyte0 = context.dest;
+        int i1 = context.anInt611;
+        int j1 = context.destLen;
         int k1 = j1;
-        int l1 = class35.anInt643 + 1;
+        int l1 = context.anInt643 + 1;
         label0:
         do {
             if (i > 0) {
@@ -121,22 +121,22 @@ public class Class33 {
                         }
                 }
         } while (true);
-        int i2 = class35.anInt613;
-        class35.anInt613 += k1 - j1;
-        if (class35.anInt613 < i2)
-            class35.anInt614++;
-        class35.aByte615 = byte4;
-        class35.anInt616 = i;
-        class35.anInt626 = j;
-        class35.anInt624 = k;
-        Class35.anIntArray629 = ai;
-        class35.anInt623 = l;
-        class35.aByteArray610 = abyte0;
-        class35.anInt611 = i1;
-        class35.anInt612 = j1;
+        int i2 = context.anInt613;
+        context.anInt613 += k1 - j1;
+        if (context.anInt613 < i2)
+            context.anInt614++;
+        context.aByte615 = byte4;
+        context.anInt616 = i;
+        context.anInt626 = j;
+        context.anInt624 = k;
+        BZip2Context.anIntArray629 = ai;
+        context.anInt623 = l;
+        context.dest = abyte0;
+        context.anInt611 = i1;
+        context.destLen = j1;
     }
 
-    public static void method335(Class35 class35) {
+    public static void method335(BZip2Context context) {
         boolean flag = false;
         boolean flag1 = false;
         boolean flag2 = false;
@@ -160,66 +160,66 @@ public class Class33 {
         int[] ai = null;
         int[] ai1 = null;
         int[] ai2 = null;
-        class35.anInt620 = 1;
-        if (Class35.anIntArray629 == null)
-            Class35.anIntArray629 = new int[class35.anInt620 * 0x186a0];
+        context.anInt620 = 1;
+        if (BZip2Context.anIntArray629 == null)
+            BZip2Context.anIntArray629 = new int[context.anInt620 * 0x186a0];
         boolean flag19 = true;
         while (flag19) {
-            byte byte0 = method336(class35);
+            byte byte0 = method336(context);
             if (byte0 == 23)
                 return;
-            byte0 = method336(class35);
-            byte0 = method336(class35);
-            byte0 = method336(class35);
-            byte0 = method336(class35);
-            byte0 = method336(class35);
-            class35.anInt621++;
-            byte0 = method336(class35);
-            byte0 = method336(class35);
-            byte0 = method336(class35);
-            byte0 = method336(class35);
-            byte0 = method337(class35);
-            class35.aBoolean617 = byte0 != 0;
-            if (class35.aBoolean617)
+            byte0 = method336(context);
+            byte0 = method336(context);
+            byte0 = method336(context);
+            byte0 = method336(context);
+            byte0 = method336(context);
+            context.anInt621++;
+            byte0 = method336(context);
+            byte0 = method336(context);
+            byte0 = method336(context);
+            byte0 = method336(context);
+            byte0 = method337(context);
+            context.aBoolean617 = byte0 != 0;
+            if (context.aBoolean617)
                 System.out.println("PANIC! RANDOMISED BLOCK!");
-            class35.anInt622 = 0;
-            byte0 = method336(class35);
-            class35.anInt622 = class35.anInt622 << 8 | byte0 & 0xff;
-            byte0 = method336(class35);
-            class35.anInt622 = class35.anInt622 << 8 | byte0 & 0xff;
-            byte0 = method336(class35);
-            class35.anInt622 = class35.anInt622 << 8 | byte0 & 0xff;
+            context.anInt622 = 0;
+            byte0 = method336(context);
+            context.anInt622 = context.anInt622 << 8 | byte0 & 0xff;
+            byte0 = method336(context);
+            context.anInt622 = context.anInt622 << 8 | byte0 & 0xff;
+            byte0 = method336(context);
+            context.anInt622 = context.anInt622 << 8 | byte0 & 0xff;
             for (int j = 0; j < 16; j++) {
-                byte byte1 = method337(class35);
-                class35.aBooleanArray632[j] = byte1 == 1;
+                byte byte1 = method337(context);
+                context.aBooleanArray632[j] = byte1 == 1;
             }
 
             for (int k = 0; k < 256; k++)
-                class35.aBooleanArray631[k] = false;
+                context.aBooleanArray631[k] = false;
 
             for (int l = 0; l < 16; l++)
-                if (class35.aBooleanArray632[l]) {
+                if (context.aBooleanArray632[l]) {
                     for (int i3 = 0; i3 < 16; i3++) {
-                        byte byte2 = method337(class35);
+                        byte byte2 = method337(context);
                         if (byte2 == 1)
-                            class35.aBooleanArray631[l * 16 + i3] = true;
+                            context.aBooleanArray631[l * 16 + i3] = true;
                     }
 
                 }
 
-            method339(class35);
-            int i4 = class35.anInt630 + 2;
-            int j4 = method338(3, class35);
-            int k4 = method338(15, class35);
+            method339(context);
+            int i4 = context.anInt630 + 2;
+            int j4 = method338(3, context);
+            int k4 = method338(15, context);
             for (int i1 = 0; i1 < k4; i1++) {
                 int j3 = 0;
                 do {
-                    byte byte3 = method337(class35);
+                    byte byte3 = method337(context);
                     if (byte3 == 0)
                         break;
                     j3++;
                 } while (true);
-                class35.aByteArray637[i1] = (byte) j3;
+                context.aByteArray637[i1] = (byte) j3;
             }
 
             byte[] abyte0 = new byte[6];
@@ -227,29 +227,29 @@ public class Class33 {
                 abyte0[byte16] = byte16;
 
             for (int j1 = 0; j1 < k4; j1++) {
-                byte byte17 = class35.aByteArray637[j1];
+                byte byte17 = context.aByteArray637[j1];
                 byte byte15 = abyte0[byte17];
                 for (; byte17 > 0; byte17--)
                     abyte0[byte17] = abyte0[byte17 - 1];
 
                 abyte0[0] = byte15;
-                class35.aByteArray636[j1] = byte15;
+                context.aByteArray636[j1] = byte15;
             }
 
             for (int k3 = 0; k3 < j4; k3++) {
-                int l6 = method338(5, class35);
+                int l6 = method338(5, context);
                 for (int k1 = 0; k1 < i4; k1++) {
                     do {
-                        byte byte4 = method337(class35);
+                        byte byte4 = method337(context);
                         if (byte4 == 0)
                             break;
-                        byte4 = method337(class35);
+                        byte4 = method337(context);
                         if (byte4 == 0)
                             l6++;
                         else
                             l6--;
                     } while (true);
-                    class35.aByteArrayArray638[k3][k1] = (byte) l6;
+                    context.aByteArrayArray638[k3][k1] = (byte) l6;
                 }
 
             }
@@ -258,51 +258,51 @@ public class Class33 {
                 byte byte8 = 32;
                 int i = 0;
                 for (int l1 = 0; l1 < i4; l1++) {
-                    if (class35.aByteArrayArray638[l3][l1] > i)
-                        i = class35.aByteArrayArray638[l3][l1];
-                    if (class35.aByteArrayArray638[l3][l1] < byte8)
-                        byte8 = class35.aByteArrayArray638[l3][l1];
+                    if (context.aByteArrayArray638[l3][l1] > i)
+                        i = context.aByteArrayArray638[l3][l1];
+                    if (context.aByteArrayArray638[l3][l1] < byte8)
+                        byte8 = context.aByteArrayArray638[l3][l1];
                 }
 
-                method340(class35.anIntArrayArray639[l3], class35.anIntArrayArray640[l3],
-                        class35.anIntArrayArray641[l3], class35.aByteArrayArray638[l3], byte8, i, i4);
-                class35.anIntArray642[l3] = byte8;
+                method340(context.anIntArrayArray639[l3], context.anIntArrayArray640[l3],
+                        context.anIntArrayArray641[l3], context.aByteArrayArray638[l3], byte8, i, i4);
+                context.anIntArray642[l3] = byte8;
             }
 
-            int l4 = class35.anInt630 + 1;
-            int l5 = 0x186a0 * class35.anInt620;
+            int l4 = context.anInt630 + 1;
+            int l5 = 0x186a0 * context.anInt620;
             int i5 = -1;
             int j5 = 0;
             for (int i2 = 0; i2 <= 255; i2++)
-                class35.anIntArray625[i2] = 0;
+                context.anIntArray625[i2] = 0;
 
             int j9 = 4095;
             for (int l8 = 15; l8 >= 0; l8--) {
                 for (int i9 = 15; i9 >= 0; i9--) {
-                    class35.aByteArray634[j9] = (byte) (l8 * 16 + i9);
+                    context.aByteArray634[j9] = (byte) (l8 * 16 + i9);
                     j9--;
                 }
 
-                class35.anIntArray635[l8] = j9 + 1;
+                context.anIntArray635[l8] = j9 + 1;
             }
 
             int i6 = 0;
             if (j5 == 0) {
                 i5++;
                 j5 = 50;
-                byte byte12 = class35.aByteArray636[i5];
-                k8 = class35.anIntArray642[byte12];
-                ai = class35.anIntArrayArray639[byte12];
-                ai2 = class35.anIntArrayArray641[byte12];
-                ai1 = class35.anIntArrayArray640[byte12];
+                byte byte12 = context.aByteArray636[i5];
+                k8 = context.anIntArray642[byte12];
+                ai = context.anIntArrayArray639[byte12];
+                ai2 = context.anIntArrayArray641[byte12];
+                ai1 = context.anIntArrayArray640[byte12];
             }
             j5--;
             int i7 = k8;
             int l7;
             byte byte9;
-            for (l7 = method338(i7, class35); l7 > ai[i7]; l7 = l7 << 1 | byte9) {
+            for (l7 = method338(i7, context); l7 > ai[i7]; l7 = l7 << 1 | byte9) {
                 i7++;
-                byte9 = method337(class35);
+                byte9 = method337(context);
             }
 
             for (int k5 = ai2[l7 - ai1[i7]]; k5 != l4; )
@@ -318,28 +318,28 @@ public class Class33 {
                         if (j5 == 0) {
                             i5++;
                             j5 = 50;
-                            byte byte13 = class35.aByteArray636[i5];
-                            k8 = class35.anIntArray642[byte13];
-                            ai = class35.anIntArrayArray639[byte13];
-                            ai2 = class35.anIntArrayArray641[byte13];
-                            ai1 = class35.anIntArrayArray640[byte13];
+                            byte byte13 = context.aByteArray636[i5];
+                            k8 = context.anIntArray642[byte13];
+                            ai = context.anIntArrayArray639[byte13];
+                            ai2 = context.anIntArrayArray641[byte13];
+                            ai1 = context.anIntArrayArray640[byte13];
                         }
                         j5--;
                         int j7 = k8;
                         int i8;
                         byte byte10;
-                        for (i8 = method338(j7, class35); i8 > ai[j7]; i8 = i8 << 1 | byte10) {
+                        for (i8 = method338(j7, context); i8 > ai[j7]; i8 = i8 << 1 | byte10) {
                             j7++;
-                            byte10 = method337(class35);
+                            byte10 = method337(context);
                         }
 
                         k5 = ai2[i8 - ai1[j7]];
                     } while (k5 == 0 || k5 == 1);
                     j6++;
-                    byte byte5 = class35.aByteArray633[class35.aByteArray634[class35.anIntArray635[0]] & 0xff];
-                    class35.anIntArray625[byte5 & 0xff] += j6;
+                    byte byte5 = context.aByteArray633[context.aByteArray634[context.anIntArray635[0]] & 0xff];
+                    context.anIntArray625[byte5 & 0xff] += j6;
                     for (; j6 > 0; j6--) {
-                        Class35.anIntArray629[i6] = byte5 & 0xff;
+                        BZip2Context.anIntArray629[i6] = byte5 & 0xff;
                         i6++;
                     }
 
@@ -347,135 +347,135 @@ public class Class33 {
                     int j11 = k5 - 1;
                     byte byte6;
                     if (j11 < 16) {
-                        int j10 = class35.anIntArray635[0];
-                        byte6 = class35.aByteArray634[j10 + j11];
+                        int j10 = context.anIntArray635[0];
+                        byte6 = context.aByteArray634[j10 + j11];
                         for (; j11 > 3; j11 -= 4) {
                             int k11 = j10 + j11;
-                            class35.aByteArray634[k11] = class35.aByteArray634[k11 - 1];
-                            class35.aByteArray634[k11 - 1] = class35.aByteArray634[k11 - 2];
-                            class35.aByteArray634[k11 - 2] = class35.aByteArray634[k11 - 3];
-                            class35.aByteArray634[k11 - 3] = class35.aByteArray634[k11 - 4];
+                            context.aByteArray634[k11] = context.aByteArray634[k11 - 1];
+                            context.aByteArray634[k11 - 1] = context.aByteArray634[k11 - 2];
+                            context.aByteArray634[k11 - 2] = context.aByteArray634[k11 - 3];
+                            context.aByteArray634[k11 - 3] = context.aByteArray634[k11 - 4];
                         }
 
                         for (; j11 > 0; j11--)
-                            class35.aByteArray634[j10 + j11] = class35.aByteArray634[(j10 + j11) - 1];
+                            context.aByteArray634[j10 + j11] = context.aByteArray634[(j10 + j11) - 1];
 
-                        class35.aByteArray634[j10] = byte6;
+                        context.aByteArray634[j10] = byte6;
                     } else {
                         int l10 = j11 / 16;
                         int i11 = j11 % 16;
-                        int k10 = class35.anIntArray635[l10] + i11;
-                        byte6 = class35.aByteArray634[k10];
-                        for (; k10 > class35.anIntArray635[l10]; k10--)
-                            class35.aByteArray634[k10] = class35.aByteArray634[k10 - 1];
+                        int k10 = context.anIntArray635[l10] + i11;
+                        byte6 = context.aByteArray634[k10];
+                        for (; k10 > context.anIntArray635[l10]; k10--)
+                            context.aByteArray634[k10] = context.aByteArray634[k10 - 1];
 
-                        class35.anIntArray635[l10]++;
+                        context.anIntArray635[l10]++;
                         for (; l10 > 0; l10--) {
-                            class35.anIntArray635[l10]--;
-                            class35.aByteArray634[class35.anIntArray635[l10]] = class35.aByteArray634[(class35.anIntArray635[l10
+                            context.anIntArray635[l10]--;
+                            context.aByteArray634[context.anIntArray635[l10]] = context.aByteArray634[(context.anIntArray635[l10
                                     - 1] + 16) - 1];
                         }
 
-                        class35.anIntArray635[0]--;
-                        class35.aByteArray634[class35.anIntArray635[0]] = byte6;
-                        if (class35.anIntArray635[0] == 0) {
+                        context.anIntArray635[0]--;
+                        context.aByteArray634[context.anIntArray635[0]] = byte6;
+                        if (context.anIntArray635[0] == 0) {
                             int i10 = 4095;
                             for (int k9 = 15; k9 >= 0; k9--) {
                                 for (int l9 = 15; l9 >= 0; l9--) {
-                                    class35.aByteArray634[i10] = class35.aByteArray634[class35.anIntArray635[k9] + l9];
+                                    context.aByteArray634[i10] = context.aByteArray634[context.anIntArray635[k9] + l9];
                                     i10--;
                                 }
 
-                                class35.anIntArray635[k9] = i10 + 1;
+                                context.anIntArray635[k9] = i10 + 1;
                             }
 
                         }
                     }
-                    class35.anIntArray625[class35.aByteArray633[byte6 & 0xff] & 0xff]++;
-                    Class35.anIntArray629[i6] = class35.aByteArray633[byte6 & 0xff] & 0xff;
+                    context.anIntArray625[context.aByteArray633[byte6 & 0xff] & 0xff]++;
+                    BZip2Context.anIntArray629[i6] = context.aByteArray633[byte6 & 0xff] & 0xff;
                     i6++;
                     if (j5 == 0) {
                         i5++;
                         j5 = 50;
-                        byte byte14 = class35.aByteArray636[i5];
-                        k8 = class35.anIntArray642[byte14];
-                        ai = class35.anIntArrayArray639[byte14];
-                        ai2 = class35.anIntArrayArray641[byte14];
-                        ai1 = class35.anIntArrayArray640[byte14];
+                        byte byte14 = context.aByteArray636[i5];
+                        k8 = context.anIntArray642[byte14];
+                        ai = context.anIntArrayArray639[byte14];
+                        ai2 = context.anIntArrayArray641[byte14];
+                        ai1 = context.anIntArrayArray640[byte14];
                     }
                     j5--;
                     int k7 = k8;
                     int j8;
                     byte byte11;
-                    for (j8 = method338(k7, class35); j8 > ai[k7]; j8 = j8 << 1 | byte11) {
+                    for (j8 = method338(k7, context); j8 > ai[k7]; j8 = j8 << 1 | byte11) {
                         k7++;
-                        byte11 = method337(class35);
+                        byte11 = method337(context);
                     }
 
                     k5 = ai2[j8 - ai1[k7]];
                 }
 
-            class35.anInt616 = 0;
-            class35.aByte615 = 0;
-            class35.anIntArray627[0] = 0;
+            context.anInt616 = 0;
+            context.aByte615 = 0;
+            context.anIntArray627[0] = 0;
             for (int j2 = 1; j2 <= 256; j2++)
-                class35.anIntArray627[j2] = class35.anIntArray625[j2 - 1];
+                context.anIntArray627[j2] = context.anIntArray625[j2 - 1];
 
             for (int k2 = 1; k2 <= 256; k2++)
-                class35.anIntArray627[k2] += class35.anIntArray627[k2 - 1];
+                context.anIntArray627[k2] += context.anIntArray627[k2 - 1];
 
             for (int l2 = 0; l2 < i6; l2++) {
-                byte byte7 = (byte) (Class35.anIntArray629[l2] & 0xff);
-                Class35.anIntArray629[class35.anIntArray627[byte7 & 0xff]] |= l2 << 8;
-                class35.anIntArray627[byte7 & 0xff]++;
+                byte byte7 = (byte) (BZip2Context.anIntArray629[l2] & 0xff);
+                BZip2Context.anIntArray629[context.anIntArray627[byte7 & 0xff]] |= l2 << 8;
+                context.anIntArray627[byte7 & 0xff]++;
             }
 
-            class35.anInt623 = Class35.anIntArray629[class35.anInt622] >> 8;
-            class35.anInt626 = 0;
-            class35.anInt623 = Class35.anIntArray629[class35.anInt623];
-            class35.anInt624 = (byte) (class35.anInt623 & 0xff);
-            class35.anInt623 >>= 8;
-            class35.anInt626++;
-            class35.anInt643 = i6;
-            method334(class35);
-            flag19 = class35.anInt626 == class35.anInt643 + 1 && class35.anInt616 == 0;
+            context.anInt623 = BZip2Context.anIntArray629[context.anInt622] >> 8;
+            context.anInt626 = 0;
+            context.anInt623 = BZip2Context.anIntArray629[context.anInt623];
+            context.anInt624 = (byte) (context.anInt623 & 0xff);
+            context.anInt623 >>= 8;
+            context.anInt626++;
+            context.anInt643 = i6;
+            method334(context);
+            flag19 = context.anInt626 == context.anInt643 + 1 && context.anInt616 == 0;
         }
     }
 
-    public static byte method336(Class35 class35) {
-        return (byte) method338(8, class35);
+    public static byte method336(BZip2Context context) {
+        return (byte) method338(8, context);
     }
 
-    public static byte method337(Class35 class35) {
-        return (byte) method338(1, class35);
+    public static byte method337(BZip2Context context) {
+        return (byte) method338(1, context);
     }
 
-    public static int method338(int i, Class35 class35) {
+    public static int method338(int i, BZip2Context context) {
         int j;
         do {
-            if (class35.anInt619 >= i) {
-                int k = class35.anInt618 >> class35.anInt619 - i & (1 << i) - 1;
-                class35.anInt619 -= i;
+            if (context.anInt619 >= i) {
+                int k = context.anInt618 >> context.anInt619 - i & (1 << i) - 1;
+                context.anInt619 -= i;
                 j = k;
                 break;
             }
-            class35.anInt618 = class35.anInt618 << 8 | class35.aByteArray605[class35.anInt606] & 0xff;
-            class35.anInt619 += 8;
-            class35.anInt606++;
-            class35.anInt607--;
-            class35.anInt608++;
-            if (class35.anInt608 == 0)
-                class35.anInt609++;
+            context.anInt618 = context.anInt618 << 8 | context.src[context.srcOff] & 0xff;
+            context.anInt619 += 8;
+            context.srcOff++;
+            context.srcLen--;
+            context.anInt608++;
+            if (context.anInt608 == 0)
+                context.anInt609++;
         } while (true);
         return j;
     }
 
-    public static void method339(Class35 class35) {
-        class35.anInt630 = 0;
+    public static void method339(BZip2Context context) {
+        context.anInt630 = 0;
         for (int i = 0; i < 256; i++)
-            if (class35.aBooleanArray631[i]) {
-                class35.aByteArray633[class35.anInt630] = (byte) i;
-                class35.anInt630++;
+            if (context.aBooleanArray631[i]) {
+                context.aByteArray633[context.anInt630] = (byte) i;
+                context.anInt630++;
             }
 
     }
@@ -515,6 +515,6 @@ public class Class33 {
 
     }
 
-    public static Class35 aClass35_589 = new Class35();
+    public static BZip2Context context = new BZip2Context();
 
 }

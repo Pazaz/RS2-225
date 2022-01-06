@@ -1,8 +1,8 @@
 package com.runescape;
 
-public class Class35 {
+public class BZip2Context {
 
-    public Class35() {
+    public BZip2Context() {
         anIntArray625 = new int[256];
         anIntArray627 = new int[257];
         anIntArray628 = new int[257];
@@ -20,23 +20,14 @@ public class Class35 {
         anIntArray642 = new int[6];
     }
 
-    public final int anInt596 = 4096;
-    public final int anInt597 = 16;
-    public final int anInt598 = 258;
-    public final int anInt599 = 23;
-    public final int anInt600 = 1;
-    public final int anInt601 = 6;
-    public final int anInt602 = 50;
-    public final int anInt603 = 4;
-    public final int anInt604 = 18002;
-    public byte[] aByteArray605;
-    public int anInt606;
-    public int anInt607;
+    public byte[] src;
+    public int srcOff;
+    public int srcLen;
     public int anInt608;
     public int anInt609;
-    public byte[] aByteArray610;
+    public byte[] dest;
     public int anInt611;
-    public int anInt612;
+    public int destLen;
     public int anInt613;
     public int anInt614;
     public byte aByte615;
