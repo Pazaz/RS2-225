@@ -19,7 +19,7 @@ public class Class38_Sub1 extends Node {
     public Class30 aClass30_1167;
     public Class13 aClass13_1168;
     public Class17 aClass17_1169;
-    public Class19 aClass19_1170;
+    public ObjEntity objEntity;
     public int anInt1171;
     public Class28[] aClass28Array1172;
     public int[] anIntArray1173;

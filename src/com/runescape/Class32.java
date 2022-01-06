@@ -171,15 +171,15 @@ public class Class32 {
     public void method288(Class38_Sub2_Sub1 class38_sub2_sub1, Class38_Sub2_Sub1 class38_sub2_sub1_1, int i, int j,
                           int k, int l, int i1,
                           Class38_Sub2_Sub1 class38_sub2_sub1_2, int j1) {
-        Class19 class19 = new Class19();
-        class19.aClass38_Sub2_Sub1_380 = class38_sub2_sub1;
+        ObjEntity objEntity = new ObjEntity();
+        objEntity.entity0 = class38_sub2_sub1;
         j1 = 90 / j1;
-        class19.anInt378 = i1 * 128 + 64;
-        class19.anInt379 = l * 128 + 64;
-        class19.anInt377 = i;
-        class19.anInt383 = k;
-        class19.aClass38_Sub2_Sub1_381 = class38_sub2_sub1_1;
-        class19.aClass38_Sub2_Sub1_382 = class38_sub2_sub1_2;
+        objEntity.x = i1 * 128 + 64;
+        objEntity.z = l * 128 + 64;
+        objEntity.y = i;
+        objEntity.bitset = k;
+        objEntity.entity1 = class38_sub2_sub1_1;
+        objEntity.entity2 = class38_sub2_sub1_2;
         int k1 = 0;
         Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[j][i1][l];
         if (class38_sub1 != null) {
@@ -190,10 +190,10 @@ public class Class32 {
             }
 
         }
-        class19.anInt384 = k1;
+        objEntity.offsetY = k1;
         if (aClass38_Sub1ArrayArrayArray531[j][i1][l] == null)
             aClass38_Sub1ArrayArrayArray531[j][i1][l] = new Class38_Sub1(j, i1, l);
-        aClass38_Sub1ArrayArrayArray531[j][i1][l].aClass19_1170 = class19;
+        aClass38_Sub1ArrayArrayArray531[j][i1][l].objEntity = objEntity;
     }
 
     public void method289(int i, int j, int k, int l, int i1, Class38_Sub2_Sub1 class38_sub2_sub1,
@@ -563,7 +563,7 @@ public class Class32 {
         if (class38_sub1 == null) {
             return;
         } else {
-            class38_sub1.aClass19_1170 = null;
+            class38_sub1.objEntity = null;
             return;
         }
     }
@@ -1292,20 +1292,20 @@ public class Class32 {
                         class17.aClass38_Sub2_Sub1_358.method371(0, anInt548, anInt549, anInt550, anInt551,
                                 class17.anInt356 - anInt545, class17.anInt355 - anInt546, class17.anInt357 - anInt547,
                                 class17.anInt359);
-                    Class19 class19_1 = class38_sub1_1.aClass19_1170;
-                    if (class19_1 != null && class19_1.anInt384 == 0) {
-                        if (class19_1.aClass38_Sub2_Sub1_381 != null)
-                            class19_1.aClass38_Sub2_Sub1_381.method371(0, anInt548, anInt549, anInt550, anInt551,
-                                    class19_1.anInt378 - anInt545, class19_1.anInt377 - anInt546,
-                                    class19_1.anInt379 - anInt547, class19_1.anInt383);
-                        if (class19_1.aClass38_Sub2_Sub1_382 != null)
-                            class19_1.aClass38_Sub2_Sub1_382.method371(0, anInt548, anInt549, anInt550, anInt551,
-                                    class19_1.anInt378 - anInt545, class19_1.anInt377 - anInt546,
-                                    class19_1.anInt379 - anInt547, class19_1.anInt383);
-                        if (class19_1.aClass38_Sub2_Sub1_380 != null)
-                            class19_1.aClass38_Sub2_Sub1_380.method371(0, anInt548, anInt549, anInt550, anInt551,
-                                    class19_1.anInt378 - anInt545, class19_1.anInt377 - anInt546,
-                                    class19_1.anInt379 - anInt547, class19_1.anInt383);
+                    ObjEntity objEntity_1 = class38_sub1_1.objEntity;
+                    if (objEntity_1 != null && objEntity_1.offsetY == 0) {
+                        if (objEntity_1.entity1 != null)
+                            objEntity_1.entity1.method371(0, anInt548, anInt549, anInt550, anInt551,
+                                    objEntity_1.x - anInt545, objEntity_1.y - anInt546,
+                                    objEntity_1.z - anInt547, objEntity_1.bitset);
+                        if (objEntity_1.entity2 != null)
+                            objEntity_1.entity2.method371(0, anInt548, anInt549, anInt550, anInt551,
+                                    objEntity_1.x - anInt545, objEntity_1.y - anInt546,
+                                    objEntity_1.z - anInt547, objEntity_1.bitset);
+                        if (objEntity_1.entity0 != null)
+                            objEntity_1.entity0.method371(0, anInt548, anInt549, anInt550, anInt551,
+                                    objEntity_1.x - anInt545, objEntity_1.y - anInt546,
+                                    objEntity_1.z - anInt547, objEntity_1.bitset);
                     }
                 }
                 int k4 = class38_sub1_1.anInt1174;
@@ -1461,20 +1461,20 @@ public class Class32 {
             }
             class38_sub1_1.aBoolean1177 = false;
             anInt536--;
-            Class19 class19 = class38_sub1_1.aClass19_1170;
-            if (class19 != null && class19.anInt384 != 0) {
-                if (class19.aClass38_Sub2_Sub1_381 != null)
-                    class19.aClass38_Sub2_Sub1_381.method371(0, anInt548, anInt549, anInt550, anInt551,
-                            class19.anInt378 - anInt545, class19.anInt377 - anInt546 - class19.anInt384,
-                            class19.anInt379 - anInt547, class19.anInt383);
-                if (class19.aClass38_Sub2_Sub1_382 != null)
-                    class19.aClass38_Sub2_Sub1_382.method371(0, anInt548, anInt549, anInt550, anInt551,
-                            class19.anInt378 - anInt545, class19.anInt377 - anInt546 - class19.anInt384,
-                            class19.anInt379 - anInt547, class19.anInt383);
-                if (class19.aClass38_Sub2_Sub1_380 != null)
-                    class19.aClass38_Sub2_Sub1_380.method371(0, anInt548, anInt549, anInt550, anInt551,
-                            class19.anInt378 - anInt545, class19.anInt377 - anInt546 - class19.anInt384,
-                            class19.anInt379 - anInt547, class19.anInt383);
+            ObjEntity objEntity = class38_sub1_1.objEntity;
+            if (objEntity != null && objEntity.offsetY != 0) {
+                if (objEntity.entity1 != null)
+                    objEntity.entity1.method371(0, anInt548, anInt549, anInt550, anInt551,
+                            objEntity.x - anInt545, objEntity.y - anInt546 - objEntity.offsetY,
+                            objEntity.z - anInt547, objEntity.bitset);
+                if (objEntity.entity2 != null)
+                    objEntity.entity2.method371(0, anInt548, anInt549, anInt550, anInt551,
+                            objEntity.x - anInt545, objEntity.y - anInt546 - objEntity.offsetY,
+                            objEntity.z - anInt547, objEntity.bitset);
+                if (objEntity.entity0 != null)
+                    objEntity.entity0.method371(0, anInt548, anInt549, anInt550, anInt551,
+                            objEntity.x - anInt545, objEntity.y - anInt546 - objEntity.offsetY,
+                            objEntity.z - anInt547, objEntity.bitset);
             }
             if (class38_sub1_1.anInt1182 != 0) {
                 Class13 class13 = class38_sub1_1.aClass13_1168;
