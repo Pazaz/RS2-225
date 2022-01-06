@@ -50,7 +50,7 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
         Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read(s + ".dat", null));
         Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(363,
                 fileArchive.read("index.dat", null));
-        class38_sub2_sub3_1.anInt1329 = class38_sub2_sub3.method448();
+        class38_sub2_sub3_1.offset = class38_sub2_sub3.method448();
         anInt1470 = class38_sub2_sub3_1.method448();
         anInt1471 = class38_sub2_sub3_1.method448();
         int j = class38_sub2_sub3_1.method446();
@@ -62,9 +62,9 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
         }
 
         for (int l = 0; l < i; l++) {
-            class38_sub2_sub3_1.anInt1329 += 2;
-            class38_sub2_sub3.anInt1329 += class38_sub2_sub3_1.method448() * class38_sub2_sub3_1.method448();
-            class38_sub2_sub3_1.anInt1329++;
+            class38_sub2_sub3_1.offset += 2;
+            class38_sub2_sub3.offset += class38_sub2_sub3_1.method448() * class38_sub2_sub3_1.method448();
+            class38_sub2_sub3_1.offset++;
         }
 
         anInt1468 = class38_sub2_sub3_1.method446();

@@ -20,7 +20,7 @@ public class Class38_Sub2_Sub3 extends CacheableNode {
                 class38_sub2_sub3_2 = (Class38_Sub2_Sub3) linkedList3.method269();
             }
             if (class38_sub2_sub3_2 != null) {
-                class38_sub2_sub3_2.anInt1329 = 0;
+                class38_sub2_sub3_2.offset = 0;
                 Class38_Sub2_Sub3 class38_sub2_sub3 = class38_sub2_sub3_2;
                 return class38_sub2_sub3;
             }
@@ -28,7 +28,7 @@ public class Class38_Sub2_Sub3 extends CacheableNode {
         if (j >= 0)
             aBoolean1326 = !aBoolean1326;
         Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(anInt1319);
-        class38_sub2_sub3_1.anInt1329 = 0;
+        class38_sub2_sub3_1.offset = 0;
         if (i == 0)
             class38_sub2_sub3_1.aByteArray1328 = new byte[100];
         else if (i == 1)
@@ -40,7 +40,7 @@ public class Class38_Sub2_Sub3 extends CacheableNode {
 
     public void method434(byte byte0) {
         synchronized (linkedList2) {
-            anInt1329 = 0;
+            offset = 0;
             if (aByteArray1328.length == 100 && anInt1334 < 1000) {
                 linkedList1.method267(this);
                 anInt1334++;
@@ -82,77 +82,77 @@ public class Class38_Sub2_Sub3 extends CacheableNode {
         anInt1325 = 4277;
         anInt1327 = -178;
         aByteArray1328 = abyte0;
-        anInt1329 = 0;
+        offset = 0;
         i = 15 / i;
     }
 
     public void method435(byte byte0, int i) {
-        aByteArray1328[anInt1329++] = (byte) (i + isaacState.nextInt());
+        aByteArray1328[offset++] = (byte) (i + isaacState.nextInt());
         if (byte0 != aByte1320)
             aBoolean1326 = !aBoolean1326;
     }
 
     public void method436(int i) {
-        aByteArray1328[anInt1329++] = (byte) i;
+        aByteArray1328[offset++] = (byte) i;
     }
 
     public void method437(int i) {
-        aByteArray1328[anInt1329++] = (byte) (i >> 8);
-        aByteArray1328[anInt1329++] = (byte) i;
+        aByteArray1328[offset++] = (byte) (i >> 8);
+        aByteArray1328[offset++] = (byte) i;
     }
 
     public void method438(boolean flag, int i) {
         if (!flag)
             aBoolean1326 = !aBoolean1326;
-        aByteArray1328[anInt1329++] = (byte) i;
-        aByteArray1328[anInt1329++] = (byte) (i >> 8);
+        aByteArray1328[offset++] = (byte) i;
+        aByteArray1328[offset++] = (byte) (i >> 8);
     }
 
     public void method439(int i) {
-        aByteArray1328[anInt1329++] = (byte) (i >> 16);
-        aByteArray1328[anInt1329++] = (byte) (i >> 8);
-        aByteArray1328[anInt1329++] = (byte) i;
+        aByteArray1328[offset++] = (byte) (i >> 16);
+        aByteArray1328[offset++] = (byte) (i >> 8);
+        aByteArray1328[offset++] = (byte) i;
     }
 
     public void method440(int i) {
-        aByteArray1328[anInt1329++] = (byte) (i >> 24);
-        aByteArray1328[anInt1329++] = (byte) (i >> 16);
-        aByteArray1328[anInt1329++] = (byte) (i >> 8);
-        aByteArray1328[anInt1329++] = (byte) i;
+        aByteArray1328[offset++] = (byte) (i >> 24);
+        aByteArray1328[offset++] = (byte) (i >> 16);
+        aByteArray1328[offset++] = (byte) (i >> 8);
+        aByteArray1328[offset++] = (byte) i;
     }
 
     public void method441(boolean flag, int i) {
-        aByteArray1328[anInt1329++] = (byte) i;
-        aByteArray1328[anInt1329++] = (byte) (i >> 8);
-        aByteArray1328[anInt1329++] = (byte) (i >> 16);
+        aByteArray1328[offset++] = (byte) i;
+        aByteArray1328[offset++] = (byte) (i >> 8);
+        aByteArray1328[offset++] = (byte) (i >> 16);
         if (flag) {
             return;
         } else {
-            aByteArray1328[anInt1329++] = (byte) (i >> 24);
+            aByteArray1328[offset++] = (byte) (i >> 24);
             return;
         }
     }
 
     public void method442(boolean flag, long l) {
-        aByteArray1328[anInt1329++] = (byte) (int) (l >> 56);
-        aByteArray1328[anInt1329++] = (byte) (int) (l >> 48);
-        aByteArray1328[anInt1329++] = (byte) (int) (l >> 40);
-        aByteArray1328[anInt1329++] = (byte) (int) (l >> 32);
-        aByteArray1328[anInt1329++] = (byte) (int) (l >> 24);
-        aByteArray1328[anInt1329++] = (byte) (int) (l >> 16);
-        aByteArray1328[anInt1329++] = (byte) (int) (l >> 8);
+        aByteArray1328[offset++] = (byte) (int) (l >> 56);
+        aByteArray1328[offset++] = (byte) (int) (l >> 48);
+        aByteArray1328[offset++] = (byte) (int) (l >> 40);
+        aByteArray1328[offset++] = (byte) (int) (l >> 32);
+        aByteArray1328[offset++] = (byte) (int) (l >> 24);
+        aByteArray1328[offset++] = (byte) (int) (l >> 16);
+        aByteArray1328[offset++] = (byte) (int) (l >> 8);
         if (!flag) {
             return;
         } else {
-            aByteArray1328[anInt1329++] = (byte) (int) l;
+            aByteArray1328[offset++] = (byte) (int) l;
             return;
         }
     }
 
     public void method443(String s) {
-        s.getBytes(0, s.length(), aByteArray1328, anInt1329);
-        anInt1329 += s.length();
-        aByteArray1328[anInt1329++] = 10;
+        s.getBytes(0, s.length(), aByteArray1328, offset);
+        offset += s.length();
+        aByteArray1328[offset++] = 10;
     }
 
     public void method444(byte[] abyte0, int i, int j, byte byte0) {
@@ -161,47 +161,47 @@ public class Class38_Sub2_Sub3 extends CacheableNode {
                 ;
         }
         for (int l = j; l < j + i; l++)
-            aByteArray1328[anInt1329++] = abyte0[l];
+            aByteArray1328[offset++] = abyte0[l];
 
     }
 
     public void method445(int i, int j) {
         if (i != 0)
             aBoolean1326 = !aBoolean1326;
-        aByteArray1328[anInt1329 - j - 1] = (byte) j;
+        aByteArray1328[offset - j - 1] = (byte) j;
     }
 
     public int method446() {
-        return aByteArray1328[anInt1329++] & 0xff;
+        return aByteArray1328[offset++] & 0xff;
     }
 
     public byte method447() {
-        return aByteArray1328[anInt1329++];
+        return aByteArray1328[offset++];
     }
 
     public int method448() {
-        anInt1329 += 2;
-        return ((aByteArray1328[anInt1329 - 2] & 0xff) << 8) + (aByteArray1328[anInt1329 - 1] & 0xff);
+        offset += 2;
+        return ((aByteArray1328[offset - 2] & 0xff) << 8) + (aByteArray1328[offset - 1] & 0xff);
     }
 
     public int method449() {
-        anInt1329 += 2;
-        int i = ((aByteArray1328[anInt1329 - 2] & 0xff) << 8) + (aByteArray1328[anInt1329 - 1] & 0xff);
+        offset += 2;
+        int i = ((aByteArray1328[offset - 2] & 0xff) << 8) + (aByteArray1328[offset - 1] & 0xff);
         if (i > 32767)
             i -= 0x10000;
         return i;
     }
 
     public int method450() {
-        anInt1329 += 3;
-        return ((aByteArray1328[anInt1329 - 3] & 0xff) << 16) + ((aByteArray1328[anInt1329 - 2] & 0xff) << 8)
-                + (aByteArray1328[anInt1329 - 1] & 0xff);
+        offset += 3;
+        return ((aByteArray1328[offset - 3] & 0xff) << 16) + ((aByteArray1328[offset - 2] & 0xff) << 8)
+                + (aByteArray1328[offset - 1] & 0xff);
     }
 
     public int method451() {
-        anInt1329 += 4;
-        return ((aByteArray1328[anInt1329 - 4] & 0xff) << 24) + ((aByteArray1328[anInt1329 - 3] & 0xff) << 16)
-                + ((aByteArray1328[anInt1329 - 2] & 0xff) << 8) + (aByteArray1328[anInt1329 - 1] & 0xff);
+        offset += 4;
+        return ((aByteArray1328[offset - 4] & 0xff) << 24) + ((aByteArray1328[offset - 3] & 0xff) << 16)
+                + ((aByteArray1328[offset - 2] & 0xff) << 8) + (aByteArray1328[offset - 1] & 0xff);
     }
 
     public long method452(int i) {
@@ -212,20 +212,20 @@ public class Class38_Sub2_Sub3 extends CacheableNode {
     }
 
     public String method453() {
-        int i = anInt1329;
-        while (aByteArray1328[anInt1329++] != 10)
+        int i = offset;
+        while (aByteArray1328[offset++] != 10)
             ;
-        return new String(aByteArray1328, i, anInt1329 - i - 1);
+        return new String(aByteArray1328, i, offset - i - 1);
     }
 
     public byte[] method454(byte byte0) {
-        int i = anInt1329;
+        int i = offset;
         if (byte0 != 31)
             throw new NullPointerException();
-        while (aByteArray1328[anInt1329++] != 10)
+        while (aByteArray1328[offset++] != 10)
             ;
-        byte[] abyte0 = new byte[anInt1329 - i - 1];
-        for (int j = i; j < anInt1329 - 1; j++)
+        byte[] abyte0 = new byte[offset - i - 1];
+        for (int j = i; j < offset - 1; j++)
             abyte0[j - i] = aByteArray1328[j];
 
         return abyte0;
@@ -235,12 +235,12 @@ public class Class38_Sub2_Sub3 extends CacheableNode {
         if (j >= 0)
             anInt1323 = -432;
         for (int l = k; l < k + i; l++)
-            abyte0[l] = aByteArray1328[anInt1329++];
+            abyte0[l] = aByteArray1328[offset++];
 
     }
 
     public void method456(int i) {
-        anInt1330 = anInt1329 * 8;
+        anInt1330 = offset * 8;
         if (i <= 0)
             aBoolean1324 = !aBoolean1324;
     }
@@ -269,11 +269,11 @@ public class Class38_Sub2_Sub3 extends CacheableNode {
             for (int j = 1; j > 0; j++)
                 ;
         }
-        anInt1329 = (anInt1330 + 7) / 8;
+        offset = (anInt1330 + 7) / 8;
     }
 
     public int method459() {
-        int i = aByteArray1328[anInt1329] & 0xff;
+        int i = aByteArray1328[offset] & 0xff;
         if (i < 128)
             return method446() - 64;
         else
@@ -281,7 +281,7 @@ public class Class38_Sub2_Sub3 extends CacheableNode {
     }
 
     public int method460() {
-        int i = aByteArray1328[anInt1329] & 0xff;
+        int i = aByteArray1328[offset] & 0xff;
         if (i < 128)
             return method446();
         else
@@ -289,14 +289,14 @@ public class Class38_Sub2_Sub3 extends CacheableNode {
     }
 
     public void method461(BigInteger biginteger, BigInteger biginteger1, int i) {
-        int j = anInt1329;
-        anInt1329 = 0;
+        int j = offset;
+        offset = 0;
         byte[] abyte0 = new byte[j];
         method455(j, -110, 0, abyte0);
         BigInteger biginteger2 = new BigInteger(abyte0);
         BigInteger biginteger3 = biginteger2.modPow(biginteger1, biginteger);
         byte[] abyte1 = biginteger3.toByteArray();
-        anInt1329 = 0;
+        offset = 0;
         if (i != 24676) {
             return;
         } else {
@@ -316,7 +316,7 @@ public class Class38_Sub2_Sub3 extends CacheableNode {
     public static boolean aBoolean1326 = true;
     public int anInt1327;
     public byte[] aByteArray1328;
-    public int anInt1329;
+    public int offset;
     public int anInt1330;
     public static int[] anIntArray1331;
     public static final int[] anIntArray1332 = {

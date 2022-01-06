@@ -169,24 +169,24 @@ public class Class3 {
         int i2 = anIntArrayArrayArray113[i][j1 + 1][j + 1];
         int j2 = anIntArrayArrayArray113[i][j1][j + 1];
         int k2 = k1 + l1 + i2 + j2 >> 2;
-        Class1 class1 = Class1.method142(i1);
+        LocType locType = LocType.get(i1);
         int l2 = j1 + (j << 7) + (i1 << 14) + 0x40000000;
-        if (!class1.aBoolean52)
+        if (!locType.interactable)
             l2 += 0x80000000;
         byte byte0 = (byte) ((k << 6) + l);
         if (l == 22) {
-            if (aBoolean108 && !class1.aBoolean52 && !class1.aBoolean73)
+            if (aBoolean108 && !locType.interactable && !locType.aBoolean73)
                 return;
-            Class38_Sub2_Sub1 class38_sub2_sub1 = class1.method145(22, k, k1, l1, i2, j2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1 = locType.getModel(22, k, k1, l1, i2, j2, -1);
             class32.method287(class38_sub2_sub1, (byte) 6, j1, l2, j, i, byte0, k2);
-            if (class1.aBoolean50 && class1.aBoolean52 && class8 != null)
+            if (locType.hasCollision && locType.interactable && class8 != null)
                 class8.method199((byte) 12, j, j1);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 3, Class18.aClass18Array364[class1.anInt56], j, j1));
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 3, Class18.aClass18Array364[locType.animationIndex], j, j1));
             return;
         }
         if (l == 10 || l == 11) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_1 = class1.method145(10, k, k1, l1, i2, j2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_1 = locType.getModel(10, k, k1, l1, i2, j2, -1);
             if (class38_sub2_sub1_1 != null) {
                 int j4 = 0;
                 if (l == 11)
@@ -194,14 +194,14 @@ public class Class3 {
                 int k3;
                 int i4;
                 if (k == 1 || k == 3) {
-                    k3 = class1.anInt49;
-                    i4 = class1.anInt48;
+                    k3 = locType.sizeZ;
+                    i4 = locType.sizeX;
                 } else {
-                    k3 = class1.anInt48;
-                    i4 = class1.anInt49;
+                    k3 = locType.sizeX;
+                    i4 = locType.sizeZ;
                 }
                 if (class32.method291(k2, 775, i, null, l2, j, j1, k3, byte0, class38_sub2_sub1_1, j4, i4)
-                        && class1.aBoolean65) {
+                        && locType.hasShadow) {
                     for (int k4 = 0; k4 <= k3; k4++) {
                         for (int l4 = 0; l4 <= i4; l4++) {
                             int i5 = class38_sub2_sub1_1.anInt1246 / 4;
@@ -215,67 +215,67 @@ public class Class3 {
 
                 }
             }
-            if (class1.aBoolean50 && class8 != null)
-                class8.method198(k, class1.anInt49, class1.anInt48, j1, 9, j, class1.aBoolean51);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 2, Class18.aClass18Array364[class1.anInt56], j, j1));
+            if (locType.hasCollision && class8 != null)
+                class8.method198(k, locType.sizeZ, locType.sizeX, j1, 9, j, locType.isSolid);
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 2, Class18.aClass18Array364[locType.animationIndex], j, j1));
             return;
         }
         if (l >= 12) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_2 = class1.method145(l, k, k1, l1, i2, j2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_2 = locType.getModel(l, k, k1, l1, i2, j2, -1);
             class32.method291(k2, 775, i, null, l2, j, j1, 1, byte0, class38_sub2_sub1_2, 0, 1);
             if (l >= 12 && l <= 17 && l != 13 && i > 0)
                 anIntArrayArrayArray126[i][j1][j] |= 0x924;
-            if (class1.aBoolean50 && class8 != null)
-                class8.method198(k, class1.anInt49, class1.anInt48, j1, 9, j, class1.aBoolean51);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 2, Class18.aClass18Array364[class1.anInt56], j, j1));
+            if (locType.hasCollision && class8 != null)
+                class8.method198(k, locType.sizeZ, locType.sizeX, j1, 9, j, locType.isSolid);
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 2, Class18.aClass18Array364[locType.animationIndex], j, j1));
             return;
         }
         if (l == 0) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_3 = class1.method145(0, k, k1, l1, i2, j2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_3 = locType.getModel(0, k, k1, l1, i2, j2, -1);
             class32.method289(0, k2, i, anIntArray127[k], 8, class38_sub2_sub1_3, null, j1, l2, j, byte0);
             if (k == 0) {
-                if (class1.aBoolean65) {
+                if (locType.hasShadow) {
                     aByteArrayArrayArray119[i][j1][j] = 50;
                     aByteArrayArrayArray119[i][j1][j + 1] = 50;
                 }
-                if (class1.aBoolean55)
+                if (locType.culls)
                     anIntArrayArrayArray126[i][j1][j] |= 0x249;
             } else if (k == 1) {
-                if (class1.aBoolean65) {
+                if (locType.hasShadow) {
                     aByteArrayArrayArray119[i][j1][j + 1] = 50;
                     aByteArrayArrayArray119[i][j1 + 1][j + 1] = 50;
                 }
-                if (class1.aBoolean55)
+                if (locType.culls)
                     anIntArrayArrayArray126[i][j1][j + 1] |= 0x492;
             } else if (k == 2) {
-                if (class1.aBoolean65) {
+                if (locType.hasShadow) {
                     aByteArrayArrayArray119[i][j1 + 1][j] = 50;
                     aByteArrayArrayArray119[i][j1 + 1][j + 1] = 50;
                 }
-                if (class1.aBoolean55)
+                if (locType.culls)
                     anIntArrayArrayArray126[i][j1 + 1][j] |= 0x249;
             } else if (k == 3) {
-                if (class1.aBoolean65) {
+                if (locType.hasShadow) {
                     aByteArrayArrayArray119[i][j1][j] = 50;
                     aByteArrayArrayArray119[i][j1 + 1][j] = 50;
                 }
-                if (class1.aBoolean55)
+                if (locType.culls)
                     anIntArrayArrayArray126[i][j1][j] |= 0x492;
             }
-            if (class1.aBoolean50 && class8 != null)
-                class8.method197(true, k, j, j1, class1.aBoolean51, l);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[class1.anInt56], j, j1));
-            if (class1.anInt57 != 16)
-                class32.method298(i, j, j1, class1.anInt57, (byte) 6);
+            if (locType.hasCollision && class8 != null)
+                class8.method197(true, k, j, j1, locType.isSolid, l);
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[locType.animationIndex], j, j1));
+            if (locType.thickness != 16)
+                class32.method298(i, j, j1, locType.thickness, (byte) 6);
             return;
         }
         if (l == 1) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_4 = class1.method145(1, k, k1, l1, i2, j2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_4 = locType.getModel(1, k, k1, l1, i2, j2, -1);
             class32.method289(0, k2, i, anIntArray128[k], 8, class38_sub2_sub1_4, null, j1, l2, j, byte0);
-            if (class1.aBoolean65)
+            if (locType.hasShadow)
                 if (k == 0)
                     aByteArrayArrayArray119[i][j1][j + 1] = 50;
                 else if (k == 1)
@@ -284,19 +284,19 @@ public class Class3 {
                     aByteArrayArrayArray119[i][j1 + 1][j] = 50;
                 else if (k == 3)
                     aByteArrayArrayArray119[i][j1][j] = 50;
-            if (class1.aBoolean50 && class8 != null)
-                class8.method197(true, k, j, j1, class1.aBoolean51, l);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[class1.anInt56], j, j1));
+            if (locType.hasCollision && class8 != null)
+                class8.method197(true, k, j, j1, locType.isSolid, l);
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[locType.animationIndex], j, j1));
             return;
         }
         if (l == 2) {
             int i3 = k + 1 & 3;
-            Class38_Sub2_Sub1 class38_sub2_sub1_11 = class1.method145(2, 4 + k, k1, l1, i2, j2, -1);
-            Class38_Sub2_Sub1 class38_sub2_sub1_12 = class1.method145(2, i3, k1, l1, i2, j2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_11 = locType.getModel(2, 4 + k, k1, l1, i2, j2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_12 = locType.getModel(2, i3, k1, l1, i2, j2, -1);
             class32.method289(anIntArray127[i3], k2, i, anIntArray127[k], 8, class38_sub2_sub1_11, class38_sub2_sub1_12,
                     j1, l2, j, byte0);
-            if (class1.aBoolean55)
+            if (locType.culls)
                 if (k == 0) {
                     anIntArrayArrayArray126[i][j1][j] |= 0x249;
                     anIntArrayArrayArray126[i][j1][j + 1] |= 0x492;
@@ -310,18 +310,18 @@ public class Class3 {
                     anIntArrayArrayArray126[i][j1][j] |= 0x492;
                     anIntArrayArrayArray126[i][j1][j] |= 0x249;
                 }
-            if (class1.aBoolean50 && class8 != null)
-                class8.method197(true, k, j, j1, class1.aBoolean51, l);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[class1.anInt56], j, j1));
-            if (class1.anInt57 != 16)
-                class32.method298(i, j, j1, class1.anInt57, (byte) 6);
+            if (locType.hasCollision && class8 != null)
+                class8.method197(true, k, j, j1, locType.isSolid, l);
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[locType.animationIndex], j, j1));
+            if (locType.thickness != 16)
+                class32.method298(i, j, j1, locType.thickness, (byte) 6);
             return;
         }
         if (l == 3) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_5 = class1.method145(3, k, k1, l1, i2, j2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_5 = locType.getModel(3, k, k1, l1, i2, j2, -1);
             class32.method289(0, k2, i, anIntArray128[k], 8, class38_sub2_sub1_5, null, j1, l2, j, byte0);
-            if (class1.aBoolean65)
+            if (locType.hasShadow)
                 if (k == 0)
                     aByteArrayArrayArray119[i][j1][j + 1] = 50;
                 else if (k == 1)
@@ -330,59 +330,59 @@ public class Class3 {
                     aByteArrayArrayArray119[i][j1 + 1][j] = 50;
                 else if (k == 3)
                     aByteArrayArrayArray119[i][j1][j] = 50;
-            if (class1.aBoolean50 && class8 != null)
-                class8.method197(true, k, j, j1, class1.aBoolean51, l);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[class1.anInt56], j, j1));
+            if (locType.hasCollision && class8 != null)
+                class8.method197(true, k, j, j1, locType.isSolid, l);
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[locType.animationIndex], j, j1));
             return;
         }
         if (l == 9) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_6 = class1.method145(l, k, k1, l1, i2, j2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_6 = locType.getModel(l, k, k1, l1, i2, j2, -1);
             class32.method291(k2, 775, i, null, l2, j, j1, 1, byte0, class38_sub2_sub1_6, 0, 1);
-            if (class1.aBoolean50 && class8 != null)
-                class8.method198(k, class1.anInt49, class1.anInt48, j1, 9, j, class1.aBoolean51);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 2, Class18.aClass18Array364[class1.anInt56], j, j1));
+            if (locType.hasCollision && class8 != null)
+                class8.method198(k, locType.sizeZ, locType.sizeX, j1, 9, j, locType.isSolid);
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 2, Class18.aClass18Array364[locType.animationIndex], j, j1));
             return;
         }
         if (l == 4) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_7 = class1.method145(4, 0, k1, l1, i2, j2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_7 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
             class32.method290(k2, j, 0, l2, k * 512, anIntArray127[k], 465, 0, j1, class38_sub2_sub1_7, byte0, i);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[class1.anInt56], j, j1));
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[locType.animationIndex], j, j1));
             return;
         }
         if (l == 5) {
             int j3 = 16;
             int l3 = class32.method308(i, j1, j);
             if (l3 > 0)
-                j3 = Class1.method142(l3 >> 14 & 0x7fff).anInt57;
-            Class38_Sub2_Sub1 class38_sub2_sub1_13 = class1.method145(4, 0, k1, l1, i2, j2, -1);
+                j3 = LocType.get(l3 >> 14 & 0x7fff).thickness;
+            Class38_Sub2_Sub1 class38_sub2_sub1_13 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
             class32.method290(k2, j, anIntArray130[k] * j3, l2, k * 512, anIntArray127[k], 465, anIntArray129[k] * j3,
                     j1, class38_sub2_sub1_13, byte0, i);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[class1.anInt56], j, j1));
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[locType.animationIndex], j, j1));
             return;
         }
         if (l == 6) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_8 = class1.method145(4, 0, k1, l1, i2, j2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_8 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
             class32.method290(k2, j, 0, l2, k, 256, 465, 0, j1, class38_sub2_sub1_8, byte0, i);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[class1.anInt56], j, j1));
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[locType.animationIndex], j, j1));
             return;
         }
         if (l == 7) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_9 = class1.method145(4, 0, k1, l1, i2, j2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_9 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
             class32.method290(k2, j, 0, l2, k, 512, 465, 0, j1, class38_sub2_sub1_9, byte0, i);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[class1.anInt56], j, j1));
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[locType.animationIndex], j, j1));
             return;
         }
         if (l == 8) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_10 = class1.method145(4, 0, k1, l1, i2, j2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_10 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
             class32.method290(k2, j, 0, l2, k, 768, 465, 0, j1, class38_sub2_sub1_10, byte0, i);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[class1.anInt56], j, j1));
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[locType.animationIndex], j, j1));
         }
     }
 
@@ -836,22 +836,22 @@ public class Class3 {
         int k2 = ai[l1][i + 1][j + 1];
         int l2 = ai[l1][i][j + 1];
         int i3 = i2 + j2 + k2 + l2 >> 2;
-        Class1 class1 = Class1.method142(j1);
+        LocType locType = LocType.get(j1);
         int j3 = i + (j << 7) + (j1 << 14) + 0x40000000;
-        if (!class1.aBoolean52)
+        if (!locType.interactable)
             j3 += 0x80000000;
         byte byte0 = (byte) ((k << 6) + k1);
         if (k1 == 22) {
-            Class38_Sub2_Sub1 class38_sub2_sub1 = class1.method145(22, k, i2, j2, k2, l2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1 = locType.getModel(22, k, i2, j2, k2, l2, -1);
             class32.method287(class38_sub2_sub1, (byte) 6, i, j3, j, i1, byte0, i3);
-            if (class1.aBoolean50 && class1.aBoolean52)
+            if (locType.hasCollision && locType.interactable)
                 class8.method199((byte) 12, j, i);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 3, Class18.aClass18Array364[class1.anInt56], j, i));
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 3, Class18.aClass18Array364[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 10 || k1 == 11) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_1 = class1.method145(10, k, i2, j2, k2, l2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_1 = locType.getModel(10, k, i2, j2, k2, l2, -1);
             if (class38_sub2_sub1_1 != null) {
                 int l4 = 0;
                 if (k1 == 11)
@@ -859,115 +859,115 @@ public class Class3 {
                 int i4;
                 int k4;
                 if (k == 1 || k == 3) {
-                    i4 = class1.anInt49;
-                    k4 = class1.anInt48;
+                    i4 = locType.sizeZ;
+                    k4 = locType.sizeX;
                 } else {
-                    i4 = class1.anInt48;
-                    k4 = class1.anInt49;
+                    i4 = locType.sizeX;
+                    k4 = locType.sizeZ;
                 }
                 class32.method291(i3, 775, i1, null, j3, j, i, i4, byte0, class38_sub2_sub1_1, l4, k4);
             }
-            if (class1.aBoolean50)
-                class8.method198(k, class1.anInt49, class1.anInt48, i, 9, j, class1.aBoolean51);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 2, Class18.aClass18Array364[class1.anInt56], j, i));
+            if (locType.hasCollision)
+                class8.method198(k, locType.sizeZ, locType.sizeX, i, 9, j, locType.isSolid);
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 2, Class18.aClass18Array364[locType.animationIndex], j, i));
             return;
         }
         if (k1 >= 12) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_2 = class1.method145(k1, k, i2, j2, k2, l2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_2 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
             class32.method291(i3, 775, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_2, 0, 1);
-            if (class1.aBoolean50)
-                class8.method198(k, class1.anInt49, class1.anInt48, i, 9, j, class1.aBoolean51);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 2, Class18.aClass18Array364[class1.anInt56], j, i));
+            if (locType.hasCollision)
+                class8.method198(k, locType.sizeZ, locType.sizeX, i, 9, j, locType.isSolid);
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 2, Class18.aClass18Array364[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 0) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_3 = class1.method145(0, k, i2, j2, k2, l2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_3 = locType.getModel(0, k, i2, j2, k2, l2, -1);
             class32.method289(0, i3, i1, anIntArray127[k], 8, class38_sub2_sub1_3, null, i, j3, j, byte0);
-            if (class1.aBoolean50)
-                class8.method197(true, k, j, i, class1.aBoolean51, k1);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[class1.anInt56], j, i));
+            if (locType.hasCollision)
+                class8.method197(true, k, j, i, locType.isSolid, k1);
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 1) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_4 = class1.method145(1, k, i2, j2, k2, l2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_4 = locType.getModel(1, k, i2, j2, k2, l2, -1);
             class32.method289(0, i3, i1, anIntArray128[k], 8, class38_sub2_sub1_4, null, i, j3, j, byte0);
-            if (class1.aBoolean50)
-                class8.method197(true, k, j, i, class1.aBoolean51, k1);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[class1.anInt56], j, i));
+            if (locType.hasCollision)
+                class8.method197(true, k, j, i, locType.isSolid, k1);
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 2) {
             int k3 = k + 1 & 3;
-            Class38_Sub2_Sub1 class38_sub2_sub1_11 = class1.method145(2, 4 + k, i2, j2, k2, l2, -1);
-            Class38_Sub2_Sub1 class38_sub2_sub1_12 = class1.method145(2, k3, i2, j2, k2, l2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_11 = locType.getModel(2, 4 + k, i2, j2, k2, l2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_12 = locType.getModel(2, k3, i2, j2, k2, l2, -1);
             class32.method289(anIntArray127[k3], i3, i1, anIntArray127[k], 8, class38_sub2_sub1_11,
                     class38_sub2_sub1_12, i, j3, j, byte0);
-            if (class1.aBoolean50)
-                class8.method197(true, k, j, i, class1.aBoolean51, k1);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[class1.anInt56], j, i));
+            if (locType.hasCollision)
+                class8.method197(true, k, j, i, locType.isSolid, k1);
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 3) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_5 = class1.method145(3, k, i2, j2, k2, l2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_5 = locType.getModel(3, k, i2, j2, k2, l2, -1);
             class32.method289(0, i3, i1, anIntArray128[k], 8, class38_sub2_sub1_5, null, i, j3, j, byte0);
-            if (class1.aBoolean50)
-                class8.method197(true, k, j, i, class1.aBoolean51, k1);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[class1.anInt56], j, i));
+            if (locType.hasCollision)
+                class8.method197(true, k, j, i, locType.isSolid, k1);
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 9) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_6 = class1.method145(k1, k, i2, j2, k2, l2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_6 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
             class32.method291(i3, 775, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_6, 0, 1);
-            if (class1.aBoolean50)
-                class8.method198(k, class1.anInt49, class1.anInt48, i, 9, j, class1.aBoolean51);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 2, Class18.aClass18Array364[class1.anInt56], j, i));
+            if (locType.hasCollision)
+                class8.method198(k, locType.sizeZ, locType.sizeX, i, 9, j, locType.isSolid);
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 2, Class18.aClass18Array364[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 4) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_7 = class1.method145(4, 0, i2, j2, k2, l2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_7 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
             class32.method290(i3, j, 0, j3, k * 512, anIntArray127[k], 465, 0, i, class38_sub2_sub1_7, byte0, i1);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[class1.anInt56], j, i));
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 5) {
             int l3 = 16;
             int j4 = class32.method308(i1, i, j);
             if (j4 > 0)
-                l3 = Class1.method142(j4 >> 14 & 0x7fff).anInt57;
-            Class38_Sub2_Sub1 class38_sub2_sub1_13 = class1.method145(4, 0, i2, j2, k2, l2, -1);
+                l3 = LocType.get(j4 >> 14 & 0x7fff).thickness;
+            Class38_Sub2_Sub1 class38_sub2_sub1_13 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
             class32.method290(i3, j, anIntArray130[k] * l3, j3, k * 512, anIntArray127[k], 465, anIntArray129[k] * l3,
                     i, class38_sub2_sub1_13, byte0, i1);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[class1.anInt56], j, i));
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 6) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_8 = class1.method145(4, 0, i2, j2, k2, l2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_8 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
             class32.method290(i3, j, 0, j3, k, 256, 465, 0, i, class38_sub2_sub1_8, byte0, i1);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[class1.anInt56], j, i));
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 7) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_9 = class1.method145(4, 0, i2, j2, k2, l2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_9 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
             class32.method290(i3, j, 0, j3, k, 512, 465, 0, i, class38_sub2_sub1_9, byte0, i1);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[class1.anInt56], j, i));
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 8) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_10 = class1.method145(4, 0, i2, j2, k2, l2, -1);
+            Class38_Sub2_Sub1 class38_sub2_sub1_10 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
             class32.method290(i3, j, 0, j3, k, 768, 465, 0, i, class38_sub2_sub1_10, byte0, i1);
-            if (class1.anInt56 != -1)
-                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[class1.anInt56], j, i));
+            if (locType.animationIndex != -1)
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[locType.animationIndex], j, i));
         }
     }
 

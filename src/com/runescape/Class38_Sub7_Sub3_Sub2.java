@@ -3,7 +3,7 @@ package com.runescape;
 public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
 
     public void method470(boolean flag, Class38_Sub2_Sub3 class38_sub2_sub3) {
-        class38_sub2_sub3.anInt1329 = 0;
+        class38_sub2_sub3.offset = 0;
         anInt1507 = class38_sub2_sub3.method446();
         anInt1508 = class38_sub2_sub3.method446();
         for (int i = 0; i < 12; i++) {

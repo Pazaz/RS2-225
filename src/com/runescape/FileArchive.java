@@ -29,7 +29,7 @@ public class FileArchive {
         filePackedSize = new int[fileCount];
         fileOffset = new int[fileCount];
 
-        int offset = buffer.anInt1329 + fileCount * 10;
+        int offset = buffer.offset + fileCount * 10;
         for (int l = 0; l < fileCount; l++) {
             fileHash[l] = buffer.method451();
             fileUnpackedSize[l] = buffer.method450();

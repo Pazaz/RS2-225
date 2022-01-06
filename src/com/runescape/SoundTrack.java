@@ -31,7 +31,7 @@ public class SoundTrack {
     public void read(Class38_Sub2_Sub3 buffer) {
         for (int tone = 0; tone < 10; tone++) {
             if (buffer.method446() != 0) {
-                buffer.anInt1329--;
+                buffer.offset--;
                 tones[tone] = new SoundTone();
                 tones[tone].read(buffer);
             }
@@ -73,7 +73,7 @@ public class SoundTrack {
 
     public Class38_Sub2_Sub3 getWaveform(int loopCount) {
         int j = generate(loopCount);
-        buffer.anInt1329 = 0;
+        buffer.offset = 0;
         buffer.method440(0x52494646);
         buffer.method441(false, 36 + j);
         buffer.method440(0x57415645);
@@ -87,7 +87,7 @@ public class SoundTrack {
         buffer.method438(true, 8);
         buffer.method440(0x64617461);
         buffer.method441(false, j);
-        buffer.anInt1329 += j;
+        buffer.offset += j;
         return buffer;
     }
 

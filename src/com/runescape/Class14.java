@@ -11,7 +11,7 @@ public class Class14 {
         int j = -1;
         int k = class38_sub2_sub3.method448();
         aClass14Array264 = new Class14[k];
-        while (class38_sub2_sub3.anInt1329 < class38_sub2_sub3.aByteArray1328.length) {
+        while (class38_sub2_sub3.offset < class38_sub2_sub3.aByteArray1328.length) {
             int l = class38_sub2_sub3.method448();
             if (l == 65535) {
                 j = class38_sub2_sub3.method448();

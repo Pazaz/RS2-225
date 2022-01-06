@@ -36,7 +36,7 @@ public class Class4 {
 
         anInt141 = (anInt141 + 1) % 10;
         Class4 class4 = aClass4Array140[anInt141];
-        aClass38_Sub2_Sub3_139.anInt1329 = anIntArray138[i];
+        aClass38_Sub2_Sub3_139.offset = anIntArray138[i];
         class4.anInt143 = i;
         class4.method170();
         class4.method171(false, aClass38_Sub2_Sub3_139);

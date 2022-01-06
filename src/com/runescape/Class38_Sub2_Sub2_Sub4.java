@@ -22,10 +22,10 @@ public class Class38_Sub2_Sub2_Sub4 extends Class38_Sub2_Sub2 {
         Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read(s + ".dat", null));
         Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(363,
                 fileArchive.read("index.dat", null));
-        class38_sub2_sub3_1.anInt1329 = class38_sub2_sub3.method448() + 4;
+        class38_sub2_sub3_1.offset = class38_sub2_sub3.method448() + 4;
         int j = class38_sub2_sub3_1.method446();
         if (j > 0)
-            class38_sub2_sub3_1.anInt1329 += 3 * (j - 1);
+            class38_sub2_sub3_1.offset += 3 * (j - 1);
         for (int k = 0; k < 94; k++) {
             anIntArray1493[k] = class38_sub2_sub3_1.method446();
             anIntArray1494[k] = class38_sub2_sub3_1.method446();

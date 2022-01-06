@@ -37,7 +37,7 @@ public class Class2 {
 
         anInt81 = (anInt81 + 1) % 20;
         Class2 class2 = aClass2Array80[anInt81] = new Class2();
-        aClass38_Sub2_Sub3_79.anInt1329 = anIntArray78[i];
+        aClass38_Sub2_Sub3_79.offset = anIntArray78[i];
         class2.aLong82 = i;
         class2.method149(false, aClass38_Sub2_Sub3_79);
         return class2;

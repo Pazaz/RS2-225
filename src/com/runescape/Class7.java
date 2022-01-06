@@ -36,7 +36,7 @@ public class Class7 {
         if (i <= 0)
             aBoolean197 = !aBoolean197;
         Class38_Sub2_Sub3 class38_sub2_sub3 = null;
-        if (aClass38_Sub2_Sub3_199 != null && aClass38_Sub2_Sub3_199.anInt1329 > 0 && aBoolean198)
+        if (aClass38_Sub2_Sub3_199 != null && aClass38_Sub2_Sub3_199.offset > 0 && aBoolean198)
             class38_sub2_sub3 = aClass38_Sub2_Sub3_199;
         method183((byte) 65);
         return class38_sub2_sub3;
@@ -45,7 +45,7 @@ public class Class7 {
     public static synchronized void method186(int i, int j) {
         if (i <= 0)
             aBoolean196 = !aBoolean196;
-        if (aClass38_Sub2_Sub3_199.anInt1329 + j >= 500) {
+        if (aClass38_Sub2_Sub3_199.offset + j >= 500) {
             Class38_Sub2_Sub3 class38_sub2_sub3 = aClass38_Sub2_Sub3_199;
             aClass38_Sub2_Sub3_199 = Class38_Sub2_Sub3.method433(1, -737);
             aClass38_Sub2_Sub3_200 = class38_sub2_sub3;

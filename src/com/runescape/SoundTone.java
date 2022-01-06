@@ -171,7 +171,7 @@ public class SoundTone {
         amplitudeBase.readShape(buffer);
 
         if (buffer.method446() != 0) {
-            buffer.anInt1329--;
+            buffer.offset--;
             frequencyModRate = new SoundEnvelope();
             frequencyModRate.readShape(buffer);
             frequencyModRange = new SoundEnvelope();
@@ -179,7 +179,7 @@ public class SoundTone {
         }
 
         if (buffer.method446() != 0) {
-            buffer.anInt1329--;
+            buffer.offset--;
             amplitudeModRate = new SoundEnvelope();
             amplitudeModRate.readShape(buffer);
             amplitudeModRange = new SoundEnvelope();
@@ -187,7 +187,7 @@ public class SoundTone {
         }
 
         if (buffer.method446() != 0) {
-            buffer.anInt1329--;
+            buffer.offset--;
             release = new SoundEnvelope();
             release.readShape(buffer);
             attack = new SoundEnvelope();

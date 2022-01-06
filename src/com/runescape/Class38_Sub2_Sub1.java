@@ -59,13 +59,13 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
             aClass38_Sub2_Sub3_1271 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_vertex1.dat", null));
             aClass38_Sub2_Sub3_1272 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_vertex2.dat", null));
             aClass38_Sub2_Sub3_1273 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_axis.dat", null));
-            aClass38_Sub2_Sub3_1260.anInt1329 = 0;
-            aClass38_Sub2_Sub3_1266.anInt1329 = 0;
-            aClass38_Sub2_Sub3_1267.anInt1329 = 0;
-            aClass38_Sub2_Sub3_1268.anInt1329 = 0;
-            aClass38_Sub2_Sub3_1269.anInt1329 = 0;
-            aClass38_Sub2_Sub3_1271.anInt1329 = 0;
-            aClass38_Sub2_Sub3_1272.anInt1329 = 0;
+            aClass38_Sub2_Sub3_1260.offset = 0;
+            aClass38_Sub2_Sub3_1266.offset = 0;
+            aClass38_Sub2_Sub3_1267.offset = 0;
+            aClass38_Sub2_Sub3_1268.offset = 0;
+            aClass38_Sub2_Sub3_1269.offset = 0;
+            aClass38_Sub2_Sub3_1271.offset = 0;
+            aClass38_Sub2_Sub3_1272.offset = 0;
             int j = aClass38_Sub2_Sub3_1260.method448();
             metadataArray = new Metadata[j + 100];
             int k = 0;
@@ -81,12 +81,12 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
                 metadata.vertexCount = aClass38_Sub2_Sub3_1260.method448();
                 metadata.triangleCount = aClass38_Sub2_Sub3_1260.method448();
                 metadata.texturedCount = aClass38_Sub2_Sub3_1260.method446();
-                metadata.vertexFlagDataOffset = aClass38_Sub2_Sub3_1266.anInt1329;
-                metadata.vertexXDataOffset = aClass38_Sub2_Sub3_1267.anInt1329;
-                metadata.vertexYDataOffset = aClass38_Sub2_Sub3_1268.anInt1329;
-                metadata.vertexZDataOffset = aClass38_Sub2_Sub3_1269.anInt1329;
-                metadata.vertexIndexDataOffset = aClass38_Sub2_Sub3_1271.anInt1329;
-                metadata.triangleTypeDataOffset = aClass38_Sub2_Sub3_1272.anInt1329;
+                metadata.vertexFlagDataOffset = aClass38_Sub2_Sub3_1266.offset;
+                metadata.vertexXDataOffset = aClass38_Sub2_Sub3_1267.offset;
+                metadata.vertexYDataOffset = aClass38_Sub2_Sub3_1268.offset;
+                metadata.vertexZDataOffset = aClass38_Sub2_Sub3_1269.offset;
+                metadata.vertexIndexDataOffset = aClass38_Sub2_Sub3_1271.offset;
+                metadata.triangleTypeDataOffset = aClass38_Sub2_Sub3_1272.offset;
                 int l2 = aClass38_Sub2_Sub3_1260.method446();
                 int i3 = aClass38_Sub2_Sub3_1260.method446();
                 int j3 = aClass38_Sub2_Sub3_1260.method446();
@@ -194,11 +194,11 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         if (metadata.triangleSkinDataOffset >= 0)
             anIntArray1253 = new int[anInt1226];
         anIntArray1236 = new int[anInt1226];
-        aClass38_Sub2_Sub3_1266.anInt1329 = metadata.vertexFlagDataOffset;
-        aClass38_Sub2_Sub3_1267.anInt1329 = metadata.vertexXDataOffset;
-        aClass38_Sub2_Sub3_1268.anInt1329 = metadata.vertexYDataOffset;
-        aClass38_Sub2_Sub3_1269.anInt1329 = metadata.vertexZDataOffset;
-        aClass38_Sub2_Sub3_1270.anInt1329 = metadata.vertexLabelDataOffset;
+        aClass38_Sub2_Sub3_1266.offset = metadata.vertexFlagDataOffset;
+        aClass38_Sub2_Sub3_1267.offset = metadata.vertexXDataOffset;
+        aClass38_Sub2_Sub3_1268.offset = metadata.vertexYDataOffset;
+        aClass38_Sub2_Sub3_1269.offset = metadata.vertexZDataOffset;
+        aClass38_Sub2_Sub3_1270.offset = metadata.vertexLabelDataOffset;
         int j = 0;
         int k = 0;
         int l = 0;
@@ -223,11 +223,11 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
                 anIntArray1252[i1] = aClass38_Sub2_Sub3_1270.method446();
         }
 
-        aClass38_Sub2_Sub3_1261.anInt1329 = metadata.triangleColorDataOffset;
-        aClass38_Sub2_Sub3_1262.anInt1329 = metadata.triangleInfoDataOffset;
-        aClass38_Sub2_Sub3_1263.anInt1329 = metadata.trianglePriorityDataOffset;
-        aClass38_Sub2_Sub3_1264.anInt1329 = metadata.triangleAlphaDataOffset;
-        aClass38_Sub2_Sub3_1265.anInt1329 = metadata.triangleSkinDataOffset;
+        aClass38_Sub2_Sub3_1261.offset = metadata.triangleColorDataOffset;
+        aClass38_Sub2_Sub3_1262.offset = metadata.triangleInfoDataOffset;
+        aClass38_Sub2_Sub3_1263.offset = metadata.trianglePriorityDataOffset;
+        aClass38_Sub2_Sub3_1264.offset = metadata.triangleAlphaDataOffset;
+        aClass38_Sub2_Sub3_1265.offset = metadata.triangleSkinDataOffset;
         for (int k1 = 0; k1 < anInt1226; k1++) {
             anIntArray1236[k1] = aClass38_Sub2_Sub3_1261.method448();
             if (anIntArray1233 != null)
@@ -240,8 +240,8 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
                 anIntArray1253[k1] = aClass38_Sub2_Sub3_1265.method446();
         }
 
-        aClass38_Sub2_Sub3_1271.anInt1329 = metadata.vertexIndexDataOffset;
-        aClass38_Sub2_Sub3_1272.anInt1329 = metadata.triangleTypeDataOffset;
+        aClass38_Sub2_Sub3_1271.offset = metadata.vertexIndexDataOffset;
+        aClass38_Sub2_Sub3_1272.offset = metadata.triangleTypeDataOffset;
         int i2 = 0;
         int k2 = 0;
         int i3 = 0;
@@ -291,7 +291,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
 
         if (flag)
             throw new NullPointerException();
-        aClass38_Sub2_Sub3_1273.anInt1329 = metadata.triangleTextureDataOffset * 6;
+        aClass38_Sub2_Sub3_1273.offset = metadata.triangleTextureDataOffset * 6;
         for (int i4 = 0; i4 < anInt1238; i4++) {
             anIntArray1239[i4] = aClass38_Sub2_Sub3_1273.method448();
             anIntArray1240[i4] = aClass38_Sub2_Sub3_1273.method448();
