@@ -1,5 +1,10 @@
 package com.runescape;
 
+import com.runescape.cache.*;
+import com.runescape.graphics.*;
+import com.runescape.scene.*;
+import com.runescape.sound.SoundTrack;
+import com.runescape.util.*;
 import net.burtleburtle.bob.rand.IsaacRandom;
 
 import java.awt.*;

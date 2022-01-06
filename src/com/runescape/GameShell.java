@@ -1,5 +1,9 @@
 package com.runescape;
 
+import com.runescape.graphics.DrawArea;
+import com.runescape.graphics.Sprite;
+import com.runescape.util.InputTracking;
+
 import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.*;
