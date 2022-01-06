@@ -412,18 +412,18 @@ public class client extends Applet_Sub1 {
             else
                 i14 = class38_sub2_sub3.method448();
             if (k2 >= 0 && l4 >= 0 && k2 < 104 && l4 < 104) {
-                TemporaryLoc temporaryLoc = null;
-                for (TemporaryLoc temporaryLoc_1 = (TemporaryLoc) linkedList5
-                        .method270(); temporaryLoc_1 != null; temporaryLoc_1 = (TemporaryLoc) linkedList5
+                SpawnedLoc spawnedLoc = null;
+                for (SpawnedLoc spawnedLoc_1 = (SpawnedLoc) linkedList5
+                        .method270(); spawnedLoc_1 != null; spawnedLoc_1 = (SpawnedLoc) linkedList5
                         .method272()) {
-                    if (temporaryLoc_1.anInt1187 != anInt880 || temporaryLoc_1.anInt1189 != k2
-                            || temporaryLoc_1.anInt1190 != l4 || temporaryLoc_1.anInt1188 != i13)
+                    if (spawnedLoc_1.level != anInt880 || spawnedLoc_1.tileX != k2
+                            || spawnedLoc_1.tileZ != l4 || spawnedLoc_1.classType != i13)
                         continue;
-                    temporaryLoc = temporaryLoc_1;
+                    spawnedLoc = spawnedLoc_1;
                     break;
                 }
 
-                if (temporaryLoc == null) {
+                if (spawnedLoc == null) {
                     int i16 = 0;
                     int l16 = -1;
                     int j17 = 0;
@@ -442,19 +442,19 @@ public class client extends Applet_Sub1 {
                         j17 = i18 & 0x1f;
                         l17 = i18 >> 6;
                     }
-                    temporaryLoc = new TemporaryLoc();
-                    temporaryLoc.anInt1187 = anInt880;
-                    temporaryLoc.anInt1188 = i13;
-                    temporaryLoc.anInt1189 = k2;
-                    temporaryLoc.anInt1190 = l4;
-                    temporaryLoc.anInt1194 = l16;
-                    temporaryLoc.anInt1196 = j17;
-                    temporaryLoc.anInt1195 = l17;
-                    linkedList5.method267(temporaryLoc);
+                    spawnedLoc = new SpawnedLoc();
+                    spawnedLoc.level = anInt880;
+                    spawnedLoc.classType = i13;
+                    spawnedLoc.tileX = k2;
+                    spawnedLoc.tileZ = l4;
+                    spawnedLoc.lastLocIndex = l16;
+                    spawnedLoc.lastType = j17;
+                    spawnedLoc.lastRotation = l17;
+                    linkedList5.method267(spawnedLoc);
                 }
-                temporaryLoc.anInt1191 = i14;
-                temporaryLoc.anInt1193 = j9;
-                temporaryLoc.anInt1192 = j11;
+                spawnedLoc.locIndex = i14;
+                spawnedLoc.type = j9;
+                spawnedLoc.rotation = j11;
                 method99(j11, k2, l4, i13, i14, j9, -27819, anInt880);
             }
             return;
@@ -608,10 +608,10 @@ public class client extends Applet_Sub1 {
             else
                 class38_sub7_sub3_sub2 = aClass38_Sub7_Sub3_Sub2Array822[k16];
             if (class38_sub7_sub3_sub2 != null) {
-                TemporaryPlayerLoc temporaryPlayerLoc = new TemporaryPlayerLoc(anInt880, k12, k6, j15 + anInt955, l10, -1, j4, l13);
-                linkedList3.method267(temporaryPlayerLoc);
-                TemporaryPlayerLoc temporaryPlayerLoc_1 = new TemporaryPlayerLoc(anInt880, k12, k6, l15 + anInt955, l10, l14, j4, l13);
-                linkedList3.method267(temporaryPlayerLoc_1);
+                TemporaryLoc temporaryLoc = new TemporaryLoc(anInt880, k12, k6, j15 + anInt955, l10, -1, j4, l13);
+                linkedList3.method267(temporaryLoc);
+                TemporaryLoc temporaryLoc_1 = new TemporaryLoc(anInt880, k12, k6, l15 + anInt955, l10, l14, j4, l13);
+                linkedList3.method267(temporaryLoc_1);
                 int j18 = anIntArrayArrayArray794[anInt880][j4][k6];
                 int k18 = anIntArrayArrayArray794[anInt880][j4 + 1][k6];
                 int l18 = anIntArrayArrayArray794[anInt880][j4 + 1][k6 + 1];
@@ -2078,13 +2078,13 @@ public class client extends Applet_Sub1 {
         if (i <= 0)
             method6();
         if (anInt1078 == 2) {
-            for (TemporaryPlayerLoc temporaryPlayerLoc = (TemporaryPlayerLoc) linkedList3
-                    .method270(); temporaryPlayerLoc != null; temporaryPlayerLoc = (TemporaryPlayerLoc) linkedList3.method272())
-                if (anInt955 >= temporaryPlayerLoc.lastCycle) {
-                    method99(temporaryPlayerLoc.rotation, temporaryPlayerLoc.tileX, temporaryPlayerLoc.tileZ,
-                            temporaryPlayerLoc.classType, temporaryPlayerLoc.locIndex, temporaryPlayerLoc.type, -27819,
-                            temporaryPlayerLoc.level);
-                    temporaryPlayerLoc.unlink();
+            for (TemporaryLoc temporaryLoc = (TemporaryLoc) linkedList3
+                    .method270(); temporaryLoc != null; temporaryLoc = (TemporaryLoc) linkedList3.method272())
+                if (anInt955 >= temporaryLoc.lastCycle) {
+                    method99(temporaryLoc.rotation, temporaryLoc.tileX, temporaryLoc.tileZ,
+                            temporaryLoc.classType, temporaryLoc.locIndex, temporaryLoc.type, -27819,
+                            temporaryLoc.level);
+                    temporaryLoc.unlink();
                 }
 
             anInt1108++;
@@ -7148,10 +7148,10 @@ public class client extends Applet_Sub1 {
 
             }
 
-            for (TemporaryLoc temporaryLoc = (TemporaryLoc) linkedList5
-                    .method270(); temporaryLoc != null; temporaryLoc = (TemporaryLoc) linkedList5.method272())
-                method99(temporaryLoc.anInt1192, temporaryLoc.anInt1189, temporaryLoc.anInt1190, temporaryLoc.anInt1188,
-                        temporaryLoc.anInt1191, temporaryLoc.anInt1193, -27819, temporaryLoc.anInt1187);
+            for (SpawnedLoc spawnedLoc = (SpawnedLoc) linkedList5
+                    .method270(); spawnedLoc != null; spawnedLoc = (SpawnedLoc) linkedList5.method272())
+                method99(spawnedLoc.rotation, spawnedLoc.tileX, spawnedLoc.tileZ, spawnedLoc.classType,
+                        spawnedLoc.locIndex, spawnedLoc.type, -27819, spawnedLoc.level);
 
         } catch (Exception exception) {
         }
@@ -8130,14 +8130,14 @@ public class client extends Applet_Sub1 {
 
                 }
 
-                for (TemporaryLoc temporaryLoc_1 = (TemporaryLoc) linkedList5
-                        .method270(); temporaryLoc_1 != null; temporaryLoc_1 = (TemporaryLoc) linkedList5
+                for (SpawnedLoc spawnedLoc_1 = (SpawnedLoc) linkedList5
+                        .method270(); spawnedLoc_1 != null; spawnedLoc_1 = (SpawnedLoc) linkedList5
                         .method272()) {
-                    temporaryLoc_1.anInt1189 -= j27;
-                    temporaryLoc_1.anInt1190 -= k29;
-                    if (temporaryLoc_1.anInt1189 < 0 || temporaryLoc_1.anInt1190 < 0 || temporaryLoc_1.anInt1189 >= 104
-                            || temporaryLoc_1.anInt1190 >= 104)
-                        temporaryLoc_1.unlink();
+                    spawnedLoc_1.tileX -= j27;
+                    spawnedLoc_1.tileZ -= k29;
+                    if (spawnedLoc_1.tileX < 0 || spawnedLoc_1.tileZ < 0 || spawnedLoc_1.tileX >= 104
+                            || spawnedLoc_1.tileZ >= 104)
+                        spawnedLoc_1.unlink();
                 }
 
                 if (anInt1051 != 0) {
@@ -8537,15 +8537,15 @@ public class client extends Applet_Sub1 {
 
                 }
 
-                for (TemporaryLoc temporaryLoc = (TemporaryLoc) linkedList5
-                        .method270(); temporaryLoc != null; temporaryLoc = (TemporaryLoc) linkedList5.method272())
-                    if (temporaryLoc.anInt1189 >= anInt862 && temporaryLoc.anInt1189 < anInt862 + 8
-                            && temporaryLoc.anInt1190 >= anInt863 && temporaryLoc.anInt1190 < anInt863 + 8
-                            && temporaryLoc.anInt1187 == anInt880) {
-                        method99(temporaryLoc.anInt1195, temporaryLoc.anInt1189, temporaryLoc.anInt1190,
-                                temporaryLoc.anInt1188, temporaryLoc.anInt1194, temporaryLoc.anInt1196, -27819,
-                                temporaryLoc.anInt1187);
-                        temporaryLoc.unlink();
+                for (SpawnedLoc spawnedLoc = (SpawnedLoc) linkedList5
+                        .method270(); spawnedLoc != null; spawnedLoc = (SpawnedLoc) linkedList5.method272())
+                    if (spawnedLoc.tileX >= anInt862 && spawnedLoc.tileX < anInt862 + 8
+                            && spawnedLoc.tileZ >= anInt863 && spawnedLoc.tileZ < anInt863 + 8
+                            && spawnedLoc.level == anInt880) {
+                        method99(spawnedLoc.lastRotation, spawnedLoc.tileX, spawnedLoc.tileZ,
+                                spawnedLoc.classType, spawnedLoc.lastLocIndex, spawnedLoc.lastType, -27819,
+                                spawnedLoc.level);
+                        spawnedLoc.unlink();
                     }
 
                 anInt780 = -1;
