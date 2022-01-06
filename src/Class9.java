@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class9 {
 
     public static void method208(boolean flag, Class39 class39) {
@@ -21,8 +19,8 @@ public class Class9 {
         for (int k = 0; k < i; k++) {
             int l = class38_sub2_sub3.method448();
             int i1 = class38_sub2_sub3.method446();
-            int ai[] = new int[i1];
-            int ai1[][] = new int[i1][];
+            int[] ai = new int[i1];
+            int[][] ai1 = new int[i1][];
             for (int j1 = 0; j1 < i1; j1++) {
                 ai[j1] = class38_sub2_sub3_1.method446();
                 int k1 = class38_sub2_sub3_2.method446();
@@ -43,8 +41,8 @@ public class Class9 {
     public Class9() {
     }
 
-    public static Class9 aClass9Array216[];
+    public static Class9[] aClass9Array216;
     public int anInt217;
-    public int anIntArray218[];
-    public int anIntArrayArray219[][];
+    public int[] anIntArray218;
+    public int[][] anIntArrayArray219;
 }

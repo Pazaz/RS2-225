@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class42 {
 
     public void method484(boolean flag, Class38_Sub2_Sub3 class38_sub2_sub3) {
@@ -59,8 +57,8 @@ public class Class42 {
     }
 
     public int anInt678;
-    public int anIntArray679[];
-    public int anIntArray680[];
+    public int[] anIntArray679;
+    public int[] anIntArray680;
     public int anInt681;
     public int anInt682;
     public int anInt683;

@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class2 {
 
     public static void method146(Class39 class39) {
@@ -115,11 +113,11 @@ public class Class2 {
         } while (true);
     }
 
-    public Class38_Sub2_Sub1 method150(int i, int j, int ai[]) {
+    public Class38_Sub2_Sub1 method150(int i, int j, int[] ai) {
         Class38_Sub2_Sub1 class38_sub2_sub1 = null;
         Class38_Sub2_Sub1 class38_sub2_sub1_1 = (Class38_Sub2_Sub1) aClass34_104.method341(aLong82);
         if (class38_sub2_sub1_1 == null) {
-            Class38_Sub2_Sub1 aclass38_sub2_sub1[] = new Class38_Sub2_Sub1[anIntArray86.length];
+            Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[anIntArray86.length];
             for (int k = 0; k < anIntArray86.length; k++)
                 aclass38_sub2_sub1[k] = new Class38_Sub2_Sub1(false, anIntArray86[k]);
 
@@ -156,7 +154,7 @@ public class Class2 {
             throw new NullPointerException();
         if (anIntArray87 == null)
             return null;
-        Class38_Sub2_Sub1 aclass38_sub2_sub1[] = new Class38_Sub2_Sub1[anIntArray87.length];
+        Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[anIntArray87.length];
         for (int i = 0; i < anIntArray87.length; i++)
             aclass38_sub2_sub1[i] = new Class38_Sub2_Sub1(false, anIntArray87[i]);
 
@@ -194,25 +192,25 @@ public class Class2 {
 
     public boolean aBoolean76;
     public static int anInt77;
-    public static int anIntArray78[];
+    public static int[] anIntArray78;
     public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_79;
-    public static Class2 aClass2Array80[];
+    public static Class2[] aClass2Array80;
     public static int anInt81;
     public long aLong82;
     public String aString83;
-    public byte aByteArray84[];
+    public byte[] aByteArray84;
     public byte aByte85;
-    public int anIntArray86[];
-    public int anIntArray87[];
+    public int[] anIntArray86;
+    public int[] anIntArray87;
     public int anInt88;
     public int anInt89;
     public int anInt90;
     public int anInt91;
     public int anInt92;
     public boolean aBoolean93;
-    public int anIntArray94[];
-    public int anIntArray95[];
-    public String aStringArray96[];
+    public int[] anIntArray94;
+    public int[] anIntArray95;
+    public String[] aStringArray96;
     public int anInt97;
     public int anInt98;
     public int anInt99;

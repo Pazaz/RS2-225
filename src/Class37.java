@@ -2,11 +2,9 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class37 {
 
-    public Class37(byte byte0, int ai[]) {
+    public Class37(byte byte0, int[] ai) {
         anIntArray650 = new int[256];
         anIntArray649 = new int[256];
         for (int i = 0; i < ai.length; i++)
@@ -183,8 +181,8 @@ public class Class37 {
     }
 
     public int anInt648;
-    public int anIntArray649[];
-    public int anIntArray650[];
+    public int[] anIntArray649;
+    public int[] anIntArray650;
     public int anInt651;
     public int anInt652;
     public int anInt653;

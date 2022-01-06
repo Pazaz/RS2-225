@@ -2,11 +2,9 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class3 {
 
-    public Class3(int i, byte abyte0[][][], int j, int ai[][][], int k) {
+    public Class3(int i, byte[][][] abyte0, int j, int[][][] ai, int k) {
         aBoolean106 = true;
         anInt107 = 8;
         anInt111 = j;
@@ -55,7 +53,7 @@ public class Class3 {
 
     }
 
-    public void method153(byte abyte0[], int i, int j, int k, int l, int i1) {
+    public void method153(byte[] abyte0, int i, int j, int k, int l, int i1) {
         Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, abyte0);
         if (j != 1)
             aBoolean106 = !aBoolean106;
@@ -117,9 +115,10 @@ public class Class3 {
 
     }
 
-    public void method154(byte abyte0[], Class32 class32, Class8 aclass8[], Class27 class27, boolean flag, int i,
-            int j) {
-        label0: {
+    public void method154(byte[] abyte0, Class32 class32, Class8[] aclass8, Class27 class27, boolean flag, int i,
+                          int j) {
+        label0:
+        {
             Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, abyte0);
             if (!flag)
                 aBoolean106 = !aBoolean106;
@@ -158,7 +157,7 @@ public class Class3 {
     }
 
     public void method155(Class8 class8, boolean flag, int i, int j, int k, int l, Class32 class32,
-            Class27 class27, int i1, int j1) {
+                          Class27 class27, int i1, int j1) {
         if (!flag)
             return;
         if (aBoolean108) {
@@ -389,7 +388,7 @@ public class Class3 {
         }
     }
 
-    public void method156(Class32 class32, int i, Class8 aclass8[]) {
+    public void method156(Class32 class32, int i, Class8[] aclass8) {
         for (int j = 0; j < 4; j++) {
             for (int k = 0; k < 104; k++) {
                 for (int i1 = 0; i1 < 104; i1++)
@@ -416,7 +415,7 @@ public class Class3 {
         if (anInt132 > 16)
             anInt132 = 16;
         for (int l = 0; l < 4; l++) {
-            byte abyte0[][] = aByteArrayArrayArray119[l];
+            byte[][] abyte0 = aByteArrayArrayArray119[l];
             byte byte0 = 96;
             char c = '\u0300';
             byte byte1 = -50;
@@ -501,7 +500,7 @@ public class Class3 {
                         }
                         if (l17 >= 1 && l17 < anInt112 - 1
                                 && (!aBoolean108 || (aByteArrayArrayArray114[l][i7][l17] & 0x10) == 0
-                                        && method157(l, (byte) 10, i7, l17) == anInt109)) {
+                                && method157(l, (byte) 10, i7, l17) == anInt109)) {
                             int i19 = aByteArrayArrayArray115[l][i7][l17] & 0xff;
                             int j19 = aByteArrayArrayArray116[l][i7][l17] & 0xff;
                             if (i19 > 0 || j19 > 0) {
@@ -529,9 +528,7 @@ public class Class3 {
                                     l21 = method165(i22, k22, i23);
                                 }
                                 if (l > 0) {
-                                    boolean flag = true;
-                                    if (i19 == 0 && aByteArrayArrayArray117[l][i7][l17] != 0)
-                                        flag = false;
+                                    boolean flag = i19 != 0 || aByteArrayArrayArray117[l][i7][l17] == 0;
                                     if (j19 > 0 && !Class10.aClass10Array223[j19 - 1].aBoolean227)
                                         flag = false;
                                     if (flag && k19 == l19 && k19 == i20 && k19 == j20)
@@ -618,14 +615,16 @@ public class Class3 {
                                 ;
                             for (; i6 < anInt112 && (anIntArrayArrayArray126[j3][j4][i6 + 1] & j2) != 0; i6++)
                                 ;
-                            label0: for (; j7 > 0; j7--) {
+                            label0:
+                            for (; j7 > 0; j7--) {
                                 for (int k10 = l4; k10 <= i6; k10++)
                                     if ((anIntArrayArrayArray126[j7 - 1][j4][k10] & j2) == 0)
                                         break label0;
 
                             }
 
-                            label1: for (; l8 < i3; l8++) {
+                            label1:
+                            for (; l8 < i3; l8++) {
                                 for (int l10 = l4; l10 <= i6; l10++)
                                     if ((anIntArrayArrayArray126[l8 + 1][j4][l10] & j2) == 0)
                                         break label1;
@@ -655,14 +654,16 @@ public class Class3 {
                                 ;
                             for (; j6 < anInt111 && (anIntArrayArrayArray126[j3][j6 + 1][l3] & k2) != 0; j6++)
                                 ;
-                            label2: for (; k7 > 0; k7--) {
+                            label2:
+                            for (; k7 > 0; k7--) {
                                 for (int j11 = i5; j11 <= j6; j11++)
                                     if ((anIntArrayArrayArray126[k7 - 1][j11][l3] & k2) == 0)
                                         break label2;
 
                             }
 
-                            label3: for (; i9 < i3; i9++) {
+                            label3:
+                            for (; i9 < i3; i9++) {
                                 for (int k11 = i5; k11 <= j6; k11++)
                                     if ((anIntArrayArrayArray126[i9 + 1][k11][l3] & k2) == 0)
                                         break label3;
@@ -692,14 +693,16 @@ public class Class3 {
                                 ;
                             for (; j9 < anInt112 && (anIntArrayArrayArray126[j3][j4][j9 + 1] & l2) != 0; j9++)
                                 ;
-                            label4: for (; j5 > 0; j5--) {
+                            label4:
+                            for (; j5 > 0; j5--) {
                                 for (int i12 = l7; i12 <= j9; i12++)
                                     if ((anIntArrayArrayArray126[j3][j5 - 1][i12] & l2) == 0)
                                         break label4;
 
                             }
 
-                            label5: for (; k6 < anInt111; k6++) {
+                            label5:
+                            for (; k6 < anInt111; k6++) {
                                 for (int j12 = l7; j12 <= j9; j12++)
                                     if ((anIntArrayArrayArray126[j3][k6 + 1][j12] & l2) == 0)
                                         break label5;
@@ -826,8 +829,8 @@ public class Class3 {
         return l;
     }
 
-    public static void method166(int i, Class27 class27, Class8 class8, int j, int k, int ai[][][], int l, int i1,
-            int j1, int k1, Class32 class32, int l1) {
+    public static void method166(int i, Class27 class27, Class8 class8, int j, int k, int[][][] ai, int l, int i1,
+                                 int j1, int k1, Class32 class32, int l1) {
         if (l != 0)
             aBoolean105 = !aBoolean105;
         int i2 = ai[l1][i][j];
@@ -978,30 +981,30 @@ public class Class3 {
     public static boolean aBoolean110;
     public int anInt111;
     public int anInt112;
-    public int anIntArrayArrayArray113[][][];
-    public byte aByteArrayArrayArray114[][][];
-    public byte aByteArrayArrayArray115[][][];
-    public byte aByteArrayArrayArray116[][][];
-    public byte aByteArrayArrayArray117[][][];
-    public byte aByteArrayArrayArray118[][][];
-    public byte aByteArrayArrayArray119[][][];
-    public int anIntArrayArray120[][];
-    public int anIntArray121[];
-    public int anIntArray122[];
-    public int anIntArray123[];
-    public int anIntArray124[];
-    public int anIntArray125[];
-    public int anIntArrayArrayArray126[][][];
-    public static final int anIntArray127[] = {
+    public int[][][] anIntArrayArrayArray113;
+    public byte[][][] aByteArrayArrayArray114;
+    public byte[][][] aByteArrayArrayArray115;
+    public byte[][][] aByteArrayArrayArray116;
+    public byte[][][] aByteArrayArrayArray117;
+    public byte[][][] aByteArrayArrayArray118;
+    public byte[][][] aByteArrayArrayArray119;
+    public int[][] anIntArrayArray120;
+    public int[] anIntArray121;
+    public int[] anIntArray122;
+    public int[] anIntArray123;
+    public int[] anIntArray124;
+    public int[] anIntArray125;
+    public int[][][] anIntArrayArrayArray126;
+    public static final int[] anIntArray127 = {
             1, 2, 4, 8
     };
-    public static final int anIntArray128[] = {
+    public static final int[] anIntArray128 = {
             16, 32, 64, 128
     };
-    public static final int anIntArray129[] = {
+    public static final int[] anIntArray129 = {
             1, 0, -1, 0
     };
-    public static final int anIntArray130[] = {
+    public static final int[] anIntArray130 = {
             0, -1, 0, 1
     };
     public static int anInt131 = (int) (Math.random() * 17D) - 8;

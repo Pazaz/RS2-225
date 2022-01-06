@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class44 {
 
     public static void method493() {
@@ -207,21 +205,21 @@ public class Class44 {
     public Class42 aClass42_705;
     public Class42 aClass42_706;
     public Class42 aClass42_707;
-    public int anIntArray708[];
-    public int anIntArray709[];
-    public int anIntArray710[];
+    public int[] anIntArray708;
+    public int[] anIntArray709;
+    public int[] anIntArray710;
     public int anInt711;
     public int anInt712;
     public int anInt713;
     public int anInt714;
-    public static int anIntArray715[];
-    public static int anIntArray716[];
-    public static int anIntArray717[];
-    public static int anIntArray718[] = new int[5];
-    public static int anIntArray719[] = new int[5];
-    public static int anIntArray720[] = new int[5];
-    public static int anIntArray721[] = new int[5];
-    public static int anIntArray722[] = new int[5];
+    public static int[] anIntArray715;
+    public static int[] anIntArray716;
+    public static int[] anIntArray717;
+    public static int[] anIntArray718 = new int[5];
+    public static int[] anIntArray719 = new int[5];
+    public static int[] anIntArray720 = new int[5];
+    public static int[] anIntArray721 = new int[5];
+    public static int[] anIntArray722 = new int[5];
     public static boolean aBoolean723;
 
 }

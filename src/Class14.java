@@ -2,12 +2,10 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class14 {
 
-    public static void method218(Class39 class39, Class38_Sub2_Sub2_Sub4 aclass38_sub2_sub2_sub4[], int i,
-            Class39 class39_1) {
+    public static void method218(Class39 class39, Class38_Sub2_Sub2_Sub4[] aclass38_sub2_sub2_sub4, int i,
+                                 Class39 class39_1) {
         i = 17 / i;
         aClass34_321 = new Class34((byte) 0, 50000);
         aClass34_322 = new Class34((byte) 0, 50000);
@@ -257,9 +255,9 @@ public class Class14 {
 
     public static int anInt262;
     public static boolean aBoolean263;
-    public static Class14 aClass14Array264[];
-    public int anIntArray265[];
-    public int anIntArray266[];
+    public static Class14[] aClass14Array264;
+    public int[] anIntArray265;
+    public int[] anIntArray266;
     public int anInt267;
     public int anInt268;
     public int anInt269;
@@ -271,16 +269,16 @@ public class Class14 {
     public int anInt275;
     public int anInt276;
     public int anInt277;
-    public int anIntArrayArray278[][];
-    public int anIntArray279[];
-    public int anIntArray280[];
+    public int[][] anIntArrayArray278;
+    public int[] anIntArray279;
+    public int[] anIntArray280;
     public int anInt281;
     public int anInt282;
     public int anInt283;
     public boolean aBoolean284;
-    public int anIntArray285[];
-    public int anIntArray286[];
-    public int anIntArray287[];
+    public int[] anIntArray285;
+    public int[] anIntArray286;
+    public int[] anIntArray287;
     public int anInt288;
     public boolean aBoolean289;
     public boolean aBoolean290;
@@ -288,10 +286,10 @@ public class Class14 {
     public boolean aBoolean292;
     public int anInt293;
     public int anInt294;
-    public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2Array295[];
-    public int anIntArray296[];
-    public int anIntArray297[];
-    public String aStringArray298[];
+    public Class38_Sub2_Sub2_Sub2[] aClass38_Sub2_Sub2_Sub2Array295;
+    public int[] anIntArray296;
+    public int[] anIntArray297;
+    public String[] aStringArray298;
     public boolean aBoolean299;
     public boolean aBoolean300;
     public boolean aBoolean301;

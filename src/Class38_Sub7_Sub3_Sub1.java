@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class38_Sub7_Sub3_Sub1 extends Class38_Sub7_Sub3 {
 
     public Class38_Sub2_Sub1 method462(boolean flag) {
@@ -25,7 +23,7 @@ public class Class38_Sub7_Sub3_Sub1 extends Class38_Sub7_Sub3 {
         if (class20.anInt395 != 128 || class20.anInt396 != 128)
             class38_sub2_sub1_1.method366(class20.anInt395, 2, class20.anInt396, class20.anInt395);
         class38_sub2_sub1_1.method367(64 + class20.anInt398, 850 + class20.anInt399, -30, -50, -30, true);
-        Class38_Sub2_Sub1 aclass38_sub2_sub1[] = {
+        Class38_Sub2_Sub1[] aclass38_sub2_sub1 = {
                 class38_sub2_sub1, class38_sub2_sub1_1
         };
         Class38_Sub2_Sub1 class38_sub2_sub1_2 = new Class38_Sub2_Sub1(aclass38_sub2_sub1, (byte) -31, 2, true);

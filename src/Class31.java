@@ -4,8 +4,6 @@
 
 import java.awt.*;
 import java.awt.image.*;
-import java.io.PrintStream;
-import sign.signlink;
 
 public class Class31
         implements ImageProducer, ImageObserver {
@@ -83,7 +81,7 @@ public class Class31
     }
 
     public int anInt512;
-    public int anIntArray513[];
+    public int[] anIntArray513;
     public int anInt514;
     public int anInt515;
     public ColorModel aColorModel516;

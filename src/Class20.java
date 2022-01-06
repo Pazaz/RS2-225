@@ -2,9 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import java.io.PrintStream;
-import sign.signlink;
-
 public class Class20 {
 
     public static void method224(Class39 class39, int i) {
@@ -83,14 +80,14 @@ public class Class20 {
 
     public static int anInt385 = 473;
     public static int anInt386;
-    public static Class20 aClass20Array387[];
+    public static Class20[] aClass20Array387;
     public int anInt388;
     public int anInt389;
     public int anInt390;
     public Class18 aClass18_391;
     public boolean aBoolean392;
-    public int anIntArray393[];
-    public int anIntArray394[];
+    public int[] anIntArray393;
+    public int[] anIntArray394;
     public int anInt395;
     public int anInt396;
     public int anInt397;

@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class38_Sub7 extends Class38 {
 
     public Class38_Sub2_Sub1 method462(boolean flag) {

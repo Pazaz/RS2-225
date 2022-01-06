@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class1 {
 
     public static void method140(Class39 class39) {
@@ -181,9 +179,7 @@ public class Class1 {
         if (anIntArray43 == null)
             anIntArray43 = new int[0];
         if (j == -1) {
-            aBoolean52 = false;
-            if (anIntArray43.length > 0 && anIntArray43[0] == 10)
-                aBoolean52 = true;
+            aBoolean52 = anIntArray43.length > 0 && anIntArray43[0] == 10;
             if (aStringArray60 != null)
                 aBoolean52 = true;
         }
@@ -240,15 +236,9 @@ public class Class1 {
             aClass34_74.method342(6, k2, class38_sub2_sub1_1);
         }
         boolean flag1;
-        if (anInt66 != 128 || anInt67 != 128 || anInt68 != 128)
-            flag1 = true;
-        else
-            flag1 = false;
+        flag1 = anInt66 != 128 || anInt67 != 128 || anInt68 != 128;
         boolean flag2;
-        if (anInt69 != 0 || anInt70 != 0 || anInt71 != 0)
-            flag2 = true;
-        else
-            flag2 = false;
+        flag2 = anInt69 != 0 || anInt70 != 0 || anInt71 != 0;
         Class38_Sub2_Sub1 class38_sub2_sub1_2 = new Class38_Sub2_Sub1(class38_sub2_sub1_1, anIntArray46 == null,
                 !aBoolean61, anInt33, j == 0 && k1 == -1 && !flag1 && !flag2);
         if (k1 != -1) {
@@ -298,17 +288,17 @@ public class Class1 {
     public static int anInt34;
     public static boolean aBoolean35;
     public static int anInt36;
-    public static int anIntArray37[];
+    public static int[] anIntArray37;
     public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_38;
-    public static Class1 aClass1Array39[];
+    public static Class1[] aClass1Array39;
     public static int anInt40;
     public int anInt41;
-    public int anIntArray42[];
-    public int anIntArray43[];
+    public int[] anIntArray42;
+    public int[] anIntArray43;
     public String aString44;
-    public byte aByteArray45[];
-    public int anIntArray46[];
-    public int anIntArray47[];
+    public byte[] aByteArray45;
+    public int[] anIntArray46;
+    public int[] anIntArray47;
     public int anInt48;
     public int anInt49;
     public boolean aBoolean50;
@@ -321,7 +311,7 @@ public class Class1 {
     public int anInt57;
     public byte aByte58;
     public byte aByte59;
-    public String aStringArray60[];
+    public String[] aStringArray60;
     public boolean aBoolean61;
     public int anInt62;
     public int anInt63;

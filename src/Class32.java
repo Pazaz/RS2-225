@@ -2,12 +2,9 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import java.io.PrintStream;
-import sign.signlink;
-
 public class Class32 {
 
-    public Class32(int i, int ai[][][], int j, int k, int l) {
+    public Class32(int i, int[][][] ai, int j, int k, int l) {
         aBoolean519 = false;
         aByte520 = 6;
         aByte522 = 1;
@@ -95,7 +92,7 @@ public class Class32 {
     }
 
     public static void method284(int i, int j, int k, int l, int i1, int j1, int k1, int l1,
-            int i2) {
+                                 int i2) {
         Class23 class23 = new Class23();
         class23.anInt432 = j / 128;
         class23.anInt433 = j1 / 128;
@@ -124,8 +121,8 @@ public class Class32 {
     }
 
     public void method286(int i, int j, int k, int l, int i1, int j1, int k1,
-            int l1, int i2, int j2, int k2, int l2, int i3, int j3,
-            int k3, int l3, int i4, int j4, int k4, int l4) {
+                          int l1, int i2, int j2, int k2, int l2, int i3, int j3,
+                          int k3, int l3, int i4, int j4, int k4, int l4) {
         if (l == 0) {
             Class26 class26 = new Class26(k2, l2, i3, j3, -1, k4, false);
             for (int i5 = i; i5 >= 0; i5--)
@@ -153,7 +150,7 @@ public class Class32 {
     }
 
     public void method287(Class38_Sub2_Sub1 class38_sub2_sub1, byte byte0, int i, int j, int k, int l, byte byte1,
-            int i1) {
+                          int i1) {
         Class17 class17 = new Class17();
         class17.aClass38_Sub2_Sub1_358 = class38_sub2_sub1;
         class17.anInt356 = i * 128 + 64;
@@ -174,8 +171,8 @@ public class Class32 {
     }
 
     public void method288(Class38_Sub2_Sub1 class38_sub2_sub1, Class38_Sub2_Sub1 class38_sub2_sub1_1, int i, int j,
-            int k, int l, int i1,
-            Class38_Sub2_Sub1 class38_sub2_sub1_2, int j1) {
+                          int k, int l, int i1,
+                          Class38_Sub2_Sub1 class38_sub2_sub1_2, int j1) {
         Class19 class19 = new Class19();
         class19.aClass38_Sub2_Sub1_380 = class38_sub2_sub1;
         j1 = 90 / j1;
@@ -202,8 +199,8 @@ public class Class32 {
     }
 
     public void method289(int i, int j, int k, int l, int i1, Class38_Sub2_Sub1 class38_sub2_sub1,
-            Class38_Sub2_Sub1 class38_sub2_sub1_1,
-            int j1, int k1, int l1, byte byte0) {
+                          Class38_Sub2_Sub1 class38_sub2_sub1_1,
+                          int j1, int k1, int l1, byte byte0) {
         if (class38_sub2_sub1 == null && class38_sub2_sub1_1 == null)
             return;
         Class30 class30 = new Class30();
@@ -226,7 +223,7 @@ public class Class32 {
     }
 
     public void method290(int i, int j, int k, int l, int i1, int j1, int k1,
-            int l1, int i2, Class38_Sub2_Sub1 class38_sub2_sub1, byte byte0, int j2) {
+                          int l1, int i2, Class38_Sub2_Sub1 class38_sub2_sub1, byte byte0, int j2) {
         k1 = 66 / k1;
         if (class38_sub2_sub1 == null)
             return;
@@ -247,7 +244,7 @@ public class Class32 {
     }
 
     public boolean method291(int i, int j, int k, Class38_Sub7 class38_sub7, int l, int i1, int j1,
-            int k1, byte byte0, Class38_Sub2_Sub1 class38_sub2_sub1, int l1, int i2) {
+                             int k1, byte byte0, Class38_Sub2_Sub1 class38_sub2_sub1, int l1, int i2) {
         j = 79 / j;
         if (class38_sub2_sub1 == null && class38_sub7 == null) {
             return true;
@@ -259,7 +256,7 @@ public class Class32 {
     }
 
     public boolean method292(int i, int j, int k, int l, int i1, int j1, boolean flag,
-            Class38_Sub2_Sub1 class38_sub2_sub1, Class38_Sub7 class38_sub7, int k1, int l1) {
+                             Class38_Sub2_Sub1 class38_sub2_sub1, Class38_Sub7 class38_sub7, int k1, int l1) {
         if (class38_sub2_sub1 == null && class38_sub7 == null)
             return true;
         int i2 = i1 - k;
@@ -287,7 +284,7 @@ public class Class32 {
     }
 
     public boolean method293(int i, int j, Class38_Sub2_Sub1 class38_sub2_sub1, int k, int l, int i1, int j1,
-            int k1, int l1, Class38_Sub7 class38_sub7, boolean flag, int i2, int j2, int k2) {
+                             int k1, int l1, Class38_Sub7 class38_sub7, boolean flag, int i2, int j2, int k2) {
         if (flag) {
             for (int l2 = 1; l2 > 0; l2++)
                 ;
@@ -300,8 +297,8 @@ public class Class32 {
     }
 
     public boolean method294(int i, int j, int k, int l, int i1, int j1, int k1,
-            int l1, Class38_Sub2_Sub1 class38_sub2_sub1, Class38_Sub7 class38_sub7, int i2, boolean flag, int j2,
-            byte byte0) {
+                             int l1, Class38_Sub2_Sub1 class38_sub2_sub1, Class38_Sub7 class38_sub7, int i2, boolean flag, int j2,
+                             byte byte0) {
         if (class38_sub2_sub1 == null && class38_sub7 == null)
             return false;
         for (int k2 = j; k2 < j + l; k2++) {
@@ -494,7 +491,7 @@ public class Class32 {
     }
 
     public void method302(Class38_Sub2_Sub1 class38_sub2_sub1, Class38_Sub2_Sub1 class38_sub2_sub1_1, int i,
-            boolean flag, int j, int k) {
+                          boolean flag, int j, int k) {
         if (class38_sub2_sub1 == null)
             return;
         Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[k][j][i];
@@ -726,8 +723,8 @@ public class Class32 {
                                             + anIntArrayArrayArray530[k2][l2][i3 + 1]
                                             + anIntArrayArrayArray530[k2][l2 + 1][i3 + 1]) / 4
                                             - (anIntArrayArrayArray530[l][i][j1] + anIntArrayArrayArray530[l][i + 1][j1]
-                                                    + anIntArrayArrayArray530[l][i][j1 + 1]
-                                                    + anIntArrayArrayArray530[l][i + 1][j1 + 1]) / 4;
+                                            + anIntArrayArrayArray530[l][i][j1 + 1]
+                                            + anIntArrayArrayArray530[l][i + 1][j1 + 1]) / 4;
                                     Class30 class30 = class38_sub1.aClass30_1167;
                                     if (class30 != null && class30.aClass38_Sub2_Sub1_508 != null
                                             && class30.aClass38_Sub2_Sub1_508.aClass25Array1257 != null)
@@ -763,10 +760,10 @@ public class Class32 {
     }
 
     public void method316(Class38_Sub2_Sub1 class38_sub2_sub1, Class38_Sub2_Sub1 class38_sub2_sub1_1, int i, int j,
-            int k, boolean flag) {
+                          int k, boolean flag) {
         anInt578++;
         int l = 0;
-        int ai[] = class38_sub2_sub1_1.anIntArray1223;
+        int[] ai = class38_sub2_sub1_1.anIntArray1223;
         int i1 = class38_sub2_sub1_1.anInt1222;
         for (int j1 = 0; j1 < class38_sub2_sub1.anInt1222; j1++) {
             Class25 class25 = class38_sub2_sub1.aClass25Array1257[j1];
@@ -819,7 +816,7 @@ public class Class32 {
 
     }
 
-    public void method317(int ai[], int i, int j, int k, int l, int i1) {
+    public void method317(int[] ai, int i, int j, int k, int l, int i1) {
         Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[k][l][i1];
         if (class38_sub1 == null)
             return;
@@ -845,8 +842,8 @@ public class Class32 {
         int i2 = class15.anInt335;
         int j2 = class15.anInt336;
         int k2 = class15.anInt337;
-        int ai1[] = anIntArrayArray579[l1];
-        int ai2[] = anIntArrayArray580[i2];
+        int[] ai1 = anIntArrayArray579[l1];
+        int[] ai2 = anIntArrayArray580[i2];
         int l2 = 0;
         if (j2 != 0) {
             for (int i3 = 0; i3 < 4; i3++) {
@@ -873,7 +870,7 @@ public class Class32 {
 
     }
 
-    public static void method318(int ai[], int i, int j, byte byte0, int k, int l) {
+    public static void method318(int[] ai, int i, int j, byte byte0, int k, int l) {
         anInt585 = 0;
         anInt586 = 0;
         anInt587 = j;
@@ -882,7 +879,7 @@ public class Class32 {
         if (byte0 != 15)
             anInt523 = 29;
         anInt584 = k / 2;
-        boolean aflag[][][][] = new boolean[9][32][53][53];
+        boolean[][][][] aflag = new boolean[9][32][53][53];
         for (int i1 = 128; i1 <= 384; i1 += 32) {
             for (int j1 = 0; j1 < 2048; j1 += 64) {
                 anInt548 = Class38_Sub2_Sub1.anIntArray1300[i1];
@@ -917,7 +914,8 @@ public class Class32 {
                 for (int k2 = -25; k2 < 25; k2++) {
                     for (int i3 = -25; i3 < 25; i3++) {
                         boolean flag = false;
-                        label0: for (int l3 = -1; l3 <= 1; l3++) {
+                        label0:
+                        for (int l3 = -1; l3 <= 1; l3++) {
                             for (int j4 = -1; j4 <= 1; j4++) {
                                 if (aflag[k1][i2][k2 + l3 + 25 + 1][i3 + j4 + 25 + 1])
                                     flag = true;
@@ -1013,24 +1011,21 @@ public class Class32 {
         method327(false);
         anInt536 = 0;
         for (int l1 = anInt532; l1 < anInt527; l1++) {
-            Class38_Sub1 aclass38_sub1[][] = aClass38_Sub1ArrayArrayArray531[l1];
+            Class38_Sub1[][] aclass38_sub1 = aClass38_Sub1ArrayArrayArray531[l1];
             for (int j2 = anInt539; j2 < anInt540; j2++) {
                 for (int l2 = anInt541; l2 < anInt542; l2++) {
                     Class38_Sub1 class38_sub1 = aclass38_sub1[j2][l2];
                     if (class38_sub1 != null)
                         if (class38_sub1.anInt1175 > k
                                 || !aBooleanArrayArray582[(j2 - anInt543) + 25][(l2 - anInt544) + 25]
-                                        && anIntArrayArrayArray530[l1][j2][l2] - i1 < 2000) {
+                                && anIntArrayArrayArray530[l1][j2][l2] - i1 < 2000) {
                             class38_sub1.aBoolean1176 = false;
                             class38_sub1.aBoolean1177 = false;
                             class38_sub1.anInt1179 = 0;
                         } else {
                             class38_sub1.aBoolean1176 = true;
                             class38_sub1.aBoolean1177 = true;
-                            if (class38_sub1.anInt1171 > 0)
-                                class38_sub1.aBoolean1178 = true;
-                            else
-                                class38_sub1.aBoolean1178 = false;
+                            class38_sub1.aBoolean1178 = class38_sub1.anInt1171 > 0;
                             anInt536++;
                         }
                 }
@@ -1040,7 +1035,7 @@ public class Class32 {
         }
 
         for (int i2 = anInt532; i2 < anInt527; i2++) {
-            Class38_Sub1 aclass38_sub1_1[][] = aClass38_Sub1ArrayArrayArray531[i2];
+            Class38_Sub1[][] aclass38_sub1_1 = aClass38_Sub1ArrayArrayArray531[i2];
             for (int i3 = -25; i3 <= 0; i3++) {
                 int j3 = anInt543 + i3;
                 int l3 = anInt543 - i3;
@@ -1084,7 +1079,7 @@ public class Class32 {
         }
 
         for (int k2 = anInt532; k2 < anInt527; k2++) {
-            Class38_Sub1 aclass38_sub1_2[][] = aClass38_Sub1ArrayArrayArray531[k2];
+            Class38_Sub1[][] aclass38_sub1_2 = aClass38_Sub1ArrayArrayArray531[k2];
             for (int k3 = -25; k3 <= 0; k3++) {
                 int i4 = anInt543 + k3;
                 int k4 = anInt543 - k3;
@@ -1142,7 +1137,7 @@ public class Class32 {
             int j = class38_sub1_1.anInt1163;
             int k = class38_sub1_1.anInt1161;
             int l = class38_sub1_1.anInt1164;
-            Class38_Sub1 aclass38_sub1[][] = aClass38_Sub1ArrayArrayArray531[k];
+            Class38_Sub1[][] aclass38_sub1 = aClass38_Sub1ArrayArrayArray531[k];
             if (class38_sub1_1.aBoolean1176) {
                 if (flag) {
                     if (k > 0) {
@@ -1362,7 +1357,8 @@ public class Class32 {
                 int i1 = class38_sub1_1.anInt1171;
                 class38_sub1_1.aBoolean1178 = false;
                 int l1 = 0;
-                label0: for (int k2 = 0; k2 < i1; k2++) {
+                label0:
+                for (int k2 = 0; k2 < i1; k2++) {
                     Class28 class28_1 = class38_sub1_1.aClass28Array1172[k2];
                     if (class28_1.anInt496 == anInt538)
                         continue;
@@ -1558,7 +1554,7 @@ public class Class32 {
     }
 
     public void method323(Class26 class26, int i, int j, int k, int l, int i1, int j1,
-            int k1) {
+                          int k1) {
         int l1;
         int i2 = l1 = (j1 << 7) - anInt545;
         int j2;
@@ -1613,10 +1609,8 @@ public class Class32 {
         int l6 = Class38_Sub2_Sub2_Sub1.anInt1443 + (k4 << 9) / j3;
         Class38_Sub2_Sub2_Sub1.anInt1441 = 0;
         if ((i6 - k6) * (l5 - l6) - (j6 - l6) * (k5 - k6) > 0) {
-            Class38_Sub2_Sub2_Sub1.aBoolean1438 = false;
-            if (i6 < 0 || k6 < 0 || k5 < 0 || i6 > Class38_Sub2_Sub2.anInt1315 || k6 > Class38_Sub2_Sub2.anInt1315
-                    || k5 > Class38_Sub2_Sub2.anInt1315)
-                Class38_Sub2_Sub2_Sub1.aBoolean1438 = true;
+            Class38_Sub2_Sub2_Sub1.aBoolean1438 = i6 < 0 || k6 < 0 || k5 < 0 || i6 > Class38_Sub2_Sub2.anInt1315 || k6 > Class38_Sub2_Sub2.anInt1315
+                    || k5 > Class38_Sub2_Sub2.anInt1315;
             if (aBoolean557 && method326(anInt558, anInt559, j6, l6, l5, i6, k6, k5)) {
                 anInt560 = j1;
                 anInt561 = k1;
@@ -1639,10 +1633,8 @@ public class Class32 {
             }
         }
         if ((i5 - k5) * (l6 - l5) - (j5 - l5) * (k6 - k5) > 0) {
-            Class38_Sub2_Sub2_Sub1.aBoolean1438 = false;
-            if (i5 < 0 || k5 < 0 || k6 < 0 || i5 > Class38_Sub2_Sub2.anInt1315 || k5 > Class38_Sub2_Sub2.anInt1315
-                    || k6 > Class38_Sub2_Sub2.anInt1315)
-                Class38_Sub2_Sub2_Sub1.aBoolean1438 = true;
+            Class38_Sub2_Sub2_Sub1.aBoolean1438 = i5 < 0 || k5 < 0 || k6 < 0 || i5 > Class38_Sub2_Sub2.anInt1315 || k5 > Class38_Sub2_Sub2.anInt1315
+                    || k6 > Class38_Sub2_Sub2.anInt1315;
             if (aBoolean557 && method326(anInt558, anInt559, j5, l5, l6, i5, k5, k6)) {
                 anInt560 = j1;
                 anInt561 = k1;
@@ -1667,7 +1659,7 @@ public class Class32 {
     }
 
     public void method324(int i, int j, Class15 class15, int k, int l, int i1, int j1,
-            boolean flag) {
+                          boolean flag) {
         int k1 = class15.anIntArray323.length;
         for (int l1 = 0; l1 < k1; l1++) {
             int i2 = class15.anIntArray323[l1] - anInt545;
@@ -1705,10 +1697,8 @@ public class Class32 {
             int i5 = Class15.anIntArray339[j3];
             int j5 = Class15.anIntArray339[l3];
             if ((i4 - j4) * (j5 - i5) - (l4 - i5) * (k4 - j4) > 0) {
-                Class38_Sub2_Sub2_Sub1.aBoolean1438 = false;
-                if (i4 < 0 || j4 < 0 || k4 < 0 || i4 > Class38_Sub2_Sub2.anInt1315 || j4 > Class38_Sub2_Sub2.anInt1315
-                        || k4 > Class38_Sub2_Sub2.anInt1315)
-                    Class38_Sub2_Sub2_Sub1.aBoolean1438 = true;
+                Class38_Sub2_Sub2_Sub1.aBoolean1438 = i4 < 0 || j4 < 0 || k4 < 0 || i4 > Class38_Sub2_Sub2.anInt1315 || j4 > Class38_Sub2_Sub2.anInt1315
+                        || k4 > Class38_Sub2_Sub2.anInt1315;
                 if (aBoolean557 && method326(anInt558, anInt559, l4, i5, j5, i4, j4, k4)) {
                     anInt560 = k;
                     anInt561 = j;
@@ -1754,7 +1744,7 @@ public class Class32 {
     }
 
     public boolean method326(int i, int j, int k, int l, int i1, int j1, int k1,
-            int l1) {
+                             int l1) {
         if (j < k && j < l && j < i1)
             return false;
         if (j > k && j > l && j > i1)
@@ -1771,7 +1761,7 @@ public class Class32 {
 
     public void method327(boolean flag) {
         int i = anIntArray563[anInt537];
-        Class23 aclass23[] = aClass23ArrayArray564[anInt537];
+        Class23[] aclass23 = aClass23ArrayArray564[anInt537];
         anInt565 = 0;
         for (int j = 0; j < i; j++) {
             Class23 class23 = aclass23[j];
@@ -1858,7 +1848,8 @@ public class Class32 {
                         if (k3 > 50)
                             k3 = 50;
                         boolean flag3 = false;
-                        label0: for (int l3 = l2; l3 <= k3; l3++) {
+                        label0:
+                        for (int l3 = l2; l3 <= k3; l3++) {
                             for (int i4 = l1; i4 <= k2; i4++) {
                                 if (!aBooleanArrayArray582[l3][i4])
                                     continue;
@@ -2113,12 +2104,12 @@ public class Class32 {
     public int anInt527;
     public int anInt528;
     public int anInt529;
-    public int anIntArrayArrayArray530[][][];
-    public Class38_Sub1 aClass38_Sub1ArrayArrayArray531[][][];
+    public int[][][] anIntArrayArrayArray530;
+    public Class38_Sub1[][][] aClass38_Sub1ArrayArrayArray531;
     public int anInt532;
     public int anInt533;
-    public Class28 aClass28Array534[];
-    public int anIntArrayArrayArray535[][][];
+    public Class28[] aClass28Array534;
+    public int[][][] anIntArrayArrayArray535;
     public static int anInt536;
     public static int anInt537;
     public static int anInt538;
@@ -2135,17 +2126,17 @@ public class Class32 {
     public static int anInt549;
     public static int anInt550;
     public static int anInt551;
-    public static Class28 aClass28Array552[] = new Class28[100];
-    public static final int anIntArray553[] = {
+    public static Class28[] aClass28Array552 = new Class28[100];
+    public static final int[] anIntArray553 = {
             53, -53, -53, 53
     };
-    public static final int anIntArray554[] = {
+    public static final int[] anIntArray554 = {
             -53, -53, 53, 53
     };
-    public static final int anIntArray555[] = {
+    public static final int[] anIntArray555 = {
             -45, 45, 45, -45
     };
-    public static final int anIntArray556[] = {
+    public static final int[] anIntArray556 = {
             45, 45, -45, -45
     };
     public static boolean aBoolean557;
@@ -2154,47 +2145,47 @@ public class Class32 {
     public static int anInt560 = -1;
     public static int anInt561 = -1;
     public static int anInt562;
-    public static int anIntArray563[];
-    public static Class23 aClass23ArrayArray564[][];
+    public static int[] anIntArray563;
+    public static Class23[][] aClass23ArrayArray564;
     public static int anInt565;
-    public static Class23 aClass23Array566[] = new Class23[500];
+    public static Class23[] aClass23Array566 = new Class23[500];
     public static Class27 aClass27_567 = new Class27(0);
-    public static final int anIntArray568[] = {
+    public static final int[] anIntArray568 = {
             19, 55, 38, 155, 255, 110, 137, 205, 76
     };
-    public static final int anIntArray569[] = {
+    public static final int[] anIntArray569 = {
             160, 192, 80, 96, 0, 144, 80, 48, 160
     };
-    public static final int anIntArray570[] = {
+    public static final int[] anIntArray570 = {
             76, 8, 137, 4, 0, 1, 38, 2, 19
     };
-    public static final int anIntArray571[] = {
+    public static final int[] anIntArray571 = {
             0, 0, 2, 0, 0, 2, 1, 1, 0
     };
-    public static final int anIntArray572[] = {
+    public static final int[] anIntArray572 = {
             2, 0, 0, 2, 0, 0, 0, 4, 4
     };
-    public static final int anIntArray573[] = {
+    public static final int[] anIntArray573 = {
             0, 4, 4, 8, 0, 0, 8, 0, 0
     };
-    public static final int anIntArray574[] = {
+    public static final int[] anIntArray574 = {
             1, 1, 0, 0, 0, 8, 0, 0, 8
     };
-    public static final int anIntArray575[] = {
+    public static final int[] anIntArray575 = {
             41, 39248, 41, 4643, 41, 41, 41, 41, 41, 41,
             41, 41, 41, 41, 41, 43086, 41, 41, 41, 41,
             41, 41, 41, 8602, 41, 28992, 41, 41, 41, 41,
             41, 5056, 41, 41, 41, 41, 41, 41, 41, 41,
             41, 41, 41, 41, 41, 41, 3131, 41, 41, 41
     };
-    public int anIntArray576[];
-    public int anIntArray577[];
+    public int[] anIntArray576;
+    public int[] anIntArray577;
     public int anInt578;
-    public int anIntArrayArray579[][] = {
+    public int[][] anIntArrayArray579 = {
             new int[16], {
-                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                    1, 1, 1, 1, 1, 1
-            },
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1
+    },
             {
                     1, 0, 0, 0, 1, 1, 0, 0, 1, 1,
                     1, 0, 1, 1, 1, 1
@@ -2240,7 +2231,7 @@ public class Class32 {
                     1, 0, 1, 1, 1, 1
             }
     };
-    public int anIntArrayArray580[][] = {
+    public int[][] anIntArrayArray580 = {
             {
                     0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
                     10, 11, 12, 13, 14, 15
@@ -2258,8 +2249,8 @@ public class Class32 {
                     9, 13, 0, 4, 8, 12
             }
     };
-    public static boolean aBooleanArrayArrayArrayArray581[][][][] = new boolean[8][32][51][51];
-    public static boolean aBooleanArrayArray582[][];
+    public static boolean[][][][] aBooleanArrayArrayArrayArray581 = new boolean[8][32][51][51];
+    public static boolean[][] aBooleanArrayArray582;
     public static int anInt583;
     public static int anInt584;
     public static int anInt585;

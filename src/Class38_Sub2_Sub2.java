@@ -2,11 +2,9 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class38_Sub2_Sub2 extends Class38_Sub2 {
 
-    public static void method376(int i, int ai[], int j, int k) {
+    public static void method376(int i, int[] ai, int j, int k) {
         anIntArray1308 = ai;
         anInt1309 = i;
         while (j >= 0)
@@ -136,7 +134,7 @@ public class Class38_Sub2_Sub2 extends Class38_Sub2 {
     public static int anInt1305;
     public static int anInt1306;
     public static boolean aBoolean1307 = true;
-    public static int anIntArray1308[];
+    public static int[] anIntArray1308;
     public static int anInt1309;
     public static int anInt1310;
     public static int anInt1311;

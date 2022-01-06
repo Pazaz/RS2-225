@@ -2,9 +2,10 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
-import sign.signlink;
 
 public class Class5
         implements Runnable {
@@ -62,7 +63,7 @@ public class Class5
             return anInputStream181.available();
     }
 
-    public void method180(byte abyte0[], int i, int j)
+    public void method180(byte[] abyte0, int i, int j)
             throws IOException {
         if (aBoolean184)
             return;
@@ -76,7 +77,7 @@ public class Class5
 
     }
 
-    public void method181(byte abyte0[], int i, boolean flag, int j)
+    public void method181(byte[] abyte0, int i, boolean flag, int j)
             throws IOException {
         if (!flag)
             return;
@@ -145,7 +146,7 @@ public class Class5
     public Socket aSocket183;
     public boolean aBoolean184;
     public Applet_Sub1 anApplet_Sub1_185;
-    public byte aByteArray186[];
+    public byte[] aByteArray186;
     public int anInt187;
     public int anInt188;
     public boolean aBoolean189;

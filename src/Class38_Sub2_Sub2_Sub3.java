@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class38_Sub2_Sub2_Sub3 extends Class38_Sub2_Sub2 {
 
     public Class38_Sub2_Sub2_Sub3(Class39 class39, String s, int i) {
@@ -54,7 +52,7 @@ public class Class38_Sub2_Sub2_Sub3 extends Class38_Sub2_Sub2 {
     public void method414(boolean flag) {
         anInt1482 /= 2;
         anInt1483 /= 2;
-        byte abyte0[] = new byte[anInt1482 * anInt1483];
+        byte[] abyte0 = new byte[anInt1482 * anInt1483];
         int i = 0;
         for (int j = 0; j < anInt1479; j++) {
             for (int k = 0; k < anInt1478; k++)
@@ -74,7 +72,7 @@ public class Class38_Sub2_Sub2_Sub3 extends Class38_Sub2_Sub2 {
     public void method415(int i) {
         if (anInt1478 == anInt1482 && anInt1479 == anInt1483)
             return;
-        byte abyte0[] = new byte[anInt1482 * anInt1483];
+        byte[] abyte0 = new byte[anInt1482 * anInt1483];
         int j = 0;
         if (i != 0)
             aBoolean1472 = !aBoolean1472;
@@ -92,7 +90,7 @@ public class Class38_Sub2_Sub2_Sub3 extends Class38_Sub2_Sub2 {
     }
 
     public void method416(int i) {
-        byte abyte0[] = new byte[anInt1478 * anInt1479];
+        byte[] abyte0 = new byte[anInt1478 * anInt1479];
         int j = 0;
         for (int k = 0; k < anInt1479; k++) {
             for (int l = anInt1478 - 1; l >= 0; l--)
@@ -101,13 +99,13 @@ public class Class38_Sub2_Sub2_Sub3 extends Class38_Sub2_Sub2 {
         }
 
         aByteArray1476 = abyte0;
-        for (anInt1480 = anInt1482 - anInt1478 - anInt1480; i >= 0;)
+        for (anInt1480 = anInt1482 - anInt1478 - anInt1480; i >= 0; )
             return;
 
     }
 
     public void method417(byte byte0) {
-        byte abyte0[] = new byte[anInt1478 * anInt1479];
+        byte[] abyte0 = new byte[anInt1478 * anInt1479];
         if (byte0 != -74) {
             for (int i = 1; i > 0; i++)
                 ;
@@ -195,8 +193,8 @@ public class Class38_Sub2_Sub2_Sub3 extends Class38_Sub2_Sub2 {
         }
     }
 
-    public void method420(int ai[], int i, int j, byte abyte0[], int k, int l, int i1,
-            int j1, int k1, int ai1[]) {
+    public void method420(int[] ai, int i, int j, byte[] abyte0, int k, int l, int i1,
+                          int j1, int k1, int[] ai1) {
         int l1 = -(i1 >> 2);
         i1 = -(i1 & 3);
         if (l != 0)
@@ -243,8 +241,8 @@ public class Class38_Sub2_Sub2_Sub3 extends Class38_Sub2_Sub2 {
     public int anInt1473;
     public byte aByte1474;
     public boolean aBoolean1475;
-    public byte aByteArray1476[];
-    public int anIntArray1477[];
+    public byte[] aByteArray1476;
+    public int[] anIntArray1477;
     public int anInt1478;
     public int anInt1479;
     public int anInt1480;

@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class4 {
 
     public static void method167(Class39 class39) {
@@ -261,8 +259,8 @@ public class Class4 {
         class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(32, 32);
         int i1 = Class38_Sub2_Sub2_Sub1.anInt1442;
         int k1 = Class38_Sub2_Sub2_Sub1.anInt1443;
-        int ai[] = Class38_Sub2_Sub2_Sub1.anIntArray1448;
-        int ai1[] = Class38_Sub2_Sub2.anIntArray1308;
+        int[] ai = Class38_Sub2_Sub2_Sub1.anIntArray1448;
+        int[] ai1 = Class38_Sub2_Sub2.anIntArray1308;
         int l1 = Class38_Sub2_Sub2.anInt1309;
         int i2 = Class38_Sub2_Sub2.anInt1310;
         int j2 = Class38_Sub2_Sub2.anInt1313;
@@ -346,13 +344,13 @@ public class Class4 {
             if (l != -1) {
                 Class38_Sub2_Sub1 class38_sub2_sub1_1 = new Class38_Sub2_Sub1(false, k);
                 Class38_Sub2_Sub1 class38_sub2_sub1_3 = new Class38_Sub2_Sub1(false, l);
-                Class38_Sub2_Sub1 aclass38_sub2_sub1_1[] = {
+                Class38_Sub2_Sub1[] aclass38_sub2_sub1_1 = {
                         class38_sub2_sub1, class38_sub2_sub1_1, class38_sub2_sub1_3
                 };
                 class38_sub2_sub1 = new Class38_Sub2_Sub1(0, aclass38_sub2_sub1_1, 3);
             } else {
                 Class38_Sub2_Sub1 class38_sub2_sub1_2 = new Class38_Sub2_Sub1(false, k);
-                Class38_Sub2_Sub1 aclass38_sub2_sub1[] = {
+                Class38_Sub2_Sub1[] aclass38_sub2_sub1 = {
                         class38_sub2_sub1, class38_sub2_sub1_2
                 };
                 class38_sub2_sub1 = new Class38_Sub2_Sub1(0, aclass38_sub2_sub1, 2);
@@ -383,7 +381,7 @@ public class Class4 {
         Class38_Sub2_Sub1 class38_sub2_sub1 = new Class38_Sub2_Sub1(false, k);
         if (l != -1) {
             Class38_Sub2_Sub1 class38_sub2_sub1_1 = new Class38_Sub2_Sub1(false, l);
-            Class38_Sub2_Sub1 aclass38_sub2_sub1[] = {
+            Class38_Sub2_Sub1[] aclass38_sub2_sub1 = {
                     class38_sub2_sub1, class38_sub2_sub1_1
             };
             class38_sub2_sub1 = new Class38_Sub2_Sub1(0, aclass38_sub2_sub1, 2);
@@ -407,17 +405,17 @@ public class Class4 {
     public static int anInt135 = -192;
     public int anInt136;
     public static int anInt137;
-    public static int anIntArray138[];
+    public static int[] anIntArray138;
     public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_139;
-    public static Class4 aClass4Array140[];
+    public static Class4[] aClass4Array140;
     public static int anInt141;
     public static boolean aBoolean142 = true;
     public int anInt143;
     public int anInt144;
     public String aString145;
-    public byte aByteArray146[];
-    public int anIntArray147[];
-    public int anIntArray148[];
+    public byte[] aByteArray146;
+    public int[] anIntArray147;
+    public int[] anIntArray148;
     public int anInt149;
     public int anInt150;
     public int anInt151;
@@ -429,8 +427,8 @@ public class Class4 {
     public boolean aBoolean157;
     public int anInt158;
     public boolean aBoolean159;
-    public String aStringArray160[];
-    public String aStringArray161[];
+    public String[] aStringArray160;
+    public String[] aStringArray161;
     public int anInt162;
     public int anInt163;
     public byte aByte164;
@@ -443,8 +441,8 @@ public class Class4 {
     public int anInt171;
     public int anInt172;
     public int anInt173;
-    public int anIntArray174[];
-    public int anIntArray175[];
+    public int[] anIntArray174;
+    public int[] anIntArray175;
     public int anInt176;
     public int anInt177;
     public static Class34 aClass34_178 = new Class34((byte) 0, 50);

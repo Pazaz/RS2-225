@@ -5,7 +5,6 @@
 import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.*;
-import sign.signlink;
 
 public class Applet_Sub1 extends Applet
         implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
@@ -449,13 +448,13 @@ public class Applet_Sub1 extends Applet
     public int anInt7;
     public int anInt8;
     public int anInt9;
-    public long aLongArray10[];
+    public long[] aLongArray10;
     public int anInt11;
     public int anInt12;
     public int anInt13;
     public Graphics aGraphics14;
     public Class31 aClass31_15;
-    public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2Array16[];
+    public Class38_Sub2_Sub2_Sub2[] aClass38_Sub2_Sub2_Sub2Array16;
     public Frame_Sub1 aFrame_Sub1_17;
     public boolean aBoolean18;
     public int anInt19;
@@ -465,8 +464,8 @@ public class Applet_Sub1 extends Applet
     public int anInt23;
     public int anInt24;
     public int anInt25;
-    public int anIntArray26[];
-    public int anIntArray27[];
+    public int[] anIntArray26;
+    public int[] anIntArray27;
     public int anInt28;
     public int anInt29;
     public static int anInt30;

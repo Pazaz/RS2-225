@@ -2,12 +2,10 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class38_Sub4 extends Class38 {
 
     public Class38_Sub4(int i, int j, int k, int l, int i1, int j1, int k1,
-            int l1, int i2) {
+                        int l1, int i2) {
         anInt1197 = 27808;
         if (i1 != 2)
             anInt1197 = -420;

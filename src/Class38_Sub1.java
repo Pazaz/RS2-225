@@ -23,8 +23,8 @@ public class Class38_Sub1 extends Class38 {
     public Class17 aClass17_1169;
     public Class19 aClass19_1170;
     public int anInt1171;
-    public Class28 aClass28Array1172[];
-    public int anIntArray1173[];
+    public Class28[] aClass28Array1172;
+    public int[] anIntArray1173;
     public int anInt1174;
     public int anInt1175;
     public boolean aBoolean1176;

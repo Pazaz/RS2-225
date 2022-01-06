@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class36 {
 
     public Class36(int i, int j) {
@@ -49,5 +47,5 @@ public class Class36 {
     public int anInt644;
     public boolean aBoolean645;
     public int anInt646;
-    public Class38 aClass38Array647[];
+    public Class38[] aClass38Array647;
 }

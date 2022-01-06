@@ -3,7 +3,6 @@
 // Decompiler options: packimports(3) 
 
 import java.util.Random;
-import sign.signlink;
 
 public class Class38_Sub2_Sub2_Sub4 extends Class38_Sub2_Sub2 {
 
@@ -229,7 +228,7 @@ public class Class38_Sub2_Sub2_Sub4 extends Class38_Sub2_Sub2 {
         return !s.equals("gr3") ? 0 : 0x40ff00;
     }
 
-    public void method429(byte abyte0[], int i, int j, int k, int l, int i1) {
+    public void method429(byte[] abyte0, int i, int j, int k, int l, int i1) {
         int j1 = i + j * Class38_Sub2_Sub2.anInt1309;
         int k1 = Class38_Sub2_Sub2.anInt1309 - k;
         int l1 = 0;
@@ -266,8 +265,8 @@ public class Class38_Sub2_Sub2_Sub4 extends Class38_Sub2_Sub2 {
         }
     }
 
-    public void method430(int ai[], byte abyte0[], int i, int j, int k, int l, int i1,
-            int j1, int k1) {
+    public void method430(int[] ai, byte[] abyte0, int i, int j, int k, int l, int i1,
+                          int j1, int k1) {
         int l1 = -(l >> 2);
         l = -(l & 3);
         for (int i2 = -i1; i2 < 0; i2++) {
@@ -302,8 +301,8 @@ public class Class38_Sub2_Sub2_Sub4 extends Class38_Sub2_Sub2 {
 
     }
 
-    public void method431(byte abyte0[], byte byte0, int i, int j, int k, int l, int i1,
-            int j1) {
+    public void method431(byte[] abyte0, byte byte0, int i, int j, int k, int l, int i1,
+                          int j1) {
         if (byte0 != aByte1486)
             return;
         int k1 = i + l * Class38_Sub2_Sub2.anInt1309;
@@ -342,8 +341,8 @@ public class Class38_Sub2_Sub2_Sub4 extends Class38_Sub2_Sub2 {
         }
     }
 
-    public void method432(int i, int j, int k, int ai[], byte abyte0[], int l, int i1,
-            int j1, int k1, byte byte0, int l1) {
+    public void method432(int i, int j, int k, int[] ai, byte[] abyte0, int l, int i1,
+                          int j1, int k1, byte byte0, int l1) {
         l1 = ((l1 & 0xff00ff) * l & 0xff00ff00) + ((l1 & 0xff00) * l & 0xff0000) >> 8;
         if (byte0 == aByte1487) {
             byte0 = 0;
@@ -373,16 +372,16 @@ public class Class38_Sub2_Sub2_Sub4 extends Class38_Sub2_Sub2 {
     public byte aByte1487;
     public int anInt1488;
     public int anInt1489;
-    public byte aByteArrayArray1490[][];
-    public int anIntArray1491[];
-    public int anIntArray1492[];
-    public int anIntArray1493[];
-    public int anIntArray1494[];
-    public int anIntArray1495[];
-    public int anIntArray1496[];
+    public byte[][] aByteArrayArray1490;
+    public int[] anIntArray1491;
+    public int[] anIntArray1492;
+    public int[] anIntArray1493;
+    public int[] anIntArray1494;
+    public int[] anIntArray1495;
+    public int[] anIntArray1496;
     public int anInt1497;
     public Random aRandom1498;
-    public static int anIntArray1499[];
+    public static int[] anIntArray1499;
 
     static {
         anIntArray1499 = new int[256];

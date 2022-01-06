@@ -2,9 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import java.io.PrintStream;
-import sign.signlink;
-
 public class Class22 {
 
     public static void method227(Class39 class39, int i) {
@@ -65,9 +62,9 @@ public class Class22 {
     public static int anInt417 = 473;
     public static int anInt418 = 13703;
     public static int anInt419;
-    public static Class22 aClass22Array420[];
+    public static Class22[] aClass22Array420;
     public static int anInt421;
-    public static int anIntArray422[];
+    public static int[] anIntArray422;
     public String aString423;
     public int anInt424;
     public int anInt425;

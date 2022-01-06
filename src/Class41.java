@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class41 {
 
     public static String method482(Class38_Sub2_Sub3 class38_sub2_sub3, int i, int j) {
@@ -85,8 +83,8 @@ public class Class41 {
             class38_sub2_sub3.method436(i << 4);
     }
 
-    public static char aCharArray676[] = new char[100];
-    public static char aCharArray677[] = {
+    public static char[] aCharArray676 = new char[100];
+    public static char[] aCharArray677 = {
             ' ', 'e', 't', 'a', 'o', 'i', 'h', 'n', 's', 'r',
             'd', 'l', 'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p',
             'b', 'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2',

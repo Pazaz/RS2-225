@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class24 {
 
     public static void method229(Class39 class39) {
@@ -19,7 +17,7 @@ public class Class24 {
     }
 
     public static void method230(Class38_Sub2_Sub3 class38_sub2_sub3, Class38_Sub2_Sub3 class38_sub2_sub3_1,
-            Class38_Sub2_Sub3 class38_sub2_sub3_2, Class38_Sub2_Sub3 class38_sub2_sub3_3) {
+                                 Class38_Sub2_Sub3 class38_sub2_sub3_2, Class38_Sub2_Sub3 class38_sub2_sub3_3) {
         method232(-33152, class38_sub2_sub3_1);
         method233(class38_sub2_sub3_2, -717);
         method234(24882, class38_sub2_sub3);
@@ -34,7 +32,7 @@ public class Class24 {
             return;
         for (int j = 0; j < i; j++) {
             anIntArray464[j] = class38_sub2_sub3.method446();
-            char ac[] = new char[class38_sub2_sub3.method446()];
+            char[] ac = new char[class38_sub2_sub3.method446()];
             for (int k = 0; k < ac.length; k++)
                 ac[k] = (char) class38_sub2_sub3.method446();
 
@@ -74,18 +72,18 @@ public class Class24 {
             aBoolean450 = !aBoolean450;
     }
 
-    public static void method235(byte abyte0[][][], char ac[][], Class38_Sub2_Sub3 class38_sub2_sub3, byte byte0) {
+    public static void method235(byte[][][] abyte0, char[][] ac, Class38_Sub2_Sub3 class38_sub2_sub3, byte byte0) {
         if (byte0 == 1)
             byte0 = 0;
         else
             return;
         for (int i = 0; i < ac.length; i++) {
-            char ac1[] = new char[class38_sub2_sub3.method446()];
+            char[] ac1 = new char[class38_sub2_sub3.method446()];
             for (int j = 0; j < ac1.length; j++)
                 ac1[j] = (char) class38_sub2_sub3.method446();
 
             ac[i] = ac1;
-            byte abyte1[][] = new byte[class38_sub2_sub3.method446()][2];
+            byte[][] abyte1 = new byte[class38_sub2_sub3.method446()][2];
             for (int k = 0; k < abyte1.length; k++) {
                 abyte1[k][0] = (byte) class38_sub2_sub3.method446();
                 abyte1[k][1] = (byte) class38_sub2_sub3.method446();
@@ -97,13 +95,13 @@ public class Class24 {
 
     }
 
-    public static void method236(int i, Class38_Sub2_Sub3 class38_sub2_sub3, char ac[][]) {
+    public static void method236(int i, Class38_Sub2_Sub3 class38_sub2_sub3, char[][] ac) {
         while (i >= 0) {
             for (int j = 1; j > 0; j++)
                 ;
         }
         for (int k = 0; k < ac.length; k++) {
-            char ac1[] = new char[class38_sub2_sub3.method446()];
+            char[] ac1 = new char[class38_sub2_sub3.method446()];
             for (int l = 0; l < ac1.length; l++)
                 ac1[l] = (char) class38_sub2_sub3.method446();
 
@@ -112,7 +110,7 @@ public class Class24 {
 
     }
 
-    public static void method237(char ac[], int i) {
+    public static void method237(char[] ac, int i) {
         int j = 0;
         for (int k = 0; k < ac.length; k++) {
             if (method238(16180, ac[k]))
@@ -138,7 +136,7 @@ public class Class24 {
 
     public static String method239(String s, int i) {
         long l = System.currentTimeMillis();
-        char ac[] = s.toCharArray();
+        char[] ac = s.toCharArray();
         method237(ac, 0);
         String s1 = (new String(ac)).trim();
         ac = s1.toLowerCase().toCharArray();
@@ -148,8 +146,8 @@ public class Class24 {
         method243((byte) 120, ac);
         method256(8, ac);
         for (int j = 0; j < aStringArray465.length; j++) {
-            for (int k = -1; (k = s2.indexOf(aStringArray465[j], k + 1)) != -1;) {
-                char ac1[] = aStringArray465[j].toCharArray();
+            for (int k = -1; (k = s2.indexOf(aStringArray465[j], k + 1)) != -1; ) {
+                char[] ac1 = aStringArray465[j].toCharArray();
                 for (int j1 = 0; j1 < ac1.length; j1++)
                     ac[j1 + k] = ac1[j1];
 
@@ -167,7 +165,7 @@ public class Class24 {
         return (new String(ac)).trim();
     }
 
-    public static void method240(char ac[], int i, char ac1[]) {
+    public static void method240(char[] ac, int i, char[] ac1) {
         for (int j = 0; j < ac1.length; j++)
             if (ac[j] != '*' && method264(0, ac1[j]))
                 ac[j] = ac1[j];
@@ -175,7 +173,7 @@ public class Class24 {
         i = 76 / i;
     }
 
-    public static void method241(byte byte0, char ac[]) {
+    public static void method241(byte byte0, char[] ac) {
         boolean flag = true;
         if (byte0 == 6)
             byte0 = 0;
@@ -196,7 +194,7 @@ public class Class24 {
 
     }
 
-    public static void method242(boolean flag, char ac[]) {
+    public static void method242(boolean flag, char[] ac) {
         for (int i = 0; i < 2; i++) {
             for (int j = aCharArrayArray460.length - 1; j >= 0; j--)
                 method251((byte) -102, aByteArrayArrayArray461[j], ac, aCharArrayArray460[j]);
@@ -207,14 +205,14 @@ public class Class24 {
             ;
     }
 
-    public static void method243(byte byte0, char ac[]) {
-        char ac1[] = (char[]) ac.clone();
-        char ac2[] = {
+    public static void method243(byte byte0, char[] ac) {
+        char[] ac1 = ac.clone();
+        char[] ac2 = {
                 '(', 'a', ')'
         };
         method251((byte) -102, null, ac1, ac2);
-        char ac3[] = (char[]) ac.clone();
-        char ac4[] = {
+        char[] ac3 = ac.clone();
+        char[] ac4 = {
                 'd', 'o', 't'
         };
         method251((byte) -102, null, ac3, ac4);
@@ -225,7 +223,7 @@ public class Class24 {
 
     }
 
-    public static void method244(char ac[], int i, char ac1[], char ac2[], char ac3[]) {
+    public static void method244(char[] ac, int i, char[] ac1, char[] ac2, char[] ac3) {
         if (ac2.length > ac3.length)
             return;
         boolean flag = true;
@@ -275,7 +273,7 @@ public class Class24 {
 
     }
 
-    public static int method245(int i, char ac[], byte byte0, char ac1[]) {
+    public static int method245(int i, char[] ac, byte byte0, char[] ac1) {
         if (i == 0)
             return 2;
         for (int j = i - 1; j >= 0; j--) {
@@ -302,7 +300,7 @@ public class Class24 {
         return !method259(ac[i - 1], 2) ? 0 : 1;
     }
 
-    public static int method246(char ac[], char ac1[], int i, int j) {
+    public static int method246(char[] ac, char[] ac1, int i, int j) {
         if (j >= 0)
             return anInt453;
         if (i + 1 == ac1.length)
@@ -327,14 +325,14 @@ public class Class24 {
         return !method259(ac1[i + 1], 2) ? 0 : 1;
     }
 
-    public static void method247(char ac[], int i) {
-        char ac1[] = (char[]) ac.clone();
-        char ac2[] = {
+    public static void method247(char[] ac, int i) {
+        char[] ac1 = ac.clone();
+        char[] ac2 = {
                 'd', 'o', 't'
         };
         method251((byte) -102, null, ac1, ac2);
-        char ac3[] = (char[]) ac.clone();
-        char ac4[] = {
+        char[] ac3 = ac.clone();
+        char[] ac4 = {
                 's', 'l', 'a', 's', 'h'
         };
         if (i != 0)
@@ -345,7 +343,7 @@ public class Class24 {
 
     }
 
-    public static void method248(char ac[], int i, boolean flag, char ac1[], char ac2[], char ac3[]) {
+    public static void method248(char[] ac, int i, boolean flag, char[] ac1, char[] ac2, char[] ac3) {
         if (!flag) {
             for (int j = 1; j > 0; j++)
                 ;
@@ -456,7 +454,7 @@ public class Class24 {
 
     }
 
-    public static int method249(char ac[], boolean flag, char ac1[], int i) {
+    public static int method249(char[] ac, boolean flag, char[] ac1, int i) {
         if (i == 0)
             return 2;
         for (int j = i - 1; j >= 0; j--) {
@@ -483,7 +481,7 @@ public class Class24 {
         return !method259(ac[i - 1], 2) ? 0 : 1;
     }
 
-    public static int method250(char ac[], int i, int j, char ac1[]) {
+    public static int method250(char[] ac, int i, int j, char[] ac1) {
         if (j + 1 == ac1.length)
             return 2;
         for (int k = j + 1; k < ac1.length; k++) {
@@ -508,7 +506,7 @@ public class Class24 {
         return !method259(ac1[j + 1], 2) ? 0 : 1;
     }
 
-    public static void method251(byte byte0, byte abyte0[][], char ac[], char ac1[]) {
+    public static void method251(byte byte0, byte[][] abyte0, char[] ac, char[] ac1) {
         if (ac1.length > ac.length)
             return;
         boolean flag = true;
@@ -583,7 +581,7 @@ public class Class24 {
                             j2 = j;
                         for (; !flag7 && j2 < k; j2++)
                             if (j2 >= 0 && (!method259(ac[j2], 2) || ac[j2] == '\'')) {
-                                char ac2[] = new char[3];
+                                char[] ac2 = new char[3];
                                 int l2;
                                 for (l2 = 0; l2 < 3; l2++) {
                                     if (j2 + l2 >= ac.length || method259(ac[j2 + l2], 2) && ac[j2 + l2] != '\'')
@@ -591,9 +589,7 @@ public class Class24 {
                                     ac2[l2] = ac[j2 + l2];
                                 }
 
-                                boolean flag8 = true;
-                                if (l2 == 0)
-                                    flag8 = false;
+                                boolean flag8 = l2 != 0;
                                 if (l2 < 3 && j2 - 1 >= 0 && (!method259(ac[j2 - 1], 2) || ac[j2 - 1] == '\''))
                                     flag8 = false;
                                 if (flag8 && !method265(ac2, 6))
@@ -624,7 +620,7 @@ public class Class24 {
 
     }
 
-    public static boolean method252(int i, byte byte0, byte abyte0[][], byte byte1) {
+    public static boolean method252(int i, byte byte0, byte[][] abyte0, byte byte1) {
         if (i <= 0)
             aBoolean458 = !aBoolean458;
         int j = 0;
@@ -780,7 +776,7 @@ public class Class24 {
             return 27;
     }
 
-    public static void method256(int i, char ac[]) {
+    public static void method256(int i, char[] ac) {
         int j = 0;
         int k = 0;
         if (i != 8)
@@ -815,7 +811,7 @@ public class Class24 {
         }
     }
 
-    public static int method257(int i, char ac[], int j) {
+    public static int method257(int i, char[] ac, int j) {
         i = 66 / i;
         for (int k = j; k < ac.length && k >= 0; k++)
             if (ac[k] >= '0' && ac[k] <= '9')
@@ -824,7 +820,7 @@ public class Class24 {
         return -1;
     }
 
-    public static int method258(int i, int j, char ac[]) {
+    public static int method258(int i, int j, char[] ac) {
         if (i != 6)
             return 4;
         for (int k = j; k < ac.length && k >= 0; k++)
@@ -872,7 +868,7 @@ public class Class24 {
         return c >= 'A' && c <= 'Z';
     }
 
-    public static boolean method265(char ac[], int i) {
+    public static boolean method265(char[] ac, int i) {
         boolean flag = true;
         for (int j = 0; j < ac.length; j++)
             if (!method262(ac[j], 10361) && ac[j] != 0)
@@ -901,7 +897,7 @@ public class Class24 {
         return false;
     }
 
-    public static int method266(int i, char ac[]) {
+    public static int method266(int i, char[] ac) {
         if (ac.length > 6)
             return 0;
         int j = 0;
@@ -933,13 +929,13 @@ public class Class24 {
     public static byte aByte456 = 6;
     public static int anInt457 = -81;
     public static boolean aBoolean458;
-    public static int anIntArray459[];
-    public static char aCharArrayArray460[][];
-    public static byte aByteArrayArrayArray461[][][];
-    public static char aCharArrayArray462[][];
-    public static char aCharArrayArray463[][];
-    public static int anIntArray464[];
-    public static final String aStringArray465[] = {
+    public static int[] anIntArray459;
+    public static char[][] aCharArrayArray460;
+    public static byte[][][] aByteArrayArrayArray461;
+    public static char[][] aCharArrayArray462;
+    public static char[][] aCharArrayArray463;
+    public static int[] anIntArray464;
+    public static final String[] aStringArray465 = {
             "cook", "cook's", "cooks", "seeks", "sheet"
     };
     public static int anInt466;

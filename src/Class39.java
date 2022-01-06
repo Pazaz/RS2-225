@@ -2,11 +2,9 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class39 {
 
-    public Class39(byte abyte0[], boolean flag) {
+    public Class39(byte[] abyte0, boolean flag) {
         aBoolean658 = false;
         aByte659 = 2;
         anInt660 = 40267;
@@ -18,12 +16,12 @@ public class Class39 {
         method473(true, abyte0);
     }
 
-    public void method473(boolean flag, byte abyte0[]) {
+    public void method473(boolean flag, byte[] abyte0) {
         Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, abyte0);
         int i = class38_sub2_sub3.method450();
         int j = class38_sub2_sub3.method450();
         if (j != i) {
-            byte abyte1[] = new byte[i];
+            byte[] abyte1 = new byte[i];
             Class33.method333(abyte1, i, abyte0, j, 6);
             aByteArray662 = abyte1;
             class38_sub2_sub3 = new Class38_Sub2_Sub3(363, aByteArray662);
@@ -50,7 +48,7 @@ public class Class39 {
 
     }
 
-    public byte[] method474(String s, byte abyte0[], byte byte0) {
+    public byte[] method474(String s, byte[] abyte0, byte byte0) {
         int i = 0;
         s = s.toUpperCase();
         for (int j = 0; j < s.length(); j++)
@@ -80,11 +78,11 @@ public class Class39 {
     public byte aByte659;
     public int anInt660;
     public boolean aBoolean661;
-    public byte aByteArray662[];
+    public byte[] aByteArray662;
     public int anInt663;
-    public int anIntArray664[];
-    public int anIntArray665[];
-    public int anIntArray666[];
-    public int anIntArray667[];
+    public int[] anIntArray664;
+    public int[] anIntArray665;
+    public int[] anIntArray666;
+    public int[] anIntArray667;
     public boolean aBoolean668;
 }

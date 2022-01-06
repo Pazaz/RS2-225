@@ -2,9 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import java.io.PrintStream;
-import sign.signlink;
-
 public class Class10 {
 
     public static void method209(Class39 class39, int i) {
@@ -136,7 +133,7 @@ public class Class10 {
     public static int anInt220 = 473;
     public static int anInt221 = -546;
     public static int anInt222;
-    public static Class10 aClass10Array223[];
+    public static Class10[] aClass10Array223;
     public int anInt224;
     public int anInt225;
     public boolean aBoolean226;

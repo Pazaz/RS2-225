@@ -2,16 +2,12 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class15 {
 
     public Class15(int i, int j, int k, int l, int i1, int j1, int k1,
-            int l1, int i2, int j2, int k2, int l2, int i3, int j3,
-            int k3, int l3, int i4, int j4, int k4, int l4) {
-        aBoolean333 = true;
-        if (j4 != l || j4 != j3 || j4 != l1)
-            aBoolean333 = false;
+                   int l1, int i2, int j2, int k2, int l2, int i3, int j3,
+                   int k3, int l3, int i4, int j4, int k4, int l4) {
+        aBoolean333 = j4 == l && j4 == j3 && j4 == l1;
         anInt334 = j;
         anInt335 = j1;
         anInt336 = i3;
@@ -20,13 +16,13 @@ public class Class15 {
         int i5 = c / 2;
         int j5 = c / 4;
         int k5 = (c * 3) / 4;
-        int ai[] = anIntArrayArray346[j];
+        int[] ai = anIntArrayArray346[j];
         int l5 = ai.length;
         anIntArray323 = new int[l5];
         anIntArray324 = new int[l5];
         anIntArray325 = new int[l5];
-        int ai1[] = new int[l5];
-        int ai2[] = new int[l5];
+        int[] ai1 = new int[l5];
+        int[] ai2 = new int[l5];
         int i6 = i * c;
         int j6 = k4 * c;
         for (int k6 = 0; k6 < l5; k6++) {
@@ -146,7 +142,7 @@ public class Class15 {
             ai2[k6] = j9;
         }
 
-        int ai3[] = anIntArrayArray347[j];
+        int[] ai3 = anIntArrayArray347[j];
         int j7 = ai3.length / 4;
         anIntArray329 = new int[j7];
         anIntArray330 = new int[j7];
@@ -207,36 +203,36 @@ public class Class15 {
         l9 /= 14;
     }
 
-    public int anIntArray323[];
-    public int anIntArray324[];
-    public int anIntArray325[];
-    public int anIntArray326[];
-    public int anIntArray327[];
-    public int anIntArray328[];
-    public int anIntArray329[];
-    public int anIntArray330[];
-    public int anIntArray331[];
-    public int anIntArray332[];
+    public int[] anIntArray323;
+    public int[] anIntArray324;
+    public int[] anIntArray325;
+    public int[] anIntArray326;
+    public int[] anIntArray327;
+    public int[] anIntArray328;
+    public int[] anIntArray329;
+    public int[] anIntArray330;
+    public int[] anIntArray331;
+    public int[] anIntArray332;
     public boolean aBoolean333;
     public int anInt334;
     public int anInt335;
     public int anInt336;
     public int anInt337;
-    public static int anIntArray338[] = new int[6];
-    public static int anIntArray339[] = new int[6];
-    public static int anIntArray340[] = new int[6];
-    public static int anIntArray341[] = new int[6];
-    public static int anIntArray342[] = new int[6];
-    public static int anIntArray343[] = {
+    public static int[] anIntArray338 = new int[6];
+    public static int[] anIntArray339 = new int[6];
+    public static int[] anIntArray340 = new int[6];
+    public static int[] anIntArray341 = new int[6];
+    public static int[] anIntArray342 = new int[6];
+    public static int[] anIntArray343 = {
             1, 0
     };
-    public static int anIntArray344[] = {
+    public static int[] anIntArray344 = {
             2, 1
     };
-    public static int anIntArray345[] = {
+    public static int[] anIntArray345 = {
             3, 3
     };
-    public static final int anIntArrayArray346[][] = {
+    public static final int[][] anIntArrayArray346 = {
             {
                     1, 3, 5, 7
             },
@@ -277,7 +273,7 @@ public class Class15 {
                     1, 3, 5, 7, 13, 14
             }
     };
-    public static final int anIntArrayArray347[][] = {
+    public static final int[][] anIntArrayArray347 = {
             {
                     0, 1, 2, 3, 0, 0, 1, 3
             },

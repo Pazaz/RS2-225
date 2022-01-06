@@ -3,7 +3,6 @@
 // Decompiler options: packimports(3) 
 
 import java.math.BigInteger;
-import sign.signlink;
 
 public class Class38_Sub2_Sub3 extends Class38_Sub2 {
 
@@ -74,7 +73,7 @@ public class Class38_Sub2_Sub3 extends Class38_Sub2 {
             aBoolean1326 = !aBoolean1326;
     }
 
-    public Class38_Sub2_Sub3(int i, byte abyte0[]) {
+    public Class38_Sub2_Sub3(int i, byte[] abyte0) {
         aByte1320 = -34;
         aByte1321 = -106;
         anInt1322 = 3;
@@ -156,7 +155,7 @@ public class Class38_Sub2_Sub3 extends Class38_Sub2 {
         aByteArray1328[anInt1329++] = 10;
     }
 
-    public void method444(byte abyte0[], int i, int j, byte byte0) {
+    public void method444(byte[] abyte0, int i, int j, byte byte0) {
         if (byte0 != aByte1321) {
             for (int k = 1; k > 0; k++)
                 ;
@@ -225,14 +224,14 @@ public class Class38_Sub2_Sub3 extends Class38_Sub2 {
             throw new NullPointerException();
         while (aByteArray1328[anInt1329++] != 10)
             ;
-        byte abyte0[] = new byte[anInt1329 - i - 1];
+        byte[] abyte0 = new byte[anInt1329 - i - 1];
         for (int j = i; j < anInt1329 - 1; j++)
             abyte0[j - i] = aByteArray1328[j];
 
         return abyte0;
     }
 
-    public void method455(int i, int j, int k, byte abyte0[]) {
+    public void method455(int i, int j, int k, byte[] abyte0) {
         if (j >= 0)
             anInt1323 = -432;
         for (int l = k; l < k + i; l++)
@@ -292,11 +291,11 @@ public class Class38_Sub2_Sub3 extends Class38_Sub2 {
     public void method461(BigInteger biginteger, BigInteger biginteger1, int i) {
         int j = anInt1329;
         anInt1329 = 0;
-        byte abyte0[] = new byte[j];
+        byte[] abyte0 = new byte[j];
         method455(j, -110, 0, abyte0);
         BigInteger biginteger2 = new BigInteger(abyte0);
         BigInteger biginteger3 = biginteger2.modPow(biginteger1, biginteger);
-        byte abyte1[] = biginteger3.toByteArray();
+        byte[] abyte1 = biginteger3.toByteArray();
         anInt1329 = 0;
         if (i != 24676) {
             return;
@@ -316,11 +315,11 @@ public class Class38_Sub2_Sub3 extends Class38_Sub2 {
     public int anInt1325;
     public static boolean aBoolean1326 = true;
     public int anInt1327;
-    public byte aByteArray1328[];
+    public byte[] aByteArray1328;
     public int anInt1329;
     public int anInt1330;
-    public static int anIntArray1331[];
-    public static final int anIntArray1332[] = {
+    public static int[] anIntArray1331;
+    public static final int[] anIntArray1332 = {
             0, 1, 3, 7, 15, 31, 63, 127, 255, 511,
             1023, 2047, 4095, 8191, 16383, 32767, 65535, 0x1ffff, 0x3ffff, 0x7ffff,
             0xfffff, 0x1fffff, 0x3fffff, 0x7fffff, 0xffffff, 0x1ffffff, 0x3ffffff, 0x7ffffff, 0xfffffff, 0x1fffffff,

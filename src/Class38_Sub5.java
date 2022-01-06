@@ -2,12 +2,10 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class38_Sub5 extends Class38 {
 
     public Class38_Sub5(boolean flag, int i, int j, int k, int l, Class18 class18, int i1,
-            int j1) {
+                        int j1) {
         anInt1206 = j;
         anInt1207 = l;
         anInt1208 = j1;

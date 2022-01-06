@@ -4,8 +4,6 @@
 
 import java.awt.*;
 import java.awt.image.PixelGrabber;
-import java.io.PrintStream;
-import sign.signlink;
 
 public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
 
@@ -20,7 +18,7 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
         anInt1468 = anInt1469 = 0;
     }
 
-    public Class38_Sub2_Sub2_Sub2(byte abyte0[], Component component) {
+    public Class38_Sub2_Sub2_Sub2(byte[] abyte0, Component component) {
         aBoolean1460 = false;
         aBoolean1462 = false;
         anInt1463 = 15223;
@@ -58,7 +56,7 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
         anInt1470 = class38_sub2_sub3_1.method448();
         anInt1471 = class38_sub2_sub3_1.method448();
         int j = class38_sub2_sub3_1.method446();
-        int ai[] = new int[j];
+        int[] ai = new int[j];
         for (int k = 0; k < j - 1; k++) {
             ai[k + 1] = class38_sub2_sub3_1.method450();
             if (ai[k + 1] == 0)
@@ -172,8 +170,8 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
             anInt1461 = 117;
     }
 
-    public void method404(int i, int ai[], int j, int k, int l, int i1, int j1,
-            int k1, int ai1[]) {
+    public void method404(int i, int[] ai, int j, int k, int l, int i1, int j1,
+                          int k1, int[] ai1) {
         int l1 = -(k1 >> 2);
         k1 = -(k1 & 3);
         for (int i2 = -k; i2 < 0; i2++) {
@@ -240,8 +238,8 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
         }
     }
 
-    public void method406(int ai[], int ai1[], int i, int j, int k, int l, int i1,
-            int j1, int k1) {
+    public void method406(int[] ai, int[] ai1, int i, int j, int k, int l, int i1,
+                          int j1, int k1) {
         int l1 = -(l >> 2);
         l = -(l & 3);
         for (int i2 = -i1; i2 < 0; i2++) {
@@ -335,8 +333,8 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
         }
     }
 
-    public void method408(int i, int j, int ai[], int k, int l, int i1, int j1,
-            int ai1[], int k1, int l1, int i2, int j2, int k2) {
+    public void method408(int i, int j, int[] ai, int k, int l, int i1, int j1,
+                          int[] ai1, int k1, int l1, int i2, int j2, int k2) {
         if (j1 != 0) {
             for (int l2 = 1; l2 > 0; l2++)
                 ;
@@ -410,8 +408,8 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
         }
     }
 
-    public void method410(int i, int j, int ai[], int k, int l, int ai1[], int i1,
-            byte byte0, int j1, int k1, int l1) {
+    public void method410(int i, int j, int[] ai, int k, int l, int[] ai1, int i1,
+                          byte byte0, int j1, int k1, int l1) {
         int i2 = 256 - k;
         if (byte0 != 8)
             aBoolean1460 = !aBoolean1460;
@@ -433,8 +431,8 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
 
     }
 
-    public void method411(int i, int j, int ai[], int k, int l, int i1, int j1,
-            int k1, int l1, boolean flag, int ai1[]) {
+    public void method411(int i, int j, int[] ai, int k, int l, int i1, int j1,
+                          int k1, int l1, boolean flag, int[] ai1) {
         if (flag)
             aBoolean1462 = !aBoolean1462;
         try {
@@ -513,8 +511,8 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
         }
     }
 
-    public void method413(int i, int j, int k, int l, int i1, int j1, int ai[],
-            int ai1[], int k1, byte abyte0[], int l1) {
+    public void method413(int i, int j, int k, int l, int i1, int j1, int[] ai,
+                          int[] ai1, int k1, byte[] abyte0, int l1) {
         if (l >= 0)
             return;
         int i2 = -(i >> 2);
@@ -562,7 +560,7 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
     public boolean aBoolean1462;
     public int anInt1463;
     public byte aByte1464;
-    public int anIntArray1465[];
+    public int[] anIntArray1465;
     public int anInt1466;
     public int anInt1467;
     public int anInt1468;

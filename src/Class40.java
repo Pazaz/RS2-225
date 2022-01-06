@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class40 {
 
     public static long method475(String s) {
@@ -63,7 +61,7 @@ public class Class40 {
         if (i != 0)
             throw new NullPointerException();
         if (s.length() > 0) {
-            char ac[] = s.toCharArray();
+            char[] ac = s.toCharArray();
             for (int j = 0; j < ac.length; j++)
                 if (ac[j] == '_') {
                     ac[j] = ' ';
@@ -83,7 +81,7 @@ public class Class40 {
         s = s.toLowerCase();
         if (i != 0)
             anInt671 = -18;
-        char ac[] = s.toCharArray();
+        char[] ac = s.toCharArray();
         int j = ac.length;
         boolean flag = true;
         for (int k = 0; k < j; k++) {
@@ -114,8 +112,8 @@ public class Class40 {
     public static int anInt671 = 3;
     public static boolean aBoolean672 = true;
     public static int anInt673 = 629;
-    public static char aCharArray674[] = new char[12];
-    public static char aCharArray675[] = {
+    public static char[] aCharArray674 = new char[12];
+    public static char[] aCharArray675 = {
             '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
             'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
             't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2',

@@ -2,9 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import java.io.PrintStream;
-import sign.signlink;
-
 public class Class12 {
 
     public static void method214(Class39 class39, int i) {
@@ -52,7 +49,7 @@ public class Class12 {
     public Class38_Sub2_Sub1 method216() {
         if (anIntArray249 == null)
             return null;
-        Class38_Sub2_Sub1 aclass38_sub2_sub1[] = new Class38_Sub2_Sub1[anIntArray249.length];
+        Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[anIntArray249.length];
         for (int i = 0; i < anIntArray249.length; i++)
             aclass38_sub2_sub1[i] = new Class38_Sub2_Sub1(false, anIntArray249[i]);
 
@@ -71,7 +68,7 @@ public class Class12 {
     }
 
     public Class38_Sub2_Sub1 method217(boolean flag) {
-        Class38_Sub2_Sub1 aclass38_sub2_sub1[] = new Class38_Sub2_Sub1[5];
+        Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[5];
         int i = 0;
         for (int j = 0; j < 5; j++)
             if (anIntArray252[j] != -1)
@@ -103,12 +100,12 @@ public class Class12 {
     public static int anInt244 = 473;
     public boolean aBoolean245;
     public static int anInt246;
-    public static Class12 aClass12Array247[];
+    public static Class12[] aClass12Array247;
     public int anInt248;
-    public int anIntArray249[];
-    public int anIntArray250[];
-    public int anIntArray251[];
-    public int anIntArray252[] = {
+    public int[] anIntArray249;
+    public int[] anIntArray250;
+    public int[] anIntArray251;
+    public int[] anIntArray252 = {
             -1, -1, -1, -1, -1
     };
     public boolean aBoolean253;

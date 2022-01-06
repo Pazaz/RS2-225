@@ -13,7 +13,7 @@ public class Class16 {
     }
 
     public static int anInt348 = 473;
-    public static Class16 aClass16Array349[];
+    public static Class16[] aClass16Array349;
     public boolean aBoolean350;
     public boolean aBoolean351;
     public boolean aBoolean352;

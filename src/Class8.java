@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class8 {
 
     public Class8(int i, int j, int k) {
@@ -449,8 +447,7 @@ public class Class8 {
                 return true;
             if (k1 == j1 - 1 && i1 == k && (anIntArrayArray215[k1][i1] & 8) == 0)
                 return true;
-            if (k1 == j1 + 1 && i1 == k && (anIntArrayArray215[k1][i1] & 0x80) == 0)
-                return true;
+            return k1 == j1 + 1 && i1 == k && (anIntArrayArray215[k1][i1] & 0x80) == 0;
         }
         return false;
     }
@@ -496,14 +493,13 @@ public class Class8 {
                 return true;
             if (l == i1 - 1 && j1 == k1 && (anIntArrayArray215[l][j1] & 8) == 0)
                 return true;
-            if (l == i1 + 1 && j1 == k1 && (anIntArrayArray215[l][j1] & 0x80) == 0)
-                return true;
+            return l == i1 + 1 && j1 == k1 && (anIntArrayArray215[l][j1] & 0x80) == 0;
         }
         return false;
     }
 
     public boolean method207(int i, int j, int k, int l, int i1, int j1, int k1,
-            int l1) {
+                             int l1) {
         int i2 = (l + k1) - 1;
         int j2 = (j1 + j) - 1;
         l1 = 17 / l1;
@@ -531,5 +527,5 @@ public class Class8 {
     public int anInt212;
     public int anInt213;
     public int anInt214;
-    public int anIntArrayArray215[][];
+    public int[][] anIntArrayArray215;
 }

@@ -2,12 +2,10 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class38_Sub7_Sub1 extends Class38_Sub7 {
 
     public Class38_Sub7_Sub1(int i, int j, int k, int l, int i1, int j1, int k1,
-            int l1, int i2, int j2, int k2, int l2) {
+                             int l1, int i2, int j2, int k2, int l2) {
         anInt1342 = -159;
         aBoolean1354 = false;
         aClass20_1343 = Class20.aClass20Array387[k2];
@@ -60,7 +58,7 @@ public class Class38_Sub7_Sub1 extends Class38_Sub7 {
         anInt1363 = (int) (Math.atan2(aDouble1358, aDouble1359) * 325.94900000000001D) + 1024 & 0x7ff;
         anInt1364 = (int) (Math.atan2(aDouble1361, aDouble1360) * 325.94900000000001D) & 0x7ff;
         if (aClass20_1343.aClass18_391 != null)
-            for (anInt1366 += i; anInt1366 > aClass20_1343.aClass18_391.anIntArray368[anInt1365];) {
+            for (anInt1366 += i; anInt1366 > aClass20_1343.aClass18_391.anIntArray368[anInt1365]; ) {
                 anInt1366 -= aClass20_1343.aClass18_391.anIntArray368[anInt1365] + 1;
                 anInt1365++;
                 if (anInt1365 >= aClass20_1343.aClass18_391.anInt365)

@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class38_Sub7_Sub3 extends Class38_Sub7 {
 
     public void method466(boolean flag, boolean flag1, int i, int j) {
@@ -166,8 +164,8 @@ public class Class38_Sub7_Sub3 extends Class38_Sub7 {
     public int anInt1425;
     public int anInt1426;
     public int anInt1427;
-    public int anIntArray1428[];
-    public int anIntArray1429[];
-    public boolean aBooleanArray1430[];
+    public int[] anIntArray1428;
+    public int[] anIntArray1429;
+    public boolean[] aBooleanArray1430;
     public int anInt1431;
 }

@@ -3,7 +3,6 @@
 // Decompiler options: packimports(3) 
 
 import java.awt.*;
-import sign.signlink;
 
 public class Frame_Sub1 extends Frame {
 

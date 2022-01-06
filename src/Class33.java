@@ -2,11 +2,9 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import java.io.PrintStream;
-
 public class Class33 {
 
-    public static int method333(byte abyte0[], int i, byte abyte1[], int j, int k) {
+    public static int method333(byte[] abyte0, int i, byte[] abyte1, int j, int k) {
         synchronized (aClass35_589) {
             aClass35_589.aByteArray605 = abyte1;
             aClass35_589.anInt606 = k;
@@ -33,14 +31,15 @@ public class Class33 {
         int i = class35.anInt616;
         int j = class35.anInt626;
         int k = class35.anInt624;
-        int ai[] = Class35.anIntArray629;
+        int[] ai = Class35.anIntArray629;
         int l = class35.anInt623;
-        byte abyte0[] = class35.aByteArray610;
+        byte[] abyte0 = class35.aByteArray610;
         int i1 = class35.anInt611;
         int j1 = class35.anInt612;
         int k1 = j1;
         int l1 = class35.anInt643 + 1;
-        label0: do {
+        label0:
+        do {
             if (i > 0) {
                 do {
                     if (j1 == 0)
@@ -160,9 +159,9 @@ public class Class33 {
         boolean flag17 = false;
         boolean flag18 = false;
         int k8 = 0;
-        int ai[] = null;
-        int ai1[] = null;
-        int ai2[] = null;
+        int[] ai = null;
+        int[] ai1 = null;
+        int[] ai2 = null;
         class35.anInt620 = 1;
         if (Class35.anIntArray629 == null)
             Class35.anIntArray629 = new int[class35.anInt620 * 0x186a0];
@@ -182,10 +181,7 @@ public class Class33 {
             byte0 = method336(class35);
             byte0 = method336(class35);
             byte0 = method337(class35);
-            if (byte0 != 0)
-                class35.aBoolean617 = true;
-            else
-                class35.aBoolean617 = false;
+            class35.aBoolean617 = byte0 != 0;
             if (class35.aBoolean617)
                 System.out.println("PANIC! RANDOMISED BLOCK!");
             class35.anInt622 = 0;
@@ -197,10 +193,7 @@ public class Class33 {
             class35.anInt622 = class35.anInt622 << 8 | byte0 & 0xff;
             for (int j = 0; j < 16; j++) {
                 byte byte1 = method337(class35);
-                if (byte1 == 1)
-                    class35.aBooleanArray632[j] = true;
-                else
-                    class35.aBooleanArray632[j] = false;
+                class35.aBooleanArray632[j] = byte1 == 1;
             }
 
             for (int k = 0; k < 256; k++)
@@ -231,7 +224,7 @@ public class Class33 {
                 class35.aByteArray637[i1] = (byte) j3;
             }
 
-            byte abyte0[] = new byte[6];
+            byte[] abyte0 = new byte[6];
             for (byte byte16 = 0; byte16 < j4; byte16++)
                 abyte0[byte16] = byte16;
 
@@ -314,7 +307,7 @@ public class Class33 {
                 byte9 = method337(class35);
             }
 
-            for (int k5 = ai2[l7 - ai1[i7]]; k5 != l4;)
+            for (int k5 = ai2[l7 - ai1[i7]]; k5 != l4; )
                 if (k5 == 0 || k5 == 1) {
                     int j6 = -1;
                     int k6 = 1;
@@ -447,10 +440,7 @@ public class Class33 {
             class35.anInt626++;
             class35.anInt643 = i6;
             method334(class35);
-            if (class35.anInt626 == class35.anInt643 + 1 && class35.anInt616 == 0)
-                flag19 = true;
-            else
-                flag19 = false;
+            flag19 = class35.anInt626 == class35.anInt643 + 1 && class35.anInt616 == 0;
         }
     }
 
@@ -492,7 +482,7 @@ public class Class33 {
 
     }
 
-    public static void method340(int ai[], int ai1[], int ai2[], byte abyte0[], int i, int j, int k) {
+    public static void method340(int[] ai, int[] ai1, int[] ai2, byte[] abyte0, int i, int j, int k) {
         int l = 0;
         for (int i1 = i; i1 <= j; i1++) {
             for (int l2 = 0; l2 < k; l2++)

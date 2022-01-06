@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class43 {
 
     public static void method487(Class38_Sub2_Sub3 class38_sub2_sub3, int i) {
@@ -118,7 +116,7 @@ public class Class43 {
             if (aClass44Array695[i2] != null) {
                 int j2 = (aClass44Array695[i2].anInt713 * 22050) / 1000;
                 int i3 = (aClass44Array695[i2].anInt714 * 22050) / 1000;
-                int ai[] = aClass44Array695[i2].method494(j2, aClass44Array695[i2].anInt713);
+                int[] ai = aClass44Array695[i2].method494(j2, aClass44Array695[i2].anInt713);
                 for (int l3 = 0; l3 < j2; l3++)
                     aByteArray693[l3 + i3 + 44] += (byte) (ai[l3] >> 8);
 
@@ -151,11 +149,11 @@ public class Class43 {
 
     public boolean aBoolean689;
     public static int anInt690 = 473;
-    public static Class43 aClass43Array691[] = new Class43[1000];
-    public static int anIntArray692[] = new int[1000];
-    public static byte aByteArray693[];
+    public static Class43[] aClass43Array691 = new Class43[1000];
+    public static int[] anIntArray692 = new int[1000];
+    public static byte[] aByteArray693;
     public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_694;
-    public Class44 aClass44Array695[];
+    public Class44[] aClass44Array695;
     public int anInt696;
     public int anInt697;
 

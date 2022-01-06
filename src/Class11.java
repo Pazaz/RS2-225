@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class11 {
 
     public static void method213(boolean flag, Class39 class39) {
@@ -20,10 +18,10 @@ public class Class11 {
         int i = class38_sub2_sub3.method448();
         int j = class38_sub2_sub3.method448();
         aClass11Array235 = new Class11[j + 1];
-        int ai[] = new int[500];
-        int ai1[] = new int[500];
-        int ai2[] = new int[500];
-        int ai3[] = new int[500];
+        int[] ai = new int[500];
+        int[] ai1 = new int[500];
+        int[] ai2 = new int[500];
+        int[] ai3 = new int[500];
         for (int k = 0; k < i; k++) {
             int l = class38_sub2_sub3.method448();
             Class11 class11 = aClass11Array235[l] = new Class11();
@@ -90,12 +88,12 @@ public class Class11 {
     public Class11() {
     }
 
-    public static Class11 aClass11Array235[];
+    public static Class11[] aClass11Array235;
     public int anInt236;
     public Class9 aClass9_237;
     public int anInt238;
-    public int anIntArray239[];
-    public int anIntArray240[];
-    public int anIntArray241[];
-    public int anIntArray242[];
+    public int[] anIntArray239;
+    public int[] anIntArray240;
+    public int[] anIntArray241;
+    public int[] anIntArray242;
 }

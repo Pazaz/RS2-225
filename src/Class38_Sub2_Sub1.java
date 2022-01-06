@@ -2,9 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import java.io.PrintStream;
-import sign.signlink;
-
 public class Class38_Sub2_Sub1 extends Class38_Sub2 {
 
     public static void method351(boolean flag) {
@@ -305,7 +302,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
 
     }
 
-    public Class38_Sub2_Sub1(int i, Class38_Sub2_Sub1 aclass38_sub2_sub1[], int j) {
+    public Class38_Sub2_Sub1(int i, Class38_Sub2_Sub1[] aclass38_sub2_sub1, int j) {
         anInt1217 = 45861;
         aByte1218 = 47;
         aByte1219 = 47;
@@ -404,7 +401,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
 
     }
 
-    public Class38_Sub2_Sub1(Class38_Sub2_Sub1 aclass38_sub2_sub1[], byte byte0, int i, boolean flag) {
+    public Class38_Sub2_Sub1(Class38_Sub2_Sub1[] aclass38_sub2_sub1, byte byte0, int i, boolean flag) {
         anInt1217 = 45861;
         aByte1218 = 47;
         aByte1219 = 47;
@@ -820,7 +817,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
         if (i != 4)
             return;
         if (anIntArray1252 != null) {
-            int ai[] = new int[256];
+            int[] ai = new int[256];
             int j = 0;
             for (int l = 0; l < anInt1222; l++) {
                 int j1 = anIntArray1252[l];
@@ -843,7 +840,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
             anIntArray1252 = null;
         }
         if (anIntArray1253 != null) {
-            int ai1[] = new int[256];
+            int[] ai1 = new int[256];
             int k = 0;
             for (int i1 = 0; i1 < anInt1226; i1++) {
                 int l1 = anIntArray1253[i1];
@@ -887,7 +884,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
             ;
     }
 
-    public void method359(int i, int j, int k, int ai[]) {
+    public void method359(int i, int j, int k, int[] ai) {
         if (k == -1)
             return;
         if (ai == null || i == -1) {
@@ -929,7 +926,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
 
     }
 
-    public void method360(int i, int ai[], int j, int k, int l) {
+    public void method360(int i, int[] ai, int j, int k, int l) {
         int i1 = ai.length;
         if (i == 0) {
             int j1 = 0;
@@ -939,7 +936,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
             for (int k2 = 0; k2 < i1; k2++) {
                 int l3 = ai[k2];
                 if (l3 < anIntArrayArray1254.length) {
-                    int ai5[] = anIntArrayArray1254[l3];
+                    int[] ai5 = anIntArrayArray1254[l3];
                     for (int i5 = 0; i5 < ai5.length; i5++) {
                         int j6 = ai5[i5];
                         anInt1292 += anIntArray1223[j6];
@@ -967,7 +964,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
             for (int k1 = 0; k1 < i1; k1++) {
                 int l2 = ai[k1];
                 if (l2 < anIntArrayArray1254.length) {
-                    int ai1[] = anIntArrayArray1254[l2];
+                    int[] ai1 = anIntArrayArray1254[l2];
                     for (int i4 = 0; i4 < ai1.length; i4++) {
                         int j5 = ai1[i4];
                         anIntArray1223[j5] += j;
@@ -984,7 +981,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
             for (int l1 = 0; l1 < i1; l1++) {
                 int i3 = ai[l1];
                 if (i3 < anIntArrayArray1254.length) {
-                    int ai2[] = anIntArrayArray1254[i3];
+                    int[] ai2 = anIntArrayArray1254[i3];
                     for (int j4 = 0; j4 < ai2.length; j4++) {
                         int k5 = ai2[j4];
                         anIntArray1223[k5] -= anInt1292;
@@ -1028,7 +1025,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
             for (int i2 = 0; i2 < i1; i2++) {
                 int j3 = ai[i2];
                 if (j3 < anIntArrayArray1254.length) {
-                    int ai3[] = anIntArrayArray1254[j3];
+                    int[] ai3 = anIntArrayArray1254[j3];
                     for (int k4 = 0; k4 < ai3.length; k4++) {
                         int l5 = ai3[k4];
                         anIntArray1223[l5] -= anInt1292;
@@ -1051,7 +1048,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
             for (int j2 = 0; j2 < i1; j2++) {
                 int k3 = ai[j2];
                 if (k3 < anIntArrayArray1255.length) {
-                    int ai4[] = anIntArrayArray1255[k3];
+                    int[] ai4 = anIntArrayArray1255[k3];
                     for (int l4 = 0; l4 < ai4.length; l4++) {
                         int i6 = ai4[l4];
                         anIntArray1235[i6] += j * 8;
@@ -1342,7 +1339,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
     }
 
     public void method371(int i, int j, int k, int l, int i1, int j1, int k1,
-            int l1, int i2) {
+                          int l1, int i2) {
         int j2 = l1 * i1 - j1 * l >> 16;
         int k2 = k1 * j + j2 * k >> 16;
         int l2 = anInt1246 * k >> 16;
@@ -1366,9 +1363,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
         if (i5 / i3 >= Class38_Sub2_Sub2.anInt1317)
             return;
         int j5 = l2 + (anInt1247 * j >> 16);
-        boolean flag = false;
-        if (k2 - j5 <= 50)
-            flag = true;
+        boolean flag = k2 - j5 <= 50;
         boolean flag1 = false;
         if (i2 > 0 && aBoolean1295) {
             int k5 = k2 - l2;
@@ -1470,11 +1465,8 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
                     if ((i3 - l3) * (anIntArray1277[j2] - anIntArray1277[k1])
                             - (anIntArray1277[l] - anIntArray1277[k1]) * (k4 - l3) > 0) {
                         aBooleanArray1275[k] = false;
-                        if (i3 < 0 || l3 < 0 || k4 < 0 || i3 > Class38_Sub2_Sub2.anInt1315
-                                || l3 > Class38_Sub2_Sub2.anInt1315 || k4 > Class38_Sub2_Sub2.anInt1315)
-                            aBooleanArray1274[k] = true;
-                        else
-                            aBooleanArray1274[k] = false;
+                        aBooleanArray1274[k] = i3 < 0 || l3 < 0 || k4 < 0 || i3 > Class38_Sub2_Sub2.anInt1315
+                                || l3 > Class38_Sub2_Sub2.anInt1315 || k4 > Class38_Sub2_Sub2.anInt1315;
                         int k5 = (anIntArray1278[l] + anIntArray1278[k1] + anIntArray1278[j2]) / 3 + anInt1250;
                         anIntArrayArray1283[k5][anIntArray1282[k5]++] = k;
                     }
@@ -1485,7 +1477,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
             for (int i1 = anInt1249 - 1; i1 >= 0; i1--) {
                 int l1 = anIntArray1282[i1];
                 if (l1 > 0) {
-                    int ai[] = anIntArrayArray1283[i1];
+                    int[] ai = anIntArrayArray1283[i1];
                     for (int j3 = 0; j3 < l1; j3++)
                         method373(ai[j3]);
 
@@ -1502,7 +1494,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
         for (int i2 = anInt1249 - 1; i2 >= 0; i2--) {
             int k2 = anIntArray1282[i2];
             if (k2 > 0) {
-                int ai1[] = anIntArrayArray1283[i2];
+                int[] ai1 = anIntArrayArray1283[i2];
                 for (int i4 = 0; i4 < k2; i4++) {
                     int l4 = ai1[i4];
                     int l5 = anIntArray1234[l4];
@@ -1530,8 +1522,8 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
             j4 = (anIntArray1288[6] + anIntArray1288[8]) / (anIntArray1284[6] + anIntArray1284[8]);
         int i6 = 0;
         int k6 = anIntArray1284[10];
-        int ai2[] = anIntArrayArray1285[10];
-        int ai3[] = anIntArray1286;
+        int[] ai2 = anIntArrayArray1285[10];
+        int[] ai3 = anIntArray1286;
         if (i6 == k6) {
             i6 = 0;
             k6 = anIntArray1284[11];
@@ -1584,7 +1576,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
                     i5 = -1000;
             }
             int i7 = anIntArray1284[l6];
-            int ai4[] = anIntArrayArray1285[l6];
+            int[] ai4 = anIntArrayArray1285[l6];
             for (int j7 = 0; j7 < i7; j7++)
                 method373(ai4[j7]);
 
@@ -1830,7 +1822,7 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
     }
 
     public boolean method375(int i, int j, int k, int l, int i1, int j1, int k1,
-            int l1) {
+                             int l1) {
         if (j < k && j < l && j < i1)
             return false;
         if (j > k && j > l && j > i1)
@@ -1847,25 +1839,25 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
     public int anInt1220;
     public boolean aBoolean1221;
     public int anInt1222;
-    public int anIntArray1223[];
-    public int anIntArray1224[];
-    public int anIntArray1225[];
+    public int[] anIntArray1223;
+    public int[] anIntArray1224;
+    public int[] anIntArray1225;
     public int anInt1226;
-    public int anIntArray1227[];
-    public int anIntArray1228[];
-    public int anIntArray1229[];
-    public int anIntArray1230[];
-    public int anIntArray1231[];
-    public int anIntArray1232[];
-    public int anIntArray1233[];
-    public int anIntArray1234[];
-    public int anIntArray1235[];
-    public int anIntArray1236[];
+    public int[] anIntArray1227;
+    public int[] anIntArray1228;
+    public int[] anIntArray1229;
+    public int[] anIntArray1230;
+    public int[] anIntArray1231;
+    public int[] anIntArray1232;
+    public int[] anIntArray1233;
+    public int[] anIntArray1234;
+    public int[] anIntArray1235;
+    public int[] anIntArray1236;
     public int anInt1237;
     public int anInt1238;
-    public int anIntArray1239[];
-    public int anIntArray1240[];
-    public int anIntArray1241[];
+    public int[] anIntArray1239;
+    public int[] anIntArray1240;
+    public int[] anIntArray1241;
     public int anInt1242;
     public int anInt1243;
     public int anInt1244;
@@ -1876,14 +1868,14 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
     public int anInt1249;
     public int anInt1250;
     public int anInt1251;
-    public int anIntArray1252[];
-    public int anIntArray1253[];
-    public int anIntArrayArray1254[][];
-    public int anIntArrayArray1255[][];
+    public int[] anIntArray1252;
+    public int[] anIntArray1253;
+    public int[][] anIntArrayArray1254;
+    public int[][] anIntArrayArray1255;
     public boolean aBoolean1256;
-    public Class25 aClass25Array1257[];
-    public Class25 aClass25Array1258[];
-    public static Class21 aClass21Array1259[];
+    public Class25[] aClass25Array1257;
+    public Class25[] aClass25Array1258;
+    public static Class21[] aClass21Array1259;
     public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_1260;
     public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_1261;
     public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_1262;
@@ -1898,24 +1890,24 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
     public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_1271;
     public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_1272;
     public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_1273;
-    public static boolean aBooleanArray1274[] = new boolean[4096];
-    public static boolean aBooleanArray1275[] = new boolean[4096];
-    public static int anIntArray1276[] = new int[4096];
-    public static int anIntArray1277[] = new int[4096];
-    public static int anIntArray1278[] = new int[4096];
-    public static int anIntArray1279[] = new int[4096];
-    public static int anIntArray1280[] = new int[4096];
-    public static int anIntArray1281[] = new int[4096];
-    public static int anIntArray1282[] = new int[1500];
-    public static int anIntArrayArray1283[][] = new int[1500][512];
-    public static int anIntArray1284[] = new int[12];
-    public static int anIntArrayArray1285[][] = new int[12][2000];
-    public static int anIntArray1286[] = new int[2000];
-    public static int anIntArray1287[] = new int[2000];
-    public static int anIntArray1288[] = new int[12];
-    public static int anIntArray1289[] = new int[10];
-    public static int anIntArray1290[] = new int[10];
-    public static int anIntArray1291[] = new int[10];
+    public static boolean[] aBooleanArray1274 = new boolean[4096];
+    public static boolean[] aBooleanArray1275 = new boolean[4096];
+    public static int[] anIntArray1276 = new int[4096];
+    public static int[] anIntArray1277 = new int[4096];
+    public static int[] anIntArray1278 = new int[4096];
+    public static int[] anIntArray1279 = new int[4096];
+    public static int[] anIntArray1280 = new int[4096];
+    public static int[] anIntArray1281 = new int[4096];
+    public static int[] anIntArray1282 = new int[1500];
+    public static int[][] anIntArrayArray1283 = new int[1500][512];
+    public static int[] anIntArray1284 = new int[12];
+    public static int[][] anIntArrayArray1285 = new int[12][2000];
+    public static int[] anIntArray1286 = new int[2000];
+    public static int[] anIntArray1287 = new int[2000];
+    public static int[] anIntArray1288 = new int[12];
+    public static int[] anIntArray1289 = new int[10];
+    public static int[] anIntArray1290 = new int[10];
+    public static int[] anIntArray1291 = new int[10];
     public static int anInt1292;
     public static int anInt1293;
     public static int anInt1294;
@@ -1923,11 +1915,11 @@ public class Class38_Sub2_Sub1 extends Class38_Sub2 {
     public static int anInt1296;
     public static int anInt1297;
     public static int anInt1298;
-    public static int anIntArray1299[] = new int[1000];
-    public static int anIntArray1300[];
-    public static int anIntArray1301[];
-    public static int anIntArray1302[];
-    public static int anIntArray1303[];
+    public static int[] anIntArray1299 = new int[1000];
+    public static int[] anIntArray1300;
+    public static int[] anIntArray1301;
+    public static int[] anIntArray1302;
+    public static int[] anIntArray1303;
     public static boolean aBoolean1304;
 
     static {

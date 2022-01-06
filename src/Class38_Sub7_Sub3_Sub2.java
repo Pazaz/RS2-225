@@ -2,8 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import sign.signlink;
-
 public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
 
     public void method470(boolean flag, Class38_Sub2_Sub3 class38_sub2_sub3) {
@@ -93,7 +91,7 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
             if (class20.anInt395 != 128 || class20.anInt396 != 128)
                 class38_sub2_sub1_2.method366(class20.anInt395, 2, class20.anInt396, class20.anInt395);
             class38_sub2_sub1_2.method367(64 + class20.anInt398, 850 + class20.anInt399, -30, -50, -30, true);
-            Class38_Sub2_Sub1 aclass38_sub2_sub1_1[] = {
+            Class38_Sub2_Sub1[] aclass38_sub2_sub1_1 = {
                     class38_sub2_sub1, class38_sub2_sub1_2
             };
             class38_sub2_sub1 = new Class38_Sub2_Sub1(aclass38_sub2_sub1_1, (byte) -31, 2, true);
@@ -114,7 +112,7 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
                     class38_sub2_sub1_1.method361(0);
                 } else if (super.anInt1426 == 1536)
                     class38_sub2_sub1_1.method361(0);
-                Class38_Sub2_Sub1 aclass38_sub2_sub1[] = {
+                Class38_Sub2_Sub1[] aclass38_sub2_sub1 = {
                         class38_sub2_sub1, class38_sub2_sub1_1
                 };
                 class38_sub2_sub1 = new Class38_Sub2_Sub1(aclass38_sub2_sub1, (byte) -31, 2, true);
@@ -163,7 +161,7 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
             i = Class18.aClass18Array364[super.anInt1404].anIntArray366[super.anInt1405];
         Class38_Sub2_Sub1 class38_sub2_sub1 = (Class38_Sub2_Sub1) aClass34_1525.method341(l);
         if (class38_sub2_sub1 == null) {
-            Class38_Sub2_Sub1 aclass38_sub2_sub1[] = new Class38_Sub2_Sub1[12];
+            Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[12];
             int j1 = 0;
             for (int k1 = 0; k1 < 12; k1++) {
                 int l1 = anIntArray1509[k1];
@@ -213,7 +211,7 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
     public Class38_Sub2_Sub1 method472(int i) {
         if (!aBoolean1506)
             return null;
-        Class38_Sub2_Sub1 aclass38_sub2_sub1[] = new Class38_Sub2_Sub1[12];
+        Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[12];
         int j = 0;
         for (int k = 0; k < 12; k++) {
             int l = anIntArray1509[k];
@@ -260,8 +258,8 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
     public boolean aBoolean1506;
     public int anInt1507;
     public int anInt1508;
-    public int anIntArray1509[];
-    public int anIntArray1510[];
+    public int[] anIntArray1509;
+    public int[] anIntArray1510;
     public int anInt1511;
     public long aLong1512;
     public int anInt1513;

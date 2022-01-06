@@ -4,7 +4,7 @@
 
 public class Class6 {
 
-    public static final int anIntArray191[] = {
+    public static final int[] anIntArray191 = {
             95, 218, 67, 50, 253, 222, 194, 60, 101, 128,
             8, 251, 92, 111, 24, 33, 223, 66, 232, 59,
             227, 113, 153, 105, 126, 98, 167, 102, 177, 238,
@@ -32,7 +32,7 @@ public class Class6 {
             69, 157, 216, 217, 249, 120, 226, 84, 149, 187,
             54, 53, 158, 166, 182, 133, 0
     };
-    public static final int anIntArray192[] = {
+    public static final int[] anIntArray192 = {
             0, -2, 4, 6, -1, 0, 0, 2, 0, 0,
             0, 0, 5, 4, 2, 2, 0, 0, 0, 0,
             2, -2, 2, 14, 0, 6, 3, 0, 4, 0,
