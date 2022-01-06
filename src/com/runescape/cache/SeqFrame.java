@@ -27,7 +27,7 @@ public class SeqFrame {
             SeqFrame seqFrame = seqFrames[l] = new SeqFrame();
             seqFrame.anInt236 = class38_sub2_sub3_3.readByte();
             int i1 = class38_sub2_sub3.readWord();
-            SeqBase seqBase = SeqBase.seqBaseArray[i1];
+            SeqBase seqBase = SeqBase.instance[i1];
             seqFrame.seqBase = seqBase;
             int j1 = class38_sub2_sub3.readByte();
             int k1 = -1;
@@ -35,9 +35,9 @@ public class SeqFrame {
             for (int i2 = 0; i2 < j1; i2++) {
                 int j2 = class38_sub2_sub3_1.readByte();
                 if (j2 > 0) {
-                    if (seqBase.anIntArray218[i2] != 0) {
+                    if (seqBase.types[i2] != 0) {
                         for (int l2 = i2 - 1; l2 > k1; l2--) {
-                            if (seqBase.anIntArray218[l2] != 0)
+                            if (seqBase.types[l2] != 0)
                                 continue;
                             ai[l1] = l2;
                             ai1[l1] = 0;
@@ -50,7 +50,7 @@ public class SeqFrame {
                     }
                     ai[l1] = i2;
                     char c = '\0';
-                    if (seqBase.anIntArray218[ai[l1]] == 3)
+                    if (seqBase.types[ai[l1]] == 3)
                         c = '\200';
                     if ((j2 & 1) != 0)
                         ai1[l1] = class38_sub2_sub3_2.readSmartSigned();

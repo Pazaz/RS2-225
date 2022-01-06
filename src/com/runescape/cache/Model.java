@@ -880,7 +880,7 @@ public class Model extends CacheableNode {
         anInt1294 = 0;
         for (int k = 0; k < seqFrame.anInt238; k++) {
             int l = seqFrame.anIntArray239[k];
-            method360(seqBase.anIntArray218[l], seqBase.anIntArrayArray219[l], seqFrame.anIntArray240[k],
+            method360(seqBase.types[l], seqBase.groupLabels[l], seqFrame.anIntArray240[k],
                     seqFrame.anIntArray241[k], seqFrame.anIntArray242[k]);
         }
 
@@ -909,8 +909,8 @@ public class Model extends CacheableNode {
             int k1;
             for (k1 = seqFrame.anIntArray239[j1]; k1 > i1; i1 = ai[l++])
                 ;
-            if (k1 != i1 || seqBase.anIntArray218[k1] == 0)
-                method360(seqBase.anIntArray218[k1], seqBase.anIntArrayArray219[k1], seqFrame.anIntArray240[j1],
+            if (k1 != i1 || seqBase.types[k1] == 0)
+                method360(seqBase.types[k1], seqBase.groupLabels[k1], seqFrame.anIntArray240[j1],
                         seqFrame.anIntArray241[j1], seqFrame.anIntArray242[j1]);
         }
 
@@ -923,8 +923,8 @@ public class Model extends CacheableNode {
             int i2;
             for (i2 = seqFrame_1.anIntArray239[l1]; i2 > i1; i1 = ai[l++])
                 ;
-            if (i2 == i1 || seqBase.anIntArray218[i2] == 0)
-                method360(seqBase.anIntArray218[i2], seqBase.anIntArrayArray219[i2], seqFrame_1.anIntArray240[l1],
+            if (i2 == i1 || seqBase.types[i2] == 0)
+                method360(seqBase.types[i2], seqBase.groupLabels[i2], seqFrame_1.anIntArray240[l1],
                         seqFrame_1.anIntArray241[l1], seqFrame_1.anIntArray242[l1]);
         }
 

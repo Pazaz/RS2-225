@@ -4718,7 +4718,7 @@ public class Game extends GameShell {
             Draw3D.method388(20, -20);
             method13(true, "Unpacking models", 83);
             Model.method352(anInt958, fileArchive_3);
-            SeqBase.method208(false, fileArchive_3);
+            SeqBase.load(fileArchive_3);
             SeqFrame.method213(false, fileArchive_3);
             method13(true, "Unpacking config", 86);
             SeqType.method222(fileArchive, 473);
@@ -5807,7 +5807,7 @@ public class Game extends GameShell {
         Draw3D.method384(true);
         Scene.method280(true);
         Model.method351(true);
-        SeqBase.seqBaseArray = null;
+        SeqBase.instance = null;
         SeqFrame.seqFrames = null;
         System.gc();
     }
