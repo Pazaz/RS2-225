@@ -1,17 +1,17 @@
 package com.runescape;
 
-public class Class10 {
+public class FloType {
 
     public static void method209(FileArchive fileArchive, int i) {
         Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read("flo.dat", null));
         anInt222 = class38_sub2_sub3.method448();
         i = 35 / i;
-        if (aClass10Array223 == null)
-            aClass10Array223 = new Class10[anInt222];
+        if (floTypes == null)
+            floTypes = new FloType[anInt222];
         for (int j = 0; j < anInt222; j++) {
-            if (aClass10Array223[j] == null)
-                aClass10Array223[j] = new Class10();
-            aClass10Array223[j].method210(false, class38_sub2_sub3);
+            if (floTypes[j] == null)
+                floTypes[j] = new FloType();
+            floTypes[j].method210(false, class38_sub2_sub3);
         }
 
     }
@@ -122,7 +122,7 @@ public class Class10 {
         return l;
     }
 
-    public Class10() {
+    public FloType() {
         anInt225 = -1;
         aBoolean226 = false;
         aBoolean227 = true;
@@ -131,7 +131,7 @@ public class Class10 {
     public static int anInt220 = 473;
     public static int anInt221 = -546;
     public static int anInt222;
-    public static Class10[] aClass10Array223;
+    public static FloType[] floTypes;
     public int anInt224;
     public int anInt225;
     public boolean aBoolean226;

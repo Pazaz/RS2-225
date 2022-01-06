@@ -4719,7 +4719,7 @@ public class client extends Applet_Sub1 {
             method13(true, "Unpacking config", 86);
             Class18.method222(fileArchive, 473);
             LocType.load(fileArchive);
-            Class10.method209(fileArchive, 473);
+            FloType.method209(fileArchive, 473);
             ObjType.method167(fileArchive);
             NpcType.method146(fileArchive);
             Class12.method214(fileArchive, 473);
@@ -5791,7 +5791,7 @@ public class client extends Applet_Sub1 {
         LocType.unload();
         NpcType.method147(true);
         ObjType.method168(true);
-        Class10.aClass10Array223 = null;
+        FloType.floTypes = null;
         Class12.aClass12Array247 = null;
         Class14.aClass14Array264 = null;
         Class18.aClass18Array364 = null;

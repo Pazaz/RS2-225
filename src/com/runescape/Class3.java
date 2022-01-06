@@ -29,8 +29,8 @@ public class Class3 {
         byte byte0 = 0;
         if (k != 3)
             anInt107 = 123;
-        for (int j1 = 0; j1 < Class10.anInt222; j1++) {
-            if (!Class10.aClass10Array223[j1].aString228.equalsIgnoreCase("water"))
+        for (int j1 = 0; j1 < FloType.anInt222; j1++) {
+            if (!FloType.floTypes[j1].aString228.equalsIgnoreCase("water"))
                 continue;
             byte0 = (byte) (j1 + 1);
             break;
@@ -451,11 +451,11 @@ public class Class3 {
                     if (l9 >= 0 && l9 < anInt111) {
                         int i13 = aByteArrayArrayArray115[l][l9][j8] & 0xff;
                         if (i13 > 0) {
-                            Class10 class10 = Class10.aClass10Array223[i13 - 1];
-                            anIntArray121[j8] += class10.anInt232;
-                            anIntArray122[j8] += class10.anInt230;
-                            anIntArray123[j8] += class10.anInt231;
-                            anIntArray124[j8] += class10.anInt233;
+                            FloType floType = FloType.floTypes[i13 - 1];
+                            anIntArray121[j8] += floType.anInt232;
+                            anIntArray122[j8] += floType.anInt230;
+                            anIntArray123[j8] += floType.anInt231;
+                            anIntArray124[j8] += floType.anInt233;
                             anIntArray125[j8]++;
                         }
                     }
@@ -463,11 +463,11 @@ public class Class3 {
                     if (j13 >= 0 && j13 < anInt111) {
                         int j14 = aByteArrayArrayArray115[l][j13][j8] & 0xff;
                         if (j14 > 0) {
-                            Class10 class10_1 = Class10.aClass10Array223[j14 - 1];
-                            anIntArray121[j8] -= class10_1.anInt232;
-                            anIntArray122[j8] -= class10_1.anInt230;
-                            anIntArray123[j8] -= class10_1.anInt231;
-                            anIntArray124[j8] -= class10_1.anInt233;
+                            FloType floType_1 = FloType.floTypes[j14 - 1];
+                            anIntArray121[j8] -= floType_1.anInt232;
+                            anIntArray122[j8] -= floType_1.anInt230;
+                            anIntArray123[j8] -= floType_1.anInt231;
+                            anIntArray124[j8] -= floType_1.anInt233;
                             anIntArray125[j8]--;
                         }
                     }
@@ -527,7 +527,7 @@ public class Class3 {
                                 }
                                 if (l > 0) {
                                     boolean flag = i19 != 0 || aByteArrayArrayArray117[l][i7][l17] == 0;
-                                    if (j19 > 0 && !Class10.aClass10Array223[j19 - 1].aBoolean227)
+                                    if (j19 > 0 && !FloType.floTypes[j19 - 1].aBoolean227)
                                         flag = false;
                                     if (flag && k19 == l19 && k19 == i20 && k19 == j20)
                                         anIntArrayArrayArray126[l][i7][l17] |= 0x924;
@@ -542,20 +542,20 @@ public class Class3 {
                                 } else {
                                     int l22 = aByteArrayArrayArray117[l][i7][l17] + 1;
                                     byte byte4 = aByteArrayArrayArray118[l][i7][l17];
-                                    Class10 class10_2 = Class10.aClass10Array223[j19 - 1];
-                                    int j23 = class10_2.anInt225;
+                                    FloType floType_2 = FloType.floTypes[j19 - 1];
+                                    int j23 = floType_2.anInt225;
                                     int k23;
                                     int l23;
                                     if (j23 >= 0) {
                                         l23 = Class38_Sub2_Sub2_Sub1.method390(787, j23);
                                         k23 = -1;
-                                    } else if (class10_2.anInt224 == 0xff00ff) {
+                                    } else if (floType_2.anInt224 == 0xff00ff) {
                                         l23 = 0;
                                         k23 = -2;
                                         j23 = -1;
                                     } else {
-                                        k23 = method165(class10_2.anInt229, class10_2.anInt230, class10_2.anInt231);
-                                        l23 = Class38_Sub2_Sub2_Sub1.anIntArray1458[method164(class10_2.anInt234, 96)];
+                                        k23 = method165(floType_2.anInt229, floType_2.anInt230, floType_2.anInt231);
+                                        l23 = Class38_Sub2_Sub2_Sub1.anIntArray1458[method164(floType_2.anInt234, 96)];
                                     }
                                     class32.method286(l, i7, l17, l22, byte4, j23, k19, l19, i20, j20,
                                             method163(k21, k20), method163(k21, l20), method163(k21, i21),
