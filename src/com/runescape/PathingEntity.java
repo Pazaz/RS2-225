@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class38_Sub7_Sub3 extends Entity {
+public class PathingEntity extends Entity {
 
     public void method466(boolean flag, boolean flag1, int i, int j) {
         if (anInt1407 != -1 && SeqType.seqTypes[anInt1407].anInt372 <= 1)
@@ -89,7 +89,7 @@ public class Class38_Sub7_Sub3 extends Entity {
             return false;
     }
 
-    public Class38_Sub7_Sub3() {
+    public PathingEntity() {
         anInt1378 = 332;
         aBoolean1379 = false;
         aBoolean1383 = false;

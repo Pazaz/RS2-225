@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class38_Sub7_Sub3_Sub1 extends Class38_Sub7_Sub3 {
+public class Class38_Sub7_Sub3_Sub1 extends PathingEntity {
 
     @Override
     public Class38_Sub2_Sub1 getDrawMethod() {

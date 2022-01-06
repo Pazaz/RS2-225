@@ -38,12 +38,12 @@ public class client extends Applet_Sub1 {
                 obj = playerEntities[anIntArray824[j]];
             else
                 obj = aClass38_Sub7_Sub3_Sub1Array927[anIntArray929[j - anInt823]];
-            if (obj != null && ((Class38_Sub7_Sub3) (obj)).method468(false)) {
+            if (obj != null && ((PathingEntity) (obj)).method468(false)) {
                 if (j < anInt823) {
                     int l = 30;
                     PlayerEntity playerEntity = (PlayerEntity) obj;
                     if (playerEntity.anInt1508 != 0) {
-                        method90(((Class38_Sub7_Sub3) (obj)).anInt1425 + 15, aBoolean860, ((Class38_Sub7_Sub3) (obj)));
+                        method90(((PathingEntity) (obj)).anInt1425 + 15, aBoolean860, ((PathingEntity) (obj)));
                         if (anInt1019 > -1) {
                             for (int l1 = 0; l1 < 8; l1++)
                                 if ((playerEntity.anInt1508 & 1 << l1) != 0) {
@@ -54,40 +54,40 @@ public class client extends Applet_Sub1 {
                         }
                     }
                     if (j >= 0 && anInt911 == 10 && anInt1076 == anIntArray824[j]) {
-                        method90(((Class38_Sub7_Sub3) (obj)).anInt1425 + 15, aBoolean860, ((Class38_Sub7_Sub3) (obj)));
+                        method90(((PathingEntity) (obj)).anInt1425 + 15, aBoolean860, ((PathingEntity) (obj)));
                         if (anInt1019 > -1)
                             aClass38_Sub2_Sub2_Sub2Array956[7].method405(anInt1020 - l, anInt1019 - 12, false);
                     }
                 } else if (anInt911 == 1 && anInt801 == anIntArray929[j - anInt823] && anInt955 % 20 < 10) {
-                    method90(((Class38_Sub7_Sub3) (obj)).anInt1425 + 15, aBoolean860, ((Class38_Sub7_Sub3) (obj)));
+                    method90(((PathingEntity) (obj)).anInt1425 + 15, aBoolean860, ((PathingEntity) (obj)));
                     if (anInt1019 > -1)
                         aClass38_Sub2_Sub2_Sub2Array956[2].method405(anInt1020 - 28, anInt1019 - 12, false);
                 }
-                if (((Class38_Sub7_Sub3) (obj)).aString1392 != null && (j >= anInt823 || anInt976 == 0 || anInt976 == 3
+                if (((PathingEntity) (obj)).aString1392 != null && (j >= anInt823 || anInt976 == 0 || anInt976 == 3
                         || anInt976 == 1 && method138(-20, ((PlayerEntity) obj).aString1505))) {
-                    method90(((Class38_Sub7_Sub3) (obj)).anInt1425, aBoolean860, ((Class38_Sub7_Sub3) (obj)));
+                    method90(((PathingEntity) (obj)).anInt1425, aBoolean860, ((PathingEntity) (obj)));
                     if (anInt1019 > -1 && anInt1091 < anInt1092) {
                         anIntArray1096[anInt1091] = indexedFont3.method423(false,
-                                ((Class38_Sub7_Sub3) (obj)).aString1392) / 2;
+                                ((PathingEntity) (obj)).aString1392) / 2;
                         anIntArray1095[anInt1091] = indexedFont3.anInt1497;
                         anIntArray1093[anInt1091] = anInt1019;
                         anIntArray1094[anInt1091] = anInt1020;
-                        anIntArray1097[anInt1091] = ((Class38_Sub7_Sub3) (obj)).anInt1394;
-                        anIntArray1098[anInt1091] = ((Class38_Sub7_Sub3) (obj)).anInt1395;
-                        anIntArray1099[anInt1091] = ((Class38_Sub7_Sub3) (obj)).anInt1393;
-                        aStringArray1100[anInt1091++] = ((Class38_Sub7_Sub3) (obj)).aString1392;
-                        if (anInt800 == 0 && ((Class38_Sub7_Sub3) (obj)).anInt1395 == 1) {
+                        anIntArray1097[anInt1091] = ((PathingEntity) (obj)).anInt1394;
+                        anIntArray1098[anInt1091] = ((PathingEntity) (obj)).anInt1395;
+                        anIntArray1099[anInt1091] = ((PathingEntity) (obj)).anInt1393;
+                        aStringArray1100[anInt1091++] = ((PathingEntity) (obj)).aString1392;
+                        if (anInt800 == 0 && ((PathingEntity) (obj)).anInt1395 == 1) {
                             anIntArray1095[anInt1091] += 10;
                             anIntArray1094[anInt1091] += 5;
                         }
-                        if (anInt800 == 0 && ((Class38_Sub7_Sub3) (obj)).anInt1395 == 2)
+                        if (anInt800 == 0 && ((PathingEntity) (obj)).anInt1395 == 2)
                             anIntArray1096[anInt1091] = 60;
                     }
                 }
-                if (((Class38_Sub7_Sub3) (obj)).anInt1398 > anInt955 + 100) {
-                    method90(((Class38_Sub7_Sub3) (obj)).anInt1425 + 15, aBoolean860, ((Class38_Sub7_Sub3) (obj)));
+                if (((PathingEntity) (obj)).anInt1398 > anInt955 + 100) {
+                    method90(((PathingEntity) (obj)).anInt1425 + 15, aBoolean860, ((PathingEntity) (obj)));
                     if (anInt1019 > -1) {
-                        int i1 = (((Class38_Sub7_Sub3) (obj)).anInt1399 * 30) / ((Class38_Sub7_Sub3) (obj)).anInt1400;
+                        int i1 = (((PathingEntity) (obj)).anInt1399 * 30) / ((PathingEntity) (obj)).anInt1400;
                         if (i1 > 30)
                             i1 = 30;
                         Class38_Sub2_Sub2.method380(anInt1020 - 3, anInt1019 - 15, 65280, (byte) 93, i1, 5);
@@ -95,15 +95,15 @@ public class client extends Applet_Sub1 {
                                 5);
                     }
                 }
-                if (((Class38_Sub7_Sub3) (obj)).anInt1398 > anInt955 + 330) {
-                    method90(((Class38_Sub7_Sub3) (obj)).anInt1425 / 2, aBoolean860, ((Class38_Sub7_Sub3) (obj)));
+                if (((PathingEntity) (obj)).anInt1398 > anInt955 + 330) {
+                    method90(((PathingEntity) (obj)).anInt1425 / 2, aBoolean860, ((PathingEntity) (obj)));
                     if (anInt1019 > -1) {
-                        aClass38_Sub2_Sub2_Sub2Array776[((Class38_Sub7_Sub3) (obj)).anInt1397].method405(anInt1020 - 12,
+                        aClass38_Sub2_Sub2_Sub2Array776[((PathingEntity) (obj)).anInt1397].method405(anInt1020 - 12,
                                 anInt1019 - 12, false);
                         indexedFont1.method421(anInt1020 + 4, (byte) 6, 0,
-                                String.valueOf(((Class38_Sub7_Sub3) (obj)).anInt1396), anInt1019);
+                                String.valueOf(((PathingEntity) (obj)).anInt1396), anInt1019);
                         indexedFont1.method421(anInt1020 + 3, (byte) 6, 0xffffff,
-                                String.valueOf(((Class38_Sub7_Sub3) (obj)).anInt1396), anInt1019 - 1);
+                                String.valueOf(((PathingEntity) (obj)).anInt1396), anInt1019 - 1);
                     }
                 }
             }
@@ -3035,277 +3035,277 @@ public class client extends Applet_Sub1 {
 
     }
 
-    public void method63(Class38_Sub7_Sub3 class38_sub7_sub3, byte byte0, int i) {
-        if (class38_sub7_sub3.anInt1380 < 128 || class38_sub7_sub3.anInt1381 < 128
-                || class38_sub7_sub3.anInt1380 >= 13184 || class38_sub7_sub3.anInt1381 >= 13184) {
-            class38_sub7_sub3.anInt1407 = -1;
-            class38_sub7_sub3.anInt1412 = -1;
-            class38_sub7_sub3.anInt1421 = 0;
-            class38_sub7_sub3.anInt1422 = 0;
-            class38_sub7_sub3.anInt1380 = class38_sub7_sub3.anIntArray1428[0] * 128 + class38_sub7_sub3.anInt1384 * 64;
-            class38_sub7_sub3.anInt1381 = class38_sub7_sub3.anIntArray1429[0] * 128 + class38_sub7_sub3.anInt1384 * 64;
-            class38_sub7_sub3.anInt1427 = 0;
+    public void method63(PathingEntity pathingEntity, byte byte0, int i) {
+        if (pathingEntity.anInt1380 < 128 || pathingEntity.anInt1381 < 128
+                || pathingEntity.anInt1380 >= 13184 || pathingEntity.anInt1381 >= 13184) {
+            pathingEntity.anInt1407 = -1;
+            pathingEntity.anInt1412 = -1;
+            pathingEntity.anInt1421 = 0;
+            pathingEntity.anInt1422 = 0;
+            pathingEntity.anInt1380 = pathingEntity.anIntArray1428[0] * 128 + pathingEntity.anInt1384 * 64;
+            pathingEntity.anInt1381 = pathingEntity.anIntArray1429[0] * 128 + pathingEntity.anInt1384 * 64;
+            pathingEntity.anInt1427 = 0;
         }
-        if (class38_sub7_sub3 == localPlayerEntity
-                && (class38_sub7_sub3.anInt1380 < 1536 || class38_sub7_sub3.anInt1381 < 1536
-                || class38_sub7_sub3.anInt1380 >= 11776 || class38_sub7_sub3.anInt1381 >= 11776)) {
-            class38_sub7_sub3.anInt1407 = -1;
-            class38_sub7_sub3.anInt1412 = -1;
-            class38_sub7_sub3.anInt1421 = 0;
-            class38_sub7_sub3.anInt1422 = 0;
-            class38_sub7_sub3.anInt1380 = class38_sub7_sub3.anIntArray1428[0] * 128 + class38_sub7_sub3.anInt1384 * 64;
-            class38_sub7_sub3.anInt1381 = class38_sub7_sub3.anIntArray1429[0] * 128 + class38_sub7_sub3.anInt1384 * 64;
-            class38_sub7_sub3.anInt1427 = 0;
+        if (pathingEntity == localPlayerEntity
+                && (pathingEntity.anInt1380 < 1536 || pathingEntity.anInt1381 < 1536
+                || pathingEntity.anInt1380 >= 11776 || pathingEntity.anInt1381 >= 11776)) {
+            pathingEntity.anInt1407 = -1;
+            pathingEntity.anInt1412 = -1;
+            pathingEntity.anInt1421 = 0;
+            pathingEntity.anInt1422 = 0;
+            pathingEntity.anInt1380 = pathingEntity.anIntArray1428[0] * 128 + pathingEntity.anInt1384 * 64;
+            pathingEntity.anInt1381 = pathingEntity.anIntArray1429[0] * 128 + pathingEntity.anInt1384 * 64;
+            pathingEntity.anInt1427 = 0;
         }
-        if (class38_sub7_sub3.anInt1421 > anInt955)
-            method64(class38_sub7_sub3, -25115);
-        else if (class38_sub7_sub3.anInt1422 >= anInt955)
-            method65(class38_sub7_sub3, 0);
+        if (pathingEntity.anInt1421 > anInt955)
+            method64(pathingEntity, -25115);
+        else if (pathingEntity.anInt1422 >= anInt955)
+            method65(pathingEntity, 0);
         else
-            method66(598, class38_sub7_sub3);
-        method67(class38_sub7_sub3, (byte) 117);
+            method66(598, pathingEntity);
+        method67(pathingEntity, (byte) 117);
         if (byte0 != -128)
             aClass38_Sub2_Sub3_798.method436(11);
-        method68(aBoolean787, class38_sub7_sub3);
+        method68(aBoolean787, pathingEntity);
     }
 
-    public void method64(Class38_Sub7_Sub3 class38_sub7_sub3, int i) {
-        int j = class38_sub7_sub3.anInt1421 - anInt955;
-        int k = class38_sub7_sub3.anInt1417 * 128 + class38_sub7_sub3.anInt1384 * 64;
-        int l = class38_sub7_sub3.anInt1419 * 128 + class38_sub7_sub3.anInt1384 * 64;
-        class38_sub7_sub3.anInt1380 += (k - class38_sub7_sub3.anInt1380) / j;
+    public void method64(PathingEntity pathingEntity, int i) {
+        int j = pathingEntity.anInt1421 - anInt955;
+        int k = pathingEntity.anInt1417 * 128 + pathingEntity.anInt1384 * 64;
+        int l = pathingEntity.anInt1419 * 128 + pathingEntity.anInt1384 * 64;
+        pathingEntity.anInt1380 += (k - pathingEntity.anInt1380) / j;
         if (i != -25115)
             anInt733 = isaacState.nextInt();
-        class38_sub7_sub3.anInt1381 += (l - class38_sub7_sub3.anInt1381) / j;
-        class38_sub7_sub3.anInt1431 = 0;
-        if (class38_sub7_sub3.anInt1423 == 0)
-            class38_sub7_sub3.anInt1426 = 1024;
-        if (class38_sub7_sub3.anInt1423 == 1)
-            class38_sub7_sub3.anInt1426 = 1536;
-        if (class38_sub7_sub3.anInt1423 == 2)
-            class38_sub7_sub3.anInt1426 = 0;
-        if (class38_sub7_sub3.anInt1423 == 3)
-            class38_sub7_sub3.anInt1426 = 512;
+        pathingEntity.anInt1381 += (l - pathingEntity.anInt1381) / j;
+        pathingEntity.anInt1431 = 0;
+        if (pathingEntity.anInt1423 == 0)
+            pathingEntity.anInt1426 = 1024;
+        if (pathingEntity.anInt1423 == 1)
+            pathingEntity.anInt1426 = 1536;
+        if (pathingEntity.anInt1423 == 2)
+            pathingEntity.anInt1426 = 0;
+        if (pathingEntity.anInt1423 == 3)
+            pathingEntity.anInt1426 = 512;
     }
 
-    public void method65(Class38_Sub7_Sub3 class38_sub7_sub3, int i) {
+    public void method65(PathingEntity pathingEntity, int i) {
         anInt779 += i;
-        if (class38_sub7_sub3.anInt1422 == anInt955 || class38_sub7_sub3.anInt1407 == -1
-                || class38_sub7_sub3.anInt1410 != 0 || class38_sub7_sub3.anInt1409
-                + 1 > SeqType.seqTypes[class38_sub7_sub3.anInt1407].anIntArray368[class38_sub7_sub3.anInt1408]) {
-            int j = class38_sub7_sub3.anInt1422 - class38_sub7_sub3.anInt1421;
-            int k = anInt955 - class38_sub7_sub3.anInt1421;
-            int l = class38_sub7_sub3.anInt1417 * 128 + class38_sub7_sub3.anInt1384 * 64;
-            int i1 = class38_sub7_sub3.anInt1419 * 128 + class38_sub7_sub3.anInt1384 * 64;
-            int j1 = class38_sub7_sub3.anInt1418 * 128 + class38_sub7_sub3.anInt1384 * 64;
-            int k1 = class38_sub7_sub3.anInt1420 * 128 + class38_sub7_sub3.anInt1384 * 64;
-            class38_sub7_sub3.anInt1380 = (l * (j - k) + j1 * k) / j;
-            class38_sub7_sub3.anInt1381 = (i1 * (j - k) + k1 * k) / j;
+        if (pathingEntity.anInt1422 == anInt955 || pathingEntity.anInt1407 == -1
+                || pathingEntity.anInt1410 != 0 || pathingEntity.anInt1409
+                + 1 > SeqType.seqTypes[pathingEntity.anInt1407].anIntArray368[pathingEntity.anInt1408]) {
+            int j = pathingEntity.anInt1422 - pathingEntity.anInt1421;
+            int k = anInt955 - pathingEntity.anInt1421;
+            int l = pathingEntity.anInt1417 * 128 + pathingEntity.anInt1384 * 64;
+            int i1 = pathingEntity.anInt1419 * 128 + pathingEntity.anInt1384 * 64;
+            int j1 = pathingEntity.anInt1418 * 128 + pathingEntity.anInt1384 * 64;
+            int k1 = pathingEntity.anInt1420 * 128 + pathingEntity.anInt1384 * 64;
+            pathingEntity.anInt1380 = (l * (j - k) + j1 * k) / j;
+            pathingEntity.anInt1381 = (i1 * (j - k) + k1 * k) / j;
         }
-        class38_sub7_sub3.anInt1431 = 0;
-        if (class38_sub7_sub3.anInt1423 == 0)
-            class38_sub7_sub3.anInt1426 = 1024;
-        if (class38_sub7_sub3.anInt1423 == 1)
-            class38_sub7_sub3.anInt1426 = 1536;
-        if (class38_sub7_sub3.anInt1423 == 2)
-            class38_sub7_sub3.anInt1426 = 0;
-        if (class38_sub7_sub3.anInt1423 == 3)
-            class38_sub7_sub3.anInt1426 = 512;
-        class38_sub7_sub3.anInt1382 = class38_sub7_sub3.anInt1426;
+        pathingEntity.anInt1431 = 0;
+        if (pathingEntity.anInt1423 == 0)
+            pathingEntity.anInt1426 = 1024;
+        if (pathingEntity.anInt1423 == 1)
+            pathingEntity.anInt1426 = 1536;
+        if (pathingEntity.anInt1423 == 2)
+            pathingEntity.anInt1426 = 0;
+        if (pathingEntity.anInt1423 == 3)
+            pathingEntity.anInt1426 = 512;
+        pathingEntity.anInt1382 = pathingEntity.anInt1426;
     }
 
-    public void method66(int i, Class38_Sub7_Sub3 class38_sub7_sub3) {
-        class38_sub7_sub3.anInt1404 = class38_sub7_sub3.anInt1385;
+    public void method66(int i, PathingEntity pathingEntity) {
+        pathingEntity.anInt1404 = pathingEntity.anInt1385;
         i = 56 / i;
-        if (class38_sub7_sub3.anInt1427 == 0) {
-            class38_sub7_sub3.anInt1431 = 0;
+        if (pathingEntity.anInt1427 == 0) {
+            pathingEntity.anInt1431 = 0;
             return;
         }
-        if (class38_sub7_sub3.anInt1407 != -1 && class38_sub7_sub3.anInt1410 == 0) {
-            SeqType seqType = SeqType.seqTypes[class38_sub7_sub3.anInt1407];
+        if (pathingEntity.anInt1407 != -1 && pathingEntity.anInt1410 == 0) {
+            SeqType seqType = SeqType.seqTypes[pathingEntity.anInt1407];
             if (seqType.anIntArray370 == null) {
-                class38_sub7_sub3.anInt1431++;
+                pathingEntity.anInt1431++;
                 return;
             }
         }
-        int j = class38_sub7_sub3.anInt1380;
-        int k = class38_sub7_sub3.anInt1381;
-        int l = class38_sub7_sub3.anIntArray1428[class38_sub7_sub3.anInt1427 - 1] * 128
-                + class38_sub7_sub3.anInt1384 * 64;
-        int i1 = class38_sub7_sub3.anIntArray1429[class38_sub7_sub3.anInt1427 - 1] * 128
-                + class38_sub7_sub3.anInt1384 * 64;
+        int j = pathingEntity.anInt1380;
+        int k = pathingEntity.anInt1381;
+        int l = pathingEntity.anIntArray1428[pathingEntity.anInt1427 - 1] * 128
+                + pathingEntity.anInt1384 * 64;
+        int i1 = pathingEntity.anIntArray1429[pathingEntity.anInt1427 - 1] * 128
+                + pathingEntity.anInt1384 * 64;
         if (l - j > 256 || l - j < -256 || i1 - k > 256 || i1 - k < -256) {
-            class38_sub7_sub3.anInt1380 = l;
-            class38_sub7_sub3.anInt1381 = i1;
+            pathingEntity.anInt1380 = l;
+            pathingEntity.anInt1381 = i1;
             return;
         }
         if (j < l) {
             if (k < i1)
-                class38_sub7_sub3.anInt1426 = 1280;
+                pathingEntity.anInt1426 = 1280;
             else if (k > i1)
-                class38_sub7_sub3.anInt1426 = 1792;
+                pathingEntity.anInt1426 = 1792;
             else
-                class38_sub7_sub3.anInt1426 = 1536;
+                pathingEntity.anInt1426 = 1536;
         } else if (j > l) {
             if (k < i1)
-                class38_sub7_sub3.anInt1426 = 768;
+                pathingEntity.anInt1426 = 768;
             else if (k > i1)
-                class38_sub7_sub3.anInt1426 = 256;
+                pathingEntity.anInt1426 = 256;
             else
-                class38_sub7_sub3.anInt1426 = 512;
+                pathingEntity.anInt1426 = 512;
         } else if (k < i1)
-            class38_sub7_sub3.anInt1426 = 1024;
+            pathingEntity.anInt1426 = 1024;
         else
-            class38_sub7_sub3.anInt1426 = 0;
-        int j1 = class38_sub7_sub3.anInt1426 - class38_sub7_sub3.anInt1382 & 0x7ff;
+            pathingEntity.anInt1426 = 0;
+        int j1 = pathingEntity.anInt1426 - pathingEntity.anInt1382 & 0x7ff;
         if (j1 > 1024)
             j1 -= 2048;
-        int k1 = class38_sub7_sub3.anInt1388;
+        int k1 = pathingEntity.anInt1388;
         if (j1 >= -256 && j1 <= 256)
-            k1 = class38_sub7_sub3.anInt1387;
+            k1 = pathingEntity.anInt1387;
         else if (j1 >= 256 && j1 < 768)
-            k1 = class38_sub7_sub3.anInt1390;
+            k1 = pathingEntity.anInt1390;
         else if (j1 >= -768 && j1 <= -256)
-            k1 = class38_sub7_sub3.anInt1389;
+            k1 = pathingEntity.anInt1389;
         if (k1 == -1)
-            k1 = class38_sub7_sub3.anInt1387;
-        class38_sub7_sub3.anInt1404 = k1;
+            k1 = pathingEntity.anInt1387;
+        pathingEntity.anInt1404 = k1;
         int l1 = 4;
-        if (class38_sub7_sub3.anInt1382 != class38_sub7_sub3.anInt1426 && class38_sub7_sub3.anInt1401 == -1)
+        if (pathingEntity.anInt1382 != pathingEntity.anInt1426 && pathingEntity.anInt1401 == -1)
             l1 = 2;
-        if (class38_sub7_sub3.anInt1427 > 2)
+        if (pathingEntity.anInt1427 > 2)
             l1 = 6;
-        if (class38_sub7_sub3.anInt1427 > 3)
+        if (pathingEntity.anInt1427 > 3)
             l1 = 8;
-        if (class38_sub7_sub3.anInt1431 > 0 && class38_sub7_sub3.anInt1427 > 1) {
+        if (pathingEntity.anInt1431 > 0 && pathingEntity.anInt1427 > 1) {
             l1 = 8;
-            class38_sub7_sub3.anInt1431--;
+            pathingEntity.anInt1431--;
         }
-        if (class38_sub7_sub3.aBooleanArray1430[class38_sub7_sub3.anInt1427 - 1])
+        if (pathingEntity.aBooleanArray1430[pathingEntity.anInt1427 - 1])
             l1 <<= 1;
-        if (l1 >= 8 && class38_sub7_sub3.anInt1404 == class38_sub7_sub3.anInt1387 && class38_sub7_sub3.anInt1391 != -1)
-            class38_sub7_sub3.anInt1404 = class38_sub7_sub3.anInt1391;
+        if (l1 >= 8 && pathingEntity.anInt1404 == pathingEntity.anInt1387 && pathingEntity.anInt1391 != -1)
+            pathingEntity.anInt1404 = pathingEntity.anInt1391;
         if (j < l) {
-            class38_sub7_sub3.anInt1380 += l1;
-            if (class38_sub7_sub3.anInt1380 > l)
-                class38_sub7_sub3.anInt1380 = l;
+            pathingEntity.anInt1380 += l1;
+            if (pathingEntity.anInt1380 > l)
+                pathingEntity.anInt1380 = l;
         } else if (j > l) {
-            class38_sub7_sub3.anInt1380 -= l1;
-            if (class38_sub7_sub3.anInt1380 < l)
-                class38_sub7_sub3.anInt1380 = l;
+            pathingEntity.anInt1380 -= l1;
+            if (pathingEntity.anInt1380 < l)
+                pathingEntity.anInt1380 = l;
         }
         if (k < i1) {
-            class38_sub7_sub3.anInt1381 += l1;
-            if (class38_sub7_sub3.anInt1381 > i1)
-                class38_sub7_sub3.anInt1381 = i1;
+            pathingEntity.anInt1381 += l1;
+            if (pathingEntity.anInt1381 > i1)
+                pathingEntity.anInt1381 = i1;
         } else if (k > i1) {
-            class38_sub7_sub3.anInt1381 -= l1;
-            if (class38_sub7_sub3.anInt1381 < i1)
-                class38_sub7_sub3.anInt1381 = i1;
+            pathingEntity.anInt1381 -= l1;
+            if (pathingEntity.anInt1381 < i1)
+                pathingEntity.anInt1381 = i1;
         }
-        if (class38_sub7_sub3.anInt1380 == l && class38_sub7_sub3.anInt1381 == i1)
-            class38_sub7_sub3.anInt1427--;
+        if (pathingEntity.anInt1380 == l && pathingEntity.anInt1381 == i1)
+            pathingEntity.anInt1427--;
     }
 
-    public void method67(Class38_Sub7_Sub3 class38_sub7_sub3, byte byte0) {
+    public void method67(PathingEntity pathingEntity, byte byte0) {
         if (byte0 != 117)
             aClass38_Sub2_Sub3_798.method436(89);
-        if (class38_sub7_sub3.anInt1401 != -1 && class38_sub7_sub3.anInt1401 < 32768) {
-            Class38_Sub7_Sub3_Sub1 class38_sub7_sub3_sub1 = aClass38_Sub7_Sub3_Sub1Array927[class38_sub7_sub3.anInt1401];
+        if (pathingEntity.anInt1401 != -1 && pathingEntity.anInt1401 < 32768) {
+            Class38_Sub7_Sub3_Sub1 class38_sub7_sub3_sub1 = aClass38_Sub7_Sub3_Sub1Array927[pathingEntity.anInt1401];
             if (class38_sub7_sub3_sub1 != null) {
-                int l = class38_sub7_sub3.anInt1380 - class38_sub7_sub3_sub1.anInt1380;
-                int j1 = class38_sub7_sub3.anInt1381 - class38_sub7_sub3_sub1.anInt1381;
+                int l = pathingEntity.anInt1380 - class38_sub7_sub3_sub1.anInt1380;
+                int j1 = pathingEntity.anInt1381 - class38_sub7_sub3_sub1.anInt1381;
                 if (l != 0 || j1 != 0)
-                    class38_sub7_sub3.anInt1426 = (int) (Math.atan2(l, j1) * 325.94900000000001D) & 0x7ff;
+                    pathingEntity.anInt1426 = (int) (Math.atan2(l, j1) * 325.94900000000001D) & 0x7ff;
             }
         }
-        if (class38_sub7_sub3.anInt1401 >= 32768) {
-            int i = class38_sub7_sub3.anInt1401 - 32768;
+        if (pathingEntity.anInt1401 >= 32768) {
+            int i = pathingEntity.anInt1401 - 32768;
             if (i == anInt734)
                 i = anInt821;
             PlayerEntity playerEntity = playerEntities[i];
             if (playerEntity != null) {
-                int k1 = class38_sub7_sub3.anInt1380 - playerEntity.anInt1380;
-                int l1 = class38_sub7_sub3.anInt1381 - playerEntity.anInt1381;
+                int k1 = pathingEntity.anInt1380 - playerEntity.anInt1380;
+                int l1 = pathingEntity.anInt1381 - playerEntity.anInt1381;
                 if (k1 != 0 || l1 != 0)
-                    class38_sub7_sub3.anInt1426 = (int) (Math.atan2(k1, l1) * 325.94900000000001D) & 0x7ff;
+                    pathingEntity.anInt1426 = (int) (Math.atan2(k1, l1) * 325.94900000000001D) & 0x7ff;
             }
         }
-        if ((class38_sub7_sub3.anInt1402 != 0 || class38_sub7_sub3.anInt1403 != 0)
-                && (class38_sub7_sub3.anInt1427 == 0 || class38_sub7_sub3.anInt1431 > 0)) {
-            int j = class38_sub7_sub3.anInt1380 - (class38_sub7_sub3.anInt1402 - anInt761 - anInt761) * 64;
-            int i1 = class38_sub7_sub3.anInt1381 - (class38_sub7_sub3.anInt1403 - anInt762 - anInt762) * 64;
+        if ((pathingEntity.anInt1402 != 0 || pathingEntity.anInt1403 != 0)
+                && (pathingEntity.anInt1427 == 0 || pathingEntity.anInt1431 > 0)) {
+            int j = pathingEntity.anInt1380 - (pathingEntity.anInt1402 - anInt761 - anInt761) * 64;
+            int i1 = pathingEntity.anInt1381 - (pathingEntity.anInt1403 - anInt762 - anInt762) * 64;
             if (j != 0 || i1 != 0)
-                class38_sub7_sub3.anInt1426 = (int) (Math.atan2(j, i1) * 325.94900000000001D) & 0x7ff;
-            class38_sub7_sub3.anInt1402 = 0;
-            class38_sub7_sub3.anInt1403 = 0;
+                pathingEntity.anInt1426 = (int) (Math.atan2(j, i1) * 325.94900000000001D) & 0x7ff;
+            pathingEntity.anInt1402 = 0;
+            pathingEntity.anInt1403 = 0;
         }
-        int k = class38_sub7_sub3.anInt1426 - class38_sub7_sub3.anInt1382 & 0x7ff;
+        int k = pathingEntity.anInt1426 - pathingEntity.anInt1382 & 0x7ff;
         if (k != 0) {
             if (k < 32 || k > 2016)
-                class38_sub7_sub3.anInt1382 = class38_sub7_sub3.anInt1426;
+                pathingEntity.anInt1382 = pathingEntity.anInt1426;
             else if (k > 1024)
-                class38_sub7_sub3.anInt1382 -= 32;
+                pathingEntity.anInt1382 -= 32;
             else
-                class38_sub7_sub3.anInt1382 += 32;
-            class38_sub7_sub3.anInt1382 &= 0x7ff;
-            if (class38_sub7_sub3.anInt1404 == class38_sub7_sub3.anInt1385
-                    && class38_sub7_sub3.anInt1382 != class38_sub7_sub3.anInt1426) {
-                if (class38_sub7_sub3.anInt1386 != -1) {
-                    class38_sub7_sub3.anInt1404 = class38_sub7_sub3.anInt1386;
+                pathingEntity.anInt1382 += 32;
+            pathingEntity.anInt1382 &= 0x7ff;
+            if (pathingEntity.anInt1404 == pathingEntity.anInt1385
+                    && pathingEntity.anInt1382 != pathingEntity.anInt1426) {
+                if (pathingEntity.anInt1386 != -1) {
+                    pathingEntity.anInt1404 = pathingEntity.anInt1386;
                     return;
                 }
-                class38_sub7_sub3.anInt1404 = class38_sub7_sub3.anInt1387;
+                pathingEntity.anInt1404 = pathingEntity.anInt1387;
             }
         }
     }
 
-    public void method68(boolean flag, Class38_Sub7_Sub3 class38_sub7_sub3) {
+    public void method68(boolean flag, PathingEntity pathingEntity) {
         if (!flag)
             return;
-        class38_sub7_sub3.aBoolean1383 = false;
-        if (class38_sub7_sub3.anInt1404 != -1) {
-            SeqType seqType = SeqType.seqTypes[class38_sub7_sub3.anInt1404];
-            class38_sub7_sub3.anInt1406++;
-            if (class38_sub7_sub3.anInt1405 < seqType.anInt365
-                    && class38_sub7_sub3.anInt1406 > seqType.anIntArray368[class38_sub7_sub3.anInt1405]) {
-                class38_sub7_sub3.anInt1406 = 0;
-                class38_sub7_sub3.anInt1405++;
+        pathingEntity.aBoolean1383 = false;
+        if (pathingEntity.anInt1404 != -1) {
+            SeqType seqType = SeqType.seqTypes[pathingEntity.anInt1404];
+            pathingEntity.anInt1406++;
+            if (pathingEntity.anInt1405 < seqType.anInt365
+                    && pathingEntity.anInt1406 > seqType.anIntArray368[pathingEntity.anInt1405]) {
+                pathingEntity.anInt1406 = 0;
+                pathingEntity.anInt1405++;
             }
-            if (class38_sub7_sub3.anInt1405 >= seqType.anInt365) {
-                class38_sub7_sub3.anInt1406 = 0;
-                class38_sub7_sub3.anInt1405 = 0;
+            if (pathingEntity.anInt1405 >= seqType.anInt365) {
+                pathingEntity.anInt1406 = 0;
+                pathingEntity.anInt1405 = 0;
             }
         }
-        if (class38_sub7_sub3.anInt1407 != -1 && class38_sub7_sub3.anInt1410 == 0) {
-            SeqType seqType_1 = SeqType.seqTypes[class38_sub7_sub3.anInt1407];
-            for (class38_sub7_sub3.anInt1409++; class38_sub7_sub3.anInt1408 < seqType_1.anInt365
-                    && class38_sub7_sub3.anInt1409 > seqType_1.anIntArray368[class38_sub7_sub3.anInt1408]; class38_sub7_sub3.anInt1408++)
-                class38_sub7_sub3.anInt1409 -= seqType_1.anIntArray368[class38_sub7_sub3.anInt1408];
+        if (pathingEntity.anInt1407 != -1 && pathingEntity.anInt1410 == 0) {
+            SeqType seqType_1 = SeqType.seqTypes[pathingEntity.anInt1407];
+            for (pathingEntity.anInt1409++; pathingEntity.anInt1408 < seqType_1.anInt365
+                    && pathingEntity.anInt1409 > seqType_1.anIntArray368[pathingEntity.anInt1408]; pathingEntity.anInt1408++)
+                pathingEntity.anInt1409 -= seqType_1.anIntArray368[pathingEntity.anInt1408];
 
-            if (class38_sub7_sub3.anInt1408 >= seqType_1.anInt365) {
-                class38_sub7_sub3.anInt1408 -= seqType_1.anInt369;
-                class38_sub7_sub3.anInt1411++;
-                if (class38_sub7_sub3.anInt1411 >= seqType_1.anInt375)
-                    class38_sub7_sub3.anInt1407 = -1;
-                if (class38_sub7_sub3.anInt1408 < 0 || class38_sub7_sub3.anInt1408 >= seqType_1.anInt365)
-                    class38_sub7_sub3.anInt1407 = -1;
+            if (pathingEntity.anInt1408 >= seqType_1.anInt365) {
+                pathingEntity.anInt1408 -= seqType_1.anInt369;
+                pathingEntity.anInt1411++;
+                if (pathingEntity.anInt1411 >= seqType_1.anInt375)
+                    pathingEntity.anInt1407 = -1;
+                if (pathingEntity.anInt1408 < 0 || pathingEntity.anInt1408 >= seqType_1.anInt365)
+                    pathingEntity.anInt1407 = -1;
             }
-            class38_sub7_sub3.aBoolean1383 = seqType_1.aBoolean371;
+            pathingEntity.aBoolean1383 = seqType_1.aBoolean371;
         }
-        if (class38_sub7_sub3.anInt1410 > 0)
-            class38_sub7_sub3.anInt1410--;
-        if (class38_sub7_sub3.anInt1412 != -1 && anInt955 >= class38_sub7_sub3.anInt1415) {
-            if (class38_sub7_sub3.anInt1413 < 0)
-                class38_sub7_sub3.anInt1413 = 0;
-            SeqType seqType_2 = SpotAnimType.spotAnimTypes[class38_sub7_sub3.anInt1412].seq;
-            for (class38_sub7_sub3.anInt1414++; class38_sub7_sub3.anInt1413 < seqType_2.anInt365
-                    && class38_sub7_sub3.anInt1414 > seqType_2.anIntArray368[class38_sub7_sub3.anInt1413]; class38_sub7_sub3.anInt1413++)
-                class38_sub7_sub3.anInt1414 -= seqType_2.anIntArray368[class38_sub7_sub3.anInt1413];
+        if (pathingEntity.anInt1410 > 0)
+            pathingEntity.anInt1410--;
+        if (pathingEntity.anInt1412 != -1 && anInt955 >= pathingEntity.anInt1415) {
+            if (pathingEntity.anInt1413 < 0)
+                pathingEntity.anInt1413 = 0;
+            SeqType seqType_2 = SpotAnimType.spotAnimTypes[pathingEntity.anInt1412].seq;
+            for (pathingEntity.anInt1414++; pathingEntity.anInt1413 < seqType_2.anInt365
+                    && pathingEntity.anInt1414 > seqType_2.anIntArray368[pathingEntity.anInt1413]; pathingEntity.anInt1413++)
+                pathingEntity.anInt1414 -= seqType_2.anIntArray368[pathingEntity.anInt1413];
 
-            if (class38_sub7_sub3.anInt1413 >= seqType_2.anInt365
-                    && (class38_sub7_sub3.anInt1413 < 0 || class38_sub7_sub3.anInt1413 >= seqType_2.anInt365))
-                class38_sub7_sub3.anInt1412 = -1;
+            if (pathingEntity.anInt1413 >= seqType_2.anInt365
+                    && (pathingEntity.anInt1413 < 0 || pathingEntity.anInt1413 >= seqType_2.anInt365))
+                pathingEntity.anInt1412 = -1;
         }
     }
 
@@ -5080,8 +5080,8 @@ public class client extends Applet_Sub1 {
             return "*";
     }
 
-    public void method90(int i, boolean flag, Class38_Sub7_Sub3 class38_sub7_sub3) {
-        method91(class38_sub7_sub3.anInt1381, class38_sub7_sub3.anInt1380, anInt1105, i);
+    public void method90(int i, boolean flag, PathingEntity pathingEntity) {
+        method91(pathingEntity.anInt1381, pathingEntity.anInt1380, anInt1105, i);
         if (flag)
             anInt780 = -1;
     }
