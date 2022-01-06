@@ -201,23 +201,23 @@ public class Class32 {
                           int j1, int k1, int l1, byte byte0) {
         if (class38_sub2_sub1 == null && class38_sub2_sub1_1 == null)
             return;
-        Class30 class30 = new Class30();
-        class30.anInt510 = k1;
-        class30.aByte511 = byte0;
-        class30.anInt504 = j1 * 128 + 64;
-        class30.anInt505 = l1 * 128 + 64;
-        class30.anInt503 = j;
-        class30.aClass38_Sub2_Sub1_508 = class38_sub2_sub1;
+        Wall wall = new Wall();
+        wall.bitset = k1;
+        wall.info = byte0;
+        wall.x = j1 * 128 + 64;
+        wall.z = l1 * 128 + 64;
+        wall.y = j;
+        wall.entity0 = class38_sub2_sub1;
         if (i1 != 8)
             aBoolean525 = !aBoolean525;
-        class30.aClass38_Sub2_Sub1_509 = class38_sub2_sub1_1;
-        class30.anInt506 = l;
-        class30.anInt507 = i;
+        wall.entity1 = class38_sub2_sub1_1;
+        wall.type0 = l;
+        wall.type1 = i;
         for (int i2 = k; i2 >= 0; i2--)
             if (aClass38_Sub1ArrayArrayArray531[i2][j1][l1] == null)
                 aClass38_Sub1ArrayArrayArray531[i2][j1][l1] = new Class38_Sub1(i2, j1, l1);
 
-        aClass38_Sub1ArrayArrayArray531[k][j1][l1].aClass30_1167 = class30;
+        aClass38_Sub1ArrayArrayArray531[k][j1][l1].wall = wall;
     }
 
     public void method290(int i, int j, int k, int l, int i1, int j1, int k1,
@@ -479,11 +479,11 @@ public class Class32 {
         Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[l][k][j];
         if (class38_sub1 == null)
             return;
-        Class30 class30 = class38_sub1.aClass30_1167;
-        if (class30 == null) {
+        Wall wall = class38_sub1.wall;
+        if (wall == null) {
             return;
         } else {
-            class30.aClass38_Sub2_Sub1_508 = class38_sub2_sub1;
+            wall.entity0 = class38_sub2_sub1;
             return;
         }
     }
@@ -495,11 +495,11 @@ public class Class32 {
         Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[k][j][i];
         if (class38_sub1 == null)
             return;
-        Class30 class30 = class38_sub1.aClass30_1167;
-        if (class30 == null)
+        Wall wall = class38_sub1.wall;
+        if (wall == null)
             return;
-        class30.aClass38_Sub2_Sub1_508 = class38_sub2_sub1;
-        class30.aClass38_Sub2_Sub1_509 = class38_sub2_sub1_1;
+        wall.entity0 = class38_sub2_sub1;
+        wall.entity1 = class38_sub2_sub1_1;
         if (flag)
             aBoolean519 = !aBoolean519;
     }
@@ -511,7 +511,7 @@ public class Class32 {
         if (class38_sub1 == null) {
             return;
         } else {
-            class38_sub1.aClass30_1167 = null;
+            class38_sub1.wall = null;
             return;
         }
     }
@@ -570,10 +570,10 @@ public class Class32 {
 
     public int method308(int i, int j, int k) {
         Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][j][k];
-        if (class38_sub1 == null || class38_sub1.aClass30_1167 == null)
+        if (class38_sub1 == null || class38_sub1.wall == null)
             return 0;
         else
-            return class38_sub1.aClass30_1167.anInt510;
+            return class38_sub1.wall.bitset;
     }
 
     public int method309(int i, int j, int k, int l) {
@@ -611,8 +611,8 @@ public class Class32 {
         Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][j][k];
         if (class38_sub1 == null)
             return -1;
-        if (class38_sub1.aClass30_1167 != null && class38_sub1.aClass30_1167.anInt510 == l)
-            return class38_sub1.aClass30_1167.aByte511 & 0xff;
+        if (class38_sub1.wall != null && class38_sub1.wall.bitset == l)
+            return class38_sub1.wall.info & 0xff;
         if (class38_sub1.aClass13_1168 != null && class38_sub1.aClass13_1168.anInt260 == l)
             return class38_sub1.aClass13_1168.aByte261 & 0xff;
         if (class38_sub1.aClass17_1169 != null && class38_sub1.aClass17_1169.anInt359 == l)
@@ -634,18 +634,18 @@ public class Class32 {
                 for (int j2 = 0; j2 < anInt529; j2++) {
                     Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[l1][i2][j2];
                     if (class38_sub1 != null) {
-                        Class30 class30 = class38_sub1.aClass30_1167;
-                        if (class30 != null && class30.aClass38_Sub2_Sub1_508 != null
-                                && class30.aClass38_Sub2_Sub1_508.vertexNormalArray1 != null) {
-                            method315(i2, 1, 1, l1, 872, class30.aClass38_Sub2_Sub1_508, j2);
-                            if (class30.aClass38_Sub2_Sub1_509 != null
-                                    && class30.aClass38_Sub2_Sub1_509.vertexNormalArray1 != null) {
-                                method315(i2, 1, 1, l1, 872, class30.aClass38_Sub2_Sub1_509, j2);
-                                method316(class30.aClass38_Sub2_Sub1_508, class30.aClass38_Sub2_Sub1_509, 0, 0, 0,
+                        Wall wall = class38_sub1.wall;
+                        if (wall != null && wall.entity0 != null
+                                && wall.entity0.vertexNormalArray1 != null) {
+                            method315(i2, 1, 1, l1, 872, wall.entity0, j2);
+                            if (wall.entity1 != null
+                                    && wall.entity1.vertexNormalArray1 != null) {
+                                method315(i2, 1, 1, l1, 872, wall.entity1, j2);
+                                method316(wall.entity0, wall.entity1, 0, 0, 0,
                                         false);
-                                class30.aClass38_Sub2_Sub1_509.method368(j, k1, k, i, i1);
+                                wall.entity1.method368(j, k1, k, i, i1);
                             }
-                            class30.aClass38_Sub2_Sub1_508.method368(j, k1, k, i, i1);
+                            wall.entity0.method368(j, k1, k, i, i1);
                         }
                         for (int k2 = 0; k2 < class38_sub1.anInt1171; k2++) {
                             Loc loc = class38_sub1.locArray[k2];
@@ -723,15 +723,15 @@ public class Class32 {
                                             - (anIntArrayArrayArray530[l][i][j1] + anIntArrayArrayArray530[l][i + 1][j1]
                                             + anIntArrayArrayArray530[l][i][j1 + 1]
                                             + anIntArrayArrayArray530[l][i + 1][j1 + 1]) / 4;
-                                    Class30 class30 = class38_sub1.aClass30_1167;
-                                    if (class30 != null && class30.aClass38_Sub2_Sub1_508 != null
-                                            && class30.aClass38_Sub2_Sub1_508.vertexNormalArray1 != null)
-                                        method316(class38_sub2_sub1, class30.aClass38_Sub2_Sub1_508,
+                                    Wall wall = class38_sub1.wall;
+                                    if (wall != null && wall.entity0 != null
+                                            && wall.entity0.vertexNormalArray1 != null)
+                                        method316(class38_sub2_sub1, wall.entity0,
                                                 (l2 - i) * 128 + (1 - j) * 64, j3, (i3 - j1) * 128 + (1 - k) * 64,
                                                 flag);
-                                    if (class30 != null && class30.aClass38_Sub2_Sub1_509 != null
-                                            && class30.aClass38_Sub2_Sub1_509.vertexNormalArray1 != null)
-                                        method316(class38_sub2_sub1, class30.aClass38_Sub2_Sub1_509,
+                                    if (wall != null && wall.entity1 != null
+                                            && wall.entity1.vertexNormalArray1 != null)
+                                        method316(class38_sub2_sub1, wall.entity1,
                                                 (l2 - i) * 128 + (1 - j) * 64, j3, (i3 - j1) * 128 + (1 - k) * 64,
                                                 flag);
                                     for (int k3 = 0; k3 < class38_sub1.anInt1171; k3++) {
@@ -1178,11 +1178,11 @@ public class Class32 {
                             method323(class38_sub1_7.tileUnderlay, 0, anInt548, anInt549, anInt550, anInt551, i, j);
                     } else if (class38_sub1_7.aClass15_1166 != null && !method328(0, i, j))
                         method324(anInt550, j, class38_sub1_7.aClass15_1166, i, anInt549, anInt548, anInt551, true);
-                    Class30 class30 = class38_sub1_7.aClass30_1167;
-                    if (class30 != null)
-                        class30.aClass38_Sub2_Sub1_508.method371(0, anInt548, anInt549, anInt550, anInt551,
-                                class30.anInt504 - anInt545, class30.anInt503 - anInt546, class30.anInt505 - anInt547,
-                                class30.anInt510);
+                    Wall wall = class38_sub1_7.wall;
+                    if (wall != null)
+                        wall.entity0.method371(0, anInt548, anInt549, anInt550, anInt551,
+                                wall.x - anInt545, wall.y - anInt546, wall.z - anInt547,
+                                wall.bitset);
                     for (int i2 = 0; i2 < class38_sub1_7.anInt1171; i2++) {
                         Loc loc = class38_sub1_7.locArray[i2];
                         if (loc != null) {
@@ -1208,9 +1208,9 @@ public class Class32 {
                 }
                 int j1 = 0;
                 int j2 = 0;
-                Class30 class30_3 = class38_sub1_1.aClass30_1167;
+                Wall wall_3 = class38_sub1_1.wall;
                 Class13 class13_1 = class38_sub1_1.aClass13_1168;
-                if (class30_3 != null || class13_1 != null) {
+                if (wall_3 != null || class13_1 != null) {
                     if (anInt543 == i)
                         j1++;
                     else if (anInt543 < i)
@@ -1222,17 +1222,17 @@ public class Class32 {
                     j2 = anIntArray568[j1];
                     class38_sub1_1.anInt1182 = anIntArray570[j1];
                 }
-                if (class30_3 != null) {
-                    if ((class30_3.anInt506 & anIntArray569[j1]) != 0) {
-                        if (class30_3.anInt506 == 16) {
+                if (wall_3 != null) {
+                    if ((wall_3.type0 & anIntArray569[j1]) != 0) {
+                        if (wall_3.type0 == 16) {
                             class38_sub1_1.anInt1179 = 3;
                             class38_sub1_1.anInt1180 = anIntArray571[j1];
                             class38_sub1_1.anInt1181 = 3 - class38_sub1_1.anInt1180;
-                        } else if (class30_3.anInt506 == 32) {
+                        } else if (wall_3.type0 == 32) {
                             class38_sub1_1.anInt1179 = 6;
                             class38_sub1_1.anInt1180 = anIntArray572[j1];
                             class38_sub1_1.anInt1181 = 6 - class38_sub1_1.anInt1180;
-                        } else if (class30_3.anInt506 == 64) {
+                        } else if (wall_3.type0 == 64) {
                             class38_sub1_1.anInt1179 = 12;
                             class38_sub1_1.anInt1180 = anIntArray573[j1];
                             class38_sub1_1.anInt1181 = 12 - class38_sub1_1.anInt1180;
@@ -1244,14 +1244,14 @@ public class Class32 {
                     } else {
                         class38_sub1_1.anInt1179 = 0;
                     }
-                    if ((class30_3.anInt506 & j2) != 0 && !method329(l, i, j, class30_3.anInt506))
-                        class30_3.aClass38_Sub2_Sub1_508.method371(0, anInt548, anInt549, anInt550, anInt551,
-                                class30_3.anInt504 - anInt545, class30_3.anInt503 - anInt546,
-                                class30_3.anInt505 - anInt547, class30_3.anInt510);
-                    if ((class30_3.anInt507 & j2) != 0 && !method329(l, i, j, class30_3.anInt507))
-                        class30_3.aClass38_Sub2_Sub1_509.method371(0, anInt548, anInt549, anInt550, anInt551,
-                                class30_3.anInt504 - anInt545, class30_3.anInt503 - anInt546,
-                                class30_3.anInt505 - anInt547, class30_3.anInt510);
+                    if ((wall_3.type0 & j2) != 0 && !method329(l, i, j, wall_3.type0))
+                        wall_3.entity0.method371(0, anInt548, anInt549, anInt550, anInt551,
+                                wall_3.x - anInt545, wall_3.y - anInt546,
+                                wall_3.z - anInt547, wall_3.bitset);
+                    if ((wall_3.type1 & j2) != 0 && !method329(l, i, j, wall_3.type1))
+                        wall_3.entity1.method371(0, anInt548, anInt549, anInt550, anInt551,
+                                wall_3.x - anInt545, wall_3.y - anInt546,
+                                wall_3.z - anInt547, wall_3.bitset);
                 }
                 if (class13_1 != null && !method330(l, i, j, class13_1.aClass38_Sub2_Sub1_259.anInt1247))
                     if ((class13_1.anInt257 & j2) != 0)
@@ -1343,11 +1343,11 @@ public class Class32 {
                 }
 
                 if (flag2) {
-                    Class30 class30_1 = class38_sub1_1.aClass30_1167;
-                    if (!method329(l, i, j, class30_1.anInt506))
-                        class30_1.aClass38_Sub2_Sub1_508.method371(0, anInt548, anInt549, anInt550, anInt551,
-                                class30_1.anInt504 - anInt545, class30_1.anInt503 - anInt546,
-                                class30_1.anInt505 - anInt547, class30_1.anInt510);
+                    Wall wall_1 = class38_sub1_1.wall;
+                    if (!method329(l, i, j, wall_1.type0))
+                        wall_1.entity0.method371(0, anInt548, anInt549, anInt550, anInt551,
+                                wall_1.x - anInt545, wall_1.y - anInt546,
+                                wall_1.z - anInt547, wall_1.bitset);
                     class38_sub1_1.anInt1179 = 0;
                 }
             }
@@ -1511,16 +1511,16 @@ public class Class32 {
                                     anInt550, anInt551, k8, j3, k9, class13.anInt260);
                         }
                     }
-                Class30 class30_2 = class38_sub1_1.aClass30_1167;
-                if (class30_2 != null) {
-                    if ((class30_2.anInt507 & class38_sub1_1.anInt1182) != 0 && !method329(l, i, j, class30_2.anInt507))
-                        class30_2.aClass38_Sub2_Sub1_509.method371(0, anInt548, anInt549, anInt550, anInt551,
-                                class30_2.anInt504 - anInt545, class30_2.anInt503 - anInt546,
-                                class30_2.anInt505 - anInt547, class30_2.anInt510);
-                    if ((class30_2.anInt506 & class38_sub1_1.anInt1182) != 0 && !method329(l, i, j, class30_2.anInt506))
-                        class30_2.aClass38_Sub2_Sub1_508.method371(0, anInt548, anInt549, anInt550, anInt551,
-                                class30_2.anInt504 - anInt545, class30_2.anInt503 - anInt546,
-                                class30_2.anInt505 - anInt547, class30_2.anInt510);
+                Wall wall_2 = class38_sub1_1.wall;
+                if (wall_2 != null) {
+                    if ((wall_2.type1 & class38_sub1_1.anInt1182) != 0 && !method329(l, i, j, wall_2.type1))
+                        wall_2.entity1.method371(0, anInt548, anInt549, anInt550, anInt551,
+                                wall_2.x - anInt545, wall_2.y - anInt546,
+                                wall_2.z - anInt547, wall_2.bitset);
+                    if ((wall_2.type0 & class38_sub1_1.anInt1182) != 0 && !method329(l, i, j, wall_2.type0))
+                        wall_2.entity0.method371(0, anInt548, anInt549, anInt550, anInt551,
+                                wall_2.x - anInt545, wall_2.y - anInt546,
+                                wall_2.z - anInt547, wall_2.bitset);
                 }
             }
             if (k < anInt527 - 1) {
