@@ -515,7 +515,7 @@ public class Model extends CacheableNode {
             }
         }
 
-        method354(2992);
+        calculateYBoundaries(2992);
     }
 
     public Model(Model class38_sub2_sub1, boolean flag, boolean flag1, int i, boolean flag2) {
@@ -738,7 +738,7 @@ public class Model extends CacheableNode {
         return j;
     }
 
-    public void method354(int i) {
+    public void calculateYBoundaries(int i) {
         anInt1247 = 0;
         if (i != 2992)
             return;
@@ -1214,7 +1214,7 @@ public class Model extends CacheableNode {
 
         }
         if (flag) {
-            method354(2992);
+            calculateYBoundaries(2992);
             return;
         } else {
             method356(aByte1218);

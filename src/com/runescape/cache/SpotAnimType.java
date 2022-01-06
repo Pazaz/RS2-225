@@ -58,7 +58,7 @@ public class SpotAnimType {
     }
 
     public Model getModel() {
-        Model class38_sub2_sub1 = (Model) cache.method341(anInt388);
+        Model class38_sub2_sub1 = (Model) cache.get(anInt388);
         if (class38_sub2_sub1 != null)
             return class38_sub2_sub1;
         class38_sub2_sub1 = new Model(false, anInt389);

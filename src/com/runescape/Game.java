@@ -340,12 +340,12 @@ public class Game extends GameShell {
                 npcEntity.anInt1400 = class38_sub2_sub3.method446();
             }
             if ((i1 & 0x20) == 32) {
-                npcEntity.npcType = NpcType.method148(class38_sub2_sub3.method448());
-                npcEntity.anInt1387 = npcEntity.npcType.anInt89;
-                npcEntity.anInt1388 = npcEntity.npcType.anInt90;
-                npcEntity.anInt1389 = npcEntity.npcType.anInt91;
-                npcEntity.anInt1390 = npcEntity.npcType.anInt92;
-                npcEntity.anInt1385 = npcEntity.npcType.anInt88;
+                npcEntity.npcType = NpcType.get(class38_sub2_sub3.method448());
+                npcEntity.anInt1387 = npcEntity.npcType.walkSeq;
+                npcEntity.anInt1388 = npcEntity.npcType.turnAroundSeq;
+                npcEntity.anInt1389 = npcEntity.npcType.turnRightSeq;
+                npcEntity.anInt1390 = npcEntity.npcType.turnLeftSeq;
+                npcEntity.anInt1385 = npcEntity.npcType.standSeq;
             }
             if ((i1 & 0x40) == 64) {
                 npcEntity.anInt1412 = class38_sub2_sub3.method448();
@@ -1394,10 +1394,10 @@ public class Game extends GameShell {
             anInt780 = -1;
         if (anInt1074 >= 400)
             return;
-        String s = npcType.aString83;
-        if (npcType.anInt101 != 0)
-            s = s + method72(localPlayerEntity.anInt1511, false, npcType.anInt101) + " (level-"
-                    + npcType.anInt101 + ")";
+        String s = npcType.name;
+        if (npcType.level != 0)
+            s = s + method72(localPlayerEntity.anInt1511, false, npcType.level) + " (level-"
+                    + npcType.level + ")";
         if (anInt1002 == 1) {
             aStringArray834[anInt1074] = "Use " + aString1006 + " with @yel@" + s;
             anIntArray1141[anInt1074] = 900;
@@ -1418,10 +1418,10 @@ public class Game extends GameShell {
                 return;
             }
         } else {
-            if (npcType.aStringArray96 != null) {
+            if (npcType.options != null) {
                 for (int i1 = 4; i1 >= 0; i1--)
-                    if (npcType.aStringArray96[i1] != null && !npcType.aStringArray96[i1].equalsIgnoreCase("attack")) {
-                        aStringArray834[anInt1074] = npcType.aStringArray96[i1] + " @yel@" + s;
+                    if (npcType.options[i1] != null && !npcType.options[i1].equalsIgnoreCase("attack")) {
+                        aStringArray834[anInt1074] = npcType.options[i1] + " @yel@" + s;
                         if (i1 == 0)
                             anIntArray1141[anInt1074] = 728;
                         if (i1 == 1)
@@ -1439,13 +1439,13 @@ public class Game extends GameShell {
                     }
 
             }
-            if (npcType.aStringArray96 != null) {
+            if (npcType.options != null) {
                 for (int j1 = 4; j1 >= 0; j1--)
-                    if (npcType.aStringArray96[j1] != null && npcType.aStringArray96[j1].equalsIgnoreCase("attack")) {
+                    if (npcType.options[j1] != null && npcType.options[j1].equalsIgnoreCase("attack")) {
                         char c = '\0';
-                        if (npcType.anInt101 > localPlayerEntity.anInt1511)
+                        if (npcType.level > localPlayerEntity.anInt1511)
                             c = '\u07D0';
-                        aStringArray834[anInt1074] = npcType.aStringArray96[j1] + " @yel@" + s;
+                        aStringArray834[anInt1074] = npcType.options[j1] + " @yel@" + s;
                         if (j1 == 0)
                             anIntArray1141[anInt1074] = 728 + c;
                         if (j1 == 1)
@@ -2027,7 +2027,7 @@ public class Game extends GameShell {
         for (int i4 = 0; i4 < anInt928; i4++) {
             NpcEntity npcEntity = npcEntities[anIntArray929[i4]];
             if (npcEntity != null && npcEntity.method468(false)
-                    && npcEntity.npcType.aBoolean100) {
+                    && npcEntity.npcType.showOnMinimap) {
                 int i1 = npcEntity.anInt1380 / 32
                         - localPlayerEntity.anInt1380 / 32;
                 int k2 = npcEntity.anInt1381 / 32
@@ -3034,7 +3034,7 @@ public class Game extends GameShell {
             int j = anIntArray929[i];
             NpcEntity npcEntity = npcEntities[j];
             if (npcEntity != null)
-                method63(npcEntity, (byte) -128, npcEntity.npcType.aByte85);
+                method63(npcEntity, (byte) -128, npcEntity.npcType.size);
         }
 
     }
@@ -3840,10 +3840,10 @@ public class Game extends GameShell {
             NpcEntity class38_sub7_sub3_sub1_3 = npcEntities[j1];
             if (class38_sub7_sub3_sub1_3 != null) {
                 String s5;
-                if (class38_sub7_sub3_sub1_3.npcType.aByteArray84 != null)
-                    s5 = new String(class38_sub7_sub3_sub1_3.npcType.aByteArray84);
+                if (class38_sub7_sub3_sub1_3.npcType.description != null)
+                    s5 = new String(class38_sub7_sub3_sub1_3.npcType.description);
                 else
-                    s5 = "It's a " + class38_sub7_sub3_sub1_3.npcType.aString83 + ".";
+                    s5 = "It's a " + class38_sub7_sub3_sub1_3.npcType.name + ".";
                 method111(0, s5, (byte) 4, "");
             }
         }
@@ -4390,13 +4390,13 @@ public class Game extends GameShell {
             NpcEntity npcEntity = npcEntities[j];
             anIntArray929[anInt928++] = j;
             npcEntity.anInt1424 = anInt955;
-            npcEntity.npcType = NpcType.method148(class38_sub2_sub3.method457(9, 11));
-            npcEntity.anInt1384 = npcEntity.npcType.aByte85;
-            npcEntity.anInt1387 = npcEntity.npcType.anInt89;
-            npcEntity.anInt1388 = npcEntity.npcType.anInt90;
-            npcEntity.anInt1389 = npcEntity.npcType.anInt91;
-            npcEntity.anInt1390 = npcEntity.npcType.anInt92;
-            npcEntity.anInt1385 = npcEntity.npcType.anInt88;
+            npcEntity.npcType = NpcType.get(class38_sub2_sub3.method457(9, 11));
+            npcEntity.anInt1384 = npcEntity.npcType.size;
+            npcEntity.anInt1387 = npcEntity.npcType.walkSeq;
+            npcEntity.anInt1388 = npcEntity.npcType.turnAroundSeq;
+            npcEntity.anInt1389 = npcEntity.npcType.turnRightSeq;
+            npcEntity.anInt1390 = npcEntity.npcType.turnLeftSeq;
+            npcEntity.anInt1385 = npcEntity.npcType.standSeq;
             int k = class38_sub2_sub3.method457(9, 5);
             if (k > 15)
                 k -= 32;
@@ -4725,7 +4725,7 @@ public class Game extends GameShell {
             LocType.load(fileArchive);
             FloType.load(fileArchive);
             ObjType.method167(fileArchive);
-            NpcType.method146(fileArchive);
+            NpcType.load(fileArchive);
             IdkType.load(fileArchive);
             SpotAnimType.method224(fileArchive, 473);
             VarpType.method227(fileArchive, 473);
@@ -4871,7 +4871,7 @@ public class Game extends GameShell {
     public void method83(byte byte0) {
         LocType.models.method343();
         LocType.builtModels.method343();
-        NpcType.cache.method343();
+        NpcType.models.method343();
         ObjType.cache1.method343();
         ObjType.cache2.method343();
         PlayerEntity.cache.method343();
@@ -5793,7 +5793,7 @@ public class Game extends GameShell {
         drawArea19 = null;
         method38(true);
         LocType.unload();
-        NpcType.method147(true);
+        NpcType.unload();
         ObjType.method168(true);
         FloType.instances = null;
         IdkType.instances = null;
@@ -7569,13 +7569,13 @@ public class Game extends GameShell {
                 }
                 if (j1 == 1) {
                     NpcEntity npcEntity = npcEntities[k1];
-                    if (npcEntity.npcType.aByte85 == 1
+                    if (npcEntity.npcType.size == 1
                             && (npcEntity.anInt1380 & 0x7f) == 64
                             && (npcEntity.anInt1381 & 0x7f) == 64) {
                         for (int i2 = 0; i2 < anInt928; i2++) {
                             NpcEntity npcEntity_1 = npcEntities[anIntArray929[i2]];
                             if (npcEntity_1 != null && npcEntity_1 != npcEntity
-                                    && npcEntity_1.npcType.aByte85 == 1
+                                    && npcEntity_1.npcType.size == 1
                                     && npcEntity_1.anInt1380 == npcEntity.anInt1380
                                     && npcEntity_1.anInt1381 == npcEntity.anInt1381)
                                 method34(npcEntity_1.npcType, -641, i1, l, anIntArray929[i2]);
@@ -7590,7 +7590,7 @@ public class Game extends GameShell {
                             && (playerEntity.anInt1381 & 0x7f) == 64) {
                         for (int j2 = 0; j2 < anInt928; j2++) {
                             NpcEntity npcEntity_2 = npcEntities[anIntArray929[j2]];
-                            if (npcEntity_2 != null && npcEntity_2.npcType.aByte85 == 1
+                            if (npcEntity_2 != null && npcEntity_2.npcType.size == 1
                                     && npcEntity_2.anInt1380 == playerEntity.anInt1380
                                     && npcEntity_2.anInt1381 == playerEntity.anInt1381)
                                 method34(npcEntity_2.npcType, -641, i1, l, anIntArray929[j2]);
@@ -8440,8 +8440,8 @@ public class Game extends GameShell {
             if (anInt780 == 204) {
                 int i4 = aClass38_Sub2_Sub3_795.method448();
                 int i13 = aClass38_Sub2_Sub3_795.method448();
-                NpcType npcType = NpcType.method148(i13);
-                InterfaceComponent.interfaceComponentArray[i4].aClass38_Sub2_Sub1_310 = npcType.method151(false);
+                NpcType npcType = NpcType.get(i13);
+                InterfaceComponent.interfaceComponentArray[i4].aClass38_Sub2_Sub1_310 = npcType.getHeadModel(false);
                 anInt780 = -1;
                 return true;
             }

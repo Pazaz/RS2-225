@@ -224,7 +224,7 @@ public class ObjType {
             if (j != -1)
                 return method169(j).method173(1);
         }
-        Model class38_sub2_sub1 = (Model) cache1.method341(anInt143);
+        Model class38_sub2_sub1 = (Model) cache1.get(anInt143);
         if (class38_sub2_sub1 != null)
             return class38_sub2_sub1;
         class38_sub2_sub1 = new Model(false, anInt144);
@@ -240,7 +240,7 @@ public class ObjType {
     }
 
     public static Sprite method174(int i, int j, int k) {
-        Sprite class38_sub2_sub2_sub2 = (Sprite) cache2.method341(i);
+        Sprite class38_sub2_sub2_sub2 = (Sprite) cache2.get(i);
         if (class38_sub2_sub2_sub2 != null && class38_sub2_sub2_sub2.anInt1471 != k
                 && class38_sub2_sub2_sub2.anInt1471 != -1) {
             class38_sub2_sub2_sub2.unlink();

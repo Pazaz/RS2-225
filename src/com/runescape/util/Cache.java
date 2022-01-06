@@ -14,7 +14,7 @@ public class Cache {
         anInt593 = i;
     }
 
-    public CacheableNode method341(long l) {
+    public CacheableNode get(long l) {
         CacheableNode cacheableNode = (CacheableNode) hashtable.get(l);
         if (cacheableNode != null)
             stack.push(cacheableNode);

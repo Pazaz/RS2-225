@@ -29,7 +29,7 @@ public class NpcEntity extends PathingEntity {
                 class38_sub2_sub1, class38_sub2_sub1_1
         };
         Model class38_sub2_sub1_2 = new Model(aclass38_sub2_sub1, (byte) -31, 2, true);
-        if (npcType.aByte85 == 1)
+        if (npcType.size == 1)
             class38_sub2_sub1_2.aBoolean1256 = true;
         return class38_sub2_sub1_2;
     }
@@ -40,14 +40,14 @@ public class NpcEntity extends PathingEntity {
             int k = -1;
             if (super.anInt1404 >= 0 && super.anInt1404 != super.anInt1385)
                 k = SeqType.seqTypes[super.anInt1404].primaryFrames[super.anInt1405];
-            return npcType.method150(i, k, SeqType.seqTypes[super.anInt1407].anIntArray370);
+            return npcType.getModel(i, k, SeqType.seqTypes[super.anInt1407].anIntArray370);
         }
         int j = -1;
         if (flag)
             throw new NullPointerException();
         if (super.anInt1404 >= 0)
             j = SeqType.seqTypes[super.anInt1404].primaryFrames[super.anInt1405];
-        Model class38_sub2_sub1 = npcType.method150(j, -1, null);
+        Model class38_sub2_sub1 = npcType.getModel(j, -1, null);
         super.anInt1425 = class38_sub2_sub1.anInt1247;
         return class38_sub2_sub1;
     }

@@ -212,7 +212,7 @@ public class LocType {
             l2 = 0L;
         }
 
-        Model class38_sub2_sub1 = (Model) builtModels.method341(l2);
+        Model class38_sub2_sub1 = (Model) builtModels.get(l2);
         if (class38_sub2_sub1 != null) {
             if (aBoolean35) {
                 return class38_sub2_sub1;
@@ -252,7 +252,7 @@ public class LocType {
             k2 += 0x10000;
         }
 
-        Model class38_sub2_sub1_1 = (Model) models.method341(k2);
+        Model class38_sub2_sub1_1 = (Model) models.get(k2);
         if (class38_sub2_sub1_1 == null) {
             class38_sub2_sub1_1 = new Model(false, k2 & 0xffff);
             if (flag) {

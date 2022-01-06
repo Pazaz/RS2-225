@@ -227,7 +227,7 @@ public class InterfaceComponent {
 
     public static Sprite method220(FileArchive fileArchive, int i, String s, int j) {
         long l = (StringUtils.genHash(s) << 8) + (long) i;
-        Sprite class38_sub2_sub2_sub2 = (Sprite) cache1.method341(l);
+        Sprite class38_sub2_sub2_sub2 = (Sprite) cache1.get(l);
         if (j != -36068)
             throw new NullPointerException();
         if (class38_sub2_sub2_sub2 != null)
@@ -242,7 +242,7 @@ public class InterfaceComponent {
     }
 
     public static Model method221(int i, int j) {
-        Model class38_sub2_sub1 = (Model) cache2.method341(j);
+        Model class38_sub2_sub1 = (Model) cache2.get(j);
         if (i != 4)
             aBoolean263 = !aBoolean263;
         if (class38_sub2_sub1 != null) {

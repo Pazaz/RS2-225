@@ -164,7 +164,7 @@ public class PlayerEntity extends PathingEntity {
             }
         } else if (super.anInt1404 >= 0)
             i = SeqType.seqTypes[super.anInt1404].primaryFrames[super.anInt1405];
-        Model class38_sub2_sub1 = (Model) cache.method341(l);
+        Model class38_sub2_sub1 = (Model) cache.get(l);
         if (class38_sub2_sub1 == null) {
             Model[] aclass38_sub2_sub1 = new Model[12];
             int j1 = 0;
@@ -207,7 +207,7 @@ public class PlayerEntity extends PathingEntity {
             class38_sub2_sub1_1.method359(j, 3, i, SeqType.seqTypes[super.anInt1407].anIntArray370);
         else if (i != -1)
             class38_sub2_sub1_1.applyFrame(-16599, i);
-        class38_sub2_sub1_1.method354(2992);
+        class38_sub2_sub1_1.calculateYBoundaries(2992);
         class38_sub2_sub1_1.skinTriangle = null;
         class38_sub2_sub1_1.labelVertices = null;
         return class38_sub2_sub1_1;
