@@ -79,17 +79,17 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
         if (aBoolean1524)
             return class38_sub2_sub1;
         if (super.anInt1412 != -1 && super.anInt1413 != -1) {
-            Class20 class20 = Class20.aClass20Array387[super.anInt1412];
-            Class38_Sub2_Sub1 class38_sub2_sub1_2 = new Class38_Sub2_Sub1(class20.getModel(), true,
-                    !class20.disposeAlpha, anInt1503, false);
+            SpotAnimType spotAnimType = SpotAnimType.spotAnimTypes[super.anInt1412];
+            Class38_Sub2_Sub1 class38_sub2_sub1_2 = new Class38_Sub2_Sub1(spotAnimType.getModel(), true,
+                    !spotAnimType.disposeAlpha, anInt1503, false);
             class38_sub2_sub1_2.method363(-super.anInt1416, 0, -122, 0);
             class38_sub2_sub1_2.applyGroups(4);
-            class38_sub2_sub1_2.applyFrame(-16599, class20.seq.primaryFrames[super.anInt1413]);
+            class38_sub2_sub1_2.applyFrame(-16599, spotAnimType.seq.primaryFrames[super.anInt1413]);
             class38_sub2_sub1_2.skinTriangle = null;
             class38_sub2_sub1_2.labelVertices = null;
-            if (class20.anInt395 != 128 || class20.anInt396 != 128)
-                class38_sub2_sub1_2.scale(class20.anInt395, 2, class20.anInt396, class20.anInt395);
-            class38_sub2_sub1_2.applyLighting(64 + class20.anInt398, 850 + class20.anInt399, -30, -50, -30, true);
+            if (spotAnimType.anInt395 != 128 || spotAnimType.anInt396 != 128)
+                class38_sub2_sub1_2.scale(spotAnimType.anInt395, 2, spotAnimType.anInt396, spotAnimType.anInt395);
+            class38_sub2_sub1_2.applyLighting(64 + spotAnimType.anInt398, 850 + spotAnimType.anInt399, -30, -50, -30, true);
             Class38_Sub2_Sub1[] aclass38_sub2_sub1_1 = {
                     class38_sub2_sub1, class38_sub2_sub1_2
             };

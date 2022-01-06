@@ -1,19 +1,19 @@
 package com.runescape;
 
-public class Class20 {
+public class SpotAnimType {
 
     public static void method224(FileArchive fileArchive, int i) {
         i = 91 / i;
         Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363,
                 fileArchive.read("spotanim.dat", null));
         anInt386 = class38_sub2_sub3.method448();
-        if (aClass20Array387 == null)
-            aClass20Array387 = new Class20[anInt386];
+        if (spotAnimTypes == null)
+            spotAnimTypes = new SpotAnimType[anInt386];
         for (int j = 0; j < anInt386; j++) {
-            if (aClass20Array387[j] == null)
-                aClass20Array387[j] = new Class20();
-            aClass20Array387[j].anInt388 = j;
-            aClass20Array387[j].method225(false, class38_sub2_sub3);
+            if (spotAnimTypes[j] == null)
+                spotAnimTypes[j] = new SpotAnimType();
+            spotAnimTypes[j].anInt388 = j;
+            spotAnimTypes[j].method225(false, class38_sub2_sub3);
         }
 
     }
@@ -67,7 +67,7 @@ public class Class20 {
         return class38_sub2_sub1;
     }
 
-    public Class20() {
+    public SpotAnimType() {
         anInt390 = -1;
         disposeAlpha = false;
         anIntArray393 = new int[6];
@@ -78,7 +78,7 @@ public class Class20 {
 
     public static int anInt385 = 473;
     public static int anInt386;
-    public static Class20[] aClass20Array387;
+    public static SpotAnimType[] spotAnimTypes;
     public int anInt388;
     public int anInt389;
     public int anInt390;

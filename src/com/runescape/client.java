@@ -3298,7 +3298,7 @@ public class client extends Applet_Sub1 {
         if (class38_sub7_sub3.anInt1412 != -1 && anInt955 >= class38_sub7_sub3.anInt1415) {
             if (class38_sub7_sub3.anInt1413 < 0)
                 class38_sub7_sub3.anInt1413 = 0;
-            SeqType seqType_2 = Class20.aClass20Array387[class38_sub7_sub3.anInt1412].seq;
+            SeqType seqType_2 = SpotAnimType.spotAnimTypes[class38_sub7_sub3.anInt1412].seq;
             for (class38_sub7_sub3.anInt1414++; class38_sub7_sub3.anInt1413 < seqType_2.anInt365
                     && class38_sub7_sub3.anInt1414 > seqType_2.anIntArray368[class38_sub7_sub3.anInt1413]; class38_sub7_sub3.anInt1413++)
                 class38_sub7_sub3.anInt1414 -= seqType_2.anIntArray368[class38_sub7_sub3.anInt1413];
@@ -4723,7 +4723,7 @@ public class client extends Applet_Sub1 {
             ObjType.method167(fileArchive);
             NpcType.method146(fileArchive);
             IdkType.method214(fileArchive, 473);
-            Class20.method224(fileArchive, 473);
+            SpotAnimType.method224(fileArchive, 473);
             Class22.method227(fileArchive, 473);
             ObjType.aBoolean142 = aBoolean888;
             if (!aBoolean889) {
@@ -4871,7 +4871,7 @@ public class client extends Applet_Sub1 {
         ObjType.aClass34_178.method343();
         ObjType.aClass34_179.method343();
         Class38_Sub7_Sub3_Sub2.aClass34_1525.method343();
-        Class20.aClass34_400.method343();
+        SpotAnimType.aClass34_400.method343();
         if (byte0 == aByte843) {
             byte0 = 0;
             return;
@@ -5795,8 +5795,8 @@ public class client extends Applet_Sub1 {
         IdkType.idkTypes = null;
         InterfaceComponent.interfaceComponentArray = null;
         SeqType.seqTypes = null;
-        Class20.aClass20Array387 = null;
-        Class20.aClass34_400 = null;
+        SpotAnimType.spotAnimTypes = null;
+        SpotAnimType.aClass34_400 = null;
         Class22.aClass22Array420 = null;
         super.drawArea = null;
         Class38_Sub7_Sub3_Sub2.aClass34_1525 = null;

@@ -4,7 +4,7 @@ public class ProjectileEntity extends Entity {
 
     public ProjectileEntity(int baseZ, int elevationPitch, int sourceY, int lastCycle, int level, int targetIndex, int firstCycle,
                             int arcScale, int sourceZ, int spotAnim, int sourceX) {
-        this.spotAnim = Class20.aClass20Array387[spotAnim];
+        this.spotAnim = SpotAnimType.spotAnimTypes[spotAnim];
         this.level = level;
         this.sourceX = sourceX;
         this.sourceY = sourceY;
@@ -81,7 +81,7 @@ public class ProjectileEntity extends Entity {
     }
 
     public int anInt1341;
-    public Class20 spotAnim;
+    public SpotAnimType spotAnim;
     public int level;
     public int sourceX;
     public int sourceY;
