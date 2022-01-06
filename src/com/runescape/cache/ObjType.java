@@ -251,7 +251,7 @@ public class ObjType {
             return model;
         }
 
-        model = new Model(false, modelIndex);
+        model = new Model(modelIndex);
         if (oldColors != null) {
             for (int n = 0; n < oldColors.length; n++) {
                 model.recolor(oldColors[n], newColors[n]);
@@ -316,7 +316,7 @@ public class ObjType {
         int sinPitch = Draw3D.sin[info.iconCameraPitch] * info.iconZoom >> 16;
         int cosPitch = Draw3D.cos[info.iconCameraPitch] * info.iconZoom >> 16;
 
-        model.drawSimple(0, info.iconYaw, info.iconRoll, info.iconCameraPitch, info.iconX, sinPitch + model.minY / 2 + info.iconY, cosPitch + info.iconY);
+        model.drawSimple(0, info.iconYaw, info.iconRoll, info.iconCameraPitch, info.iconX, sinPitch + model.maxBoundY / 2 + info.iconY, cosPitch + info.iconY);
 
         for (int x = 31; x >= 0; x--) {
             for (int y = 31; y >= 0; y--) {
@@ -386,29 +386,29 @@ public class ObjType {
             return null;
         }
 
-        Model model = new Model(false, m0);
+        Model model = new Model(m0);
 
         if (m1 != -1) {
             if (m2 != -1) {
-                Model model1 = new Model(false, m1);
-                Model model2 = new Model(false, m2);
+                Model model1 = new Model(m1);
+                Model model2 = new Model(m2);
                 Model[] models = {
                     model, model1, model2
                 };
-                model = new Model(0, models, 3);
+                model = new Model(models, 3);
             } else {
-                Model model1 = new Model(false, m1);
+                Model model1 = new Model(m1);
                 Model[] models = {
                     model, model1
                 };
-                model = new Model(0, models, 2);
+                model = new Model(models, 2);
             }
         }
 
         if (gender == 0 && maleOffsetY != 0) {
-            model.translate(maleOffsetY, 0, -122, 0);
+            model.translate(maleOffsetY, 0, 0);
         } else if (gender == 1 && femaleOffsetY != 0) {
-            model.translate(femaleOffsetY, 0, -122, 0);
+            model.translate(femaleOffsetY, 0, 0);
         }
 
         if (oldColors != null) {
@@ -433,13 +433,13 @@ public class ObjType {
             return null;
         }
         
-        Model model = new Model(false, m0);
+        Model model = new Model(m0);
         if (m1 != -1) {
-            Model model1 = new Model(false, m1);
+            Model model1 = new Model(m1);
             Model[] models = {
                 model, model1
             };
-            model = new Model(0, models, 2);
+            model = new Model(models, 2);
         }
 
         if (oldColors != null) {

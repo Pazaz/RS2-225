@@ -641,32 +641,32 @@ public class Scene {
                     if (tile != null) {
                         Wall wall = tile.wall;
                         if (wall != null && wall.entity0 != null
-                                && wall.entity0.vertexNormalArray1 != null) {
+                                && wall.entity0.vertexNormals != null) {
                             method315(i2, 1, 1, l1, 872, wall.entity0, j2);
                             if (wall.entity1 != null
-                                    && wall.entity1.vertexNormalArray1 != null) {
+                                    && wall.entity1.vertexNormals != null) {
                                 method315(i2, 1, 1, l1, 872, wall.entity1, j2);
                                 method316(wall.entity0, wall.entity1, 0, 0, 0,
                                         false);
-                                wall.entity1.method368(j, k1, k, i, i1);
+                                wall.entity1.calculateLighting(j, k1, k, i, i1);
                             }
-                            wall.entity0.method368(j, k1, k, i, i1);
+                            wall.entity0.calculateLighting(j, k1, k, i, i1);
                         }
                         for (int k2 = 0; k2 < tile.locationCount; k2++) {
                             Loc loc = tile.locs[k2];
                             if (loc != null && loc.model != null
-                                    && loc.model.vertexNormalArray1 != null) {
+                                    && loc.model.vertexNormals != null) {
                                 method315(i2, (loc.maxSceneTileX - loc.minSceneTileX) + 1,
                                         (loc.maxSceneTileZ - loc.minSceneTileZ) + 1, l1, 872,
                                         loc.model, j2);
-                                loc.model.method368(j, k1, k, i, i1);
+                                loc.model.calculateLighting(j, k1, k, i, i1);
                             }
                         }
 
                         GroundDecoration groundDecoration = tile.groundDecoration;
-                        if (groundDecoration != null && groundDecoration.model.vertexNormalArray1 != null) {
+                        if (groundDecoration != null && groundDecoration.model.vertexNormals != null) {
                             method314((byte) -70, l1, j2, groundDecoration.model, i2);
-                            groundDecoration.model.method368(j, k1, k, i, i1);
+                            groundDecoration.model.calculateLighting(j, k1, k, i, i1);
                         }
                     }
                 }
@@ -683,25 +683,25 @@ public class Scene {
         if (k < anInt528) {
             Tile tile = tile3dArray[i][k + 1][j];
             if (tile != null && tile.groundDecoration != null
-                    && tile.groundDecoration.model.vertexNormalArray1 != null)
+                    && tile.groundDecoration.model.vertexNormals != null)
                 method316(class38_sub2_sub1, tile.groundDecoration.model, 128, 0, 0, true);
         }
         if (j < anInt528) {
             Tile tile = tile3dArray[i][k][j + 1];
             if (tile != null && tile.groundDecoration != null
-                    && tile.groundDecoration.model.vertexNormalArray1 != null)
+                    && tile.groundDecoration.model.vertexNormals != null)
                 method316(class38_sub2_sub1, tile.groundDecoration.model, 0, 0, 128, true);
         }
         if (k < anInt528 && j < anInt529) {
             Tile tile_2 = tile3dArray[i][k + 1][j + 1];
             if (tile_2 != null && tile_2.groundDecoration != null
-                    && tile_2.groundDecoration.model.vertexNormalArray1 != null)
+                    && tile_2.groundDecoration.model.vertexNormals != null)
                 method316(class38_sub2_sub1, tile_2.groundDecoration.model, 128, 0, 128, true);
         }
         if (k < anInt528 && j > 0) {
             Tile tile_3 = tile3dArray[i][k + 1][j - 1];
             if (tile_3 != null && tile_3.groundDecoration != null
-                    && tile_3.groundDecoration.model.vertexNormalArray1 != null)
+                    && tile_3.groundDecoration.model.vertexNormals != null)
                 method316(class38_sub2_sub1, tile_3.groundDecoration.model, 128, 0, -128, true);
         }
     }
@@ -730,19 +730,19 @@ public class Scene {
                                             + anIntArrayArrayArray530[l][i + 1][j1 + 1]) / 4;
                                     Wall wall = tile.wall;
                                     if (wall != null && wall.entity0 != null
-                                            && wall.entity0.vertexNormalArray1 != null)
+                                            && wall.entity0.vertexNormals != null)
                                         method316(class38_sub2_sub1, wall.entity0,
                                                 (l2 - i) * 128 + (1 - j) * 64, j3, (i3 - j1) * 128 + (1 - k) * 64,
                                                 flag);
                                     if (wall != null && wall.entity1 != null
-                                            && wall.entity1.vertexNormalArray1 != null)
+                                            && wall.entity1.vertexNormals != null)
                                         method316(class38_sub2_sub1, wall.entity1,
                                                 (l2 - i) * 128 + (1 - j) * 64, j3, (i3 - j1) * 128 + (1 - k) * 64,
                                                 flag);
                                     for (int k3 = 0; k3 < tile.locationCount; k3++) {
                                         Loc loc = tile.locs[k3];
                                         if (loc != null && loc.model != null
-                                                && loc.model.vertexNormalArray1 != null) {
+                                                && loc.model.vertexNormals != null) {
                                             int l3 = (loc.maxSceneTileX - loc.minSceneTileX) + 1;
                                             int i4 = (loc.maxSceneTileZ - loc.minSceneTileZ) + 1;
                                             method316(class38_sub2_sub1, loc.model,
@@ -766,31 +766,31 @@ public class Scene {
                           int k, boolean flag) {
         anInt578++;
         int l = 0;
-        int[] ai = class38_sub2_sub1_1.anIntArray1223;
-        int i1 = class38_sub2_sub1_1.anInt1222;
-        for (int j1 = 0; j1 < class38_sub2_sub1.anInt1222; j1++) {
-            VertexNormal vertexNormal = class38_sub2_sub1.vertexNormalArray1[j1];
-            VertexNormal vertexNormal_1 = class38_sub2_sub1.vertexNormalArray2[j1];
-            if (vertexNormal_1.w != 0) {
-                int i2 = class38_sub2_sub1.anIntArray1224[j1] - j;
-                if (i2 <= class38_sub2_sub1_1.anInt1248) {
-                    int j2 = class38_sub2_sub1.anIntArray1223[j1] - i;
-                    if (j2 >= class38_sub2_sub1_1.anInt1242 && j2 <= class38_sub2_sub1_1.anInt1243) {
-                        int k2 = class38_sub2_sub1.anIntArray1225[j1] - k;
-                        if (k2 >= class38_sub2_sub1_1.anInt1245 && k2 <= class38_sub2_sub1_1.anInt1244) {
+        int[] ai = class38_sub2_sub1_1.vertexX;
+        int i1 = class38_sub2_sub1_1.vertexCount;
+        for (int j1 = 0; j1 < class38_sub2_sub1.vertexCount; j1++) {
+            VertexNormal vertexNormal = class38_sub2_sub1.vertexNormals[j1];
+            VertexNormal vertexNormal_1 = class38_sub2_sub1.unmodifiedVertexNormals[j1];
+            if (vertexNormal_1.magnitude != 0) {
+                int i2 = class38_sub2_sub1.vertexY[j1] - j;
+                if (i2 <= class38_sub2_sub1_1.minBoundY) {
+                    int j2 = class38_sub2_sub1.vertexX[j1] - i;
+                    if (j2 >= class38_sub2_sub1_1.minBoundX && j2 <= class38_sub2_sub1_1.maxBoundX) {
+                        int k2 = class38_sub2_sub1.vertexZ[j1] - k;
+                        if (k2 >= class38_sub2_sub1_1.minBoundZ && k2 <= class38_sub2_sub1_1.maxBoundZ) {
                             for (int l2 = 0; l2 < i1; l2++) {
-                                VertexNormal vertexNormal_2 = class38_sub2_sub1_1.vertexNormalArray1[l2];
-                                VertexNormal vertexNormal_3 = class38_sub2_sub1_1.vertexNormalArray2[l2];
-                                if (j2 == ai[l2] && k2 == class38_sub2_sub1_1.anIntArray1225[l2]
-                                        && i2 == class38_sub2_sub1_1.anIntArray1224[l2] && vertexNormal_3.w != 0) {
+                                VertexNormal vertexNormal_2 = class38_sub2_sub1_1.vertexNormals[l2];
+                                VertexNormal vertexNormal_3 = class38_sub2_sub1_1.unmodifiedVertexNormals[l2];
+                                if (j2 == ai[l2] && k2 == class38_sub2_sub1_1.vertexZ[l2]
+                                        && i2 == class38_sub2_sub1_1.vertexY[l2] && vertexNormal_3.magnitude != 0) {
                                     vertexNormal.x += vertexNormal_3.x;
                                     vertexNormal.y += vertexNormal_3.y;
                                     vertexNormal.z += vertexNormal_3.z;
-                                    vertexNormal.w += vertexNormal_3.w;
+                                    vertexNormal.magnitude += vertexNormal_3.magnitude;
                                     vertexNormal_2.x += vertexNormal_1.x;
                                     vertexNormal_2.y += vertexNormal_1.y;
                                     vertexNormal_2.z += vertexNormal_1.z;
-                                    vertexNormal_2.w += vertexNormal_1.w;
+                                    vertexNormal_2.magnitude += vertexNormal_1.magnitude;
                                     l++;
                                     anIntArray576[j1] = anInt578;
                                     anIntArray577[l2] = anInt578;
@@ -805,17 +805,17 @@ public class Scene {
 
         if (l < 3 || !flag)
             return;
-        for (int k1 = 0; k1 < class38_sub2_sub1.anInt1226; k1++)
-            if (anIntArray576[class38_sub2_sub1.anIntArray1227[k1]] == anInt578
-                    && anIntArray576[class38_sub2_sub1.anIntArray1228[k1]] == anInt578
-                    && anIntArray576[class38_sub2_sub1.anIntArray1229[k1]] == anInt578)
-                class38_sub2_sub1.anIntArray1233[k1] = -1;
+        for (int k1 = 0; k1 < class38_sub2_sub1.triangleCount; k1++)
+            if (anIntArray576[class38_sub2_sub1.triangleVertexA[k1]] == anInt578
+                    && anIntArray576[class38_sub2_sub1.triangleVertexB[k1]] == anInt578
+                    && anIntArray576[class38_sub2_sub1.triangleVertexC[k1]] == anInt578)
+                class38_sub2_sub1.triangleInfo[k1] = -1;
 
-        for (int l1 = 0; l1 < class38_sub2_sub1_1.anInt1226; l1++)
-            if (anIntArray577[class38_sub2_sub1_1.anIntArray1227[l1]] == anInt578
-                    && anIntArray577[class38_sub2_sub1_1.anIntArray1228[l1]] == anInt578
-                    && anIntArray577[class38_sub2_sub1_1.anIntArray1229[l1]] == anInt578)
-                class38_sub2_sub1_1.anIntArray1233[l1] = -1;
+        for (int l1 = 0; l1 < class38_sub2_sub1_1.triangleCount; l1++)
+            if (anIntArray577[class38_sub2_sub1_1.triangleVertexA[l1]] == anInt578
+                    && anIntArray577[class38_sub2_sub1_1.triangleVertexB[l1]] == anInt578
+                    && anIntArray577[class38_sub2_sub1_1.triangleVertexC[l1]] == anInt578)
+                class38_sub2_sub1_1.triangleInfo[l1] = -1;
 
     }
 
@@ -885,10 +885,10 @@ public class Scene {
         boolean[][][][] aflag = new boolean[9][32][53][53];
         for (int i1 = 128; i1 <= 384; i1 += 32) {
             for (int j1 = 0; j1 < 2048; j1 += 64) {
-                anInt548 = Model.anIntArray1300[i1];
-                anInt549 = Model.anIntArray1301[i1];
-                anInt550 = Model.anIntArray1300[j1];
-                anInt551 = Model.anIntArray1301[j1];
+                anInt548 = Model.sin[i1];
+                anInt549 = Model.cos[i1];
+                anInt550 = Model.sin[j1];
+                anInt551 = Model.cos[j1];
                 int l1 = (i1 - 128) / 32;
                 int j2 = j1 / 64;
                 for (int l2 = -26; l2 <= 26; l2++) {
@@ -986,10 +986,10 @@ public class Scene {
         else if (j1 >= anInt529 * 128)
             j1 = anInt529 * 128 - 1;
         anInt538++;
-        anInt548 = Model.anIntArray1300[l];
-        anInt549 = Model.anIntArray1301[l];
-        anInt550 = Model.anIntArray1300[i];
-        anInt551 = Model.anIntArray1301[i];
+        anInt548 = Model.sin[l];
+        anInt549 = Model.cos[l];
+        anInt550 = Model.sin[i];
+        anInt551 = Model.cos[i];
         aBooleanArrayArray582 = aBooleanArrayArrayArrayArray581[(l - 128) / 32][i / 64];
         anInt545 = j;
         anInt546 = i1;
@@ -1258,7 +1258,7 @@ public class Scene {
                                 wall_3.x - anInt545, wall_3.y - anInt546,
                                 wall_3.z - anInt547, wall_3.bitset);
                 }
-                if (wallDecoration_1 != null && !method330(l, i, j, wallDecoration_1.model.minY))
+                if (wallDecoration_1 != null && !method330(l, i, j, wallDecoration_1.model.maxBoundY))
                     if ((wallDecoration_1.type & j2) != 0)
                         wallDecoration_1.model.method371(wallDecoration_1.rotation, anInt548, anInt549, anInt550,
                                 anInt551, wallDecoration_1.sceneX - anInt545, wallDecoration_1.sceneY - anInt546,
@@ -1423,7 +1423,7 @@ public class Scene {
                     if (class38_sub2_sub1_1 == null)
                         class38_sub2_sub1_1 = loc_3.entity.getDrawMethod();
                     if (!method331(l, loc_3.minSceneTileX, loc_3.maxSceneTileX, loc_3.minSceneTileZ, loc_3.maxSceneTileZ,
-                            class38_sub2_sub1_1.minY))
+                            class38_sub2_sub1_1.maxBoundY))
                         class38_sub2_sub1_1.method371(loc_3.yaw, anInt548, anInt549, anInt550, anInt551,
                                 loc_3.x - anInt545, loc_3.y - anInt546,
                                 loc_3.z - anInt547, loc_3.bitset);
@@ -1483,7 +1483,7 @@ public class Scene {
             }
             if (tile.wallDrawFlags != 0) {
                 WallDecoration wallDecoration = tile.wallDecoration;
-                if (wallDecoration != null && !method330(l, i, j, wallDecoration.model.minY))
+                if (wallDecoration != null && !method330(l, i, j, wallDecoration.model.maxBoundY))
                     if ((wallDecoration.type & tile.wallDrawFlags) != 0)
                         wallDecoration.model.method371(wallDecoration.rotation, anInt548, anInt549, anInt550,
                                 anInt551, wallDecoration.sceneX - anInt545, wallDecoration.sceneY - anInt546,
@@ -1610,52 +1610,52 @@ public class Scene {
         int j6 = Draw3D.centerY + (j4 << 9) / k3;
         int k6 = Draw3D.centerX + (l1 << 9) / j3;
         int l6 = Draw3D.centerY + (k4 << 9) / j3;
-        Draw3D.anInt1441 = 0;
+        Draw3D.alpha = 0;
         if ((i6 - k6) * (l5 - l6) - (j6 - l6) * (k5 - k6) > 0) {
-            Draw3D.aBoolean1438 = i6 < 0 || k6 < 0 || k5 < 0 || i6 > Draw2D.anInt1315 || k6 > Draw2D.anInt1315
-                    || k5 > Draw2D.anInt1315;
+            Draw3D.testX = i6 < 0 || k6 < 0 || k5 < 0 || i6 > Draw2D.rightX || k6 > Draw2D.rightX
+                    || k5 > Draw2D.rightX;
             if (aBoolean557 && method326(anInt558, anInt559, j6, l6, l5, i6, k6, k5)) {
                 anInt560 = j1;
                 anInt561 = k1;
             }
             if (tileUnderlay.textureIndex == -1) {
                 if (tileUnderlay.northeastColor != 0xbc614e)
-                    Draw3D.method395(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
+                    Draw3D.fillShadedTriangle(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
                             tileUnderlay.southeastColor);
             } else if (!aBoolean526) {
                 if (tileUnderlay.isFlat)
-                    Draw3D.method399(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
+                    Draw3D.fillTexturedTriangle(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
                             tileUnderlay.southeastColor, i2, i3, l1, l3, i4, k4, k2, j2, j3, tileUnderlay.textureIndex);
                 else
-                    Draw3D.method399(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
+                    Draw3D.fillTexturedTriangle(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
                             tileUnderlay.southeastColor, l2, l1, i3, j4, k4, i4, k3, j3, j2, tileUnderlay.textureIndex);
             } else {
                 int i7 = anIntArray575[tileUnderlay.textureIndex];
-                Draw3D.method395(j6, l6, l5, i6, k6, k5, method325(tileUnderlay.northeastColor, i7, 9),
+                Draw3D.fillShadedTriangle(j6, l6, l5, i6, k6, k5, method325(tileUnderlay.northeastColor, i7, 9),
                         method325(tileUnderlay.northwestColor, i7, 9), method325(tileUnderlay.southeastColor, i7, 9));
             }
         }
         if ((i5 - k5) * (l6 - l5) - (j5 - l5) * (k6 - k5) > 0) {
-            Draw3D.aBoolean1438 = i5 < 0 || k5 < 0 || k6 < 0 || i5 > Draw2D.anInt1315 || k5 > Draw2D.anInt1315
-                    || k6 > Draw2D.anInt1315;
+            Draw3D.testX = i5 < 0 || k5 < 0 || k6 < 0 || i5 > Draw2D.rightX || k5 > Draw2D.rightX
+                    || k6 > Draw2D.rightX;
             if (aBoolean557 && method326(anInt558, anInt559, j5, l5, l6, i5, k5, k6)) {
                 anInt560 = j1;
                 anInt561 = k1;
             }
             if (tileUnderlay.textureIndex == -1) {
                 if (tileUnderlay.southwestColor != 0xbc614e) {
-                    Draw3D.method395(j5, l5, l6, i5, k5, k6, tileUnderlay.southwestColor, tileUnderlay.southeastColor,
+                    Draw3D.fillShadedTriangle(j5, l5, l6, i5, k5, k6, tileUnderlay.southwestColor, tileUnderlay.southeastColor,
                             tileUnderlay.northwestColor);
                     return;
                 }
             } else {
                 if (!aBoolean526) {
-                    Draw3D.method399(j5, l5, l6, i5, k5, k6, tileUnderlay.southwestColor, tileUnderlay.southeastColor,
+                    Draw3D.fillTexturedTriangle(j5, l5, l6, i5, k5, k6, tileUnderlay.southwestColor, tileUnderlay.southeastColor,
                             tileUnderlay.northwestColor, i2, i3, l1, l3, i4, k4, k2, j2, j3, tileUnderlay.textureIndex);
                     return;
                 }
                 int j7 = anIntArray575[tileUnderlay.textureIndex];
-                Draw3D.method395(j5, l5, l6, i5, k5, k6, method325(tileUnderlay.southwestColor, j7, 9),
+                Draw3D.fillShadedTriangle(j5, l5, l6, i5, k5, k6, method325(tileUnderlay.southwestColor, j7, 9),
                         method325(tileUnderlay.southeastColor, j7, 9), method325(tileUnderlay.northwestColor, j7, 9));
             }
         }
@@ -1685,7 +1685,7 @@ public class Scene {
             TileOverlay.anIntArray339[l1] = Draw3D.centerY + (k2 << 9) / i3;
         }
 
-        Draw3D.anInt1441 = 0;
+        Draw3D.alpha = 0;
         k1 = tileOverlay.anIntArray329.length;
         if (!flag)
             return;
@@ -1700,32 +1700,32 @@ public class Scene {
             int i5 = TileOverlay.anIntArray339[j3];
             int j5 = TileOverlay.anIntArray339[l3];
             if ((i4 - j4) * (j5 - i5) - (l4 - i5) * (k4 - j4) > 0) {
-                Draw3D.aBoolean1438 = i4 < 0 || j4 < 0 || k4 < 0 || i4 > Draw2D.anInt1315 || j4 > Draw2D.anInt1315
-                        || k4 > Draw2D.anInt1315;
+                Draw3D.testX = i4 < 0 || j4 < 0 || k4 < 0 || i4 > Draw2D.rightX || j4 > Draw2D.rightX
+                        || k4 > Draw2D.rightX;
                 if (aBoolean557 && method326(anInt558, anInt559, l4, i5, j5, i4, j4, k4)) {
                     anInt560 = k;
                     anInt561 = j;
                 }
                 if (tileOverlay.anIntArray332 == null || tileOverlay.anIntArray332[j2] == -1) {
                     if (tileOverlay.anIntArray326[j2] != 0xbc614e)
-                        Draw3D.method395(l4, i5, j5, i4, j4, k4, tileOverlay.anIntArray326[j2],
+                        Draw3D.fillShadedTriangle(l4, i5, j5, i4, j4, k4, tileOverlay.anIntArray326[j2],
                                 tileOverlay.anIntArray327[j2], tileOverlay.anIntArray328[j2]);
                 } else if (!aBoolean526) {
                     if (tileOverlay.aBoolean333)
-                        Draw3D.method399(l4, i5, j5, i4, j4, k4, tileOverlay.anIntArray326[j2],
+                        Draw3D.fillTexturedTriangle(l4, i5, j5, i4, j4, k4, tileOverlay.anIntArray326[j2],
                                 tileOverlay.anIntArray327[j2], tileOverlay.anIntArray328[j2], TileOverlay.anIntArray340[0],
                                 TileOverlay.anIntArray340[1], TileOverlay.anIntArray340[3], TileOverlay.anIntArray341[0],
                                 TileOverlay.anIntArray341[1], TileOverlay.anIntArray341[3], TileOverlay.anIntArray342[0],
                                 TileOverlay.anIntArray342[1], TileOverlay.anIntArray342[3], tileOverlay.anIntArray332[j2]);
                     else
-                        Draw3D.method399(l4, i5, j5, i4, j4, k4, tileOverlay.anIntArray326[j2],
+                        Draw3D.fillTexturedTriangle(l4, i5, j5, i4, j4, k4, tileOverlay.anIntArray326[j2],
                                 tileOverlay.anIntArray327[j2], tileOverlay.anIntArray328[j2], TileOverlay.anIntArray340[l2],
                                 TileOverlay.anIntArray340[j3], TileOverlay.anIntArray340[l3], TileOverlay.anIntArray341[l2],
                                 TileOverlay.anIntArray341[j3], TileOverlay.anIntArray341[l3], TileOverlay.anIntArray342[l2],
                                 TileOverlay.anIntArray342[j3], TileOverlay.anIntArray342[l3], tileOverlay.anIntArray332[j2]);
                 } else {
                     int k5 = anIntArray575[tileOverlay.anIntArray332[j2]];
-                    Draw3D.method395(l4, i5, j5, i4, j4, k4,
+                    Draw3D.fillShadedTriangle(l4, i5, j5, i4, j4, k4,
                             method325(tileOverlay.anIntArray326[j2], k5, 9), method325(tileOverlay.anIntArray327[j2], k5, 9),
                             method325(tileOverlay.anIntArray328[j2], k5, 9));
                 }

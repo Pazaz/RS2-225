@@ -120,13 +120,13 @@ public class NpcType {
         if (model == null) {
             Model[] models = new Model[modelIndices.length];
             for (int n = 0; n < modelIndices.length; n++) {
-                models[n] = new Model(false, modelIndices[n]);
+                models[n] = new Model(modelIndices[n]);
             }
 
             if (models.length == 1) {
                 model = models[0];
             } else {
-                model = new Model(0, models, models.length);
+                model = new Model(models, models.length);
             }
 
             if (oldColors != null) {
@@ -135,24 +135,24 @@ public class NpcType {
                 }
             }
 
-            model.applyGroups(4);
+            model.applyGroups();
             model.applyLighting(64, 850, -30, -50, -30, true);
             NpcType.models.put(index, model);
         }
 
-        model = new Model(0, model, !disposeAlpha);
+        model = new Model(model, !disposeAlpha);
 
         if (primaryFrame != -1 && secondaryFrame != -1) {
-            model.method359(secondaryFrame, 3, primaryFrame, labelGroups);
+            model.applyFrames(secondaryFrame, primaryFrame, labelGroups);
         } else if (primaryFrame != -1) {
-            model.applyFrame(-16599, primaryFrame);
+            model.applyFrame(primaryFrame);
         }
 
         if (scaleX != 128 || scaleY != 128) {
-            model.scale(scaleX, 2, scaleY, scaleX);
+            model.scale(scaleX, scaleY, scaleX);
         }
 
-        model.calculateYBoundaries(2992);
+        model.calculateYBoundaries();
         model.skinTriangle = null;
         model.labelVertices = null;
 
@@ -170,14 +170,14 @@ public class NpcType {
 
         Model[] models = new Model[headModelIndices.length];
         for (int n = 0; n < headModelIndices.length; n++) {
-            models[n] = new Model(false, headModelIndices[n]);
+            models[n] = new Model(headModelIndices[n]);
         }
 
         Model model;
         if (models.length == 1) {
             model = models[0];
         } else {
-            model = new Model(0, models, models.length);
+            model = new Model(models, models.length);
         }
 
         if (oldColors != null) {

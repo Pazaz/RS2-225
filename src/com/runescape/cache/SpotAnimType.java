@@ -65,7 +65,7 @@ public class SpotAnimType {
             return model;
         }
 
-        model = new Model(false, modelIndex);
+        model = new Model(modelIndex);
 
         for (int n = 0; n < 6; n++) {
             if (oldColors[0] != 0) {

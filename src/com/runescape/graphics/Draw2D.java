@@ -22,7 +22,7 @@ public class Draw2D extends CacheableNode {
                 ;
         }
         bottom = height;
-        anInt1315 = right - 1;
+        rightX = right - 1;
         anInt1316 = right / 2;
     }
 
@@ -39,7 +39,7 @@ public class Draw2D extends CacheableNode {
         top = j;
         right = k;
         bottom = i;
-        anInt1315 = right - 1;
+        rightX = right - 1;
         anInt1316 = right / 2;
         if (l <= 0) {
             for (int j1 = 1; j1 > 0; j1++)
@@ -141,7 +141,7 @@ public class Draw2D extends CacheableNode {
     public static int bottom;
     public static int left;
     public static int right;
-    public static int anInt1315;
+    public static int rightX;
     public static int anInt1316;
     public static int anInt1317;
     public static int anInt1318;

@@ -56,14 +56,14 @@ public class IdkType {
 
         Model[] models = new Model[modelIndices.length];
         for (int i = 0; i < modelIndices.length; i++) {
-            models[i] = new Model(false, modelIndices[i]);
+            models[i] = new Model(modelIndices[i]);
         }
 
         Model model;
         if (models.length == 1) {
             model = models[0];
         } else {
-            model = new Model(0, models, models.length);
+            model = new Model(models, models.length);
         }
 
         for (int j = 0; j < 6; j++) {
@@ -83,11 +83,11 @@ public class IdkType {
 
         for (int n = 0; n < 5; n++) {
             if (headModelIndices[n] != -1) {
-                models[count++] = new Model(false, headModelIndices[n]);
+                models[count++] = new Model(headModelIndices[n]);
             }
         }
 
-        Model model = new Model(0, models, count);
+        Model model = new Model(models, count);
         for (int n = 0; n < 6; n++) {
             if (oldColors[n] == 0) {
                 break;

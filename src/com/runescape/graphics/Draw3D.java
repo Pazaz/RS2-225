@@ -273,8 +273,8 @@ public class Draw3D extends Draw2D {
         return (j << 16) + (k << 8) + l;
     }
 
-    public static void method395(int i, int j, int k, int l, int i1, int j1, int k1, int l1,
-                                 int i2) {
+    public static void fillShadedTriangle(int i, int j, int k, int l, int i1, int j1, int k1, int l1,
+                                          int i2) {
         int j2 = 0;
         int k2 = 0;
         if (j != i) {
@@ -661,13 +661,13 @@ public class Draw3D extends Draw2D {
     public static void method396(int[] ai, int i, int j, int k, int l, int i1, int j1, int k1) {
         if (jagged) {
             int l1;
-            if (aBoolean1438) {
+            if (testX) {
                 if (i1 - l > 3)
                     l1 = (k1 - j1) / (i1 - l);
                 else
                     l1 = 0;
-                if (i1 > Draw2D.anInt1315)
-                    i1 = Draw2D.anInt1315;
+                if (i1 > Draw2D.rightX)
+                    i1 = Draw2D.rightX;
                 if (l < 0) {
                     j1 -= l * l1;
                     l = 0;
@@ -687,7 +687,7 @@ public class Draw3D extends Draw2D {
                 else
                     l1 = 0;
             }
-            if (anInt1441 == 0) {
+            if (alpha == 0) {
                 while (--k >= 0) {
                     j = anIntArray1458[j1 >> 8];
                     j1 += l1;
@@ -705,8 +705,8 @@ public class Draw3D extends Draw2D {
                     return;
                 }
             } else {
-                int j2 = anInt1441;
-                int l2 = 256 - anInt1441;
+                int j2 = alpha;
+                int l2 = 256 - alpha;
                 while (--k >= 0) {
                     j = anIntArray1458[j1 >> 8];
                     j1 += l1;
@@ -730,9 +730,9 @@ public class Draw3D extends Draw2D {
         if (l >= i1)
             return;
         int i2 = (k1 - j1) / (i1 - l);
-        if (aBoolean1438) {
-            if (i1 > Draw2D.anInt1315)
-                i1 = Draw2D.anInt1315;
+        if (testX) {
+            if (i1 > Draw2D.rightX)
+                i1 = Draw2D.rightX;
             if (l < 0) {
                 j1 -= l * i2;
                 l = 0;
@@ -742,15 +742,15 @@ public class Draw3D extends Draw2D {
         }
         i += l;
         k = i1 - l;
-        if (anInt1441 == 0) {
+        if (alpha == 0) {
             do {
                 ai[i++] = anIntArray1458[j1 >> 8];
                 j1 += i2;
             } while (--k > 0);
             return;
         }
-        int k2 = anInt1441;
-        int i3 = 256 - anInt1441;
+        int k2 = alpha;
+        int i3 = 256 - alpha;
         do {
             j = anIntArray1458[j1 >> 8];
             j1 += i2;
@@ -759,7 +759,7 @@ public class Draw3D extends Draw2D {
         } while (--k > 0);
     }
 
-    public static void method397(int i, int j, int k, int l, int i1, int j1, int k1) {
+    public static void fillTriangle(int i, int j, int k, int l, int i1, int j1, int k1) {
         int l1 = 0;
         if (j != i)
             l1 = (i1 - l << 16) / (j - i);
@@ -1057,9 +1057,9 @@ public class Draw3D extends Draw2D {
     }
 
     public static void method398(int[] ai, int i, int j, int k, int l, int i1) {
-        if (aBoolean1438) {
-            if (i1 > Draw2D.anInt1315)
-                i1 = Draw2D.anInt1315;
+        if (testX) {
+            if (i1 > Draw2D.rightX)
+                i1 = Draw2D.rightX;
             if (l < 0)
                 l = 0;
         }
@@ -1067,7 +1067,7 @@ public class Draw3D extends Draw2D {
             return;
         i += l;
         k = i1 - l >> 2;
-        if (anInt1441 == 0) {
+        if (alpha == 0) {
             while (--k >= 0) {
                 ai[i++] = j;
                 ai[i++] = j;
@@ -1079,8 +1079,8 @@ public class Draw3D extends Draw2D {
 
             return;
         }
-        int j1 = anInt1441;
-        int k1 = 256 - anInt1441;
+        int j1 = alpha;
+        int k1 = 256 - alpha;
         j = ((j & 0xff00ff) * k1 >> 8 & 0xff00ff) + ((j & 0xff00) * k1 >> 8 & 0xff00);
         while (--k >= 0) {
             ai[i++] = j + ((ai[i] & 0xff00ff) * j1 >> 8 & 0xff00ff) + ((ai[i] & 0xff00) * j1 >> 8 & 0xff00);
@@ -1093,9 +1093,9 @@ public class Draw3D extends Draw2D {
 
     }
 
-    public static void method399(int i, int j, int k, int l, int i1, int j1, int k1, int l1,
-                                 int i2, int j2, int k2, int l2, int i3, int j3, int k3,
-                                 int l3, int i4, int j4, int k4) {
+    public static void fillTexturedTriangle(int i, int j, int k, int l, int i1, int j1, int k1, int l1,
+                                            int i2, int j2, int k2, int l2, int i3, int j3, int k3,
+                                            int l3, int i4, int j4, int k4) {
         int[] ai = method392(k4);
         aBoolean1439 = !aBooleanArray1451[k4];
         k2 = j2 - k2;
@@ -1634,10 +1634,10 @@ public class Draw3D extends Draw2D {
             return;
         int j3;
         int k3;
-        if (aBoolean1438) {
+        if (testX) {
             j3 = (k1 - j1) / (i1 - l);
-            if (i1 > Draw2D.anInt1315)
-                i1 = Draw2D.anInt1315;
+            if (i1 > Draw2D.rightX)
+                i1 = Draw2D.rightX;
             if (l < 0) {
                 j1 -= l * j3;
                 l = 0;
@@ -1973,10 +1973,10 @@ public class Draw3D extends Draw2D {
     public static int anInt1435 = 473;
     public static boolean aBoolean1436 = true;
     public static boolean aBoolean1437 = true;
-    public static boolean aBoolean1438;
+    public static boolean testX;
     public static boolean aBoolean1439;
     public static boolean jagged = true;
-    public static int anInt1441;
+    public static int alpha;
     public static int centerX;
     public static int centerY;
     public static int[] anIntArray1444;

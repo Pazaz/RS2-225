@@ -212,7 +212,7 @@ public class SceneBuilder {
                         && locType.hasShadow) {
                     for (int k4 = 0; k4 <= k3; k4++) {
                         for (int l4 = 0; l4 <= i4; l4++) {
-                            int i5 = class38_sub2_sub1_1.anInt1246 / 4;
+                            int i5 = class38_sub2_sub1_1.lengthXZ / 4;
                             if (i5 > 30)
                                 i5 = 30;
                             if (i5 > aByteArrayArrayArray119[i][j1 + k4][j + l4])

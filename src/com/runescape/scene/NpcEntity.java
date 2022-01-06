@@ -20,23 +20,23 @@ public class NpcEntity extends PathingEntity {
         Model model = getModel();
         SpotAnimType spotAnim = SpotAnimType.instances[super.spotAnimIndex];
         
-        Model spotAnimModel = new Model(spotAnim.getModel(), true, !spotAnim.disposeAlpha, anInt1500, false);
-        spotAnimModel.translate(-super.spotanimOffsetY, 0, -122, 0);
+        Model spotAnimModel = new Model(spotAnim.getModel(), true, !spotAnim.disposeAlpha, false);
+        spotAnimModel.translate(-super.spotanimOffsetY, 0, 0);
 
-        spotAnimModel.applyGroups(4);
-        spotAnimModel.applyFrame(-16599, spotAnim.seq.primaryFrames[super.spotAnimFrame]);
+        spotAnimModel.applyGroups();
+        spotAnimModel.applyFrame(spotAnim.seq.primaryFrames[super.spotAnimFrame]);
 
         spotAnimModel.skinTriangle = null;
         spotAnimModel.labelVertices = null;
 
         if (spotAnim.breadthScale != 128 || spotAnim.depthScale != 128) {
-            spotAnimModel.scale(spotAnim.breadthScale, 2, spotAnim.depthScale, spotAnim.breadthScale);
+            spotAnimModel.scale(spotAnim.breadthScale, spotAnim.depthScale, spotAnim.breadthScale);
         }
 
         spotAnimModel.applyLighting(64 + spotAnim.ambience, 850 + spotAnim.modelShadow, -30, -50, -30, true);
 
         Model[] models = { model, spotAnimModel };
-        Model animated = new Model(models, (byte) -31, 2, true);
+        Model animated = new Model(models, (byte) -31, 2);
 
         if (info.size == 1) {
             animated.pickable = true;
@@ -64,7 +64,7 @@ public class NpcEntity extends PathingEntity {
         }
 
         Model model = info.getModel(frame, -1, null);
-        super.height = model.minY;
+        super.height = model.maxBoundY;
         return model;
     }
 

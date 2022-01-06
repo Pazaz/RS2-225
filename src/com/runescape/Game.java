@@ -1865,15 +1865,15 @@ public class Game extends GameShell {
         int k2 = 0;
         int l2 = k1;
         if (l1 != 0) {
-            int i3 = Model.anIntArray1300[l1];
-            int k3 = Model.anIntArray1301[l1];
+            int i3 = Model.sin[l1];
+            int k3 = Model.cos[l1];
             int i4 = k2 * k3 - l2 * i3 >> 16;
             l2 = k2 * i3 + l2 * k3 >> 16;
             k2 = i4;
         }
         if (i2 != 0) {
-            int j3 = Model.anIntArray1300[i2];
-            int l3 = Model.anIntArray1301[i2];
+            int j3 = Model.sin[i2];
+            int l3 = Model.cos[i2];
             int j4 = l2 * j3 + j2 * l3 >> 16;
             l2 = l2 * l3 - j2 * j3 >> 16;
             j2 = j4;
@@ -4228,7 +4228,7 @@ public class Game extends GameShell {
                         aclass38_sub2_sub1[k++] = IdkType.instances[i1].getModel();
                 }
 
-                Model class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, k);
+                Model class38_sub2_sub1 = new Model(aclass38_sub2_sub1, k);
                 for (int j1 = 0; j1 < 5; j1++)
                     if (anIntArray742[j1] != 0) {
                         class38_sub2_sub1.recolor(anIntArrayArray942[j1][0],
@@ -4237,8 +4237,8 @@ public class Game extends GameShell {
                             class38_sub2_sub1.recolor(anIntArray1073[0], anIntArray1073[anIntArray742[j1]]);
                     }
 
-                class38_sub2_sub1.applyGroups(4);
-                class38_sub2_sub1.applyFrame(-16599,
+                class38_sub2_sub1.applyGroups();
+                class38_sub2_sub1.applyFrame(
                         SeqType.animations[localPlayerEntity.standSeq].primaryFrames[0]);
                 class38_sub2_sub1.applyLighting(64, 850, -30, -50, -30, true);
                 interfaceComponent.aClass38_Sub2_Sub1_310 = class38_sub2_sub1;
@@ -4717,7 +4717,7 @@ public class Game extends GameShell {
             Draw3D.method393(true, 0.80000000000000004D);
             Draw3D.method388(20, -20);
             method13(true, "Unpacking models", 83);
-            Model.method352(anInt958, fileArchive_3);
+            Model.load(fileArchive_3);
             SeqBase.load(fileArchive_3);
             SeqFrame.load(fileArchive_3);
             method13(true, "Unpacking config", 86);
@@ -5049,8 +5049,8 @@ public class Game extends GameShell {
             aBoolean860 = !aBoolean860;
         if (i1 > 6400)
             return;
-        int j1 = Model.anIntArray1300[l];
-        int k1 = Model.anIntArray1301[l];
+        int j1 = Model.sin[l];
+        int k1 = Model.cos[l];
         j1 = (j1 * 256) / (anInt930 + 256);
         k1 = (k1 * 256) / (anInt930 + 256);
         int l1 = i * j1 + k * k1 >> 16;
@@ -5100,10 +5100,10 @@ public class Game extends GameShell {
         j -= anInt1111;
         i1 -= anInt1112;
         i -= anInt1113;
-        int j1 = Model.anIntArray1300[anInt1114];
-        int k1 = Model.anIntArray1301[anInt1114];
-        int l1 = Model.anIntArray1300[anInt1115];
-        int i2 = Model.anIntArray1301[anInt1115];
+        int j1 = Model.sin[anInt1114];
+        int k1 = Model.cos[anInt1114];
+        int l1 = Model.sin[anInt1115];
+        int i2 = Model.cos[anInt1115];
         int j2 = i * l1 + j * i2 >> 16;
         i = i * i2 - j * l1 >> 16;
         if (k >= 0)
@@ -5806,7 +5806,7 @@ public class Game extends GameShell {
         PlayerEntity.cache = null;
         Draw3D.method384(true);
         Scene.method280(true);
-        Model.method351(true);
+        Model.unload();
         SeqBase.instance = null;
         SeqFrame.instance = null;
         System.gc();
@@ -7511,7 +7511,7 @@ public class Game extends GameShell {
         if (byte0 != 2)
             aBoolean870 = !aBoolean870;
         for (int j = 0; j < Model.anInt1298; j++) {
-            int k = Model.anIntArray1299[j];
+            int k = Model.hoveredBitsets[j];
             int l = k & 0x7f;
             int i1 = k >> 7 & 0x7f;
             int j1 = k >> 29 & 3;
@@ -8625,7 +8625,7 @@ public class Game extends GameShell {
             if (anInt780 == 87) {
                 int j6 = aClass38_Sub2_Sub3_795.readWord();
                 int j14 = aClass38_Sub2_Sub3_795.readWord();
-                InterfaceComponent.interfaceComponentArray[j6].aClass38_Sub2_Sub1_310 = new Model(false, j14);
+                InterfaceComponent.interfaceComponentArray[j6].aClass38_Sub2_Sub1_310 = new Model(j14);
                 anInt780 = -1;
                 return true;
             }

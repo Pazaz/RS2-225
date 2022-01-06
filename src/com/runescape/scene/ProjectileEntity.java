@@ -65,20 +65,20 @@ public class ProjectileEntity extends Entity {
     @Override
     public Model getDrawMethod() {
         Model sam = spotAnim.getModel();
-        Model m = new Model(sam, true, !spotAnim.disposeAlpha, anInt1341, false);
+        Model m = new Model(sam, true, !spotAnim.disposeAlpha, false);
 
         if (spotAnim.seq != null) {
-            m.applyGroups(4);
-            m.applyFrame(-16599, spotAnim.seq.primaryFrames[seqFrame]);
+            m.applyGroups();
+            m.applyFrame(spotAnim.seq.primaryFrames[seqFrame]);
             m.skinTriangle = null;
             m.labelVertices = null;
         }
 
         if (spotAnim.breadthScale != 128 || spotAnim.depthScale != 128) {
-            m.scale(spotAnim.breadthScale, 2, spotAnim.depthScale, spotAnim.breadthScale);
+            m.scale(spotAnim.breadthScale, spotAnim.depthScale, spotAnim.breadthScale);
         }
 
-        m.rotatePitch((byte) 7, pitch);
+        m.rotatePitch(pitch);
         m.applyLighting(64 + spotAnim.ambience, 850 + spotAnim.modelShadow, -30, -50, -30, true);
         return m;
     }

@@ -84,58 +84,58 @@ public class PlayerEntity extends PathingEntity {
         if (!aBoolean1506)
             return null;
         Model class38_sub2_sub1 = method471(false);
-        super.height = class38_sub2_sub1.minY;
+        super.height = class38_sub2_sub1.maxBoundY;
         class38_sub2_sub1.pickable = true;
         if (aBoolean1524)
             return class38_sub2_sub1;
         if (super.spotAnimIndex != -1 && super.spotAnimFrame != -1) {
             SpotAnimType spotAnimType = SpotAnimType.instances[super.spotAnimIndex];
             Model class38_sub2_sub1_2 = new Model(spotAnimType.getModel(), true,
-                    !spotAnimType.disposeAlpha, anInt1503, false);
-            class38_sub2_sub1_2.translate(-super.spotanimOffsetY, 0, -122, 0);
-            class38_sub2_sub1_2.applyGroups(4);
-            class38_sub2_sub1_2.applyFrame(-16599, spotAnimType.seq.primaryFrames[super.spotAnimFrame]);
+                    !spotAnimType.disposeAlpha, false);
+            class38_sub2_sub1_2.translate(-super.spotanimOffsetY, 0, 0);
+            class38_sub2_sub1_2.applyGroups();
+            class38_sub2_sub1_2.applyFrame(spotAnimType.seq.primaryFrames[super.spotAnimFrame]);
             class38_sub2_sub1_2.skinTriangle = null;
             class38_sub2_sub1_2.labelVertices = null;
             if (spotAnimType.breadthScale != 128 || spotAnimType.depthScale != 128)
-                class38_sub2_sub1_2.scale(spotAnimType.breadthScale, 2, spotAnimType.depthScale, spotAnimType.breadthScale);
+                class38_sub2_sub1_2.scale(spotAnimType.breadthScale, spotAnimType.depthScale, spotAnimType.breadthScale);
             class38_sub2_sub1_2.applyLighting(64 + spotAnimType.ambience, 850 + spotAnimType.modelShadow, -30, -50, -30, true);
             Model[] aclass38_sub2_sub1_1 = {
                     class38_sub2_sub1, class38_sub2_sub1_2
             };
-            class38_sub2_sub1 = new Model(aclass38_sub2_sub1_1, (byte) -31, 2, true);
+            class38_sub2_sub1 = new Model(aclass38_sub2_sub1_1, (byte) -31, 2);
         }
         if (aClass38_Sub2_Sub1_1519 != null) {
             if (Game.anInt955 >= anInt1515)
                 aClass38_Sub2_Sub1_1519 = null;
             if (Game.anInt955 >= anInt1514 && Game.anInt955 < anInt1515) {
                 Model class38_sub2_sub1_1 = aClass38_Sub2_Sub1_1519;
-                class38_sub2_sub1_1.translate(anInt1517 - anInt1513, anInt1516 - super.x, -122,
+                class38_sub2_sub1_1.translate(anInt1517 - anInt1513, anInt1516 - super.x,
                         anInt1518 - super.z);
                 if (super.anInt1426 == 512) {
-                    class38_sub2_sub1_1.method361(0);
-                    class38_sub2_sub1_1.method361(0);
-                    class38_sub2_sub1_1.method361(0);
+                    class38_sub2_sub1_1.rotateCounterClockwise();
+                    class38_sub2_sub1_1.rotateCounterClockwise();
+                    class38_sub2_sub1_1.rotateCounterClockwise();
                 } else if (super.anInt1426 == 1024) {
-                    class38_sub2_sub1_1.method361(0);
-                    class38_sub2_sub1_1.method361(0);
+                    class38_sub2_sub1_1.rotateCounterClockwise();
+                    class38_sub2_sub1_1.rotateCounterClockwise();
                 } else if (super.anInt1426 == 1536)
-                    class38_sub2_sub1_1.method361(0);
+                    class38_sub2_sub1_1.rotateCounterClockwise();
                 Model[] aclass38_sub2_sub1 = {
                         class38_sub2_sub1, class38_sub2_sub1_1
                 };
-                class38_sub2_sub1 = new Model(aclass38_sub2_sub1, (byte) -31, 2, true);
+                class38_sub2_sub1 = new Model(aclass38_sub2_sub1, (byte) -31, 2);
                 if (super.anInt1426 == 512)
-                    class38_sub2_sub1_1.method361(0);
+                    class38_sub2_sub1_1.rotateCounterClockwise();
                 else if (super.anInt1426 == 1024) {
-                    class38_sub2_sub1_1.method361(0);
-                    class38_sub2_sub1_1.method361(0);
+                    class38_sub2_sub1_1.rotateCounterClockwise();
+                    class38_sub2_sub1_1.rotateCounterClockwise();
                 } else if (super.anInt1426 == 1536) {
-                    class38_sub2_sub1_1.method361(0);
-                    class38_sub2_sub1_1.method361(0);
-                    class38_sub2_sub1_1.method361(0);
+                    class38_sub2_sub1_1.rotateCounterClockwise();
+                    class38_sub2_sub1_1.rotateCounterClockwise();
+                    class38_sub2_sub1_1.rotateCounterClockwise();
                 }
-                class38_sub2_sub1_1.translate(anInt1513 - anInt1517, super.x - anInt1516, -122,
+                class38_sub2_sub1_1.translate(anInt1513 - anInt1517, super.x - anInt1516,
                         super.z - anInt1518);
             }
         }
@@ -184,7 +184,7 @@ public class PlayerEntity extends PathingEntity {
                 }
             }
 
-            class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, j1);
+            class38_sub2_sub1 = new Model(aclass38_sub2_sub1, j1);
             for (int i2 = 0; i2 < 5; i2++)
                 if (anIntArray1510[i2] != 0) {
                     class38_sub2_sub1.recolor(Game.anIntArrayArray942[i2][0],
@@ -194,20 +194,20 @@ public class PlayerEntity extends PathingEntity {
                                 Game.anIntArray1073[anIntArray1510[i2]]);
                 }
 
-            class38_sub2_sub1.applyGroups(4);
+            class38_sub2_sub1.applyGroups();
             class38_sub2_sub1.applyLighting(64, 850, -30, -50, -30, true);
             cache.put(l, class38_sub2_sub1);
         }
         if (aBoolean1524)
             return class38_sub2_sub1;
-        Model class38_sub2_sub1_1 = new Model(0, class38_sub2_sub1, true);
+        Model class38_sub2_sub1_1 = new Model(class38_sub2_sub1, true);
         if (flag)
             aBoolean1504 = !aBoolean1504;
         if (i != -1 && j != -1)
-            class38_sub2_sub1_1.method359(j, 3, i, SeqType.animations[super.primarySeq].labelGroups);
+            class38_sub2_sub1_1.applyFrames(j, i, SeqType.animations[super.primarySeq].labelGroups);
         else if (i != -1)
-            class38_sub2_sub1_1.applyFrame(-16599, i);
-        class38_sub2_sub1_1.calculateYBoundaries(2992);
+            class38_sub2_sub1_1.applyFrame(i);
+        class38_sub2_sub1_1.calculateYBoundaries();
         class38_sub2_sub1_1.skinTriangle = null;
         class38_sub2_sub1_1.labelVertices = null;
         return class38_sub2_sub1_1;
@@ -229,7 +229,7 @@ public class PlayerEntity extends PathingEntity {
             }
         }
 
-        Model class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, j);
+        Model class38_sub2_sub1 = new Model(aclass38_sub2_sub1, j);
         for (int i1 = 0; i1 < 5; i1++)
             if (anIntArray1510[i1] != 0) {
                 class38_sub2_sub1.recolor(Game.anIntArrayArray942[i1][0],

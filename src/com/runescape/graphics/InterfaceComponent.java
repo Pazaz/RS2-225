@@ -212,15 +212,15 @@ public class InterfaceComponent {
             class38_sub2_sub1 = aClass38_Sub2_Sub1_311;
         if (class38_sub2_sub1 == null)
             return null;
-        if (i == -1 && j == -1 && class38_sub2_sub1.anIntArray1236 == null)
+        if (i == -1 && j == -1 && class38_sub2_sub1.unmodifiedTriangleColor == null)
             return class38_sub2_sub1;
-        Model class38_sub2_sub1_1 = new Model(class38_sub2_sub1, true, true, anInt262, false);
+        Model class38_sub2_sub1_1 = new Model(class38_sub2_sub1, true, true, false);
         if (i != -1 || j != -1)
-            class38_sub2_sub1_1.applyGroups(4);
+            class38_sub2_sub1_1.applyGroups();
         if (i != -1)
-            class38_sub2_sub1_1.applyFrame(-16599, i);
+            class38_sub2_sub1_1.applyFrame(i);
         if (j != -1)
-            class38_sub2_sub1_1.applyFrame(-16599, j);
+            class38_sub2_sub1_1.applyFrame(j);
         class38_sub2_sub1_1.applyLighting(64, 768, -50, -10, -50, true);
         return class38_sub2_sub1_1;
     }
@@ -248,7 +248,7 @@ public class InterfaceComponent {
         if (class38_sub2_sub1 != null) {
             return class38_sub2_sub1;
         } else {
-            Model class38_sub2_sub1_1 = new Model(false, j);
+            Model class38_sub2_sub1_1 = new Model(j);
             cache2.put(j, class38_sub2_sub1_1);
             return class38_sub2_sub1_1;
         }

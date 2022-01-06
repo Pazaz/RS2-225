@@ -219,21 +219,21 @@ public class LocType {
             }
 
             if (adjustToTerrain || flatShaded) {
-                class38_sub2_sub1 = new Model(class38_sub2_sub1, (byte) -31, adjustToTerrain, flatShaded);
+                class38_sub2_sub1 = new Model(class38_sub2_sub1, adjustToTerrain, flatShaded);
             }
 
             if (adjustToTerrain) {
                 int j2 = (k + l + i1 + j1) / 4;
-                for (int i3 = 0; i3 < class38_sub2_sub1.anInt1222; i3++) {
-                    int j3 = class38_sub2_sub1.anIntArray1223[i3];
-                    int k3 = class38_sub2_sub1.anIntArray1225[i3];
+                for (int i3 = 0; i3 < class38_sub2_sub1.vertexCount; i3++) {
+                    int j3 = class38_sub2_sub1.vertexX[i3];
+                    int k3 = class38_sub2_sub1.vertexZ[i3];
                     int l3 = k + ((l - k) * (j3 + 64)) / 128;
                     int i4 = j1 + ((i1 - j1) * (j3 + 64)) / 128;
                     int j4 = l3 + ((i4 - l3) * (k3 + 64)) / 128;
-                    class38_sub2_sub1.anIntArray1224[i3] += j4 - j2;
+                    class38_sub2_sub1.vertexY[i3] += j4 - j2;
                 }
 
-                class38_sub2_sub1.method355(anInt34);
+                class38_sub2_sub1.calculateYBoundaries2();
             }
             return class38_sub2_sub1;
         }
@@ -254,9 +254,9 @@ public class LocType {
 
         Model class38_sub2_sub1_1 = (Model) models.get(k2);
         if (class38_sub2_sub1_1 == null) {
-            class38_sub2_sub1_1 = new Model(false, k2 & 0xffff);
+            class38_sub2_sub1_1 = new Model(k2 & 0xffff);
             if (flag) {
-                class38_sub2_sub1_1.method365(-725);
+                class38_sub2_sub1_1.flipBackwards();
             }
             models.put(k2, class38_sub2_sub1_1);
         }
@@ -266,17 +266,17 @@ public class LocType {
 
         boolean flag2;
         flag2 = anInt69 != 0 || anInt70 != 0 || anInt71 != 0;
-        Model model = new Model(class38_sub2_sub1_1, oldColors == null, !disposeAlpha, anInt33, j == 0 && k1 == -1 && !flag1 && !flag2);
+        Model model = new Model(class38_sub2_sub1_1, oldColors == null, !disposeAlpha, j == 0 && k1 == -1 && !flag1 && !flag2);
 
         if (k1 != -1) {
-            model.applyGroups(4);
-            model.applyFrame(-16599, k1);
+            model.applyGroups();
+            model.applyFrame(k1);
             model.skinTriangle = null;
             model.labelVertices = null;
         }
 
         while (j-- > 0) {
-            model.method361(0);
+            model.rotateCounterClockwise();
         }
 
         if (oldColors != null) {
@@ -286,37 +286,37 @@ public class LocType {
         }
 
         if (flag1) {
-            model.scale(scaleZ, 2, scaleY, scaleX);
+            model.scale(scaleZ, scaleY, scaleX);
         }
 
         if (flag2) {
-            model.translate(anInt70, anInt69, -122, anInt71);
+            model.translate(anInt70, anInt69, anInt71);
         }
 
         model.applyLighting(64 + brightness, 768 + specular * 5, -50, -10, -50, !flatShaded);
 
         if (hasCollision) {
-            model.anInt1251 = model.minY;
+            model.anInt1251 = model.maxBoundY;
         }
 
         builtModels.put(l2, model);
 
         if (adjustToTerrain || flatShaded) {
-            model = new Model(model, (byte) -31, adjustToTerrain, flatShaded);
+            model = new Model(model, adjustToTerrain, flatShaded);
         }
 
         if (adjustToTerrain) {
             int l4 = (k + l + i1 + j1) / 4;
-            for (int i5 = 0; i5 < model.anInt1222; i5++) {
-                int j5 = model.anIntArray1223[i5];
-                int k5 = model.anIntArray1225[i5];
+            for (int i5 = 0; i5 < model.vertexCount; i5++) {
+                int j5 = model.vertexX[i5];
+                int k5 = model.vertexZ[i5];
                 int l5 = k + ((l - k) * (j5 + 64)) / 128;
                 int i6 = j1 + ((i1 - j1) * (j5 + 64)) / 128;
                 int j6 = l5 + ((i6 - l5) * (k5 + 64)) / 128;
-                model.anIntArray1224[i5] += j6 - l4;
+                model.vertexY[i5] += j6 - l4;
             }
 
-            model.method355(anInt34);
+            model.calculateYBoundaries2();
         }
 
         return model;

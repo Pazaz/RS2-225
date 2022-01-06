@@ -38,26 +38,26 @@ public class SpotAnimEntity extends Entity {
     public Model getDrawMethod() {
         Model class38_sub2_sub1 = spotAnimType.getModel();
         Model class38_sub2_sub1_1 = new Model(class38_sub2_sub1, true,
-                !spotAnimType.disposeAlpha, anInt1367, false);
+                !spotAnimType.disposeAlpha, false);
         if (!aBoolean1377) {
-            class38_sub2_sub1_1.applyGroups(4);
-            class38_sub2_sub1_1.applyFrame(-16599, spotAnimType.seq.primaryFrames[anInt1375]);
+            class38_sub2_sub1_1.applyGroups();
+            class38_sub2_sub1_1.applyFrame(spotAnimType.seq.primaryFrames[anInt1375]);
             class38_sub2_sub1_1.skinTriangle = null;
             class38_sub2_sub1_1.labelVertices = null;
         }
         if (spotAnimType.breadthScale != 128 || spotAnimType.depthScale != 128)
-            class38_sub2_sub1_1.scale(spotAnimType.breadthScale, 2, spotAnimType.depthScale, spotAnimType.breadthScale);
+            class38_sub2_sub1_1.scale(spotAnimType.breadthScale, spotAnimType.depthScale, spotAnimType.breadthScale);
         if (spotAnimType.orientation != 0) {
             if (spotAnimType.orientation == 90)
-                class38_sub2_sub1_1.method361(0);
+                class38_sub2_sub1_1.rotateCounterClockwise();
             if (spotAnimType.orientation == 180) {
-                class38_sub2_sub1_1.method361(0);
-                class38_sub2_sub1_1.method361(0);
+                class38_sub2_sub1_1.rotateCounterClockwise();
+                class38_sub2_sub1_1.rotateCounterClockwise();
             }
             if (spotAnimType.orientation == 270) {
-                class38_sub2_sub1_1.method361(0);
-                class38_sub2_sub1_1.method361(0);
-                class38_sub2_sub1_1.method361(0);
+                class38_sub2_sub1_1.rotateCounterClockwise();
+                class38_sub2_sub1_1.rotateCounterClockwise();
+                class38_sub2_sub1_1.rotateCounterClockwise();
             }
         }
         class38_sub2_sub1_1.applyLighting(64 + spotAnimType.ambience, 850 + spotAnimType.modelShadow, -30, -50, -30, true);
