@@ -7877,7 +7877,7 @@ public class client extends Applet_Sub1 {
                 anInt780 = aClass38_Sub2_Sub3_795.aByteArray1328[0] & 0xff;
                 if (aClass37_753 != null)
                     anInt780 = anInt780 - aClass37_753.method346() & 0xff;
-                anInt779 = Class6.anIntArray192[anInt780];
+                anInt779 = Packet.packetLengths[anInt780];
                 i--;
             }
             if (anInt779 == -1)
