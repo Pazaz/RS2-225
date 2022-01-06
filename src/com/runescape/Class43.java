@@ -6,7 +6,7 @@ public class Class43 {
         aByteArray693 = new byte[0x6baa8];
         aClass38_Sub2_Sub3_694 = new Class38_Sub2_Sub3(363, aByteArray693);
         i = 87 / i;
-        Class44.method493();
+        SoundTone.init();
         do {
             int j = class38_sub2_sub3.method448();
             if (j == 65535)
@@ -33,8 +33,8 @@ public class Class43 {
             int j = class38_sub2_sub3.method446();
             if (j != 0) {
                 class38_sub2_sub3.anInt1329--;
-                aClass44Array695[i] = new Class44();
-                aClass44Array695[i].method496(false, class38_sub2_sub3);
+                soundTones[i] = new SoundTone();
+                soundTones[i].read(class38_sub2_sub3);
             }
         }
 
@@ -47,8 +47,8 @@ public class Class43 {
     public int method490(byte byte0) {
         int i = 0x98967f;
         for (int j = 0; j < 10; j++)
-            if (aClass44Array695[j] != null && aClass44Array695[j].anInt714 / 20 < i)
-                i = aClass44Array695[j].anInt714 / 20;
+            if (soundTones[j] != null && soundTones[j].start / 20 < i)
+                i = soundTones[j].start / 20;
 
         if (byte0 == 7)
             byte0 = 0;
@@ -59,8 +59,8 @@ public class Class43 {
         if (i == 0x98967f || i == 0)
             return 0;
         for (int k = 0; k < 10; k++)
-            if (aClass44Array695[k] != null)
-                aClass44Array695[k].anInt714 -= i * 20;
+            if (soundTones[k] != null)
+                soundTones[k].start -= i * 20;
 
         if (anInt696 < anInt697) {
             anInt696 -= i * 20;
@@ -96,8 +96,8 @@ public class Class43 {
     public int method492(int i) {
         int j = 0;
         for (int k = 0; k < 10; k++)
-            if (aClass44Array695[k] != null && aClass44Array695[k].anInt713 + aClass44Array695[k].anInt714 > j)
-                j = aClass44Array695[k].anInt713 + aClass44Array695[k].anInt714;
+            if (soundTones[k] != null && soundTones[k].length + soundTones[k].start > j)
+                j = soundTones[k].length + soundTones[k].start;
 
         if (j == 0)
             return 0;
@@ -111,10 +111,10 @@ public class Class43 {
             aByteArray693[l1] = -128;
 
         for (int i2 = 0; i2 < 10; i2++)
-            if (aClass44Array695[i2] != null) {
-                int j2 = (aClass44Array695[i2].anInt713 * 22050) / 1000;
-                int i3 = (aClass44Array695[i2].anInt714 * 22050) / 1000;
-                int[] ai = aClass44Array695[i2].method494(j2, aClass44Array695[i2].anInt713);
+            if (soundTones[i2] != null) {
+                int j2 = (soundTones[i2].length * 22050) / 1000;
+                int i3 = (soundTones[i2].start * 22050) / 1000;
+                int[] ai = soundTones[i2].generate(j2, soundTones[i2].length);
                 for (int l3 = 0; l3 < j2; l3++)
                     aByteArray693[l3 + i3 + 44] += (byte) (ai[l3] >> 8);
 
@@ -142,7 +142,7 @@ public class Class43 {
 
     public Class43() {
         aBoolean689 = true;
-        aClass44Array695 = new Class44[10];
+        soundTones = new SoundTone[10];
     }
 
     public boolean aBoolean689;
@@ -151,7 +151,7 @@ public class Class43 {
     public static int[] anIntArray692 = new int[1000];
     public static byte[] aByteArray693;
     public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_694;
-    public Class44[] aClass44Array695;
+    public SoundTone[] soundTones;
     public int anInt696;
     public int anInt697;
 
