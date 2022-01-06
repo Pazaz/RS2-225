@@ -1,8 +1,8 @@
 package com.runescape;
 
-public class Class8 {
+public class CollisionMap {
 
-    public Class8(int i, int j, int k) {
+    public CollisionMap(int i, int j, int k) {
         aBoolean206 = false;
         aByte208 = 12;
         anInt209 = 27808;

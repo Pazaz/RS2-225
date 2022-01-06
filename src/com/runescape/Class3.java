@@ -113,7 +113,7 @@ public class Class3 {
 
     }
 
-    public void method154(byte[] abyte0, Scene scene, Class8[] aclass8, LinkedList linkedList, boolean flag, int i,
+    public void method154(byte[] abyte0, Scene scene, CollisionMap[] aclass8, LinkedList linkedList, boolean flag, int i,
                           int j) {
         label0:
         {
@@ -144,17 +144,17 @@ public class Class3 {
                         int k3 = i2;
                         if ((aByteArrayArrayArray114[1][i3][j3] & 2) == 2)
                             k3--;
-                        Class8 class8 = null;
+                        CollisionMap collisionMap = null;
                         if (k3 >= 0)
-                            class8 = aclass8[k3];
-                        method155(class8, true, i2, j3, l2, k2, scene, linkedList, k, i3);
+                            collisionMap = aclass8[k3];
+                        method155(collisionMap, true, i2, j3, l2, k2, scene, linkedList, k, i3);
                     }
                 } while (true);
             } while (true);
         }
     }
 
-    public void method155(Class8 class8, boolean flag, int i, int j, int k, int l, Scene scene,
+    public void method155(CollisionMap collisionMap, boolean flag, int i, int j, int k, int l, Scene scene,
                           LinkedList linkedList, int i1, int j1) {
         if (!flag)
             return;
@@ -179,8 +179,8 @@ public class Class3 {
                 return;
             Model class38_sub2_sub1 = locType.getModel(22, k, k1, l1, i2, j2, -1);
             scene.method287(class38_sub2_sub1, (byte) 6, j1, l2, j, i, byte0, k2);
-            if (locType.hasCollision && locType.interactable && class8 != null)
-                class8.method199((byte) 12, j, j1);
+            if (locType.hasCollision && locType.interactable && collisionMap != null)
+                collisionMap.method199((byte) 12, j, j1);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, i1, i, 0, 3, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
@@ -215,8 +215,8 @@ public class Class3 {
 
                 }
             }
-            if (locType.hasCollision && class8 != null)
-                class8.method198(k, locType.sizeZ, locType.sizeX, j1, 9, j, locType.isSolid);
+            if (locType.hasCollision && collisionMap != null)
+                collisionMap.method198(k, locType.sizeZ, locType.sizeX, j1, 9, j, locType.isSolid);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, i1, i, 0, 2, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
@@ -226,8 +226,8 @@ public class Class3 {
             scene.method291(k2, 775, i, null, l2, j, j1, 1, byte0, class38_sub2_sub1_2, 0, 1);
             if (l >= 12 && l <= 17 && l != 13 && i > 0)
                 anIntArrayArrayArray126[i][j1][j] |= 0x924;
-            if (locType.hasCollision && class8 != null)
-                class8.method198(k, locType.sizeZ, locType.sizeX, j1, 9, j, locType.isSolid);
+            if (locType.hasCollision && collisionMap != null)
+                collisionMap.method198(k, locType.sizeZ, locType.sizeX, j1, 9, j, locType.isSolid);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, i1, i, 0, 2, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
@@ -264,8 +264,8 @@ public class Class3 {
                 if (locType.culls)
                     anIntArrayArrayArray126[i][j1][j] |= 0x492;
             }
-            if (locType.hasCollision && class8 != null)
-                class8.method197(true, k, j, j1, locType.isSolid, l);
+            if (locType.hasCollision && collisionMap != null)
+                collisionMap.method197(true, k, j, j1, locType.isSolid, l);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, i1, i, 0, 0, SeqType.seqTypes[locType.animationIndex], j, j1));
             if (locType.thickness != 16)
@@ -284,8 +284,8 @@ public class Class3 {
                     aByteArrayArrayArray119[i][j1 + 1][j] = 50;
                 else if (k == 3)
                     aByteArrayArrayArray119[i][j1][j] = 50;
-            if (locType.hasCollision && class8 != null)
-                class8.method197(true, k, j, j1, locType.isSolid, l);
+            if (locType.hasCollision && collisionMap != null)
+                collisionMap.method197(true, k, j, j1, locType.isSolid, l);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, i1, i, 0, 0, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
@@ -310,8 +310,8 @@ public class Class3 {
                     anIntArrayArrayArray126[i][j1][j] |= 0x492;
                     anIntArrayArrayArray126[i][j1][j] |= 0x249;
                 }
-            if (locType.hasCollision && class8 != null)
-                class8.method197(true, k, j, j1, locType.isSolid, l);
+            if (locType.hasCollision && collisionMap != null)
+                collisionMap.method197(true, k, j, j1, locType.isSolid, l);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, i1, i, 0, 0, SeqType.seqTypes[locType.animationIndex], j, j1));
             if (locType.thickness != 16)
@@ -330,8 +330,8 @@ public class Class3 {
                     aByteArrayArrayArray119[i][j1 + 1][j] = 50;
                 else if (k == 3)
                     aByteArrayArrayArray119[i][j1][j] = 50;
-            if (locType.hasCollision && class8 != null)
-                class8.method197(true, k, j, j1, locType.isSolid, l);
+            if (locType.hasCollision && collisionMap != null)
+                collisionMap.method197(true, k, j, j1, locType.isSolid, l);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, i1, i, 0, 0, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
@@ -339,8 +339,8 @@ public class Class3 {
         if (l == 9) {
             Model class38_sub2_sub1_6 = locType.getModel(l, k, k1, l1, i2, j2, -1);
             scene.method291(k2, 775, i, null, l2, j, j1, 1, byte0, class38_sub2_sub1_6, 0, 1);
-            if (locType.hasCollision && class8 != null)
-                class8.method198(k, locType.sizeZ, locType.sizeX, j1, 9, j, locType.isSolid);
+            if (locType.hasCollision && collisionMap != null)
+                collisionMap.method198(k, locType.sizeZ, locType.sizeX, j1, 9, j, locType.isSolid);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, i1, i, 0, 2, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
@@ -386,7 +386,7 @@ public class Class3 {
         }
     }
 
-    public void method156(Scene scene, int i, Class8[] aclass8) {
+    public void method156(Scene scene, int i, CollisionMap[] aclass8) {
         for (int j = 0; j < 4; j++) {
             for (int k = 0; k < 104; k++) {
                 for (int i1 = 0; i1 < 104; i1++)
@@ -827,7 +827,7 @@ public class Class3 {
         return l;
     }
 
-    public static void method166(int i, LinkedList linkedList, Class8 class8, int j, int k, int[][][] ai, int l, int i1,
+    public static void method166(int i, LinkedList linkedList, CollisionMap collisionMap, int j, int k, int[][][] ai, int l, int i1,
                                  int j1, int k1, Scene scene, int l1) {
         if (l != 0)
             aBoolean105 = !aBoolean105;
@@ -845,7 +845,7 @@ public class Class3 {
             Model class38_sub2_sub1 = locType.getModel(22, k, i2, j2, k2, l2, -1);
             scene.method287(class38_sub2_sub1, (byte) 6, i, j3, j, i1, byte0, i3);
             if (locType.hasCollision && locType.interactable)
-                class8.method199((byte) 12, j, i);
+                collisionMap.method199((byte) 12, j, i);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, j1, i1, 0, 3, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
@@ -868,7 +868,7 @@ public class Class3 {
                 scene.method291(i3, 775, i1, null, j3, j, i, i4, byte0, class38_sub2_sub1_1, l4, k4);
             }
             if (locType.hasCollision)
-                class8.method198(k, locType.sizeZ, locType.sizeX, i, 9, j, locType.isSolid);
+                collisionMap.method198(k, locType.sizeZ, locType.sizeX, i, 9, j, locType.isSolid);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, j1, i1, 0, 2, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
@@ -877,7 +877,7 @@ public class Class3 {
             Model class38_sub2_sub1_2 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
             scene.method291(i3, 775, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_2, 0, 1);
             if (locType.hasCollision)
-                class8.method198(k, locType.sizeZ, locType.sizeX, i, 9, j, locType.isSolid);
+                collisionMap.method198(k, locType.sizeZ, locType.sizeX, i, 9, j, locType.isSolid);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, j1, i1, 0, 2, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
@@ -886,7 +886,7 @@ public class Class3 {
             Model class38_sub2_sub1_3 = locType.getModel(0, k, i2, j2, k2, l2, -1);
             scene.method289(0, i3, i1, anIntArray127[k], 8, class38_sub2_sub1_3, null, i, j3, j, byte0);
             if (locType.hasCollision)
-                class8.method197(true, k, j, i, locType.isSolid, k1);
+                collisionMap.method197(true, k, j, i, locType.isSolid, k1);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, j1, i1, 0, 0, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
@@ -895,7 +895,7 @@ public class Class3 {
             Model class38_sub2_sub1_4 = locType.getModel(1, k, i2, j2, k2, l2, -1);
             scene.method289(0, i3, i1, anIntArray128[k], 8, class38_sub2_sub1_4, null, i, j3, j, byte0);
             if (locType.hasCollision)
-                class8.method197(true, k, j, i, locType.isSolid, k1);
+                collisionMap.method197(true, k, j, i, locType.isSolid, k1);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, j1, i1, 0, 0, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
@@ -907,7 +907,7 @@ public class Class3 {
             scene.method289(anIntArray127[k3], i3, i1, anIntArray127[k], 8, class38_sub2_sub1_11,
                     class38_sub2_sub1_12, i, j3, j, byte0);
             if (locType.hasCollision)
-                class8.method197(true, k, j, i, locType.isSolid, k1);
+                collisionMap.method197(true, k, j, i, locType.isSolid, k1);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, j1, i1, 0, 0, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
@@ -916,7 +916,7 @@ public class Class3 {
             Model class38_sub2_sub1_5 = locType.getModel(3, k, i2, j2, k2, l2, -1);
             scene.method289(0, i3, i1, anIntArray128[k], 8, class38_sub2_sub1_5, null, i, j3, j, byte0);
             if (locType.hasCollision)
-                class8.method197(true, k, j, i, locType.isSolid, k1);
+                collisionMap.method197(true, k, j, i, locType.isSolid, k1);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, j1, i1, 0, 0, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
@@ -925,7 +925,7 @@ public class Class3 {
             Model class38_sub2_sub1_6 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
             scene.method291(i3, 775, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_6, 0, 1);
             if (locType.hasCollision)
-                class8.method198(k, locType.sizeZ, locType.sizeX, i, 9, j, locType.isSolid);
+                collisionMap.method198(k, locType.sizeZ, locType.sizeX, i, 9, j, locType.isSolid);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, j1, i1, 0, 2, SeqType.seqTypes[locType.animationIndex], j, i));
             return;

@@ -2144,7 +2144,7 @@ public class client extends Applet_Sub1 {
                         if (k3 != 22 && k3 != 29 && k3 != 34 && k3 != 36 && k3 != 46 && k3 != 47 && k3 != 48) {
                             byte byte0 = 104;
                             byte byte1 = 104;
-                            int[][] ai1 = aClass8Array954[anInt880].anIntArrayArray215;
+                            int[][] ai1 = collisionMaps[anInt880].anIntArrayArray215;
                             for (int j4 = 0; j4 < 10; j4++) {
                                 int k4 = (int) (Math.random() * 4D);
                                 if (k4 == 0 && l3 > 0 && l3 > l2 - 3 && (ai1[l3 - 1][i4] & 0x280108) == 0)
@@ -2702,7 +2702,7 @@ public class client extends Applet_Sub1 {
             return;
         scene.method281(742);
         for (int j = 0; j < 4; j++)
-            aClass8Array954[j].method196((byte) 74);
+            collisionMaps[j].method196((byte) 74);
 
         System.gc();
         method17(0);
@@ -4590,7 +4590,7 @@ public class client extends Applet_Sub1 {
             anIntArrayArrayArray794 = new int[4][105][105];
             scene = new Scene(415, anIntArrayArrayArray794, 104, 4, 104);
             for (int l = 0; l < 4; l++)
-                aClass8Array954[l] = new Class8(104, -708, 104);
+                collisionMaps[l] = new CollisionMap(104, -708, 104);
 
             aClass38_Sub2_Sub2_Sub2_1053 = new Sprite(512, 512);
             method13(true, "Unpacking media", 75);
@@ -5616,7 +5616,7 @@ public class client extends Applet_Sub1 {
                     scene.method303(j, l1, k, 1);
                     LocType locType = LocType.get(j2);
                     if (locType.hasCollision)
-                        aClass8Array954[l1].method201(locType.isSolid, l2, j, k, 323, k2);
+                        collisionMaps[l1].method201(locType.isSolid, l2, j, k, 323, k2);
                 }
                 if (l == 1)
                     scene.method304(l1, k, anInt1077, j);
@@ -5627,21 +5627,21 @@ public class client extends Applet_Sub1 {
                             || k + locType.sizeZ > 103)
                         return;
                     if (locType.hasCollision)
-                        aClass8Array954[l1].method202(k, j, l2, locType.sizeX, true, locType.isSolid,
+                        collisionMaps[l1].method202(k, j, l2, locType.sizeX, true, locType.isSolid,
                                 locType.sizeZ);
                 }
                 if (l == 3) {
                     scene.method306(l1, anInt1022, j, k);
                     LocType locType_2 = LocType.get(j2);
                     if (locType_2.hasCollision && locType_2.interactable)
-                        aClass8Array954[l1].method204(k, j, 0);
+                        collisionMaps[l1].method204(k, j, 0);
                 }
             }
             if (i1 >= 0) {
                 int j3 = l1;
                 if (j3 < 3 && (aByteArrayArrayArray840[1][j][k] & 2) == 2)
                     j3++;
-                Class3.method166(j, linkedList2, aClass8Array954[l1], k, i, anIntArrayArrayArray794, 0, l1, i1, j1,
+                Class3.method166(j, linkedList2, collisionMaps[l1], k, i, anIntArrayArrayArray794, 0, l1, i1, j1,
                         scene, j3);
             }
         }
@@ -5699,7 +5699,7 @@ public class client extends Applet_Sub1 {
         anIntArrayArrayArray794 = null;
         aByteArrayArrayArray840 = null;
         scene = null;
-        aClass8Array954 = null;
+        collisionMaps = null;
         anIntArrayArray1118 = null;
         anIntArrayArray758 = null;
         anIntArray994 = null;
@@ -6217,7 +6217,7 @@ public class client extends Applet_Sub1 {
         anIntArray995[l3++] = l;
         boolean flag1 = false;
         int j4 = anIntArray994.length;
-        int[][] ai = aClass8Array954[anInt880].anIntArrayArray215;
+        int[][] ai = collisionMaps[anInt880].anIntArrayArray215;
         while (i4 != l3) {
             j3 = anIntArray994[i4];
             k3 = anIntArray995[i4];
@@ -6227,16 +6227,16 @@ public class client extends Applet_Sub1 {
                 break;
             }
             if (j2 != 0) {
-                if ((j2 < 5 || j2 == 10) && aClass8Array954[anInt880].method205(-7517, i2, l1, j2 - 1, k3, k, j3)) {
+                if ((j2 < 5 || j2 == 10) && collisionMaps[anInt880].method205(-7517, i2, l1, j2 - 1, k3, k, j3)) {
                     flag1 = true;
                     break;
                 }
-                if (j2 < 10 && aClass8Array954[anInt880].method206(i2, j2 - 1, anInt1039, j3, k, k3, l1)) {
+                if (j2 < 10 && collisionMaps[anInt880].method206(i2, j2 - 1, anInt1039, j3, k, k3, l1)) {
                     flag1 = true;
                     break;
                 }
             }
-            if (j != 0 && k1 != 0 && aClass8Array954[anInt880].method207(k3, k1, j3, k, k2, l1, j, 168)) {
+            if (j != 0 && k1 != 0 && collisionMaps[anInt880].method207(k3, k1, j3, k, k2, l1, j, 168)) {
                 flag1 = true;
                 break;
             }
@@ -7088,7 +7088,7 @@ public class client extends Applet_Sub1 {
             method83(aByte843);
             scene.method281(742);
             for (int j = 0; j < 4; j++)
-                aClass8Array954[j].method196((byte) 74);
+                collisionMaps[j].method196((byte) 74);
 
             System.gc();
             Class3 class3 = new Class3(104, aByteArrayArrayArray840, 104, anIntArrayArrayArray794, anInt1106);
@@ -7127,12 +7127,12 @@ public class client extends Applet_Sub1 {
                     BZip2InputStream.read(abyte0, k2, abyte1, abyte1.length - 4, 4);
                     int j3 = (anIntArray925[i2] >> 8) * 64 - anInt761;
                     int l3 = (anIntArray925[i2] & 0xff) * 64 - anInt762;
-                    class3.method154(abyte0, scene, aClass8Array954, linkedList2, true, l3, j3);
+                    class3.method154(abyte0, scene, collisionMaps, linkedList2, true, l3, j3);
                 }
             }
 
             aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
-            class3.method156(scene, -270, aClass8Array954);
+            class3.method156(scene, -270, collisionMaps);
             drawArea22.init2D();
             aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
             for (LocEntity locEntity = (LocEntity) linkedList2
@@ -9229,7 +9229,7 @@ public class client extends Applet_Sub1 {
         anIntArray940 = new int[1000];
         aLongArray943 = new long[100];
         anIntArray953 = new int[151];
-        aClass8Array954 = new Class8[4];
+        collisionMaps = new CollisionMap[4];
         aClass38_Sub2_Sub2_Sub2Array956 = new Sprite[20];
         anIntArray959 = new int[5];
         aBoolean960 = false;
@@ -9566,7 +9566,7 @@ public class client extends Applet_Sub1 {
     public int anInt951;
     public int anInt952;
     public int[] anIntArray953;
-    public Class8[] aClass8Array954;
+    public CollisionMap[] collisionMaps;
     public static int anInt955;
     public Sprite[] aClass38_Sub2_Sub2_Sub2Array956;
     public int anInt957;
