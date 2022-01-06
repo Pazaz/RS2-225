@@ -29,24 +29,24 @@ public class SeqType {
             if (j == 0)
                 break;
             if (j == 1) {
-                anInt365 = class38_sub2_sub3.readByte();
-                primaryFrames = new int[anInt365];
-                anIntArray367 = new int[anInt365];
-                anIntArray368 = new int[anInt365];
-                for (int k = 0; k < anInt365; k++) {
+                frameCount = class38_sub2_sub3.readByte();
+                primaryFrames = new int[frameCount];
+                anIntArray367 = new int[frameCount];
+                instances = new int[frameCount];
+                for (int k = 0; k < frameCount; k++) {
                     primaryFrames[k] = class38_sub2_sub3.readWord();
                     anIntArray367[k] = class38_sub2_sub3.readWord();
                     if (anIntArray367[k] == 65535)
                         anIntArray367[k] = -1;
-                    anIntArray368[k] = class38_sub2_sub3.readWord();
-                    if (anIntArray368[k] == 0)
-                        anIntArray368[k] = SeqFrame.seqFrames[primaryFrames[k]].anInt236;
-                    if (anIntArray368[k] == 0)
-                        anIntArray368[k] = 1;
+                    instances[k] = class38_sub2_sub3.readWord();
+                    if (instances[k] == 0)
+                        instances[k] = SeqFrame.seqFrames[primaryFrames[k]].anInt236;
+                    if (instances[k] == 0)
+                        instances[k] = 1;
                 }
 
             } else if (j == 2)
-                anInt369 = class38_sub2_sub3.readWord();
+                loopOffset = class38_sub2_sub3.readWord();
             else if (j == 3) {
                 int l = class38_sub2_sub3.readByte();
                 anIntArray370 = new int[l + 1];
@@ -67,19 +67,19 @@ public class SeqType {
             else
                 System.out.println("Error unrecognised seq config code: " + j);
         } while (true);
-        if (anInt365 == 0) {
-            anInt365 = 1;
+        if (frameCount == 0) {
+            frameCount = 1;
             primaryFrames = new int[1];
             primaryFrames[0] = -1;
             anIntArray367 = new int[1];
             anIntArray367[0] = -1;
-            anIntArray368 = new int[1];
-            anIntArray368[0] = -1;
+            instances = new int[1];
+            instances[0] = -1;
         }
     }
 
     public SeqType() {
-        anInt369 = -1;
+        loopOffset = -1;
         aBoolean371 = false;
         anInt372 = 5;
         anInt373 = -1;
@@ -91,11 +91,11 @@ public class SeqType {
     public static int anInt362 = 473;
     public static int anInt363;
     public static SeqType[] seqTypes;
-    public int anInt365;
+    public int frameCount;
     public int[] primaryFrames;
     public int[] anIntArray367;
-    public int[] anIntArray368;
-    public int anInt369;
+    public int[] instances;
+    public int loopOffset;
     public int[] anIntArray370;
     public boolean aBoolean371;
     public int anInt372;

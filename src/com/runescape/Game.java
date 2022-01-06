@@ -483,7 +483,7 @@ public class Game extends GameShell {
                 if (k11 == 3)
                     j14 = scene.method311(anInt880, l2, i5);
                 if (j14 != 0) {
-                    LocEntity locEntity = new LocEntity(false, j14 >> 14 & 0x7fff, anInt880, 0, k11,
+                    LocEntity locEntity = new LocEntity(false, j14 >> 14 & 0x7fff, anInt880, k11,
                             SeqType.seqTypes[j13], i5, l2);
                     linkedList2.pushNext(locEntity);
                 }
@@ -3096,7 +3096,7 @@ public class Game extends GameShell {
         anInt779 += i;
         if (pathingEntity.anInt1422 == anInt955 || pathingEntity.anInt1407 == -1
                 || pathingEntity.anInt1410 != 0 || pathingEntity.anInt1409
-                + 1 > SeqType.seqTypes[pathingEntity.anInt1407].anIntArray368[pathingEntity.anInt1408]) {
+                + 1 > SeqType.seqTypes[pathingEntity.anInt1407].instances[pathingEntity.anInt1408]) {
             int j = pathingEntity.anInt1422 - pathingEntity.anInt1421;
             int k = anInt955 - pathingEntity.anInt1421;
             int l = pathingEntity.anInt1417 * 128 + pathingEntity.anInt1384 * 64;
@@ -3271,28 +3271,28 @@ public class Game extends GameShell {
         if (pathingEntity.anInt1404 != -1) {
             SeqType seqType = SeqType.seqTypes[pathingEntity.anInt1404];
             pathingEntity.anInt1406++;
-            if (pathingEntity.anInt1405 < seqType.anInt365
-                    && pathingEntity.anInt1406 > seqType.anIntArray368[pathingEntity.anInt1405]) {
+            if (pathingEntity.anInt1405 < seqType.frameCount
+                    && pathingEntity.anInt1406 > seqType.instances[pathingEntity.anInt1405]) {
                 pathingEntity.anInt1406 = 0;
                 pathingEntity.anInt1405++;
             }
-            if (pathingEntity.anInt1405 >= seqType.anInt365) {
+            if (pathingEntity.anInt1405 >= seqType.frameCount) {
                 pathingEntity.anInt1406 = 0;
                 pathingEntity.anInt1405 = 0;
             }
         }
         if (pathingEntity.anInt1407 != -1 && pathingEntity.anInt1410 == 0) {
             SeqType seqType_1 = SeqType.seqTypes[pathingEntity.anInt1407];
-            for (pathingEntity.anInt1409++; pathingEntity.anInt1408 < seqType_1.anInt365
-                    && pathingEntity.anInt1409 > seqType_1.anIntArray368[pathingEntity.anInt1408]; pathingEntity.anInt1408++)
-                pathingEntity.anInt1409 -= seqType_1.anIntArray368[pathingEntity.anInt1408];
+            for (pathingEntity.anInt1409++; pathingEntity.anInt1408 < seqType_1.frameCount
+                    && pathingEntity.anInt1409 > seqType_1.instances[pathingEntity.anInt1408]; pathingEntity.anInt1408++)
+                pathingEntity.anInt1409 -= seqType_1.instances[pathingEntity.anInt1408];
 
-            if (pathingEntity.anInt1408 >= seqType_1.anInt365) {
-                pathingEntity.anInt1408 -= seqType_1.anInt369;
+            if (pathingEntity.anInt1408 >= seqType_1.frameCount) {
+                pathingEntity.anInt1408 -= seqType_1.loopOffset;
                 pathingEntity.anInt1411++;
                 if (pathingEntity.anInt1411 >= seqType_1.anInt375)
                     pathingEntity.anInt1407 = -1;
-                if (pathingEntity.anInt1408 < 0 || pathingEntity.anInt1408 >= seqType_1.anInt365)
+                if (pathingEntity.anInt1408 < 0 || pathingEntity.anInt1408 >= seqType_1.frameCount)
                     pathingEntity.anInt1407 = -1;
             }
             pathingEntity.aBoolean1383 = seqType_1.aBoolean371;
@@ -3303,12 +3303,12 @@ public class Game extends GameShell {
             if (pathingEntity.anInt1413 < 0)
                 pathingEntity.anInt1413 = 0;
             SeqType seqType_2 = SpotAnimType.instances[pathingEntity.anInt1412].seq;
-            for (pathingEntity.anInt1414++; pathingEntity.anInt1413 < seqType_2.anInt365
-                    && pathingEntity.anInt1414 > seqType_2.anIntArray368[pathingEntity.anInt1413]; pathingEntity.anInt1413++)
-                pathingEntity.anInt1414 -= seqType_2.anIntArray368[pathingEntity.anInt1413];
+            for (pathingEntity.anInt1414++; pathingEntity.anInt1413 < seqType_2.frameCount
+                    && pathingEntity.anInt1414 > seqType_2.instances[pathingEntity.anInt1413]; pathingEntity.anInt1413++)
+                pathingEntity.anInt1414 -= seqType_2.instances[pathingEntity.anInt1413];
 
-            if (pathingEntity.anInt1413 >= seqType_2.anInt365
-                    && (pathingEntity.anInt1413 < 0 || pathingEntity.anInt1413 >= seqType_2.anInt365))
+            if (pathingEntity.anInt1413 >= seqType_2.frameCount
+                    && (pathingEntity.anInt1413 < 0 || pathingEntity.anInt1413 >= seqType_2.frameCount))
                 pathingEntity.anInt1412 = -1;
         }
     }
@@ -6451,12 +6451,12 @@ public class Game extends GameShell {
                     i1 = interfaceComponent_1.anInt312;
                 if (i1 != -1) {
                     SeqType seqType = SeqType.seqTypes[i1];
-                    for (interfaceComponent_1.anInt268 += j; interfaceComponent_1.anInt268 > seqType.anIntArray368[interfaceComponent_1.anInt267]; ) {
-                        interfaceComponent_1.anInt268 -= seqType.anIntArray368[interfaceComponent_1.anInt267] + 1;
+                    for (interfaceComponent_1.anInt268 += j; interfaceComponent_1.anInt268 > seqType.instances[interfaceComponent_1.anInt267]; ) {
+                        interfaceComponent_1.anInt268 -= seqType.instances[interfaceComponent_1.anInt267] + 1;
                         interfaceComponent_1.anInt267++;
-                        if (interfaceComponent_1.anInt267 >= seqType.anInt365) {
-                            interfaceComponent_1.anInt267 -= seqType.anInt369;
-                            if (interfaceComponent_1.anInt267 < 0 || interfaceComponent_1.anInt267 >= seqType.anInt365)
+                        if (interfaceComponent_1.anInt267 >= seqType.frameCount) {
+                            interfaceComponent_1.anInt267 -= seqType.loopOffset;
+                            if (interfaceComponent_1.anInt267 < 0 || interfaceComponent_1.anInt267 >= seqType.frameCount)
                                 interfaceComponent_1.anInt267 = 0;
                         }
                         flag = true;
@@ -7402,19 +7402,19 @@ public class Game extends GameShell {
         for (LocEntity locEntity = (LocEntity) linkedList2
                 .peekLast(); locEntity != null; locEntity = (LocEntity) linkedList2.getPrevious()) {
             boolean flag = false;
-            locEntity.anInt1213 += anInt969;
-            if (locEntity.anInt1212 == -1) {
-                locEntity.anInt1212 = 0;
+            locEntity.currentFrameDuration += anInt969;
+            if (locEntity.currentFrameId == -1) {
+                locEntity.currentFrameId = 0;
                 flag = true;
             }
-            while (locEntity.anInt1213 > locEntity.seqType.anIntArray368[locEntity.anInt1212]) {
-                locEntity.anInt1213 -= locEntity.seqType.anIntArray368[locEntity.anInt1212] + 1;
-                locEntity.anInt1212++;
+            while (locEntity.currentFrameDuration > locEntity.seq.instances[locEntity.currentFrameId]) {
+                locEntity.currentFrameDuration -= locEntity.seq.instances[locEntity.currentFrameId] + 1;
+                locEntity.currentFrameId++;
                 flag = true;
-                if (locEntity.anInt1212 < locEntity.seqType.anInt365)
+                if (locEntity.currentFrameId < locEntity.seq.frameCount)
                     continue;
-                locEntity.anInt1212 -= locEntity.seqType.anInt369;
-                if (locEntity.anInt1212 >= 0 && locEntity.anInt1212 < locEntity.seqType.anInt365)
+                locEntity.currentFrameId -= locEntity.seq.loopOffset;
+                if (locEntity.currentFrameId >= 0 && locEntity.currentFrameId < locEntity.seq.frameCount)
                     continue;
                 locEntity.unlink();
                 flag = false;
@@ -7442,8 +7442,8 @@ public class Game extends GameShell {
                     int i2 = anIntArrayArrayArray794[j][k][l + 1];
                     LocType locType = LocType.get(locEntity.anInt1210);
                     int j2 = -1;
-                    if (locEntity.anInt1212 != -1)
-                        j2 = locEntity.seqType.primaryFrames[locEntity.anInt1212];
+                    if (locEntity.currentFrameId != -1)
+                        j2 = locEntity.seq.primaryFrames[locEntity.currentFrameId];
                     if (locEntity.anInt1207 == 2) {
                         int k2 = scene.method312(j, k, l, i1);
                         int j3 = k2 & 0x1f;
