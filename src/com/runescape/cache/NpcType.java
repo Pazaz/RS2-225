@@ -137,7 +137,7 @@ public class NpcType {
 
             model.applyGroups(4);
             model.applyLighting(64, 850, -30, -50, -30, true);
-            NpcType.models.method342(6, index, model);
+            NpcType.models.put(6, index, model);
         }
 
         model = new Model(0, model, !disposeAlpha);
@@ -157,7 +157,7 @@ public class NpcType {
         model.labelVertices = null;
 
         if (size == 1) {
-            model.aBoolean1256 = true;
+            model.pickable = true;
         }
 
         return model;

@@ -258,7 +258,7 @@ public class LocType {
             if (flag) {
                 class38_sub2_sub1_1.method365(-725);
             }
-            models.method342(6, k2, class38_sub2_sub1_1);
+            models.put(6, k2, class38_sub2_sub1_1);
         }
 
         boolean flag1;
@@ -290,16 +290,16 @@ public class LocType {
         }
 
         if (flag2) {
-            model.method363(anInt70, anInt69, -122, anInt71);
+            model.translate(anInt70, anInt69, -122, anInt71);
         }
 
         model.applyLighting(64 + brightness, 768 + specular * 5, -50, -10, -50, !flatShaded);
 
         if (hasCollision) {
-            model.anInt1251 = model.anInt1247;
+            model.anInt1251 = model.minY;
         }
 
-        builtModels.method342(6, l2, model);
+        builtModels.put(6, l2, model);
 
         if (adjustToTerrain || flatShaded) {
             model = new Model(model, (byte) -31, adjustToTerrain, flatShaded);

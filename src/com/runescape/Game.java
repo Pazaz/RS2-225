@@ -94,8 +94,8 @@ public class Game extends GameShell {
                         int i1 = (((PathingEntity) (obj)).anInt1399 * 30) / ((PathingEntity) (obj)).anInt1400;
                         if (i1 > 30)
                             i1 = 30;
-                        Draw2D.method380(anInt1020 - 3, anInt1019 - 15, 65280, (byte) 93, i1, 5);
-                        Draw2D.method380(anInt1020 - 3, (anInt1019 - 15) + i1, 0xff0000, (byte) 93, 30 - i1,
+                        Draw2D.fillRect(anInt1020 - 3, anInt1019 - 15, 65280, (byte) 93, i1, 5);
+                        Draw2D.fillRect(anInt1020 - 3, (anInt1019 - 15) + i1, 0xff0000, (byte) 93, 30 - i1,
                                 5);
                     }
                 }
@@ -182,7 +182,7 @@ public class Game extends GameShell {
                 if (anIntArray1098[k] == 2) {
                     int l3 = indexedFont3.method423(false, s);
                     int i4 = ((150 - anIntArray1099[k]) * (l3 + 100)) / 150;
-                    Draw2D.method378(334, 0, anInt1019 + 50, 789, anInt1019 - 50);
+                    Draw2D.setBounds(334, 0, anInt1019 + 50, 789, anInt1019 - 50);
                     indexedFont3.method424((anInt1019 + 50) - i4, anInt1020 + 1, false, 0, s);
                     indexedFont3.method424((anInt1019 + 50) - i4, anInt1020, false, l2, s);
                     Draw2D.method377(0);
@@ -944,7 +944,7 @@ public class Game extends GameShell {
 
         }
         for (int l = 0; l < 33920; l++)
-            drawArea14.pixels[l] = aClass38_Sub2_Sub2_Sub2_978.anIntArray1465[l];
+            drawArea14.pixels[l] = aClass38_Sub2_Sub2_Sub2_978.pixels[l];
 
         int i1 = 0;
         int j1 = 1152;
@@ -973,7 +973,7 @@ public class Game extends GameShell {
 
         drawArea14.drawImage(0, super.aGraphics14, 0);
         for (int i2 = 0; i2 < 33920; i2++)
-            drawArea15.pixels[i2] = aClass38_Sub2_Sub2_Sub2_979.anIntArray1465[i2];
+            drawArea15.pixels[i2] = aClass38_Sub2_Sub2_Sub2_979.pixels[i2];
 
         i1 = 0;
         j1 = 1176;
@@ -1094,22 +1094,22 @@ public class Game extends GameShell {
                                 anInt1087 = k2;
                                 anInt1088 = interfaceComponent_1.anInt269;
                                 if (interfaceComponent_1.anIntArray265[k2] > 0) {
-                                    ObjType objType = ObjType.method169(interfaceComponent_1.anIntArray265[k2] - 1);
+                                    ObjType objType = ObjType.get(interfaceComponent_1.anIntArray265[k2] - 1);
                                     if (anInt1002 == 1 && interfaceComponent_1.aBoolean291) {
                                         if (interfaceComponent_1.anInt269 != anInt1004 || k2 != anInt1003) {
                                             aStringArray834[anInt1074] = "Use " + aString1006 + " with @lre@"
-                                                    + objType.aString145;
+                                                    + objType.name;
                                             anIntArray1141[anInt1074] = 881;
-                                            anIntArray1142[anInt1074] = objType.anInt143;
+                                            anIntArray1142[anInt1074] = objType.index;
                                             anIntArray1139[anInt1074] = k2;
                                             anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                                             anInt1074++;
                                         }
                                     } else if (anInt1025 == 1 && interfaceComponent_1.aBoolean291) {
                                         if ((anInt1027 & 0x10) == 16) {
-                                            aStringArray834[anInt1074] = aString1028 + " @lre@" + objType.aString145;
+                                            aStringArray834[anInt1074] = aString1028 + " @lre@" + objType.name;
                                             anIntArray1141[anInt1074] = 391;
-                                            anIntArray1142[anInt1074] = objType.anInt143;
+                                            anIntArray1142[anInt1074] = objType.index;
                                             anIntArray1139[anInt1074] = k2;
                                             anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                                             anInt1074++;
@@ -1117,22 +1117,22 @@ public class Game extends GameShell {
                                     } else {
                                         if (interfaceComponent_1.aBoolean291) {
                                             for (int l3 = 4; l3 >= 3; l3--)
-                                                if (objType.aStringArray161 != null
-                                                        && objType.aStringArray161[l3] != null) {
-                                                    aStringArray834[anInt1074] = objType.aStringArray161[l3] + " @lre@"
-                                                            + objType.aString145;
+                                                if (objType.options != null
+                                                        && objType.options[l3] != null) {
+                                                    aStringArray834[anInt1074] = objType.options[l3] + " @lre@"
+                                                            + objType.name;
                                                     if (l3 == 3)
                                                         anIntArray1141[anInt1074] = 478;
                                                     if (l3 == 4)
                                                         anIntArray1141[anInt1074] = 347;
-                                                    anIntArray1142[anInt1074] = objType.anInt143;
+                                                    anIntArray1142[anInt1074] = objType.index;
                                                     anIntArray1139[anInt1074] = k2;
                                                     anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                                                     anInt1074++;
                                                 } else if (l3 == 4) {
-                                                    aStringArray834[anInt1074] = "Drop @lre@" + objType.aString145;
+                                                    aStringArray834[anInt1074] = "Drop @lre@" + objType.name;
                                                     anIntArray1141[anInt1074] = 347;
-                                                    anIntArray1142[anInt1074] = objType.anInt143;
+                                                    anIntArray1142[anInt1074] = objType.index;
                                                     anIntArray1139[anInt1074] = k2;
                                                     anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                                                     anInt1074++;
@@ -1140,25 +1140,25 @@ public class Game extends GameShell {
 
                                         }
                                         if (interfaceComponent_1.aBoolean292) {
-                                            aStringArray834[anInt1074] = "Use @lre@" + objType.aString145;
+                                            aStringArray834[anInt1074] = "Use @lre@" + objType.name;
                                             anIntArray1141[anInt1074] = 188;
-                                            anIntArray1142[anInt1074] = objType.anInt143;
+                                            anIntArray1142[anInt1074] = objType.index;
                                             anIntArray1139[anInt1074] = k2;
                                             anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                                             anInt1074++;
                                         }
-                                        if (interfaceComponent_1.aBoolean291 && objType.aStringArray161 != null) {
+                                        if (interfaceComponent_1.aBoolean291 && objType.options != null) {
                                             for (int i4 = 2; i4 >= 0; i4--)
-                                                if (objType.aStringArray161[i4] != null) {
-                                                    aStringArray834[anInt1074] = objType.aStringArray161[i4] + " @lre@"
-                                                            + objType.aString145;
+                                                if (objType.options[i4] != null) {
+                                                    aStringArray834[anInt1074] = objType.options[i4] + " @lre@"
+                                                            + objType.name;
                                                     if (i4 == 0)
                                                         anIntArray1141[anInt1074] = 405;
                                                     if (i4 == 1)
                                                         anIntArray1141[anInt1074] = 38;
                                                     if (i4 == 2)
                                                         anIntArray1141[anInt1074] = 422;
-                                                    anIntArray1142[anInt1074] = objType.anInt143;
+                                                    anIntArray1142[anInt1074] = objType.index;
                                                     anIntArray1139[anInt1074] = k2;
                                                     anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                                                     anInt1074++;
@@ -1169,7 +1169,7 @@ public class Game extends GameShell {
                                             for (int j4 = 4; j4 >= 0; j4--)
                                                 if (interfaceComponent_1.aStringArray298[j4] != null) {
                                                     aStringArray834[anInt1074] = interfaceComponent_1.aStringArray298[j4]
-                                                            + " @lre@" + objType.aString145;
+                                                            + " @lre@" + objType.name;
                                                     if (j4 == 0)
                                                         anIntArray1141[anInt1074] = 602;
                                                     if (j4 == 1)
@@ -1180,16 +1180,16 @@ public class Game extends GameShell {
                                                         anIntArray1141[anInt1074] = 892;
                                                     if (j4 == 4)
                                                         anIntArray1141[anInt1074] = 415;
-                                                    anIntArray1142[anInt1074] = objType.anInt143;
+                                                    anIntArray1142[anInt1074] = objType.index;
                                                     anIntArray1139[anInt1074] = k2;
                                                     anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                                                     anInt1074++;
                                                 }
 
                                         }
-                                        aStringArray834[anInt1074] = "Examine @lre@" + objType.aString145;
+                                        aStringArray834[anInt1074] = "Examine @lre@" + objType.name;
                                         anIntArray1141[anInt1074] = 1773;
-                                        anIntArray1142[anInt1074] = objType.anInt143;
+                                        anIntArray1142[anInt1074] = objType.index;
                                         anIntArray1140[anInt1074] = interfaceComponent_1.anIntArray266[k2];
                                         anInt1074++;
                                     }
@@ -2064,7 +2064,7 @@ public class Game extends GameShell {
             int i3 = (anInt1052 * 4 + 2) - localPlayerEntity.anInt1381 / 32;
             method87(i3, 4, aClass38_Sub2_Sub2_Sub2_997, k1);
         }
-        Draw2D.method380(82, 93, 0xffffff, (byte) 93, 3, 3);
+        Draw2D.fillRect(82, 93, 0xffffff, (byte) 93, 3, 3);
         drawArea22.init2D();
     }
 
@@ -2101,7 +2101,7 @@ public class Game extends GameShell {
     }
 
     public void method45(int i, int j) {
-        int[] ai = aClass38_Sub2_Sub2_Sub2_1053.anIntArray1465;
+        int[] ai = aClass38_Sub2_Sub2_Sub2_1053.pixels;
         if (j >= 0)
             return;
         int k = ai.length;
@@ -2183,7 +2183,7 @@ public class Game extends GameShell {
             int k3 = k;
             if (k1 > 0)
                 k3 = i1;
-            int[] ai = aClass38_Sub2_Sub2_Sub2_1053.anIntArray1465;
+            int[] ai = aClass38_Sub2_Sub2_Sub2_1053.pixels;
             int k4 = 24624 + l * 4 + (103 - j1) * 512 * 4;
             int i5 = k1 >> 14 & 0x7fff;
             LocType locType_2 = LocType.get(i5);
@@ -2271,7 +2271,7 @@ public class Game extends GameShell {
                 int l4 = 0xeeeeee;
                 if (k1 > 0)
                     l4 = 0xee0000;
-                int[] ai1 = aClass38_Sub2_Sub2_Sub2_1053.anIntArray1465;
+                int[] ai1 = aClass38_Sub2_Sub2_Sub2_1053.pixels;
                 int l5 = 24624 + l * 4 + (103 - j1) * 512 * 4;
                 if (l2 == 0 || l2 == 2) {
                     ai1[l5 + 1536] = l4;
@@ -2352,10 +2352,10 @@ public class Game extends GameShell {
         aClass38_Sub2_Sub2_Sub2_978 = new Sprite(128, 265);
         aClass38_Sub2_Sub2_Sub2_979 = new Sprite(128, 265);
         for (int k = 0; k < 33920; k++)
-            aClass38_Sub2_Sub2_Sub2_978.anIntArray1465[k] = drawArea14.pixels[k];
+            aClass38_Sub2_Sub2_Sub2_978.pixels[k] = drawArea14.pixels[k];
 
         for (int l = 0; l < 33920; l++)
-            aClass38_Sub2_Sub2_Sub2_979.anIntArray1465[l] = drawArea15.pixels[l];
+            aClass38_Sub2_Sub2_Sub2_979.pixels[l] = drawArea15.pixels[l];
 
         anIntArray904 = new int[256];
         for (int i1 = 0; i1 < 64; i1++)
@@ -2467,14 +2467,14 @@ public class Game extends GameShell {
     public void method50(int i, int j, int k, int l, int i1, int j1) {
         indexedSprite6.method419(k, j, false);
         indexedSprite7.method419((k + j1) - 16, j, false);
-        Draw2D.method380(k + 16, j, anInt1050, (byte) 93, 16, j1 - 32);
+        Draw2D.fillRect(k + 16, j, anInt1050, (byte) 93, 16, j1 - 32);
         int k1 = ((j1 - 32) * j1) / i1;
         if (k1 < 8)
             k1 = 8;
         int l1 = ((j1 - 32 - k1) * l) / (i1 - j1);
         if (i <= 0)
             anInt780 = -1;
-        Draw2D.method380(k + 16 + l1, j, anInt1158, (byte) 93, 16, k1);
+        Draw2D.fillRect(k + 16 + l1, j, anInt1158, (byte) 93, 16, k1);
         Draw2D.method383(anInt993, anInt727, k + 16 + l1, k1, j);
         Draw2D.method383(anInt993, anInt727, k + 16 + l1, k1, j + 1);
         Draw2D.method382(anInt993, 0, k + 16 + l1, 16, j);
@@ -2720,13 +2720,13 @@ public class Game extends GameShell {
         if (interfaceComponent.aBoolean284 && anInt1063 != interfaceComponent.anInt269 && anInt941 != interfaceComponent.anInt269
                 && anInt859 != interfaceComponent.anInt269)
             return;
-        int i1 = Draw2D.anInt1313;
-        int j1 = Draw2D.anInt1311;
-        int k1 = Draw2D.anInt1314;
-        int l1 = Draw2D.anInt1312;
+        int i1 = Draw2D.left;
+        int j1 = Draw2D.top;
+        int k1 = Draw2D.right;
+        int l1 = Draw2D.bottom;
         if (k != 38682)
             anInt780 = -1;
-        Draw2D.method378(i + interfaceComponent.anInt275, i, j + interfaceComponent.anInt274, 789, j);
+        Draw2D.setBounds(i + interfaceComponent.anInt275, i, j + interfaceComponent.anInt274, 789, j);
         int i2 = interfaceComponent.anIntArray285.length;
         for (int j2 = 0; j2 < i2; j2++) {
             int k2 = interfaceComponent.anIntArray286[j2] + j;
@@ -2762,7 +2762,7 @@ public class Game extends GameShell {
                                 int i9 = interfaceComponent_1.anIntArray265[i3] - 1;
                                 if (j5 >= -32 && j5 <= 512 && i6 >= -32 && i6 <= 334
                                         || anInt846 != 0 && anInt845 == i3) {
-                                    Sprite class38_sub2_sub2_sub2_2 = ObjType.method174(i9, 24638,
+                                    Sprite class38_sub2_sub2_sub2_2 = ObjType.getSprite(i9,
                                             interfaceComponent_1.anIntArray266[i3]);
                                     if (anInt846 != 0 && anInt845 == i3 && anInt844 == interfaceComponent_1.anInt269) {
                                         k6 = super.anInt21 - anInt847;
@@ -2780,7 +2780,7 @@ public class Game extends GameShell {
                                         class38_sub2_sub2_sub2_2.method409(128, j5, i6, (byte) -26);
                                     else
                                         class38_sub2_sub2_sub2_2.method405(i6, j5, false);
-                                    if (class38_sub2_sub2_sub2_2.anInt1470 == 33 || interfaceComponent_1.anIntArray266[i3] != 1) {
+                                    if (class38_sub2_sub2_sub2_2.cropW == 33 || interfaceComponent_1.anIntArray266[i3] != 1) {
                                         int k9 = interfaceComponent_1.anIntArray266[i3];
                                         indexedFont1.method424(j5 + 1 + k6, i6 + 10 + k8, false, 0,
                                                 method108(true, k9));
@@ -2800,7 +2800,7 @@ public class Game extends GameShell {
 
                 } else if (interfaceComponent_1.anInt271 == 3) {
                     if (interfaceComponent_1.aBoolean299)
-                        Draw2D.method380(l2, k2, interfaceComponent_1.anInt305, (byte) 93, interfaceComponent_1.anInt274,
+                        Draw2D.fillRect(l2, k2, interfaceComponent_1.anInt305, (byte) 93, interfaceComponent_1.anInt274,
                                 interfaceComponent_1.anInt275);
                     else
                         Draw2D.method381(3, k2, interfaceComponent_1.anInt305, interfaceComponent_1.anInt275, l2,
@@ -2885,12 +2885,12 @@ public class Game extends GameShell {
                     if (class38_sub2_sub2_sub2 != null)
                         class38_sub2_sub2_sub2.method405(l2, k2, false);
                 } else if (interfaceComponent_1.anInt271 == 6) {
-                    int j3 = Draw3D.anInt1442;
-                    int i4 = Draw3D.anInt1443;
-                    Draw3D.anInt1442 = k2 + interfaceComponent_1.anInt274 / 2;
-                    Draw3D.anInt1443 = l2 + interfaceComponent_1.anInt275 / 2;
-                    int l4 = Draw3D.anIntArray1446[interfaceComponent_1.anInt315] * interfaceComponent_1.anInt314 >> 16;
-                    int k5 = Draw3D.anIntArray1447[interfaceComponent_1.anInt315] * interfaceComponent_1.anInt314 >> 16;
+                    int j3 = Draw3D.centerX;
+                    int i4 = Draw3D.centerY;
+                    Draw3D.centerX = k2 + interfaceComponent_1.anInt274 / 2;
+                    Draw3D.centerY = l2 + interfaceComponent_1.anInt275 / 2;
+                    int l4 = Draw3D.sin[interfaceComponent_1.anInt315] * interfaceComponent_1.anInt314 >> 16;
+                    int k5 = Draw3D.cos[interfaceComponent_1.anInt315] * interfaceComponent_1.anInt314 >> 16;
                     boolean flag = method114(interfaceComponent_1, 65);
                     int j8;
                     if (flag)
@@ -2906,18 +2906,18 @@ public class Game extends GameShell {
                                 seqType.anIntArray367[interfaceComponent_1.anInt267], flag);
                     }
                     if (class38_sub2_sub1 != null)
-                        class38_sub2_sub1.method370(0, interfaceComponent_1.anInt316, 0, interfaceComponent_1.anInt315, 0, l4, k5);
-                    Draw3D.anInt1442 = j3;
-                    Draw3D.anInt1443 = i4;
+                        class38_sub2_sub1.drawSimple(0, interfaceComponent_1.anInt316, 0, interfaceComponent_1.anInt315, 0, l4, k5);
+                    Draw3D.centerX = j3;
+                    Draw3D.centerY = i4;
                 } else if (interfaceComponent_1.anInt271 == 7) {
                     IndexedFont indexedFont_1 = interfaceComponent_1.indexedFont;
                     int j4 = 0;
                     for (int i5 = 0; i5 < interfaceComponent_1.anInt275; i5++) {
                         for (int l5 = 0; l5 < interfaceComponent_1.anInt274; l5++) {
                             if (interfaceComponent_1.anIntArray265[j4] > 0) {
-                                ObjType objType = ObjType.method169(interfaceComponent_1.anIntArray265[j4] - 1);
-                                String s2 = objType.aString145;
-                                if (objType.aBoolean157 || interfaceComponent_1.anIntArray266[j4] != 1)
+                                ObjType objType = ObjType.get(interfaceComponent_1.anIntArray265[j4] - 1);
+                                String s2 = objType.name;
+                                if (objType.stackable || interfaceComponent_1.anIntArray266[j4] != 1)
                                     s2 = s2 + " x" + method40(interfaceComponent_1.anIntArray266[j4], 0);
                                 int l8 = k2 + l5 * (115 + interfaceComponent_1.anInt293);
                                 int j9 = l2 + i5 * (12 + interfaceComponent_1.anInt294);
@@ -2936,7 +2936,7 @@ public class Game extends GameShell {
                 }
         }
 
-        Draw2D.method378(l1, j1, k1, 789, i1);
+        Draw2D.setBounds(l1, j1, k1, 789, i1);
     }
 
     public void method60(boolean flag, int i, Buffer class38_sub2_sub3) {
@@ -2967,7 +2967,7 @@ public class Game extends GameShell {
                 Draw3D.method393(true, 0.69999999999999996D);
             if (l == 4)
                 Draw3D.method393(true, 0.59999999999999998D);
-            ObjType.cache2.method343();
+            ObjType.iconCache.method343();
             aBoolean751 = true;
         }
         if (k == 3) {
@@ -3704,7 +3704,7 @@ public class Game extends GameShell {
             anInt1003 = k;
             anInt1004 = l;
             anInt1005 = j1;
-            aString1006 = ObjType.method169(j1).aString145;
+            aString1006 = ObjType.get(j1).name;
             anInt1025 = 0;
             return;
         }
@@ -3714,14 +3714,14 @@ public class Game extends GameShell {
             aBoolean872 = true;
         }
         if (i1 == 1773) {
-            ObjType objType = ObjType.method169(j1);
+            ObjType objType = ObjType.get(j1);
             String s4;
             if (l >= 0x186a0)
-                s4 = l + " x " + objType.aString145;
-            else if (objType.aByteArray146 != null)
-                s4 = new String(objType.aByteArray146);
+                s4 = l + " x " + objType.name;
+            else if (objType.description != null)
+                s4 = new String(objType.description);
             else
-                s4 = "It's a " + objType.aString145 + ".";
+                s4 = "It's a " + objType.name + ".";
             method111(0, s4, (byte) 4, "");
         }
         if (i1 == 900) {
@@ -3952,12 +3952,12 @@ public class Game extends GameShell {
         if (i1 == 364)
             method92(96, k, l, j1, true);
         if (i1 == 1102) {
-            ObjType objType_1 = ObjType.method169(j1);
+            ObjType objType_1 = ObjType.get(j1);
             String s7;
-            if (objType_1.aByteArray146 != null)
-                s7 = new String(objType_1.aByteArray146);
+            if (objType_1.description != null)
+                s7 = new String(objType_1.description);
             else
-                s7 = "It's a " + objType_1.aString145 + ".";
+                s7 = "It's a " + objType_1.name + ".";
             method111(0, s7, (byte) 4, "");
         }
         if (i1 == 960) {
@@ -4098,8 +4098,8 @@ public class Game extends GameShell {
         int l = anInt1151;
         int i1 = anInt1152;
         int j1 = 0x5d5447;
-        Draw2D.method380(k, j, j1, (byte) 93, l, i1);
-        Draw2D.method380(k + 1, j + 1, 0, (byte) 93, l - 2, 16);
+        Draw2D.fillRect(k, j, j1, (byte) 93, l, i1);
+        Draw2D.fillRect(k + 1, j + 1, 0, (byte) 93, l - 2, 16);
         Draw2D.method381(3, j + 1, 0, i1 - 19, k + 18, l - 2);
         indexedFont3.method424(j + 3, k + 14, false, j1, "Choose Option");
         int k1 = super.anInt21;
@@ -4724,12 +4724,12 @@ public class Game extends GameShell {
             SeqType.method222(fileArchive, 473);
             LocType.load(fileArchive);
             FloType.load(fileArchive);
-            ObjType.method167(fileArchive);
+            ObjType.load(fileArchive);
             NpcType.load(fileArchive);
             IdkType.load(fileArchive);
             SpotAnimType.method224(fileArchive, 473);
             VarpType.method227(fileArchive, 473);
-            ObjType.aBoolean142 = aBoolean888;
+            ObjType.isMember = aBoolean888;
             if (!aBoolean889) {
                 method13(true, "Unpacking sounds", 90);
                 byte[] abyte0 = fileArchive_6.read("sounds.dat", null);
@@ -4784,16 +4784,16 @@ public class Game extends GameShell {
             }
 
             Draw3D.method386(96, 479, 0);
-            anIntArray735 = Draw3D.anIntArray1448;
+            anIntArray735 = Draw3D.offsets;
             Draw3D.method386(261, 190, 0);
-            anIntArray736 = Draw3D.anIntArray1448;
+            anIntArray736 = Draw3D.offsets;
             Draw3D.method386(334, 512, 0);
-            anIntArray737 = Draw3D.anIntArray1448;
+            anIntArray737 = Draw3D.offsets;
             int[] ai = new int[9];
             for (int k5 = 0; k5 < 9; k5++) {
                 int i6 = 128 + k5 * 32 + 15;
                 int j6 = 600 + i6 * 3;
-                int k6 = Draw3D.anIntArray1446[i6];
+                int k6 = Draw3D.sin[i6];
                 ai[k5] = j6 * k6 >> 16;
             }
 
@@ -4872,8 +4872,8 @@ public class Game extends GameShell {
         LocType.models.method343();
         LocType.builtModels.method343();
         NpcType.models.method343();
-        ObjType.cache1.method343();
-        ObjType.cache2.method343();
+        ObjType.modelCache.method343();
+        ObjType.iconCache.method343();
         PlayerEntity.cache.method343();
         SpotAnimType.cache.method343();
         if (byte0 == aByte843) {
@@ -5057,12 +5057,12 @@ public class Game extends GameShell {
         int i2 = i * k1 - k * j1 >> 16;
         if (i1 > 2500) {
             class38_sub2_sub2_sub2.method412(indexedSprite19,
-                    83 - i2 - class38_sub2_sub2_sub2.anInt1471 / 2, (94 + l1) - class38_sub2_sub2_sub2.anInt1470 / 2,
+                    83 - i2 - class38_sub2_sub2_sub2.cropH / 2, (94 + l1) - class38_sub2_sub2_sub2.cropW / 2,
                     (byte) -15);
             return;
         } else {
-            class38_sub2_sub2_sub2.method405(83 - i2 - class38_sub2_sub2_sub2.anInt1471 / 2,
-                    (94 + l1) - class38_sub2_sub2_sub2.anInt1470 / 2, false);
+            class38_sub2_sub2_sub2.method405(83 - i2 - class38_sub2_sub2_sub2.cropH / 2,
+                    (94 + l1) - class38_sub2_sub2_sub2.cropW / 2, false);
             return;
         }
     }
@@ -5113,8 +5113,8 @@ public class Game extends GameShell {
         i = i1 * j1 + i * k1 >> 16;
         i1 = j2;
         if (i >= 50) {
-            anInt1019 = Draw3D.anInt1442 + (j << 9) / i;
-            anInt1020 = Draw3D.anInt1443 + (i1 << 9) / i;
+            anInt1019 = Draw3D.centerX + (j << 9) / i;
+            anInt1020 = Draw3D.centerY + (i1 << 9) / i;
             return;
         } else {
             anInt1019 = -1;
@@ -5794,7 +5794,7 @@ public class Game extends GameShell {
         method38(true);
         LocType.unload();
         NpcType.unload();
-        ObjType.method168(true);
+        ObjType.unload();
         FloType.instances = null;
         IdkType.instances = null;
         InterfaceComponent.interfaceComponentArray = null;
@@ -6566,8 +6566,8 @@ public class Game extends GameShell {
                 i -= 73;
                 j -= 75;
                 int k = anInt817 + anInt1085 & 0x7ff;
-                int l = Draw3D.anIntArray1446[k];
-                int i1 = Draw3D.anIntArray1447[k];
+                int l = Draw3D.sin[k];
+                int i1 = Draw3D.cos[k];
                 l = l * (anInt930 + 256) >> 8;
                 i1 = i1 * (anInt930 + 256) >> 8;
                 int j1 = j * l + i * i1 >> 11;
@@ -7041,9 +7041,9 @@ public class Game extends GameShell {
         Object obj = null;
         for (ObjStackEntity objStackEntity = (ObjStackEntity) linkedList
                 .method270(); objStackEntity != null; objStackEntity = (ObjStackEntity) linkedList.method272()) {
-            ObjType objType = ObjType.method169(objStackEntity.model);
-            int i1 = objType.anInt158;
-            if (objType.aBoolean157)
+            ObjType objType = ObjType.get(objStackEntity.model);
+            int i1 = objType.value;
+            if (objType.stackable)
                 i1 *= objStackEntity.amount + 1;
             if (i1 > k) {
                 k = i1;
@@ -7071,13 +7071,13 @@ public class Game extends GameShell {
 
         Model class38_sub2_sub1 = null;
         if (l != -1)
-            class38_sub2_sub1 = ObjType.method169(l).method173(k1);
+            class38_sub2_sub1 = ObjType.get(l).getModel(k1);
         Model class38_sub2_sub1_1 = null;
         if (j1 != -1)
-            class38_sub2_sub1_1 = ObjType.method169(j1).method173(l1);
+            class38_sub2_sub1_1 = ObjType.get(j1).getModel(l1);
         int i2 = i + (j << 7) + 0x60000000;
-        ObjType objType_1 = ObjType.method169(((ObjStackEntity) (obj)).model);
-        scene.method288(objType_1.method173(((ObjStackEntity) (obj)).amount), class38_sub2_sub1,
+        ObjType objType_1 = ObjType.get(((ObjStackEntity) (obj)).model);
+        scene.method288(objType_1.getModel(((ObjStackEntity) (obj)).amount), class38_sub2_sub1,
                 method33(anInt880, i * 128 + 64, (byte) 5, j * 128 + 64), anInt880, i2, j, i, class38_sub2_sub1_1, 429);
     }
 
@@ -7362,11 +7362,11 @@ public class Game extends GameShell {
         int[] ai = new int[class38_sub2_sub2_sub2.anInt1466];
         for (int i = 0; i < class38_sub2_sub2_sub2.anInt1467; i++) {
             for (int j = 0; j < class38_sub2_sub2_sub2.anInt1466; j++)
-                ai[j] = class38_sub2_sub2_sub2.anIntArray1465[(class38_sub2_sub2_sub2.anInt1466 - j - 1)
+                ai[j] = class38_sub2_sub2_sub2.pixels[(class38_sub2_sub2_sub2.anInt1466 - j - 1)
                         + class38_sub2_sub2_sub2.anInt1466 * i];
 
             for (int k = 0; k < class38_sub2_sub2_sub2.anInt1466; k++)
-                class38_sub2_sub2_sub2.anIntArray1465[k + class38_sub2_sub2_sub2.anInt1466 * i] = ai[k];
+                class38_sub2_sub2_sub2.pixels[k + class38_sub2_sub2_sub2.anInt1466 * i] = ai[k];
 
         }
 
@@ -7613,9 +7613,9 @@ public class Game extends GameShell {
                         for (ObjStackEntity objStackEntity = (ObjStackEntity) linkedList
                                 .method271(); objStackEntity != null; objStackEntity = (ObjStackEntity) linkedList
                                 .method273()) {
-                            ObjType objType = ObjType.method169(objStackEntity.model);
+                            ObjType objType = ObjType.get(objStackEntity.model);
                             if (anInt1002 == 1) {
-                                aStringArray834[anInt1074] = "Use " + aString1006 + " with @lre@" + objType.aString145;
+                                aStringArray834[anInt1074] = "Use " + aString1006 + " with @lre@" + objType.name;
                                 anIntArray1141[anInt1074] = 217;
                                 anIntArray1142[anInt1074] = objStackEntity.model;
                                 anIntArray1139[anInt1074] = l;
@@ -7623,7 +7623,7 @@ public class Game extends GameShell {
                                 anInt1074++;
                             } else if (anInt1025 == 1) {
                                 if ((anInt1027 & 1) == 1) {
-                                    aStringArray834[anInt1074] = aString1028 + " @lre@" + objType.aString145;
+                                    aStringArray834[anInt1074] = aString1028 + " @lre@" + objType.name;
                                     anIntArray1141[anInt1074] = 965;
                                     anIntArray1142[anInt1074] = objStackEntity.model;
                                     anIntArray1139[anInt1074] = l;
@@ -7632,9 +7632,9 @@ public class Game extends GameShell {
                                 }
                             } else {
                                 for (int l2 = 4; l2 >= 0; l2--)
-                                    if (objType.aStringArray160 != null && objType.aStringArray160[l2] != null) {
-                                        aStringArray834[anInt1074] = objType.aStringArray160[l2] + " @lre@"
-                                                + objType.aString145;
+                                    if (objType.groundOptions != null && objType.groundOptions[l2] != null) {
+                                        aStringArray834[anInt1074] = objType.groundOptions[l2] + " @lre@"
+                                                + objType.name;
                                         if (l2 == 0)
                                             anIntArray1141[anInt1074] = 224;
                                         if (l2 == 1)
@@ -7650,7 +7650,7 @@ public class Game extends GameShell {
                                         anIntArray1140[anInt1074] = i1;
                                         anInt1074++;
                                     } else if (l2 == 2) {
-                                        aStringArray834[anInt1074] = "Take @lre@" + objType.aString145;
+                                        aStringArray834[anInt1074] = "Take @lre@" + objType.name;
                                         anIntArray1141[anInt1074] = 99;
                                         anIntArray1142[anInt1074] = objStackEntity.model;
                                         anIntArray1139[anInt1074] = l;
@@ -7658,7 +7658,7 @@ public class Game extends GameShell {
                                         anInt1074++;
                                     }
 
-                                aStringArray834[anInt1074] = "Examine @lre@" + objType.aString145;
+                                aStringArray834[anInt1074] = "Examine @lre@" + objType.name;
                                 anIntArray1141[anInt1074] = 1102;
                                 anIntArray1142[anInt1074] = objStackEntity.model;
                                 anIntArray1139[anInt1074] = l;
@@ -7766,7 +7766,7 @@ public class Game extends GameShell {
         if (flag)
             anInt780 = -1;
         drawArea23.init2D();
-        Draw3D.anIntArray1448 = anIntArray735;
+        Draw3D.offsets = anIntArray735;
         indexedSprite20.method419(0, 0, false);
         if (aBoolean869) {
             indexedFont3.method421(40, (byte) 6, 0, aString775, 239);
@@ -7784,7 +7784,7 @@ public class Game extends GameShell {
         } else {
             IndexedFont indexedFont = indexedFont2;
             int i = 0;
-            Draw2D.method378(77, 0, 463, 789, 0);
+            Draw2D.setBounds(77, 0, 463, 789, 0);
             for (int j = 0; j < 100; j++)
                 if (aStringArray898[j] != null) {
                     int k = anIntArray896[j];
@@ -7864,7 +7864,7 @@ public class Game extends GameShell {
             method74(-961);
         drawArea23.drawImage(375, super.aGraphics14, 22);
         drawArea22.init2D();
-        Draw3D.anIntArray1448 = anIntArray737;
+        Draw3D.offsets = anIntArray737;
     }
 
     public boolean method136(boolean flag) {
@@ -8713,11 +8713,11 @@ public class Game extends GameShell {
                 int i7 = aClass38_Sub2_Sub3_795.method448();
                 int l14 = aClass38_Sub2_Sub3_795.method448();
                 int i20 = aClass38_Sub2_Sub3_795.method448();
-                ObjType objType = ObjType.method169(l14);
-                InterfaceComponent.interfaceComponentArray[i7].aClass38_Sub2_Sub1_310 = objType.method173(50);
-                InterfaceComponent.interfaceComponentArray[i7].anInt315 = objType.anInt150;
-                InterfaceComponent.interfaceComponentArray[i7].anInt316 = objType.anInt151;
-                InterfaceComponent.interfaceComponentArray[i7].anInt314 = (objType.anInt149 * 100) / i20;
+                ObjType objType = ObjType.get(l14);
+                InterfaceComponent.interfaceComponentArray[i7].aClass38_Sub2_Sub1_310 = objType.getModel(50);
+                InterfaceComponent.interfaceComponentArray[i7].anInt315 = objType.iconCameraPitch;
+                InterfaceComponent.interfaceComponentArray[i7].anInt316 = objType.iconYaw;
+                InterfaceComponent.interfaceComponentArray[i7].anInt314 = (objType.iconZoom * 100) / i20;
                 anInt780 = -1;
                 return true;
             }
@@ -8919,7 +8919,7 @@ public class Game extends GameShell {
 
     public void method137(byte byte0) {
         drawArea20.init2D();
-        Draw3D.anIntArray1448 = anIntArray736;
+        Draw3D.offsets = anIntArray736;
         indexedSprite18.method419(0, 0, false);
         if (anInt1129 != -1)
             method59(0, 0, 38682, InterfaceComponent.interfaceComponentArray[anInt1129], 0);
@@ -8933,7 +8933,7 @@ public class Game extends GameShell {
         else
             return;
         drawArea22.init2D();
-        Draw3D.anIntArray1448 = anIntArray737;
+        Draw3D.offsets = anIntArray737;
     }
 
     public boolean method138(int i, String s) {
@@ -9091,8 +9091,8 @@ public class Game extends GameShell {
         int j = c1 / 2 - 18 - byte0;
         Draw2D.method381(3, c / 2 - 152, 0x8c1111, 34, j, 304);
         Draw2D.method381(3, c / 2 - 151, 0, 32, j + 1, 302);
-        Draw2D.method380(j + 2, c / 2 - 150, 0x8c1111, (byte) 93, i * 3, 30);
-        Draw2D.method380(j + 2, (c / 2 - 150) + i * 3, 0, (byte) 93, 300 - i * 3, 30);
+        Draw2D.fillRect(j + 2, c / 2 - 150, 0x8c1111, (byte) 93, i * 3, 30);
+        Draw2D.fillRect(j + 2, (c / 2 - 150) + i * 3, 0, (byte) 93, 300 - i * 3, 30);
         indexedFont3.method421((c1 / 2 + 5) - byte0, (byte) 6, 0xffffff, s, c / 2);
         drawArea13.drawImage(186, super.aGraphics14, 214);
         if (aBoolean751) {

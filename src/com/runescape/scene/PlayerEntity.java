@@ -84,15 +84,15 @@ public class PlayerEntity extends PathingEntity {
         if (!aBoolean1506)
             return null;
         Model class38_sub2_sub1 = method471(false);
-        super.anInt1425 = class38_sub2_sub1.anInt1247;
-        class38_sub2_sub1.aBoolean1256 = true;
+        super.anInt1425 = class38_sub2_sub1.minY;
+        class38_sub2_sub1.pickable = true;
         if (aBoolean1524)
             return class38_sub2_sub1;
         if (super.anInt1412 != -1 && super.anInt1413 != -1) {
             SpotAnimType spotAnimType = SpotAnimType.spotAnimTypes[super.anInt1412];
             Model class38_sub2_sub1_2 = new Model(spotAnimType.getModel(), true,
                     !spotAnimType.disposeAlpha, anInt1503, false);
-            class38_sub2_sub1_2.method363(-super.anInt1416, 0, -122, 0);
+            class38_sub2_sub1_2.translate(-super.anInt1416, 0, -122, 0);
             class38_sub2_sub1_2.applyGroups(4);
             class38_sub2_sub1_2.applyFrame(-16599, spotAnimType.seq.primaryFrames[super.anInt1413]);
             class38_sub2_sub1_2.skinTriangle = null;
@@ -110,7 +110,7 @@ public class PlayerEntity extends PathingEntity {
                 aClass38_Sub2_Sub1_1519 = null;
             if (Game.anInt955 >= anInt1514 && Game.anInt955 < anInt1515) {
                 Model class38_sub2_sub1_1 = aClass38_Sub2_Sub1_1519;
-                class38_sub2_sub1_1.method363(anInt1517 - anInt1513, anInt1516 - super.anInt1380, -122,
+                class38_sub2_sub1_1.translate(anInt1517 - anInt1513, anInt1516 - super.anInt1380, -122,
                         anInt1518 - super.anInt1381);
                 if (super.anInt1426 == 512) {
                     class38_sub2_sub1_1.method361(0);
@@ -135,11 +135,11 @@ public class PlayerEntity extends PathingEntity {
                     class38_sub2_sub1_1.method361(0);
                     class38_sub2_sub1_1.method361(0);
                 }
-                class38_sub2_sub1_1.method363(anInt1513 - anInt1517, super.anInt1380 - anInt1516, -122,
+                class38_sub2_sub1_1.translate(anInt1513 - anInt1517, super.anInt1380 - anInt1516, -122,
                         super.anInt1381 - anInt1518);
             }
         }
-        class38_sub2_sub1.aBoolean1256 = true;
+        class38_sub2_sub1.pickable = true;
         return class38_sub2_sub1;
     }
 
@@ -177,8 +177,8 @@ public class PlayerEntity extends PathingEntity {
                 if (l1 >= 256 && l1 < 512)
                     aclass38_sub2_sub1[j1++] = IdkType.instances[l1 - 256].getModel();
                 if (l1 >= 512) {
-                    ObjType objType = ObjType.method169(l1 - 512);
-                    Model class38_sub2_sub1_2 = objType.method175((byte) 6, anInt1507);
+                    ObjType objType = ObjType.get(l1 - 512);
+                    Model class38_sub2_sub1_2 = objType.getWornModel(anInt1507);
                     if (class38_sub2_sub1_2 != null)
                         aclass38_sub2_sub1[j1++] = class38_sub2_sub1_2;
                 }
@@ -196,7 +196,7 @@ public class PlayerEntity extends PathingEntity {
 
             class38_sub2_sub1.applyGroups(4);
             class38_sub2_sub1.applyLighting(64, 850, -30, -50, -30, true);
-            cache.method342(6, l, class38_sub2_sub1);
+            cache.put(6, l, class38_sub2_sub1);
         }
         if (aBoolean1524)
             return class38_sub2_sub1;
@@ -223,7 +223,7 @@ public class PlayerEntity extends PathingEntity {
             if (l >= 256 && l < 512)
                 aclass38_sub2_sub1[j++] = IdkType.instances[l - 256].getHeadModel();
             if (l >= 512) {
-                Model class38_sub2_sub1_1 = ObjType.method169(l - 512).method176(-22246, anInt1507);
+                Model class38_sub2_sub1_1 = ObjType.get(l - 512).getHeadModel(anInt1507);
                 if (class38_sub2_sub1_1 != null)
                     aclass38_sub2_sub1[j++] = class38_sub2_sub1_1;
             }

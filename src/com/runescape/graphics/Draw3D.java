@@ -7,9 +7,9 @@ public class Draw3D extends Draw2D {
     public static void method384(boolean flag) {
         anIntArray1444 = null;
         anIntArray1444 = null;
-        anIntArray1446 = null;
-        anIntArray1447 = null;
-        anIntArray1448 = null;
+        sin = null;
+        cos = null;
+        offsets = null;
         indexedSpritesArray = null;
         aBooleanArray1451 = null;
         anIntArray1452 = null;
@@ -22,28 +22,28 @@ public class Draw3D extends Draw2D {
         anIntArrayArray1459 = null;
     }
 
-    public static void method385(int i) {
+    public static void init2D(int i) {
         while (i >= 0) {
             for (int j = 1; j > 0; j++)
                 ;
         }
-        anIntArray1448 = new int[Draw2D.anInt1310];
-        for (int k = 0; k < Draw2D.anInt1310; k++)
-            anIntArray1448[k] = Draw2D.anInt1309 * k;
+        offsets = new int[Draw2D.height];
+        for (int k = 0; k < Draw2D.height; k++)
+            offsets[k] = Draw2D.width * k;
 
-        anInt1442 = Draw2D.anInt1309 / 2;
-        anInt1443 = Draw2D.anInt1310 / 2;
+        centerX = Draw2D.width / 2;
+        centerY = Draw2D.height / 2;
     }
 
     public static void method386(int i, int j, int k) {
         if (k != 0)
             aBoolean1432 = !aBoolean1432;
-        anIntArray1448 = new int[i];
+        offsets = new int[i];
         for (int l = 0; l < i; l++)
-            anIntArray1448[l] = j * l;
+            offsets[l] = j * l;
 
-        anInt1442 = j / 2;
-        anInt1443 = i / 2;
+        centerX = j / 2;
+        centerY = i / 2;
     }
 
     public static void method387(boolean flag) {
@@ -294,12 +294,12 @@ public class Draw3D extends Draw2D {
             k3 = (k1 - i2 << 15) / (i - k);
         }
         if (i <= j && i <= k) {
-            if (i >= Draw2D.anInt1312)
+            if (i >= Draw2D.bottom)
                 return;
-            if (j > Draw2D.anInt1312)
-                j = Draw2D.anInt1312;
-            if (k > Draw2D.anInt1312)
-                k = Draw2D.anInt1312;
+            if (j > Draw2D.bottom)
+                j = Draw2D.bottom;
+            if (k > Draw2D.bottom)
+                k = Draw2D.bottom;
             if (j < k) {
                 j1 = l <<= 16;
                 i2 = k1 <<= 15;
@@ -320,8 +320,8 @@ public class Draw3D extends Draw2D {
                 if (i != j && j3 < j2 || i == j && j3 > l2) {
                     k -= j;
                     j -= i;
-                    for (i = anIntArray1448[i]; --j >= 0; i += Draw2D.anInt1309) {
-                        method396(Draw2D.anIntArray1308, i, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
+                    for (i = offsets[i]; --j >= 0; i += Draw2D.width) {
+                        method396(Draw2D.dest, i, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
                         j1 += j3;
                         l += j2;
                         i2 += k3;
@@ -329,19 +329,19 @@ public class Draw3D extends Draw2D {
                     }
 
                     while (--k >= 0) {
-                        method396(Draw2D.anIntArray1308, i, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
+                        method396(Draw2D.dest, i, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
                         j1 += j3;
                         i1 += l2;
                         i2 += k3;
                         l1 += i3;
-                        i += Draw2D.anInt1309;
+                        i += Draw2D.width;
                     }
                     return;
                 }
                 k -= j;
                 j -= i;
-                for (i = anIntArray1448[i]; --j >= 0; i += Draw2D.anInt1309) {
-                    method396(Draw2D.anIntArray1308, i, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
+                for (i = offsets[i]; --j >= 0; i += Draw2D.width) {
+                    method396(Draw2D.dest, i, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
                     j1 += j3;
                     l += j2;
                     i2 += k3;
@@ -349,12 +349,12 @@ public class Draw3D extends Draw2D {
                 }
 
                 while (--k >= 0) {
-                    method396(Draw2D.anIntArray1308, i, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
+                    method396(Draw2D.dest, i, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
                     j1 += j3;
                     i1 += l2;
                     i2 += k3;
                     l1 += i3;
-                    i += Draw2D.anInt1309;
+                    i += Draw2D.width;
                 }
                 return;
             }
@@ -377,8 +377,8 @@ public class Draw3D extends Draw2D {
             if (i != k && j3 < j2 || i == k && l2 > j2) {
                 j -= k;
                 k -= i;
-                for (i = anIntArray1448[i]; --k >= 0; i += Draw2D.anInt1309) {
-                    method396(Draw2D.anIntArray1308, i, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
+                for (i = offsets[i]; --k >= 0; i += Draw2D.width) {
+                    method396(Draw2D.dest, i, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
                     i1 += j3;
                     l += j2;
                     l1 += k3;
@@ -386,19 +386,19 @@ public class Draw3D extends Draw2D {
                 }
 
                 while (--j >= 0) {
-                    method396(Draw2D.anIntArray1308, i, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
+                    method396(Draw2D.dest, i, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
                     j1 += l2;
                     l += j2;
                     i2 += i3;
                     k1 += k2;
-                    i += Draw2D.anInt1309;
+                    i += Draw2D.width;
                 }
                 return;
             }
             j -= k;
             k -= i;
-            for (i = anIntArray1448[i]; --k >= 0; i += Draw2D.anInt1309) {
-                method396(Draw2D.anIntArray1308, i, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
+            for (i = offsets[i]; --k >= 0; i += Draw2D.width) {
+                method396(Draw2D.dest, i, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
                 i1 += j3;
                 l += j2;
                 l1 += k3;
@@ -406,22 +406,22 @@ public class Draw3D extends Draw2D {
             }
 
             while (--j >= 0) {
-                method396(Draw2D.anIntArray1308, i, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
+                method396(Draw2D.dest, i, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
                 j1 += l2;
                 l += j2;
                 i2 += i3;
                 k1 += k2;
-                i += Draw2D.anInt1309;
+                i += Draw2D.width;
             }
             return;
         }
         if (j <= k) {
-            if (j >= Draw2D.anInt1312)
+            if (j >= Draw2D.bottom)
                 return;
-            if (k > Draw2D.anInt1312)
-                k = Draw2D.anInt1312;
-            if (i > Draw2D.anInt1312)
-                i = Draw2D.anInt1312;
+            if (k > Draw2D.bottom)
+                k = Draw2D.bottom;
+            if (i > Draw2D.bottom)
+                i = Draw2D.bottom;
             if (k < i) {
                 l = i1 <<= 16;
                 k1 = l1 <<= 15;
@@ -442,8 +442,8 @@ public class Draw3D extends Draw2D {
                 if (j != k && j2 < l2 || j == k && j2 > j3) {
                     i -= k;
                     k -= j;
-                    for (j = anIntArray1448[j]; --k >= 0; j += Draw2D.anInt1309) {
-                        method396(Draw2D.anIntArray1308, j, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
+                    for (j = offsets[j]; --k >= 0; j += Draw2D.width) {
+                        method396(Draw2D.dest, j, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
                         l += j2;
                         i1 += l2;
                         k1 += k2;
@@ -451,19 +451,19 @@ public class Draw3D extends Draw2D {
                     }
 
                     while (--i >= 0) {
-                        method396(Draw2D.anIntArray1308, j, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
+                        method396(Draw2D.dest, j, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
                         l += j2;
                         j1 += j3;
                         k1 += k2;
                         i2 += k3;
-                        j += Draw2D.anInt1309;
+                        j += Draw2D.width;
                     }
                     return;
                 }
                 i -= k;
                 k -= j;
-                for (j = anIntArray1448[j]; --k >= 0; j += Draw2D.anInt1309) {
-                    method396(Draw2D.anIntArray1308, j, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
+                for (j = offsets[j]; --k >= 0; j += Draw2D.width) {
+                    method396(Draw2D.dest, j, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
                     l += j2;
                     i1 += l2;
                     k1 += k2;
@@ -471,12 +471,12 @@ public class Draw3D extends Draw2D {
                 }
 
                 while (--i >= 0) {
-                    method396(Draw2D.anIntArray1308, j, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
+                    method396(Draw2D.dest, j, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
                     l += j2;
                     j1 += j3;
                     k1 += k2;
                     i2 += k3;
-                    j += Draw2D.anInt1309;
+                    j += Draw2D.width;
                 }
                 return;
             }
@@ -499,8 +499,8 @@ public class Draw3D extends Draw2D {
             if (j2 < l2) {
                 k -= i;
                 i -= j;
-                for (j = anIntArray1448[j]; --i >= 0; j += Draw2D.anInt1309) {
-                    method396(Draw2D.anIntArray1308, j, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
+                for (j = offsets[j]; --i >= 0; j += Draw2D.width) {
+                    method396(Draw2D.dest, j, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
                     j1 += j2;
                     i1 += l2;
                     i2 += k2;
@@ -508,19 +508,19 @@ public class Draw3D extends Draw2D {
                 }
 
                 while (--k >= 0) {
-                    method396(Draw2D.anIntArray1308, j, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
+                    method396(Draw2D.dest, j, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
                     l += j3;
                     i1 += l2;
                     k1 += k3;
                     l1 += i3;
-                    j += Draw2D.anInt1309;
+                    j += Draw2D.width;
                 }
                 return;
             }
             k -= i;
             i -= j;
-            for (j = anIntArray1448[j]; --i >= 0; j += Draw2D.anInt1309) {
-                method396(Draw2D.anIntArray1308, j, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
+            for (j = offsets[j]; --i >= 0; j += Draw2D.width) {
+                method396(Draw2D.dest, j, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
                 j1 += j2;
                 i1 += l2;
                 i2 += k2;
@@ -528,21 +528,21 @@ public class Draw3D extends Draw2D {
             }
 
             while (--k >= 0) {
-                method396(Draw2D.anIntArray1308, j, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
+                method396(Draw2D.dest, j, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
                 l += j3;
                 i1 += l2;
                 k1 += k3;
                 l1 += i3;
-                j += Draw2D.anInt1309;
+                j += Draw2D.width;
             }
             return;
         }
-        if (k >= Draw2D.anInt1312)
+        if (k >= Draw2D.bottom)
             return;
-        if (i > Draw2D.anInt1312)
-            i = Draw2D.anInt1312;
-        if (j > Draw2D.anInt1312)
-            j = Draw2D.anInt1312;
+        if (i > Draw2D.bottom)
+            i = Draw2D.bottom;
+        if (j > Draw2D.bottom)
+            j = Draw2D.bottom;
         if (i < j) {
             i1 = j1 <<= 16;
             l1 = i2 <<= 15;
@@ -563,8 +563,8 @@ public class Draw3D extends Draw2D {
             if (l2 < j3) {
                 j -= i;
                 i -= k;
-                for (k = anIntArray1448[k]; --i >= 0; k += Draw2D.anInt1309) {
-                    method396(Draw2D.anIntArray1308, k, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
+                for (k = offsets[k]; --i >= 0; k += Draw2D.width) {
+                    method396(Draw2D.dest, k, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
                     i1 += l2;
                     j1 += j3;
                     l1 += i3;
@@ -572,19 +572,19 @@ public class Draw3D extends Draw2D {
                 }
 
                 while (--j >= 0) {
-                    method396(Draw2D.anIntArray1308, k, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
+                    method396(Draw2D.dest, k, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
                     i1 += l2;
                     l += j2;
                     l1 += i3;
                     k1 += k2;
-                    k += Draw2D.anInt1309;
+                    k += Draw2D.width;
                 }
                 return;
             }
             j -= i;
             i -= k;
-            for (k = anIntArray1448[k]; --i >= 0; k += Draw2D.anInt1309) {
-                method396(Draw2D.anIntArray1308, k, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
+            for (k = offsets[k]; --i >= 0; k += Draw2D.width) {
+                method396(Draw2D.dest, k, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
                 i1 += l2;
                 j1 += j3;
                 l1 += i3;
@@ -592,12 +592,12 @@ public class Draw3D extends Draw2D {
             }
 
             while (--j >= 0) {
-                method396(Draw2D.anIntArray1308, k, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
+                method396(Draw2D.dest, k, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
                 i1 += l2;
                 l += j2;
                 l1 += i3;
                 k1 += k2;
-                k += Draw2D.anInt1309;
+                k += Draw2D.width;
             }
             return;
         }
@@ -620,8 +620,8 @@ public class Draw3D extends Draw2D {
         if (l2 < j3) {
             i -= j;
             j -= k;
-            for (k = anIntArray1448[k]; --j >= 0; k += Draw2D.anInt1309) {
-                method396(Draw2D.anIntArray1308, k, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
+            for (k = offsets[k]; --j >= 0; k += Draw2D.width) {
+                method396(Draw2D.dest, k, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
                 l += l2;
                 j1 += j3;
                 k1 += i3;
@@ -629,19 +629,19 @@ public class Draw3D extends Draw2D {
             }
 
             while (--i >= 0) {
-                method396(Draw2D.anIntArray1308, k, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
+                method396(Draw2D.dest, k, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
                 i1 += j2;
                 j1 += j3;
                 l1 += k2;
                 i2 += k3;
-                k += Draw2D.anInt1309;
+                k += Draw2D.width;
             }
             return;
         }
         i -= j;
         j -= k;
-        for (k = anIntArray1448[k]; --j >= 0; k += Draw2D.anInt1309) {
-            method396(Draw2D.anIntArray1308, k, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
+        for (k = offsets[k]; --j >= 0; k += Draw2D.width) {
+            method396(Draw2D.dest, k, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
             l += l2;
             j1 += j3;
             k1 += i3;
@@ -649,17 +649,17 @@ public class Draw3D extends Draw2D {
         }
 
         while (--i >= 0) {
-            method396(Draw2D.anIntArray1308, k, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
+            method396(Draw2D.dest, k, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
             i1 += j2;
             j1 += j3;
             l1 += k2;
             i2 += k3;
-            k += Draw2D.anInt1309;
+            k += Draw2D.width;
         }
     }
 
     public static void method396(int[] ai, int i, int j, int k, int l, int i1, int j1, int k1) {
-        if (aBoolean1440) {
+        if (jagged) {
             int l1;
             if (aBoolean1438) {
                 if (i1 - l > 3)
@@ -770,12 +770,12 @@ public class Draw3D extends Draw2D {
         if (k != i)
             j2 = (l - j1 << 16) / (i - k);
         if (i <= j && i <= k) {
-            if (i >= Draw2D.anInt1312)
+            if (i >= Draw2D.bottom)
                 return;
-            if (j > Draw2D.anInt1312)
-                j = Draw2D.anInt1312;
-            if (k > Draw2D.anInt1312)
-                k = Draw2D.anInt1312;
+            if (j > Draw2D.bottom)
+                j = Draw2D.bottom;
+            if (k > Draw2D.bottom)
+                k = Draw2D.bottom;
             if (j < k) {
                 j1 = l <<= 16;
                 if (i < 0) {
@@ -791,33 +791,33 @@ public class Draw3D extends Draw2D {
                 if (i != j && j2 < l1 || i == j && j2 > i2) {
                     k -= j;
                     j -= i;
-                    for (i = anIntArray1448[i]; --j >= 0; i += Draw2D.anInt1309) {
-                        method398(Draw2D.anIntArray1308, i, k1, 0, j1 >> 16, l >> 16);
+                    for (i = offsets[i]; --j >= 0; i += Draw2D.width) {
+                        method398(Draw2D.dest, i, k1, 0, j1 >> 16, l >> 16);
                         j1 += j2;
                         l += l1;
                     }
 
                     while (--k >= 0) {
-                        method398(Draw2D.anIntArray1308, i, k1, 0, j1 >> 16, i1 >> 16);
+                        method398(Draw2D.dest, i, k1, 0, j1 >> 16, i1 >> 16);
                         j1 += j2;
                         i1 += i2;
-                        i += Draw2D.anInt1309;
+                        i += Draw2D.width;
                     }
                     return;
                 }
                 k -= j;
                 j -= i;
-                for (i = anIntArray1448[i]; --j >= 0; i += Draw2D.anInt1309) {
-                    method398(Draw2D.anIntArray1308, i, k1, 0, l >> 16, j1 >> 16);
+                for (i = offsets[i]; --j >= 0; i += Draw2D.width) {
+                    method398(Draw2D.dest, i, k1, 0, l >> 16, j1 >> 16);
                     j1 += j2;
                     l += l1;
                 }
 
                 while (--k >= 0) {
-                    method398(Draw2D.anIntArray1308, i, k1, 0, i1 >> 16, j1 >> 16);
+                    method398(Draw2D.dest, i, k1, 0, i1 >> 16, j1 >> 16);
                     j1 += j2;
                     i1 += i2;
-                    i += Draw2D.anInt1309;
+                    i += Draw2D.width;
                 }
                 return;
             }
@@ -835,43 +835,43 @@ public class Draw3D extends Draw2D {
             if (i != k && j2 < l1 || i == k && i2 > l1) {
                 j -= k;
                 k -= i;
-                for (i = anIntArray1448[i]; --k >= 0; i += Draw2D.anInt1309) {
-                    method398(Draw2D.anIntArray1308, i, k1, 0, i1 >> 16, l >> 16);
+                for (i = offsets[i]; --k >= 0; i += Draw2D.width) {
+                    method398(Draw2D.dest, i, k1, 0, i1 >> 16, l >> 16);
                     i1 += j2;
                     l += l1;
                 }
 
                 while (--j >= 0) {
-                    method398(Draw2D.anIntArray1308, i, k1, 0, j1 >> 16, l >> 16);
+                    method398(Draw2D.dest, i, k1, 0, j1 >> 16, l >> 16);
                     j1 += i2;
                     l += l1;
-                    i += Draw2D.anInt1309;
+                    i += Draw2D.width;
                 }
                 return;
             }
             j -= k;
             k -= i;
-            for (i = anIntArray1448[i]; --k >= 0; i += Draw2D.anInt1309) {
-                method398(Draw2D.anIntArray1308, i, k1, 0, l >> 16, i1 >> 16);
+            for (i = offsets[i]; --k >= 0; i += Draw2D.width) {
+                method398(Draw2D.dest, i, k1, 0, l >> 16, i1 >> 16);
                 i1 += j2;
                 l += l1;
             }
 
             while (--j >= 0) {
-                method398(Draw2D.anIntArray1308, i, k1, 0, l >> 16, j1 >> 16);
+                method398(Draw2D.dest, i, k1, 0, l >> 16, j1 >> 16);
                 j1 += i2;
                 l += l1;
-                i += Draw2D.anInt1309;
+                i += Draw2D.width;
             }
             return;
         }
         if (j <= k) {
-            if (j >= Draw2D.anInt1312)
+            if (j >= Draw2D.bottom)
                 return;
-            if (k > Draw2D.anInt1312)
-                k = Draw2D.anInt1312;
-            if (i > Draw2D.anInt1312)
-                i = Draw2D.anInt1312;
+            if (k > Draw2D.bottom)
+                k = Draw2D.bottom;
+            if (i > Draw2D.bottom)
+                i = Draw2D.bottom;
             if (k < i) {
                 l = i1 <<= 16;
                 if (j < 0) {
@@ -887,33 +887,33 @@ public class Draw3D extends Draw2D {
                 if (j != k && l1 < i2 || j == k && l1 > j2) {
                     i -= k;
                     k -= j;
-                    for (j = anIntArray1448[j]; --k >= 0; j += Draw2D.anInt1309) {
-                        method398(Draw2D.anIntArray1308, j, k1, 0, l >> 16, i1 >> 16);
+                    for (j = offsets[j]; --k >= 0; j += Draw2D.width) {
+                        method398(Draw2D.dest, j, k1, 0, l >> 16, i1 >> 16);
                         l += l1;
                         i1 += i2;
                     }
 
                     while (--i >= 0) {
-                        method398(Draw2D.anIntArray1308, j, k1, 0, l >> 16, j1 >> 16);
+                        method398(Draw2D.dest, j, k1, 0, l >> 16, j1 >> 16);
                         l += l1;
                         j1 += j2;
-                        j += Draw2D.anInt1309;
+                        j += Draw2D.width;
                     }
                     return;
                 }
                 i -= k;
                 k -= j;
-                for (j = anIntArray1448[j]; --k >= 0; j += Draw2D.anInt1309) {
-                    method398(Draw2D.anIntArray1308, j, k1, 0, i1 >> 16, l >> 16);
+                for (j = offsets[j]; --k >= 0; j += Draw2D.width) {
+                    method398(Draw2D.dest, j, k1, 0, i1 >> 16, l >> 16);
                     l += l1;
                     i1 += i2;
                 }
 
                 while (--i >= 0) {
-                    method398(Draw2D.anIntArray1308, j, k1, 0, j1 >> 16, l >> 16);
+                    method398(Draw2D.dest, j, k1, 0, j1 >> 16, l >> 16);
                     l += l1;
                     j1 += j2;
-                    j += Draw2D.anInt1309;
+                    j += Draw2D.width;
                 }
                 return;
             }
@@ -931,42 +931,42 @@ public class Draw3D extends Draw2D {
             if (l1 < i2) {
                 k -= i;
                 i -= j;
-                for (j = anIntArray1448[j]; --i >= 0; j += Draw2D.anInt1309) {
-                    method398(Draw2D.anIntArray1308, j, k1, 0, j1 >> 16, i1 >> 16);
+                for (j = offsets[j]; --i >= 0; j += Draw2D.width) {
+                    method398(Draw2D.dest, j, k1, 0, j1 >> 16, i1 >> 16);
                     j1 += l1;
                     i1 += i2;
                 }
 
                 while (--k >= 0) {
-                    method398(Draw2D.anIntArray1308, j, k1, 0, l >> 16, i1 >> 16);
+                    method398(Draw2D.dest, j, k1, 0, l >> 16, i1 >> 16);
                     l += j2;
                     i1 += i2;
-                    j += Draw2D.anInt1309;
+                    j += Draw2D.width;
                 }
                 return;
             }
             k -= i;
             i -= j;
-            for (j = anIntArray1448[j]; --i >= 0; j += Draw2D.anInt1309) {
-                method398(Draw2D.anIntArray1308, j, k1, 0, i1 >> 16, j1 >> 16);
+            for (j = offsets[j]; --i >= 0; j += Draw2D.width) {
+                method398(Draw2D.dest, j, k1, 0, i1 >> 16, j1 >> 16);
                 j1 += l1;
                 i1 += i2;
             }
 
             while (--k >= 0) {
-                method398(Draw2D.anIntArray1308, j, k1, 0, i1 >> 16, l >> 16);
+                method398(Draw2D.dest, j, k1, 0, i1 >> 16, l >> 16);
                 l += j2;
                 i1 += i2;
-                j += Draw2D.anInt1309;
+                j += Draw2D.width;
             }
             return;
         }
-        if (k >= Draw2D.anInt1312)
+        if (k >= Draw2D.bottom)
             return;
-        if (i > Draw2D.anInt1312)
-            i = Draw2D.anInt1312;
-        if (j > Draw2D.anInt1312)
-            j = Draw2D.anInt1312;
+        if (i > Draw2D.bottom)
+            i = Draw2D.bottom;
+        if (j > Draw2D.bottom)
+            j = Draw2D.bottom;
         if (i < j) {
             i1 = j1 <<= 16;
             if (k < 0) {
@@ -982,33 +982,33 @@ public class Draw3D extends Draw2D {
             if (i2 < j2) {
                 j -= i;
                 i -= k;
-                for (k = anIntArray1448[k]; --i >= 0; k += Draw2D.anInt1309) {
-                    method398(Draw2D.anIntArray1308, k, k1, 0, i1 >> 16, j1 >> 16);
+                for (k = offsets[k]; --i >= 0; k += Draw2D.width) {
+                    method398(Draw2D.dest, k, k1, 0, i1 >> 16, j1 >> 16);
                     i1 += i2;
                     j1 += j2;
                 }
 
                 while (--j >= 0) {
-                    method398(Draw2D.anIntArray1308, k, k1, 0, i1 >> 16, l >> 16);
+                    method398(Draw2D.dest, k, k1, 0, i1 >> 16, l >> 16);
                     i1 += i2;
                     l += l1;
-                    k += Draw2D.anInt1309;
+                    k += Draw2D.width;
                 }
                 return;
             }
             j -= i;
             i -= k;
-            for (k = anIntArray1448[k]; --i >= 0; k += Draw2D.anInt1309) {
-                method398(Draw2D.anIntArray1308, k, k1, 0, j1 >> 16, i1 >> 16);
+            for (k = offsets[k]; --i >= 0; k += Draw2D.width) {
+                method398(Draw2D.dest, k, k1, 0, j1 >> 16, i1 >> 16);
                 i1 += i2;
                 j1 += j2;
             }
 
             while (--j >= 0) {
-                method398(Draw2D.anIntArray1308, k, k1, 0, l >> 16, i1 >> 16);
+                method398(Draw2D.dest, k, k1, 0, l >> 16, i1 >> 16);
                 i1 += i2;
                 l += l1;
-                k += Draw2D.anInt1309;
+                k += Draw2D.width;
             }
             return;
         }
@@ -1026,33 +1026,33 @@ public class Draw3D extends Draw2D {
         if (i2 < j2) {
             i -= j;
             j -= k;
-            for (k = anIntArray1448[k]; --j >= 0; k += Draw2D.anInt1309) {
-                method398(Draw2D.anIntArray1308, k, k1, 0, l >> 16, j1 >> 16);
+            for (k = offsets[k]; --j >= 0; k += Draw2D.width) {
+                method398(Draw2D.dest, k, k1, 0, l >> 16, j1 >> 16);
                 l += i2;
                 j1 += j2;
             }
 
             while (--i >= 0) {
-                method398(Draw2D.anIntArray1308, k, k1, 0, i1 >> 16, j1 >> 16);
+                method398(Draw2D.dest, k, k1, 0, i1 >> 16, j1 >> 16);
                 i1 += l1;
                 j1 += j2;
-                k += Draw2D.anInt1309;
+                k += Draw2D.width;
             }
             return;
         }
         i -= j;
         j -= k;
-        for (k = anIntArray1448[k]; --j >= 0; k += Draw2D.anInt1309) {
-            method398(Draw2D.anIntArray1308, k, k1, 0, j1 >> 16, l >> 16);
+        for (k = offsets[k]; --j >= 0; k += Draw2D.width) {
+            method398(Draw2D.dest, k, k1, 0, j1 >> 16, l >> 16);
             l += i2;
             j1 += j2;
         }
 
         while (--i >= 0) {
-            method398(Draw2D.anIntArray1308, k, k1, 0, j1 >> 16, i1 >> 16);
+            method398(Draw2D.dest, k, k1, 0, j1 >> 16, i1 >> 16);
             i1 += l1;
             j1 += j2;
-            k += Draw2D.anInt1309;
+            k += Draw2D.width;
         }
     }
 
@@ -1132,12 +1132,12 @@ public class Draw3D extends Draw2D {
             j8 = (k1 - i2 << 16) / (i - k);
         }
         if (i <= j && i <= k) {
-            if (i >= Draw2D.anInt1312)
+            if (i >= Draw2D.bottom)
                 return;
-            if (j > Draw2D.anInt1312)
-                j = Draw2D.anInt1312;
-            if (k > Draw2D.anInt1312)
-                k = Draw2D.anInt1312;
+            if (j > Draw2D.bottom)
+                j = Draw2D.bottom;
+            if (k > Draw2D.bottom)
+                k = Draw2D.bottom;
             if (j < k) {
                 j1 = l <<= 16;
                 i2 = k1 <<= 16;
@@ -1155,34 +1155,34 @@ public class Draw3D extends Draw2D {
                     l1 -= l7 * j;
                     j = 0;
                 }
-                int k8 = i - anInt1443;
+                int k8 = i - centerY;
                 l4 += j5 * k8;
                 k5 += i6 * k8;
                 j6 += l6 * k8;
                 if (i != j && i8 < i7 || i == j && i8 > k7) {
                     k -= j;
                     j -= i;
-                    i = anIntArray1448[i];
+                    i = offsets[i];
                     while (--j >= 0) {
-                        method400(Draw2D.anIntArray1308, ai, 0, 0, i, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8,
+                        method400(Draw2D.dest, ai, 0, 0, i, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8,
                                 l4, k5, j6, i5, l5, k6);
                         j1 += i8;
                         l += i7;
                         i2 += j8;
                         k1 += j7;
-                        i += Draw2D.anInt1309;
+                        i += Draw2D.width;
                         l4 += j5;
                         k5 += i6;
                         j6 += l6;
                     }
                     while (--k >= 0) {
-                        method400(Draw2D.anIntArray1308, ai, 0, 0, i, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8,
+                        method400(Draw2D.dest, ai, 0, 0, i, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8,
                                 l4, k5, j6, i5, l5, k6);
                         j1 += i8;
                         i1 += k7;
                         i2 += j8;
                         l1 += l7;
-                        i += Draw2D.anInt1309;
+                        i += Draw2D.width;
                         l4 += j5;
                         k5 += i6;
                         j6 += l6;
@@ -1191,27 +1191,27 @@ public class Draw3D extends Draw2D {
                 }
                 k -= j;
                 j -= i;
-                i = anIntArray1448[i];
+                i = offsets[i];
                 while (--j >= 0) {
-                    method400(Draw2D.anIntArray1308, ai, 0, 0, i, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4,
+                    method400(Draw2D.dest, ai, 0, 0, i, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     j1 += i8;
                     l += i7;
                     i2 += j8;
                     k1 += j7;
-                    i += Draw2D.anInt1309;
+                    i += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
                 while (--k >= 0) {
-                    method400(Draw2D.anIntArray1308, ai, 0, 0, i, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4,
+                    method400(Draw2D.dest, ai, 0, 0, i, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     j1 += i8;
                     i1 += k7;
                     i2 += j8;
                     l1 += l7;
-                    i += Draw2D.anInt1309;
+                    i += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
@@ -1234,34 +1234,34 @@ public class Draw3D extends Draw2D {
                 i2 -= l7 * k;
                 k = 0;
             }
-            int l8 = i - anInt1443;
+            int l8 = i - centerY;
             l4 += j5 * l8;
             k5 += i6 * l8;
             j6 += l6 * l8;
             if (i != k && i8 < i7 || i == k && k7 > i7) {
                 j -= k;
                 k -= i;
-                i = anIntArray1448[i];
+                i = offsets[i];
                 while (--k >= 0) {
-                    method400(Draw2D.anIntArray1308, ai, 0, 0, i, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
+                    method400(Draw2D.dest, ai, 0, 0, i, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     i1 += i8;
                     l += i7;
                     l1 += j8;
                     k1 += j7;
-                    i += Draw2D.anInt1309;
+                    i += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
                 while (--j >= 0) {
-                    method400(Draw2D.anIntArray1308, ai, 0, 0, i, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4,
+                    method400(Draw2D.dest, ai, 0, 0, i, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     j1 += k7;
                     l += i7;
                     i2 += l7;
                     k1 += j7;
-                    i += Draw2D.anInt1309;
+                    i += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
@@ -1270,27 +1270,27 @@ public class Draw3D extends Draw2D {
             }
             j -= k;
             k -= i;
-            i = anIntArray1448[i];
+            i = offsets[i];
             while (--k >= 0) {
-                method400(Draw2D.anIntArray1308, ai, 0, 0, i, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4, k5,
+                method400(Draw2D.dest, ai, 0, 0, i, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 i1 += i8;
                 l += i7;
                 l1 += j8;
                 k1 += j7;
-                i += Draw2D.anInt1309;
+                i += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
             while (--j >= 0) {
-                method400(Draw2D.anIntArray1308, ai, 0, 0, i, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4, k5,
+                method400(Draw2D.dest, ai, 0, 0, i, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 j1 += k7;
                 l += i7;
                 i2 += l7;
                 k1 += j7;
-                i += Draw2D.anInt1309;
+                i += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
@@ -1298,12 +1298,12 @@ public class Draw3D extends Draw2D {
             return;
         }
         if (j <= k) {
-            if (j >= Draw2D.anInt1312)
+            if (j >= Draw2D.bottom)
                 return;
-            if (k > Draw2D.anInt1312)
-                k = Draw2D.anInt1312;
-            if (i > Draw2D.anInt1312)
-                i = Draw2D.anInt1312;
+            if (k > Draw2D.bottom)
+                k = Draw2D.bottom;
+            if (i > Draw2D.bottom)
+                i = Draw2D.bottom;
             if (k < i) {
                 l = i1 <<= 16;
                 k1 = l1 <<= 16;
@@ -1321,34 +1321,34 @@ public class Draw3D extends Draw2D {
                     i2 -= j8 * k;
                     k = 0;
                 }
-                int i9 = j - anInt1443;
+                int i9 = j - centerY;
                 l4 += j5 * i9;
                 k5 += i6 * i9;
                 j6 += l6 * i9;
                 if (j != k && i7 < k7 || j == k && i7 > i8) {
                     i -= k;
                     k -= j;
-                    j = anIntArray1448[j];
+                    j = offsets[j];
                     while (--k >= 0) {
-                        method400(Draw2D.anIntArray1308, ai, 0, 0, j, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8,
+                        method400(Draw2D.dest, ai, 0, 0, j, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8,
                                 l4, k5, j6, i5, l5, k6);
                         l += i7;
                         i1 += k7;
                         k1 += j7;
                         l1 += l7;
-                        j += Draw2D.anInt1309;
+                        j += Draw2D.width;
                         l4 += j5;
                         k5 += i6;
                         j6 += l6;
                     }
                     while (--i >= 0) {
-                        method400(Draw2D.anIntArray1308, ai, 0, 0, j, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8,
+                        method400(Draw2D.dest, ai, 0, 0, j, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8,
                                 l4, k5, j6, i5, l5, k6);
                         l += i7;
                         j1 += i8;
                         k1 += j7;
                         i2 += j8;
-                        j += Draw2D.anInt1309;
+                        j += Draw2D.width;
                         l4 += j5;
                         k5 += i6;
                         j6 += l6;
@@ -1357,27 +1357,27 @@ public class Draw3D extends Draw2D {
                 }
                 i -= k;
                 k -= j;
-                j = anIntArray1448[j];
+                j = offsets[j];
                 while (--k >= 0) {
-                    method400(Draw2D.anIntArray1308, ai, 0, 0, j, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
+                    method400(Draw2D.dest, ai, 0, 0, j, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     l += i7;
                     i1 += k7;
                     k1 += j7;
                     l1 += l7;
-                    j += Draw2D.anInt1309;
+                    j += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
                 while (--i >= 0) {
-                    method400(Draw2D.anIntArray1308, ai, 0, 0, j, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4,
+                    method400(Draw2D.dest, ai, 0, 0, j, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     l += i7;
                     j1 += i8;
                     k1 += j7;
                     i2 += j8;
-                    j += Draw2D.anInt1309;
+                    j += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
@@ -1400,34 +1400,34 @@ public class Draw3D extends Draw2D {
                 k1 -= j8 * i;
                 i = 0;
             }
-            int j9 = j - anInt1443;
+            int j9 = j - centerY;
             l4 += j5 * j9;
             k5 += i6 * j9;
             j6 += l6 * j9;
             if (i7 < k7) {
                 k -= i;
                 i -= j;
-                j = anIntArray1448[j];
+                j = offsets[j];
                 while (--i >= 0) {
-                    method400(Draw2D.anIntArray1308, ai, 0, 0, j, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4,
+                    method400(Draw2D.dest, ai, 0, 0, j, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     j1 += i7;
                     i1 += k7;
                     i2 += j7;
                     l1 += l7;
-                    j += Draw2D.anInt1309;
+                    j += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
                 while (--k >= 0) {
-                    method400(Draw2D.anIntArray1308, ai, 0, 0, j, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4,
+                    method400(Draw2D.dest, ai, 0, 0, j, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     l += i8;
                     i1 += k7;
                     k1 += j8;
                     l1 += l7;
-                    j += Draw2D.anInt1309;
+                    j += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
@@ -1436,39 +1436,39 @@ public class Draw3D extends Draw2D {
             }
             k -= i;
             i -= j;
-            j = anIntArray1448[j];
+            j = offsets[j];
             while (--i >= 0) {
-                method400(Draw2D.anIntArray1308, ai, 0, 0, j, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4, k5,
+                method400(Draw2D.dest, ai, 0, 0, j, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 j1 += i7;
                 i1 += k7;
                 i2 += j7;
                 l1 += l7;
-                j += Draw2D.anInt1309;
+                j += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
             while (--k >= 0) {
-                method400(Draw2D.anIntArray1308, ai, 0, 0, j, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4, k5,
+                method400(Draw2D.dest, ai, 0, 0, j, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 l += i8;
                 i1 += k7;
                 k1 += j8;
                 l1 += l7;
-                j += Draw2D.anInt1309;
+                j += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
             return;
         }
-        if (k >= Draw2D.anInt1312)
+        if (k >= Draw2D.bottom)
             return;
-        if (i > Draw2D.anInt1312)
-            i = Draw2D.anInt1312;
-        if (j > Draw2D.anInt1312)
-            j = Draw2D.anInt1312;
+        if (i > Draw2D.bottom)
+            i = Draw2D.bottom;
+        if (j > Draw2D.bottom)
+            j = Draw2D.bottom;
         if (i < j) {
             i1 = j1 <<= 16;
             l1 = i2 <<= 16;
@@ -1486,34 +1486,34 @@ public class Draw3D extends Draw2D {
                 k1 -= j7 * i;
                 i = 0;
             }
-            int k9 = k - anInt1443;
+            int k9 = k - centerY;
             l4 += j5 * k9;
             k5 += i6 * k9;
             j6 += l6 * k9;
             if (k7 < i8) {
                 j -= i;
                 i -= k;
-                k = anIntArray1448[k];
+                k = offsets[k];
                 while (--i >= 0) {
-                    method400(Draw2D.anIntArray1308, ai, 0, 0, k, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4,
+                    method400(Draw2D.dest, ai, 0, 0, k, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     i1 += k7;
                     j1 += i8;
                     l1 += l7;
                     i2 += j8;
-                    k += Draw2D.anInt1309;
+                    k += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
                 while (--j >= 0) {
-                    method400(Draw2D.anIntArray1308, ai, 0, 0, k, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
+                    method400(Draw2D.dest, ai, 0, 0, k, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     i1 += k7;
                     l += i7;
                     l1 += l7;
                     k1 += j7;
-                    k += Draw2D.anInt1309;
+                    k += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
@@ -1522,27 +1522,27 @@ public class Draw3D extends Draw2D {
             }
             j -= i;
             i -= k;
-            k = anIntArray1448[k];
+            k = offsets[k];
             while (--i >= 0) {
-                method400(Draw2D.anIntArray1308, ai, 0, 0, k, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4, k5,
+                method400(Draw2D.dest, ai, 0, 0, k, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 i1 += k7;
                 j1 += i8;
                 l1 += l7;
                 i2 += j8;
-                k += Draw2D.anInt1309;
+                k += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
             while (--j >= 0) {
-                method400(Draw2D.anIntArray1308, ai, 0, 0, k, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4, k5,
+                method400(Draw2D.dest, ai, 0, 0, k, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 i1 += k7;
                 l += i7;
                 l1 += l7;
                 k1 += j7;
-                k += Draw2D.anInt1309;
+                k += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
@@ -1565,34 +1565,34 @@ public class Draw3D extends Draw2D {
             l1 -= j7 * j;
             j = 0;
         }
-        int l9 = k - anInt1443;
+        int l9 = k - centerY;
         l4 += j5 * l9;
         k5 += i6 * l9;
         j6 += l6 * l9;
         if (k7 < i8) {
             i -= j;
             j -= k;
-            k = anIntArray1448[k];
+            k = offsets[k];
             while (--j >= 0) {
-                method400(Draw2D.anIntArray1308, ai, 0, 0, k, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4, k5,
+                method400(Draw2D.dest, ai, 0, 0, k, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 l += k7;
                 j1 += i8;
                 k1 += l7;
                 i2 += j8;
-                k += Draw2D.anInt1309;
+                k += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
             while (--i >= 0) {
-                method400(Draw2D.anIntArray1308, ai, 0, 0, k, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4, k5,
+                method400(Draw2D.dest, ai, 0, 0, k, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 i1 += i7;
                 j1 += i8;
                 l1 += j7;
                 i2 += j8;
-                k += Draw2D.anInt1309;
+                k += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
@@ -1601,27 +1601,27 @@ public class Draw3D extends Draw2D {
         }
         i -= j;
         j -= k;
-        k = anIntArray1448[k];
+        k = offsets[k];
         while (--j >= 0) {
-            method400(Draw2D.anIntArray1308, ai, 0, 0, k, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4, k5, j6,
+            method400(Draw2D.dest, ai, 0, 0, k, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4, k5, j6,
                     i5, l5, k6);
             l += k7;
             j1 += i8;
             k1 += l7;
             i2 += j8;
-            k += Draw2D.anInt1309;
+            k += Draw2D.width;
             l4 += j5;
             k5 += i6;
             j6 += l6;
         }
         while (--i >= 0) {
-            method400(Draw2D.anIntArray1308, ai, 0, 0, k, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4, k5, j6,
+            method400(Draw2D.dest, ai, 0, 0, k, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4, k5, j6,
                     i5, l5, k6);
             i1 += i7;
             j1 += i8;
             l1 += j7;
             i2 += j8;
-            k += Draw2D.anInt1309;
+            k += Draw2D.width;
             l4 += j5;
             k5 += i6;
             j6 += l6;
@@ -1661,7 +1661,7 @@ public class Draw3D extends Draw2D {
         if (aBoolean1437) {
             int i4 = 0;
             int k4 = 0;
-            int k6 = l - anInt1442;
+            int k6 = l - centerX;
             l1 += (k2 >> 3) * k6;
             i2 += (l2 >> 3) * k6;
             j2 += (i3 >> 3) * k6;
@@ -1815,7 +1815,7 @@ public class Draw3D extends Draw2D {
         }
         int j4 = 0;
         int l4 = 0;
-        int l6 = l - anInt1442;
+        int l6 = l - centerX;
         l1 += (k2 >> 3) * l6;
         i2 += (l2 >> 3) * l6;
         j2 += (i3 >> 3) * l6;
@@ -1975,15 +1975,15 @@ public class Draw3D extends Draw2D {
     public static boolean aBoolean1437 = true;
     public static boolean aBoolean1438;
     public static boolean aBoolean1439;
-    public static boolean aBoolean1440 = true;
+    public static boolean jagged = true;
     public static int anInt1441;
-    public static int anInt1442;
-    public static int anInt1443;
+    public static int centerX;
+    public static int centerY;
     public static int[] anIntArray1444;
     public static int[] anIntArray1445;
-    public static int[] anIntArray1446;
-    public static int[] anIntArray1447;
-    public static int[] anIntArray1448;
+    public static int[] sin;
+    public static int[] cos;
+    public static int[] offsets;
     public static int anInt1449;
     public static IndexedSprite[] indexedSpritesArray = new IndexedSprite[50];
     public static boolean[] aBooleanArray1451 = new boolean[50];
@@ -1999,8 +1999,8 @@ public class Draw3D extends Draw2D {
     static {
         anIntArray1444 = new int[512];
         anIntArray1445 = new int[2048];
-        anIntArray1446 = new int[2048];
-        anIntArray1447 = new int[2048];
+        sin = new int[2048];
+        cos = new int[2048];
         for (int i = 1; i < 512; i++)
             anIntArray1444[i] = 32768 / i;
 
@@ -2008,8 +2008,8 @@ public class Draw3D extends Draw2D {
             anIntArray1445[j] = 0x10000 / j;
 
         for (int k = 0; k < 2048; k++) {
-            anIntArray1446[k] = (int) (65536D * Math.sin((double) k * 0.0030679614999999999D));
-            anIntArray1447[k] = (int) (65536D * Math.cos((double) k * 0.0030679614999999999D));
+            sin[k] = (int) (65536D * Math.sin((double) k * 0.0030679614999999999D));
+            cos[k] = (int) (65536D * Math.cos((double) k * 0.0030679614999999999D));
         }
 
     }

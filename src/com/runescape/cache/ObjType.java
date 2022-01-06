@@ -8,448 +8,507 @@ import com.runescape.util.Cache;
 
 public class ObjType {
 
-    public static void method167(FileArchive fileArchive) {
-        aClass38_Sub2_Sub3_139 = new Buffer(363, fileArchive.read("obj.dat", null));
-        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive.read("obj.idx", null));
-        anInt137 = class38_sub2_sub3.method448();
-        anIntArray138 = new int[anInt137];
-        int i = 2;
-        for (int j = 0; j < anInt137; j++) {
-            anIntArray138[j] = i;
-            i += class38_sub2_sub3.method448();
+    public static void load(FileArchive fileArchive) {
+        data = new Buffer(363, fileArchive.read("obj.dat", null));
+        Buffer idx = new Buffer(363, fileArchive.read("obj.idx", null));
+        count = idx.method448();
+        offsets = new int[count];
+
+        int off = 2;
+        for (int n = 0; n < count; n++) {
+            offsets[n] = off;
+            off += idx.method448();
         }
 
         objTypes = new ObjType[10];
-        for (int k = 0; k < 10; k++)
-            objTypes[k] = new ObjType();
-
-    }
-
-    public static void method168(boolean flag) {
-        cache1 = null;
-        cache2 = null;
-        anIntArray138 = null;
-        objTypes = null;
-        aClass38_Sub2_Sub3_139 = null;
-        if (!flag)
-            anInt133 = -296;
-    }
-
-    public static ObjType method169(int i) {
-        for (int j = 0; j < 10; j++)
-            if (objTypes[j].anInt143 == i)
-                return objTypes[j];
-
-        anInt141 = (anInt141 + 1) % 10;
-        ObjType objType = objTypes[anInt141];
-        aClass38_Sub2_Sub3_139.offset = anIntArray138[i];
-        objType.anInt143 = i;
-        objType.method170();
-        objType.method171(false, aClass38_Sub2_Sub3_139);
-        if (objType.anInt177 != -1)
-            objType.method172(-856);
-        if (!aBoolean142 && objType.aBoolean159) {
-            objType.aString145 = "Members Object";
-            objType.aByteArray146 = "Login to a members' server to use this object.".getBytes();
-            objType.aStringArray160 = null;
-            objType.aStringArray161 = null;
+        for (int n = 0; n < 10; n++) {
+            objTypes[n] = new ObjType();
         }
+    }
+
+    public static void unload() {
+        modelCache = null;
+        iconCache = null;
+        offsets = null;
+        objTypes = null;
+        data = null;
+    }
+
+    public static ObjType get(int index) {
+        for (int n = 0; n < 10; n++) {
+            if (objTypes[n].index == index) {
+                return objTypes[n];
+            }
+        }
+
+        cacheIndex = (cacheIndex + 1) % 10;
+        ObjType objType = objTypes[cacheIndex];
+        data.offset = offsets[index];
+        objType.index = index;
+        objType.reset();
+        objType.read(data);
+
+        if (objType.certificateId != -1) {
+            objType.toCertificate();
+        }
+
+        if (!isMember && objType.members) {
+            objType.name = "Members Object";
+            objType.description = "Login to a members' server to use this object.".getBytes();
+            objType.groundOptions = null;
+            objType.options = null;
+        }
+
         return objType;
     }
 
-    public void method170() {
-        anInt144 = 0;
-        aString145 = null;
-        aByteArray146 = null;
-        anIntArray147 = null;
-        anIntArray148 = null;
-        anInt149 = 2000;
-        anInt150 = 0;
-        anInt151 = 0;
-        anInt152 = 0;
-        anInt153 = 0;
-        anInt154 = 0;
-        aBoolean155 = false;
-        anInt156 = -1;
-        aBoolean157 = false;
-        anInt158 = 1;
-        aBoolean159 = false;
-        aStringArray160 = null;
-        aStringArray161 = null;
-        anInt162 = -1;
-        anInt163 = -1;
-        aByte164 = 0;
-        anInt165 = -1;
-        anInt166 = -1;
-        aByte167 = 0;
-        anInt168 = -1;
-        anInt169 = -1;
-        anInt170 = -1;
-        anInt171 = -1;
-        anInt172 = -1;
-        anInt173 = -1;
-        anIntArray174 = null;
-        anIntArray175 = null;
-        anInt176 = -1;
-        anInt177 = -1;
+    public void reset() {
+        modelIndex = 0;
+
+        name = null;
+        description = null;
+
+        oldColors = null;
+        newColors = null;
+
+        iconZoom = 2000;
+        iconCameraPitch = 0;
+        iconYaw = 0;
+        iconRoll = 0;
+        iconX = 0;
+        iconY = 0;
+
+        stackable = false;
+        value = 1;
+        members = false;
+
+        groundOptions = null;
+        options = null;
+
+        maleModel0 = -1;
+        maleModel1 = -1;
+        maleOffsetY = 0;
+
+        femaleModel0 = -1;
+        femaleModel1 = -1;
+        femaleOffsetY = 0;
+
+        maleModel2 = -1;
+        femaleModel2 = -1;
+
+        maleHeadModelA = -1;
+        maleHeadModelB = -1;
+        femaleHeadModelA = -1;
+        femaleHeadModelB = -1;
+
+        stackId = null;
+        stackAmount = null;
+        linkedId = -1;
+        certificateId = -1;
     }
 
-    public void method171(boolean flag, Buffer class38_sub2_sub3) {
-        if (flag)
-            throw new NullPointerException();
+    public void read(Buffer buffer) {
         do {
-            int i = class38_sub2_sub3.method446();
-            if (i == 0)
+            int opcode = buffer.method446();
+            if (opcode == 0) {
                 return;
-            if (i == 1)
-                anInt144 = class38_sub2_sub3.method448();
-            else if (i == 2)
-                aString145 = class38_sub2_sub3.method453();
-            else if (i == 3)
-                aByteArray146 = class38_sub2_sub3.method454((byte) 31);
-            else if (i == 4)
-                anInt149 = class38_sub2_sub3.method448();
-            else if (i == 5)
-                anInt150 = class38_sub2_sub3.method448();
-            else if (i == 6)
-                anInt151 = class38_sub2_sub3.method448();
-            else if (i == 7) {
-                anInt153 = class38_sub2_sub3.method448();
-                if (anInt153 > 32767)
-                    anInt153 -= 0x10000;
-            } else if (i == 8) {
-                anInt154 = class38_sub2_sub3.method448();
-                if (anInt154 > 32767)
-                    anInt154 -= 0x10000;
-            } else if (i == 9)
-                aBoolean155 = true;
-            else if (i == 10)
-                anInt156 = class38_sub2_sub3.method448();
-            else if (i == 11)
-                aBoolean157 = true;
-            else if (i == 12)
-                anInt158 = class38_sub2_sub3.method451();
-            else if (i == 16)
-                aBoolean159 = true;
-            else if (i == 23) {
-                anInt162 = class38_sub2_sub3.method448();
-                aByte164 = class38_sub2_sub3.method447();
-            } else if (i == 24)
-                anInt163 = class38_sub2_sub3.method448();
-            else if (i == 25) {
-                anInt165 = class38_sub2_sub3.method448();
-                aByte167 = class38_sub2_sub3.method447();
-            } else if (i == 26)
-                anInt166 = class38_sub2_sub3.method448();
-            else if (i >= 30 && i < 35) {
-                if (aStringArray160 == null)
-                    aStringArray160 = new String[5];
-                aStringArray160[i - 30] = class38_sub2_sub3.method453();
-                if (aStringArray160[i - 30].equalsIgnoreCase("hidden"))
-                    aStringArray160[i - 30] = null;
-            } else if (i >= 35 && i < 40) {
-                if (aStringArray161 == null)
-                    aStringArray161 = new String[5];
-                aStringArray161[i - 35] = class38_sub2_sub3.method453();
-            } else if (i == 40) {
-                int j = class38_sub2_sub3.method446();
-                anIntArray147 = new int[j];
-                anIntArray148 = new int[j];
-                for (int k = 0; k < j; k++) {
-                    anIntArray147[k] = class38_sub2_sub3.method448();
-                    anIntArray148[k] = class38_sub2_sub3.method448();
+            } else if (opcode == 1) {
+                modelIndex = buffer.method448();
+            } else if (opcode == 2) {
+                name = buffer.method453();
+            } else if (opcode == 3) {
+                description = buffer.method454((byte) 31);
+            } else if (opcode == 4) {
+                iconZoom = buffer.method448();
+            } else if (opcode == 5) {
+                iconCameraPitch = buffer.method448();
+            } else if (opcode == 6) {
+                iconYaw = buffer.method448();
+            } else if (opcode == 7) {
+                iconX = buffer.method448();
+
+                if (iconX > 32767) {
+                    iconX -= 0x10000;
+                }
+            } else if (opcode == 8) {
+                iconY = buffer.method448();
+
+                if (iconY > 32767) {
+                    iconY -= 0x10000;
+                }
+            } else if (opcode == 9) {
+            } else if (opcode == 10) {
+                buffer.method448();
+            } else if (opcode == 11) {
+                stackable = true;
+            } else if (opcode == 12) {
+                value = buffer.method451();
+            } else if (opcode == 16) {
+                members = true;
+            } else if (opcode == 23) {
+                maleModel0 = buffer.method448();
+                maleOffsetY = buffer.method447();
+            } else if (opcode == 24) {
+                maleModel1 = buffer.method448();
+            } else if (opcode == 25) {
+                femaleModel0 = buffer.method448();
+                femaleOffsetY = buffer.method447();
+            } else if (opcode == 26) {
+                femaleModel1 = buffer.method448();
+            } else if (opcode >= 30 && opcode < 35) {
+                if (groundOptions == null) {
+                    groundOptions = new String[5];
+                }
+                
+                groundOptions[opcode - 30] = buffer.method453();
+                if (groundOptions[opcode - 30].equalsIgnoreCase("hidden")) {
+                    groundOptions[opcode - 30] = null;
+                }
+            } else if (opcode >= 35 && opcode < 40) {
+                if (options == null) {
+                    options = new String[5];
+                }
+                
+                options[opcode - 35] = buffer.method453();
+            } else if (opcode == 40) {
+                int count = buffer.method446();
+                oldColors = new int[count];
+                newColors = new int[count];
+                
+                for (int n = 0; n < count; n++) {
+                    oldColors[n] = buffer.method448();
+                    newColors[n] = buffer.method448();
+                }
+            } else if (opcode == 78) {
+                maleModel2 = buffer.method448();
+            } else if (opcode == 79) {
+                femaleModel2 = buffer.method448();
+            } else if (opcode == 90) {
+                maleHeadModelA = buffer.method448();
+            } else if (opcode == 91) {
+                femaleHeadModelA = buffer.method448();
+            } else if (opcode == 92) {
+                maleHeadModelB = buffer.method448();
+            } else if (opcode == 93) {
+                femaleHeadModelB = buffer.method448();
+            } else if (opcode == 95) {
+                iconRoll = buffer.method448();
+            } else if (opcode == 97) {
+                linkedId = buffer.method448();
+            } else if (opcode == 98) {
+                certificateId = buffer.method448();
+            } else if (opcode >= 100 && opcode < 110) {
+                if (stackId == null) {
+                    stackId = new int[10];
+                    stackAmount = new int[10];
                 }
 
-            } else if (i == 78)
-                anInt168 = class38_sub2_sub3.method448();
-            else if (i == 79)
-                anInt169 = class38_sub2_sub3.method448();
-            else if (i == 90)
-                anInt170 = class38_sub2_sub3.method448();
-            else if (i == 91)
-                anInt172 = class38_sub2_sub3.method448();
-            else if (i == 92)
-                anInt171 = class38_sub2_sub3.method448();
-            else if (i == 93)
-                anInt173 = class38_sub2_sub3.method448();
-            else if (i == 95)
-                anInt152 = class38_sub2_sub3.method448();
-            else if (i == 97)
-                anInt176 = class38_sub2_sub3.method448();
-            else if (i == 98)
-                anInt177 = class38_sub2_sub3.method448();
-            else if (i >= 100 && i < 110) {
-                if (anIntArray174 == null) {
-                    anIntArray174 = new int[10];
-                    anIntArray175 = new int[10];
-                }
-                anIntArray174[i - 100] = class38_sub2_sub3.method448();
-                anIntArray175[i - 100] = class38_sub2_sub3.method448();
+                stackId[opcode - 100] = buffer.method448();
+                stackAmount[opcode - 100] = buffer.method448();
             }
         } while (true);
     }
 
-    public void method172(int i) {
-        ObjType objType = method169(anInt177);
-        anInt144 = objType.anInt144;
-        anInt149 = objType.anInt149;
-        anInt150 = objType.anInt150;
-        while (i >= 0)
-            aBoolean134 = !aBoolean134;
-        anInt151 = objType.anInt151;
-        anInt152 = objType.anInt152;
-        anInt153 = objType.anInt153;
-        anInt154 = objType.anInt154;
-        anIntArray147 = objType.anIntArray147;
-        anIntArray148 = objType.anIntArray148;
-        ObjType objType_1 = method169(anInt176);
-        aString145 = objType_1.aString145;
-        aBoolean159 = objType_1.aBoolean159;
-        anInt158 = objType_1.anInt158;
-        String s = "a";
-        char c = objType_1.aString145.charAt(0);
-        if (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U')
-            s = "an";
-        aByteArray146 = ("Swap this note at any bank for " + s + " " + objType_1.aString145 + ".").getBytes();
-        aBoolean157 = true;
+    public void toCertificate() {
+        ObjType objType = get(certificateId);
+        modelIndex = objType.modelIndex;
+        iconZoom = objType.iconZoom;
+        iconCameraPitch = objType.iconCameraPitch;
+        iconYaw = objType.iconYaw;
+        iconRoll = objType.iconRoll;
+        iconX = objType.iconX;
+        iconY = objType.iconY;
+        oldColors = objType.oldColors;
+        newColors = objType.newColors;
+        ObjType linked = get(linkedId);
+        name = linked.name;
+        members = linked.members;
+        value = linked.value;
+        String prefix = "a";
+        char vowel = linked.name.charAt(0);
+        if (vowel == 'A' || vowel == 'E' || vowel == 'I' || vowel == 'O' || vowel == 'U')
+            prefix = "an";
+        description = ("Swap this note at any bank for " + prefix + " " + linked.name + ".").getBytes();
+        stackable = true;
     }
 
-    public Model method173(int i) {
-        if (anIntArray174 != null && i > 1) {
-            int j = -1;
-            for (int k = 0; k < 10; k++)
-                if (i >= anIntArray175[k] && anIntArray175[k] != 0)
-                    j = anIntArray174[k];
-
-            if (j != -1)
-                return method169(j).method173(1);
-        }
-        Model class38_sub2_sub1 = (Model) cache1.get(anInt143);
-        if (class38_sub2_sub1 != null)
-            return class38_sub2_sub1;
-        class38_sub2_sub1 = new Model(false, anInt144);
-        if (anIntArray147 != null) {
-            for (int l = 0; l < anIntArray147.length; l++)
-                class38_sub2_sub1.recolor(anIntArray147[l], anIntArray148[l]);
-
-        }
-        class38_sub2_sub1.applyLighting(64, 768, -50, -10, -50, true);
-        class38_sub2_sub1.aBoolean1256 = true;
-        cache1.method342(6, anInt143, class38_sub2_sub1);
-        return class38_sub2_sub1;
-    }
-
-    public static Sprite method174(int i, int j, int k) {
-        Sprite class38_sub2_sub2_sub2 = (Sprite) cache2.get(i);
-        if (class38_sub2_sub2_sub2 != null && class38_sub2_sub2_sub2.anInt1471 != k
-                && class38_sub2_sub2_sub2.anInt1471 != -1) {
-            class38_sub2_sub2_sub2.unlink();
-            class38_sub2_sub2_sub2 = null;
-        }
-        if (class38_sub2_sub2_sub2 != null)
-            return class38_sub2_sub2_sub2;
-        ObjType objType = method169(i);
-        if (objType.anIntArray174 == null)
-            k = -1;
-        if (k > 1) {
-            int l = -1;
-            for (int j1 = 0; j1 < 10; j1++)
-                if (k >= objType.anIntArray175[j1] && objType.anIntArray175[j1] != 0)
-                    l = objType.anIntArray174[j1];
-
-            if (l != -1)
-                objType = method169(l);
-        }
-        class38_sub2_sub2_sub2 = new Sprite(32, 32);
-        int i1 = Draw3D.anInt1442;
-        int k1 = Draw3D.anInt1443;
-        int[] ai = Draw3D.anIntArray1448;
-        int[] ai1 = Draw2D.anIntArray1308;
-        int l1 = Draw2D.anInt1309;
-        int i2 = Draw2D.anInt1310;
-        int j2 = Draw2D.anInt1313;
-        int k2 = Draw2D.anInt1314;
-        int l2 = Draw2D.anInt1311;
-        int i3 = Draw2D.anInt1312;
-        Draw3D.aBoolean1440 = false;
-        Draw2D.init(32, class38_sub2_sub2_sub2.anIntArray1465, -657, 32);
-        Draw2D.method380(0, 0, 0, (byte) 93, 32, 32);
-        Draw3D.method385(anInt135);
-        Model class38_sub2_sub1 = objType.method173(1);
-        int j3 = Draw3D.anIntArray1446[objType.anInt150] * objType.anInt149 >> 16;
-        int k3 = Draw3D.anIntArray1447[objType.anInt150] * objType.anInt149 >> 16;
-        class38_sub2_sub1.method370(0, objType.anInt151, objType.anInt152, objType.anInt150, objType.anInt153,
-                j3 + class38_sub2_sub1.anInt1247 / 2 + objType.anInt154, k3 + objType.anInt154);
-        if (j != 24638)
-            throw new NullPointerException();
-        for (int j4 = 31; j4 >= 0; j4--) {
-            for (int l3 = 31; l3 >= 0; l3--)
-                if (class38_sub2_sub2_sub2.anIntArray1465[j4 + l3 * 32] == 0)
-                    if (j4 > 0 && class38_sub2_sub2_sub2.anIntArray1465[(j4 - 1) + l3 * 32] > 1)
-                        class38_sub2_sub2_sub2.anIntArray1465[j4 + l3 * 32] = 1;
-                    else if (l3 > 0 && class38_sub2_sub2_sub2.anIntArray1465[j4 + (l3 - 1) * 32] > 1)
-                        class38_sub2_sub2_sub2.anIntArray1465[j4 + l3 * 32] = 1;
-                    else if (j4 < 31 && class38_sub2_sub2_sub2.anIntArray1465[j4 + 1 + l3 * 32] > 1)
-                        class38_sub2_sub2_sub2.anIntArray1465[j4 + l3 * 32] = 1;
-                    else if (l3 < 31 && class38_sub2_sub2_sub2.anIntArray1465[j4 + (l3 + 1) * 32] > 1)
-                        class38_sub2_sub2_sub2.anIntArray1465[j4 + l3 * 32] = 1;
-
-        }
-
-        for (int k4 = 31; k4 >= 0; k4--) {
-            for (int i4 = 31; i4 >= 0; i4--)
-                if (class38_sub2_sub2_sub2.anIntArray1465[k4 + i4 * 32] == 0 && k4 > 0 && i4 > 0
-                        && class38_sub2_sub2_sub2.anIntArray1465[(k4 - 1) + (i4 - 1) * 32] > 0)
-                    class38_sub2_sub2_sub2.anIntArray1465[k4 + i4 * 32] = 0x302020;
-
-        }
-
-        if (objType.anInt177 != -1) {
-            Sprite class38_sub2_sub2_sub2_1 = method174(objType.anInt176, 24638, 10);
-            int l4 = class38_sub2_sub2_sub2_1.anInt1470;
-            int i5 = class38_sub2_sub2_sub2_1.anInt1471;
-            class38_sub2_sub2_sub2_1.anInt1470 = 32;
-            class38_sub2_sub2_sub2_1.anInt1471 = 32;
-            class38_sub2_sub2_sub2_1.method407(22, 5, 22, 17713, 5);
-            class38_sub2_sub2_sub2_1.anInt1470 = l4;
-            class38_sub2_sub2_sub2_1.anInt1471 = i5;
-        }
-        cache2.method342(6, i, class38_sub2_sub2_sub2);
-        Draw2D.init(l1, ai1, -657, i2);
-        Draw2D.method378(i3, l2, k2, 789, j2);
-        Draw3D.anInt1442 = i1;
-        Draw3D.anInt1443 = k1;
-        Draw3D.anIntArray1448 = ai;
-        Draw3D.aBoolean1440 = true;
-        if (objType.aBoolean157)
-            class38_sub2_sub2_sub2.anInt1470 = 33;
-        else
-            class38_sub2_sub2_sub2.anInt1470 = 32;
-        class38_sub2_sub2_sub2.anInt1471 = k;
-        return class38_sub2_sub2_sub2;
-    }
-
-    public Model method175(byte byte0, int i) {
-        int j = anInt162;
-        if (byte0 != 6)
-            throw new NullPointerException();
-        if (i == 1)
-            j = anInt165;
-        if (j == -1)
-            return null;
-        int k = anInt163;
-        int l = anInt168;
-        if (i == 1) {
-            k = anInt166;
-            l = anInt169;
-        }
-        Model class38_sub2_sub1 = new Model(false, j);
-        if (k != -1)
-            if (l != -1) {
-                Model class38_sub2_sub1_1 = new Model(false, k);
-                Model class38_sub2_sub1_3 = new Model(false, l);
-                Model[] aclass38_sub2_sub1_1 = {
-                        class38_sub2_sub1, class38_sub2_sub1_1, class38_sub2_sub1_3
-                };
-                class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1_1, 3);
-            } else {
-                Model class38_sub2_sub1_2 = new Model(false, k);
-                Model[] aclass38_sub2_sub1 = {
-                        class38_sub2_sub1, class38_sub2_sub1_2
-                };
-                class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, 2);
+    public Model getModel(int amount) {
+        if (stackId != null && amount > 1) {
+            int newId = -1;
+            for (int n = 0; n < 10; n++) {
+                if (amount >= stackAmount[n] && stackAmount[n] != 0) {
+                    newId = stackId[n];
+                }
             }
-        if (i == 0 && aByte164 != 0)
-            class38_sub2_sub1.method363(aByte164, 0, -122, 0);
-        if (i == 1 && aByte167 != 0)
-            class38_sub2_sub1.method363(aByte167, 0, -122, 0);
-        if (anIntArray147 != null) {
-            for (int i1 = 0; i1 < anIntArray147.length; i1++)
-                class38_sub2_sub1.recolor(anIntArray147[i1], anIntArray148[i1]);
 
+            if (newId != -1) {
+                return get(newId).getModel(1);
+            }
         }
-        return class38_sub2_sub1;
+
+        Model model = (Model) modelCache.get(index);
+        if (model != null) {
+            return model;
+        }
+
+        model = new Model(false, modelIndex);
+        if (oldColors != null) {
+            for (int n = 0; n < oldColors.length; n++) {
+                model.recolor(oldColors[n], newColors[n]);
+            }
+        }
+
+        model.applyLighting(64, 768, -50, -10, -50, true);
+        model.pickable = true;
+        modelCache.put(6, index, model);
+        return model;
     }
 
-    public Model method176(int i, int j) {
-        int k = anInt170;
-        if (i != anInt136)
-            anInt135 = 205;
-        if (j == 1)
-            k = anInt172;
-        if (k == -1)
-            return null;
-        int l = anInt171;
-        if (j == 1)
-            l = anInt173;
-        Model class38_sub2_sub1 = new Model(false, k);
-        if (l != -1) {
-            Model class38_sub2_sub1_1 = new Model(false, l);
-            Model[] aclass38_sub2_sub1 = {
-                    class38_sub2_sub1, class38_sub2_sub1_1
-            };
-            class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, 2);
-        }
-        if (anIntArray147 != null) {
-            for (int i1 = 0; i1 < anIntArray147.length; i1++)
-                class38_sub2_sub1.recolor(anIntArray147[i1], anIntArray148[i1]);
+    public static Sprite getSprite(int i, int amount) {
+        Sprite sprite = (Sprite) iconCache.get(i);
 
+        if (sprite != null && sprite.cropH != amount && sprite.cropH != -1) {
+            sprite.unlink();
+            sprite = null;
         }
-        return class38_sub2_sub1;
+
+        if (sprite != null) {
+            return sprite;
+        }
+
+        ObjType info = get(i);
+        if (info.stackId == null) {
+            amount = -1;
+        }
+
+        if (amount > 1) {
+            int l = -1;
+            for (int j1 = 0; j1 < 10; j1++) {
+                if (amount >= info.stackAmount[j1] && info.stackAmount[j1] != 0) {
+                    l = info.stackId[j1];
+                }
+            }
+
+            if (l != -1) {
+                info = get(l);
+            }
+        }
+
+        sprite = new Sprite(32, 32);
+        int centerX = Draw3D.centerX;
+        int centerY = Draw3D.centerY;
+        int[] offsets = Draw3D.offsets;
+        int[] data = Draw2D.dest;
+        int width = Draw2D.width;
+        int height = Draw2D.height;
+        int left = Draw2D.left;
+        int right = Draw2D.right;
+        int top = Draw2D.top;
+        int bottom = Draw2D.bottom;
+
+        Draw3D.jagged = false;
+        Draw2D.init(32, sprite.pixels, -657, 32);
+        Draw2D.fillRect(0, 0, 0, (byte) 93, 32, 32);
+        Draw3D.init2D(-192);
+
+        Model model = info.getModel(1);
+
+        int sinPitch = Draw3D.sin[info.iconCameraPitch] * info.iconZoom >> 16;
+        int cosPitch = Draw3D.cos[info.iconCameraPitch] * info.iconZoom >> 16;
+
+        model.drawSimple(0, info.iconYaw, info.iconRoll, info.iconCameraPitch, info.iconX, sinPitch + model.minY / 2 + info.iconY, cosPitch + info.iconY);
+
+        for (int x = 31; x >= 0; x--) {
+            for (int y = 31; y >= 0; y--) {
+                if (sprite.pixels[x + y * 32] == 0) {
+                    if (x > 0 && sprite.pixels[(x - 1) + y * 32] > 1) {
+                        sprite.pixels[x + y * 32] = 1;
+                    } else if (y > 0 && sprite.pixels[x + (y - 1) * 32] > 1) {
+                        sprite.pixels[x + y * 32] = 1;
+                    } else if (x < 31 && sprite.pixels[x + 1 + y * 32] > 1) {
+                        sprite.pixels[x + y * 32] = 1;
+                    } else if (y < 31 && sprite.pixels[x + (y + 1) * 32] > 1) {
+                        sprite.pixels[x + y * 32] = 1;
+                    }
+                }
+            }
+        }
+
+        for (int x = 31; x >= 0; x--) {
+            for (int y = 31; y >= 0; y--) {
+                if (sprite.pixels[x + y * 32] == 0 && x > 0 && y > 0 && sprite.pixels[(x - 1) + (y - 1) * 32] > 0) {
+                    sprite.pixels[x + y * 32] = 0x302020;
+                }
+            }
+        }
+
+        if (info.certificateId != -1) {
+            Sprite originalIcon = getSprite(info.linkedId, 10);
+            int w = originalIcon.cropW;
+            int h = originalIcon.cropH;
+            originalIcon.cropW = 32;
+            originalIcon.cropH = 32;
+            originalIcon.draw(22, 5, 22, 17713, 5);
+            originalIcon.cropW = w;
+            originalIcon.cropH = h;
+        }
+
+        iconCache.put(6, i, sprite);
+        Draw2D.init(width, data, -657, height);
+        Draw2D.setBounds(bottom, top, right, 789, left);
+        Draw3D.centerX = centerX;
+        Draw3D.centerY = centerY;
+        Draw3D.offsets = offsets;
+        Draw3D.jagged = true;
+
+        if (info.stackable) {
+            sprite.cropW = 33;
+        } else {
+            sprite.cropW = 32;
+        }
+
+        sprite.cropH = amount;
+        return sprite;
+    }
+
+    public Model getWornModel(int gender) {
+        int m0 = maleModel0;
+        int m1 = maleModel1;
+        int m2 = maleModel2;
+
+        if (gender == 1) {
+            m0 = femaleModel0;
+            m1 = femaleModel1;
+            m2 = femaleModel2;
+        }
+
+        if (m0 == -1) {
+            return null;
+        }
+
+        Model model = new Model(false, m0);
+
+        if (m1 != -1) {
+            if (m2 != -1) {
+                Model model1 = new Model(false, m1);
+                Model model2 = new Model(false, m2);
+                Model[] models = {
+                    model, model1, model2
+                };
+                model = new Model(0, models, 3);
+            } else {
+                Model model1 = new Model(false, m1);
+                Model[] models = {
+                    model, model1
+                };
+                model = new Model(0, models, 2);
+            }
+        }
+
+        if (gender == 0 && maleOffsetY != 0) {
+            model.translate(maleOffsetY, 0, -122, 0);
+        } else if (gender == 1 && femaleOffsetY != 0) {
+            model.translate(femaleOffsetY, 0, -122, 0);
+        }
+
+        if (oldColors != null) {
+            for (int i1 = 0; i1 < oldColors.length; i1++) {
+                model.recolor(oldColors[i1], newColors[i1]);
+            }
+        }
+
+        return model;
+    }
+
+    public Model getHeadModel(int gender) {
+        int m0 = maleHeadModelA;
+        int m1 = maleHeadModelB;
+
+        if (gender == 1) {
+            m0 = femaleHeadModelA;
+            m1 = femaleHeadModelB;
+        }
+
+        if (m0 == -1) {
+            return null;
+        }
+        
+        Model model = new Model(false, m0);
+        if (m1 != -1) {
+            Model model1 = new Model(false, m1);
+            Model[] models = {
+                model, model1
+            };
+            model = new Model(0, models, 2);
+        }
+
+        if (oldColors != null) {
+            for (int n = 0; n < oldColors.length; n++) {
+                model.recolor(oldColors[n], newColors[n]);
+            }
+        }
+
+        return model;
     }
 
     public ObjType() {
-        aBoolean134 = false;
-        anInt136 = -22246;
-        anInt143 = -1;
+        index = -1;
     }
 
-    public static int anInt133;
-    public boolean aBoolean134;
-    public static int anInt135 = -192;
-    public int anInt136;
-    public static int anInt137;
-    public static int[] anIntArray138;
-    public static Buffer aClass38_Sub2_Sub3_139;
+    public static int count;
+    public static int[] offsets;
+    public static Buffer data;
     public static ObjType[] objTypes;
-    public static int anInt141;
-    public static boolean aBoolean142 = true;
-    public int anInt143;
-    public int anInt144;
-    public String aString145;
-    public byte[] aByteArray146;
-    public int[] anIntArray147;
-    public int[] anIntArray148;
-    public int anInt149;
-    public int anInt150;
-    public int anInt151;
-    public int anInt152;
-    public int anInt153;
-    public int anInt154;
-    public boolean aBoolean155;
-    public int anInt156;
-    public boolean aBoolean157;
-    public int anInt158;
-    public boolean aBoolean159;
-    public String[] aStringArray160;
-    public String[] aStringArray161;
-    public int anInt162;
-    public int anInt163;
-    public byte aByte164;
-    public int anInt165;
-    public int anInt166;
-    public byte aByte167;
-    public int anInt168;
-    public int anInt169;
-    public int anInt170;
-    public int anInt171;
-    public int anInt172;
-    public int anInt173;
-    public int[] anIntArray174;
-    public int[] anIntArray175;
-    public int anInt176;
-    public int anInt177;
-    public static Cache cache1 = new Cache((byte) 0, 50);
-    public static Cache cache2 = new Cache((byte) 0, 200);
+    public static int cacheIndex;
+    public static boolean isMember = true;
+
+    public int index;
+    public int modelIndex;
+
+    public String name;
+    public byte[] description;
+
+    public int[] oldColors;
+    public int[] newColors;
+
+    public int iconZoom;
+    public int iconCameraPitch;
+    public int iconYaw;
+    public int iconRoll;
+    public int iconX;
+    public int iconY;
+
+    public boolean stackable;
+    public int value;
+
+    public boolean members;
+
+    public String[] groundOptions;
+    public String[] options;
+
+    public int maleModel0;
+    public int maleModel1;
+    public byte maleOffsetY;
+
+    public int femaleModel0;
+    public int femaleModel1;
+    public byte femaleOffsetY;
+
+    public int maleModel2;
+    public int femaleModel2;
+
+    public int maleHeadModelA;
+    public int maleHeadModelB;
+
+    public int femaleHeadModelA;
+    public int femaleHeadModelB;
+
+    public int[] stackId;
+    public int[] stackAmount;
+    public int linkedId;
+    public int certificateId;
+
+    public static Cache modelCache = new Cache((byte) 0, 50);
+    public static Cache iconCache = new Cache((byte) 0, 200);
 
 }

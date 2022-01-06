@@ -17,7 +17,7 @@ public class NpcEntity extends PathingEntity {
         SpotAnimType spotAnimType = SpotAnimType.spotAnimTypes[super.anInt1412];
         Model class38_sub2_sub1_1 = new Model(spotAnimType.getModel(), true, !spotAnimType.disposeAlpha,
                 anInt1500, false);
-        class38_sub2_sub1_1.method363(-super.anInt1416, 0, -122, 0);
+        class38_sub2_sub1_1.translate(-super.anInt1416, 0, -122, 0);
         class38_sub2_sub1_1.applyGroups(4);
         class38_sub2_sub1_1.applyFrame(-16599, spotAnimType.seq.primaryFrames[super.anInt1413]);
         class38_sub2_sub1_1.skinTriangle = null;
@@ -30,7 +30,7 @@ public class NpcEntity extends PathingEntity {
         };
         Model class38_sub2_sub1_2 = new Model(aclass38_sub2_sub1, (byte) -31, 2, true);
         if (npcType.size == 1)
-            class38_sub2_sub1_2.aBoolean1256 = true;
+            class38_sub2_sub1_2.pickable = true;
         return class38_sub2_sub1_2;
     }
 
@@ -48,7 +48,7 @@ public class NpcEntity extends PathingEntity {
         if (super.anInt1404 >= 0)
             j = SeqType.seqTypes[super.anInt1404].primaryFrames[super.anInt1405];
         Model class38_sub2_sub1 = npcType.getModel(j, -1, null);
-        super.anInt1425 = class38_sub2_sub1.anInt1247;
+        super.anInt1425 = class38_sub2_sub1.minY;
         return class38_sub2_sub1;
     }
 

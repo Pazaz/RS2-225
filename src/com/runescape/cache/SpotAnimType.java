@@ -66,7 +66,7 @@ public class SpotAnimType {
             if (anIntArray393[0] != 0)
                 class38_sub2_sub1.recolor(anIntArray393[i], anIntArray394[i]);
 
-        cache.method342(6, anInt388, class38_sub2_sub1);
+        cache.put(6, anInt388, class38_sub2_sub1);
         return class38_sub2_sub1;
     }
 

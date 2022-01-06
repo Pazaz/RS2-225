@@ -167,7 +167,7 @@ public class Model extends CacheableNode {
         aByte1219 = 47;
         anInt1220 = 5;
         aBoolean1221 = false;
-        aBoolean1256 = false;
+        pickable = false;
         if (metadataArray == null)
             return;
         Metadata metadata = metadataArray[i];
@@ -312,7 +312,7 @@ public class Model extends CacheableNode {
         aByte1219 = 47;
         anInt1220 = 5;
         aBoolean1221 = false;
-        aBoolean1256 = false;
+        pickable = false;
         boolean flag = false;
         boolean flag1 = false;
         boolean flag2 = false;
@@ -411,7 +411,7 @@ public class Model extends CacheableNode {
         aByte1219 = 47;
         anInt1220 = 5;
         aBoolean1221 = false;
-        aBoolean1256 = false;
+        pickable = false;
         boolean flag1 = false;
         boolean flag2 = false;
         boolean flag3 = false;
@@ -524,7 +524,7 @@ public class Model extends CacheableNode {
         aByte1219 = 47;
         anInt1220 = 5;
         aBoolean1221 = false;
-        aBoolean1256 = false;
+        pickable = false;
         anInt1222 = class38_sub2_sub1.anInt1222;
         anInt1226 = class38_sub2_sub1.anInt1226;
         anInt1238 = class38_sub2_sub1.anInt1238;
@@ -586,7 +586,7 @@ public class Model extends CacheableNode {
         aByte1219 = 47;
         anInt1220 = 5;
         aBoolean1221 = false;
-        aBoolean1256 = false;
+        pickable = false;
         anInt1222 = class38_sub2_sub1.anInt1222;
         anInt1226 = class38_sub2_sub1.anInt1226;
         anInt1238 = class38_sub2_sub1.anInt1238;
@@ -650,7 +650,7 @@ public class Model extends CacheableNode {
         if (byte0 != -31) {
             throw new NullPointerException();
         } else {
-            anInt1247 = class38_sub2_sub1.anInt1247;
+            minY = class38_sub2_sub1.minY;
             anInt1248 = class38_sub2_sub1.anInt1248;
             anInt1246 = class38_sub2_sub1.anInt1246;
             anInt1250 = class38_sub2_sub1.anInt1250;
@@ -669,7 +669,7 @@ public class Model extends CacheableNode {
         aByte1219 = 47;
         anInt1220 = 5;
         aBoolean1221 = false;
-        aBoolean1256 = false;
+        pickable = false;
         anInt1222 = class38_sub2_sub1.anInt1222;
         anInt1226 = class38_sub2_sub1.anInt1226;
         anInt1238 = class38_sub2_sub1.anInt1238;
@@ -739,7 +739,7 @@ public class Model extends CacheableNode {
     }
 
     public void calculateYBoundaries(int i) {
-        anInt1247 = 0;
+        minY = 0;
         if (i != 2992)
             return;
         anInt1246 = 0;
@@ -748,8 +748,8 @@ public class Model extends CacheableNode {
             int k = anIntArray1223[j];
             int l = anIntArray1224[j];
             int i1 = anIntArray1225[j];
-            if (-l > anInt1247)
-                anInt1247 = -l;
+            if (-l > minY)
+                minY = -l;
             if (l > anInt1248)
                 anInt1248 = l;
             int j1 = k * k + i1 * i1;
@@ -758,12 +758,12 @@ public class Model extends CacheableNode {
         }
 
         anInt1246 = (int) (Math.sqrt(anInt1246) + 0.98999999999999999D);
-        anInt1250 = (int) (Math.sqrt(anInt1246 * anInt1246 + anInt1247 * anInt1247) + 0.98999999999999999D);
+        anInt1250 = (int) (Math.sqrt(anInt1246 * anInt1246 + minY * minY) + 0.98999999999999999D);
         anInt1249 = anInt1250 + (int) (Math.sqrt(anInt1246 * anInt1246 + anInt1248 * anInt1248) + 0.98999999999999999D);
     }
 
     public void method355(int i) {
-        anInt1247 = 0;
+        minY = 0;
         if (i != 0) {
             for (int j = 1; j > 0; j++)
                 ;
@@ -771,18 +771,18 @@ public class Model extends CacheableNode {
         anInt1248 = 0;
         for (int k = 0; k < anInt1222; k++) {
             int l = anIntArray1224[k];
-            if (-l > anInt1247)
-                anInt1247 = -l;
+            if (-l > minY)
+                minY = -l;
             if (l > anInt1248)
                 anInt1248 = l;
         }
 
-        anInt1250 = (int) (Math.sqrt(anInt1246 * anInt1246 + anInt1247 * anInt1247) + 0.98999999999999999D);
+        anInt1250 = (int) (Math.sqrt(anInt1246 * anInt1246 + minY * minY) + 0.98999999999999999D);
         anInt1249 = anInt1250 + (int) (Math.sqrt(anInt1246 * anInt1246 + anInt1248 * anInt1248) + 0.98999999999999999D);
     }
 
     public void method356(byte byte0) {
-        anInt1247 = 0;
+        minY = 0;
         if (byte0 != aByte1219)
             return;
         anInt1246 = 0;
@@ -803,8 +803,8 @@ public class Model extends CacheableNode {
                 anInt1245 = l;
             if (l > anInt1244)
                 anInt1244 = l;
-            if (-k > anInt1247)
-                anInt1247 = -k;
+            if (-k > minY)
+                minY = -k;
             if (k > anInt1248)
                 anInt1248 = k;
             int i1 = j * j + l * l;
@@ -813,7 +813,7 @@ public class Model extends CacheableNode {
         }
 
         anInt1246 = (int) Math.sqrt(anInt1246);
-        anInt1250 = (int) Math.sqrt(anInt1246 * anInt1246 + anInt1247 * anInt1247);
+        anInt1250 = (int) Math.sqrt(anInt1246 * anInt1246 + minY * minY);
         anInt1249 = anInt1250 + (int) Math.sqrt(anInt1246 * anInt1246 + anInt1248 * anInt1248);
     }
 
@@ -1092,7 +1092,7 @@ public class Model extends CacheableNode {
             byte0 = 0;
     }
 
-    public void method363(int i, int j, int k, int l) {
+    public void translate(int i, int j, int k, int l) {
         if (k >= 0)
             aBoolean1221 = !aBoolean1221;
         for (int i1 = 0; i1 < anInt1222; i1++) {
@@ -1287,9 +1287,9 @@ public class Model extends CacheableNode {
         return (i & 0xff80) + j;
     }
 
-    public void method370(int i, int j, int k, int l, int i1, int j1, int k1) {
-        int l1 = Draw3D.anInt1442;
-        int i2 = Draw3D.anInt1443;
+    public void drawSimple(int i, int j, int k, int l, int i1, int j1, int k1) {
+        int l1 = Draw3D.centerX;
+        int i2 = Draw3D.centerY;
         int j2 = anIntArray1300[i];
         int k2 = anIntArray1301[i];
         int l2 = anIntArray1300[j];
@@ -1362,11 +1362,11 @@ public class Model extends CacheableNode {
         int k4 = i4 + j4 << 9;
         if (k4 / i3 <= -Draw2D.anInt1317)
             return;
-        int l4 = j4 + (anInt1247 * k >> 16);
+        int l4 = j4 + (minY * k >> 16);
         int i5 = i4 - l4 << 9;
         if (i5 / i3 >= Draw2D.anInt1317)
             return;
-        int j5 = l2 + (anInt1247 * j >> 16);
+        int j5 = l2 + (minY * j >> 16);
         boolean flag = k2 - j5 <= 50;
         boolean flag1 = false;
         if (i2 > 0 && aBoolean1295) {
@@ -1387,16 +1387,16 @@ public class Model extends CacheableNode {
                 k4 /= i3;
                 i5 /= k5;
             }
-            int i6 = anInt1296 - Draw3D.anInt1442;
-            int k6 = anInt1297 - Draw3D.anInt1443;
+            int i6 = anInt1296 - Draw3D.centerX;
+            int k6 = anInt1297 - Draw3D.centerY;
             if (i6 > k3 && i6 < l3 && k6 > i5 && k6 < k4)
-                if (aBoolean1256)
+                if (pickable)
                     anIntArray1299[anInt1298++] = i2;
                 else
                     flag1 = true;
         }
-        int l5 = Draw3D.anInt1442;
-        int j6 = Draw3D.anInt1443;
+        int l5 = Draw3D.centerX;
+        int j6 = Draw3D.centerY;
         int l6 = 0;
         int i7 = 0;
         if (i != 0) {
@@ -1653,8 +1653,8 @@ public class Model extends CacheableNode {
     }
 
     public void method374(int i) {
-        int j = Draw3D.anInt1442;
-        int k = Draw3D.anInt1443;
+        int j = Draw3D.centerX;
+        int k = Draw3D.centerY;
         int l = 0;
         int i1 = anIntArray1227[i];
         int j1 = anIntArray1228[i];
@@ -1867,7 +1867,7 @@ public class Model extends CacheableNode {
     public int anInt1244;
     public int anInt1245;
     public int anInt1246;
-    public int anInt1247;
+    public int minY;
     public int anInt1248;
     public int anInt1249;
     public int anInt1250;
@@ -1876,7 +1876,7 @@ public class Model extends CacheableNode {
     public int[] anIntArray1253;
     public int[][] labelVertices;
     public int[][] skinTriangle;
-    public boolean aBoolean1256;
+    public boolean pickable;
     public VertexNormal[] vertexNormalArray1;
     public VertexNormal[] vertexNormalArray2;
     public static Metadata[] metadataArray;
@@ -1926,8 +1926,8 @@ public class Model extends CacheableNode {
     public static int[] anIntArray1303;
 
     static {
-        anIntArray1300 = Draw3D.anIntArray1446;
-        anIntArray1301 = Draw3D.anIntArray1447;
+        anIntArray1300 = Draw3D.sin;
+        anIntArray1301 = Draw3D.cos;
         anIntArray1302 = Draw3D.anIntArray1458;
         anIntArray1303 = Draw3D.anIntArray1445;
     }

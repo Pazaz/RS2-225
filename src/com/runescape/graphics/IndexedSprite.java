@@ -1,7 +1,6 @@
 package com.runescape.graphics;
 
 import com.runescape.cache.FileArchive;
-import com.runescape.graphics.Draw2D;
 import com.runescape.util.Buffer;
 
 public class IndexedSprite extends Draw2D {
@@ -155,32 +154,32 @@ public class IndexedSprite extends Draw2D {
     public void method419(int i, int j, boolean flag) {
         j += anInt1480;
         i += anInt1481;
-        int k = j + i * Draw2D.anInt1309;
+        int k = j + i * Draw2D.width;
         int l = 0;
         int i1 = anInt1479;
         int j1 = anInt1478;
-        int k1 = Draw2D.anInt1309 - j1;
+        int k1 = Draw2D.width - j1;
         int l1 = 0;
-        if (i < Draw2D.anInt1311) {
-            int i2 = Draw2D.anInt1311 - i;
+        if (i < Draw2D.top) {
+            int i2 = Draw2D.top - i;
             i1 -= i2;
-            i = Draw2D.anInt1311;
+            i = Draw2D.top;
             l += i2 * j1;
-            k += i2 * Draw2D.anInt1309;
+            k += i2 * Draw2D.width;
         }
-        if (i + i1 > Draw2D.anInt1312)
-            i1 -= (i + i1) - Draw2D.anInt1312;
-        if (j < Draw2D.anInt1313) {
-            int j2 = Draw2D.anInt1313 - j;
+        if (i + i1 > Draw2D.bottom)
+            i1 -= (i + i1) - Draw2D.bottom;
+        if (j < Draw2D.left) {
+            int j2 = Draw2D.left - j;
             j1 -= j2;
-            j = Draw2D.anInt1313;
+            j = Draw2D.left;
             l += j2;
             k += j2;
             l1 += j2;
             k1 += j2;
         }
-        if (j + j1 > Draw2D.anInt1314) {
-            int k2 = (j + j1) - Draw2D.anInt1314;
+        if (j + j1 > Draw2D.right) {
+            int k2 = (j + j1) - Draw2D.right;
             j1 -= k2;
             l1 += k2;
             k1 += k2;
@@ -188,7 +187,7 @@ public class IndexedSprite extends Draw2D {
         if (j1 <= 0 || i1 <= 0) {
             return;
         } else {
-            method420(Draw2D.anIntArray1308, l, l1, aByteArray1476, i1, 0, j1, k, k1, anIntArray1477);
+            method420(Draw2D.dest, l, l1, aByteArray1476, i1, 0, j1, k, k1, anIntArray1477);
             if (!flag)
                 ;
             return;

@@ -1258,7 +1258,7 @@ public class Scene {
                                 wall_3.x - anInt545, wall_3.y - anInt546,
                                 wall_3.z - anInt547, wall_3.bitset);
                 }
-                if (wallDecoration_1 != null && !method330(l, i, j, wallDecoration_1.model.anInt1247))
+                if (wallDecoration_1 != null && !method330(l, i, j, wallDecoration_1.model.minY))
                     if ((wallDecoration_1.type & j2) != 0)
                         wallDecoration_1.model.method371(wallDecoration_1.rotation, anInt548, anInt549, anInt550,
                                 anInt551, wallDecoration_1.sceneX - anInt545, wallDecoration_1.sceneY - anInt546,
@@ -1423,7 +1423,7 @@ public class Scene {
                     if (class38_sub2_sub1_1 == null)
                         class38_sub2_sub1_1 = loc_3.entity.getDrawMethod();
                     if (!method331(l, loc_3.minSceneTileX, loc_3.maxSceneTileX, loc_3.minSceneTileZ, loc_3.maxSceneTileZ,
-                            class38_sub2_sub1_1.anInt1247))
+                            class38_sub2_sub1_1.minY))
                         class38_sub2_sub1_1.method371(loc_3.yaw, anInt548, anInt549, anInt550, anInt551,
                                 loc_3.x - anInt545, loc_3.y - anInt546,
                                 loc_3.z - anInt547, loc_3.bitset);
@@ -1483,7 +1483,7 @@ public class Scene {
             }
             if (tile.wallDrawFlags != 0) {
                 WallDecoration wallDecoration = tile.wallDecoration;
-                if (wallDecoration != null && !method330(l, i, j, wallDecoration.model.anInt1247))
+                if (wallDecoration != null && !method330(l, i, j, wallDecoration.model.minY))
                     if ((wallDecoration.type & tile.wallDrawFlags) != 0)
                         wallDecoration.model.method371(wallDecoration.rotation, anInt548, anInt549, anInt550,
                                 anInt551, wallDecoration.sceneX - anInt545, wallDecoration.sceneY - anInt546,
@@ -1602,14 +1602,14 @@ public class Scene {
         k4 = l4;
         if (j3 < 50)
             return;
-        int i5 = Draw3D.anInt1442 + (i2 << 9) / k2;
-        int j5 = Draw3D.anInt1443 + (l3 << 9) / k2;
-        int k5 = Draw3D.anInt1442 + (i3 << 9) / j2;
-        int l5 = Draw3D.anInt1443 + (i4 << 9) / j2;
-        int i6 = Draw3D.anInt1442 + (l2 << 9) / k3;
-        int j6 = Draw3D.anInt1443 + (j4 << 9) / k3;
-        int k6 = Draw3D.anInt1442 + (l1 << 9) / j3;
-        int l6 = Draw3D.anInt1443 + (k4 << 9) / j3;
+        int i5 = Draw3D.centerX + (i2 << 9) / k2;
+        int j5 = Draw3D.centerY + (l3 << 9) / k2;
+        int k5 = Draw3D.centerX + (i3 << 9) / j2;
+        int l5 = Draw3D.centerY + (i4 << 9) / j2;
+        int i6 = Draw3D.centerX + (l2 << 9) / k3;
+        int j6 = Draw3D.centerY + (j4 << 9) / k3;
+        int k6 = Draw3D.centerX + (l1 << 9) / j3;
+        int l6 = Draw3D.centerY + (k4 << 9) / j3;
         Draw3D.anInt1441 = 0;
         if ((i6 - k6) * (l5 - l6) - (j6 - l6) * (k5 - k6) > 0) {
             Draw3D.aBoolean1438 = i6 < 0 || k6 < 0 || k5 < 0 || i6 > Draw2D.anInt1315 || k6 > Draw2D.anInt1315
@@ -1681,8 +1681,8 @@ public class Scene {
                 TileOverlay.anIntArray341[l1] = k2;
                 TileOverlay.anIntArray342[l1] = i3;
             }
-            TileOverlay.anIntArray338[l1] = Draw3D.anInt1442 + (i2 << 9) / i3;
-            TileOverlay.anIntArray339[l1] = Draw3D.anInt1443 + (k2 << 9) / i3;
+            TileOverlay.anIntArray338[l1] = Draw3D.centerX + (i2 << 9) / i3;
+            TileOverlay.anIntArray339[l1] = Draw3D.centerY + (k2 << 9) / i3;
         }
 
         Draw3D.anInt1441 = 0;

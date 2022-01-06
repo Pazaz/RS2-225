@@ -21,7 +21,7 @@ public class Cache {
         return cacheableNode;
     }
 
-    public void method342(int i, long l, CacheableNode cacheableNode) {
+    public void put(int i, long l, CacheableNode cacheableNode) {
         if (anInt593 == 0) {
             CacheableNode cacheableNode_1 = stack.pop();
             cacheableNode_1.unlink();

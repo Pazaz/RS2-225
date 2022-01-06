@@ -234,7 +234,7 @@ public class InterfaceComponent {
             return class38_sub2_sub2_sub2;
         try {
             class38_sub2_sub2_sub2 = new Sprite(fileArchive, s, i);
-            cache1.method342(6, l, class38_sub2_sub2_sub2);
+            cache1.put(6, l, class38_sub2_sub2_sub2);
         } catch (Exception _ex) {
             return null;
         }
@@ -249,7 +249,7 @@ public class InterfaceComponent {
             return class38_sub2_sub1;
         } else {
             Model class38_sub2_sub1_1 = new Model(false, j);
-            cache2.method342(6, j, class38_sub2_sub1_1);
+            cache2.put(6, j, class38_sub2_sub1_1);
             return class38_sub2_sub1_1;
         }
     }
