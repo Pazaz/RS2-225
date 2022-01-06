@@ -4723,7 +4723,7 @@ public class Game extends GameShell {
             method13(true, "Unpacking config", 86);
             SeqType.method222(fileArchive, 473);
             LocType.load(fileArchive);
-            FloType.method209(fileArchive, 473);
+            FloType.load(fileArchive);
             ObjType.method167(fileArchive);
             NpcType.method146(fileArchive);
             IdkType.method214(fileArchive, 473);
@@ -5795,7 +5795,7 @@ public class Game extends GameShell {
         LocType.unload();
         NpcType.method147(true);
         ObjType.method168(true);
-        FloType.floTypes = null;
+        FloType.instances = null;
         IdkType.idkTypes = null;
         InterfaceComponent.interfaceComponentArray = null;
         SeqType.seqTypes = null;

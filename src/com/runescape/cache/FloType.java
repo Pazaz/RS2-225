@@ -4,146 +4,171 @@ import com.runescape.util.Buffer;
 
 public class FloType {
 
-    public static void method209(FileArchive fileArchive, int i) {
-        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive.read("flo.dat", null));
-        anInt222 = class38_sub2_sub3.method448();
-        i = 35 / i;
-        if (floTypes == null)
-            floTypes = new FloType[anInt222];
-        for (int j = 0; j < anInt222; j++) {
-            if (floTypes[j] == null)
-                floTypes[j] = new FloType();
-            floTypes[j].method210(false, class38_sub2_sub3);
+    public static void load(FileArchive fileArchive) {
+        Buffer buffer = new Buffer(363, fileArchive.read("flo.dat", null));
+
+        count = buffer.method448();
+
+        if (instances == null) {
+            instances = new FloType[count];
         }
 
+        for (int j = 0; j < count; j++) {
+            if (instances[j] == null) {
+                instances[j] = new FloType();
+            }
+
+            instances[j].read(buffer);
+        }
     }
 
-    public void method210(boolean flag, Buffer class38_sub2_sub3) {
-        if (flag)
-            throw new NullPointerException();
+    public void read(Buffer buffer) {
         do {
-            int i = class38_sub2_sub3.method446();
-            if (i == 0)
-                return;
-            if (i == 1) {
-                anInt224 = class38_sub2_sub3.method450();
-                method211(anInt221, anInt224);
-            } else if (i == 2)
-                anInt225 = class38_sub2_sub3.method446();
-            else if (i == 3)
-                aBoolean226 = true;
-            else if (i == 5)
-                aBoolean227 = false;
-            else if (i == 6)
-                aString228 = class38_sub2_sub3.method453();
-            else
-                System.out.println("Error unrecognised config code: " + i);
+            int opcode = buffer.method446();
+            switch (opcode) {
+                case 0:
+                    return;
+                case 1:
+                    rgb = buffer.method450();
+                    setColor(rgb);
+                    break;
+                case 2:
+                    textureIndex = buffer.method446();
+                    break;
+                case 3:
+                    break;
+                case 5:
+                    occlude = false;
+                    break;
+                case 6:
+                    name = buffer.method453();
+                    break;
+                default:
+                    System.out.println("Error unrecognised config code: " + opcode);
+                    break;
+            }
         } while (true);
     }
 
-    public void method211(int i, int j) {
-        double d = (double) (j >> 16 & 0xff) / 256D;
-        if (i >= 0) {
-            for (int k = 1; k > 0; k++)
-                ;
+    public void setColor(int j) {
+        double r = (double) (j >> 16 & 0xff) / 256D;
+        double g = (double) (j >> 8 & 0xff) / 256D;
+        double b = (double) (j & 0xff) / 256D;
+
+        double min = Math.min(Math.min(r, g), b);
+        double max = Math.max(Math.max(r, g), b);
+
+        double h = 0.0D;
+        double s = 0.0D;
+        double l = (min + max) / 2D;
+
+        if (min != max) {
+            if (l < 0.5D) {
+                s = (max - min) / (max + min);
+            } else if (l >= 0.5D) {
+                s = (max - min) / (2D - max - min);
+            }
+
+            if (r == max) {
+                h = (g - b) / (max - min);
+            } else if (g == max) {
+                h = 2D + (b - r) / (max - min);
+            } else if (b == max) {
+                h = 4D + (r - g) / (max - min);
+            }
         }
-        double d1 = (double) (j >> 8 & 0xff) / 256D;
-        double d2 = (double) (j & 0xff) / 256D;
-        double d3 = d;
-        if (d1 < d3)
-            d3 = d1;
-        if (d2 < d3)
-            d3 = d2;
-        double d4 = d;
-        if (d1 > d4)
-            d4 = d1;
-        if (d2 > d4)
-            d4 = d2;
-        double d5 = 0.0D;
-        double d6 = 0.0D;
-        double d7 = (d3 + d4) / 2D;
-        if (d3 != d4) {
-            if (d7 < 0.5D)
-                d6 = (d4 - d3) / (d4 + d3);
-            if (d7 >= 0.5D)
-                d6 = (d4 - d3) / (2D - d4 - d3);
-            if (d == d4)
-                d5 = (d1 - d2) / (d4 - d3);
-            else if (d1 == d4)
-                d5 = 2D + (d2 - d) / (d4 - d3);
-            else if (d2 == d4)
-                d5 = 4D + (d - d1) / (d4 - d3);
+
+        h /= 6D;
+
+        hue = (int) (h * 256D);
+        saturation = (int) (s * 256D);
+        lightness = (int) (l * 256D);
+
+        if (saturation < 0) {
+            saturation = 0;
+        } else if (saturation > 255) {
+            saturation = 255;
         }
-        d5 /= 6D;
-        anInt229 = (int) (d5 * 256D);
-        anInt230 = (int) (d6 * 256D);
-        anInt231 = (int) (d7 * 256D);
-        if (anInt230 < 0)
-            anInt230 = 0;
-        else if (anInt230 > 255)
-            anInt230 = 255;
-        if (anInt231 < 0)
-            anInt231 = 0;
-        else if (anInt231 > 255)
-            anInt231 = 255;
-        if (d7 > 0.5D)
-            anInt233 = (int) ((1.0D - d7) * d6 * 512D);
-        else
-            anInt233 = (int) (d7 * d6 * 512D);
-        if (anInt233 < 1)
-            anInt233 = 1;
-        anInt232 = (int) (d5 * (double) anInt233);
-        int l = (anInt229 + (int) (Math.random() * 16D)) - 8;
-        if (l < 0)
-            l = 0;
-        else if (l > 255)
-            l = 255;
-        int i1 = (anInt230 + (int) (Math.random() * 48D)) - 24;
-        if (i1 < 0)
-            i1 = 0;
-        else if (i1 > 255)
-            i1 = 255;
-        int j1 = (anInt231 + (int) (Math.random() * 48D)) - 24;
-        if (j1 < 0)
-            j1 = 0;
-        else if (j1 > 255)
-            j1 = 255;
-        anInt234 = method212(l, i1, j1);
+
+        if (lightness < 0) {
+            lightness = 0;
+        } else if (lightness > 255) {
+            lightness = 255;
+        }
+
+        if (l > 0.5D) {
+            hsl16 = (int) ((1.0D - l) * s * 512D);
+        } else {
+            hsl16 = (int) (l * s * 512D);
+        }
+
+        if (hsl16 < 1) {
+            hsl16 = 1;
+        }
+
+        blendHue = (int) (h * (double) hsl16);
+
+        int randHue = (hue + (int) (Math.random() * 16D)) - 8;
+        if (randHue < 0) {
+            randHue = 0;
+        } else if (randHue > 255) {
+            randHue = 255;
+        }
+
+        int randSaturation;
+        randSaturation = (saturation + (int) (Math.random() * 48D)) - 24;
+        if (randSaturation < 0) {
+            randSaturation = 0;
+        } else if (randSaturation > 255) {
+            randSaturation = 255;
+        }
+
+        int randLightness = (lightness + (int) (Math.random() * 48D)) - 24;
+        if (randLightness < 0) {
+            randLightness = 0;
+        } else if (randLightness > 255) {
+            randLightness = 255;
+        }
+
+        blendHueMultiplier = setHsl16(randHue, randSaturation, randLightness);
     }
 
-    public int method212(int i, int j, int k) {
-        if (k > 179)
-            j /= 2;
-        if (k > 192)
-            j /= 2;
-        if (k > 217)
-            j /= 2;
-        if (k > 243)
-            j /= 2;
-        int l = (i / 4 << 10) + (j / 32 << 7) + k / 2;
-        return l;
+    public int setHsl16(int h, int s, int l) {
+        if (l > 179) {
+            s /= 2;
+        }
+
+        if (l > 192) {
+            s /= 2;
+        }
+
+        if (l > 217) {
+            s /= 2;
+        }
+
+        if (l > 243) {
+            s /= 2;
+        }
+
+        return (h / 4 << 10) + (s / 32 << 7) + l / 2;
     }
 
     public FloType() {
-        anInt225 = -1;
-        aBoolean226 = false;
-        aBoolean227 = true;
+        textureIndex = -1;
+        occlude = true;
     }
 
-    public static int anInt220 = 473;
-    public static int anInt221 = -546;
-    public static int anInt222;
-    public static FloType[] floTypes;
-    public int anInt224;
-    public int anInt225;
-    public boolean aBoolean226;
-    public boolean aBoolean227;
-    public String aString228;
-    public int anInt229;
-    public int anInt230;
-    public int anInt231;
-    public int anInt232;
-    public int anInt233;
-    public int anInt234;
+    public static int count;
+    public static FloType[] instances;
+    public int rgb;
+    public int textureIndex;
+    public boolean occlude;
+    public String name;
+    public int hue;
+    public int saturation;
+    public int lightness;
+    public int blendHue;
+    public int hsl16;
+    public int blendHueMultiplier;
 
 }
