@@ -12,7 +12,7 @@ public class Class32 {
         anInt527 = k;
         anInt528 = l;
         anInt529 = j;
-        aClass38_Sub1ArrayArrayArray531 = new Class38_Sub1[k][l][j];
+        tile3dArray = new Tile[k][l][j];
         anIntArrayArrayArray535 = new int[k][l + 1][j + 1];
         i = 27 / i;
         anIntArrayArrayArray530 = ai;
@@ -34,7 +34,7 @@ public class Class32 {
         for (int j = 0; j < anInt527; j++) {
             for (int k = 0; k < anInt528; k++) {
                 for (int i1 = 0; i1 < anInt529; i1++)
-                    aClass38_Sub1ArrayArrayArray531[j][k][i1] = null;
+                    tile3dArray[j][k][i1] = null;
 
             }
 
@@ -61,7 +61,7 @@ public class Class32 {
         anInt532 = j;
         for (int k = 0; k < anInt528; k++) {
             for (int l = 0; l < anInt529; l++)
-                aClass38_Sub1ArrayArrayArray531[j][k][l] = new Class38_Sub1(j, k, l);
+                tile3dArray[j][k][l] = new Tile(j, k, l);
 
         }
 
@@ -72,17 +72,17 @@ public class Class32 {
     }
 
     public void method283(int i, int j, byte byte0) {
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[0][j][i];
+        Tile tile = tile3dArray[0][j][i];
         for (int k = 0; k < 3; k++) {
-            aClass38_Sub1ArrayArrayArray531[k][j][i] = aClass38_Sub1ArrayArrayArray531[k + 1][j][i];
-            if (aClass38_Sub1ArrayArrayArray531[k][j][i] != null)
-                aClass38_Sub1ArrayArrayArray531[k][j][i].anInt1161--;
+            tile3dArray[k][j][i] = tile3dArray[k + 1][j][i];
+            if (tile3dArray[k][j][i] != null)
+                tile3dArray[k][j][i].level--;
         }
 
-        if (aClass38_Sub1ArrayArrayArray531[0][j][i] == null)
-            aClass38_Sub1ArrayArrayArray531[0][j][i] = new Class38_Sub1(0, j, i);
-        aClass38_Sub1ArrayArrayArray531[0][j][i].aClass38_Sub1_1183 = class38_sub1;
-        aClass38_Sub1ArrayArrayArray531[3][j][i] = null;
+        if (tile3dArray[0][j][i] == null)
+            tile3dArray[0][j][i] = new Tile(0, j, i);
+        tile3dArray[0][j][i].bridge = tile;
+        tile3dArray[3][j][i] = null;
         if (byte0 != -41) {
             for (int l = 1; l > 0; l++)
                 ;
@@ -109,11 +109,11 @@ public class Class32 {
     }
 
     public void method285(int i, int j, int k, int l) {
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][j][k];
-        if (class38_sub1 == null) {
+        Tile tile = tile3dArray[i][j][k];
+        if (tile == null) {
             return;
         } else {
-            aClass38_Sub1ArrayArrayArray531[i][j][k].anInt1175 = l;
+            tile3dArray[i][j][k].physicalLevel = l;
             return;
         }
     }
@@ -124,27 +124,27 @@ public class Class32 {
         if (l == 0) {
             TileUnderlay tileUnderlay = new TileUnderlay(k2, l2, i3, j3, -1, k4, false);
             for (int i5 = i; i5 >= 0; i5--)
-                if (aClass38_Sub1ArrayArrayArray531[i5][j][k] == null)
-                    aClass38_Sub1ArrayArrayArray531[i5][j][k] = new Class38_Sub1(i5, j, k);
+                if (tile3dArray[i5][j][k] == null)
+                    tile3dArray[i5][j][k] = new Tile(i5, j, k);
 
-            aClass38_Sub1ArrayArrayArray531[i][j][k].tileUnderlay = tileUnderlay;
+            tile3dArray[i][j][k].underlay = tileUnderlay;
             return;
         }
         if (l == 1) {
             TileUnderlay tileUnderlay_1 = new TileUnderlay(k3, l3, i4, j4, j1, l4, k1 == l1 && k1 == i2 && k1 == j2);
             for (int j5 = i; j5 >= 0; j5--)
-                if (aClass38_Sub1ArrayArrayArray531[j5][j][k] == null)
-                    aClass38_Sub1ArrayArrayArray531[j5][j][k] = new Class38_Sub1(j5, j, k);
+                if (tile3dArray[j5][j][k] == null)
+                    tile3dArray[j5][j][k] = new Tile(j5, j, k);
 
-            aClass38_Sub1ArrayArrayArray531[i][j][k].tileUnderlay = tileUnderlay_1;
+            tile3dArray[i][j][k].underlay = tileUnderlay_1;
             return;
         }
         Class15 class15 = new Class15(j, l, l3, l1, i3, i1, k2, j2, l4, k3, j1, j4, k4, i2, i4, j3, 10659, k1, k, l2);
         for (int k5 = i; k5 >= 0; k5--)
-            if (aClass38_Sub1ArrayArrayArray531[k5][j][k] == null)
-                aClass38_Sub1ArrayArrayArray531[k5][j][k] = new Class38_Sub1(k5, j, k);
+            if (tile3dArray[k5][j][k] == null)
+                tile3dArray[k5][j][k] = new Tile(k5, j, k);
 
-        aClass38_Sub1ArrayArrayArray531[i][j][k].aClass15_1166 = class15;
+        tile3dArray[i][j][k].overlay = class15;
     }
 
     public void method287(Class38_Sub2_Sub1 class38_sub2_sub1, byte byte0, int i, int j, int k, int l, byte byte1,
@@ -156,9 +156,9 @@ public class Class32 {
         groundDecoration.sceneY = i1;
         groundDecoration.bitset = j;
         groundDecoration.info = byte1;
-        if (aClass38_Sub1ArrayArrayArray531[l][i][k] == null)
-            aClass38_Sub1ArrayArrayArray531[l][i][k] = new Class38_Sub1(l, i, k);
-        aClass38_Sub1ArrayArrayArray531[l][i][k].groundDecoration = groundDecoration;
+        if (tile3dArray[l][i][k] == null)
+            tile3dArray[l][i][k] = new Tile(l, i, k);
+        tile3dArray[l][i][k].groundDecoration = groundDecoration;
         if (byte0 == aByte520) {
             byte0 = 0;
             return;
@@ -181,19 +181,19 @@ public class Class32 {
         objEntity.entity1 = class38_sub2_sub1_1;
         objEntity.entity2 = class38_sub2_sub1_2;
         int k1 = 0;
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[j][i1][l];
-        if (class38_sub1 != null) {
-            for (int l1 = 0; l1 < class38_sub1.anInt1171; l1++) {
-                int i2 = class38_sub1.locArray[l1].model.anInt1251;
+        Tile tile = tile3dArray[j][i1][l];
+        if (tile != null) {
+            for (int l1 = 0; l1 < tile.locationCount; l1++) {
+                int i2 = tile.locs[l1].model.anInt1251;
                 if (i2 > k1)
                     k1 = i2;
             }
 
         }
         objEntity.offsetY = k1;
-        if (aClass38_Sub1ArrayArrayArray531[j][i1][l] == null)
-            aClass38_Sub1ArrayArrayArray531[j][i1][l] = new Class38_Sub1(j, i1, l);
-        aClass38_Sub1ArrayArrayArray531[j][i1][l].objEntity = objEntity;
+        if (tile3dArray[j][i1][l] == null)
+            tile3dArray[j][i1][l] = new Tile(j, i1, l);
+        tile3dArray[j][i1][l].objEntity = objEntity;
     }
 
     public void method289(int i, int j, int k, int l, int i1, Class38_Sub2_Sub1 class38_sub2_sub1,
@@ -214,10 +214,10 @@ public class Class32 {
         wall.type0 = l;
         wall.type1 = i;
         for (int i2 = k; i2 >= 0; i2--)
-            if (aClass38_Sub1ArrayArrayArray531[i2][j1][l1] == null)
-                aClass38_Sub1ArrayArrayArray531[i2][j1][l1] = new Class38_Sub1(i2, j1, l1);
+            if (tile3dArray[i2][j1][l1] == null)
+                tile3dArray[i2][j1][l1] = new Tile(i2, j1, l1);
 
-        aClass38_Sub1ArrayArrayArray531[k][j1][l1].wall = wall;
+        tile3dArray[k][j1][l1].wall = wall;
     }
 
     public void method290(int i, int j, int k, int l, int i1, int j1, int k1,
@@ -235,10 +235,10 @@ public class Class32 {
         wallDecoration.type = j1;
         wallDecoration.rotation = i1;
         for (int k2 = j2; k2 >= 0; k2--)
-            if (aClass38_Sub1ArrayArrayArray531[k2][i2][j] == null)
-                aClass38_Sub1ArrayArrayArray531[k2][i2][j] = new Class38_Sub1(k2, i2, j);
+            if (tile3dArray[k2][i2][j] == null)
+                tile3dArray[k2][i2][j] = new Tile(k2, i2, j);
 
-        aClass38_Sub1ArrayArrayArray531[j2][i2][j].wallDecoration = wallDecoration;
+        tile3dArray[j2][i2][j].wallDecoration = wallDecoration;
     }
 
     public boolean method291(int i, int j, int k, Entity entity, int l, int i1, int j1,
@@ -303,8 +303,8 @@ public class Class32 {
             for (int l2 = k; l2 < k + i1; l2++) {
                 if (k2 < 0 || l2 < 0 || k2 >= anInt528 || l2 >= anInt529)
                     return false;
-                Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][k2][l2];
-                if (class38_sub1 != null && class38_sub1.anInt1171 >= 5)
+                Tile tile = tile3dArray[i][k2][l2];
+                if (tile != null && tile.locationCount >= 5)
                     return false;
             }
 
@@ -336,14 +336,14 @@ public class Class32 {
                 if (j3 < (k + i1) - 1)
                     k3 += 2;
                 for (int l3 = i; l3 >= 0; l3--)
-                    if (aClass38_Sub1ArrayArrayArray531[l3][i3][j3] == null)
-                        aClass38_Sub1ArrayArrayArray531[l3][i3][j3] = new Class38_Sub1(l3, i3, j3);
+                    if (tile3dArray[l3][i3][j3] == null)
+                        tile3dArray[l3][i3][j3] = new Tile(l3, i3, j3);
 
-                Class38_Sub1 class38_sub1_1 = aClass38_Sub1ArrayArrayArray531[i][i3][j3];
-                class38_sub1_1.locArray[class38_sub1_1.anInt1171] = loc;
-                class38_sub1_1.anIntArray1173[class38_sub1_1.anInt1171] = k3;
-                class38_sub1_1.anInt1174 |= k3;
-                class38_sub1_1.anInt1171++;
+                Tile tile = tile3dArray[i][i3][j3];
+                tile.locs[tile.locationCount] = loc;
+                tile.locFlags[tile.locationCount] = k3;
+                tile.flags |= k3;
+                tile.locationCount++;
             }
 
         }
@@ -368,24 +368,24 @@ public class Class32 {
     public void method296(Loc loc, byte byte0) {
         for (int i = loc.minSceneTileX; i <= loc.maxSceneTileX; i++) {
             for (int j = loc.minSceneTileZ; j <= loc.maxSceneTileZ; j++) {
-                Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[loc.plane][i][j];
-                if (class38_sub1 != null) {
-                    for (int k = 0; k < class38_sub1.anInt1171; k++) {
-                        if (class38_sub1.locArray[k] != loc)
+                Tile tile = tile3dArray[loc.plane][i][j];
+                if (tile != null) {
+                    for (int k = 0; k < tile.locationCount; k++) {
+                        if (tile.locs[k] != loc)
                             continue;
-                        class38_sub1.anInt1171--;
-                        for (int l = k; l < class38_sub1.anInt1171; l++) {
-                            class38_sub1.locArray[l] = class38_sub1.locArray[l + 1];
-                            class38_sub1.anIntArray1173[l] = class38_sub1.anIntArray1173[l + 1];
+                        tile.locationCount--;
+                        for (int l = k; l < tile.locationCount; l++) {
+                            tile.locs[l] = tile.locs[l + 1];
+                            tile.locFlags[l] = tile.locFlags[l + 1];
                         }
 
-                        class38_sub1.locArray[class38_sub1.anInt1171] = null;
+                        tile.locs[tile.locationCount] = null;
                         break;
                     }
 
-                    class38_sub1.anInt1174 = 0;
-                    for (int i1 = 0; i1 < class38_sub1.anInt1171; i1++)
-                        class38_sub1.anInt1174 |= class38_sub1.anIntArray1173[i1];
+                    tile.flags = 0;
+                    for (int i1 = 0; i1 < tile.locationCount; i1++)
+                        tile.flags |= tile.locFlags[i1];
 
                 }
             }
@@ -399,15 +399,15 @@ public class Class32 {
     public void method297(int i, Class38_Sub2_Sub1 class38_sub2_sub1, int j, int k, int l) {
         if (class38_sub2_sub1 == null)
             return;
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[k][i][l];
+        Tile tile = tile3dArray[k][i][l];
         if (j < 1 || j > 1) {
             for (int i1 = 1; i1 > 0; i1++)
                 ;
         }
-        if (class38_sub1 == null)
+        if (tile == null)
             return;
-        for (int j1 = 0; j1 < class38_sub1.anInt1171; j1++) {
-            Loc loc = class38_sub1.locArray[j1];
+        for (int j1 = 0; j1 < tile.locationCount; j1++) {
+            Loc loc = tile.locs[j1];
             if ((loc.bitset >> 29 & 3) == 2) {
                 loc.model = class38_sub2_sub1;
                 return;
@@ -417,14 +417,14 @@ public class Class32 {
     }
 
     public void method298(int i, int j, int k, int l, byte byte0) {
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][k][j];
+        Tile tile = tile3dArray[i][k][j];
         if (byte0 != 6) {
             for (int i1 = 1; i1 > 0; i1++)
                 ;
         }
-        if (class38_sub1 == null)
+        if (tile == null)
             return;
-        WallDecoration wallDecoration = class38_sub1.wallDecoration;
+        WallDecoration wallDecoration = tile.wallDecoration;
         if (wallDecoration == null) {
             return;
         } else {
@@ -440,10 +440,10 @@ public class Class32 {
         i = 34 / i;
         if (class38_sub2_sub1 == null)
             return;
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[l][k][j];
-        if (class38_sub1 == null)
+        Tile tile = tile3dArray[l][k][j];
+        if (tile == null)
             return;
-        WallDecoration wallDecoration = class38_sub1.wallDecoration;
+        WallDecoration wallDecoration = tile.wallDecoration;
         if (wallDecoration == null) {
             return;
         } else {
@@ -457,10 +457,10 @@ public class Class32 {
             return;
         if (class38_sub2_sub1 == null)
             return;
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[l][k][i];
-        if (class38_sub1 == null)
+        Tile tile = tile3dArray[l][k][i];
+        if (tile == null)
             return;
-        GroundDecoration groundDecoration = class38_sub1.groundDecoration;
+        GroundDecoration groundDecoration = tile.groundDecoration;
         if (groundDecoration == null) {
             return;
         } else {
@@ -476,10 +476,10 @@ public class Class32 {
         }
         if (class38_sub2_sub1 == null)
             return;
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[l][k][j];
-        if (class38_sub1 == null)
+        Tile tile = tile3dArray[l][k][j];
+        if (tile == null)
             return;
-        Wall wall = class38_sub1.wall;
+        Wall wall = tile.wall;
         if (wall == null) {
             return;
         } else {
@@ -492,10 +492,10 @@ public class Class32 {
                           boolean flag, int j, int k) {
         if (class38_sub2_sub1 == null)
             return;
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[k][j][i];
-        if (class38_sub1 == null)
+        Tile tile = tile3dArray[k][j][i];
+        if (tile == null)
             return;
-        Wall wall = class38_sub1.wall;
+        Wall wall = tile.wall;
         if (wall == null)
             return;
         wall.entity0 = class38_sub2_sub1;
@@ -505,35 +505,35 @@ public class Class32 {
     }
 
     public void method303(int i, int j, int k, int l) {
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[j][i][k];
+        Tile tile = tile3dArray[j][i][k];
         if (l != 1)
             return;
-        if (class38_sub1 == null) {
+        if (tile == null) {
             return;
         } else {
-            class38_sub1.wall = null;
+            tile.wall = null;
             return;
         }
     }
 
     public void method304(int i, int j, int k, int l) {
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][l][j];
+        Tile tile = tile3dArray[i][l][j];
         if (k < 0 || k > 0)
             aBoolean519 = !aBoolean519;
-        if (class38_sub1 == null) {
+        if (tile == null) {
             return;
         } else {
-            class38_sub1.wallDecoration = null;
+            tile.wallDecoration = null;
             return;
         }
     }
 
     public void method305(int i, int j, int k, int l) {
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[l][i][j];
-        if (class38_sub1 == null)
+        Tile tile = tile3dArray[l][i][j];
+        if (tile == null)
             return;
-        for (int i1 = 0; i1 < class38_sub1.anInt1171; i1++) {
-            Loc loc = class38_sub1.locArray[i1];
+        for (int i1 = 0; i1 < tile.locationCount; i1++) {
+            Loc loc = tile.locs[i1];
             if ((loc.bitset >> 29 & 3) == 2 && loc.minSceneTileX == i && loc.minSceneTileZ == j) {
                 method296(loc, (byte) 1);
                 return;
@@ -549,49 +549,49 @@ public class Class32 {
     public void method306(int i, int j, int k, int l) {
         if (j != 0)
             aBoolean525 = !aBoolean525;
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][k][l];
-        if (class38_sub1 == null) {
+        Tile tile = tile3dArray[i][k][l];
+        if (tile == null) {
             return;
         } else {
-            class38_sub1.groundDecoration = null;
+            tile.groundDecoration = null;
             return;
         }
     }
 
     public void method307(int i, int j, int k) {
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][j][k];
-        if (class38_sub1 == null) {
+        Tile tile = tile3dArray[i][j][k];
+        if (tile == null) {
             return;
         } else {
-            class38_sub1.objEntity = null;
+            tile.objEntity = null;
             return;
         }
     }
 
     public int method308(int i, int j, int k) {
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][j][k];
-        if (class38_sub1 == null || class38_sub1.wall == null)
+        Tile tile = tile3dArray[i][j][k];
+        if (tile == null || tile.wall == null)
             return 0;
         else
-            return class38_sub1.wall.bitset;
+            return tile.wall.bitset;
     }
 
     public int method309(int i, int j, int k, int l) {
         if (k != 3)
             aBoolean519 = !aBoolean519;
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][l][j];
-        if (class38_sub1 == null || class38_sub1.wallDecoration == null)
+        Tile tile = tile3dArray[i][l][j];
+        if (tile == null || tile.wallDecoration == null)
             return 0;
         else
-            return class38_sub1.wallDecoration.bitset;
+            return tile.wallDecoration.bitset;
     }
 
     public int method310(int i, int j, int k) {
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][j][k];
-        if (class38_sub1 == null)
+        Tile tile = tile3dArray[i][j][k];
+        if (tile == null)
             return 0;
-        for (int l = 0; l < class38_sub1.anInt1171; l++) {
-            Loc loc = class38_sub1.locArray[l];
+        for (int l = 0; l < tile.locationCount; l++) {
+            Loc loc = tile.locs[l];
             if ((loc.bitset >> 29 & 3) == 2 && loc.minSceneTileX == j && loc.minSceneTileZ == k)
                 return loc.bitset;
         }
@@ -600,26 +600,26 @@ public class Class32 {
     }
 
     public int method311(int i, int j, int k) {
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][j][k];
-        if (class38_sub1 == null || class38_sub1.groundDecoration == null)
+        Tile tile = tile3dArray[i][j][k];
+        if (tile == null || tile.groundDecoration == null)
             return 0;
         else
-            return class38_sub1.groundDecoration.bitset;
+            return tile.groundDecoration.bitset;
     }
 
     public int method312(int i, int j, int k, int l) {
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][j][k];
-        if (class38_sub1 == null)
+        Tile tile = tile3dArray[i][j][k];
+        if (tile == null)
             return -1;
-        if (class38_sub1.wall != null && class38_sub1.wall.bitset == l)
-            return class38_sub1.wall.info & 0xff;
-        if (class38_sub1.wallDecoration != null && class38_sub1.wallDecoration.bitset == l)
-            return class38_sub1.wallDecoration.info & 0xff;
-        if (class38_sub1.groundDecoration != null && class38_sub1.groundDecoration.bitset == l)
-            return class38_sub1.groundDecoration.info & 0xff;
-        for (int i1 = 0; i1 < class38_sub1.anInt1171; i1++)
-            if (class38_sub1.locArray[i1].bitset == l)
-                return class38_sub1.locArray[i1].info & 0xff;
+        if (tile.wall != null && tile.wall.bitset == l)
+            return tile.wall.info & 0xff;
+        if (tile.wallDecoration != null && tile.wallDecoration.bitset == l)
+            return tile.wallDecoration.info & 0xff;
+        if (tile.groundDecoration != null && tile.groundDecoration.bitset == l)
+            return tile.groundDecoration.info & 0xff;
+        for (int i1 = 0; i1 < tile.locationCount; i1++)
+            if (tile.locs[i1].bitset == l)
+                return tile.locs[i1].info & 0xff;
 
         return -1;
     }
@@ -632,9 +632,9 @@ public class Class32 {
         for (int l1 = 0; l1 < anInt527; l1++) {
             for (int i2 = 0; i2 < anInt528; i2++) {
                 for (int j2 = 0; j2 < anInt529; j2++) {
-                    Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[l1][i2][j2];
-                    if (class38_sub1 != null) {
-                        Wall wall = class38_sub1.wall;
+                    Tile tile = tile3dArray[l1][i2][j2];
+                    if (tile != null) {
+                        Wall wall = tile.wall;
                         if (wall != null && wall.entity0 != null
                                 && wall.entity0.vertexNormalArray1 != null) {
                             method315(i2, 1, 1, l1, 872, wall.entity0, j2);
@@ -647,8 +647,8 @@ public class Class32 {
                             }
                             wall.entity0.method368(j, k1, k, i, i1);
                         }
-                        for (int k2 = 0; k2 < class38_sub1.anInt1171; k2++) {
-                            Loc loc = class38_sub1.locArray[k2];
+                        for (int k2 = 0; k2 < tile.locationCount; k2++) {
+                            Loc loc = tile.locs[k2];
                             if (loc != null && loc.model != null
                                     && loc.model.vertexNormalArray1 != null) {
                                 method315(i2, (loc.maxSceneTileX - loc.minSceneTileX) + 1,
@@ -658,7 +658,7 @@ public class Class32 {
                             }
                         }
 
-                        GroundDecoration groundDecoration = class38_sub1.groundDecoration;
+                        GroundDecoration groundDecoration = tile.groundDecoration;
                         if (groundDecoration != null && groundDecoration.model.vertexNormalArray1 != null) {
                             method314((byte) -70, l1, j2, groundDecoration.model, i2);
                             groundDecoration.model.method368(j, k1, k, i, i1);
@@ -676,28 +676,28 @@ public class Class32 {
         if (byte0 != -70)
             anInt523 = -417;
         if (k < anInt528) {
-            Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][k + 1][j];
-            if (class38_sub1 != null && class38_sub1.groundDecoration != null
-                    && class38_sub1.groundDecoration.model.vertexNormalArray1 != null)
-                method316(class38_sub2_sub1, class38_sub1.groundDecoration.model, 128, 0, 0, true);
+            Tile tile = tile3dArray[i][k + 1][j];
+            if (tile != null && tile.groundDecoration != null
+                    && tile.groundDecoration.model.vertexNormalArray1 != null)
+                method316(class38_sub2_sub1, tile.groundDecoration.model, 128, 0, 0, true);
         }
         if (j < anInt528) {
-            Class38_Sub1 class38_sub1_1 = aClass38_Sub1ArrayArrayArray531[i][k][j + 1];
-            if (class38_sub1_1 != null && class38_sub1_1.groundDecoration != null
-                    && class38_sub1_1.groundDecoration.model.vertexNormalArray1 != null)
-                method316(class38_sub2_sub1, class38_sub1_1.groundDecoration.model, 0, 0, 128, true);
+            Tile tile = tile3dArray[i][k][j + 1];
+            if (tile != null && tile.groundDecoration != null
+                    && tile.groundDecoration.model.vertexNormalArray1 != null)
+                method316(class38_sub2_sub1, tile.groundDecoration.model, 0, 0, 128, true);
         }
         if (k < anInt528 && j < anInt529) {
-            Class38_Sub1 class38_sub1_2 = aClass38_Sub1ArrayArrayArray531[i][k + 1][j + 1];
-            if (class38_sub1_2 != null && class38_sub1_2.groundDecoration != null
-                    && class38_sub1_2.groundDecoration.model.vertexNormalArray1 != null)
-                method316(class38_sub2_sub1, class38_sub1_2.groundDecoration.model, 128, 0, 128, true);
+            Tile tile_2 = tile3dArray[i][k + 1][j + 1];
+            if (tile_2 != null && tile_2.groundDecoration != null
+                    && tile_2.groundDecoration.model.vertexNormalArray1 != null)
+                method316(class38_sub2_sub1, tile_2.groundDecoration.model, 128, 0, 128, true);
         }
         if (k < anInt528 && j > 0) {
-            Class38_Sub1 class38_sub1_3 = aClass38_Sub1ArrayArrayArray531[i][k + 1][j - 1];
-            if (class38_sub1_3 != null && class38_sub1_3.groundDecoration != null
-                    && class38_sub1_3.groundDecoration.model.vertexNormalArray1 != null)
-                method316(class38_sub2_sub1, class38_sub1_3.groundDecoration.model, 128, 0, -128, true);
+            Tile tile_3 = tile3dArray[i][k + 1][j - 1];
+            if (tile_3 != null && tile_3.groundDecoration != null
+                    && tile_3.groundDecoration.model.vertexNormalArray1 != null)
+                method316(class38_sub2_sub1, tile_3.groundDecoration.model, 128, 0, -128, true);
         }
     }
 
@@ -714,8 +714,8 @@ public class Class32 {
                     if (l2 >= 0 && l2 < anInt528) {
                         for (int i3 = i2; i3 <= j2; i3++)
                             if (i3 >= 0 && i3 < anInt529 && (!flag || l2 >= l1 || i3 >= j2 || i3 < j1 && l2 != i)) {
-                                Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[k2][l2][i3];
-                                if (class38_sub1 != null) {
+                                Tile tile = tile3dArray[k2][l2][i3];
+                                if (tile != null) {
                                     int j3 = (anIntArrayArrayArray530[k2][l2][i3]
                                             + anIntArrayArrayArray530[k2][l2 + 1][i3]
                                             + anIntArrayArrayArray530[k2][l2][i3 + 1]
@@ -723,7 +723,7 @@ public class Class32 {
                                             - (anIntArrayArrayArray530[l][i][j1] + anIntArrayArrayArray530[l][i + 1][j1]
                                             + anIntArrayArrayArray530[l][i][j1 + 1]
                                             + anIntArrayArrayArray530[l][i + 1][j1 + 1]) / 4;
-                                    Wall wall = class38_sub1.wall;
+                                    Wall wall = tile.wall;
                                     if (wall != null && wall.entity0 != null
                                             && wall.entity0.vertexNormalArray1 != null)
                                         method316(class38_sub2_sub1, wall.entity0,
@@ -734,8 +734,8 @@ public class Class32 {
                                         method316(class38_sub2_sub1, wall.entity1,
                                                 (l2 - i) * 128 + (1 - j) * 64, j3, (i3 - j1) * 128 + (1 - k) * 64,
                                                 flag);
-                                    for (int k3 = 0; k3 < class38_sub1.anInt1171; k3++) {
-                                        Loc loc = class38_sub1.locArray[k3];
+                                    for (int k3 = 0; k3 < tile.locationCount; k3++) {
+                                        Loc loc = tile.locs[k3];
                                         if (loc != null && loc.model != null
                                                 && loc.model.vertexNormalArray1 != null) {
                                             int l3 = (loc.maxSceneTileX - loc.minSceneTileX) + 1;
@@ -815,10 +815,10 @@ public class Class32 {
     }
 
     public void method317(int[] ai, int i, int j, int k, int l, int i1) {
-        Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[k][l][i1];
-        if (class38_sub1 == null)
+        Tile tile = tile3dArray[k][l][i1];
+        if (tile == null)
             return;
-        TileUnderlay tileUnderlay = class38_sub1.tileUnderlay;
+        TileUnderlay tileUnderlay = tile.underlay;
         if (tileUnderlay != null) {
             int j1 = tileUnderlay.color;
             if (j1 == 0)
@@ -833,7 +833,7 @@ public class Class32 {
 
             return;
         }
-        Class15 class15 = class38_sub1.aClass15_1166;
+        Class15 class15 = tile.overlay;
         if (class15 == null)
             return;
         int l1 = class15.anInt334;
@@ -1009,21 +1009,21 @@ public class Class32 {
         method327(false);
         anInt536 = 0;
         for (int l1 = anInt532; l1 < anInt527; l1++) {
-            Class38_Sub1[][] aclass38_sub1 = aClass38_Sub1ArrayArrayArray531[l1];
+            Tile[][] aclass38_sub1 = tile3dArray[l1];
             for (int j2 = anInt539; j2 < anInt540; j2++) {
                 for (int l2 = anInt541; l2 < anInt542; l2++) {
-                    Class38_Sub1 class38_sub1 = aclass38_sub1[j2][l2];
-                    if (class38_sub1 != null)
-                        if (class38_sub1.anInt1175 > k
+                    Tile tile = aclass38_sub1[j2][l2];
+                    if (tile != null)
+                        if (tile.physicalLevel > k
                                 || !aBooleanArrayArray582[(j2 - anInt543) + 25][(l2 - anInt544) + 25]
                                 && anIntArrayArrayArray530[l1][j2][l2] - i1 < 2000) {
-                            class38_sub1.aBoolean1176 = false;
-                            class38_sub1.aBoolean1177 = false;
-                            class38_sub1.anInt1179 = 0;
+                            tile.draw = false;
+                            tile.isVisible = false;
+                            tile.wallCullDirection = 0;
                         } else {
-                            class38_sub1.aBoolean1176 = true;
-                            class38_sub1.aBoolean1177 = true;
-                            class38_sub1.aBoolean1178 = class38_sub1.anInt1171 > 0;
+                            tile.draw = true;
+                            tile.isVisible = true;
+                            tile.drawLocations = tile.locationCount > 0;
                             anInt536++;
                         }
                 }
@@ -1033,7 +1033,7 @@ public class Class32 {
         }
 
         for (int i2 = anInt532; i2 < anInt527; i2++) {
-            Class38_Sub1[][] aclass38_sub1_1 = aClass38_Sub1ArrayArrayArray531[i2];
+            Tile[][] aclass38_sub1_1 = tile3dArray[i2];
             for (int i3 = -25; i3 <= 0; i3++) {
                 int j3 = anInt543 + i3;
                 int l3 = anInt543 - i3;
@@ -1043,26 +1043,26 @@ public class Class32 {
                         int j5 = anInt544 - j4;
                         if (j3 >= anInt539) {
                             if (l4 >= anInt541) {
-                                Class38_Sub1 class38_sub1_1 = aclass38_sub1_1[j3][l4];
-                                if (class38_sub1_1 != null && class38_sub1_1.aBoolean1176)
-                                    method322(class38_sub1_1, true);
+                                Tile tile = aclass38_sub1_1[j3][l4];
+                                if (tile != null && tile.draw)
+                                    method322(tile, true);
                             }
                             if (j5 < anInt542) {
-                                Class38_Sub1 class38_sub1_2 = aclass38_sub1_1[j3][j5];
-                                if (class38_sub1_2 != null && class38_sub1_2.aBoolean1176)
-                                    method322(class38_sub1_2, true);
+                                Tile tile_2 = aclass38_sub1_1[j3][j5];
+                                if (tile_2 != null && tile_2.draw)
+                                    method322(tile_2, true);
                             }
                         }
                         if (l3 < anInt540) {
                             if (l4 >= anInt541) {
-                                Class38_Sub1 class38_sub1_3 = aclass38_sub1_1[l3][l4];
-                                if (class38_sub1_3 != null && class38_sub1_3.aBoolean1176)
-                                    method322(class38_sub1_3, true);
+                                Tile tile_3 = aclass38_sub1_1[l3][l4];
+                                if (tile_3 != null && tile_3.draw)
+                                    method322(tile_3, true);
                             }
                             if (j5 < anInt542) {
-                                Class38_Sub1 class38_sub1_4 = aclass38_sub1_1[l3][j5];
-                                if (class38_sub1_4 != null && class38_sub1_4.aBoolean1176)
-                                    method322(class38_sub1_4, true);
+                                Tile tile_4 = aclass38_sub1_1[l3][j5];
+                                if (tile_4 != null && tile_4.draw)
+                                    method322(tile_4, true);
                             }
                         }
                         if (anInt536 == 0) {
@@ -1077,7 +1077,7 @@ public class Class32 {
         }
 
         for (int k2 = anInt532; k2 < anInt527; k2++) {
-            Class38_Sub1[][] aclass38_sub1_2 = aClass38_Sub1ArrayArrayArray531[k2];
+            Tile[][] aclass38_sub1_2 = tile3dArray[k2];
             for (int k3 = -25; k3 <= 0; k3++) {
                 int i4 = anInt543 + k3;
                 int k4 = anInt543 - k3;
@@ -1087,26 +1087,26 @@ public class Class32 {
                         int l5 = anInt544 - i5;
                         if (i4 >= anInt539) {
                             if (k5 >= anInt541) {
-                                Class38_Sub1 class38_sub1_5 = aclass38_sub1_2[i4][k5];
-                                if (class38_sub1_5 != null && class38_sub1_5.aBoolean1176)
-                                    method322(class38_sub1_5, false);
+                                Tile tile_5 = aclass38_sub1_2[i4][k5];
+                                if (tile_5 != null && tile_5.draw)
+                                    method322(tile_5, false);
                             }
                             if (l5 < anInt542) {
-                                Class38_Sub1 class38_sub1_6 = aclass38_sub1_2[i4][l5];
-                                if (class38_sub1_6 != null && class38_sub1_6.aBoolean1176)
-                                    method322(class38_sub1_6, false);
+                                Tile tile_6 = aclass38_sub1_2[i4][l5];
+                                if (tile_6 != null && tile_6.draw)
+                                    method322(tile_6, false);
                             }
                         }
                         if (k4 < anInt540) {
                             if (k5 >= anInt541) {
-                                Class38_Sub1 class38_sub1_7 = aclass38_sub1_2[k4][k5];
-                                if (class38_sub1_7 != null && class38_sub1_7.aBoolean1176)
-                                    method322(class38_sub1_7, false);
+                                Tile tile_7 = aclass38_sub1_2[k4][k5];
+                                if (tile_7 != null && tile_7.draw)
+                                    method322(tile_7, false);
                             }
                             if (l5 < anInt542) {
-                                Class38_Sub1 class38_sub1_8 = aclass38_sub1_2[k4][l5];
-                                if (class38_sub1_8 != null && class38_sub1_8.aBoolean1176)
-                                    method322(class38_sub1_8, false);
+                                Tile tile_8 = aclass38_sub1_2[k4][l5];
+                                if (tile_8 != null && tile_8.draw)
+                                    method322(tile_8, false);
                             }
                         }
                         if (anInt536 == 0) {
@@ -1122,69 +1122,69 @@ public class Class32 {
 
     }
 
-    public void method322(Class38_Sub1 class38_sub1, boolean flag) {
-        linkedList.method267(class38_sub1);
+    public void method322(Tile tile_1, boolean flag) {
+        linkedList.method267(tile_1);
         do {
-            Class38_Sub1 class38_sub1_1;
+            Tile tile;
             do {
-                class38_sub1_1 = (Class38_Sub1) linkedList.method269();
-                if (class38_sub1_1 == null)
+                tile = (Tile) linkedList.method269();
+                if (tile == null)
                     return;
-            } while (!class38_sub1_1.aBoolean1177);
-            int i = class38_sub1_1.anInt1162;
-            int j = class38_sub1_1.anInt1163;
-            int k = class38_sub1_1.anInt1161;
-            int l = class38_sub1_1.anInt1164;
-            Class38_Sub1[][] aclass38_sub1 = aClass38_Sub1ArrayArrayArray531[k];
-            if (class38_sub1_1.aBoolean1176) {
+            } while (!tile.isVisible);
+            int i = tile.x;
+            int j = tile.z;
+            int k = tile.level;
+            int l = tile.renderLevel;
+            Tile[][] aclass38_sub1 = tile3dArray[k];
+            if (tile.draw) {
                 if (flag) {
                     if (k > 0) {
-                        Class38_Sub1 class38_sub1_2 = aClass38_Sub1ArrayArrayArray531[k - 1][i][j];
-                        if (class38_sub1_2 != null && class38_sub1_2.aBoolean1177)
+                        Tile tile_2 = tile3dArray[k - 1][i][j];
+                        if (tile_2 != null && tile_2.isVisible)
                             continue;
                     }
                     if (i <= anInt543 && i > anInt539) {
-                        Class38_Sub1 class38_sub1_3 = aclass38_sub1[i - 1][j];
-                        if (class38_sub1_3 != null && class38_sub1_3.aBoolean1177
-                                && (class38_sub1_3.aBoolean1176 || (class38_sub1_1.anInt1174 & 1) == 0))
+                        Tile tile_3 = aclass38_sub1[i - 1][j];
+                        if (tile_3 != null && tile_3.isVisible
+                                && (tile_3.draw || (tile.flags & 1) == 0))
                             continue;
                     }
                     if (i >= anInt543 && i < anInt540 - 1) {
-                        Class38_Sub1 class38_sub1_4 = aclass38_sub1[i + 1][j];
-                        if (class38_sub1_4 != null && class38_sub1_4.aBoolean1177
-                                && (class38_sub1_4.aBoolean1176 || (class38_sub1_1.anInt1174 & 4) == 0))
+                        Tile tile_4 = aclass38_sub1[i + 1][j];
+                        if (tile_4 != null && tile_4.isVisible
+                                && (tile_4.draw || (tile.flags & 4) == 0))
                             continue;
                     }
                     if (j <= anInt544 && j > anInt541) {
-                        Class38_Sub1 class38_sub1_5 = aclass38_sub1[i][j - 1];
-                        if (class38_sub1_5 != null && class38_sub1_5.aBoolean1177
-                                && (class38_sub1_5.aBoolean1176 || (class38_sub1_1.anInt1174 & 8) == 0))
+                        Tile tile_5 = aclass38_sub1[i][j - 1];
+                        if (tile_5 != null && tile_5.isVisible
+                                && (tile_5.draw || (tile.flags & 8) == 0))
                             continue;
                     }
                     if (j >= anInt544 && j < anInt542 - 1) {
-                        Class38_Sub1 class38_sub1_6 = aclass38_sub1[i][j + 1];
-                        if (class38_sub1_6 != null && class38_sub1_6.aBoolean1177
-                                && (class38_sub1_6.aBoolean1176 || (class38_sub1_1.anInt1174 & 2) == 0))
+                        Tile tile_6 = aclass38_sub1[i][j + 1];
+                        if (tile_6 != null && tile_6.isVisible
+                                && (tile_6.draw || (tile.flags & 2) == 0))
                             continue;
                     }
                 } else {
                     flag = true;
                 }
-                class38_sub1_1.aBoolean1176 = false;
-                if (class38_sub1_1.aClass38_Sub1_1183 != null) {
-                    Class38_Sub1 class38_sub1_7 = class38_sub1_1.aClass38_Sub1_1183;
-                    if (class38_sub1_7.tileUnderlay != null) {
+                tile.draw = false;
+                if (tile.bridge != null) {
+                    Tile tile_7 = tile.bridge;
+                    if (tile_7.underlay != null) {
                         if (!method328(0, i, j))
-                            method323(class38_sub1_7.tileUnderlay, 0, anInt548, anInt549, anInt550, anInt551, i, j);
-                    } else if (class38_sub1_7.aClass15_1166 != null && !method328(0, i, j))
-                        method324(anInt550, j, class38_sub1_7.aClass15_1166, i, anInt549, anInt548, anInt551, true);
-                    Wall wall = class38_sub1_7.wall;
+                            method323(tile_7.underlay, 0, anInt548, anInt549, anInt550, anInt551, i, j);
+                    } else if (tile_7.overlay != null && !method328(0, i, j))
+                        method324(anInt550, j, tile_7.overlay, i, anInt549, anInt548, anInt551, true);
+                    Wall wall = tile_7.wall;
                     if (wall != null)
                         wall.entity0.method371(0, anInt548, anInt549, anInt550, anInt551,
                                 wall.x - anInt545, wall.y - anInt546, wall.z - anInt547,
                                 wall.bitset);
-                    for (int i2 = 0; i2 < class38_sub1_7.anInt1171; i2++) {
-                        Loc loc = class38_sub1_7.locArray[i2];
+                    for (int i2 = 0; i2 < tile_7.locationCount; i2++) {
+                        Loc loc = tile_7.locs[i2];
                         if (loc != null) {
                             Class38_Sub2_Sub1 class38_sub2_sub1 = loc.model;
                             if (class38_sub2_sub1 == null)
@@ -1197,19 +1197,19 @@ public class Class32 {
 
                 }
                 boolean flag1 = false;
-                if (class38_sub1_1.tileUnderlay != null) {
+                if (tile.underlay != null) {
                     if (!method328(l, i, j)) {
                         flag1 = true;
-                        method323(class38_sub1_1.tileUnderlay, l, anInt548, anInt549, anInt550, anInt551, i, j);
+                        method323(tile.underlay, l, anInt548, anInt549, anInt550, anInt551, i, j);
                     }
-                } else if (class38_sub1_1.aClass15_1166 != null && !method328(l, i, j)) {
+                } else if (tile.overlay != null && !method328(l, i, j)) {
                     flag1 = true;
-                    method324(anInt550, j, class38_sub1_1.aClass15_1166, i, anInt549, anInt548, anInt551, true);
+                    method324(anInt550, j, tile.overlay, i, anInt549, anInt548, anInt551, true);
                 }
                 int j1 = 0;
                 int j2 = 0;
-                Wall wall_3 = class38_sub1_1.wall;
-                WallDecoration wallDecoration_1 = class38_sub1_1.wallDecoration;
+                Wall wall_3 = tile.wall;
+                WallDecoration wallDecoration_1 = tile.wallDecoration;
                 if (wall_3 != null || wallDecoration_1 != null) {
                     if (anInt543 == i)
                         j1++;
@@ -1220,29 +1220,29 @@ public class Class32 {
                     else if (anInt544 > j)
                         j1 += 6;
                     j2 = anIntArray568[j1];
-                    class38_sub1_1.anInt1182 = anIntArray570[j1];
+                    tile.wallDrawFlags = anIntArray570[j1];
                 }
                 if (wall_3 != null) {
                     if ((wall_3.type0 & anIntArray569[j1]) != 0) {
                         if (wall_3.type0 == 16) {
-                            class38_sub1_1.anInt1179 = 3;
-                            class38_sub1_1.anInt1180 = anIntArray571[j1];
-                            class38_sub1_1.anInt1181 = 3 - class38_sub1_1.anInt1180;
+                            tile.wallCullDirection = 3;
+                            tile.wallUncullDirection = anIntArray571[j1];
+                            tile.wallCullOppositeDirection = 3 - tile.wallUncullDirection;
                         } else if (wall_3.type0 == 32) {
-                            class38_sub1_1.anInt1179 = 6;
-                            class38_sub1_1.anInt1180 = anIntArray572[j1];
-                            class38_sub1_1.anInt1181 = 6 - class38_sub1_1.anInt1180;
+                            tile.wallCullDirection = 6;
+                            tile.wallUncullDirection = anIntArray572[j1];
+                            tile.wallCullOppositeDirection = 6 - tile.wallUncullDirection;
                         } else if (wall_3.type0 == 64) {
-                            class38_sub1_1.anInt1179 = 12;
-                            class38_sub1_1.anInt1180 = anIntArray573[j1];
-                            class38_sub1_1.anInt1181 = 12 - class38_sub1_1.anInt1180;
+                            tile.wallCullDirection = 12;
+                            tile.wallUncullDirection = anIntArray573[j1];
+                            tile.wallCullOppositeDirection = 12 - tile.wallUncullDirection;
                         } else {
-                            class38_sub1_1.anInt1179 = 9;
-                            class38_sub1_1.anInt1180 = anIntArray574[j1];
-                            class38_sub1_1.anInt1181 = 9 - class38_sub1_1.anInt1180;
+                            tile.wallCullDirection = 9;
+                            tile.wallUncullDirection = anIntArray574[j1];
+                            tile.wallCullOppositeDirection = 9 - tile.wallUncullDirection;
                         }
                     } else {
-                        class38_sub1_1.anInt1179 = 0;
+                        tile.wallCullDirection = 0;
                     }
                     if ((wall_3.type0 & j2) != 0 && !method329(l, i, j, wall_3.type0))
                         wall_3.entity0.method371(0, anInt548, anInt549, anInt550, anInt551,
@@ -1287,12 +1287,12 @@ public class Class32 {
                         }
                     }
                 if (flag1) {
-                    GroundDecoration groundDecoration = class38_sub1_1.groundDecoration;
+                    GroundDecoration groundDecoration = tile.groundDecoration;
                     if (groundDecoration != null)
                         groundDecoration.model.method371(0, anInt548, anInt549, anInt550, anInt551,
                                 groundDecoration.sceneX - anInt545, groundDecoration.sceneY - anInt546, groundDecoration.sceneZ - anInt547,
                                 groundDecoration.bitset);
-                    ObjEntity objEntity_1 = class38_sub1_1.objEntity;
+                    ObjEntity objEntity_1 = tile.objEntity;
                     if (objEntity_1 != null && objEntity_1.offsetY == 0) {
                         if (objEntity_1.entity1 != null)
                             objEntity_1.entity1.method371(0, anInt548, anInt549, anInt550, anInt551,
@@ -1308,65 +1308,65 @@ public class Class32 {
                                     objEntity_1.z - anInt547, objEntity_1.bitset);
                     }
                 }
-                int k4 = class38_sub1_1.anInt1174;
+                int k4 = tile.flags;
                 if (k4 != 0) {
                     if (i < anInt543 && (k4 & 4) != 0) {
-                        Class38_Sub1 class38_sub1_17 = aclass38_sub1[i + 1][j];
-                        if (class38_sub1_17 != null && class38_sub1_17.aBoolean1177)
-                            linkedList.method267(class38_sub1_17);
+                        Tile tile_17 = aclass38_sub1[i + 1][j];
+                        if (tile_17 != null && tile_17.isVisible)
+                            linkedList.method267(tile_17);
                     }
                     if (j < anInt544 && (k4 & 2) != 0) {
-                        Class38_Sub1 class38_sub1_18 = aclass38_sub1[i][j + 1];
-                        if (class38_sub1_18 != null && class38_sub1_18.aBoolean1177)
-                            linkedList.method267(class38_sub1_18);
+                        Tile tile_18 = aclass38_sub1[i][j + 1];
+                        if (tile_18 != null && tile_18.isVisible)
+                            linkedList.method267(tile_18);
                     }
                     if (i > anInt543 && (k4 & 1) != 0) {
-                        Class38_Sub1 class38_sub1_19 = aclass38_sub1[i - 1][j];
-                        if (class38_sub1_19 != null && class38_sub1_19.aBoolean1177)
-                            linkedList.method267(class38_sub1_19);
+                        Tile tile_19 = aclass38_sub1[i - 1][j];
+                        if (tile_19 != null && tile_19.isVisible)
+                            linkedList.method267(tile_19);
                     }
                     if (j > anInt544 && (k4 & 8) != 0) {
-                        Class38_Sub1 class38_sub1_20 = aclass38_sub1[i][j - 1];
-                        if (class38_sub1_20 != null && class38_sub1_20.aBoolean1177)
-                            linkedList.method267(class38_sub1_20);
+                        Tile tile_20 = aclass38_sub1[i][j - 1];
+                        if (tile_20 != null && tile_20.isVisible)
+                            linkedList.method267(tile_20);
                     }
                 }
             }
-            if (class38_sub1_1.anInt1179 != 0) {
+            if (tile.wallCullDirection != 0) {
                 boolean flag2 = true;
-                for (int k1 = 0; k1 < class38_sub1_1.anInt1171; k1++) {
-                    if (class38_sub1_1.locArray[k1].cycle == anInt538 || (class38_sub1_1.anIntArray1173[k1]
-                            & class38_sub1_1.anInt1179) != class38_sub1_1.anInt1180)
+                for (int k1 = 0; k1 < tile.locationCount; k1++) {
+                    if (tile.locs[k1].cycle == anInt538 || (tile.locFlags[k1]
+                            & tile.wallCullDirection) != tile.wallUncullDirection)
                         continue;
                     flag2 = false;
                     break;
                 }
 
                 if (flag2) {
-                    Wall wall_1 = class38_sub1_1.wall;
+                    Wall wall_1 = tile.wall;
                     if (!method329(l, i, j, wall_1.type0))
                         wall_1.entity0.method371(0, anInt548, anInt549, anInt550, anInt551,
                                 wall_1.x - anInt545, wall_1.y - anInt546,
                                 wall_1.z - anInt547, wall_1.bitset);
-                    class38_sub1_1.anInt1179 = 0;
+                    tile.wallCullDirection = 0;
                 }
             }
-            if (class38_sub1_1.aBoolean1178) {
-                int i1 = class38_sub1_1.anInt1171;
-                class38_sub1_1.aBoolean1178 = false;
+            if (tile.drawLocations) {
+                int i1 = tile.locationCount;
+                tile.drawLocations = false;
                 int l1 = 0;
                 label0:
                 for (int k2 = 0; k2 < i1; k2++) {
-                    Loc loc_1 = class38_sub1_1.locArray[k2];
+                    Loc loc_1 = tile.locs[k2];
                     if (loc_1.cycle == anInt538)
                         continue;
                     for (int k3 = loc_1.minSceneTileX; k3 <= loc_1.maxSceneTileX; k3++) {
                         for (int l4 = loc_1.minSceneTileZ; l4 <= loc_1.maxSceneTileZ; l4++) {
-                            Class38_Sub1 class38_sub1_21 = aclass38_sub1[k3][l4];
-                            if (class38_sub1_21.aBoolean1176) {
-                                class38_sub1_1.aBoolean1178 = true;
+                            Tile tile_21 = aclass38_sub1[k3][l4];
+                            if (tile_21.draw) {
+                                tile.drawLocations = true;
                             } else {
-                                if (class38_sub1_21.anInt1179 == 0)
+                                if (tile_21.wallCullDirection == 0)
                                     continue;
                                 int l6 = 0;
                                 if (k3 > loc_1.minSceneTileX)
@@ -1377,9 +1377,9 @@ public class Class32 {
                                     l6 += 8;
                                 if (l4 < loc_1.maxSceneTileZ)
                                     l6 += 2;
-                                if ((l6 & class38_sub1_21.anInt1179) != class38_sub1_1.anInt1181)
+                                if ((l6 & tile_21.wallCullDirection) != tile.wallCullOppositeDirection)
                                     continue;
-                                class38_sub1_1.aBoolean1178 = true;
+                                tile.drawLocations = true;
                             }
                             continue label0;
                         }
@@ -1424,44 +1424,44 @@ public class Class32 {
                                 loc_3.z - anInt547, loc_3.bitset);
                     for (int i8 = loc_3.minSceneTileX; i8 <= loc_3.maxSceneTileX; i8++) {
                         for (int i9 = loc_3.minSceneTileZ; i9 <= loc_3.maxSceneTileZ; i9++) {
-                            Class38_Sub1 class38_sub1_22 = aclass38_sub1[i8][i9];
-                            if (class38_sub1_22.anInt1179 != 0)
-                                linkedList.method267(class38_sub1_22);
-                            else if ((i8 != i || i9 != j) && class38_sub1_22.aBoolean1177)
-                                linkedList.method267(class38_sub1_22);
+                            Tile tile_22 = aclass38_sub1[i8][i9];
+                            if (tile_22.wallCullDirection != 0)
+                                linkedList.method267(tile_22);
+                            else if ((i8 != i || i9 != j) && tile_22.isVisible)
+                                linkedList.method267(tile_22);
                         }
 
                     }
 
                 }
-                if (class38_sub1_1.aBoolean1178)
+                if (tile.drawLocations)
                     continue;
             }
-            if (!class38_sub1_1.aBoolean1177 || class38_sub1_1.anInt1179 != 0)
+            if (!tile.isVisible || tile.wallCullDirection != 0)
                 continue;
             if (i <= anInt543 && i > anInt539) {
-                Class38_Sub1 class38_sub1_8 = aclass38_sub1[i - 1][j];
-                if (class38_sub1_8 != null && class38_sub1_8.aBoolean1177)
+                Tile tile_8 = aclass38_sub1[i - 1][j];
+                if (tile_8 != null && tile_8.isVisible)
                     continue;
             }
             if (i >= anInt543 && i < anInt540 - 1) {
-                Class38_Sub1 class38_sub1_9 = aclass38_sub1[i + 1][j];
-                if (class38_sub1_9 != null && class38_sub1_9.aBoolean1177)
+                Tile tile_9 = aclass38_sub1[i + 1][j];
+                if (tile_9 != null && tile_9.isVisible)
                     continue;
             }
             if (j <= anInt544 && j > anInt541) {
-                Class38_Sub1 class38_sub1_10 = aclass38_sub1[i][j - 1];
-                if (class38_sub1_10 != null && class38_sub1_10.aBoolean1177)
+                Tile tile_10 = aclass38_sub1[i][j - 1];
+                if (tile_10 != null && tile_10.isVisible)
                     continue;
             }
             if (j >= anInt544 && j < anInt542 - 1) {
-                Class38_Sub1 class38_sub1_11 = aclass38_sub1[i][j + 1];
-                if (class38_sub1_11 != null && class38_sub1_11.aBoolean1177)
+                Tile tile_11 = aclass38_sub1[i][j + 1];
+                if (tile_11 != null && tile_11.isVisible)
                     continue;
             }
-            class38_sub1_1.aBoolean1177 = false;
+            tile.isVisible = false;
             anInt536--;
-            ObjEntity objEntity = class38_sub1_1.objEntity;
+            ObjEntity objEntity = tile.objEntity;
             if (objEntity != null && objEntity.offsetY != 0) {
                 if (objEntity.entity1 != null)
                     objEntity.entity1.method371(0, anInt548, anInt549, anInt550, anInt551,
@@ -1476,10 +1476,10 @@ public class Class32 {
                             objEntity.x - anInt545, objEntity.y - anInt546 - objEntity.offsetY,
                             objEntity.z - anInt547, objEntity.bitset);
             }
-            if (class38_sub1_1.anInt1182 != 0) {
-                WallDecoration wallDecoration = class38_sub1_1.wallDecoration;
+            if (tile.wallDrawFlags != 0) {
+                WallDecoration wallDecoration = tile.wallDecoration;
                 if (wallDecoration != null && !method330(l, i, j, wallDecoration.model.anInt1247))
-                    if ((wallDecoration.type & class38_sub1_1.anInt1182) != 0)
+                    if ((wallDecoration.type & tile.wallDrawFlags) != 0)
                         wallDecoration.model.method371(wallDecoration.rotation, anInt548, anInt549, anInt550,
                                 anInt551, wallDecoration.sceneX - anInt545, wallDecoration.sceneY - anInt546,
                                 wallDecoration.sceneZ - anInt547, wallDecoration.bitset);
@@ -1511,42 +1511,42 @@ public class Class32 {
                                     anInt550, anInt551, k8, j3, k9, wallDecoration.bitset);
                         }
                     }
-                Wall wall_2 = class38_sub1_1.wall;
+                Wall wall_2 = tile.wall;
                 if (wall_2 != null) {
-                    if ((wall_2.type1 & class38_sub1_1.anInt1182) != 0 && !method329(l, i, j, wall_2.type1))
+                    if ((wall_2.type1 & tile.wallDrawFlags) != 0 && !method329(l, i, j, wall_2.type1))
                         wall_2.entity1.method371(0, anInt548, anInt549, anInt550, anInt551,
                                 wall_2.x - anInt545, wall_2.y - anInt546,
                                 wall_2.z - anInt547, wall_2.bitset);
-                    if ((wall_2.type0 & class38_sub1_1.anInt1182) != 0 && !method329(l, i, j, wall_2.type0))
+                    if ((wall_2.type0 & tile.wallDrawFlags) != 0 && !method329(l, i, j, wall_2.type0))
                         wall_2.entity0.method371(0, anInt548, anInt549, anInt550, anInt551,
                                 wall_2.x - anInt545, wall_2.y - anInt546,
                                 wall_2.z - anInt547, wall_2.bitset);
                 }
             }
             if (k < anInt527 - 1) {
-                Class38_Sub1 class38_sub1_12 = aClass38_Sub1ArrayArrayArray531[k + 1][i][j];
-                if (class38_sub1_12 != null && class38_sub1_12.aBoolean1177)
-                    linkedList.method267(class38_sub1_12);
+                Tile tile_12 = tile3dArray[k + 1][i][j];
+                if (tile_12 != null && tile_12.isVisible)
+                    linkedList.method267(tile_12);
             }
             if (i < anInt543) {
-                Class38_Sub1 class38_sub1_13 = aclass38_sub1[i + 1][j];
-                if (class38_sub1_13 != null && class38_sub1_13.aBoolean1177)
-                    linkedList.method267(class38_sub1_13);
+                Tile tile_13 = aclass38_sub1[i + 1][j];
+                if (tile_13 != null && tile_13.isVisible)
+                    linkedList.method267(tile_13);
             }
             if (j < anInt544) {
-                Class38_Sub1 class38_sub1_14 = aclass38_sub1[i][j + 1];
-                if (class38_sub1_14 != null && class38_sub1_14.aBoolean1177)
-                    linkedList.method267(class38_sub1_14);
+                Tile tile_14 = aclass38_sub1[i][j + 1];
+                if (tile_14 != null && tile_14.isVisible)
+                    linkedList.method267(tile_14);
             }
             if (i > anInt543) {
-                Class38_Sub1 class38_sub1_15 = aclass38_sub1[i - 1][j];
-                if (class38_sub1_15 != null && class38_sub1_15.aBoolean1177)
-                    linkedList.method267(class38_sub1_15);
+                Tile tile_15 = aclass38_sub1[i - 1][j];
+                if (tile_15 != null && tile_15.isVisible)
+                    linkedList.method267(tile_15);
             }
             if (j > anInt544) {
-                Class38_Sub1 class38_sub1_16 = aclass38_sub1[i][j - 1];
-                if (class38_sub1_16 != null && class38_sub1_16.aBoolean1177)
-                    linkedList.method267(class38_sub1_16);
+                Tile tile_16 = aclass38_sub1[i][j - 1];
+                if (tile_16 != null && tile_16.isVisible)
+                    linkedList.method267(tile_16);
             }
         } while (true);
     }
@@ -2103,7 +2103,7 @@ public class Class32 {
     public int anInt528;
     public int anInt529;
     public int[][][] anIntArrayArrayArray530;
-    public Class38_Sub1[][][] aClass38_Sub1ArrayArrayArray531;
+    public Tile[][][] tile3dArray;
     public int anInt532;
     public int anInt533;
     public Loc[] locArray1;
