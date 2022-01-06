@@ -1,8 +1,8 @@
 package com.runescape;
 
-public class Class38_Sub3 extends Node {
+public class TemporaryLoc extends Node {
 
-    public Class38_Sub3() {
+    public TemporaryLoc() {
     }
 
     public int anInt1187;
