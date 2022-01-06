@@ -2686,11 +2686,11 @@ public class client extends Applet_Sub1 {
 
     public void method58(int i) {
         try {
-            if (aClass5_999 != null)
-                aClass5_999.method177();
+            if (bufferedStream != null)
+                bufferedStream.close();
         } catch (Exception _ex) {
         }
-        aClass5_999 = null;
+        bufferedStream = null;
         aBoolean974 = false;
         anInt1109 = 0;
         aString1066 = "";
@@ -5360,8 +5360,8 @@ public class client extends Applet_Sub1 {
                 aString1084 = "Connecting to server...";
                 method55(4);
             }
-            aClass5_999 = new Class5(this, (byte) 2, method101(43594 + anInt887));
-            aClass5_999.method180(aClass38_Sub2_Sub3_795.aByteArray1328, 0, 8);
+            bufferedStream = new BufferedStream(this, method101(43594 + anInt887));
+            bufferedStream.read(aClass38_Sub2_Sub3_795.aByteArray1328, 0, 8);
             aClass38_Sub2_Sub3_795.anInt1329 = 0;
             aLong1146 = aClass38_Sub2_Sub3_795.method452(603);
             int[] ai = new int[4];
@@ -5397,8 +5397,8 @@ public class client extends Applet_Sub1 {
                 ai[j] += 50;
 
             aClass37_753 = new Class37((byte) 1, ai);
-            aClass5_999.method181(aClass38_Sub2_Sub3_743.aByteArray1328, aClass38_Sub2_Sub3_743.anInt1329, true, 0);
-            int k = aClass5_999.method178();
+            bufferedStream.write(aClass38_Sub2_Sub3_743.aByteArray1328, aClass38_Sub2_Sub3_743.anInt1329, 0);
+            int k = bufferedStream.read();
             if (k == 1) {
                 try {
                     Thread.sleep(2000L);
@@ -5682,11 +5682,11 @@ public class client extends Applet_Sub1 {
     public void method8(byte byte0) {
         signlink.reporterror = false;
         try {
-            if (aClass5_999 != null)
-                aClass5_999.method177();
+            if (bufferedStream != null)
+                bufferedStream.close();
         } catch (Exception _ex) {
         }
-        aClass5_999 = null;
+        bufferedStream = null;
         method17(0);
         aBoolean812 = false;
         aClass38_Sub2_Sub3_798 = null;
@@ -6122,8 +6122,8 @@ public class client extends Applet_Sub1 {
         if (anInt782 > 50)
             aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
         try {
-            if (aClass5_999 != null && aClass38_Sub2_Sub3_798.anInt1329 > 0) {
-                aClass5_999.method181(aClass38_Sub2_Sub3_798.aByteArray1328, aClass38_Sub2_Sub3_798.anInt1329, true, 0);
+            if (bufferedStream != null && aClass38_Sub2_Sub3_798.anInt1329 > 0) {
+                bufferedStream.write(aClass38_Sub2_Sub3_798.aByteArray1328, aClass38_Sub2_Sub3_798.anInt1329, 0);
                 aClass38_Sub2_Sub3_798.anInt1329 = 0;
                 anInt782 = 0;
                 return;
@@ -6971,13 +6971,13 @@ public class client extends Applet_Sub1 {
         aClass38_Sub2_Sub2_Sub4_986.method421(158, (byte) 6, 0xffffff, "Please wait - attempting to reestablish", 256);
         aClass31_1048.method278(11, super.aGraphics14, 8, 5193);
         anInt1051 = 0;
-        Class5 class5 = aClass5_999;
+        BufferedStream bufferedStream = this.bufferedStream;
         aBoolean974 = false;
         method98(aString1066, aString1067, true);
         if (!aBoolean974)
             method58(-780);
         try {
-            class5.method177();
+            bufferedStream.close();
             return;
         } catch (Exception _ex) {
             return;
@@ -7866,14 +7866,14 @@ public class client extends Applet_Sub1 {
     public boolean method136(boolean flag) {
         if (flag)
             linkedList3dArray = null;
-        if (aClass5_999 == null)
+        if (bufferedStream == null)
             return false;
         try {
-            int i = aClass5_999.method179();
+            int i = bufferedStream.available();
             if (i == 0)
                 return false;
             if (anInt780 == -1) {
-                aClass5_999.method180(aClass38_Sub2_Sub3_795.aByteArray1328, 0, 1);
+                bufferedStream.read(aClass38_Sub2_Sub3_795.aByteArray1328, 0, 1);
                 anInt780 = aClass38_Sub2_Sub3_795.aByteArray1328[0] & 0xff;
                 if (aClass37_753 != null)
                     anInt780 = anInt780 - aClass37_753.method346() & 0xff;
@@ -7882,7 +7882,7 @@ public class client extends Applet_Sub1 {
             }
             if (anInt779 == -1)
                 if (i > 0) {
-                    aClass5_999.method180(aClass38_Sub2_Sub3_795.aByteArray1328, 0, 1);
+                    bufferedStream.read(aClass38_Sub2_Sub3_795.aByteArray1328, 0, 1);
                     anInt779 = aClass38_Sub2_Sub3_795.aByteArray1328[0] & 0xff;
                     i--;
                 } else {
@@ -7890,7 +7890,7 @@ public class client extends Applet_Sub1 {
                 }
             if (anInt779 == -2)
                 if (i > 1) {
-                    aClass5_999.method180(aClass38_Sub2_Sub3_795.aByteArray1328, 0, 2);
+                    bufferedStream.read(aClass38_Sub2_Sub3_795.aByteArray1328, 0, 2);
                     aClass38_Sub2_Sub3_795.anInt1329 = 0;
                     anInt779 = aClass38_Sub2_Sub3_795.method448();
                     i -= 2;
@@ -7900,7 +7900,7 @@ public class client extends Applet_Sub1 {
             if (i < anInt779)
                 return false;
             aClass38_Sub2_Sub3_795.anInt1329 = 0;
-            aClass5_999.method180(aClass38_Sub2_Sub3_795.aByteArray1328, 0, anInt779);
+            bufferedStream.read(aClass38_Sub2_Sub3_795.aByteArray1328, 0, anInt779);
             anInt781 = 0;
             anInt830 = anInt829;
             anInt829 = anInt828;
@@ -9611,7 +9611,7 @@ public class client extends Applet_Sub1 {
     public CRC32 aCRC32_996;
     public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_997;
     public static int anInt998;
-    public Class5 aClass5_999;
+    public BufferedStream bufferedStream;
     public byte[][] aByteArrayArray1000;
     public int anInt1001;
     public int anInt1002;
