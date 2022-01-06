@@ -18,7 +18,7 @@ public class PlayerEntity extends PathingEntity {
 
         for (int k = 0; k < 5; k++) {
             int i1 = class38_sub2_sub3.method446();
-            if (i1 < 0 || i1 >= client.anIntArrayArray942[k].length)
+            if (i1 < 0 || i1 >= Game.anIntArrayArray942[k].length)
                 i1 = 0;
             anIntArray1510[k] = i1;
         }
@@ -96,9 +96,9 @@ public class PlayerEntity extends PathingEntity {
             class38_sub2_sub1 = new Model(aclass38_sub2_sub1_1, (byte) -31, 2, true);
         }
         if (aClass38_Sub2_Sub1_1519 != null) {
-            if (client.anInt955 >= anInt1515)
+            if (Game.anInt955 >= anInt1515)
                 aClass38_Sub2_Sub1_1519 = null;
-            if (client.anInt955 >= anInt1514 && client.anInt955 < anInt1515) {
+            if (Game.anInt955 >= anInt1514 && Game.anInt955 < anInt1515) {
                 Model class38_sub2_sub1_1 = aClass38_Sub2_Sub1_1519;
                 class38_sub2_sub1_1.method363(anInt1517 - anInt1513, anInt1516 - super.anInt1380, -122,
                         anInt1518 - super.anInt1381);
@@ -177,11 +177,11 @@ public class PlayerEntity extends PathingEntity {
             class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, j1);
             for (int i2 = 0; i2 < 5; i2++)
                 if (anIntArray1510[i2] != 0) {
-                    class38_sub2_sub1.method364(client.anIntArrayArray942[i2][0],
-                            client.anIntArrayArray942[i2][anIntArray1510[i2]]);
+                    class38_sub2_sub1.method364(Game.anIntArrayArray942[i2][0],
+                            Game.anIntArrayArray942[i2][anIntArray1510[i2]]);
                     if (i2 == 1)
-                        class38_sub2_sub1.method364(client.anIntArray1073[0],
-                                client.anIntArray1073[anIntArray1510[i2]]);
+                        class38_sub2_sub1.method364(Game.anIntArray1073[0],
+                                Game.anIntArray1073[anIntArray1510[i2]]);
                 }
 
             class38_sub2_sub1.applyGroups(4);
@@ -222,10 +222,10 @@ public class PlayerEntity extends PathingEntity {
         Model class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, j);
         for (int i1 = 0; i1 < 5; i1++)
             if (anIntArray1510[i1] != 0) {
-                class38_sub2_sub1.method364(client.anIntArrayArray942[i1][0],
-                        client.anIntArrayArray942[i1][anIntArray1510[i1]]);
+                class38_sub2_sub1.method364(Game.anIntArrayArray942[i1][0],
+                        Game.anIntArrayArray942[i1][anIntArray1510[i1]]);
                 if (i1 == 1)
-                    class38_sub2_sub1.method364(client.anIntArray1073[0], client.anIntArray1073[anIntArray1510[i1]]);
+                    class38_sub2_sub1.method364(Game.anIntArray1073[0], Game.anIntArray1073[anIntArray1510[i1]]);
             }
 
         while (i >= 0)

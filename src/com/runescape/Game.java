@@ -12,7 +12,7 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.zip.CRC32;
 
-public class client extends GameShell {
+public class Game extends GameShell {
 
     public void method14(boolean flag, int i, String s, int j) {
         if (s == null)
@@ -9132,15 +9132,15 @@ public class client extends GameShell {
                 return;
             }
             signlink.startpriv(InetAddress.getLocalHost());
-            client client1 = new client();
-            client1.method1(532, 789, 0);
+            Game game = new Game();
+            game.method1(532, 789, 0);
             return;
         } catch (Exception exception) {
             return;
         }
     }
 
-    public client() {
+    public Game() {
         anInt733 = 24676;
         anInt734 = -1;
         anIntArray742 = new int[5];
