@@ -149,16 +149,16 @@ public class Class32 {
 
     public void method287(Class38_Sub2_Sub1 class38_sub2_sub1, byte byte0, int i, int j, int k, int l, byte byte1,
                           int i1) {
-        Class17 class17 = new Class17();
-        class17.aClass38_Sub2_Sub1_358 = class38_sub2_sub1;
-        class17.anInt356 = i * 128 + 64;
-        class17.anInt357 = k * 128 + 64;
-        class17.anInt355 = i1;
-        class17.anInt359 = j;
-        class17.aByte360 = byte1;
+        GroundDecoration groundDecoration = new GroundDecoration();
+        groundDecoration.model = class38_sub2_sub1;
+        groundDecoration.sceneX = i * 128 + 64;
+        groundDecoration.sceneZ = k * 128 + 64;
+        groundDecoration.sceneY = i1;
+        groundDecoration.bitset = j;
+        groundDecoration.info = byte1;
         if (aClass38_Sub1ArrayArrayArray531[l][i][k] == null)
             aClass38_Sub1ArrayArrayArray531[l][i][k] = new Class38_Sub1(l, i, k);
-        aClass38_Sub1ArrayArrayArray531[l][i][k].aClass17_1169 = class17;
+        aClass38_Sub1ArrayArrayArray531[l][i][k].groundDecoration = groundDecoration;
         if (byte0 == aByte520) {
             byte0 = 0;
             return;
@@ -460,11 +460,11 @@ public class Class32 {
         Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[l][k][i];
         if (class38_sub1 == null)
             return;
-        Class17 class17 = class38_sub1.aClass17_1169;
-        if (class17 == null) {
+        GroundDecoration groundDecoration = class38_sub1.groundDecoration;
+        if (groundDecoration == null) {
             return;
         } else {
-            class17.aClass38_Sub2_Sub1_358 = class38_sub2_sub1;
+            groundDecoration.model = class38_sub2_sub1;
             return;
         }
     }
@@ -553,7 +553,7 @@ public class Class32 {
         if (class38_sub1 == null) {
             return;
         } else {
-            class38_sub1.aClass17_1169 = null;
+            class38_sub1.groundDecoration = null;
             return;
         }
     }
@@ -601,10 +601,10 @@ public class Class32 {
 
     public int method311(int i, int j, int k) {
         Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][j][k];
-        if (class38_sub1 == null || class38_sub1.aClass17_1169 == null)
+        if (class38_sub1 == null || class38_sub1.groundDecoration == null)
             return 0;
         else
-            return class38_sub1.aClass17_1169.anInt359;
+            return class38_sub1.groundDecoration.bitset;
     }
 
     public int method312(int i, int j, int k, int l) {
@@ -615,8 +615,8 @@ public class Class32 {
             return class38_sub1.wall.info & 0xff;
         if (class38_sub1.aClass13_1168 != null && class38_sub1.aClass13_1168.anInt260 == l)
             return class38_sub1.aClass13_1168.aByte261 & 0xff;
-        if (class38_sub1.aClass17_1169 != null && class38_sub1.aClass17_1169.anInt359 == l)
-            return class38_sub1.aClass17_1169.aByte360 & 0xff;
+        if (class38_sub1.groundDecoration != null && class38_sub1.groundDecoration.bitset == l)
+            return class38_sub1.groundDecoration.info & 0xff;
         for (int i1 = 0; i1 < class38_sub1.anInt1171; i1++)
             if (class38_sub1.locArray[i1].bitset == l)
                 return class38_sub1.locArray[i1].info & 0xff;
@@ -658,10 +658,10 @@ public class Class32 {
                             }
                         }
 
-                        Class17 class17 = class38_sub1.aClass17_1169;
-                        if (class17 != null && class17.aClass38_Sub2_Sub1_358.vertexNormalArray1 != null) {
-                            method314((byte) -70, l1, j2, class17.aClass38_Sub2_Sub1_358, i2);
-                            class17.aClass38_Sub2_Sub1_358.method368(j, k1, k, i, i1);
+                        GroundDecoration groundDecoration = class38_sub1.groundDecoration;
+                        if (groundDecoration != null && groundDecoration.model.vertexNormalArray1 != null) {
+                            method314((byte) -70, l1, j2, groundDecoration.model, i2);
+                            groundDecoration.model.method368(j, k1, k, i, i1);
                         }
                     }
                 }
@@ -677,27 +677,27 @@ public class Class32 {
             anInt523 = -417;
         if (k < anInt528) {
             Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][k + 1][j];
-            if (class38_sub1 != null && class38_sub1.aClass17_1169 != null
-                    && class38_sub1.aClass17_1169.aClass38_Sub2_Sub1_358.vertexNormalArray1 != null)
-                method316(class38_sub2_sub1, class38_sub1.aClass17_1169.aClass38_Sub2_Sub1_358, 128, 0, 0, true);
+            if (class38_sub1 != null && class38_sub1.groundDecoration != null
+                    && class38_sub1.groundDecoration.model.vertexNormalArray1 != null)
+                method316(class38_sub2_sub1, class38_sub1.groundDecoration.model, 128, 0, 0, true);
         }
         if (j < anInt528) {
             Class38_Sub1 class38_sub1_1 = aClass38_Sub1ArrayArrayArray531[i][k][j + 1];
-            if (class38_sub1_1 != null && class38_sub1_1.aClass17_1169 != null
-                    && class38_sub1_1.aClass17_1169.aClass38_Sub2_Sub1_358.vertexNormalArray1 != null)
-                method316(class38_sub2_sub1, class38_sub1_1.aClass17_1169.aClass38_Sub2_Sub1_358, 0, 0, 128, true);
+            if (class38_sub1_1 != null && class38_sub1_1.groundDecoration != null
+                    && class38_sub1_1.groundDecoration.model.vertexNormalArray1 != null)
+                method316(class38_sub2_sub1, class38_sub1_1.groundDecoration.model, 0, 0, 128, true);
         }
         if (k < anInt528 && j < anInt529) {
             Class38_Sub1 class38_sub1_2 = aClass38_Sub1ArrayArrayArray531[i][k + 1][j + 1];
-            if (class38_sub1_2 != null && class38_sub1_2.aClass17_1169 != null
-                    && class38_sub1_2.aClass17_1169.aClass38_Sub2_Sub1_358.vertexNormalArray1 != null)
-                method316(class38_sub2_sub1, class38_sub1_2.aClass17_1169.aClass38_Sub2_Sub1_358, 128, 0, 128, true);
+            if (class38_sub1_2 != null && class38_sub1_2.groundDecoration != null
+                    && class38_sub1_2.groundDecoration.model.vertexNormalArray1 != null)
+                method316(class38_sub2_sub1, class38_sub1_2.groundDecoration.model, 128, 0, 128, true);
         }
         if (k < anInt528 && j > 0) {
             Class38_Sub1 class38_sub1_3 = aClass38_Sub1ArrayArrayArray531[i][k + 1][j - 1];
-            if (class38_sub1_3 != null && class38_sub1_3.aClass17_1169 != null
-                    && class38_sub1_3.aClass17_1169.aClass38_Sub2_Sub1_358.vertexNormalArray1 != null)
-                method316(class38_sub2_sub1, class38_sub1_3.aClass17_1169.aClass38_Sub2_Sub1_358, 128, 0, -128, true);
+            if (class38_sub1_3 != null && class38_sub1_3.groundDecoration != null
+                    && class38_sub1_3.groundDecoration.model.vertexNormalArray1 != null)
+                method316(class38_sub2_sub1, class38_sub1_3.groundDecoration.model, 128, 0, -128, true);
         }
     }
 
@@ -1287,11 +1287,11 @@ public class Class32 {
                         }
                     }
                 if (flag1) {
-                    Class17 class17 = class38_sub1_1.aClass17_1169;
-                    if (class17 != null)
-                        class17.aClass38_Sub2_Sub1_358.method371(0, anInt548, anInt549, anInt550, anInt551,
-                                class17.anInt356 - anInt545, class17.anInt355 - anInt546, class17.anInt357 - anInt547,
-                                class17.anInt359);
+                    GroundDecoration groundDecoration = class38_sub1_1.groundDecoration;
+                    if (groundDecoration != null)
+                        groundDecoration.model.method371(0, anInt548, anInt549, anInt550, anInt551,
+                                groundDecoration.sceneX - anInt545, groundDecoration.sceneY - anInt546, groundDecoration.sceneZ - anInt547,
+                                groundDecoration.bitset);
                     ObjEntity objEntity_1 = class38_sub1_1.objEntity;
                     if (objEntity_1 != null && objEntity_1.offsetY == 0) {
                         if (objEntity_1.entity1 != null)

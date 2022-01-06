@@ -18,7 +18,7 @@ public class Class38_Sub1 extends Node {
     public Class15 aClass15_1166;
     public Wall wall;
     public Class13 aClass13_1168;
-    public Class17 aClass17_1169;
+    public GroundDecoration groundDecoration;
     public ObjEntity objEntity;
     public int anInt1171;
     public Loc[] locArray;
