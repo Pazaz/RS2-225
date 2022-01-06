@@ -636,10 +636,10 @@ public class Class32 {
                     if (class38_sub1 != null) {
                         Class30 class30 = class38_sub1.aClass30_1167;
                         if (class30 != null && class30.aClass38_Sub2_Sub1_508 != null
-                                && class30.aClass38_Sub2_Sub1_508.aClass25Array1257 != null) {
+                                && class30.aClass38_Sub2_Sub1_508.vertexNormalArray1 != null) {
                             method315(i2, 1, 1, l1, 872, class30.aClass38_Sub2_Sub1_508, j2);
                             if (class30.aClass38_Sub2_Sub1_509 != null
-                                    && class30.aClass38_Sub2_Sub1_509.aClass25Array1257 != null) {
+                                    && class30.aClass38_Sub2_Sub1_509.vertexNormalArray1 != null) {
                                 method315(i2, 1, 1, l1, 872, class30.aClass38_Sub2_Sub1_509, j2);
                                 method316(class30.aClass38_Sub2_Sub1_508, class30.aClass38_Sub2_Sub1_509, 0, 0, 0,
                                         false);
@@ -650,7 +650,7 @@ public class Class32 {
                         for (int k2 = 0; k2 < class38_sub1.anInt1171; k2++) {
                             Class28 class28 = class38_sub1.aClass28Array1172[k2];
                             if (class28 != null && class28.aClass38_Sub2_Sub1_488 != null
-                                    && class28.aClass38_Sub2_Sub1_488.aClass25Array1257 != null) {
+                                    && class28.aClass38_Sub2_Sub1_488.vertexNormalArray1 != null) {
                                 method315(i2, (class28.anInt492 - class28.anInt491) + 1,
                                         (class28.anInt494 - class28.anInt493) + 1, l1, 872,
                                         class28.aClass38_Sub2_Sub1_488, j2);
@@ -659,7 +659,7 @@ public class Class32 {
                         }
 
                         Class17 class17 = class38_sub1.aClass17_1169;
-                        if (class17 != null && class17.aClass38_Sub2_Sub1_358.aClass25Array1257 != null) {
+                        if (class17 != null && class17.aClass38_Sub2_Sub1_358.vertexNormalArray1 != null) {
                             method314((byte) -70, l1, j2, class17.aClass38_Sub2_Sub1_358, i2);
                             class17.aClass38_Sub2_Sub1_358.method368(j, k1, k, i, i1);
                         }
@@ -678,25 +678,25 @@ public class Class32 {
         if (k < anInt528) {
             Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][k + 1][j];
             if (class38_sub1 != null && class38_sub1.aClass17_1169 != null
-                    && class38_sub1.aClass17_1169.aClass38_Sub2_Sub1_358.aClass25Array1257 != null)
+                    && class38_sub1.aClass17_1169.aClass38_Sub2_Sub1_358.vertexNormalArray1 != null)
                 method316(class38_sub2_sub1, class38_sub1.aClass17_1169.aClass38_Sub2_Sub1_358, 128, 0, 0, true);
         }
         if (j < anInt528) {
             Class38_Sub1 class38_sub1_1 = aClass38_Sub1ArrayArrayArray531[i][k][j + 1];
             if (class38_sub1_1 != null && class38_sub1_1.aClass17_1169 != null
-                    && class38_sub1_1.aClass17_1169.aClass38_Sub2_Sub1_358.aClass25Array1257 != null)
+                    && class38_sub1_1.aClass17_1169.aClass38_Sub2_Sub1_358.vertexNormalArray1 != null)
                 method316(class38_sub2_sub1, class38_sub1_1.aClass17_1169.aClass38_Sub2_Sub1_358, 0, 0, 128, true);
         }
         if (k < anInt528 && j < anInt529) {
             Class38_Sub1 class38_sub1_2 = aClass38_Sub1ArrayArrayArray531[i][k + 1][j + 1];
             if (class38_sub1_2 != null && class38_sub1_2.aClass17_1169 != null
-                    && class38_sub1_2.aClass17_1169.aClass38_Sub2_Sub1_358.aClass25Array1257 != null)
+                    && class38_sub1_2.aClass17_1169.aClass38_Sub2_Sub1_358.vertexNormalArray1 != null)
                 method316(class38_sub2_sub1, class38_sub1_2.aClass17_1169.aClass38_Sub2_Sub1_358, 128, 0, 128, true);
         }
         if (k < anInt528 && j > 0) {
             Class38_Sub1 class38_sub1_3 = aClass38_Sub1ArrayArrayArray531[i][k + 1][j - 1];
             if (class38_sub1_3 != null && class38_sub1_3.aClass17_1169 != null
-                    && class38_sub1_3.aClass17_1169.aClass38_Sub2_Sub1_358.aClass25Array1257 != null)
+                    && class38_sub1_3.aClass17_1169.aClass38_Sub2_Sub1_358.vertexNormalArray1 != null)
                 method316(class38_sub2_sub1, class38_sub1_3.aClass17_1169.aClass38_Sub2_Sub1_358, 128, 0, -128, true);
         }
     }
@@ -725,19 +725,19 @@ public class Class32 {
                                             + anIntArrayArrayArray530[l][i + 1][j1 + 1]) / 4;
                                     Class30 class30 = class38_sub1.aClass30_1167;
                                     if (class30 != null && class30.aClass38_Sub2_Sub1_508 != null
-                                            && class30.aClass38_Sub2_Sub1_508.aClass25Array1257 != null)
+                                            && class30.aClass38_Sub2_Sub1_508.vertexNormalArray1 != null)
                                         method316(class38_sub2_sub1, class30.aClass38_Sub2_Sub1_508,
                                                 (l2 - i) * 128 + (1 - j) * 64, j3, (i3 - j1) * 128 + (1 - k) * 64,
                                                 flag);
                                     if (class30 != null && class30.aClass38_Sub2_Sub1_509 != null
-                                            && class30.aClass38_Sub2_Sub1_509.aClass25Array1257 != null)
+                                            && class30.aClass38_Sub2_Sub1_509.vertexNormalArray1 != null)
                                         method316(class38_sub2_sub1, class30.aClass38_Sub2_Sub1_509,
                                                 (l2 - i) * 128 + (1 - j) * 64, j3, (i3 - j1) * 128 + (1 - k) * 64,
                                                 flag);
                                     for (int k3 = 0; k3 < class38_sub1.anInt1171; k3++) {
                                         Class28 class28 = class38_sub1.aClass28Array1172[k3];
                                         if (class28 != null && class28.aClass38_Sub2_Sub1_488 != null
-                                                && class28.aClass38_Sub2_Sub1_488.aClass25Array1257 != null) {
+                                                && class28.aClass38_Sub2_Sub1_488.vertexNormalArray1 != null) {
                                             int l3 = (class28.anInt492 - class28.anInt491) + 1;
                                             int i4 = (class28.anInt494 - class28.anInt493) + 1;
                                             method316(class38_sub2_sub1, class28.aClass38_Sub2_Sub1_488,
@@ -764,9 +764,9 @@ public class Class32 {
         int[] ai = class38_sub2_sub1_1.anIntArray1223;
         int i1 = class38_sub2_sub1_1.anInt1222;
         for (int j1 = 0; j1 < class38_sub2_sub1.anInt1222; j1++) {
-            Class25 class25 = class38_sub2_sub1.aClass25Array1257[j1];
-            Class25 class25_1 = class38_sub2_sub1.aClass25Array1258[j1];
-            if (class25_1.anInt470 != 0) {
+            VertexNormal vertexNormal = class38_sub2_sub1.vertexNormalArray1[j1];
+            VertexNormal vertexNormal_1 = class38_sub2_sub1.vertexNormalArray2[j1];
+            if (vertexNormal_1.w != 0) {
                 int i2 = class38_sub2_sub1.anIntArray1224[j1] - j;
                 if (i2 <= class38_sub2_sub1_1.anInt1248) {
                     int j2 = class38_sub2_sub1.anIntArray1223[j1] - i;
@@ -774,18 +774,18 @@ public class Class32 {
                         int k2 = class38_sub2_sub1.anIntArray1225[j1] - k;
                         if (k2 >= class38_sub2_sub1_1.anInt1245 && k2 <= class38_sub2_sub1_1.anInt1244) {
                             for (int l2 = 0; l2 < i1; l2++) {
-                                Class25 class25_2 = class38_sub2_sub1_1.aClass25Array1257[l2];
-                                Class25 class25_3 = class38_sub2_sub1_1.aClass25Array1258[l2];
+                                VertexNormal vertexNormal_2 = class38_sub2_sub1_1.vertexNormalArray1[l2];
+                                VertexNormal vertexNormal_3 = class38_sub2_sub1_1.vertexNormalArray2[l2];
                                 if (j2 == ai[l2] && k2 == class38_sub2_sub1_1.anIntArray1225[l2]
-                                        && i2 == class38_sub2_sub1_1.anIntArray1224[l2] && class25_3.anInt470 != 0) {
-                                    class25.anInt467 += class25_3.anInt467;
-                                    class25.anInt468 += class25_3.anInt468;
-                                    class25.anInt469 += class25_3.anInt469;
-                                    class25.anInt470 += class25_3.anInt470;
-                                    class25_2.anInt467 += class25_1.anInt467;
-                                    class25_2.anInt468 += class25_1.anInt468;
-                                    class25_2.anInt469 += class25_1.anInt469;
-                                    class25_2.anInt470 += class25_1.anInt470;
+                                        && i2 == class38_sub2_sub1_1.anIntArray1224[l2] && vertexNormal_3.w != 0) {
+                                    vertexNormal.x += vertexNormal_3.x;
+                                    vertexNormal.y += vertexNormal_3.y;
+                                    vertexNormal.z += vertexNormal_3.z;
+                                    vertexNormal.w += vertexNormal_3.w;
+                                    vertexNormal_2.x += vertexNormal_1.x;
+                                    vertexNormal_2.y += vertexNormal_1.y;
+                                    vertexNormal_2.z += vertexNormal_1.z;
+                                    vertexNormal_2.w += vertexNormal_1.w;
                                     l++;
                                     anIntArray576[j1] = anInt578;
                                     anIntArray577[l2] = anInt578;

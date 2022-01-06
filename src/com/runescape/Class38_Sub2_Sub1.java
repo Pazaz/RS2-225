@@ -612,17 +612,17 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
                     anIntArray1233[l] = class38_sub2_sub1.anIntArray1233[l];
 
             }
-            aClass25Array1257 = new Class25[anInt1222];
+            vertexNormalArray1 = new VertexNormal[anInt1222];
             for (int i1 = 0; i1 < anInt1222; i1++) {
-                Class25 class25 = aClass25Array1257[i1] = new Class25();
-                Class25 class25_1 = class38_sub2_sub1.aClass25Array1257[i1];
-                class25.anInt467 = class25_1.anInt467;
-                class25.anInt468 = class25_1.anInt468;
-                class25.anInt469 = class25_1.anInt469;
-                class25.anInt470 = class25_1.anInt470;
+                VertexNormal vertexNormal = vertexNormalArray1[i1] = new VertexNormal();
+                VertexNormal vertexNormal_1 = class38_sub2_sub1.vertexNormalArray1[i1];
+                vertexNormal.x = vertexNormal_1.x;
+                vertexNormal.y = vertexNormal_1.y;
+                vertexNormal.z = vertexNormal_1.z;
+                vertexNormal.w = vertexNormal_1.w;
             }
 
-            aClass25Array1258 = class38_sub2_sub1.aClass25Array1258;
+            vertexNormalArray2 = class38_sub2_sub1.vertexNormalArray2;
         } else {
             anIntArray1230 = class38_sub2_sub1.anIntArray1230;
             anIntArray1231 = class38_sub2_sub1.anIntArray1231;
@@ -1140,10 +1140,10 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
             anIntArray1231 = new int[anInt1226];
             anIntArray1232 = new int[anInt1226];
         }
-        if (aClass25Array1257 == null) {
-            aClass25Array1257 = new Class25[anInt1222];
+        if (vertexNormalArray1 == null) {
+            vertexNormalArray1 = new VertexNormal[anInt1222];
             for (int l1 = 0; l1 < anInt1222; l1++)
-                aClass25Array1257[l1] = new Class25();
+                vertexNormalArray1[l1] = new VertexNormal();
 
         }
         for (int i2 = 0; i2 < anInt1226; i2++) {
@@ -1172,21 +1172,21 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
             i5 = (i5 * 256) / k5;
             j5 = (j5 * 256) / k5;
             if (anIntArray1233 == null || (anIntArray1233[i2] & 1) == 0) {
-                Class25 class25_2 = aClass25Array1257[j2];
-                class25_2.anInt467 += l4;
-                class25_2.anInt468 += i5;
-                class25_2.anInt469 += j5;
-                class25_2.anInt470++;
-                class25_2 = aClass25Array1257[l2];
-                class25_2.anInt467 += l4;
-                class25_2.anInt468 += i5;
-                class25_2.anInt469 += j5;
-                class25_2.anInt470++;
-                class25_2 = aClass25Array1257[i3];
-                class25_2.anInt467 += l4;
-                class25_2.anInt468 += i5;
-                class25_2.anInt469 += j5;
-                class25_2.anInt470++;
+                VertexNormal vertexNormal_2 = vertexNormalArray1[j2];
+                vertexNormal_2.x += l4;
+                vertexNormal_2.y += i5;
+                vertexNormal_2.z += j5;
+                vertexNormal_2.w++;
+                vertexNormal_2 = vertexNormalArray1[l2];
+                vertexNormal_2.x += l4;
+                vertexNormal_2.y += i5;
+                vertexNormal_2.z += j5;
+                vertexNormal_2.w++;
+                vertexNormal_2 = vertexNormalArray1[i3];
+                vertexNormal_2.x += l4;
+                vertexNormal_2.y += i5;
+                vertexNormal_2.z += j5;
+                vertexNormal_2.w++;
             } else {
                 int l5 = i + (k * l4 + l * i5 + i1 * j5) / (k1 + k1 / 2);
                 anIntArray1230[i2] = method369(anIntArray1236[i2], l5, anIntArray1233[i2]);
@@ -1196,14 +1196,14 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         if (flag) {
             method368(i, k1, k, l, i1);
         } else {
-            aClass25Array1258 = new Class25[anInt1222];
+            vertexNormalArray2 = new VertexNormal[anInt1222];
             for (int k2 = 0; k2 < anInt1222; k2++) {
-                Class25 class25 = aClass25Array1257[k2];
-                Class25 class25_1 = aClass25Array1258[k2] = new Class25();
-                class25_1.anInt467 = class25.anInt467;
-                class25_1.anInt468 = class25.anInt468;
-                class25_1.anInt469 = class25.anInt469;
-                class25_1.anInt470 = class25.anInt470;
+                VertexNormal vertexNormal = vertexNormalArray1[k2];
+                VertexNormal vertexNormal_1 = vertexNormalArray2[k2] = new VertexNormal();
+                vertexNormal_1.x = vertexNormal.x;
+                vertexNormal_1.y = vertexNormal.y;
+                vertexNormal_1.z = vertexNormal.z;
+                vertexNormal_1.w = vertexNormal.w;
             }
 
         }
@@ -1223,36 +1223,36 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
             int j2 = anIntArray1229[j1];
             if (anIntArray1233 == null) {
                 int i3 = anIntArray1236[j1];
-                Class25 class25 = aClass25Array1257[k1];
-                int k2 = i + (k * class25.anInt467 + l * class25.anInt468 + i1 * class25.anInt469)
-                        / (j * class25.anInt470);
+                VertexNormal vertexNormal = vertexNormalArray1[k1];
+                int k2 = i + (k * vertexNormal.x + l * vertexNormal.y + i1 * vertexNormal.z)
+                        / (j * vertexNormal.w);
                 anIntArray1230[j1] = method369(i3, k2, 0);
-                class25 = aClass25Array1257[i2];
-                k2 = i + (k * class25.anInt467 + l * class25.anInt468 + i1 * class25.anInt469) / (j * class25.anInt470);
+                vertexNormal = vertexNormalArray1[i2];
+                k2 = i + (k * vertexNormal.x + l * vertexNormal.y + i1 * vertexNormal.z) / (j * vertexNormal.w);
                 anIntArray1231[j1] = method369(i3, k2, 0);
-                class25 = aClass25Array1257[j2];
-                k2 = i + (k * class25.anInt467 + l * class25.anInt468 + i1 * class25.anInt469) / (j * class25.anInt470);
+                vertexNormal = vertexNormalArray1[j2];
+                k2 = i + (k * vertexNormal.x + l * vertexNormal.y + i1 * vertexNormal.z) / (j * vertexNormal.w);
                 anIntArray1232[j1] = method369(i3, k2, 0);
             } else if ((anIntArray1233[j1] & 1) == 0) {
                 int j3 = anIntArray1236[j1];
                 int k3 = anIntArray1233[j1];
-                Class25 class25_1 = aClass25Array1257[k1];
-                int l2 = i + (k * class25_1.anInt467 + l * class25_1.anInt468 + i1 * class25_1.anInt469)
-                        / (j * class25_1.anInt470);
+                VertexNormal vertexNormal_1 = vertexNormalArray1[k1];
+                int l2 = i + (k * vertexNormal_1.x + l * vertexNormal_1.y + i1 * vertexNormal_1.z)
+                        / (j * vertexNormal_1.w);
                 anIntArray1230[j1] = method369(j3, l2, k3);
-                class25_1 = aClass25Array1257[i2];
-                l2 = i + (k * class25_1.anInt467 + l * class25_1.anInt468 + i1 * class25_1.anInt469)
-                        / (j * class25_1.anInt470);
+                vertexNormal_1 = vertexNormalArray1[i2];
+                l2 = i + (k * vertexNormal_1.x + l * vertexNormal_1.y + i1 * vertexNormal_1.z)
+                        / (j * vertexNormal_1.w);
                 anIntArray1231[j1] = method369(j3, l2, k3);
-                class25_1 = aClass25Array1257[j2];
-                l2 = i + (k * class25_1.anInt467 + l * class25_1.anInt468 + i1 * class25_1.anInt469)
-                        / (j * class25_1.anInt470);
+                vertexNormal_1 = vertexNormalArray1[j2];
+                l2 = i + (k * vertexNormal_1.x + l * vertexNormal_1.y + i1 * vertexNormal_1.z)
+                        / (j * vertexNormal_1.w);
                 anIntArray1232[j1] = method369(j3, l2, k3);
             }
         }
 
-        aClass25Array1257 = null;
-        aClass25Array1258 = null;
+        vertexNormalArray1 = null;
+        vertexNormalArray2 = null;
         anIntArray1252 = null;
         anIntArray1253 = null;
         if (anIntArray1233 != null) {
@@ -1871,8 +1871,8 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
     public int[][] anIntArrayArray1254;
     public int[][] anIntArrayArray1255;
     public boolean aBoolean1256;
-    public Class25[] aClass25Array1257;
-    public Class25[] aClass25Array1258;
+    public VertexNormal[] vertexNormalArray1;
+    public VertexNormal[] vertexNormalArray2;
     public static Class21[] aClass21Array1259;
     public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_1260;
     public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_1261;
