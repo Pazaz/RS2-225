@@ -208,7 +208,7 @@ public class ObjType {
         aBoolean157 = true;
     }
 
-    public Class38_Sub2_Sub1 method173(int i) {
+    public Model method173(int i) {
         if (anIntArray174 != null && i > 1) {
             int j = -1;
             for (int k = 0; k < 10; k++)
@@ -218,10 +218,10 @@ public class ObjType {
             if (j != -1)
                 return method169(j).method173(1);
         }
-        Class38_Sub2_Sub1 class38_sub2_sub1 = (Class38_Sub2_Sub1) aClass34_178.method341(anInt143);
+        Model class38_sub2_sub1 = (Model) aClass34_178.method341(anInt143);
         if (class38_sub2_sub1 != null)
             return class38_sub2_sub1;
-        class38_sub2_sub1 = new Class38_Sub2_Sub1(false, anInt144);
+        class38_sub2_sub1 = new Model(false, anInt144);
         if (anIntArray147 != null) {
             for (int l = 0; l < anIntArray147.length; l++)
                 class38_sub2_sub1.method364(anIntArray147[l], anIntArray148[l]);
@@ -269,7 +269,7 @@ public class ObjType {
         Draw2D.init(32, class38_sub2_sub2_sub2.anIntArray1465, -657, 32);
         Draw2D.method380(0, 0, 0, (byte) 93, 32, 32);
         Class38_Sub2_Sub2_Sub1.method385(anInt135);
-        Class38_Sub2_Sub1 class38_sub2_sub1 = objType.method173(1);
+        Model class38_sub2_sub1 = objType.method173(1);
         int j3 = Class38_Sub2_Sub2_Sub1.anIntArray1446[objType.anInt150] * objType.anInt149 >> 16;
         int k3 = Class38_Sub2_Sub2_Sub1.anIntArray1447[objType.anInt150] * objType.anInt149 >> 16;
         class38_sub2_sub1.method370(0, objType.anInt151, objType.anInt152, objType.anInt150, objType.anInt153,
@@ -323,7 +323,7 @@ public class ObjType {
         return class38_sub2_sub2_sub2;
     }
 
-    public Class38_Sub2_Sub1 method175(byte byte0, int i) {
+    public Model method175(byte byte0, int i) {
         int j = anInt162;
         if (byte0 != 6)
             throw new NullPointerException();
@@ -337,21 +337,21 @@ public class ObjType {
             k = anInt166;
             l = anInt169;
         }
-        Class38_Sub2_Sub1 class38_sub2_sub1 = new Class38_Sub2_Sub1(false, j);
+        Model class38_sub2_sub1 = new Model(false, j);
         if (k != -1)
             if (l != -1) {
-                Class38_Sub2_Sub1 class38_sub2_sub1_1 = new Class38_Sub2_Sub1(false, k);
-                Class38_Sub2_Sub1 class38_sub2_sub1_3 = new Class38_Sub2_Sub1(false, l);
-                Class38_Sub2_Sub1[] aclass38_sub2_sub1_1 = {
+                Model class38_sub2_sub1_1 = new Model(false, k);
+                Model class38_sub2_sub1_3 = new Model(false, l);
+                Model[] aclass38_sub2_sub1_1 = {
                         class38_sub2_sub1, class38_sub2_sub1_1, class38_sub2_sub1_3
                 };
-                class38_sub2_sub1 = new Class38_Sub2_Sub1(0, aclass38_sub2_sub1_1, 3);
+                class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1_1, 3);
             } else {
-                Class38_Sub2_Sub1 class38_sub2_sub1_2 = new Class38_Sub2_Sub1(false, k);
-                Class38_Sub2_Sub1[] aclass38_sub2_sub1 = {
+                Model class38_sub2_sub1_2 = new Model(false, k);
+                Model[] aclass38_sub2_sub1 = {
                         class38_sub2_sub1, class38_sub2_sub1_2
                 };
-                class38_sub2_sub1 = new Class38_Sub2_Sub1(0, aclass38_sub2_sub1, 2);
+                class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, 2);
             }
         if (i == 0 && aByte164 != 0)
             class38_sub2_sub1.method363(aByte164, 0, -122, 0);
@@ -365,7 +365,7 @@ public class ObjType {
         return class38_sub2_sub1;
     }
 
-    public Class38_Sub2_Sub1 method176(int i, int j) {
+    public Model method176(int i, int j) {
         int k = anInt170;
         if (i != anInt136)
             anInt135 = 205;
@@ -376,13 +376,13 @@ public class ObjType {
         int l = anInt171;
         if (j == 1)
             l = anInt173;
-        Class38_Sub2_Sub1 class38_sub2_sub1 = new Class38_Sub2_Sub1(false, k);
+        Model class38_sub2_sub1 = new Model(false, k);
         if (l != -1) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_1 = new Class38_Sub2_Sub1(false, l);
-            Class38_Sub2_Sub1[] aclass38_sub2_sub1 = {
+            Model class38_sub2_sub1_1 = new Model(false, l);
+            Model[] aclass38_sub2_sub1 = {
                     class38_sub2_sub1, class38_sub2_sub1_1
             };
-            class38_sub2_sub1 = new Class38_Sub2_Sub1(0, aclass38_sub2_sub1, 2);
+            class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, 2);
         }
         if (anIntArray147 != null) {
             for (int i1 = 0; i1 < anIntArray147.length; i1++)

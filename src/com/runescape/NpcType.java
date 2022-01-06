@@ -111,18 +111,18 @@ public class NpcType {
         } while (true);
     }
 
-    public Class38_Sub2_Sub1 method150(int i, int j, int[] ai) {
-        Class38_Sub2_Sub1 class38_sub2_sub1 = null;
-        Class38_Sub2_Sub1 class38_sub2_sub1_1 = (Class38_Sub2_Sub1) aClass34_104.method341(aLong82);
+    public Model method150(int i, int j, int[] ai) {
+        Model class38_sub2_sub1 = null;
+        Model class38_sub2_sub1_1 = (Model) aClass34_104.method341(aLong82);
         if (class38_sub2_sub1_1 == null) {
-            Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[anIntArray86.length];
+            Model[] aclass38_sub2_sub1 = new Model[anIntArray86.length];
             for (int k = 0; k < anIntArray86.length; k++)
-                aclass38_sub2_sub1[k] = new Class38_Sub2_Sub1(false, anIntArray86[k]);
+                aclass38_sub2_sub1[k] = new Model(false, anIntArray86[k]);
 
             if (aclass38_sub2_sub1.length == 1)
                 class38_sub2_sub1_1 = aclass38_sub2_sub1[0];
             else
-                class38_sub2_sub1_1 = new Class38_Sub2_Sub1(0, aclass38_sub2_sub1, aclass38_sub2_sub1.length);
+                class38_sub2_sub1_1 = new Model(0, aclass38_sub2_sub1, aclass38_sub2_sub1.length);
             if (anIntArray94 != null) {
                 for (int l = 0; l < anIntArray94.length; l++)
                     class38_sub2_sub1_1.method364(anIntArray94[l], anIntArray95[l]);
@@ -132,7 +132,7 @@ public class NpcType {
             class38_sub2_sub1_1.applyLighting(64, 850, -30, -50, -30, true);
             aClass34_104.method342(6, aLong82, class38_sub2_sub1_1);
         }
-        class38_sub2_sub1 = new Class38_Sub2_Sub1(0, class38_sub2_sub1_1, !aBoolean93);
+        class38_sub2_sub1 = new Model(0, class38_sub2_sub1_1, !aBoolean93);
         if (i != -1 && j != -1)
             class38_sub2_sub1.method359(j, 3, i, ai);
         else if (i != -1)
@@ -147,20 +147,20 @@ public class NpcType {
         return class38_sub2_sub1;
     }
 
-    public Class38_Sub2_Sub1 method151(boolean flag) {
+    public Model method151(boolean flag) {
         if (flag)
             throw new NullPointerException();
         if (anIntArray87 == null)
             return null;
-        Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[anIntArray87.length];
+        Model[] aclass38_sub2_sub1 = new Model[anIntArray87.length];
         for (int i = 0; i < anIntArray87.length; i++)
-            aclass38_sub2_sub1[i] = new Class38_Sub2_Sub1(false, anIntArray87[i]);
+            aclass38_sub2_sub1[i] = new Model(false, anIntArray87[i]);
 
-        Class38_Sub2_Sub1 class38_sub2_sub1;
+        Model class38_sub2_sub1;
         if (aclass38_sub2_sub1.length == 1)
             class38_sub2_sub1 = aclass38_sub2_sub1[0];
         else
-            class38_sub2_sub1 = new Class38_Sub2_Sub1(0, aclass38_sub2_sub1, aclass38_sub2_sub1.length);
+            class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, aclass38_sub2_sub1.length);
         if (anIntArray94 != null) {
             for (int j = 0; j < anIntArray94.length; j++)
                 class38_sub2_sub1.method364(anIntArray94[j], anIntArray95[j]);

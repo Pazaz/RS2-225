@@ -9,7 +9,7 @@ public class Loc {
     public int y;
     public int x;
     public int z;
-    public Class38_Sub2_Sub1 model;
+    public Model model;
     public Entity entity;
     public int yaw;
     public int minSceneTileX;

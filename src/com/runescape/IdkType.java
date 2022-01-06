@@ -44,18 +44,18 @@ public class IdkType {
         } while (true);
     }
 
-    public Class38_Sub2_Sub1 method216() {
+    public Model method216() {
         if (anIntArray249 == null)
             return null;
-        Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[anIntArray249.length];
+        Model[] aclass38_sub2_sub1 = new Model[anIntArray249.length];
         for (int i = 0; i < anIntArray249.length; i++)
-            aclass38_sub2_sub1[i] = new Class38_Sub2_Sub1(false, anIntArray249[i]);
+            aclass38_sub2_sub1[i] = new Model(false, anIntArray249[i]);
 
-        Class38_Sub2_Sub1 class38_sub2_sub1;
+        Model class38_sub2_sub1;
         if (aclass38_sub2_sub1.length == 1)
             class38_sub2_sub1 = aclass38_sub2_sub1[0];
         else
-            class38_sub2_sub1 = new Class38_Sub2_Sub1(0, aclass38_sub2_sub1, aclass38_sub2_sub1.length);
+            class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, aclass38_sub2_sub1.length);
         for (int j = 0; j < 6; j++) {
             if (anIntArray250[j] == 0)
                 break;
@@ -65,14 +65,14 @@ public class IdkType {
         return class38_sub2_sub1;
     }
 
-    public Class38_Sub2_Sub1 method217(boolean flag) {
-        Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[5];
+    public Model method217(boolean flag) {
+        Model[] aclass38_sub2_sub1 = new Model[5];
         int i = 0;
         for (int j = 0; j < 5; j++)
             if (anIntArray252[j] != -1)
-                aclass38_sub2_sub1[i++] = new Class38_Sub2_Sub1(false, anIntArray252[j]);
+                aclass38_sub2_sub1[i++] = new Model(false, anIntArray252[j]);
 
-        Class38_Sub2_Sub1 class38_sub2_sub1 = new Class38_Sub2_Sub1(0, aclass38_sub2_sub1, i);
+        Model class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, i);
         for (int k = 0; k < 6; k++) {
             if (anIntArray250[k] == 0)
                 break;

@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class38_Sub2_Sub1 extends CacheableNode {
+public class Model extends CacheableNode {
 
     public static void method351(boolean flag) {
         metadataArray = null;
@@ -155,7 +155,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         }
     }
 
-    public Class38_Sub2_Sub1(boolean flag, int i) {
+    public Model(boolean flag, int i) {
         anInt1217 = 45861;
         aByte1218 = 47;
         aByte1219 = 47;
@@ -300,7 +300,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
 
     }
 
-    public Class38_Sub2_Sub1(int i, Class38_Sub2_Sub1[] aclass38_sub2_sub1, int j) {
+    public Model(int i, Model[] aclass38_sub2_sub1, int j) {
         anInt1217 = 45861;
         aByte1218 = 47;
         aByte1219 = 47;
@@ -316,7 +316,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         anInt1238 = 0;
         anInt1237 = -1;
         for (int k = 0; k < j; k++) {
-            Class38_Sub2_Sub1 class38_sub2_sub1 = aclass38_sub2_sub1[k];
+            Model class38_sub2_sub1 = aclass38_sub2_sub1[k];
             if (class38_sub2_sub1 != null) {
                 anInt1222 += class38_sub2_sub1.anInt1222;
                 anInt1226 += class38_sub2_sub1.anInt1226;
@@ -360,7 +360,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         anInt1226 = 0;
         anInt1238 = 0;
         for (int l = 0; l < j; l++) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_1 = aclass38_sub2_sub1[l];
+            Model class38_sub2_sub1_1 = aclass38_sub2_sub1[l];
             if (class38_sub2_sub1_1 != null) {
                 for (int i1 = 0; i1 < class38_sub2_sub1_1.anInt1226; i1++) {
                     if (flag)
@@ -399,7 +399,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
 
     }
 
-    public Class38_Sub2_Sub1(Class38_Sub2_Sub1[] aclass38_sub2_sub1, byte byte0, int i, boolean flag) {
+    public Model(Model[] aclass38_sub2_sub1, byte byte0, int i, boolean flag) {
         anInt1217 = 45861;
         aByte1218 = 47;
         aByte1219 = 47;
@@ -415,7 +415,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         anInt1238 = 0;
         anInt1237 = -1;
         for (int j = 0; j < i; j++) {
-            Class38_Sub2_Sub1 class38_sub2_sub1 = aclass38_sub2_sub1[j];
+            Model class38_sub2_sub1 = aclass38_sub2_sub1[j];
             if (class38_sub2_sub1 != null) {
                 anInt1222 += class38_sub2_sub1.anInt1222;
                 anInt1226 += class38_sub2_sub1.anInt1226;
@@ -462,7 +462,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
                 ;
         }
         for (int l = 0; l < i; l++) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_1 = aclass38_sub2_sub1[l];
+            Model class38_sub2_sub1_1 = aclass38_sub2_sub1[l];
             if (class38_sub2_sub1_1 != null) {
                 int i1 = anInt1222;
                 for (int j1 = 0; j1 < class38_sub2_sub1_1.anInt1222; j1++) {
@@ -512,7 +512,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         method354(2992);
     }
 
-    public Class38_Sub2_Sub1(Class38_Sub2_Sub1 class38_sub2_sub1, boolean flag, boolean flag1, int i, boolean flag2) {
+    public Model(Model class38_sub2_sub1, boolean flag, boolean flag1, int i, boolean flag2) {
         anInt1217 = 45861;
         aByte1218 = 47;
         aByte1219 = 47;
@@ -574,7 +574,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         anIntArray1241 = class38_sub2_sub1.anIntArray1241;
     }
 
-    public Class38_Sub2_Sub1(Class38_Sub2_Sub1 class38_sub2_sub1, byte byte0, boolean flag, boolean flag1) {
+    public Model(Model class38_sub2_sub1, byte byte0, boolean flag, boolean flag1) {
         anInt1217 = 45861;
         aByte1218 = 47;
         aByte1219 = 47;
@@ -657,7 +657,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         }
     }
 
-    public Class38_Sub2_Sub1(int i, Class38_Sub2_Sub1 class38_sub2_sub1, boolean flag) {
+    public Model(int i, Model class38_sub2_sub1, boolean flag) {
         anInt1217 = 45861;
         aByte1218 = 47;
         aByte1219 = 47;
@@ -709,7 +709,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         anIntArray1241 = class38_sub2_sub1.anIntArray1241;
     }
 
-    public int method353(Class38_Sub2_Sub1 class38_sub2_sub1, int i) {
+    public int method353(Model class38_sub2_sub1, int i) {
         int j = -1;
         int k = class38_sub2_sub1.anIntArray1223[i];
         int l = class38_sub2_sub1.anIntArray1224[i];

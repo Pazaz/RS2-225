@@ -54,11 +54,11 @@ public class SpotAnimType {
         } while (true);
     }
 
-    public Class38_Sub2_Sub1 getModel() {
-        Class38_Sub2_Sub1 class38_sub2_sub1 = (Class38_Sub2_Sub1) aClass34_400.method341(anInt388);
+    public Model getModel() {
+        Model class38_sub2_sub1 = (Model) aClass34_400.method341(anInt388);
         if (class38_sub2_sub1 != null)
             return class38_sub2_sub1;
-        class38_sub2_sub1 = new Class38_Sub2_Sub1(false, anInt389);
+        class38_sub2_sub1 = new Model(false, anInt389);
         for (int i = 0; i < 6; i++)
             if (anIntArray393[0] != 0)
                 class38_sub2_sub1.method364(anIntArray393[i], anIntArray394[i]);

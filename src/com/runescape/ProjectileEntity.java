@@ -60,9 +60,9 @@ public class ProjectileEntity extends Entity {
     }
 
     @Override
-    public Class38_Sub2_Sub1 getDrawMethod() {
-        Class38_Sub2_Sub1 sam = spotAnim.getModel();
-        Class38_Sub2_Sub1 m = new Class38_Sub2_Sub1(sam, true, !spotAnim.disposeAlpha, anInt1341, false);
+    public Model getDrawMethod() {
+        Model sam = spotAnim.getModel();
+        Model m = new Model(sam, true, !spotAnim.disposeAlpha, anInt1341, false);
 
         if (spotAnim.seq != null) {
             m.applyGroups(4);

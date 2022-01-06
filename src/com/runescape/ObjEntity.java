@@ -8,9 +8,9 @@ public class ObjEntity {
     public int y;
     public int x;
     public int z;
-    public Class38_Sub2_Sub1 entity0;
-    public Class38_Sub2_Sub1 entity1;
-    public Class38_Sub2_Sub1 entity2;
+    public Model entity0;
+    public Model entity1;
+    public Model entity2;
     public int bitset;
     public int offsetY;
 }

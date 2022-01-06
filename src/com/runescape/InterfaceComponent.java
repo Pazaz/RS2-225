@@ -200,15 +200,15 @@ public class InterfaceComponent {
         aClass34_322 = null;
     }
 
-    public Class38_Sub2_Sub1 method219(int i, int j, boolean flag) {
-        Class38_Sub2_Sub1 class38_sub2_sub1 = aClass38_Sub2_Sub1_310;
+    public Model method219(int i, int j, boolean flag) {
+        Model class38_sub2_sub1 = aClass38_Sub2_Sub1_310;
         if (flag)
             class38_sub2_sub1 = aClass38_Sub2_Sub1_311;
         if (class38_sub2_sub1 == null)
             return null;
         if (i == -1 && j == -1 && class38_sub2_sub1.anIntArray1236 == null)
             return class38_sub2_sub1;
-        Class38_Sub2_Sub1 class38_sub2_sub1_1 = new Class38_Sub2_Sub1(class38_sub2_sub1, true, true, anInt262, false);
+        Model class38_sub2_sub1_1 = new Model(class38_sub2_sub1, true, true, anInt262, false);
         if (i != -1 || j != -1)
             class38_sub2_sub1_1.applyGroups(4);
         if (i != -1)
@@ -235,14 +235,14 @@ public class InterfaceComponent {
         return class38_sub2_sub2_sub2;
     }
 
-    public static Class38_Sub2_Sub1 method221(int i, int j) {
-        Class38_Sub2_Sub1 class38_sub2_sub1 = (Class38_Sub2_Sub1) aClass34_322.method341(j);
+    public static Model method221(int i, int j) {
+        Model class38_sub2_sub1 = (Model) aClass34_322.method341(j);
         if (i != 4)
             aBoolean263 = !aBoolean263;
         if (class38_sub2_sub1 != null) {
             return class38_sub2_sub1;
         } else {
-            Class38_Sub2_Sub1 class38_sub2_sub1_1 = new Class38_Sub2_Sub1(false, j);
+            Model class38_sub2_sub1_1 = new Model(false, j);
             aClass34_322.method342(6, j, class38_sub2_sub1_1);
             return class38_sub2_sub1_1;
         }
@@ -299,8 +299,8 @@ public class InterfaceComponent {
     public int anInt307;
     public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_308;
     public Class38_Sub2_Sub2_Sub2 aClass38_Sub2_Sub2_Sub2_309;
-    public Class38_Sub2_Sub1 aClass38_Sub2_Sub1_310;
-    public Class38_Sub2_Sub1 aClass38_Sub2_Sub1_311;
+    public Model aClass38_Sub2_Sub1_310;
+    public Model aClass38_Sub2_Sub1_311;
     public int anInt312;
     public int anInt313;
     public int anInt314;

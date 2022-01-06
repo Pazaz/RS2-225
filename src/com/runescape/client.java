@@ -825,10 +825,10 @@ public class client extends Applet_Sub1 {
             }
 
         int i3 = Class38_Sub2_Sub2_Sub1.anInt1457;
-        Class38_Sub2_Sub1.aBoolean1295 = true;
-        Class38_Sub2_Sub1.anInt1298 = 0;
-        Class38_Sub2_Sub1.anInt1296 = super.anInt21 - 8;
-        Class38_Sub2_Sub1.anInt1297 = super.anInt22 - 11;
+        Model.aBoolean1295 = true;
+        Model.anInt1298 = 0;
+        Model.anInt1296 = super.anInt21 - 8;
+        Model.anInt1297 = super.anInt22 - 11;
         Draw2D.method379(anInt1143);
         scene.method321(anInt1115, anInt1111, k, anInt1114, anInt1112, anInt1113, 0);
         scene.method295(0);
@@ -1861,15 +1861,15 @@ public class client extends Applet_Sub1 {
         int k2 = 0;
         int l2 = k1;
         if (l1 != 0) {
-            int i3 = Class38_Sub2_Sub1.anIntArray1300[l1];
-            int k3 = Class38_Sub2_Sub1.anIntArray1301[l1];
+            int i3 = Model.anIntArray1300[l1];
+            int k3 = Model.anIntArray1301[l1];
             int i4 = k2 * k3 - l2 * i3 >> 16;
             l2 = k2 * i3 + l2 * k3 >> 16;
             k2 = i4;
         }
         if (i2 != 0) {
-            int j3 = Class38_Sub2_Sub1.anIntArray1300[i2];
-            int l3 = Class38_Sub2_Sub1.anIntArray1301[i2];
+            int j3 = Model.anIntArray1300[i2];
+            int l3 = Model.anIntArray1301[i2];
             int j4 = l2 * j3 + j2 * l3 >> 16;
             l2 = l2 * l3 - j2 * j3 >> 16;
             j2 = j4;
@@ -2893,7 +2893,7 @@ public class client extends Applet_Sub1 {
                         j8 = interfaceComponent_1.anInt313;
                     else
                         j8 = interfaceComponent_1.anInt312;
-                    Class38_Sub2_Sub1 class38_sub2_sub1;
+                    Model class38_sub2_sub1;
                     if (j8 == -1) {
                         class38_sub2_sub1 = interfaceComponent_1.method219(-1, -1, flag);
                     } else {
@@ -4216,7 +4216,7 @@ public class client extends Applet_Sub1 {
             interfaceComponent.anInt316 = (int) (Math.sin((double) anInt955 / 40D) * 256D) & 0x7ff;
             if (aBoolean788) {
                 aBoolean788 = false;
-                Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[7];
+                Model[] aclass38_sub2_sub1 = new Model[7];
                 int k = 0;
                 for (int l = 0; l < 7; l++) {
                     int i1 = anIntArray789[l];
@@ -4224,7 +4224,7 @@ public class client extends Applet_Sub1 {
                         aclass38_sub2_sub1[k++] = IdkType.idkTypes[i1].method216();
                 }
 
-                Class38_Sub2_Sub1 class38_sub2_sub1 = new Class38_Sub2_Sub1(0, aclass38_sub2_sub1, k);
+                Model class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, k);
                 for (int j1 = 0; j1 < 5; j1++)
                     if (anIntArray742[j1] != 0) {
                         class38_sub2_sub1.method364(anIntArrayArray942[j1][0],
@@ -4713,7 +4713,7 @@ public class client extends Applet_Sub1 {
             Class38_Sub2_Sub2_Sub1.method393(true, 0.80000000000000004D);
             Class38_Sub2_Sub2_Sub1.method388(20, -20);
             method13(true, "Unpacking models", 83);
-            Class38_Sub2_Sub1.method352(anInt958, fileArchive_3);
+            Model.method352(anInt958, fileArchive_3);
             SeqBase.method208(false, fileArchive_3);
             SeqFrame.method213(false, fileArchive_3);
             method13(true, "Unpacking config", 86);
@@ -5045,8 +5045,8 @@ public class client extends Applet_Sub1 {
             aBoolean860 = !aBoolean860;
         if (i1 > 6400)
             return;
-        int j1 = Class38_Sub2_Sub1.anIntArray1300[l];
-        int k1 = Class38_Sub2_Sub1.anIntArray1301[l];
+        int j1 = Model.anIntArray1300[l];
+        int k1 = Model.anIntArray1301[l];
         j1 = (j1 * 256) / (anInt930 + 256);
         k1 = (k1 * 256) / (anInt930 + 256);
         int l1 = i * j1 + k * k1 >> 16;
@@ -5096,10 +5096,10 @@ public class client extends Applet_Sub1 {
         j -= anInt1111;
         i1 -= anInt1112;
         i -= anInt1113;
-        int j1 = Class38_Sub2_Sub1.anIntArray1300[anInt1114];
-        int k1 = Class38_Sub2_Sub1.anIntArray1301[anInt1114];
-        int l1 = Class38_Sub2_Sub1.anIntArray1300[anInt1115];
-        int i2 = Class38_Sub2_Sub1.anIntArray1301[anInt1115];
+        int j1 = Model.anIntArray1300[anInt1114];
+        int k1 = Model.anIntArray1301[anInt1114];
+        int l1 = Model.anIntArray1300[anInt1115];
+        int i2 = Model.anIntArray1301[anInt1115];
         int j2 = i * l1 + j * i2 >> 16;
         i = i * i2 - j * l1 >> 16;
         if (k >= 0)
@@ -5802,7 +5802,7 @@ public class client extends Applet_Sub1 {
         PlayerEntity.aClass34_1525 = null;
         Class38_Sub2_Sub2_Sub1.method384(true);
         Scene.method280(true);
-        Class38_Sub2_Sub1.method351(true);
+        Model.method351(true);
         SeqBase.seqBaseArray = null;
         SeqFrame.seqFrames = null;
         System.gc();
@@ -7065,10 +7065,10 @@ public class client extends Applet_Sub1 {
             }
         }
 
-        Class38_Sub2_Sub1 class38_sub2_sub1 = null;
+        Model class38_sub2_sub1 = null;
         if (l != -1)
             class38_sub2_sub1 = ObjType.method169(l).method173(k1);
-        Class38_Sub2_Sub1 class38_sub2_sub1_1 = null;
+        Model class38_sub2_sub1_1 = null;
         if (j1 != -1)
             class38_sub2_sub1_1 = ObjType.method169(j1).method173(l1);
         int i2 = i + (j << 7) + 0x60000000;
@@ -7446,10 +7446,10 @@ public class client extends Applet_Sub1 {
                         int i4 = k2 >> 6;
                         if (j3 == 11)
                             j3 = 10;
-                        Class38_Sub2_Sub1 class38_sub2_sub1_2 = locType.getModel(j3, i4, j1, k1, l1, i2, j2);
+                        Model class38_sub2_sub1_2 = locType.getModel(j3, i4, j1, k1, l1, i2, j2);
                         scene.method297(k, class38_sub2_sub1_2, 1, j, l);
                     } else if (locEntity.anInt1207 == 1) {
-                        Class38_Sub2_Sub1 class38_sub2_sub1 = locType.getModel(4, 0, j1, k1, l1, i2, j2);
+                        Model class38_sub2_sub1 = locType.getModel(4, 0, j1, k1, l1, i2, j2);
                         scene.method299(266, l, k, class38_sub2_sub1, j);
                     } else if (locEntity.anInt1207 == 0) {
                         int l2 = scene.method312(j, k, l, i1);
@@ -7457,17 +7457,17 @@ public class client extends Applet_Sub1 {
                         int j4 = l2 >> 6;
                         if (k3 == 2) {
                             int k4 = j4 + 1 & 3;
-                            Class38_Sub2_Sub1 class38_sub2_sub1_4 = locType.getModel(2, 4 + j4, j1, k1, l1, i2, j2);
-                            Class38_Sub2_Sub1 class38_sub2_sub1_5 = locType.getModel(2, k4, j1, k1, l1, i2, j2);
+                            Model class38_sub2_sub1_4 = locType.getModel(2, 4 + j4, j1, k1, l1, i2, j2);
+                            Model class38_sub2_sub1_5 = locType.getModel(2, k4, j1, k1, l1, i2, j2);
                             scene.method302(class38_sub2_sub1_4, class38_sub2_sub1_5, l, aBoolean849, k, j);
                         } else {
-                            Class38_Sub2_Sub1 class38_sub2_sub1_3 = locType.getModel(k3, j4, j1, k1, l1, i2, j2);
+                            Model class38_sub2_sub1_3 = locType.getModel(k3, j4, j1, k1, l1, i2, j2);
                             scene.method301(35568, class38_sub2_sub1_3, l, k, j);
                         }
                     } else if (locEntity.anInt1207 == 3) {
                         int i3 = scene.method312(j, k, l, i1);
                         int l3 = i3 >> 6;
-                        Class38_Sub2_Sub1 class38_sub2_sub1_1 = locType.getModel(22, l3, j1, k1, l1, i2, j2);
+                        Model class38_sub2_sub1_1 = locType.getModel(22, l3, j1, k1, l1, i2, j2);
                         scene.method300(class38_sub2_sub1_1, l, -48639, k, j);
                     }
                 }
@@ -7506,8 +7506,8 @@ public class client extends Applet_Sub1 {
         int i = -1;
         if (byte0 != 2)
             aBoolean870 = !aBoolean870;
-        for (int j = 0; j < Class38_Sub2_Sub1.anInt1298; j++) {
-            int k = Class38_Sub2_Sub1.anIntArray1299[j];
+        for (int j = 0; j < Model.anInt1298; j++) {
+            int k = Model.anIntArray1299[j];
             int l = k & 0x7f;
             int i1 = k >> 7 & 0x7f;
             int j1 = k >> 29 & 3;
@@ -8452,7 +8452,7 @@ public class client extends Applet_Sub1 {
                 int j13 = aClass38_Sub2_Sub3_795.method448();
                 int l18 = aClass38_Sub2_Sub3_795.method448();
                 InterfaceComponent interfaceComponent_3 = InterfaceComponent.interfaceComponentArray[j4];
-                Class38_Sub2_Sub1 class38_sub2_sub1 = interfaceComponent_3.aClass38_Sub2_Sub1_310;
+                Model class38_sub2_sub1 = interfaceComponent_3.aClass38_Sub2_Sub1_310;
                 if (class38_sub2_sub1 != null)
                     class38_sub2_sub1.method364(j13, l18);
                 anInt780 = -1;
@@ -8621,7 +8621,7 @@ public class client extends Applet_Sub1 {
             if (anInt780 == 87) {
                 int j6 = aClass38_Sub2_Sub3_795.method448();
                 int j14 = aClass38_Sub2_Sub3_795.method448();
-                InterfaceComponent.interfaceComponentArray[j6].aClass38_Sub2_Sub1_310 = new Class38_Sub2_Sub1(false, j14);
+                InterfaceComponent.interfaceComponentArray[j6].aClass38_Sub2_Sub1_310 = new Model(false, j14);
                 anInt780 = -1;
                 return true;
             }

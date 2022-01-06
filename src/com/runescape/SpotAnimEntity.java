@@ -32,9 +32,9 @@ public class SpotAnimEntity extends Entity {
     }
 
     @Override
-    public Class38_Sub2_Sub1 getDrawMethod() {
-        Class38_Sub2_Sub1 class38_sub2_sub1 = spotAnimType.getModel();
-        Class38_Sub2_Sub1 class38_sub2_sub1_1 = new Class38_Sub2_Sub1(class38_sub2_sub1, true,
+    public Model getDrawMethod() {
+        Model class38_sub2_sub1 = spotAnimType.getModel();
+        Model class38_sub2_sub1_1 = new Model(class38_sub2_sub1, true,
                 !spotAnimType.disposeAlpha, anInt1367, false);
         if (!aBoolean1377) {
             class38_sub2_sub1_1.applyGroups(4);

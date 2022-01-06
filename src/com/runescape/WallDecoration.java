@@ -10,7 +10,7 @@ public class WallDecoration {
     public int sceneZ;
     public int type;
     public int rotation;
-    public Class38_Sub2_Sub1 model;
+    public Model model;
     public int bitset;
     public byte info;
 }

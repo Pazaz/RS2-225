@@ -192,7 +192,7 @@ public class LocType {
         }
     }
 
-    public Class38_Sub2_Sub1 getModel(int i, int j, int k, int l, int i1, int j1, int k1) {
+    public Model getModel(int i, int j, int k, int l, int i1, int j1, int k1) {
         int l1 = -1;
         for (int i2 = 0; i2 < modelTypes.length; i2++) {
             if (modelTypes[i2] != i)
@@ -209,14 +209,14 @@ public class LocType {
             l2 = 0L;
         }
 
-        Class38_Sub2_Sub1 class38_sub2_sub1 = (Class38_Sub2_Sub1) builtModels.method341(l2);
+        Model class38_sub2_sub1 = (Model) builtModels.method341(l2);
         if (class38_sub2_sub1 != null) {
             if (aBoolean35) {
                 return class38_sub2_sub1;
             }
 
             if (adjustToTerrain || flatShaded) {
-                class38_sub2_sub1 = new Class38_Sub2_Sub1(class38_sub2_sub1, (byte) -31, adjustToTerrain, flatShaded);
+                class38_sub2_sub1 = new Model(class38_sub2_sub1, (byte) -31, adjustToTerrain, flatShaded);
             }
 
             if (adjustToTerrain) {
@@ -249,9 +249,9 @@ public class LocType {
             k2 += 0x10000;
         }
 
-        Class38_Sub2_Sub1 class38_sub2_sub1_1 = (Class38_Sub2_Sub1) models.method341(k2);
+        Model class38_sub2_sub1_1 = (Model) models.method341(k2);
         if (class38_sub2_sub1_1 == null) {
-            class38_sub2_sub1_1 = new Class38_Sub2_Sub1(false, k2 & 0xffff);
+            class38_sub2_sub1_1 = new Model(false, k2 & 0xffff);
             if (flag) {
                 class38_sub2_sub1_1.method365(-725);
             }
@@ -263,7 +263,7 @@ public class LocType {
 
         boolean flag2;
         flag2 = anInt69 != 0 || anInt70 != 0 || anInt71 != 0;
-        Class38_Sub2_Sub1 model = new Class38_Sub2_Sub1(class38_sub2_sub1_1, oldColors == null, !disposeAlpha, anInt33, j == 0 && k1 == -1 && !flag1 && !flag2);
+        Model model = new Model(class38_sub2_sub1_1, oldColors == null, !disposeAlpha, anInt33, j == 0 && k1 == -1 && !flag1 && !flag2);
 
         if (k1 != -1) {
             model.applyGroups(4);
@@ -299,7 +299,7 @@ public class LocType {
         builtModels.method342(6, l2, model);
 
         if (adjustToTerrain || flatShaded) {
-            model = new Class38_Sub2_Sub1(model, (byte) -31, adjustToTerrain, flatShaded);
+            model = new Model(model, (byte) -31, adjustToTerrain, flatShaded);
         }
 
         if (adjustToTerrain) {

@@ -70,17 +70,17 @@ public class PlayerEntity extends PathingEntity {
     }
 
     @Override
-    public Class38_Sub2_Sub1 getDrawMethod() {
+    public Model getDrawMethod() {
         if (!aBoolean1506)
             return null;
-        Class38_Sub2_Sub1 class38_sub2_sub1 = method471(false);
+        Model class38_sub2_sub1 = method471(false);
         super.anInt1425 = class38_sub2_sub1.anInt1247;
         class38_sub2_sub1.aBoolean1256 = true;
         if (aBoolean1524)
             return class38_sub2_sub1;
         if (super.anInt1412 != -1 && super.anInt1413 != -1) {
             SpotAnimType spotAnimType = SpotAnimType.spotAnimTypes[super.anInt1412];
-            Class38_Sub2_Sub1 class38_sub2_sub1_2 = new Class38_Sub2_Sub1(spotAnimType.getModel(), true,
+            Model class38_sub2_sub1_2 = new Model(spotAnimType.getModel(), true,
                     !spotAnimType.disposeAlpha, anInt1503, false);
             class38_sub2_sub1_2.method363(-super.anInt1416, 0, -122, 0);
             class38_sub2_sub1_2.applyGroups(4);
@@ -90,16 +90,16 @@ public class PlayerEntity extends PathingEntity {
             if (spotAnimType.anInt395 != 128 || spotAnimType.anInt396 != 128)
                 class38_sub2_sub1_2.scale(spotAnimType.anInt395, 2, spotAnimType.anInt396, spotAnimType.anInt395);
             class38_sub2_sub1_2.applyLighting(64 + spotAnimType.anInt398, 850 + spotAnimType.anInt399, -30, -50, -30, true);
-            Class38_Sub2_Sub1[] aclass38_sub2_sub1_1 = {
+            Model[] aclass38_sub2_sub1_1 = {
                     class38_sub2_sub1, class38_sub2_sub1_2
             };
-            class38_sub2_sub1 = new Class38_Sub2_Sub1(aclass38_sub2_sub1_1, (byte) -31, 2, true);
+            class38_sub2_sub1 = new Model(aclass38_sub2_sub1_1, (byte) -31, 2, true);
         }
         if (aClass38_Sub2_Sub1_1519 != null) {
             if (client.anInt955 >= anInt1515)
                 aClass38_Sub2_Sub1_1519 = null;
             if (client.anInt955 >= anInt1514 && client.anInt955 < anInt1515) {
-                Class38_Sub2_Sub1 class38_sub2_sub1_1 = aClass38_Sub2_Sub1_1519;
+                Model class38_sub2_sub1_1 = aClass38_Sub2_Sub1_1519;
                 class38_sub2_sub1_1.method363(anInt1517 - anInt1513, anInt1516 - super.anInt1380, -122,
                         anInt1518 - super.anInt1381);
                 if (super.anInt1426 == 512) {
@@ -111,10 +111,10 @@ public class PlayerEntity extends PathingEntity {
                     class38_sub2_sub1_1.method361(0);
                 } else if (super.anInt1426 == 1536)
                     class38_sub2_sub1_1.method361(0);
-                Class38_Sub2_Sub1[] aclass38_sub2_sub1 = {
+                Model[] aclass38_sub2_sub1 = {
                         class38_sub2_sub1, class38_sub2_sub1_1
                 };
-                class38_sub2_sub1 = new Class38_Sub2_Sub1(aclass38_sub2_sub1, (byte) -31, 2, true);
+                class38_sub2_sub1 = new Model(aclass38_sub2_sub1, (byte) -31, 2, true);
                 if (super.anInt1426 == 512)
                     class38_sub2_sub1_1.method361(0);
                 else if (super.anInt1426 == 1024) {
@@ -133,7 +133,7 @@ public class PlayerEntity extends PathingEntity {
         return class38_sub2_sub1;
     }
 
-    public Class38_Sub2_Sub1 method471(boolean flag) {
+    public Model method471(boolean flag) {
         long l = aLong1512;
         int i = -1;
         int j = -1;
@@ -154,9 +154,9 @@ public class PlayerEntity extends PathingEntity {
             }
         } else if (super.anInt1404 >= 0)
             i = SeqType.seqTypes[super.anInt1404].primaryFrames[super.anInt1405];
-        Class38_Sub2_Sub1 class38_sub2_sub1 = (Class38_Sub2_Sub1) aClass34_1525.method341(l);
+        Model class38_sub2_sub1 = (Model) aClass34_1525.method341(l);
         if (class38_sub2_sub1 == null) {
-            Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[12];
+            Model[] aclass38_sub2_sub1 = new Model[12];
             int j1 = 0;
             for (int k1 = 0; k1 < 12; k1++) {
                 int l1 = anIntArray1509[k1];
@@ -168,13 +168,13 @@ public class PlayerEntity extends PathingEntity {
                     aclass38_sub2_sub1[j1++] = IdkType.idkTypes[l1 - 256].method216();
                 if (l1 >= 512) {
                     ObjType objType = ObjType.method169(l1 - 512);
-                    Class38_Sub2_Sub1 class38_sub2_sub1_2 = objType.method175((byte) 6, anInt1507);
+                    Model class38_sub2_sub1_2 = objType.method175((byte) 6, anInt1507);
                     if (class38_sub2_sub1_2 != null)
                         aclass38_sub2_sub1[j1++] = class38_sub2_sub1_2;
                 }
             }
 
-            class38_sub2_sub1 = new Class38_Sub2_Sub1(0, aclass38_sub2_sub1, j1);
+            class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, j1);
             for (int i2 = 0; i2 < 5; i2++)
                 if (anIntArray1510[i2] != 0) {
                     class38_sub2_sub1.method364(client.anIntArrayArray942[i2][0],
@@ -190,7 +190,7 @@ public class PlayerEntity extends PathingEntity {
         }
         if (aBoolean1524)
             return class38_sub2_sub1;
-        Class38_Sub2_Sub1 class38_sub2_sub1_1 = new Class38_Sub2_Sub1(0, class38_sub2_sub1, true);
+        Model class38_sub2_sub1_1 = new Model(0, class38_sub2_sub1, true);
         if (flag)
             aBoolean1504 = !aBoolean1504;
         if (i != -1 && j != -1)
@@ -203,23 +203,23 @@ public class PlayerEntity extends PathingEntity {
         return class38_sub2_sub1_1;
     }
 
-    public Class38_Sub2_Sub1 method472(int i) {
+    public Model method472(int i) {
         if (!aBoolean1506)
             return null;
-        Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[12];
+        Model[] aclass38_sub2_sub1 = new Model[12];
         int j = 0;
         for (int k = 0; k < 12; k++) {
             int l = anIntArray1509[k];
             if (l >= 256 && l < 512)
                 aclass38_sub2_sub1[j++] = IdkType.idkTypes[l - 256].method217(false);
             if (l >= 512) {
-                Class38_Sub2_Sub1 class38_sub2_sub1_1 = ObjType.method169(l - 512).method176(-22246, anInt1507);
+                Model class38_sub2_sub1_1 = ObjType.method169(l - 512).method176(-22246, anInt1507);
                 if (class38_sub2_sub1_1 != null)
                     aclass38_sub2_sub1[j++] = class38_sub2_sub1_1;
             }
         }
 
-        Class38_Sub2_Sub1 class38_sub2_sub1 = new Class38_Sub2_Sub1(0, aclass38_sub2_sub1, j);
+        Model class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, j);
         for (int i1 = 0; i1 < 5; i1++)
             if (anIntArray1510[i1] != 0) {
                 class38_sub2_sub1.method364(client.anIntArrayArray942[i1][0],
@@ -263,7 +263,7 @@ public class PlayerEntity extends PathingEntity {
     public int anInt1516;
     public int anInt1517;
     public int anInt1518;
-    public Class38_Sub2_Sub1 aClass38_Sub2_Sub1_1519;
+    public Model aClass38_Sub2_Sub1_1519;
     public int anInt1520;
     public int anInt1521;
     public int anInt1522;

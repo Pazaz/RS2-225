@@ -2,7 +2,7 @@ package com.runescape;
 
 public class Entity extends Node {
 
-    public Class38_Sub2_Sub1 getDrawMethod() {
+    public Model getDrawMethod() {
         return null;
     }
 

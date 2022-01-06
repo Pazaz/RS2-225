@@ -147,7 +147,7 @@ public class Scene {
         tile3dArray[i][j][k].overlay = class15;
     }
 
-    public void method287(Class38_Sub2_Sub1 class38_sub2_sub1, byte byte0, int i, int j, int k, int l, byte byte1,
+    public void method287(Model class38_sub2_sub1, byte byte0, int i, int j, int k, int l, byte byte1,
                           int i1) {
         GroundDecoration groundDecoration = new GroundDecoration();
         groundDecoration.model = class38_sub2_sub1;
@@ -168,9 +168,9 @@ public class Scene {
         }
     }
 
-    public void method288(Class38_Sub2_Sub1 class38_sub2_sub1, Class38_Sub2_Sub1 class38_sub2_sub1_1, int i, int j,
+    public void method288(Model class38_sub2_sub1, Model class38_sub2_sub1_1, int i, int j,
                           int k, int l, int i1,
-                          Class38_Sub2_Sub1 class38_sub2_sub1_2, int j1) {
+                          Model class38_sub2_sub1_2, int j1) {
         ObjEntity objEntity = new ObjEntity();
         objEntity.entity0 = class38_sub2_sub1;
         j1 = 90 / j1;
@@ -196,8 +196,8 @@ public class Scene {
         tile3dArray[j][i1][l].objEntity = objEntity;
     }
 
-    public void method289(int i, int j, int k, int l, int i1, Class38_Sub2_Sub1 class38_sub2_sub1,
-                          Class38_Sub2_Sub1 class38_sub2_sub1_1,
+    public void method289(int i, int j, int k, int l, int i1, Model class38_sub2_sub1,
+                          Model class38_sub2_sub1_1,
                           int j1, int k1, int l1, byte byte0) {
         if (class38_sub2_sub1 == null && class38_sub2_sub1_1 == null)
             return;
@@ -221,7 +221,7 @@ public class Scene {
     }
 
     public void method290(int i, int j, int k, int l, int i1, int j1, int k1,
-                          int l1, int i2, Class38_Sub2_Sub1 class38_sub2_sub1, byte byte0, int j2) {
+                          int l1, int i2, Model class38_sub2_sub1, byte byte0, int j2) {
         k1 = 66 / k1;
         if (class38_sub2_sub1 == null)
             return;
@@ -242,7 +242,7 @@ public class Scene {
     }
 
     public boolean method291(int i, int j, int k, Entity entity, int l, int i1, int j1,
-                             int k1, byte byte0, Class38_Sub2_Sub1 class38_sub2_sub1, int l1, int i2) {
+                             int k1, byte byte0, Model class38_sub2_sub1, int l1, int i2) {
         j = 79 / j;
         if (class38_sub2_sub1 == null && entity == null) {
             return true;
@@ -254,7 +254,7 @@ public class Scene {
     }
 
     public boolean method292(int i, int j, int k, int l, int i1, int j1, boolean flag,
-                             Class38_Sub2_Sub1 class38_sub2_sub1, Entity entity, int k1, int l1) {
+                             Model class38_sub2_sub1, Entity entity, int k1, int l1) {
         if (class38_sub2_sub1 == null && entity == null)
             return true;
         int i2 = i1 - k;
@@ -281,7 +281,7 @@ public class Scene {
                 j1, (byte) 0);
     }
 
-    public boolean method293(int i, int j, Class38_Sub2_Sub1 class38_sub2_sub1, int k, int l, int i1, int j1,
+    public boolean method293(int i, int j, Model class38_sub2_sub1, int k, int l, int i1, int j1,
                              int k1, int l1, Entity entity, boolean flag, int i2, int j2, int k2) {
         if (flag) {
             for (int l2 = 1; l2 > 0; l2++)
@@ -295,7 +295,7 @@ public class Scene {
     }
 
     public boolean method294(int i, int j, int k, int l, int i1, int j1, int k1,
-                             int l1, Class38_Sub2_Sub1 class38_sub2_sub1, Entity entity, int i2, boolean flag, int j2,
+                             int l1, Model class38_sub2_sub1, Entity entity, int i2, boolean flag, int j2,
                              byte byte0) {
         if (class38_sub2_sub1 == null && entity == null)
             return false;
@@ -396,7 +396,7 @@ public class Scene {
             byte0 = 0;
     }
 
-    public void method297(int i, Class38_Sub2_Sub1 class38_sub2_sub1, int j, int k, int l) {
+    public void method297(int i, Model class38_sub2_sub1, int j, int k, int l) {
         if (class38_sub2_sub1 == null)
             return;
         Tile tile = tile3dArray[k][i][l];
@@ -436,7 +436,7 @@ public class Scene {
         }
     }
 
-    public void method299(int i, int j, int k, Class38_Sub2_Sub1 class38_sub2_sub1, int l) {
+    public void method299(int i, int j, int k, Model class38_sub2_sub1, int l) {
         i = 34 / i;
         if (class38_sub2_sub1 == null)
             return;
@@ -452,7 +452,7 @@ public class Scene {
         }
     }
 
-    public void method300(Class38_Sub2_Sub1 class38_sub2_sub1, int i, int j, int k, int l) {
+    public void method300(Model class38_sub2_sub1, int i, int j, int k, int l) {
         if (j != -48639)
             return;
         if (class38_sub2_sub1 == null)
@@ -469,7 +469,7 @@ public class Scene {
         }
     }
 
-    public void method301(int i, Class38_Sub2_Sub1 class38_sub2_sub1, int j, int k, int l) {
+    public void method301(int i, Model class38_sub2_sub1, int j, int k, int l) {
         if (i != 35568) {
             for (int i1 = 1; i1 > 0; i1++)
                 ;
@@ -488,7 +488,7 @@ public class Scene {
         }
     }
 
-    public void method302(Class38_Sub2_Sub1 class38_sub2_sub1, Class38_Sub2_Sub1 class38_sub2_sub1_1, int i,
+    public void method302(Model class38_sub2_sub1, Model class38_sub2_sub1_1, int i,
                           boolean flag, int j, int k) {
         if (class38_sub2_sub1 == null)
             return;
@@ -672,7 +672,7 @@ public class Scene {
 
     }
 
-    public void method314(byte byte0, int i, int j, Class38_Sub2_Sub1 class38_sub2_sub1, int k) {
+    public void method314(byte byte0, int i, int j, Model class38_sub2_sub1, int k) {
         if (byte0 != -70)
             anInt523 = -417;
         if (k < anInt528) {
@@ -701,7 +701,7 @@ public class Scene {
         }
     }
 
-    public void method315(int i, int j, int k, int l, int i1, Class38_Sub2_Sub1 class38_sub2_sub1, int j1) {
+    public void method315(int i, int j, int k, int l, int i1, Model class38_sub2_sub1, int j1) {
         i1 = 21 / i1;
         boolean flag = true;
         int k1 = i;
@@ -757,7 +757,7 @@ public class Scene {
 
     }
 
-    public void method316(Class38_Sub2_Sub1 class38_sub2_sub1, Class38_Sub2_Sub1 class38_sub2_sub1_1, int i, int j,
+    public void method316(Model class38_sub2_sub1, Model class38_sub2_sub1_1, int i, int j,
                           int k, boolean flag) {
         anInt578++;
         int l = 0;
@@ -880,10 +880,10 @@ public class Scene {
         boolean[][][][] aflag = new boolean[9][32][53][53];
         for (int i1 = 128; i1 <= 384; i1 += 32) {
             for (int j1 = 0; j1 < 2048; j1 += 64) {
-                anInt548 = Class38_Sub2_Sub1.anIntArray1300[i1];
-                anInt549 = Class38_Sub2_Sub1.anIntArray1301[i1];
-                anInt550 = Class38_Sub2_Sub1.anIntArray1300[j1];
-                anInt551 = Class38_Sub2_Sub1.anIntArray1301[j1];
+                anInt548 = Model.anIntArray1300[i1];
+                anInt549 = Model.anIntArray1301[i1];
+                anInt550 = Model.anIntArray1300[j1];
+                anInt551 = Model.anIntArray1301[j1];
                 int l1 = (i1 - 128) / 32;
                 int j2 = j1 / 64;
                 for (int l2 = -26; l2 <= 26; l2++) {
@@ -981,10 +981,10 @@ public class Scene {
         else if (j1 >= anInt529 * 128)
             j1 = anInt529 * 128 - 1;
         anInt538++;
-        anInt548 = Class38_Sub2_Sub1.anIntArray1300[l];
-        anInt549 = Class38_Sub2_Sub1.anIntArray1301[l];
-        anInt550 = Class38_Sub2_Sub1.anIntArray1300[i];
-        anInt551 = Class38_Sub2_Sub1.anIntArray1301[i];
+        anInt548 = Model.anIntArray1300[l];
+        anInt549 = Model.anIntArray1301[l];
+        anInt550 = Model.anIntArray1300[i];
+        anInt551 = Model.anIntArray1301[i];
         aBooleanArrayArray582 = aBooleanArrayArrayArrayArray581[(l - 128) / 32][i / 64];
         anInt545 = j;
         anInt546 = i1;
@@ -1186,7 +1186,7 @@ public class Scene {
                     for (int i2 = 0; i2 < tile_7.locationCount; i2++) {
                         Loc loc = tile_7.locs[i2];
                         if (loc != null) {
-                            Class38_Sub2_Sub1 class38_sub2_sub1 = loc.model;
+                            Model class38_sub2_sub1 = loc.model;
                             if (class38_sub2_sub1 == null)
                                 class38_sub2_sub1 = loc.entity.getDrawMethod();
                             class38_sub2_sub1.method371(loc.yaw, anInt548, anInt549, anInt550, anInt551,
@@ -1414,7 +1414,7 @@ public class Scene {
                         break;
                     Loc loc_3 = locArray2[l3];
                     loc_3.cycle = anInt538;
-                    Class38_Sub2_Sub1 class38_sub2_sub1_1 = loc_3.model;
+                    Model class38_sub2_sub1_1 = loc_3.model;
                     if (class38_sub2_sub1_1 == null)
                         class38_sub2_sub1_1 = loc_3.entity.getDrawMethod();
                     if (!method331(l, loc_3.minSceneTileX, loc_3.maxSceneTileX, loc_3.minSceneTileZ, loc_3.maxSceneTileZ,

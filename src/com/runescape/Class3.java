@@ -177,7 +177,7 @@ public class Class3 {
         if (l == 22) {
             if (aBoolean108 && !locType.interactable && !locType.aBoolean73)
                 return;
-            Class38_Sub2_Sub1 class38_sub2_sub1 = locType.getModel(22, k, k1, l1, i2, j2, -1);
+            Model class38_sub2_sub1 = locType.getModel(22, k, k1, l1, i2, j2, -1);
             scene.method287(class38_sub2_sub1, (byte) 6, j1, l2, j, i, byte0, k2);
             if (locType.hasCollision && locType.interactable && class8 != null)
                 class8.method199((byte) 12, j, j1);
@@ -186,7 +186,7 @@ public class Class3 {
             return;
         }
         if (l == 10 || l == 11) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_1 = locType.getModel(10, k, k1, l1, i2, j2, -1);
+            Model class38_sub2_sub1_1 = locType.getModel(10, k, k1, l1, i2, j2, -1);
             if (class38_sub2_sub1_1 != null) {
                 int j4 = 0;
                 if (l == 11)
@@ -222,7 +222,7 @@ public class Class3 {
             return;
         }
         if (l >= 12) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_2 = locType.getModel(l, k, k1, l1, i2, j2, -1);
+            Model class38_sub2_sub1_2 = locType.getModel(l, k, k1, l1, i2, j2, -1);
             scene.method291(k2, 775, i, null, l2, j, j1, 1, byte0, class38_sub2_sub1_2, 0, 1);
             if (l >= 12 && l <= 17 && l != 13 && i > 0)
                 anIntArrayArrayArray126[i][j1][j] |= 0x924;
@@ -233,7 +233,7 @@ public class Class3 {
             return;
         }
         if (l == 0) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_3 = locType.getModel(0, k, k1, l1, i2, j2, -1);
+            Model class38_sub2_sub1_3 = locType.getModel(0, k, k1, l1, i2, j2, -1);
             scene.method289(0, k2, i, anIntArray127[k], 8, class38_sub2_sub1_3, null, j1, l2, j, byte0);
             if (k == 0) {
                 if (locType.hasShadow) {
@@ -273,7 +273,7 @@ public class Class3 {
             return;
         }
         if (l == 1) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_4 = locType.getModel(1, k, k1, l1, i2, j2, -1);
+            Model class38_sub2_sub1_4 = locType.getModel(1, k, k1, l1, i2, j2, -1);
             scene.method289(0, k2, i, anIntArray128[k], 8, class38_sub2_sub1_4, null, j1, l2, j, byte0);
             if (locType.hasShadow)
                 if (k == 0)
@@ -292,8 +292,8 @@ public class Class3 {
         }
         if (l == 2) {
             int i3 = k + 1 & 3;
-            Class38_Sub2_Sub1 class38_sub2_sub1_11 = locType.getModel(2, 4 + k, k1, l1, i2, j2, -1);
-            Class38_Sub2_Sub1 class38_sub2_sub1_12 = locType.getModel(2, i3, k1, l1, i2, j2, -1);
+            Model class38_sub2_sub1_11 = locType.getModel(2, 4 + k, k1, l1, i2, j2, -1);
+            Model class38_sub2_sub1_12 = locType.getModel(2, i3, k1, l1, i2, j2, -1);
             scene.method289(anIntArray127[i3], k2, i, anIntArray127[k], 8, class38_sub2_sub1_11, class38_sub2_sub1_12,
                     j1, l2, j, byte0);
             if (locType.culls)
@@ -319,7 +319,7 @@ public class Class3 {
             return;
         }
         if (l == 3) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_5 = locType.getModel(3, k, k1, l1, i2, j2, -1);
+            Model class38_sub2_sub1_5 = locType.getModel(3, k, k1, l1, i2, j2, -1);
             scene.method289(0, k2, i, anIntArray128[k], 8, class38_sub2_sub1_5, null, j1, l2, j, byte0);
             if (locType.hasShadow)
                 if (k == 0)
@@ -337,7 +337,7 @@ public class Class3 {
             return;
         }
         if (l == 9) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_6 = locType.getModel(l, k, k1, l1, i2, j2, -1);
+            Model class38_sub2_sub1_6 = locType.getModel(l, k, k1, l1, i2, j2, -1);
             scene.method291(k2, 775, i, null, l2, j, j1, 1, byte0, class38_sub2_sub1_6, 0, 1);
             if (locType.hasCollision && class8 != null)
                 class8.method198(k, locType.sizeZ, locType.sizeX, j1, 9, j, locType.isSolid);
@@ -346,7 +346,7 @@ public class Class3 {
             return;
         }
         if (l == 4) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_7 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
+            Model class38_sub2_sub1_7 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
             scene.method290(k2, j, 0, l2, k * 512, anIntArray127[k], 465, 0, j1, class38_sub2_sub1_7, byte0, i);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, i1, i, 0, 1, SeqType.seqTypes[locType.animationIndex], j, j1));
@@ -357,7 +357,7 @@ public class Class3 {
             int l3 = scene.method308(i, j1, j);
             if (l3 > 0)
                 j3 = LocType.get(l3 >> 14 & 0x7fff).thickness;
-            Class38_Sub2_Sub1 class38_sub2_sub1_13 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
+            Model class38_sub2_sub1_13 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
             scene.method290(k2, j, anIntArray130[k] * j3, l2, k * 512, anIntArray127[k], 465, anIntArray129[k] * j3,
                     j1, class38_sub2_sub1_13, byte0, i);
             if (locType.animationIndex != -1)
@@ -365,21 +365,21 @@ public class Class3 {
             return;
         }
         if (l == 6) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_8 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
+            Model class38_sub2_sub1_8 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
             scene.method290(k2, j, 0, l2, k, 256, 465, 0, j1, class38_sub2_sub1_8, byte0, i);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, i1, i, 0, 1, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
         }
         if (l == 7) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_9 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
+            Model class38_sub2_sub1_9 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
             scene.method290(k2, j, 0, l2, k, 512, 465, 0, j1, class38_sub2_sub1_9, byte0, i);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, i1, i, 0, 1, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
         }
         if (l == 8) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_10 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
+            Model class38_sub2_sub1_10 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
             scene.method290(k2, j, 0, l2, k, 768, 465, 0, j1, class38_sub2_sub1_10, byte0, i);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, i1, i, 0, 1, SeqType.seqTypes[locType.animationIndex], j, j1));
@@ -842,7 +842,7 @@ public class Class3 {
             j3 += 0x80000000;
         byte byte0 = (byte) ((k << 6) + k1);
         if (k1 == 22) {
-            Class38_Sub2_Sub1 class38_sub2_sub1 = locType.getModel(22, k, i2, j2, k2, l2, -1);
+            Model class38_sub2_sub1 = locType.getModel(22, k, i2, j2, k2, l2, -1);
             scene.method287(class38_sub2_sub1, (byte) 6, i, j3, j, i1, byte0, i3);
             if (locType.hasCollision && locType.interactable)
                 class8.method199((byte) 12, j, i);
@@ -851,7 +851,7 @@ public class Class3 {
             return;
         }
         if (k1 == 10 || k1 == 11) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_1 = locType.getModel(10, k, i2, j2, k2, l2, -1);
+            Model class38_sub2_sub1_1 = locType.getModel(10, k, i2, j2, k2, l2, -1);
             if (class38_sub2_sub1_1 != null) {
                 int l4 = 0;
                 if (k1 == 11)
@@ -874,7 +874,7 @@ public class Class3 {
             return;
         }
         if (k1 >= 12) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_2 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
+            Model class38_sub2_sub1_2 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
             scene.method291(i3, 775, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_2, 0, 1);
             if (locType.hasCollision)
                 class8.method198(k, locType.sizeZ, locType.sizeX, i, 9, j, locType.isSolid);
@@ -883,7 +883,7 @@ public class Class3 {
             return;
         }
         if (k1 == 0) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_3 = locType.getModel(0, k, i2, j2, k2, l2, -1);
+            Model class38_sub2_sub1_3 = locType.getModel(0, k, i2, j2, k2, l2, -1);
             scene.method289(0, i3, i1, anIntArray127[k], 8, class38_sub2_sub1_3, null, i, j3, j, byte0);
             if (locType.hasCollision)
                 class8.method197(true, k, j, i, locType.isSolid, k1);
@@ -892,7 +892,7 @@ public class Class3 {
             return;
         }
         if (k1 == 1) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_4 = locType.getModel(1, k, i2, j2, k2, l2, -1);
+            Model class38_sub2_sub1_4 = locType.getModel(1, k, i2, j2, k2, l2, -1);
             scene.method289(0, i3, i1, anIntArray128[k], 8, class38_sub2_sub1_4, null, i, j3, j, byte0);
             if (locType.hasCollision)
                 class8.method197(true, k, j, i, locType.isSolid, k1);
@@ -902,8 +902,8 @@ public class Class3 {
         }
         if (k1 == 2) {
             int k3 = k + 1 & 3;
-            Class38_Sub2_Sub1 class38_sub2_sub1_11 = locType.getModel(2, 4 + k, i2, j2, k2, l2, -1);
-            Class38_Sub2_Sub1 class38_sub2_sub1_12 = locType.getModel(2, k3, i2, j2, k2, l2, -1);
+            Model class38_sub2_sub1_11 = locType.getModel(2, 4 + k, i2, j2, k2, l2, -1);
+            Model class38_sub2_sub1_12 = locType.getModel(2, k3, i2, j2, k2, l2, -1);
             scene.method289(anIntArray127[k3], i3, i1, anIntArray127[k], 8, class38_sub2_sub1_11,
                     class38_sub2_sub1_12, i, j3, j, byte0);
             if (locType.hasCollision)
@@ -913,7 +913,7 @@ public class Class3 {
             return;
         }
         if (k1 == 3) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_5 = locType.getModel(3, k, i2, j2, k2, l2, -1);
+            Model class38_sub2_sub1_5 = locType.getModel(3, k, i2, j2, k2, l2, -1);
             scene.method289(0, i3, i1, anIntArray128[k], 8, class38_sub2_sub1_5, null, i, j3, j, byte0);
             if (locType.hasCollision)
                 class8.method197(true, k, j, i, locType.isSolid, k1);
@@ -922,7 +922,7 @@ public class Class3 {
             return;
         }
         if (k1 == 9) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_6 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
+            Model class38_sub2_sub1_6 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
             scene.method291(i3, 775, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_6, 0, 1);
             if (locType.hasCollision)
                 class8.method198(k, locType.sizeZ, locType.sizeX, i, 9, j, locType.isSolid);
@@ -931,7 +931,7 @@ public class Class3 {
             return;
         }
         if (k1 == 4) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_7 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
+            Model class38_sub2_sub1_7 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
             scene.method290(i3, j, 0, j3, k * 512, anIntArray127[k], 465, 0, i, class38_sub2_sub1_7, byte0, i1);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, j1, i1, 0, 1, SeqType.seqTypes[locType.animationIndex], j, i));
@@ -942,7 +942,7 @@ public class Class3 {
             int j4 = scene.method308(i1, i, j);
             if (j4 > 0)
                 l3 = LocType.get(j4 >> 14 & 0x7fff).thickness;
-            Class38_Sub2_Sub1 class38_sub2_sub1_13 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
+            Model class38_sub2_sub1_13 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
             scene.method290(i3, j, anIntArray130[k] * l3, j3, k * 512, anIntArray127[k], 465, anIntArray129[k] * l3,
                     i, class38_sub2_sub1_13, byte0, i1);
             if (locType.animationIndex != -1)
@@ -950,21 +950,21 @@ public class Class3 {
             return;
         }
         if (k1 == 6) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_8 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
+            Model class38_sub2_sub1_8 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
             scene.method290(i3, j, 0, j3, k, 256, 465, 0, i, class38_sub2_sub1_8, byte0, i1);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, j1, i1, 0, 1, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 7) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_9 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
+            Model class38_sub2_sub1_9 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
             scene.method290(i3, j, 0, j3, k, 512, 465, 0, i, class38_sub2_sub1_9, byte0, i1);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, j1, i1, 0, 1, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 8) {
-            Class38_Sub2_Sub1 class38_sub2_sub1_10 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
+            Model class38_sub2_sub1_10 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
             scene.method290(i3, j, 0, j3, k, 768, 465, 0, i, class38_sub2_sub1_10, byte0, i1);
             if (locType.animationIndex != -1)
                 linkedList.method267(new LocEntity(true, j1, i1, 0, 1, SeqType.seqTypes[locType.animationIndex], j, i));
