@@ -479,9 +479,9 @@ public class client extends Applet_Sub1 {
                 if (k11 == 3)
                     j14 = aClass32_831.method311(anInt880, l2, i5);
                 if (j14 != 0) {
-                    Class38_Sub5 class38_sub5 = new Class38_Sub5(false, j14 >> 14 & 0x7fff, anInt880, 0, k11,
+                    LocEntity locEntity = new LocEntity(false, j14 >> 14 & 0x7fff, anInt880, 0, k11,
                             SeqType.seqTypes[j13], i5, l2);
-                    linkedList2.method267(class38_sub5);
+                    linkedList2.method267(locEntity);
                 }
             }
             return;
@@ -7135,12 +7135,12 @@ public class client extends Applet_Sub1 {
             class3.method156(aClass32_831, -270, aClass8Array954);
             drawArea22.init2D();
             aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
-            for (Class38_Sub5 class38_sub5 = (Class38_Sub5) linkedList2
-                    .method270(); class38_sub5 != null; class38_sub5 = (Class38_Sub5) linkedList2.method272())
-                if ((aByteArrayArrayArray840[1][class38_sub5.anInt1208][class38_sub5.anInt1209] & 2) == 2) {
-                    class38_sub5.anInt1206--;
-                    if (class38_sub5.anInt1206 < 0)
-                        class38_sub5.unlink();
+            for (LocEntity locEntity = (LocEntity) linkedList2
+                    .method270(); locEntity != null; locEntity = (LocEntity) linkedList2.method272())
+                if ((aByteArrayArrayArray840[1][locEntity.anInt1208][locEntity.anInt1209] & 2) == 2) {
+                    locEntity.anInt1206--;
+                    if (locEntity.anInt1206 < 0)
+                        locEntity.unlink();
                 }
 
             for (int l2 = 0; l2 < 104; l2++) {
@@ -7395,52 +7395,52 @@ public class client extends Applet_Sub1 {
 
     public void method129(int i) {
         i = 30 / i;
-        for (Class38_Sub5 class38_sub5 = (Class38_Sub5) linkedList2
-                .method270(); class38_sub5 != null; class38_sub5 = (Class38_Sub5) linkedList2.method272()) {
+        for (LocEntity locEntity = (LocEntity) linkedList2
+                .method270(); locEntity != null; locEntity = (LocEntity) linkedList2.method272()) {
             boolean flag = false;
-            class38_sub5.anInt1213 += anInt969;
-            if (class38_sub5.anInt1212 == -1) {
-                class38_sub5.anInt1212 = 0;
+            locEntity.anInt1213 += anInt969;
+            if (locEntity.anInt1212 == -1) {
+                locEntity.anInt1212 = 0;
                 flag = true;
             }
-            while (class38_sub5.anInt1213 > class38_sub5.seqType.anIntArray368[class38_sub5.anInt1212]) {
-                class38_sub5.anInt1213 -= class38_sub5.seqType.anIntArray368[class38_sub5.anInt1212] + 1;
-                class38_sub5.anInt1212++;
+            while (locEntity.anInt1213 > locEntity.seqType.anIntArray368[locEntity.anInt1212]) {
+                locEntity.anInt1213 -= locEntity.seqType.anIntArray368[locEntity.anInt1212] + 1;
+                locEntity.anInt1212++;
                 flag = true;
-                if (class38_sub5.anInt1212 < class38_sub5.seqType.anInt365)
+                if (locEntity.anInt1212 < locEntity.seqType.anInt365)
                     continue;
-                class38_sub5.anInt1212 -= class38_sub5.seqType.anInt369;
-                if (class38_sub5.anInt1212 >= 0 && class38_sub5.anInt1212 < class38_sub5.seqType.anInt365)
+                locEntity.anInt1212 -= locEntity.seqType.anInt369;
+                if (locEntity.anInt1212 >= 0 && locEntity.anInt1212 < locEntity.seqType.anInt365)
                     continue;
-                class38_sub5.unlink();
+                locEntity.unlink();
                 flag = false;
                 break;
             }
             if (flag) {
-                int j = class38_sub5.anInt1206;
-                int k = class38_sub5.anInt1208;
-                int l = class38_sub5.anInt1209;
+                int j = locEntity.anInt1206;
+                int k = locEntity.anInt1208;
+                int l = locEntity.anInt1209;
                 int i1 = 0;
-                if (class38_sub5.anInt1207 == 0)
+                if (locEntity.anInt1207 == 0)
                     i1 = aClass32_831.method308(j, k, l);
-                if (class38_sub5.anInt1207 == 1)
+                if (locEntity.anInt1207 == 1)
                     i1 = aClass32_831.method309(j, l, 3, k);
-                if (class38_sub5.anInt1207 == 2)
+                if (locEntity.anInt1207 == 2)
                     i1 = aClass32_831.method310(j, k, l);
-                if (class38_sub5.anInt1207 == 3)
+                if (locEntity.anInt1207 == 3)
                     i1 = aClass32_831.method311(j, k, l);
-                if (i1 == 0 || (i1 >> 14 & 0x7fff) != class38_sub5.anInt1210) {
-                    class38_sub5.unlink();
+                if (i1 == 0 || (i1 >> 14 & 0x7fff) != locEntity.anInt1210) {
+                    locEntity.unlink();
                 } else {
                     int j1 = anIntArrayArrayArray794[j][k][l];
                     int k1 = anIntArrayArrayArray794[j][k + 1][l];
                     int l1 = anIntArrayArrayArray794[j][k + 1][l + 1];
                     int i2 = anIntArrayArrayArray794[j][k][l + 1];
-                    LocType locType = LocType.get(class38_sub5.anInt1210);
+                    LocType locType = LocType.get(locEntity.anInt1210);
                     int j2 = -1;
-                    if (class38_sub5.anInt1212 != -1)
-                        j2 = class38_sub5.seqType.primaryFrames[class38_sub5.anInt1212];
-                    if (class38_sub5.anInt1207 == 2) {
+                    if (locEntity.anInt1212 != -1)
+                        j2 = locEntity.seqType.primaryFrames[locEntity.anInt1212];
+                    if (locEntity.anInt1207 == 2) {
                         int k2 = aClass32_831.method312(j, k, l, i1);
                         int j3 = k2 & 0x1f;
                         int i4 = k2 >> 6;
@@ -7448,10 +7448,10 @@ public class client extends Applet_Sub1 {
                             j3 = 10;
                         Class38_Sub2_Sub1 class38_sub2_sub1_2 = locType.getModel(j3, i4, j1, k1, l1, i2, j2);
                         aClass32_831.method297(k, class38_sub2_sub1_2, 1, j, l);
-                    } else if (class38_sub5.anInt1207 == 1) {
+                    } else if (locEntity.anInt1207 == 1) {
                         Class38_Sub2_Sub1 class38_sub2_sub1 = locType.getModel(4, 0, j1, k1, l1, i2, j2);
                         aClass32_831.method299(266, l, k, class38_sub2_sub1, j);
-                    } else if (class38_sub5.anInt1207 == 0) {
+                    } else if (locEntity.anInt1207 == 0) {
                         int l2 = aClass32_831.method312(j, k, l, i1);
                         int k3 = l2 & 0x1f;
                         int j4 = l2 >> 6;
@@ -7464,7 +7464,7 @@ public class client extends Applet_Sub1 {
                             Class38_Sub2_Sub1 class38_sub2_sub1_3 = locType.getModel(k3, j4, j1, k1, l1, i2, j2);
                             aClass32_831.method301(35568, class38_sub2_sub1_3, l, k, j);
                         }
-                    } else if (class38_sub5.anInt1207 == 3) {
+                    } else if (locEntity.anInt1207 == 3) {
                         int i3 = aClass32_831.method312(j, k, l, i1);
                         int l3 = i3 >> 6;
                         Class38_Sub2_Sub1 class38_sub2_sub1_1 = locType.getModel(22, l3, j1, k1, l1, i2, j2);

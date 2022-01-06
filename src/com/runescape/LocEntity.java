@@ -1,9 +1,9 @@
 package com.runescape;
 
-public class Class38_Sub5 extends Node {
+public class LocEntity extends Node {
 
-    public Class38_Sub5(boolean flag, int i, int j, int k, int l, SeqType seqType, int i1,
-                        int j1) {
+    public LocEntity(boolean flag, int i, int j, int k, int l, SeqType seqType, int i1,
+                     int j1) {
         anInt1206 = j;
         anInt1207 = l;
         anInt1208 = j1;
