@@ -835,7 +835,7 @@ public class client extends Applet_Sub1 {
         method133((byte) -11);
         method41(i3, true);
         method84(9);
-        aClass31_1048.method278(11, super.aGraphics14, 8, 5193);
+        drawArea22.drawImage(11, super.aGraphics14, 8);
         anInt1111 = i1;
         anInt1112 = k1;
         anInt1113 = l1;
@@ -939,7 +939,7 @@ public class client extends Applet_Sub1 {
 
         }
         for (int l = 0; l < 33920; l++)
-            aClass31_1032.anIntArray513[l] = aClass38_Sub2_Sub2_Sub2_978.anIntArray1465[l];
+            drawArea14.pixels[l] = aClass38_Sub2_Sub2_Sub2_978.anIntArray1465[l];
 
         int i1 = 0;
         int j1 = 1152;
@@ -955,8 +955,8 @@ public class client extends Applet_Sub1 {
                     int l3 = j3;
                     int j4 = 256 - j3;
                     j3 = anIntArray903[j3];
-                    int l4 = aClass31_1032.anIntArray513[j1];
-                    aClass31_1032.anIntArray513[j1++] = ((j3 & 0xff00ff) * l3 + (l4 & 0xff00ff) * j4 & 0xff00ff00)
+                    int l4 = drawArea14.pixels[j1];
+                    drawArea14.pixels[j1++] = ((j3 & 0xff00ff) * l3 + (l4 & 0xff00ff) * j4 & 0xff00ff00)
                             + ((j3 & 0xff00) * l3 + (l4 & 0xff00) * j4 & 0xff0000) >> 8;
                 } else {
                     j1++;
@@ -966,9 +966,9 @@ public class client extends Applet_Sub1 {
             j1 += j2;
         }
 
-        aClass31_1032.method278(0, super.aGraphics14, 0, 5193);
+        drawArea14.drawImage(0, super.aGraphics14, 0);
         for (int i2 = 0; i2 < 33920; i2++)
-            aClass31_1033.anIntArray513[i2] = aClass38_Sub2_Sub2_Sub2_979.anIntArray1465[i2];
+            drawArea15.pixels[i2] = aClass38_Sub2_Sub2_Sub2_979.anIntArray1465[i2];
 
         i1 = 0;
         j1 = 1176;
@@ -982,8 +982,8 @@ public class client extends Applet_Sub1 {
                     int i5 = k4;
                     int j5 = 256 - k4;
                     k4 = anIntArray903[k4];
-                    int k5 = aClass31_1033.anIntArray513[j1];
-                    aClass31_1033.anIntArray513[j1++] = ((k4 & 0xff00ff) * i5 + (k5 & 0xff00ff) * j5 & 0xff00ff00)
+                    int k5 = drawArea15.pixels[j1];
+                    drawArea15.pixels[j1++] = ((k4 & 0xff00ff) * i5 + (k5 & 0xff00ff) * j5 & 0xff00ff00)
                             + ((k4 & 0xff00) * i5 + (k5 & 0xff00) * j5 & 0xff0000) >> 8;
                 } else {
                     j1++;
@@ -996,7 +996,7 @@ public class client extends Applet_Sub1 {
 
         if (!flag)
             anInt958 = 281;
-        aClass31_1033.method278(0, super.aGraphics14, 661, 5193);
+        drawArea15.drawImage(0, super.aGraphics14, 661);
     }
 
     public void method29(int i, int j, int k, Class14 class14, int l, int i1, int j1) {
@@ -1991,7 +1991,7 @@ public class client extends Applet_Sub1 {
     }
 
     public void method43(byte byte0) {
-        aClass31_1047.method277((byte) 62);
+        drawArea21.init2D();
         if (byte0 != -46)
             method6();
         int i = anInt817 + anInt1085 & 0x7ff;
@@ -2060,7 +2060,7 @@ public class client extends Applet_Sub1 {
             method87(i3, 4, aClass38_Sub2_Sub2_Sub2_997, k1);
         }
         Class38_Sub2_Sub2.method380(82, 93, 0xffffff, (byte) 93, 3, 3);
-        aClass31_1048.method277((byte) 62);
+        drawArea22.init2D();
     }
 
     public Component method11(byte byte0) {
@@ -2129,7 +2129,7 @@ public class client extends Applet_Sub1 {
 
         }
 
-        aClass31_1048.method277((byte) 62);
+        drawArea22.init2D();
         anInt917 = 0;
         for (int l2 = 0; l2 < 104; l2++) {
             for (int i3 = 0; i3 < 104; i3++) {
@@ -2347,10 +2347,10 @@ public class client extends Applet_Sub1 {
         aClass38_Sub2_Sub2_Sub2_978 = new Class38_Sub2_Sub2_Sub2(128, 265);
         aClass38_Sub2_Sub2_Sub2_979 = new Class38_Sub2_Sub2_Sub2(128, 265);
         for (int k = 0; k < 33920; k++)
-            aClass38_Sub2_Sub2_Sub2_978.anIntArray1465[k] = aClass31_1032.anIntArray513[k];
+            aClass38_Sub2_Sub2_Sub2_978.anIntArray1465[k] = drawArea14.pixels[k];
 
         for (int l = 0; l < 33920; l++)
-            aClass38_Sub2_Sub2_Sub2_979.anIntArray1465[l] = aClass31_1033.anIntArray513[l];
+            aClass38_Sub2_Sub2_Sub2_979.anIntArray1465[l] = drawArea15.pixels[l];
 
         anIntArray904 = new int[256];
         for (int i1 = 0; i1 < 64; i1++)
@@ -2545,7 +2545,7 @@ public class client extends Applet_Sub1 {
 
     public void method55(int i) {
         method95((byte) 99);
-        aClass31_1031.method277((byte) 62);
+        drawArea13.init2D();
         if (i < 4 || i > 4)
             return;
         aClass38_Sub2_Sub2_Sub3_1103.method419(0, 0, false);
@@ -2604,45 +2604,45 @@ public class client extends Applet_Sub1 {
             aClass38_Sub2_Sub2_Sub3_1104.method419(j2 - 20, k1 - 73, false);
             aClass38_Sub2_Sub2_Sub4_987.method422(k1, 0xffffff, true, j2 + 5, "Cancel", 0);
         }
-        aClass31_1031.method278(186, super.aGraphics14, 214, 5193);
+        drawArea13.drawImage(186, super.aGraphics14, 214);
         if (aBoolean751) {
             aBoolean751 = false;
-            aClass31_1029.method278(0, super.aGraphics14, 128, 5193);
-            aClass31_1030.method278(386, super.aGraphics14, 214, 5193);
-            aClass31_1034.method278(265, super.aGraphics14, 0, 5193);
-            aClass31_1035.method278(265, super.aGraphics14, 574, 5193);
-            aClass31_1036.method278(186, super.aGraphics14, 128, 5193);
-            aClass31_1037.method278(186, super.aGraphics14, 574, 5193);
+            drawArea11.drawImage(0, super.aGraphics14, 128);
+            drawArea12.drawImage(386, super.aGraphics14, 214);
+            drawArea16.drawImage(265, super.aGraphics14, 0);
+            drawArea17.drawImage(265, super.aGraphics14, 574);
+            drawArea18.drawImage(186, super.aGraphics14, 128);
+            drawArea19.drawImage(186, super.aGraphics14, 574);
         }
     }
 
     public void method56(int i) {
-        if (aClass31_1049 != null)
+        if (drawArea23 != null)
             return;
         method38(true);
-        super.aClass31_15 = null;
-        aClass31_1029 = null;
-        aClass31_1030 = null;
-        aClass31_1031 = null;
-        aClass31_1032 = null;
+        super.drawArea = null;
+        drawArea11 = null;
+        drawArea12 = null;
+        drawArea13 = null;
+        drawArea14 = null;
         if (i != -7185) {
             return;
         } else {
-            aClass31_1033 = null;
-            aClass31_1034 = null;
-            aClass31_1035 = null;
-            aClass31_1036 = null;
-            aClass31_1037 = null;
-            aClass31_1049 = new Class31(method11(aByte1116), 479, 299, 96);
-            aClass31_1047 = new Class31(method11(aByte1116), 168, 299, 160);
+            drawArea15 = null;
+            drawArea16 = null;
+            drawArea17 = null;
+            drawArea18 = null;
+            drawArea19 = null;
+            drawArea23 = new DrawArea(method11(aByte1116), 479, 96);
+            drawArea21 = new DrawArea(method11(aByte1116), 168, 160);
             Class38_Sub2_Sub2.method379(anInt1143);
             aClass38_Sub2_Sub2_Sub3_982.method419(0, 0, false);
-            aClass31_1046 = new Class31(method11(aByte1116), 190, 299, 261);
-            aClass31_1048 = new Class31(method11(aByte1116), 512, 299, 334);
+            drawArea20 = new DrawArea(method11(aByte1116), 190, 261);
+            drawArea22 = new DrawArea(method11(aByte1116), 512, 334);
             Class38_Sub2_Sub2.method379(anInt1143);
-            aClass31_852 = new Class31(method11(aByte1116), 501, 299, 61);
-            aClass31_853 = new Class31(method11(aByte1116), 288, 299, 40);
-            aClass31_854 = new Class31(method11(aByte1116), 269, 299, 66);
+            drawArea24 = new DrawArea(method11(aByte1116), 501, 61);
+            drawArea25 = new DrawArea(method11(aByte1116), 288, 40);
+            drawArea26 = new DrawArea(method11(aByte1116), 269, 66);
             aBoolean751 = true;
             return;
         }
@@ -3313,23 +3313,23 @@ public class client extends Applet_Sub1 {
             anInt1132 = 411;
         if (aBoolean751) {
             aBoolean751 = false;
-            aClass31_1007.method278(11, super.aGraphics14, 0, 5193);
-            aClass31_1008.method278(375, super.aGraphics14, 0, 5193);
-            aClass31_1009.method278(5, super.aGraphics14, 729, 5193);
-            aClass31_1010.method278(231, super.aGraphics14, 752, 5193);
-            aClass31_1011.method278(0, super.aGraphics14, 0, 5193);
-            aClass31_1012.method278(0, super.aGraphics14, 561, 5193);
-            aClass31_1013.method278(11, super.aGraphics14, 520, 5193);
-            aClass31_1014.method278(231, super.aGraphics14, 520, 5193);
-            aClass31_1015.method278(375, super.aGraphics14, 501, 5193);
-            aClass31_1016.method278(345, super.aGraphics14, 0, 5193);
+            drawArea1.drawImage(11, super.aGraphics14, 0);
+            drawArea2.drawImage(375, super.aGraphics14, 0);
+            drawArea3.drawImage(5, super.aGraphics14, 729);
+            drawArea4.drawImage(231, super.aGraphics14, 752);
+            drawArea5.drawImage(0, super.aGraphics14, 0);
+            drawArea6.drawImage(0, super.aGraphics14, 561);
+            drawArea7.drawImage(11, super.aGraphics14, 520);
+            drawArea8.drawImage(231, super.aGraphics14, 520);
+            drawArea9.drawImage(375, super.aGraphics14, 501);
+            drawArea10.drawImage(345, super.aGraphics14, 0);
             aBoolean964 = true;
             aBoolean965 = true;
             aBoolean1080 = true;
             aBoolean921 = true;
             if (anInt1078 != 2) {
-                aClass31_1048.method278(11, super.aGraphics14, 8, 5193);
-                aClass31_1047.method278(5, super.aGraphics14, 561, 5193);
+                drawArea22.drawImage(11, super.aGraphics14, 8);
+                drawArea21.drawImage(5, super.aGraphics14, 561);
             }
         }
         if (anInt1078 == 2)
@@ -3382,7 +3382,7 @@ public class client extends Applet_Sub1 {
         }
         if (anInt1078 == 2) {
             method43(aByte935);
-            aClass31_1047.method278(5, super.aGraphics14, 561, 5193);
+            drawArea21.drawImage(5, super.aGraphics14, 561);
         }
         if (anInt1128 != -1)
             aBoolean1080 = true;
@@ -3393,7 +3393,7 @@ public class client extends Applet_Sub1 {
                 aClass38_Sub2_Sub3_798.method436(anInt757);
             }
             aBoolean1080 = false;
-            aClass31_854.method277((byte) 62);
+            drawArea26.init2D();
             aClass38_Sub2_Sub2_Sub3_910.method419(0, 0, false);
             if (anInt1129 == -1) {
                 if (anIntArray861[anInt757] != -1) {
@@ -3427,8 +3427,8 @@ public class client extends Applet_Sub1 {
                 if (anIntArray861[6] != -1 && (anInt1128 != 6 || anInt955 % 20 < 10))
                     aClass38_Sub2_Sub2_Sub3Array814[6].method419(34, 212, false);
             }
-            aClass31_854.method278(165, super.aGraphics14, 520, 5193);
-            aClass31_853.method277((byte) 62);
+            drawArea26.drawImage(165, super.aGraphics14, 520);
+            drawArea25.init2D();
             aClass38_Sub2_Sub2_Sub3_909.method419(0, 0, false);
             if (anInt1129 == -1) {
                 if (anIntArray861[anInt757] != -1) {
@@ -3460,12 +3460,12 @@ public class client extends Applet_Sub1 {
                 if (anIntArray861[13] != -1 && (anInt1128 != 13 || anInt955 % 20 < 10))
                     aClass38_Sub2_Sub2_Sub3Array814[12].method419(2, 230, false);
             }
-            aClass31_853.method278(492, super.aGraphics14, 501, 5193);
-            aClass31_1048.method277((byte) 62);
+            drawArea25.drawImage(492, super.aGraphics14, 501);
+            drawArea22.init2D();
         }
         if (aBoolean921) {
             aBoolean921 = false;
-            aClass31_852.method277((byte) 62);
+            drawArea24.init2D();
             aClass38_Sub2_Sub2_Sub3_908.method419(0, 0, false);
             aClass38_Sub2_Sub2_Sub4_986.method422(57, 0xffffff, true, 33, "Public chat", 0);
             if (anInt976 == 0)
@@ -3491,8 +3491,8 @@ public class client extends Applet_Sub1 {
             if (anInt885 == 2)
                 aClass38_Sub2_Sub2_Sub4_986.method422(326, 0xff0000, true, 46, "Off", 0);
             aClass38_Sub2_Sub2_Sub4_986.method422(462, 0xffffff, true, 38, "Report abuse", 0);
-            aClass31_852.method278(471, super.aGraphics14, 0, 5193);
-            aClass31_1048.method277((byte) 62);
+            drawArea24.drawImage(471, super.aGraphics14, 0);
+            drawArea22.init2D();
         }
         anInt969 = 0;
     }
@@ -4657,43 +4657,43 @@ public class client extends Applet_Sub1 {
             aClass38_Sub2_Sub2_Sub3_1044.method416(-725);
             aClass38_Sub2_Sub2_Sub3_1044.method417((byte) -74);
             Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backleft1", 0);
-            aClass31_1007 = new Class31(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466, 299,
+            drawArea1 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
             class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backleft2", 0);
-            aClass31_1008 = new Class31(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466, 299,
+            drawArea2 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
             class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backright1", 0);
-            aClass31_1009 = new Class31(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466, 299,
+            drawArea3 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
             class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backright2", 0);
-            aClass31_1010 = new Class31(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466, 299,
+            drawArea4 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
             class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backtop1", 0);
-            aClass31_1011 = new Class31(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466, 299,
+            drawArea5 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
             class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backtop2", 0);
-            aClass31_1012 = new Class31(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466, 299,
+            drawArea6 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
             class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backvmid1", 0);
-            aClass31_1013 = new Class31(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466, 299,
+            drawArea7 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
             class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backvmid2", 0);
-            aClass31_1014 = new Class31(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466, 299,
+            drawArea8 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
             class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backvmid3", 0);
-            aClass31_1015 = new Class31(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466, 299,
+            drawArea9 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
             class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backhmid2", 0);
-            aClass31_1016 = new Class31(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466, 299,
+            drawArea10 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
             int k2 = (int) (Math.random() * 21D) - 10;
@@ -5236,35 +5236,35 @@ public class client extends Applet_Sub1 {
     }
 
     public void method95(byte byte0) {
-        if (aClass31_1029 != null)
+        if (drawArea11 != null)
             return;
-        super.aClass31_15 = null;
-        aClass31_1049 = null;
-        aClass31_1047 = null;
-        aClass31_1046 = null;
-        aClass31_1048 = null;
-        aClass31_852 = null;
-        aClass31_853 = null;
-        aClass31_854 = null;
-        aClass31_1032 = new Class31(method11(aByte1116), 128, 299, 265);
+        super.drawArea = null;
+        drawArea23 = null;
+        drawArea21 = null;
+        drawArea20 = null;
+        drawArea22 = null;
+        drawArea24 = null;
+        drawArea25 = null;
+        drawArea26 = null;
+        drawArea14 = new DrawArea(method11(aByte1116), 128, 265);
         Class38_Sub2_Sub2.method379(anInt1143);
-        aClass31_1033 = new Class31(method11(aByte1116), 128, 299, 265);
+        drawArea15 = new DrawArea(method11(aByte1116), 128, 265);
         Class38_Sub2_Sub2.method379(anInt1143);
-        aClass31_1029 = new Class31(method11(aByte1116), 533, 299, 186);
+        drawArea11 = new DrawArea(method11(aByte1116), 533, 186);
         Class38_Sub2_Sub2.method379(anInt1143);
-        aClass31_1030 = new Class31(method11(aByte1116), 360, 299, 146);
+        drawArea12 = new DrawArea(method11(aByte1116), 360, 146);
         Class38_Sub2_Sub2.method379(anInt1143);
-        aClass31_1031 = new Class31(method11(aByte1116), 360, 299, 200);
+        drawArea13 = new DrawArea(method11(aByte1116), 360, 200);
         Class38_Sub2_Sub2.method379(anInt1143);
-        aClass31_1034 = new Class31(method11(aByte1116), 214, 299, 267);
+        drawArea16 = new DrawArea(method11(aByte1116), 214, 267);
         Class38_Sub2_Sub2.method379(anInt1143);
-        aClass31_1035 = new Class31(method11(aByte1116), 215, 299, 267);
+        drawArea17 = new DrawArea(method11(aByte1116), 215, 267);
         Class38_Sub2_Sub2.method379(anInt1143);
-        aClass31_1036 = new Class31(method11(aByte1116), 86, 299, 79);
+        drawArea18 = new DrawArea(method11(aByte1116), 86, 79);
         if (byte0 != aByte866)
             aClass38_Sub2_Sub3_798.method436(73);
         Class38_Sub2_Sub2.method379(anInt1143);
-        aClass31_1037 = new Class31(method11(aByte1116), 87, 299, 79);
+        drawArea19 = new DrawArea(method11(aByte1116), 87, 79);
         Class38_Sub2_Sub2.method379(anInt1143);
         if (aClass39_1136 != null) {
             method128((byte) 5);
@@ -5704,23 +5704,23 @@ public class client extends Applet_Sub1 {
         anIntArray994 = null;
         anIntArray995 = null;
         aByteArray1069 = null;
-        aClass31_1046 = null;
-        aClass31_1047 = null;
-        aClass31_1048 = null;
-        aClass31_1049 = null;
-        aClass31_852 = null;
-        aClass31_853 = null;
-        aClass31_854 = null;
-        aClass31_1007 = null;
-        aClass31_1008 = null;
-        aClass31_1009 = null;
-        aClass31_1010 = null;
-        aClass31_1011 = null;
-        aClass31_1012 = null;
-        aClass31_1013 = null;
-        aClass31_1014 = null;
-        aClass31_1015 = null;
-        aClass31_1016 = null;
+        drawArea20 = null;
+        drawArea21 = null;
+        drawArea22 = null;
+        drawArea23 = null;
+        drawArea24 = null;
+        drawArea25 = null;
+        drawArea26 = null;
+        drawArea1 = null;
+        drawArea2 = null;
+        drawArea3 = null;
+        drawArea4 = null;
+        drawArea5 = null;
+        drawArea6 = null;
+        drawArea7 = null;
+        drawArea8 = null;
+        drawArea9 = null;
+        drawArea10 = null;
         aClass38_Sub2_Sub2_Sub3_981 = null;
         aClass38_Sub2_Sub2_Sub3_982 = null;
         aClass38_Sub2_Sub2_Sub3_983 = null;
@@ -5777,15 +5777,15 @@ public class client extends Applet_Sub1 {
         aStringArray1127 = null;
         aLongArray943 = null;
         anIntArray773 = null;
-        aClass31_1032 = null;
-        aClass31_1033 = null;
-        aClass31_1029 = null;
-        aClass31_1030 = null;
-        aClass31_1031 = null;
-        aClass31_1034 = null;
-        aClass31_1035 = null;
-        aClass31_1036 = null;
-        aClass31_1037 = null;
+        drawArea14 = null;
+        drawArea15 = null;
+        drawArea11 = null;
+        drawArea12 = null;
+        drawArea13 = null;
+        drawArea16 = null;
+        drawArea17 = null;
+        drawArea18 = null;
+        drawArea19 = null;
         method38(true);
         Class1.method141(true);
         Class2.method147(true);
@@ -5797,7 +5797,7 @@ public class client extends Applet_Sub1 {
         Class20.aClass20Array387 = null;
         Class20.aClass34_400 = null;
         Class22.aClass22Array420 = null;
-        super.aClass31_15 = null;
+        super.drawArea = null;
         Class38_Sub7_Sub3_Sub2.aClass34_1525 = null;
         Class38_Sub2_Sub2_Sub1.method384(true);
         Class32.method280(true);
@@ -6961,14 +6961,14 @@ public class client extends Applet_Sub1 {
             method58(-780);
             return;
         }
-        aClass31_1048.method277((byte) 62);
+        drawArea22.init2D();
         if (flag)
             method6();
         aClass38_Sub2_Sub2_Sub4_986.method421(144, (byte) 6, 0, "Connection lost", 257);
         aClass38_Sub2_Sub2_Sub4_986.method421(143, (byte) 6, 0xffffff, "Connection lost", 256);
         aClass38_Sub2_Sub2_Sub4_986.method421(159, (byte) 6, 0, "Please wait - attempting to reestablish", 257);
         aClass38_Sub2_Sub2_Sub4_986.method421(158, (byte) 6, 0xffffff, "Please wait - attempting to reestablish", 256);
-        aClass31_1048.method278(11, super.aGraphics14, 8, 5193);
+        drawArea22.drawImage(11, super.aGraphics14, 8);
         anInt1051 = 0;
         BufferedStream bufferedStream = this.bufferedStream;
         aBoolean974 = false;
@@ -7132,7 +7132,7 @@ public class client extends Applet_Sub1 {
 
             aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
             class3.method156(aClass32_831, -270, aClass8Array954);
-            aClass31_1048.method277((byte) 62);
+            drawArea22.init2D();
             aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
             for (Class38_Sub5 class38_sub5 = (Class38_Sub5) linkedList2
                     .method270(); class38_sub5 != null; class38_sub5 = (Class38_Sub5) linkedList2.method272())
@@ -7334,25 +7334,25 @@ public class client extends Applet_Sub1 {
     public void method128(byte byte0) {
         byte[] abyte0 = aClass39_1136.method474("title.dat", null, (byte) 2);
         Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(abyte0, this);
-        aClass31_1032.method277((byte) 62);
+        drawArea14.init2D();
         class38_sub2_sub2_sub2.method403(34676, 0, 0);
-        aClass31_1033.method277((byte) 62);
+        drawArea15.init2D();
         class38_sub2_sub2_sub2.method403(34676, -661, 0);
-        aClass31_1029.method277((byte) 62);
+        drawArea11.init2D();
         class38_sub2_sub2_sub2.method403(34676, -128, 0);
-        aClass31_1030.method277((byte) 62);
+        drawArea12.init2D();
         class38_sub2_sub2_sub2.method403(34676, -214, -386);
-        aClass31_1031.method277((byte) 62);
+        drawArea13.init2D();
         class38_sub2_sub2_sub2.method403(34676, -214, -186);
-        aClass31_1034.method277((byte) 62);
+        drawArea16.init2D();
         class38_sub2_sub2_sub2.method403(34676, 0, -265);
-        aClass31_1035.method277((byte) 62);
+        drawArea17.init2D();
         class38_sub2_sub2_sub2.method403(34676, -574, -265);
-        aClass31_1036.method277((byte) 62);
+        drawArea18.init2D();
         if (byte0 != 5)
             aBoolean912 = !aBoolean912;
         class38_sub2_sub2_sub2.method403(34676, -128, -186);
-        aClass31_1037.method277((byte) 62);
+        drawArea19.init2D();
         class38_sub2_sub2_sub2.method403(34676, -574, -186);
         int[] ai = new int[class38_sub2_sub2_sub2.anInt1466];
         for (int i = 0; i < class38_sub2_sub2_sub2.anInt1467; i++) {
@@ -7365,26 +7365,26 @@ public class client extends Applet_Sub1 {
 
         }
 
-        aClass31_1032.method277((byte) 62);
+        drawArea14.init2D();
         class38_sub2_sub2_sub2.method403(34676, 394, 0);
-        aClass31_1033.method277((byte) 62);
+        drawArea15.init2D();
         class38_sub2_sub2_sub2.method403(34676, -267, 0);
-        aClass31_1029.method277((byte) 62);
+        drawArea11.init2D();
         class38_sub2_sub2_sub2.method403(34676, 266, 0);
-        aClass31_1030.method277((byte) 62);
+        drawArea12.init2D();
         class38_sub2_sub2_sub2.method403(34676, 180, -386);
-        aClass31_1031.method277((byte) 62);
+        drawArea13.init2D();
         class38_sub2_sub2_sub2.method403(34676, 180, -186);
-        aClass31_1034.method277((byte) 62);
+        drawArea16.init2D();
         class38_sub2_sub2_sub2.method403(34676, 394, -265);
-        aClass31_1035.method277((byte) 62);
+        drawArea17.init2D();
         class38_sub2_sub2_sub2.method403(34676, -180, -265);
-        aClass31_1036.method277((byte) 62);
+        drawArea18.init2D();
         class38_sub2_sub2_sub2.method403(34676, 212, -186);
-        aClass31_1037.method277((byte) 62);
+        drawArea19.init2D();
         class38_sub2_sub2_sub2.method403(34676, -180, -186);
         class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(aClass39_1136, "logo", 0);
-        aClass31_1029.method277((byte) 62);
+        drawArea11.init2D();
         class38_sub2_sub2_sub2.method405(18, super.anInt12 / 2 - class38_sub2_sub2_sub2.anInt1466 / 2 - 128, false);
         class38_sub2_sub2_sub2 = null;
         abyte0 = null;
@@ -7760,7 +7760,7 @@ public class client extends Applet_Sub1 {
     public void method135(boolean flag) {
         if (flag)
             anInt780 = -1;
-        aClass31_1049.method277((byte) 62);
+        drawArea23.init2D();
         Class38_Sub2_Sub2_Sub1.anIntArray1448 = anIntArray735;
         aClass38_Sub2_Sub2_Sub3_983.method419(0, 0, false);
         if (aBoolean869) {
@@ -7857,8 +7857,8 @@ public class client extends Applet_Sub1 {
         }
         if (aBoolean879 && anInt1148 == 2)
             method74(-961);
-        aClass31_1049.method278(375, super.aGraphics14, 22, 5193);
-        aClass31_1048.method277((byte) 62);
+        drawArea23.drawImage(375, super.aGraphics14, 22);
+        drawArea22.init2D();
         Class38_Sub2_Sub2_Sub1.anIntArray1448 = anIntArray737;
     }
 
@@ -8004,10 +8004,10 @@ public class client extends Applet_Sub1 {
                 anInt761 = (anInt838 - 6) * 8;
                 anInt762 = (anInt839 - 6) * 8;
                 anInt1078 = 1;
-                aClass31_1048.method277((byte) 62);
+                drawArea22.init2D();
                 aClass38_Sub2_Sub2_Sub4_986.method421(151, (byte) 6, 0, "Loading - please wait.", 257);
                 aClass38_Sub2_Sub2_Sub4_986.method421(150, (byte) 6, 0xffffff, "Loading - please wait.", 256);
-                aClass31_1048.method278(11, super.aGraphics14, 8, 5193);
+                drawArea22.drawImage(11, super.aGraphics14, 8);
                 signlink.looprate(5);
                 int l16 = (anInt779 - 2) / 10;
                 aByteArrayArray770 = new byte[l16][];
@@ -8062,14 +8062,14 @@ public class client extends Applet_Sub1 {
 
                 aClass38_Sub2_Sub3_798.method445(0, i22);
                 signlink.looprate(50);
-                aClass31_1048.method277((byte) 62);
+                drawArea22.init2D();
                 if (anInt1078 == 0) {
                     aClass38_Sub2_Sub2_Sub4_986.method421(166, (byte) 6, 0,
                             "Map area updated since last visit, so load will take longer this time only", 257);
                     aClass38_Sub2_Sub2_Sub4_986.method421(165, (byte) 6, 0xffffff,
                             "Map area updated since last visit, so load will take longer this time only", 256);
                 }
-                aClass31_1048.method278(11, super.aGraphics14, 8, 5193);
+                drawArea22.drawImage(11, super.aGraphics14, 8);
                 int j27 = anInt761 - anInt763;
                 int k29 = anInt762 - anInt764;
                 anInt763 = anInt761;
@@ -8881,10 +8881,10 @@ public class client extends Applet_Sub1 {
                     method124(869);
                 }
                 if (aBoolean889 && anInt1078 == 2 && Class3.anInt109 != anInt880) {
-                    aClass31_1048.method277((byte) 62);
+                    drawArea22.init2D();
                     aClass38_Sub2_Sub2_Sub4_986.method421(151, (byte) 6, 0, "Loading - please wait.", 257);
                     aClass38_Sub2_Sub2_Sub4_986.method421(150, (byte) 6, 0xffffff, "Loading - please wait.", 256);
-                    aClass31_1048.method278(11, super.aGraphics14, 8, 5193);
+                    drawArea22.drawImage(11, super.aGraphics14, 8);
                     Class3.anInt109 = anInt880;
                     method124(869);
                 }
@@ -8913,7 +8913,7 @@ public class client extends Applet_Sub1 {
     }
 
     public void method137(byte byte0) {
-        aClass31_1046.method277((byte) 62);
+        drawArea20.init2D();
         Class38_Sub2_Sub2_Sub1.anIntArray1448 = anIntArray736;
         aClass38_Sub2_Sub2_Sub3_981.method419(0, 0, false);
         if (anInt1129 != -1)
@@ -8922,12 +8922,12 @@ public class client extends Applet_Sub1 {
             method59(0, 0, 38682, Class14.aClass14Array264[anIntArray861[anInt757]], 0);
         if (aBoolean879 && anInt1148 == 1)
             method74(-961);
-        aClass31_1046.method278(231, super.aGraphics14, 562, 5193);
+        drawArea20.drawImage(231, super.aGraphics14, 562);
         if (byte0 == 2)
             byte0 = 0;
         else
             return;
-        aClass31_1048.method277((byte) 62);
+        drawArea22.init2D();
         Class38_Sub2_Sub2_Sub1.anIntArray1448 = anIntArray737;
     }
 
@@ -9076,7 +9076,7 @@ public class client extends Applet_Sub1 {
             super.method13(true, s, i);
             return;
         }
-        aClass31_1031.method277((byte) 62);
+        drawArea13.init2D();
         char c = '\u0168';
         char c1 = '\310';
         byte byte0 = 20;
@@ -9089,19 +9089,19 @@ public class client extends Applet_Sub1 {
         Class38_Sub2_Sub2.method380(j + 2, c / 2 - 150, 0x8c1111, (byte) 93, i * 3, 30);
         Class38_Sub2_Sub2.method380(j + 2, (c / 2 - 150) + i * 3, 0, (byte) 93, 300 - i * 3, 30);
         aClass38_Sub2_Sub2_Sub4_987.method421((c1 / 2 + 5) - byte0, (byte) 6, 0xffffff, s, c / 2);
-        aClass31_1031.method278(186, super.aGraphics14, 214, 5193);
+        drawArea13.drawImage(186, super.aGraphics14, 214);
         if (aBoolean751) {
             aBoolean751 = false;
             if (!aBoolean902) {
-                aClass31_1032.method278(0, super.aGraphics14, 0, 5193);
-                aClass31_1033.method278(0, super.aGraphics14, 661, 5193);
+                drawArea14.drawImage(0, super.aGraphics14, 0);
+                drawArea15.drawImage(0, super.aGraphics14, 661);
             }
-            aClass31_1029.method278(0, super.aGraphics14, 128, 5193);
-            aClass31_1030.method278(386, super.aGraphics14, 214, 5193);
-            aClass31_1034.method278(265, super.aGraphics14, 0, 5193);
-            aClass31_1035.method278(265, super.aGraphics14, 574, 5193);
-            aClass31_1036.method278(186, super.aGraphics14, 128, 5193);
-            aClass31_1037.method278(186, super.aGraphics14, 574, 5193);
+            drawArea11.drawImage(0, super.aGraphics14, 128);
+            drawArea12.drawImage(386, super.aGraphics14, 214);
+            drawArea16.drawImage(265, super.aGraphics14, 0);
+            drawArea17.drawImage(265, super.aGraphics14, 574);
+            drawArea18.drawImage(186, super.aGraphics14, 128);
+            drawArea19.drawImage(186, super.aGraphics14, 574);
         }
     }
 
@@ -9440,9 +9440,9 @@ public class client extends Applet_Sub1 {
     public boolean aBoolean849;
     public int[] anIntArray850;
     public byte aByte851;
-    public Class31 aClass31_852;
-    public Class31 aClass31_853;
-    public Class31 aClass31_854;
+    public DrawArea drawArea24;
+    public DrawArea drawArea25;
+    public DrawArea drawArea26;
     public int anInt855;
     public int[] anIntArray856;
     public static int anInt857;
@@ -9618,16 +9618,16 @@ public class client extends Applet_Sub1 {
     public int anInt1004;
     public int anInt1005;
     public String aString1006;
-    public Class31 aClass31_1007;
-    public Class31 aClass31_1008;
-    public Class31 aClass31_1009;
-    public Class31 aClass31_1010;
-    public Class31 aClass31_1011;
-    public Class31 aClass31_1012;
-    public Class31 aClass31_1013;
-    public Class31 aClass31_1014;
-    public Class31 aClass31_1015;
-    public Class31 aClass31_1016;
+    public DrawArea drawArea1;
+    public DrawArea drawArea2;
+    public DrawArea drawArea3;
+    public DrawArea drawArea4;
+    public DrawArea drawArea5;
+    public DrawArea drawArea6;
+    public DrawArea drawArea7;
+    public DrawArea drawArea8;
+    public DrawArea drawArea9;
+    public DrawArea drawArea10;
     public static int anInt1017;
     public int anInt1018;
     public int anInt1019;
@@ -9640,15 +9640,15 @@ public class client extends Applet_Sub1 {
     public int anInt1026;
     public int anInt1027;
     public String aString1028;
-    public Class31 aClass31_1029;
-    public Class31 aClass31_1030;
-    public Class31 aClass31_1031;
-    public Class31 aClass31_1032;
-    public Class31 aClass31_1033;
-    public Class31 aClass31_1034;
-    public Class31 aClass31_1035;
-    public Class31 aClass31_1036;
-    public Class31 aClass31_1037;
+    public DrawArea drawArea11;
+    public DrawArea drawArea12;
+    public DrawArea drawArea13;
+    public DrawArea drawArea14;
+    public DrawArea drawArea15;
+    public DrawArea drawArea16;
+    public DrawArea drawArea17;
+    public DrawArea drawArea18;
+    public DrawArea drawArea19;
     public Class38_Sub2_Sub2_Sub3[] aClass38_Sub2_Sub2_Sub3Array1038;
     public int anInt1039;
     public Class38_Sub2_Sub2_Sub3 aClass38_Sub2_Sub2_Sub3_1040;
@@ -9659,10 +9659,10 @@ public class client extends Applet_Sub1 {
     public int[] anIntArray1045 = {
             0xffff00, 0xff0000, 65280, 65535, 0xff00ff, 0xffffff
     };
-    public Class31 aClass31_1046;
-    public Class31 aClass31_1047;
-    public Class31 aClass31_1048;
-    public Class31 aClass31_1049;
+    public DrawArea drawArea20;
+    public DrawArea drawArea21;
+    public DrawArea drawArea22;
+    public DrawArea drawArea23;
     public int anInt1050;
     public int anInt1051;
     public int anInt1052;

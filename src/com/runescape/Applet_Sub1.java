@@ -14,7 +14,7 @@ public class Applet_Sub1 extends Applet
         anInt13 = i;
         aFrame_Sub1_17 = new Frame_Sub1(anInt13, 35731, this, anInt12);
         aGraphics14 = method11(aByte5).getGraphics();
-        aClass31_15 = new Class31(method11(aByte5), anInt12, 299, anInt13);
+        drawArea = new DrawArea(method11(aByte5), anInt12, anInt13);
         method12(this, 1);
     }
 
@@ -22,7 +22,7 @@ public class Applet_Sub1 extends Applet
         anInt12 = j;
         anInt13 = i;
         aGraphics14 = method11(aByte5).getGraphics();
-        aClass31_15 = new Class31(method11(aByte5), anInt12, 299, anInt13);
+        drawArea = new DrawArea(method11(aByte5), anInt12, anInt13);
         if (flag)
             anInt3 = -370;
         method12(this, 1);
@@ -451,7 +451,7 @@ public class Applet_Sub1 extends Applet
     public int anInt12;
     public int anInt13;
     public Graphics aGraphics14;
-    public Class31 aClass31_15;
+    public DrawArea drawArea;
     public Class38_Sub2_Sub2_Sub2[] aClass38_Sub2_Sub2_Sub2Array16;
     public Frame_Sub1 aFrame_Sub1_17;
     public boolean aBoolean18;

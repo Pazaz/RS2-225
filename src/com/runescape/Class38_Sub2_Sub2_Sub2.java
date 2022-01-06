@@ -95,7 +95,7 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
             for (int i = 1; i > 0; i++)
                 ;
         }
-        Class38_Sub2_Sub2.method376(anInt1466, anIntArray1465, -657, anInt1467);
+        Class38_Sub2_Sub2.init(anInt1466, anIntArray1465, -657, anInt1467);
     }
 
     public void method402(int i, int j, int k, boolean flag) {

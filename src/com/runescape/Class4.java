@@ -266,7 +266,7 @@ public class Class4 {
         int l2 = Class38_Sub2_Sub2.anInt1311;
         int i3 = Class38_Sub2_Sub2.anInt1312;
         Class38_Sub2_Sub2_Sub1.aBoolean1440 = false;
-        Class38_Sub2_Sub2.method376(32, class38_sub2_sub2_sub2.anIntArray1465, -657, 32);
+        Class38_Sub2_Sub2.init(32, class38_sub2_sub2_sub2.anIntArray1465, -657, 32);
         Class38_Sub2_Sub2.method380(0, 0, 0, (byte) 93, 32, 32);
         Class38_Sub2_Sub2_Sub1.method385(anInt135);
         Class38_Sub2_Sub1 class38_sub2_sub1 = class4.method173(1);
@@ -309,7 +309,7 @@ public class Class4 {
             class38_sub2_sub2_sub2_1.anInt1471 = i5;
         }
         aClass34_179.method342(6, i, class38_sub2_sub2_sub2);
-        Class38_Sub2_Sub2.method376(l1, ai1, -657, i2);
+        Class38_Sub2_Sub2.init(l1, ai1, -657, i2);
         Class38_Sub2_Sub2.method378(i3, l2, k2, 789, j2);
         Class38_Sub2_Sub2_Sub1.anInt1442 = i1;
         Class38_Sub2_Sub2_Sub1.anInt1443 = k1;
