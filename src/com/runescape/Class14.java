@@ -220,7 +220,7 @@ public class Class14 {
     }
 
     public static Class38_Sub2_Sub2_Sub2 method220(Class39 class39, int i, String s, int j) {
-        long l = (Class40.method477(0, s) << 8) + (long) i;
+        long l = (StringUtils.genHash(s) << 8) + (long) i;
         Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2 = (Class38_Sub2_Sub2_Sub2) aClass34_321.method341(l);
         if (j != -36068)
             throw new NullPointerException();

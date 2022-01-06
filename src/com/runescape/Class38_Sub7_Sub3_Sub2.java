@@ -46,7 +46,7 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
         super.anInt1391 = class38_sub2_sub3.method448();
         if (super.anInt1391 == 65535)
             super.anInt1391 = -1;
-        aString1505 = Class40.method479(0, Class40.method476(class38_sub2_sub3.method452(603), false));
+        aString1505 = StringUtils.formatName(StringUtils.fromBase37(class38_sub2_sub3.method452(603)));
         anInt1511 = class38_sub2_sub3.method446();
         aBoolean1506 = true;
         aLong1512 = 0L;

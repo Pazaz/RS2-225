@@ -371,7 +371,7 @@ public class client extends Applet_Sub1 {
             method111(0, "Your ignore list is full. Max of 100 hit", (byte) 4, "");
             return;
         }
-        String s = Class40.method479(0, Class40.method476(l, false));
+        String s = StringUtils.formatName(StringUtils.fromBase37(l));
         for (int i = 0; i < anInt793; i++)
             if (aLongArray768[i] == l) {
                 method111(0, s + " is already on your ignore list", (byte) 4, "");
@@ -1493,11 +1493,11 @@ public class client extends Applet_Sub1 {
                     aBoolean869 = false;
                     aBoolean965 = true;
                     if (anInt760 == 1) {
-                        long l = Class40.method475(aString765);
+                        long l = StringUtils.toBase37(aString765);
                         method100(l, -460);
                     }
                     if (anInt760 == 2 && anInt1089 > 0) {
-                        long l1 = Class40.method475(aString765);
+                        long l1 = StringUtils.toBase37(aString765);
                         method113(43808, l1);
                     }
                     if (anInt760 == 3 && aString765.length() > 0) {
@@ -1507,9 +1507,9 @@ public class client extends Applet_Sub1 {
                         aClass38_Sub2_Sub3_798.method442(true, aLong900);
                         TextEncoder.write(aClass38_Sub2_Sub3_798, aString765);
                         aClass38_Sub2_Sub3_798.method445(0, aClass38_Sub2_Sub3_798.anInt1329 - k);
-                        aString765 = Class40.method480(aString765, 0);
+                        aString765 = StringUtils.toSentence(aString765);
                         aString765 = Class24.method239(aString765, 0);
-                        method111(6, aString765, (byte) 4, Class40.method479(0, Class40.method476(aLong900, false)));
+                        method111(6, aString765, (byte) 4, StringUtils.formatName(StringUtils.fromBase37(aLong900)));
                         if (anInt755 == 2) {
                             anInt755 = 1;
                             aBoolean921 = true;
@@ -1520,11 +1520,11 @@ public class client extends Applet_Sub1 {
                         }
                     }
                     if (anInt760 == 4 && anInt793 < 100) {
-                        long l2 = Class40.method475(aString765);
+                        long l2 = StringUtils.toBase37(aString765);
                         method21(l2, (byte) 3);
                     }
                     if (anInt760 == 5 && anInt793 > 0) {
-                        long l3 = Class40.method475(aString765);
+                        long l3 = StringUtils.toBase37(aString765);
                         method130(1, l3);
                     }
                 }
@@ -1633,7 +1633,7 @@ public class client extends Applet_Sub1 {
                         aClass38_Sub2_Sub3_798.method436(k1);
                         TextEncoder.write(aClass38_Sub2_Sub3_798, aString1137);
                         aClass38_Sub2_Sub3_798.method445(0, aClass38_Sub2_Sub3_798.anInt1329 - i2);
-                        aString1137 = Class40.method480(aString1137, 0);
+                        aString1137 = StringUtils.toSentence(aString1137);
                         aString1137 = Class24.method239(aString1137, 0);
                         aClass38_Sub7_Sub3_Sub2_967.aString1392 = aString1137;
                         aClass38_Sub7_Sub3_Sub2_967.anInt1394 = j1;
@@ -2039,7 +2039,7 @@ public class client extends Applet_Sub1 {
                 int l2 = class38_sub7_sub3_sub2.anInt1381 / 32
                         - aClass38_Sub7_Sub3_Sub2_967.anInt1381 / 32;
                 boolean flag = false;
-                long l4 = Class40.method475(class38_sub7_sub3_sub2.aString1505);
+                long l4 = StringUtils.toBase37(class38_sub7_sub3_sub2.aString1505);
                 for (int k4 = 0; k4 < anInt1089; k4++) {
                     if (l4 != aLongArray943[k4] || anIntArray773[k4] == 0)
                         continue;
@@ -2577,7 +2577,7 @@ public class client extends Applet_Sub1 {
                     "Username: " + aString1066 + ((anInt972 == 0) & (anInt955 % 40 < 20) ? "@yel@|" : ""), true,
                     0xffffff);
             k += 15;
-            aClass38_Sub2_Sub2_Sub4_987.method426(c / 2 - 88, 6, k, "Password: " + Class40.method481(7, aString1067)
+            aClass38_Sub2_Sub2_Sub4_987.method426(c / 2 - 88, 6, k, "Password: " + StringUtils.toAsterisks(aString1067)
                     + ((anInt972 == 1) & (anInt955 % 40 < 20) ? "@yel@|" : ""), true, 0xffffff);
             k += 15;
             int j1 = c / 2 - 80;
@@ -3526,7 +3526,7 @@ public class client extends Applet_Sub1 {
             int l1 = s.indexOf("@whi@");
             if (l1 != -1) {
                 s = s.substring(l1 + 5).trim();
-                String s8 = Class40.method479(0, Class40.method476(Class40.method475(s), false));
+                String s8 = StringUtils.formatName(StringUtils.fromBase37(StringUtils.toBase37(s)));
                 boolean flag4 = false;
                 for (int k3 = 0; k3 < anInt823; k3++) {
                     Class38_Sub7_Sub3_Sub2 class38_sub7_sub3_sub2_3 = aClass38_Sub7_Sub3_Sub2Array822[anIntArray824[k3]];
@@ -3785,7 +3785,7 @@ public class client extends Applet_Sub1 {
             String s1 = aStringArray834[j];
             int i2 = s1.indexOf("@whi@");
             if (i2 != -1) {
-                long l3 = Class40.method475(s1.substring(i2 + 5).trim());
+                long l3 = StringUtils.toBase37(s1.substring(i2 + 5).trim());
                 int i4 = -1;
                 for (int j4 = 0; j4 < anInt1089; j4++) {
                     if (aLongArray943[j4] != l3)
@@ -4019,7 +4019,7 @@ public class client extends Applet_Sub1 {
             String s3 = aStringArray834[j];
             int i3 = s3.indexOf("@whi@");
             if (i3 != -1) {
-                long l4 = Class40.method475(s3.substring(i3 + 5).trim());
+                long l4 = StringUtils.toBase37(s3.substring(i3 + 5).trim());
                 if (i1 == 406)
                     method100(l4, -460);
                 if (i1 == 436)
@@ -4200,7 +4200,7 @@ public class client extends Applet_Sub1 {
                 class14.anInt272 = 0;
                 return;
             } else {
-                class14.aString303 = Class40.method479(0, Class40.method476(aLongArray768[j], false));
+                class14.aString303 = StringUtils.formatName(StringUtils.fromBase37(aLongArray768[j]));
                 class14.anInt272 = 1;
                 return;
             }
@@ -4500,7 +4500,7 @@ public class client extends Applet_Sub1 {
             method16((byte) -60);
             if (aString970.length() > 0) {
                 aClass38_Sub2_Sub3_798.method435((byte) -34, 190);
-                aClass38_Sub2_Sub3_798.method442(true, Class40.method475(aString970));
+                aClass38_Sub2_Sub3_798.method442(true, StringUtils.toBase37(aString970));
                 aClass38_Sub2_Sub3_798.method436(i - 601);
                 aClass38_Sub2_Sub3_798.method436(aBoolean881 ? 1 : 0);
             }
@@ -5653,7 +5653,7 @@ public class client extends Applet_Sub1 {
             method111(0, "Your friends list is full. Max of 100 hit", (byte) 4, "");
             return;
         }
-        String s = Class40.method479(0, Class40.method476(l, false));
+        String s = StringUtils.formatName(StringUtils.fromBase37(l));
         for (int j = 0; j < anInt1089; j++)
             if (aLongArray943[j] == l) {
                 method111(0, s + " is already on your friend list", (byte) 4, "");
@@ -7850,7 +7850,7 @@ public class client extends Applet_Sub1 {
             if (anInt792 < 78)
                 anInt792 = 78;
             method50(anInt803, 463, 0, anInt792 - anInt977 - 77, anInt792, 77);
-            class38_sub2_sub2_sub4.method424(4, 90, false, 0, Class40.method479(0, aString1066) + ":");
+            class38_sub2_sub2_sub4.method424(4, 90, false, 0, StringUtils.formatName(aString1066) + ":");
             class38_sub2_sub2_sub4.method424(6 + class38_sub2_sub2_sub4.method423(false, aString1066 + ": "), 90, false,
                     255, aString1137 + "*");
             Class38_Sub2_Sub2.method382(0, 0, 77, 479, 0);
@@ -7921,7 +7921,7 @@ public class client extends Applet_Sub1 {
             if (anInt780 == 152) {
                 long l = aClass38_Sub2_Sub3_795.method452(603);
                 int j16 = aClass38_Sub2_Sub3_795.method446();
-                String s6 = Class40.method479(0, Class40.method476(l, false));
+                String s6 = StringUtils.formatName(StringUtils.fromBase37(l));
                 for (int l24 = 0; l24 < anInt1089; l24++) {
                     if (l != aLongArray943[l24])
                         continue;
@@ -8370,7 +8370,7 @@ public class client extends Applet_Sub1 {
                 anInt901 = aClass38_Sub2_Sub3_795.method446();
                 anInt1054 = aClass38_Sub2_Sub3_795.method448();
                 if (anInt1061 != 0 && anInt971 == -1) {
-                    signlink.dnslookup(Class40.method478(-946, anInt1061));
+                    signlink.dnslookup(StringUtils.fromIPv4(anInt1061));
                     method16((byte) -60);
                     char c = '\u028A';
                     if (anInt901 != 201)
@@ -8597,9 +8597,9 @@ public class client extends Applet_Sub1 {
                         String s7 = TextEncoder.read(aClass38_Sub2_Sub3_795, anInt779 - 13);
                         s7 = Class24.method239(s7, 0);
                         if (j23 > 1)
-                            method111(7, s7, (byte) 4, Class40.method479(0, Class40.method476(l5, false)));
+                            method111(7, s7, (byte) 4, StringUtils.formatName(StringUtils.fromBase37(l5)));
                         else
-                            method111(3, s7, (byte) 4, Class40.method479(0, Class40.method476(l5, false)));
+                            method111(3, s7, (byte) 4, StringUtils.formatName(StringUtils.fromBase37(l5)));
                     } catch (Exception exception1) {
                         signlink.reporterror("cde1");
                     }
@@ -8674,7 +8674,7 @@ public class client extends Applet_Sub1 {
                 String s1 = aClass38_Sub2_Sub3_795.method453();
                 if (s1.endsWith(":tradereq:")) {
                     String s3 = s1.substring(0, s1.indexOf(":"));
-                    long l20 = Class40.method475(s3);
+                    long l20 = StringUtils.toBase37(s3);
                     boolean flag3 = false;
                     for (int k28 = 0; k28 < anInt793; k28++) {
                         if (aLongArray768[k28] != l20)
@@ -8687,7 +8687,7 @@ public class client extends Applet_Sub1 {
                         method111(4, "wishes to trade with you.", (byte) 4, s3);
                 } else if (s1.endsWith(":duelreq:")) {
                     String s4 = s1.substring(0, s1.indexOf(":"));
-                    long l21 = Class40.method475(s4);
+                    long l21 = StringUtils.toBase37(s4);
                     boolean flag4 = false;
                     for (int l28 = 0; l28 < anInt793; l28++) {
                         if (aLongArray768[l28] != l21)
@@ -9015,7 +9015,7 @@ public class client extends Applet_Sub1 {
             int i2 = class38_sub2_sub3.method446();
             int j2 = class38_sub2_sub3.anInt1329;
             if (class38_sub7_sub3_sub2.aString1505 != null) {
-                long l2 = Class40.method475(class38_sub7_sub3_sub2.aString1505);
+                long l2 = StringUtils.toBase37(class38_sub7_sub3_sub2.aString1505);
                 boolean flag1 = false;
                 if (l1 <= 1) {
                     for (int k2 = 0; k2 < anInt793; k2++) {
