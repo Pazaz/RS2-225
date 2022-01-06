@@ -225,20 +225,20 @@ public class Class32 {
         k1 = 66 / k1;
         if (class38_sub2_sub1 == null)
             return;
-        Class13 class13 = new Class13();
-        class13.anInt260 = l;
-        class13.aByte261 = byte0;
-        class13.anInt255 = i2 * 128 + 64 + l1;
-        class13.anInt256 = j * 128 + 64 + k;
-        class13.anInt254 = i;
-        class13.aClass38_Sub2_Sub1_259 = class38_sub2_sub1;
-        class13.anInt257 = j1;
-        class13.anInt258 = i1;
+        WallDecoration wallDecoration = new WallDecoration();
+        wallDecoration.bitset = l;
+        wallDecoration.info = byte0;
+        wallDecoration.sceneX = i2 * 128 + 64 + l1;
+        wallDecoration.sceneZ = j * 128 + 64 + k;
+        wallDecoration.sceneY = i;
+        wallDecoration.model = class38_sub2_sub1;
+        wallDecoration.type = j1;
+        wallDecoration.rotation = i1;
         for (int k2 = j2; k2 >= 0; k2--)
             if (aClass38_Sub1ArrayArrayArray531[k2][i2][j] == null)
                 aClass38_Sub1ArrayArrayArray531[k2][i2][j] = new Class38_Sub1(k2, i2, j);
 
-        aClass38_Sub1ArrayArrayArray531[j2][i2][j].aClass13_1168 = class13;
+        aClass38_Sub1ArrayArrayArray531[j2][i2][j].wallDecoration = wallDecoration;
     }
 
     public boolean method291(int i, int j, int k, Entity entity, int l, int i1, int j1,
@@ -424,14 +424,14 @@ public class Class32 {
         }
         if (class38_sub1 == null)
             return;
-        Class13 class13 = class38_sub1.aClass13_1168;
-        if (class13 == null) {
+        WallDecoration wallDecoration = class38_sub1.wallDecoration;
+        if (wallDecoration == null) {
             return;
         } else {
             int j1 = k * 128 + 64;
             int k1 = j * 128 + 64;
-            class13.anInt255 = j1 + ((class13.anInt255 - j1) * l) / 16;
-            class13.anInt256 = k1 + ((class13.anInt256 - k1) * l) / 16;
+            wallDecoration.sceneX = j1 + ((wallDecoration.sceneX - j1) * l) / 16;
+            wallDecoration.sceneZ = k1 + ((wallDecoration.sceneZ - k1) * l) / 16;
             return;
         }
     }
@@ -443,11 +443,11 @@ public class Class32 {
         Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[l][k][j];
         if (class38_sub1 == null)
             return;
-        Class13 class13 = class38_sub1.aClass13_1168;
-        if (class13 == null) {
+        WallDecoration wallDecoration = class38_sub1.wallDecoration;
+        if (wallDecoration == null) {
             return;
         } else {
-            class13.aClass38_Sub2_Sub1_259 = class38_sub2_sub1;
+            wallDecoration.model = class38_sub2_sub1;
             return;
         }
     }
@@ -523,7 +523,7 @@ public class Class32 {
         if (class38_sub1 == null) {
             return;
         } else {
-            class38_sub1.aClass13_1168 = null;
+            class38_sub1.wallDecoration = null;
             return;
         }
     }
@@ -580,10 +580,10 @@ public class Class32 {
         if (k != 3)
             aBoolean519 = !aBoolean519;
         Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[i][l][j];
-        if (class38_sub1 == null || class38_sub1.aClass13_1168 == null)
+        if (class38_sub1 == null || class38_sub1.wallDecoration == null)
             return 0;
         else
-            return class38_sub1.aClass13_1168.anInt260;
+            return class38_sub1.wallDecoration.bitset;
     }
 
     public int method310(int i, int j, int k) {
@@ -613,8 +613,8 @@ public class Class32 {
             return -1;
         if (class38_sub1.wall != null && class38_sub1.wall.bitset == l)
             return class38_sub1.wall.info & 0xff;
-        if (class38_sub1.aClass13_1168 != null && class38_sub1.aClass13_1168.anInt260 == l)
-            return class38_sub1.aClass13_1168.aByte261 & 0xff;
+        if (class38_sub1.wallDecoration != null && class38_sub1.wallDecoration.bitset == l)
+            return class38_sub1.wallDecoration.info & 0xff;
         if (class38_sub1.groundDecoration != null && class38_sub1.groundDecoration.bitset == l)
             return class38_sub1.groundDecoration.info & 0xff;
         for (int i1 = 0; i1 < class38_sub1.anInt1171; i1++)
@@ -1209,8 +1209,8 @@ public class Class32 {
                 int j1 = 0;
                 int j2 = 0;
                 Wall wall_3 = class38_sub1_1.wall;
-                Class13 class13_1 = class38_sub1_1.aClass13_1168;
-                if (wall_3 != null || class13_1 != null) {
+                WallDecoration wallDecoration_1 = class38_sub1_1.wallDecoration;
+                if (wall_3 != null || wallDecoration_1 != null) {
                     if (anInt543 == i)
                         j1++;
                     else if (anInt543 < i)
@@ -1253,16 +1253,16 @@ public class Class32 {
                                 wall_3.x - anInt545, wall_3.y - anInt546,
                                 wall_3.z - anInt547, wall_3.bitset);
                 }
-                if (class13_1 != null && !method330(l, i, j, class13_1.aClass38_Sub2_Sub1_259.anInt1247))
-                    if ((class13_1.anInt257 & j2) != 0)
-                        class13_1.aClass38_Sub2_Sub1_259.method371(class13_1.anInt258, anInt548, anInt549, anInt550,
-                                anInt551, class13_1.anInt255 - anInt545, class13_1.anInt254 - anInt546,
-                                class13_1.anInt256 - anInt547, class13_1.anInt260);
-                    else if ((class13_1.anInt257 & 0x300) != 0) {
-                        int j4 = class13_1.anInt255 - anInt545;
-                        int l5 = class13_1.anInt254 - anInt546;
-                        int k6 = class13_1.anInt256 - anInt547;
-                        int k7 = class13_1.anInt258;
+                if (wallDecoration_1 != null && !method330(l, i, j, wallDecoration_1.model.anInt1247))
+                    if ((wallDecoration_1.type & j2) != 0)
+                        wallDecoration_1.model.method371(wallDecoration_1.rotation, anInt548, anInt549, anInt550,
+                                anInt551, wallDecoration_1.sceneX - anInt545, wallDecoration_1.sceneY - anInt546,
+                                wallDecoration_1.sceneZ - anInt547, wallDecoration_1.bitset);
+                    else if ((wallDecoration_1.type & 0x300) != 0) {
+                        int j4 = wallDecoration_1.sceneX - anInt545;
+                        int l5 = wallDecoration_1.sceneY - anInt546;
+                        int k6 = wallDecoration_1.sceneZ - anInt547;
+                        int k7 = wallDecoration_1.rotation;
                         int l8;
                         if (k7 == 1 || k7 == 2)
                             l8 = -j4;
@@ -1273,17 +1273,17 @@ public class Class32 {
                             l9 = -k6;
                         else
                             l9 = k6;
-                        if ((class13_1.anInt257 & 0x100) != 0 && l9 < l8) {
+                        if ((wallDecoration_1.type & 0x100) != 0 && l9 < l8) {
                             int i10 = j4 + anIntArray553[k7];
                             int k10 = k6 + anIntArray554[k7];
-                            class13_1.aClass38_Sub2_Sub1_259.method371(k7 * 512 + 256, anInt548, anInt549, anInt550,
-                                    anInt551, i10, l5, k10, class13_1.anInt260);
+                            wallDecoration_1.model.method371(k7 * 512 + 256, anInt548, anInt549, anInt550,
+                                    anInt551, i10, l5, k10, wallDecoration_1.bitset);
                         }
-                        if ((class13_1.anInt257 & 0x200) != 0 && l9 > l8) {
+                        if ((wallDecoration_1.type & 0x200) != 0 && l9 > l8) {
                             int j10 = j4 + anIntArray555[k7];
                             int l10 = k6 + anIntArray556[k7];
-                            class13_1.aClass38_Sub2_Sub1_259.method371(k7 * 512 + 1280 & 0x7ff, anInt548, anInt549,
-                                    anInt550, anInt551, j10, l5, l10, class13_1.anInt260);
+                            wallDecoration_1.model.method371(k7 * 512 + 1280 & 0x7ff, anInt548, anInt549,
+                                    anInt550, anInt551, j10, l5, l10, wallDecoration_1.bitset);
                         }
                     }
                 if (flag1) {
@@ -1477,17 +1477,17 @@ public class Class32 {
                             objEntity.z - anInt547, objEntity.bitset);
             }
             if (class38_sub1_1.anInt1182 != 0) {
-                Class13 class13 = class38_sub1_1.aClass13_1168;
-                if (class13 != null && !method330(l, i, j, class13.aClass38_Sub2_Sub1_259.anInt1247))
-                    if ((class13.anInt257 & class38_sub1_1.anInt1182) != 0)
-                        class13.aClass38_Sub2_Sub1_259.method371(class13.anInt258, anInt548, anInt549, anInt550,
-                                anInt551, class13.anInt255 - anInt545, class13.anInt254 - anInt546,
-                                class13.anInt256 - anInt547, class13.anInt260);
-                    else if ((class13.anInt257 & 0x300) != 0) {
-                        int l2 = class13.anInt255 - anInt545;
-                        int j3 = class13.anInt254 - anInt546;
-                        int i4 = class13.anInt256 - anInt547;
-                        int k5 = class13.anInt258;
+                WallDecoration wallDecoration = class38_sub1_1.wallDecoration;
+                if (wallDecoration != null && !method330(l, i, j, wallDecoration.model.anInt1247))
+                    if ((wallDecoration.type & class38_sub1_1.anInt1182) != 0)
+                        wallDecoration.model.method371(wallDecoration.rotation, anInt548, anInt549, anInt550,
+                                anInt551, wallDecoration.sceneX - anInt545, wallDecoration.sceneY - anInt546,
+                                wallDecoration.sceneZ - anInt547, wallDecoration.bitset);
+                    else if ((wallDecoration.type & 0x300) != 0) {
+                        int l2 = wallDecoration.sceneX - anInt545;
+                        int j3 = wallDecoration.sceneY - anInt546;
+                        int i4 = wallDecoration.sceneZ - anInt547;
+                        int k5 = wallDecoration.rotation;
                         int j6;
                         if (k5 == 1 || k5 == 2)
                             j6 = -l2;
@@ -1498,17 +1498,17 @@ public class Class32 {
                             j7 = -i4;
                         else
                             j7 = i4;
-                        if ((class13.anInt257 & 0x100) != 0 && j7 >= j6) {
+                        if ((wallDecoration.type & 0x100) != 0 && j7 >= j6) {
                             int j8 = l2 + anIntArray553[k5];
                             int j9 = i4 + anIntArray554[k5];
-                            class13.aClass38_Sub2_Sub1_259.method371(k5 * 512 + 256, anInt548, anInt549, anInt550,
-                                    anInt551, j8, j3, j9, class13.anInt260);
+                            wallDecoration.model.method371(k5 * 512 + 256, anInt548, anInt549, anInt550,
+                                    anInt551, j8, j3, j9, wallDecoration.bitset);
                         }
-                        if ((class13.anInt257 & 0x200) != 0 && j7 <= j6) {
+                        if ((wallDecoration.type & 0x200) != 0 && j7 <= j6) {
                             int k8 = l2 + anIntArray555[k5];
                             int k9 = i4 + anIntArray556[k5];
-                            class13.aClass38_Sub2_Sub1_259.method371(k5 * 512 + 1280 & 0x7ff, anInt548, anInt549,
-                                    anInt550, anInt551, k8, j3, k9, class13.anInt260);
+                            wallDecoration.model.method371(k5 * 512 + 1280 & 0x7ff, anInt548, anInt549,
+                                    anInt550, anInt551, k8, j3, k9, wallDecoration.bitset);
                         }
                     }
                 Wall wall_2 = class38_sub1_1.wall;
