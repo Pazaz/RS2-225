@@ -1128,11 +1128,11 @@ public class Scene {
     }
 
     public void method322(Tile tile_1, boolean flag) {
-        linkedList.method267(tile_1);
+        linkedList.pushNext(tile_1);
         do {
             Tile tile;
             do {
-                tile = (Tile) linkedList.method269();
+                tile = (Tile) linkedList.poll();
                 if (tile == null)
                     return;
             } while (!tile.isVisible);
@@ -1318,22 +1318,22 @@ public class Scene {
                     if (i < anInt543 && (k4 & 4) != 0) {
                         Tile tile_17 = aclass38_sub1[i + 1][j];
                         if (tile_17 != null && tile_17.isVisible)
-                            linkedList.method267(tile_17);
+                            linkedList.pushNext(tile_17);
                     }
                     if (j < anInt544 && (k4 & 2) != 0) {
                         Tile tile_18 = aclass38_sub1[i][j + 1];
                         if (tile_18 != null && tile_18.isVisible)
-                            linkedList.method267(tile_18);
+                            linkedList.pushNext(tile_18);
                     }
                     if (i > anInt543 && (k4 & 1) != 0) {
                         Tile tile_19 = aclass38_sub1[i - 1][j];
                         if (tile_19 != null && tile_19.isVisible)
-                            linkedList.method267(tile_19);
+                            linkedList.pushNext(tile_19);
                     }
                     if (j > anInt544 && (k4 & 8) != 0) {
                         Tile tile_20 = aclass38_sub1[i][j - 1];
                         if (tile_20 != null && tile_20.isVisible)
-                            linkedList.method267(tile_20);
+                            linkedList.pushNext(tile_20);
                     }
                 }
             }
@@ -1431,9 +1431,9 @@ public class Scene {
                         for (int i9 = loc_3.minSceneTileZ; i9 <= loc_3.maxSceneTileZ; i9++) {
                             Tile tile_22 = aclass38_sub1[i8][i9];
                             if (tile_22.wallCullDirection != 0)
-                                linkedList.method267(tile_22);
+                                linkedList.pushNext(tile_22);
                             else if ((i8 != i || i9 != j) && tile_22.isVisible)
-                                linkedList.method267(tile_22);
+                                linkedList.pushNext(tile_22);
                         }
 
                     }
@@ -1531,27 +1531,27 @@ public class Scene {
             if (k < anInt527 - 1) {
                 Tile tile_12 = tile3dArray[k + 1][i][j];
                 if (tile_12 != null && tile_12.isVisible)
-                    linkedList.method267(tile_12);
+                    linkedList.pushNext(tile_12);
             }
             if (i < anInt543) {
                 Tile tile_13 = aclass38_sub1[i + 1][j];
                 if (tile_13 != null && tile_13.isVisible)
-                    linkedList.method267(tile_13);
+                    linkedList.pushNext(tile_13);
             }
             if (j < anInt544) {
                 Tile tile_14 = aclass38_sub1[i][j + 1];
                 if (tile_14 != null && tile_14.isVisible)
-                    linkedList.method267(tile_14);
+                    linkedList.pushNext(tile_14);
             }
             if (i > anInt543) {
                 Tile tile_15 = aclass38_sub1[i - 1][j];
                 if (tile_15 != null && tile_15.isVisible)
-                    linkedList.method267(tile_15);
+                    linkedList.pushNext(tile_15);
             }
             if (j > anInt544) {
                 Tile tile_16 = aclass38_sub1[i][j - 1];
                 if (tile_16 != null && tile_16.isVisible)
-                    linkedList.method267(tile_16);
+                    linkedList.pushNext(tile_16);
             }
         } while (true);
     }

@@ -11,13 +11,13 @@ public class Buffer extends CacheableNode {
             Buffer buffer = null;
             if (type == 0 && queueLowCount > 0) {
                 queueLowCount--;
-                buffer = (Buffer) queueLow.method269();
+                buffer = (Buffer) queueLow.poll();
             } else if (type == 1 && queueMidCount > 0) {
                 queueMidCount--;
-                buffer = (Buffer) queueMid.method269();
+                buffer = (Buffer) queueMid.poll();
             } else if (type == 2 && queueHighCount > 0) {
                 queueHighCount--;
-                buffer = (Buffer) queueHigh.method269();
+                buffer = (Buffer) queueHigh.poll();
             }
 
             if (buffer != null) {
@@ -43,13 +43,13 @@ public class Buffer extends CacheableNode {
         synchronized (queueMid) {
             offset = 0;
             if (data.length == 100 && queueLowCount < 1000) {
-                queueLow.method267(this);
+                queueLow.pushNext(this);
                 queueLowCount++;
             } if (data.length == 5000 && queueMidCount < 250) {
-                queueMid.method267(this);
+                queueMid.pushNext(this);
                 queueMidCount++;
             } if (data.length == 30000 && queueHighCount < 50) {
-                queueHigh.method267(this);
+                queueHigh.pushNext(this);
                 queueHighCount++;
             }
         }

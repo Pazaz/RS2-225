@@ -190,7 +190,7 @@ public class SceneBuilder {
             if (locType.hasCollision && locType.interactable && collisionMap != null)
                 collisionMap.method199((byte) 12, j, j1);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, i1, i, 0, 3, SeqType.seqTypes[locType.animationIndex], j, j1));
+                linkedList.pushNext(new LocEntity(true, i1, i, 0, 3, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
         }
         if (l == 10 || l == 11) {
@@ -226,7 +226,7 @@ public class SceneBuilder {
             if (locType.hasCollision && collisionMap != null)
                 collisionMap.method198(k, locType.sizeZ, locType.sizeX, j1, 9, j, locType.isSolid);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, i1, i, 0, 2, SeqType.seqTypes[locType.animationIndex], j, j1));
+                linkedList.pushNext(new LocEntity(true, i1, i, 0, 2, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
         }
         if (l >= 12) {
@@ -237,7 +237,7 @@ public class SceneBuilder {
             if (locType.hasCollision && collisionMap != null)
                 collisionMap.method198(k, locType.sizeZ, locType.sizeX, j1, 9, j, locType.isSolid);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, i1, i, 0, 2, SeqType.seqTypes[locType.animationIndex], j, j1));
+                linkedList.pushNext(new LocEntity(true, i1, i, 0, 2, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
         }
         if (l == 0) {
@@ -275,7 +275,7 @@ public class SceneBuilder {
             if (locType.hasCollision && collisionMap != null)
                 collisionMap.method197(true, k, j, j1, locType.isSolid, l);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, i1, i, 0, 0, SeqType.seqTypes[locType.animationIndex], j, j1));
+                linkedList.pushNext(new LocEntity(true, i1, i, 0, 0, SeqType.seqTypes[locType.animationIndex], j, j1));
             if (locType.thickness != 16)
                 scene.method298(i, j, j1, locType.thickness, (byte) 6);
             return;
@@ -295,7 +295,7 @@ public class SceneBuilder {
             if (locType.hasCollision && collisionMap != null)
                 collisionMap.method197(true, k, j, j1, locType.isSolid, l);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, i1, i, 0, 0, SeqType.seqTypes[locType.animationIndex], j, j1));
+                linkedList.pushNext(new LocEntity(true, i1, i, 0, 0, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
         }
         if (l == 2) {
@@ -321,7 +321,7 @@ public class SceneBuilder {
             if (locType.hasCollision && collisionMap != null)
                 collisionMap.method197(true, k, j, j1, locType.isSolid, l);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, i1, i, 0, 0, SeqType.seqTypes[locType.animationIndex], j, j1));
+                linkedList.pushNext(new LocEntity(true, i1, i, 0, 0, SeqType.seqTypes[locType.animationIndex], j, j1));
             if (locType.thickness != 16)
                 scene.method298(i, j, j1, locType.thickness, (byte) 6);
             return;
@@ -341,7 +341,7 @@ public class SceneBuilder {
             if (locType.hasCollision && collisionMap != null)
                 collisionMap.method197(true, k, j, j1, locType.isSolid, l);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, i1, i, 0, 0, SeqType.seqTypes[locType.animationIndex], j, j1));
+                linkedList.pushNext(new LocEntity(true, i1, i, 0, 0, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
         }
         if (l == 9) {
@@ -350,14 +350,14 @@ public class SceneBuilder {
             if (locType.hasCollision && collisionMap != null)
                 collisionMap.method198(k, locType.sizeZ, locType.sizeX, j1, 9, j, locType.isSolid);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, i1, i, 0, 2, SeqType.seqTypes[locType.animationIndex], j, j1));
+                linkedList.pushNext(new LocEntity(true, i1, i, 0, 2, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
         }
         if (l == 4) {
             Model class38_sub2_sub1_7 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
             scene.method290(k2, j, 0, l2, k * 512, anIntArray127[k], 465, 0, j1, class38_sub2_sub1_7, byte0, i);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, i1, i, 0, 1, SeqType.seqTypes[locType.animationIndex], j, j1));
+                linkedList.pushNext(new LocEntity(true, i1, i, 0, 1, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
         }
         if (l == 5) {
@@ -369,28 +369,28 @@ public class SceneBuilder {
             scene.method290(k2, j, anIntArray130[k] * j3, l2, k * 512, anIntArray127[k], 465, anIntArray129[k] * j3,
                     j1, class38_sub2_sub1_13, byte0, i);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, i1, i, 0, 1, SeqType.seqTypes[locType.animationIndex], j, j1));
+                linkedList.pushNext(new LocEntity(true, i1, i, 0, 1, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
         }
         if (l == 6) {
             Model class38_sub2_sub1_8 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
             scene.method290(k2, j, 0, l2, k, 256, 465, 0, j1, class38_sub2_sub1_8, byte0, i);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, i1, i, 0, 1, SeqType.seqTypes[locType.animationIndex], j, j1));
+                linkedList.pushNext(new LocEntity(true, i1, i, 0, 1, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
         }
         if (l == 7) {
             Model class38_sub2_sub1_9 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
             scene.method290(k2, j, 0, l2, k, 512, 465, 0, j1, class38_sub2_sub1_9, byte0, i);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, i1, i, 0, 1, SeqType.seqTypes[locType.animationIndex], j, j1));
+                linkedList.pushNext(new LocEntity(true, i1, i, 0, 1, SeqType.seqTypes[locType.animationIndex], j, j1));
             return;
         }
         if (l == 8) {
             Model class38_sub2_sub1_10 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
             scene.method290(k2, j, 0, l2, k, 768, 465, 0, j1, class38_sub2_sub1_10, byte0, i);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, i1, i, 0, 1, SeqType.seqTypes[locType.animationIndex], j, j1));
+                linkedList.pushNext(new LocEntity(true, i1, i, 0, 1, SeqType.seqTypes[locType.animationIndex], j, j1));
         }
     }
 
@@ -855,7 +855,7 @@ public class SceneBuilder {
             if (locType.hasCollision && locType.interactable)
                 collisionMap.method199((byte) 12, j, i);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, j1, i1, 0, 3, SeqType.seqTypes[locType.animationIndex], j, i));
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, 3, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 10 || k1 == 11) {
@@ -878,7 +878,7 @@ public class SceneBuilder {
             if (locType.hasCollision)
                 collisionMap.method198(k, locType.sizeZ, locType.sizeX, i, 9, j, locType.isSolid);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, j1, i1, 0, 2, SeqType.seqTypes[locType.animationIndex], j, i));
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, 2, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
         }
         if (k1 >= 12) {
@@ -887,7 +887,7 @@ public class SceneBuilder {
             if (locType.hasCollision)
                 collisionMap.method198(k, locType.sizeZ, locType.sizeX, i, 9, j, locType.isSolid);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, j1, i1, 0, 2, SeqType.seqTypes[locType.animationIndex], j, i));
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, 2, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 0) {
@@ -896,7 +896,7 @@ public class SceneBuilder {
             if (locType.hasCollision)
                 collisionMap.method197(true, k, j, i, locType.isSolid, k1);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, j1, i1, 0, 0, SeqType.seqTypes[locType.animationIndex], j, i));
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, 0, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 1) {
@@ -905,7 +905,7 @@ public class SceneBuilder {
             if (locType.hasCollision)
                 collisionMap.method197(true, k, j, i, locType.isSolid, k1);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, j1, i1, 0, 0, SeqType.seqTypes[locType.animationIndex], j, i));
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, 0, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 2) {
@@ -917,7 +917,7 @@ public class SceneBuilder {
             if (locType.hasCollision)
                 collisionMap.method197(true, k, j, i, locType.isSolid, k1);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, j1, i1, 0, 0, SeqType.seqTypes[locType.animationIndex], j, i));
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, 0, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 3) {
@@ -926,7 +926,7 @@ public class SceneBuilder {
             if (locType.hasCollision)
                 collisionMap.method197(true, k, j, i, locType.isSolid, k1);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, j1, i1, 0, 0, SeqType.seqTypes[locType.animationIndex], j, i));
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, 0, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 9) {
@@ -935,14 +935,14 @@ public class SceneBuilder {
             if (locType.hasCollision)
                 collisionMap.method198(k, locType.sizeZ, locType.sizeX, i, 9, j, locType.isSolid);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, j1, i1, 0, 2, SeqType.seqTypes[locType.animationIndex], j, i));
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, 2, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 4) {
             Model class38_sub2_sub1_7 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
             scene.method290(i3, j, 0, j3, k * 512, anIntArray127[k], 465, 0, i, class38_sub2_sub1_7, byte0, i1);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, j1, i1, 0, 1, SeqType.seqTypes[locType.animationIndex], j, i));
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, 1, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 5) {
@@ -954,28 +954,28 @@ public class SceneBuilder {
             scene.method290(i3, j, anIntArray130[k] * l3, j3, k * 512, anIntArray127[k], 465, anIntArray129[k] * l3,
                     i, class38_sub2_sub1_13, byte0, i1);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, j1, i1, 0, 1, SeqType.seqTypes[locType.animationIndex], j, i));
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, 1, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 6) {
             Model class38_sub2_sub1_8 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
             scene.method290(i3, j, 0, j3, k, 256, 465, 0, i, class38_sub2_sub1_8, byte0, i1);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, j1, i1, 0, 1, SeqType.seqTypes[locType.animationIndex], j, i));
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, 1, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 7) {
             Model class38_sub2_sub1_9 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
             scene.method290(i3, j, 0, j3, k, 512, 465, 0, i, class38_sub2_sub1_9, byte0, i1);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, j1, i1, 0, 1, SeqType.seqTypes[locType.animationIndex], j, i));
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, 1, SeqType.seqTypes[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 8) {
             Model class38_sub2_sub1_10 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
             scene.method290(i3, j, 0, j3, k, 768, 465, 0, i, class38_sub2_sub1_10, byte0, i1);
             if (locType.animationIndex != -1)
-                linkedList.method267(new LocEntity(true, j1, i1, 0, 1, SeqType.seqTypes[locType.animationIndex], j, i));
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, 1, SeqType.seqTypes[locType.animationIndex], j, i));
         }
     }
 

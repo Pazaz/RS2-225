@@ -419,8 +419,8 @@ public class Game extends GameShell {
             if (k2 >= 0 && l4 >= 0 && k2 < 104 && l4 < 104) {
                 SpawnedLoc spawnedLoc = null;
                 for (SpawnedLoc spawnedLoc_1 = (SpawnedLoc) linkedList5
-                        .method270(); spawnedLoc_1 != null; spawnedLoc_1 = (SpawnedLoc) linkedList5
-                        .method272()) {
+                        .peekLast(); spawnedLoc_1 != null; spawnedLoc_1 = (SpawnedLoc) linkedList5
+                        .getPrevious()) {
                     if (spawnedLoc_1.level != anInt880 || spawnedLoc_1.tileX != k2
                             || spawnedLoc_1.tileZ != l4 || spawnedLoc_1.classType != i13)
                         continue;
@@ -455,7 +455,7 @@ public class Game extends GameShell {
                     spawnedLoc.lastLocIndex = l16;
                     spawnedLoc.lastType = j17;
                     spawnedLoc.lastRotation = l17;
-                    linkedList5.method267(spawnedLoc);
+                    linkedList5.pushNext(spawnedLoc);
                 }
                 spawnedLoc.locIndex = i14;
                 spawnedLoc.type = j9;
@@ -485,7 +485,7 @@ public class Game extends GameShell {
                 if (j14 != 0) {
                     LocEntity locEntity = new LocEntity(false, j14 >> 14 & 0x7fff, anInt880, 0, k11,
                             SeqType.seqTypes[j13], i5, l2);
-                    linkedList2.method267(locEntity);
+                    linkedList2.pushNext(locEntity);
                 }
             }
             return;
@@ -502,7 +502,7 @@ public class Game extends GameShell {
                 objStackEntity.amount = l9;
                 if (linkedList3dArray[anInt880][i3][j5] == null)
                     linkedList3dArray[anInt880][i3][j5] = new LinkedList();
-                linkedList3dArray[anInt880][i3][j5].method267(objStackEntity);
+                linkedList3dArray[anInt880][i3][j5].pushNext(objStackEntity);
                 method123(i3, j5);
             }
             return;
@@ -516,15 +516,15 @@ public class Game extends GameShell {
                 LinkedList linkedList = linkedList3dArray[anInt880][j3][k5];
                 if (linkedList != null) {
                     for (ObjStackEntity objStackEntity_1 = (ObjStackEntity) linkedList
-                            .method270(); objStackEntity_1 != null; objStackEntity_1 = (ObjStackEntity) linkedList
-                            .method272()) {
+                            .peekLast(); objStackEntity_1 != null; objStackEntity_1 = (ObjStackEntity) linkedList
+                            .getPrevious()) {
                         if (objStackEntity_1.model != (l7 & 0x7fff))
                             continue;
                         objStackEntity_1.unlink();
                         break;
                     }
 
-                    if (linkedList.method270() == null)
+                    if (linkedList.peekLast() == null)
                         linkedList3dArray[anInt880][j3][k5] = null;
                     method123(j3, k5);
                 }
@@ -553,7 +553,7 @@ public class Game extends GameShell {
                 ProjectileEntity projectileEntity = new ProjectileEntity(i15, i17, l5, j16 + anInt955, anInt880, l11,
                         k15 + anInt955, k17, method33(anInt880, k3, (byte) 5, l5) - k14, k13, k3);
                 projectileEntity.setTarget(method33(anInt880, i8, (byte) 5, i10) - i15, i10, i8, k15 + anInt955);
-                linkedList4.method267(projectileEntity);
+                linkedList4.pushNext(projectileEntity);
             }
             return;
         }
@@ -569,7 +569,7 @@ public class Game extends GameShell {
                 i6 = i6 * 128 + 64;
                 SpotAnimEntity spotAnimEntity = new SpotAnimEntity(l3, j8, false, i6, i12,
                         method33(anInt880, l3, (byte) 5, i6) - j10, anInt880, anInt955);
-                linkedList1.method267(spotAnimEntity);
+                linkedList1.pushNext(spotAnimEntity);
             }
             return;
         }
@@ -586,7 +586,7 @@ public class Game extends GameShell {
                 objStackEntity_2.amount = k10;
                 if (linkedList3dArray[anInt880][i4][j6] == null)
                     linkedList3dArray[anInt880][i4][j6] = new LinkedList();
-                linkedList3dArray[anInt880][i4][j6].method267(objStackEntity_2);
+                linkedList3dArray[anInt880][i4][j6].pushNext(objStackEntity_2);
                 method123(i4, j6);
             }
             return;
@@ -614,9 +614,9 @@ public class Game extends GameShell {
                 playerEntity = playerEntities[k16];
             if (playerEntity != null) {
                 TemporaryLoc temporaryLoc = new TemporaryLoc(anInt880, k12, k6, j15 + anInt955, l10, -1, j4, l13);
-                linkedList3.method267(temporaryLoc);
+                linkedList3.pushNext(temporaryLoc);
                 TemporaryLoc temporaryLoc_1 = new TemporaryLoc(anInt880, k12, k6, l15 + anInt955, l10, l14, j4, l13);
-                linkedList3.method267(temporaryLoc_1);
+                linkedList3.pushNext(temporaryLoc_1);
                 int j18 = anIntArrayArrayArray794[anInt880][j4][k6];
                 int k18 = anIntArrayArrayArray794[anInt880][j4 + 1][k6];
                 int l18 = anIntArrayArrayArray794[anInt880][j4 + 1][k6 + 1];
@@ -662,8 +662,8 @@ public class Game extends GameShell {
                 LinkedList linkedList_1 = linkedList3dArray[anInt880][k4][l6];
                 if (linkedList_1 != null) {
                     for (ObjStackEntity objStackEntity_3 = (ObjStackEntity) linkedList_1
-                            .method270(); objStackEntity_3 != null; objStackEntity_3 = (ObjStackEntity) linkedList_1
-                            .method272()) {
+                            .peekLast(); objStackEntity_3 != null; objStackEntity_3 = (ObjStackEntity) linkedList_1
+                            .getPrevious()) {
                         if (objStackEntity_3.model != (i9 & 0x7fff) || objStackEntity_3.amount != i11)
                             continue;
                         objStackEntity_3.amount = l12;
@@ -2084,7 +2084,7 @@ public class Game extends GameShell {
             method6();
         if (anInt1078 == 2) {
             for (TemporaryLoc temporaryLoc = (TemporaryLoc) linkedList3
-                    .method270(); temporaryLoc != null; temporaryLoc = (TemporaryLoc) linkedList3.method272())
+                    .peekLast(); temporaryLoc != null; temporaryLoc = (TemporaryLoc) linkedList3.getPrevious())
                 if (anInt955 >= temporaryLoc.lastCycle) {
                     method99(temporaryLoc.rotation, temporaryLoc.tileX, temporaryLoc.tileZ,
                             temporaryLoc.classType, temporaryLoc.locIndex, temporaryLoc.type, -27819,
@@ -4995,8 +4995,8 @@ public class Game extends GameShell {
         if (byte0 != -26)
             anInt780 = -1;
         for (ProjectileEntity projectileEntity = (ProjectileEntity) linkedList4
-                .method270(); projectileEntity != null; projectileEntity = (ProjectileEntity) linkedList4
-                .method272())
+                .peekLast(); projectileEntity != null; projectileEntity = (ProjectileEntity) linkedList4
+                .getPrevious())
             if (projectileEntity.level != anInt880 || anInt955 > projectileEntity.lastCycle)
                 projectileEntity.unlink();
             else if (anInt955 >= projectileEntity.firstCycle) {
@@ -5457,9 +5457,9 @@ public class Game extends GameShell {
                     npcEntities[j1] = null;
 
                 localPlayerEntity = playerEntities[anInt821] = new PlayerEntity();
-                linkedList4.method274();
-                linkedList1.method274();
-                linkedList3.method274();
+                linkedList4.clear();
+                linkedList1.clear();
+                linkedList3.clear();
                 for (int k1 = 0; k1 < 4; k1++) {
                     for (int l1 = 0; l1 < 104; l1++) {
                         for (int j2 = 0; j2 < 104; j2++)
@@ -6161,8 +6161,8 @@ public class Game extends GameShell {
         if (byte0 != aByte766)
             anInt805 = -357;
         for (SpotAnimEntity spotAnimEntity = (SpotAnimEntity) linkedList1
-                .method270(); spotAnimEntity != null; spotAnimEntity = (SpotAnimEntity) linkedList1
-                .method272())
+                .peekLast(); spotAnimEntity != null; spotAnimEntity = (SpotAnimEntity) linkedList1
+                .getPrevious())
             if (spotAnimEntity.anInt1371 != anInt880 || spotAnimEntity.aBoolean1377)
                 spotAnimEntity.unlink();
             else if (anInt955 >= spotAnimEntity.anInt1370) {
@@ -7040,7 +7040,7 @@ public class Game extends GameShell {
         int k = 0xfa0a1f01;
         Object obj = null;
         for (ObjStackEntity objStackEntity = (ObjStackEntity) linkedList
-                .method270(); objStackEntity != null; objStackEntity = (ObjStackEntity) linkedList.method272()) {
+                .peekLast(); objStackEntity != null; objStackEntity = (ObjStackEntity) linkedList.getPrevious()) {
             ObjType objType = ObjType.get(objStackEntity.model);
             int i1 = objType.value;
             if (objType.stackable)
@@ -7051,13 +7051,13 @@ public class Game extends GameShell {
             }
         }
 
-        linkedList.method268(((Node) (obj)));
+        linkedList.pushLast(((Node) (obj)));
         int l = -1;
         int j1 = -1;
         int k1 = 0;
         int l1 = 0;
         for (ObjStackEntity objStackEntity_1 = (ObjStackEntity) linkedList
-                .method270(); objStackEntity_1 != null; objStackEntity_1 = (ObjStackEntity) linkedList.method272()) {
+                .peekLast(); objStackEntity_1 != null; objStackEntity_1 = (ObjStackEntity) linkedList.getPrevious()) {
             if (objStackEntity_1.model != ((ObjStackEntity) (obj)).model && l == -1) {
                 l = objStackEntity_1.model;
                 k1 = objStackEntity_1.amount;
@@ -7084,10 +7084,10 @@ public class Game extends GameShell {
     public void method124(int i) {
         try {
             anInt774 = -1;
-            linkedList3.method274();
-            linkedList2.method274();
-            linkedList1.method274();
-            linkedList4.method274();
+            linkedList3.clear();
+            linkedList2.clear();
+            linkedList1.clear();
+            linkedList4.clear();
             Draw3D.method387(false);
             method83(aByte843);
             scene.method281(742);
@@ -7140,7 +7140,7 @@ public class Game extends GameShell {
             drawArea22.init2D();
             aClass38_Sub2_Sub3_798.writeOpcode(108);
             for (LocEntity locEntity = (LocEntity) linkedList2
-                    .method270(); locEntity != null; locEntity = (LocEntity) linkedList2.method272())
+                    .peekLast(); locEntity != null; locEntity = (LocEntity) linkedList2.getPrevious())
                 if ((aByteArrayArrayArray840[1][locEntity.anInt1208][locEntity.anInt1209] & 2) == 2) {
                     locEntity.anInt1206--;
                     if (locEntity.anInt1206 < 0)
@@ -7154,7 +7154,7 @@ public class Game extends GameShell {
             }
 
             for (SpawnedLoc spawnedLoc = (SpawnedLoc) linkedList5
-                    .method270(); spawnedLoc != null; spawnedLoc = (SpawnedLoc) linkedList5.method272())
+                    .peekLast(); spawnedLoc != null; spawnedLoc = (SpawnedLoc) linkedList5.getPrevious())
                 method99(spawnedLoc.rotation, spawnedLoc.tileX, spawnedLoc.tileZ, spawnedLoc.classType,
                         spawnedLoc.locIndex, spawnedLoc.type, -27819, spawnedLoc.level);
 
@@ -7400,7 +7400,7 @@ public class Game extends GameShell {
     public void method129(int i) {
         i = 30 / i;
         for (LocEntity locEntity = (LocEntity) linkedList2
-                .method270(); locEntity != null; locEntity = (LocEntity) linkedList2.method272()) {
+                .peekLast(); locEntity != null; locEntity = (LocEntity) linkedList2.getPrevious()) {
             boolean flag = false;
             locEntity.anInt1213 += anInt969;
             if (locEntity.anInt1212 == -1) {
@@ -7611,8 +7611,8 @@ public class Game extends GameShell {
                     LinkedList linkedList = linkedList3dArray[anInt880][l][i1];
                     if (linkedList != null) {
                         for (ObjStackEntity objStackEntity = (ObjStackEntity) linkedList
-                                .method271(); objStackEntity != null; objStackEntity = (ObjStackEntity) linkedList
-                                .method273()) {
+                                .peekFirst(); objStackEntity != null; objStackEntity = (ObjStackEntity) linkedList
+                                .getNext()) {
                             ObjType objType = ObjType.get(objStackEntity.model);
                             if (anInt1002 == 1) {
                                 aStringArray834[anInt1074] = "Use " + aString1006 + " with @lre@" + objType.name;
@@ -8136,8 +8136,8 @@ public class Game extends GameShell {
                 }
 
                 for (SpawnedLoc spawnedLoc_1 = (SpawnedLoc) linkedList5
-                        .method270(); spawnedLoc_1 != null; spawnedLoc_1 = (SpawnedLoc) linkedList5
-                        .method272()) {
+                        .peekLast(); spawnedLoc_1 != null; spawnedLoc_1 = (SpawnedLoc) linkedList5
+                        .getPrevious()) {
                     spawnedLoc_1.tileX -= j27;
                     spawnedLoc_1.tileZ -= k29;
                     if (spawnedLoc_1.tileX < 0 || spawnedLoc_1.tileZ < 0 || spawnedLoc_1.tileX >= 104
@@ -8543,7 +8543,7 @@ public class Game extends GameShell {
                 }
 
                 for (SpawnedLoc spawnedLoc = (SpawnedLoc) linkedList5
-                        .method270(); spawnedLoc != null; spawnedLoc = (SpawnedLoc) linkedList5.method272())
+                        .peekLast(); spawnedLoc != null; spawnedLoc = (SpawnedLoc) linkedList5.getPrevious())
                     if (spawnedLoc.tileX >= anInt862 && spawnedLoc.tileX < anInt862 + 8
                             && spawnedLoc.tileZ >= anInt863 && spawnedLoc.tileZ < anInt863 + 8
                             && spawnedLoc.level == anInt880) {

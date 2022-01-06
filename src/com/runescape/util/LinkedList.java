@@ -8,7 +8,7 @@ public class LinkedList {
         head.next = head;
     }
 
-    public void method267(Node node) {
+    public void pushNext(Node node) {
         if (node.next != null) {
             node.unlink();
         }
@@ -18,7 +18,7 @@ public class LinkedList {
         node.prev.next = node;
     }
 
-    public void method268(Node node) {
+    public void pushLast(Node node) {
         if (node.next != null) {
             node.unlink();
         }
@@ -28,7 +28,7 @@ public class LinkedList {
         node.prev.next = node;
     }
 
-    public Node method269() {
+    public Node poll() {
         Node node = head.prev;
         if (node == head) {
             return null;
@@ -37,7 +37,7 @@ public class LinkedList {
         return node;
     }
 
-    public Node method270() {
+    public Node peekLast() {
         Node node = head.prev;
         if (node == head) {
             selected = null;
@@ -47,7 +47,7 @@ public class LinkedList {
         return node;
     }
 
-    public Node method271() {
+    public Node peekFirst() {
         Node node = head.next;
         if (node == head) {
             selected = null;
@@ -57,7 +57,7 @@ public class LinkedList {
         return node;
     }
 
-    public Node method272() {
+    public Node getPrevious() {
         Node node = selected;
         if (node == head) {
             selected = null;
@@ -67,7 +67,7 @@ public class LinkedList {
         return node;
     }
 
-    public Node method273() {
+    public Node getNext() {
         Node node = selected;
         if (node == head) {
             selected = null;
@@ -77,7 +77,7 @@ public class LinkedList {
         return node;
     }
 
-    public void method274() {
+    public void clear() {
         do {
             Node node = head.prev;
             if (node == head) {
