@@ -2,7 +2,7 @@ package com.runescape;
 
 public class InterfaceComponent {
 
-    public static void method218(FileArchive fileArchive, Class38_Sub2_Sub2_Sub4[] aclass38_sub2_sub2_sub4, int i,
+    public static void method218(FileArchive fileArchive, IndexedFont[] aclass38_sub2_sub2_sub4, int i,
                                  FileArchive fileArchive_1) {
         i = 17 / i;
         aClass34_321 = new Class34((byte) 0, 50000);
@@ -109,7 +109,7 @@ public class InterfaceComponent {
                 interfaceComponent.aBoolean300 = class38_sub2_sub3.method446() == 1;
                 int l2 = class38_sub2_sub3.method446();
                 if (aclass38_sub2_sub2_sub4 != null)
-                    interfaceComponent.aClass38_Sub2_Sub2_Sub4_302 = aclass38_sub2_sub2_sub4[l2];
+                    interfaceComponent.indexedFont = aclass38_sub2_sub2_sub4[l2];
                 interfaceComponent.aBoolean301 = class38_sub2_sub3.method446() == 1;
             }
             if (interfaceComponent.anInt271 == 4) {
@@ -163,7 +163,7 @@ public class InterfaceComponent {
                 interfaceComponent.aBoolean300 = class38_sub2_sub3.method446() == 1;
                 int i3 = class38_sub2_sub3.method446();
                 if (aclass38_sub2_sub2_sub4 != null)
-                    interfaceComponent.aClass38_Sub2_Sub2_Sub4_302 = aclass38_sub2_sub2_sub4[i3];
+                    interfaceComponent.indexedFont = aclass38_sub2_sub2_sub4[i3];
                 interfaceComponent.aBoolean301 = class38_sub2_sub3.method446() == 1;
                 interfaceComponent.anInt305 = class38_sub2_sub3.method451();
                 interfaceComponent.anInt293 = class38_sub2_sub3.method449();
@@ -291,7 +291,7 @@ public class InterfaceComponent {
     public boolean aBoolean299;
     public boolean aBoolean300;
     public boolean aBoolean301;
-    public Class38_Sub2_Sub2_Sub4 aClass38_Sub2_Sub2_Sub4_302;
+    public IndexedFont indexedFont;
     public String aString303;
     public String aString304;
     public int anInt305;

@@ -2,9 +2,9 @@ package com.runescape;
 
 import java.util.Random;
 
-public class Class38_Sub2_Sub2_Sub4 extends Class38_Sub2_Sub2 {
+public class IndexedFont extends Class38_Sub2_Sub2 {
 
-    public Class38_Sub2_Sub2_Sub4(FileArchive fileArchive, String s, int i) {
+    public IndexedFont(FileArchive fileArchive, String s, int i) {
         aBoolean1484 = true;
         aByte1485 = 8;
         aByte1486 = 6;
