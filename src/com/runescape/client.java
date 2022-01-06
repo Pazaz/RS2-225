@@ -1505,7 +1505,7 @@ public class client extends Applet_Sub1 {
                         aClass38_Sub2_Sub3_798.method436(0);
                         int k = aClass38_Sub2_Sub3_798.anInt1329;
                         aClass38_Sub2_Sub3_798.method442(true, aLong900);
-                        Class41.method483(aClass38_Sub2_Sub3_798, true, aString765);
+                        TextEncoder.write(aClass38_Sub2_Sub3_798, aString765);
                         aClass38_Sub2_Sub3_798.method445(0, aClass38_Sub2_Sub3_798.anInt1329 - k);
                         aString765 = Class40.method480(aString765, 0);
                         aString765 = Class24.method239(aString765, 0);
@@ -1631,7 +1631,7 @@ public class client extends Applet_Sub1 {
                         int i2 = aClass38_Sub2_Sub3_798.anInt1329;
                         aClass38_Sub2_Sub3_798.method436(j1);
                         aClass38_Sub2_Sub3_798.method436(k1);
-                        Class41.method483(aClass38_Sub2_Sub3_798, true, aString1137);
+                        TextEncoder.write(aClass38_Sub2_Sub3_798, aString1137);
                         aClass38_Sub2_Sub3_798.method445(0, aClass38_Sub2_Sub3_798.anInt1329 - i2);
                         aString1137 = Class40.method480(aString1137, 0);
                         aString1137 = Class24.method239(aString1137, 0);
@@ -8594,7 +8594,7 @@ public class client extends Applet_Sub1 {
                     try {
                         anIntArray878[anInt855] = k19;
                         anInt855 = (anInt855 + 1) % 100;
-                        String s7 = Class41.method482(aClass38_Sub2_Sub3_795, 118, anInt779 - 13);
+                        String s7 = TextEncoder.read(aClass38_Sub2_Sub3_795, anInt779 - 13);
                         s7 = Class24.method239(s7, 0);
                         if (j23 > 1)
                             method111(7, s7, (byte) 4, Class40.method479(0, Class40.method476(l5, false)));
@@ -9028,7 +9028,7 @@ public class client extends Applet_Sub1 {
                 }
                 if (!flag1 && anInt802 == 0)
                     try {
-                        String s = Class41.method482(class38_sub2_sub3, 118, i2);
+                        String s = TextEncoder.read(class38_sub2_sub3, i2);
                         s = Class24.method239(s, 0);
                         class38_sub7_sub3_sub2.aString1392 = s;
                         class38_sub7_sub3_sub2.anInt1394 = i1 >> 8;
