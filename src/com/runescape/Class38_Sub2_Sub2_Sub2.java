@@ -465,7 +465,7 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
         }
     }
 
-    public void method412(Class38_Sub2_Sub2_Sub3 class38_sub2_sub2_sub3, int i, int j, byte byte0) {
+    public void method412(IndexedSprite indexedSprite, int i, int j, byte byte0) {
         j += anInt1468;
         i += anInt1469;
         int k = j + i * Class38_Sub2_Sub2.anInt1309;
@@ -504,7 +504,7 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
             return;
         } else {
             method413(j1, l1, 0, -478, i1, l, Class38_Sub2_Sub2.anIntArray1308, anIntArray1465, k,
-                    class38_sub2_sub2_sub3.aByteArray1476, k1);
+                    indexedSprite.aByteArray1476, k1);
             return;
         }
     }

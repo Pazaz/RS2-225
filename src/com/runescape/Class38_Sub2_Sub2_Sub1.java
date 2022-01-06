@@ -8,7 +8,7 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
         anIntArray1446 = null;
         anIntArray1447 = null;
         anIntArray1448 = null;
-        aClass38_Sub2_Sub2_Sub3Array1450 = null;
+        indexedSpritesArray = null;
         aBooleanArray1451 = null;
         anIntArray1452 = null;
         if (!flag)
@@ -76,11 +76,11 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
         anInt1449 = 0;
         for (int i = 0; i < 50; i++)
             try {
-                aClass38_Sub2_Sub2_Sub3Array1450[i] = new Class38_Sub2_Sub2_Sub3(fileArchive, String.valueOf(i), 0);
-                if (aBoolean1437 && aClass38_Sub2_Sub2_Sub3Array1450[i].anInt1482 == 128)
-                    aClass38_Sub2_Sub2_Sub3Array1450[i].method414(aBoolean1434);
+                indexedSpritesArray[i] = new IndexedSprite(fileArchive, String.valueOf(i), 0);
+                if (aBoolean1437 && indexedSpritesArray[i].anInt1482 == 128)
+                    indexedSpritesArray[i].method414(aBoolean1434);
                 else
-                    aClass38_Sub2_Sub2_Sub3Array1450[i].method415(0);
+                    indexedSpritesArray[i].method415(0);
                 anInt1449++;
             } catch (Exception _ex) {
             }
@@ -141,12 +141,12 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             anIntArrayArray1455[k] = null;
         }
         anIntArrayArray1455[i] = ai;
-        Class38_Sub2_Sub2_Sub3 class38_sub2_sub2_sub3 = aClass38_Sub2_Sub2_Sub3Array1450[i];
+        IndexedSprite indexedSprite = indexedSpritesArray[i];
         int[] ai1 = anIntArrayArray1459[i];
         if (aBoolean1437) {
             aBooleanArray1451[i] = false;
             for (int i1 = 0; i1 < 4096; i1++) {
-                int i2 = ai[i1] = ai1[class38_sub2_sub2_sub3.aByteArray1476[i1]] & 0xf8f8ff;
+                int i2 = ai[i1] = ai1[indexedSprite.aByteArray1476[i1]] & 0xf8f8ff;
                 if (i2 == 0)
                     aBooleanArray1451[i] = true;
                 ai[4096 + i1] = i2 - (i2 >>> 3) & 0xf8f8ff;
@@ -155,16 +155,16 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             }
 
         } else {
-            if (class38_sub2_sub2_sub3.anInt1478 == 64) {
+            if (indexedSprite.anInt1478 == 64) {
                 for (int j1 = 0; j1 < 128; j1++) {
                     for (int j2 = 0; j2 < 128; j2++)
-                        ai[j2 + (j1 << 7)] = ai1[class38_sub2_sub2_sub3.aByteArray1476[(j2 >> 1) + ((j1 >> 1) << 6)]];
+                        ai[j2 + (j1 << 7)] = ai1[indexedSprite.aByteArray1476[(j2 >> 1) + ((j1 >> 1) << 6)]];
 
                 }
 
             } else {
                 for (int k1 = 0; k1 < 16384; k1++)
-                    ai[k1] = ai1[class38_sub2_sub2_sub3.aByteArray1476[k1]];
+                    ai[k1] = ai1[indexedSprite.aByteArray1476[k1]];
 
             }
             aBooleanArray1451[i] = false;
@@ -243,8 +243,8 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
         }
 
         for (int k = 0; k < 50; k++)
-            if (aClass38_Sub2_Sub2_Sub3Array1450[k] != null) {
-                int[] ai = aClass38_Sub2_Sub2_Sub3Array1450[k].anIntArray1477;
+            if (indexedSpritesArray[k] != null) {
+                int[] ai = indexedSpritesArray[k].anIntArray1477;
                 anIntArrayArray1459[k] = new int[ai.length];
                 for (int i1 = 0; i1 < ai.length; i1++)
                     anIntArrayArray1459[k][i1] = method394(ai[i1], d);
@@ -1983,7 +1983,7 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
     public static int[] anIntArray1447;
     public static int[] anIntArray1448;
     public static int anInt1449;
-    public static Class38_Sub2_Sub2_Sub3[] aClass38_Sub2_Sub2_Sub3Array1450 = new Class38_Sub2_Sub2_Sub3[50];
+    public static IndexedSprite[] indexedSpritesArray = new IndexedSprite[50];
     public static boolean[] aBooleanArray1451 = new boolean[50];
     public static int[] anIntArray1452 = new int[50];
     public static int anInt1453;

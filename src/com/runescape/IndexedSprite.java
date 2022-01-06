@@ -1,8 +1,8 @@
 package com.runescape;
 
-public class Class38_Sub2_Sub2_Sub3 extends Class38_Sub2_Sub2 {
+public class IndexedSprite extends Class38_Sub2_Sub2 {
 
-    public Class38_Sub2_Sub2_Sub3(FileArchive fileArchive, String s, int i) {
+    public IndexedSprite(FileArchive fileArchive, String s, int i) {
         aBoolean1472 = false;
         anInt1473 = 45861;
         aByte1474 = 5;
