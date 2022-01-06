@@ -534,7 +534,7 @@ public class Class3 {
                                 }
                                 int j22 = 0;
                                 if (k21 != -1)
-                                    j22 = Class38_Sub2_Sub2_Sub1.anIntArray1458[method163(l21, 96)];
+                                    j22 = Draw3D.anIntArray1458[method163(l21, 96)];
                                 if (j19 == 0) {
                                     scene.method286(l, i7, l17, 0, 0, -1, k19, l19, i20, j20, method163(k21, k20),
                                             method163(k21, l20), method163(k21, i21), method163(k21, j21), 0, 0, 0, 0,
@@ -547,7 +547,7 @@ public class Class3 {
                                     int k23;
                                     int l23;
                                     if (j23 >= 0) {
-                                        l23 = Class38_Sub2_Sub2_Sub1.method390(787, j23);
+                                        l23 = Draw3D.method390(787, j23);
                                         k23 = -1;
                                     } else if (floType_2.anInt224 == 0xff00ff) {
                                         l23 = 0;
@@ -555,7 +555,7 @@ public class Class3 {
                                         j23 = -1;
                                     } else {
                                         k23 = method165(floType_2.anInt229, floType_2.anInt230, floType_2.anInt231);
-                                        l23 = Class38_Sub2_Sub2_Sub1.anIntArray1458[method164(floType_2.anInt234, 96)];
+                                        l23 = Draw3D.anIntArray1458[method164(floType_2.anInt234, 96)];
                                     }
                                     scene.method286(l, i7, l17, l22, byte4, j23, k19, l19, i20, j20,
                                             method163(k21, k20), method163(k21, l20), method163(k21, i21),
@@ -766,7 +766,7 @@ public class Class3 {
     }
 
     public static int method160(int i, int j, int k, int l) {
-        int i1 = 0x10000 - Class38_Sub2_Sub2_Sub1.anIntArray1447[(k * 1024) / l] >> 1;
+        int i1 = 0x10000 - Draw3D.anIntArray1447[(k * 1024) / l] >> 1;
         return (i * (0x10000 - i1) >> 16) + (j * i1 >> 16);
     }
 

@@ -255,9 +255,9 @@ public class ObjType {
                 objType = method169(l);
         }
         class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(32, 32);
-        int i1 = Class38_Sub2_Sub2_Sub1.anInt1442;
-        int k1 = Class38_Sub2_Sub2_Sub1.anInt1443;
-        int[] ai = Class38_Sub2_Sub2_Sub1.anIntArray1448;
+        int i1 = Draw3D.anInt1442;
+        int k1 = Draw3D.anInt1443;
+        int[] ai = Draw3D.anIntArray1448;
         int[] ai1 = Draw2D.anIntArray1308;
         int l1 = Draw2D.anInt1309;
         int i2 = Draw2D.anInt1310;
@@ -265,13 +265,13 @@ public class ObjType {
         int k2 = Draw2D.anInt1314;
         int l2 = Draw2D.anInt1311;
         int i3 = Draw2D.anInt1312;
-        Class38_Sub2_Sub2_Sub1.aBoolean1440 = false;
+        Draw3D.aBoolean1440 = false;
         Draw2D.init(32, class38_sub2_sub2_sub2.anIntArray1465, -657, 32);
         Draw2D.method380(0, 0, 0, (byte) 93, 32, 32);
-        Class38_Sub2_Sub2_Sub1.method385(anInt135);
+        Draw3D.method385(anInt135);
         Model class38_sub2_sub1 = objType.method173(1);
-        int j3 = Class38_Sub2_Sub2_Sub1.anIntArray1446[objType.anInt150] * objType.anInt149 >> 16;
-        int k3 = Class38_Sub2_Sub2_Sub1.anIntArray1447[objType.anInt150] * objType.anInt149 >> 16;
+        int j3 = Draw3D.anIntArray1446[objType.anInt150] * objType.anInt149 >> 16;
+        int k3 = Draw3D.anIntArray1447[objType.anInt150] * objType.anInt149 >> 16;
         class38_sub2_sub1.method370(0, objType.anInt151, objType.anInt152, objType.anInt150, objType.anInt153,
                 j3 + class38_sub2_sub1.anInt1247 / 2 + objType.anInt154, k3 + objType.anInt154);
         if (j != 24638)
@@ -311,10 +311,10 @@ public class ObjType {
         aClass34_179.method342(6, i, class38_sub2_sub2_sub2);
         Draw2D.init(l1, ai1, -657, i2);
         Draw2D.method378(i3, l2, k2, 789, j2);
-        Class38_Sub2_Sub2_Sub1.anInt1442 = i1;
-        Class38_Sub2_Sub2_Sub1.anInt1443 = k1;
-        Class38_Sub2_Sub2_Sub1.anIntArray1448 = ai;
-        Class38_Sub2_Sub2_Sub1.aBoolean1440 = true;
+        Draw3D.anInt1442 = i1;
+        Draw3D.anInt1443 = k1;
+        Draw3D.anIntArray1448 = ai;
+        Draw3D.aBoolean1440 = true;
         if (objType.aBoolean157)
             class38_sub2_sub2_sub2.anInt1470 = 33;
         else

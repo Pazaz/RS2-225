@@ -1282,8 +1282,8 @@ public class Model extends CacheableNode {
     }
 
     public void method370(int i, int j, int k, int l, int i1, int j1, int k1) {
-        int l1 = Class38_Sub2_Sub2_Sub1.anInt1442;
-        int i2 = Class38_Sub2_Sub2_Sub1.anInt1443;
+        int l1 = Draw3D.anInt1442;
+        int i2 = Draw3D.anInt1443;
         int j2 = anIntArray1300[i];
         int k2 = anIntArray1301[i];
         int l2 = anIntArray1300[j];
@@ -1381,16 +1381,16 @@ public class Model extends CacheableNode {
                 k4 /= i3;
                 i5 /= k5;
             }
-            int i6 = anInt1296 - Class38_Sub2_Sub2_Sub1.anInt1442;
-            int k6 = anInt1297 - Class38_Sub2_Sub2_Sub1.anInt1443;
+            int i6 = anInt1296 - Draw3D.anInt1442;
+            int k6 = anInt1297 - Draw3D.anInt1443;
             if (i6 > k3 && i6 < l3 && k6 > i5 && k6 < k4)
                 if (aBoolean1256)
                     anIntArray1299[anInt1298++] = i2;
                 else
                     flag1 = true;
         }
-        int l5 = Class38_Sub2_Sub2_Sub1.anInt1442;
-        int j6 = Class38_Sub2_Sub2_Sub1.anInt1443;
+        int l5 = Draw3D.anInt1442;
+        int j6 = Draw3D.anInt1443;
         int l6 = 0;
         int i7 = 0;
         if (i != 0) {
@@ -1603,23 +1603,23 @@ public class Model extends CacheableNode {
         int j = anIntArray1227[i];
         int k = anIntArray1228[i];
         int l = anIntArray1229[i];
-        Class38_Sub2_Sub2_Sub1.aBoolean1438 = aBooleanArray1274[i];
+        Draw3D.aBoolean1438 = aBooleanArray1274[i];
         if (anIntArray1235 == null)
-            Class38_Sub2_Sub2_Sub1.anInt1441 = 0;
+            Draw3D.anInt1441 = 0;
         else
-            Class38_Sub2_Sub2_Sub1.anInt1441 = anIntArray1235[i];
+            Draw3D.anInt1441 = anIntArray1235[i];
         int i1;
         if (anIntArray1233 == null)
             i1 = 0;
         else
             i1 = anIntArray1233[i] & 3;
         if (i1 == 0) {
-            Class38_Sub2_Sub2_Sub1.method395(anIntArray1277[j], anIntArray1277[k], anIntArray1277[l], anIntArray1276[j],
+            Draw3D.method395(anIntArray1277[j], anIntArray1277[k], anIntArray1277[l], anIntArray1276[j],
                     anIntArray1276[k], anIntArray1276[l], anIntArray1230[i], anIntArray1231[i], anIntArray1232[i]);
             return;
         }
         if (i1 == 1) {
-            Class38_Sub2_Sub2_Sub1.method397(anIntArray1277[j], anIntArray1277[k], anIntArray1277[l], anIntArray1276[j],
+            Draw3D.method397(anIntArray1277[j], anIntArray1277[k], anIntArray1277[l], anIntArray1276[j],
                     anIntArray1276[k], anIntArray1276[l], anIntArray1302[anIntArray1230[i]]);
             return;
         }
@@ -1628,7 +1628,7 @@ public class Model extends CacheableNode {
             int l1 = anIntArray1239[j1];
             int j2 = anIntArray1240[j1];
             int l2 = anIntArray1241[j1];
-            Class38_Sub2_Sub2_Sub1.method399(anIntArray1277[j], anIntArray1277[k], anIntArray1277[l], anIntArray1276[j],
+            Draw3D.method399(anIntArray1277[j], anIntArray1277[k], anIntArray1277[l], anIntArray1276[j],
                     anIntArray1276[k], anIntArray1276[l], anIntArray1230[i], anIntArray1231[i], anIntArray1232[i],
                     anIntArray1279[l1], anIntArray1279[j2], anIntArray1279[l2], anIntArray1280[l1], anIntArray1280[j2],
                     anIntArray1280[l2], anIntArray1281[l1], anIntArray1281[j2], anIntArray1281[l2], anIntArray1236[i]);
@@ -1639,7 +1639,7 @@ public class Model extends CacheableNode {
             int i2 = anIntArray1239[k1];
             int k2 = anIntArray1240[k1];
             int i3 = anIntArray1241[k1];
-            Class38_Sub2_Sub2_Sub1.method399(anIntArray1277[j], anIntArray1277[k], anIntArray1277[l], anIntArray1276[j],
+            Draw3D.method399(anIntArray1277[j], anIntArray1277[k], anIntArray1277[l], anIntArray1276[j],
                     anIntArray1276[k], anIntArray1276[l], anIntArray1230[i], anIntArray1230[i], anIntArray1230[i],
                     anIntArray1279[i2], anIntArray1279[k2], anIntArray1279[i3], anIntArray1280[i2], anIntArray1280[k2],
                     anIntArray1280[i3], anIntArray1281[i2], anIntArray1281[k2], anIntArray1281[i3], anIntArray1236[i]);
@@ -1647,8 +1647,8 @@ public class Model extends CacheableNode {
     }
 
     public void method374(int i) {
-        int j = Class38_Sub2_Sub2_Sub1.anInt1442;
-        int k = Class38_Sub2_Sub2_Sub1.anInt1443;
+        int j = Draw3D.anInt1442;
+        int k = Draw3D.anInt1443;
         int l = 0;
         int i1 = anIntArray1227[i];
         int j1 = anIntArray1228[i];
@@ -1726,27 +1726,27 @@ public class Model extends CacheableNode {
         int j7 = anIntArray1290[1];
         int k7 = anIntArray1290[2];
         if ((j3 - j4) * (k7 - j7) - (i7 - j7) * (j5 - j4) > 0) {
-            Class38_Sub2_Sub2_Sub1.aBoolean1438 = false;
+            Draw3D.aBoolean1438 = false;
             if (l == 3) {
                 if (j3 < 0 || j4 < 0 || j5 < 0 || j3 > Draw2D.anInt1315 || j4 > Draw2D.anInt1315
                         || j5 > Draw2D.anInt1315)
-                    Class38_Sub2_Sub2_Sub1.aBoolean1438 = true;
+                    Draw3D.aBoolean1438 = true;
                 int l7;
                 if (anIntArray1233 == null)
                     l7 = 0;
                 else
                     l7 = anIntArray1233[i] & 3;
                 if (l7 == 0)
-                    Class38_Sub2_Sub2_Sub1.method395(i7, j7, k7, j3, j4, j5, anIntArray1291[0], anIntArray1291[1],
+                    Draw3D.method395(i7, j7, k7, j3, j4, j5, anIntArray1291[0], anIntArray1291[1],
                             anIntArray1291[2]);
                 else if (l7 == 1)
-                    Class38_Sub2_Sub2_Sub1.method397(i7, j7, k7, j3, j4, j5, anIntArray1302[anIntArray1230[i]]);
+                    Draw3D.method397(i7, j7, k7, j3, j4, j5, anIntArray1302[anIntArray1230[i]]);
                 else if (l7 == 2) {
                     int j8 = anIntArray1233[i] >> 2;
                     int k9 = anIntArray1239[j8];
                     int k10 = anIntArray1240[j8];
                     int k11 = anIntArray1241[j8];
-                    Class38_Sub2_Sub2_Sub1.method399(i7, j7, k7, j3, j4, j5, anIntArray1291[0], anIntArray1291[1],
+                    Draw3D.method399(i7, j7, k7, j3, j4, j5, anIntArray1291[0], anIntArray1291[1],
                             anIntArray1291[2], anIntArray1279[k9], anIntArray1279[k10], anIntArray1279[k11],
                             anIntArray1280[k9], anIntArray1280[k10], anIntArray1280[k11], anIntArray1281[k9],
                             anIntArray1281[k10], anIntArray1281[k11], anIntArray1236[i]);
@@ -1755,7 +1755,7 @@ public class Model extends CacheableNode {
                     int l9 = anIntArray1239[k8];
                     int l10 = anIntArray1240[k8];
                     int l11 = anIntArray1241[k8];
-                    Class38_Sub2_Sub2_Sub1.method399(i7, j7, k7, j3, j4, j5, anIntArray1230[i], anIntArray1230[i],
+                    Draw3D.method399(i7, j7, k7, j3, j4, j5, anIntArray1230[i], anIntArray1230[i],
                             anIntArray1230[i], anIntArray1279[l9], anIntArray1279[l10], anIntArray1279[l11],
                             anIntArray1280[l9], anIntArray1280[l10], anIntArray1280[l11], anIntArray1281[l9],
                             anIntArray1281[l10], anIntArray1281[l11], anIntArray1236[i]);
@@ -1765,23 +1765,23 @@ public class Model extends CacheableNode {
                 if (j3 < 0 || j4 < 0 || j5 < 0 || j3 > Draw2D.anInt1315 || j4 > Draw2D.anInt1315
                         || j5 > Draw2D.anInt1315 || anIntArray1289[3] < 0
                         || anIntArray1289[3] > Draw2D.anInt1315)
-                    Class38_Sub2_Sub2_Sub1.aBoolean1438 = true;
+                    Draw3D.aBoolean1438 = true;
                 int i8;
                 if (anIntArray1233 == null)
                     i8 = 0;
                 else
                     i8 = anIntArray1233[i] & 3;
                 if (i8 == 0) {
-                    Class38_Sub2_Sub2_Sub1.method395(i7, j7, k7, j3, j4, j5, anIntArray1291[0], anIntArray1291[1],
+                    Draw3D.method395(i7, j7, k7, j3, j4, j5, anIntArray1291[0], anIntArray1291[1],
                             anIntArray1291[2]);
-                    Class38_Sub2_Sub2_Sub1.method395(i7, k7, anIntArray1290[3], j3, j5, anIntArray1289[3],
+                    Draw3D.method395(i7, k7, anIntArray1290[3], j3, j5, anIntArray1289[3],
                             anIntArray1291[0], anIntArray1291[2], anIntArray1291[3]);
                     return;
                 }
                 if (i8 == 1) {
                     int l8 = anIntArray1302[anIntArray1230[i]];
-                    Class38_Sub2_Sub2_Sub1.method397(i7, j7, k7, j3, j4, j5, l8);
-                    Class38_Sub2_Sub2_Sub1.method397(i7, k7, anIntArray1290[3], j3, j5, anIntArray1289[3], l8);
+                    Draw3D.method397(i7, j7, k7, j3, j4, j5, l8);
+                    Draw3D.method397(i7, k7, anIntArray1290[3], j3, j5, anIntArray1289[3], l8);
                     return;
                 }
                 if (i8 == 2) {
@@ -1789,11 +1789,11 @@ public class Model extends CacheableNode {
                     int i10 = anIntArray1239[i9];
                     int i11 = anIntArray1240[i9];
                     int i12 = anIntArray1241[i9];
-                    Class38_Sub2_Sub2_Sub1.method399(i7, j7, k7, j3, j4, j5, anIntArray1291[0], anIntArray1291[1],
+                    Draw3D.method399(i7, j7, k7, j3, j4, j5, anIntArray1291[0], anIntArray1291[1],
                             anIntArray1291[2], anIntArray1279[i10], anIntArray1279[i11], anIntArray1279[i12],
                             anIntArray1280[i10], anIntArray1280[i11], anIntArray1280[i12], anIntArray1281[i10],
                             anIntArray1281[i11], anIntArray1281[i12], anIntArray1236[i]);
-                    Class38_Sub2_Sub2_Sub1.method399(i7, k7, anIntArray1290[3], j3, j5, anIntArray1289[3],
+                    Draw3D.method399(i7, k7, anIntArray1290[3], j3, j5, anIntArray1289[3],
                             anIntArray1291[0], anIntArray1291[2], anIntArray1291[3], anIntArray1279[i10],
                             anIntArray1279[i11], anIntArray1279[i12], anIntArray1280[i10], anIntArray1280[i11],
                             anIntArray1280[i12], anIntArray1281[i10], anIntArray1281[i11], anIntArray1281[i12],
@@ -1805,11 +1805,11 @@ public class Model extends CacheableNode {
                     int j10 = anIntArray1239[j9];
                     int j11 = anIntArray1240[j9];
                     int j12 = anIntArray1241[j9];
-                    Class38_Sub2_Sub2_Sub1.method399(i7, j7, k7, j3, j4, j5, anIntArray1230[i], anIntArray1230[i],
+                    Draw3D.method399(i7, j7, k7, j3, j4, j5, anIntArray1230[i], anIntArray1230[i],
                             anIntArray1230[i], anIntArray1279[j10], anIntArray1279[j11], anIntArray1279[j12],
                             anIntArray1280[j10], anIntArray1280[j11], anIntArray1280[j12], anIntArray1281[j10],
                             anIntArray1281[j11], anIntArray1281[j12], anIntArray1236[i]);
-                    Class38_Sub2_Sub2_Sub1.method399(i7, k7, anIntArray1290[3], j3, j5, anIntArray1289[3],
+                    Draw3D.method399(i7, k7, anIntArray1290[3], j3, j5, anIntArray1289[3],
                             anIntArray1230[i], anIntArray1230[i], anIntArray1230[i], anIntArray1279[j10],
                             anIntArray1279[j11], anIntArray1279[j12], anIntArray1280[j10], anIntArray1280[j11],
                             anIntArray1280[j12], anIntArray1281[j10], anIntArray1281[j11], anIntArray1281[j12],
@@ -1921,9 +1921,9 @@ public class Model extends CacheableNode {
     public static boolean aBoolean1304;
 
     static {
-        anIntArray1300 = Class38_Sub2_Sub2_Sub1.anIntArray1446;
-        anIntArray1301 = Class38_Sub2_Sub2_Sub1.anIntArray1447;
-        anIntArray1302 = Class38_Sub2_Sub2_Sub1.anIntArray1458;
-        anIntArray1303 = Class38_Sub2_Sub2_Sub1.anIntArray1445;
+        anIntArray1300 = Draw3D.anIntArray1446;
+        anIntArray1301 = Draw3D.anIntArray1447;
+        anIntArray1302 = Draw3D.anIntArray1458;
+        anIntArray1303 = Draw3D.anIntArray1445;
     }
 }

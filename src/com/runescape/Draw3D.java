@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class38_Sub2_Sub2_Sub1 extends Draw2D {
+public class Draw3D extends Draw2D {
 
     public static void method384(boolean flag) {
         anIntArray1444 = null;

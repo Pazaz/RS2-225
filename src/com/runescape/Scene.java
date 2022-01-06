@@ -1597,17 +1597,17 @@ public class Scene {
         k4 = l4;
         if (j3 < 50)
             return;
-        int i5 = Class38_Sub2_Sub2_Sub1.anInt1442 + (i2 << 9) / k2;
-        int j5 = Class38_Sub2_Sub2_Sub1.anInt1443 + (l3 << 9) / k2;
-        int k5 = Class38_Sub2_Sub2_Sub1.anInt1442 + (i3 << 9) / j2;
-        int l5 = Class38_Sub2_Sub2_Sub1.anInt1443 + (i4 << 9) / j2;
-        int i6 = Class38_Sub2_Sub2_Sub1.anInt1442 + (l2 << 9) / k3;
-        int j6 = Class38_Sub2_Sub2_Sub1.anInt1443 + (j4 << 9) / k3;
-        int k6 = Class38_Sub2_Sub2_Sub1.anInt1442 + (l1 << 9) / j3;
-        int l6 = Class38_Sub2_Sub2_Sub1.anInt1443 + (k4 << 9) / j3;
-        Class38_Sub2_Sub2_Sub1.anInt1441 = 0;
+        int i5 = Draw3D.anInt1442 + (i2 << 9) / k2;
+        int j5 = Draw3D.anInt1443 + (l3 << 9) / k2;
+        int k5 = Draw3D.anInt1442 + (i3 << 9) / j2;
+        int l5 = Draw3D.anInt1443 + (i4 << 9) / j2;
+        int i6 = Draw3D.anInt1442 + (l2 << 9) / k3;
+        int j6 = Draw3D.anInt1443 + (j4 << 9) / k3;
+        int k6 = Draw3D.anInt1442 + (l1 << 9) / j3;
+        int l6 = Draw3D.anInt1443 + (k4 << 9) / j3;
+        Draw3D.anInt1441 = 0;
         if ((i6 - k6) * (l5 - l6) - (j6 - l6) * (k5 - k6) > 0) {
-            Class38_Sub2_Sub2_Sub1.aBoolean1438 = i6 < 0 || k6 < 0 || k5 < 0 || i6 > Draw2D.anInt1315 || k6 > Draw2D.anInt1315
+            Draw3D.aBoolean1438 = i6 < 0 || k6 < 0 || k5 < 0 || i6 > Draw2D.anInt1315 || k6 > Draw2D.anInt1315
                     || k5 > Draw2D.anInt1315;
             if (aBoolean557 && method326(anInt558, anInt559, j6, l6, l5, i6, k6, k5)) {
                 anInt560 = j1;
@@ -1615,23 +1615,23 @@ public class Scene {
             }
             if (tileUnderlay.textureIndex == -1) {
                 if (tileUnderlay.northeastColor != 0xbc614e)
-                    Class38_Sub2_Sub2_Sub1.method395(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
+                    Draw3D.method395(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
                             tileUnderlay.southeastColor);
             } else if (!aBoolean526) {
                 if (tileUnderlay.isFlat)
-                    Class38_Sub2_Sub2_Sub1.method399(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
+                    Draw3D.method399(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
                             tileUnderlay.southeastColor, i2, i3, l1, l3, i4, k4, k2, j2, j3, tileUnderlay.textureIndex);
                 else
-                    Class38_Sub2_Sub2_Sub1.method399(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
+                    Draw3D.method399(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
                             tileUnderlay.southeastColor, l2, l1, i3, j4, k4, i4, k3, j3, j2, tileUnderlay.textureIndex);
             } else {
                 int i7 = anIntArray575[tileUnderlay.textureIndex];
-                Class38_Sub2_Sub2_Sub1.method395(j6, l6, l5, i6, k6, k5, method325(tileUnderlay.northeastColor, i7, 9),
+                Draw3D.method395(j6, l6, l5, i6, k6, k5, method325(tileUnderlay.northeastColor, i7, 9),
                         method325(tileUnderlay.northwestColor, i7, 9), method325(tileUnderlay.southeastColor, i7, 9));
             }
         }
         if ((i5 - k5) * (l6 - l5) - (j5 - l5) * (k6 - k5) > 0) {
-            Class38_Sub2_Sub2_Sub1.aBoolean1438 = i5 < 0 || k5 < 0 || k6 < 0 || i5 > Draw2D.anInt1315 || k5 > Draw2D.anInt1315
+            Draw3D.aBoolean1438 = i5 < 0 || k5 < 0 || k6 < 0 || i5 > Draw2D.anInt1315 || k5 > Draw2D.anInt1315
                     || k6 > Draw2D.anInt1315;
             if (aBoolean557 && method326(anInt558, anInt559, j5, l5, l6, i5, k5, k6)) {
                 anInt560 = j1;
@@ -1639,18 +1639,18 @@ public class Scene {
             }
             if (tileUnderlay.textureIndex == -1) {
                 if (tileUnderlay.southwestColor != 0xbc614e) {
-                    Class38_Sub2_Sub2_Sub1.method395(j5, l5, l6, i5, k5, k6, tileUnderlay.southwestColor, tileUnderlay.southeastColor,
+                    Draw3D.method395(j5, l5, l6, i5, k5, k6, tileUnderlay.southwestColor, tileUnderlay.southeastColor,
                             tileUnderlay.northwestColor);
                     return;
                 }
             } else {
                 if (!aBoolean526) {
-                    Class38_Sub2_Sub2_Sub1.method399(j5, l5, l6, i5, k5, k6, tileUnderlay.southwestColor, tileUnderlay.southeastColor,
+                    Draw3D.method399(j5, l5, l6, i5, k5, k6, tileUnderlay.southwestColor, tileUnderlay.southeastColor,
                             tileUnderlay.northwestColor, i2, i3, l1, l3, i4, k4, k2, j2, j3, tileUnderlay.textureIndex);
                     return;
                 }
                 int j7 = anIntArray575[tileUnderlay.textureIndex];
-                Class38_Sub2_Sub2_Sub1.method395(j5, l5, l6, i5, k5, k6, method325(tileUnderlay.southwestColor, j7, 9),
+                Draw3D.method395(j5, l5, l6, i5, k5, k6, method325(tileUnderlay.southwestColor, j7, 9),
                         method325(tileUnderlay.southeastColor, j7, 9), method325(tileUnderlay.northwestColor, j7, 9));
             }
         }
@@ -1676,11 +1676,11 @@ public class Scene {
                 Class15.anIntArray341[l1] = k2;
                 Class15.anIntArray342[l1] = i3;
             }
-            Class15.anIntArray338[l1] = Class38_Sub2_Sub2_Sub1.anInt1442 + (i2 << 9) / i3;
-            Class15.anIntArray339[l1] = Class38_Sub2_Sub2_Sub1.anInt1443 + (k2 << 9) / i3;
+            Class15.anIntArray338[l1] = Draw3D.anInt1442 + (i2 << 9) / i3;
+            Class15.anIntArray339[l1] = Draw3D.anInt1443 + (k2 << 9) / i3;
         }
 
-        Class38_Sub2_Sub2_Sub1.anInt1441 = 0;
+        Draw3D.anInt1441 = 0;
         k1 = class15.anIntArray329.length;
         if (!flag)
             return;
@@ -1695,7 +1695,7 @@ public class Scene {
             int i5 = Class15.anIntArray339[j3];
             int j5 = Class15.anIntArray339[l3];
             if ((i4 - j4) * (j5 - i5) - (l4 - i5) * (k4 - j4) > 0) {
-                Class38_Sub2_Sub2_Sub1.aBoolean1438 = i4 < 0 || j4 < 0 || k4 < 0 || i4 > Draw2D.anInt1315 || j4 > Draw2D.anInt1315
+                Draw3D.aBoolean1438 = i4 < 0 || j4 < 0 || k4 < 0 || i4 > Draw2D.anInt1315 || j4 > Draw2D.anInt1315
                         || k4 > Draw2D.anInt1315;
                 if (aBoolean557 && method326(anInt558, anInt559, l4, i5, j5, i4, j4, k4)) {
                     anInt560 = k;
@@ -1703,24 +1703,24 @@ public class Scene {
                 }
                 if (class15.anIntArray332 == null || class15.anIntArray332[j2] == -1) {
                     if (class15.anIntArray326[j2] != 0xbc614e)
-                        Class38_Sub2_Sub2_Sub1.method395(l4, i5, j5, i4, j4, k4, class15.anIntArray326[j2],
+                        Draw3D.method395(l4, i5, j5, i4, j4, k4, class15.anIntArray326[j2],
                                 class15.anIntArray327[j2], class15.anIntArray328[j2]);
                 } else if (!aBoolean526) {
                     if (class15.aBoolean333)
-                        Class38_Sub2_Sub2_Sub1.method399(l4, i5, j5, i4, j4, k4, class15.anIntArray326[j2],
+                        Draw3D.method399(l4, i5, j5, i4, j4, k4, class15.anIntArray326[j2],
                                 class15.anIntArray327[j2], class15.anIntArray328[j2], Class15.anIntArray340[0],
                                 Class15.anIntArray340[1], Class15.anIntArray340[3], Class15.anIntArray341[0],
                                 Class15.anIntArray341[1], Class15.anIntArray341[3], Class15.anIntArray342[0],
                                 Class15.anIntArray342[1], Class15.anIntArray342[3], class15.anIntArray332[j2]);
                     else
-                        Class38_Sub2_Sub2_Sub1.method399(l4, i5, j5, i4, j4, k4, class15.anIntArray326[j2],
+                        Draw3D.method399(l4, i5, j5, i4, j4, k4, class15.anIntArray326[j2],
                                 class15.anIntArray327[j2], class15.anIntArray328[j2], Class15.anIntArray340[l2],
                                 Class15.anIntArray340[j3], Class15.anIntArray340[l3], Class15.anIntArray341[l2],
                                 Class15.anIntArray341[j3], Class15.anIntArray341[l3], Class15.anIntArray342[l2],
                                 Class15.anIntArray342[j3], Class15.anIntArray342[l3], class15.anIntArray332[j2]);
                 } else {
                     int k5 = anIntArray575[class15.anIntArray332[j2]];
-                    Class38_Sub2_Sub2_Sub1.method395(l4, i5, j5, i4, j4, k4,
+                    Draw3D.method395(l4, i5, j5, i4, j4, k4,
                             method325(class15.anIntArray326[j2], k5, 9), method325(class15.anIntArray327[j2], k5, 9),
                             method325(class15.anIntArray328[j2], k5, 9));
                 }

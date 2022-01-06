@@ -824,7 +824,7 @@ public class client extends Applet_Sub1 {
                 }
             }
 
-        int i3 = Class38_Sub2_Sub2_Sub1.anInt1457;
+        int i3 = Draw3D.anInt1457;
         Model.aBoolean1295 = true;
         Model.anInt1298 = 0;
         Model.anInt1296 = super.anInt21 - 8;
@@ -909,7 +909,7 @@ public class client extends Applet_Sub1 {
         if (!flag)
             aBoolean870 = !aBoolean870;
         Scene.aBoolean526 = true;
-        Class38_Sub2_Sub2_Sub1.aBoolean1437 = true;
+        Draw3D.aBoolean1437 = true;
         aBoolean889 = true;
         Class3.aBoolean108 = true;
     }
@@ -1901,8 +1901,8 @@ public class client extends Applet_Sub1 {
         if (!flag)
             anInt780 = -1;
         if (!aBoolean889) {
-            if (Class38_Sub2_Sub2_Sub1.anIntArray1456[17] >= i) {
-                IndexedSprite indexedSprite = Class38_Sub2_Sub2_Sub1.indexedSpritesArray[17];
+            if (Draw3D.anIntArray1456[17] >= i) {
+                IndexedSprite indexedSprite = Draw3D.indexedSpritesArray[17];
                 int j = indexedSprite.anInt1478 * indexedSprite.anInt1479 - 1;
                 int l = indexedSprite.anInt1478 * anInt969 * 2;
                 byte[] abyte0 = indexedSprite.aByteArray1476;
@@ -1912,10 +1912,10 @@ public class client extends Applet_Sub1 {
 
                 indexedSprite.aByteArray1476 = abyte2;
                 aByteArray1069 = abyte0;
-                Class38_Sub2_Sub2_Sub1.method391(17, 150);
+                Draw3D.method391(17, 150);
             }
-            if (Class38_Sub2_Sub2_Sub1.anIntArray1456[24] >= i) {
-                IndexedSprite indexedSprite_1 = Class38_Sub2_Sub2_Sub1.indexedSpritesArray[24];
+            if (Draw3D.anIntArray1456[24] >= i) {
+                IndexedSprite indexedSprite_1 = Draw3D.indexedSpritesArray[24];
                 int k = indexedSprite_1.anInt1478 * indexedSprite_1.anInt1479 - 1;
                 int i1 = indexedSprite_1.anInt1478 * anInt969 * 2;
                 byte[] abyte1 = indexedSprite_1.aByteArray1476;
@@ -1925,7 +1925,7 @@ public class client extends Applet_Sub1 {
 
                 indexedSprite_1.aByteArray1476 = abyte3;
                 aByteArray1069 = abyte1;
-                Class38_Sub2_Sub2_Sub1.method391(24, 150);
+                Draw3D.method391(24, 150);
             }
         }
     }
@@ -2881,12 +2881,12 @@ public class client extends Applet_Sub1 {
                     if (class38_sub2_sub2_sub2 != null)
                         class38_sub2_sub2_sub2.method405(l2, k2, false);
                 } else if (interfaceComponent_1.anInt271 == 6) {
-                    int j3 = Class38_Sub2_Sub2_Sub1.anInt1442;
-                    int i4 = Class38_Sub2_Sub2_Sub1.anInt1443;
-                    Class38_Sub2_Sub2_Sub1.anInt1442 = k2 + interfaceComponent_1.anInt274 / 2;
-                    Class38_Sub2_Sub2_Sub1.anInt1443 = l2 + interfaceComponent_1.anInt275 / 2;
-                    int l4 = Class38_Sub2_Sub2_Sub1.anIntArray1446[interfaceComponent_1.anInt315] * interfaceComponent_1.anInt314 >> 16;
-                    int k5 = Class38_Sub2_Sub2_Sub1.anIntArray1447[interfaceComponent_1.anInt315] * interfaceComponent_1.anInt314 >> 16;
+                    int j3 = Draw3D.anInt1442;
+                    int i4 = Draw3D.anInt1443;
+                    Draw3D.anInt1442 = k2 + interfaceComponent_1.anInt274 / 2;
+                    Draw3D.anInt1443 = l2 + interfaceComponent_1.anInt275 / 2;
+                    int l4 = Draw3D.anIntArray1446[interfaceComponent_1.anInt315] * interfaceComponent_1.anInt314 >> 16;
+                    int k5 = Draw3D.anIntArray1447[interfaceComponent_1.anInt315] * interfaceComponent_1.anInt314 >> 16;
                     boolean flag = method114(interfaceComponent_1, 65);
                     int j8;
                     if (flag)
@@ -2903,8 +2903,8 @@ public class client extends Applet_Sub1 {
                     }
                     if (class38_sub2_sub1 != null)
                         class38_sub2_sub1.method370(0, interfaceComponent_1.anInt316, 0, interfaceComponent_1.anInt315, 0, l4, k5);
-                    Class38_Sub2_Sub2_Sub1.anInt1442 = j3;
-                    Class38_Sub2_Sub2_Sub1.anInt1443 = i4;
+                    Draw3D.anInt1442 = j3;
+                    Draw3D.anInt1443 = i4;
                 } else if (interfaceComponent_1.anInt271 == 7) {
                     IndexedFont indexedFont_1 = interfaceComponent_1.indexedFont;
                     int j4 = 0;
@@ -2956,13 +2956,13 @@ public class client extends Applet_Sub1 {
         int l = anIntArray938[i];
         if (k == 1) {
             if (l == 1)
-                Class38_Sub2_Sub2_Sub1.method393(true, 0.90000000000000002D);
+                Draw3D.method393(true, 0.90000000000000002D);
             if (l == 2)
-                Class38_Sub2_Sub2_Sub1.method393(true, 0.80000000000000004D);
+                Draw3D.method393(true, 0.80000000000000004D);
             if (l == 3)
-                Class38_Sub2_Sub2_Sub1.method393(true, 0.69999999999999996D);
+                Draw3D.method393(true, 0.69999999999999996D);
             if (l == 4)
-                Class38_Sub2_Sub2_Sub1.method393(true, 0.59999999999999998D);
+                Draw3D.method393(true, 0.59999999999999998D);
             ObjType.aClass34_179.method343();
             aBoolean751 = true;
         }
@@ -4709,9 +4709,9 @@ public class client extends Applet_Sub1 {
             }
 
             method13(true, "Unpacking textures", 80);
-            Class38_Sub2_Sub2_Sub1.method389((byte) 2, fileArchive_4);
-            Class38_Sub2_Sub2_Sub1.method393(true, 0.80000000000000004D);
-            Class38_Sub2_Sub2_Sub1.method388(20, -20);
+            Draw3D.method389((byte) 2, fileArchive_4);
+            Draw3D.method393(true, 0.80000000000000004D);
+            Draw3D.method388(20, -20);
             method13(true, "Unpacking models", 83);
             Model.method352(anInt958, fileArchive_3);
             SeqBase.method208(false, fileArchive_3);
@@ -4779,17 +4779,17 @@ public class client extends Applet_Sub1 {
                 anIntArray953[j4 - 9] = j5 - l4;
             }
 
-            Class38_Sub2_Sub2_Sub1.method386(96, 479, 0);
-            anIntArray735 = Class38_Sub2_Sub2_Sub1.anIntArray1448;
-            Class38_Sub2_Sub2_Sub1.method386(261, 190, 0);
-            anIntArray736 = Class38_Sub2_Sub2_Sub1.anIntArray1448;
-            Class38_Sub2_Sub2_Sub1.method386(334, 512, 0);
-            anIntArray737 = Class38_Sub2_Sub2_Sub1.anIntArray1448;
+            Draw3D.method386(96, 479, 0);
+            anIntArray735 = Draw3D.anIntArray1448;
+            Draw3D.method386(261, 190, 0);
+            anIntArray736 = Draw3D.anIntArray1448;
+            Draw3D.method386(334, 512, 0);
+            anIntArray737 = Draw3D.anIntArray1448;
             int[] ai = new int[9];
             for (int k5 = 0; k5 < 9; k5++) {
                 int i6 = 128 + k5 * 32 + 15;
                 int j6 = 600 + i6 * 3;
-                int k6 = Class38_Sub2_Sub2_Sub1.anIntArray1446[i6];
+                int k6 = Draw3D.anIntArray1446[i6];
                 ai[k5] = j6 * k6 >> 16;
             }
 
@@ -5109,8 +5109,8 @@ public class client extends Applet_Sub1 {
         i = i1 * j1 + i * k1 >> 16;
         i1 = j2;
         if (i >= 50) {
-            anInt1019 = Class38_Sub2_Sub2_Sub1.anInt1442 + (j << 9) / i;
-            anInt1020 = Class38_Sub2_Sub2_Sub1.anInt1443 + (i1 << 9) / i;
+            anInt1019 = Draw3D.anInt1442 + (j << 9) / i;
+            anInt1020 = Draw3D.anInt1443 + (i1 << 9) / i;
             return;
         } else {
             anInt1019 = -1;
@@ -5800,7 +5800,7 @@ public class client extends Applet_Sub1 {
         VarpType.varpTypes = null;
         super.drawArea = null;
         PlayerEntity.aClass34_1525 = null;
-        Class38_Sub2_Sub2_Sub1.method384(true);
+        Draw3D.method384(true);
         Scene.method280(true);
         Model.method351(true);
         SeqBase.seqBaseArray = null;
@@ -6185,7 +6185,7 @@ public class client extends Applet_Sub1 {
 
     public static void method106(int i) {
         Scene.aBoolean526 = false;
-        Class38_Sub2_Sub2_Sub1.aBoolean1437 = false;
+        Draw3D.aBoolean1437 = false;
         if (i != 9) {
             return;
         } else {
@@ -6562,8 +6562,8 @@ public class client extends Applet_Sub1 {
                 i -= 73;
                 j -= 75;
                 int k = anInt817 + anInt1085 & 0x7ff;
-                int l = Class38_Sub2_Sub2_Sub1.anIntArray1446[k];
-                int i1 = Class38_Sub2_Sub2_Sub1.anIntArray1447[k];
+                int l = Draw3D.anIntArray1446[k];
+                int i1 = Draw3D.anIntArray1447[k];
                 l = l * (anInt930 + 256) >> 8;
                 i1 = i1 * (anInt930 + 256) >> 8;
                 int j1 = j * l + i * i1 >> 11;
@@ -7084,7 +7084,7 @@ public class client extends Applet_Sub1 {
             linkedList2.method274();
             linkedList1.method274();
             linkedList4.method274();
-            Class38_Sub2_Sub2_Sub1.method387(false);
+            Draw3D.method387(false);
             method83(aByte843);
             scene.method281(742);
             for (int j = 0; j < 4; j++)
@@ -7160,7 +7160,7 @@ public class client extends Applet_Sub1 {
         if (i <= 0)
             aBoolean1147 = !aBoolean1147;
         System.gc();
-        Class38_Sub2_Sub2_Sub1.method388(20, -20);
+        Draw3D.method388(20, -20);
     }
 
     public void method7(int i) {
@@ -7762,7 +7762,7 @@ public class client extends Applet_Sub1 {
         if (flag)
             anInt780 = -1;
         drawArea23.init2D();
-        Class38_Sub2_Sub2_Sub1.anIntArray1448 = anIntArray735;
+        Draw3D.anIntArray1448 = anIntArray735;
         indexedSprite20.method419(0, 0, false);
         if (aBoolean869) {
             indexedFont3.method421(40, (byte) 6, 0, aString775, 239);
@@ -7860,7 +7860,7 @@ public class client extends Applet_Sub1 {
             method74(-961);
         drawArea23.drawImage(375, super.aGraphics14, 22);
         drawArea22.init2D();
-        Class38_Sub2_Sub2_Sub1.anIntArray1448 = anIntArray737;
+        Draw3D.anIntArray1448 = anIntArray737;
     }
 
     public boolean method136(boolean flag) {
@@ -8915,7 +8915,7 @@ public class client extends Applet_Sub1 {
 
     public void method137(byte byte0) {
         drawArea20.init2D();
-        Class38_Sub2_Sub2_Sub1.anIntArray1448 = anIntArray736;
+        Draw3D.anIntArray1448 = anIntArray736;
         indexedSprite18.method419(0, 0, false);
         if (anInt1129 != -1)
             method59(0, 0, 38682, InterfaceComponent.interfaceComponentArray[anInt1129], 0);
@@ -8929,7 +8929,7 @@ public class client extends Applet_Sub1 {
         else
             return;
         drawArea22.init2D();
-        Class38_Sub2_Sub2_Sub1.anIntArray1448 = anIntArray737;
+        Draw3D.anIntArray1448 = anIntArray737;
     }
 
     public boolean method138(int i, String s) {
