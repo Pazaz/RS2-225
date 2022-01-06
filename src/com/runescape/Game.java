@@ -1513,7 +1513,7 @@ public class Game extends GameShell {
                         TextEncoder.write(aClass38_Sub2_Sub3_798, aString765);
                         aClass38_Sub2_Sub3_798.method445(0, aClass38_Sub2_Sub3_798.offset - k);
                         aString765 = StringUtils.toSentence(aString765);
-                        aString765 = WordEncoding.method239(aString765, 0);
+                        aString765 = WordEncoding.getFiltered(aString765);
                         method111(6, aString765, (byte) 4, StringUtils.formatName(StringUtils.fromBase37(aLong900)));
                         if (anInt755 == 2) {
                             anInt755 = 1;
@@ -1639,7 +1639,7 @@ public class Game extends GameShell {
                         TextEncoder.write(aClass38_Sub2_Sub3_798, aString1137);
                         aClass38_Sub2_Sub3_798.method445(0, aClass38_Sub2_Sub3_798.offset - i2);
                         aString1137 = StringUtils.toSentence(aString1137);
-                        aString1137 = WordEncoding.method239(aString1137, 0);
+                        aString1137 = WordEncoding.getFiltered(aString1137);
                         localPlayerEntity.aString1392 = aString1137;
                         localPlayerEntity.anInt1394 = j1;
                         localPlayerEntity.anInt1395 = k1;
@@ -4798,7 +4798,7 @@ public class Game extends GameShell {
             }
 
             Scene.method318(ai, 800, 512, aByte871, 334, 500);
-            WordEncoding.method229(fileArchive_5);
+            WordEncoding.load(fileArchive_5);
             return;
         } catch (Exception exception) {
             aBoolean865 = true;
@@ -8600,7 +8600,7 @@ public class Game extends GameShell {
                         anIntArray878[anInt855] = k19;
                         anInt855 = (anInt855 + 1) % 100;
                         String s7 = TextEncoder.read(aClass38_Sub2_Sub3_795, anInt779 - 13);
-                        s7 = WordEncoding.method239(s7, 0);
+                        s7 = WordEncoding.getFiltered(s7);
                         if (j23 > 1)
                             method111(7, s7, (byte) 4, StringUtils.formatName(StringUtils.fromBase37(l5)));
                         else
@@ -9034,7 +9034,7 @@ public class Game extends GameShell {
                 if (!flag1 && anInt802 == 0)
                     try {
                         String s = TextEncoder.read(class38_sub2_sub3, i2);
-                        s = WordEncoding.method239(s, 0);
+                        s = WordEncoding.getFiltered(s);
                         playerEntity.aString1392 = s;
                         playerEntity.anInt1394 = i1 >> 8;
                         playerEntity.anInt1395 = i1 & 0xff;
