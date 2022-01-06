@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class2 {
+public class NpcType {
 
     public static void method146(FileArchive fileArchive) {
         aClass38_Sub2_Sub3_79 = new Class38_Sub2_Sub3(363, fileArchive.read("npc.dat", null));
@@ -13,16 +13,16 @@ public class Class2 {
             i += class38_sub2_sub3.method448();
         }
 
-        aClass2Array80 = new Class2[20];
+        npcTypes = new NpcType[20];
         for (int k = 0; k < 20; k++)
-            aClass2Array80[k] = new Class2();
+            npcTypes[k] = new NpcType();
 
     }
 
     public static void method147(boolean flag) {
         aClass34_104 = null;
         anIntArray78 = null;
-        aClass2Array80 = null;
+        npcTypes = null;
         if (!flag) {
             for (int i = 1; i > 0; i++)
                 ;
@@ -30,17 +30,17 @@ public class Class2 {
         aClass38_Sub2_Sub3_79 = null;
     }
 
-    public static Class2 method148(int i) {
+    public static NpcType method148(int i) {
         for (int j = 0; j < 20; j++)
-            if (aClass2Array80[j].aLong82 == (long) i)
-                return aClass2Array80[j];
+            if (npcTypes[j].aLong82 == (long) i)
+                return npcTypes[j];
 
         anInt81 = (anInt81 + 1) % 20;
-        Class2 class2 = aClass2Array80[anInt81] = new Class2();
+        NpcType npcType = npcTypes[anInt81] = new NpcType();
         aClass38_Sub2_Sub3_79.offset = anIntArray78[i];
-        class2.aLong82 = i;
-        class2.method149(false, aClass38_Sub2_Sub3_79);
-        return class2;
+        npcType.aLong82 = i;
+        npcType.method149(false, aClass38_Sub2_Sub3_79);
+        return npcType;
     }
 
     public void method149(boolean flag, Class38_Sub2_Sub3 class38_sub2_sub3) {
@@ -169,7 +169,7 @@ public class Class2 {
         return class38_sub2_sub1;
     }
 
-    public Class2() {
+    public NpcType() {
         aBoolean76 = false;
         aLong82 = -1L;
         aByte85 = 1;
@@ -192,7 +192,7 @@ public class Class2 {
     public static int anInt77;
     public static int[] anIntArray78;
     public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_79;
-    public static Class2[] aClass2Array80;
+    public static NpcType[] npcTypes;
     public static int anInt81;
     public long aLong82;
     public String aString83;
