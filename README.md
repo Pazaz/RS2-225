@@ -14,3 +14,8 @@ A little credit goes to Major for a few variable names as well.
 - Every class has been given a name.
 - Some classes have been refactored (~30% ish).
 - No new features yet.
+
+## Notes
+
+I have a simpler history here, with no refactoring (just renaming classes), https://github.com/Pazaz/RS2-225/tree/deob  
+This branch will hopefully make things easier for people to follow, and maybe someone can see how refactoring takes place.
