@@ -122,21 +122,21 @@ public class Class32 {
                           int l1, int i2, int j2, int k2, int l2, int i3, int j3,
                           int k3, int l3, int i4, int j4, int k4, int l4) {
         if (l == 0) {
-            Class26 class26 = new Class26(k2, l2, i3, j3, -1, k4, false);
+            TileUnderlay tileUnderlay = new TileUnderlay(k2, l2, i3, j3, -1, k4, false);
             for (int i5 = i; i5 >= 0; i5--)
                 if (aClass38_Sub1ArrayArrayArray531[i5][j][k] == null)
                     aClass38_Sub1ArrayArrayArray531[i5][j][k] = new Class38_Sub1(i5, j, k);
 
-            aClass38_Sub1ArrayArrayArray531[i][j][k].aClass26_1165 = class26;
+            aClass38_Sub1ArrayArrayArray531[i][j][k].tileUnderlay = tileUnderlay;
             return;
         }
         if (l == 1) {
-            Class26 class26_1 = new Class26(k3, l3, i4, j4, j1, l4, k1 == l1 && k1 == i2 && k1 == j2);
+            TileUnderlay tileUnderlay_1 = new TileUnderlay(k3, l3, i4, j4, j1, l4, k1 == l1 && k1 == i2 && k1 == j2);
             for (int j5 = i; j5 >= 0; j5--)
                 if (aClass38_Sub1ArrayArrayArray531[j5][j][k] == null)
                     aClass38_Sub1ArrayArrayArray531[j5][j][k] = new Class38_Sub1(j5, j, k);
 
-            aClass38_Sub1ArrayArrayArray531[i][j][k].aClass26_1165 = class26_1;
+            aClass38_Sub1ArrayArrayArray531[i][j][k].tileUnderlay = tileUnderlay_1;
             return;
         }
         Class15 class15 = new Class15(j, l, l3, l1, i3, i1, k2, j2, l4, k3, j1, j4, k4, i2, i4, j3, 10659, k1, k, l2);
@@ -818,9 +818,9 @@ public class Class32 {
         Class38_Sub1 class38_sub1 = aClass38_Sub1ArrayArrayArray531[k][l][i1];
         if (class38_sub1 == null)
             return;
-        Class26 class26 = class38_sub1.aClass26_1165;
-        if (class26 != null) {
-            int j1 = class26.anInt477;
+        TileUnderlay tileUnderlay = class38_sub1.tileUnderlay;
+        if (tileUnderlay != null) {
+            int j1 = tileUnderlay.color;
             if (j1 == 0)
                 return;
             for (int k1 = 0; k1 < 4; k1++) {
@@ -1173,9 +1173,9 @@ public class Class32 {
                 class38_sub1_1.aBoolean1176 = false;
                 if (class38_sub1_1.aClass38_Sub1_1183 != null) {
                     Class38_Sub1 class38_sub1_7 = class38_sub1_1.aClass38_Sub1_1183;
-                    if (class38_sub1_7.aClass26_1165 != null) {
+                    if (class38_sub1_7.tileUnderlay != null) {
                         if (!method328(0, i, j))
-                            method323(class38_sub1_7.aClass26_1165, 0, anInt548, anInt549, anInt550, anInt551, i, j);
+                            method323(class38_sub1_7.tileUnderlay, 0, anInt548, anInt549, anInt550, anInt551, i, j);
                     } else if (class38_sub1_7.aClass15_1166 != null && !method328(0, i, j))
                         method324(anInt550, j, class38_sub1_7.aClass15_1166, i, anInt549, anInt548, anInt551, true);
                     Class30 class30 = class38_sub1_7.aClass30_1167;
@@ -1197,10 +1197,10 @@ public class Class32 {
 
                 }
                 boolean flag1 = false;
-                if (class38_sub1_1.aClass26_1165 != null) {
+                if (class38_sub1_1.tileUnderlay != null) {
                     if (!method328(l, i, j)) {
                         flag1 = true;
-                        method323(class38_sub1_1.aClass26_1165, l, anInt548, anInt549, anInt550, anInt551, i, j);
+                        method323(class38_sub1_1.tileUnderlay, l, anInt548, anInt549, anInt550, anInt551, i, j);
                     }
                 } else if (class38_sub1_1.aClass15_1166 != null && !method328(l, i, j)) {
                     flag1 = true;
@@ -1551,7 +1551,7 @@ public class Class32 {
         } while (true);
     }
 
-    public void method323(Class26 class26, int i, int j, int k, int l, int i1, int j1,
+    public void method323(TileUnderlay tileUnderlay, int i, int j, int k, int l, int i1, int j1,
                           int k1) {
         int l1;
         int i2 = l1 = (j1 << 7) - anInt545;
@@ -1613,21 +1613,21 @@ public class Class32 {
                 anInt560 = j1;
                 anInt561 = k1;
             }
-            if (class26.anInt475 == -1) {
-                if (class26.anInt473 != 0xbc614e)
-                    Class38_Sub2_Sub2_Sub1.method395(j6, l6, l5, i6, k6, k5, class26.anInt473, class26.anInt474,
-                            class26.anInt472);
+            if (tileUnderlay.textureIndex == -1) {
+                if (tileUnderlay.northeastColor != 0xbc614e)
+                    Class38_Sub2_Sub2_Sub1.method395(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
+                            tileUnderlay.southeastColor);
             } else if (!aBoolean526) {
-                if (class26.aBoolean476)
-                    Class38_Sub2_Sub2_Sub1.method399(j6, l6, l5, i6, k6, k5, class26.anInt473, class26.anInt474,
-                            class26.anInt472, i2, i3, l1, l3, i4, k4, k2, j2, j3, class26.anInt475);
+                if (tileUnderlay.isFlat)
+                    Class38_Sub2_Sub2_Sub1.method399(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
+                            tileUnderlay.southeastColor, i2, i3, l1, l3, i4, k4, k2, j2, j3, tileUnderlay.textureIndex);
                 else
-                    Class38_Sub2_Sub2_Sub1.method399(j6, l6, l5, i6, k6, k5, class26.anInt473, class26.anInt474,
-                            class26.anInt472, l2, l1, i3, j4, k4, i4, k3, j3, j2, class26.anInt475);
+                    Class38_Sub2_Sub2_Sub1.method399(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
+                            tileUnderlay.southeastColor, l2, l1, i3, j4, k4, i4, k3, j3, j2, tileUnderlay.textureIndex);
             } else {
-                int i7 = anIntArray575[class26.anInt475];
-                Class38_Sub2_Sub2_Sub1.method395(j6, l6, l5, i6, k6, k5, method325(class26.anInt473, i7, 9),
-                        method325(class26.anInt474, i7, 9), method325(class26.anInt472, i7, 9));
+                int i7 = anIntArray575[tileUnderlay.textureIndex];
+                Class38_Sub2_Sub2_Sub1.method395(j6, l6, l5, i6, k6, k5, method325(tileUnderlay.northeastColor, i7, 9),
+                        method325(tileUnderlay.northwestColor, i7, 9), method325(tileUnderlay.southeastColor, i7, 9));
             }
         }
         if ((i5 - k5) * (l6 - l5) - (j5 - l5) * (k6 - k5) > 0) {
@@ -1637,21 +1637,21 @@ public class Class32 {
                 anInt560 = j1;
                 anInt561 = k1;
             }
-            if (class26.anInt475 == -1) {
-                if (class26.anInt471 != 0xbc614e) {
-                    Class38_Sub2_Sub2_Sub1.method395(j5, l5, l6, i5, k5, k6, class26.anInt471, class26.anInt472,
-                            class26.anInt474);
+            if (tileUnderlay.textureIndex == -1) {
+                if (tileUnderlay.southwestColor != 0xbc614e) {
+                    Class38_Sub2_Sub2_Sub1.method395(j5, l5, l6, i5, k5, k6, tileUnderlay.southwestColor, tileUnderlay.southeastColor,
+                            tileUnderlay.northwestColor);
                     return;
                 }
             } else {
                 if (!aBoolean526) {
-                    Class38_Sub2_Sub2_Sub1.method399(j5, l5, l6, i5, k5, k6, class26.anInt471, class26.anInt472,
-                            class26.anInt474, i2, i3, l1, l3, i4, k4, k2, j2, j3, class26.anInt475);
+                    Class38_Sub2_Sub2_Sub1.method399(j5, l5, l6, i5, k5, k6, tileUnderlay.southwestColor, tileUnderlay.southeastColor,
+                            tileUnderlay.northwestColor, i2, i3, l1, l3, i4, k4, k2, j2, j3, tileUnderlay.textureIndex);
                     return;
                 }
-                int j7 = anIntArray575[class26.anInt475];
-                Class38_Sub2_Sub2_Sub1.method395(j5, l5, l6, i5, k5, k6, method325(class26.anInt471, j7, 9),
-                        method325(class26.anInt472, j7, 9), method325(class26.anInt474, j7, 9));
+                int j7 = anIntArray575[tileUnderlay.textureIndex];
+                Class38_Sub2_Sub2_Sub1.method395(j5, l5, l6, i5, k5, k6, method325(tileUnderlay.southwestColor, j7, 9),
+                        method325(tileUnderlay.southeastColor, j7, 9), method325(tileUnderlay.northwestColor, j7, 9));
             }
         }
     }

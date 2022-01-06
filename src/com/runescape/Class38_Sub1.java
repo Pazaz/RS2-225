@@ -14,7 +14,7 @@ public class Class38_Sub1 extends Node {
     public int anInt1162;
     public int anInt1163;
     public int anInt1164;
-    public Class26 aClass26_1165;
+    public TileUnderlay tileUnderlay;
     public Class15 aClass15_1166;
     public Class30 aClass30_1167;
     public Class13 aClass13_1168;
