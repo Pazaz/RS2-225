@@ -24,49 +24,49 @@ public class Class44 {
         if (j < 10)
             return anIntArray715;
         double d = (double) i / ((double) j + 0.0D);
-        aClass42_700.method485(anInt698);
-        aClass42_701.method485(anInt698);
+        soundEnvelope1.reset();
+        soundEnvelope2.reset();
         int l = 0;
         int i1 = 0;
         int j1 = 0;
-        if (aClass42_702 != null) {
-            aClass42_702.method485(anInt698);
-            aClass42_703.method485(anInt698);
-            l = (int) (((double) (aClass42_702.anInt682 - aClass42_702.anInt681) * 32.768000000000001D) / d);
-            i1 = (int) (((double) aClass42_702.anInt681 * 32.768000000000001D) / d);
+        if (soundEnvelope3 != null) {
+            soundEnvelope3.reset();
+            soundEnvelope4.reset();
+            l = (int) (((double) (soundEnvelope3.end - soundEnvelope3.start) * 32.768000000000001D) / d);
+            i1 = (int) (((double) soundEnvelope3.start * 32.768000000000001D) / d);
         }
         int k1 = 0;
         int l1 = 0;
         int i2 = 0;
-        if (aClass42_704 != null) {
-            aClass42_704.method485(anInt698);
-            aClass42_705.method485(anInt698);
-            k1 = (int) (((double) (aClass42_704.anInt682 - aClass42_704.anInt681) * 32.768000000000001D) / d);
-            l1 = (int) (((double) aClass42_704.anInt681 * 32.768000000000001D) / d);
+        if (soundEnvelope5 != null) {
+            soundEnvelope5.reset();
+            soundEnvelope6.reset();
+            k1 = (int) (((double) (soundEnvelope5.end - soundEnvelope5.start) * 32.768000000000001D) / d);
+            l1 = (int) (((double) soundEnvelope5.start * 32.768000000000001D) / d);
         }
         for (int j2 = 0; j2 < 5; j2++)
             if (anIntArray708[j2] != 0) {
                 anIntArray718[j2] = 0;
                 anIntArray719[j2] = (int) ((double) anIntArray710[j2] * d);
                 anIntArray720[j2] = (anIntArray708[j2] << 14) / 100;
-                anIntArray721[j2] = (int) (((double) (aClass42_700.anInt682 - aClass42_700.anInt681)
+                anIntArray721[j2] = (int) (((double) (soundEnvelope1.end - soundEnvelope1.start)
                         * 32.768000000000001D * Math.pow(1.0057929410678534D, anIntArray709[j2])) / d);
-                anIntArray722[j2] = (int) (((double) aClass42_700.anInt681 * 32.768000000000001D) / d);
+                anIntArray722[j2] = (int) (((double) soundEnvelope1.start * 32.768000000000001D) / d);
             }
 
         for (int k2 = 0; k2 < i; k2++) {
-            int l2 = aClass42_700.method486(true, i);
-            int l3 = aClass42_701.method486(true, i);
-            if (aClass42_702 != null) {
-                int k4 = aClass42_702.method486(true, i);
-                int j5 = aClass42_703.method486(true, i);
-                l2 += method495(-15143, j5, j1, aClass42_702.anInt683) >> 1;
+            int l2 = soundEnvelope1.evaluate(i);
+            int l3 = soundEnvelope2.evaluate(i);
+            if (soundEnvelope3 != null) {
+                int k4 = soundEnvelope3.evaluate(i);
+                int j5 = soundEnvelope4.evaluate(i);
+                l2 += method495(-15143, j5, j1, soundEnvelope3.form) >> 1;
                 j1 += (k4 * l >> 16) + i1;
             }
-            if (aClass42_704 != null) {
-                int l4 = aClass42_704.method486(true, i);
-                int k5 = aClass42_705.method486(true, i);
-                l3 = l3 * ((method495(-15143, k5, i2, aClass42_704.anInt683) >> 1) + 32768) >> 15;
+            if (soundEnvelope5 != null) {
+                int l4 = soundEnvelope5.evaluate(i);
+                int k5 = soundEnvelope6.evaluate(i);
+                l3 = l3 * ((method495(-15143, k5, i2, soundEnvelope5.form) >> 1) + 32768) >> 15;
                 i2 += (l4 * k1 >> 16) + l1;
             }
             for (int i5 = 0; i5 < 5; i5++)
@@ -74,27 +74,27 @@ public class Class44 {
                     int l5 = k2 + anIntArray719[i5];
                     if (l5 < i) {
                         anIntArray715[l5] += method495(-15143, l3 * anIntArray720[i5] >> 15, anIntArray718[i5],
-                                aClass42_700.anInt683);
+                                soundEnvelope1.form);
                         anIntArray718[i5] += (l2 * anIntArray721[i5] >> 16) + anIntArray722[i5];
                     }
                 }
 
         }
 
-        if (aClass42_706 != null) {
-            aClass42_706.method485(anInt698);
-            aClass42_707.method485(anInt698);
+        if (soundEnvelope7 != null) {
+            soundEnvelope7.reset();
+            soundEnvelope8.reset();
             int i3 = 0;
             boolean flag = false;
             boolean flag1 = true;
             for (int i6 = 0; i6 < i; i6++) {
-                int j6 = aClass42_706.method486(true, i);
-                int k6 = aClass42_707.method486(true, i);
+                int j6 = soundEnvelope7.evaluate(i);
+                int k6 = soundEnvelope8.evaluate(i);
                 int i4;
                 if (flag1)
-                    i4 = aClass42_706.anInt681 + ((aClass42_706.anInt682 - aClass42_706.anInt681) * j6 >> 8);
+                    i4 = soundEnvelope7.start + ((soundEnvelope7.end - soundEnvelope7.start) * j6 >> 8);
                 else
-                    i4 = aClass42_706.anInt681 + ((aClass42_706.anInt682 - aClass42_706.anInt681) * k6 >> 8);
+                    i4 = soundEnvelope7.start + ((soundEnvelope7.end - soundEnvelope7.start) * k6 >> 8);
                 if ((i3 += 256) >= i4) {
                     i3 = 0;
                     flag1 = !flag1;
@@ -139,35 +139,35 @@ public class Class44 {
     }
 
     public void method496(boolean flag, Class38_Sub2_Sub3 class38_sub2_sub3) {
-        aClass42_700 = new Class42();
-        aClass42_700.method484(false, class38_sub2_sub3);
-        aClass42_701 = new Class42();
-        aClass42_701.method484(false, class38_sub2_sub3);
+        soundEnvelope1 = new SoundEnvelope();
+        soundEnvelope1.readShape(class38_sub2_sub3);
+        soundEnvelope2 = new SoundEnvelope();
+        soundEnvelope2.readShape(class38_sub2_sub3);
         int i = class38_sub2_sub3.method446();
         if (flag)
             throw new NullPointerException();
         if (i != 0) {
             class38_sub2_sub3.anInt1329--;
-            aClass42_702 = new Class42();
-            aClass42_702.method484(false, class38_sub2_sub3);
-            aClass42_703 = new Class42();
-            aClass42_703.method484(false, class38_sub2_sub3);
+            soundEnvelope3 = new SoundEnvelope();
+            soundEnvelope3.readShape(class38_sub2_sub3);
+            soundEnvelope4 = new SoundEnvelope();
+            soundEnvelope4.readShape(class38_sub2_sub3);
         }
         i = class38_sub2_sub3.method446();
         if (i != 0) {
             class38_sub2_sub3.anInt1329--;
-            aClass42_704 = new Class42();
-            aClass42_704.method484(false, class38_sub2_sub3);
-            aClass42_705 = new Class42();
-            aClass42_705.method484(false, class38_sub2_sub3);
+            soundEnvelope5 = new SoundEnvelope();
+            soundEnvelope5.readShape(class38_sub2_sub3);
+            soundEnvelope6 = new SoundEnvelope();
+            soundEnvelope6.readShape(class38_sub2_sub3);
         }
         i = class38_sub2_sub3.method446();
         if (i != 0) {
             class38_sub2_sub3.anInt1329--;
-            aClass42_706 = new Class42();
-            aClass42_706.method484(false, class38_sub2_sub3);
-            aClass42_707 = new Class42();
-            aClass42_707.method484(false, class38_sub2_sub3);
+            soundEnvelope7 = new SoundEnvelope();
+            soundEnvelope7.readShape(class38_sub2_sub3);
+            soundEnvelope8 = new SoundEnvelope();
+            soundEnvelope8.readShape(class38_sub2_sub3);
         }
         for (int j = 0; j < 10; j++) {
             int k = class38_sub2_sub3.method460();
@@ -195,14 +195,14 @@ public class Class44 {
 
     public static int anInt698 = 8;
     public int anInt699;
-    public Class42 aClass42_700;
-    public Class42 aClass42_701;
-    public Class42 aClass42_702;
-    public Class42 aClass42_703;
-    public Class42 aClass42_704;
-    public Class42 aClass42_705;
-    public Class42 aClass42_706;
-    public Class42 aClass42_707;
+    public SoundEnvelope soundEnvelope1;
+    public SoundEnvelope soundEnvelope2;
+    public SoundEnvelope soundEnvelope3;
+    public SoundEnvelope soundEnvelope4;
+    public SoundEnvelope soundEnvelope5;
+    public SoundEnvelope soundEnvelope6;
+    public SoundEnvelope soundEnvelope7;
+    public SoundEnvelope soundEnvelope8;
     public int[] anIntArray708;
     public int[] anIntArray709;
     public int[] anIntArray710;
