@@ -12,7 +12,13 @@ A little credit goes to Major for a few variable names as well.
 ## Status
 
 - Every class has been given a name.
-- Some classes have been refactored (~30% ish).
+- Some classes are refactored (~60%)
+  - com.runescape.cache.* has 9/13 done
+  - com.runescape.graphics.* has 1/7 done
+  - com.runescape.scene.* has 14/23 done
+  - com.runescape.sound.* has 3/3 done
+  - com.runescape.util.* has 10/15 done
+  - com.runescape.* has 1/3 done
 - No new features yet.
 
 ## Notes
