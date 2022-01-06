@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class GameFrame extends Frame {
 
-    public GameFrame(int height, Applet_Sub1 applet, int width) {
+    public GameFrame(int height, GameShell applet, int width) {
         this.applet = applet;
         setTitle("Jagex");
         setResizable(false);
@@ -27,5 +27,5 @@ public class GameFrame extends Frame {
         applet.paint(g);
     }
 
-    public Applet_Sub1 applet;
+    public GameShell applet;
 }

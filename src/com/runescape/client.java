@@ -12,7 +12,7 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.zip.CRC32;
 
-public class client extends Applet_Sub1 {
+public class client extends GameShell {
 
     public void method14(boolean flag, int i, String s, int j) {
         if (s == null)

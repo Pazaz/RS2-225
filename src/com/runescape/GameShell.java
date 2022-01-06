@@ -4,7 +4,7 @@ import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Applet_Sub1 extends Applet
+public class GameShell extends Applet
         implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
 
     public void method1(int i, int j, int k) {
@@ -422,7 +422,7 @@ public class Applet_Sub1 extends Applet
         }
     }
 
-    public Applet_Sub1() {
+    public GameShell() {
         aBoolean1 = false;
         aBoolean2 = false;
         aBoolean4 = false;

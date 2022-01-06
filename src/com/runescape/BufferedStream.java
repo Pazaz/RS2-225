@@ -8,7 +8,7 @@ import java.net.Socket;
 public class BufferedStream
         implements Runnable {
 
-    public BufferedStream(Applet_Sub1 applet, Socket socket)
+    public BufferedStream(GameShell applet, Socket socket)
             throws IOException {
         closed = false;
         writing = false;
@@ -160,7 +160,7 @@ public class BufferedStream
     public OutputStream out;
     public Socket socket;
     public boolean closed;
-    public Applet_Sub1 applet;
+    public GameShell applet;
     public byte[] buffer;
     public int bufLen;
     public int bufPos;
