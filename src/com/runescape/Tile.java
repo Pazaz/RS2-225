@@ -15,7 +15,7 @@ public class Tile extends Node {
     public int z;
     public int renderLevel;
     public TileUnderlay underlay;
-    public Class15 overlay;
+    public TileOverlay overlay;
     public Wall wall;
     public WallDecoration wallDecoration;
     public GroundDecoration groundDecoration;

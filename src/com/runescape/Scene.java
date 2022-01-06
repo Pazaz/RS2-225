@@ -139,12 +139,12 @@ public class Scene {
             tile3dArray[i][j][k].underlay = tileUnderlay_1;
             return;
         }
-        Class15 class15 = new Class15(j, l, l3, l1, i3, i1, k2, j2, l4, k3, j1, j4, k4, i2, i4, j3, 10659, k1, k, l2);
+        TileOverlay tileOverlay = new TileOverlay(j, l, l3, l1, i3, i1, k2, j2, l4, k3, j1, j4, k4, i2, i4, j3, 10659, k1, k, l2);
         for (int k5 = i; k5 >= 0; k5--)
             if (tile3dArray[k5][j][k] == null)
                 tile3dArray[k5][j][k] = new Tile(k5, j, k);
 
-        tile3dArray[i][j][k].overlay = class15;
+        tile3dArray[i][j][k].overlay = tileOverlay;
     }
 
     public void method287(Model class38_sub2_sub1, byte byte0, int i, int j, int k, int l, byte byte1,
@@ -833,13 +833,13 @@ public class Scene {
 
             return;
         }
-        Class15 class15 = tile.overlay;
-        if (class15 == null)
+        TileOverlay tileOverlay = tile.overlay;
+        if (tileOverlay == null)
             return;
-        int l1 = class15.anInt334;
-        int i2 = class15.anInt335;
-        int j2 = class15.anInt336;
-        int k2 = class15.anInt337;
+        int l1 = tileOverlay.anInt334;
+        int i2 = tileOverlay.anInt335;
+        int j2 = tileOverlay.anInt336;
+        int k2 = tileOverlay.anInt337;
         int[] ai1 = anIntArrayArray579[l1];
         int[] ai2 = anIntArrayArray580[i2];
         int l2 = 0;
@@ -1656,13 +1656,13 @@ public class Scene {
         }
     }
 
-    public void method324(int i, int j, Class15 class15, int k, int l, int i1, int j1,
+    public void method324(int i, int j, TileOverlay tileOverlay, int k, int l, int i1, int j1,
                           boolean flag) {
-        int k1 = class15.anIntArray323.length;
+        int k1 = tileOverlay.anIntArray323.length;
         for (int l1 = 0; l1 < k1; l1++) {
-            int i2 = class15.anIntArray323[l1] - anInt545;
-            int k2 = class15.anIntArray324[l1] - anInt546;
-            int i3 = class15.anIntArray325[l1] - anInt547;
+            int i2 = tileOverlay.anIntArray323[l1] - anInt545;
+            int k2 = tileOverlay.anIntArray324[l1] - anInt546;
+            int i3 = tileOverlay.anIntArray325[l1] - anInt547;
             int k3 = i3 * i + i2 * j1 >> 16;
             i3 = i3 * j1 - i2 * i >> 16;
             i2 = k3;
@@ -1671,29 +1671,29 @@ public class Scene {
             k2 = k3;
             if (i3 < 50)
                 return;
-            if (class15.anIntArray332 != null) {
-                Class15.anIntArray340[l1] = i2;
-                Class15.anIntArray341[l1] = k2;
-                Class15.anIntArray342[l1] = i3;
+            if (tileOverlay.anIntArray332 != null) {
+                TileOverlay.anIntArray340[l1] = i2;
+                TileOverlay.anIntArray341[l1] = k2;
+                TileOverlay.anIntArray342[l1] = i3;
             }
-            Class15.anIntArray338[l1] = Draw3D.anInt1442 + (i2 << 9) / i3;
-            Class15.anIntArray339[l1] = Draw3D.anInt1443 + (k2 << 9) / i3;
+            TileOverlay.anIntArray338[l1] = Draw3D.anInt1442 + (i2 << 9) / i3;
+            TileOverlay.anIntArray339[l1] = Draw3D.anInt1443 + (k2 << 9) / i3;
         }
 
         Draw3D.anInt1441 = 0;
-        k1 = class15.anIntArray329.length;
+        k1 = tileOverlay.anIntArray329.length;
         if (!flag)
             return;
         for (int j2 = 0; j2 < k1; j2++) {
-            int l2 = class15.anIntArray329[j2];
-            int j3 = class15.anIntArray330[j2];
-            int l3 = class15.anIntArray331[j2];
-            int i4 = Class15.anIntArray338[l2];
-            int j4 = Class15.anIntArray338[j3];
-            int k4 = Class15.anIntArray338[l3];
-            int l4 = Class15.anIntArray339[l2];
-            int i5 = Class15.anIntArray339[j3];
-            int j5 = Class15.anIntArray339[l3];
+            int l2 = tileOverlay.anIntArray329[j2];
+            int j3 = tileOverlay.anIntArray330[j2];
+            int l3 = tileOverlay.anIntArray331[j2];
+            int i4 = TileOverlay.anIntArray338[l2];
+            int j4 = TileOverlay.anIntArray338[j3];
+            int k4 = TileOverlay.anIntArray338[l3];
+            int l4 = TileOverlay.anIntArray339[l2];
+            int i5 = TileOverlay.anIntArray339[j3];
+            int j5 = TileOverlay.anIntArray339[l3];
             if ((i4 - j4) * (j5 - i5) - (l4 - i5) * (k4 - j4) > 0) {
                 Draw3D.aBoolean1438 = i4 < 0 || j4 < 0 || k4 < 0 || i4 > Draw2D.anInt1315 || j4 > Draw2D.anInt1315
                         || k4 > Draw2D.anInt1315;
@@ -1701,28 +1701,28 @@ public class Scene {
                     anInt560 = k;
                     anInt561 = j;
                 }
-                if (class15.anIntArray332 == null || class15.anIntArray332[j2] == -1) {
-                    if (class15.anIntArray326[j2] != 0xbc614e)
-                        Draw3D.method395(l4, i5, j5, i4, j4, k4, class15.anIntArray326[j2],
-                                class15.anIntArray327[j2], class15.anIntArray328[j2]);
+                if (tileOverlay.anIntArray332 == null || tileOverlay.anIntArray332[j2] == -1) {
+                    if (tileOverlay.anIntArray326[j2] != 0xbc614e)
+                        Draw3D.method395(l4, i5, j5, i4, j4, k4, tileOverlay.anIntArray326[j2],
+                                tileOverlay.anIntArray327[j2], tileOverlay.anIntArray328[j2]);
                 } else if (!aBoolean526) {
-                    if (class15.aBoolean333)
-                        Draw3D.method399(l4, i5, j5, i4, j4, k4, class15.anIntArray326[j2],
-                                class15.anIntArray327[j2], class15.anIntArray328[j2], Class15.anIntArray340[0],
-                                Class15.anIntArray340[1], Class15.anIntArray340[3], Class15.anIntArray341[0],
-                                Class15.anIntArray341[1], Class15.anIntArray341[3], Class15.anIntArray342[0],
-                                Class15.anIntArray342[1], Class15.anIntArray342[3], class15.anIntArray332[j2]);
+                    if (tileOverlay.aBoolean333)
+                        Draw3D.method399(l4, i5, j5, i4, j4, k4, tileOverlay.anIntArray326[j2],
+                                tileOverlay.anIntArray327[j2], tileOverlay.anIntArray328[j2], TileOverlay.anIntArray340[0],
+                                TileOverlay.anIntArray340[1], TileOverlay.anIntArray340[3], TileOverlay.anIntArray341[0],
+                                TileOverlay.anIntArray341[1], TileOverlay.anIntArray341[3], TileOverlay.anIntArray342[0],
+                                TileOverlay.anIntArray342[1], TileOverlay.anIntArray342[3], tileOverlay.anIntArray332[j2]);
                     else
-                        Draw3D.method399(l4, i5, j5, i4, j4, k4, class15.anIntArray326[j2],
-                                class15.anIntArray327[j2], class15.anIntArray328[j2], Class15.anIntArray340[l2],
-                                Class15.anIntArray340[j3], Class15.anIntArray340[l3], Class15.anIntArray341[l2],
-                                Class15.anIntArray341[j3], Class15.anIntArray341[l3], Class15.anIntArray342[l2],
-                                Class15.anIntArray342[j3], Class15.anIntArray342[l3], class15.anIntArray332[j2]);
+                        Draw3D.method399(l4, i5, j5, i4, j4, k4, tileOverlay.anIntArray326[j2],
+                                tileOverlay.anIntArray327[j2], tileOverlay.anIntArray328[j2], TileOverlay.anIntArray340[l2],
+                                TileOverlay.anIntArray340[j3], TileOverlay.anIntArray340[l3], TileOverlay.anIntArray341[l2],
+                                TileOverlay.anIntArray341[j3], TileOverlay.anIntArray341[l3], TileOverlay.anIntArray342[l2],
+                                TileOverlay.anIntArray342[j3], TileOverlay.anIntArray342[l3], tileOverlay.anIntArray332[j2]);
                 } else {
-                    int k5 = anIntArray575[class15.anIntArray332[j2]];
+                    int k5 = anIntArray575[tileOverlay.anIntArray332[j2]];
                     Draw3D.method395(l4, i5, j5, i4, j4, k4,
-                            method325(class15.anIntArray326[j2], k5, 9), method325(class15.anIntArray327[j2], k5, 9),
-                            method325(class15.anIntArray328[j2], k5, 9));
+                            method325(tileOverlay.anIntArray326[j2], k5, 9), method325(tileOverlay.anIntArray327[j2], k5, 9),
+                            method325(tileOverlay.anIntArray328[j2], k5, 9));
                 }
             }
         }
