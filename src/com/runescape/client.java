@@ -5793,7 +5793,6 @@ public class client extends Applet_Sub1 {
         Class10.aClass10Array223 = null;
         Class12.aClass12Array247 = null;
         Class14.aClass14Array264 = null;
-        Class16.aClass16Array349 = null;
         Class18.aClass18Array364 = null;
         Class20.aClass20Array387 = null;
         Class20.aClass34_400 = null;
