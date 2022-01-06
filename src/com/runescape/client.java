@@ -563,9 +563,9 @@ public class client extends Applet_Sub1 {
             if (l3 >= 0 && i6 >= 0 && l3 < 104 && i6 < 104) {
                 l3 = l3 * 128 + 64;
                 i6 = i6 * 128 + 64;
-                Class38_Sub7_Sub2 class38_sub7_sub2 = new Class38_Sub7_Sub2(l3, j8, false, i6, i12,
+                SpotAnimEntity spotAnimEntity = new SpotAnimEntity(l3, j8, false, i6, i12,
                         method33(anInt880, l3, (byte) 5, i6) - j10, anInt880, anInt955);
-                linkedList1.method267(class38_sub7_sub2);
+                linkedList1.method267(spotAnimEntity);
             }
             return;
         }
@@ -6156,18 +6156,18 @@ public class client extends Applet_Sub1 {
     public void method105(byte byte0) {
         if (byte0 != aByte766)
             anInt805 = -357;
-        for (Class38_Sub7_Sub2 class38_sub7_sub2 = (Class38_Sub7_Sub2) linkedList1
-                .method270(); class38_sub7_sub2 != null; class38_sub7_sub2 = (Class38_Sub7_Sub2) linkedList1
+        for (SpotAnimEntity spotAnimEntity = (SpotAnimEntity) linkedList1
+                .method270(); spotAnimEntity != null; spotAnimEntity = (SpotAnimEntity) linkedList1
                 .method272())
-            if (class38_sub7_sub2.anInt1371 != anInt880 || class38_sub7_sub2.aBoolean1377)
-                class38_sub7_sub2.unlink();
-            else if (anInt955 >= class38_sub7_sub2.anInt1370) {
-                class38_sub7_sub2.method465(anInt969, 0);
-                if (class38_sub7_sub2.aBoolean1377)
-                    class38_sub7_sub2.unlink();
+            if (spotAnimEntity.anInt1371 != anInt880 || spotAnimEntity.aBoolean1377)
+                spotAnimEntity.unlink();
+            else if (anInt955 >= spotAnimEntity.anInt1370) {
+                spotAnimEntity.method465(anInt969, 0);
+                if (spotAnimEntity.aBoolean1377)
+                    spotAnimEntity.unlink();
                 else
-                    aClass32_831.method292(-44713, class38_sub7_sub2.anInt1373, 60, 0, class38_sub7_sub2.anInt1372, -1,
-                            false, null, class38_sub7_sub2, class38_sub7_sub2.anInt1374, class38_sub7_sub2.anInt1371);
+                    aClass32_831.method292(-44713, spotAnimEntity.anInt1373, 60, 0, spotAnimEntity.anInt1372, -1,
+                            false, null, spotAnimEntity, spotAnimEntity.anInt1374, spotAnimEntity.anInt1371);
             }
 
     }
