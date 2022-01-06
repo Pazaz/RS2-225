@@ -24,7 +24,7 @@ public class Class32 {
         anIntArray563 = null;
         if (!flag)
             aBoolean525 = !aBoolean525;
-        aClass23ArrayArray564 = null;
+        occluder2dArray = null;
         linkedList = null;
         aBooleanArrayArrayArrayArray581 = null;
         aBooleanArrayArray582 = null;
@@ -43,7 +43,7 @@ public class Class32 {
         i = 38 / i;
         for (int l = 0; l < anInt562; l++) {
             for (int j1 = 0; j1 < anIntArray563[l]; j1++)
-                aClass23ArrayArray564[l][j1] = null;
+                occluder2dArray[l][j1] = null;
 
             anIntArray563[l] = 0;
         }
@@ -91,21 +91,21 @@ public class Class32 {
 
     public static void method284(int i, int j, int k, int l, int i1, int j1, int k1, int l1,
                                  int i2) {
-        Class23 class23 = new Class23();
-        class23.anInt432 = j / 128;
-        class23.anInt433 = j1 / 128;
-        class23.anInt434 = i2 / 128;
-        class23.anInt435 = i / 128;
-        class23.anInt436 = i1;
-        class23.anInt437 = j;
-        class23.anInt438 = j1;
-        class23.anInt439 = i2;
+        Occluder occluder = new Occluder();
+        occluder.minTileX = j / 128;
+        occluder.maxTileX = j1 / 128;
+        occluder.minTileZ = i2 / 128;
+        occluder.maxTileZ = i / 128;
+        occluder.type = i1;
+        occluder.minX = j;
+        occluder.maxX = j1;
+        occluder.minZ = i2;
         while (k >= 0)
             anInt524 = 127;
-        class23.anInt440 = i;
-        class23.anInt441 = l1;
-        class23.anInt442 = l;
-        aClass23ArrayArray564[k1][anIntArray563[k1]++] = class23;
+        occluder.maxZ = i;
+        occluder.minY = l1;
+        occluder.maxY = l;
+        occluder2dArray[k1][anIntArray563[k1]++] = occluder;
     }
 
     public void method285(int i, int j, int k, int l) {
@@ -1759,18 +1759,18 @@ public class Class32 {
 
     public void method327(boolean flag) {
         int i = anIntArray563[anInt537];
-        Class23[] aclass23 = aClass23ArrayArray564[anInt537];
+        Occluder[] aclass23 = occluder2dArray[anInt537];
         anInt565 = 0;
         for (int j = 0; j < i; j++) {
-            Class23 class23 = aclass23[j];
-            if (class23.anInt436 == 1) {
-                int k = (class23.anInt432 - anInt543) + 25;
+            Occluder occluder = aclass23[j];
+            if (occluder.type == 1) {
+                int k = (occluder.minTileX - anInt543) + 25;
                 if (k < 0 || k > 50)
                     continue;
-                int j1 = (class23.anInt434 - anInt544) + 25;
+                int j1 = (occluder.minTileZ - anInt544) + 25;
                 if (j1 < 0)
                     j1 = 0;
-                int i2 = (class23.anInt435 - anInt544) + 25;
+                int i2 = (occluder.maxTileZ - anInt544) + 25;
                 if (i2 > 50)
                     i2 = 50;
                 boolean flag1 = false;
@@ -1781,30 +1781,30 @@ public class Class32 {
                     }
                 if (!flag1)
                     continue;
-                int i3 = anInt545 - class23.anInt437;
+                int i3 = anInt545 - occluder.minX;
                 if (i3 > 32) {
-                    class23.anInt443 = 1;
+                    occluder.testDirection = 1;
                 } else {
                     if (i3 >= -32)
                         continue;
-                    class23.anInt443 = 2;
+                    occluder.testDirection = 2;
                     i3 = -i3;
                 }
-                class23.anInt446 = (class23.anInt439 - anInt547 << 8) / i3;
-                class23.anInt447 = (class23.anInt440 - anInt547 << 8) / i3;
-                class23.anInt448 = (class23.anInt441 - anInt546 << 8) / i3;
-                class23.anInt449 = (class23.anInt442 - anInt546 << 8) / i3;
-                aClass23Array566[anInt565++] = class23;
+                occluder.minNormalZ = (occluder.minZ - anInt547 << 8) / i3;
+                occluder.maxNormalZ = (occluder.maxZ - anInt547 << 8) / i3;
+                occluder.minNormalY = (occluder.minY - anInt546 << 8) / i3;
+                occluder.maxNormalY = (occluder.maxY - anInt546 << 8) / i3;
+                occluderArray[anInt565++] = occluder;
                 continue;
             }
-            if (class23.anInt436 == 2) {
-                int l = (class23.anInt434 - anInt544) + 25;
+            if (occluder.type == 2) {
+                int l = (occluder.minTileZ - anInt544) + 25;
                 if (l < 0 || l > 50)
                     continue;
-                int k1 = (class23.anInt432 - anInt543) + 25;
+                int k1 = (occluder.minTileX - anInt543) + 25;
                 if (k1 < 0)
                     k1 = 0;
-                int j2 = (class23.anInt433 - anInt543) + 25;
+                int j2 = (occluder.maxTileX - anInt543) + 25;
                 if (j2 > 50)
                     j2 = 50;
                 boolean flag2 = false;
@@ -1815,34 +1815,34 @@ public class Class32 {
                     }
                 if (!flag2)
                     continue;
-                int j3 = anInt547 - class23.anInt439;
+                int j3 = anInt547 - occluder.minZ;
                 if (j3 > 32) {
-                    class23.anInt443 = 3;
+                    occluder.testDirection = 3;
                 } else {
                     if (j3 >= -32)
                         continue;
-                    class23.anInt443 = 4;
+                    occluder.testDirection = 4;
                     j3 = -j3;
                 }
-                class23.anInt444 = (class23.anInt437 - anInt545 << 8) / j3;
-                class23.anInt445 = (class23.anInt438 - anInt545 << 8) / j3;
-                class23.anInt448 = (class23.anInt441 - anInt546 << 8) / j3;
-                class23.anInt449 = (class23.anInt442 - anInt546 << 8) / j3;
-                aClass23Array566[anInt565++] = class23;
-            } else if (class23.anInt436 == 4) {
-                int i1 = class23.anInt441 - anInt546;
+                occluder.minNormalX = (occluder.minX - anInt545 << 8) / j3;
+                occluder.maxNormalX = (occluder.maxX - anInt545 << 8) / j3;
+                occluder.minNormalY = (occluder.minY - anInt546 << 8) / j3;
+                occluder.maxNormalY = (occluder.maxY - anInt546 << 8) / j3;
+                occluderArray[anInt565++] = occluder;
+            } else if (occluder.type == 4) {
+                int i1 = occluder.minY - anInt546;
                 if (i1 > 128) {
-                    int l1 = (class23.anInt434 - anInt544) + 25;
+                    int l1 = (occluder.minTileZ - anInt544) + 25;
                     if (l1 < 0)
                         l1 = 0;
-                    int k2 = (class23.anInt435 - anInt544) + 25;
+                    int k2 = (occluder.maxTileZ - anInt544) + 25;
                     if (k2 > 50)
                         k2 = 50;
                     if (l1 <= k2) {
-                        int l2 = (class23.anInt432 - anInt543) + 25;
+                        int l2 = (occluder.minTileX - anInt543) + 25;
                         if (l2 < 0)
                             l2 = 0;
-                        int k3 = (class23.anInt433 - anInt543) + 25;
+                        int k3 = (occluder.maxTileX - anInt543) + 25;
                         if (k3 > 50)
                             k3 = 50;
                         boolean flag3 = false;
@@ -1858,12 +1858,12 @@ public class Class32 {
                         }
 
                         if (flag3) {
-                            class23.anInt443 = 5;
-                            class23.anInt444 = (class23.anInt437 - anInt545 << 8) / i1;
-                            class23.anInt445 = (class23.anInt438 - anInt545 << 8) / i1;
-                            class23.anInt446 = (class23.anInt439 - anInt547 << 8) / i1;
-                            class23.anInt447 = (class23.anInt440 - anInt547 << 8) / i1;
-                            aClass23Array566[anInt565++] = class23;
+                            occluder.testDirection = 5;
+                            occluder.minNormalX = (occluder.minX - anInt545 << 8) / i1;
+                            occluder.maxNormalX = (occluder.maxX - anInt545 << 8) / i1;
+                            occluder.minNormalZ = (occluder.minZ - anInt547 << 8) / i1;
+                            occluder.maxNormalZ = (occluder.maxZ - anInt547 << 8) / i1;
+                            occluderArray[anInt565++] = occluder;
                         }
                     }
                 }
@@ -2034,54 +2034,54 @@ public class Class32 {
 
     public boolean method332(int i, int j, int k) {
         for (int l = 0; l < anInt565; l++) {
-            Class23 class23 = aClass23Array566[l];
-            if (class23.anInt443 == 1) {
-                int i1 = class23.anInt437 - i;
+            Occluder occluder = occluderArray[l];
+            if (occluder.testDirection == 1) {
+                int i1 = occluder.minX - i;
                 if (i1 > 0) {
-                    int j2 = class23.anInt439 + (class23.anInt446 * i1 >> 8);
-                    int k3 = class23.anInt440 + (class23.anInt447 * i1 >> 8);
-                    int l4 = class23.anInt441 + (class23.anInt448 * i1 >> 8);
-                    int i6 = class23.anInt442 + (class23.anInt449 * i1 >> 8);
+                    int j2 = occluder.minZ + (occluder.minNormalZ * i1 >> 8);
+                    int k3 = occluder.maxZ + (occluder.maxNormalZ * i1 >> 8);
+                    int l4 = occluder.minY + (occluder.minNormalY * i1 >> 8);
+                    int i6 = occluder.maxY + (occluder.maxNormalY * i1 >> 8);
                     if (k >= j2 && k <= k3 && j >= l4 && j <= i6)
                         return true;
                 }
-            } else if (class23.anInt443 == 2) {
-                int j1 = i - class23.anInt437;
+            } else if (occluder.testDirection == 2) {
+                int j1 = i - occluder.minX;
                 if (j1 > 0) {
-                    int k2 = class23.anInt439 + (class23.anInt446 * j1 >> 8);
-                    int l3 = class23.anInt440 + (class23.anInt447 * j1 >> 8);
-                    int i5 = class23.anInt441 + (class23.anInt448 * j1 >> 8);
-                    int j6 = class23.anInt442 + (class23.anInt449 * j1 >> 8);
+                    int k2 = occluder.minZ + (occluder.minNormalZ * j1 >> 8);
+                    int l3 = occluder.maxZ + (occluder.maxNormalZ * j1 >> 8);
+                    int i5 = occluder.minY + (occluder.minNormalY * j1 >> 8);
+                    int j6 = occluder.maxY + (occluder.maxNormalY * j1 >> 8);
                     if (k >= k2 && k <= l3 && j >= i5 && j <= j6)
                         return true;
                 }
-            } else if (class23.anInt443 == 3) {
-                int k1 = class23.anInt439 - k;
+            } else if (occluder.testDirection == 3) {
+                int k1 = occluder.minZ - k;
                 if (k1 > 0) {
-                    int l2 = class23.anInt437 + (class23.anInt444 * k1 >> 8);
-                    int i4 = class23.anInt438 + (class23.anInt445 * k1 >> 8);
-                    int j5 = class23.anInt441 + (class23.anInt448 * k1 >> 8);
-                    int k6 = class23.anInt442 + (class23.anInt449 * k1 >> 8);
+                    int l2 = occluder.minX + (occluder.minNormalX * k1 >> 8);
+                    int i4 = occluder.maxX + (occluder.maxNormalX * k1 >> 8);
+                    int j5 = occluder.minY + (occluder.minNormalY * k1 >> 8);
+                    int k6 = occluder.maxY + (occluder.maxNormalY * k1 >> 8);
                     if (i >= l2 && i <= i4 && j >= j5 && j <= k6)
                         return true;
                 }
-            } else if (class23.anInt443 == 4) {
-                int l1 = k - class23.anInt439;
+            } else if (occluder.testDirection == 4) {
+                int l1 = k - occluder.minZ;
                 if (l1 > 0) {
-                    int i3 = class23.anInt437 + (class23.anInt444 * l1 >> 8);
-                    int j4 = class23.anInt438 + (class23.anInt445 * l1 >> 8);
-                    int k5 = class23.anInt441 + (class23.anInt448 * l1 >> 8);
-                    int l6 = class23.anInt442 + (class23.anInt449 * l1 >> 8);
+                    int i3 = occluder.minX + (occluder.minNormalX * l1 >> 8);
+                    int j4 = occluder.maxX + (occluder.maxNormalX * l1 >> 8);
+                    int k5 = occluder.minY + (occluder.minNormalY * l1 >> 8);
+                    int l6 = occluder.maxY + (occluder.maxNormalY * l1 >> 8);
                     if (i >= i3 && i <= j4 && j >= k5 && j <= l6)
                         return true;
                 }
-            } else if (class23.anInt443 == 5) {
-                int i2 = j - class23.anInt441;
+            } else if (occluder.testDirection == 5) {
+                int i2 = j - occluder.minY;
                 if (i2 > 0) {
-                    int j3 = class23.anInt437 + (class23.anInt444 * i2 >> 8);
-                    int k4 = class23.anInt438 + (class23.anInt445 * i2 >> 8);
-                    int l5 = class23.anInt439 + (class23.anInt446 * i2 >> 8);
-                    int i7 = class23.anInt440 + (class23.anInt447 * i2 >> 8);
+                    int j3 = occluder.minX + (occluder.minNormalX * i2 >> 8);
+                    int k4 = occluder.maxX + (occluder.maxNormalX * i2 >> 8);
+                    int l5 = occluder.minZ + (occluder.minNormalZ * i2 >> 8);
+                    int i7 = occluder.maxZ + (occluder.maxNormalZ * i2 >> 8);
                     if (i >= j3 && i <= k4 && k >= l5 && k <= i7)
                         return true;
                 }
@@ -2144,9 +2144,9 @@ public class Class32 {
     public static int anInt561 = -1;
     public static int anInt562;
     public static int[] anIntArray563;
-    public static Class23[][] aClass23ArrayArray564;
+    public static Occluder[][] occluder2dArray;
     public static int anInt565;
-    public static Class23[] aClass23Array566 = new Class23[500];
+    public static Occluder[] occluderArray = new Occluder[500];
     public static LinkedList linkedList = new LinkedList();
     public static final int[] anIntArray568 = {
             19, 55, 38, 155, 255, 110, 137, 205, 76
@@ -2259,6 +2259,6 @@ public class Class32 {
     static {
         anInt562 = 4;
         anIntArray563 = new int[anInt562];
-        aClass23ArrayArray564 = new Class23[anInt562][500];
+        occluder2dArray = new Occluder[anInt562][500];
     }
 }
