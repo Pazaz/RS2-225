@@ -867,15 +867,15 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
             return;
         if (j == -1)
             return;
-        Class11 class11 = Class11.aClass11Array235[j];
-        SeqBase seqBase = class11.seqBase;
+        SeqFrame seqFrame = SeqFrame.seqFrames[j];
+        SeqBase seqBase = seqFrame.seqBase;
         anInt1292 = 0;
         anInt1293 = 0;
         anInt1294 = 0;
-        for (int k = 0; k < class11.anInt238; k++) {
-            int l = class11.anIntArray239[k];
-            method360(seqBase.anIntArray218[l], seqBase.anIntArrayArray219[l], class11.anIntArray240[k],
-                    class11.anIntArray241[k], class11.anIntArray242[k]);
+        for (int k = 0; k < seqFrame.anInt238; k++) {
+            int l = seqFrame.anIntArray239[k];
+            method360(seqBase.anIntArray218[l], seqBase.anIntArrayArray219[l], seqFrame.anIntArray240[k],
+                    seqFrame.anIntArray241[k], seqFrame.anIntArray242[k]);
         }
 
         if (i == -16599)
@@ -889,23 +889,23 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
             applyFrame(-16599, k);
             return;
         }
-        Class11 class11 = Class11.aClass11Array235[k];
+        SeqFrame seqFrame = SeqFrame.seqFrames[k];
         if (j < 3 || j > 3)
             anInt1220 = -162;
-        Class11 class11_1 = Class11.aClass11Array235[i];
-        SeqBase seqBase = class11.seqBase;
+        SeqFrame seqFrame_1 = SeqFrame.seqFrames[i];
+        SeqBase seqBase = seqFrame.seqBase;
         anInt1292 = 0;
         anInt1293 = 0;
         anInt1294 = 0;
         int l = 0;
         int i1 = ai[l++];
-        for (int j1 = 0; j1 < class11.anInt238; j1++) {
+        for (int j1 = 0; j1 < seqFrame.anInt238; j1++) {
             int k1;
-            for (k1 = class11.anIntArray239[j1]; k1 > i1; i1 = ai[l++])
+            for (k1 = seqFrame.anIntArray239[j1]; k1 > i1; i1 = ai[l++])
                 ;
             if (k1 != i1 || seqBase.anIntArray218[k1] == 0)
-                method360(seqBase.anIntArray218[k1], seqBase.anIntArrayArray219[k1], class11.anIntArray240[j1],
-                        class11.anIntArray241[j1], class11.anIntArray242[j1]);
+                method360(seqBase.anIntArray218[k1], seqBase.anIntArrayArray219[k1], seqFrame.anIntArray240[j1],
+                        seqFrame.anIntArray241[j1], seqFrame.anIntArray242[j1]);
         }
 
         anInt1292 = 0;
@@ -913,13 +913,13 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         anInt1294 = 0;
         l = 0;
         i1 = ai[l++];
-        for (int l1 = 0; l1 < class11_1.anInt238; l1++) {
+        for (int l1 = 0; l1 < seqFrame_1.anInt238; l1++) {
             int i2;
-            for (i2 = class11_1.anIntArray239[l1]; i2 > i1; i1 = ai[l++])
+            for (i2 = seqFrame_1.anIntArray239[l1]; i2 > i1; i1 = ai[l++])
                 ;
             if (i2 == i1 || seqBase.anIntArray218[i2] == 0)
-                method360(seqBase.anIntArray218[i2], seqBase.anIntArrayArray219[i2], class11_1.anIntArray240[l1],
-                        class11_1.anIntArray241[l1], class11_1.anIntArray242[l1]);
+                method360(seqBase.anIntArray218[i2], seqBase.anIntArrayArray219[i2], seqFrame_1.anIntArray240[l1],
+                        seqFrame_1.anIntArray241[l1], seqFrame_1.anIntArray242[l1]);
         }
 
     }

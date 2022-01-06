@@ -38,7 +38,7 @@ public class Class18 {
                         anIntArray367[k] = -1;
                     anIntArray368[k] = class38_sub2_sub3.method448();
                     if (anIntArray368[k] == 0)
-                        anIntArray368[k] = Class11.aClass11Array235[primaryFrames[k]].anInt236;
+                        anIntArray368[k] = SeqFrame.seqFrames[primaryFrames[k]].anInt236;
                     if (anIntArray368[k] == 0)
                         anIntArray368[k] = 1;
                 }
