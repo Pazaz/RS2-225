@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
+public class PlayerEntity extends Class38_Sub7_Sub3 {
 
     public void method470(boolean flag, Class38_Sub2_Sub3 class38_sub2_sub3) {
         class38_sub2_sub3.offset = 0;
@@ -239,7 +239,7 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
         return aBoolean1506;
     }
 
-    public Class38_Sub7_Sub3_Sub2() {
+    public PlayerEntity() {
         aBoolean1504 = false;
         aBoolean1506 = false;
         anIntArray1509 = new int[12];
