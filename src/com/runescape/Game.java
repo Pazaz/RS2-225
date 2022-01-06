@@ -2954,7 +2954,7 @@ public class Game extends GameShell {
 
     public void method61(int i, int j) {
         j = 19 / j;
-        int k = VarpType.varpTypes[i].anInt428;
+        int k = VarpType.instances[i].type;
         if (k == 0)
             return;
         int l = anIntArray938[i];
@@ -4728,7 +4728,7 @@ public class Game extends GameShell {
             NpcType.load(fileArchive);
             IdkType.load(fileArchive);
             SpotAnimType.load(fileArchive);
-            VarpType.method227(fileArchive, 473);
+            VarpType.load(fileArchive);
             ObjType.isMember = aBoolean888;
             if (!aBoolean889) {
                 method13(true, "Unpacking sounds", 90);
@@ -5801,7 +5801,7 @@ public class Game extends GameShell {
         SeqType.seqTypes = null;
         SpotAnimType.instances = null;
         SpotAnimType.models = null;
-        VarpType.varpTypes = null;
+        VarpType.instances = null;
         super.drawArea = null;
         PlayerEntity.cache = null;
         Draw3D.method384(true);
