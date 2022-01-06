@@ -260,7 +260,7 @@ public class ObjType {
 
         model.applyLighting(64, 768, -50, -10, -50, true);
         model.pickable = true;
-        modelCache.put(6, index, model);
+        modelCache.put(index, model);
         return model;
     }
 
@@ -353,7 +353,7 @@ public class ObjType {
             originalIcon.cropH = h;
         }
 
-        iconCache.put(6, i, sprite);
+        iconCache.put(i, sprite);
         Draw2D.init(width, data, -657, height);
         Draw2D.setBounds(bottom, top, right, 789, left);
         Draw3D.centerX = centerX;
@@ -508,7 +508,7 @@ public class ObjType {
     public int linkedId;
     public int certificateId;
 
-    public static Cache modelCache = new Cache((byte) 0, 50);
-    public static Cache iconCache = new Cache((byte) 0, 200);
+    public static Cache modelCache = new Cache(50);
+    public static Cache iconCache = new Cache(200);
 
 }

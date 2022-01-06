@@ -73,7 +73,7 @@ public class SpotAnimType {
             }
         }
 
-        models.put(6, index, model);
+        models.put(index, model);
         return model;
     }
 
@@ -100,6 +100,6 @@ public class SpotAnimType {
     public int orientation;
     public int ambience;
     public int modelShadow;
-    public static Cache models = new Cache((byte) 0, 30);
+    public static Cache models = new Cache(30);
 
 }

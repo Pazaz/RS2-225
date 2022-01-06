@@ -2967,7 +2967,7 @@ public class Game extends GameShell {
                 Draw3D.method393(true, 0.69999999999999996D);
             if (l == 4)
                 Draw3D.method393(true, 0.59999999999999998D);
-            ObjType.iconCache.method343();
+            ObjType.iconCache.clear();
             aBoolean751 = true;
         }
         if (k == 3) {
@@ -4869,13 +4869,13 @@ public class Game extends GameShell {
     }
 
     public void method83(byte byte0) {
-        LocType.models.method343();
-        LocType.builtModels.method343();
-        NpcType.models.method343();
-        ObjType.modelCache.method343();
-        ObjType.iconCache.method343();
-        PlayerEntity.cache.method343();
-        SpotAnimType.models.method343();
+        LocType.models.clear();
+        LocType.builtModels.clear();
+        NpcType.models.clear();
+        ObjType.modelCache.clear();
+        ObjType.iconCache.clear();
+        PlayerEntity.cache.clear();
+        SpotAnimType.models.clear();
         if (byte0 == aByte843) {
             byte0 = 0;
             return;
@@ -7160,7 +7160,7 @@ public class Game extends GameShell {
 
         } catch (Exception exception) {
         }
-        LocType.models.method343();
+        LocType.models.clear();
         if (i <= 0)
             aBoolean1147 = !aBoolean1147;
         System.gc();

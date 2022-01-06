@@ -196,7 +196,7 @@ public class PlayerEntity extends PathingEntity {
 
             class38_sub2_sub1.applyGroups(4);
             class38_sub2_sub1.applyLighting(64, 850, -30, -50, -30, true);
-            cache.put(6, l, class38_sub2_sub1);
+            cache.put(l, class38_sub2_sub1);
         }
         if (aBoolean1524)
             return class38_sub2_sub1;
@@ -279,6 +279,6 @@ public class PlayerEntity extends PathingEntity {
     public int anInt1522;
     public int anInt1523;
     public boolean aBoolean1524;
-    public static Cache cache = new Cache((byte) 0, 200);
+    public static Cache cache = new Cache(200);
 
 }

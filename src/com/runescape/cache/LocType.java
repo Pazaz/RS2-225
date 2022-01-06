@@ -258,7 +258,7 @@ public class LocType {
             if (flag) {
                 class38_sub2_sub1_1.method365(-725);
             }
-            models.put(6, k2, class38_sub2_sub1_1);
+            models.put(k2, class38_sub2_sub1_1);
         }
 
         boolean flag1;
@@ -299,7 +299,7 @@ public class LocType {
             model.anInt1251 = model.minY;
         }
 
-        builtModels.put(6, l2, model);
+        builtModels.put(l2, model);
 
         if (adjustToTerrain || flatShaded) {
             model = new Model(model, (byte) -31, adjustToTerrain, flatShaded);
@@ -367,7 +367,7 @@ public class LocType {
     public int anInt71;
     public int interactionSideFlags;
     public boolean aBoolean73;
-    public static Cache models = new Cache((byte) 0, 500);
-    public static Cache builtModels = new Cache((byte) 0, 30);
+    public static Cache models = new Cache(500);
+    public static Cache builtModels = new Cache(30);
 
 }

@@ -137,7 +137,7 @@ public class NpcType {
 
             model.applyGroups(4);
             model.applyLighting(64, 850, -30, -50, -30, true);
-            NpcType.models.put(6, index, model);
+            NpcType.models.put(index, model);
         }
 
         model = new Model(0, model, !disposeAlpha);
@@ -236,6 +236,6 @@ public class NpcType {
     public int level;
     public int scaleX;
     public int scaleY;
-    public static Cache models = new Cache((byte) 0, 30);
+    public static Cache models = new Cache(30);
 
 }
