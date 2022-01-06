@@ -5,9 +5,9 @@ import com.runescape.util.Buffer;
 public class VarpType {
 
     public static void load(FileArchive fileArchive) {
-        Buffer buffer = new Buffer(363, fileArchive.read("varp.dat", null));
+        Buffer buffer = new Buffer(fileArchive.read("varp.dat", null));
 
-        count = buffer.method448();
+        count = buffer.readWord();
 
         if (instances == null) {
             instances = new VarpType[count];
@@ -24,18 +24,18 @@ public class VarpType {
 
     public void read(Buffer buffer) {
         do {
-            int opcode = buffer.method446();
+            int opcode = buffer.readByte();
 
             if (opcode == 0) {
                 return;
             } else if (opcode == 1 || opcode == 2) {
-                buffer.method446();
+                buffer.readByte();
             } else if (opcode == 5) {
-                type = buffer.method448();
+                type = buffer.readWord();
             } else if (opcode == 7) {
-                buffer.method451();
+                buffer.readDWord();
             } else if (opcode == 10) {
-                buffer.method453();
+                buffer.readString();
             } else if (opcode == 3 || opcode == 4 || opcode == 6 || opcode == 8) {
             } else {
                 System.out.println("Error unrecognised config code: " + opcode);

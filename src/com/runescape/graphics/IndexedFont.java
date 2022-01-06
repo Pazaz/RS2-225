@@ -22,29 +22,29 @@ public class IndexedFont extends Draw2D {
         anIntArray1495 = new int[95];
         anIntArray1496 = new int[256];
         aRandom1498 = new Random();
-        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive.read(s + ".dat", null));
-        Buffer class38_sub2_sub3_1 = new Buffer(363,
+        Buffer class38_sub2_sub3 = new Buffer(fileArchive.read(s + ".dat", null));
+        Buffer class38_sub2_sub3_1 = new Buffer(
                 fileArchive.read("index.dat", null));
-        class38_sub2_sub3_1.offset = class38_sub2_sub3.method448() + 4;
-        int j = class38_sub2_sub3_1.method446();
+        class38_sub2_sub3_1.offset = class38_sub2_sub3.readWord() + 4;
+        int j = class38_sub2_sub3_1.readByte();
         if (j > 0)
             class38_sub2_sub3_1.offset += 3 * (j - 1);
         for (int k = 0; k < 94; k++) {
-            anIntArray1493[k] = class38_sub2_sub3_1.method446();
-            anIntArray1494[k] = class38_sub2_sub3_1.method446();
-            int l = anIntArray1491[k] = class38_sub2_sub3_1.method448();
-            int j1 = anIntArray1492[k] = class38_sub2_sub3_1.method448();
-            int k1 = class38_sub2_sub3_1.method446();
+            anIntArray1493[k] = class38_sub2_sub3_1.readByte();
+            anIntArray1494[k] = class38_sub2_sub3_1.readByte();
+            int l = anIntArray1491[k] = class38_sub2_sub3_1.readWord();
+            int j1 = anIntArray1492[k] = class38_sub2_sub3_1.readWord();
+            int k1 = class38_sub2_sub3_1.readByte();
             int l1 = l * j1;
             aByteArrayArray1490[k] = new byte[l1];
             if (k1 == 0) {
                 for (int i2 = 0; i2 < l1; i2++)
-                    aByteArrayArray1490[k][i2] = class38_sub2_sub3.method447();
+                    aByteArrayArray1490[k][i2] = class38_sub2_sub3.readByteSigned();
 
             } else if (k1 == 1) {
                 for (int j2 = 0; j2 < l; j2++) {
                     for (int l2 = 0; l2 < j1; l2++)
-                        aByteArrayArray1490[k][j2 + l2 * l] = class38_sub2_sub3.method447();
+                        aByteArrayArray1490[k][j2 + l2 * l] = class38_sub2_sub3.readByteSigned();
 
                 }
 

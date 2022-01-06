@@ -14,20 +14,20 @@ public class PlayerEntity extends PathingEntity {
 
     public void method470(boolean flag, Buffer class38_sub2_sub3) {
         class38_sub2_sub3.offset = 0;
-        anInt1507 = class38_sub2_sub3.method446();
-        anInt1508 = class38_sub2_sub3.method446();
+        anInt1507 = class38_sub2_sub3.readByte();
+        anInt1508 = class38_sub2_sub3.readByte();
         for (int i = 0; i < 12; i++) {
-            int j = class38_sub2_sub3.method446();
+            int j = class38_sub2_sub3.readByte();
             if (j == 0) {
                 anIntArray1509[i] = 0;
             } else {
-                int l = class38_sub2_sub3.method446();
+                int l = class38_sub2_sub3.readByte();
                 anIntArray1509[i] = (j << 8) + l;
             }
         }
 
         for (int k = 0; k < 5; k++) {
-            int i1 = class38_sub2_sub3.method446();
+            int i1 = class38_sub2_sub3.readByte();
             if (i1 < 0 || i1 >= Game.anIntArrayArray942[k].length)
                 i1 = 0;
             anIntArray1510[k] = i1;
@@ -35,29 +35,29 @@ public class PlayerEntity extends PathingEntity {
 
         if (flag)
             return;
-        super.anInt1385 = class38_sub2_sub3.method448();
+        super.anInt1385 = class38_sub2_sub3.readWord();
         if (super.anInt1385 == 65535)
             super.anInt1385 = -1;
-        super.anInt1386 = class38_sub2_sub3.method448();
+        super.anInt1386 = class38_sub2_sub3.readWord();
         if (super.anInt1386 == 65535)
             super.anInt1386 = -1;
-        super.anInt1387 = class38_sub2_sub3.method448();
+        super.anInt1387 = class38_sub2_sub3.readWord();
         if (super.anInt1387 == 65535)
             super.anInt1387 = -1;
-        super.anInt1388 = class38_sub2_sub3.method448();
+        super.anInt1388 = class38_sub2_sub3.readWord();
         if (super.anInt1388 == 65535)
             super.anInt1388 = -1;
-        super.anInt1389 = class38_sub2_sub3.method448();
+        super.anInt1389 = class38_sub2_sub3.readWord();
         if (super.anInt1389 == 65535)
             super.anInt1389 = -1;
-        super.anInt1390 = class38_sub2_sub3.method448();
+        super.anInt1390 = class38_sub2_sub3.readWord();
         if (super.anInt1390 == 65535)
             super.anInt1390 = -1;
-        super.anInt1391 = class38_sub2_sub3.method448();
+        super.anInt1391 = class38_sub2_sub3.readWord();
         if (super.anInt1391 == 65535)
             super.anInt1391 = -1;
-        aString1505 = StringUtils.formatName(StringUtils.fromBase37(class38_sub2_sub3.method452(603)));
-        anInt1511 = class38_sub2_sub3.method446();
+        aString1505 = StringUtils.formatName(StringUtils.fromBase37(class38_sub2_sub3.readQWord()));
+        anInt1511 = class38_sub2_sub3.readByte();
         aBoolean1506 = true;
         aLong1512 = 0L;
         for (int j1 = 0; j1 < 12; j1++) {

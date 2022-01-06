@@ -60,7 +60,7 @@ public class SceneBuilder {
     }
 
     public void method153(byte[] abyte0, int i, int j, int k, int l, int i1) {
-        Buffer class38_sub2_sub3 = new Buffer(363, abyte0);
+        Buffer class38_sub2_sub3 = new Buffer(abyte0);
         if (j != 1)
             aBoolean106 = !aBoolean106;
         for (int j1 = 0; j1 < 4; j1++) {
@@ -71,7 +71,7 @@ public class SceneBuilder {
                     if (i2 >= 0 && i2 < 104 && j2 >= 0 && j2 < 104) {
                         aByteArrayArrayArray114[j1][i2][j2] = 0;
                         do {
-                            int k2 = class38_sub2_sub3.method446();
+                            int k2 = class38_sub2_sub3.readByte();
                             if (k2 == 0) {
                                 if (j1 == 0)
                                     anIntArrayArrayArray113[0][i2][j2] = -method158(0xe3b7b + i2 + i, 0x87cce + j2 + i1)
@@ -81,7 +81,7 @@ public class SceneBuilder {
                                 break;
                             }
                             if (k2 == 1) {
-                                int i3 = class38_sub2_sub3.method446();
+                                int i3 = class38_sub2_sub3.readByte();
                                 if (i3 == 1)
                                     i3 = 0;
                                 if (j1 == 0)
@@ -92,7 +92,7 @@ public class SceneBuilder {
                                 break;
                             }
                             if (k2 <= 49) {
-                                aByteArrayArrayArray116[j1][i2][j2] = class38_sub2_sub3.method447();
+                                aByteArrayArrayArray116[j1][i2][j2] = class38_sub2_sub3.readByteSigned();
                                 aByteArrayArrayArray117[j1][i2][j2] = (byte) ((k2 - 2) / 4);
                                 aByteArrayArrayArray118[j1][i2][j2] = (byte) (k2 - 2 & 3);
                             } else if (k2 <= 81)
@@ -102,15 +102,15 @@ public class SceneBuilder {
                         } while (true);
                     } else {
                         do {
-                            int l2 = class38_sub2_sub3.method446();
+                            int l2 = class38_sub2_sub3.readByte();
                             if (l2 == 0)
                                 break;
                             if (l2 == 1) {
-                                class38_sub2_sub3.method446();
+                                class38_sub2_sub3.readByte();
                                 break;
                             }
                             if (l2 <= 49)
-                                class38_sub2_sub3.method446();
+                                class38_sub2_sub3.readByte();
                         } while (true);
                     }
                 }
@@ -125,25 +125,25 @@ public class SceneBuilder {
                           int j) {
         label0:
         {
-            Buffer class38_sub2_sub3 = new Buffer(363, abyte0);
+            Buffer class38_sub2_sub3 = new Buffer(abyte0);
             if (!flag)
                 aBoolean106 = !aBoolean106;
             int k = -1;
             do {
-                int l = class38_sub2_sub3.method460();
+                int l = class38_sub2_sub3.readSmart();
                 if (l == 0)
                     break label0;
                 k += l;
                 int i1 = 0;
                 do {
-                    int j1 = class38_sub2_sub3.method460();
+                    int j1 = class38_sub2_sub3.readSmart();
                     if (j1 == 0)
                         break;
                     i1 += j1 - 1;
                     int k1 = i1 & 0x3f;
                     int l1 = i1 >> 6 & 0x3f;
                     int i2 = i1 >> 12;
-                    int j2 = class38_sub2_sub3.method446();
+                    int j2 = class38_sub2_sub3.readByte();
                     int k2 = j2 >> 2;
                     int l2 = j2 & 3;
                     int i3 = l1 + j;

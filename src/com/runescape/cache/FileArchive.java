@@ -10,23 +10,23 @@ public class FileArchive {
     }
 
     public void parse(byte[] src) {
-        Buffer buffer = new Buffer(363, src);
+        Buffer buffer = new Buffer(src);
         
-        int unpackedSize = buffer.method450();
-        int packedSize = buffer.method450();
+        int unpackedSize = buffer.readSWord();
+        int packedSize = buffer.readSWord();
 
         if (packedSize != unpackedSize) {
             byte[] temp = new byte[unpackedSize];
             BZip2InputStream.read(temp, unpackedSize, src, packedSize, 6);
             data = temp;
-            buffer = new Buffer(363, data);
+            buffer = new Buffer(data);
             isCompressedWhole = true;
         } else {
             data = src;
             isCompressedWhole = false;
         }
 
-        fileCount = buffer.method448();
+        fileCount = buffer.readWord();
         fileHash = new int[fileCount];
         fileUnpackedSize = new int[fileCount];
         filePackedSize = new int[fileCount];
@@ -34,9 +34,9 @@ public class FileArchive {
 
         int offset = buffer.offset + fileCount * 10;
         for (int l = 0; l < fileCount; l++) {
-            fileHash[l] = buffer.method451();
-            fileUnpackedSize[l] = buffer.method450();
-            filePackedSize[l] = buffer.method450();
+            fileHash[l] = buffer.readDWord();
+            fileUnpackedSize[l] = buffer.readSWord();
+            filePackedSize[l] = buffer.readSWord();
             fileOffset[l] = offset;
             offset += filePackedSize[l];
         }

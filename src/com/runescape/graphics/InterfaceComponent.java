@@ -13,86 +13,86 @@ public class InterfaceComponent {
         i = 17 / i;
         cache1 = new Cache((byte) 0, 50000);
         cache2 = new Cache((byte) 0, 50000);
-        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive_1.read("data", null));
+        Buffer class38_sub2_sub3 = new Buffer(fileArchive_1.read("data", null));
         int j = -1;
-        int k = class38_sub2_sub3.method448();
+        int k = class38_sub2_sub3.readWord();
         interfaceComponentArray = new InterfaceComponent[k];
-        while (class38_sub2_sub3.offset < class38_sub2_sub3.aByteArray1328.length) {
-            int l = class38_sub2_sub3.method448();
+        while (class38_sub2_sub3.offset < class38_sub2_sub3.data.length) {
+            int l = class38_sub2_sub3.readWord();
             if (l == 65535) {
-                j = class38_sub2_sub3.method448();
-                l = class38_sub2_sub3.method448();
+                j = class38_sub2_sub3.readWord();
+                l = class38_sub2_sub3.readWord();
             }
             InterfaceComponent interfaceComponent = interfaceComponentArray[l] = new InterfaceComponent();
             interfaceComponent.anInt269 = l;
             interfaceComponent.anInt270 = j;
-            interfaceComponent.anInt271 = class38_sub2_sub3.method446();
-            interfaceComponent.anInt272 = class38_sub2_sub3.method446();
-            interfaceComponent.anInt273 = class38_sub2_sub3.method448();
-            interfaceComponent.anInt274 = class38_sub2_sub3.method448();
-            interfaceComponent.anInt275 = class38_sub2_sub3.method448();
-            interfaceComponent.anInt281 = class38_sub2_sub3.method446();
+            interfaceComponent.anInt271 = class38_sub2_sub3.readByte();
+            interfaceComponent.anInt272 = class38_sub2_sub3.readByte();
+            interfaceComponent.anInt273 = class38_sub2_sub3.readWord();
+            interfaceComponent.anInt274 = class38_sub2_sub3.readWord();
+            interfaceComponent.anInt275 = class38_sub2_sub3.readWord();
+            interfaceComponent.anInt281 = class38_sub2_sub3.readByte();
             if (interfaceComponent.anInt281 != 0)
-                interfaceComponent.anInt281 = (interfaceComponent.anInt281 - 1 << 8) + class38_sub2_sub3.method446();
+                interfaceComponent.anInt281 = (interfaceComponent.anInt281 - 1 << 8) + class38_sub2_sub3.readByte();
             else
                 interfaceComponent.anInt281 = -1;
-            int j1 = class38_sub2_sub3.method446();
+            int j1 = class38_sub2_sub3.readByte();
             if (j1 > 0) {
                 interfaceComponent.anIntArray279 = new int[j1];
                 interfaceComponent.anIntArray280 = new int[j1];
                 for (int k1 = 0; k1 < j1; k1++) {
-                    interfaceComponent.anIntArray279[k1] = class38_sub2_sub3.method446();
-                    interfaceComponent.anIntArray280[k1] = class38_sub2_sub3.method448();
+                    interfaceComponent.anIntArray279[k1] = class38_sub2_sub3.readByte();
+                    interfaceComponent.anIntArray280[k1] = class38_sub2_sub3.readWord();
                 }
 
             }
-            int l1 = class38_sub2_sub3.method446();
+            int l1 = class38_sub2_sub3.readByte();
             if (l1 > 0) {
                 interfaceComponent.anIntArrayArray278 = new int[l1][];
                 for (int i2 = 0; i2 < l1; i2++) {
-                    int j3 = class38_sub2_sub3.method448();
+                    int j3 = class38_sub2_sub3.readWord();
                     interfaceComponent.anIntArrayArray278[i2] = new int[j3];
                     for (int i5 = 0; i5 < j3; i5++)
-                        interfaceComponent.anIntArrayArray278[i2][i5] = class38_sub2_sub3.method448();
+                        interfaceComponent.anIntArrayArray278[i2][i5] = class38_sub2_sub3.readWord();
 
                 }
 
             }
             if (interfaceComponent.anInt271 == 0) {
-                interfaceComponent.anInt282 = class38_sub2_sub3.method448();
-                interfaceComponent.aBoolean284 = class38_sub2_sub3.method446() == 1;
-                int j2 = class38_sub2_sub3.method446();
+                interfaceComponent.anInt282 = class38_sub2_sub3.readWord();
+                interfaceComponent.aBoolean284 = class38_sub2_sub3.readByte() == 1;
+                int j2 = class38_sub2_sub3.readByte();
                 interfaceComponent.anIntArray285 = new int[j2];
                 interfaceComponent.anIntArray286 = new int[j2];
                 interfaceComponent.anIntArray287 = new int[j2];
                 for (int k3 = 0; k3 < j2; k3++) {
-                    interfaceComponent.anIntArray285[k3] = class38_sub2_sub3.method448();
-                    interfaceComponent.anIntArray286[k3] = class38_sub2_sub3.method449();
-                    interfaceComponent.anIntArray287[k3] = class38_sub2_sub3.method449();
+                    interfaceComponent.anIntArray285[k3] = class38_sub2_sub3.readWord();
+                    interfaceComponent.anIntArray286[k3] = class38_sub2_sub3.readWordSigned();
+                    interfaceComponent.anIntArray287[k3] = class38_sub2_sub3.readWordSigned();
                 }
 
             }
             if (interfaceComponent.anInt271 == 1) {
-                interfaceComponent.anInt288 = class38_sub2_sub3.method448();
-                interfaceComponent.aBoolean289 = class38_sub2_sub3.method446() == 1;
+                interfaceComponent.anInt288 = class38_sub2_sub3.readWord();
+                interfaceComponent.aBoolean289 = class38_sub2_sub3.readByte() == 1;
             }
             if (interfaceComponent.anInt271 == 2) {
                 interfaceComponent.anIntArray265 = new int[interfaceComponent.anInt274 * interfaceComponent.anInt275];
                 interfaceComponent.anIntArray266 = new int[interfaceComponent.anInt274 * interfaceComponent.anInt275];
-                interfaceComponent.aBoolean290 = class38_sub2_sub3.method446() == 1;
-                interfaceComponent.aBoolean291 = class38_sub2_sub3.method446() == 1;
-                interfaceComponent.aBoolean292 = class38_sub2_sub3.method446() == 1;
-                interfaceComponent.anInt293 = class38_sub2_sub3.method446();
-                interfaceComponent.anInt294 = class38_sub2_sub3.method446();
+                interfaceComponent.aBoolean290 = class38_sub2_sub3.readByte() == 1;
+                interfaceComponent.aBoolean291 = class38_sub2_sub3.readByte() == 1;
+                interfaceComponent.aBoolean292 = class38_sub2_sub3.readByte() == 1;
+                interfaceComponent.anInt293 = class38_sub2_sub3.readByte();
+                interfaceComponent.anInt294 = class38_sub2_sub3.readByte();
                 interfaceComponent.anIntArray296 = new int[20];
                 interfaceComponent.anIntArray297 = new int[20];
                 interfaceComponent.aClass38_Sub2_Sub2_Sub2Array295 = new Sprite[20];
                 for (int k2 = 0; k2 < 20; k2++) {
-                    int l3 = class38_sub2_sub3.method446();
+                    int l3 = class38_sub2_sub3.readByte();
                     if (l3 == 1) {
-                        interfaceComponent.anIntArray296[k2] = class38_sub2_sub3.method449();
-                        interfaceComponent.anIntArray297[k2] = class38_sub2_sub3.method449();
-                        String s1 = class38_sub2_sub3.method453();
+                        interfaceComponent.anIntArray296[k2] = class38_sub2_sub3.readWordSigned();
+                        interfaceComponent.anIntArray297[k2] = class38_sub2_sub3.readWordSigned();
+                        String s1 = class38_sub2_sub3.readString();
                         if (fileArchive != null && s1.length() > 0) {
                             int j5 = s1.lastIndexOf(",");
                             interfaceComponent.aClass38_Sub2_Sub2_Sub2Array295[k2] = method220(fileArchive,
@@ -103,39 +103,39 @@ public class InterfaceComponent {
 
                 interfaceComponent.aStringArray298 = new String[5];
                 for (int i4 = 0; i4 < 5; i4++) {
-                    interfaceComponent.aStringArray298[i4] = class38_sub2_sub3.method453();
+                    interfaceComponent.aStringArray298[i4] = class38_sub2_sub3.readString();
                     if (interfaceComponent.aStringArray298[i4].length() == 0)
                         interfaceComponent.aStringArray298[i4] = null;
                 }
 
             }
             if (interfaceComponent.anInt271 == 3)
-                interfaceComponent.aBoolean299 = class38_sub2_sub3.method446() == 1;
+                interfaceComponent.aBoolean299 = class38_sub2_sub3.readByte() == 1;
             if (interfaceComponent.anInt271 == 4 || interfaceComponent.anInt271 == 1) {
-                interfaceComponent.aBoolean300 = class38_sub2_sub3.method446() == 1;
-                int l2 = class38_sub2_sub3.method446();
+                interfaceComponent.aBoolean300 = class38_sub2_sub3.readByte() == 1;
+                int l2 = class38_sub2_sub3.readByte();
                 if (aclass38_sub2_sub2_sub4 != null)
                     interfaceComponent.indexedFont = aclass38_sub2_sub2_sub4[l2];
-                interfaceComponent.aBoolean301 = class38_sub2_sub3.method446() == 1;
+                interfaceComponent.aBoolean301 = class38_sub2_sub3.readByte() == 1;
             }
             if (interfaceComponent.anInt271 == 4) {
-                interfaceComponent.aString303 = class38_sub2_sub3.method453();
-                interfaceComponent.aString304 = class38_sub2_sub3.method453();
+                interfaceComponent.aString303 = class38_sub2_sub3.readString();
+                interfaceComponent.aString304 = class38_sub2_sub3.readString();
             }
             if (interfaceComponent.anInt271 == 1 || interfaceComponent.anInt271 == 3 || interfaceComponent.anInt271 == 4)
-                interfaceComponent.anInt305 = class38_sub2_sub3.method451();
+                interfaceComponent.anInt305 = class38_sub2_sub3.readDWord();
             if (interfaceComponent.anInt271 == 3 || interfaceComponent.anInt271 == 4) {
-                interfaceComponent.anInt306 = class38_sub2_sub3.method451();
-                interfaceComponent.anInt307 = class38_sub2_sub3.method451();
+                interfaceComponent.anInt306 = class38_sub2_sub3.readDWord();
+                interfaceComponent.anInt307 = class38_sub2_sub3.readDWord();
             }
             if (interfaceComponent.anInt271 == 5) {
-                String s = class38_sub2_sub3.method453();
+                String s = class38_sub2_sub3.readString();
                 if (fileArchive != null && s.length() > 0) {
                     int j4 = s.lastIndexOf(",");
                     interfaceComponent.aClass38_Sub2_Sub2_Sub2_308 = method220(fileArchive, Integer.parseInt(s.substring(j4 + 1)),
                             s.substring(0, j4), -36068);
                 }
-                s = class38_sub2_sub3.method453();
+                s = class38_sub2_sub3.readString();
                 if (fileArchive != null && s.length() > 0) {
                     int k4 = s.lastIndexOf(",");
                     interfaceComponent.aClass38_Sub2_Sub2_Sub2_309 = method220(fileArchive, Integer.parseInt(s.substring(k4 + 1)),
@@ -143,53 +143,53 @@ public class InterfaceComponent {
                 }
             }
             if (interfaceComponent.anInt271 == 6) {
-                int i1 = class38_sub2_sub3.method446();
+                int i1 = class38_sub2_sub3.readByte();
                 if (i1 != 0)
-                    interfaceComponent.aClass38_Sub2_Sub1_310 = method221(4, (i1 - 1 << 8) + class38_sub2_sub3.method446());
-                i1 = class38_sub2_sub3.method446();
+                    interfaceComponent.aClass38_Sub2_Sub1_310 = method221(4, (i1 - 1 << 8) + class38_sub2_sub3.readByte());
+                i1 = class38_sub2_sub3.readByte();
                 if (i1 != 0)
-                    interfaceComponent.aClass38_Sub2_Sub1_311 = method221(4, (i1 - 1 << 8) + class38_sub2_sub3.method446());
-                i1 = class38_sub2_sub3.method446();
+                    interfaceComponent.aClass38_Sub2_Sub1_311 = method221(4, (i1 - 1 << 8) + class38_sub2_sub3.readByte());
+                i1 = class38_sub2_sub3.readByte();
                 if (i1 != 0)
-                    interfaceComponent.anInt312 = (i1 - 1 << 8) + class38_sub2_sub3.method446();
+                    interfaceComponent.anInt312 = (i1 - 1 << 8) + class38_sub2_sub3.readByte();
                 else
                     interfaceComponent.anInt312 = -1;
-                i1 = class38_sub2_sub3.method446();
+                i1 = class38_sub2_sub3.readByte();
                 if (i1 != 0)
-                    interfaceComponent.anInt313 = (i1 - 1 << 8) + class38_sub2_sub3.method446();
+                    interfaceComponent.anInt313 = (i1 - 1 << 8) + class38_sub2_sub3.readByte();
                 else
                     interfaceComponent.anInt313 = -1;
-                interfaceComponent.anInt314 = class38_sub2_sub3.method448();
-                interfaceComponent.anInt315 = class38_sub2_sub3.method448();
-                interfaceComponent.anInt316 = class38_sub2_sub3.method448();
+                interfaceComponent.anInt314 = class38_sub2_sub3.readWord();
+                interfaceComponent.anInt315 = class38_sub2_sub3.readWord();
+                interfaceComponent.anInt316 = class38_sub2_sub3.readWord();
             }
             if (interfaceComponent.anInt271 == 7) {
                 interfaceComponent.anIntArray265 = new int[interfaceComponent.anInt274 * interfaceComponent.anInt275];
                 interfaceComponent.anIntArray266 = new int[interfaceComponent.anInt274 * interfaceComponent.anInt275];
-                interfaceComponent.aBoolean300 = class38_sub2_sub3.method446() == 1;
-                int i3 = class38_sub2_sub3.method446();
+                interfaceComponent.aBoolean300 = class38_sub2_sub3.readByte() == 1;
+                int i3 = class38_sub2_sub3.readByte();
                 if (aclass38_sub2_sub2_sub4 != null)
                     interfaceComponent.indexedFont = aclass38_sub2_sub2_sub4[i3];
-                interfaceComponent.aBoolean301 = class38_sub2_sub3.method446() == 1;
-                interfaceComponent.anInt305 = class38_sub2_sub3.method451();
-                interfaceComponent.anInt293 = class38_sub2_sub3.method449();
-                interfaceComponent.anInt294 = class38_sub2_sub3.method449();
-                interfaceComponent.aBoolean291 = class38_sub2_sub3.method446() == 1;
+                interfaceComponent.aBoolean301 = class38_sub2_sub3.readByte() == 1;
+                interfaceComponent.anInt305 = class38_sub2_sub3.readDWord();
+                interfaceComponent.anInt293 = class38_sub2_sub3.readWordSigned();
+                interfaceComponent.anInt294 = class38_sub2_sub3.readWordSigned();
+                interfaceComponent.aBoolean291 = class38_sub2_sub3.readByte() == 1;
                 interfaceComponent.aStringArray298 = new String[5];
                 for (int l4 = 0; l4 < 5; l4++) {
-                    interfaceComponent.aStringArray298[l4] = class38_sub2_sub3.method453();
+                    interfaceComponent.aStringArray298[l4] = class38_sub2_sub3.readString();
                     if (interfaceComponent.aStringArray298[l4].length() == 0)
                         interfaceComponent.aStringArray298[l4] = null;
                 }
 
             }
             if (interfaceComponent.anInt272 == 2 || interfaceComponent.anInt271 == 2) {
-                interfaceComponent.aString317 = class38_sub2_sub3.method453();
-                interfaceComponent.aString318 = class38_sub2_sub3.method453();
-                interfaceComponent.anInt319 = class38_sub2_sub3.method448();
+                interfaceComponent.aString317 = class38_sub2_sub3.readString();
+                interfaceComponent.aString318 = class38_sub2_sub3.readString();
+                interfaceComponent.anInt319 = class38_sub2_sub3.readWord();
             }
             if (interfaceComponent.anInt272 == 1 || interfaceComponent.anInt272 == 4 || interfaceComponent.anInt272 == 5 || interfaceComponent.anInt272 == 6) {
-                interfaceComponent.aString320 = class38_sub2_sub3.method453();
+                interfaceComponent.aString320 = class38_sub2_sub3.readString();
                 if (interfaceComponent.aString320.length() == 0) {
                     if (interfaceComponent.anInt272 == 1)
                         interfaceComponent.aString320 = "Ok";

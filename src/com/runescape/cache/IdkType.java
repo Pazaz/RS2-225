@@ -5,8 +5,8 @@ import com.runescape.util.Buffer;
 public class IdkType {
 
     public static void load(FileArchive fileArchive) {
-        Buffer buffer = new Buffer(363, fileArchive.read("idk.dat", null));
-        count = buffer.method448();
+        Buffer buffer = new Buffer(fileArchive.read("idk.dat", null));
+        count = buffer.readWord();
 
         if (instances == null) {
             instances = new IdkType[count];
@@ -23,26 +23,26 @@ public class IdkType {
 
     public void read(Buffer buffer) {
         do {
-            int opcode = buffer.method446();
+            int opcode = buffer.readByte();
 
             if (opcode == 0) {
                 return;
             } else if (opcode == 1) {
-                type = buffer.method446();
+                type = buffer.readByte();
             } else if (opcode == 2) {
-                int n = buffer.method446();
+                int n = buffer.readByte();
                 modelIndices = new int[n];
                 for (int k = 0; k < n; k++) {
-                    modelIndices[k] = buffer.method448();
+                    modelIndices[k] = buffer.readWord();
                 }
             } else if (opcode == 3) {
                 validStyle = true;
             } else if (opcode >= 40 && opcode < 50) {
-                oldColors[opcode - 40] = buffer.method448();
+                oldColors[opcode - 40] = buffer.readWord();
             } else if (opcode >= 50 && opcode < 60) {
-                newColors[opcode - 50] = buffer.method448();
+                newColors[opcode - 50] = buffer.readWord();
             } else if (opcode >= 60 && opcode < 70) {
-                headModelIndices[opcode - 60] = buffer.method448();
+                headModelIndices[opcode - 60] = buffer.readWord();
             } else {
                 System.out.println("Error unrecognised config code: " + opcode);
             }

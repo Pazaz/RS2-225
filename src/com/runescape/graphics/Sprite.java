@@ -50,43 +50,43 @@ public class Sprite extends Draw2D {
         aBoolean1462 = false;
         anInt1463 = 15223;
         aByte1464 = 5;
-        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive.read(s + ".dat", null));
-        Buffer class38_sub2_sub3_1 = new Buffer(363,
+        Buffer class38_sub2_sub3 = new Buffer(fileArchive.read(s + ".dat", null));
+        Buffer class38_sub2_sub3_1 = new Buffer(
                 fileArchive.read("index.dat", null));
-        class38_sub2_sub3_1.offset = class38_sub2_sub3.method448();
-        cropW = class38_sub2_sub3_1.method448();
-        cropH = class38_sub2_sub3_1.method448();
-        int j = class38_sub2_sub3_1.method446();
+        class38_sub2_sub3_1.offset = class38_sub2_sub3.readWord();
+        cropW = class38_sub2_sub3_1.readWord();
+        cropH = class38_sub2_sub3_1.readWord();
+        int j = class38_sub2_sub3_1.readByte();
         int[] ai = new int[j];
         for (int k = 0; k < j - 1; k++) {
-            ai[k + 1] = class38_sub2_sub3_1.method450();
+            ai[k + 1] = class38_sub2_sub3_1.readSWord();
             if (ai[k + 1] == 0)
                 ai[k + 1] = 1;
         }
 
         for (int l = 0; l < i; l++) {
             class38_sub2_sub3_1.offset += 2;
-            class38_sub2_sub3.offset += class38_sub2_sub3_1.method448() * class38_sub2_sub3_1.method448();
+            class38_sub2_sub3.offset += class38_sub2_sub3_1.readWord() * class38_sub2_sub3_1.readWord();
             class38_sub2_sub3_1.offset++;
         }
 
-        anInt1468 = class38_sub2_sub3_1.method446();
-        anInt1469 = class38_sub2_sub3_1.method446();
-        anInt1466 = class38_sub2_sub3_1.method448();
-        anInt1467 = class38_sub2_sub3_1.method448();
-        int i1 = class38_sub2_sub3_1.method446();
+        anInt1468 = class38_sub2_sub3_1.readByte();
+        anInt1469 = class38_sub2_sub3_1.readByte();
+        anInt1466 = class38_sub2_sub3_1.readWord();
+        anInt1467 = class38_sub2_sub3_1.readWord();
+        int i1 = class38_sub2_sub3_1.readByte();
         int j1 = anInt1466 * anInt1467;
         pixels = new int[j1];
         if (i1 == 0) {
             for (int k1 = 0; k1 < j1; k1++)
-                pixels[k1] = ai[class38_sub2_sub3.method446()];
+                pixels[k1] = ai[class38_sub2_sub3.readByte()];
 
             return;
         }
         if (i1 == 1) {
             for (int l1 = 0; l1 < anInt1466; l1++) {
                 for (int i2 = 0; i2 < anInt1467; i2++)
-                    pixels[l1 + i2 * anInt1466] = ai[class38_sub2_sub3.method446()];
+                    pixels[l1 + i2 * anInt1466] = ai[class38_sub2_sub3.readByte()];
 
             }
 

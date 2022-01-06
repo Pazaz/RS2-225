@@ -10,40 +10,40 @@ public class IndexedSprite extends Draw2D {
         anInt1473 = 45861;
         aByte1474 = 5;
         aBoolean1475 = true;
-        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive.read(s + ".dat", null));
-        Buffer class38_sub2_sub3_1 = new Buffer(363,
+        Buffer class38_sub2_sub3 = new Buffer(fileArchive.read(s + ".dat", null));
+        Buffer class38_sub2_sub3_1 = new Buffer(
                 fileArchive.read("index.dat", null));
-        class38_sub2_sub3_1.offset = class38_sub2_sub3.method448();
-        anInt1482 = class38_sub2_sub3_1.method448();
-        anInt1483 = class38_sub2_sub3_1.method448();
-        int j = class38_sub2_sub3_1.method446();
+        class38_sub2_sub3_1.offset = class38_sub2_sub3.readWord();
+        anInt1482 = class38_sub2_sub3_1.readWord();
+        anInt1483 = class38_sub2_sub3_1.readWord();
+        int j = class38_sub2_sub3_1.readByte();
         anIntArray1477 = new int[j];
         for (int k = 0; k < j - 1; k++)
-            anIntArray1477[k + 1] = class38_sub2_sub3_1.method450();
+            anIntArray1477[k + 1] = class38_sub2_sub3_1.readSWord();
 
         for (int l = 0; l < i; l++) {
             class38_sub2_sub3_1.offset += 2;
-            class38_sub2_sub3.offset += class38_sub2_sub3_1.method448() * class38_sub2_sub3_1.method448();
+            class38_sub2_sub3.offset += class38_sub2_sub3_1.readWord() * class38_sub2_sub3_1.readWord();
             class38_sub2_sub3_1.offset++;
         }
 
-        anInt1480 = class38_sub2_sub3_1.method446();
-        anInt1481 = class38_sub2_sub3_1.method446();
-        anInt1478 = class38_sub2_sub3_1.method448();
-        anInt1479 = class38_sub2_sub3_1.method448();
-        int i1 = class38_sub2_sub3_1.method446();
+        anInt1480 = class38_sub2_sub3_1.readByte();
+        anInt1481 = class38_sub2_sub3_1.readByte();
+        anInt1478 = class38_sub2_sub3_1.readWord();
+        anInt1479 = class38_sub2_sub3_1.readWord();
+        int i1 = class38_sub2_sub3_1.readByte();
         int j1 = anInt1478 * anInt1479;
         aByteArray1476 = new byte[j1];
         if (i1 == 0) {
             for (int k1 = 0; k1 < j1; k1++)
-                aByteArray1476[k1] = class38_sub2_sub3.method447();
+                aByteArray1476[k1] = class38_sub2_sub3.readByteSigned();
 
             return;
         }
         if (i1 == 1) {
             for (int l1 = 0; l1 < anInt1478; l1++) {
                 for (int i2 = 0; i2 < anInt1479; i2++)
-                    aByteArray1476[l1 + i2 * anInt1478] = class38_sub2_sub3.method447();
+                    aByteArray1476[l1 + i2 * anInt1478] = class38_sub2_sub3.readByteSigned();
 
             }
 

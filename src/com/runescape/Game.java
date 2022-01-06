@@ -198,7 +198,7 @@ public class Game extends GameShell {
     public void method16(byte byte0) {
         if (byte0 != -60)
             linkedList3dArray = null;
-        aClass38_Sub2_Sub3_798.method435((byte) -34, 231);
+        aClass38_Sub2_Sub3_798.writeOpcode(231);
         if (anInt1129 != -1) {
             anInt1129 = -1;
             aBoolean964 = true;
@@ -305,14 +305,14 @@ public class Game extends GameShell {
         for (int k = 0; k < anInt825; k++) {
             int l = anIntArray826[k];
             NpcEntity npcEntity = npcEntities[l];
-            int i1 = class38_sub2_sub3.method446();
+            int i1 = class38_sub2_sub3.readByte();
             if ((i1 & 2) == 2) {
-                int j1 = class38_sub2_sub3.method448();
+                int j1 = class38_sub2_sub3.readWord();
                 if (j1 == 65535)
                     j1 = -1;
                 if (j1 == npcEntity.anInt1407)
                     npcEntity.anInt1411 = 0;
-                int l1 = class38_sub2_sub3.method446();
+                int l1 = class38_sub2_sub3.readByte();
                 if (j1 == -1 || npcEntity.anInt1407 == -1
                         || SeqType.seqTypes[j1].anInt372 > SeqType.seqTypes[npcEntity.anInt1407].anInt372
                         || SeqType.seqTypes[npcEntity.anInt1407].anInt372 == 0) {
@@ -324,23 +324,23 @@ public class Game extends GameShell {
                 }
             }
             if ((i1 & 4) == 4) {
-                npcEntity.anInt1401 = class38_sub2_sub3.method448();
+                npcEntity.anInt1401 = class38_sub2_sub3.readWord();
                 if (npcEntity.anInt1401 == 65535)
                     npcEntity.anInt1401 = -1;
             }
             if ((i1 & 8) == 8) {
-                npcEntity.aString1392 = class38_sub2_sub3.method453();
+                npcEntity.aString1392 = class38_sub2_sub3.readString();
                 npcEntity.anInt1393 = 100;
             }
             if ((i1 & 0x10) == 16) {
-                npcEntity.anInt1396 = class38_sub2_sub3.method446();
-                npcEntity.anInt1397 = class38_sub2_sub3.method446();
+                npcEntity.anInt1396 = class38_sub2_sub3.readByte();
+                npcEntity.anInt1397 = class38_sub2_sub3.readByte();
                 npcEntity.anInt1398 = anInt955 + 400;
-                npcEntity.anInt1399 = class38_sub2_sub3.method446();
-                npcEntity.anInt1400 = class38_sub2_sub3.method446();
+                npcEntity.anInt1399 = class38_sub2_sub3.readByte();
+                npcEntity.anInt1400 = class38_sub2_sub3.readByte();
             }
             if ((i1 & 0x20) == 32) {
-                npcEntity.npcType = NpcType.get(class38_sub2_sub3.method448());
+                npcEntity.npcType = NpcType.get(class38_sub2_sub3.readWord());
                 npcEntity.anInt1387 = npcEntity.npcType.walkSeq;
                 npcEntity.anInt1388 = npcEntity.npcType.turnAroundSeq;
                 npcEntity.anInt1389 = npcEntity.npcType.turnRightSeq;
@@ -348,8 +348,8 @@ public class Game extends GameShell {
                 npcEntity.anInt1385 = npcEntity.npcType.standSeq;
             }
             if ((i1 & 0x40) == 64) {
-                npcEntity.anInt1412 = class38_sub2_sub3.method448();
-                int k1 = class38_sub2_sub3.method451();
+                npcEntity.anInt1412 = class38_sub2_sub3.readWord();
+                int k1 = class38_sub2_sub3.readDWord();
                 npcEntity.anInt1416 = k1 >> 16;
                 npcEntity.anInt1415 = anInt955 + (k1 & 0xffff);
                 npcEntity.anInt1413 = 0;
@@ -360,8 +360,8 @@ public class Game extends GameShell {
                     npcEntity.anInt1412 = -1;
             }
             if ((i1 & 0x80) == 128) {
-                npcEntity.anInt1402 = class38_sub2_sub3.method448();
-                npcEntity.anInt1403 = class38_sub2_sub3.method448();
+                npcEntity.anInt1402 = class38_sub2_sub3.readWord();
+                npcEntity.anInt1403 = class38_sub2_sub3.readWord();
             }
         }
 
@@ -394,8 +394,8 @@ public class Game extends GameShell {
         if (byte0 != 3) {
             return;
         } else {
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 79);
-            aClass38_Sub2_Sub3_798.method442(true, l);
+            aClass38_Sub2_Sub3_798.writeOpcode(79);
+            aClass38_Sub2_Sub3_798.writeQWord(l);
             return;
         }
     }
@@ -404,10 +404,10 @@ public class Game extends GameShell {
         if (byte0 != -45)
             method6();
         if (i == 59 || i == 76) {
-            int j = class38_sub2_sub3.method446();
+            int j = class38_sub2_sub3.readByte();
             int k2 = anInt862 + (j >> 4 & 7);
             int l4 = anInt863 + (j & 7);
-            int i7 = class38_sub2_sub3.method446();
+            int i7 = class38_sub2_sub3.readByte();
             int j9 = i7 >> 2;
             int j11 = i7 & 3;
             int i13 = anIntArray1107[j9];
@@ -415,7 +415,7 @@ public class Game extends GameShell {
             if (i == 76)
                 i14 = -1;
             else
-                i14 = class38_sub2_sub3.method448();
+                i14 = class38_sub2_sub3.readWord();
             if (k2 >= 0 && l4 >= 0 && k2 < 104 && l4 < 104) {
                 SpawnedLoc spawnedLoc = null;
                 for (SpawnedLoc spawnedLoc_1 = (SpawnedLoc) linkedList5
@@ -465,13 +465,13 @@ public class Game extends GameShell {
             return;
         }
         if (i == 42) {
-            int k = class38_sub2_sub3.method446();
+            int k = class38_sub2_sub3.readByte();
             int l2 = anInt862 + (k >> 4 & 7);
             int i5 = anInt863 + (k & 7);
-            int j7 = class38_sub2_sub3.method446();
+            int j7 = class38_sub2_sub3.readByte();
             int k9 = j7 >> 2;
             int k11 = anIntArray1107[k9];
-            int j13 = class38_sub2_sub3.method448();
+            int j13 = class38_sub2_sub3.readWord();
             if (l2 >= 0 && i5 >= 0 && l2 < 104 && i5 < 104) {
                 int j14 = 0;
                 if (k11 == 0)
@@ -491,11 +491,11 @@ public class Game extends GameShell {
             return;
         }
         if (i == 223) {
-            int l = class38_sub2_sub3.method446();
+            int l = class38_sub2_sub3.readByte();
             int i3 = anInt862 + (l >> 4 & 7);
             int j5 = anInt863 + (l & 7);
-            int k7 = class38_sub2_sub3.method448();
-            int l9 = class38_sub2_sub3.method448();
+            int k7 = class38_sub2_sub3.readWord();
+            int l9 = class38_sub2_sub3.readWord();
             if (i3 >= 0 && j5 >= 0 && i3 < 104 && j5 < 104) {
                 ObjStackEntity objStackEntity = new ObjStackEntity();
                 objStackEntity.model = k7;
@@ -508,10 +508,10 @@ public class Game extends GameShell {
             return;
         }
         if (i == 49) {
-            int i1 = class38_sub2_sub3.method446();
+            int i1 = class38_sub2_sub3.readByte();
             int j3 = anInt862 + (i1 >> 4 & 7);
             int k5 = anInt863 + (i1 & 7);
-            int l7 = class38_sub2_sub3.method448();
+            int l7 = class38_sub2_sub3.readWord();
             if (j3 >= 0 && k5 >= 0 && j3 < 104 && k5 < 104) {
                 LinkedList linkedList = linkedList3dArray[anInt880][j3][k5];
                 if (linkedList != null) {
@@ -532,19 +532,19 @@ public class Game extends GameShell {
             return;
         }
         if (i == 69) {
-            int j1 = class38_sub2_sub3.method446();
+            int j1 = class38_sub2_sub3.readByte();
             int k3 = anInt862 + (j1 >> 4 & 7);
             int l5 = anInt863 + (j1 & 7);
-            int i8 = k3 + class38_sub2_sub3.method447();
-            int i10 = l5 + class38_sub2_sub3.method447();
-            int l11 = class38_sub2_sub3.method449();
-            int k13 = class38_sub2_sub3.method448();
-            int k14 = class38_sub2_sub3.method446();
-            int i15 = class38_sub2_sub3.method446();
-            int k15 = class38_sub2_sub3.method448();
-            int j16 = class38_sub2_sub3.method448();
-            int i17 = class38_sub2_sub3.method446();
-            int k17 = class38_sub2_sub3.method446();
+            int i8 = k3 + class38_sub2_sub3.readByteSigned();
+            int i10 = l5 + class38_sub2_sub3.readByteSigned();
+            int l11 = class38_sub2_sub3.readWordSigned();
+            int k13 = class38_sub2_sub3.readWord();
+            int k14 = class38_sub2_sub3.readByte();
+            int i15 = class38_sub2_sub3.readByte();
+            int k15 = class38_sub2_sub3.readWord();
+            int j16 = class38_sub2_sub3.readWord();
+            int i17 = class38_sub2_sub3.readByte();
+            int k17 = class38_sub2_sub3.readByte();
             if (k3 >= 0 && l5 >= 0 && k3 < 104 && l5 < 104 && i8 >= 0 && i10 >= 0 && i8 < 104 && i10 < 104) {
                 k3 = k3 * 128 + 64;
                 l5 = l5 * 128 + 64;
@@ -558,12 +558,12 @@ public class Game extends GameShell {
             return;
         }
         if (i == 191) {
-            int k1 = class38_sub2_sub3.method446();
+            int k1 = class38_sub2_sub3.readByte();
             int l3 = anInt862 + (k1 >> 4 & 7);
             int i6 = anInt863 + (k1 & 7);
-            int j8 = class38_sub2_sub3.method448();
-            int j10 = class38_sub2_sub3.method446();
-            int i12 = class38_sub2_sub3.method448();
+            int j8 = class38_sub2_sub3.readWord();
+            int j10 = class38_sub2_sub3.readByte();
+            int i12 = class38_sub2_sub3.readWord();
             if (l3 >= 0 && i6 >= 0 && l3 < 104 && i6 < 104) {
                 l3 = l3 * 128 + 64;
                 i6 = i6 * 128 + 64;
@@ -574,12 +574,12 @@ public class Game extends GameShell {
             return;
         }
         if (i == 50) {
-            int l1 = class38_sub2_sub3.method446();
+            int l1 = class38_sub2_sub3.readByte();
             int i4 = anInt862 + (l1 >> 4 & 7);
             int j6 = anInt863 + (l1 & 7);
-            int k8 = class38_sub2_sub3.method448();
-            int k10 = class38_sub2_sub3.method448();
-            int j12 = class38_sub2_sub3.method448();
+            int k8 = class38_sub2_sub3.readWord();
+            int k10 = class38_sub2_sub3.readWord();
+            int j12 = class38_sub2_sub3.readWord();
             if (i4 >= 0 && j6 >= 0 && i4 < 104 && j6 < 104 && j12 != anInt734) {
                 ObjStackEntity objStackEntity_2 = new ObjStackEntity();
                 objStackEntity_2.model = k8;
@@ -592,21 +592,21 @@ public class Game extends GameShell {
             return;
         }
         if (i == 23) {
-            int i2 = class38_sub2_sub3.method446();
+            int i2 = class38_sub2_sub3.readByte();
             int j4 = anInt862 + (i2 >> 4 & 7);
             int k6 = anInt863 + (i2 & 7);
-            int l8 = class38_sub2_sub3.method446();
+            int l8 = class38_sub2_sub3.readByte();
             int l10 = l8 >> 2;
             int k12 = l8 & 3;
             int l13 = anIntArray1107[l10];
-            int l14 = class38_sub2_sub3.method448();
-            int j15 = class38_sub2_sub3.method448();
-            int l15 = class38_sub2_sub3.method448();
-            int k16 = class38_sub2_sub3.method448();
-            byte byte1 = class38_sub2_sub3.method447();
-            byte byte2 = class38_sub2_sub3.method447();
-            byte byte3 = class38_sub2_sub3.method447();
-            byte byte4 = class38_sub2_sub3.method447();
+            int l14 = class38_sub2_sub3.readWord();
+            int j15 = class38_sub2_sub3.readWord();
+            int l15 = class38_sub2_sub3.readWord();
+            int k16 = class38_sub2_sub3.readWord();
+            byte byte1 = class38_sub2_sub3.readByteSigned();
+            byte byte2 = class38_sub2_sub3.readByteSigned();
+            byte byte3 = class38_sub2_sub3.readByteSigned();
+            byte byte4 = class38_sub2_sub3.readByteSigned();
             PlayerEntity playerEntity;
             if (k16 == anInt734)
                 playerEntity = localPlayerEntity;
@@ -652,12 +652,12 @@ public class Game extends GameShell {
             }
         }
         if (i == 151) {
-            int j2 = class38_sub2_sub3.method446();
+            int j2 = class38_sub2_sub3.readByte();
             int k4 = anInt862 + (j2 >> 4 & 7);
             int l6 = anInt863 + (j2 & 7);
-            int i9 = class38_sub2_sub3.method448();
-            int i11 = class38_sub2_sub3.method448();
-            int l12 = class38_sub2_sub3.method448();
+            int i9 = class38_sub2_sub3.readWord();
+            int i11 = class38_sub2_sub3.readWord();
+            int l12 = class38_sub2_sub3.readWord();
             if (k4 >= 0 && l6 >= 0 && k4 < 104 && l6 < 104) {
                 LinkedList linkedList_1 = linkedList3dArray[anInt880][k4][l6];
                 if (linkedList_1 != null) {
@@ -678,7 +678,7 @@ public class Game extends GameShell {
 
     public int method23(byte byte0) {
         if (byte0 != 106)
-            anInt780 = aClass38_Sub2_Sub3_795.method446();
+            anInt780 = aClass38_Sub2_Sub3_795.readByte();
         int i = 3;
         if (anInt1114 < 310) {
             int j = anInt1111 >> 7;
@@ -778,22 +778,22 @@ public class Game extends GameShell {
             anInt804++;
             if (anInt804 > 1802) {
                 anInt804 = 0;
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 146);
-                aClass38_Sub2_Sub3_798.method436(0);
+                aClass38_Sub2_Sub3_798.writeOpcode(146);
+                aClass38_Sub2_Sub3_798.writeByte(0);
                 int j1 = aClass38_Sub2_Sub3_798.offset;
-                aClass38_Sub2_Sub3_798.method437(29711);
-                aClass38_Sub2_Sub3_798.method436(70);
-                aClass38_Sub2_Sub3_798.method436((int) (Math.random() * 256D));
-                aClass38_Sub2_Sub3_798.method436(242);
-                aClass38_Sub2_Sub3_798.method436(186);
-                aClass38_Sub2_Sub3_798.method436(39);
-                aClass38_Sub2_Sub3_798.method436(61);
+                aClass38_Sub2_Sub3_798.writeWord(29711);
+                aClass38_Sub2_Sub3_798.writeByte(70);
+                aClass38_Sub2_Sub3_798.writeByte((int) (Math.random() * 256D));
+                aClass38_Sub2_Sub3_798.writeByte(242);
+                aClass38_Sub2_Sub3_798.writeByte(186);
+                aClass38_Sub2_Sub3_798.writeByte(39);
+                aClass38_Sub2_Sub3_798.writeByte(61);
                 if ((int) (Math.random() * 2D) == 0)
-                    aClass38_Sub2_Sub3_798.method436(13);
+                    aClass38_Sub2_Sub3_798.writeByte(13);
                 if ((int) (Math.random() * 2D) == 0)
-                    aClass38_Sub2_Sub3_798.method437(57856);
-                aClass38_Sub2_Sub3_798.method437((int) (Math.random() * 65536D));
-                aClass38_Sub2_Sub3_798.method445(0, aClass38_Sub2_Sub3_798.offset - j1);
+                    aClass38_Sub2_Sub3_798.writeWord(57856);
+                aClass38_Sub2_Sub3_798.writeWord((int) (Math.random() * 65536D));
+                aClass38_Sub2_Sub3_798.writeSize(aClass38_Sub2_Sub3_798.offset - j1);
             }
         }
         int k;
@@ -901,7 +901,7 @@ public class Game extends GameShell {
                     }
                 if (abyte0 == null)
                     return;
-                int l = (new Buffer(363, abyte0)).method451();
+                int l = (new Buffer(abyte0)).readDWord();
                 byte[] abyte1 = new byte[l];
                 BZip2InputStream.read(abyte1, l, abyte0, j, 4);
                 method52(abyte1, 625, l, true);
@@ -1011,7 +1011,7 @@ public class Game extends GameShell {
             return;
         int k1 = interfaceComponent.anIntArray285.length;
         if (l != 5082)
-            anInt780 = aClass38_Sub2_Sub3_795.method446();
+            anInt780 = aClass38_Sub2_Sub3_795.readByte();
         for (int l1 = 0; l1 < k1; l1++) {
             int i2 = interfaceComponent.anIntArray286[l1] + i1;
             int j2 = (interfaceComponent.anIntArray287[l1] + k) - j1;
@@ -1213,28 +1213,28 @@ public class Game extends GameShell {
                 anInt976 = (anInt976 + 1) % 4;
                 aBoolean921 = true;
                 aBoolean965 = true;
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 244);
-                aClass38_Sub2_Sub3_798.method436(anInt976);
-                aClass38_Sub2_Sub3_798.method436(anInt755);
-                aClass38_Sub2_Sub3_798.method436(anInt885);
+                aClass38_Sub2_Sub3_798.writeOpcode(244);
+                aClass38_Sub2_Sub3_798.writeByte(anInt976);
+                aClass38_Sub2_Sub3_798.writeByte(anInt755);
+                aClass38_Sub2_Sub3_798.writeByte(anInt885);
             }
             if (super.anInt24 >= 137 && super.anInt24 <= 237 && super.anInt25 >= 490 && super.anInt25 <= 522) {
                 anInt755 = (anInt755 + 1) % 3;
                 aBoolean921 = true;
                 aBoolean965 = true;
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 244);
-                aClass38_Sub2_Sub3_798.method436(anInt976);
-                aClass38_Sub2_Sub3_798.method436(anInt755);
-                aClass38_Sub2_Sub3_798.method436(anInt885);
+                aClass38_Sub2_Sub3_798.writeOpcode(244);
+                aClass38_Sub2_Sub3_798.writeByte(anInt976);
+                aClass38_Sub2_Sub3_798.writeByte(anInt755);
+                aClass38_Sub2_Sub3_798.writeByte(anInt885);
             }
             if (super.anInt24 >= 275 && super.anInt24 <= 375 && super.anInt25 >= 490 && super.anInt25 <= 522) {
                 anInt885 = (anInt885 + 1) % 3;
                 aBoolean921 = true;
                 aBoolean965 = true;
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 244);
-                aClass38_Sub2_Sub3_798.method436(anInt976);
-                aClass38_Sub2_Sub3_798.method436(anInt755);
-                aClass38_Sub2_Sub3_798.method436(anInt885);
+                aClass38_Sub2_Sub3_798.writeOpcode(244);
+                aClass38_Sub2_Sub3_798.writeByte(anInt976);
+                aClass38_Sub2_Sub3_798.writeByte(anInt755);
+                aClass38_Sub2_Sub3_798.writeByte(anInt885);
             }
             if (super.anInt24 >= 416 && super.anInt24 <= 516 && super.anInt25 >= 490 && super.anInt25 <= 522) {
                 method16((byte) -60);
@@ -1370,12 +1370,12 @@ public class Game extends GameShell {
         }
 
         if (i <= 0)
-            aClass38_Sub2_Sub3_798.method436(210);
+            aClass38_Sub2_Sub3_798.writeByte(210);
     }
 
     public int method33(int i, int j, byte byte0, int k) {
         if (byte0 != 5)
-            anInt780 = aClass38_Sub2_Sub3_795.method446();
+            anInt780 = aClass38_Sub2_Sub3_795.readByte();
         int l = j >> 7;
         int i1 = k >> 7;
         int j1 = i;
@@ -1506,22 +1506,22 @@ public class Game extends GameShell {
                         method113(43808, l1);
                     }
                     if (anInt760 == 3 && aString765.length() > 0) {
-                        aClass38_Sub2_Sub3_798.method435((byte) -34, 148);
-                        aClass38_Sub2_Sub3_798.method436(0);
+                        aClass38_Sub2_Sub3_798.writeOpcode(148);
+                        aClass38_Sub2_Sub3_798.writeByte(0);
                         int k = aClass38_Sub2_Sub3_798.offset;
-                        aClass38_Sub2_Sub3_798.method442(true, aLong900);
+                        aClass38_Sub2_Sub3_798.writeQWord(aLong900);
                         TextEncoder.write(aClass38_Sub2_Sub3_798, aString765);
-                        aClass38_Sub2_Sub3_798.method445(0, aClass38_Sub2_Sub3_798.offset - k);
+                        aClass38_Sub2_Sub3_798.writeSize(aClass38_Sub2_Sub3_798.offset - k);
                         aString765 = StringUtils.toSentence(aString765);
                         aString765 = WordEncoding.getFiltered(aString765);
                         method111(6, aString765, (byte) 4, StringUtils.formatName(StringUtils.fromBase37(aLong900)));
                         if (anInt755 == 2) {
                             anInt755 = 1;
                             aBoolean921 = true;
-                            aClass38_Sub2_Sub3_798.method435((byte) -34, 244);
-                            aClass38_Sub2_Sub3_798.method436(anInt976);
-                            aClass38_Sub2_Sub3_798.method436(anInt755);
-                            aClass38_Sub2_Sub3_798.method436(anInt885);
+                            aClass38_Sub2_Sub3_798.writeOpcode(244);
+                            aClass38_Sub2_Sub3_798.writeByte(anInt976);
+                            aClass38_Sub2_Sub3_798.writeByte(anInt755);
+                            aClass38_Sub2_Sub3_798.writeByte(anInt885);
                         }
                     }
                     if (anInt760 == 4 && anInt793 < 100) {
@@ -1549,8 +1549,8 @@ public class Game extends GameShell {
                             i1 = Integer.parseInt(aString784);
                         } catch (Exception _ex) {
                         }
-                        aClass38_Sub2_Sub3_798.method435((byte) -34, 237);
-                        aClass38_Sub2_Sub3_798.method440(i1);
+                        aClass38_Sub2_Sub3_798.writeOpcode(237);
+                        aClass38_Sub2_Sub3_798.writeDWord(i1);
                     }
                     aBoolean1055 = false;
                     aBoolean965 = true;
@@ -1569,9 +1569,9 @@ public class Game extends GameShell {
                             && (super.frame != null || method73(-7437).indexOf("192.168.1.") != -1))
                         method121(false);
                     else if (aString1137.startsWith("::")) {
-                        aClass38_Sub2_Sub3_798.method435((byte) -34, 4);
-                        aClass38_Sub2_Sub3_798.method436(aString1137.length() - 1);
-                        aClass38_Sub2_Sub3_798.method443(aString1137.substring(2));
+                        aClass38_Sub2_Sub3_798.writeOpcode(4);
+                        aClass38_Sub2_Sub3_798.writeByte(aString1137.length() - 1);
+                        aClass38_Sub2_Sub3_798.writeString(aString1137.substring(2));
                     } else {
                         int j1 = 0;
                         if (aString1137.startsWith("yellow:")) {
@@ -1631,13 +1631,13 @@ public class Game extends GameShell {
                             k1 = 2;
                             aString1137 = aString1137.substring(7);
                         }
-                        aClass38_Sub2_Sub3_798.method435((byte) -34, 158);
-                        aClass38_Sub2_Sub3_798.method436(0);
+                        aClass38_Sub2_Sub3_798.writeOpcode(158);
+                        aClass38_Sub2_Sub3_798.writeByte(0);
                         int i2 = aClass38_Sub2_Sub3_798.offset;
-                        aClass38_Sub2_Sub3_798.method436(j1);
-                        aClass38_Sub2_Sub3_798.method436(k1);
+                        aClass38_Sub2_Sub3_798.writeByte(j1);
+                        aClass38_Sub2_Sub3_798.writeByte(k1);
                         TextEncoder.write(aClass38_Sub2_Sub3_798, aString1137);
-                        aClass38_Sub2_Sub3_798.method445(0, aClass38_Sub2_Sub3_798.offset - i2);
+                        aClass38_Sub2_Sub3_798.writeSize(aClass38_Sub2_Sub3_798.offset - i2);
                         aString1137 = StringUtils.toSentence(aString1137);
                         aString1137 = WordEncoding.getFiltered(aString1137);
                         localPlayerEntity.aString1392 = aString1137;
@@ -1649,10 +1649,10 @@ public class Game extends GameShell {
                         if (anInt976 == 2) {
                             anInt976 = 3;
                             aBoolean921 = true;
-                            aClass38_Sub2_Sub3_798.method435((byte) -34, 244);
-                            aClass38_Sub2_Sub3_798.method436(anInt976);
-                            aClass38_Sub2_Sub3_798.method436(anInt755);
-                            aClass38_Sub2_Sub3_798.method436(anInt885);
+                            aClass38_Sub2_Sub3_798.writeOpcode(244);
+                            aClass38_Sub2_Sub3_798.writeByte(anInt976);
+                            aClass38_Sub2_Sub3_798.writeByte(anInt755);
+                            aClass38_Sub2_Sub3_798.writeByte(anInt885);
                         }
                     }
                     aString1137 = "";
@@ -1787,9 +1787,9 @@ public class Game extends GameShell {
                 DataInputStream datainputstream = method94(s1 + i);
                 byte[] abyte1 = new byte[6];
                 datainputstream.readFully(abyte1, 0, 6);
-                Buffer class38_sub2_sub3 = new Buffer(363, abyte1);
+                Buffer class38_sub2_sub3 = new Buffer(abyte1);
                 class38_sub2_sub3.offset = 3;
-                int i2 = class38_sub2_sub3.method450() + 6;
+                int i2 = class38_sub2_sub3.readSWord() + 6;
                 int j2 = 6;
                 abyte0 = new byte[i2];
                 for (int k2 = 0; k2 < 6; k2++)
@@ -1950,7 +1950,7 @@ public class Game extends GameShell {
         }
 
         if (!flag)
-            anInt780 = aClass38_Sub2_Sub3_795.method446();
+            anInt780 = aClass38_Sub2_Sub3_795.readByte();
         for (int i1 = 1; i1 < c - 1; i1++) {
             for (int k1 = 1; k1 < 127; k1++) {
                 int k2 = k1 + (i1 << 7);
@@ -2095,7 +2095,7 @@ public class Game extends GameShell {
             anInt1108++;
             if (anInt1108 > 85) {
                 anInt1108 = 0;
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 85);
+                aClass38_Sub2_Sub3_798.writeOpcode(85);
             }
         }
     }
@@ -2344,7 +2344,7 @@ public class Game extends GameShell {
         indexedSprite8 = new IndexedSprite(fileArchive, "titlebox", 0);
         indexedSprite9 = new IndexedSprite(fileArchive, "titlebutton", 0);
         if (i != 0)
-            anInt780 = aClass38_Sub2_Sub3_795.method446();
+            anInt780 = aClass38_Sub2_Sub3_795.readByte();
         indexedSpritesArray3 = new IndexedSprite[12];
         for (int j = 0; j < 12; j++)
             indexedSpritesArray3[j] = new IndexedSprite(fileArchive, "runes", j);
@@ -2411,7 +2411,7 @@ public class Game extends GameShell {
     }
 
     public void method49(int i, Buffer class38_sub2_sub3, int j) {
-        int k = class38_sub2_sub3.method457(9, 8);
+        int k = class38_sub2_sub3.getBits(8);
         if (j != 0) {
             for (int l = 1; l > 0; l++)
                 ;
@@ -2429,12 +2429,12 @@ public class Game extends GameShell {
         for (int j1 = 0; j1 < k; j1++) {
             int k1 = anIntArray824[j1];
             PlayerEntity playerEntity = playerEntities[k1];
-            int l1 = class38_sub2_sub3.method457(9, 1);
+            int l1 = class38_sub2_sub3.getBits(1);
             if (l1 == 0) {
                 anIntArray824[anInt823++] = k1;
                 playerEntity.anInt1424 = anInt955;
             } else {
-                int i2 = class38_sub2_sub3.method457(9, 2);
+                int i2 = class38_sub2_sub3.getBits(2);
                 if (i2 == 0) {
                     anIntArray824[anInt823++] = k1;
                     playerEntity.anInt1424 = anInt955;
@@ -2442,19 +2442,19 @@ public class Game extends GameShell {
                 } else if (i2 == 1) {
                     anIntArray824[anInt823++] = k1;
                     playerEntity.anInt1424 = anInt955;
-                    int j2 = class38_sub2_sub3.method457(9, 3);
+                    int j2 = class38_sub2_sub3.getBits(3);
                     playerEntity.method467(false, j2, (byte) 6);
-                    int l2 = class38_sub2_sub3.method457(9, 1);
+                    int l2 = class38_sub2_sub3.getBits(1);
                     if (l2 == 1)
                         anIntArray826[anInt825++] = k1;
                 } else if (i2 == 2) {
                     anIntArray824[anInt823++] = k1;
                     playerEntity.anInt1424 = anInt955;
-                    int k2 = class38_sub2_sub3.method457(9, 3);
+                    int k2 = class38_sub2_sub3.getBits(3);
                     playerEntity.method467(true, k2, (byte) 6);
-                    int i3 = class38_sub2_sub3.method457(9, 3);
+                    int i3 = class38_sub2_sub3.getBits(3);
                     playerEntity.method467(true, i3, (byte) 6);
-                    int j3 = class38_sub2_sub3.method457(9, 1);
+                    int j3 = class38_sub2_sub3.getBits(1);
                     if (j3 == 1)
                         anIntArray826[anInt825++] = k1;
                 } else if (i2 == 3)
@@ -2659,9 +2659,9 @@ public class Game extends GameShell {
                 ;
         }
         do {
-            if (class38_sub2_sub3.anInt1330 + 10 >= j * 8)
+            if (class38_sub2_sub3.bitOffset + 10 >= j * 8)
                 break;
-            int l = class38_sub2_sub3.method457(9, 11);
+            int l = class38_sub2_sub3.getBits(11);
             if (l == 2047)
                 break;
             if (playerEntities[l] == null) {
@@ -2672,21 +2672,21 @@ public class Game extends GameShell {
             anIntArray824[anInt823++] = l;
             PlayerEntity playerEntity = playerEntities[l];
             playerEntity.anInt1424 = anInt955;
-            int i1 = class38_sub2_sub3.method457(9, 5);
+            int i1 = class38_sub2_sub3.getBits(5);
             if (i1 > 15)
                 i1 -= 32;
-            int j1 = class38_sub2_sub3.method457(9, 5);
+            int j1 = class38_sub2_sub3.getBits(5);
             if (j1 > 15)
                 j1 -= 32;
-            int k1 = class38_sub2_sub3.method457(9, 1);
+            int k1 = class38_sub2_sub3.getBits(1);
             playerEntity.method466(false, k1 == 1,
                     localPlayerEntity.anIntArray1428[0] + i1,
                     localPlayerEntity.anIntArray1429[0] + j1);
-            int l1 = class38_sub2_sub3.method457(9, 1);
+            int l1 = class38_sub2_sub3.getBits(1);
             if (l1 == 1)
                 anIntArray826[anInt825++] = l;
         } while (true);
-        class38_sub2_sub3.method458(anInt813);
+        class38_sub2_sub3.accessBytes();
     }
 
     public void method58(int i) {
@@ -2943,9 +2943,9 @@ public class Game extends GameShell {
         for (int j = 0; j < anInt825; j++) {
             int k = anIntArray826[j];
             PlayerEntity playerEntity = playerEntities[k];
-            int l = class38_sub2_sub3.method446();
+            int l = class38_sub2_sub3.readByte();
             if ((l & 0x80) == 128)
-                l += class38_sub2_sub3.method446() << 8;
+                l += class38_sub2_sub3.readByte() << 8;
             method139(true, k, l, class38_sub2_sub3, playerEntity);
         }
 
@@ -3069,7 +3069,7 @@ public class Game extends GameShell {
             method66(598, pathingEntity);
         method67(pathingEntity, (byte) 117);
         if (byte0 != -128)
-            aClass38_Sub2_Sub3_798.method436(11);
+            aClass38_Sub2_Sub3_798.writeByte(11);
         method68(aBoolean787, pathingEntity);
     }
 
@@ -3213,7 +3213,7 @@ public class Game extends GameShell {
 
     public void method67(PathingEntity pathingEntity, byte byte0) {
         if (byte0 != 117)
-            aClass38_Sub2_Sub3_798.method436(89);
+            aClass38_Sub2_Sub3_798.writeByte(89);
         if (pathingEntity.anInt1401 != -1 && pathingEntity.anInt1401 < 32768) {
             NpcEntity npcEntity = npcEntities[pathingEntity.anInt1401];
             if (npcEntity != null) {
@@ -3394,8 +3394,8 @@ public class Game extends GameShell {
         if (aBoolean1080) {
             if (anInt1128 != -1 && anInt1128 == anInt757) {
                 anInt1128 = -1;
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 175);
-                aClass38_Sub2_Sub3_798.method436(anInt757);
+                aClass38_Sub2_Sub3_798.writeOpcode(175);
+                aClass38_Sub2_Sub3_798.writeByte(anInt757);
             }
             aBoolean1080 = false;
             drawArea26.init2D();
@@ -3543,10 +3543,10 @@ public class Game extends GameShell {
                             localPlayerEntity.anIntArray1429[0], 0, 2, 1,
                             class38_sub7_sub3_sub2_3.anIntArray1429[0], 0, 0, 0);
                     if (i1 == 903)
-                        aClass38_Sub2_Sub3_798.method435((byte) -34, 206);
+                        aClass38_Sub2_Sub3_798.writeOpcode(206);
                     if (i1 == 363)
-                        aClass38_Sub2_Sub3_798.method435((byte) -34, 164);
-                    aClass38_Sub2_Sub3_798.method437(anIntArray824[k3]);
+                        aClass38_Sub2_Sub3_798.writeOpcode(164);
+                    aClass38_Sub2_Sub3_798.writeWord(anIntArray824[k3]);
                     flag4 = true;
                     break;
                 }
@@ -3556,35 +3556,35 @@ public class Game extends GameShell {
             }
         }
         if (i1 == 450 && method92(75, k, l, j1, true)) {
-            aClass38_Sub2_Sub3_798.method437(anInt1005);
-            aClass38_Sub2_Sub3_798.method437(anInt1003);
-            aClass38_Sub2_Sub3_798.method437(anInt1004);
+            aClass38_Sub2_Sub3_798.writeWord(anInt1005);
+            aClass38_Sub2_Sub3_798.writeWord(anInt1003);
+            aClass38_Sub2_Sub3_798.writeWord(anInt1004);
         }
         if (i1 == 405 || i1 == 38 || i1 == 422 || i1 == 478 || i1 == 347) {
             if (i1 == 478) {
                 if ((k & 3) == 0)
                     anInt724++;
                 if (anInt724 >= 90)
-                    aClass38_Sub2_Sub3_798.method435((byte) -34, 220);
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 157);
+                    aClass38_Sub2_Sub3_798.writeOpcode(220);
+                aClass38_Sub2_Sub3_798.writeOpcode(157);
             }
             if (i1 == 347)
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 211);
+                aClass38_Sub2_Sub3_798.writeOpcode(211);
             if (i1 == 422)
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 133);
+                aClass38_Sub2_Sub3_798.writeOpcode(133);
             if (i1 == 405) {
                 anInt806 += j1;
                 if (anInt806 >= 97) {
-                    aClass38_Sub2_Sub3_798.method435((byte) -34, 30);
-                    aClass38_Sub2_Sub3_798.method439(0xe42d58);
+                    aClass38_Sub2_Sub3_798.writeOpcode(30);
+                    aClass38_Sub2_Sub3_798.writeSWord(0xe42d58);
                 }
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 195);
+                aClass38_Sub2_Sub3_798.writeOpcode(195);
             }
             if (i1 == 38)
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 71);
-            aClass38_Sub2_Sub3_798.method437(j1);
-            aClass38_Sub2_Sub3_798.method437(k);
-            aClass38_Sub2_Sub3_798.method437(l);
+                aClass38_Sub2_Sub3_798.writeOpcode(71);
+            aClass38_Sub2_Sub3_798.writeWord(j1);
+            aClass38_Sub2_Sub3_798.writeWord(k);
+            aClass38_Sub2_Sub3_798.writeWord(l);
             anInt944 = 0;
             anInt945 = l;
             anInt946 = k;
@@ -3606,30 +3606,30 @@ public class Game extends GameShell {
                 anInt741 = 2;
                 anInt740 = 0;
                 if (i1 == 542)
-                    aClass38_Sub2_Sub3_798.method435((byte) -34, 8);
+                    aClass38_Sub2_Sub3_798.writeOpcode(8);
                 if (i1 == 6) {
                     if ((j1 & 3) == 0)
                         anInt867++;
                     if (anInt867 >= 124) {
-                        aClass38_Sub2_Sub3_798.method435((byte) -34, 88);
-                        aClass38_Sub2_Sub3_798.method440(0);
+                        aClass38_Sub2_Sub3_798.writeOpcode(88);
+                        aClass38_Sub2_Sub3_798.writeDWord(0);
                     }
-                    aClass38_Sub2_Sub3_798.method435((byte) -34, 27);
+                    aClass38_Sub2_Sub3_798.writeOpcode(27);
                 }
                 if (i1 == 963)
-                    aClass38_Sub2_Sub3_798.method435((byte) -34, 113);
+                    aClass38_Sub2_Sub3_798.writeOpcode(113);
                 if (i1 == 728)
-                    aClass38_Sub2_Sub3_798.method435((byte) -34, 194);
+                    aClass38_Sub2_Sub3_798.writeOpcode(194);
                 if (i1 == 245) {
                     if ((j1 & 3) == 0)
                         anInt797++;
                     if (anInt797 >= 85) {
-                        aClass38_Sub2_Sub3_798.method435((byte) -34, 176);
-                        aClass38_Sub2_Sub3_798.method437(39596);
+                        aClass38_Sub2_Sub3_798.writeOpcode(176);
+                        aClass38_Sub2_Sub3_798.writeWord(39596);
                     }
-                    aClass38_Sub2_Sub3_798.method435((byte) -34, 100);
+                    aClass38_Sub2_Sub3_798.writeOpcode(100);
                 }
-                aClass38_Sub2_Sub3_798.method437(j1);
+                aClass38_Sub2_Sub3_798.writeWord(j1);
             }
         }
         if (i1 == 217) {
@@ -3642,13 +3642,13 @@ public class Game extends GameShell {
             anInt739 = super.anInt25;
             anInt741 = 2;
             anInt740 = 0;
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 239);
-            aClass38_Sub2_Sub3_798.method437(k + anInt761);
-            aClass38_Sub2_Sub3_798.method437(l + anInt762);
-            aClass38_Sub2_Sub3_798.method437(j1);
-            aClass38_Sub2_Sub3_798.method437(anInt1005);
-            aClass38_Sub2_Sub3_798.method437(anInt1003);
-            aClass38_Sub2_Sub3_798.method437(anInt1004);
+            aClass38_Sub2_Sub3_798.writeOpcode(239);
+            aClass38_Sub2_Sub3_798.writeWord(k + anInt761);
+            aClass38_Sub2_Sub3_798.writeWord(l + anInt762);
+            aClass38_Sub2_Sub3_798.writeWord(j1);
+            aClass38_Sub2_Sub3_798.writeWord(anInt1005);
+            aClass38_Sub2_Sub3_798.writeWord(anInt1003);
+            aClass38_Sub2_Sub3_798.writeWord(anInt1004);
         }
         if (i1 == 1175) {
             int k1 = j1 >> 14 & 0x7fff;
@@ -3663,13 +3663,13 @@ public class Game extends GameShell {
         if (i1 == 285)
             method92(245, k, l, j1, true);
         if (i1 == 881) {
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 130);
-            aClass38_Sub2_Sub3_798.method437(j1);
-            aClass38_Sub2_Sub3_798.method437(k);
-            aClass38_Sub2_Sub3_798.method437(l);
-            aClass38_Sub2_Sub3_798.method437(anInt1005);
-            aClass38_Sub2_Sub3_798.method437(anInt1003);
-            aClass38_Sub2_Sub3_798.method437(anInt1004);
+            aClass38_Sub2_Sub3_798.writeOpcode(130);
+            aClass38_Sub2_Sub3_798.writeWord(j1);
+            aClass38_Sub2_Sub3_798.writeWord(k);
+            aClass38_Sub2_Sub3_798.writeWord(l);
+            aClass38_Sub2_Sub3_798.writeWord(anInt1005);
+            aClass38_Sub2_Sub3_798.writeWord(anInt1003);
+            aClass38_Sub2_Sub3_798.writeWord(anInt1004);
             anInt944 = 0;
             anInt945 = l;
             anInt946 = k;
@@ -3680,11 +3680,11 @@ public class Game extends GameShell {
                 anInt947 = 3;
         }
         if (i1 == 391) {
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 48);
-            aClass38_Sub2_Sub3_798.method437(j1);
-            aClass38_Sub2_Sub3_798.method437(k);
-            aClass38_Sub2_Sub3_798.method437(l);
-            aClass38_Sub2_Sub3_798.method437(anInt1026);
+            aClass38_Sub2_Sub3_798.writeOpcode(48);
+            aClass38_Sub2_Sub3_798.writeWord(j1);
+            aClass38_Sub2_Sub3_798.writeWord(k);
+            aClass38_Sub2_Sub3_798.writeWord(l);
+            aClass38_Sub2_Sub3_798.writeWord(anInt1026);
             anInt944 = 0;
             anInt945 = l;
             anInt946 = k;
@@ -3709,8 +3709,8 @@ public class Game extends GameShell {
             return;
         }
         if (i1 == 44 && !aBoolean872) {
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 235);
-            aClass38_Sub2_Sub3_798.method437(l);
+            aClass38_Sub2_Sub3_798.writeOpcode(235);
+            aClass38_Sub2_Sub3_798.writeWord(l);
             aBoolean872 = true;
         }
         if (i1 == 1773) {
@@ -3735,11 +3735,11 @@ public class Game extends GameShell {
                 anInt739 = super.anInt25;
                 anInt741 = 2;
                 anInt740 = 0;
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 202);
-                aClass38_Sub2_Sub3_798.method437(j1);
-                aClass38_Sub2_Sub3_798.method437(anInt1005);
-                aClass38_Sub2_Sub3_798.method437(anInt1003);
-                aClass38_Sub2_Sub3_798.method437(anInt1004);
+                aClass38_Sub2_Sub3_798.writeOpcode(202);
+                aClass38_Sub2_Sub3_798.writeWord(j1);
+                aClass38_Sub2_Sub3_798.writeWord(anInt1005);
+                aClass38_Sub2_Sub3_798.writeWord(anInt1003);
+                aClass38_Sub2_Sub3_798.writeWord(anInt1004);
             }
         }
         if (i1 == 1373 || i1 == 1544 || i1 == 151 || i1 == 1101) {
@@ -3754,20 +3754,20 @@ public class Game extends GameShell {
                 anInt741 = 2;
                 anInt740 = 0;
                 if (i1 == 1101)
-                    aClass38_Sub2_Sub3_798.method435((byte) -34, 164);
+                    aClass38_Sub2_Sub3_798.writeOpcode(164);
                 if (i1 == 151) {
                     anInt890++;
                     if (anInt890 >= 90) {
-                        aClass38_Sub2_Sub3_798.method435((byte) -34, 2);
-                        aClass38_Sub2_Sub3_798.method437(31114);
+                        aClass38_Sub2_Sub3_798.writeOpcode(2);
+                        aClass38_Sub2_Sub3_798.writeWord(31114);
                     }
-                    aClass38_Sub2_Sub3_798.method435((byte) -34, 53);
+                    aClass38_Sub2_Sub3_798.writeOpcode(53);
                 }
                 if (i1 == 1373)
-                    aClass38_Sub2_Sub3_798.method435((byte) -34, 206);
+                    aClass38_Sub2_Sub3_798.writeOpcode(206);
                 if (i1 == 1544)
-                    aClass38_Sub2_Sub3_798.method435((byte) -34, 185);
-                aClass38_Sub2_Sub3_798.method437(j1);
+                    aClass38_Sub2_Sub3_798.writeOpcode(185);
+                aClass38_Sub2_Sub3_798.writeWord(j1);
             }
         }
         if (i1 == 265) {
@@ -3781,9 +3781,9 @@ public class Game extends GameShell {
                 anInt739 = super.anInt25;
                 anInt741 = 2;
                 anInt740 = 0;
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 134);
-                aClass38_Sub2_Sub3_798.method437(j1);
-                aClass38_Sub2_Sub3_798.method437(anInt1026);
+                aClass38_Sub2_Sub3_798.writeOpcode(134);
+                aClass38_Sub2_Sub3_798.writeWord(j1);
+                aClass38_Sub2_Sub3_798.writeWord(anInt1026);
             }
         }
         if (i1 == 679) {
@@ -3811,7 +3811,7 @@ public class Game extends GameShell {
             }
         }
         if (i1 == 55 && method92(9, k, l, j1, true))
-            aClass38_Sub2_Sub3_798.method437(anInt1026);
+            aClass38_Sub2_Sub3_798.writeWord(anInt1026);
         if (i1 == 224 || i1 == 993 || i1 == 99 || i1 == 746 || i1 == 877) {
             boolean flag1 = method107(localPlayerEntity.anIntArray1428[0], 0, false,
                     k, localPlayerEntity.anIntArray1429[0], 0, 2, 0, l, 0, 0, 0);
@@ -3823,18 +3823,18 @@ public class Game extends GameShell {
             anInt741 = 2;
             anInt740 = 0;
             if (i1 == 224)
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 140);
+                aClass38_Sub2_Sub3_798.writeOpcode(140);
             if (i1 == 746)
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 178);
+                aClass38_Sub2_Sub3_798.writeOpcode(178);
             if (i1 == 877)
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 247);
+                aClass38_Sub2_Sub3_798.writeOpcode(247);
             if (i1 == 99)
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 200);
+                aClass38_Sub2_Sub3_798.writeOpcode(200);
             if (i1 == 993)
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 40);
-            aClass38_Sub2_Sub3_798.method437(k + anInt761);
-            aClass38_Sub2_Sub3_798.method437(l + anInt762);
-            aClass38_Sub2_Sub3_798.method437(j1);
+                aClass38_Sub2_Sub3_798.writeOpcode(40);
+            aClass38_Sub2_Sub3_798.writeWord(k + anInt761);
+            aClass38_Sub2_Sub3_798.writeWord(l + anInt762);
+            aClass38_Sub2_Sub3_798.writeWord(j1);
         }
         if (i1 == 1607) {
             NpcEntity class38_sub7_sub3_sub1_3 = npcEntities[j1];
@@ -3875,38 +3875,38 @@ public class Game extends GameShell {
             if (interfaceComponent_1.anInt273 > 0)
                 flag3 = method81(false, interfaceComponent_1);
             if (flag3) {
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 155);
-                aClass38_Sub2_Sub3_798.method437(l);
+                aClass38_Sub2_Sub3_798.writeOpcode(155);
+                aClass38_Sub2_Sub3_798.writeWord(l);
             }
         }
         if (i1 == 602 || i1 == 596 || i1 == 22 || i1 == 892 || i1 == 415) {
             if (i1 == 22)
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 212);
+                aClass38_Sub2_Sub3_798.writeOpcode(212);
             if (i1 == 415) {
                 if ((l & 3) == 0)
                     anInt937++;
                 if (anInt937 >= 55) {
-                    aClass38_Sub2_Sub3_798.method435((byte) -34, 17);
-                    aClass38_Sub2_Sub3_798.method440(0);
+                    aClass38_Sub2_Sub3_798.writeOpcode(17);
+                    aClass38_Sub2_Sub3_798.writeDWord(0);
                 }
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 6);
+                aClass38_Sub2_Sub3_798.writeOpcode(6);
             }
             if (i1 == 602)
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 31);
+                aClass38_Sub2_Sub3_798.writeOpcode(31);
             if (i1 == 892) {
                 if ((k & 3) == 0)
                     anInt876++;
                 if (anInt876 >= 130) {
-                    aClass38_Sub2_Sub3_798.method435((byte) -34, 238);
-                    aClass38_Sub2_Sub3_798.method436(177);
+                    aClass38_Sub2_Sub3_798.writeOpcode(238);
+                    aClass38_Sub2_Sub3_798.writeByte(177);
                 }
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 38);
+                aClass38_Sub2_Sub3_798.writeOpcode(38);
             }
             if (i1 == 596)
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 59);
-            aClass38_Sub2_Sub3_798.method437(j1);
-            aClass38_Sub2_Sub3_798.method437(k);
-            aClass38_Sub2_Sub3_798.method437(l);
+                aClass38_Sub2_Sub3_798.writeOpcode(59);
+            aClass38_Sub2_Sub3_798.writeWord(j1);
+            aClass38_Sub2_Sub3_798.writeWord(k);
+            aClass38_Sub2_Sub3_798.writeWord(l);
             anInt944 = 0;
             anInt945 = l;
             anInt946 = k;
@@ -3920,8 +3920,8 @@ public class Game extends GameShell {
             if ((j1 & 3) == 0)
                 anInt772++;
             if (anInt772 >= 99) {
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 7);
-                aClass38_Sub2_Sub3_798.method440(0);
+                aClass38_Sub2_Sub3_798.writeOpcode(7);
+                aClass38_Sub2_Sub3_798.writeDWord(0);
             }
             method92(97, k, l, j1, true);
         }
@@ -3935,17 +3935,17 @@ public class Game extends GameShell {
             anInt739 = super.anInt25;
             anInt741 = 2;
             anInt740 = 0;
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 138);
-            aClass38_Sub2_Sub3_798.method437(k + anInt761);
-            aClass38_Sub2_Sub3_798.method437(l + anInt762);
-            aClass38_Sub2_Sub3_798.method437(j1);
-            aClass38_Sub2_Sub3_798.method437(anInt1026);
+            aClass38_Sub2_Sub3_798.writeOpcode(138);
+            aClass38_Sub2_Sub3_798.writeWord(k + anInt761);
+            aClass38_Sub2_Sub3_798.writeWord(l + anInt762);
+            aClass38_Sub2_Sub3_798.writeWord(j1);
+            aClass38_Sub2_Sub3_798.writeWord(anInt1026);
         }
         if (i1 == 1501) {
             anInt857 += anInt762;
             if (anInt857 >= 92) {
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 66);
-                aClass38_Sub2_Sub3_798.method440(0);
+                aClass38_Sub2_Sub3_798.writeOpcode(66);
+                aClass38_Sub2_Sub3_798.writeDWord(0);
             }
             method92(116, k, l, j1, true);
         }
@@ -3961,8 +3961,8 @@ public class Game extends GameShell {
             method111(0, s7, (byte) 4, "");
         }
         if (i1 == 960) {
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 155);
-            aClass38_Sub2_Sub3_798.method437(l);
+            aClass38_Sub2_Sub3_798.writeOpcode(155);
+            aClass38_Sub2_Sub3_798.writeWord(l);
             InterfaceComponent interfaceComponent_2 = InterfaceComponent.interfaceComponentArray[l];
             if (interfaceComponent_2.anIntArrayArray278 != null && interfaceComponent_2.anIntArrayArray278[0][0] == 5) {
                 int j2 = interfaceComponent_2.anIntArrayArray278[0][1];
@@ -4002,16 +4002,16 @@ public class Game extends GameShell {
                 anInt739 = super.anInt25;
                 anInt741 = 2;
                 anInt740 = 0;
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 248);
-                aClass38_Sub2_Sub3_798.method437(j1);
-                aClass38_Sub2_Sub3_798.method437(anInt1005);
-                aClass38_Sub2_Sub3_798.method437(anInt1003);
-                aClass38_Sub2_Sub3_798.method437(anInt1004);
+                aClass38_Sub2_Sub3_798.writeOpcode(248);
+                aClass38_Sub2_Sub3_798.writeWord(j1);
+                aClass38_Sub2_Sub3_798.writeWord(anInt1005);
+                aClass38_Sub2_Sub3_798.writeWord(anInt1003);
+                aClass38_Sub2_Sub3_798.writeWord(anInt1004);
             }
         }
         if (i1 == 465) {
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 155);
-            aClass38_Sub2_Sub3_798.method437(l);
+            aClass38_Sub2_Sub3_798.writeOpcode(155);
+            aClass38_Sub2_Sub3_798.writeWord(l);
             InterfaceComponent interfaceComponent_3 = InterfaceComponent.interfaceComponentArray[l];
             if (interfaceComponent_3.anIntArrayArray278 != null && interfaceComponent_3.anIntArrayArray278[0][0] == 5) {
                 int l2 = interfaceComponent_3.anIntArrayArray278[0][1];
@@ -4046,9 +4046,9 @@ public class Game extends GameShell {
                 anInt739 = super.anInt25;
                 anInt741 = 2;
                 anInt740 = 0;
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 177);
-                aClass38_Sub2_Sub3_798.method437(j1);
-                aClass38_Sub2_Sub3_798.method437(anInt1026);
+                aClass38_Sub2_Sub3_798.writeOpcode(177);
+                aClass38_Sub2_Sub3_798.writeWord(j1);
+                aClass38_Sub2_Sub3_798.writeWord(anInt1026);
             }
         }
         anInt1002 = 0;
@@ -4083,7 +4083,7 @@ public class Game extends GameShell {
 
     public String method73(int i) {
         if (i != -7437)
-            aClass38_Sub2_Sub3_798.method436(216);
+            aClass38_Sub2_Sub3_798.writeByte(216);
         if (Signlink.mainapp != null)
             return Signlink.mainapp.getDocumentBase().getHost().toLowerCase();
         if (super.frame != null)
@@ -4125,7 +4125,7 @@ public class Game extends GameShell {
         }
 
         if (i >= 0)
-            anInt780 = aClass38_Sub2_Sub3_795.method446();
+            anInt780 = aClass38_Sub2_Sub3_795.readByte();
     }
 
     public void method75(int i, int j, int k) {
@@ -4366,7 +4366,7 @@ public class Game extends GameShell {
 
     public boolean method78(int i) {
         if (i <= 0)
-            aClass38_Sub2_Sub3_798.method436(77);
+            aClass38_Sub2_Sub3_798.writeByte(77);
         return Signlink.wavereplay();
     }
 
@@ -4380,9 +4380,9 @@ public class Game extends GameShell {
         if (flag)
             method6();
         do {
-            if (class38_sub2_sub3.anInt1330 + 21 >= i * 8)
+            if (class38_sub2_sub3.bitOffset + 21 >= i * 8)
                 break;
-            int j = class38_sub2_sub3.method457(9, 13);
+            int j = class38_sub2_sub3.getBits(13);
             if (j == 8191)
                 break;
             if (npcEntities[j] == null)
@@ -4390,27 +4390,27 @@ public class Game extends GameShell {
             NpcEntity npcEntity = npcEntities[j];
             anIntArray929[anInt928++] = j;
             npcEntity.anInt1424 = anInt955;
-            npcEntity.npcType = NpcType.get(class38_sub2_sub3.method457(9, 11));
+            npcEntity.npcType = NpcType.get(class38_sub2_sub3.getBits(11));
             npcEntity.anInt1384 = npcEntity.npcType.size;
             npcEntity.anInt1387 = npcEntity.npcType.walkSeq;
             npcEntity.anInt1388 = npcEntity.npcType.turnAroundSeq;
             npcEntity.anInt1389 = npcEntity.npcType.turnRightSeq;
             npcEntity.anInt1390 = npcEntity.npcType.turnLeftSeq;
             npcEntity.anInt1385 = npcEntity.npcType.standSeq;
-            int k = class38_sub2_sub3.method457(9, 5);
+            int k = class38_sub2_sub3.getBits(5);
             if (k > 15)
                 k -= 32;
-            int l = class38_sub2_sub3.method457(9, 5);
+            int l = class38_sub2_sub3.getBits(5);
             if (l > 15)
                 l -= 32;
             npcEntity.method466(false, false,
                     localPlayerEntity.anIntArray1428[0] + k,
                     localPlayerEntity.anIntArray1429[0] + l);
-            int i1 = class38_sub2_sub3.method457(9, 1);
+            int i1 = class38_sub2_sub3.getBits(1);
             if (i1 == 1)
                 anIntArray826[anInt825++] = j;
         } while (true);
-        class38_sub2_sub3.method458(anInt813);
+        class38_sub2_sub3.accessBytes();
     }
 
     public boolean method81(boolean flag, InterfaceComponent interfaceComponent) {
@@ -4489,13 +4489,13 @@ public class Game extends GameShell {
             method51((byte) -6);
         }
         if (i == 326) {
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 52);
-            aClass38_Sub2_Sub3_798.method436(aBoolean836 ? 0 : 1);
+            aClass38_Sub2_Sub3_798.writeOpcode(52);
+            aClass38_Sub2_Sub3_798.writeByte(aBoolean836 ? 0 : 1);
             for (int l = 0; l < 7; l++)
-                aClass38_Sub2_Sub3_798.method436(anIntArray789[l]);
+                aClass38_Sub2_Sub3_798.writeByte(anIntArray789[l]);
 
             for (int k1 = 0; k1 < 5; k1++)
-                aClass38_Sub2_Sub3_798.method436(anIntArray742[k1]);
+                aClass38_Sub2_Sub3_798.writeByte(anIntArray742[k1]);
 
             return true;
         }
@@ -4504,10 +4504,10 @@ public class Game extends GameShell {
         if (i >= 601 && i <= 612) {
             method16((byte) -60);
             if (aString970.length() > 0) {
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 190);
-                aClass38_Sub2_Sub3_798.method442(true, StringUtils.toBase37(aString970));
-                aClass38_Sub2_Sub3_798.method436(i - 601);
-                aClass38_Sub2_Sub3_798.method436(aBoolean881 ? 1 : 0);
+                aClass38_Sub2_Sub3_798.writeOpcode(190);
+                aClass38_Sub2_Sub3_798.writeQWord(StringUtils.toBase37(aString970));
+                aClass38_Sub2_Sub3_798.writeByte(i - 601);
+                aClass38_Sub2_Sub3_798.writeByte(aBoolean881 ? 1 : 0);
             }
         }
         return false;
@@ -4555,10 +4555,10 @@ public class Game extends GameShell {
                 method13(true, "Connecting to fileserver", 10);
                 try {
                     DataInputStream datainputstream = method94("crc" + (int) (Math.random() * 99999999D));
-                    Buffer class38_sub2_sub3 = new Buffer(363, new byte[36]);
-                    datainputstream.readFully(class38_sub2_sub3.aByteArray1328, 0, 36);
+                    Buffer class38_sub2_sub3 = new Buffer(new byte[36]);
+                    datainputstream.readFully(class38_sub2_sub3.data, 0, 36);
                     for (int k = 0; k < 9; k++)
-                        anIntArray811[k] = class38_sub2_sub3.method451();
+                        anIntArray811[k] = class38_sub2_sub3.readDWord();
 
                     datainputstream.close();
                 } catch (IOException _ex) {
@@ -4733,7 +4733,7 @@ public class Game extends GameShell {
             if (!aBoolean889) {
                 method13(true, "Unpacking sounds", 90);
                 byte[] abyte0 = fileArchive_6.read("sounds.dat", null);
-                Buffer class38_sub2_sub3_1 = new Buffer(363, abyte0);
+                Buffer class38_sub2_sub3_1 = new Buffer(abyte0);
                 SoundTrack.load(class38_sub2_sub3_1);
             }
             method13(true, "Unpacking interfaces", 92);
@@ -5107,7 +5107,7 @@ public class Game extends GameShell {
         int j2 = i * l1 + j * i2 >> 16;
         i = i * i2 - j * l1 >> 16;
         if (k >= 0)
-            aClass38_Sub2_Sub3_798.method436(131);
+            aClass38_Sub2_Sub3_798.writeByte(131);
         j = j2;
         j2 = i1 * k1 - i * j1 >> 16;
         i = i1 * j1 + i * k1 >> 16;
@@ -5154,10 +5154,10 @@ public class Game extends GameShell {
         anInt739 = super.anInt25;
         anInt741 = 2;
         anInt740 = 0;
-        aClass38_Sub2_Sub3_798.method435((byte) -34, i);
-        aClass38_Sub2_Sub3_798.method437(j + anInt761);
-        aClass38_Sub2_Sub3_798.method437(k + anInt762);
-        aClass38_Sub2_Sub3_798.method437(i1);
+        aClass38_Sub2_Sub3_798.writeOpcode(i);
+        aClass38_Sub2_Sub3_798.writeWord(j + anInt761);
+        aClass38_Sub2_Sub3_798.writeWord(k + anInt762);
+        aClass38_Sub2_Sub3_798.writeWord(i1);
         if (!flag)
             throw new NullPointerException();
         else
@@ -5267,7 +5267,7 @@ public class Game extends GameShell {
         Draw2D.method379(anInt1143);
         drawArea18 = new DrawArea(method11(aByte1116), 86, 79);
         if (byte0 != aByte866)
-            aClass38_Sub2_Sub3_798.method436(73);
+            aClass38_Sub2_Sub3_798.writeByte(73);
         Draw2D.method379(anInt1143);
         drawArea19 = new DrawArea(method11(aByte1116), 87, 79);
         Draw2D.method379(anInt1143);
@@ -5366,43 +5366,43 @@ public class Game extends GameShell {
                 method55(4);
             }
             bufferedStream = new BufferedStream(this, method101(43594 + anInt887));
-            bufferedStream.read(aClass38_Sub2_Sub3_795.aByteArray1328, 0, 8);
+            bufferedStream.read(aClass38_Sub2_Sub3_795.data, 0, 8);
             aClass38_Sub2_Sub3_795.offset = 0;
-            aLong1146 = aClass38_Sub2_Sub3_795.method452(603);
+            aLong1146 = aClass38_Sub2_Sub3_795.readQWord();
             int[] ai = new int[4];
             ai[0] = (int) (Math.random() * 99999999D);
             ai[1] = (int) (Math.random() * 99999999D);
             ai[2] = (int) (aLong1146 >> 32);
             ai[3] = (int) aLong1146;
             aClass38_Sub2_Sub3_798.offset = 0;
-            aClass38_Sub2_Sub3_798.method436(10);
-            aClass38_Sub2_Sub3_798.method440(ai[0]);
-            aClass38_Sub2_Sub3_798.method440(ai[1]);
-            aClass38_Sub2_Sub3_798.method440(ai[2]);
-            aClass38_Sub2_Sub3_798.method440(ai[3]);
-            aClass38_Sub2_Sub3_798.method440(Signlink.uid);
-            aClass38_Sub2_Sub3_798.method443(s);
-            aClass38_Sub2_Sub3_798.method443(s1);
-            aClass38_Sub2_Sub3_798.method461(aBigInteger1062, aBigInteger922, anInt733);
+            aClass38_Sub2_Sub3_798.writeByte(10);
+            aClass38_Sub2_Sub3_798.writeDWord(ai[0]);
+            aClass38_Sub2_Sub3_798.writeDWord(ai[1]);
+            aClass38_Sub2_Sub3_798.writeDWord(ai[2]);
+            aClass38_Sub2_Sub3_798.writeDWord(ai[3]);
+            aClass38_Sub2_Sub3_798.writeDWord(Signlink.uid);
+            aClass38_Sub2_Sub3_798.writeString(s);
+            aClass38_Sub2_Sub3_798.writeString(s1);
+            aClass38_Sub2_Sub3_798.encryptPublic(aBigInteger1062, aBigInteger922);
             aClass38_Sub2_Sub3_743.offset = 0;
             if (flag)
-                aClass38_Sub2_Sub3_743.method436(18);
+                aClass38_Sub2_Sub3_743.writeByte(18);
             else
-                aClass38_Sub2_Sub3_743.method436(16);
-            aClass38_Sub2_Sub3_743.method436(aClass38_Sub2_Sub3_798.offset + 36 + 1 + 1);
-            aClass38_Sub2_Sub3_743.method436(225);
-            aClass38_Sub2_Sub3_743.method436(aBoolean889 ? 1 : 0);
+                aClass38_Sub2_Sub3_743.writeByte(16);
+            aClass38_Sub2_Sub3_743.writeByte(aClass38_Sub2_Sub3_798.offset + 36 + 1 + 1);
+            aClass38_Sub2_Sub3_743.writeByte(225);
+            aClass38_Sub2_Sub3_743.writeByte(aBoolean889 ? 1 : 0);
             for (int i = 0; i < 9; i++)
-                aClass38_Sub2_Sub3_743.method440(anIntArray811[i]);
+                aClass38_Sub2_Sub3_743.writeDWord(anIntArray811[i]);
 
-            aClass38_Sub2_Sub3_743.method444(aClass38_Sub2_Sub3_798.aByteArray1328, aClass38_Sub2_Sub3_798.offset, 0,
-                    (byte) -106);
+            aClass38_Sub2_Sub3_743.writeBytes(aClass38_Sub2_Sub3_798.data, aClass38_Sub2_Sub3_798.offset, 0
+            );
             aClass38_Sub2_Sub3_798.isaacState = new IsaacRandom(ai);
             for (int j = 0; j < 4; j++)
                 ai[j] += 50;
 
             isaacState = new IsaacRandom(ai);
-            bufferedStream.write(aClass38_Sub2_Sub3_743.aByteArray1328, aClass38_Sub2_Sub3_743.offset, 0);
+            bufferedStream.write(aClass38_Sub2_Sub3_743.data, aClass38_Sub2_Sub3_743.offset, 0);
             int k = bufferedStream.read();
             if (k == 1) {
                 try {
@@ -5680,8 +5680,8 @@ public class Game extends GameShell {
         if (i >= 0)
             anInt1039 = isaacState.nextInt();
         aBoolean964 = true;
-        aClass38_Sub2_Sub3_798.method435((byte) -34, 118);
-        aClass38_Sub2_Sub3_798.method442(true, l);
+        aClass38_Sub2_Sub3_798.writeOpcode(118);
+        aClass38_Sub2_Sub3_798.writeQWord(l);
     }
 
     public void method8(byte byte0) {
@@ -5907,7 +5907,7 @@ public class Game extends GameShell {
                 break;
 
         if (!flag)
-            anInt780 = aClass38_Sub2_Sub3_795.method446();
+            anInt780 = aClass38_Sub2_Sub3_795.readByte();
         if (!aBoolean974)
             return;
         for (int j = 0; j < anInt1018; j++)
@@ -5924,7 +5924,7 @@ public class Game extends GameShell {
                                 + (long) (anInt815 / 22)) {
                             anInt815 = class38_sub2_sub3_1.offset;
                             aLong777 = System.currentTimeMillis();
-                            if (method77(class38_sub2_sub3_1.aByteArray1328, class38_sub2_sub3_1.offset, 0)) {
+                            if (method77(class38_sub2_sub3_1.data, class38_sub2_sub3_1.offset, 0)) {
                                 anInt786 = anIntArray1124[j];
                                 anInt1065 = anIntArray809[j];
                             } else {
@@ -5959,11 +5959,11 @@ public class Game extends GameShell {
         }
         Buffer class38_sub2_sub3 = InputTracking.method184(-809);
         if (class38_sub2_sub3 != null) {
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 81);
-            aClass38_Sub2_Sub3_798.method437(class38_sub2_sub3.offset);
-            aClass38_Sub2_Sub3_798.method444(class38_sub2_sub3.aByteArray1328, class38_sub2_sub3.offset, 0,
-                    (byte) -106);
-            class38_sub2_sub3.method434((byte) 8);
+            aClass38_Sub2_Sub3_798.writeOpcode(81);
+            aClass38_Sub2_Sub3_798.writeWord(class38_sub2_sub3.offset);
+            aClass38_Sub2_Sub3_798.writeBytes(class38_sub2_sub3.data, class38_sub2_sub3.offset, 0
+            );
+            class38_sub2_sub3.release();
         }
         anInt781++;
         if (anInt781 > 750)
@@ -5975,11 +5975,11 @@ public class Game extends GameShell {
         if ((super.anIntArray26[1] == 1 || super.anIntArray26[2] == 1 || super.anIntArray26[3] == 1
                 || super.anIntArray26[4] == 1) && anInt916++ > 5) {
             anInt916 = 0;
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 189);
-            aClass38_Sub2_Sub3_798.method437(anInt816);
-            aClass38_Sub2_Sub3_798.method437(anInt817);
-            aClass38_Sub2_Sub3_798.method436(anInt1085);
-            aClass38_Sub2_Sub3_798.method436(anInt930);
+            aClass38_Sub2_Sub3_798.writeOpcode(189);
+            aClass38_Sub2_Sub3_798.writeWord(anInt816);
+            aClass38_Sub2_Sub3_798.writeWord(anInt817);
+            aClass38_Sub2_Sub3_798.writeByte(anInt1085);
+            aClass38_Sub2_Sub3_798.writeByte(anInt930);
         }
         anInt969++;
         if (anInt741 != 0) {
@@ -6019,10 +6019,10 @@ public class Game extends GameShell {
                         j1 = interfaceComponent.anIntArray266[anInt1087];
                         interfaceComponent.anIntArray266[anInt1087] = interfaceComponent.anIntArray266[anInt845];
                         interfaceComponent.anIntArray266[anInt845] = j1;
-                        aClass38_Sub2_Sub3_798.method435((byte) -34, 159);
-                        aClass38_Sub2_Sub3_798.method437(anInt844);
-                        aClass38_Sub2_Sub3_798.method437(anInt845);
-                        aClass38_Sub2_Sub3_798.method437(anInt1087);
+                        aClass38_Sub2_Sub3_798.writeOpcode(159);
+                        aClass38_Sub2_Sub3_798.writeWord(anInt844);
+                        aClass38_Sub2_Sub3_798.writeWord(anInt845);
+                        aClass38_Sub2_Sub3_798.writeWord(anInt1087);
                     }
                 } else if ((anInt810 == 1 || method70(145, anInt1074 - 1)) && anInt1074 > 2)
                     method93(-386);
@@ -6035,8 +6035,8 @@ public class Game extends GameShell {
         anInt998++;
         if (anInt998 > 127) {
             anInt998 = 0;
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 215);
-            aClass38_Sub2_Sub3_798.method439(0x4c2b2c);
+            aClass38_Sub2_Sub3_798.writeOpcode(215);
+            aClass38_Sub2_Sub3_798.writeSWord(0x4c2b2c);
         }
         if (Scene.anInt560 != -1) {
             int l = Scene.anInt560;
@@ -6074,7 +6074,7 @@ public class Game extends GameShell {
         if (super.anInt19 > 4500) {
             anInt783 = 250;
             super.anInt19 -= 500;
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 70);
+            aClass38_Sub2_Sub3_798.writeOpcode(70);
         }
         anInt785++;
         if (anInt785 > 500) {
@@ -6119,15 +6119,15 @@ public class Game extends GameShell {
         anInt1090++;
         if (anInt1090 > 110) {
             anInt1090 = 0;
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 236);
-            aClass38_Sub2_Sub3_798.method440(0);
+            aClass38_Sub2_Sub3_798.writeOpcode(236);
+            aClass38_Sub2_Sub3_798.writeDWord(0);
         }
         anInt782++;
         if (anInt782 > 50)
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
+            aClass38_Sub2_Sub3_798.writeOpcode(108);
         try {
             if (bufferedStream != null && aClass38_Sub2_Sub3_798.offset > 0) {
-                bufferedStream.write(aClass38_Sub2_Sub3_798.aByteArray1328, aClass38_Sub2_Sub3_798.offset, 0);
+                bufferedStream.write(aClass38_Sub2_Sub3_798.data, aClass38_Sub2_Sub3_798.offset, 0);
                 aClass38_Sub2_Sub3_798.offset = 0;
                 anInt782 = 0;
                 return;
@@ -6337,7 +6337,7 @@ public class Game extends GameShell {
         i4 = 0;
         anIntArray994[i4] = j3;
         if (i1 != 0)
-            anInt780 = aClass38_Sub2_Sub3_795.method446();
+            anInt780 = aClass38_Sub2_Sub3_795.readByte();
         anIntArray995[i4++] = k3;
         int l5;
         for (int j5 = l5 = anIntArrayArray1118[j3][k3]; j3 != i || k3 != l; j5 = anIntArrayArray1118[j3][k3]) {
@@ -6364,29 +6364,29 @@ public class Game extends GameShell {
             int j6 = anIntArray994[i4];
             int l6 = anIntArray995[i4];
             if (j1 == 0) {
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 181);
-                aClass38_Sub2_Sub3_798.method436(k4 + k4 + 3);
+                aClass38_Sub2_Sub3_798.writeOpcode(181);
+                aClass38_Sub2_Sub3_798.writeByte(k4 + k4 + 3);
             }
             if (j1 == 1) {
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 165);
-                aClass38_Sub2_Sub3_798.method436(k4 + k4 + 3 + 14);
+                aClass38_Sub2_Sub3_798.writeOpcode(165);
+                aClass38_Sub2_Sub3_798.writeByte(k4 + k4 + 3 + 14);
             }
             if (j1 == 2) {
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 93);
-                aClass38_Sub2_Sub3_798.method436(k4 + k4 + 3);
+                aClass38_Sub2_Sub3_798.writeOpcode(93);
+                aClass38_Sub2_Sub3_798.writeByte(k4 + k4 + 3);
             }
             if (super.anIntArray26[5] == 1)
-                aClass38_Sub2_Sub3_798.method436(1);
+                aClass38_Sub2_Sub3_798.writeByte(1);
             else
-                aClass38_Sub2_Sub3_798.method436(0);
-            aClass38_Sub2_Sub3_798.method437(j6 + anInt761);
-            aClass38_Sub2_Sub3_798.method437(l6 + anInt762);
+                aClass38_Sub2_Sub3_798.writeByte(0);
+            aClass38_Sub2_Sub3_798.writeWord(j6 + anInt761);
+            aClass38_Sub2_Sub3_798.writeWord(l6 + anInt762);
             anInt1051 = anIntArray994[0];
             anInt1052 = anIntArray995[0];
             for (int i7 = 1; i7 < k4; i7++) {
                 i4--;
-                aClass38_Sub2_Sub3_798.method436(anIntArray994[i4] - j6);
-                aClass38_Sub2_Sub3_798.method436(anIntArray995[i4] - l6);
+                aClass38_Sub2_Sub3_798.writeByte(anIntArray994[i4] - j6);
+                aClass38_Sub2_Sub3_798.writeByte(anIntArray995[i4] - l6);
             }
 
             return true;
@@ -6525,8 +6525,8 @@ public class Game extends GameShell {
                     aLongArray943[i1] = aLongArray943[i1 + 1];
                 }
 
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 11);
-                aClass38_Sub2_Sub3_798.method442(true, l);
+                aClass38_Sub2_Sub3_798.writeOpcode(11);
+                aClass38_Sub2_Sub3_798.writeQWord(l);
                 return;
             }
 
@@ -6552,7 +6552,7 @@ public class Game extends GameShell {
         }
 
         if (i <= 0)
-            aClass38_Sub2_Sub3_798.method436(82);
+            aClass38_Sub2_Sub3_798.writeByte(82);
         return true;
     }
 
@@ -6578,17 +6578,17 @@ public class Game extends GameShell {
                         l1, localPlayerEntity.anIntArray1429[0], 0, 1, 0, i2, 0, 0,
                         0);
                 if (flag) {
-                    aClass38_Sub2_Sub3_798.method436(i);
-                    aClass38_Sub2_Sub3_798.method436(j);
-                    aClass38_Sub2_Sub3_798.method437(anInt817);
-                    aClass38_Sub2_Sub3_798.method436(57);
-                    aClass38_Sub2_Sub3_798.method436(anInt1085);
-                    aClass38_Sub2_Sub3_798.method436(anInt930);
-                    aClass38_Sub2_Sub3_798.method436(89);
-                    aClass38_Sub2_Sub3_798.method437(localPlayerEntity.anInt1380);
-                    aClass38_Sub2_Sub3_798.method437(localPlayerEntity.anInt1381);
-                    aClass38_Sub2_Sub3_798.method436(anInt989);
-                    aClass38_Sub2_Sub3_798.method436(63);
+                    aClass38_Sub2_Sub3_798.writeByte(i);
+                    aClass38_Sub2_Sub3_798.writeByte(j);
+                    aClass38_Sub2_Sub3_798.writeWord(anInt817);
+                    aClass38_Sub2_Sub3_798.writeByte(57);
+                    aClass38_Sub2_Sub3_798.writeByte(anInt1085);
+                    aClass38_Sub2_Sub3_798.writeByte(anInt930);
+                    aClass38_Sub2_Sub3_798.writeByte(89);
+                    aClass38_Sub2_Sub3_798.writeWord(localPlayerEntity.anInt1380);
+                    aClass38_Sub2_Sub3_798.writeWord(localPlayerEntity.anInt1381);
+                    aClass38_Sub2_Sub3_798.writeByte(anInt989);
+                    aClass38_Sub2_Sub3_798.writeByte(63);
                 }
             }
         }
@@ -6596,7 +6596,7 @@ public class Game extends GameShell {
 
     public void method116(byte byte0) {
         if (byte0 != 3)
-            anInt780 = aClass38_Sub2_Sub3_795.method446();
+            anInt780 = aClass38_Sub2_Sub3_795.readByte();
         if (anInt846 != 0)
             return;
         int i = super.anInt23;
@@ -6868,8 +6868,8 @@ public class Game extends GameShell {
             anInt882++;
             if (anInt882 > 150) {
                 anInt882 = 0;
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 233);
-                aClass38_Sub2_Sub3_798.method436(43);
+                aClass38_Sub2_Sub3_798.writeOpcode(233);
+                aClass38_Sub2_Sub3_798.writeByte(43);
             }
         }
     }
@@ -6904,8 +6904,8 @@ public class Game extends GameShell {
     public void method120(int i, Buffer class38_sub2_sub3, int j) {
         while (i >= 0)
             return;
-        class38_sub2_sub3.method456(223);
-        int k = class38_sub2_sub3.method457(9, 8);
+        class38_sub2_sub3.accessBits();
+        int k = class38_sub2_sub3.getBits(8);
         if (k < anInt928) {
             for (int l = k; l < anInt928; l++)
                 anIntArray940[anInt939++] = anIntArray929[l];
@@ -6919,12 +6919,12 @@ public class Game extends GameShell {
         for (int i1 = 0; i1 < k; i1++) {
             int j1 = anIntArray929[i1];
             NpcEntity npcEntity = npcEntities[j1];
-            int k1 = class38_sub2_sub3.method457(9, 1);
+            int k1 = class38_sub2_sub3.getBits(1);
             if (k1 == 0) {
                 anIntArray929[anInt928++] = j1;
                 npcEntity.anInt1424 = anInt955;
             } else {
-                int l1 = class38_sub2_sub3.method457(9, 2);
+                int l1 = class38_sub2_sub3.getBits(2);
                 if (l1 == 0) {
                     anIntArray929[anInt928++] = j1;
                     npcEntity.anInt1424 = anInt955;
@@ -6932,19 +6932,19 @@ public class Game extends GameShell {
                 } else if (l1 == 1) {
                     anIntArray929[anInt928++] = j1;
                     npcEntity.anInt1424 = anInt955;
-                    int i2 = class38_sub2_sub3.method457(9, 3);
+                    int i2 = class38_sub2_sub3.getBits(3);
                     npcEntity.method467(false, i2, (byte) 6);
-                    int k2 = class38_sub2_sub3.method457(9, 1);
+                    int k2 = class38_sub2_sub3.getBits(1);
                     if (k2 == 1)
                         anIntArray826[anInt825++] = j1;
                 } else if (l1 == 2) {
                     anIntArray929[anInt928++] = j1;
                     npcEntity.anInt1424 = anInt955;
-                    int j2 = class38_sub2_sub3.method457(9, 3);
+                    int j2 = class38_sub2_sub3.getBits(3);
                     npcEntity.method467(true, j2, (byte) 6);
-                    int l2 = class38_sub2_sub3.method457(9, 3);
+                    int l2 = class38_sub2_sub3.getBits(3);
                     npcEntity.method467(true, l2, (byte) 6);
-                    int i3 = class38_sub2_sub3.method457(9, 1);
+                    int i3 = class38_sub2_sub3.getBits(1);
                     if (i3 == 1)
                         anIntArray826[anInt825++] = j1;
                 } else if (l1 == 3)
@@ -7110,24 +7110,24 @@ public class Game extends GameShell {
                 scene.method282(0, anInt880);
             else
                 scene.method282(0, 0);
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
+            aClass38_Sub2_Sub3_798.writeOpcode(108);
             for (int j1 = 0; j1 < k; j1++) {
                 int l1 = (anIntArray925[j1] >> 8) * 64 - anInt761;
                 int j2 = (anIntArray925[j1] & 0xff) * 64 - anInt762;
                 byte[] abyte2 = aByteArrayArray770[j1];
                 if (abyte2 != null) {
-                    int i3 = (new Buffer(363, abyte2)).method451();
+                    int i3 = (new Buffer(abyte2)).readDWord();
                     BZip2InputStream.read(abyte0, i3, abyte2, abyte2.length - 4, 4);
                     sceneBuilder.method153(abyte0, (anInt838 - 6) * 8, 1, j2, l1, (anInt839 - 6) * 8);
                 } else if (anInt839 < 800)
                     sceneBuilder.method152(l1, j2, 3, 64, 64);
             }
 
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
+            aClass38_Sub2_Sub3_798.writeOpcode(108);
             for (int i2 = 0; i2 < k; i2++) {
                 byte[] abyte1 = aByteArrayArray1000[i2];
                 if (abyte1 != null) {
-                    int k2 = (new Buffer(363, abyte1)).method451();
+                    int k2 = (new Buffer(abyte1)).readDWord();
                     BZip2InputStream.read(abyte0, k2, abyte1, abyte1.length - 4, 4);
                     int j3 = (anIntArray925[i2] >> 8) * 64 - anInt761;
                     int l3 = (anIntArray925[i2] & 0xff) * 64 - anInt762;
@@ -7135,10 +7135,10 @@ public class Game extends GameShell {
                 }
             }
 
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
+            aClass38_Sub2_Sub3_798.writeOpcode(108);
             sceneBuilder.method156(scene, -270, collisionMaps);
             drawArea22.init2D();
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
+            aClass38_Sub2_Sub3_798.writeOpcode(108);
             for (LocEntity locEntity = (LocEntity) linkedList2
                     .method270(); locEntity != null; locEntity = (LocEntity) linkedList2.method272())
                 if ((aByteArrayArrayArray840[1][locEntity.anInt1208][locEntity.anInt1209] & 2) == 2) {
@@ -7492,8 +7492,8 @@ public class Game extends GameShell {
                 for (int k = j; k < anInt793; k++)
                     aLongArray768[k] = aLongArray768[k + 1];
 
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 171);
-                aClass38_Sub2_Sub3_798.method442(true, l);
+                aClass38_Sub2_Sub3_798.writeOpcode(171);
+                aClass38_Sub2_Sub3_798.writeQWord(l);
                 return;
             }
 
@@ -7690,23 +7690,23 @@ public class Game extends GameShell {
         anInt913++;
         if (anInt913 > 1406) {
             anInt913 = 0;
-            aClass38_Sub2_Sub3_798.method435((byte) -34, 219);
-            aClass38_Sub2_Sub3_798.method436(0);
+            aClass38_Sub2_Sub3_798.writeOpcode(219);
+            aClass38_Sub2_Sub3_798.writeByte(0);
             int k = aClass38_Sub2_Sub3_798.offset;
-            aClass38_Sub2_Sub3_798.method436(162);
-            aClass38_Sub2_Sub3_798.method436(22);
+            aClass38_Sub2_Sub3_798.writeByte(162);
+            aClass38_Sub2_Sub3_798.writeByte(22);
             if ((int) (Math.random() * 2D) == 0)
-                aClass38_Sub2_Sub3_798.method436(84);
-            aClass38_Sub2_Sub3_798.method437(31824);
-            aClass38_Sub2_Sub3_798.method437(13490);
+                aClass38_Sub2_Sub3_798.writeByte(84);
+            aClass38_Sub2_Sub3_798.writeWord(31824);
+            aClass38_Sub2_Sub3_798.writeWord(13490);
             if ((int) (Math.random() * 2D) == 0)
-                aClass38_Sub2_Sub3_798.method436(123);
+                aClass38_Sub2_Sub3_798.writeByte(123);
             if ((int) (Math.random() * 2D) == 0)
-                aClass38_Sub2_Sub3_798.method436(134);
-            aClass38_Sub2_Sub3_798.method436(100);
-            aClass38_Sub2_Sub3_798.method436(94);
-            aClass38_Sub2_Sub3_798.method437(35521);
-            aClass38_Sub2_Sub3_798.method445(0, aClass38_Sub2_Sub3_798.offset - k);
+                aClass38_Sub2_Sub3_798.writeByte(134);
+            aClass38_Sub2_Sub3_798.writeByte(100);
+            aClass38_Sub2_Sub3_798.writeByte(94);
+            aClass38_Sub2_Sub3_798.writeWord(35521);
+            aClass38_Sub2_Sub3_798.writeSize(aClass38_Sub2_Sub3_798.offset - k);
         }
     }
 
@@ -7721,42 +7721,42 @@ public class Game extends GameShell {
     }
 
     public void method134(int i, int j, Buffer class38_sub2_sub3) {
-        class38_sub2_sub3.method456(223);
-        int k = class38_sub2_sub3.method457(9, 1);
+        class38_sub2_sub3.accessBits();
+        int k = class38_sub2_sub3.getBits(1);
         if (i != 11522)
             linkedList3dArray = null;
         if (k == 0)
             return;
-        int l = class38_sub2_sub3.method457(9, 2);
+        int l = class38_sub2_sub3.getBits(2);
         if (l == 0) {
             anIntArray826[anInt825++] = anInt821;
             return;
         }
         if (l == 1) {
-            int i1 = class38_sub2_sub3.method457(9, 3);
+            int i1 = class38_sub2_sub3.getBits(3);
             localPlayerEntity.method467(false, i1, (byte) 6);
-            int l1 = class38_sub2_sub3.method457(9, 1);
+            int l1 = class38_sub2_sub3.getBits(1);
             if (l1 == 1)
                 anIntArray826[anInt825++] = anInt821;
             return;
         }
         if (l == 2) {
-            int j1 = class38_sub2_sub3.method457(9, 3);
+            int j1 = class38_sub2_sub3.getBits(3);
             localPlayerEntity.method467(true, j1, (byte) 6);
-            int i2 = class38_sub2_sub3.method457(9, 3);
+            int i2 = class38_sub2_sub3.getBits(3);
             localPlayerEntity.method467(true, i2, (byte) 6);
-            int k2 = class38_sub2_sub3.method457(9, 1);
+            int k2 = class38_sub2_sub3.getBits(1);
             if (k2 == 1)
                 anIntArray826[anInt825++] = anInt821;
             return;
         }
         if (l == 3) {
-            anInt880 = class38_sub2_sub3.method457(9, 2);
-            int k1 = class38_sub2_sub3.method457(9, 7);
-            int j2 = class38_sub2_sub3.method457(9, 7);
-            int l2 = class38_sub2_sub3.method457(9, 1);
+            anInt880 = class38_sub2_sub3.getBits(2);
+            int k1 = class38_sub2_sub3.getBits(7);
+            int j2 = class38_sub2_sub3.getBits(7);
+            int l2 = class38_sub2_sub3.getBits(1);
             localPlayerEntity.method466(false, l2 == 1, k1, j2);
-            int i3 = class38_sub2_sub3.method457(9, 1);
+            int i3 = class38_sub2_sub3.getBits(1);
             if (i3 == 1)
                 anIntArray826[anInt825++] = anInt821;
         }
@@ -7877,8 +7877,8 @@ public class Game extends GameShell {
             if (i == 0)
                 return false;
             if (anInt780 == -1) {
-                bufferedStream.read(aClass38_Sub2_Sub3_795.aByteArray1328, 0, 1);
-                anInt780 = aClass38_Sub2_Sub3_795.aByteArray1328[0] & 0xff;
+                bufferedStream.read(aClass38_Sub2_Sub3_795.data, 0, 1);
+                anInt780 = aClass38_Sub2_Sub3_795.data[0] & 0xff;
                 if (isaacState != null)
                     anInt780 = anInt780 - isaacState.nextInt() & 0xff;
                 anInt779 = Packet.packetLengths[anInt780];
@@ -7886,17 +7886,17 @@ public class Game extends GameShell {
             }
             if (anInt779 == -1)
                 if (i > 0) {
-                    bufferedStream.read(aClass38_Sub2_Sub3_795.aByteArray1328, 0, 1);
-                    anInt779 = aClass38_Sub2_Sub3_795.aByteArray1328[0] & 0xff;
+                    bufferedStream.read(aClass38_Sub2_Sub3_795.data, 0, 1);
+                    anInt779 = aClass38_Sub2_Sub3_795.data[0] & 0xff;
                     i--;
                 } else {
                     return false;
                 }
             if (anInt779 == -2)
                 if (i > 1) {
-                    bufferedStream.read(aClass38_Sub2_Sub3_795.aByteArray1328, 0, 2);
+                    bufferedStream.read(aClass38_Sub2_Sub3_795.data, 0, 2);
                     aClass38_Sub2_Sub3_795.offset = 0;
-                    anInt779 = aClass38_Sub2_Sub3_795.method448();
+                    anInt779 = aClass38_Sub2_Sub3_795.readWord();
                     i -= 2;
                 } else {
                     return false;
@@ -7904,14 +7904,14 @@ public class Game extends GameShell {
             if (i < anInt779)
                 return false;
             aClass38_Sub2_Sub3_795.offset = 0;
-            bufferedStream.read(aClass38_Sub2_Sub3_795.aByteArray1328, 0, anInt779);
+            bufferedStream.read(aClass38_Sub2_Sub3_795.data, 0, anInt779);
             anInt781 = 0;
             anInt830 = anInt829;
             anInt829 = anInt828;
             anInt828 = anInt780;
             if (anInt780 == 150) {
-                int j = aClass38_Sub2_Sub3_795.method448();
-                byte byte0 = aClass38_Sub2_Sub3_795.method447();
+                int j = aClass38_Sub2_Sub3_795.readWord();
+                byte byte0 = aClass38_Sub2_Sub3_795.readByteSigned();
                 anIntArray1075[j] = byte0;
                 if (anIntArray938[j] != byte0) {
                     anIntArray938[j] = byte0;
@@ -7924,8 +7924,8 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 152) {
-                long l = aClass38_Sub2_Sub3_795.method452(603);
-                int j16 = aClass38_Sub2_Sub3_795.method446();
+                long l = aClass38_Sub2_Sub3_795.readQWord();
+                int j16 = aClass38_Sub2_Sub3_795.readByte();
                 String s6 = StringUtils.formatName(StringUtils.fromBase37(l));
                 for (int l24 = 0; l24 < anInt1089; l24++) {
                     if (l != aLongArray943[l24])
@@ -7973,13 +7973,13 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 43) {
-                anInt957 = aClass38_Sub2_Sub3_795.method448() * 30;
+                anInt957 = aClass38_Sub2_Sub3_795.readWord() * 30;
                 anInt780 = -1;
                 return true;
             }
             if (anInt780 == 80) {
-                int k = aClass38_Sub2_Sub3_795.method446();
-                int i10 = aClass38_Sub2_Sub3_795.method446();
+                int k = aClass38_Sub2_Sub3_795.readByte();
+                int i10 = aClass38_Sub2_Sub3_795.readByte();
                 int k16 = -1;
                 for (int k21 = 0; k21 < anIntArray925.length; k21++)
                     if (anIntArray925[k21] == (k << 8) + i10)
@@ -7998,8 +7998,8 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 237) {
-                int i1 = aClass38_Sub2_Sub3_795.method448();
-                int j10 = aClass38_Sub2_Sub3_795.method448();
+                int i1 = aClass38_Sub2_Sub3_795.readWord();
+                int j10 = aClass38_Sub2_Sub3_795.readWord();
                 if (anInt838 == i1 && anInt839 == j10 && anInt1078 != 0) {
                     anInt780 = -1;
                     return true;
@@ -8018,14 +8018,14 @@ public class Game extends GameShell {
                 aByteArrayArray770 = new byte[l16][];
                 aByteArrayArray1000 = new byte[l16][];
                 anIntArray925 = new int[l16];
-                aClass38_Sub2_Sub3_798.method435((byte) -34, 150);
-                aClass38_Sub2_Sub3_798.method436(0);
+                aClass38_Sub2_Sub3_798.writeOpcode(150);
+                aClass38_Sub2_Sub3_798.writeByte(0);
                 int i22 = 0;
                 for (int i25 = 0; i25 < l16; i25++) {
-                    int i27 = aClass38_Sub2_Sub3_795.method446();
-                    int j29 = aClass38_Sub2_Sub3_795.method446();
-                    int k30 = aClass38_Sub2_Sub3_795.method451();
-                    int i31 = aClass38_Sub2_Sub3_795.method451();
+                    int i27 = aClass38_Sub2_Sub3_795.readByte();
+                    int j29 = aClass38_Sub2_Sub3_795.readByte();
+                    int k30 = aClass38_Sub2_Sub3_795.readDWord();
+                    int i31 = aClass38_Sub2_Sub3_795.readDWord();
                     anIntArray925[i25] = (i27 << 8) + j29;
                     if (k30 != 0) {
                         byte[] abyte1 = Signlink.cacheload("m" + i27 + "_" + j29);
@@ -8039,9 +8039,9 @@ public class Game extends GameShell {
                             aByteArrayArray770[i25] = abyte1;
                         } else {
                             anInt1078 = 0;
-                            aClass38_Sub2_Sub3_798.method436(0);
-                            aClass38_Sub2_Sub3_798.method436(i27);
-                            aClass38_Sub2_Sub3_798.method436(j29);
+                            aClass38_Sub2_Sub3_798.writeByte(0);
+                            aClass38_Sub2_Sub3_798.writeByte(i27);
+                            aClass38_Sub2_Sub3_798.writeByte(j29);
                             i22 += 3;
                         }
                     }
@@ -8057,15 +8057,15 @@ public class Game extends GameShell {
                             aByteArrayArray1000[i25] = abyte2;
                         } else {
                             anInt1078 = 0;
-                            aClass38_Sub2_Sub3_798.method436(1);
-                            aClass38_Sub2_Sub3_798.method436(i27);
-                            aClass38_Sub2_Sub3_798.method436(j29);
+                            aClass38_Sub2_Sub3_798.writeByte(1);
+                            aClass38_Sub2_Sub3_798.writeByte(i27);
+                            aClass38_Sub2_Sub3_798.writeByte(j29);
                             i22 += 3;
                         }
                     }
                 }
 
-                aClass38_Sub2_Sub3_798.method445(0, i22);
+                aClass38_Sub2_Sub3_798.writeSize(i22);
                 Signlink.looprate(50);
                 drawArea22.init2D();
                 if (anInt1078 == 0) {
@@ -8154,15 +8154,15 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 197) {
-                int j1 = aClass38_Sub2_Sub3_795.method448();
+                int j1 = aClass38_Sub2_Sub3_795.readWord();
                 InterfaceComponent.interfaceComponentArray[j1].aClass38_Sub2_Sub1_310 = localPlayerEntity.method472(-718);
                 anInt780 = -1;
                 return true;
             }
             if (anInt780 == 25) {
-                anInt911 = aClass38_Sub2_Sub3_795.method446();
+                anInt911 = aClass38_Sub2_Sub3_795.readByte();
                 if (anInt911 == 1)
-                    anInt801 = aClass38_Sub2_Sub3_795.method448();
+                    anInt801 = aClass38_Sub2_Sub3_795.readWord();
                 if (anInt911 >= 2 && anInt911 <= 6) {
                     if (anInt911 == 2) {
                         anInt748 = 64;
@@ -8185,19 +8185,19 @@ public class Game extends GameShell {
                         anInt749 = 128;
                     }
                     anInt911 = 2;
-                    anInt745 = aClass38_Sub2_Sub3_795.method448();
-                    anInt746 = aClass38_Sub2_Sub3_795.method448();
-                    anInt747 = aClass38_Sub2_Sub3_795.method446();
+                    anInt745 = aClass38_Sub2_Sub3_795.readWord();
+                    anInt746 = aClass38_Sub2_Sub3_795.readWord();
+                    anInt747 = aClass38_Sub2_Sub3_795.readByte();
                 }
                 if (anInt911 == 10)
-                    anInt1076 = aClass38_Sub2_Sub3_795.method448();
+                    anInt1076 = aClass38_Sub2_Sub3_795.readWord();
                 anInt780 = -1;
                 return true;
             }
             if (anInt780 == 54) {
-                String s = aClass38_Sub2_Sub3_795.method453();
-                int k10 = aClass38_Sub2_Sub3_795.method451();
-                int i17 = aClass38_Sub2_Sub3_795.method451();
+                String s = aClass38_Sub2_Sub3_795.readString();
+                int k10 = aClass38_Sub2_Sub3_795.readDWord();
+                int i17 = aClass38_Sub2_Sub3_795.readDWord();
                 if (!s.equals(aString1119) && aBoolean835 && !aBoolean889)
                     method14(false, k10, s, i17);
                 aString1119 = s;
@@ -8213,8 +8213,8 @@ public class Game extends GameShell {
                 return false;
             }
             if (anInt780 == 20) {
-                int k1 = aClass38_Sub2_Sub3_795.method446();
-                int l10 = aClass38_Sub2_Sub3_795.method446();
+                int k1 = aClass38_Sub2_Sub3_795.readByte();
+                int l10 = aClass38_Sub2_Sub3_795.readByte();
                 int j17 = -1;
                 for (int j22 = 0; j22 < anIntArray925.length; j22++)
                     if (anIntArray925[j22] == (k1 << 8) + l10)
@@ -8233,7 +8233,7 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 139) {
-                anInt734 = aClass38_Sub2_Sub3_795.method448();
+                anInt734 = aClass38_Sub2_Sub3_795.readWord();
                 anInt780 = -1;
                 return true;
             }
@@ -8244,8 +8244,8 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 28) {
-                int l1 = aClass38_Sub2_Sub3_795.method448();
-                int i11 = aClass38_Sub2_Sub3_795.method448();
+                int l1 = aClass38_Sub2_Sub3_795.readWord();
+                int i11 = aClass38_Sub2_Sub3_795.readWord();
                 if (anInt1001 != -1) {
                     anInt1001 = -1;
                     aBoolean965 = true;
@@ -8263,8 +8263,8 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 175) {
-                int i2 = aClass38_Sub2_Sub3_795.method448();
-                int j11 = aClass38_Sub2_Sub3_795.method451();
+                int i2 = aClass38_Sub2_Sub3_795.readWord();
+                int j11 = aClass38_Sub2_Sub3_795.readDWord();
                 anIntArray1075[i2] = j11;
                 if (anIntArray938[i2] != j11) {
                     anIntArray938[i2] = j11;
@@ -8277,15 +8277,15 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 146) {
-                int j2 = aClass38_Sub2_Sub3_795.method448();
-                int k11 = aClass38_Sub2_Sub3_795.method448();
+                int j2 = aClass38_Sub2_Sub3_795.readWord();
+                int k11 = aClass38_Sub2_Sub3_795.readWord();
                 InterfaceComponent.interfaceComponentArray[j2].anInt312 = k11;
                 anInt780 = -1;
                 return true;
             }
             if (anInt780 == 167) {
-                int k2 = aClass38_Sub2_Sub3_795.method448();
-                int l11 = aClass38_Sub2_Sub3_795.method446();
+                int k2 = aClass38_Sub2_Sub3_795.readWord();
+                int l11 = aClass38_Sub2_Sub3_795.readByte();
                 if (k2 == 65535)
                     k2 = -1;
                 anIntArray861[l11] = k2;
@@ -8295,10 +8295,10 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 220) {
-                int l2 = aClass38_Sub2_Sub3_795.method446();
-                int i12 = aClass38_Sub2_Sub3_795.method446();
-                int k17 = aClass38_Sub2_Sub3_795.method448();
-                int k22 = aClass38_Sub2_Sub3_795.method448();
+                int l2 = aClass38_Sub2_Sub3_795.readByte();
+                int i12 = aClass38_Sub2_Sub3_795.readByte();
+                int k17 = aClass38_Sub2_Sub3_795.readWord();
+                int k22 = aClass38_Sub2_Sub3_795.readWord();
                 int j25 = -1;
                 for (int k27 = 0; k27 < anIntArray925.length; k27++)
                     if (anIntArray925[k27] == (l2 << 8) + i12)
@@ -8307,7 +8307,7 @@ public class Game extends GameShell {
                 if (j25 != -1) {
                     if (aByteArrayArray1000[j25] == null || aByteArrayArray1000[j25].length != k22)
                         aByteArrayArray1000[j25] = new byte[k22];
-                    aClass38_Sub2_Sub3_795.method455(anInt779 - 6, -110, k17, aByteArrayArray1000[j25]);
+                    aClass38_Sub2_Sub3_795.readBytes(anInt779 - 6, k17, aByteArrayArray1000[j25]);
                 }
                 anInt780 = -1;
                 return true;
@@ -8315,25 +8315,25 @@ public class Game extends GameShell {
             if (anInt780 == 133) {
                 Buffer class38_sub2_sub3 = InputTracking.method185(854);
                 if (class38_sub2_sub3 != null) {
-                    aClass38_Sub2_Sub3_798.method435((byte) -34, 81);
-                    aClass38_Sub2_Sub3_798.method437(class38_sub2_sub3.offset);
-                    aClass38_Sub2_Sub3_798.method444(class38_sub2_sub3.aByteArray1328, class38_sub2_sub3.offset, 0,
-                            (byte) -106);
-                    class38_sub2_sub3.method434((byte) 8);
+                    aClass38_Sub2_Sub3_798.writeOpcode(81);
+                    aClass38_Sub2_Sub3_798.writeWord(class38_sub2_sub3.offset);
+                    aClass38_Sub2_Sub3_798.writeBytes(class38_sub2_sub3.data, class38_sub2_sub3.offset, 0
+                    );
+                    class38_sub2_sub3.release();
                 }
                 anInt780 = -1;
                 return true;
             }
             if (anInt780 == 98) {
                 aBoolean964 = true;
-                int i3 = aClass38_Sub2_Sub3_795.method448();
+                int i3 = aClass38_Sub2_Sub3_795.readWord();
                 InterfaceComponent interfaceComponent = InterfaceComponent.interfaceComponentArray[i3];
-                int l17 = aClass38_Sub2_Sub3_795.method446();
+                int l17 = aClass38_Sub2_Sub3_795.readByte();
                 for (int l22 = 0; l22 < l17; l22++) {
-                    interfaceComponent.anIntArray265[l22] = aClass38_Sub2_Sub3_795.method448();
-                    int k25 = aClass38_Sub2_Sub3_795.method446();
+                    interfaceComponent.anIntArray265[l22] = aClass38_Sub2_Sub3_795.readWord();
+                    int k25 = aClass38_Sub2_Sub3_795.readByte();
                     if (k25 == 255)
-                        k25 = aClass38_Sub2_Sub3_795.method451();
+                        k25 = aClass38_Sub2_Sub3_795.readDWord();
                     interfaceComponent.anIntArray266[l22] = k25;
                 }
 
@@ -8359,7 +8359,7 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 15) {
-                int j3 = aClass38_Sub2_Sub3_795.method448();
+                int j3 = aClass38_Sub2_Sub3_795.readWord();
                 InterfaceComponent interfaceComponent_1 = InterfaceComponent.interfaceComponentArray[j3];
                 for (int i18 = 0; i18 < interfaceComponent_1.anIntArray265.length; i18++) {
                     interfaceComponent_1.anIntArray265[i18] = -1;
@@ -8370,10 +8370,10 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 140) {
-                anInt1061 = aClass38_Sub2_Sub3_795.method451();
-                anInt873 = aClass38_Sub2_Sub3_795.method448();
-                anInt901 = aClass38_Sub2_Sub3_795.method446();
-                anInt1054 = aClass38_Sub2_Sub3_795.method448();
+                anInt1061 = aClass38_Sub2_Sub3_795.readDWord();
+                anInt873 = aClass38_Sub2_Sub3_795.readWord();
+                anInt901 = aClass38_Sub2_Sub3_795.readByte();
+                anInt1054 = aClass38_Sub2_Sub3_795.readWord();
                 if (anInt1061 != 0 && anInt971 == -1) {
                     Signlink.dnslookup(StringUtils.fromIPv4(anInt1061));
                     method16((byte) -60);
@@ -8394,7 +8394,7 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 126) {
-                anInt1128 = aClass38_Sub2_Sub3_795.method446();
+                anInt1128 = aClass38_Sub2_Sub3_795.readByte();
                 if (anInt1128 == anInt757) {
                     if (anInt1128 == 3)
                         anInt757 = 1;
@@ -8407,11 +8407,11 @@ public class Game extends GameShell {
             }
             if (anInt780 == 212) {
                 if (aBoolean835 && !aBoolean889) {
-                    int k3 = aClass38_Sub2_Sub3_795.method448();
-                    int k12 = aClass38_Sub2_Sub3_795.method451();
+                    int k3 = aClass38_Sub2_Sub3_795.readWord();
+                    int k12 = aClass38_Sub2_Sub3_795.readDWord();
                     int j18 = anInt779 - 6;
                     byte[] abyte0 = new byte[k12];
-                    BZip2InputStream.read(abyte0, k12, aClass38_Sub2_Sub3_795.aByteArray1328, j18,
+                    BZip2InputStream.read(abyte0, k12, aClass38_Sub2_Sub3_795.data, j18,
                             aClass38_Sub2_Sub3_795.offset);
                     method52(abyte0, 625, k12, false);
                     anInt744 = k3;
@@ -8420,14 +8420,14 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 254) {
-                anInt984 = aClass38_Sub2_Sub3_795.method446();
+                anInt984 = aClass38_Sub2_Sub3_795.readByte();
                 anInt780 = -1;
                 return true;
             }
             if (anInt780 == 12) {
-                int l3 = aClass38_Sub2_Sub3_795.method448();
-                int l12 = aClass38_Sub2_Sub3_795.method446();
-                int k18 = aClass38_Sub2_Sub3_795.method448();
+                int l3 = aClass38_Sub2_Sub3_795.readWord();
+                int l12 = aClass38_Sub2_Sub3_795.readByte();
+                int k18 = aClass38_Sub2_Sub3_795.readWord();
                 if (aBoolean1153 && !aBoolean889 && anInt1018 < 50) {
                     anIntArray1124[anInt1018] = l3;
                     anIntArray809[anInt1018] = l12;
@@ -8438,23 +8438,23 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 204) {
-                int i4 = aClass38_Sub2_Sub3_795.method448();
-                int i13 = aClass38_Sub2_Sub3_795.method448();
+                int i4 = aClass38_Sub2_Sub3_795.readWord();
+                int i13 = aClass38_Sub2_Sub3_795.readWord();
                 NpcType npcType = NpcType.get(i13);
                 InterfaceComponent.interfaceComponentArray[i4].aClass38_Sub2_Sub1_310 = npcType.getHeadModel(false);
                 anInt780 = -1;
                 return true;
             }
             if (anInt780 == 7) {
-                anInt862 = aClass38_Sub2_Sub3_795.method446();
-                anInt863 = aClass38_Sub2_Sub3_795.method446();
+                anInt862 = aClass38_Sub2_Sub3_795.readByte();
+                anInt863 = aClass38_Sub2_Sub3_795.readByte();
                 anInt780 = -1;
                 return true;
             }
             if (anInt780 == 103) {
-                int j4 = aClass38_Sub2_Sub3_795.method448();
-                int j13 = aClass38_Sub2_Sub3_795.method448();
-                int l18 = aClass38_Sub2_Sub3_795.method448();
+                int j4 = aClass38_Sub2_Sub3_795.readWord();
+                int j13 = aClass38_Sub2_Sub3_795.readWord();
+                int l18 = aClass38_Sub2_Sub3_795.readWord();
                 InterfaceComponent interfaceComponent_3 = InterfaceComponent.interfaceComponentArray[j4];
                 Model class38_sub2_sub1 = interfaceComponent_3.aClass38_Sub2_Sub1_310;
                 if (class38_sub2_sub1 != null)
@@ -8463,16 +8463,16 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 32) {
-                anInt976 = aClass38_Sub2_Sub3_795.method446();
-                anInt755 = aClass38_Sub2_Sub3_795.method446();
-                anInt885 = aClass38_Sub2_Sub3_795.method446();
+                anInt976 = aClass38_Sub2_Sub3_795.readByte();
+                anInt755 = aClass38_Sub2_Sub3_795.readByte();
+                anInt885 = aClass38_Sub2_Sub3_795.readByte();
                 aBoolean921 = true;
                 aBoolean965 = true;
                 anInt780 = -1;
                 return true;
             }
             if (anInt780 == 195) {
-                int k4 = aClass38_Sub2_Sub3_795.method448();
+                int k4 = aClass38_Sub2_Sub3_795.readWord();
                 method112(-321, k4);
                 if (anInt1001 != -1) {
                     anInt1001 = -1;
@@ -8491,7 +8491,7 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 14) {
-                int l4 = aClass38_Sub2_Sub3_795.method448();
+                int l4 = aClass38_Sub2_Sub3_795.readWord();
                 method112(-321, l4);
                 if (anInt1129 != -1) {
                     anInt1129 = -1;
@@ -8506,9 +8506,9 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 209) {
-                int i5 = aClass38_Sub2_Sub3_795.method448();
-                int k13 = aClass38_Sub2_Sub3_795.method449();
-                int i19 = aClass38_Sub2_Sub3_795.method449();
+                int i5 = aClass38_Sub2_Sub3_795.readWord();
+                int k13 = aClass38_Sub2_Sub3_795.readWordSigned();
+                int i19 = aClass38_Sub2_Sub3_795.readWordSigned();
                 InterfaceComponent interfaceComponent_4 = InterfaceComponent.interfaceComponentArray[i5];
                 interfaceComponent_4.anInt276 = k13;
                 interfaceComponent_4.anInt277 = i19;
@@ -8517,11 +8517,11 @@ public class Game extends GameShell {
             }
             if (anInt780 == 3) {
                 aBoolean968 = true;
-                anInt728 = aClass38_Sub2_Sub3_795.method446();
-                anInt729 = aClass38_Sub2_Sub3_795.method446();
-                anInt730 = aClass38_Sub2_Sub3_795.method448();
-                anInt731 = aClass38_Sub2_Sub3_795.method446();
-                anInt732 = aClass38_Sub2_Sub3_795.method446();
+                anInt728 = aClass38_Sub2_Sub3_795.readByte();
+                anInt729 = aClass38_Sub2_Sub3_795.readByte();
+                anInt730 = aClass38_Sub2_Sub3_795.readWord();
+                anInt731 = aClass38_Sub2_Sub3_795.readByte();
+                anInt732 = aClass38_Sub2_Sub3_795.readByte();
                 if (anInt732 >= 100) {
                     anInt1111 = anInt728 * 128 + 64;
                     anInt1113 = anInt729 * 128 + 64;
@@ -8531,8 +8531,8 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 135) {
-                anInt862 = aClass38_Sub2_Sub3_795.method446();
-                anInt863 = aClass38_Sub2_Sub3_795.method446();
+                anInt862 = aClass38_Sub2_Sub3_795.readByte();
+                anInt863 = aClass38_Sub2_Sub3_795.readByte();
                 for (int j5 = anInt862; j5 < anInt862 + 8; j5++) {
                     for (int l13 = anInt863; l13 < anInt863 + 8; l13++)
                         if (linkedList3dArray[anInt880][j5][l13] != null) {
@@ -8557,10 +8557,10 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 132) {
-                int k5 = aClass38_Sub2_Sub3_795.method446();
-                int i14 = aClass38_Sub2_Sub3_795.method446();
-                int j19 = aClass38_Sub2_Sub3_795.method448();
-                int i23 = aClass38_Sub2_Sub3_795.method448();
+                int k5 = aClass38_Sub2_Sub3_795.readByte();
+                int i14 = aClass38_Sub2_Sub3_795.readByte();
+                int j19 = aClass38_Sub2_Sub3_795.readWord();
+                int i23 = aClass38_Sub2_Sub3_795.readWord();
                 int i26 = -1;
                 for (int l27 = 0; l27 < anIntArray925.length; l27++)
                     if (anIntArray925[l27] == (k5 << 8) + i14)
@@ -8569,15 +8569,15 @@ public class Game extends GameShell {
                 if (i26 != -1) {
                     if (aByteArrayArray770[i26] == null || aByteArrayArray770[i26].length != i23)
                         aByteArrayArray770[i26] = new byte[i23];
-                    aClass38_Sub2_Sub3_795.method455(anInt779 - 6, -110, j19, aByteArrayArray770[i26]);
+                    aClass38_Sub2_Sub3_795.readBytes(anInt779 - 6, j19, aByteArrayArray770[i26]);
                 }
                 anInt780 = -1;
                 return true;
             }
             if (anInt780 == 41) {
-                long l5 = aClass38_Sub2_Sub3_795.method452(603);
-                int k19 = aClass38_Sub2_Sub3_795.method451();
-                int j23 = aClass38_Sub2_Sub3_795.method446();
+                long l5 = aClass38_Sub2_Sub3_795.readQWord();
+                int k19 = aClass38_Sub2_Sub3_795.readDWord();
+                int j23 = aClass38_Sub2_Sub3_795.readByte();
                 boolean flag2 = false;
                 for (int i28 = 0; i28 < 100; i28++) {
                     if (anIntArray878[i28] != k19)
@@ -8623,14 +8623,14 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 87) {
-                int j6 = aClass38_Sub2_Sub3_795.method448();
-                int j14 = aClass38_Sub2_Sub3_795.method448();
+                int j6 = aClass38_Sub2_Sub3_795.readWord();
+                int j14 = aClass38_Sub2_Sub3_795.readWord();
                 InterfaceComponent.interfaceComponentArray[j6].aClass38_Sub2_Sub1_310 = new Model(false, j14);
                 anInt780 = -1;
                 return true;
             }
             if (anInt780 == 185) {
-                int k6 = aClass38_Sub2_Sub3_795.method449();
+                int k6 = aClass38_Sub2_Sub3_795.readWordSigned();
                 anInt1021 = k6;
                 aBoolean965 = true;
                 anInt780 = -1;
@@ -8639,17 +8639,17 @@ public class Game extends GameShell {
             if (anInt780 == 68) {
                 if (anInt757 == 12)
                     aBoolean964 = true;
-                anInt1072 = aClass38_Sub2_Sub3_795.method446();
+                anInt1072 = aClass38_Sub2_Sub3_795.readByte();
                 anInt780 = -1;
                 return true;
             }
             if (anInt780 == 74) {
                 aBoolean968 = true;
-                anInt948 = aClass38_Sub2_Sub3_795.method446();
-                anInt949 = aClass38_Sub2_Sub3_795.method446();
-                anInt950 = aClass38_Sub2_Sub3_795.method448();
-                anInt951 = aClass38_Sub2_Sub3_795.method446();
-                anInt952 = aClass38_Sub2_Sub3_795.method446();
+                anInt948 = aClass38_Sub2_Sub3_795.readByte();
+                anInt949 = aClass38_Sub2_Sub3_795.readByte();
+                anInt950 = aClass38_Sub2_Sub3_795.readWord();
+                anInt951 = aClass38_Sub2_Sub3_795.readByte();
+                anInt952 = aClass38_Sub2_Sub3_795.readByte();
                 if (anInt952 >= 100) {
                     int l6 = anInt948 * 128 + 64;
                     int k14 = anInt949 * 128 + 64;
@@ -8669,14 +8669,14 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 84) {
-                anInt757 = aClass38_Sub2_Sub3_795.method446();
+                anInt757 = aClass38_Sub2_Sub3_795.readByte();
                 aBoolean964 = true;
                 aBoolean1080 = true;
                 anInt780 = -1;
                 return true;
             }
             if (anInt780 == 4) {
-                String s1 = aClass38_Sub2_Sub3_795.method453();
+                String s1 = aClass38_Sub2_Sub3_795.readString();
                 if (s1.endsWith(":tradereq:")) {
                     String s3 = s1.substring(0, s1.indexOf(":"));
                     long l20 = StringUtils.toBase37(s3);
@@ -8710,9 +8710,9 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 46) {
-                int i7 = aClass38_Sub2_Sub3_795.method448();
-                int l14 = aClass38_Sub2_Sub3_795.method448();
-                int i20 = aClass38_Sub2_Sub3_795.method448();
+                int i7 = aClass38_Sub2_Sub3_795.readWord();
+                int l14 = aClass38_Sub2_Sub3_795.readWord();
+                int i20 = aClass38_Sub2_Sub3_795.readWord();
                 ObjType objType = ObjType.get(l14);
                 InterfaceComponent.interfaceComponentArray[i7].aClass38_Sub2_Sub1_310 = objType.getModel(50);
                 InterfaceComponent.interfaceComponentArray[i7].anInt315 = objType.iconCameraPitch;
@@ -8722,7 +8722,7 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 168) {
-                int j7 = aClass38_Sub2_Sub3_795.method448();
+                int j7 = aClass38_Sub2_Sub3_795.readWord();
                 method112(-321, j7);
                 if (anInt1129 != -1) {
                     anInt1129 = -1;
@@ -8743,8 +8743,8 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 2) {
-                int k7 = aClass38_Sub2_Sub3_795.method448();
-                int i15 = aClass38_Sub2_Sub3_795.method448();
+                int k7 = aClass38_Sub2_Sub3_795.readWord();
+                int i15 = aClass38_Sub2_Sub3_795.readWord();
                 int j20 = i15 >> 10 & 0x1f;
                 int l23 = i15 >> 5 & 0x1f;
                 int k26 = i15 & 0x1f;
@@ -8765,8 +8765,8 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 26) {
-                int i8 = aClass38_Sub2_Sub3_795.method448();
-                boolean flag1 = aClass38_Sub2_Sub3_795.method446() == 1;
+                int i8 = aClass38_Sub2_Sub3_795.readWord();
+                boolean flag1 = aClass38_Sub2_Sub3_795.readByte() == 1;
                 InterfaceComponent.interfaceComponentArray[i8].aBoolean284 = flag1;
                 anInt780 = -1;
                 return true;
@@ -8774,7 +8774,7 @@ public class Game extends GameShell {
             if (anInt780 == 21) {
                 anInt793 = anInt779 / 8;
                 for (int j8 = 0; j8 < anInt793; j8++)
-                    aLongArray768[j8] = aClass38_Sub2_Sub3_795.method452(603);
+                    aLongArray768[j8] = aClass38_Sub2_Sub3_795.readQWord();
 
                 anInt780 = -1;
                 return true;
@@ -8807,8 +8807,8 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 201) {
-                int l8 = aClass38_Sub2_Sub3_795.method448();
-                String s5 = aClass38_Sub2_Sub3_795.method453();
+                int l8 = aClass38_Sub2_Sub3_795.readWord();
+                String s5 = aClass38_Sub2_Sub3_795.readString();
                 InterfaceComponent.interfaceComponentArray[l8].aString303 = s5;
                 if (InterfaceComponent.interfaceComponentArray[l8].anInt270 == anIntArray861[anInt757])
                     aBoolean964 = true;
@@ -8817,9 +8817,9 @@ public class Game extends GameShell {
             }
             if (anInt780 == 44) {
                 aBoolean964 = true;
-                int i9 = aClass38_Sub2_Sub3_795.method446();
-                int k15 = aClass38_Sub2_Sub3_795.method451();
-                int k20 = aClass38_Sub2_Sub3_795.method446();
+                int i9 = aClass38_Sub2_Sub3_795.readByte();
+                int k15 = aClass38_Sub2_Sub3_795.readDWord();
+                int k20 = aClass38_Sub2_Sub3_795.readByte();
                 anIntArray1079[i9] = k15;
                 anIntArray807[i9] = k20;
                 anIntArray926[i9] = 1;
@@ -8831,10 +8831,10 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 162) {
-                anInt862 = aClass38_Sub2_Sub3_795.method446();
-                anInt863 = aClass38_Sub2_Sub3_795.method446();
+                anInt862 = aClass38_Sub2_Sub3_795.readByte();
+                anInt863 = aClass38_Sub2_Sub3_795.readByte();
                 while (aClass38_Sub2_Sub3_795.offset < anInt779) {
-                    int j9 = aClass38_Sub2_Sub3_795.method446();
+                    int j9 = aClass38_Sub2_Sub3_795.readByte();
                     method22((byte) -45, aClass38_Sub2_Sub3_795, j9);
                 }
                 anInt780 = -1;
@@ -8843,15 +8843,15 @@ public class Game extends GameShell {
             if (anInt780 == 22) {
                 if (anInt757 == 12)
                     aBoolean964 = true;
-                anInt769 = aClass38_Sub2_Sub3_795.method449();
+                anInt769 = aClass38_Sub2_Sub3_795.readWordSigned();
                 anInt780 = -1;
                 return true;
             }
             if (anInt780 == 13) {
-                int k9 = aClass38_Sub2_Sub3_795.method446();
-                int l15 = aClass38_Sub2_Sub3_795.method446();
-                int i21 = aClass38_Sub2_Sub3_795.method446();
-                int j24 = aClass38_Sub2_Sub3_795.method446();
+                int k9 = aClass38_Sub2_Sub3_795.readByte();
+                int l15 = aClass38_Sub2_Sub3_795.readByte();
+                int i21 = aClass38_Sub2_Sub3_795.readByte();
+                int j24 = aClass38_Sub2_Sub3_795.readByte();
                 aBooleanArray754[k9] = true;
                 anIntArray959[k9] = l15;
                 anIntArray966[k9] = i21;
@@ -8862,14 +8862,14 @@ public class Game extends GameShell {
             }
             if (anInt780 == 213) {
                 aBoolean964 = true;
-                int l9 = aClass38_Sub2_Sub3_795.method448();
+                int l9 = aClass38_Sub2_Sub3_795.readWord();
                 InterfaceComponent interfaceComponent_2 = InterfaceComponent.interfaceComponentArray[l9];
                 while (aClass38_Sub2_Sub3_795.offset < anInt779) {
-                    int j21 = aClass38_Sub2_Sub3_795.method446();
-                    int k24 = aClass38_Sub2_Sub3_795.method448();
-                    int l26 = aClass38_Sub2_Sub3_795.method446();
+                    int j21 = aClass38_Sub2_Sub3_795.readByte();
+                    int k24 = aClass38_Sub2_Sub3_795.readWord();
+                    int l26 = aClass38_Sub2_Sub3_795.readByte();
                     if (l26 == 255)
-                        l26 = aClass38_Sub2_Sub3_795.method451();
+                        l26 = aClass38_Sub2_Sub3_795.readDWord();
                     if (j21 >= 0 && j21 < interfaceComponent_2.anIntArray265.length) {
                         interfaceComponent_2.anIntArray265[j21] = k24;
                         interfaceComponent_2.anIntArray266[j21] = l26;
@@ -8909,7 +8909,7 @@ public class Game extends GameShell {
                     + (anInt761 + localPlayerEntity.anIntArray1428[0]) + ","
                     + (anInt762 + localPlayerEntity.anIntArray1429[0]) + " - ";
             for (int i16 = 0; i16 < anInt779 && i16 < 50; i16++)
-                s2 = s2 + aClass38_Sub2_Sub3_795.aByteArray1328[i16] + ",";
+                s2 = s2 + aClass38_Sub2_Sub3_795.data[i16] + ",";
 
             Signlink.reporterror(s2);
             method58(-780);
@@ -8938,7 +8938,7 @@ public class Game extends GameShell {
 
     public boolean method138(int i, String s) {
         while (i >= 0)
-            aClass38_Sub2_Sub3_798.method436(74);
+            aClass38_Sub2_Sub3_798.writeByte(74);
         if (s == null)
             return false;
         for (int j = 0; j < anInt1089; j++)
@@ -8966,20 +8966,20 @@ public class Game extends GameShell {
         if (!flag)
             aBoolean849 = !aBoolean849;
         if ((j & 1) == 1) {
-            int k = class38_sub2_sub3.method446();
+            int k = class38_sub2_sub3.readByte();
             byte[] abyte0 = new byte[k];
-            Buffer class38_sub2_sub3_1 = new Buffer(363, abyte0);
-            class38_sub2_sub3.method455(k, -110, 0, abyte0);
+            Buffer class38_sub2_sub3_1 = new Buffer(abyte0);
+            class38_sub2_sub3.readBytes(k, 0, abyte0);
             aClass38_Sub2_Sub3Array827[i] = class38_sub2_sub3_1;
             playerEntity.method470(false, class38_sub2_sub3_1);
         }
         if ((j & 2) == 2) {
-            int l = class38_sub2_sub3.method448();
+            int l = class38_sub2_sub3.readWord();
             if (l == 65535)
                 l = -1;
             if (l == playerEntity.anInt1407)
                 playerEntity.anInt1411 = 0;
-            int k1 = class38_sub2_sub3.method446();
+            int k1 = class38_sub2_sub3.readByte();
             if (l == -1 || playerEntity.anInt1407 == -1
                     || SeqType.seqTypes[l].anInt372 > SeqType.seqTypes[playerEntity.anInt1407].anInt372
                     || SeqType.seqTypes[playerEntity.anInt1407].anInt372 == 0) {
@@ -8991,12 +8991,12 @@ public class Game extends GameShell {
             }
         }
         if ((j & 4) == 4) {
-            playerEntity.anInt1401 = class38_sub2_sub3.method448();
+            playerEntity.anInt1401 = class38_sub2_sub3.readWord();
             if (playerEntity.anInt1401 == 65535)
                 playerEntity.anInt1401 = -1;
         }
         if ((j & 8) == 8) {
-            playerEntity.aString1392 = class38_sub2_sub3.method453();
+            playerEntity.aString1392 = class38_sub2_sub3.readString();
             playerEntity.anInt1394 = 0;
             playerEntity.anInt1395 = 0;
             playerEntity.anInt1393 = 150;
@@ -9004,20 +9004,20 @@ public class Game extends GameShell {
                     playerEntity.aString1505);
         }
         if ((j & 0x10) == 16) {
-            playerEntity.anInt1396 = class38_sub2_sub3.method446();
-            playerEntity.anInt1397 = class38_sub2_sub3.method446();
+            playerEntity.anInt1396 = class38_sub2_sub3.readByte();
+            playerEntity.anInt1397 = class38_sub2_sub3.readByte();
             playerEntity.anInt1398 = anInt955 + 400;
-            playerEntity.anInt1399 = class38_sub2_sub3.method446();
-            playerEntity.anInt1400 = class38_sub2_sub3.method446();
+            playerEntity.anInt1399 = class38_sub2_sub3.readByte();
+            playerEntity.anInt1400 = class38_sub2_sub3.readByte();
         }
         if ((j & 0x20) == 32) {
-            playerEntity.anInt1402 = class38_sub2_sub3.method448();
-            playerEntity.anInt1403 = class38_sub2_sub3.method448();
+            playerEntity.anInt1402 = class38_sub2_sub3.readWord();
+            playerEntity.anInt1403 = class38_sub2_sub3.readWord();
         }
         if ((j & 0x40) == 64) {
-            int i1 = class38_sub2_sub3.method448();
-            int l1 = class38_sub2_sub3.method446();
-            int i2 = class38_sub2_sub3.method446();
+            int i1 = class38_sub2_sub3.readWord();
+            int l1 = class38_sub2_sub3.readByte();
+            int i2 = class38_sub2_sub3.readByte();
             int j2 = class38_sub2_sub3.offset;
             if (playerEntity.aString1505 != null) {
                 long l2 = StringUtils.toBase37(playerEntity.aString1505);
@@ -9050,8 +9050,8 @@ public class Game extends GameShell {
             class38_sub2_sub3.offset = j2 + i2;
         }
         if ((j & 0x100) == 256) {
-            playerEntity.anInt1412 = class38_sub2_sub3.method448();
-            int j1 = class38_sub2_sub3.method451();
+            playerEntity.anInt1412 = class38_sub2_sub3.readWord();
+            int j1 = class38_sub2_sub3.readDWord();
             playerEntity.anInt1416 = j1 >> 16;
             playerEntity.anInt1415 = anInt955 + (j1 & 0xffff);
             playerEntity.anInt1413 = 0;
@@ -9062,13 +9062,13 @@ public class Game extends GameShell {
                 playerEntity.anInt1412 = -1;
         }
         if ((j & 0x200) == 512) {
-            playerEntity.anInt1417 = class38_sub2_sub3.method446();
-            playerEntity.anInt1419 = class38_sub2_sub3.method446();
-            playerEntity.anInt1418 = class38_sub2_sub3.method446();
-            playerEntity.anInt1420 = class38_sub2_sub3.method446();
-            playerEntity.anInt1421 = class38_sub2_sub3.method448() + anInt955;
-            playerEntity.anInt1422 = class38_sub2_sub3.method448() + anInt955;
-            playerEntity.anInt1423 = class38_sub2_sub3.method446();
+            playerEntity.anInt1417 = class38_sub2_sub3.readByte();
+            playerEntity.anInt1419 = class38_sub2_sub3.readByte();
+            playerEntity.anInt1418 = class38_sub2_sub3.readByte();
+            playerEntity.anInt1420 = class38_sub2_sub3.readByte();
+            playerEntity.anInt1421 = class38_sub2_sub3.readWord() + anInt955;
+            playerEntity.anInt1422 = class38_sub2_sub3.readWord() + anInt955;
+            playerEntity.anInt1423 = class38_sub2_sub3.readByte();
             playerEntity.anInt1427 = 0;
             playerEntity.anIntArray1428[0] = playerEntity.anInt1418;
             playerEntity.anIntArray1429[0] = playerEntity.anInt1420;
@@ -9148,7 +9148,7 @@ public class Game extends GameShell {
         anInt733 = 24676;
         anInt734 = -1;
         anIntArray742 = new int[5];
-        aClass38_Sub2_Sub3_743 = Buffer.method433(1, -737);
+        aClass38_Sub2_Sub3_743 = Buffer.reserve(1);
         aBoolean751 = false;
         linkedList2 = new LinkedList();
         aBooleanArray754 = new boolean[5];
@@ -9174,8 +9174,8 @@ public class Game extends GameShell {
         aByte790 = 8;
         aClass38_Sub2_Sub2_Sub2Array791 = new Sprite[1000];
         anInt792 = 78;
-        aClass38_Sub2_Sub3_795 = Buffer.method433(1, -737);
-        aClass38_Sub2_Sub3_798 = Buffer.method433(1, -737);
+        aClass38_Sub2_Sub3_795 = Buffer.reserve(1);
+        aClass38_Sub2_Sub3_798 = Buffer.reserve(1);
         aBoolean799 = false;
         anInt803 = 3;
         anInt805 = -655;

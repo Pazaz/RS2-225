@@ -1,11 +1,9 @@
 package com.runescape.util;
 
-import com.runescape.util.Buffer;
-
 public class InputTracking {
 
     public static synchronized void method182(int i) {
-        aClass38_Sub2_Sub3_199 = Buffer.method433(1, -737);
+        aClass38_Sub2_Sub3_199 = Buffer.reserve(1);
         aClass38_Sub2_Sub3_200 = null;
         aLong201 = System.currentTimeMillis();
         if (i != -31717)
@@ -49,7 +47,7 @@ public class InputTracking {
             aBoolean196 = !aBoolean196;
         if (aClass38_Sub2_Sub3_199.offset + j >= 500) {
             Buffer class38_sub2_sub3 = aClass38_Sub2_Sub3_199;
-            aClass38_Sub2_Sub3_199 = Buffer.method433(1, -737);
+            aClass38_Sub2_Sub3_199 = Buffer.reserve(1);
             aClass38_Sub2_Sub3_200 = class38_sub2_sub3;
         }
     }
@@ -69,11 +67,11 @@ public class InputTracking {
         if (byte0 != 4)
             return;
         if (j == 1)
-            aClass38_Sub2_Sub3_199.method436(1);
+            aClass38_Sub2_Sub3_199.writeByte(1);
         else
-            aClass38_Sub2_Sub3_199.method436(2);
-        aClass38_Sub2_Sub3_199.method436((int) l1);
-        aClass38_Sub2_Sub3_199.method439(i + (k << 10));
+            aClass38_Sub2_Sub3_199.writeByte(2);
+        aClass38_Sub2_Sub3_199.writeByte((int) l1);
+        aClass38_Sub2_Sub3_199.writeSWord(i + (k << 10));
     }
 
     public static synchronized void method188(int i, int j) {
@@ -89,10 +87,10 @@ public class InputTracking {
             return;
         method186(anInt195, 2);
         if (i == 1)
-            aClass38_Sub2_Sub3_199.method436(3);
+            aClass38_Sub2_Sub3_199.writeByte(3);
         else
-            aClass38_Sub2_Sub3_199.method436(4);
-        aClass38_Sub2_Sub3_199.method436((int) l1);
+            aClass38_Sub2_Sub3_199.writeByte(4);
+        aClass38_Sub2_Sub3_199.writeByte((int) l1);
     }
 
     public static synchronized void method189(int i, boolean flag, int j) {
@@ -112,20 +110,20 @@ public class InputTracking {
             aLong201 = l;
             if (j - anInt204 < 8 && j - anInt204 >= -8 && i - anInt205 < 8 && i - anInt205 >= -8) {
                 method186(anInt195, 3);
-                aClass38_Sub2_Sub3_199.method436(5);
-                aClass38_Sub2_Sub3_199.method436((int) l1);
-                aClass38_Sub2_Sub3_199.method436((j - anInt204) + 8 + ((i - anInt205) + 8 << 4));
+                aClass38_Sub2_Sub3_199.writeByte(5);
+                aClass38_Sub2_Sub3_199.writeByte((int) l1);
+                aClass38_Sub2_Sub3_199.writeByte((j - anInt204) + 8 + ((i - anInt205) + 8 << 4));
             } else if (j - anInt204 < 128 && j - anInt204 >= -128 && i - anInt205 < 128 && i - anInt205 >= -128) {
                 method186(anInt195, 4);
-                aClass38_Sub2_Sub3_199.method436(6);
-                aClass38_Sub2_Sub3_199.method436((int) l1);
-                aClass38_Sub2_Sub3_199.method436((j - anInt204) + 128);
-                aClass38_Sub2_Sub3_199.method436((i - anInt205) + 128);
+                aClass38_Sub2_Sub3_199.writeByte(6);
+                aClass38_Sub2_Sub3_199.writeByte((int) l1);
+                aClass38_Sub2_Sub3_199.writeByte((j - anInt204) + 128);
+                aClass38_Sub2_Sub3_199.writeByte((i - anInt205) + 128);
             } else {
                 method186(anInt195, 5);
-                aClass38_Sub2_Sub3_199.method436(7);
-                aClass38_Sub2_Sub3_199.method436((int) l1);
-                aClass38_Sub2_Sub3_199.method439(j + (i << 10));
+                aClass38_Sub2_Sub3_199.writeByte(7);
+                aClass38_Sub2_Sub3_199.writeByte((int) l1);
+                aClass38_Sub2_Sub3_199.writeSWord(j + (i << 10));
             }
             anInt204 = j;
             anInt205 = i;
@@ -156,9 +154,9 @@ public class InputTracking {
             for (int j = 1; j > 0; j++)
                 ;
         }
-        aClass38_Sub2_Sub3_199.method436(8);
-        aClass38_Sub2_Sub3_199.method436((int) l1);
-        aClass38_Sub2_Sub3_199.method436(i);
+        aClass38_Sub2_Sub3_199.writeByte(8);
+        aClass38_Sub2_Sub3_199.writeByte((int) l1);
+        aClass38_Sub2_Sub3_199.writeByte(i);
     }
 
     public static synchronized void method191(int i, int j) {
@@ -181,9 +179,9 @@ public class InputTracking {
         if (i >= 1008)
             i -= 992;
         method186(anInt195, 3);
-        aClass38_Sub2_Sub3_199.method436(9);
-        aClass38_Sub2_Sub3_199.method436((int) l1);
-        aClass38_Sub2_Sub3_199.method436(i);
+        aClass38_Sub2_Sub3_199.writeByte(9);
+        aClass38_Sub2_Sub3_199.writeByte((int) l1);
+        aClass38_Sub2_Sub3_199.writeByte(i);
         if (j == 1)
             ;
     }
@@ -200,8 +198,8 @@ public class InputTracking {
             l1 = 250L;
         aLong201 = l;
         method186(anInt195, 2);
-        aClass38_Sub2_Sub3_199.method436(10);
-        aClass38_Sub2_Sub3_199.method436((int) l1);
+        aClass38_Sub2_Sub3_199.writeByte(10);
+        aClass38_Sub2_Sub3_199.writeByte((int) l1);
     }
 
     public static synchronized void method193(int i) {
@@ -216,8 +214,8 @@ public class InputTracking {
         method186(anInt195, 2);
         if (i != 0)
             aBoolean197 = !aBoolean197;
-        aClass38_Sub2_Sub3_199.method436(11);
-        aClass38_Sub2_Sub3_199.method436((int) l1);
+        aClass38_Sub2_Sub3_199.writeByte(11);
+        aClass38_Sub2_Sub3_199.writeByte((int) l1);
     }
 
     public static synchronized void method194(int i) {
@@ -232,8 +230,8 @@ public class InputTracking {
         method186(anInt195, 2);
         while (i >= 0)
             return;
-        aClass38_Sub2_Sub3_199.method436(12);
-        aClass38_Sub2_Sub3_199.method436((int) l1);
+        aClass38_Sub2_Sub3_199.writeByte(12);
+        aClass38_Sub2_Sub3_199.writeByte((int) l1);
     }
 
     public static synchronized void method195(boolean flag) {
@@ -248,8 +246,8 @@ public class InputTracking {
             l1 = 250L;
         aLong201 = l;
         method186(anInt195, 2);
-        aClass38_Sub2_Sub3_199.method436(13);
-        aClass38_Sub2_Sub3_199.method436((int) l1);
+        aClass38_Sub2_Sub3_199.writeByte(13);
+        aClass38_Sub2_Sub3_199.writeByte((int) l1);
     }
 
     public static byte aByte194 = 65;

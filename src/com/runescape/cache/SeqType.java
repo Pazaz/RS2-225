@@ -5,10 +5,10 @@ import com.runescape.util.Buffer;
 public class SeqType {
 
     public static void method222(FileArchive fileArchive, int i) {
-        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive.read("seq.dat", null));
+        Buffer class38_sub2_sub3 = new Buffer(fileArchive.read("seq.dat", null));
         if (i <= 0)
             aBoolean361 = !aBoolean361;
-        anInt363 = class38_sub2_sub3.method448();
+        anInt363 = class38_sub2_sub3.readWord();
         if (seqTypes == null)
             seqTypes = new SeqType[anInt363];
         for (int j = 0; j < anInt363; j++) {
@@ -25,20 +25,20 @@ public class SeqType {
                 ;
         }
         do {
-            int j = class38_sub2_sub3.method446();
+            int j = class38_sub2_sub3.readByte();
             if (j == 0)
                 break;
             if (j == 1) {
-                anInt365 = class38_sub2_sub3.method446();
+                anInt365 = class38_sub2_sub3.readByte();
                 primaryFrames = new int[anInt365];
                 anIntArray367 = new int[anInt365];
                 anIntArray368 = new int[anInt365];
                 for (int k = 0; k < anInt365; k++) {
-                    primaryFrames[k] = class38_sub2_sub3.method448();
-                    anIntArray367[k] = class38_sub2_sub3.method448();
+                    primaryFrames[k] = class38_sub2_sub3.readWord();
+                    anIntArray367[k] = class38_sub2_sub3.readWord();
                     if (anIntArray367[k] == 65535)
                         anIntArray367[k] = -1;
-                    anIntArray368[k] = class38_sub2_sub3.method448();
+                    anIntArray368[k] = class38_sub2_sub3.readWord();
                     if (anIntArray368[k] == 0)
                         anIntArray368[k] = SeqFrame.seqFrames[primaryFrames[k]].anInt236;
                     if (anIntArray368[k] == 0)
@@ -46,24 +46,24 @@ public class SeqType {
                 }
 
             } else if (j == 2)
-                anInt369 = class38_sub2_sub3.method448();
+                anInt369 = class38_sub2_sub3.readWord();
             else if (j == 3) {
-                int l = class38_sub2_sub3.method446();
+                int l = class38_sub2_sub3.readByte();
                 anIntArray370 = new int[l + 1];
                 for (int i1 = 0; i1 < l; i1++)
-                    anIntArray370[i1] = class38_sub2_sub3.method446();
+                    anIntArray370[i1] = class38_sub2_sub3.readByte();
 
                 anIntArray370[l] = 0x98967f;
             } else if (j == 4)
                 aBoolean371 = true;
             else if (j == 5)
-                anInt372 = class38_sub2_sub3.method446();
+                anInt372 = class38_sub2_sub3.readByte();
             else if (j == 6)
-                anInt373 = class38_sub2_sub3.method448();
+                anInt373 = class38_sub2_sub3.readWord();
             else if (j == 7)
-                anInt374 = class38_sub2_sub3.method448();
+                anInt374 = class38_sub2_sub3.readWord();
             else if (j == 8)
-                anInt375 = class38_sub2_sub3.method446();
+                anInt375 = class38_sub2_sub3.readByte();
             else
                 System.out.println("Error unrecognised seq config code: " + j);
         } while (true);

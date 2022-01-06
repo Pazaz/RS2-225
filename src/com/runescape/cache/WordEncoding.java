@@ -5,10 +5,10 @@ import com.runescape.util.Buffer;
 public class WordEncoding {
 
     public static void load(FileArchive fileArchive) {
-        Buffer fragments = new Buffer(363, fileArchive.read("fragmentsenc.txt", null));
-        Buffer bad = new Buffer(363, fileArchive.read("badenc.txt", null));
-        Buffer domain = new Buffer(363, fileArchive.read("domainenc.txt", null));
-        Buffer tld = new Buffer(363, fileArchive.read("tldlist.txt", null));
+        Buffer fragments = new Buffer(fileArchive.read("fragmentsenc.txt", null));
+        Buffer bad = new Buffer(fileArchive.read("badenc.txt", null));
+        Buffer domain = new Buffer(fileArchive.read("domainenc.txt", null));
+        Buffer tld = new Buffer(fileArchive.read("tldlist.txt", null));
         unpack(fragments, bad, domain, tld);
     }
 
@@ -20,17 +20,17 @@ public class WordEncoding {
     }
 
     public static void readTld(Buffer buffer) {
-        int count = buffer.method451();
+        int count = buffer.readDWord();
 
         tlds = new char[count][];
         tldTypes = new int[count];
 
         for (int n = 0; n < count; n++) {
-            tldTypes[n] = buffer.method446();
+            tldTypes[n] = buffer.readByte();
             
-            char[] string = new char[buffer.method446()];
+            char[] string = new char[buffer.readByte()];
             for (int k = 0; k < string.length; k++) {
-                string[k] = (char) buffer.method446();
+                string[k] = (char) buffer.readByte();
             }
 
             tlds[n] = string;
@@ -38,7 +38,7 @@ public class WordEncoding {
     }
 
     public static void readBad(Buffer buffer) {
-        int count = buffer.method451();
+        int count = buffer.readDWord();
 
         bads = new char[count][];
         badCombinations = new byte[count][][];
@@ -47,32 +47,32 @@ public class WordEncoding {
     }
 
     public static void readDomain(Buffer buffer) {
-        domains = new char[buffer.method451()][];
+        domains = new char[buffer.readDWord()][];
 
         readDomain(buffer, domains);
     }
 
     public static void readFragments(Buffer buffer) {
-        fragments = new int[buffer.method451()];
+        fragments = new int[buffer.readDWord()];
 
         for (int n = 0; n < fragments.length; n++) {
-            fragments[n] = buffer.method448();
+            fragments[n] = buffer.readWord();
         }
     }
 
     public static void readBad(byte[][][] badCombinations, char[][] bads, Buffer buffer) {
         for (int n = 0; n < bads.length; n++) {
-            char[] chars = new char[buffer.method446()];
+            char[] chars = new char[buffer.readByte()];
             for (int j = 0; j < chars.length; j++) {
-                chars[j] = (char) buffer.method446();
+                chars[j] = (char) buffer.readByte();
             }
             bads[n] = chars;
 
-            byte[][] combo = new byte[buffer.method446()][2];
+            byte[][] combo = new byte[buffer.readByte()][2];
 
             for (int k = 0; k < combo.length; k++) {
-                combo[k][0] = (byte) buffer.method446();
-                combo[k][1] = (byte) buffer.method446();
+                combo[k][0] = (byte) buffer.readByte();
+                combo[k][1] = (byte) buffer.readByte();
             }
 
             if (combo.length > 0) {
@@ -83,9 +83,9 @@ public class WordEncoding {
 
     public static void readDomain(Buffer buffer, char[][] domains) {
         for (int n = 0; n < domains.length; n++) {
-            char[] string = new char[buffer.method446()];
+            char[] string = new char[buffer.readByte()];
             for (int k = 0; k < string.length; k++) {
-                string[k] = (char) buffer.method446();
+                string[k] = (char) buffer.readByte();
             }
 
             domains[n] = string;

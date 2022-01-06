@@ -9,15 +9,15 @@ import com.runescape.util.Cache;
 public class ObjType {
 
     public static void load(FileArchive fileArchive) {
-        data = new Buffer(363, fileArchive.read("obj.dat", null));
-        Buffer idx = new Buffer(363, fileArchive.read("obj.idx", null));
-        count = idx.method448();
+        data = new Buffer(fileArchive.read("obj.dat", null));
+        Buffer idx = new Buffer(fileArchive.read("obj.idx", null));
+        count = idx.readWord();
         offsets = new int[count];
 
         int off = 2;
         for (int n = 0; n < count; n++) {
             offsets[n] = off;
-            off += idx.method448();
+            off += idx.readWord();
         }
 
         objTypes = new ObjType[10];
@@ -109,58 +109,58 @@ public class ObjType {
 
     public void read(Buffer buffer) {
         do {
-            int opcode = buffer.method446();
+            int opcode = buffer.readByte();
             if (opcode == 0) {
                 return;
             } else if (opcode == 1) {
-                modelIndex = buffer.method448();
+                modelIndex = buffer.readWord();
             } else if (opcode == 2) {
-                name = buffer.method453();
+                name = buffer.readString();
             } else if (opcode == 3) {
-                description = buffer.method454((byte) 31);
+                description = buffer.readStringRaw();
             } else if (opcode == 4) {
-                iconZoom = buffer.method448();
+                iconZoom = buffer.readWord();
             } else if (opcode == 5) {
-                iconCameraPitch = buffer.method448();
+                iconCameraPitch = buffer.readWord();
             } else if (opcode == 6) {
-                iconYaw = buffer.method448();
+                iconYaw = buffer.readWord();
             } else if (opcode == 7) {
-                iconX = buffer.method448();
+                iconX = buffer.readWord();
 
                 if (iconX > 32767) {
                     iconX -= 0x10000;
                 }
             } else if (opcode == 8) {
-                iconY = buffer.method448();
+                iconY = buffer.readWord();
 
                 if (iconY > 32767) {
                     iconY -= 0x10000;
                 }
             } else if (opcode == 9) {
             } else if (opcode == 10) {
-                buffer.method448();
+                buffer.readWord();
             } else if (opcode == 11) {
                 stackable = true;
             } else if (opcode == 12) {
-                value = buffer.method451();
+                value = buffer.readDWord();
             } else if (opcode == 16) {
                 members = true;
             } else if (opcode == 23) {
-                maleModel0 = buffer.method448();
-                maleOffsetY = buffer.method447();
+                maleModel0 = buffer.readWord();
+                maleOffsetY = buffer.readByteSigned();
             } else if (opcode == 24) {
-                maleModel1 = buffer.method448();
+                maleModel1 = buffer.readWord();
             } else if (opcode == 25) {
-                femaleModel0 = buffer.method448();
-                femaleOffsetY = buffer.method447();
+                femaleModel0 = buffer.readWord();
+                femaleOffsetY = buffer.readByteSigned();
             } else if (opcode == 26) {
-                femaleModel1 = buffer.method448();
+                femaleModel1 = buffer.readWord();
             } else if (opcode >= 30 && opcode < 35) {
                 if (groundOptions == null) {
                     groundOptions = new String[5];
                 }
                 
-                groundOptions[opcode - 30] = buffer.method453();
+                groundOptions[opcode - 30] = buffer.readString();
                 if (groundOptions[opcode - 30].equalsIgnoreCase("hidden")) {
                     groundOptions[opcode - 30] = null;
                 }
@@ -169,42 +169,42 @@ public class ObjType {
                     options = new String[5];
                 }
                 
-                options[opcode - 35] = buffer.method453();
+                options[opcode - 35] = buffer.readString();
             } else if (opcode == 40) {
-                int count = buffer.method446();
+                int count = buffer.readByte();
                 oldColors = new int[count];
                 newColors = new int[count];
                 
                 for (int n = 0; n < count; n++) {
-                    oldColors[n] = buffer.method448();
-                    newColors[n] = buffer.method448();
+                    oldColors[n] = buffer.readWord();
+                    newColors[n] = buffer.readWord();
                 }
             } else if (opcode == 78) {
-                maleModel2 = buffer.method448();
+                maleModel2 = buffer.readWord();
             } else if (opcode == 79) {
-                femaleModel2 = buffer.method448();
+                femaleModel2 = buffer.readWord();
             } else if (opcode == 90) {
-                maleHeadModelA = buffer.method448();
+                maleHeadModelA = buffer.readWord();
             } else if (opcode == 91) {
-                femaleHeadModelA = buffer.method448();
+                femaleHeadModelA = buffer.readWord();
             } else if (opcode == 92) {
-                maleHeadModelB = buffer.method448();
+                maleHeadModelB = buffer.readWord();
             } else if (opcode == 93) {
-                femaleHeadModelB = buffer.method448();
+                femaleHeadModelB = buffer.readWord();
             } else if (opcode == 95) {
-                iconRoll = buffer.method448();
+                iconRoll = buffer.readWord();
             } else if (opcode == 97) {
-                linkedId = buffer.method448();
+                linkedId = buffer.readWord();
             } else if (opcode == 98) {
-                certificateId = buffer.method448();
+                certificateId = buffer.readWord();
             } else if (opcode >= 100 && opcode < 110) {
                 if (stackId == null) {
                     stackId = new int[10];
                     stackAmount = new int[10];
                 }
 
-                stackId[opcode - 100] = buffer.method448();
-                stackAmount[opcode - 100] = buffer.method448();
+                stackId[opcode - 100] = buffer.readWord();
+                stackAmount[opcode - 100] = buffer.readWord();
             }
         } while (true);
     }

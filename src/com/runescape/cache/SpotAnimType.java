@@ -6,8 +6,8 @@ import com.runescape.util.Cache;
 public class SpotAnimType {
 
     public static void load(FileArchive fileArchive) {
-        Buffer buffer = new Buffer(363, fileArchive.read("spotanim.dat", null));
-        count = buffer.method448();
+        Buffer buffer = new Buffer(fileArchive.read("spotanim.dat", null));
+        count = buffer.readWord();
 
         if (instances == null) {
             instances = new SpotAnimType[count];
@@ -25,33 +25,33 @@ public class SpotAnimType {
 
     public void read(Buffer buffer) {
         do {
-            int opcode = buffer.method446();
+            int opcode = buffer.readByte();
 
             if (opcode == 0) {
                 return;
             } else if (opcode == 1) {
-                modelIndex = buffer.method448();
+                modelIndex = buffer.readWord();
             } else if (opcode == 2) {
-                seqIndex = buffer.method448();
+                seqIndex = buffer.readWord();
                 if (SeqType.seqTypes != null) {
                     seq = SeqType.seqTypes[seqIndex];
                 }
             } else if (opcode == 3) {
                 disposeAlpha = true;
             } else if (opcode == 4) {
-                breadthScale = buffer.method448();
+                breadthScale = buffer.readWord();
             } else if (opcode == 5) {
-                depthScale = buffer.method448();
+                depthScale = buffer.readWord();
             } else if (opcode == 6) {
-                orientation = buffer.method448();
+                orientation = buffer.readWord();
             } else if (opcode == 7) {
-                ambience = buffer.method446();
+                ambience = buffer.readByte();
             } else if (opcode == 8) {
-                modelShadow = buffer.method446();
+                modelShadow = buffer.readByte();
             } else if (opcode >= 40 && opcode < 50) {
-                oldColors[opcode - 40] = buffer.method448();
+                oldColors[opcode - 40] = buffer.readWord();
             } else if (opcode >= 50 && opcode < 60) {
-                newColors[opcode - 50] = buffer.method448();
+                newColors[opcode - 50] = buffer.readWord();
             } else {
                 System.out.println("Error unrecognised spotanim config code: " + opcode);
             }

@@ -51,20 +51,20 @@ public class Model extends CacheableNode {
         if (i < 3 || i > 3)
             return;
         try {
-            aClass38_Sub2_Sub3_1260 = new Buffer(363, fileArchive.read("ob_head.dat", null));
-            aClass38_Sub2_Sub3_1261 = new Buffer(363, fileArchive.read("ob_face1.dat", null));
-            aClass38_Sub2_Sub3_1262 = new Buffer(363, fileArchive.read("ob_face2.dat", null));
-            aClass38_Sub2_Sub3_1263 = new Buffer(363, fileArchive.read("ob_face3.dat", null));
-            aClass38_Sub2_Sub3_1264 = new Buffer(363, fileArchive.read("ob_face4.dat", null));
-            aClass38_Sub2_Sub3_1265 = new Buffer(363, fileArchive.read("ob_face5.dat", null));
-            aClass38_Sub2_Sub3_1266 = new Buffer(363, fileArchive.read("ob_point1.dat", null));
-            aClass38_Sub2_Sub3_1267 = new Buffer(363, fileArchive.read("ob_point2.dat", null));
-            aClass38_Sub2_Sub3_1268 = new Buffer(363, fileArchive.read("ob_point3.dat", null));
-            aClass38_Sub2_Sub3_1269 = new Buffer(363, fileArchive.read("ob_point4.dat", null));
-            aClass38_Sub2_Sub3_1270 = new Buffer(363, fileArchive.read("ob_point5.dat", null));
-            aClass38_Sub2_Sub3_1271 = new Buffer(363, fileArchive.read("ob_vertex1.dat", null));
-            aClass38_Sub2_Sub3_1272 = new Buffer(363, fileArchive.read("ob_vertex2.dat", null));
-            aClass38_Sub2_Sub3_1273 = new Buffer(363, fileArchive.read("ob_axis.dat", null));
+            aClass38_Sub2_Sub3_1260 = new Buffer(fileArchive.read("ob_head.dat", null));
+            aClass38_Sub2_Sub3_1261 = new Buffer(fileArchive.read("ob_face1.dat", null));
+            aClass38_Sub2_Sub3_1262 = new Buffer(fileArchive.read("ob_face2.dat", null));
+            aClass38_Sub2_Sub3_1263 = new Buffer(fileArchive.read("ob_face3.dat", null));
+            aClass38_Sub2_Sub3_1264 = new Buffer(fileArchive.read("ob_face4.dat", null));
+            aClass38_Sub2_Sub3_1265 = new Buffer(fileArchive.read("ob_face5.dat", null));
+            aClass38_Sub2_Sub3_1266 = new Buffer(fileArchive.read("ob_point1.dat", null));
+            aClass38_Sub2_Sub3_1267 = new Buffer(fileArchive.read("ob_point2.dat", null));
+            aClass38_Sub2_Sub3_1268 = new Buffer(fileArchive.read("ob_point3.dat", null));
+            aClass38_Sub2_Sub3_1269 = new Buffer(fileArchive.read("ob_point4.dat", null));
+            aClass38_Sub2_Sub3_1270 = new Buffer(fileArchive.read("ob_point5.dat", null));
+            aClass38_Sub2_Sub3_1271 = new Buffer(fileArchive.read("ob_vertex1.dat", null));
+            aClass38_Sub2_Sub3_1272 = new Buffer(fileArchive.read("ob_vertex2.dat", null));
+            aClass38_Sub2_Sub3_1273 = new Buffer(fileArchive.read("ob_axis.dat", null));
             aClass38_Sub2_Sub3_1260.offset = 0;
             aClass38_Sub2_Sub3_1266.offset = 0;
             aClass38_Sub2_Sub3_1267.offset = 0;
@@ -72,7 +72,7 @@ public class Model extends CacheableNode {
             aClass38_Sub2_Sub3_1269.offset = 0;
             aClass38_Sub2_Sub3_1271.offset = 0;
             aClass38_Sub2_Sub3_1272.offset = 0;
-            int j = aClass38_Sub2_Sub3_1260.method448();
+            int j = aClass38_Sub2_Sub3_1260.readWord();
             metadataArray = new Metadata[j + 100];
             int k = 0;
             int l = 0;
@@ -82,39 +82,39 @@ public class Model extends CacheableNode {
             int l1 = 0;
             int i2 = 0;
             for (int j2 = 0; j2 < j; j2++) {
-                int k2 = aClass38_Sub2_Sub3_1260.method448();
+                int k2 = aClass38_Sub2_Sub3_1260.readWord();
                 Metadata metadata = metadataArray[k2] = new Metadata();
-                metadata.vertexCount = aClass38_Sub2_Sub3_1260.method448();
-                metadata.triangleCount = aClass38_Sub2_Sub3_1260.method448();
-                metadata.texturedCount = aClass38_Sub2_Sub3_1260.method446();
+                metadata.vertexCount = aClass38_Sub2_Sub3_1260.readWord();
+                metadata.triangleCount = aClass38_Sub2_Sub3_1260.readWord();
+                metadata.texturedCount = aClass38_Sub2_Sub3_1260.readByte();
                 metadata.vertexFlagDataOffset = aClass38_Sub2_Sub3_1266.offset;
                 metadata.vertexXDataOffset = aClass38_Sub2_Sub3_1267.offset;
                 metadata.vertexYDataOffset = aClass38_Sub2_Sub3_1268.offset;
                 metadata.vertexZDataOffset = aClass38_Sub2_Sub3_1269.offset;
                 metadata.vertexIndexDataOffset = aClass38_Sub2_Sub3_1271.offset;
                 metadata.triangleTypeDataOffset = aClass38_Sub2_Sub3_1272.offset;
-                int l2 = aClass38_Sub2_Sub3_1260.method446();
-                int i3 = aClass38_Sub2_Sub3_1260.method446();
-                int j3 = aClass38_Sub2_Sub3_1260.method446();
-                int k3 = aClass38_Sub2_Sub3_1260.method446();
-                int l3 = aClass38_Sub2_Sub3_1260.method446();
+                int l2 = aClass38_Sub2_Sub3_1260.readByte();
+                int i3 = aClass38_Sub2_Sub3_1260.readByte();
+                int j3 = aClass38_Sub2_Sub3_1260.readByte();
+                int k3 = aClass38_Sub2_Sub3_1260.readByte();
+                int l3 = aClass38_Sub2_Sub3_1260.readByte();
                 for (int i4 = 0; i4 < metadata.vertexCount; i4++) {
-                    int j4 = aClass38_Sub2_Sub3_1266.method446();
+                    int j4 = aClass38_Sub2_Sub3_1266.readByte();
                     if ((j4 & 1) != 0)
-                        aClass38_Sub2_Sub3_1267.method459();
+                        aClass38_Sub2_Sub3_1267.readSmartSigned();
                     if ((j4 & 2) != 0)
-                        aClass38_Sub2_Sub3_1268.method459();
+                        aClass38_Sub2_Sub3_1268.readSmartSigned();
                     if ((j4 & 4) != 0)
-                        aClass38_Sub2_Sub3_1269.method459();
+                        aClass38_Sub2_Sub3_1269.readSmartSigned();
                 }
 
                 for (int k4 = 0; k4 < metadata.triangleCount; k4++) {
-                    int l4 = aClass38_Sub2_Sub3_1272.method446();
+                    int l4 = aClass38_Sub2_Sub3_1272.readByte();
                     if (l4 == 1) {
-                        aClass38_Sub2_Sub3_1271.method459();
-                        aClass38_Sub2_Sub3_1271.method459();
+                        aClass38_Sub2_Sub3_1271.readSmartSigned();
+                        aClass38_Sub2_Sub3_1271.readSmartSigned();
                     }
-                    aClass38_Sub2_Sub3_1271.method459();
+                    aClass38_Sub2_Sub3_1271.readSmartSigned();
                 }
 
                 metadata.triangleColorDataOffset = i1;
@@ -209,16 +209,16 @@ public class Model extends CacheableNode {
         int k = 0;
         int l = 0;
         for (int i1 = 0; i1 < anInt1222; i1++) {
-            int j1 = aClass38_Sub2_Sub3_1266.method446();
+            int j1 = aClass38_Sub2_Sub3_1266.readByte();
             int l1 = 0;
             if ((j1 & 1) != 0)
-                l1 = aClass38_Sub2_Sub3_1267.method459();
+                l1 = aClass38_Sub2_Sub3_1267.readSmartSigned();
             int j2 = 0;
             if ((j1 & 2) != 0)
-                j2 = aClass38_Sub2_Sub3_1268.method459();
+                j2 = aClass38_Sub2_Sub3_1268.readSmartSigned();
             int l2 = 0;
             if ((j1 & 4) != 0)
-                l2 = aClass38_Sub2_Sub3_1269.method459();
+                l2 = aClass38_Sub2_Sub3_1269.readSmartSigned();
             anIntArray1223[i1] = j + l1;
             anIntArray1224[i1] = k + j2;
             anIntArray1225[i1] = l + l2;
@@ -226,7 +226,7 @@ public class Model extends CacheableNode {
             k = anIntArray1224[i1];
             l = anIntArray1225[i1];
             if (anIntArray1252 != null)
-                anIntArray1252[i1] = aClass38_Sub2_Sub3_1270.method446();
+                anIntArray1252[i1] = aClass38_Sub2_Sub3_1270.readByte();
         }
 
         aClass38_Sub2_Sub3_1261.offset = metadata.triangleColorDataOffset;
@@ -235,15 +235,15 @@ public class Model extends CacheableNode {
         aClass38_Sub2_Sub3_1264.offset = metadata.triangleAlphaDataOffset;
         aClass38_Sub2_Sub3_1265.offset = metadata.triangleSkinDataOffset;
         for (int k1 = 0; k1 < anInt1226; k1++) {
-            anIntArray1236[k1] = aClass38_Sub2_Sub3_1261.method448();
+            anIntArray1236[k1] = aClass38_Sub2_Sub3_1261.readWord();
             if (anIntArray1233 != null)
-                anIntArray1233[k1] = aClass38_Sub2_Sub3_1262.method446();
+                anIntArray1233[k1] = aClass38_Sub2_Sub3_1262.readByte();
             if (anIntArray1234 != null)
-                anIntArray1234[k1] = aClass38_Sub2_Sub3_1263.method446();
+                anIntArray1234[k1] = aClass38_Sub2_Sub3_1263.readByte();
             if (anIntArray1235 != null)
-                anIntArray1235[k1] = aClass38_Sub2_Sub3_1264.method446();
+                anIntArray1235[k1] = aClass38_Sub2_Sub3_1264.readByte();
             if (anIntArray1253 != null)
-                anIntArray1253[k1] = aClass38_Sub2_Sub3_1265.method446();
+                anIntArray1253[k1] = aClass38_Sub2_Sub3_1265.readByte();
         }
 
         aClass38_Sub2_Sub3_1271.offset = metadata.vertexIndexDataOffset;
@@ -253,13 +253,13 @@ public class Model extends CacheableNode {
         int i3 = 0;
         int j3 = 0;
         for (int k3 = 0; k3 < anInt1226; k3++) {
-            int l3 = aClass38_Sub2_Sub3_1272.method446();
+            int l3 = aClass38_Sub2_Sub3_1272.readByte();
             if (l3 == 1) {
-                i2 = aClass38_Sub2_Sub3_1271.method459() + j3;
+                i2 = aClass38_Sub2_Sub3_1271.readSmartSigned() + j3;
                 j3 = i2;
-                k2 = aClass38_Sub2_Sub3_1271.method459() + j3;
+                k2 = aClass38_Sub2_Sub3_1271.readSmartSigned() + j3;
                 j3 = k2;
-                i3 = aClass38_Sub2_Sub3_1271.method459() + j3;
+                i3 = aClass38_Sub2_Sub3_1271.readSmartSigned() + j3;
                 j3 = i3;
                 anIntArray1227[k3] = i2;
                 anIntArray1228[k3] = k2;
@@ -268,7 +268,7 @@ public class Model extends CacheableNode {
             if (l3 == 2) {
                 i2 = i2;
                 k2 = i3;
-                i3 = aClass38_Sub2_Sub3_1271.method459() + j3;
+                i3 = aClass38_Sub2_Sub3_1271.readSmartSigned() + j3;
                 j3 = i3;
                 anIntArray1227[k3] = i2;
                 anIntArray1228[k3] = k2;
@@ -277,7 +277,7 @@ public class Model extends CacheableNode {
             if (l3 == 3) {
                 i2 = i3;
                 k2 = k2;
-                i3 = aClass38_Sub2_Sub3_1271.method459() + j3;
+                i3 = aClass38_Sub2_Sub3_1271.readSmartSigned() + j3;
                 j3 = i3;
                 anIntArray1227[k3] = i2;
                 anIntArray1228[k3] = k2;
@@ -287,7 +287,7 @@ public class Model extends CacheableNode {
                 int j4 = i2;
                 i2 = k2;
                 k2 = j4;
-                i3 = aClass38_Sub2_Sub3_1271.method459() + j3;
+                i3 = aClass38_Sub2_Sub3_1271.readSmartSigned() + j3;
                 j3 = i3;
                 anIntArray1227[k3] = i2;
                 anIntArray1228[k3] = k2;
@@ -299,9 +299,9 @@ public class Model extends CacheableNode {
             throw new NullPointerException();
         aClass38_Sub2_Sub3_1273.offset = metadata.triangleTextureDataOffset * 6;
         for (int i4 = 0; i4 < anInt1238; i4++) {
-            anIntArray1239[i4] = aClass38_Sub2_Sub3_1273.method448();
-            anIntArray1240[i4] = aClass38_Sub2_Sub3_1273.method448();
-            anIntArray1241[i4] = aClass38_Sub2_Sub3_1273.method448();
+            anIntArray1239[i4] = aClass38_Sub2_Sub3_1273.readWord();
+            anIntArray1240[i4] = aClass38_Sub2_Sub3_1273.readWord();
+            anIntArray1241[i4] = aClass38_Sub2_Sub3_1273.readWord();
         }
 
     }

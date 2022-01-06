@@ -5,15 +5,15 @@ import com.runescape.util.Buffer;
 public class SoundEnvelope {
 
     public void readShape(Buffer buffer) {
-        form = buffer.method446();
-        start = buffer.method451();
-        end = buffer.method451();
-        length = buffer.method446();
+        form = buffer.readByte();
+        start = buffer.readDWord();
+        end = buffer.readDWord();
+        length = buffer.readByte();
         shapeDelta = new int[length];
         shapePeak = new int[length];
         for (int j = 0; j < length; j++) {
-            shapeDelta[j] = buffer.method448();
-            shapePeak[j] = buffer.method448();
+            shapeDelta[j] = buffer.readWord();
+            shapePeak[j] = buffer.readWord();
         }
     }
 

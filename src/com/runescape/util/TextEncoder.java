@@ -1,7 +1,5 @@
 package com.runescape.util;
 
-import com.runescape.util.Buffer;
-
 public class TextEncoder {
 
     public static String read(Buffer buffer, int len) {
@@ -9,7 +7,7 @@ public class TextEncoder {
         int last = -1;
 
         for (int n = 0; n < len; n++) {
-            int c = buffer.method446();
+            int c = buffer.readByte();
             int value = c >> 4 & 0xf;
 
             if (last == -1) {
@@ -75,23 +73,23 @@ public class TextEncoder {
 
             if (msb != -1) {
                 if (lsb < 13) {
-                    buffer.method436((msb << 4) + lsb);
+                    buffer.writeByte((msb << 4) + lsb);
                     msb = -1;
                 } else {
-                    buffer.method436((msb << 4) + (lsb >> 4));
+                    buffer.writeByte((msb << 4) + (lsb >> 4));
                     msb = lsb & 0xf;
                 }
             } else {
                 if (lsb < 13) {
                     msb = lsb;
                 } else {
-                    buffer.method436(lsb);
+                    buffer.writeByte(lsb);
                 }
             }
         }
 
         if (msb != -1) {
-            buffer.method436(msb << 4);
+            buffer.writeByte(msb << 4);
         }
     }
 

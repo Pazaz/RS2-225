@@ -7,33 +7,33 @@ public class SeqFrame {
     public static void method213(boolean flag, FileArchive fileArchive) {
         if (flag)
             throw new NullPointerException();
-        Buffer class38_sub2_sub3 = new Buffer(363,
+        Buffer class38_sub2_sub3 = new Buffer(
                 fileArchive.read("frame_head.dat", null));
-        Buffer class38_sub2_sub3_1 = new Buffer(363,
+        Buffer class38_sub2_sub3_1 = new Buffer(
                 fileArchive.read("frame_tran1.dat", null));
-        Buffer class38_sub2_sub3_2 = new Buffer(363,
+        Buffer class38_sub2_sub3_2 = new Buffer(
                 fileArchive.read("frame_tran2.dat", null));
-        Buffer class38_sub2_sub3_3 = new Buffer(363,
+        Buffer class38_sub2_sub3_3 = new Buffer(
                 fileArchive.read("frame_del.dat", null));
-        int i = class38_sub2_sub3.method448();
-        int j = class38_sub2_sub3.method448();
+        int i = class38_sub2_sub3.readWord();
+        int j = class38_sub2_sub3.readWord();
         seqFrames = new SeqFrame[j + 1];
         int[] ai = new int[500];
         int[] ai1 = new int[500];
         int[] ai2 = new int[500];
         int[] ai3 = new int[500];
         for (int k = 0; k < i; k++) {
-            int l = class38_sub2_sub3.method448();
+            int l = class38_sub2_sub3.readWord();
             SeqFrame seqFrame = seqFrames[l] = new SeqFrame();
-            seqFrame.anInt236 = class38_sub2_sub3_3.method446();
-            int i1 = class38_sub2_sub3.method448();
+            seqFrame.anInt236 = class38_sub2_sub3_3.readByte();
+            int i1 = class38_sub2_sub3.readWord();
             SeqBase seqBase = SeqBase.seqBaseArray[i1];
             seqFrame.seqBase = seqBase;
-            int j1 = class38_sub2_sub3.method446();
+            int j1 = class38_sub2_sub3.readByte();
             int k1 = -1;
             int l1 = 0;
             for (int i2 = 0; i2 < j1; i2++) {
-                int j2 = class38_sub2_sub3_1.method446();
+                int j2 = class38_sub2_sub3_1.readByte();
                 if (j2 > 0) {
                     if (seqBase.anIntArray218[i2] != 0) {
                         for (int l2 = i2 - 1; l2 > k1; l2--) {
@@ -53,15 +53,15 @@ public class SeqFrame {
                     if (seqBase.anIntArray218[ai[l1]] == 3)
                         c = '\200';
                     if ((j2 & 1) != 0)
-                        ai1[l1] = class38_sub2_sub3_2.method459();
+                        ai1[l1] = class38_sub2_sub3_2.readSmartSigned();
                     else
                         ai1[l1] = c;
                     if ((j2 & 2) != 0)
-                        ai2[l1] = class38_sub2_sub3_2.method459();
+                        ai2[l1] = class38_sub2_sub3_2.readSmartSigned();
                     else
                         ai2[l1] = c;
                     if ((j2 & 4) != 0)
-                        ai3[l1] = class38_sub2_sub3_2.method459();
+                        ai3[l1] = class38_sub2_sub3_2.readSmartSigned();
                     else
                         ai3[l1] = c;
                     k1 = i2;

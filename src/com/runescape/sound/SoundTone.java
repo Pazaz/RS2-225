@@ -172,7 +172,7 @@ public class SoundTone {
         amplitudeBase = new SoundEnvelope();
         amplitudeBase.readShape(buffer);
 
-        if (buffer.method446() != 0) {
+        if (buffer.readByte() != 0) {
             buffer.offset--;
             frequencyModRate = new SoundEnvelope();
             frequencyModRate.readShape(buffer);
@@ -180,7 +180,7 @@ public class SoundTone {
             frequencyModRange.readShape(buffer);
         }
 
-        if (buffer.method446() != 0) {
+        if (buffer.readByte() != 0) {
             buffer.offset--;
             amplitudeModRate = new SoundEnvelope();
             amplitudeModRate.readShape(buffer);
@@ -188,7 +188,7 @@ public class SoundTone {
             amplitudeModRange.readShape(buffer);
         }
 
-        if (buffer.method446() != 0) {
+        if (buffer.readByte() != 0) {
             buffer.offset--;
             release = new SoundEnvelope();
             release.readShape(buffer);
@@ -197,22 +197,22 @@ public class SoundTone {
         }
 
         for (int j = 0; j < 10; j++) {
-            int volume = buffer.method460();
+            int volume = buffer.readSmart();
 
             if (volume == 0) {
                 break;
             }
 
             harmonicVolume[j] = volume;
-            harmonicSemitone[j] = buffer.method459();
-            harmonicDelay[j] = buffer.method460();
+            harmonicSemitone[j] = buffer.readSmartSigned();
+            harmonicDelay[j] = buffer.readSmart();
         }
 
-        reverbDelay = buffer.method460();
-        reverbVolume = buffer.method460();
+        reverbDelay = buffer.readSmart();
+        reverbVolume = buffer.readSmart();
 
-        length = buffer.method448();
-        start = buffer.method448();
+        length = buffer.readWord();
+        start = buffer.readWord();
     }
 
     public SoundTone() {

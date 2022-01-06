@@ -7,11 +7,11 @@ public class SoundTrack {
     public static void load(Buffer src) {
         bbuf = new byte[441000];
 
-        buffer = new Buffer(363, bbuf);
+        buffer = new Buffer(bbuf);
         SoundTone.init();
 
         do {
-            int id = src.method448();
+            int id = src.readWord();
             if (id == 65535) {
                 return;
             }
@@ -32,15 +32,15 @@ public class SoundTrack {
 
     public void read(Buffer buffer) {
         for (int tone = 0; tone < 10; tone++) {
-            if (buffer.method446() != 0) {
+            if (buffer.readByte() != 0) {
                 buffer.offset--;
                 tones[tone] = new SoundTone();
                 tones[tone].read(buffer);
             }
         }
 
-        loopBegin = buffer.method448();
-        loopEnd = buffer.method448();
+        loopBegin = buffer.readWord();
+        loopEnd = buffer.readWord();
     }
 
     public int trim() {
@@ -76,19 +76,19 @@ public class SoundTrack {
     public Buffer getWaveform(int loopCount) {
         int j = generate(loopCount);
         buffer.offset = 0;
-        buffer.method440(0x52494646);
-        buffer.method441(false, 36 + j);
-        buffer.method440(0x57415645);
-        buffer.method440(0x666d7420);
-        buffer.method441(false, 16);
-        buffer.method438(true, 1);
-        buffer.method438(true, 1);
-        buffer.method441(false, 22050);
-        buffer.method441(false, 22050);
-        buffer.method438(true, 1);
-        buffer.method438(true, 8);
-        buffer.method440(0x64617461);
-        buffer.method441(false, j);
+        buffer.writeDWord(0x52494646);
+        buffer.writeDWordLE(36 + j);
+        buffer.writeDWord(0x57415645);
+        buffer.writeDWord(0x666d7420);
+        buffer.writeDWordLE(16);
+        buffer.writeWordLE(1);
+        buffer.writeWordLE(1);
+        buffer.writeDWordLE(22050);
+        buffer.writeDWordLE(22050);
+        buffer.writeWordLE(1);
+        buffer.writeWordLE(8);
+        buffer.writeDWord(0x64617461);
+        buffer.writeDWordLE(j);
         buffer.offset += j;
         return buffer;
     }

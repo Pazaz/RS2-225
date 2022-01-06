@@ -5,9 +5,9 @@ import com.runescape.util.Buffer;
 public class FloType {
 
     public static void load(FileArchive fileArchive) {
-        Buffer buffer = new Buffer(363, fileArchive.read("flo.dat", null));
+        Buffer buffer = new Buffer(fileArchive.read("flo.dat", null));
 
-        count = buffer.method448();
+        count = buffer.readWord();
 
         if (instances == null) {
             instances = new FloType[count];
@@ -24,16 +24,16 @@ public class FloType {
 
     public void read(Buffer buffer) {
         do {
-            int opcode = buffer.method446();
+            int opcode = buffer.readByte();
             switch (opcode) {
                 case 0:
                     return;
                 case 1:
-                    rgb = buffer.method450();
+                    rgb = buffer.readSWord();
                     setColor(rgb);
                     break;
                 case 2:
-                    textureIndex = buffer.method446();
+                    textureIndex = buffer.readByte();
                     break;
                 case 3:
                     break;
@@ -41,7 +41,7 @@ public class FloType {
                     occlude = false;
                     break;
                 case 6:
-                    name = buffer.method453();
+                    name = buffer.readString();
                     break;
                 default:
                     System.out.println("Error unrecognised config code: " + opcode);
