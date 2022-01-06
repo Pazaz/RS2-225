@@ -172,28 +172,28 @@ public class Applet_Sub1 extends Applet
             anInt23 = 1;
             anInt20 = 1;
         }
-        if (Class7.aBoolean198)
-            Class7.method187(i, mouseevent.isMetaDown() ? 1 : 0, j, (byte) 4);
+        if (InputTracking.aBoolean198)
+            InputTracking.method187(i, mouseevent.isMetaDown() ? 1 : 0, j, (byte) 4);
     }
 
     public void mouseReleased(MouseEvent mouseevent) {
         anInt19 = 0;
         anInt20 = 0;
-        if (Class7.aBoolean198)
-            Class7.method188(mouseevent.isMetaDown() ? 1 : 0, 0);
+        if (InputTracking.aBoolean198)
+            InputTracking.method188(mouseevent.isMetaDown() ? 1 : 0, 0);
     }
 
     public void mouseClicked(MouseEvent mouseevent) {
     }
 
     public void mouseEntered(MouseEvent mouseevent) {
-        if (Class7.aBoolean198)
-            Class7.method194(-657);
+        if (InputTracking.aBoolean198)
+            InputTracking.method194(-657);
     }
 
     public void mouseExited(MouseEvent mouseevent) {
-        if (Class7.aBoolean198)
-            Class7.method195(false);
+        if (InputTracking.aBoolean198)
+            InputTracking.method195(false);
     }
 
     public void mouseDragged(MouseEvent mouseevent) {
@@ -206,8 +206,8 @@ public class Applet_Sub1 extends Applet
         anInt19 = 0;
         anInt21 = i;
         anInt22 = j;
-        if (Class7.aBoolean198)
-            Class7.method189(j, true, i);
+        if (InputTracking.aBoolean198)
+            InputTracking.method189(j, true, i);
     }
 
     public void mouseMoved(MouseEvent mouseevent) {
@@ -220,8 +220,8 @@ public class Applet_Sub1 extends Applet
         anInt19 = 0;
         anInt21 = i;
         anInt22 = j;
-        if (Class7.aBoolean198)
-            Class7.method189(j, true, i);
+        if (InputTracking.aBoolean198)
+            InputTracking.method189(j, true, i);
     }
 
     public void keyPressed(KeyEvent keyevent) {
@@ -264,8 +264,8 @@ public class Applet_Sub1 extends Applet
             anIntArray27[anInt29] = j;
             anInt29 = anInt29 + 1 & 0x7f;
         }
-        if (Class7.aBoolean198)
-            Class7.method190(j, true);
+        if (InputTracking.aBoolean198)
+            InputTracking.method190(j, true);
     }
 
     public void keyReleased(KeyEvent keyevent) {
@@ -294,8 +294,8 @@ public class Applet_Sub1 extends Applet
             c = '\n';
         if (c > 0 && c < '\200')
             anIntArray26[c] = 0;
-        if (Class7.aBoolean198)
-            Class7.method191(c, 1);
+        if (InputTracking.aBoolean198)
+            InputTracking.method191(c, 1);
     }
 
     public void keyTyped(KeyEvent keyevent) {
@@ -304,13 +304,13 @@ public class Applet_Sub1 extends Applet
     public void focusGained(FocusEvent focusevent) {
         aBoolean18 = true;
         method10(3);
-        if (Class7.aBoolean198)
-            Class7.method192(-936);
+        if (InputTracking.aBoolean198)
+            InputTracking.method192(-936);
     }
 
     public void focusLost(FocusEvent focusevent) {
-        if (Class7.aBoolean198)
-            Class7.method193(0);
+        if (InputTracking.aBoolean198)
+            InputTracking.method193(0);
     }
 
     public int method5(boolean flag) {

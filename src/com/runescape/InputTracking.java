@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class7 {
+public class InputTracking {
 
     public static synchronized void method182(int i) {
         aClass38_Sub2_Sub3_199 = Class38_Sub2_Sub3.method433(1, -737);

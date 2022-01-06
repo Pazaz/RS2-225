@@ -2696,7 +2696,7 @@ public class client extends Applet_Sub1 {
         anInt1109 = 0;
         aString1066 = "";
         aString1067 = "";
-        Class7.method183((byte) 65);
+        InputTracking.method183((byte) 65);
         method83(aByte843);
         while (i >= 0)
             return;
@@ -5410,7 +5410,7 @@ public class client extends Applet_Sub1 {
             }
             if (k == 2 || k == 18) {
                 aBoolean1023 = k == 18;
-                Class7.method183((byte) 65);
+                InputTracking.method183((byte) 65);
                 aBoolean974 = true;
                 aClass38_Sub2_Sub3_798.offset = 0;
                 aClass38_Sub2_Sub3_795.offset = 0;
@@ -5953,7 +5953,7 @@ public class client extends Applet_Sub1 {
             if (anInt744 == 0 && aBoolean835 && !aBoolean889)
                 method14(false, anInt1110, aString1119, anInt1155);
         }
-        Class38_Sub2_Sub3 class38_sub2_sub3 = Class7.method184(-809);
+        Class38_Sub2_Sub3 class38_sub2_sub3 = InputTracking.method184(-809);
         if (class38_sub2_sub3 != null) {
             aClass38_Sub2_Sub3_798.method435((byte) -34, 81);
             aClass38_Sub2_Sub3_798.method437(class38_sub2_sub3.offset);
@@ -8309,7 +8309,7 @@ public class client extends Applet_Sub1 {
                 return true;
             }
             if (anInt780 == 133) {
-                Class38_Sub2_Sub3 class38_sub2_sub3 = Class7.method185(854);
+                Class38_Sub2_Sub3 class38_sub2_sub3 = InputTracking.method185(854);
                 if (class38_sub2_sub3 != null) {
                     aClass38_Sub2_Sub3_798.method435((byte) -34, 81);
                     aClass38_Sub2_Sub3_798.method437(class38_sub2_sub3.offset);
@@ -8342,7 +8342,7 @@ public class client extends Applet_Sub1 {
                 return true;
             }
             if (anInt780 == 226) {
-                Class7.method182(-31717);
+                InputTracking.method182(-31717);
                 anInt780 = -1;
                 return true;
             }
