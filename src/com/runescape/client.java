@@ -608,10 +608,10 @@ public class client extends Applet_Sub1 {
             else
                 class38_sub7_sub3_sub2 = aClass38_Sub7_Sub3_Sub2Array822[k16];
             if (class38_sub7_sub3_sub2 != null) {
-                Class38_Sub4 class38_sub4 = new Class38_Sub4(anInt880, k12, k6, j15 + anInt955, 2, l10, -1, j4, l13);
-                linkedList3.method267(class38_sub4);
-                Class38_Sub4 class38_sub4_1 = new Class38_Sub4(anInt880, k12, k6, l15 + anInt955, 2, l10, l14, j4, l13);
-                linkedList3.method267(class38_sub4_1);
+                TemporaryPlayerLoc temporaryPlayerLoc = new TemporaryPlayerLoc(anInt880, k12, k6, j15 + anInt955, l10, -1, j4, l13);
+                linkedList3.method267(temporaryPlayerLoc);
+                TemporaryPlayerLoc temporaryPlayerLoc_1 = new TemporaryPlayerLoc(anInt880, k12, k6, l15 + anInt955, l10, l14, j4, l13);
+                linkedList3.method267(temporaryPlayerLoc_1);
                 int j18 = anIntArrayArrayArray794[anInt880][j4][k6];
                 int k18 = anIntArrayArrayArray794[anInt880][j4 + 1][k6];
                 int l18 = anIntArrayArrayArray794[anInt880][j4 + 1][k6 + 1];
@@ -2078,13 +2078,13 @@ public class client extends Applet_Sub1 {
         if (i <= 0)
             method6();
         if (anInt1078 == 2) {
-            for (Class38_Sub4 class38_sub4 = (Class38_Sub4) linkedList3
-                    .method270(); class38_sub4 != null; class38_sub4 = (Class38_Sub4) linkedList3.method272())
-                if (anInt955 >= class38_sub4.anInt1205) {
-                    method99(class38_sub4.anInt1203, class38_sub4.anInt1200, class38_sub4.anInt1201,
-                            class38_sub4.anInt1199, class38_sub4.anInt1202, class38_sub4.anInt1204, -27819,
-                            class38_sub4.anInt1198);
-                    class38_sub4.unlink();
+            for (TemporaryPlayerLoc temporaryPlayerLoc = (TemporaryPlayerLoc) linkedList3
+                    .method270(); temporaryPlayerLoc != null; temporaryPlayerLoc = (TemporaryPlayerLoc) linkedList3.method272())
+                if (anInt955 >= temporaryPlayerLoc.lastCycle) {
+                    method99(temporaryPlayerLoc.rotation, temporaryPlayerLoc.tileX, temporaryPlayerLoc.tileZ,
+                            temporaryPlayerLoc.classType, temporaryPlayerLoc.locIndex, temporaryPlayerLoc.type, -27819,
+                            temporaryPlayerLoc.level);
+                    temporaryPlayerLoc.unlink();
                 }
 
             anInt1108++;
