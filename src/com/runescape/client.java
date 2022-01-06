@@ -1000,118 +1000,118 @@ public class client extends Applet_Sub1 {
         drawArea15.drawImage(0, super.aGraphics14, 661);
     }
 
-    public void method29(int i, int j, int k, Class14 class14, int l, int i1, int j1) {
-        if (class14.anInt271 != 0 || class14.anIntArray285 == null || class14.aBoolean284)
+    public void method29(int i, int j, int k, InterfaceComponent interfaceComponent, int l, int i1, int j1) {
+        if (interfaceComponent.anInt271 != 0 || interfaceComponent.anIntArray285 == null || interfaceComponent.aBoolean284)
             return;
-        if (j < i1 || i < k || j > i1 + class14.anInt274 || i > k + class14.anInt275)
+        if (j < i1 || i < k || j > i1 + interfaceComponent.anInt274 || i > k + interfaceComponent.anInt275)
             return;
-        int k1 = class14.anIntArray285.length;
+        int k1 = interfaceComponent.anIntArray285.length;
         if (l != 5082)
             anInt780 = aClass38_Sub2_Sub3_795.method446();
         for (int l1 = 0; l1 < k1; l1++) {
-            int i2 = class14.anIntArray286[l1] + i1;
-            int j2 = (class14.anIntArray287[l1] + k) - j1;
-            Class14 class14_1 = Class14.aClass14Array264[class14.anIntArray285[l1]];
-            i2 += class14_1.anInt276;
-            j2 += class14_1.anInt277;
-            if ((class14_1.anInt281 >= 0 || class14_1.anInt307 != 0) && j >= i2 && i >= j2
-                    && j < i2 + class14_1.anInt274 && i < j2 + class14_1.anInt275)
-                if (class14_1.anInt281 >= 0)
-                    anInt868 = class14_1.anInt281;
+            int i2 = interfaceComponent.anIntArray286[l1] + i1;
+            int j2 = (interfaceComponent.anIntArray287[l1] + k) - j1;
+            InterfaceComponent interfaceComponent_1 = InterfaceComponent.interfaceComponentArray[interfaceComponent.anIntArray285[l1]];
+            i2 += interfaceComponent_1.anInt276;
+            j2 += interfaceComponent_1.anInt277;
+            if ((interfaceComponent_1.anInt281 >= 0 || interfaceComponent_1.anInt307 != 0) && j >= i2 && i >= j2
+                    && j < i2 + interfaceComponent_1.anInt274 && i < j2 + interfaceComponent_1.anInt275)
+                if (interfaceComponent_1.anInt281 >= 0)
+                    anInt868 = interfaceComponent_1.anInt281;
                 else
-                    anInt868 = class14_1.anInt269;
-            if (class14_1.anInt271 == 0) {
-                method29(i, j, j2, class14_1, 5082, i2, class14_1.anInt283);
-                if (class14_1.anInt282 > class14_1.anInt275)
-                    method97(j, 0, i, class14_1.anInt282, class14_1.anInt275, true, i2 + class14_1.anInt274, j2,
-                            class14_1);
+                    anInt868 = interfaceComponent_1.anInt269;
+            if (interfaceComponent_1.anInt271 == 0) {
+                method29(i, j, j2, interfaceComponent_1, 5082, i2, interfaceComponent_1.anInt283);
+                if (interfaceComponent_1.anInt282 > interfaceComponent_1.anInt275)
+                    method97(j, 0, i, interfaceComponent_1.anInt282, interfaceComponent_1.anInt275, true, i2 + interfaceComponent_1.anInt274, j2,
+                            interfaceComponent_1);
             } else {
-                if (class14_1.anInt272 == 1 && j >= i2 && i >= j2 && j < i2 + class14_1.anInt274
-                        && i < j2 + class14_1.anInt275) {
+                if (interfaceComponent_1.anInt272 == 1 && j >= i2 && i >= j2 && j < i2 + interfaceComponent_1.anInt274
+                        && i < j2 + interfaceComponent_1.anInt275) {
                     boolean flag = false;
-                    if (class14_1.anInt273 != 0)
-                        flag = method119(class14_1, (byte) 8);
+                    if (interfaceComponent_1.anInt273 != 0)
+                        flag = method119(interfaceComponent_1, (byte) 8);
                     if (!flag) {
-                        aStringArray834[anInt1074] = class14_1.aString320;
+                        aStringArray834[anInt1074] = interfaceComponent_1.aString320;
                         anIntArray1141[anInt1074] = 951;
-                        anIntArray1140[anInt1074] = class14_1.anInt269;
+                        anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                         anInt1074++;
                     }
                 }
-                if (class14_1.anInt272 == 2 && anInt1025 == 0 && j >= i2 && i >= j2 && j < i2 + class14_1.anInt274
-                        && i < j2 + class14_1.anInt275) {
-                    String s = class14_1.aString317;
+                if (interfaceComponent_1.anInt272 == 2 && anInt1025 == 0 && j >= i2 && i >= j2 && j < i2 + interfaceComponent_1.anInt274
+                        && i < j2 + interfaceComponent_1.anInt275) {
+                    String s = interfaceComponent_1.aString317;
                     if (s.indexOf(" ") != -1)
                         s = s.substring(0, s.indexOf(" "));
-                    aStringArray834[anInt1074] = s + " @gre@" + class14_1.aString318;
+                    aStringArray834[anInt1074] = s + " @gre@" + interfaceComponent_1.aString318;
                     anIntArray1141[anInt1074] = 930;
-                    anIntArray1140[anInt1074] = class14_1.anInt269;
+                    anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                     anInt1074++;
                 }
-                if (class14_1.anInt272 == 3 && j >= i2 && i >= j2 && j < i2 + class14_1.anInt274
-                        && i < j2 + class14_1.anInt275) {
+                if (interfaceComponent_1.anInt272 == 3 && j >= i2 && i >= j2 && j < i2 + interfaceComponent_1.anInt274
+                        && i < j2 + interfaceComponent_1.anInt275) {
                     aStringArray834[anInt1074] = "Close";
                     anIntArray1141[anInt1074] = 947;
-                    anIntArray1140[anInt1074] = class14_1.anInt269;
+                    anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                     anInt1074++;
                 }
-                if (class14_1.anInt272 == 4 && j >= i2 && i >= j2 && j < i2 + class14_1.anInt274
-                        && i < j2 + class14_1.anInt275) {
-                    aStringArray834[anInt1074] = class14_1.aString320;
+                if (interfaceComponent_1.anInt272 == 4 && j >= i2 && i >= j2 && j < i2 + interfaceComponent_1.anInt274
+                        && i < j2 + interfaceComponent_1.anInt275) {
+                    aStringArray834[anInt1074] = interfaceComponent_1.aString320;
                     anIntArray1141[anInt1074] = 465;
-                    anIntArray1140[anInt1074] = class14_1.anInt269;
+                    anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                     anInt1074++;
                 }
-                if (class14_1.anInt272 == 5 && j >= i2 && i >= j2 && j < i2 + class14_1.anInt274
-                        && i < j2 + class14_1.anInt275) {
-                    aStringArray834[anInt1074] = class14_1.aString320;
+                if (interfaceComponent_1.anInt272 == 5 && j >= i2 && i >= j2 && j < i2 + interfaceComponent_1.anInt274
+                        && i < j2 + interfaceComponent_1.anInt275) {
+                    aStringArray834[anInt1074] = interfaceComponent_1.aString320;
                     anIntArray1141[anInt1074] = 960;
-                    anIntArray1140[anInt1074] = class14_1.anInt269;
+                    anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                     anInt1074++;
                 }
-                if (class14_1.anInt272 == 6 && !aBoolean872 && j >= i2 && i >= j2 && j < i2 + class14_1.anInt274
-                        && i < j2 + class14_1.anInt275) {
-                    aStringArray834[anInt1074] = class14_1.aString320;
+                if (interfaceComponent_1.anInt272 == 6 && !aBoolean872 && j >= i2 && i >= j2 && j < i2 + interfaceComponent_1.anInt274
+                        && i < j2 + interfaceComponent_1.anInt275) {
+                    aStringArray834[anInt1074] = interfaceComponent_1.aString320;
                     anIntArray1141[anInt1074] = 44;
-                    anIntArray1140[anInt1074] = class14_1.anInt269;
+                    anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                     anInt1074++;
                 }
-                if (class14_1.anInt271 == 2) {
+                if (interfaceComponent_1.anInt271 == 2) {
                     int k2 = 0;
-                    for (int l2 = 0; l2 < class14_1.anInt275; l2++) {
-                        for (int i3 = 0; i3 < class14_1.anInt274; i3++) {
-                            int j3 = i2 + i3 * (32 + class14_1.anInt293);
-                            int k3 = j2 + l2 * (32 + class14_1.anInt294);
+                    for (int l2 = 0; l2 < interfaceComponent_1.anInt275; l2++) {
+                        for (int i3 = 0; i3 < interfaceComponent_1.anInt274; i3++) {
+                            int j3 = i2 + i3 * (32 + interfaceComponent_1.anInt293);
+                            int k3 = j2 + l2 * (32 + interfaceComponent_1.anInt294);
                             if (k2 < 20) {
-                                j3 += class14_1.anIntArray296[k2];
-                                k3 += class14_1.anIntArray297[k2];
+                                j3 += interfaceComponent_1.anIntArray296[k2];
+                                k3 += interfaceComponent_1.anIntArray297[k2];
                             }
                             if (j >= j3 && i >= k3 && j < j3 + 32 && i < k3 + 32) {
                                 anInt1087 = k2;
-                                anInt1088 = class14_1.anInt269;
-                                if (class14_1.anIntArray265[k2] > 0) {
-                                    ObjType objType = ObjType.method169(class14_1.anIntArray265[k2] - 1);
-                                    if (anInt1002 == 1 && class14_1.aBoolean291) {
-                                        if (class14_1.anInt269 != anInt1004 || k2 != anInt1003) {
+                                anInt1088 = interfaceComponent_1.anInt269;
+                                if (interfaceComponent_1.anIntArray265[k2] > 0) {
+                                    ObjType objType = ObjType.method169(interfaceComponent_1.anIntArray265[k2] - 1);
+                                    if (anInt1002 == 1 && interfaceComponent_1.aBoolean291) {
+                                        if (interfaceComponent_1.anInt269 != anInt1004 || k2 != anInt1003) {
                                             aStringArray834[anInt1074] = "Use " + aString1006 + " with @lre@"
                                                     + objType.aString145;
                                             anIntArray1141[anInt1074] = 881;
                                             anIntArray1142[anInt1074] = objType.anInt143;
                                             anIntArray1139[anInt1074] = k2;
-                                            anIntArray1140[anInt1074] = class14_1.anInt269;
+                                            anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                                             anInt1074++;
                                         }
-                                    } else if (anInt1025 == 1 && class14_1.aBoolean291) {
+                                    } else if (anInt1025 == 1 && interfaceComponent_1.aBoolean291) {
                                         if ((anInt1027 & 0x10) == 16) {
                                             aStringArray834[anInt1074] = aString1028 + " @lre@" + objType.aString145;
                                             anIntArray1141[anInt1074] = 391;
                                             anIntArray1142[anInt1074] = objType.anInt143;
                                             anIntArray1139[anInt1074] = k2;
-                                            anIntArray1140[anInt1074] = class14_1.anInt269;
+                                            anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                                             anInt1074++;
                                         }
                                     } else {
-                                        if (class14_1.aBoolean291) {
+                                        if (interfaceComponent_1.aBoolean291) {
                                             for (int l3 = 4; l3 >= 3; l3--)
                                                 if (objType.aStringArray161 != null
                                                         && objType.aStringArray161[l3] != null) {
@@ -1123,27 +1123,27 @@ public class client extends Applet_Sub1 {
                                                         anIntArray1141[anInt1074] = 347;
                                                     anIntArray1142[anInt1074] = objType.anInt143;
                                                     anIntArray1139[anInt1074] = k2;
-                                                    anIntArray1140[anInt1074] = class14_1.anInt269;
+                                                    anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                                                     anInt1074++;
                                                 } else if (l3 == 4) {
                                                     aStringArray834[anInt1074] = "Drop @lre@" + objType.aString145;
                                                     anIntArray1141[anInt1074] = 347;
                                                     anIntArray1142[anInt1074] = objType.anInt143;
                                                     anIntArray1139[anInt1074] = k2;
-                                                    anIntArray1140[anInt1074] = class14_1.anInt269;
+                                                    anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                                                     anInt1074++;
                                                 }
 
                                         }
-                                        if (class14_1.aBoolean292) {
+                                        if (interfaceComponent_1.aBoolean292) {
                                             aStringArray834[anInt1074] = "Use @lre@" + objType.aString145;
                                             anIntArray1141[anInt1074] = 188;
                                             anIntArray1142[anInt1074] = objType.anInt143;
                                             anIntArray1139[anInt1074] = k2;
-                                            anIntArray1140[anInt1074] = class14_1.anInt269;
+                                            anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                                             anInt1074++;
                                         }
-                                        if (class14_1.aBoolean291 && objType.aStringArray161 != null) {
+                                        if (interfaceComponent_1.aBoolean291 && objType.aStringArray161 != null) {
                                             for (int i4 = 2; i4 >= 0; i4--)
                                                 if (objType.aStringArray161[i4] != null) {
                                                     aStringArray834[anInt1074] = objType.aStringArray161[i4] + " @lre@"
@@ -1156,15 +1156,15 @@ public class client extends Applet_Sub1 {
                                                         anIntArray1141[anInt1074] = 422;
                                                     anIntArray1142[anInt1074] = objType.anInt143;
                                                     anIntArray1139[anInt1074] = k2;
-                                                    anIntArray1140[anInt1074] = class14_1.anInt269;
+                                                    anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                                                     anInt1074++;
                                                 }
 
                                         }
-                                        if (class14_1.aStringArray298 != null) {
+                                        if (interfaceComponent_1.aStringArray298 != null) {
                                             for (int j4 = 4; j4 >= 0; j4--)
-                                                if (class14_1.aStringArray298[j4] != null) {
-                                                    aStringArray834[anInt1074] = class14_1.aStringArray298[j4]
+                                                if (interfaceComponent_1.aStringArray298[j4] != null) {
+                                                    aStringArray834[anInt1074] = interfaceComponent_1.aStringArray298[j4]
                                                             + " @lre@" + objType.aString145;
                                                     if (j4 == 0)
                                                         anIntArray1141[anInt1074] = 602;
@@ -1178,7 +1178,7 @@ public class client extends Applet_Sub1 {
                                                         anIntArray1141[anInt1074] = 415;
                                                     anIntArray1142[anInt1074] = objType.anInt143;
                                                     anIntArray1139[anInt1074] = k2;
-                                                    anIntArray1140[anInt1074] = class14_1.anInt269;
+                                                    anIntArray1140[anInt1074] = interfaceComponent_1.anInt269;
                                                     anInt1074++;
                                                 }
 
@@ -1186,7 +1186,7 @@ public class client extends Applet_Sub1 {
                                         aStringArray834[anInt1074] = "Examine @lre@" + objType.aString145;
                                         anIntArray1141[anInt1074] = 1773;
                                         anIntArray1142[anInt1074] = objType.anInt143;
-                                        anIntArray1140[anInt1074] = class14_1.anIntArray266[k2];
+                                        anIntArray1140[anInt1074] = interfaceComponent_1.anIntArray266[k2];
                                         anInt1074++;
                                     }
                                 }
@@ -1236,9 +1236,9 @@ public class client extends Applet_Sub1 {
                 method16((byte) -60);
                 aString970 = "";
                 aBoolean881 = false;
-                for (int j = 0; j < Class14.aClass14Array264.length; j++)
-                    if (Class14.aClass14Array264[j] != null && Class14.aClass14Array264[j].anInt273 == 600) {
-                        anInt907 = anInt971 = Class14.aClass14Array264[j].anInt270;
+                for (int j = 0; j < InterfaceComponent.interfaceComponentArray.length; j++)
+                    if (InterfaceComponent.interfaceComponentArray[j] != null && InterfaceComponent.interfaceComponentArray[j].anInt273 == 600) {
+                        anInt907 = anInt971 = InterfaceComponent.interfaceComponentArray[j].anInt270;
                         return;
                     }
 
@@ -2710,11 +2710,11 @@ public class client extends Applet_Sub1 {
         anInt744 = 0;
     }
 
-    public void method59(int i, int j, int k, Class14 class14, int l) {
-        if (class14.anInt271 != 0 || class14.anIntArray285 == null)
+    public void method59(int i, int j, int k, InterfaceComponent interfaceComponent, int l) {
+        if (interfaceComponent.anInt271 != 0 || interfaceComponent.anIntArray285 == null)
             return;
-        if (class14.aBoolean284 && anInt1063 != class14.anInt269 && anInt941 != class14.anInt269
-                && anInt859 != class14.anInt269)
+        if (interfaceComponent.aBoolean284 && anInt1063 != interfaceComponent.anInt269 && anInt941 != interfaceComponent.anInt269
+                && anInt859 != interfaceComponent.anInt269)
             return;
         int i1 = Class38_Sub2_Sub2.anInt1313;
         int j1 = Class38_Sub2_Sub2.anInt1311;
@@ -2722,45 +2722,45 @@ public class client extends Applet_Sub1 {
         int l1 = Class38_Sub2_Sub2.anInt1312;
         if (k != 38682)
             anInt780 = -1;
-        Class38_Sub2_Sub2.method378(i + class14.anInt275, i, j + class14.anInt274, 789, j);
-        int i2 = class14.anIntArray285.length;
+        Class38_Sub2_Sub2.method378(i + interfaceComponent.anInt275, i, j + interfaceComponent.anInt274, 789, j);
+        int i2 = interfaceComponent.anIntArray285.length;
         for (int j2 = 0; j2 < i2; j2++) {
-            int k2 = class14.anIntArray286[j2] + j;
-            int l2 = (class14.anIntArray287[j2] + i) - l;
-            Class14 class14_1 = Class14.aClass14Array264[class14.anIntArray285[j2]];
-            k2 += class14_1.anInt276;
-            l2 += class14_1.anInt277;
-            if (class14_1.anInt273 > 0)
-                method76(0, class14_1);
-            if (class14_1.anInt271 == 0) {
-                if (class14_1.anInt283 > class14_1.anInt282 - class14_1.anInt275)
-                    class14_1.anInt283 = class14_1.anInt282 - class14_1.anInt275;
-                if (class14_1.anInt283 < 0)
-                    class14_1.anInt283 = 0;
-                method59(l2, k2, 38682, class14_1, class14_1.anInt283);
-                if (class14_1.anInt282 > class14_1.anInt275)
-                    method50(anInt803, k2 + class14_1.anInt274, l2, class14_1.anInt283, class14_1.anInt282,
-                            class14_1.anInt275);
-            } else if (class14_1.anInt271 != 1)
-                if (class14_1.anInt271 == 2) {
+            int k2 = interfaceComponent.anIntArray286[j2] + j;
+            int l2 = (interfaceComponent.anIntArray287[j2] + i) - l;
+            InterfaceComponent interfaceComponent_1 = InterfaceComponent.interfaceComponentArray[interfaceComponent.anIntArray285[j2]];
+            k2 += interfaceComponent_1.anInt276;
+            l2 += interfaceComponent_1.anInt277;
+            if (interfaceComponent_1.anInt273 > 0)
+                method76(0, interfaceComponent_1);
+            if (interfaceComponent_1.anInt271 == 0) {
+                if (interfaceComponent_1.anInt283 > interfaceComponent_1.anInt282 - interfaceComponent_1.anInt275)
+                    interfaceComponent_1.anInt283 = interfaceComponent_1.anInt282 - interfaceComponent_1.anInt275;
+                if (interfaceComponent_1.anInt283 < 0)
+                    interfaceComponent_1.anInt283 = 0;
+                method59(l2, k2, 38682, interfaceComponent_1, interfaceComponent_1.anInt283);
+                if (interfaceComponent_1.anInt282 > interfaceComponent_1.anInt275)
+                    method50(anInt803, k2 + interfaceComponent_1.anInt274, l2, interfaceComponent_1.anInt283, interfaceComponent_1.anInt282,
+                            interfaceComponent_1.anInt275);
+            } else if (interfaceComponent_1.anInt271 != 1)
+                if (interfaceComponent_1.anInt271 == 2) {
                     int i3 = 0;
-                    for (int k3 = 0; k3 < class14_1.anInt275; k3++) {
-                        for (int k4 = 0; k4 < class14_1.anInt274; k4++) {
-                            int j5 = k2 + k4 * (32 + class14_1.anInt293);
-                            int i6 = l2 + k3 * (32 + class14_1.anInt294);
+                    for (int k3 = 0; k3 < interfaceComponent_1.anInt275; k3++) {
+                        for (int k4 = 0; k4 < interfaceComponent_1.anInt274; k4++) {
+                            int j5 = k2 + k4 * (32 + interfaceComponent_1.anInt293);
+                            int i6 = l2 + k3 * (32 + interfaceComponent_1.anInt294);
                             if (i3 < 20) {
-                                j5 += class14_1.anIntArray296[i3];
-                                i6 += class14_1.anIntArray297[i3];
+                                j5 += interfaceComponent_1.anIntArray296[i3];
+                                i6 += interfaceComponent_1.anIntArray297[i3];
                             }
-                            if (class14_1.anIntArray265[i3] > 0) {
+                            if (interfaceComponent_1.anIntArray265[i3] > 0) {
                                 int k6 = 0;
                                 int k8 = 0;
-                                int i9 = class14_1.anIntArray265[i3] - 1;
+                                int i9 = interfaceComponent_1.anIntArray265[i3] - 1;
                                 if (j5 >= -32 && j5 <= 512 && i6 >= -32 && i6 <= 334
                                         || anInt846 != 0 && anInt845 == i3) {
                                     Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2_2 = ObjType.method174(i9, 24638,
-                                            class14_1.anIntArray266[i3]);
-                                    if (anInt846 != 0 && anInt845 == i3 && anInt844 == class14_1.anInt269) {
+                                            interfaceComponent_1.anIntArray266[i3]);
+                                    if (anInt846 != 0 && anInt845 == i3 && anInt844 == interfaceComponent_1.anInt269) {
                                         k6 = super.anInt21 - anInt847;
                                         k8 = super.anInt22 - anInt848;
                                         if (k6 < 5 && k6 > -5)
@@ -2772,20 +2772,20 @@ public class client extends Applet_Sub1 {
                                             k8 = 0;
                                         }
                                         class38_sub2_sub2_sub2_2.method409(128, j5 + k6, i6 + k8, (byte) -26);
-                                    } else if (anInt947 != 0 && anInt946 == i3 && anInt945 == class14_1.anInt269)
+                                    } else if (anInt947 != 0 && anInt946 == i3 && anInt945 == interfaceComponent_1.anInt269)
                                         class38_sub2_sub2_sub2_2.method409(128, j5, i6, (byte) -26);
                                     else
                                         class38_sub2_sub2_sub2_2.method405(i6, j5, false);
-                                    if (class38_sub2_sub2_sub2_2.anInt1470 == 33 || class14_1.anIntArray266[i3] != 1) {
-                                        int k9 = class14_1.anIntArray266[i3];
+                                    if (class38_sub2_sub2_sub2_2.anInt1470 == 33 || interfaceComponent_1.anIntArray266[i3] != 1) {
+                                        int k9 = interfaceComponent_1.anIntArray266[i3];
                                         aClass38_Sub2_Sub2_Sub4_985.method424(j5 + 1 + k6, i6 + 10 + k8, false, 0,
                                                 method108(true, k9));
                                         aClass38_Sub2_Sub2_Sub4_985.method424(j5 + k6, i6 + 9 + k8, false, 0xffff00,
                                                 method108(true, k9));
                                     }
                                 }
-                            } else if (class14_1.aClass38_Sub2_Sub2_Sub2Array295 != null && i3 < 20) {
-                                Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2_1 = class14_1.aClass38_Sub2_Sub2_Sub2Array295[i3];
+                            } else if (interfaceComponent_1.aClass38_Sub2_Sub2_Sub2Array295 != null && i3 < 20) {
+                                Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2_1 = interfaceComponent_1.aClass38_Sub2_Sub2_Sub2Array295[i3];
                                 if (class38_sub2_sub2_sub2_1 != null)
                                     class38_sub2_sub2_sub2_1.method405(i6, j5, false);
                             }
@@ -2794,28 +2794,28 @@ public class client extends Applet_Sub1 {
 
                     }
 
-                } else if (class14_1.anInt271 == 3) {
-                    if (class14_1.aBoolean299)
-                        Class38_Sub2_Sub2.method380(l2, k2, class14_1.anInt305, (byte) 93, class14_1.anInt274,
-                                class14_1.anInt275);
+                } else if (interfaceComponent_1.anInt271 == 3) {
+                    if (interfaceComponent_1.aBoolean299)
+                        Class38_Sub2_Sub2.method380(l2, k2, interfaceComponent_1.anInt305, (byte) 93, interfaceComponent_1.anInt274,
+                                interfaceComponent_1.anInt275);
                     else
-                        Class38_Sub2_Sub2.method381(3, k2, class14_1.anInt305, class14_1.anInt275, l2,
-                                class14_1.anInt274);
-                } else if (class14_1.anInt271 == 4) {
-                    Class38_Sub2_Sub2_Sub4 class38_sub2_sub2_sub4 = class14_1.aClass38_Sub2_Sub2_Sub4_302;
-                    int l3 = class14_1.anInt305;
-                    String s = class14_1.aString303;
-                    if ((anInt859 == class14_1.anInt269 || anInt941 == class14_1.anInt269
-                            || anInt1063 == class14_1.anInt269) && class14_1.anInt307 != 0)
-                        l3 = class14_1.anInt307;
-                    if (method114(class14_1, 65)) {
-                        l3 = class14_1.anInt306;
-                        if (class14_1.aString304.length() > 0)
-                            s = class14_1.aString304;
+                        Class38_Sub2_Sub2.method381(3, k2, interfaceComponent_1.anInt305, interfaceComponent_1.anInt275, l2,
+                                interfaceComponent_1.anInt274);
+                } else if (interfaceComponent_1.anInt271 == 4) {
+                    Class38_Sub2_Sub2_Sub4 class38_sub2_sub2_sub4 = interfaceComponent_1.aClass38_Sub2_Sub2_Sub4_302;
+                    int l3 = interfaceComponent_1.anInt305;
+                    String s = interfaceComponent_1.aString303;
+                    if ((anInt859 == interfaceComponent_1.anInt269 || anInt941 == interfaceComponent_1.anInt269
+                            || anInt1063 == interfaceComponent_1.anInt269) && interfaceComponent_1.anInt307 != 0)
+                        l3 = interfaceComponent_1.anInt307;
+                    if (method114(interfaceComponent_1, 65)) {
+                        l3 = interfaceComponent_1.anInt306;
+                        if (interfaceComponent_1.aString304.length() > 0)
+                            s = interfaceComponent_1.aString304;
                     }
-                    if (class14_1.anInt272 == 6 && aBoolean872) {
+                    if (interfaceComponent_1.anInt272 == 6 && aBoolean872) {
                         s = "Please wait...";
-                        l3 = class14_1.anInt305;
+                        l3 = interfaceComponent_1.anInt305;
                     }
                     for (int j6 = l2 + class38_sub2_sub2_sub4.anInt1497; s
                             .length() > 0; j6 += class38_sub2_sub2_sub4.anInt1497) {
@@ -2824,35 +2824,35 @@ public class client extends Applet_Sub1 {
                                 int l6 = s.indexOf("%1");
                                 if (l6 == -1)
                                     break;
-                                s = s.substring(0, l6) + method89(method126(class14_1, false, 0), -676)
+                                s = s.substring(0, l6) + method89(method126(interfaceComponent_1, false, 0), -676)
                                         + s.substring(l6 + 2);
                             } while (true);
                             do {
                                 int i7 = s.indexOf("%2");
                                 if (i7 == -1)
                                     break;
-                                s = s.substring(0, i7) + method89(method126(class14_1, false, 1), -676)
+                                s = s.substring(0, i7) + method89(method126(interfaceComponent_1, false, 1), -676)
                                         + s.substring(i7 + 2);
                             } while (true);
                             do {
                                 int j7 = s.indexOf("%3");
                                 if (j7 == -1)
                                     break;
-                                s = s.substring(0, j7) + method89(method126(class14_1, false, 2), -676)
+                                s = s.substring(0, j7) + method89(method126(interfaceComponent_1, false, 2), -676)
                                         + s.substring(j7 + 2);
                             } while (true);
                             do {
                                 int k7 = s.indexOf("%4");
                                 if (k7 == -1)
                                     break;
-                                s = s.substring(0, k7) + method89(method126(class14_1, false, 3), -676)
+                                s = s.substring(0, k7) + method89(method126(interfaceComponent_1, false, 3), -676)
                                         + s.substring(k7 + 2);
                             } while (true);
                             do {
                                 int l7 = s.indexOf("%5");
                                 if (l7 == -1)
                                     break;
-                                s = s.substring(0, l7) + method89(method126(class14_1, false, 4), -676)
+                                s = s.substring(0, l7) + method89(method126(interfaceComponent_1, false, 4), -676)
                                         + s.substring(l7 + 2);
                             } while (true);
                         }
@@ -2865,64 +2865,64 @@ public class client extends Applet_Sub1 {
                             s1 = s;
                             s = "";
                         }
-                        if (class14_1.aBoolean300)
-                            class38_sub2_sub2_sub4.method422(k2 + class14_1.anInt274 / 2, l3, class14_1.aBoolean301, j6,
+                        if (interfaceComponent_1.aBoolean300)
+                            class38_sub2_sub2_sub4.method422(k2 + interfaceComponent_1.anInt274 / 2, l3, interfaceComponent_1.aBoolean301, j6,
                                     s1, 0);
                         else
-                            class38_sub2_sub2_sub4.method426(k2, 6, j6, s1, class14_1.aBoolean301, l3);
+                            class38_sub2_sub2_sub4.method426(k2, 6, j6, s1, interfaceComponent_1.aBoolean301, l3);
                     }
 
-                } else if (class14_1.anInt271 == 5) {
+                } else if (interfaceComponent_1.anInt271 == 5) {
                     Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2;
-                    if (method114(class14_1, 65))
-                        class38_sub2_sub2_sub2 = class14_1.aClass38_Sub2_Sub2_Sub2_309;
+                    if (method114(interfaceComponent_1, 65))
+                        class38_sub2_sub2_sub2 = interfaceComponent_1.aClass38_Sub2_Sub2_Sub2_309;
                     else
-                        class38_sub2_sub2_sub2 = class14_1.aClass38_Sub2_Sub2_Sub2_308;
+                        class38_sub2_sub2_sub2 = interfaceComponent_1.aClass38_Sub2_Sub2_Sub2_308;
                     if (class38_sub2_sub2_sub2 != null)
                         class38_sub2_sub2_sub2.method405(l2, k2, false);
-                } else if (class14_1.anInt271 == 6) {
+                } else if (interfaceComponent_1.anInt271 == 6) {
                     int j3 = Class38_Sub2_Sub2_Sub1.anInt1442;
                     int i4 = Class38_Sub2_Sub2_Sub1.anInt1443;
-                    Class38_Sub2_Sub2_Sub1.anInt1442 = k2 + class14_1.anInt274 / 2;
-                    Class38_Sub2_Sub2_Sub1.anInt1443 = l2 + class14_1.anInt275 / 2;
-                    int l4 = Class38_Sub2_Sub2_Sub1.anIntArray1446[class14_1.anInt315] * class14_1.anInt314 >> 16;
-                    int k5 = Class38_Sub2_Sub2_Sub1.anIntArray1447[class14_1.anInt315] * class14_1.anInt314 >> 16;
-                    boolean flag = method114(class14_1, 65);
+                    Class38_Sub2_Sub2_Sub1.anInt1442 = k2 + interfaceComponent_1.anInt274 / 2;
+                    Class38_Sub2_Sub2_Sub1.anInt1443 = l2 + interfaceComponent_1.anInt275 / 2;
+                    int l4 = Class38_Sub2_Sub2_Sub1.anIntArray1446[interfaceComponent_1.anInt315] * interfaceComponent_1.anInt314 >> 16;
+                    int k5 = Class38_Sub2_Sub2_Sub1.anIntArray1447[interfaceComponent_1.anInt315] * interfaceComponent_1.anInt314 >> 16;
+                    boolean flag = method114(interfaceComponent_1, 65);
                     int j8;
                     if (flag)
-                        j8 = class14_1.anInt313;
+                        j8 = interfaceComponent_1.anInt313;
                     else
-                        j8 = class14_1.anInt312;
+                        j8 = interfaceComponent_1.anInt312;
                     Class38_Sub2_Sub1 class38_sub2_sub1;
                     if (j8 == -1) {
-                        class38_sub2_sub1 = class14_1.method219(-1, -1, flag);
+                        class38_sub2_sub1 = interfaceComponent_1.method219(-1, -1, flag);
                     } else {
                         Class18 class18 = Class18.aClass18Array364[j8];
-                        class38_sub2_sub1 = class14_1.method219(class18.primaryFrames[class14_1.anInt267],
-                                class18.anIntArray367[class14_1.anInt267], flag);
+                        class38_sub2_sub1 = interfaceComponent_1.method219(class18.primaryFrames[interfaceComponent_1.anInt267],
+                                class18.anIntArray367[interfaceComponent_1.anInt267], flag);
                     }
                     if (class38_sub2_sub1 != null)
-                        class38_sub2_sub1.method370(0, class14_1.anInt316, 0, class14_1.anInt315, 0, l4, k5);
+                        class38_sub2_sub1.method370(0, interfaceComponent_1.anInt316, 0, interfaceComponent_1.anInt315, 0, l4, k5);
                     Class38_Sub2_Sub2_Sub1.anInt1442 = j3;
                     Class38_Sub2_Sub2_Sub1.anInt1443 = i4;
-                } else if (class14_1.anInt271 == 7) {
-                    Class38_Sub2_Sub2_Sub4 class38_sub2_sub2_sub4_1 = class14_1.aClass38_Sub2_Sub2_Sub4_302;
+                } else if (interfaceComponent_1.anInt271 == 7) {
+                    Class38_Sub2_Sub2_Sub4 class38_sub2_sub2_sub4_1 = interfaceComponent_1.aClass38_Sub2_Sub2_Sub4_302;
                     int j4 = 0;
-                    for (int i5 = 0; i5 < class14_1.anInt275; i5++) {
-                        for (int l5 = 0; l5 < class14_1.anInt274; l5++) {
-                            if (class14_1.anIntArray265[j4] > 0) {
-                                ObjType objType = ObjType.method169(class14_1.anIntArray265[j4] - 1);
+                    for (int i5 = 0; i5 < interfaceComponent_1.anInt275; i5++) {
+                        for (int l5 = 0; l5 < interfaceComponent_1.anInt274; l5++) {
+                            if (interfaceComponent_1.anIntArray265[j4] > 0) {
+                                ObjType objType = ObjType.method169(interfaceComponent_1.anIntArray265[j4] - 1);
                                 String s2 = objType.aString145;
-                                if (objType.aBoolean157 || class14_1.anIntArray266[j4] != 1)
-                                    s2 = s2 + " x" + method40(class14_1.anIntArray266[j4], 0);
-                                int l8 = k2 + l5 * (115 + class14_1.anInt293);
-                                int j9 = l2 + i5 * (12 + class14_1.anInt294);
-                                if (class14_1.aBoolean300)
-                                    class38_sub2_sub2_sub4_1.method422(l8 + class14_1.anInt274 / 2, class14_1.anInt305,
-                                            class14_1.aBoolean301, j9, s2, 0);
+                                if (objType.aBoolean157 || interfaceComponent_1.anIntArray266[j4] != 1)
+                                    s2 = s2 + " x" + method40(interfaceComponent_1.anIntArray266[j4], 0);
+                                int l8 = k2 + l5 * (115 + interfaceComponent_1.anInt293);
+                                int j9 = l2 + i5 * (12 + interfaceComponent_1.anInt294);
+                                if (interfaceComponent_1.aBoolean300)
+                                    class38_sub2_sub2_sub4_1.method422(l8 + interfaceComponent_1.anInt274 / 2, interfaceComponent_1.anInt305,
+                                            interfaceComponent_1.aBoolean301, j9, s2, 0);
                                 else
-                                    class38_sub2_sub2_sub4_1.method426(l8, 6, j9, s2, class14_1.aBoolean301,
-                                            class14_1.anInt305);
+                                    class38_sub2_sub2_sub4_1.method426(l8, 6, j9, s2, interfaceComponent_1.aBoolean301,
+                                            interfaceComponent_1.anInt305);
                             }
                             j4++;
                         }
@@ -3351,10 +3351,10 @@ public class client extends Applet_Sub1 {
             aBoolean964 = false;
         }
         if (anInt1001 == -1) {
-            aClass14_808.anInt283 = anInt792 - anInt977 - 77;
+            interfaceComponent.anInt283 = anInt792 - anInt977 - 77;
             if (super.anInt21 > 453 && super.anInt21 < 565 && super.anInt22 > 350)
-                method97(super.anInt21 - 22, 0, super.anInt22 - 375, anInt792, 77, false, 463, 0, aClass14_808);
-            int j = anInt792 - 77 - aClass14_808.anInt283;
+                method97(super.anInt21 - 22, 0, super.anInt22 - 375, anInt792, 77, false, 463, 0, interfaceComponent);
+            int j = anInt792 - 77 - interfaceComponent.anInt283;
             if (j < 0)
                 j = 0;
             if (j > anInt792 - 77)
@@ -3585,9 +3585,9 @@ public class client extends Applet_Sub1 {
             anInt945 = l;
             anInt946 = k;
             anInt947 = 2;
-            if (Class14.aClass14Array264[l].anInt270 == anInt971)
+            if (InterfaceComponent.interfaceComponentArray[l].anInt270 == anInt971)
                 anInt947 = 1;
-            if (Class14.aClass14Array264[l].anInt270 == anInt1001)
+            if (InterfaceComponent.interfaceComponentArray[l].anInt270 == anInt1001)
                 anInt947 = 3;
         }
         if (i1 == 728 || i1 == 542 || i1 == 6 || i1 == 963 || i1 == 245) {
@@ -3670,9 +3670,9 @@ public class client extends Applet_Sub1 {
             anInt945 = l;
             anInt946 = k;
             anInt947 = 2;
-            if (Class14.aClass14Array264[l].anInt270 == anInt971)
+            if (InterfaceComponent.interfaceComponentArray[l].anInt270 == anInt971)
                 anInt947 = 1;
-            if (Class14.aClass14Array264[l].anInt270 == anInt1001)
+            if (InterfaceComponent.interfaceComponentArray[l].anInt270 == anInt1001)
                 anInt947 = 3;
         }
         if (i1 == 391) {
@@ -3685,9 +3685,9 @@ public class client extends Applet_Sub1 {
             anInt945 = l;
             anInt946 = k;
             anInt947 = 2;
-            if (Class14.aClass14Array264[l].anInt270 == anInt971)
+            if (InterfaceComponent.interfaceComponentArray[l].anInt270 == anInt971)
                 anInt947 = 1;
-            if (Class14.aClass14Array264[l].anInt270 == anInt1001)
+            if (InterfaceComponent.interfaceComponentArray[l].anInt270 == anInt1001)
                 anInt947 = 3;
         }
         if (i1 == 660)
@@ -3846,18 +3846,18 @@ public class client extends Applet_Sub1 {
         if (i1 == 504)
             method92(172, k, l, j1, true);
         if (i1 == 930) {
-            Class14 class14 = Class14.aClass14Array264[l];
+            InterfaceComponent interfaceComponent = InterfaceComponent.interfaceComponentArray[l];
             anInt1025 = 1;
             anInt1026 = l;
-            anInt1027 = class14.anInt319;
+            anInt1027 = interfaceComponent.anInt319;
             anInt1002 = 0;
-            String s6 = class14.aString317;
+            String s6 = interfaceComponent.aString317;
             if (s6.indexOf(" ") != -1)
                 s6 = s6.substring(0, s6.indexOf(" "));
-            String s10 = class14.aString317;
+            String s10 = interfaceComponent.aString317;
             if (s10.indexOf(" ") != -1)
                 s10 = s10.substring(s10.indexOf(" ") + 1);
-            aString1028 = s6 + " " + class14.aString318 + " " + s10;
+            aString1028 = s6 + " " + interfaceComponent.aString318 + " " + s10;
             if (anInt1027 == 16) {
                 aBoolean964 = true;
                 anInt757 = 3;
@@ -3866,10 +3866,10 @@ public class client extends Applet_Sub1 {
             return;
         }
         if (i1 == 951) {
-            Class14 class14_1 = Class14.aClass14Array264[l];
+            InterfaceComponent interfaceComponent_1 = InterfaceComponent.interfaceComponentArray[l];
             boolean flag3 = true;
-            if (class14_1.anInt273 > 0)
-                flag3 = method81(false, class14_1);
+            if (interfaceComponent_1.anInt273 > 0)
+                flag3 = method81(false, interfaceComponent_1);
             if (flag3) {
                 aClass38_Sub2_Sub3_798.method435((byte) -34, 155);
                 aClass38_Sub2_Sub3_798.method437(l);
@@ -3907,9 +3907,9 @@ public class client extends Applet_Sub1 {
             anInt945 = l;
             anInt946 = k;
             anInt947 = 2;
-            if (Class14.aClass14Array264[l].anInt270 == anInt971)
+            if (InterfaceComponent.interfaceComponentArray[l].anInt270 == anInt971)
                 anInt947 = 1;
-            if (Class14.aClass14Array264[l].anInt270 == anInt1001)
+            if (InterfaceComponent.interfaceComponentArray[l].anInt270 == anInt1001)
                 anInt947 = 3;
         }
         if (i1 == 581) {
@@ -3959,11 +3959,11 @@ public class client extends Applet_Sub1 {
         if (i1 == 960) {
             aClass38_Sub2_Sub3_798.method435((byte) -34, 155);
             aClass38_Sub2_Sub3_798.method437(l);
-            Class14 class14_2 = Class14.aClass14Array264[l];
-            if (class14_2.anIntArrayArray278 != null && class14_2.anIntArrayArray278[0][0] == 5) {
-                int j2 = class14_2.anIntArrayArray278[0][1];
-                if (anIntArray938[j2] != class14_2.anIntArray280[0]) {
-                    anIntArray938[j2] = class14_2.anIntArray280[0];
+            InterfaceComponent interfaceComponent_2 = InterfaceComponent.interfaceComponentArray[l];
+            if (interfaceComponent_2.anIntArrayArray278 != null && interfaceComponent_2.anIntArrayArray278[0][0] == 5) {
+                int j2 = interfaceComponent_2.anIntArrayArray278[0][1];
+                if (anIntArray938[j2] != interfaceComponent_2.anIntArray280[0]) {
+                    anIntArray938[j2] = interfaceComponent_2.anIntArray280[0];
                     method61(j2, 49);
                     aBoolean964 = true;
                 }
@@ -3976,10 +3976,10 @@ public class client extends Applet_Sub1 {
                 method16((byte) -60);
                 aString970 = s2.substring(k2 + 5).trim();
                 aBoolean881 = false;
-                for (int j3 = 0; j3 < Class14.aClass14Array264.length; j3++) {
-                    if (Class14.aClass14Array264[j3] == null || Class14.aClass14Array264[j3].anInt273 != 600)
+                for (int j3 = 0; j3 < InterfaceComponent.interfaceComponentArray.length; j3++) {
+                    if (InterfaceComponent.interfaceComponentArray[j3] == null || InterfaceComponent.interfaceComponentArray[j3].anInt273 != 600)
                         continue;
-                    anInt907 = anInt971 = Class14.aClass14Array264[j3].anInt270;
+                    anInt907 = anInt971 = InterfaceComponent.interfaceComponentArray[j3].anInt270;
                     break;
                 }
 
@@ -4008,9 +4008,9 @@ public class client extends Applet_Sub1 {
         if (i1 == 465) {
             aClass38_Sub2_Sub3_798.method435((byte) -34, 155);
             aClass38_Sub2_Sub3_798.method437(l);
-            Class14 class14_3 = Class14.aClass14Array264[l];
-            if (class14_3.anIntArrayArray278 != null && class14_3.anIntArrayArray278[0][0] == 5) {
-                int l2 = class14_3.anIntArrayArray278[0][1];
+            InterfaceComponent interfaceComponent_3 = InterfaceComponent.interfaceComponentArray[l];
+            if (interfaceComponent_3.anIntArrayArray278 != null && interfaceComponent_3.anIntArrayArray278[0][0] == 5) {
+                int l2 = interfaceComponent_3.anIntArrayArray278[0][1];
                 anIntArray938[l2] = 1 - anIntArray938[l2];
                 method61(l2, 49);
                 aBoolean964 = true;
@@ -4160,60 +4160,60 @@ public class client extends Applet_Sub1 {
             aBoolean787 = !aBoolean787;
     }
 
-    public void method76(int i, Class14 class14) {
-        int j = class14.anInt273;
+    public void method76(int i, InterfaceComponent interfaceComponent) {
+        int j = interfaceComponent.anInt273;
         if (i != 0)
             anInt958 = -68;
         if (j >= 1 && j <= 100)
             if (--j >= anInt1089) {
-                class14.aString303 = "";
-                class14.anInt272 = 0;
+                interfaceComponent.aString303 = "";
+                interfaceComponent.anInt272 = 0;
                 return;
             } else {
-                class14.aString303 = aStringArray1127[j];
-                class14.anInt272 = 1;
+                interfaceComponent.aString303 = aStringArray1127[j];
+                interfaceComponent.anInt272 = 1;
                 return;
             }
         if (j >= 101 && j <= 200) {
             if ((j -= 101) >= anInt1089) {
-                class14.aString303 = "";
-                class14.anInt272 = 0;
+                interfaceComponent.aString303 = "";
+                interfaceComponent.anInt272 = 0;
                 return;
             }
             if (anIntArray773[j] == 0)
-                class14.aString303 = "@red@Offline";
+                interfaceComponent.aString303 = "@red@Offline";
             else if (anIntArray773[j] == anInt886)
-                class14.aString303 = "@gre@World-" + (anIntArray773[j] - 9);
+                interfaceComponent.aString303 = "@gre@World-" + (anIntArray773[j] - 9);
             else
-                class14.aString303 = "@yel@World-" + (anIntArray773[j] - 9);
-            class14.anInt272 = 1;
+                interfaceComponent.aString303 = "@yel@World-" + (anIntArray773[j] - 9);
+            interfaceComponent.anInt272 = 1;
             return;
         }
         if (j == 203) {
-            class14.anInt282 = anInt1089 * 15 + 20;
-            if (class14.anInt282 <= class14.anInt275)
-                class14.anInt282 = class14.anInt275 + 1;
+            interfaceComponent.anInt282 = anInt1089 * 15 + 20;
+            if (interfaceComponent.anInt282 <= interfaceComponent.anInt275)
+                interfaceComponent.anInt282 = interfaceComponent.anInt275 + 1;
             return;
         }
         if (j >= 401 && j <= 500)
             if ((j -= 401) >= anInt793) {
-                class14.aString303 = "";
-                class14.anInt272 = 0;
+                interfaceComponent.aString303 = "";
+                interfaceComponent.anInt272 = 0;
                 return;
             } else {
-                class14.aString303 = StringUtils.formatName(StringUtils.fromBase37(aLongArray768[j]));
-                class14.anInt272 = 1;
+                interfaceComponent.aString303 = StringUtils.formatName(StringUtils.fromBase37(aLongArray768[j]));
+                interfaceComponent.anInt272 = 1;
                 return;
             }
         if (j == 503) {
-            class14.anInt282 = anInt793 * 15 + 20;
-            if (class14.anInt282 <= class14.anInt275)
-                class14.anInt282 = class14.anInt275 + 1;
+            interfaceComponent.anInt282 = anInt793 * 15 + 20;
+            if (interfaceComponent.anInt282 <= interfaceComponent.anInt275)
+                interfaceComponent.anInt282 = interfaceComponent.anInt275 + 1;
             return;
         }
         if (j == 327) {
-            class14.anInt315 = 150;
-            class14.anInt316 = (int) (Math.sin((double) anInt955 / 40D) * 256D) & 0x7ff;
+            interfaceComponent.anInt315 = 150;
+            interfaceComponent.anInt316 = (int) (Math.sin((double) anInt955 / 40D) * 256D) & 0x7ff;
             if (aBoolean788) {
                 aBoolean788 = false;
                 Class38_Sub2_Sub1[] aclass38_sub2_sub1 = new Class38_Sub2_Sub1[7];
@@ -4237,57 +4237,57 @@ public class client extends Applet_Sub1 {
                 class38_sub2_sub1.applyFrame(-16599,
                         Class18.aClass18Array364[aClass38_Sub7_Sub3_Sub2_967.anInt1385].primaryFrames[0]);
                 class38_sub2_sub1.applyLighting(64, 850, -30, -50, -30, true);
-                class14.aClass38_Sub2_Sub1_310 = class38_sub2_sub1;
+                interfaceComponent.aClass38_Sub2_Sub1_310 = class38_sub2_sub1;
             }
             return;
         }
         if (j == 324) {
             if (aClass38_Sub2_Sub2_Sub2_961 == null) {
-                aClass38_Sub2_Sub2_Sub2_961 = class14.aClass38_Sub2_Sub2_Sub2_308;
-                aClass38_Sub2_Sub2_Sub2_962 = class14.aClass38_Sub2_Sub2_Sub2_309;
+                aClass38_Sub2_Sub2_Sub2_961 = interfaceComponent.aClass38_Sub2_Sub2_Sub2_308;
+                aClass38_Sub2_Sub2_Sub2_962 = interfaceComponent.aClass38_Sub2_Sub2_Sub2_309;
             }
             if (aBoolean836) {
-                class14.aClass38_Sub2_Sub2_Sub2_308 = aClass38_Sub2_Sub2_Sub2_962;
+                interfaceComponent.aClass38_Sub2_Sub2_Sub2_308 = aClass38_Sub2_Sub2_Sub2_962;
                 return;
             } else {
-                class14.aClass38_Sub2_Sub2_Sub2_308 = aClass38_Sub2_Sub2_Sub2_961;
+                interfaceComponent.aClass38_Sub2_Sub2_Sub2_308 = aClass38_Sub2_Sub2_Sub2_961;
                 return;
             }
         }
         if (j == 325) {
             if (aClass38_Sub2_Sub2_Sub2_961 == null) {
-                aClass38_Sub2_Sub2_Sub2_961 = class14.aClass38_Sub2_Sub2_Sub2_308;
-                aClass38_Sub2_Sub2_Sub2_962 = class14.aClass38_Sub2_Sub2_Sub2_309;
+                aClass38_Sub2_Sub2_Sub2_961 = interfaceComponent.aClass38_Sub2_Sub2_Sub2_308;
+                aClass38_Sub2_Sub2_Sub2_962 = interfaceComponent.aClass38_Sub2_Sub2_Sub2_309;
             }
             if (aBoolean836) {
-                class14.aClass38_Sub2_Sub2_Sub2_308 = aClass38_Sub2_Sub2_Sub2_961;
+                interfaceComponent.aClass38_Sub2_Sub2_Sub2_308 = aClass38_Sub2_Sub2_Sub2_961;
                 return;
             } else {
-                class14.aClass38_Sub2_Sub2_Sub2_308 = aClass38_Sub2_Sub2_Sub2_962;
+                interfaceComponent.aClass38_Sub2_Sub2_Sub2_308 = aClass38_Sub2_Sub2_Sub2_962;
                 return;
             }
         }
         if (j == 600) {
-            class14.aString303 = aString970;
+            interfaceComponent.aString303 = aString970;
             if (anInt955 % 20 < 10) {
-                class14.aString303 += "|";
+                interfaceComponent.aString303 += "|";
                 return;
             } else {
-                class14.aString303 += " ";
+                interfaceComponent.aString303 += " ";
                 return;
             }
         }
         if (j == 613)
             if (aBoolean1023) {
                 if (aBoolean881) {
-                    class14.anInt305 = 0xff0000;
-                    class14.aString303 = "Moderator option: Mute player for 48 hours: <ON>";
+                    interfaceComponent.anInt305 = 0xff0000;
+                    interfaceComponent.aString303 = "Moderator option: Mute player for 48 hours: <ON>";
                 } else {
-                    class14.anInt305 = 0xffffff;
-                    class14.aString303 = "Moderator option: Mute player for 48 hours: <OFF>";
+                    interfaceComponent.anInt305 = 0xffffff;
+                    interfaceComponent.aString303 = "Moderator option: Mute player for 48 hours: <OFF>";
                 }
             } else {
-                class14.aString303 = "";
+                interfaceComponent.aString303 = "";
             }
         if (j == 650 || j == 655)
             if (anInt1061 != 0) {
@@ -4298,29 +4298,29 @@ public class client extends Applet_Sub1 {
                     s = "yesterday";
                 else
                     s = anInt873 + " days ago";
-                class14.aString303 = "You last logged in " + s + " from: " + signlink.dns;
+                interfaceComponent.aString303 = "You last logged in " + s + " from: " + signlink.dns;
             } else {
-                class14.aString303 = "";
+                interfaceComponent.aString303 = "";
             }
         if (j == 651) {
             if (anInt1054 == 0) {
-                class14.aString303 = "0 unread messages";
-                class14.anInt305 = 0xffff00;
+                interfaceComponent.aString303 = "0 unread messages";
+                interfaceComponent.anInt305 = 0xffff00;
             }
             if (anInt1054 == 1) {
-                class14.aString303 = "1 unread message";
-                class14.anInt305 = 65280;
+                interfaceComponent.aString303 = "1 unread message";
+                interfaceComponent.anInt305 = 65280;
             }
             if (anInt1054 > 1) {
-                class14.aString303 = anInt1054 + " unread messages";
-                class14.anInt305 = 65280;
+                interfaceComponent.aString303 = anInt1054 + " unread messages";
+                interfaceComponent.anInt305 = 65280;
             }
         }
         if (j == 652)
             if (anInt901 == 201)
-                class14.aString303 = "";
+                interfaceComponent.aString303 = "";
             else if (anInt901 == 200) {
-                class14.aString303 = "You have not yet set any password recovery questions.";
+                interfaceComponent.aString303 = "You have not yet set any password recovery questions.";
             } else {
                 String s1;
                 if (anInt901 == 0)
@@ -4329,25 +4329,25 @@ public class client extends Applet_Sub1 {
                     s1 = "Yesterday";
                 else
                     s1 = anInt901 + " days ago";
-                class14.aString303 = s1 + " you changed your recovery questions";
+                interfaceComponent.aString303 = s1 + " you changed your recovery questions";
             }
         if (j == 653)
             if (anInt901 == 201)
-                class14.aString303 = "";
+                interfaceComponent.aString303 = "";
             else if (anInt901 == 200)
-                class14.aString303 = "We strongly recommend you do so now to secure your account.";
+                interfaceComponent.aString303 = "We strongly recommend you do so now to secure your account.";
             else
-                class14.aString303 = "If you do not remember making this change then cancel it immediately";
+                interfaceComponent.aString303 = "If you do not remember making this change then cancel it immediately";
         if (j == 654) {
             if (anInt901 == 201) {
-                class14.aString303 = "";
+                interfaceComponent.aString303 = "";
                 return;
             }
             if (anInt901 == 200) {
-                class14.aString303 = "Do this from the 'account management' area on our front webpage";
+                interfaceComponent.aString303 = "Do this from the 'account management' area on our front webpage";
                 return;
             }
-            class14.aString303 = "Do this from the 'account management' area on our front webpage";
+            interfaceComponent.aString303 = "Do this from the 'account management' area on our front webpage";
         }
     }
 
@@ -4409,8 +4409,8 @@ public class client extends Applet_Sub1 {
         class38_sub2_sub3.method458(anInt813);
     }
 
-    public boolean method81(boolean flag, Class14 class14) {
-        int i = class14.anInt273;
+    public boolean method81(boolean flag, InterfaceComponent interfaceComponent) {
+        int i = interfaceComponent.anInt273;
         if (flag)
             method6();
         if (i == 201) {
@@ -4737,7 +4737,7 @@ public class client extends Applet_Sub1 {
                     aClass38_Sub2_Sub2_Sub4_985, aClass38_Sub2_Sub2_Sub4_986, aClass38_Sub2_Sub2_Sub4_987,
                     aClass38_Sub2_Sub2_Sub4_988
             };
-            Class14.method218(fileArchive_2, aclass38_sub2_sub2_sub4, 30, fileArchive_1);
+            InterfaceComponent.method218(fileArchive_2, aclass38_sub2_sub2_sub4, 30, fileArchive_1);
             method13(true, "Preparing game engine", 97);
             for (int l3 = 0; l3 < 33; l3++) {
                 int i4 = 999;
@@ -4812,7 +4812,7 @@ public class client extends Applet_Sub1 {
         i = 12 / i;
         if (super.anInt21 > 8 && super.anInt22 > 11 && super.anInt21 < 520 && super.anInt22 < 345)
             if (anInt971 != -1)
-                method29(super.anInt22, super.anInt21, 11, Class14.aClass14Array264[anInt971], 5082, 8, 0);
+                method29(super.anInt22, super.anInt21, 11, InterfaceComponent.interfaceComponentArray[anInt971], 5082, 8, 0);
             else
                 method131((byte) 2);
         if (anInt868 != anInt1063)
@@ -4820,9 +4820,9 @@ public class client extends Applet_Sub1 {
         anInt868 = 0;
         if (super.anInt21 > 562 && super.anInt22 > 231 && super.anInt21 < 752 && super.anInt22 < 492)
             if (anInt1129 != -1)
-                method29(super.anInt22, super.anInt21, 231, Class14.aClass14Array264[anInt1129], 5082, 562, 0);
+                method29(super.anInt22, super.anInt21, 231, InterfaceComponent.interfaceComponentArray[anInt1129], 5082, 562, 0);
             else if (anIntArray861[anInt757] != -1)
-                method29(super.anInt22, super.anInt21, 231, Class14.aClass14Array264[anIntArray861[anInt757]], 5082,
+                method29(super.anInt22, super.anInt21, 231, InterfaceComponent.interfaceComponentArray[anIntArray861[anInt757]], 5082,
                         562, 0);
         if (anInt868 != anInt941) {
             aBoolean964 = true;
@@ -4831,7 +4831,7 @@ public class client extends Applet_Sub1 {
         anInt868 = 0;
         if (super.anInt21 > 22 && super.anInt22 > 375 && super.anInt21 < 431 && super.anInt22 < 471)
             if (anInt1001 != -1)
-                method29(super.anInt22, super.anInt21, 375, Class14.aClass14Array264[anInt1001], 5082, 22, 0);
+                method29(super.anInt22, super.anInt21, 375, InterfaceComponent.interfaceComponentArray[anInt1001], 5082, 22, 0);
             else
                 method31(super.anInt22 - 375, 0, super.anInt21 - 22);
         if (anInt1001 != -1 && anInt868 != anInt859) {
@@ -4893,7 +4893,7 @@ public class client extends Applet_Sub1 {
             aClass38_Sub2_Sub2_Sub2Array1120[4 + anInt740 / 100].method405(anInt739 - 8 - 11, anInt738 - 8 - 8, false);
         if (anInt971 != -1) {
             method110(anInt971, anInt969, 623);
-            method59(0, 0, 38682, Class14.aClass14Array264[anInt971], 0);
+            method59(0, 0, 38682, InterfaceComponent.interfaceComponentArray[anInt971], 0);
         }
         method18(39734);
         if (!aBoolean879) {
@@ -5320,7 +5320,7 @@ public class client extends Applet_Sub1 {
     }
 
     public void method97(int i, int j, int k, int l, int i1, boolean flag, int j1,
-                         int k1, Class14 class14) {
+                         int k1, InterfaceComponent interfaceComponent) {
         if (aBoolean1144)
             anInt1154 = 32;
         else
@@ -5328,13 +5328,13 @@ public class client extends Applet_Sub1 {
         aBoolean1144 = false;
         anInt779 += j;
         if (i >= j1 && i < j1 + 16 && k >= k1 && k < k1 + 16) {
-            class14.anInt283 -= anInt934 * 4;
+            interfaceComponent.anInt283 -= anInt934 * 4;
             if (flag) {
                 aBoolean964 = true;
                 return;
             }
         } else if (i >= j1 && i < j1 + 16 && k >= (k1 + i1) - 16 && k < k1 + i1) {
-            class14.anInt283 += anInt934 * 4;
+            interfaceComponent.anInt283 += anInt934 * 4;
             if (flag) {
                 aBoolean964 = true;
                 return;
@@ -5346,7 +5346,7 @@ public class client extends Applet_Sub1 {
                 l1 = 8;
             int i2 = k - k1 - 16 - l1 / 2;
             int j2 = i1 - 32 - l1;
-            class14.anInt283 = ((l - i1) * i2) / j2;
+            interfaceComponent.anInt283 = ((l - i1) * i2) / j2;
             if (flag)
                 aBoolean964 = true;
             aBoolean1144 = true;
@@ -5793,7 +5793,7 @@ public class client extends Applet_Sub1 {
         ObjType.method168(true);
         FloType.floTypes = null;
         IdkType.idkTypes = null;
-        Class14.aClass14Array264 = null;
+        InterfaceComponent.interfaceComponentArray = null;
         Class18.aClass18Array364 = null;
         Class20.aClass20Array387 = null;
         Class20.aClass34_400 = null;
@@ -6008,13 +6008,13 @@ public class client extends Applet_Sub1 {
                     anInt1088 = -1;
                     method82(26);
                     if (anInt1088 == anInt844 && anInt1087 != anInt845) {
-                        Class14 class14 = Class14.aClass14Array264[anInt844];
-                        int j1 = class14.anIntArray265[anInt1087];
-                        class14.anIntArray265[anInt1087] = class14.anIntArray265[anInt845];
-                        class14.anIntArray265[anInt845] = j1;
-                        j1 = class14.anIntArray266[anInt1087];
-                        class14.anIntArray266[anInt1087] = class14.anIntArray266[anInt845];
-                        class14.anIntArray266[anInt845] = j1;
+                        InterfaceComponent interfaceComponent = InterfaceComponent.interfaceComponentArray[anInt844];
+                        int j1 = interfaceComponent.anIntArray265[anInt1087];
+                        interfaceComponent.anIntArray265[anInt1087] = interfaceComponent.anIntArray265[anInt845];
+                        interfaceComponent.anIntArray265[anInt845] = j1;
+                        j1 = interfaceComponent.anIntArray266[anInt1087];
+                        interfaceComponent.anIntArray266[anInt1087] = interfaceComponent.anIntArray266[anInt845];
+                        interfaceComponent.anIntArray266[anInt845] = j1;
                         aClass38_Sub2_Sub3_798.method435((byte) -34, 159);
                         aClass38_Sub2_Sub3_798.method437(anInt844);
                         aClass38_Sub2_Sub3_798.method437(anInt845);
@@ -6431,29 +6431,29 @@ public class client extends Applet_Sub1 {
 
     public boolean method110(int i, int j, int k) {
         boolean flag = false;
-        Class14 class14 = Class14.aClass14Array264[i];
-        for (int l = 0; l < class14.anIntArray285.length; l++) {
-            if (class14.anIntArray285[l] == -1)
+        InterfaceComponent interfaceComponent = InterfaceComponent.interfaceComponentArray[i];
+        for (int l = 0; l < interfaceComponent.anIntArray285.length; l++) {
+            if (interfaceComponent.anIntArray285[l] == -1)
                 break;
-            Class14 class14_1 = Class14.aClass14Array264[class14.anIntArray285[l]];
-            if (class14_1.anInt271 == 1)
-                flag |= method110(class14_1.anInt269, j, 623);
-            if (class14_1.anInt271 == 6 && (class14_1.anInt312 != -1 || class14_1.anInt313 != -1)) {
-                boolean flag1 = method114(class14_1, 65);
+            InterfaceComponent interfaceComponent_1 = InterfaceComponent.interfaceComponentArray[interfaceComponent.anIntArray285[l]];
+            if (interfaceComponent_1.anInt271 == 1)
+                flag |= method110(interfaceComponent_1.anInt269, j, 623);
+            if (interfaceComponent_1.anInt271 == 6 && (interfaceComponent_1.anInt312 != -1 || interfaceComponent_1.anInt313 != -1)) {
+                boolean flag1 = method114(interfaceComponent_1, 65);
                 int i1;
                 if (flag1)
-                    i1 = class14_1.anInt313;
+                    i1 = interfaceComponent_1.anInt313;
                 else
-                    i1 = class14_1.anInt312;
+                    i1 = interfaceComponent_1.anInt312;
                 if (i1 != -1) {
                     Class18 class18 = Class18.aClass18Array364[i1];
-                    for (class14_1.anInt268 += j; class14_1.anInt268 > class18.anIntArray368[class14_1.anInt267]; ) {
-                        class14_1.anInt268 -= class18.anIntArray368[class14_1.anInt267] + 1;
-                        class14_1.anInt267++;
-                        if (class14_1.anInt267 >= class18.anInt365) {
-                            class14_1.anInt267 -= class18.anInt369;
-                            if (class14_1.anInt267 < 0 || class14_1.anInt267 >= class18.anInt365)
-                                class14_1.anInt267 = 0;
+                    for (interfaceComponent_1.anInt268 += j; interfaceComponent_1.anInt268 > class18.anIntArray368[interfaceComponent_1.anInt267]; ) {
+                        interfaceComponent_1.anInt268 -= class18.anIntArray368[interfaceComponent_1.anInt267] + 1;
+                        interfaceComponent_1.anInt267++;
+                        if (interfaceComponent_1.anInt267 >= class18.anInt365) {
+                            interfaceComponent_1.anInt267 -= class18.anInt369;
+                            if (interfaceComponent_1.anInt267 < 0 || interfaceComponent_1.anInt267 >= class18.anInt365)
+                                interfaceComponent_1.anInt267 = 0;
                         }
                         flag = true;
                     }
@@ -6489,15 +6489,15 @@ public class client extends Applet_Sub1 {
     }
 
     public void method112(int i, int j) {
-        Class14 class14 = Class14.aClass14Array264[j];
-        for (int k = 0; k < class14.anIntArray285.length; k++) {
-            if (class14.anIntArray285[k] == -1)
+        InterfaceComponent interfaceComponent = InterfaceComponent.interfaceComponentArray[j];
+        for (int k = 0; k < interfaceComponent.anIntArray285.length; k++) {
+            if (interfaceComponent.anIntArray285[k] == -1)
                 break;
-            Class14 class14_1 = Class14.aClass14Array264[class14.anIntArray285[k]];
-            if (class14_1.anInt271 == 1)
-                method112(-321, class14_1.anInt269);
-            class14_1.anInt267 = 0;
-            class14_1.anInt268 = 0;
+            InterfaceComponent interfaceComponent_1 = InterfaceComponent.interfaceComponentArray[interfaceComponent.anIntArray285[k]];
+            if (interfaceComponent_1.anInt271 == 1)
+                method112(-321, interfaceComponent_1.anInt269);
+            interfaceComponent_1.anInt267 = 0;
+            interfaceComponent_1.anInt268 = 0;
         }
 
         if (i >= 0)
@@ -6528,19 +6528,19 @@ public class client extends Applet_Sub1 {
 
     }
 
-    public boolean method114(Class14 class14, int i) {
-        if (class14.anIntArray279 == null)
+    public boolean method114(InterfaceComponent interfaceComponent, int i) {
+        if (interfaceComponent.anIntArray279 == null)
             return false;
-        for (int j = 0; j < class14.anIntArray279.length; j++) {
-            int k = method126(class14, false, j);
-            int l = class14.anIntArray280[j];
-            if (class14.anIntArray279[j] == 2) {
+        for (int j = 0; j < interfaceComponent.anIntArray279.length; j++) {
+            int k = method126(interfaceComponent, false, j);
+            int l = interfaceComponent.anIntArray280[j];
+            if (interfaceComponent.anIntArray279[j] == 2) {
                 if (k >= l)
                     return false;
-            } else if (class14.anIntArray279[j] == 3) {
+            } else if (interfaceComponent.anIntArray279[j] == 3) {
                 if (k <= l)
                     return false;
-            } else if (class14.anIntArray279[j] == 4) {
+            } else if (interfaceComponent.anIntArray279[j] == 4) {
                 if (k == l)
                     return false;
             } else if (k != l)
@@ -6666,8 +6666,8 @@ public class client extends Applet_Sub1 {
                         || l == 478 || l == 347 || l == 188) {
                     int k1 = anIntArray1139[anInt1074 - 1];
                     int i2 = anIntArray1140[anInt1074 - 1];
-                    Class14 class14 = Class14.aClass14Array264[i2];
-                    if (class14.aBoolean290) {
+                    InterfaceComponent interfaceComponent = InterfaceComponent.interfaceComponentArray[i2];
+                    if (interfaceComponent.aBoolean290) {
                         aBoolean960 = false;
                         anInt924 = 0;
                         anInt844 = i2;
@@ -6675,9 +6675,9 @@ public class client extends Applet_Sub1 {
                         anInt846 = 2;
                         anInt847 = super.anInt24;
                         anInt848 = super.anInt25;
-                        if (Class14.aClass14Array264[i2].anInt270 == anInt971)
+                        if (InterfaceComponent.interfaceComponentArray[i2].anInt270 == anInt971)
                             anInt846 = 1;
-                        if (Class14.aClass14Array264[i2].anInt270 == anInt1001)
+                        if (InterfaceComponent.interfaceComponentArray[i2].anInt270 == anInt1001)
                             anInt846 = 3;
                         return;
                     }
@@ -6870,8 +6870,8 @@ public class client extends Applet_Sub1 {
         }
     }
 
-    public boolean method119(Class14 class14, byte byte0) {
-        int i = class14.anInt273;
+    public boolean method119(InterfaceComponent interfaceComponent, byte byte0) {
+        int i = interfaceComponent.anInt273;
         if (byte0 != aByte790)
             anInt1039 = isaacState.nextInt();
         if (i >= 1 && i <= 200) {
@@ -6888,7 +6888,7 @@ public class client extends Applet_Sub1 {
             return true;
         }
         if (i >= 401 && i <= 500) {
-            aStringArray834[anInt1074] = "Remove @whi@" + class14.aString303;
+            aStringArray834[anInt1074] = "Remove @whi@" + interfaceComponent.aString303;
             anIntArray1141[anInt1074] = 556;
             anInt1074++;
             return true;
@@ -7207,13 +7207,13 @@ public class client extends Applet_Sub1 {
 
     }
 
-    public int method126(Class14 class14, boolean flag, int i) {
+    public int method126(InterfaceComponent interfaceComponent, boolean flag, int i) {
         if (flag)
             aBoolean849 = !aBoolean849;
-        if (class14.anIntArrayArray278 == null || i >= class14.anIntArrayArray278.length)
+        if (interfaceComponent.anIntArrayArray278 == null || i >= interfaceComponent.anIntArrayArray278.length)
             return -2;
         try {
-            int[] ai = class14.anIntArrayArray278[i];
+            int[] ai = interfaceComponent.anIntArrayArray278[i];
             int j = 0;
             int k = 0;
             do {
@@ -7229,11 +7229,11 @@ public class client extends Applet_Sub1 {
                     if (l == 3)
                         j += anIntArray1079[ai[k++]];
                     if (l == 4) {
-                        Class14 class14_1 = Class14.aClass14Array264[ai[k++]];
+                        InterfaceComponent interfaceComponent_1 = InterfaceComponent.interfaceComponentArray[ai[k++]];
                         int k1 = ai[k++] + 1;
-                        for (int j2 = 0; j2 < class14_1.anIntArray265.length; j2++)
-                            if (class14_1.anIntArray265[j2] == k1)
-                                j += class14_1.anIntArray266[j2];
+                        for (int j2 = 0; j2 < interfaceComponent_1.anIntArray265.length; j2++)
+                            if (interfaceComponent_1.anIntArray265[j2] == k1)
+                                j += interfaceComponent_1.anIntArray266[j2];
 
                     }
                     if (l == 5)
@@ -7253,10 +7253,10 @@ public class client extends Applet_Sub1 {
 
                     }
                     if (l == 10) {
-                        Class14 class14_2 = Class14.aClass14Array264[ai[k++]];
+                        InterfaceComponent interfaceComponent_2 = InterfaceComponent.interfaceComponentArray[ai[k++]];
                         int l1 = ai[k++] + 1;
-                        for (int k2 = 0; k2 < class14_2.anIntArray265.length; k2++) {
-                            if (class14_2.anIntArray265[k2] != l1)
+                        for (int k2 = 0; k2 < interfaceComponent_2.anIntArray265.length; k2++) {
+                            if (interfaceComponent_2.anIntArray265[k2] != l1)
                                 continue;
                             j += 0x3b9ac9ff;
                             break;
@@ -7774,9 +7774,9 @@ public class client extends Applet_Sub1 {
             aClass38_Sub2_Sub2_Sub4_987.method421(40, (byte) 6, 0, aString936, 239);
             aClass38_Sub2_Sub2_Sub4_987.method421(60, (byte) 6, 128, "Click to continue", 239);
         } else if (anInt1001 != -1)
-            method59(0, 0, 38682, Class14.aClass14Array264[anInt1001], 0);
+            method59(0, 0, 38682, InterfaceComponent.interfaceComponentArray[anInt1001], 0);
         else if (anInt1021 != -1) {
-            method59(0, 0, 38682, Class14.aClass14Array264[anInt1021], 0);
+            method59(0, 0, 38682, InterfaceComponent.interfaceComponentArray[anInt1021], 0);
         } else {
             Class38_Sub2_Sub2_Sub4 class38_sub2_sub2_sub4 = aClass38_Sub2_Sub2_Sub4_986;
             int i = 0;
@@ -8151,7 +8151,7 @@ public class client extends Applet_Sub1 {
             }
             if (anInt780 == 197) {
                 int j1 = aClass38_Sub2_Sub3_795.method448();
-                Class14.aClass14Array264[j1].aClass38_Sub2_Sub1_310 = aClass38_Sub7_Sub3_Sub2_967.method472(-718);
+                InterfaceComponent.interfaceComponentArray[j1].aClass38_Sub2_Sub1_310 = aClass38_Sub7_Sub3_Sub2_967.method472(-718);
                 anInt780 = -1;
                 return true;
             }
@@ -8275,7 +8275,7 @@ public class client extends Applet_Sub1 {
             if (anInt780 == 146) {
                 int j2 = aClass38_Sub2_Sub3_795.method448();
                 int k11 = aClass38_Sub2_Sub3_795.method448();
-                Class14.aClass14Array264[j2].anInt312 = k11;
+                InterfaceComponent.interfaceComponentArray[j2].anInt312 = k11;
                 anInt780 = -1;
                 return true;
             }
@@ -8323,19 +8323,19 @@ public class client extends Applet_Sub1 {
             if (anInt780 == 98) {
                 aBoolean964 = true;
                 int i3 = aClass38_Sub2_Sub3_795.method448();
-                Class14 class14 = Class14.aClass14Array264[i3];
+                InterfaceComponent interfaceComponent = InterfaceComponent.interfaceComponentArray[i3];
                 int l17 = aClass38_Sub2_Sub3_795.method446();
                 for (int l22 = 0; l22 < l17; l22++) {
-                    class14.anIntArray265[l22] = aClass38_Sub2_Sub3_795.method448();
+                    interfaceComponent.anIntArray265[l22] = aClass38_Sub2_Sub3_795.method448();
                     int k25 = aClass38_Sub2_Sub3_795.method446();
                     if (k25 == 255)
                         k25 = aClass38_Sub2_Sub3_795.method451();
-                    class14.anIntArray266[l22] = k25;
+                    interfaceComponent.anIntArray266[l22] = k25;
                 }
 
-                for (int l25 = l17; l25 < class14.anIntArray265.length; l25++) {
-                    class14.anIntArray265[l25] = 0;
-                    class14.anIntArray266[l25] = 0;
+                for (int l25 = l17; l25 < interfaceComponent.anIntArray265.length; l25++) {
+                    interfaceComponent.anIntArray265[l25] = 0;
+                    interfaceComponent.anIntArray266[l25] = 0;
                 }
 
                 anInt780 = -1;
@@ -8356,10 +8356,10 @@ public class client extends Applet_Sub1 {
             }
             if (anInt780 == 15) {
                 int j3 = aClass38_Sub2_Sub3_795.method448();
-                Class14 class14_1 = Class14.aClass14Array264[j3];
-                for (int i18 = 0; i18 < class14_1.anIntArray265.length; i18++) {
-                    class14_1.anIntArray265[i18] = -1;
-                    class14_1.anIntArray265[i18] = 0;
+                InterfaceComponent interfaceComponent_1 = InterfaceComponent.interfaceComponentArray[j3];
+                for (int i18 = 0; i18 < interfaceComponent_1.anIntArray265.length; i18++) {
+                    interfaceComponent_1.anIntArray265[i18] = -1;
+                    interfaceComponent_1.anIntArray265[i18] = 0;
                 }
 
                 anInt780 = -1;
@@ -8378,10 +8378,10 @@ public class client extends Applet_Sub1 {
                         c = '\u028F';
                     aString970 = "";
                     aBoolean881 = false;
-                    for (int j12 = 0; j12 < Class14.aClass14Array264.length; j12++) {
-                        if (Class14.aClass14Array264[j12] == null || Class14.aClass14Array264[j12].anInt273 != c)
+                    for (int j12 = 0; j12 < InterfaceComponent.interfaceComponentArray.length; j12++) {
+                        if (InterfaceComponent.interfaceComponentArray[j12] == null || InterfaceComponent.interfaceComponentArray[j12].anInt273 != c)
                             continue;
-                        anInt971 = Class14.aClass14Array264[j12].anInt270;
+                        anInt971 = InterfaceComponent.interfaceComponentArray[j12].anInt270;
                         break;
                     }
 
@@ -8437,7 +8437,7 @@ public class client extends Applet_Sub1 {
                 int i4 = aClass38_Sub2_Sub3_795.method448();
                 int i13 = aClass38_Sub2_Sub3_795.method448();
                 NpcType npcType = NpcType.method148(i13);
-                Class14.aClass14Array264[i4].aClass38_Sub2_Sub1_310 = npcType.method151(false);
+                InterfaceComponent.interfaceComponentArray[i4].aClass38_Sub2_Sub1_310 = npcType.method151(false);
                 anInt780 = -1;
                 return true;
             }
@@ -8451,8 +8451,8 @@ public class client extends Applet_Sub1 {
                 int j4 = aClass38_Sub2_Sub3_795.method448();
                 int j13 = aClass38_Sub2_Sub3_795.method448();
                 int l18 = aClass38_Sub2_Sub3_795.method448();
-                Class14 class14_3 = Class14.aClass14Array264[j4];
-                Class38_Sub2_Sub1 class38_sub2_sub1 = class14_3.aClass38_Sub2_Sub1_310;
+                InterfaceComponent interfaceComponent_3 = InterfaceComponent.interfaceComponentArray[j4];
+                Class38_Sub2_Sub1 class38_sub2_sub1 = interfaceComponent_3.aClass38_Sub2_Sub1_310;
                 if (class38_sub2_sub1 != null)
                     class38_sub2_sub1.method364(j13, l18);
                 anInt780 = -1;
@@ -8505,9 +8505,9 @@ public class client extends Applet_Sub1 {
                 int i5 = aClass38_Sub2_Sub3_795.method448();
                 int k13 = aClass38_Sub2_Sub3_795.method449();
                 int i19 = aClass38_Sub2_Sub3_795.method449();
-                Class14 class14_4 = Class14.aClass14Array264[i5];
-                class14_4.anInt276 = k13;
-                class14_4.anInt277 = i19;
+                InterfaceComponent interfaceComponent_4 = InterfaceComponent.interfaceComponentArray[i5];
+                interfaceComponent_4.anInt276 = k13;
+                interfaceComponent_4.anInt277 = i19;
                 anInt780 = -1;
                 return true;
             }
@@ -8621,7 +8621,7 @@ public class client extends Applet_Sub1 {
             if (anInt780 == 87) {
                 int j6 = aClass38_Sub2_Sub3_795.method448();
                 int j14 = aClass38_Sub2_Sub3_795.method448();
-                Class14.aClass14Array264[j6].aClass38_Sub2_Sub1_310 = new Class38_Sub2_Sub1(false, j14);
+                InterfaceComponent.interfaceComponentArray[j6].aClass38_Sub2_Sub1_310 = new Class38_Sub2_Sub1(false, j14);
                 anInt780 = -1;
                 return true;
             }
@@ -8710,10 +8710,10 @@ public class client extends Applet_Sub1 {
                 int l14 = aClass38_Sub2_Sub3_795.method448();
                 int i20 = aClass38_Sub2_Sub3_795.method448();
                 ObjType objType = ObjType.method169(l14);
-                Class14.aClass14Array264[i7].aClass38_Sub2_Sub1_310 = objType.method173(50);
-                Class14.aClass14Array264[i7].anInt315 = objType.anInt150;
-                Class14.aClass14Array264[i7].anInt316 = objType.anInt151;
-                Class14.aClass14Array264[i7].anInt314 = (objType.anInt149 * 100) / i20;
+                InterfaceComponent.interfaceComponentArray[i7].aClass38_Sub2_Sub1_310 = objType.method173(50);
+                InterfaceComponent.interfaceComponentArray[i7].anInt315 = objType.anInt150;
+                InterfaceComponent.interfaceComponentArray[i7].anInt316 = objType.anInt151;
+                InterfaceComponent.interfaceComponentArray[i7].anInt314 = (objType.anInt149 * 100) / i20;
                 anInt780 = -1;
                 return true;
             }
@@ -8744,7 +8744,7 @@ public class client extends Applet_Sub1 {
                 int j20 = i15 >> 10 & 0x1f;
                 int l23 = i15 >> 5 & 0x1f;
                 int k26 = i15 & 0x1f;
-                Class14.aClass14Array264[k7].anInt305 = (j20 << 19) + (l23 << 11) + (k26 << 3);
+                InterfaceComponent.interfaceComponentArray[k7].anInt305 = (j20 << 19) + (l23 << 11) + (k26 << 3);
                 anInt780 = -1;
                 return true;
             }
@@ -8763,7 +8763,7 @@ public class client extends Applet_Sub1 {
             if (anInt780 == 26) {
                 int i8 = aClass38_Sub2_Sub3_795.method448();
                 boolean flag1 = aClass38_Sub2_Sub3_795.method446() == 1;
-                Class14.aClass14Array264[i8].aBoolean284 = flag1;
+                InterfaceComponent.interfaceComponentArray[i8].aBoolean284 = flag1;
                 anInt780 = -1;
                 return true;
             }
@@ -8805,8 +8805,8 @@ public class client extends Applet_Sub1 {
             if (anInt780 == 201) {
                 int l8 = aClass38_Sub2_Sub3_795.method448();
                 String s5 = aClass38_Sub2_Sub3_795.method453();
-                Class14.aClass14Array264[l8].aString303 = s5;
-                if (Class14.aClass14Array264[l8].anInt270 == anIntArray861[anInt757])
+                InterfaceComponent.interfaceComponentArray[l8].aString303 = s5;
+                if (InterfaceComponent.interfaceComponentArray[l8].anInt270 == anIntArray861[anInt757])
                     aBoolean964 = true;
                 anInt780 = -1;
                 return true;
@@ -8859,16 +8859,16 @@ public class client extends Applet_Sub1 {
             if (anInt780 == 213) {
                 aBoolean964 = true;
                 int l9 = aClass38_Sub2_Sub3_795.method448();
-                Class14 class14_2 = Class14.aClass14Array264[l9];
+                InterfaceComponent interfaceComponent_2 = InterfaceComponent.interfaceComponentArray[l9];
                 while (aClass38_Sub2_Sub3_795.offset < anInt779) {
                     int j21 = aClass38_Sub2_Sub3_795.method446();
                     int k24 = aClass38_Sub2_Sub3_795.method448();
                     int l26 = aClass38_Sub2_Sub3_795.method446();
                     if (l26 == 255)
                         l26 = aClass38_Sub2_Sub3_795.method451();
-                    if (j21 >= 0 && j21 < class14_2.anIntArray265.length) {
-                        class14_2.anIntArray265[j21] = k24;
-                        class14_2.anIntArray266[j21] = l26;
+                    if (j21 >= 0 && j21 < interfaceComponent_2.anIntArray265.length) {
+                        interfaceComponent_2.anIntArray265[j21] = k24;
+                        interfaceComponent_2.anIntArray266[j21] = l26;
                     }
                 }
                 anInt780 = -1;
@@ -8918,9 +8918,9 @@ public class client extends Applet_Sub1 {
         Class38_Sub2_Sub2_Sub1.anIntArray1448 = anIntArray736;
         aClass38_Sub2_Sub2_Sub3_981.method419(0, 0, false);
         if (anInt1129 != -1)
-            method59(0, 0, 38682, Class14.aClass14Array264[anInt1129], 0);
+            method59(0, 0, 38682, InterfaceComponent.interfaceComponentArray[anInt1129], 0);
         else if (anIntArray861[anInt757] != -1)
-            method59(0, 0, 38682, Class14.aClass14Array264[anIntArray861[anInt757]], 0);
+            method59(0, 0, 38682, InterfaceComponent.interfaceComponentArray[anIntArray861[anInt757]], 0);
         if (aBoolean879 && anInt1148 == 1)
             method74(-961);
         drawArea20.drawImage(231, super.aGraphics14, 562);
@@ -9176,7 +9176,7 @@ public class client extends Applet_Sub1 {
         anInt803 = 3;
         anInt805 = -655;
         anIntArray807 = new int[50];
-        aClass14_808 = new Class14();
+        interfaceComponent = new InterfaceComponent();
         anIntArray809 = new int[50];
         anIntArray811 = new int[9];
         aBoolean812 = true;
@@ -9397,7 +9397,7 @@ public class client extends Applet_Sub1 {
     public int anInt805;
     public static int anInt806;
     public int[] anIntArray807;
-    public Class14 aClass14_808;
+    public InterfaceComponent interfaceComponent;
     public int[] anIntArray809;
     public int anInt810;
     public int[] anIntArray811;
