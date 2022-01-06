@@ -47,20 +47,20 @@ public class NpcEntity extends PathingEntity {
 
     public Model getModel() {
         if (super.primarySeq >= 0 && super.primarySeqDelay == 0) {
-            int frame1 = SeqType.seqTypes[super.primarySeq].primaryFrames[super.primarySeqFrame];
+            int frame1 = SeqType.animations[super.primarySeq].primaryFrames[super.primarySeqFrame];
             int frame2 = -1;
             
             if (super.secondarySeq >= 0 && super.secondarySeq != super.standSeq) {
-                frame2 = SeqType.seqTypes[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
+                frame2 = SeqType.animations[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
             }
             
-            return info.getModel(frame1, frame2, SeqType.seqTypes[super.primarySeq].labelGroups);
+            return info.getModel(frame1, frame2, SeqType.animations[super.primarySeq].labelGroups);
         }
 
         int frame = -1;
 
         if (super.secondarySeq >= 0) {
-            frame = SeqType.seqTypes[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
+            frame = SeqType.animations[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
         }
 
         Model model = info.getModel(frame, -1, null);

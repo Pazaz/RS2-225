@@ -9,12 +9,12 @@ public class SeqType {
         if (i <= 0)
             aBoolean361 = !aBoolean361;
         anInt363 = class38_sub2_sub3.readWord();
-        if (seqTypes == null)
-            seqTypes = new SeqType[anInt363];
+        if (animations == null)
+            animations = new SeqType[anInt363];
         for (int j = 0; j < anInt363; j++) {
-            if (seqTypes[j] == null)
-                seqTypes[j] = new SeqType();
-            seqTypes[j].method223(false, class38_sub2_sub3);
+            if (animations[j] == null)
+                animations[j] = new SeqType();
+            animations[j].method223(false, class38_sub2_sub3);
         }
 
     }
@@ -57,7 +57,7 @@ public class SeqType {
             } else if (j == 4)
                 aBoolean371 = true;
             else if (j == 5)
-                anInt372 = class38_sub2_sub3.readByte();
+                priority = class38_sub2_sub3.readByte();
             else if (j == 6)
                 anInt373 = class38_sub2_sub3.readWord();
             else if (j == 7)
@@ -81,7 +81,7 @@ public class SeqType {
     public SeqType() {
         loopOffset = -1;
         aBoolean371 = false;
-        anInt372 = 5;
+        priority = 5;
         anInt373 = -1;
         anInt374 = -1;
         anInt375 = 99;
@@ -90,7 +90,7 @@ public class SeqType {
     public static boolean aBoolean361 = true;
     public static int anInt362 = 473;
     public static int anInt363;
-    public static SeqType[] seqTypes;
+    public static SeqType[] animations;
     public int frameCount;
     public int[] primaryFrames;
     public int[] anIntArray367;
@@ -98,7 +98,7 @@ public class SeqType {
     public int loopOffset;
     public int[] labelGroups;
     public boolean aBoolean371;
-    public int anInt372;
+    public int priority;
     public int anInt373;
     public int anInt374;
     public int anInt375;

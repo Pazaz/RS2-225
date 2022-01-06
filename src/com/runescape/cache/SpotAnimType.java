@@ -33,8 +33,8 @@ public class SpotAnimType {
                 modelIndex = buffer.readWord();
             } else if (opcode == 2) {
                 seqIndex = buffer.readWord();
-                if (SeqType.seqTypes != null) {
-                    seq = SeqType.seqTypes[seqIndex];
+                if (SeqType.animations != null) {
+                    seq = SeqType.animations[seqIndex];
                 }
             } else if (opcode == 3) {
                 disposeAlpha = true;

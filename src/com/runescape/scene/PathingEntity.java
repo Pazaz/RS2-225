@@ -4,137 +4,129 @@ import com.runescape.cache.SeqType;
 
 public class PathingEntity extends Entity {
 
-    public void method466(boolean flag, boolean flag1, int i, int j) {
-        if (primarySeq != -1 && SeqType.seqTypes[primarySeq].anInt372 <= 1)
+    public void move(boolean teleport, int x, int z) {
+        if (primarySeq != -1 && SeqType.animations[primarySeq].priority <= 1) {
             primarySeq = -1;
-        if (!flag1) {
-            int k = i - anIntArray1428[0];
-            int l = j - anIntArray1429[0];
-            if (k >= -8 && k <= 8 && l >= -8 && l <= 8) {
-                if (anInt1427 < 9)
-                    anInt1427++;
-                for (int i1 = anInt1427; i1 > 0; i1--) {
-                    anIntArray1428[i1] = anIntArray1428[i1 - 1];
-                    anIntArray1429[i1] = anIntArray1429[i1 - 1];
-                    aBooleanArray1430[i1] = aBooleanArray1430[i1 - 1];
+        }
+
+        if (!teleport) {
+            int dx = x - pathTileX[0];
+            int dz = z - pathTileZ[0];
+
+            if (dx >= -8 && dx <= 8 && dz >= -8 && dz <= 8) {
+                if (pathRemaining < 9) {
+                    pathRemaining++;
                 }
 
-                anIntArray1428[0] = i;
-                anIntArray1429[0] = j;
-                aBooleanArray1430[0] = false;
+                for (int n = pathRemaining; n > 0; n--) {
+                    pathTileX[n] = pathTileX[n - 1];
+                    pathTileZ[n] = pathTileZ[n - 1];
+                    pathRunning[n] = pathRunning[n - 1];
+                }
+
+                pathTileX[0] = x;
+                pathTileZ[0] = z;
+                pathRunning[0] = false;
                 return;
             }
         }
-        anInt1427 = 0;
+
+        pathRemaining = 0;
         anInt1431 = 0;
-        anIntArray1428[0] = i;
-        if (flag) {
-            return;
-        } else {
-            anIntArray1429[0] = j;
-            anInt1380 = anIntArray1428[0] * 128 + anInt1384 * 64;
-            anInt1381 = anIntArray1429[0] * 128 + anInt1384 * 64;
-            return;
-        }
+        pathTileX[0] = x;
+        pathTileZ[0] = z;
+        this.x = pathTileX[0] * 128 + index * 64;
+        this.z = pathTileZ[0] * 128 + index * 64;
     }
 
-    public void method467(boolean flag, int i, byte byte0) {
-        int j = anIntArray1428[0];
-        int k = anIntArray1429[0];
-        if (byte0 == 6)
-            byte0 = 0;
-        else
-            anInt1378 = 243;
-        if (i == 0) {
-            j--;
-            k++;
-        }
-        if (i == 1)
-            k++;
-        if (i == 2) {
-            j++;
-            k++;
-        }
-        if (i == 3)
-            j--;
-        if (i == 4)
-            j++;
-        if (i == 5) {
-            j--;
-            k--;
-        }
-        if (i == 6)
-            k--;
-        if (i == 7) {
-            j++;
-            k--;
-        }
-        if (primarySeq != -1 && SeqType.seqTypes[primarySeq].anInt372 <= 1)
-            primarySeq = -1;
-        if (anInt1427 < 9)
-            anInt1427++;
-        for (int l = anInt1427; l > 0; l--) {
-            anIntArray1428[l] = anIntArray1428[l - 1];
-            anIntArray1429[l] = anIntArray1429[l - 1];
-            aBooleanArray1430[l] = aBooleanArray1430[l - 1];
+    public void walk(boolean run, int direction) {
+        int x = pathTileX[0];
+        int z = pathTileZ[0];
+
+        if (direction == 0) {
+            x--;
+            z++;
+        } else if (direction == 1) {
+            z++;
+        } else if (direction == 2) {
+            x++;
+            z++;
+        } else if (direction == 3) {
+            x--;
+        } else if (direction == 4) {
+            x++;
+        } else if (direction == 5) {
+            x--;
+            z--;
+        } else  if (direction == 6) {
+            z--;
+        } else if (direction == 7) {
+            x++;
+            z--;
         }
 
-        anIntArray1428[0] = j;
-        anIntArray1429[0] = k;
-        aBooleanArray1430[0] = flag;
+        if (primarySeq != -1 && SeqType.animations[primarySeq].priority <= 1) {
+            primarySeq = -1;
+        }
+        if (pathRemaining < 9) {
+            pathRemaining++;
+        }
+
+        for (int n = pathRemaining; n > 0; n--) {
+            pathTileX[n] = pathTileX[n - 1];
+            pathTileZ[n] = pathTileZ[n - 1];
+            pathRunning[n] = pathRunning[n - 1];
+        }
+
+        pathTileX[0] = x;
+        pathTileZ[0] = z;
+        pathRunning[0] = run;
     }
 
     public boolean isValid(boolean flag) {
-        if (flag)
-            throw new NullPointerException();
-        else
-            return false;
+        return false;
     }
 
     public PathingEntity() {
-        anInt1378 = 332;
-        aBoolean1379 = false;
-        aBoolean1383 = false;
-        anInt1384 = 1;
+        animationStretches = false;
+        index = 1;
         standSeq = -1;
-        anInt1386 = -1;
-        anInt1387 = -1;
+        turnSpeed = -1;
+        runSeq = -1;
         anInt1388 = -1;
         anInt1389 = -1;
         anInt1390 = -1;
         anInt1391 = -1;
-        anInt1393 = 100;
-        anInt1398 = -1000;
+        textCycle = 100;
+        cycleStatus = -1000;
         anInt1401 = -1;
         secondarySeq = -1;
         primarySeq = -1;
         spotAnimIndex = -1;
-        anIntArray1428 = new int[10];
-        anIntArray1429 = new int[10];
-        aBooleanArray1430 = new boolean[10];
+        pathTileX = new int[10];
+        pathTileZ = new int[10];
+        pathRunning = new boolean[10];
     }
 
-    public int anInt1378;
-    public boolean aBoolean1379;
-    public int anInt1380;
-    public int anInt1381;
-    public int anInt1382;
-    public boolean aBoolean1383;
-    public int anInt1384;
+    public int x;
+    public int z;
+    public int animationDelay;
+    public boolean animationStretches;
+    public int index;
     public int standSeq;
-    public int anInt1386;
-    public int anInt1387;
+    public int turnSpeed;
+    public int runSeq;
     public int anInt1388;
     public int anInt1389;
     public int anInt1390;
     public int anInt1391;
-    public String aString1392;
-    public int anInt1393;
+    public String spoken;
+    public int textCycle;
     public int anInt1394;
     public int anInt1395;
     public int anInt1396;
     public int anInt1397;
-    public int anInt1398;
+    public int cycleStatus;
     public int anInt1399;
     public int anInt1400;
     public int anInt1401;
@@ -163,9 +155,9 @@ public class PathingEntity extends Entity {
     public int anInt1424;
     public int height;
     public int anInt1426;
-    public int anInt1427;
-    public int[] anIntArray1428;
-    public int[] anIntArray1429;
-    public boolean[] aBooleanArray1430;
+    public int pathRemaining;
+    public int[] pathTileX;
+    public int[] pathTileZ;
+    public boolean[] pathRunning;
     public int anInt1431;
 }

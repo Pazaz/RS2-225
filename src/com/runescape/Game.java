@@ -67,19 +67,19 @@ public class Game extends GameShell {
                     if (anInt1019 > -1)
                         aClass38_Sub2_Sub2_Sub2Array956[2].method405(anInt1020 - 28, anInt1019 - 12, false);
                 }
-                if (((PathingEntity) (obj)).aString1392 != null && (j >= anInt823 || anInt976 == 0 || anInt976 == 3
+                if (((PathingEntity) (obj)).spoken != null && (j >= anInt823 || anInt976 == 0 || anInt976 == 3
                         || anInt976 == 1 && method138(-20, ((PlayerEntity) obj).aString1505))) {
                     method90(((PathingEntity) (obj)).height, aBoolean860, ((PathingEntity) (obj)));
                     if (anInt1019 > -1 && anInt1091 < anInt1092) {
                         anIntArray1096[anInt1091] = indexedFont3.method423(false,
-                                ((PathingEntity) (obj)).aString1392) / 2;
+                                ((PathingEntity) (obj)).spoken) / 2;
                         anIntArray1095[anInt1091] = indexedFont3.anInt1497;
                         anIntArray1093[anInt1091] = anInt1019;
                         anIntArray1094[anInt1091] = anInt1020;
                         anIntArray1097[anInt1091] = ((PathingEntity) (obj)).anInt1394;
                         anIntArray1098[anInt1091] = ((PathingEntity) (obj)).anInt1395;
-                        anIntArray1099[anInt1091] = ((PathingEntity) (obj)).anInt1393;
-                        aStringArray1100[anInt1091++] = ((PathingEntity) (obj)).aString1392;
+                        anIntArray1099[anInt1091] = ((PathingEntity) (obj)).textCycle;
+                        aStringArray1100[anInt1091++] = ((PathingEntity) (obj)).spoken;
                         if (anInt800 == 0 && ((PathingEntity) (obj)).anInt1395 == 1) {
                             anIntArray1095[anInt1091] += 10;
                             anIntArray1094[anInt1091] += 5;
@@ -88,7 +88,7 @@ public class Game extends GameShell {
                             anIntArray1096[anInt1091] = 60;
                     }
                 }
-                if (((PathingEntity) (obj)).anInt1398 > anInt955 + 100) {
+                if (((PathingEntity) (obj)).cycleStatus > anInt955 + 100) {
                     method90(((PathingEntity) (obj)).height + 15, aBoolean860, ((PathingEntity) (obj)));
                     if (anInt1019 > -1) {
                         int i1 = (((PathingEntity) (obj)).anInt1399 * 30) / ((PathingEntity) (obj)).anInt1400;
@@ -99,7 +99,7 @@ public class Game extends GameShell {
                                 5);
                     }
                 }
-                if (((PathingEntity) (obj)).anInt1398 > anInt955 + 330) {
+                if (((PathingEntity) (obj)).cycleStatus > anInt955 + 330) {
                     method90(((PathingEntity) (obj)).height / 2, aBoolean860, ((PathingEntity) (obj)));
                     if (anInt1019 > -1) {
                         aClass38_Sub2_Sub2_Sub2Array776[((PathingEntity) (obj)).anInt1397].method405(anInt1020 - 12,
@@ -221,8 +221,8 @@ public class Game extends GameShell {
     }
 
     public void method18(int i) {
-        int j = (localPlayerEntity.anInt1380 >> 7) + anInt761;
-        int k = (localPlayerEntity.anInt1381 >> 7) + anInt762;
+        int j = (localPlayerEntity.x >> 7) + anInt761;
+        int k = (localPlayerEntity.z >> 7) + anInt762;
         if (i != 39734)
             aBoolean912 = !aBoolean912;
         if (j >= 2944 && j < 3392 && k >= 3520 && k < 6400)
@@ -314,8 +314,8 @@ public class Game extends GameShell {
                     npcEntity.anInt1411 = 0;
                 int l1 = class38_sub2_sub3.readByte();
                 if (j1 == -1 || npcEntity.primarySeq == -1
-                        || SeqType.seqTypes[j1].anInt372 > SeqType.seqTypes[npcEntity.primarySeq].anInt372
-                        || SeqType.seqTypes[npcEntity.primarySeq].anInt372 == 0) {
+                        || SeqType.animations[j1].priority > SeqType.animations[npcEntity.primarySeq].priority
+                        || SeqType.animations[npcEntity.primarySeq].priority == 0) {
                     npcEntity.primarySeq = j1;
                     npcEntity.primarySeqFrame = 0;
                     npcEntity.anInt1409 = 0;
@@ -329,19 +329,19 @@ public class Game extends GameShell {
                     npcEntity.anInt1401 = -1;
             }
             if ((i1 & 8) == 8) {
-                npcEntity.aString1392 = class38_sub2_sub3.readString();
-                npcEntity.anInt1393 = 100;
+                npcEntity.spoken = class38_sub2_sub3.readString();
+                npcEntity.textCycle = 100;
             }
             if ((i1 & 0x10) == 16) {
                 npcEntity.anInt1396 = class38_sub2_sub3.readByte();
                 npcEntity.anInt1397 = class38_sub2_sub3.readByte();
-                npcEntity.anInt1398 = anInt955 + 400;
+                npcEntity.cycleStatus = anInt955 + 400;
                 npcEntity.anInt1399 = class38_sub2_sub3.readByte();
                 npcEntity.anInt1400 = class38_sub2_sub3.readByte();
             }
             if ((i1 & 0x20) == 32) {
                 npcEntity.info = NpcType.get(class38_sub2_sub3.readWord());
-                npcEntity.anInt1387 = npcEntity.info.walkSeq;
+                npcEntity.runSeq = npcEntity.info.walkSeq;
                 npcEntity.anInt1388 = npcEntity.info.turnAroundSeq;
                 npcEntity.anInt1389 = npcEntity.info.turnRightSeq;
                 npcEntity.anInt1390 = npcEntity.info.turnLeftSeq;
@@ -484,7 +484,7 @@ public class Game extends GameShell {
                     j14 = scene.method311(anInt880, l2, i5);
                 if (j14 != 0) {
                     LocEntity locEntity = new LocEntity(false, j14 >> 14 & 0x7fff, anInt880, k11,
-                            SeqType.seqTypes[j13], i5, l2);
+                            SeqType.animations[j13], i5, l2);
                     linkedList2.pushNext(locEntity);
                 }
             }
@@ -683,8 +683,8 @@ public class Game extends GameShell {
         if (anInt1114 < 310) {
             int j = anInt1111 >> 7;
             int k = anInt1113 >> 7;
-            int l = localPlayerEntity.anInt1380 >> 7;
-            int i1 = localPlayerEntity.anInt1381 >> 7;
+            int l = localPlayerEntity.x >> 7;
+            int i1 = localPlayerEntity.z >> 7;
             if ((aByteArrayArrayArray840[anInt880][j][k] & 4) != 0)
                 i = anInt880;
             int j1;
@@ -741,7 +741,7 @@ public class Game extends GameShell {
                 }
             }
         }
-        if ((aByteArrayArrayArray840[anInt880][localPlayerEntity.anInt1380 >> 7][localPlayerEntity.anInt1381 >> 7]
+        if ((aByteArrayArrayArray840[anInt880][localPlayerEntity.x >> 7][localPlayerEntity.z >> 7]
                 & 4) != 0)
             i = anInt880;
         return i;
@@ -772,8 +772,8 @@ public class Game extends GameShell {
                 j = anIntArray966[4] + 128;
             int l = anInt817 + anInt1134 & 0x7ff;
             method39(
-                    method33(anInt880, localPlayerEntity.anInt1380, (byte) 5,
-                            localPlayerEntity.anInt1381) - 50,
+                    method33(anInt880, localPlayerEntity.x, (byte) 5,
+                            localPlayerEntity.z) - 50,
                     anInt914, l, j, 16418, anInt915, 600 + j * 3);
             anInt804++;
             if (anInt804 > 1802) {
@@ -1319,8 +1319,8 @@ public class Game extends GameShell {
     }
 
     public void method32(int i) {
-        if (localPlayerEntity.anInt1380 >> 7 == anInt1051
-                && localPlayerEntity.anInt1381 >> 7 == anInt1052)
+        if (localPlayerEntity.x >> 7 == anInt1051
+                && localPlayerEntity.z >> 7 == anInt1052)
             anInt1051 = 0;
         for (int j = -1; j < anInt823; j++) {
             PlayerEntity playerEntity;
@@ -1336,36 +1336,36 @@ public class Game extends GameShell {
                 continue;
             playerEntity.aBoolean1524 = (aBoolean889 && anInt823 > 50 || anInt823 > 200) && j != -1
                     && playerEntity.secondarySeq == playerEntity.standSeq;
-            int l = playerEntity.anInt1380 >> 7;
-            int i1 = playerEntity.anInt1381 >> 7;
+            int l = playerEntity.x >> 7;
+            int i1 = playerEntity.z >> 7;
             if (l < 0 || l >= 104 || i1 < 0 || i1 >= 104)
                 continue;
             if (playerEntity.aClass38_Sub2_Sub1_1519 != null && anInt955 >= playerEntity.anInt1514
                     && anInt955 < playerEntity.anInt1515) {
                 playerEntity.aBoolean1524 = false;
                 playerEntity.anInt1513 = method33(anInt880,
-                        playerEntity.anInt1380, (byte) 5,
-                        playerEntity.anInt1381);
+                        playerEntity.x, (byte) 5,
+                        playerEntity.z);
                 scene.method293(playerEntity.anInt1522, 60, null,
-                        playerEntity.anInt1381, playerEntity.anInt1513, k,
-                        playerEntity.anInt1382, playerEntity.anInt1521,
+                        playerEntity.z, playerEntity.anInt1513, k,
+                        playerEntity.animationDelay, playerEntity.anInt1521,
                         playerEntity.anInt1520, playerEntity, false, anInt880,
-                        playerEntity.anInt1523, playerEntity.anInt1380);
+                        playerEntity.anInt1523, playerEntity.x);
                 continue;
             }
-            if ((playerEntity.anInt1380 & 0x7f) == 64
-                    && (playerEntity.anInt1381 & 0x7f) == 64) {
+            if ((playerEntity.x & 0x7f) == 64
+                    && (playerEntity.z & 0x7f) == 64) {
                 if (anIntArrayArray920[l][i1] == anInt837)
                     continue;
                 anIntArrayArray920[l][i1] = anInt837;
             }
             playerEntity.anInt1513 = method33(anInt880,
-                    playerEntity.anInt1380, (byte) 5,
-                    playerEntity.anInt1381);
-            scene.method292(-44713, playerEntity.anInt1381, 60,
-                    playerEntity.anInt1382,
-                    playerEntity.anInt1380, k,
-                    playerEntity.aBoolean1383, null, playerEntity,
+                    playerEntity.x, (byte) 5,
+                    playerEntity.z);
+            scene.method292(-44713, playerEntity.z, 60,
+                    playerEntity.animationDelay,
+                    playerEntity.x, k,
+                    playerEntity.animationStretches, null, playerEntity,
                     playerEntity.anInt1513, anInt880);
         }
 
@@ -1640,11 +1640,11 @@ public class Game extends GameShell {
                         aClass38_Sub2_Sub3_798.writeSize(aClass38_Sub2_Sub3_798.offset - i2);
                         aString1137 = StringUtils.toSentence(aString1137);
                         aString1137 = WordEncoding.getFiltered(aString1137);
-                        localPlayerEntity.aString1392 = aString1137;
+                        localPlayerEntity.spoken = aString1137;
                         localPlayerEntity.anInt1394 = j1;
                         localPlayerEntity.anInt1395 = k1;
-                        localPlayerEntity.anInt1393 = 150;
-                        method111(2, localPlayerEntity.aString1392, (byte) 4,
+                        localPlayerEntity.textCycle = 150;
+                        method111(2, localPlayerEntity.spoken, (byte) 4,
                                 localPlayerEntity.aString1505);
                         if (anInt976 == 2) {
                             anInt976 = 3;
@@ -2000,15 +2000,15 @@ public class Game extends GameShell {
         if (byte0 != -46)
             method6();
         int i = anInt817 + anInt1085 & 0x7ff;
-        int j = 48 + localPlayerEntity.anInt1380 / 32;
-        int l1 = 464 - localPlayerEntity.anInt1381 / 32;
+        int j = 48 + localPlayerEntity.x / 32;
+        int l1 = 464 - localPlayerEntity.z / 32;
         aClass38_Sub2_Sub2_Sub2_1053.method411(i, 146, anIntArray1133, 151, l1, 256 + anInt930, j, 21, 9, false,
                 anIntArray953);
         aClass38_Sub2_Sub2_Sub2_1145.method411(anInt817, 33, anIntArray856, 33, 25, 256, 25, 0, 0, false,
                 anIntArray1117);
         for (int j3 = 0; j3 < anInt917; j3++) {
-            int k = (anIntArray918[j3] * 4 + 2) - localPlayerEntity.anInt1380 / 32;
-            int i2 = (anIntArray919[j3] * 4 + 2) - localPlayerEntity.anInt1381 / 32;
+            int k = (anIntArray918[j3] * 4 + 2) - localPlayerEntity.x / 32;
+            int i2 = (anIntArray919[j3] * 4 + 2) - localPlayerEntity.z / 32;
             method87(i2, 4, aClass38_Sub2_Sub2_Sub2Array791[j3], k);
         }
 
@@ -2016,8 +2016,8 @@ public class Game extends GameShell {
             for (int l3 = 0; l3 < 104; l3++) {
                 LinkedList linkedList = linkedList3dArray[anInt880][k3][l3];
                 if (linkedList != null) {
-                    int l = (k3 * 4 + 2) - localPlayerEntity.anInt1380 / 32;
-                    int j2 = (l3 * 4 + 2) - localPlayerEntity.anInt1381 / 32;
+                    int l = (k3 * 4 + 2) - localPlayerEntity.x / 32;
+                    int j2 = (l3 * 4 + 2) - localPlayerEntity.z / 32;
                     method87(j2, 4, aClass38_Sub2_Sub2_Sub2_1057, l);
                 }
             }
@@ -2028,10 +2028,10 @@ public class Game extends GameShell {
             NpcEntity npcEntity = npcEntities[anIntArray929[i4]];
             if (npcEntity != null && npcEntity.isValid(false)
                     && npcEntity.info.showOnMinimap) {
-                int i1 = npcEntity.anInt1380 / 32
-                        - localPlayerEntity.anInt1380 / 32;
-                int k2 = npcEntity.anInt1381 / 32
-                        - localPlayerEntity.anInt1381 / 32;
+                int i1 = npcEntity.x / 32
+                        - localPlayerEntity.x / 32;
+                int k2 = npcEntity.z / 32
+                        - localPlayerEntity.z / 32;
                 method87(k2, 4, aClass38_Sub2_Sub2_Sub2_1058, i1);
             }
         }
@@ -2039,10 +2039,10 @@ public class Game extends GameShell {
         for (int j4 = 0; j4 < anInt823; j4++) {
             PlayerEntity playerEntity = playerEntities[anIntArray824[j4]];
             if (playerEntity != null && playerEntity.isValid(false)) {
-                int j1 = playerEntity.anInt1380 / 32
-                        - localPlayerEntity.anInt1380 / 32;
-                int l2 = playerEntity.anInt1381 / 32
-                        - localPlayerEntity.anInt1381 / 32;
+                int j1 = playerEntity.x / 32
+                        - localPlayerEntity.x / 32;
+                int l2 = playerEntity.z / 32
+                        - localPlayerEntity.z / 32;
                 boolean flag = false;
                 long l4 = StringUtils.toBase37(playerEntity.aString1505);
                 for (int k4 = 0; k4 < anInt1089; k4++) {
@@ -2060,8 +2060,8 @@ public class Game extends GameShell {
         }
 
         if (anInt1051 != 0) {
-            int k1 = (anInt1051 * 4 + 2) - localPlayerEntity.anInt1380 / 32;
-            int i3 = (anInt1052 * 4 + 2) - localPlayerEntity.anInt1381 / 32;
+            int k1 = (anInt1051 * 4 + 2) - localPlayerEntity.x / 32;
+            int i3 = (anInt1052 * 4 + 2) - localPlayerEntity.z / 32;
             method87(i3, 4, aClass38_Sub2_Sub2_Sub2_997, k1);
         }
         Draw2D.fillRect(82, 93, 0xffffff, (byte) 93, 3, 3);
@@ -2443,7 +2443,7 @@ public class Game extends GameShell {
                     anIntArray824[anInt823++] = k1;
                     playerEntity.anInt1424 = anInt955;
                     int j2 = class38_sub2_sub3.getBits(3);
-                    playerEntity.method467(false, j2, (byte) 6);
+                    playerEntity.walk(false, j2);
                     int l2 = class38_sub2_sub3.getBits(1);
                     if (l2 == 1)
                         anIntArray826[anInt825++] = k1;
@@ -2451,9 +2451,9 @@ public class Game extends GameShell {
                     anIntArray824[anInt823++] = k1;
                     playerEntity.anInt1424 = anInt955;
                     int k2 = class38_sub2_sub3.getBits(3);
-                    playerEntity.method467(true, k2, (byte) 6);
+                    playerEntity.walk(true, k2);
                     int i3 = class38_sub2_sub3.getBits(3);
-                    playerEntity.method467(true, i3, (byte) 6);
+                    playerEntity.walk(true, i3);
                     int j3 = class38_sub2_sub3.getBits(1);
                     if (j3 == 1)
                         anIntArray826[anInt825++] = k1;
@@ -2516,24 +2516,24 @@ public class Game extends GameShell {
             int j = 0x20000000 + (anIntArray929[i] << 14);
             if (npcEntity == null || !npcEntity.isValid(false))
                 continue;
-            int k = npcEntity.anInt1380 >> 7;
-            int l = npcEntity.anInt1381 >> 7;
+            int k = npcEntity.x >> 7;
+            int l = npcEntity.z >> 7;
             if (k < 0 || k >= 104 || l < 0 || l >= 104)
                 continue;
-            if (npcEntity.anInt1384 == 1
-                    && (npcEntity.anInt1380 & 0x7f) == 64
-                    && (npcEntity.anInt1381 & 0x7f) == 64) {
+            if (npcEntity.index == 1
+                    && (npcEntity.x & 0x7f) == 64
+                    && (npcEntity.z & 0x7f) == 64) {
                 if (anIntArrayArray920[k][l] == anInt837)
                     continue;
                 anIntArrayArray920[k][l] = anInt837;
             }
-            scene.method292(-44713, npcEntity.anInt1381,
-                    (npcEntity.anInt1384 - 1) * 64 + 60,
-                    npcEntity.anInt1382,
-                    npcEntity.anInt1380, j,
-                    npcEntity.aBoolean1383, null, npcEntity,
-                    method33(anInt880, npcEntity.anInt1380, (byte) 5,
-                            npcEntity.anInt1381),
+            scene.method292(-44713, npcEntity.z,
+                    (npcEntity.index - 1) * 64 + 60,
+                    npcEntity.animationDelay,
+                    npcEntity.x, j,
+                    npcEntity.animationStretches, null, npcEntity,
+                    method33(anInt880, npcEntity.x, (byte) 5,
+                            npcEntity.z),
                     anInt880);
         }
 
@@ -2679,9 +2679,9 @@ public class Game extends GameShell {
             if (j1 > 15)
                 j1 -= 32;
             int k1 = class38_sub2_sub3.getBits(1);
-            playerEntity.method466(false, k1 == 1,
-                    localPlayerEntity.anIntArray1428[0] + i1,
-                    localPlayerEntity.anIntArray1429[0] + j1);
+            playerEntity.move(k1 == 1,
+                    localPlayerEntity.pathTileX[0] + i1,
+                    localPlayerEntity.pathTileZ[0] + j1);
             int l1 = class38_sub2_sub3.getBits(1);
             if (l1 == 1)
                 anIntArray826[anInt825++] = l;
@@ -2901,7 +2901,7 @@ public class Game extends GameShell {
                     if (j8 == -1) {
                         class38_sub2_sub1 = interfaceComponent_1.method219(-1, -1, flag);
                     } else {
-                        SeqType seqType = SeqType.seqTypes[j8];
+                        SeqType seqType = SeqType.animations[j8];
                         class38_sub2_sub1 = interfaceComponent_1.method219(seqType.primaryFrames[interfaceComponent_1.anInt267],
                                 seqType.anIntArray367[interfaceComponent_1.anInt267], flag);
                     }
@@ -3040,26 +3040,26 @@ public class Game extends GameShell {
     }
 
     public void method63(PathingEntity pathingEntity, byte byte0, int i) {
-        if (pathingEntity.anInt1380 < 128 || pathingEntity.anInt1381 < 128
-                || pathingEntity.anInt1380 >= 13184 || pathingEntity.anInt1381 >= 13184) {
+        if (pathingEntity.x < 128 || pathingEntity.z < 128
+                || pathingEntity.x >= 13184 || pathingEntity.z >= 13184) {
             pathingEntity.primarySeq = -1;
             pathingEntity.spotAnimIndex = -1;
             pathingEntity.anInt1421 = 0;
             pathingEntity.anInt1422 = 0;
-            pathingEntity.anInt1380 = pathingEntity.anIntArray1428[0] * 128 + pathingEntity.anInt1384 * 64;
-            pathingEntity.anInt1381 = pathingEntity.anIntArray1429[0] * 128 + pathingEntity.anInt1384 * 64;
-            pathingEntity.anInt1427 = 0;
+            pathingEntity.x = pathingEntity.pathTileX[0] * 128 + pathingEntity.index * 64;
+            pathingEntity.z = pathingEntity.pathTileZ[0] * 128 + pathingEntity.index * 64;
+            pathingEntity.pathRemaining = 0;
         }
         if (pathingEntity == localPlayerEntity
-                && (pathingEntity.anInt1380 < 1536 || pathingEntity.anInt1381 < 1536
-                || pathingEntity.anInt1380 >= 11776 || pathingEntity.anInt1381 >= 11776)) {
+                && (pathingEntity.x < 1536 || pathingEntity.z < 1536
+                || pathingEntity.x >= 11776 || pathingEntity.z >= 11776)) {
             pathingEntity.primarySeq = -1;
             pathingEntity.spotAnimIndex = -1;
             pathingEntity.anInt1421 = 0;
             pathingEntity.anInt1422 = 0;
-            pathingEntity.anInt1380 = pathingEntity.anIntArray1428[0] * 128 + pathingEntity.anInt1384 * 64;
-            pathingEntity.anInt1381 = pathingEntity.anIntArray1429[0] * 128 + pathingEntity.anInt1384 * 64;
-            pathingEntity.anInt1427 = 0;
+            pathingEntity.x = pathingEntity.pathTileX[0] * 128 + pathingEntity.index * 64;
+            pathingEntity.z = pathingEntity.pathTileZ[0] * 128 + pathingEntity.index * 64;
+            pathingEntity.pathRemaining = 0;
         }
         if (pathingEntity.anInt1421 > anInt955)
             method64(pathingEntity, -25115);
@@ -3075,12 +3075,12 @@ public class Game extends GameShell {
 
     public void method64(PathingEntity pathingEntity, int i) {
         int j = pathingEntity.anInt1421 - anInt955;
-        int k = pathingEntity.anInt1417 * 128 + pathingEntity.anInt1384 * 64;
-        int l = pathingEntity.anInt1419 * 128 + pathingEntity.anInt1384 * 64;
-        pathingEntity.anInt1380 += (k - pathingEntity.anInt1380) / j;
+        int k = pathingEntity.anInt1417 * 128 + pathingEntity.index * 64;
+        int l = pathingEntity.anInt1419 * 128 + pathingEntity.index * 64;
+        pathingEntity.x += (k - pathingEntity.x) / j;
         if (i != -25115)
             anInt733 = isaacState.nextInt();
-        pathingEntity.anInt1381 += (l - pathingEntity.anInt1381) / j;
+        pathingEntity.z += (l - pathingEntity.z) / j;
         pathingEntity.anInt1431 = 0;
         if (pathingEntity.anInt1423 == 0)
             pathingEntity.anInt1426 = 1024;
@@ -3096,15 +3096,15 @@ public class Game extends GameShell {
         anInt779 += i;
         if (pathingEntity.anInt1422 == anInt955 || pathingEntity.primarySeq == -1
                 || pathingEntity.primarySeqDelay != 0 || pathingEntity.anInt1409
-                + 1 > SeqType.seqTypes[pathingEntity.primarySeq].instances[pathingEntity.primarySeqFrame]) {
+                + 1 > SeqType.animations[pathingEntity.primarySeq].instances[pathingEntity.primarySeqFrame]) {
             int j = pathingEntity.anInt1422 - pathingEntity.anInt1421;
             int k = anInt955 - pathingEntity.anInt1421;
-            int l = pathingEntity.anInt1417 * 128 + pathingEntity.anInt1384 * 64;
-            int i1 = pathingEntity.anInt1419 * 128 + pathingEntity.anInt1384 * 64;
-            int j1 = pathingEntity.anInt1418 * 128 + pathingEntity.anInt1384 * 64;
-            int k1 = pathingEntity.anInt1420 * 128 + pathingEntity.anInt1384 * 64;
-            pathingEntity.anInt1380 = (l * (j - k) + j1 * k) / j;
-            pathingEntity.anInt1381 = (i1 * (j - k) + k1 * k) / j;
+            int l = pathingEntity.anInt1417 * 128 + pathingEntity.index * 64;
+            int i1 = pathingEntity.anInt1419 * 128 + pathingEntity.index * 64;
+            int j1 = pathingEntity.anInt1418 * 128 + pathingEntity.index * 64;
+            int k1 = pathingEntity.anInt1420 * 128 + pathingEntity.index * 64;
+            pathingEntity.x = (l * (j - k) + j1 * k) / j;
+            pathingEntity.z = (i1 * (j - k) + k1 * k) / j;
         }
         pathingEntity.anInt1431 = 0;
         if (pathingEntity.anInt1423 == 0)
@@ -3115,32 +3115,32 @@ public class Game extends GameShell {
             pathingEntity.anInt1426 = 0;
         if (pathingEntity.anInt1423 == 3)
             pathingEntity.anInt1426 = 512;
-        pathingEntity.anInt1382 = pathingEntity.anInt1426;
+        pathingEntity.animationDelay = pathingEntity.anInt1426;
     }
 
     public void method66(int i, PathingEntity pathingEntity) {
         pathingEntity.secondarySeq = pathingEntity.standSeq;
         i = 56 / i;
-        if (pathingEntity.anInt1427 == 0) {
+        if (pathingEntity.pathRemaining == 0) {
             pathingEntity.anInt1431 = 0;
             return;
         }
         if (pathingEntity.primarySeq != -1 && pathingEntity.primarySeqDelay == 0) {
-            SeqType seqType = SeqType.seqTypes[pathingEntity.primarySeq];
+            SeqType seqType = SeqType.animations[pathingEntity.primarySeq];
             if (seqType.labelGroups == null) {
                 pathingEntity.anInt1431++;
                 return;
             }
         }
-        int j = pathingEntity.anInt1380;
-        int k = pathingEntity.anInt1381;
-        int l = pathingEntity.anIntArray1428[pathingEntity.anInt1427 - 1] * 128
-                + pathingEntity.anInt1384 * 64;
-        int i1 = pathingEntity.anIntArray1429[pathingEntity.anInt1427 - 1] * 128
-                + pathingEntity.anInt1384 * 64;
+        int j = pathingEntity.x;
+        int k = pathingEntity.z;
+        int l = pathingEntity.pathTileX[pathingEntity.pathRemaining - 1] * 128
+                + pathingEntity.index * 64;
+        int i1 = pathingEntity.pathTileZ[pathingEntity.pathRemaining - 1] * 128
+                + pathingEntity.index * 64;
         if (l - j > 256 || l - j < -256 || i1 - k > 256 || i1 - k < -256) {
-            pathingEntity.anInt1380 = l;
-            pathingEntity.anInt1381 = i1;
+            pathingEntity.x = l;
+            pathingEntity.z = i1;
             return;
         }
         if (j < l) {
@@ -3161,54 +3161,54 @@ public class Game extends GameShell {
             pathingEntity.anInt1426 = 1024;
         else
             pathingEntity.anInt1426 = 0;
-        int j1 = pathingEntity.anInt1426 - pathingEntity.anInt1382 & 0x7ff;
+        int j1 = pathingEntity.anInt1426 - pathingEntity.animationDelay & 0x7ff;
         if (j1 > 1024)
             j1 -= 2048;
         int k1 = pathingEntity.anInt1388;
         if (j1 >= -256 && j1 <= 256)
-            k1 = pathingEntity.anInt1387;
+            k1 = pathingEntity.runSeq;
         else if (j1 >= 256 && j1 < 768)
             k1 = pathingEntity.anInt1390;
         else if (j1 >= -768 && j1 <= -256)
             k1 = pathingEntity.anInt1389;
         if (k1 == -1)
-            k1 = pathingEntity.anInt1387;
+            k1 = pathingEntity.runSeq;
         pathingEntity.secondarySeq = k1;
         int l1 = 4;
-        if (pathingEntity.anInt1382 != pathingEntity.anInt1426 && pathingEntity.anInt1401 == -1)
+        if (pathingEntity.animationDelay != pathingEntity.anInt1426 && pathingEntity.anInt1401 == -1)
             l1 = 2;
-        if (pathingEntity.anInt1427 > 2)
+        if (pathingEntity.pathRemaining > 2)
             l1 = 6;
-        if (pathingEntity.anInt1427 > 3)
+        if (pathingEntity.pathRemaining > 3)
             l1 = 8;
-        if (pathingEntity.anInt1431 > 0 && pathingEntity.anInt1427 > 1) {
+        if (pathingEntity.anInt1431 > 0 && pathingEntity.pathRemaining > 1) {
             l1 = 8;
             pathingEntity.anInt1431--;
         }
-        if (pathingEntity.aBooleanArray1430[pathingEntity.anInt1427 - 1])
+        if (pathingEntity.pathRunning[pathingEntity.pathRemaining - 1])
             l1 <<= 1;
-        if (l1 >= 8 && pathingEntity.secondarySeq == pathingEntity.anInt1387 && pathingEntity.anInt1391 != -1)
+        if (l1 >= 8 && pathingEntity.secondarySeq == pathingEntity.runSeq && pathingEntity.anInt1391 != -1)
             pathingEntity.secondarySeq = pathingEntity.anInt1391;
         if (j < l) {
-            pathingEntity.anInt1380 += l1;
-            if (pathingEntity.anInt1380 > l)
-                pathingEntity.anInt1380 = l;
+            pathingEntity.x += l1;
+            if (pathingEntity.x > l)
+                pathingEntity.x = l;
         } else if (j > l) {
-            pathingEntity.anInt1380 -= l1;
-            if (pathingEntity.anInt1380 < l)
-                pathingEntity.anInt1380 = l;
+            pathingEntity.x -= l1;
+            if (pathingEntity.x < l)
+                pathingEntity.x = l;
         }
         if (k < i1) {
-            pathingEntity.anInt1381 += l1;
-            if (pathingEntity.anInt1381 > i1)
-                pathingEntity.anInt1381 = i1;
+            pathingEntity.z += l1;
+            if (pathingEntity.z > i1)
+                pathingEntity.z = i1;
         } else if (k > i1) {
-            pathingEntity.anInt1381 -= l1;
-            if (pathingEntity.anInt1381 < i1)
-                pathingEntity.anInt1381 = i1;
+            pathingEntity.z -= l1;
+            if (pathingEntity.z < i1)
+                pathingEntity.z = i1;
         }
-        if (pathingEntity.anInt1380 == l && pathingEntity.anInt1381 == i1)
-            pathingEntity.anInt1427--;
+        if (pathingEntity.x == l && pathingEntity.z == i1)
+            pathingEntity.pathRemaining--;
     }
 
     public void method67(PathingEntity pathingEntity, byte byte0) {
@@ -3217,8 +3217,8 @@ public class Game extends GameShell {
         if (pathingEntity.anInt1401 != -1 && pathingEntity.anInt1401 < 32768) {
             NpcEntity npcEntity = npcEntities[pathingEntity.anInt1401];
             if (npcEntity != null) {
-                int l = pathingEntity.anInt1380 - npcEntity.anInt1380;
-                int j1 = pathingEntity.anInt1381 - npcEntity.anInt1381;
+                int l = pathingEntity.x - npcEntity.x;
+                int j1 = pathingEntity.z - npcEntity.z;
                 if (l != 0 || j1 != 0)
                     pathingEntity.anInt1426 = (int) (Math.atan2(l, j1) * 325.94900000000001D) & 0x7ff;
             }
@@ -3229,37 +3229,37 @@ public class Game extends GameShell {
                 i = anInt821;
             PlayerEntity playerEntity = playerEntities[i];
             if (playerEntity != null) {
-                int k1 = pathingEntity.anInt1380 - playerEntity.anInt1380;
-                int l1 = pathingEntity.anInt1381 - playerEntity.anInt1381;
+                int k1 = pathingEntity.x - playerEntity.x;
+                int l1 = pathingEntity.z - playerEntity.z;
                 if (k1 != 0 || l1 != 0)
                     pathingEntity.anInt1426 = (int) (Math.atan2(k1, l1) * 325.94900000000001D) & 0x7ff;
             }
         }
         if ((pathingEntity.anInt1402 != 0 || pathingEntity.anInt1403 != 0)
-                && (pathingEntity.anInt1427 == 0 || pathingEntity.anInt1431 > 0)) {
-            int j = pathingEntity.anInt1380 - (pathingEntity.anInt1402 - anInt761 - anInt761) * 64;
-            int i1 = pathingEntity.anInt1381 - (pathingEntity.anInt1403 - anInt762 - anInt762) * 64;
+                && (pathingEntity.pathRemaining == 0 || pathingEntity.anInt1431 > 0)) {
+            int j = pathingEntity.x - (pathingEntity.anInt1402 - anInt761 - anInt761) * 64;
+            int i1 = pathingEntity.z - (pathingEntity.anInt1403 - anInt762 - anInt762) * 64;
             if (j != 0 || i1 != 0)
                 pathingEntity.anInt1426 = (int) (Math.atan2(j, i1) * 325.94900000000001D) & 0x7ff;
             pathingEntity.anInt1402 = 0;
             pathingEntity.anInt1403 = 0;
         }
-        int k = pathingEntity.anInt1426 - pathingEntity.anInt1382 & 0x7ff;
+        int k = pathingEntity.anInt1426 - pathingEntity.animationDelay & 0x7ff;
         if (k != 0) {
             if (k < 32 || k > 2016)
-                pathingEntity.anInt1382 = pathingEntity.anInt1426;
+                pathingEntity.animationDelay = pathingEntity.anInt1426;
             else if (k > 1024)
-                pathingEntity.anInt1382 -= 32;
+                pathingEntity.animationDelay -= 32;
             else
-                pathingEntity.anInt1382 += 32;
-            pathingEntity.anInt1382 &= 0x7ff;
+                pathingEntity.animationDelay += 32;
+            pathingEntity.animationDelay &= 0x7ff;
             if (pathingEntity.secondarySeq == pathingEntity.standSeq
-                    && pathingEntity.anInt1382 != pathingEntity.anInt1426) {
-                if (pathingEntity.anInt1386 != -1) {
-                    pathingEntity.secondarySeq = pathingEntity.anInt1386;
+                    && pathingEntity.animationDelay != pathingEntity.anInt1426) {
+                if (pathingEntity.turnSpeed != -1) {
+                    pathingEntity.secondarySeq = pathingEntity.turnSpeed;
                     return;
                 }
-                pathingEntity.secondarySeq = pathingEntity.anInt1387;
+                pathingEntity.secondarySeq = pathingEntity.runSeq;
             }
         }
     }
@@ -3267,9 +3267,9 @@ public class Game extends GameShell {
     public void method68(boolean flag, PathingEntity pathingEntity) {
         if (!flag)
             return;
-        pathingEntity.aBoolean1383 = false;
+        pathingEntity.animationStretches = false;
         if (pathingEntity.secondarySeq != -1) {
-            SeqType seqType = SeqType.seqTypes[pathingEntity.secondarySeq];
+            SeqType seqType = SeqType.animations[pathingEntity.secondarySeq];
             pathingEntity.anInt1406++;
             if (pathingEntity.secondarySeqFrame < seqType.frameCount
                     && pathingEntity.anInt1406 > seqType.instances[pathingEntity.secondarySeqFrame]) {
@@ -3282,7 +3282,7 @@ public class Game extends GameShell {
             }
         }
         if (pathingEntity.primarySeq != -1 && pathingEntity.primarySeqDelay == 0) {
-            SeqType seqType_1 = SeqType.seqTypes[pathingEntity.primarySeq];
+            SeqType seqType_1 = SeqType.animations[pathingEntity.primarySeq];
             for (pathingEntity.anInt1409++; pathingEntity.primarySeqFrame < seqType_1.frameCount
                     && pathingEntity.anInt1409 > seqType_1.instances[pathingEntity.primarySeqFrame]; pathingEntity.primarySeqFrame++)
                 pathingEntity.anInt1409 -= seqType_1.instances[pathingEntity.primarySeqFrame];
@@ -3295,7 +3295,7 @@ public class Game extends GameShell {
                 if (pathingEntity.primarySeqFrame < 0 || pathingEntity.primarySeqFrame >= seqType_1.frameCount)
                     pathingEntity.primarySeq = -1;
             }
-            pathingEntity.aBoolean1383 = seqType_1.aBoolean371;
+            pathingEntity.animationStretches = seqType_1.aBoolean371;
         }
         if (pathingEntity.primarySeqDelay > 0)
             pathingEntity.primarySeqDelay--;
@@ -3538,10 +3538,10 @@ public class Game extends GameShell {
                     if (class38_sub7_sub3_sub2_3 == null || class38_sub7_sub3_sub2_3.aString1505 == null
                             || !class38_sub7_sub3_sub2_3.aString1505.equalsIgnoreCase(s8))
                         continue;
-                    method107(localPlayerEntity.anIntArray1428[0], 1, false,
-                            class38_sub7_sub3_sub2_3.anIntArray1428[0],
-                            localPlayerEntity.anIntArray1429[0], 0, 2, 1,
-                            class38_sub7_sub3_sub2_3.anIntArray1429[0], 0, 0, 0);
+                    method107(localPlayerEntity.pathTileX[0], 1, false,
+                            class38_sub7_sub3_sub2_3.pathTileX[0],
+                            localPlayerEntity.pathTileZ[0], 0, 2, 1,
+                            class38_sub7_sub3_sub2_3.pathTileZ[0], 0, 0, 0);
                     if (i1 == 903)
                         aClass38_Sub2_Sub3_798.writeOpcode(206);
                     if (i1 == 363)
@@ -3597,10 +3597,10 @@ public class Game extends GameShell {
         if (i1 == 728 || i1 == 542 || i1 == 6 || i1 == 963 || i1 == 245) {
             NpcEntity npcEntity = npcEntities[j1];
             if (npcEntity != null) {
-                method107(localPlayerEntity.anIntArray1428[0], 1, false,
-                        npcEntity.anIntArray1428[0],
-                        localPlayerEntity.anIntArray1429[0], 0, 2, 1,
-                        npcEntity.anIntArray1429[0], 0, 0, 0);
+                method107(localPlayerEntity.pathTileX[0], 1, false,
+                        npcEntity.pathTileX[0],
+                        localPlayerEntity.pathTileZ[0], 0, 2, 1,
+                        npcEntity.pathTileZ[0], 0, 0, 0);
                 anInt738 = super.anInt24;
                 anInt739 = super.anInt25;
                 anInt741 = 2;
@@ -3633,11 +3633,11 @@ public class Game extends GameShell {
             }
         }
         if (i1 == 217) {
-            boolean flag = method107(localPlayerEntity.anIntArray1428[0], 0, false, k,
-                    localPlayerEntity.anIntArray1429[0], 0, 2, 0, l, 0, 0, 0);
+            boolean flag = method107(localPlayerEntity.pathTileX[0], 0, false, k,
+                    localPlayerEntity.pathTileZ[0], 0, 2, 0, l, 0, 0, 0);
             if (!flag)
-                flag = method107(localPlayerEntity.anIntArray1428[0], 1, false, k,
-                        localPlayerEntity.anIntArray1429[0], 0, 2, 1, l, 0, 0, 0);
+                flag = method107(localPlayerEntity.pathTileX[0], 1, false, k,
+                        localPlayerEntity.pathTileZ[0], 0, 2, 1, l, 0, 0, 0);
             anInt738 = super.anInt24;
             anInt739 = super.anInt25;
             anInt741 = 2;
@@ -3727,10 +3727,10 @@ public class Game extends GameShell {
         if (i1 == 900) {
             NpcEntity npcEntity_1 = npcEntities[j1];
             if (npcEntity_1 != null) {
-                method107(localPlayerEntity.anIntArray1428[0], 1, false,
-                        npcEntity_1.anIntArray1428[0],
-                        localPlayerEntity.anIntArray1429[0], 0, 2, 1,
-                        npcEntity_1.anIntArray1429[0], 0, 0, 0);
+                method107(localPlayerEntity.pathTileX[0], 1, false,
+                        npcEntity_1.pathTileX[0],
+                        localPlayerEntity.pathTileZ[0], 0, 2, 1,
+                        npcEntity_1.pathTileZ[0], 0, 0, 0);
                 anInt738 = super.anInt24;
                 anInt739 = super.anInt25;
                 anInt741 = 2;
@@ -3745,10 +3745,10 @@ public class Game extends GameShell {
         if (i1 == 1373 || i1 == 1544 || i1 == 151 || i1 == 1101) {
             PlayerEntity playerEntity = playerEntities[j1];
             if (playerEntity != null) {
-                method107(localPlayerEntity.anIntArray1428[0], 1, false,
-                        playerEntity.anIntArray1428[0],
-                        localPlayerEntity.anIntArray1429[0], 0, 2, 1,
-                        playerEntity.anIntArray1429[0], 0, 0, 0);
+                method107(localPlayerEntity.pathTileX[0], 1, false,
+                        playerEntity.pathTileX[0],
+                        localPlayerEntity.pathTileZ[0], 0, 2, 1,
+                        playerEntity.pathTileZ[0], 0, 0, 0);
                 anInt738 = super.anInt24;
                 anInt739 = super.anInt25;
                 anInt741 = 2;
@@ -3773,10 +3773,10 @@ public class Game extends GameShell {
         if (i1 == 265) {
             NpcEntity npcEntity_2 = npcEntities[j1];
             if (npcEntity_2 != null) {
-                method107(localPlayerEntity.anIntArray1428[0], 1, false,
-                        npcEntity_2.anIntArray1428[0],
-                        localPlayerEntity.anIntArray1429[0], 0, 2, 1,
-                        npcEntity_2.anIntArray1429[0], 0, 0, 0);
+                method107(localPlayerEntity.pathTileX[0], 1, false,
+                        npcEntity_2.pathTileX[0],
+                        localPlayerEntity.pathTileZ[0], 0, 2, 1,
+                        npcEntity_2.pathTileZ[0], 0, 0, 0);
                 anInt738 = super.anInt24;
                 anInt739 = super.anInt25;
                 anInt741 = 2;
@@ -3813,11 +3813,11 @@ public class Game extends GameShell {
         if (i1 == 55 && method92(9, k, l, j1, true))
             aClass38_Sub2_Sub3_798.writeWord(anInt1026);
         if (i1 == 224 || i1 == 993 || i1 == 99 || i1 == 746 || i1 == 877) {
-            boolean flag1 = method107(localPlayerEntity.anIntArray1428[0], 0, false,
-                    k, localPlayerEntity.anIntArray1429[0], 0, 2, 0, l, 0, 0, 0);
+            boolean flag1 = method107(localPlayerEntity.pathTileX[0], 0, false,
+                    k, localPlayerEntity.pathTileZ[0], 0, 2, 0, l, 0, 0, 0);
             if (!flag1)
-                flag1 = method107(localPlayerEntity.anIntArray1428[0], 1, false, k,
-                        localPlayerEntity.anIntArray1429[0], 0, 2, 1, l, 0, 0, 0);
+                flag1 = method107(localPlayerEntity.pathTileX[0], 1, false, k,
+                        localPlayerEntity.pathTileZ[0], 0, 2, 1, l, 0, 0, 0);
             anInt738 = super.anInt24;
             anInt739 = super.anInt25;
             anInt741 = 2;
@@ -3926,11 +3926,11 @@ public class Game extends GameShell {
             method92(97, k, l, j1, true);
         }
         if (i1 == 965) {
-            boolean flag2 = method107(localPlayerEntity.anIntArray1428[0], 0, false,
-                    k, localPlayerEntity.anIntArray1429[0], 0, 2, 0, l, 0, 0, 0);
+            boolean flag2 = method107(localPlayerEntity.pathTileX[0], 0, false,
+                    k, localPlayerEntity.pathTileZ[0], 0, 2, 0, l, 0, 0, 0);
             if (!flag2)
-                flag2 = method107(localPlayerEntity.anIntArray1428[0], 1, false, k,
-                        localPlayerEntity.anIntArray1429[0], 0, 2, 1, l, 0, 0, 0);
+                flag2 = method107(localPlayerEntity.pathTileX[0], 1, false, k,
+                        localPlayerEntity.pathTileZ[0], 0, 2, 1, l, 0, 0, 0);
             anInt738 = super.anInt24;
             anInt739 = super.anInt25;
             anInt741 = 2;
@@ -3994,10 +3994,10 @@ public class Game extends GameShell {
         if (i1 == 367) {
             PlayerEntity playerEntity_1 = playerEntities[j1];
             if (playerEntity_1 != null) {
-                method107(localPlayerEntity.anIntArray1428[0], 1, false,
-                        playerEntity_1.anIntArray1428[0],
-                        localPlayerEntity.anIntArray1429[0], 0, 2, 1,
-                        playerEntity_1.anIntArray1429[0], 0, 0, 0);
+                method107(localPlayerEntity.pathTileX[0], 1, false,
+                        playerEntity_1.pathTileX[0],
+                        localPlayerEntity.pathTileZ[0], 0, 2, 1,
+                        playerEntity_1.pathTileZ[0], 0, 0, 0);
                 anInt738 = super.anInt24;
                 anInt739 = super.anInt25;
                 anInt741 = 2;
@@ -4038,10 +4038,10 @@ public class Game extends GameShell {
         if (i1 == 651) {
             PlayerEntity playerEntity = playerEntities[j1];
             if (playerEntity != null) {
-                method107(localPlayerEntity.anIntArray1428[0], 1, false,
-                        playerEntity.anIntArray1428[0],
-                        localPlayerEntity.anIntArray1429[0], 0, 2, 1,
-                        playerEntity.anIntArray1429[0], 0, 0, 0);
+                method107(localPlayerEntity.pathTileX[0], 1, false,
+                        playerEntity.pathTileX[0],
+                        localPlayerEntity.pathTileZ[0], 0, 2, 1,
+                        playerEntity.pathTileZ[0], 0, 0, 0);
                 anInt738 = super.anInt24;
                 anInt739 = super.anInt25;
                 anInt741 = 2;
@@ -4239,7 +4239,7 @@ public class Game extends GameShell {
 
                 class38_sub2_sub1.applyGroups(4);
                 class38_sub2_sub1.applyFrame(-16599,
-                        SeqType.seqTypes[localPlayerEntity.standSeq].primaryFrames[0]);
+                        SeqType.animations[localPlayerEntity.standSeq].primaryFrames[0]);
                 class38_sub2_sub1.applyLighting(64, 850, -30, -50, -30, true);
                 interfaceComponent.aClass38_Sub2_Sub1_310 = class38_sub2_sub1;
             }
@@ -4391,8 +4391,8 @@ public class Game extends GameShell {
             anIntArray929[anInt928++] = j;
             npcEntity.anInt1424 = anInt955;
             npcEntity.info = NpcType.get(class38_sub2_sub3.getBits(11));
-            npcEntity.anInt1384 = npcEntity.info.size;
-            npcEntity.anInt1387 = npcEntity.info.walkSeq;
+            npcEntity.index = npcEntity.info.size;
+            npcEntity.runSeq = npcEntity.info.walkSeq;
             npcEntity.anInt1388 = npcEntity.info.turnAroundSeq;
             npcEntity.anInt1389 = npcEntity.info.turnRightSeq;
             npcEntity.anInt1390 = npcEntity.info.turnLeftSeq;
@@ -4403,9 +4403,9 @@ public class Game extends GameShell {
             int l = class38_sub2_sub3.getBits(5);
             if (l > 15)
                 l -= 32;
-            npcEntity.method466(false, false,
-                    localPlayerEntity.anIntArray1428[0] + k,
-                    localPlayerEntity.anIntArray1429[0] + l);
+            npcEntity.move(false,
+                    localPlayerEntity.pathTileX[0] + k,
+                    localPlayerEntity.pathTileZ[0] + l);
             int i1 = class38_sub2_sub3.getBits(1);
             if (i1 == 1)
                 anIntArray826[anInt825++] = j;
@@ -4931,8 +4931,8 @@ public class Game extends GameShell {
     }
 
     public void method85(int i) {
-        int j = localPlayerEntity.anInt1380 + anInt1125;
-        int k = localPlayerEntity.anInt1381 + anInt1130;
+        int j = localPlayerEntity.x + anInt1125;
+        int k = localPlayerEntity.z + anInt1130;
         if (anInt914 - j < -500 || anInt914 - j > 500 || anInt915 - k < -500 || anInt915 - k > 500) {
             anInt914 = j;
             anInt915 = k;
@@ -5006,11 +5006,11 @@ public class Game extends GameShell {
                     if (npcEntity != null)
                         projectileEntity.setTarget(
                                 method33(projectileEntity.level,
-                                        npcEntity.anInt1380, (byte) 5,
-                                        npcEntity.anInt1381)
+                                        npcEntity.x, (byte) 5,
+                                        npcEntity.z)
                                         - projectileEntity.baseZ,
-                                npcEntity.anInt1381,
-                                npcEntity.anInt1380, anInt955);
+                                npcEntity.z,
+                                npcEntity.x, anInt955);
                 }
                 if (projectileEntity.targetIndex < 0) {
                     int i = -projectileEntity.targetIndex - 1;
@@ -5022,11 +5022,11 @@ public class Game extends GameShell {
                     if (playerEntity != null)
                         projectileEntity.setTarget(
                                 method33(projectileEntity.level,
-                                        playerEntity.anInt1380, (byte) 5,
-                                        playerEntity.anInt1381)
+                                        playerEntity.x, (byte) 5,
+                                        playerEntity.z)
                                         - projectileEntity.baseZ,
-                                playerEntity.anInt1381,
-                                playerEntity.anInt1380, anInt955);
+                                playerEntity.z,
+                                playerEntity.x, anInt955);
                 }
                 projectileEntity.update(anInt969);
                 scene.method292(-44713, (int) projectileEntity.y, 60, projectileEntity.yaw,
@@ -5085,7 +5085,7 @@ public class Game extends GameShell {
     }
 
     public void method90(int i, boolean flag, PathingEntity pathingEntity) {
-        method91(pathingEntity.anInt1381, pathingEntity.anInt1380, anInt1105, i);
+        method91(pathingEntity.z, pathingEntity.x, anInt1105, i);
         if (flag)
             anInt780 = -1;
     }
@@ -5144,11 +5144,11 @@ public class Game extends GameShell {
             int k2 = locType.interactionSideFlags;
             if (l1 != 0)
                 k2 = (k2 << l1 & 0xf) + (k2 >> 4 - l1);
-            method107(localPlayerEntity.anIntArray1428[0], i2, false, j,
-                    localPlayerEntity.anIntArray1429[0], 0, 2, j2, k, 0, 0, k2);
+            method107(localPlayerEntity.pathTileX[0], i2, false, j,
+                    localPlayerEntity.pathTileZ[0], 0, 2, j2, k, 0, 0, k2);
         } else {
-            method107(localPlayerEntity.anIntArray1428[0], 0, false, j,
-                    localPlayerEntity.anIntArray1429[0], 0, 2, 0, k, l1, k1 + 1, 0);
+            method107(localPlayerEntity.pathTileX[0], 0, false, j,
+                    localPlayerEntity.pathTileZ[0], 0, 2, 0, k, l1, k1 + 1, 0);
         }
         anInt738 = super.anInt24;
         anInt739 = super.anInt25;
@@ -5798,7 +5798,7 @@ public class Game extends GameShell {
         FloType.instances = null;
         IdkType.instances = null;
         InterfaceComponent.interfaceComponentArray = null;
-        SeqType.seqTypes = null;
+        SeqType.animations = null;
         SpotAnimType.instances = null;
         SpotAnimType.models = null;
         VarpType.instances = null;
@@ -6041,8 +6041,8 @@ public class Game extends GameShell {
         if (Scene.anInt560 != -1) {
             int l = Scene.anInt560;
             int k1 = Scene.anInt561;
-            boolean flag2 = method107(localPlayerEntity.anIntArray1428[0], 0, true, l,
-                    localPlayerEntity.anIntArray1429[0], 0, 0, 0, k1, 0, 0, 0);
+            boolean flag2 = method107(localPlayerEntity.pathTileX[0], 0, true, l,
+                    localPlayerEntity.pathTileZ[0], 0, 0, 0, k1, 0, 0, 0);
             Scene.anInt560 = -1;
             if (flag2) {
                 anInt738 = super.anInt24;
@@ -6450,7 +6450,7 @@ public class Game extends GameShell {
                 else
                     i1 = interfaceComponent_1.anInt312;
                 if (i1 != -1) {
-                    SeqType seqType = SeqType.seqTypes[i1];
+                    SeqType seqType = SeqType.animations[i1];
                     for (interfaceComponent_1.anInt268 += j; interfaceComponent_1.anInt268 > seqType.instances[interfaceComponent_1.anInt267]; ) {
                         interfaceComponent_1.anInt268 -= seqType.instances[interfaceComponent_1.anInt267] + 1;
                         interfaceComponent_1.anInt267++;
@@ -6572,10 +6572,10 @@ public class Game extends GameShell {
                 i1 = i1 * (anInt930 + 256) >> 8;
                 int j1 = j * l + i * i1 >> 11;
                 int k1 = j * i1 - i * l >> 11;
-                int l1 = localPlayerEntity.anInt1380 + j1 >> 7;
-                int i2 = localPlayerEntity.anInt1381 - k1 >> 7;
-                boolean flag = method107(localPlayerEntity.anIntArray1428[0], 0, true,
-                        l1, localPlayerEntity.anIntArray1429[0], 0, 1, 0, i2, 0, 0,
+                int l1 = localPlayerEntity.x + j1 >> 7;
+                int i2 = localPlayerEntity.z - k1 >> 7;
+                boolean flag = method107(localPlayerEntity.pathTileX[0], 0, true,
+                        l1, localPlayerEntity.pathTileZ[0], 0, 1, 0, i2, 0, 0,
                         0);
                 if (flag) {
                     aClass38_Sub2_Sub3_798.writeByte(i);
@@ -6585,8 +6585,8 @@ public class Game extends GameShell {
                     aClass38_Sub2_Sub3_798.writeByte(anInt1085);
                     aClass38_Sub2_Sub3_798.writeByte(anInt930);
                     aClass38_Sub2_Sub3_798.writeByte(89);
-                    aClass38_Sub2_Sub3_798.writeWord(localPlayerEntity.anInt1380);
-                    aClass38_Sub2_Sub3_798.writeWord(localPlayerEntity.anInt1381);
+                    aClass38_Sub2_Sub3_798.writeWord(localPlayerEntity.x);
+                    aClass38_Sub2_Sub3_798.writeWord(localPlayerEntity.z);
                     aClass38_Sub2_Sub3_798.writeByte(anInt989);
                     aClass38_Sub2_Sub3_798.writeByte(63);
                 }
@@ -6933,7 +6933,7 @@ public class Game extends GameShell {
                     anIntArray929[anInt928++] = j1;
                     npcEntity.anInt1424 = anInt955;
                     int i2 = class38_sub2_sub3.getBits(3);
-                    npcEntity.method467(false, i2, (byte) 6);
+                    npcEntity.walk(false, i2);
                     int k2 = class38_sub2_sub3.getBits(1);
                     if (k2 == 1)
                         anIntArray826[anInt825++] = j1;
@@ -6941,9 +6941,9 @@ public class Game extends GameShell {
                     anIntArray929[anInt928++] = j1;
                     npcEntity.anInt1424 = anInt955;
                     int j2 = class38_sub2_sub3.getBits(3);
-                    npcEntity.method467(true, j2, (byte) 6);
+                    npcEntity.walk(true, j2);
                     int l2 = class38_sub2_sub3.getBits(3);
-                    npcEntity.method467(true, l2, (byte) 6);
+                    npcEntity.walk(true, l2);
                     int i3 = class38_sub2_sub3.getBits(1);
                     if (i3 == 1)
                         anIntArray826[anInt825++] = j1;
@@ -7192,20 +7192,20 @@ public class Game extends GameShell {
             else
                 j = anIntArray824[i];
             PlayerEntity playerEntity = playerEntities[j];
-            if (playerEntity != null && playerEntity.anInt1393 > 0) {
-                playerEntity.anInt1393--;
-                if (playerEntity.anInt1393 == 0)
-                    playerEntity.aString1392 = null;
+            if (playerEntity != null && playerEntity.textCycle > 0) {
+                playerEntity.textCycle--;
+                if (playerEntity.textCycle == 0)
+                    playerEntity.spoken = null;
             }
         }
 
         for (int k = 0; k < anInt928; k++) {
             int l = anIntArray929[k];
             NpcEntity npcEntity = npcEntities[l];
-            if (npcEntity != null && npcEntity.anInt1393 > 0) {
-                npcEntity.anInt1393--;
-                if (npcEntity.anInt1393 == 0)
-                    npcEntity.aString1392 = null;
+            if (npcEntity != null && npcEntity.textCycle > 0) {
+                npcEntity.textCycle--;
+                if (npcEntity.textCycle == 0)
+                    npcEntity.spoken = null;
             }
         }
 
@@ -7570,14 +7570,14 @@ public class Game extends GameShell {
                 if (j1 == 1) {
                     NpcEntity npcEntity = npcEntities[k1];
                     if (npcEntity.info.size == 1
-                            && (npcEntity.anInt1380 & 0x7f) == 64
-                            && (npcEntity.anInt1381 & 0x7f) == 64) {
+                            && (npcEntity.x & 0x7f) == 64
+                            && (npcEntity.z & 0x7f) == 64) {
                         for (int i2 = 0; i2 < anInt928; i2++) {
                             NpcEntity npcEntity_1 = npcEntities[anIntArray929[i2]];
                             if (npcEntity_1 != null && npcEntity_1 != npcEntity
                                     && npcEntity_1.info.size == 1
-                                    && npcEntity_1.anInt1380 == npcEntity.anInt1380
-                                    && npcEntity_1.anInt1381 == npcEntity.anInt1381)
+                                    && npcEntity_1.x == npcEntity.x
+                                    && npcEntity_1.z == npcEntity.z)
                                 method34(npcEntity_1.info, -641, i1, l, anIntArray929[i2]);
                         }
 
@@ -7586,21 +7586,21 @@ public class Game extends GameShell {
                 }
                 if (j1 == 0) {
                     PlayerEntity playerEntity = playerEntities[k1];
-                    if ((playerEntity.anInt1380 & 0x7f) == 64
-                            && (playerEntity.anInt1381 & 0x7f) == 64) {
+                    if ((playerEntity.x & 0x7f) == 64
+                            && (playerEntity.z & 0x7f) == 64) {
                         for (int j2 = 0; j2 < anInt928; j2++) {
                             NpcEntity npcEntity_2 = npcEntities[anIntArray929[j2]];
                             if (npcEntity_2 != null && npcEntity_2.info.size == 1
-                                    && npcEntity_2.anInt1380 == playerEntity.anInt1380
-                                    && npcEntity_2.anInt1381 == playerEntity.anInt1381)
+                                    && npcEntity_2.x == playerEntity.x
+                                    && npcEntity_2.z == playerEntity.z)
                                 method34(npcEntity_2.info, -641, i1, l, anIntArray929[j2]);
                         }
 
                         for (int k2 = 0; k2 < anInt823; k2++) {
                             PlayerEntity playerEntity_1 = playerEntities[anIntArray824[k2]];
                             if (playerEntity_1 != null && playerEntity_1 != playerEntity
-                                    && playerEntity_1.anInt1380 == playerEntity.anInt1380
-                                    && playerEntity_1.anInt1381 == playerEntity.anInt1381)
+                                    && playerEntity_1.x == playerEntity.x
+                                    && playerEntity_1.z == playerEntity.z)
                                 method102(false, i1, anIntArray824[k2], playerEntity_1, l);
                         }
 
@@ -7734,7 +7734,7 @@ public class Game extends GameShell {
         }
         if (l == 1) {
             int i1 = class38_sub2_sub3.getBits(3);
-            localPlayerEntity.method467(false, i1, (byte) 6);
+            localPlayerEntity.walk(false, i1);
             int l1 = class38_sub2_sub3.getBits(1);
             if (l1 == 1)
                 anIntArray826[anInt825++] = anInt821;
@@ -7742,9 +7742,9 @@ public class Game extends GameShell {
         }
         if (l == 2) {
             int j1 = class38_sub2_sub3.getBits(3);
-            localPlayerEntity.method467(true, j1, (byte) 6);
+            localPlayerEntity.walk(true, j1);
             int i2 = class38_sub2_sub3.getBits(3);
-            localPlayerEntity.method467(true, i2, (byte) 6);
+            localPlayerEntity.walk(true, i2);
             int k2 = class38_sub2_sub3.getBits(1);
             if (k2 == 1)
                 anIntArray826[anInt825++] = anInt821;
@@ -7755,7 +7755,7 @@ public class Game extends GameShell {
             int k1 = class38_sub2_sub3.getBits(7);
             int j2 = class38_sub2_sub3.getBits(7);
             int l2 = class38_sub2_sub3.getBits(1);
-            localPlayerEntity.method466(false, l2 == 1, k1, j2);
+            localPlayerEntity.move(l2 == 1, k1, j2);
             int i3 = class38_sub2_sub3.getBits(1);
             if (i3 == 1)
                 anIntArray826[anInt825++] = anInt821;
@@ -8083,12 +8083,12 @@ public class Game extends GameShell {
                     NpcEntity npcEntity = npcEntities[l30];
                     if (npcEntity != null) {
                         for (int k31 = 0; k31 < 10; k31++) {
-                            npcEntity.anIntArray1428[k31] -= j27;
-                            npcEntity.anIntArray1429[k31] -= k29;
+                            npcEntity.pathTileX[k31] -= j27;
+                            npcEntity.pathTileZ[k31] -= k29;
                         }
 
-                        npcEntity.anInt1380 -= j27 * 128;
-                        npcEntity.anInt1381 -= k29 * 128;
+                        npcEntity.x -= j27 * 128;
+                        npcEntity.z -= k29 * 128;
                     }
                 }
 
@@ -8096,12 +8096,12 @@ public class Game extends GameShell {
                     PlayerEntity playerEntity = playerEntities[j31];
                     if (playerEntity != null) {
                         for (int i32 = 0; i32 < 10; i32++) {
-                            playerEntity.anIntArray1428[i32] -= j27;
-                            playerEntity.anIntArray1429[i32] -= k29;
+                            playerEntity.pathTileX[i32] -= j27;
+                            playerEntity.pathTileZ[i32] -= k29;
                         }
 
-                        playerEntity.anInt1380 -= j27 * 128;
-                        playerEntity.anInt1381 -= k29 * 128;
+                        playerEntity.x -= j27 * 128;
+                        playerEntity.z -= k29 * 128;
                     }
                 }
 
@@ -8906,8 +8906,8 @@ public class Game extends GameShell {
             method121(false);
         } catch (Exception exception) {
             String s2 = "T2 - " + anInt780 + "," + anInt829 + "," + anInt830 + " - " + anInt779 + ","
-                    + (anInt761 + localPlayerEntity.anIntArray1428[0]) + ","
-                    + (anInt762 + localPlayerEntity.anIntArray1429[0]) + " - ";
+                    + (anInt761 + localPlayerEntity.pathTileX[0]) + ","
+                    + (anInt762 + localPlayerEntity.pathTileZ[0]) + " - ";
             for (int i16 = 0; i16 < anInt779 && i16 < 50; i16++)
                 s2 = s2 + aClass38_Sub2_Sub3_795.data[i16] + ",";
 
@@ -8981,8 +8981,8 @@ public class Game extends GameShell {
                 playerEntity.anInt1411 = 0;
             int k1 = class38_sub2_sub3.readByte();
             if (l == -1 || playerEntity.primarySeq == -1
-                    || SeqType.seqTypes[l].anInt372 > SeqType.seqTypes[playerEntity.primarySeq].anInt372
-                    || SeqType.seqTypes[playerEntity.primarySeq].anInt372 == 0) {
+                    || SeqType.animations[l].priority > SeqType.animations[playerEntity.primarySeq].priority
+                    || SeqType.animations[playerEntity.primarySeq].priority == 0) {
                 playerEntity.primarySeq = l;
                 playerEntity.primarySeqFrame = 0;
                 playerEntity.anInt1409 = 0;
@@ -8996,17 +8996,17 @@ public class Game extends GameShell {
                 playerEntity.anInt1401 = -1;
         }
         if ((j & 8) == 8) {
-            playerEntity.aString1392 = class38_sub2_sub3.readString();
+            playerEntity.spoken = class38_sub2_sub3.readString();
             playerEntity.anInt1394 = 0;
             playerEntity.anInt1395 = 0;
-            playerEntity.anInt1393 = 150;
-            method111(2, playerEntity.aString1392, (byte) 4,
+            playerEntity.textCycle = 150;
+            method111(2, playerEntity.spoken, (byte) 4,
                     playerEntity.aString1505);
         }
         if ((j & 0x10) == 16) {
             playerEntity.anInt1396 = class38_sub2_sub3.readByte();
             playerEntity.anInt1397 = class38_sub2_sub3.readByte();
-            playerEntity.anInt1398 = anInt955 + 400;
+            playerEntity.cycleStatus = anInt955 + 400;
             playerEntity.anInt1399 = class38_sub2_sub3.readByte();
             playerEntity.anInt1400 = class38_sub2_sub3.readByte();
         }
@@ -9035,10 +9035,10 @@ public class Game extends GameShell {
                     try {
                         String s = TextEncoder.read(class38_sub2_sub3, i2);
                         s = WordEncoding.getFiltered(s);
-                        playerEntity.aString1392 = s;
+                        playerEntity.spoken = s;
                         playerEntity.anInt1394 = i1 >> 8;
                         playerEntity.anInt1395 = i1 & 0xff;
-                        playerEntity.anInt1393 = 150;
+                        playerEntity.textCycle = 150;
                         if (l1 > 1)
                             method111(1, s, (byte) 4, playerEntity.aString1505);
                         else
@@ -9069,9 +9069,9 @@ public class Game extends GameShell {
             playerEntity.anInt1421 = class38_sub2_sub3.readWord() + anInt955;
             playerEntity.anInt1422 = class38_sub2_sub3.readWord() + anInt955;
             playerEntity.anInt1423 = class38_sub2_sub3.readByte();
-            playerEntity.anInt1427 = 0;
-            playerEntity.anIntArray1428[0] = playerEntity.anInt1418;
-            playerEntity.anIntArray1429[0] = playerEntity.anInt1420;
+            playerEntity.pathRemaining = 0;
+            playerEntity.pathTileX[0] = playerEntity.anInt1418;
+            playerEntity.pathTileZ[0] = playerEntity.anInt1420;
         }
     }
 
