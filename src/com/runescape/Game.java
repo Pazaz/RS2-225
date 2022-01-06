@@ -2148,7 +2148,7 @@ public class Game extends GameShell {
                         if (k3 != 22 && k3 != 29 && k3 != 34 && k3 != 36 && k3 != 46 && k3 != 47 && k3 != 48) {
                             byte byte0 = 104;
                             byte byte1 = 104;
-                            int[][] ai1 = collisionMaps[anInt880].anIntArrayArray215;
+                            int[][] ai1 = collisionMaps[anInt880].flags;
                             for (int j4 = 0; j4 < 10; j4++) {
                                 int k4 = (int) (Math.random() * 4D);
                                 if (k4 == 0 && l3 > 0 && l3 > l2 - 3 && (ai1[l3 - 1][i4] & 0x280108) == 0)
@@ -2706,7 +2706,7 @@ public class Game extends GameShell {
             return;
         scene.method281(742);
         for (int j = 0; j < 4; j++)
-            collisionMaps[j].method196((byte) 74);
+            collisionMaps[j].reset();
 
         System.gc();
         method17(0);
@@ -4594,7 +4594,7 @@ public class Game extends GameShell {
             anIntArrayArrayArray794 = new int[4][105][105];
             scene = new Scene(415, anIntArrayArrayArray794, 104, 4, 104);
             for (int l = 0; l < 4; l++)
-                collisionMaps[l] = new CollisionMap(104, -708, 104);
+                collisionMaps[l] = new CollisionMap(104, 104);
 
             aClass38_Sub2_Sub2_Sub2_1053 = new Sprite(512, 512);
             method13(true, "Unpacking media", 75);
@@ -5620,7 +5620,7 @@ public class Game extends GameShell {
                     scene.method303(j, l1, k, 1);
                     LocType locType = LocType.get(j2);
                     if (locType.hasCollision)
-                        collisionMaps[l1].method201(locType.isSolid, l2, j, k, 323, k2);
+                        collisionMaps[l1].removeWall(locType.isSolid, l2, j, k, k2);
                 }
                 if (l == 1)
                     scene.method304(l1, k, anInt1077, j);
@@ -5631,14 +5631,14 @@ public class Game extends GameShell {
                             || k + locType.sizeZ > 103)
                         return;
                     if (locType.hasCollision)
-                        collisionMaps[l1].method202(k, j, l2, locType.sizeX, true, locType.isSolid,
+                        collisionMaps[l1].removeLoc(k, j, l2, locType.sizeX, locType.isSolid,
                                 locType.sizeZ);
                 }
                 if (l == 3) {
                     scene.method306(l1, anInt1022, j, k);
                     LocType locType_2 = LocType.get(j2);
                     if (locType_2.hasCollision && locType_2.interactable)
-                        collisionMaps[l1].method204(k, j, 0);
+                        collisionMaps[l1].removeBlock(k, j);
                 }
             }
             if (i1 >= 0) {
@@ -6221,7 +6221,7 @@ public class Game extends GameShell {
         anIntArray995[l3++] = l;
         boolean flag1 = false;
         int j4 = anIntArray994.length;
-        int[][] ai = collisionMaps[anInt880].anIntArrayArray215;
+        int[][] ai = collisionMaps[anInt880].flags;
         while (i4 != l3) {
             j3 = anIntArray994[i4];
             k3 = anIntArray995[i4];
@@ -6231,16 +6231,16 @@ public class Game extends GameShell {
                 break;
             }
             if (j2 != 0) {
-                if ((j2 < 5 || j2 == 10) && collisionMaps[anInt880].method205(-7517, i2, l1, j2 - 1, k3, k, j3)) {
+                if ((j2 < 5 || j2 == 10) && collisionMaps[anInt880].reachedWall(i2, l1, j2 - 1, k3, k, j3)) {
                     flag1 = true;
                     break;
                 }
-                if (j2 < 10 && collisionMaps[anInt880].method206(i2, j2 - 1, anInt1039, j3, k, k3, l1)) {
+                if (j2 < 10 && collisionMaps[anInt880].reachedDecoration(i2, j2 - 1, j3, k, k3, l1)) {
                     flag1 = true;
                     break;
                 }
             }
-            if (j != 0 && k1 != 0 && collisionMaps[anInt880].method207(k3, k1, j3, k, k2, l1, j, 168)) {
+            if (j != 0 && k1 != 0 && collisionMaps[anInt880].reachedObject(k3, k1, j3, k, k2, l1, j)) {
                 flag1 = true;
                 break;
             }
@@ -7092,7 +7092,7 @@ public class Game extends GameShell {
             method83(aByte843);
             scene.method281(742);
             for (int j = 0; j < 4; j++)
-                collisionMaps[j].method196((byte) 74);
+                collisionMaps[j].reset();
 
             System.gc();
             SceneBuilder sceneBuilder = new SceneBuilder(104, aByteArrayArrayArray840, 104, anIntArrayArrayArray794, anInt1106);
