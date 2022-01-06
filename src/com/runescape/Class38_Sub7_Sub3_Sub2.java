@@ -167,8 +167,8 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
                 if (l1 >= 256 && l1 < 512)
                     aclass38_sub2_sub1[j1++] = Class12.aClass12Array247[l1 - 256].method216();
                 if (l1 >= 512) {
-                    Class4 class4 = Class4.method169(l1 - 512);
-                    Class38_Sub2_Sub1 class38_sub2_sub1_2 = class4.method175((byte) 6, anInt1507);
+                    ObjType objType = ObjType.method169(l1 - 512);
+                    Class38_Sub2_Sub1 class38_sub2_sub1_2 = objType.method175((byte) 6, anInt1507);
                     if (class38_sub2_sub1_2 != null)
                         aclass38_sub2_sub1[j1++] = class38_sub2_sub1_2;
                 }
@@ -213,7 +213,7 @@ public class Class38_Sub7_Sub3_Sub2 extends Class38_Sub7_Sub3 {
             if (l >= 256 && l < 512)
                 aclass38_sub2_sub1[j++] = Class12.aClass12Array247[l - 256].method217(false);
             if (l >= 512) {
-                Class38_Sub2_Sub1 class38_sub2_sub1_1 = Class4.method169(l - 512).method176(-22246, anInt1507);
+                Class38_Sub2_Sub1 class38_sub2_sub1_1 = ObjType.method169(l - 512).method176(-22246, anInt1507);
                 if (class38_sub2_sub1_1 != null)
                     aclass38_sub2_sub1[j++] = class38_sub2_sub1_1;
             }

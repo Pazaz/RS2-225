@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class4 {
+public class ObjType {
 
     public static void method167(FileArchive fileArchive) {
         aClass38_Sub2_Sub3_139 = new Class38_Sub2_Sub3(363, fileArchive.read("obj.dat", null));
@@ -13,9 +13,9 @@ public class Class4 {
             i += class38_sub2_sub3.method448();
         }
 
-        aClass4Array140 = new Class4[10];
+        objTypes = new ObjType[10];
         for (int k = 0; k < 10; k++)
-            aClass4Array140[k] = new Class4();
+            objTypes[k] = new ObjType();
 
     }
 
@@ -23,32 +23,32 @@ public class Class4 {
         aClass34_178 = null;
         aClass34_179 = null;
         anIntArray138 = null;
-        aClass4Array140 = null;
+        objTypes = null;
         aClass38_Sub2_Sub3_139 = null;
         if (!flag)
             anInt133 = -296;
     }
 
-    public static Class4 method169(int i) {
+    public static ObjType method169(int i) {
         for (int j = 0; j < 10; j++)
-            if (aClass4Array140[j].anInt143 == i)
-                return aClass4Array140[j];
+            if (objTypes[j].anInt143 == i)
+                return objTypes[j];
 
         anInt141 = (anInt141 + 1) % 10;
-        Class4 class4 = aClass4Array140[anInt141];
+        ObjType objType = objTypes[anInt141];
         aClass38_Sub2_Sub3_139.offset = anIntArray138[i];
-        class4.anInt143 = i;
-        class4.method170();
-        class4.method171(false, aClass38_Sub2_Sub3_139);
-        if (class4.anInt177 != -1)
-            class4.method172(-856);
-        if (!aBoolean142 && class4.aBoolean159) {
-            class4.aString145 = "Members Object";
-            class4.aByteArray146 = "Login to a members' server to use this object.".getBytes();
-            class4.aStringArray160 = null;
-            class4.aStringArray161 = null;
+        objType.anInt143 = i;
+        objType.method170();
+        objType.method171(false, aClass38_Sub2_Sub3_139);
+        if (objType.anInt177 != -1)
+            objType.method172(-856);
+        if (!aBoolean142 && objType.aBoolean159) {
+            objType.aString145 = "Members Object";
+            objType.aByteArray146 = "Login to a members' server to use this object.".getBytes();
+            objType.aStringArray160 = null;
+            objType.aStringArray161 = null;
         }
-        return class4;
+        return objType;
     }
 
     public void method170() {
@@ -184,27 +184,27 @@ public class Class4 {
     }
 
     public void method172(int i) {
-        Class4 class4 = method169(anInt177);
-        anInt144 = class4.anInt144;
-        anInt149 = class4.anInt149;
-        anInt150 = class4.anInt150;
+        ObjType objType = method169(anInt177);
+        anInt144 = objType.anInt144;
+        anInt149 = objType.anInt149;
+        anInt150 = objType.anInt150;
         while (i >= 0)
             aBoolean134 = !aBoolean134;
-        anInt151 = class4.anInt151;
-        anInt152 = class4.anInt152;
-        anInt153 = class4.anInt153;
-        anInt154 = class4.anInt154;
-        anIntArray147 = class4.anIntArray147;
-        anIntArray148 = class4.anIntArray148;
-        Class4 class4_1 = method169(anInt176);
-        aString145 = class4_1.aString145;
-        aBoolean159 = class4_1.aBoolean159;
-        anInt158 = class4_1.anInt158;
+        anInt151 = objType.anInt151;
+        anInt152 = objType.anInt152;
+        anInt153 = objType.anInt153;
+        anInt154 = objType.anInt154;
+        anIntArray147 = objType.anIntArray147;
+        anIntArray148 = objType.anIntArray148;
+        ObjType objType_1 = method169(anInt176);
+        aString145 = objType_1.aString145;
+        aBoolean159 = objType_1.aBoolean159;
+        anInt158 = objType_1.anInt158;
         String s = "a";
-        char c = class4_1.aString145.charAt(0);
+        char c = objType_1.aString145.charAt(0);
         if (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U')
             s = "an";
-        aByteArray146 = ("Swap this note at any bank for " + s + " " + class4_1.aString145 + ".").getBytes();
+        aByteArray146 = ("Swap this note at any bank for " + s + " " + objType_1.aString145 + ".").getBytes();
         aBoolean157 = true;
     }
 
@@ -242,17 +242,17 @@ public class Class4 {
         }
         if (class38_sub2_sub2_sub2 != null)
             return class38_sub2_sub2_sub2;
-        Class4 class4 = method169(i);
-        if (class4.anIntArray174 == null)
+        ObjType objType = method169(i);
+        if (objType.anIntArray174 == null)
             k = -1;
         if (k > 1) {
             int l = -1;
             for (int j1 = 0; j1 < 10; j1++)
-                if (k >= class4.anIntArray175[j1] && class4.anIntArray175[j1] != 0)
-                    l = class4.anIntArray174[j1];
+                if (k >= objType.anIntArray175[j1] && objType.anIntArray175[j1] != 0)
+                    l = objType.anIntArray174[j1];
 
             if (l != -1)
-                class4 = method169(l);
+                objType = method169(l);
         }
         class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(32, 32);
         int i1 = Class38_Sub2_Sub2_Sub1.anInt1442;
@@ -269,11 +269,11 @@ public class Class4 {
         Class38_Sub2_Sub2.init(32, class38_sub2_sub2_sub2.anIntArray1465, -657, 32);
         Class38_Sub2_Sub2.method380(0, 0, 0, (byte) 93, 32, 32);
         Class38_Sub2_Sub2_Sub1.method385(anInt135);
-        Class38_Sub2_Sub1 class38_sub2_sub1 = class4.method173(1);
-        int j3 = Class38_Sub2_Sub2_Sub1.anIntArray1446[class4.anInt150] * class4.anInt149 >> 16;
-        int k3 = Class38_Sub2_Sub2_Sub1.anIntArray1447[class4.anInt150] * class4.anInt149 >> 16;
-        class38_sub2_sub1.method370(0, class4.anInt151, class4.anInt152, class4.anInt150, class4.anInt153,
-                j3 + class38_sub2_sub1.anInt1247 / 2 + class4.anInt154, k3 + class4.anInt154);
+        Class38_Sub2_Sub1 class38_sub2_sub1 = objType.method173(1);
+        int j3 = Class38_Sub2_Sub2_Sub1.anIntArray1446[objType.anInt150] * objType.anInt149 >> 16;
+        int k3 = Class38_Sub2_Sub2_Sub1.anIntArray1447[objType.anInt150] * objType.anInt149 >> 16;
+        class38_sub2_sub1.method370(0, objType.anInt151, objType.anInt152, objType.anInt150, objType.anInt153,
+                j3 + class38_sub2_sub1.anInt1247 / 2 + objType.anInt154, k3 + objType.anInt154);
         if (j != 24638)
             throw new NullPointerException();
         for (int j4 = 31; j4 >= 0; j4--) {
@@ -298,8 +298,8 @@ public class Class4 {
 
         }
 
-        if (class4.anInt177 != -1) {
-            Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2_1 = method174(class4.anInt176, 24638, 10);
+        if (objType.anInt177 != -1) {
+            Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2_1 = method174(objType.anInt176, 24638, 10);
             int l4 = class38_sub2_sub2_sub2_1.anInt1470;
             int i5 = class38_sub2_sub2_sub2_1.anInt1471;
             class38_sub2_sub2_sub2_1.anInt1470 = 32;
@@ -315,7 +315,7 @@ public class Class4 {
         Class38_Sub2_Sub2_Sub1.anInt1443 = k1;
         Class38_Sub2_Sub2_Sub1.anIntArray1448 = ai;
         Class38_Sub2_Sub2_Sub1.aBoolean1440 = true;
-        if (class4.aBoolean157)
+        if (objType.aBoolean157)
             class38_sub2_sub2_sub2.anInt1470 = 33;
         else
             class38_sub2_sub2_sub2.anInt1470 = 32;
@@ -392,7 +392,7 @@ public class Class4 {
         return class38_sub2_sub1;
     }
 
-    public Class4() {
+    public ObjType() {
         aBoolean134 = false;
         anInt136 = -22246;
         anInt143 = -1;
@@ -405,7 +405,7 @@ public class Class4 {
     public static int anInt137;
     public static int[] anIntArray138;
     public static Class38_Sub2_Sub3 aClass38_Sub2_Sub3_139;
-    public static Class4[] aClass4Array140;
+    public static ObjType[] objTypes;
     public static int anInt141;
     public static boolean aBoolean142 = true;
     public int anInt143;

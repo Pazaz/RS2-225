@@ -1090,22 +1090,22 @@ public class client extends Applet_Sub1 {
                                 anInt1087 = k2;
                                 anInt1088 = class14_1.anInt269;
                                 if (class14_1.anIntArray265[k2] > 0) {
-                                    Class4 class4 = Class4.method169(class14_1.anIntArray265[k2] - 1);
+                                    ObjType objType = ObjType.method169(class14_1.anIntArray265[k2] - 1);
                                     if (anInt1002 == 1 && class14_1.aBoolean291) {
                                         if (class14_1.anInt269 != anInt1004 || k2 != anInt1003) {
                                             aStringArray834[anInt1074] = "Use " + aString1006 + " with @lre@"
-                                                    + class4.aString145;
+                                                    + objType.aString145;
                                             anIntArray1141[anInt1074] = 881;
-                                            anIntArray1142[anInt1074] = class4.anInt143;
+                                            anIntArray1142[anInt1074] = objType.anInt143;
                                             anIntArray1139[anInt1074] = k2;
                                             anIntArray1140[anInt1074] = class14_1.anInt269;
                                             anInt1074++;
                                         }
                                     } else if (anInt1025 == 1 && class14_1.aBoolean291) {
                                         if ((anInt1027 & 0x10) == 16) {
-                                            aStringArray834[anInt1074] = aString1028 + " @lre@" + class4.aString145;
+                                            aStringArray834[anInt1074] = aString1028 + " @lre@" + objType.aString145;
                                             anIntArray1141[anInt1074] = 391;
-                                            anIntArray1142[anInt1074] = class4.anInt143;
+                                            anIntArray1142[anInt1074] = objType.anInt143;
                                             anIntArray1139[anInt1074] = k2;
                                             anIntArray1140[anInt1074] = class14_1.anInt269;
                                             anInt1074++;
@@ -1113,22 +1113,22 @@ public class client extends Applet_Sub1 {
                                     } else {
                                         if (class14_1.aBoolean291) {
                                             for (int l3 = 4; l3 >= 3; l3--)
-                                                if (class4.aStringArray161 != null
-                                                        && class4.aStringArray161[l3] != null) {
-                                                    aStringArray834[anInt1074] = class4.aStringArray161[l3] + " @lre@"
-                                                            + class4.aString145;
+                                                if (objType.aStringArray161 != null
+                                                        && objType.aStringArray161[l3] != null) {
+                                                    aStringArray834[anInt1074] = objType.aStringArray161[l3] + " @lre@"
+                                                            + objType.aString145;
                                                     if (l3 == 3)
                                                         anIntArray1141[anInt1074] = 478;
                                                     if (l3 == 4)
                                                         anIntArray1141[anInt1074] = 347;
-                                                    anIntArray1142[anInt1074] = class4.anInt143;
+                                                    anIntArray1142[anInt1074] = objType.anInt143;
                                                     anIntArray1139[anInt1074] = k2;
                                                     anIntArray1140[anInt1074] = class14_1.anInt269;
                                                     anInt1074++;
                                                 } else if (l3 == 4) {
-                                                    aStringArray834[anInt1074] = "Drop @lre@" + class4.aString145;
+                                                    aStringArray834[anInt1074] = "Drop @lre@" + objType.aString145;
                                                     anIntArray1141[anInt1074] = 347;
-                                                    anIntArray1142[anInt1074] = class4.anInt143;
+                                                    anIntArray1142[anInt1074] = objType.anInt143;
                                                     anIntArray1139[anInt1074] = k2;
                                                     anIntArray1140[anInt1074] = class14_1.anInt269;
                                                     anInt1074++;
@@ -1136,25 +1136,25 @@ public class client extends Applet_Sub1 {
 
                                         }
                                         if (class14_1.aBoolean292) {
-                                            aStringArray834[anInt1074] = "Use @lre@" + class4.aString145;
+                                            aStringArray834[anInt1074] = "Use @lre@" + objType.aString145;
                                             anIntArray1141[anInt1074] = 188;
-                                            anIntArray1142[anInt1074] = class4.anInt143;
+                                            anIntArray1142[anInt1074] = objType.anInt143;
                                             anIntArray1139[anInt1074] = k2;
                                             anIntArray1140[anInt1074] = class14_1.anInt269;
                                             anInt1074++;
                                         }
-                                        if (class14_1.aBoolean291 && class4.aStringArray161 != null) {
+                                        if (class14_1.aBoolean291 && objType.aStringArray161 != null) {
                                             for (int i4 = 2; i4 >= 0; i4--)
-                                                if (class4.aStringArray161[i4] != null) {
-                                                    aStringArray834[anInt1074] = class4.aStringArray161[i4] + " @lre@"
-                                                            + class4.aString145;
+                                                if (objType.aStringArray161[i4] != null) {
+                                                    aStringArray834[anInt1074] = objType.aStringArray161[i4] + " @lre@"
+                                                            + objType.aString145;
                                                     if (i4 == 0)
                                                         anIntArray1141[anInt1074] = 405;
                                                     if (i4 == 1)
                                                         anIntArray1141[anInt1074] = 38;
                                                     if (i4 == 2)
                                                         anIntArray1141[anInt1074] = 422;
-                                                    anIntArray1142[anInt1074] = class4.anInt143;
+                                                    anIntArray1142[anInt1074] = objType.anInt143;
                                                     anIntArray1139[anInt1074] = k2;
                                                     anIntArray1140[anInt1074] = class14_1.anInt269;
                                                     anInt1074++;
@@ -1165,7 +1165,7 @@ public class client extends Applet_Sub1 {
                                             for (int j4 = 4; j4 >= 0; j4--)
                                                 if (class14_1.aStringArray298[j4] != null) {
                                                     aStringArray834[anInt1074] = class14_1.aStringArray298[j4]
-                                                            + " @lre@" + class4.aString145;
+                                                            + " @lre@" + objType.aString145;
                                                     if (j4 == 0)
                                                         anIntArray1141[anInt1074] = 602;
                                                     if (j4 == 1)
@@ -1176,16 +1176,16 @@ public class client extends Applet_Sub1 {
                                                         anIntArray1141[anInt1074] = 892;
                                                     if (j4 == 4)
                                                         anIntArray1141[anInt1074] = 415;
-                                                    anIntArray1142[anInt1074] = class4.anInt143;
+                                                    anIntArray1142[anInt1074] = objType.anInt143;
                                                     anIntArray1139[anInt1074] = k2;
                                                     anIntArray1140[anInt1074] = class14_1.anInt269;
                                                     anInt1074++;
                                                 }
 
                                         }
-                                        aStringArray834[anInt1074] = "Examine @lre@" + class4.aString145;
+                                        aStringArray834[anInt1074] = "Examine @lre@" + objType.aString145;
                                         anIntArray1141[anInt1074] = 1773;
-                                        anIntArray1142[anInt1074] = class4.anInt143;
+                                        anIntArray1142[anInt1074] = objType.anInt143;
                                         anIntArray1140[anInt1074] = class14_1.anIntArray266[k2];
                                         anInt1074++;
                                     }
@@ -2758,7 +2758,7 @@ public class client extends Applet_Sub1 {
                                 int i9 = class14_1.anIntArray265[i3] - 1;
                                 if (j5 >= -32 && j5 <= 512 && i6 >= -32 && i6 <= 334
                                         || anInt846 != 0 && anInt845 == i3) {
-                                    Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2_2 = Class4.method174(i9, 24638,
+                                    Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2_2 = ObjType.method174(i9, 24638,
                                             class14_1.anIntArray266[i3]);
                                     if (anInt846 != 0 && anInt845 == i3 && anInt844 == class14_1.anInt269) {
                                         k6 = super.anInt21 - anInt847;
@@ -2911,9 +2911,9 @@ public class client extends Applet_Sub1 {
                     for (int i5 = 0; i5 < class14_1.anInt275; i5++) {
                         for (int l5 = 0; l5 < class14_1.anInt274; l5++) {
                             if (class14_1.anIntArray265[j4] > 0) {
-                                Class4 class4 = Class4.method169(class14_1.anIntArray265[j4] - 1);
-                                String s2 = class4.aString145;
-                                if (class4.aBoolean157 || class14_1.anIntArray266[j4] != 1)
+                                ObjType objType = ObjType.method169(class14_1.anIntArray265[j4] - 1);
+                                String s2 = objType.aString145;
+                                if (objType.aBoolean157 || class14_1.anIntArray266[j4] != 1)
                                     s2 = s2 + " x" + method40(class14_1.anIntArray266[j4], 0);
                                 int l8 = k2 + l5 * (115 + class14_1.anInt293);
                                 int j9 = l2 + i5 * (12 + class14_1.anInt294);
@@ -2963,7 +2963,7 @@ public class client extends Applet_Sub1 {
                 Class38_Sub2_Sub2_Sub1.method393(true, 0.69999999999999996D);
             if (l == 4)
                 Class38_Sub2_Sub2_Sub1.method393(true, 0.59999999999999998D);
-            Class4.aClass34_179.method343();
+            ObjType.aClass34_179.method343();
             aBoolean751 = true;
         }
         if (k == 3) {
@@ -3700,7 +3700,7 @@ public class client extends Applet_Sub1 {
             anInt1003 = k;
             anInt1004 = l;
             anInt1005 = j1;
-            aString1006 = Class4.method169(j1).aString145;
+            aString1006 = ObjType.method169(j1).aString145;
             anInt1025 = 0;
             return;
         }
@@ -3710,14 +3710,14 @@ public class client extends Applet_Sub1 {
             aBoolean872 = true;
         }
         if (i1 == 1773) {
-            Class4 class4 = Class4.method169(j1);
+            ObjType objType = ObjType.method169(j1);
             String s4;
             if (l >= 0x186a0)
-                s4 = l + " x " + class4.aString145;
-            else if (class4.aByteArray146 != null)
-                s4 = new String(class4.aByteArray146);
+                s4 = l + " x " + objType.aString145;
+            else if (objType.aByteArray146 != null)
+                s4 = new String(objType.aByteArray146);
             else
-                s4 = "It's a " + class4.aString145 + ".";
+                s4 = "It's a " + objType.aString145 + ".";
             method111(0, s4, (byte) 4, "");
         }
         if (i1 == 900) {
@@ -3948,12 +3948,12 @@ public class client extends Applet_Sub1 {
         if (i1 == 364)
             method92(96, k, l, j1, true);
         if (i1 == 1102) {
-            Class4 class4_1 = Class4.method169(j1);
+            ObjType objType_1 = ObjType.method169(j1);
             String s7;
-            if (class4_1.aByteArray146 != null)
-                s7 = new String(class4_1.aByteArray146);
+            if (objType_1.aByteArray146 != null)
+                s7 = new String(objType_1.aByteArray146);
             else
-                s7 = "It's a " + class4_1.aString145 + ".";
+                s7 = "It's a " + objType_1.aString145 + ".";
             method111(0, s7, (byte) 4, "");
         }
         if (i1 == 960) {
@@ -4720,12 +4720,12 @@ public class client extends Applet_Sub1 {
             Class18.method222(fileArchive, 473);
             LocType.load(fileArchive);
             Class10.method209(fileArchive, 473);
-            Class4.method167(fileArchive);
+            ObjType.method167(fileArchive);
             NpcType.method146(fileArchive);
             Class12.method214(fileArchive, 473);
             Class20.method224(fileArchive, 473);
             Class22.method227(fileArchive, 473);
-            Class4.aBoolean142 = aBoolean888;
+            ObjType.aBoolean142 = aBoolean888;
             if (!aBoolean889) {
                 method13(true, "Unpacking sounds", 90);
                 byte[] abyte0 = fileArchive_6.read("sounds.dat", null);
@@ -4868,8 +4868,8 @@ public class client extends Applet_Sub1 {
         LocType.models.method343();
         LocType.builtModels.method343();
         NpcType.aClass34_104.method343();
-        Class4.aClass34_178.method343();
-        Class4.aClass34_179.method343();
+        ObjType.aClass34_178.method343();
+        ObjType.aClass34_179.method343();
         Class38_Sub7_Sub3_Sub2.aClass34_1525.method343();
         Class20.aClass34_400.method343();
         if (byte0 == aByte843) {
@@ -5790,7 +5790,7 @@ public class client extends Applet_Sub1 {
         method38(true);
         LocType.unload();
         NpcType.method147(true);
-        Class4.method168(true);
+        ObjType.method168(true);
         Class10.aClass10Array223 = null;
         Class12.aClass12Array247 = null;
         Class14.aClass14Array264 = null;
@@ -7037,9 +7037,9 @@ public class client extends Applet_Sub1 {
         Object obj = null;
         for (ObjStackEntity objStackEntity = (ObjStackEntity) linkedList
                 .method270(); objStackEntity != null; objStackEntity = (ObjStackEntity) linkedList.method272()) {
-            Class4 class4 = Class4.method169(objStackEntity.model);
-            int i1 = class4.anInt158;
-            if (class4.aBoolean157)
+            ObjType objType = ObjType.method169(objStackEntity.model);
+            int i1 = objType.anInt158;
+            if (objType.aBoolean157)
                 i1 *= objStackEntity.amount + 1;
             if (i1 > k) {
                 k = i1;
@@ -7067,13 +7067,13 @@ public class client extends Applet_Sub1 {
 
         Class38_Sub2_Sub1 class38_sub2_sub1 = null;
         if (l != -1)
-            class38_sub2_sub1 = Class4.method169(l).method173(k1);
+            class38_sub2_sub1 = ObjType.method169(l).method173(k1);
         Class38_Sub2_Sub1 class38_sub2_sub1_1 = null;
         if (j1 != -1)
-            class38_sub2_sub1_1 = Class4.method169(j1).method173(l1);
+            class38_sub2_sub1_1 = ObjType.method169(j1).method173(l1);
         int i2 = i + (j << 7) + 0x60000000;
-        Class4 class4_1 = Class4.method169(((ObjStackEntity) (obj)).model);
-        aClass32_831.method288(class4_1.method173(((ObjStackEntity) (obj)).amount), class38_sub2_sub1,
+        ObjType objType_1 = ObjType.method169(((ObjStackEntity) (obj)).model);
+        aClass32_831.method288(objType_1.method173(((ObjStackEntity) (obj)).amount), class38_sub2_sub1,
                 method33(anInt880, i * 128 + 64, (byte) 5, j * 128 + 64), anInt880, i2, j, i, class38_sub2_sub1_1, 429);
     }
 
@@ -7609,9 +7609,9 @@ public class client extends Applet_Sub1 {
                         for (ObjStackEntity objStackEntity = (ObjStackEntity) linkedList
                                 .method271(); objStackEntity != null; objStackEntity = (ObjStackEntity) linkedList
                                 .method273()) {
-                            Class4 class4 = Class4.method169(objStackEntity.model);
+                            ObjType objType = ObjType.method169(objStackEntity.model);
                             if (anInt1002 == 1) {
-                                aStringArray834[anInt1074] = "Use " + aString1006 + " with @lre@" + class4.aString145;
+                                aStringArray834[anInt1074] = "Use " + aString1006 + " with @lre@" + objType.aString145;
                                 anIntArray1141[anInt1074] = 217;
                                 anIntArray1142[anInt1074] = objStackEntity.model;
                                 anIntArray1139[anInt1074] = l;
@@ -7619,7 +7619,7 @@ public class client extends Applet_Sub1 {
                                 anInt1074++;
                             } else if (anInt1025 == 1) {
                                 if ((anInt1027 & 1) == 1) {
-                                    aStringArray834[anInt1074] = aString1028 + " @lre@" + class4.aString145;
+                                    aStringArray834[anInt1074] = aString1028 + " @lre@" + objType.aString145;
                                     anIntArray1141[anInt1074] = 965;
                                     anIntArray1142[anInt1074] = objStackEntity.model;
                                     anIntArray1139[anInt1074] = l;
@@ -7628,9 +7628,9 @@ public class client extends Applet_Sub1 {
                                 }
                             } else {
                                 for (int l2 = 4; l2 >= 0; l2--)
-                                    if (class4.aStringArray160 != null && class4.aStringArray160[l2] != null) {
-                                        aStringArray834[anInt1074] = class4.aStringArray160[l2] + " @lre@"
-                                                + class4.aString145;
+                                    if (objType.aStringArray160 != null && objType.aStringArray160[l2] != null) {
+                                        aStringArray834[anInt1074] = objType.aStringArray160[l2] + " @lre@"
+                                                + objType.aString145;
                                         if (l2 == 0)
                                             anIntArray1141[anInt1074] = 224;
                                         if (l2 == 1)
@@ -7646,7 +7646,7 @@ public class client extends Applet_Sub1 {
                                         anIntArray1140[anInt1074] = i1;
                                         anInt1074++;
                                     } else if (l2 == 2) {
-                                        aStringArray834[anInt1074] = "Take @lre@" + class4.aString145;
+                                        aStringArray834[anInt1074] = "Take @lre@" + objType.aString145;
                                         anIntArray1141[anInt1074] = 99;
                                         anIntArray1142[anInt1074] = objStackEntity.model;
                                         anIntArray1139[anInt1074] = l;
@@ -7654,7 +7654,7 @@ public class client extends Applet_Sub1 {
                                         anInt1074++;
                                     }
 
-                                aStringArray834[anInt1074] = "Examine @lre@" + class4.aString145;
+                                aStringArray834[anInt1074] = "Examine @lre@" + objType.aString145;
                                 anIntArray1141[anInt1074] = 1102;
                                 anIntArray1142[anInt1074] = objStackEntity.model;
                                 anIntArray1139[anInt1074] = l;
@@ -8709,11 +8709,11 @@ public class client extends Applet_Sub1 {
                 int i7 = aClass38_Sub2_Sub3_795.method448();
                 int l14 = aClass38_Sub2_Sub3_795.method448();
                 int i20 = aClass38_Sub2_Sub3_795.method448();
-                Class4 class4 = Class4.method169(l14);
-                Class14.aClass14Array264[i7].aClass38_Sub2_Sub1_310 = class4.method173(50);
-                Class14.aClass14Array264[i7].anInt315 = class4.anInt150;
-                Class14.aClass14Array264[i7].anInt316 = class4.anInt151;
-                Class14.aClass14Array264[i7].anInt314 = (class4.anInt149 * 100) / i20;
+                ObjType objType = ObjType.method169(l14);
+                Class14.aClass14Array264[i7].aClass38_Sub2_Sub1_310 = objType.method173(50);
+                Class14.aClass14Array264[i7].anInt315 = objType.anInt150;
+                Class14.aClass14Array264[i7].anInt316 = objType.anInt151;
+                Class14.aClass14Array264[i7].anInt314 = (objType.anInt149 * 100) / i20;
                 anInt780 = -1;
                 return true;
             }
