@@ -4,110 +4,116 @@ import com.runescape.util.Buffer;
 
 public class IdkType {
 
-    public static void method214(FileArchive fileArchive, int i) {
-        Buffer class38_sub2_sub3 = new Buffer(363, fileArchive.read("idk.dat", null));
-        anInt246 = class38_sub2_sub3.method448();
-        if (idkTypes == null)
-            idkTypes = new IdkType[anInt246];
-        for (int j = 0; j < anInt246; j++) {
-            if (idkTypes[j] == null)
-                idkTypes[j] = new IdkType();
-            idkTypes[j].method215(false, class38_sub2_sub3);
+    public static void load(FileArchive fileArchive) {
+        Buffer buffer = new Buffer(363, fileArchive.read("idk.dat", null));
+        count = buffer.method448();
+
+        if (instances == null) {
+            instances = new IdkType[count];
         }
 
-        i = 87 / i;
+        for (int j = 0; j < count; j++) {
+            if (instances[j] == null) {
+                instances[j] = new IdkType();
+            }
+
+            instances[j].read(buffer);
+        }
     }
 
-    public void method215(boolean flag, Buffer class38_sub2_sub3) {
-        if (flag)
-            anInt243 = 65;
+    public void read(Buffer buffer) {
         do {
-            int i = class38_sub2_sub3.method446();
-            if (i == 0)
-                return;
-            if (i == 1)
-                anInt248 = class38_sub2_sub3.method446();
-            else if (i == 2) {
-                int j = class38_sub2_sub3.method446();
-                anIntArray249 = new int[j];
-                for (int k = 0; k < j; k++)
-                    anIntArray249[k] = class38_sub2_sub3.method448();
+            int opcode = buffer.method446();
 
-            } else if (i == 3)
-                aBoolean253 = true;
-            else if (i >= 40 && i < 50)
-                anIntArray250[i - 40] = class38_sub2_sub3.method448();
-            else if (i >= 50 && i < 60)
-                anIntArray251[i - 50] = class38_sub2_sub3.method448();
-            else if (i >= 60 && i < 70)
-                anIntArray252[i - 60] = class38_sub2_sub3.method448();
-            else
-                System.out.println("Error unrecognised config code: " + i);
+            if (opcode == 0) {
+                return;
+            } else if (opcode == 1) {
+                type = buffer.method446();
+            } else if (opcode == 2) {
+                int n = buffer.method446();
+                modelIndices = new int[n];
+                for (int k = 0; k < n; k++) {
+                    modelIndices[k] = buffer.method448();
+                }
+            } else if (opcode == 3) {
+                validStyle = true;
+            } else if (opcode >= 40 && opcode < 50) {
+                oldColors[opcode - 40] = buffer.method448();
+            } else if (opcode >= 50 && opcode < 60) {
+                newColors[opcode - 50] = buffer.method448();
+            } else if (opcode >= 60 && opcode < 70) {
+                headModelIndices[opcode - 60] = buffer.method448();
+            } else {
+                System.out.println("Error unrecognised config code: " + opcode);
+            }
         } while (true);
     }
 
-    public Model method216() {
-        if (anIntArray249 == null)
+    public Model getModel() {
+        if (modelIndices == null) {
             return null;
-        Model[] aclass38_sub2_sub1 = new Model[anIntArray249.length];
-        for (int i = 0; i < anIntArray249.length; i++)
-            aclass38_sub2_sub1[i] = new Model(false, anIntArray249[i]);
-
-        Model class38_sub2_sub1;
-        if (aclass38_sub2_sub1.length == 1)
-            class38_sub2_sub1 = aclass38_sub2_sub1[0];
-        else
-            class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, aclass38_sub2_sub1.length);
-        for (int j = 0; j < 6; j++) {
-            if (anIntArray250[j] == 0)
-                break;
-            class38_sub2_sub1.method364(anIntArray250[j], anIntArray251[j]);
         }
 
-        return class38_sub2_sub1;
+        Model[] models = new Model[modelIndices.length];
+        for (int i = 0; i < modelIndices.length; i++) {
+            models[i] = new Model(false, modelIndices[i]);
+        }
+
+        Model model;
+        if (models.length == 1) {
+            model = models[0];
+        } else {
+            model = new Model(0, models, models.length);
+        }
+
+        for (int j = 0; j < 6; j++) {
+            if (oldColors[j] == 0) {
+                break;
+            }
+
+            model.recolor(oldColors[j], newColors[j]);
+        }
+
+        return model;
     }
 
-    public Model method217(boolean flag) {
-        Model[] aclass38_sub2_sub1 = new Model[5];
-        int i = 0;
-        for (int j = 0; j < 5; j++)
-            if (anIntArray252[j] != -1)
-                aclass38_sub2_sub1[i++] = new Model(false, anIntArray252[j]);
+    public Model getHeadModel() {
+        Model[] models = new Model[5];
+        int count = 0;
 
-        Model class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, i);
-        for (int k = 0; k < 6; k++) {
-            if (anIntArray250[k] == 0)
+        for (int n = 0; n < 5; n++) {
+            if (headModelIndices[n] != -1) {
+                models[count++] = new Model(false, headModelIndices[n]);
+            }
+        }
+
+        Model model = new Model(0, models, count);
+        for (int n = 0; n < 6; n++) {
+            if (oldColors[n] == 0) {
                 break;
-            class38_sub2_sub1.method364(anIntArray250[k], anIntArray251[k]);
+            }
+
+            model.recolor(oldColors[n], newColors[n]);
         }
 
-        if (flag) {
-            for (int l = 1; l > 0; l++)
-                ;
-        }
-        return class38_sub2_sub1;
+        return model;
     }
 
     public IdkType() {
-        aBoolean245 = false;
-        anInt248 = -1;
-        anIntArray250 = new int[6];
-        anIntArray251 = new int[6];
-        aBoolean253 = false;
+        type = -1;
+        oldColors = new int[6];
+        newColors = new int[6];
     }
 
-    public static int anInt243;
-    public static int anInt244 = 473;
-    public boolean aBoolean245;
-    public static int anInt246;
-    public static IdkType[] idkTypes;
-    public int anInt248;
-    public int[] anIntArray249;
-    public int[] anIntArray250;
-    public int[] anIntArray251;
-    public int[] anIntArray252 = {
-            -1, -1, -1, -1, -1
+    public static int count;
+    public static IdkType[] instances;
+    public int type;
+    public int[] modelIndices;
+    public int[] oldColors;
+    public int[] newColors;
+    public int[] headModelIndices = {
+        -1, -1, -1, -1, -1
     };
-    public boolean aBoolean253;
+    public boolean validStyle;
 
 }

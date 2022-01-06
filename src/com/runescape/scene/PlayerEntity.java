@@ -175,7 +175,7 @@ public class PlayerEntity extends PathingEntity {
                 if (k >= 0 && k1 == 5)
                     l1 = k;
                 if (l1 >= 256 && l1 < 512)
-                    aclass38_sub2_sub1[j1++] = IdkType.idkTypes[l1 - 256].method216();
+                    aclass38_sub2_sub1[j1++] = IdkType.instances[l1 - 256].getModel();
                 if (l1 >= 512) {
                     ObjType objType = ObjType.method169(l1 - 512);
                     Model class38_sub2_sub1_2 = objType.method175((byte) 6, anInt1507);
@@ -187,10 +187,10 @@ public class PlayerEntity extends PathingEntity {
             class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, j1);
             for (int i2 = 0; i2 < 5; i2++)
                 if (anIntArray1510[i2] != 0) {
-                    class38_sub2_sub1.method364(Game.anIntArrayArray942[i2][0],
+                    class38_sub2_sub1.recolor(Game.anIntArrayArray942[i2][0],
                             Game.anIntArrayArray942[i2][anIntArray1510[i2]]);
                     if (i2 == 1)
-                        class38_sub2_sub1.method364(Game.anIntArray1073[0],
+                        class38_sub2_sub1.recolor(Game.anIntArray1073[0],
                                 Game.anIntArray1073[anIntArray1510[i2]]);
                 }
 
@@ -221,7 +221,7 @@ public class PlayerEntity extends PathingEntity {
         for (int k = 0; k < 12; k++) {
             int l = anIntArray1509[k];
             if (l >= 256 && l < 512)
-                aclass38_sub2_sub1[j++] = IdkType.idkTypes[l - 256].method217(false);
+                aclass38_sub2_sub1[j++] = IdkType.instances[l - 256].getHeadModel();
             if (l >= 512) {
                 Model class38_sub2_sub1_1 = ObjType.method169(l - 512).method176(-22246, anInt1507);
                 if (class38_sub2_sub1_1 != null)
@@ -232,10 +232,10 @@ public class PlayerEntity extends PathingEntity {
         Model class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, j);
         for (int i1 = 0; i1 < 5; i1++)
             if (anIntArray1510[i1] != 0) {
-                class38_sub2_sub1.method364(Game.anIntArrayArray942[i1][0],
+                class38_sub2_sub1.recolor(Game.anIntArrayArray942[i1][0],
                         Game.anIntArrayArray942[i1][anIntArray1510[i1]]);
                 if (i1 == 1)
-                    class38_sub2_sub1.method364(Game.anIntArray1073[0], Game.anIntArray1073[anIntArray1510[i1]]);
+                    class38_sub2_sub1.recolor(Game.anIntArray1073[0], Game.anIntArray1073[anIntArray1510[i1]]);
             }
 
         while (i >= 0)

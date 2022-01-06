@@ -281,7 +281,7 @@ public class LocType {
 
         if (oldColors != null) {
             for (int k4 = 0; k4 < oldColors.length; k4++) {
-                model.method364(oldColors[k4], newColors[k4]);
+                model.recolor(oldColors[k4], newColors[k4]);
             }
         }
 

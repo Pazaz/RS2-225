@@ -230,7 +230,7 @@ public class ObjType {
         class38_sub2_sub1 = new Model(false, anInt144);
         if (anIntArray147 != null) {
             for (int l = 0; l < anIntArray147.length; l++)
-                class38_sub2_sub1.method364(anIntArray147[l], anIntArray148[l]);
+                class38_sub2_sub1.recolor(anIntArray147[l], anIntArray148[l]);
 
         }
         class38_sub2_sub1.applyLighting(64, 768, -50, -10, -50, true);
@@ -365,7 +365,7 @@ public class ObjType {
             class38_sub2_sub1.method363(aByte167, 0, -122, 0);
         if (anIntArray147 != null) {
             for (int i1 = 0; i1 < anIntArray147.length; i1++)
-                class38_sub2_sub1.method364(anIntArray147[i1], anIntArray148[i1]);
+                class38_sub2_sub1.recolor(anIntArray147[i1], anIntArray148[i1]);
 
         }
         return class38_sub2_sub1;
@@ -392,7 +392,7 @@ public class ObjType {
         }
         if (anIntArray147 != null) {
             for (int i1 = 0; i1 < anIntArray147.length; i1++)
-                class38_sub2_sub1.method364(anIntArray147[i1], anIntArray148[i1]);
+                class38_sub2_sub1.recolor(anIntArray147[i1], anIntArray148[i1]);
 
         }
         return class38_sub2_sub1;

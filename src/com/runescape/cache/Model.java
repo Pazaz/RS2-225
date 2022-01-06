@@ -1103,7 +1103,7 @@ public class Model extends CacheableNode {
 
     }
 
-    public void method364(int i, int j) {
+    public void recolor(int i, int j) {
         for (int k = 0; k < anInt1226; k++)
             if (anIntArray1236[k] == i)
                 anIntArray1236[k] = j;

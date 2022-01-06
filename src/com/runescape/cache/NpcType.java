@@ -128,7 +128,7 @@ public class NpcType {
                 class38_sub2_sub1_1 = new Model(0, aclass38_sub2_sub1, aclass38_sub2_sub1.length);
             if (anIntArray94 != null) {
                 for (int l = 0; l < anIntArray94.length; l++)
-                    class38_sub2_sub1_1.method364(anIntArray94[l], anIntArray95[l]);
+                    class38_sub2_sub1_1.recolor(anIntArray94[l], anIntArray95[l]);
 
             }
             class38_sub2_sub1_1.applyGroups(4);
@@ -166,7 +166,7 @@ public class NpcType {
             class38_sub2_sub1 = new Model(0, aclass38_sub2_sub1, aclass38_sub2_sub1.length);
         if (anIntArray94 != null) {
             for (int j = 0; j < anIntArray94.length; j++)
-                class38_sub2_sub1.method364(anIntArray94[j], anIntArray95[j]);
+                class38_sub2_sub1.recolor(anIntArray94[j], anIntArray95[j]);
 
         }
         return class38_sub2_sub1;
