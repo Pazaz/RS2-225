@@ -430,15 +430,15 @@ public class client extends Applet_Sub1 {
                     int j17 = 0;
                     int l17 = 0;
                     if (i13 == 0)
-                        i16 = aClass32_831.method308(anInt880, k2, l4);
+                        i16 = scene.method308(anInt880, k2, l4);
                     if (i13 == 1)
-                        i16 = aClass32_831.method309(anInt880, l4, 3, k2);
+                        i16 = scene.method309(anInt880, l4, 3, k2);
                     if (i13 == 2)
-                        i16 = aClass32_831.method310(anInt880, k2, l4);
+                        i16 = scene.method310(anInt880, k2, l4);
                     if (i13 == 3)
-                        i16 = aClass32_831.method311(anInt880, k2, l4);
+                        i16 = scene.method311(anInt880, k2, l4);
                     if (i16 != 0) {
-                        int i18 = aClass32_831.method312(anInt880, k2, l4, i16);
+                        int i18 = scene.method312(anInt880, k2, l4, i16);
                         l16 = i16 >> 14 & 0x7fff;
                         j17 = i18 & 0x1f;
                         l17 = i18 >> 6;
@@ -471,13 +471,13 @@ public class client extends Applet_Sub1 {
             if (l2 >= 0 && i5 >= 0 && l2 < 104 && i5 < 104) {
                 int j14 = 0;
                 if (k11 == 0)
-                    j14 = aClass32_831.method308(anInt880, l2, i5);
+                    j14 = scene.method308(anInt880, l2, i5);
                 if (k11 == 1)
-                    j14 = aClass32_831.method309(anInt880, i5, 3, l2);
+                    j14 = scene.method309(anInt880, i5, 3, l2);
                 if (k11 == 2)
-                    j14 = aClass32_831.method310(anInt880, l2, i5);
+                    j14 = scene.method310(anInt880, l2, i5);
                 if (k11 == 3)
-                    j14 = aClass32_831.method311(anInt880, l2, i5);
+                    j14 = scene.method311(anInt880, l2, i5);
                 if (j14 != 0) {
                     LocEntity locEntity = new LocEntity(false, j14 >> 14 & 0x7fff, anInt880, 0, k11,
                             SeqType.seqTypes[j13], i5, l2);
@@ -830,8 +830,8 @@ public class client extends Applet_Sub1 {
         Class38_Sub2_Sub1.anInt1296 = super.anInt21 - 8;
         Class38_Sub2_Sub1.anInt1297 = super.anInt22 - 11;
         Class38_Sub2_Sub2.method379(anInt1143);
-        aClass32_831.method321(anInt1115, anInt1111, k, anInt1114, anInt1112, anInt1113, 0);
-        aClass32_831.method295(0);
+        scene.method321(anInt1115, anInt1111, k, anInt1114, anInt1112, anInt1113, 0);
+        scene.method295(0);
         method15(anInt805);
         method133((byte) -11);
         method41(i3, true);
@@ -908,7 +908,7 @@ public class client extends Applet_Sub1 {
     public static void method27(boolean flag) {
         if (!flag)
             aBoolean870 = !aBoolean870;
-        Class32.aBoolean526 = true;
+        Scene.aBoolean526 = true;
         Class38_Sub2_Sub2_Sub1.aBoolean1437 = true;
         aBoolean889 = true;
         Class3.aBoolean108 = true;
@@ -1342,7 +1342,7 @@ public class client extends Applet_Sub1 {
                 playerEntity.anInt1513 = method33(anInt880,
                         playerEntity.anInt1380, (byte) 5,
                         playerEntity.anInt1381);
-                aClass32_831.method293(playerEntity.anInt1522, 60, null,
+                scene.method293(playerEntity.anInt1522, 60, null,
                         playerEntity.anInt1381, playerEntity.anInt1513, k,
                         playerEntity.anInt1382, playerEntity.anInt1521,
                         playerEntity.anInt1520, playerEntity, false, anInt880,
@@ -1358,7 +1358,7 @@ public class client extends Applet_Sub1 {
             playerEntity.anInt1513 = method33(anInt880,
                     playerEntity.anInt1380, (byte) 5,
                     playerEntity.anInt1381);
-            aClass32_831.method292(-44713, playerEntity.anInt1381, 60,
+            scene.method292(-44713, playerEntity.anInt1381, 60,
                     playerEntity.anInt1382,
                     playerEntity.anInt1380, k,
                     playerEntity.aBoolean1383, null, playerEntity,
@@ -2108,9 +2108,9 @@ public class client extends Applet_Sub1 {
             int j1 = 24628 + (103 - i1) * 512 * 4;
             for (int l1 = 1; l1 < 103; l1++) {
                 if ((aByteArrayArrayArray840[i][l1][i1] & 0x18) == 0)
-                    aClass32_831.method317(ai, j1, 512, i, l1, i1);
+                    scene.method317(ai, j1, 512, i, l1, i1);
                 if (i < 3 && (aByteArrayArrayArray840[i + 1][l1][i1] & 8) != 0)
-                    aClass32_831.method317(ai, j1, 512, i + 1, l1, i1);
+                    scene.method317(ai, j1, 512, i + 1, l1, i1);
                 j1 += 4;
             }
 
@@ -2134,7 +2134,7 @@ public class client extends Applet_Sub1 {
         anInt917 = 0;
         for (int l2 = 0; l2 < 104; l2++) {
             for (int i3 = 0; i3 < 104; i3++) {
-                int j3 = aClass32_831.method311(anInt880, l2, i3);
+                int j3 = scene.method311(anInt880, l2, i3);
                 if (j3 != 0) {
                     j3 = j3 >> 14 & 0x7fff;
                     int k3 = LocType.get(j3).mapfunction;
@@ -2171,9 +2171,9 @@ public class client extends Applet_Sub1 {
     }
 
     public void method46(int i, int j, int k, int l, int i1, int j1) {
-        int k1 = aClass32_831.method308(j, l, j1);
+        int k1 = scene.method308(j, l, j1);
         if (k1 != 0) {
-            int l1 = aClass32_831.method312(j, l, j1, k1);
+            int l1 = scene.method312(j, l, j1, k1);
             int k2 = l1 >> 6 & 3;
             int i3 = l1 & 0x1f;
             int k3 = k;
@@ -2247,10 +2247,10 @@ public class client extends Applet_Sub1 {
                     }
             }
         }
-        k1 = aClass32_831.method310(j, l, j1);
+        k1 = scene.method310(j, l, j1);
         i = 56 / i;
         if (k1 != 0) {
-            int i2 = aClass32_831.method312(j, l, j1, k1);
+            int i2 = scene.method312(j, l, j1, k1);
             int l2 = i2 >> 6 & 3;
             int j3 = i2 & 0x1f;
             int l3 = k1 >> 14 & 0x7fff;
@@ -2282,7 +2282,7 @@ public class client extends Applet_Sub1 {
                 }
             }
         }
-        k1 = aClass32_831.method311(j, l, j1);
+        k1 = scene.method311(j, l, j1);
         if (k1 != 0) {
             int j2 = k1 >> 14 & 0x7fff;
             LocType locType = LocType.get(j2);
@@ -2523,7 +2523,7 @@ public class client extends Applet_Sub1 {
                     continue;
                 anIntArrayArray920[k][l] = anInt837;
             }
-            aClass32_831.method292(-44713, npcEntity.anInt1381,
+            scene.method292(-44713, npcEntity.anInt1381,
                     (npcEntity.anInt1384 - 1) * 64 + 60,
                     npcEntity.anInt1382,
                     npcEntity.anInt1380, j,
@@ -2700,7 +2700,7 @@ public class client extends Applet_Sub1 {
         method83(aByte843);
         while (i >= 0)
             return;
-        aClass32_831.method281(742);
+        scene.method281(742);
         for (int j = 0; j < 4; j++)
             aClass8Array954[j].method196((byte) 74);
 
@@ -3692,9 +3692,9 @@ public class client extends Applet_Sub1 {
         }
         if (i1 == 660)
             if (!aBoolean879)
-                aClass32_831.method320(4, super.anInt25 - 11, super.anInt24 - 8);
+                scene.method320(4, super.anInt25 - 11, super.anInt24 - 8);
             else
-                aClass32_831.method320(4, l - 11, k - 8);
+                scene.method320(4, l - 11, k - 8);
         if (i1 == 188) {
             anInt1002 = 1;
             anInt1003 = k;
@@ -4588,7 +4588,7 @@ public class client extends Applet_Sub1 {
             FileArchive fileArchive_6 = method37("sound effects", anIntArray811[8], "sounds", 70, 0);
             aByteArrayArrayArray840 = new byte[4][104][104];
             anIntArrayArrayArray794 = new int[4][105][105];
-            aClass32_831 = new Class32(415, anIntArrayArrayArray794, 104, 4, 104);
+            scene = new Scene(415, anIntArrayArrayArray794, 104, 4, 104);
             for (int l = 0; l < 4; l++)
                 aClass8Array954[l] = new Class8(104, -708, 104);
 
@@ -4793,7 +4793,7 @@ public class client extends Applet_Sub1 {
                 ai[k5] = j6 * k6 >> 16;
             }
 
-            Class32.method318(ai, 800, 512, aByte871, 334, 500);
+            Scene.method318(ai, 800, 512, aByte871, 334, 500);
             WordEncoding.method229(fileArchive_5);
             return;
         } catch (Exception exception) {
@@ -5025,7 +5025,7 @@ public class client extends Applet_Sub1 {
                                 playerEntity.anInt1380, anInt955);
                 }
                 projectileEntity.update(anInt969);
-                aClass32_831.method292(-44713, (int) projectileEntity.y, 60, projectileEntity.yaw,
+                scene.method292(-44713, (int) projectileEntity.y, 60, projectileEntity.yaw,
                         (int) projectileEntity.x, -1, false, null, projectileEntity,
                         (int) projectileEntity.z, anInt880);
             }
@@ -5121,7 +5121,7 @@ public class client extends Applet_Sub1 {
 
     public boolean method92(int i, int j, int k, int l, boolean flag) {
         int i1 = l >> 14 & 0x7fff;
-        int j1 = aClass32_831.method312(anInt880, j, k, l);
+        int j1 = scene.method312(anInt880, j, k, l);
         if (j1 == -1)
             return false;
         int k1 = j1 & 0x1f;
@@ -5600,28 +5600,28 @@ public class client extends Applet_Sub1 {
             boolean flag = false;
             boolean flag1 = false;
             if (l == 0)
-                i2 = aClass32_831.method308(l1, j, k);
+                i2 = scene.method308(l1, j, k);
             if (l == 1)
-                i2 = aClass32_831.method309(l1, k, 3, j);
+                i2 = scene.method309(l1, k, 3, j);
             if (l == 2)
-                i2 = aClass32_831.method310(l1, j, k);
+                i2 = scene.method310(l1, j, k);
             if (l == 3)
-                i2 = aClass32_831.method311(l1, j, k);
+                i2 = scene.method311(l1, j, k);
             if (i2 != 0) {
-                int i3 = aClass32_831.method312(l1, j, k, i2);
+                int i3 = scene.method312(l1, j, k, i2);
                 int j2 = i2 >> 14 & 0x7fff;
                 int k2 = i3 & 0x1f;
                 int l2 = i3 >> 6;
                 if (l == 0) {
-                    aClass32_831.method303(j, l1, k, 1);
+                    scene.method303(j, l1, k, 1);
                     LocType locType = LocType.get(j2);
                     if (locType.hasCollision)
                         aClass8Array954[l1].method201(locType.isSolid, l2, j, k, 323, k2);
                 }
                 if (l == 1)
-                    aClass32_831.method304(l1, k, anInt1077, j);
+                    scene.method304(l1, k, anInt1077, j);
                 if (l == 2) {
-                    aClass32_831.method305(j, k, -54, l1);
+                    scene.method305(j, k, -54, l1);
                     LocType locType = LocType.get(j2);
                     if (j + locType.sizeX > 103 || k + locType.sizeX > 103 || j + locType.sizeZ > 103
                             || k + locType.sizeZ > 103)
@@ -5631,7 +5631,7 @@ public class client extends Applet_Sub1 {
                                 locType.sizeZ);
                 }
                 if (l == 3) {
-                    aClass32_831.method306(l1, anInt1022, j, k);
+                    scene.method306(l1, anInt1022, j, k);
                     LocType locType_2 = LocType.get(j2);
                     if (locType_2.hasCollision && locType_2.interactable)
                         aClass8Array954[l1].method204(k, j, 0);
@@ -5642,7 +5642,7 @@ public class client extends Applet_Sub1 {
                 if (j3 < 3 && (aByteArrayArrayArray840[1][j][k] & 2) == 2)
                     j3++;
                 Class3.method166(j, linkedList2, aClass8Array954[l1], k, i, anIntArrayArrayArray794, 0, l1, i1, j1,
-                        aClass32_831, j3);
+                        scene, j3);
             }
         }
     }
@@ -5698,7 +5698,7 @@ public class client extends Applet_Sub1 {
         aByteArrayArray1000 = null;
         anIntArrayArrayArray794 = null;
         aByteArrayArrayArray840 = null;
-        aClass32_831 = null;
+        scene = null;
         aClass8Array954 = null;
         anIntArrayArray1118 = null;
         anIntArrayArray758 = null;
@@ -5801,7 +5801,7 @@ public class client extends Applet_Sub1 {
         super.drawArea = null;
         PlayerEntity.aClass34_1525 = null;
         Class38_Sub2_Sub2_Sub1.method384(true);
-        Class32.method280(true);
+        Scene.method280(true);
         Class38_Sub2_Sub1.method351(true);
         SeqBase.seqBaseArray = null;
         SeqFrame.seqFrames = null;
@@ -6034,12 +6034,12 @@ public class client extends Applet_Sub1 {
             aClass38_Sub2_Sub3_798.method435((byte) -34, 215);
             aClass38_Sub2_Sub3_798.method439(0x4c2b2c);
         }
-        if (Class32.anInt560 != -1) {
-            int l = Class32.anInt560;
-            int k1 = Class32.anInt561;
+        if (Scene.anInt560 != -1) {
+            int l = Scene.anInt560;
+            int k1 = Scene.anInt561;
             boolean flag2 = method107(localPlayerEntity.anIntArray1428[0], 0, true, l,
                     localPlayerEntity.anIntArray1429[0], 0, 0, 0, k1, 0, 0, 0);
-            Class32.anInt560 = -1;
+            Scene.anInt560 = -1;
             if (flag2) {
                 anInt738 = super.anInt24;
                 anInt739 = super.anInt25;
@@ -6166,7 +6166,7 @@ public class client extends Applet_Sub1 {
                 if (spotAnimEntity.aBoolean1377)
                     spotAnimEntity.unlink();
                 else
-                    aClass32_831.method292(-44713, spotAnimEntity.anInt1373, 60, 0, spotAnimEntity.anInt1372, -1,
+                    scene.method292(-44713, spotAnimEntity.anInt1373, 60, 0, spotAnimEntity.anInt1372, -1,
                             false, null, spotAnimEntity, spotAnimEntity.anInt1374, spotAnimEntity.anInt1371);
             }
 
@@ -6184,7 +6184,7 @@ public class client extends Applet_Sub1 {
     }
 
     public static void method106(int i) {
-        Class32.aBoolean526 = false;
+        Scene.aBoolean526 = false;
         Class38_Sub2_Sub2_Sub1.aBoolean1437 = false;
         if (i != 9) {
             return;
@@ -7030,7 +7030,7 @@ public class client extends Applet_Sub1 {
     public void method123(int i, int j) {
         LinkedList linkedList = linkedList3dArray[anInt880][i][j];
         if (linkedList == null) {
-            aClass32_831.method307(anInt880, i, j);
+            scene.method307(anInt880, i, j);
             return;
         }
         int k = 0xfa0a1f01;
@@ -7073,7 +7073,7 @@ public class client extends Applet_Sub1 {
             class38_sub2_sub1_1 = ObjType.method169(j1).method173(l1);
         int i2 = i + (j << 7) + 0x60000000;
         ObjType objType_1 = ObjType.method169(((ObjStackEntity) (obj)).model);
-        aClass32_831.method288(objType_1.method173(((ObjStackEntity) (obj)).amount), class38_sub2_sub1,
+        scene.method288(objType_1.method173(((ObjStackEntity) (obj)).amount), class38_sub2_sub1,
                 method33(anInt880, i * 128 + 64, (byte) 5, j * 128 + 64), anInt880, i2, j, i, class38_sub2_sub1_1, 429);
     }
 
@@ -7086,7 +7086,7 @@ public class client extends Applet_Sub1 {
             linkedList4.method274();
             Class38_Sub2_Sub2_Sub1.method387(false);
             method83(aByte843);
-            aClass32_831.method281(742);
+            scene.method281(742);
             for (int j = 0; j < 4; j++)
                 aClass8Array954[j].method196((byte) 74);
 
@@ -7094,7 +7094,7 @@ public class client extends Applet_Sub1 {
             Class3 class3 = new Class3(104, aByteArrayArrayArray840, 104, anIntArrayArrayArray794, anInt1106);
             byte[] abyte0 = new byte[0x186a0];
             int k = aByteArrayArray770.length;
-            Class3.aBoolean108 = Class32.aBoolean526;
+            Class3.aBoolean108 = Scene.aBoolean526;
             for (int l = 0; l < k; l++) {
                 int i1 = anIntArray925[l] >> 8;
                 int k1 = anIntArray925[l] & 0xff;
@@ -7103,9 +7103,9 @@ public class client extends Applet_Sub1 {
             }
 
             if (Class3.aBoolean108)
-                aClass32_831.method282(0, anInt880);
+                scene.method282(0, anInt880);
             else
-                aClass32_831.method282(0, 0);
+                scene.method282(0, 0);
             aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
             for (int j1 = 0; j1 < k; j1++) {
                 int l1 = (anIntArray925[j1] >> 8) * 64 - anInt761;
@@ -7127,12 +7127,12 @@ public class client extends Applet_Sub1 {
                     BZip2InputStream.read(abyte0, k2, abyte1, abyte1.length - 4, 4);
                     int j3 = (anIntArray925[i2] >> 8) * 64 - anInt761;
                     int l3 = (anIntArray925[i2] & 0xff) * 64 - anInt762;
-                    class3.method154(abyte0, aClass32_831, aClass8Array954, linkedList2, true, l3, j3);
+                    class3.method154(abyte0, scene, aClass8Array954, linkedList2, true, l3, j3);
                 }
             }
 
             aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
-            class3.method156(aClass32_831, -270, aClass8Array954);
+            class3.method156(scene, -270, aClass8Array954);
             drawArea22.init2D();
             aClass38_Sub2_Sub3_798.method435((byte) -34, 108);
             for (LocEntity locEntity = (LocEntity) linkedList2
@@ -7422,13 +7422,13 @@ public class client extends Applet_Sub1 {
                 int l = locEntity.anInt1209;
                 int i1 = 0;
                 if (locEntity.anInt1207 == 0)
-                    i1 = aClass32_831.method308(j, k, l);
+                    i1 = scene.method308(j, k, l);
                 if (locEntity.anInt1207 == 1)
-                    i1 = aClass32_831.method309(j, l, 3, k);
+                    i1 = scene.method309(j, l, 3, k);
                 if (locEntity.anInt1207 == 2)
-                    i1 = aClass32_831.method310(j, k, l);
+                    i1 = scene.method310(j, k, l);
                 if (locEntity.anInt1207 == 3)
-                    i1 = aClass32_831.method311(j, k, l);
+                    i1 = scene.method311(j, k, l);
                 if (i1 == 0 || (i1 >> 14 & 0x7fff) != locEntity.anInt1210) {
                     locEntity.unlink();
                 } else {
@@ -7441,34 +7441,34 @@ public class client extends Applet_Sub1 {
                     if (locEntity.anInt1212 != -1)
                         j2 = locEntity.seqType.primaryFrames[locEntity.anInt1212];
                     if (locEntity.anInt1207 == 2) {
-                        int k2 = aClass32_831.method312(j, k, l, i1);
+                        int k2 = scene.method312(j, k, l, i1);
                         int j3 = k2 & 0x1f;
                         int i4 = k2 >> 6;
                         if (j3 == 11)
                             j3 = 10;
                         Class38_Sub2_Sub1 class38_sub2_sub1_2 = locType.getModel(j3, i4, j1, k1, l1, i2, j2);
-                        aClass32_831.method297(k, class38_sub2_sub1_2, 1, j, l);
+                        scene.method297(k, class38_sub2_sub1_2, 1, j, l);
                     } else if (locEntity.anInt1207 == 1) {
                         Class38_Sub2_Sub1 class38_sub2_sub1 = locType.getModel(4, 0, j1, k1, l1, i2, j2);
-                        aClass32_831.method299(266, l, k, class38_sub2_sub1, j);
+                        scene.method299(266, l, k, class38_sub2_sub1, j);
                     } else if (locEntity.anInt1207 == 0) {
-                        int l2 = aClass32_831.method312(j, k, l, i1);
+                        int l2 = scene.method312(j, k, l, i1);
                         int k3 = l2 & 0x1f;
                         int j4 = l2 >> 6;
                         if (k3 == 2) {
                             int k4 = j4 + 1 & 3;
                             Class38_Sub2_Sub1 class38_sub2_sub1_4 = locType.getModel(2, 4 + j4, j1, k1, l1, i2, j2);
                             Class38_Sub2_Sub1 class38_sub2_sub1_5 = locType.getModel(2, k4, j1, k1, l1, i2, j2);
-                            aClass32_831.method302(class38_sub2_sub1_4, class38_sub2_sub1_5, l, aBoolean849, k, j);
+                            scene.method302(class38_sub2_sub1_4, class38_sub2_sub1_5, l, aBoolean849, k, j);
                         } else {
                             Class38_Sub2_Sub1 class38_sub2_sub1_3 = locType.getModel(k3, j4, j1, k1, l1, i2, j2);
-                            aClass32_831.method301(35568, class38_sub2_sub1_3, l, k, j);
+                            scene.method301(35568, class38_sub2_sub1_3, l, k, j);
                         }
                     } else if (locEntity.anInt1207 == 3) {
-                        int i3 = aClass32_831.method312(j, k, l, i1);
+                        int i3 = scene.method312(j, k, l, i1);
                         int l3 = i3 >> 6;
                         Class38_Sub2_Sub1 class38_sub2_sub1_1 = locType.getModel(22, l3, j1, k1, l1, i2, j2);
-                        aClass32_831.method300(class38_sub2_sub1_1, l, -48639, k, j);
+                        scene.method300(class38_sub2_sub1_1, l, -48639, k, j);
                     }
                 }
             }
@@ -7514,7 +7514,7 @@ public class client extends Applet_Sub1 {
             int k1 = k >> 14 & 0x7fff;
             if (k != i) {
                 i = k;
-                if (j1 == 2 && aClass32_831.method312(anInt880, l, i1, k) >= 0) {
+                if (j1 == 2 && scene.method312(anInt880, l, i1, k) >= 0) {
                     LocType locType = LocType.get(k1);
                     if (anInt1002 == 1) {
                         aStringArray834[anInt1074] = "Use " + aString1006 + " with @cya@" + locType.name;
@@ -9420,7 +9420,7 @@ public class client extends Applet_Sub1 {
     public int anInt828;
     public int anInt829;
     public int anInt830;
-    public Class32 aClass32_831;
+    public Scene scene;
     public LinkedList linkedList4;
     public int anInt833;
     public String[] aStringArray834;

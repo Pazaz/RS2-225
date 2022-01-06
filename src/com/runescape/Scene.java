@@ -1,8 +1,8 @@
 package com.runescape;
 
-public class Class32 {
+public class Scene {
 
-    public Class32(int i, int[][][] ai, int j, int k, int l) {
+    public Scene(int i, int[][][] ai, int j, int k, int l) {
         aBoolean519 = false;
         aByte520 = 6;
         aByte522 = 1;
