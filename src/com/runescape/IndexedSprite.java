@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class IndexedSprite extends Class38_Sub2_Sub2 {
+public class IndexedSprite extends Draw2D {
 
     public IndexedSprite(FileArchive fileArchive, String s, int i) {
         aBoolean1472 = false;
@@ -151,32 +151,32 @@ public class IndexedSprite extends Class38_Sub2_Sub2 {
     public void method419(int i, int j, boolean flag) {
         j += anInt1480;
         i += anInt1481;
-        int k = j + i * Class38_Sub2_Sub2.anInt1309;
+        int k = j + i * Draw2D.anInt1309;
         int l = 0;
         int i1 = anInt1479;
         int j1 = anInt1478;
-        int k1 = Class38_Sub2_Sub2.anInt1309 - j1;
+        int k1 = Draw2D.anInt1309 - j1;
         int l1 = 0;
-        if (i < Class38_Sub2_Sub2.anInt1311) {
-            int i2 = Class38_Sub2_Sub2.anInt1311 - i;
+        if (i < Draw2D.anInt1311) {
+            int i2 = Draw2D.anInt1311 - i;
             i1 -= i2;
-            i = Class38_Sub2_Sub2.anInt1311;
+            i = Draw2D.anInt1311;
             l += i2 * j1;
-            k += i2 * Class38_Sub2_Sub2.anInt1309;
+            k += i2 * Draw2D.anInt1309;
         }
-        if (i + i1 > Class38_Sub2_Sub2.anInt1312)
-            i1 -= (i + i1) - Class38_Sub2_Sub2.anInt1312;
-        if (j < Class38_Sub2_Sub2.anInt1313) {
-            int j2 = Class38_Sub2_Sub2.anInt1313 - j;
+        if (i + i1 > Draw2D.anInt1312)
+            i1 -= (i + i1) - Draw2D.anInt1312;
+        if (j < Draw2D.anInt1313) {
+            int j2 = Draw2D.anInt1313 - j;
             j1 -= j2;
-            j = Class38_Sub2_Sub2.anInt1313;
+            j = Draw2D.anInt1313;
             l += j2;
             k += j2;
             l1 += j2;
             k1 += j2;
         }
-        if (j + j1 > Class38_Sub2_Sub2.anInt1314) {
-            int k2 = (j + j1) - Class38_Sub2_Sub2.anInt1314;
+        if (j + j1 > Draw2D.anInt1314) {
+            int k2 = (j + j1) - Draw2D.anInt1314;
             j1 -= k2;
             l1 += k2;
             k1 += k2;
@@ -184,7 +184,7 @@ public class IndexedSprite extends Class38_Sub2_Sub2 {
         if (j1 <= 0 || i1 <= 0) {
             return;
         } else {
-            method420(Class38_Sub2_Sub2.anIntArray1308, l, l1, aByteArray1476, i1, 0, j1, k, k1, anIntArray1477);
+            method420(Draw2D.anIntArray1308, l, l1, aByteArray1476, i1, 0, j1, k, k1, anIntArray1477);
             if (!flag)
                 ;
             return;

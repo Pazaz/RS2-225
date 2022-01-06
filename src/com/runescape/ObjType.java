@@ -258,16 +258,16 @@ public class ObjType {
         int i1 = Class38_Sub2_Sub2_Sub1.anInt1442;
         int k1 = Class38_Sub2_Sub2_Sub1.anInt1443;
         int[] ai = Class38_Sub2_Sub2_Sub1.anIntArray1448;
-        int[] ai1 = Class38_Sub2_Sub2.anIntArray1308;
-        int l1 = Class38_Sub2_Sub2.anInt1309;
-        int i2 = Class38_Sub2_Sub2.anInt1310;
-        int j2 = Class38_Sub2_Sub2.anInt1313;
-        int k2 = Class38_Sub2_Sub2.anInt1314;
-        int l2 = Class38_Sub2_Sub2.anInt1311;
-        int i3 = Class38_Sub2_Sub2.anInt1312;
+        int[] ai1 = Draw2D.anIntArray1308;
+        int l1 = Draw2D.anInt1309;
+        int i2 = Draw2D.anInt1310;
+        int j2 = Draw2D.anInt1313;
+        int k2 = Draw2D.anInt1314;
+        int l2 = Draw2D.anInt1311;
+        int i3 = Draw2D.anInt1312;
         Class38_Sub2_Sub2_Sub1.aBoolean1440 = false;
-        Class38_Sub2_Sub2.init(32, class38_sub2_sub2_sub2.anIntArray1465, -657, 32);
-        Class38_Sub2_Sub2.method380(0, 0, 0, (byte) 93, 32, 32);
+        Draw2D.init(32, class38_sub2_sub2_sub2.anIntArray1465, -657, 32);
+        Draw2D.method380(0, 0, 0, (byte) 93, 32, 32);
         Class38_Sub2_Sub2_Sub1.method385(anInt135);
         Class38_Sub2_Sub1 class38_sub2_sub1 = objType.method173(1);
         int j3 = Class38_Sub2_Sub2_Sub1.anIntArray1446[objType.anInt150] * objType.anInt149 >> 16;
@@ -309,8 +309,8 @@ public class ObjType {
             class38_sub2_sub2_sub2_1.anInt1471 = i5;
         }
         aClass34_179.method342(6, i, class38_sub2_sub2_sub2);
-        Class38_Sub2_Sub2.init(l1, ai1, -657, i2);
-        Class38_Sub2_Sub2.method378(i3, l2, k2, 789, j2);
+        Draw2D.init(l1, ai1, -657, i2);
+        Draw2D.method378(i3, l2, k2, 789, j2);
         Class38_Sub2_Sub2_Sub1.anInt1442 = i1;
         Class38_Sub2_Sub2_Sub1.anInt1443 = k1;
         Class38_Sub2_Sub2_Sub1.anIntArray1448 = ai;

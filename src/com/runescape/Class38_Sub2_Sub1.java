@@ -1346,19 +1346,19 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
             return;
         int j3 = l1 * l + j1 * i1 >> 16;
         int k3 = j3 - anInt1246 << 9;
-        if (k3 / i3 >= Class38_Sub2_Sub2.anInt1316)
+        if (k3 / i3 >= Draw2D.anInt1316)
             return;
         int l3 = j3 + anInt1246 << 9;
-        if (l3 / i3 <= -Class38_Sub2_Sub2.anInt1316)
+        if (l3 / i3 <= -Draw2D.anInt1316)
             return;
         int i4 = k1 * k - j2 * j >> 16;
         int j4 = anInt1246 * j >> 16;
         int k4 = i4 + j4 << 9;
-        if (k4 / i3 <= -Class38_Sub2_Sub2.anInt1317)
+        if (k4 / i3 <= -Draw2D.anInt1317)
             return;
         int l4 = j4 + (anInt1247 * k >> 16);
         int i5 = i4 - l4 << 9;
-        if (i5 / i3 >= Class38_Sub2_Sub2.anInt1317)
+        if (i5 / i3 >= Draw2D.anInt1317)
             return;
         int j5 = l2 + (anInt1247 * j >> 16);
         boolean flag = k2 - j5 <= 50;
@@ -1463,8 +1463,8 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
                     if ((i3 - l3) * (anIntArray1277[j2] - anIntArray1277[k1])
                             - (anIntArray1277[l] - anIntArray1277[k1]) * (k4 - l3) > 0) {
                         aBooleanArray1275[k] = false;
-                        aBooleanArray1274[k] = i3 < 0 || l3 < 0 || k4 < 0 || i3 > Class38_Sub2_Sub2.anInt1315
-                                || l3 > Class38_Sub2_Sub2.anInt1315 || k4 > Class38_Sub2_Sub2.anInt1315;
+                        aBooleanArray1274[k] = i3 < 0 || l3 < 0 || k4 < 0 || i3 > Draw2D.anInt1315
+                                || l3 > Draw2D.anInt1315 || k4 > Draw2D.anInt1315;
                         int k5 = (anIntArray1278[l] + anIntArray1278[k1] + anIntArray1278[j2]) / 3 + anInt1250;
                         anIntArrayArray1283[k5][anIntArray1282[k5]++] = k;
                     }
@@ -1728,8 +1728,8 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         if ((j3 - j4) * (k7 - j7) - (i7 - j7) * (j5 - j4) > 0) {
             Class38_Sub2_Sub2_Sub1.aBoolean1438 = false;
             if (l == 3) {
-                if (j3 < 0 || j4 < 0 || j5 < 0 || j3 > Class38_Sub2_Sub2.anInt1315 || j4 > Class38_Sub2_Sub2.anInt1315
-                        || j5 > Class38_Sub2_Sub2.anInt1315)
+                if (j3 < 0 || j4 < 0 || j5 < 0 || j3 > Draw2D.anInt1315 || j4 > Draw2D.anInt1315
+                        || j5 > Draw2D.anInt1315)
                     Class38_Sub2_Sub2_Sub1.aBoolean1438 = true;
                 int l7;
                 if (anIntArray1233 == null)
@@ -1762,9 +1762,9 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
                 }
             }
             if (l == 4) {
-                if (j3 < 0 || j4 < 0 || j5 < 0 || j3 > Class38_Sub2_Sub2.anInt1315 || j4 > Class38_Sub2_Sub2.anInt1315
-                        || j5 > Class38_Sub2_Sub2.anInt1315 || anIntArray1289[3] < 0
-                        || anIntArray1289[3] > Class38_Sub2_Sub2.anInt1315)
+                if (j3 < 0 || j4 < 0 || j5 < 0 || j3 > Draw2D.anInt1315 || j4 > Draw2D.anInt1315
+                        || j5 > Draw2D.anInt1315 || anIntArray1289[3] < 0
+                        || anIntArray1289[3] > Draw2D.anInt1315)
                     Class38_Sub2_Sub2_Sub1.aBoolean1438 = true;
                 int i8;
                 if (anIntArray1233 == null)

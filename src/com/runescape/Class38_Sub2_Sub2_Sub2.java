@@ -3,7 +3,7 @@ package com.runescape;
 import java.awt.*;
 import java.awt.image.PixelGrabber;
 
-public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
+public class Class38_Sub2_Sub2_Sub2 extends Draw2D {
 
     public Class38_Sub2_Sub2_Sub2(int i, int j) {
         aBoolean1460 = false;
@@ -95,7 +95,7 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
             for (int i = 1; i > 0; i++)
                 ;
         }
-        Class38_Sub2_Sub2.init(anInt1466, anIntArray1465, -657, anInt1467);
+        Draw2D.init(anInt1466, anIntArray1465, -657, anInt1467);
     }
 
     public void method402(int i, int j, int k, boolean flag) {
@@ -131,39 +131,39 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
     public void method403(int i, int j, int k) {
         j += anInt1468;
         k += anInt1469;
-        int l = j + k * Class38_Sub2_Sub2.anInt1309;
+        int l = j + k * Draw2D.anInt1309;
         int i1 = 0;
         int j1 = anInt1467;
         int k1 = anInt1466;
-        int l1 = Class38_Sub2_Sub2.anInt1309 - k1;
+        int l1 = Draw2D.anInt1309 - k1;
         int i2 = 0;
-        if (k < Class38_Sub2_Sub2.anInt1311) {
-            int j2 = Class38_Sub2_Sub2.anInt1311 - k;
+        if (k < Draw2D.anInt1311) {
+            int j2 = Draw2D.anInt1311 - k;
             j1 -= j2;
-            k = Class38_Sub2_Sub2.anInt1311;
+            k = Draw2D.anInt1311;
             i1 += j2 * k1;
-            l += j2 * Class38_Sub2_Sub2.anInt1309;
+            l += j2 * Draw2D.anInt1309;
         }
-        if (k + j1 > Class38_Sub2_Sub2.anInt1312)
-            j1 -= (k + j1) - Class38_Sub2_Sub2.anInt1312;
-        if (j < Class38_Sub2_Sub2.anInt1313) {
-            int k2 = Class38_Sub2_Sub2.anInt1313 - j;
+        if (k + j1 > Draw2D.anInt1312)
+            j1 -= (k + j1) - Draw2D.anInt1312;
+        if (j < Draw2D.anInt1313) {
+            int k2 = Draw2D.anInt1313 - j;
             k1 -= k2;
-            j = Class38_Sub2_Sub2.anInt1313;
+            j = Draw2D.anInt1313;
             i1 += k2;
             l += k2;
             i2 += k2;
             l1 += k2;
         }
-        if (j + k1 > Class38_Sub2_Sub2.anInt1314) {
-            int l2 = (j + k1) - Class38_Sub2_Sub2.anInt1314;
+        if (j + k1 > Draw2D.anInt1314) {
+            int l2 = (j + k1) - Draw2D.anInt1314;
             k1 -= l2;
             i2 += l2;
             l1 += l2;
         }
         if (k1 <= 0 || j1 <= 0)
             return;
-        method404(15223, anIntArray1465, l1, j1, i1, i2, l, k1, Class38_Sub2_Sub2.anIntArray1308);
+        method404(15223, anIntArray1465, l1, j1, i1, i2, l, k1, Draw2D.anIntArray1308);
         if (i != 34676)
             anInt1461 = 117;
     }
@@ -198,32 +198,32 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
             anInt1463 = 32;
         j += anInt1468;
         i += anInt1469;
-        int k = j + i * Class38_Sub2_Sub2.anInt1309;
+        int k = j + i * Draw2D.anInt1309;
         int l = 0;
         int i1 = anInt1467;
         int j1 = anInt1466;
-        int k1 = Class38_Sub2_Sub2.anInt1309 - j1;
+        int k1 = Draw2D.anInt1309 - j1;
         int l1 = 0;
-        if (i < Class38_Sub2_Sub2.anInt1311) {
-            int i2 = Class38_Sub2_Sub2.anInt1311 - i;
+        if (i < Draw2D.anInt1311) {
+            int i2 = Draw2D.anInt1311 - i;
             i1 -= i2;
-            i = Class38_Sub2_Sub2.anInt1311;
+            i = Draw2D.anInt1311;
             l += i2 * j1;
-            k += i2 * Class38_Sub2_Sub2.anInt1309;
+            k += i2 * Draw2D.anInt1309;
         }
-        if (i + i1 > Class38_Sub2_Sub2.anInt1312)
-            i1 -= (i + i1) - Class38_Sub2_Sub2.anInt1312;
-        if (j < Class38_Sub2_Sub2.anInt1313) {
-            int j2 = Class38_Sub2_Sub2.anInt1313 - j;
+        if (i + i1 > Draw2D.anInt1312)
+            i1 -= (i + i1) - Draw2D.anInt1312;
+        if (j < Draw2D.anInt1313) {
+            int j2 = Draw2D.anInt1313 - j;
             j1 -= j2;
-            j = Class38_Sub2_Sub2.anInt1313;
+            j = Draw2D.anInt1313;
             l += j2;
             k += j2;
             l1 += j2;
             k1 += j2;
         }
-        if (j + j1 > Class38_Sub2_Sub2.anInt1314) {
-            int k2 = (j + j1) - Class38_Sub2_Sub2.anInt1314;
+        if (j + j1 > Draw2D.anInt1314) {
+            int k2 = (j + j1) - Draw2D.anInt1314;
             j1 -= k2;
             l1 += k2;
             k1 += k2;
@@ -231,7 +231,7 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
         if (j1 <= 0 || i1 <= 0) {
             return;
         } else {
-            method406(Class38_Sub2_Sub2.anIntArray1308, anIntArray1465, 0, l, k, j1, i1, k1, l1);
+            method406(Draw2D.anIntArray1308, anIntArray1465, 0, l, k, j1, i1, k1, l1);
             return;
         }
     }
@@ -300,31 +300,31 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
                 i2 = (i3 - (anInt1469 * i) % i3 << 16) / i;
             k = (k * (anInt1466 - (l1 >> 16))) / l2;
             i = (i * (anInt1467 - (i2 >> 16))) / i3;
-            int j3 = i1 + j * Class38_Sub2_Sub2.anInt1309;
-            int k3 = Class38_Sub2_Sub2.anInt1309 - k;
-            if (j < Class38_Sub2_Sub2.anInt1311) {
-                int l3 = Class38_Sub2_Sub2.anInt1311 - j;
+            int j3 = i1 + j * Draw2D.anInt1309;
+            int k3 = Draw2D.anInt1309 - k;
+            if (j < Draw2D.anInt1311) {
+                int l3 = Draw2D.anInt1311 - j;
                 i -= l3;
                 j = 0;
-                j3 += l3 * Class38_Sub2_Sub2.anInt1309;
+                j3 += l3 * Draw2D.anInt1309;
                 i2 += k2 * l3;
             }
-            if (j + i > Class38_Sub2_Sub2.anInt1312)
-                i -= (j + i) - Class38_Sub2_Sub2.anInt1312;
-            if (i1 < Class38_Sub2_Sub2.anInt1313) {
-                int i4 = Class38_Sub2_Sub2.anInt1313 - i1;
+            if (j + i > Draw2D.anInt1312)
+                i -= (j + i) - Draw2D.anInt1312;
+            if (i1 < Draw2D.anInt1313) {
+                int i4 = Draw2D.anInt1313 - i1;
                 k -= i4;
                 i1 = 0;
                 j3 += i4;
                 l1 += j2 * i4;
                 k3 += i4;
             }
-            if (i1 + k > Class38_Sub2_Sub2.anInt1314) {
-                int j4 = (i1 + k) - Class38_Sub2_Sub2.anInt1314;
+            if (i1 + k > Draw2D.anInt1314) {
+                int j4 = (i1 + k) - Draw2D.anInt1314;
                 k -= j4;
                 k3 += j4;
             }
-            method408(l1, j2, Class38_Sub2_Sub2.anIntArray1308, 0, k2, i2, 0, anIntArray1465, k3, j3, i, j1, k);
+            method408(l1, j2, Draw2D.anIntArray1308, 0, k2, i2, 0, anIntArray1465, k3, j3, i, j1, k);
             return;
         } catch (Exception _ex) {
             System.out.println("error in sprite clipping routine");
@@ -368,32 +368,32 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
         }
         j += anInt1468;
         k += anInt1469;
-        int i1 = j + k * Class38_Sub2_Sub2.anInt1309;
+        int i1 = j + k * Draw2D.anInt1309;
         int j1 = 0;
         int k1 = anInt1467;
         int l1 = anInt1466;
-        int i2 = Class38_Sub2_Sub2.anInt1309 - l1;
+        int i2 = Draw2D.anInt1309 - l1;
         int j2 = 0;
-        if (k < Class38_Sub2_Sub2.anInt1311) {
-            int k2 = Class38_Sub2_Sub2.anInt1311 - k;
+        if (k < Draw2D.anInt1311) {
+            int k2 = Draw2D.anInt1311 - k;
             k1 -= k2;
-            k = Class38_Sub2_Sub2.anInt1311;
+            k = Draw2D.anInt1311;
             j1 += k2 * l1;
-            i1 += k2 * Class38_Sub2_Sub2.anInt1309;
+            i1 += k2 * Draw2D.anInt1309;
         }
-        if (k + k1 > Class38_Sub2_Sub2.anInt1312)
-            k1 -= (k + k1) - Class38_Sub2_Sub2.anInt1312;
-        if (j < Class38_Sub2_Sub2.anInt1313) {
-            int l2 = Class38_Sub2_Sub2.anInt1313 - j;
+        if (k + k1 > Draw2D.anInt1312)
+            k1 -= (k + k1) - Draw2D.anInt1312;
+        if (j < Draw2D.anInt1313) {
+            int l2 = Draw2D.anInt1313 - j;
             l1 -= l2;
-            j = Class38_Sub2_Sub2.anInt1313;
+            j = Draw2D.anInt1313;
             j1 += l2;
             i1 += l2;
             j2 += l2;
             i2 += l2;
         }
-        if (j + l1 > Class38_Sub2_Sub2.anInt1314) {
-            int i3 = (j + l1) - Class38_Sub2_Sub2.anInt1314;
+        if (j + l1 > Draw2D.anInt1314) {
+            int i3 = (j + l1) - Draw2D.anInt1314;
             l1 -= i3;
             j2 += i3;
             i2 += i3;
@@ -401,7 +401,7 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
         if (l1 <= 0 || k1 <= 0) {
             return;
         } else {
-            method410(i1, 0, anIntArray1465, i, k1, Class38_Sub2_Sub2.anIntArray1308, j1, (byte) 8, l1, i2, j2);
+            method410(i1, 0, anIntArray1465, i, k1, Draw2D.anIntArray1308, j1, (byte) 8, l1, i2, j2);
             return;
         }
     }
@@ -442,21 +442,21 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
             l2 = l2 * i1 >> 8;
             int i3 = (j1 << 16) + (j2 * k2 + i2 * l2);
             int j3 = (l << 16) + (j2 * l2 - i2 * k2);
-            int k3 = k1 + l1 * Class38_Sub2_Sub2.anInt1309;
+            int k3 = k1 + l1 * Draw2D.anInt1309;
             for (l1 = 0; l1 < k; l1++) {
                 int l3 = ai[l1];
                 int i4 = k3 + l3;
                 int j4 = i3 + l2 * l3;
                 int k4 = j3 - k2 * l3;
                 for (k1 = -ai1[l1]; k1 < 0; k1++) {
-                    Class38_Sub2_Sub2.anIntArray1308[i4++] = anIntArray1465[(j4 >> 16) + (k4 >> 16) * anInt1466];
+                    Draw2D.anIntArray1308[i4++] = anIntArray1465[(j4 >> 16) + (k4 >> 16) * anInt1466];
                     j4 += l2;
                     k4 -= k2;
                 }
 
                 i3 += k2;
                 j3 += l2;
-                k3 += Class38_Sub2_Sub2.anInt1309;
+                k3 += Draw2D.anInt1309;
             }
 
             return;
@@ -468,34 +468,34 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
     public void method412(IndexedSprite indexedSprite, int i, int j, byte byte0) {
         j += anInt1468;
         i += anInt1469;
-        int k = j + i * Class38_Sub2_Sub2.anInt1309;
+        int k = j + i * Draw2D.anInt1309;
         int l = 0;
         if (byte0 != -15)
             return;
         int i1 = anInt1467;
         int j1 = anInt1466;
-        int k1 = Class38_Sub2_Sub2.anInt1309 - j1;
+        int k1 = Draw2D.anInt1309 - j1;
         int l1 = 0;
-        if (i < Class38_Sub2_Sub2.anInt1311) {
-            int i2 = Class38_Sub2_Sub2.anInt1311 - i;
+        if (i < Draw2D.anInt1311) {
+            int i2 = Draw2D.anInt1311 - i;
             i1 -= i2;
-            i = Class38_Sub2_Sub2.anInt1311;
+            i = Draw2D.anInt1311;
             l += i2 * j1;
-            k += i2 * Class38_Sub2_Sub2.anInt1309;
+            k += i2 * Draw2D.anInt1309;
         }
-        if (i + i1 > Class38_Sub2_Sub2.anInt1312)
-            i1 -= (i + i1) - Class38_Sub2_Sub2.anInt1312;
-        if (j < Class38_Sub2_Sub2.anInt1313) {
-            int j2 = Class38_Sub2_Sub2.anInt1313 - j;
+        if (i + i1 > Draw2D.anInt1312)
+            i1 -= (i + i1) - Draw2D.anInt1312;
+        if (j < Draw2D.anInt1313) {
+            int j2 = Draw2D.anInt1313 - j;
             j1 -= j2;
-            j = Class38_Sub2_Sub2.anInt1313;
+            j = Draw2D.anInt1313;
             l += j2;
             k += j2;
             l1 += j2;
             k1 += j2;
         }
-        if (j + j1 > Class38_Sub2_Sub2.anInt1314) {
-            int k2 = (j + j1) - Class38_Sub2_Sub2.anInt1314;
+        if (j + j1 > Draw2D.anInt1314) {
+            int k2 = (j + j1) - Draw2D.anInt1314;
             j1 -= k2;
             l1 += k2;
             k1 += k2;
@@ -503,7 +503,7 @@ public class Class38_Sub2_Sub2_Sub2 extends Class38_Sub2_Sub2 {
         if (j1 <= 0 || i1 <= 0) {
             return;
         } else {
-            method413(j1, l1, 0, -478, i1, l, Class38_Sub2_Sub2.anIntArray1308, anIntArray1465, k,
+            method413(j1, l1, 0, -478, i1, l, Draw2D.anIntArray1308, anIntArray1465, k,
                     indexedSprite.aByteArray1476, k1);
             return;
         }

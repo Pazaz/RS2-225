@@ -90,8 +90,8 @@ public class client extends Applet_Sub1 {
                         int i1 = (((PathingEntity) (obj)).anInt1399 * 30) / ((PathingEntity) (obj)).anInt1400;
                         if (i1 > 30)
                             i1 = 30;
-                        Class38_Sub2_Sub2.method380(anInt1020 - 3, anInt1019 - 15, 65280, (byte) 93, i1, 5);
-                        Class38_Sub2_Sub2.method380(anInt1020 - 3, (anInt1019 - 15) + i1, 0xff0000, (byte) 93, 30 - i1,
+                        Draw2D.method380(anInt1020 - 3, anInt1019 - 15, 65280, (byte) 93, i1, 5);
+                        Draw2D.method380(anInt1020 - 3, (anInt1019 - 15) + i1, 0xff0000, (byte) 93, 30 - i1,
                                 5);
                     }
                 }
@@ -178,10 +178,10 @@ public class client extends Applet_Sub1 {
                 if (anIntArray1098[k] == 2) {
                     int l3 = indexedFont3.method423(false, s);
                     int i4 = ((150 - anIntArray1099[k]) * (l3 + 100)) / 150;
-                    Class38_Sub2_Sub2.method378(334, 0, anInt1019 + 50, 789, anInt1019 - 50);
+                    Draw2D.method378(334, 0, anInt1019 + 50, 789, anInt1019 - 50);
                     indexedFont3.method424((anInt1019 + 50) - i4, anInt1020 + 1, false, 0, s);
                     indexedFont3.method424((anInt1019 + 50) - i4, anInt1020, false, l2, s);
-                    Class38_Sub2_Sub2.method377(0);
+                    Draw2D.method377(0);
                 }
             } else {
                 indexedFont3.method421(anInt1020 + 1, (byte) 6, 0, s, anInt1019);
@@ -829,7 +829,7 @@ public class client extends Applet_Sub1 {
         Class38_Sub2_Sub1.anInt1298 = 0;
         Class38_Sub2_Sub1.anInt1296 = super.anInt21 - 8;
         Class38_Sub2_Sub1.anInt1297 = super.anInt22 - 11;
-        Class38_Sub2_Sub2.method379(anInt1143);
+        Draw2D.method379(anInt1143);
         scene.method321(anInt1115, anInt1111, k, anInt1114, anInt1112, anInt1113, 0);
         scene.method295(0);
         method15(anInt805);
@@ -2060,7 +2060,7 @@ public class client extends Applet_Sub1 {
             int i3 = (anInt1052 * 4 + 2) - localPlayerEntity.anInt1381 / 32;
             method87(i3, 4, aClass38_Sub2_Sub2_Sub2_997, k1);
         }
-        Class38_Sub2_Sub2.method380(82, 93, 0xffffff, (byte) 93, 3, 3);
+        Draw2D.method380(82, 93, 0xffffff, (byte) 93, 3, 3);
         drawArea22.init2D();
     }
 
@@ -2463,22 +2463,22 @@ public class client extends Applet_Sub1 {
     public void method50(int i, int j, int k, int l, int i1, int j1) {
         indexedSprite6.method419(k, j, false);
         indexedSprite7.method419((k + j1) - 16, j, false);
-        Class38_Sub2_Sub2.method380(k + 16, j, anInt1050, (byte) 93, 16, j1 - 32);
+        Draw2D.method380(k + 16, j, anInt1050, (byte) 93, 16, j1 - 32);
         int k1 = ((j1 - 32) * j1) / i1;
         if (k1 < 8)
             k1 = 8;
         int l1 = ((j1 - 32 - k1) * l) / (i1 - j1);
         if (i <= 0)
             anInt780 = -1;
-        Class38_Sub2_Sub2.method380(k + 16 + l1, j, anInt1158, (byte) 93, 16, k1);
-        Class38_Sub2_Sub2.method383(anInt993, anInt727, k + 16 + l1, k1, j);
-        Class38_Sub2_Sub2.method383(anInt993, anInt727, k + 16 + l1, k1, j + 1);
-        Class38_Sub2_Sub2.method382(anInt993, 0, k + 16 + l1, 16, j);
-        Class38_Sub2_Sub2.method382(anInt993, 0, k + 17 + l1, 16, j);
-        Class38_Sub2_Sub2.method383(anInt980, anInt727, k + 16 + l1, k1, j + 15);
-        Class38_Sub2_Sub2.method383(anInt980, anInt727, k + 17 + l1, k1 - 1, j + 14);
-        Class38_Sub2_Sub2.method382(anInt980, 0, k + 15 + l1 + k1, 16, j);
-        Class38_Sub2_Sub2.method382(anInt980, 0, k + 14 + l1 + k1, 15, j + 1);
+        Draw2D.method380(k + 16 + l1, j, anInt1158, (byte) 93, 16, k1);
+        Draw2D.method383(anInt993, anInt727, k + 16 + l1, k1, j);
+        Draw2D.method383(anInt993, anInt727, k + 16 + l1, k1, j + 1);
+        Draw2D.method382(anInt993, 0, k + 16 + l1, 16, j);
+        Draw2D.method382(anInt993, 0, k + 17 + l1, 16, j);
+        Draw2D.method383(anInt980, anInt727, k + 16 + l1, k1, j + 15);
+        Draw2D.method383(anInt980, anInt727, k + 17 + l1, k1 - 1, j + 14);
+        Draw2D.method382(anInt980, 0, k + 15 + l1 + k1, 16, j);
+        Draw2D.method382(anInt980, 0, k + 14 + l1 + k1, 15, j + 1);
     }
 
     public void method51(byte byte0) {
@@ -2636,11 +2636,11 @@ public class client extends Applet_Sub1 {
             drawArea19 = null;
             drawArea23 = new DrawArea(method11(aByte1116), 479, 96);
             drawArea21 = new DrawArea(method11(aByte1116), 168, 160);
-            Class38_Sub2_Sub2.method379(anInt1143);
+            Draw2D.method379(anInt1143);
             indexedSprite19.method419(0, 0, false);
             drawArea20 = new DrawArea(method11(aByte1116), 190, 261);
             drawArea22 = new DrawArea(method11(aByte1116), 512, 334);
-            Class38_Sub2_Sub2.method379(anInt1143);
+            Draw2D.method379(anInt1143);
             drawArea24 = new DrawArea(method11(aByte1116), 501, 61);
             drawArea25 = new DrawArea(method11(aByte1116), 288, 40);
             drawArea26 = new DrawArea(method11(aByte1116), 269, 66);
@@ -2716,13 +2716,13 @@ public class client extends Applet_Sub1 {
         if (interfaceComponent.aBoolean284 && anInt1063 != interfaceComponent.anInt269 && anInt941 != interfaceComponent.anInt269
                 && anInt859 != interfaceComponent.anInt269)
             return;
-        int i1 = Class38_Sub2_Sub2.anInt1313;
-        int j1 = Class38_Sub2_Sub2.anInt1311;
-        int k1 = Class38_Sub2_Sub2.anInt1314;
-        int l1 = Class38_Sub2_Sub2.anInt1312;
+        int i1 = Draw2D.anInt1313;
+        int j1 = Draw2D.anInt1311;
+        int k1 = Draw2D.anInt1314;
+        int l1 = Draw2D.anInt1312;
         if (k != 38682)
             anInt780 = -1;
-        Class38_Sub2_Sub2.method378(i + interfaceComponent.anInt275, i, j + interfaceComponent.anInt274, 789, j);
+        Draw2D.method378(i + interfaceComponent.anInt275, i, j + interfaceComponent.anInt274, 789, j);
         int i2 = interfaceComponent.anIntArray285.length;
         for (int j2 = 0; j2 < i2; j2++) {
             int k2 = interfaceComponent.anIntArray286[j2] + j;
@@ -2796,10 +2796,10 @@ public class client extends Applet_Sub1 {
 
                 } else if (interfaceComponent_1.anInt271 == 3) {
                     if (interfaceComponent_1.aBoolean299)
-                        Class38_Sub2_Sub2.method380(l2, k2, interfaceComponent_1.anInt305, (byte) 93, interfaceComponent_1.anInt274,
+                        Draw2D.method380(l2, k2, interfaceComponent_1.anInt305, (byte) 93, interfaceComponent_1.anInt274,
                                 interfaceComponent_1.anInt275);
                     else
-                        Class38_Sub2_Sub2.method381(3, k2, interfaceComponent_1.anInt305, interfaceComponent_1.anInt275, l2,
+                        Draw2D.method381(3, k2, interfaceComponent_1.anInt305, interfaceComponent_1.anInt275, l2,
                                 interfaceComponent_1.anInt274);
                 } else if (interfaceComponent_1.anInt271 == 4) {
                     IndexedFont indexedFont = interfaceComponent_1.indexedFont;
@@ -2932,7 +2932,7 @@ public class client extends Applet_Sub1 {
                 }
         }
 
-        Class38_Sub2_Sub2.method378(l1, j1, k1, 789, i1);
+        Draw2D.method378(l1, j1, k1, 789, i1);
     }
 
     public void method60(boolean flag, int i, Buffer class38_sub2_sub3) {
@@ -4094,9 +4094,9 @@ public class client extends Applet_Sub1 {
         int l = anInt1151;
         int i1 = anInt1152;
         int j1 = 0x5d5447;
-        Class38_Sub2_Sub2.method380(k, j, j1, (byte) 93, l, i1);
-        Class38_Sub2_Sub2.method380(k + 1, j + 1, 0, (byte) 93, l - 2, 16);
-        Class38_Sub2_Sub2.method381(3, j + 1, 0, i1 - 19, k + 18, l - 2);
+        Draw2D.method380(k, j, j1, (byte) 93, l, i1);
+        Draw2D.method380(k + 1, j + 1, 0, (byte) 93, l - 2, 16);
+        Draw2D.method381(3, j + 1, 0, i1 - 19, k + 18, l - 2);
         indexedFont3.method424(j + 3, k + 14, false, j1, "Choose Option");
         int k1 = super.anInt21;
         int l1 = super.anInt22;
@@ -5248,25 +5248,25 @@ public class client extends Applet_Sub1 {
         drawArea25 = null;
         drawArea26 = null;
         drawArea14 = new DrawArea(method11(aByte1116), 128, 265);
-        Class38_Sub2_Sub2.method379(anInt1143);
+        Draw2D.method379(anInt1143);
         drawArea15 = new DrawArea(method11(aByte1116), 128, 265);
-        Class38_Sub2_Sub2.method379(anInt1143);
+        Draw2D.method379(anInt1143);
         drawArea11 = new DrawArea(method11(aByte1116), 533, 186);
-        Class38_Sub2_Sub2.method379(anInt1143);
+        Draw2D.method379(anInt1143);
         drawArea12 = new DrawArea(method11(aByte1116), 360, 146);
-        Class38_Sub2_Sub2.method379(anInt1143);
+        Draw2D.method379(anInt1143);
         drawArea13 = new DrawArea(method11(aByte1116), 360, 200);
-        Class38_Sub2_Sub2.method379(anInt1143);
+        Draw2D.method379(anInt1143);
         drawArea16 = new DrawArea(method11(aByte1116), 214, 267);
-        Class38_Sub2_Sub2.method379(anInt1143);
+        Draw2D.method379(anInt1143);
         drawArea17 = new DrawArea(method11(aByte1116), 215, 267);
-        Class38_Sub2_Sub2.method379(anInt1143);
+        Draw2D.method379(anInt1143);
         drawArea18 = new DrawArea(method11(aByte1116), 86, 79);
         if (byte0 != aByte866)
             aClass38_Sub2_Sub3_798.method436(73);
-        Class38_Sub2_Sub2.method379(anInt1143);
+        Draw2D.method379(anInt1143);
         drawArea19 = new DrawArea(method11(aByte1116), 87, 79);
-        Class38_Sub2_Sub2.method379(anInt1143);
+        Draw2D.method379(anInt1143);
         if (fileArchive != null) {
             method128((byte) 5);
             method48(0);
@@ -7780,7 +7780,7 @@ public class client extends Applet_Sub1 {
         } else {
             IndexedFont indexedFont = indexedFont2;
             int i = 0;
-            Class38_Sub2_Sub2.method378(77, 0, 463, 789, 0);
+            Draw2D.method378(77, 0, 463, 789, 0);
             for (int j = 0; j < 100; j++)
                 if (aStringArray898[j] != null) {
                     int k = anIntArray896[j];
@@ -7846,7 +7846,7 @@ public class client extends Applet_Sub1 {
                     }
                 }
 
-            Class38_Sub2_Sub2.method377(0);
+            Draw2D.method377(0);
             anInt792 = i * 14 + 7;
             if (anInt792 < 78)
                 anInt792 = 78;
@@ -7854,7 +7854,7 @@ public class client extends Applet_Sub1 {
             indexedFont.method424(4, 90, false, 0, StringUtils.formatName(aString1066) + ":");
             indexedFont.method424(6 + indexedFont.method423(false, aString1066 + ": "), 90, false,
                     255, aString1137 + "*");
-            Class38_Sub2_Sub2.method382(0, 0, 77, 479, 0);
+            Draw2D.method382(0, 0, 77, 479, 0);
         }
         if (aBoolean879 && anInt1148 == 2)
             method74(-961);
@@ -9085,10 +9085,10 @@ public class client extends Applet_Sub1 {
                 "RuneScape is loading - please wait...", c / 2);
         aBoolean974 &= flag;
         int j = c1 / 2 - 18 - byte0;
-        Class38_Sub2_Sub2.method381(3, c / 2 - 152, 0x8c1111, 34, j, 304);
-        Class38_Sub2_Sub2.method381(3, c / 2 - 151, 0, 32, j + 1, 302);
-        Class38_Sub2_Sub2.method380(j + 2, c / 2 - 150, 0x8c1111, (byte) 93, i * 3, 30);
-        Class38_Sub2_Sub2.method380(j + 2, (c / 2 - 150) + i * 3, 0, (byte) 93, 300 - i * 3, 30);
+        Draw2D.method381(3, c / 2 - 152, 0x8c1111, 34, j, 304);
+        Draw2D.method381(3, c / 2 - 151, 0, 32, j + 1, 302);
+        Draw2D.method380(j + 2, c / 2 - 150, 0x8c1111, (byte) 93, i * 3, 30);
+        Draw2D.method380(j + 2, (c / 2 - 150) + i * 3, 0, (byte) 93, 300 - i * 3, 30);
         indexedFont3.method421((c1 / 2 + 5) - byte0, (byte) 6, 0xffffff, s, c / 2);
         drawArea13.drawImage(186, super.aGraphics14, 214);
         if (aBoolean751) {

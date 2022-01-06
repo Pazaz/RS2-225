@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
+public class Class38_Sub2_Sub2_Sub1 extends Draw2D {
 
     public static void method384(boolean flag) {
         anIntArray1444 = null;
@@ -25,12 +25,12 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             for (int j = 1; j > 0; j++)
                 ;
         }
-        anIntArray1448 = new int[Class38_Sub2_Sub2.anInt1310];
-        for (int k = 0; k < Class38_Sub2_Sub2.anInt1310; k++)
-            anIntArray1448[k] = Class38_Sub2_Sub2.anInt1309 * k;
+        anIntArray1448 = new int[Draw2D.anInt1310];
+        for (int k = 0; k < Draw2D.anInt1310; k++)
+            anIntArray1448[k] = Draw2D.anInt1309 * k;
 
-        anInt1442 = Class38_Sub2_Sub2.anInt1309 / 2;
-        anInt1443 = Class38_Sub2_Sub2.anInt1310 / 2;
+        anInt1442 = Draw2D.anInt1309 / 2;
+        anInt1443 = Draw2D.anInt1310 / 2;
     }
 
     public static void method386(int i, int j, int k) {
@@ -292,12 +292,12 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             k3 = (k1 - i2 << 15) / (i - k);
         }
         if (i <= j && i <= k) {
-            if (i >= Class38_Sub2_Sub2.anInt1312)
+            if (i >= Draw2D.anInt1312)
                 return;
-            if (j > Class38_Sub2_Sub2.anInt1312)
-                j = Class38_Sub2_Sub2.anInt1312;
-            if (k > Class38_Sub2_Sub2.anInt1312)
-                k = Class38_Sub2_Sub2.anInt1312;
+            if (j > Draw2D.anInt1312)
+                j = Draw2D.anInt1312;
+            if (k > Draw2D.anInt1312)
+                k = Draw2D.anInt1312;
             if (j < k) {
                 j1 = l <<= 16;
                 i2 = k1 <<= 15;
@@ -318,8 +318,8 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                 if (i != j && j3 < j2 || i == j && j3 > l2) {
                     k -= j;
                     j -= i;
-                    for (i = anIntArray1448[i]; --j >= 0; i += Class38_Sub2_Sub2.anInt1309) {
-                        method396(Class38_Sub2_Sub2.anIntArray1308, i, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
+                    for (i = anIntArray1448[i]; --j >= 0; i += Draw2D.anInt1309) {
+                        method396(Draw2D.anIntArray1308, i, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
                         j1 += j3;
                         l += j2;
                         i2 += k3;
@@ -327,19 +327,19 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                     }
 
                     while (--k >= 0) {
-                        method396(Class38_Sub2_Sub2.anIntArray1308, i, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
+                        method396(Draw2D.anIntArray1308, i, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
                         j1 += j3;
                         i1 += l2;
                         i2 += k3;
                         l1 += i3;
-                        i += Class38_Sub2_Sub2.anInt1309;
+                        i += Draw2D.anInt1309;
                     }
                     return;
                 }
                 k -= j;
                 j -= i;
-                for (i = anIntArray1448[i]; --j >= 0; i += Class38_Sub2_Sub2.anInt1309) {
-                    method396(Class38_Sub2_Sub2.anIntArray1308, i, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
+                for (i = anIntArray1448[i]; --j >= 0; i += Draw2D.anInt1309) {
+                    method396(Draw2D.anIntArray1308, i, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
                     j1 += j3;
                     l += j2;
                     i2 += k3;
@@ -347,12 +347,12 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                 }
 
                 while (--k >= 0) {
-                    method396(Class38_Sub2_Sub2.anIntArray1308, i, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
+                    method396(Draw2D.anIntArray1308, i, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
                     j1 += j3;
                     i1 += l2;
                     i2 += k3;
                     l1 += i3;
-                    i += Class38_Sub2_Sub2.anInt1309;
+                    i += Draw2D.anInt1309;
                 }
                 return;
             }
@@ -375,8 +375,8 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             if (i != k && j3 < j2 || i == k && l2 > j2) {
                 j -= k;
                 k -= i;
-                for (i = anIntArray1448[i]; --k >= 0; i += Class38_Sub2_Sub2.anInt1309) {
-                    method396(Class38_Sub2_Sub2.anIntArray1308, i, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
+                for (i = anIntArray1448[i]; --k >= 0; i += Draw2D.anInt1309) {
+                    method396(Draw2D.anIntArray1308, i, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
                     i1 += j3;
                     l += j2;
                     l1 += k3;
@@ -384,19 +384,19 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                 }
 
                 while (--j >= 0) {
-                    method396(Class38_Sub2_Sub2.anIntArray1308, i, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
+                    method396(Draw2D.anIntArray1308, i, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
                     j1 += l2;
                     l += j2;
                     i2 += i3;
                     k1 += k2;
-                    i += Class38_Sub2_Sub2.anInt1309;
+                    i += Draw2D.anInt1309;
                 }
                 return;
             }
             j -= k;
             k -= i;
-            for (i = anIntArray1448[i]; --k >= 0; i += Class38_Sub2_Sub2.anInt1309) {
-                method396(Class38_Sub2_Sub2.anIntArray1308, i, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
+            for (i = anIntArray1448[i]; --k >= 0; i += Draw2D.anInt1309) {
+                method396(Draw2D.anIntArray1308, i, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
                 i1 += j3;
                 l += j2;
                 l1 += k3;
@@ -404,22 +404,22 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             }
 
             while (--j >= 0) {
-                method396(Class38_Sub2_Sub2.anIntArray1308, i, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
+                method396(Draw2D.anIntArray1308, i, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
                 j1 += l2;
                 l += j2;
                 i2 += i3;
                 k1 += k2;
-                i += Class38_Sub2_Sub2.anInt1309;
+                i += Draw2D.anInt1309;
             }
             return;
         }
         if (j <= k) {
-            if (j >= Class38_Sub2_Sub2.anInt1312)
+            if (j >= Draw2D.anInt1312)
                 return;
-            if (k > Class38_Sub2_Sub2.anInt1312)
-                k = Class38_Sub2_Sub2.anInt1312;
-            if (i > Class38_Sub2_Sub2.anInt1312)
-                i = Class38_Sub2_Sub2.anInt1312;
+            if (k > Draw2D.anInt1312)
+                k = Draw2D.anInt1312;
+            if (i > Draw2D.anInt1312)
+                i = Draw2D.anInt1312;
             if (k < i) {
                 l = i1 <<= 16;
                 k1 = l1 <<= 15;
@@ -440,8 +440,8 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                 if (j != k && j2 < l2 || j == k && j2 > j3) {
                     i -= k;
                     k -= j;
-                    for (j = anIntArray1448[j]; --k >= 0; j += Class38_Sub2_Sub2.anInt1309) {
-                        method396(Class38_Sub2_Sub2.anIntArray1308, j, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
+                    for (j = anIntArray1448[j]; --k >= 0; j += Draw2D.anInt1309) {
+                        method396(Draw2D.anIntArray1308, j, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
                         l += j2;
                         i1 += l2;
                         k1 += k2;
@@ -449,19 +449,19 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                     }
 
                     while (--i >= 0) {
-                        method396(Class38_Sub2_Sub2.anIntArray1308, j, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
+                        method396(Draw2D.anIntArray1308, j, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
                         l += j2;
                         j1 += j3;
                         k1 += k2;
                         i2 += k3;
-                        j += Class38_Sub2_Sub2.anInt1309;
+                        j += Draw2D.anInt1309;
                     }
                     return;
                 }
                 i -= k;
                 k -= j;
-                for (j = anIntArray1448[j]; --k >= 0; j += Class38_Sub2_Sub2.anInt1309) {
-                    method396(Class38_Sub2_Sub2.anIntArray1308, j, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
+                for (j = anIntArray1448[j]; --k >= 0; j += Draw2D.anInt1309) {
+                    method396(Draw2D.anIntArray1308, j, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
                     l += j2;
                     i1 += l2;
                     k1 += k2;
@@ -469,12 +469,12 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                 }
 
                 while (--i >= 0) {
-                    method396(Class38_Sub2_Sub2.anIntArray1308, j, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
+                    method396(Draw2D.anIntArray1308, j, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
                     l += j2;
                     j1 += j3;
                     k1 += k2;
                     i2 += k3;
-                    j += Class38_Sub2_Sub2.anInt1309;
+                    j += Draw2D.anInt1309;
                 }
                 return;
             }
@@ -497,8 +497,8 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             if (j2 < l2) {
                 k -= i;
                 i -= j;
-                for (j = anIntArray1448[j]; --i >= 0; j += Class38_Sub2_Sub2.anInt1309) {
-                    method396(Class38_Sub2_Sub2.anIntArray1308, j, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
+                for (j = anIntArray1448[j]; --i >= 0; j += Draw2D.anInt1309) {
+                    method396(Draw2D.anIntArray1308, j, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
                     j1 += j2;
                     i1 += l2;
                     i2 += k2;
@@ -506,19 +506,19 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                 }
 
                 while (--k >= 0) {
-                    method396(Class38_Sub2_Sub2.anIntArray1308, j, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
+                    method396(Draw2D.anIntArray1308, j, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
                     l += j3;
                     i1 += l2;
                     k1 += k3;
                     l1 += i3;
-                    j += Class38_Sub2_Sub2.anInt1309;
+                    j += Draw2D.anInt1309;
                 }
                 return;
             }
             k -= i;
             i -= j;
-            for (j = anIntArray1448[j]; --i >= 0; j += Class38_Sub2_Sub2.anInt1309) {
-                method396(Class38_Sub2_Sub2.anIntArray1308, j, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
+            for (j = anIntArray1448[j]; --i >= 0; j += Draw2D.anInt1309) {
+                method396(Draw2D.anIntArray1308, j, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
                 j1 += j2;
                 i1 += l2;
                 i2 += k2;
@@ -526,21 +526,21 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             }
 
             while (--k >= 0) {
-                method396(Class38_Sub2_Sub2.anIntArray1308, j, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
+                method396(Draw2D.anIntArray1308, j, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
                 l += j3;
                 i1 += l2;
                 k1 += k3;
                 l1 += i3;
-                j += Class38_Sub2_Sub2.anInt1309;
+                j += Draw2D.anInt1309;
             }
             return;
         }
-        if (k >= Class38_Sub2_Sub2.anInt1312)
+        if (k >= Draw2D.anInt1312)
             return;
-        if (i > Class38_Sub2_Sub2.anInt1312)
-            i = Class38_Sub2_Sub2.anInt1312;
-        if (j > Class38_Sub2_Sub2.anInt1312)
-            j = Class38_Sub2_Sub2.anInt1312;
+        if (i > Draw2D.anInt1312)
+            i = Draw2D.anInt1312;
+        if (j > Draw2D.anInt1312)
+            j = Draw2D.anInt1312;
         if (i < j) {
             i1 = j1 <<= 16;
             l1 = i2 <<= 15;
@@ -561,8 +561,8 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             if (l2 < j3) {
                 j -= i;
                 i -= k;
-                for (k = anIntArray1448[k]; --i >= 0; k += Class38_Sub2_Sub2.anInt1309) {
-                    method396(Class38_Sub2_Sub2.anIntArray1308, k, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
+                for (k = anIntArray1448[k]; --i >= 0; k += Draw2D.anInt1309) {
+                    method396(Draw2D.anIntArray1308, k, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
                     i1 += l2;
                     j1 += j3;
                     l1 += i3;
@@ -570,19 +570,19 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                 }
 
                 while (--j >= 0) {
-                    method396(Class38_Sub2_Sub2.anIntArray1308, k, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
+                    method396(Draw2D.anIntArray1308, k, 0, 0, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
                     i1 += l2;
                     l += j2;
                     l1 += i3;
                     k1 += k2;
-                    k += Class38_Sub2_Sub2.anInt1309;
+                    k += Draw2D.anInt1309;
                 }
                 return;
             }
             j -= i;
             i -= k;
-            for (k = anIntArray1448[k]; --i >= 0; k += Class38_Sub2_Sub2.anInt1309) {
-                method396(Class38_Sub2_Sub2.anIntArray1308, k, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
+            for (k = anIntArray1448[k]; --i >= 0; k += Draw2D.anInt1309) {
+                method396(Draw2D.anIntArray1308, k, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
                 i1 += l2;
                 j1 += j3;
                 l1 += i3;
@@ -590,12 +590,12 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             }
 
             while (--j >= 0) {
-                method396(Class38_Sub2_Sub2.anIntArray1308, k, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
+                method396(Draw2D.anIntArray1308, k, 0, 0, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
                 i1 += l2;
                 l += j2;
                 l1 += i3;
                 k1 += k2;
-                k += Class38_Sub2_Sub2.anInt1309;
+                k += Draw2D.anInt1309;
             }
             return;
         }
@@ -618,8 +618,8 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
         if (l2 < j3) {
             i -= j;
             j -= k;
-            for (k = anIntArray1448[k]; --j >= 0; k += Class38_Sub2_Sub2.anInt1309) {
-                method396(Class38_Sub2_Sub2.anIntArray1308, k, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
+            for (k = anIntArray1448[k]; --j >= 0; k += Draw2D.anInt1309) {
+                method396(Draw2D.anIntArray1308, k, 0, 0, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
                 l += l2;
                 j1 += j3;
                 k1 += i3;
@@ -627,19 +627,19 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             }
 
             while (--i >= 0) {
-                method396(Class38_Sub2_Sub2.anIntArray1308, k, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
+                method396(Draw2D.anIntArray1308, k, 0, 0, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
                 i1 += j2;
                 j1 += j3;
                 l1 += k2;
                 i2 += k3;
-                k += Class38_Sub2_Sub2.anInt1309;
+                k += Draw2D.anInt1309;
             }
             return;
         }
         i -= j;
         j -= k;
-        for (k = anIntArray1448[k]; --j >= 0; k += Class38_Sub2_Sub2.anInt1309) {
-            method396(Class38_Sub2_Sub2.anIntArray1308, k, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
+        for (k = anIntArray1448[k]; --j >= 0; k += Draw2D.anInt1309) {
+            method396(Draw2D.anIntArray1308, k, 0, 0, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
             l += l2;
             j1 += j3;
             k1 += i3;
@@ -647,12 +647,12 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
         }
 
         while (--i >= 0) {
-            method396(Class38_Sub2_Sub2.anIntArray1308, k, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
+            method396(Draw2D.anIntArray1308, k, 0, 0, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
             i1 += j2;
             j1 += j3;
             l1 += k2;
             i2 += k3;
-            k += Class38_Sub2_Sub2.anInt1309;
+            k += Draw2D.anInt1309;
         }
     }
 
@@ -664,8 +664,8 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                     l1 = (k1 - j1) / (i1 - l);
                 else
                     l1 = 0;
-                if (i1 > Class38_Sub2_Sub2.anInt1315)
-                    i1 = Class38_Sub2_Sub2.anInt1315;
+                if (i1 > Draw2D.anInt1315)
+                    i1 = Draw2D.anInt1315;
                 if (l < 0) {
                     j1 -= l * l1;
                     l = 0;
@@ -729,8 +729,8 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             return;
         int i2 = (k1 - j1) / (i1 - l);
         if (aBoolean1438) {
-            if (i1 > Class38_Sub2_Sub2.anInt1315)
-                i1 = Class38_Sub2_Sub2.anInt1315;
+            if (i1 > Draw2D.anInt1315)
+                i1 = Draw2D.anInt1315;
             if (l < 0) {
                 j1 -= l * i2;
                 l = 0;
@@ -768,12 +768,12 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
         if (k != i)
             j2 = (l - j1 << 16) / (i - k);
         if (i <= j && i <= k) {
-            if (i >= Class38_Sub2_Sub2.anInt1312)
+            if (i >= Draw2D.anInt1312)
                 return;
-            if (j > Class38_Sub2_Sub2.anInt1312)
-                j = Class38_Sub2_Sub2.anInt1312;
-            if (k > Class38_Sub2_Sub2.anInt1312)
-                k = Class38_Sub2_Sub2.anInt1312;
+            if (j > Draw2D.anInt1312)
+                j = Draw2D.anInt1312;
+            if (k > Draw2D.anInt1312)
+                k = Draw2D.anInt1312;
             if (j < k) {
                 j1 = l <<= 16;
                 if (i < 0) {
@@ -789,33 +789,33 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                 if (i != j && j2 < l1 || i == j && j2 > i2) {
                     k -= j;
                     j -= i;
-                    for (i = anIntArray1448[i]; --j >= 0; i += Class38_Sub2_Sub2.anInt1309) {
-                        method398(Class38_Sub2_Sub2.anIntArray1308, i, k1, 0, j1 >> 16, l >> 16);
+                    for (i = anIntArray1448[i]; --j >= 0; i += Draw2D.anInt1309) {
+                        method398(Draw2D.anIntArray1308, i, k1, 0, j1 >> 16, l >> 16);
                         j1 += j2;
                         l += l1;
                     }
 
                     while (--k >= 0) {
-                        method398(Class38_Sub2_Sub2.anIntArray1308, i, k1, 0, j1 >> 16, i1 >> 16);
+                        method398(Draw2D.anIntArray1308, i, k1, 0, j1 >> 16, i1 >> 16);
                         j1 += j2;
                         i1 += i2;
-                        i += Class38_Sub2_Sub2.anInt1309;
+                        i += Draw2D.anInt1309;
                     }
                     return;
                 }
                 k -= j;
                 j -= i;
-                for (i = anIntArray1448[i]; --j >= 0; i += Class38_Sub2_Sub2.anInt1309) {
-                    method398(Class38_Sub2_Sub2.anIntArray1308, i, k1, 0, l >> 16, j1 >> 16);
+                for (i = anIntArray1448[i]; --j >= 0; i += Draw2D.anInt1309) {
+                    method398(Draw2D.anIntArray1308, i, k1, 0, l >> 16, j1 >> 16);
                     j1 += j2;
                     l += l1;
                 }
 
                 while (--k >= 0) {
-                    method398(Class38_Sub2_Sub2.anIntArray1308, i, k1, 0, i1 >> 16, j1 >> 16);
+                    method398(Draw2D.anIntArray1308, i, k1, 0, i1 >> 16, j1 >> 16);
                     j1 += j2;
                     i1 += i2;
-                    i += Class38_Sub2_Sub2.anInt1309;
+                    i += Draw2D.anInt1309;
                 }
                 return;
             }
@@ -833,43 +833,43 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             if (i != k && j2 < l1 || i == k && i2 > l1) {
                 j -= k;
                 k -= i;
-                for (i = anIntArray1448[i]; --k >= 0; i += Class38_Sub2_Sub2.anInt1309) {
-                    method398(Class38_Sub2_Sub2.anIntArray1308, i, k1, 0, i1 >> 16, l >> 16);
+                for (i = anIntArray1448[i]; --k >= 0; i += Draw2D.anInt1309) {
+                    method398(Draw2D.anIntArray1308, i, k1, 0, i1 >> 16, l >> 16);
                     i1 += j2;
                     l += l1;
                 }
 
                 while (--j >= 0) {
-                    method398(Class38_Sub2_Sub2.anIntArray1308, i, k1, 0, j1 >> 16, l >> 16);
+                    method398(Draw2D.anIntArray1308, i, k1, 0, j1 >> 16, l >> 16);
                     j1 += i2;
                     l += l1;
-                    i += Class38_Sub2_Sub2.anInt1309;
+                    i += Draw2D.anInt1309;
                 }
                 return;
             }
             j -= k;
             k -= i;
-            for (i = anIntArray1448[i]; --k >= 0; i += Class38_Sub2_Sub2.anInt1309) {
-                method398(Class38_Sub2_Sub2.anIntArray1308, i, k1, 0, l >> 16, i1 >> 16);
+            for (i = anIntArray1448[i]; --k >= 0; i += Draw2D.anInt1309) {
+                method398(Draw2D.anIntArray1308, i, k1, 0, l >> 16, i1 >> 16);
                 i1 += j2;
                 l += l1;
             }
 
             while (--j >= 0) {
-                method398(Class38_Sub2_Sub2.anIntArray1308, i, k1, 0, l >> 16, j1 >> 16);
+                method398(Draw2D.anIntArray1308, i, k1, 0, l >> 16, j1 >> 16);
                 j1 += i2;
                 l += l1;
-                i += Class38_Sub2_Sub2.anInt1309;
+                i += Draw2D.anInt1309;
             }
             return;
         }
         if (j <= k) {
-            if (j >= Class38_Sub2_Sub2.anInt1312)
+            if (j >= Draw2D.anInt1312)
                 return;
-            if (k > Class38_Sub2_Sub2.anInt1312)
-                k = Class38_Sub2_Sub2.anInt1312;
-            if (i > Class38_Sub2_Sub2.anInt1312)
-                i = Class38_Sub2_Sub2.anInt1312;
+            if (k > Draw2D.anInt1312)
+                k = Draw2D.anInt1312;
+            if (i > Draw2D.anInt1312)
+                i = Draw2D.anInt1312;
             if (k < i) {
                 l = i1 <<= 16;
                 if (j < 0) {
@@ -885,33 +885,33 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                 if (j != k && l1 < i2 || j == k && l1 > j2) {
                     i -= k;
                     k -= j;
-                    for (j = anIntArray1448[j]; --k >= 0; j += Class38_Sub2_Sub2.anInt1309) {
-                        method398(Class38_Sub2_Sub2.anIntArray1308, j, k1, 0, l >> 16, i1 >> 16);
+                    for (j = anIntArray1448[j]; --k >= 0; j += Draw2D.anInt1309) {
+                        method398(Draw2D.anIntArray1308, j, k1, 0, l >> 16, i1 >> 16);
                         l += l1;
                         i1 += i2;
                     }
 
                     while (--i >= 0) {
-                        method398(Class38_Sub2_Sub2.anIntArray1308, j, k1, 0, l >> 16, j1 >> 16);
+                        method398(Draw2D.anIntArray1308, j, k1, 0, l >> 16, j1 >> 16);
                         l += l1;
                         j1 += j2;
-                        j += Class38_Sub2_Sub2.anInt1309;
+                        j += Draw2D.anInt1309;
                     }
                     return;
                 }
                 i -= k;
                 k -= j;
-                for (j = anIntArray1448[j]; --k >= 0; j += Class38_Sub2_Sub2.anInt1309) {
-                    method398(Class38_Sub2_Sub2.anIntArray1308, j, k1, 0, i1 >> 16, l >> 16);
+                for (j = anIntArray1448[j]; --k >= 0; j += Draw2D.anInt1309) {
+                    method398(Draw2D.anIntArray1308, j, k1, 0, i1 >> 16, l >> 16);
                     l += l1;
                     i1 += i2;
                 }
 
                 while (--i >= 0) {
-                    method398(Class38_Sub2_Sub2.anIntArray1308, j, k1, 0, j1 >> 16, l >> 16);
+                    method398(Draw2D.anIntArray1308, j, k1, 0, j1 >> 16, l >> 16);
                     l += l1;
                     j1 += j2;
-                    j += Class38_Sub2_Sub2.anInt1309;
+                    j += Draw2D.anInt1309;
                 }
                 return;
             }
@@ -929,42 +929,42 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             if (l1 < i2) {
                 k -= i;
                 i -= j;
-                for (j = anIntArray1448[j]; --i >= 0; j += Class38_Sub2_Sub2.anInt1309) {
-                    method398(Class38_Sub2_Sub2.anIntArray1308, j, k1, 0, j1 >> 16, i1 >> 16);
+                for (j = anIntArray1448[j]; --i >= 0; j += Draw2D.anInt1309) {
+                    method398(Draw2D.anIntArray1308, j, k1, 0, j1 >> 16, i1 >> 16);
                     j1 += l1;
                     i1 += i2;
                 }
 
                 while (--k >= 0) {
-                    method398(Class38_Sub2_Sub2.anIntArray1308, j, k1, 0, l >> 16, i1 >> 16);
+                    method398(Draw2D.anIntArray1308, j, k1, 0, l >> 16, i1 >> 16);
                     l += j2;
                     i1 += i2;
-                    j += Class38_Sub2_Sub2.anInt1309;
+                    j += Draw2D.anInt1309;
                 }
                 return;
             }
             k -= i;
             i -= j;
-            for (j = anIntArray1448[j]; --i >= 0; j += Class38_Sub2_Sub2.anInt1309) {
-                method398(Class38_Sub2_Sub2.anIntArray1308, j, k1, 0, i1 >> 16, j1 >> 16);
+            for (j = anIntArray1448[j]; --i >= 0; j += Draw2D.anInt1309) {
+                method398(Draw2D.anIntArray1308, j, k1, 0, i1 >> 16, j1 >> 16);
                 j1 += l1;
                 i1 += i2;
             }
 
             while (--k >= 0) {
-                method398(Class38_Sub2_Sub2.anIntArray1308, j, k1, 0, i1 >> 16, l >> 16);
+                method398(Draw2D.anIntArray1308, j, k1, 0, i1 >> 16, l >> 16);
                 l += j2;
                 i1 += i2;
-                j += Class38_Sub2_Sub2.anInt1309;
+                j += Draw2D.anInt1309;
             }
             return;
         }
-        if (k >= Class38_Sub2_Sub2.anInt1312)
+        if (k >= Draw2D.anInt1312)
             return;
-        if (i > Class38_Sub2_Sub2.anInt1312)
-            i = Class38_Sub2_Sub2.anInt1312;
-        if (j > Class38_Sub2_Sub2.anInt1312)
-            j = Class38_Sub2_Sub2.anInt1312;
+        if (i > Draw2D.anInt1312)
+            i = Draw2D.anInt1312;
+        if (j > Draw2D.anInt1312)
+            j = Draw2D.anInt1312;
         if (i < j) {
             i1 = j1 <<= 16;
             if (k < 0) {
@@ -980,33 +980,33 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             if (i2 < j2) {
                 j -= i;
                 i -= k;
-                for (k = anIntArray1448[k]; --i >= 0; k += Class38_Sub2_Sub2.anInt1309) {
-                    method398(Class38_Sub2_Sub2.anIntArray1308, k, k1, 0, i1 >> 16, j1 >> 16);
+                for (k = anIntArray1448[k]; --i >= 0; k += Draw2D.anInt1309) {
+                    method398(Draw2D.anIntArray1308, k, k1, 0, i1 >> 16, j1 >> 16);
                     i1 += i2;
                     j1 += j2;
                 }
 
                 while (--j >= 0) {
-                    method398(Class38_Sub2_Sub2.anIntArray1308, k, k1, 0, i1 >> 16, l >> 16);
+                    method398(Draw2D.anIntArray1308, k, k1, 0, i1 >> 16, l >> 16);
                     i1 += i2;
                     l += l1;
-                    k += Class38_Sub2_Sub2.anInt1309;
+                    k += Draw2D.anInt1309;
                 }
                 return;
             }
             j -= i;
             i -= k;
-            for (k = anIntArray1448[k]; --i >= 0; k += Class38_Sub2_Sub2.anInt1309) {
-                method398(Class38_Sub2_Sub2.anIntArray1308, k, k1, 0, j1 >> 16, i1 >> 16);
+            for (k = anIntArray1448[k]; --i >= 0; k += Draw2D.anInt1309) {
+                method398(Draw2D.anIntArray1308, k, k1, 0, j1 >> 16, i1 >> 16);
                 i1 += i2;
                 j1 += j2;
             }
 
             while (--j >= 0) {
-                method398(Class38_Sub2_Sub2.anIntArray1308, k, k1, 0, l >> 16, i1 >> 16);
+                method398(Draw2D.anIntArray1308, k, k1, 0, l >> 16, i1 >> 16);
                 i1 += i2;
                 l += l1;
-                k += Class38_Sub2_Sub2.anInt1309;
+                k += Draw2D.anInt1309;
             }
             return;
         }
@@ -1024,40 +1024,40 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
         if (i2 < j2) {
             i -= j;
             j -= k;
-            for (k = anIntArray1448[k]; --j >= 0; k += Class38_Sub2_Sub2.anInt1309) {
-                method398(Class38_Sub2_Sub2.anIntArray1308, k, k1, 0, l >> 16, j1 >> 16);
+            for (k = anIntArray1448[k]; --j >= 0; k += Draw2D.anInt1309) {
+                method398(Draw2D.anIntArray1308, k, k1, 0, l >> 16, j1 >> 16);
                 l += i2;
                 j1 += j2;
             }
 
             while (--i >= 0) {
-                method398(Class38_Sub2_Sub2.anIntArray1308, k, k1, 0, i1 >> 16, j1 >> 16);
+                method398(Draw2D.anIntArray1308, k, k1, 0, i1 >> 16, j1 >> 16);
                 i1 += l1;
                 j1 += j2;
-                k += Class38_Sub2_Sub2.anInt1309;
+                k += Draw2D.anInt1309;
             }
             return;
         }
         i -= j;
         j -= k;
-        for (k = anIntArray1448[k]; --j >= 0; k += Class38_Sub2_Sub2.anInt1309) {
-            method398(Class38_Sub2_Sub2.anIntArray1308, k, k1, 0, j1 >> 16, l >> 16);
+        for (k = anIntArray1448[k]; --j >= 0; k += Draw2D.anInt1309) {
+            method398(Draw2D.anIntArray1308, k, k1, 0, j1 >> 16, l >> 16);
             l += i2;
             j1 += j2;
         }
 
         while (--i >= 0) {
-            method398(Class38_Sub2_Sub2.anIntArray1308, k, k1, 0, j1 >> 16, i1 >> 16);
+            method398(Draw2D.anIntArray1308, k, k1, 0, j1 >> 16, i1 >> 16);
             i1 += l1;
             j1 += j2;
-            k += Class38_Sub2_Sub2.anInt1309;
+            k += Draw2D.anInt1309;
         }
     }
 
     public static void method398(int[] ai, int i, int j, int k, int l, int i1) {
         if (aBoolean1438) {
-            if (i1 > Class38_Sub2_Sub2.anInt1315)
-                i1 = Class38_Sub2_Sub2.anInt1315;
+            if (i1 > Draw2D.anInt1315)
+                i1 = Draw2D.anInt1315;
             if (l < 0)
                 l = 0;
         }
@@ -1130,12 +1130,12 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             j8 = (k1 - i2 << 16) / (i - k);
         }
         if (i <= j && i <= k) {
-            if (i >= Class38_Sub2_Sub2.anInt1312)
+            if (i >= Draw2D.anInt1312)
                 return;
-            if (j > Class38_Sub2_Sub2.anInt1312)
-                j = Class38_Sub2_Sub2.anInt1312;
-            if (k > Class38_Sub2_Sub2.anInt1312)
-                k = Class38_Sub2_Sub2.anInt1312;
+            if (j > Draw2D.anInt1312)
+                j = Draw2D.anInt1312;
+            if (k > Draw2D.anInt1312)
+                k = Draw2D.anInt1312;
             if (j < k) {
                 j1 = l <<= 16;
                 i2 = k1 <<= 16;
@@ -1162,25 +1162,25 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                     j -= i;
                     i = anIntArray1448[i];
                     while (--j >= 0) {
-                        method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, i, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8,
+                        method400(Draw2D.anIntArray1308, ai, 0, 0, i, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8,
                                 l4, k5, j6, i5, l5, k6);
                         j1 += i8;
                         l += i7;
                         i2 += j8;
                         k1 += j7;
-                        i += Class38_Sub2_Sub2.anInt1309;
+                        i += Draw2D.anInt1309;
                         l4 += j5;
                         k5 += i6;
                         j6 += l6;
                     }
                     while (--k >= 0) {
-                        method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, i, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8,
+                        method400(Draw2D.anIntArray1308, ai, 0, 0, i, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8,
                                 l4, k5, j6, i5, l5, k6);
                         j1 += i8;
                         i1 += k7;
                         i2 += j8;
                         l1 += l7;
-                        i += Class38_Sub2_Sub2.anInt1309;
+                        i += Draw2D.anInt1309;
                         l4 += j5;
                         k5 += i6;
                         j6 += l6;
@@ -1191,25 +1191,25 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                 j -= i;
                 i = anIntArray1448[i];
                 while (--j >= 0) {
-                    method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, i, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4,
+                    method400(Draw2D.anIntArray1308, ai, 0, 0, i, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     j1 += i8;
                     l += i7;
                     i2 += j8;
                     k1 += j7;
-                    i += Class38_Sub2_Sub2.anInt1309;
+                    i += Draw2D.anInt1309;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
                 while (--k >= 0) {
-                    method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, i, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4,
+                    method400(Draw2D.anIntArray1308, ai, 0, 0, i, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     j1 += i8;
                     i1 += k7;
                     i2 += j8;
                     l1 += l7;
-                    i += Class38_Sub2_Sub2.anInt1309;
+                    i += Draw2D.anInt1309;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
@@ -1241,25 +1241,25 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                 k -= i;
                 i = anIntArray1448[i];
                 while (--k >= 0) {
-                    method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, i, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
+                    method400(Draw2D.anIntArray1308, ai, 0, 0, i, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     i1 += i8;
                     l += i7;
                     l1 += j8;
                     k1 += j7;
-                    i += Class38_Sub2_Sub2.anInt1309;
+                    i += Draw2D.anInt1309;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
                 while (--j >= 0) {
-                    method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, i, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4,
+                    method400(Draw2D.anIntArray1308, ai, 0, 0, i, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     j1 += k7;
                     l += i7;
                     i2 += l7;
                     k1 += j7;
-                    i += Class38_Sub2_Sub2.anInt1309;
+                    i += Draw2D.anInt1309;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
@@ -1270,25 +1270,25 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             k -= i;
             i = anIntArray1448[i];
             while (--k >= 0) {
-                method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, i, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4, k5,
+                method400(Draw2D.anIntArray1308, ai, 0, 0, i, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 i1 += i8;
                 l += i7;
                 l1 += j8;
                 k1 += j7;
-                i += Class38_Sub2_Sub2.anInt1309;
+                i += Draw2D.anInt1309;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
             while (--j >= 0) {
-                method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, i, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4, k5,
+                method400(Draw2D.anIntArray1308, ai, 0, 0, i, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 j1 += k7;
                 l += i7;
                 i2 += l7;
                 k1 += j7;
-                i += Class38_Sub2_Sub2.anInt1309;
+                i += Draw2D.anInt1309;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
@@ -1296,12 +1296,12 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             return;
         }
         if (j <= k) {
-            if (j >= Class38_Sub2_Sub2.anInt1312)
+            if (j >= Draw2D.anInt1312)
                 return;
-            if (k > Class38_Sub2_Sub2.anInt1312)
-                k = Class38_Sub2_Sub2.anInt1312;
-            if (i > Class38_Sub2_Sub2.anInt1312)
-                i = Class38_Sub2_Sub2.anInt1312;
+            if (k > Draw2D.anInt1312)
+                k = Draw2D.anInt1312;
+            if (i > Draw2D.anInt1312)
+                i = Draw2D.anInt1312;
             if (k < i) {
                 l = i1 <<= 16;
                 k1 = l1 <<= 16;
@@ -1328,25 +1328,25 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                     k -= j;
                     j = anIntArray1448[j];
                     while (--k >= 0) {
-                        method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, j, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8,
+                        method400(Draw2D.anIntArray1308, ai, 0, 0, j, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8,
                                 l4, k5, j6, i5, l5, k6);
                         l += i7;
                         i1 += k7;
                         k1 += j7;
                         l1 += l7;
-                        j += Class38_Sub2_Sub2.anInt1309;
+                        j += Draw2D.anInt1309;
                         l4 += j5;
                         k5 += i6;
                         j6 += l6;
                     }
                     while (--i >= 0) {
-                        method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, j, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8,
+                        method400(Draw2D.anIntArray1308, ai, 0, 0, j, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8,
                                 l4, k5, j6, i5, l5, k6);
                         l += i7;
                         j1 += i8;
                         k1 += j7;
                         i2 += j8;
-                        j += Class38_Sub2_Sub2.anInt1309;
+                        j += Draw2D.anInt1309;
                         l4 += j5;
                         k5 += i6;
                         j6 += l6;
@@ -1357,25 +1357,25 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                 k -= j;
                 j = anIntArray1448[j];
                 while (--k >= 0) {
-                    method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, j, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
+                    method400(Draw2D.anIntArray1308, ai, 0, 0, j, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     l += i7;
                     i1 += k7;
                     k1 += j7;
                     l1 += l7;
-                    j += Class38_Sub2_Sub2.anInt1309;
+                    j += Draw2D.anInt1309;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
                 while (--i >= 0) {
-                    method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, j, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4,
+                    method400(Draw2D.anIntArray1308, ai, 0, 0, j, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     l += i7;
                     j1 += i8;
                     k1 += j7;
                     i2 += j8;
-                    j += Class38_Sub2_Sub2.anInt1309;
+                    j += Draw2D.anInt1309;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
@@ -1407,25 +1407,25 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                 i -= j;
                 j = anIntArray1448[j];
                 while (--i >= 0) {
-                    method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, j, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4,
+                    method400(Draw2D.anIntArray1308, ai, 0, 0, j, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     j1 += i7;
                     i1 += k7;
                     i2 += j7;
                     l1 += l7;
-                    j += Class38_Sub2_Sub2.anInt1309;
+                    j += Draw2D.anInt1309;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
                 while (--k >= 0) {
-                    method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, j, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4,
+                    method400(Draw2D.anIntArray1308, ai, 0, 0, j, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     l += i8;
                     i1 += k7;
                     k1 += j8;
                     l1 += l7;
-                    j += Class38_Sub2_Sub2.anInt1309;
+                    j += Draw2D.anInt1309;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
@@ -1436,37 +1436,37 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             i -= j;
             j = anIntArray1448[j];
             while (--i >= 0) {
-                method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, j, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4, k5,
+                method400(Draw2D.anIntArray1308, ai, 0, 0, j, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 j1 += i7;
                 i1 += k7;
                 i2 += j7;
                 l1 += l7;
-                j += Class38_Sub2_Sub2.anInt1309;
+                j += Draw2D.anInt1309;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
             while (--k >= 0) {
-                method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, j, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4, k5,
+                method400(Draw2D.anIntArray1308, ai, 0, 0, j, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 l += i8;
                 i1 += k7;
                 k1 += j8;
                 l1 += l7;
-                j += Class38_Sub2_Sub2.anInt1309;
+                j += Draw2D.anInt1309;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
             return;
         }
-        if (k >= Class38_Sub2_Sub2.anInt1312)
+        if (k >= Draw2D.anInt1312)
             return;
-        if (i > Class38_Sub2_Sub2.anInt1312)
-            i = Class38_Sub2_Sub2.anInt1312;
-        if (j > Class38_Sub2_Sub2.anInt1312)
-            j = Class38_Sub2_Sub2.anInt1312;
+        if (i > Draw2D.anInt1312)
+            i = Draw2D.anInt1312;
+        if (j > Draw2D.anInt1312)
+            j = Draw2D.anInt1312;
         if (i < j) {
             i1 = j1 <<= 16;
             l1 = i2 <<= 16;
@@ -1493,25 +1493,25 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
                 i -= k;
                 k = anIntArray1448[k];
                 while (--i >= 0) {
-                    method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, k, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4,
+                    method400(Draw2D.anIntArray1308, ai, 0, 0, k, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     i1 += k7;
                     j1 += i8;
                     l1 += l7;
                     i2 += j8;
-                    k += Class38_Sub2_Sub2.anInt1309;
+                    k += Draw2D.anInt1309;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
                 while (--j >= 0) {
-                    method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, k, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
+                    method400(Draw2D.anIntArray1308, ai, 0, 0, k, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
                             k5, j6, i5, l5, k6);
                     i1 += k7;
                     l += i7;
                     l1 += l7;
                     k1 += j7;
-                    k += Class38_Sub2_Sub2.anInt1309;
+                    k += Draw2D.anInt1309;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
@@ -1522,25 +1522,25 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             i -= k;
             k = anIntArray1448[k];
             while (--i >= 0) {
-                method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, k, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4, k5,
+                method400(Draw2D.anIntArray1308, ai, 0, 0, k, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 i1 += k7;
                 j1 += i8;
                 l1 += l7;
                 i2 += j8;
-                k += Class38_Sub2_Sub2.anInt1309;
+                k += Draw2D.anInt1309;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
             while (--j >= 0) {
-                method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, k, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4, k5,
+                method400(Draw2D.anIntArray1308, ai, 0, 0, k, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 i1 += k7;
                 l += i7;
                 l1 += l7;
                 k1 += j7;
-                k += Class38_Sub2_Sub2.anInt1309;
+                k += Draw2D.anInt1309;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
@@ -1572,25 +1572,25 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
             j -= k;
             k = anIntArray1448[k];
             while (--j >= 0) {
-                method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, k, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4, k5,
+                method400(Draw2D.anIntArray1308, ai, 0, 0, k, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 l += k7;
                 j1 += i8;
                 k1 += l7;
                 i2 += j8;
-                k += Class38_Sub2_Sub2.anInt1309;
+                k += Draw2D.anInt1309;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
             while (--i >= 0) {
-                method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, k, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4, k5,
+                method400(Draw2D.anIntArray1308, ai, 0, 0, k, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4, k5,
                         j6, i5, l5, k6);
                 i1 += i7;
                 j1 += i8;
                 l1 += j7;
                 i2 += j8;
-                k += Class38_Sub2_Sub2.anInt1309;
+                k += Draw2D.anInt1309;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
@@ -1601,25 +1601,25 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
         j -= k;
         k = anIntArray1448[k];
         while (--j >= 0) {
-            method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, k, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4, k5, j6,
+            method400(Draw2D.anIntArray1308, ai, 0, 0, k, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4, k5, j6,
                     i5, l5, k6);
             l += k7;
             j1 += i8;
             k1 += l7;
             i2 += j8;
-            k += Class38_Sub2_Sub2.anInt1309;
+            k += Draw2D.anInt1309;
             l4 += j5;
             k5 += i6;
             j6 += l6;
         }
         while (--i >= 0) {
-            method400(Class38_Sub2_Sub2.anIntArray1308, ai, 0, 0, k, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4, k5, j6,
+            method400(Draw2D.anIntArray1308, ai, 0, 0, k, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4, k5, j6,
                     i5, l5, k6);
             i1 += i7;
             j1 += i8;
             l1 += j7;
             i2 += j8;
-            k += Class38_Sub2_Sub2.anInt1309;
+            k += Draw2D.anInt1309;
             l4 += j5;
             k5 += i6;
             j6 += l6;
@@ -1634,8 +1634,8 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
         int k3;
         if (aBoolean1438) {
             j3 = (k1 - j1) / (i1 - l);
-            if (i1 > Class38_Sub2_Sub2.anInt1315)
-                i1 = Class38_Sub2_Sub2.anInt1315;
+            if (i1 > Draw2D.anInt1315)
+                i1 = Draw2D.anInt1315;
             if (l < 0) {
                 j1 -= l * j3;
                 l = 0;

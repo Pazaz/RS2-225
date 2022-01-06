@@ -22,7 +22,7 @@ public class DrawArea
     }
 
     public void init2D() {
-        Class38_Sub2_Sub2.init(width, pixels, -657, height);
+        Draw2D.init(width, pixels, -657, height);
     }
 
     public void drawImage(int y, Graphics g, int x) {

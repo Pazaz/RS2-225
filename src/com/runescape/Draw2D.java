@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class38_Sub2_Sub2 extends CacheableNode {
+public class Draw2D extends CacheableNode {
 
     public static void init(int i, int[] ai, int j, int k) {
         anIntArray1308 = ai;
@@ -126,7 +126,7 @@ public class Class38_Sub2_Sub2 extends CacheableNode {
 
     }
 
-    public Class38_Sub2_Sub2() {
+    public Draw2D() {
     }
 
     public static int anInt1305;

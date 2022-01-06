@@ -2,7 +2,7 @@ package com.runescape;
 
 import java.util.Random;
 
-public class IndexedFont extends Class38_Sub2_Sub2 {
+public class IndexedFont extends Draw2D {
 
     public IndexedFont(FileArchive fileArchive, String s, int i) {
         aBoolean1484 = true;
@@ -227,30 +227,30 @@ public class IndexedFont extends Class38_Sub2_Sub2 {
     }
 
     public void method429(byte[] abyte0, int i, int j, int k, int l, int i1) {
-        int j1 = i + j * Class38_Sub2_Sub2.anInt1309;
-        int k1 = Class38_Sub2_Sub2.anInt1309 - k;
+        int j1 = i + j * Draw2D.anInt1309;
+        int k1 = Draw2D.anInt1309 - k;
         int l1 = 0;
         int i2 = 0;
-        if (j < Class38_Sub2_Sub2.anInt1311) {
-            int j2 = Class38_Sub2_Sub2.anInt1311 - j;
+        if (j < Draw2D.anInt1311) {
+            int j2 = Draw2D.anInt1311 - j;
             l -= j2;
-            j = Class38_Sub2_Sub2.anInt1311;
+            j = Draw2D.anInt1311;
             i2 += j2 * k;
-            j1 += j2 * Class38_Sub2_Sub2.anInt1309;
+            j1 += j2 * Draw2D.anInt1309;
         }
-        if (j + l >= Class38_Sub2_Sub2.anInt1312)
-            l -= ((j + l) - Class38_Sub2_Sub2.anInt1312) + 1;
-        if (i < Class38_Sub2_Sub2.anInt1313) {
-            int k2 = Class38_Sub2_Sub2.anInt1313 - i;
+        if (j + l >= Draw2D.anInt1312)
+            l -= ((j + l) - Draw2D.anInt1312) + 1;
+        if (i < Draw2D.anInt1313) {
+            int k2 = Draw2D.anInt1313 - i;
             k -= k2;
-            i = Class38_Sub2_Sub2.anInt1313;
+            i = Draw2D.anInt1313;
             i2 += k2;
             j1 += k2;
             l1 += k2;
             k1 += k2;
         }
-        if (i + k >= Class38_Sub2_Sub2.anInt1314) {
-            int l2 = ((i + k) - Class38_Sub2_Sub2.anInt1314) + 1;
+        if (i + k >= Draw2D.anInt1314) {
+            int l2 = ((i + k) - Draw2D.anInt1314) + 1;
             k -= l2;
             l1 += l2;
             k1 += l2;
@@ -258,7 +258,7 @@ public class IndexedFont extends Class38_Sub2_Sub2 {
         if (k <= 0 || l <= 0) {
             return;
         } else {
-            method430(Class38_Sub2_Sub2.anIntArray1308, abyte0, i1, i2, j1, k, l, k1, l1);
+            method430(Draw2D.anIntArray1308, abyte0, i1, i2, j1, k, l, k1, l1);
             return;
         }
     }
@@ -303,30 +303,30 @@ public class IndexedFont extends Class38_Sub2_Sub2 {
                           int j1) {
         if (byte0 != aByte1486)
             return;
-        int k1 = i + l * Class38_Sub2_Sub2.anInt1309;
-        int l1 = Class38_Sub2_Sub2.anInt1309 - j1;
+        int k1 = i + l * Draw2D.anInt1309;
+        int l1 = Draw2D.anInt1309 - j1;
         int i2 = 0;
         int j2 = 0;
-        if (l < Class38_Sub2_Sub2.anInt1311) {
-            int k2 = Class38_Sub2_Sub2.anInt1311 - l;
+        if (l < Draw2D.anInt1311) {
+            int k2 = Draw2D.anInt1311 - l;
             j -= k2;
-            l = Class38_Sub2_Sub2.anInt1311;
+            l = Draw2D.anInt1311;
             j2 += k2 * j1;
-            k1 += k2 * Class38_Sub2_Sub2.anInt1309;
+            k1 += k2 * Draw2D.anInt1309;
         }
-        if (l + j >= Class38_Sub2_Sub2.anInt1312)
-            j -= ((l + j) - Class38_Sub2_Sub2.anInt1312) + 1;
-        if (i < Class38_Sub2_Sub2.anInt1313) {
-            int l2 = Class38_Sub2_Sub2.anInt1313 - i;
+        if (l + j >= Draw2D.anInt1312)
+            j -= ((l + j) - Draw2D.anInt1312) + 1;
+        if (i < Draw2D.anInt1313) {
+            int l2 = Draw2D.anInt1313 - i;
             j1 -= l2;
-            i = Class38_Sub2_Sub2.anInt1313;
+            i = Draw2D.anInt1313;
             j2 += l2;
             k1 += l2;
             i2 += l2;
             l1 += l2;
         }
-        if (i + j1 >= Class38_Sub2_Sub2.anInt1314) {
-            int i3 = ((i + j1) - Class38_Sub2_Sub2.anInt1314) + 1;
+        if (i + j1 >= Draw2D.anInt1314) {
+            int i3 = ((i + j1) - Draw2D.anInt1314) + 1;
             j1 -= i3;
             i2 += i3;
             l1 += i3;
@@ -334,7 +334,7 @@ public class IndexedFont extends Class38_Sub2_Sub2 {
         if (j1 <= 0 || j <= 0) {
             return;
         } else {
-            method432(j, k1, j1, Class38_Sub2_Sub2.anIntArray1308, abyte0, i1, j2, l1, i2, (byte) 2, k);
+            method432(j, k1, j1, Draw2D.anIntArray1308, abyte0, i1, j2, l1, i2, (byte) 2, k);
             return;
         }
     }
