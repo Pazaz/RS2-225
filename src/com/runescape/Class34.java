@@ -14,33 +14,33 @@ public class Class34 {
         anInt593 = i;
     }
 
-    public Class38_Sub2 method341(long l) {
-        Class38_Sub2 class38_sub2 = (Class38_Sub2) hashtable.get(l);
-        if (class38_sub2 != null)
-            aClass29_595.method275(class38_sub2);
-        return class38_sub2;
+    public CacheableNode method341(long l) {
+        CacheableNode cacheableNode = (CacheableNode) hashtable.get(l);
+        if (cacheableNode != null)
+            aClass29_595.method275(cacheableNode);
+        return cacheableNode;
     }
 
-    public void method342(int i, long l, Class38_Sub2 class38_sub2) {
+    public void method342(int i, long l, CacheableNode cacheableNode) {
         if (anInt593 == 0) {
-            Class38_Sub2 class38_sub2_1 = aClass29_595.method276();
-            class38_sub2_1.unlink();
-            class38_sub2_1.method350();
+            CacheableNode cacheableNode_1 = aClass29_595.method276();
+            cacheableNode_1.unlink();
+            cacheableNode_1.uncache();
         } else {
             anInt593--;
         }
-        hashtable.put(l, class38_sub2);
+        hashtable.put(l, cacheableNode);
         if (i < 6 || i > 6)
             aBoolean590 = !aBoolean590;
-        aClass29_595.method275(class38_sub2);
+        aClass29_595.method275(cacheableNode);
     }
 
     public void method343() {
         do {
-            Class38_Sub2 class38_sub2 = aClass29_595.method276();
-            if (class38_sub2 != null) {
-                class38_sub2.unlink();
-                class38_sub2.method350();
+            CacheableNode cacheableNode = aClass29_595.method276();
+            if (cacheableNode != null) {
+                cacheableNode.unlink();
+                cacheableNode.uncache();
             } else {
                 anInt593 = anInt592;
                 return;

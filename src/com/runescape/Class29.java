@@ -6,34 +6,34 @@ public class Class29 {
         anInt499 = 679;
         aByte500 = 2;
         aBoolean501 = true;
-        aClass38_Sub2_502 = new Class38_Sub2();
-        aClass38_Sub2_502.aClass38_Sub2_1184 = aClass38_Sub2_502;
+        cacheableNode = new CacheableNode();
+        cacheableNode.nextCacheable = cacheableNode;
         if (i < 5 || i > 5)
             anInt499 = -426;
-        aClass38_Sub2_502.aClass38_Sub2_1185 = aClass38_Sub2_502;
+        cacheableNode.prevCacheable = cacheableNode;
     }
 
-    public void method275(Class38_Sub2 class38_sub2) {
-        if (class38_sub2.aClass38_Sub2_1185 != null)
-            class38_sub2.method350();
-        class38_sub2.aClass38_Sub2_1185 = aClass38_Sub2_502.aClass38_Sub2_1185;
-        class38_sub2.aClass38_Sub2_1184 = aClass38_Sub2_502;
-        class38_sub2.aClass38_Sub2_1185.aClass38_Sub2_1184 = class38_sub2;
-        class38_sub2.aClass38_Sub2_1184.aClass38_Sub2_1185 = class38_sub2;
+    public void method275(CacheableNode cacheableNode) {
+        if (cacheableNode.prevCacheable != null)
+            cacheableNode.uncache();
+        cacheableNode.prevCacheable = this.cacheableNode.prevCacheable;
+        cacheableNode.nextCacheable = this.cacheableNode;
+        cacheableNode.prevCacheable.nextCacheable = cacheableNode;
+        cacheableNode.nextCacheable.prevCacheable = cacheableNode;
     }
 
-    public Class38_Sub2 method276() {
-        Class38_Sub2 class38_sub2 = aClass38_Sub2_502.aClass38_Sub2_1184;
-        if (class38_sub2 == aClass38_Sub2_502) {
+    public CacheableNode method276() {
+        CacheableNode cacheableNode = this.cacheableNode.nextCacheable;
+        if (cacheableNode == this.cacheableNode) {
             return null;
         } else {
-            class38_sub2.method350();
-            return class38_sub2;
+            cacheableNode.uncache();
+            return cacheableNode;
         }
     }
 
     public int anInt499;
     public byte aByte500;
     public boolean aBoolean501;
-    public Class38_Sub2 aClass38_Sub2_502;
+    public CacheableNode cacheableNode;
 }

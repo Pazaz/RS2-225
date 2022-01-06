@@ -2,7 +2,7 @@ package com.runescape;
 
 import java.math.BigInteger;
 
-public class Class38_Sub2_Sub3 extends Class38_Sub2 {
+public class Class38_Sub2_Sub3 extends CacheableNode {
 
     public static Class38_Sub2_Sub3 method433(int i, int j) {
         synchronized (linkedList2) {

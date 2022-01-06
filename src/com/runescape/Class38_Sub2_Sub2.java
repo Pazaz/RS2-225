@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class38_Sub2_Sub2 extends Class38_Sub2 {
+public class Class38_Sub2_Sub2 extends CacheableNode {
 
     public static void method376(int i, int[] ai, int j, int k) {
         anIntArray1308 = ai;

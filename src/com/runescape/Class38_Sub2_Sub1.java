@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class38_Sub2_Sub1 extends Class38_Sub2 {
+public class Class38_Sub2_Sub1 extends CacheableNode {
 
     public static void method351(boolean flag) {
         aClass21Array1259 = null;
