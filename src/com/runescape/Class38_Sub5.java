@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class38_Sub5 extends Class38 {
+public class Class38_Sub5 extends Node {
 
     public Class38_Sub5(boolean flag, int i, int j, int k, int l, Class18 class18, int i1,
                         int j1) {

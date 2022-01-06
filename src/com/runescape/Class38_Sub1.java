@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class38_Sub1 extends Class38 {
+public class Class38_Sub1 extends Node {
 
     public Class38_Sub1(int i, int j, int k) {
         aClass28Array1172 = new Class28[5];

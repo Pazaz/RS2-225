@@ -5,17 +5,17 @@ import java.math.BigInteger;
 public class Class38_Sub2_Sub3 extends Class38_Sub2 {
 
     public static Class38_Sub2_Sub3 method433(int i, int j) {
-        synchronized (aClass27_1338) {
+        synchronized (linkedList2) {
             Class38_Sub2_Sub3 class38_sub2_sub3_2 = null;
             if (i == 0 && anInt1334 > 0) {
                 anInt1334--;
-                class38_sub2_sub3_2 = (Class38_Sub2_Sub3) aClass27_1337.method269();
+                class38_sub2_sub3_2 = (Class38_Sub2_Sub3) linkedList1.method269();
             } else if (i == 1 && anInt1335 > 0) {
                 anInt1335--;
-                class38_sub2_sub3_2 = (Class38_Sub2_Sub3) aClass27_1338.method269();
+                class38_sub2_sub3_2 = (Class38_Sub2_Sub3) linkedList2.method269();
             } else if (i == 2 && anInt1336 > 0) {
                 anInt1336--;
-                class38_sub2_sub3_2 = (Class38_Sub2_Sub3) aClass27_1339.method269();
+                class38_sub2_sub3_2 = (Class38_Sub2_Sub3) linkedList3.method269();
             }
             if (class38_sub2_sub3_2 != null) {
                 class38_sub2_sub3_2.anInt1329 = 0;
@@ -37,20 +37,20 @@ public class Class38_Sub2_Sub3 extends Class38_Sub2 {
     }
 
     public void method434(byte byte0) {
-        synchronized (aClass27_1338) {
+        synchronized (linkedList2) {
             anInt1329 = 0;
             if (aByteArray1328.length == 100 && anInt1334 < 1000) {
-                aClass27_1337.method267(this);
+                linkedList1.method267(this);
                 anInt1334++;
                 return;
             }
             if (aByteArray1328.length == 5000 && anInt1335 < 250) {
-                aClass27_1338.method267(this);
+                linkedList2.method267(this);
                 anInt1335++;
                 return;
             }
             if (aByteArray1328.length == 30000 && anInt1336 < 50) {
-                aClass27_1339.method267(this);
+                linkedList3.method267(this);
                 anInt1336++;
                 return;
             }
@@ -327,9 +327,9 @@ public class Class38_Sub2_Sub3 extends Class38_Sub2 {
     public static int anInt1334;
     public static int anInt1335;
     public static int anInt1336;
-    public static Class27 aClass27_1337 = new Class27(0);
-    public static Class27 aClass27_1338 = new Class27(0);
-    public static Class27 aClass27_1339 = new Class27(0);
+    public static LinkedList linkedList1 = new LinkedList();
+    public static LinkedList linkedList2 = new LinkedList();
+    public static LinkedList linkedList3 = new LinkedList();
     public static boolean aBoolean1340;
 
     static {

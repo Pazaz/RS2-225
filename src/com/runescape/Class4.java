@@ -237,7 +237,7 @@ public class Class4 {
         Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2 = (Class38_Sub2_Sub2_Sub2) aClass34_179.method341(i);
         if (class38_sub2_sub2_sub2 != null && class38_sub2_sub2_sub2.anInt1471 != k
                 && class38_sub2_sub2_sub2.anInt1471 != -1) {
-            class38_sub2_sub2_sub2.method349();
+            class38_sub2_sub2_sub2.unlink();
             class38_sub2_sub2_sub2 = null;
         }
         if (class38_sub2_sub2_sub2 != null)

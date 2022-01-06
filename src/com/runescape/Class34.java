@@ -24,7 +24,7 @@ public class Class34 {
     public void method342(int i, long l, Class38_Sub2 class38_sub2) {
         if (anInt593 == 0) {
             Class38_Sub2 class38_sub2_1 = aClass29_595.method276();
-            class38_sub2_1.method349();
+            class38_sub2_1.unlink();
             class38_sub2_1.method350();
         } else {
             anInt593--;
@@ -39,7 +39,7 @@ public class Class34 {
         do {
             Class38_Sub2 class38_sub2 = aClass29_595.method276();
             if (class38_sub2 != null) {
-                class38_sub2.method349();
+                class38_sub2.unlink();
                 class38_sub2.method350();
             } else {
                 anInt593 = anInt592;

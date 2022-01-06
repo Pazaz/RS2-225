@@ -113,7 +113,7 @@ public class Class3 {
 
     }
 
-    public void method154(byte[] abyte0, Class32 class32, Class8[] aclass8, Class27 class27, boolean flag, int i,
+    public void method154(byte[] abyte0, Class32 class32, Class8[] aclass8, LinkedList linkedList, boolean flag, int i,
                           int j) {
         label0:
         {
@@ -147,7 +147,7 @@ public class Class3 {
                         Class8 class8 = null;
                         if (k3 >= 0)
                             class8 = aclass8[k3];
-                        method155(class8, true, i2, j3, l2, k2, class32, class27, k, i3);
+                        method155(class8, true, i2, j3, l2, k2, class32, linkedList, k, i3);
                     }
                 } while (true);
             } while (true);
@@ -155,7 +155,7 @@ public class Class3 {
     }
 
     public void method155(Class8 class8, boolean flag, int i, int j, int k, int l, Class32 class32,
-                          Class27 class27, int i1, int j1) {
+                          LinkedList linkedList, int i1, int j1) {
         if (!flag)
             return;
         if (aBoolean108) {
@@ -182,7 +182,7 @@ public class Class3 {
             if (class1.aBoolean50 && class1.aBoolean52 && class8 != null)
                 class8.method199((byte) 12, j, j1);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, i1, i, 0, 3, Class18.aClass18Array364[class1.anInt56], j, j1));
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 3, Class18.aClass18Array364[class1.anInt56], j, j1));
             return;
         }
         if (l == 10 || l == 11) {
@@ -218,7 +218,7 @@ public class Class3 {
             if (class1.aBoolean50 && class8 != null)
                 class8.method198(k, class1.anInt49, class1.anInt48, j1, 9, j, class1.aBoolean51);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, i1, i, 0, 2, Class18.aClass18Array364[class1.anInt56], j, j1));
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 2, Class18.aClass18Array364[class1.anInt56], j, j1));
             return;
         }
         if (l >= 12) {
@@ -229,7 +229,7 @@ public class Class3 {
             if (class1.aBoolean50 && class8 != null)
                 class8.method198(k, class1.anInt49, class1.anInt48, j1, 9, j, class1.aBoolean51);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, i1, i, 0, 2, Class18.aClass18Array364[class1.anInt56], j, j1));
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 2, Class18.aClass18Array364[class1.anInt56], j, j1));
             return;
         }
         if (l == 0) {
@@ -267,7 +267,7 @@ public class Class3 {
             if (class1.aBoolean50 && class8 != null)
                 class8.method197(true, k, j, j1, class1.aBoolean51, l);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[class1.anInt56], j, j1));
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[class1.anInt56], j, j1));
             if (class1.anInt57 != 16)
                 class32.method298(i, j, j1, class1.anInt57, (byte) 6);
             return;
@@ -287,7 +287,7 @@ public class Class3 {
             if (class1.aBoolean50 && class8 != null)
                 class8.method197(true, k, j, j1, class1.aBoolean51, l);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[class1.anInt56], j, j1));
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[class1.anInt56], j, j1));
             return;
         }
         if (l == 2) {
@@ -313,7 +313,7 @@ public class Class3 {
             if (class1.aBoolean50 && class8 != null)
                 class8.method197(true, k, j, j1, class1.aBoolean51, l);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[class1.anInt56], j, j1));
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[class1.anInt56], j, j1));
             if (class1.anInt57 != 16)
                 class32.method298(i, j, j1, class1.anInt57, (byte) 6);
             return;
@@ -333,7 +333,7 @@ public class Class3 {
             if (class1.aBoolean50 && class8 != null)
                 class8.method197(true, k, j, j1, class1.aBoolean51, l);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[class1.anInt56], j, j1));
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 0, Class18.aClass18Array364[class1.anInt56], j, j1));
             return;
         }
         if (l == 9) {
@@ -342,14 +342,14 @@ public class Class3 {
             if (class1.aBoolean50 && class8 != null)
                 class8.method198(k, class1.anInt49, class1.anInt48, j1, 9, j, class1.aBoolean51);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, i1, i, 0, 2, Class18.aClass18Array364[class1.anInt56], j, j1));
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 2, Class18.aClass18Array364[class1.anInt56], j, j1));
             return;
         }
         if (l == 4) {
             Class38_Sub2_Sub1 class38_sub2_sub1_7 = class1.method145(4, 0, k1, l1, i2, j2, -1);
             class32.method290(k2, j, 0, l2, k * 512, anIntArray127[k], 465, 0, j1, class38_sub2_sub1_7, byte0, i);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[class1.anInt56], j, j1));
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[class1.anInt56], j, j1));
             return;
         }
         if (l == 5) {
@@ -361,28 +361,28 @@ public class Class3 {
             class32.method290(k2, j, anIntArray130[k] * j3, l2, k * 512, anIntArray127[k], 465, anIntArray129[k] * j3,
                     j1, class38_sub2_sub1_13, byte0, i);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[class1.anInt56], j, j1));
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[class1.anInt56], j, j1));
             return;
         }
         if (l == 6) {
             Class38_Sub2_Sub1 class38_sub2_sub1_8 = class1.method145(4, 0, k1, l1, i2, j2, -1);
             class32.method290(k2, j, 0, l2, k, 256, 465, 0, j1, class38_sub2_sub1_8, byte0, i);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[class1.anInt56], j, j1));
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[class1.anInt56], j, j1));
             return;
         }
         if (l == 7) {
             Class38_Sub2_Sub1 class38_sub2_sub1_9 = class1.method145(4, 0, k1, l1, i2, j2, -1);
             class32.method290(k2, j, 0, l2, k, 512, 465, 0, j1, class38_sub2_sub1_9, byte0, i);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[class1.anInt56], j, j1));
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[class1.anInt56], j, j1));
             return;
         }
         if (l == 8) {
             Class38_Sub2_Sub1 class38_sub2_sub1_10 = class1.method145(4, 0, k1, l1, i2, j2, -1);
             class32.method290(k2, j, 0, l2, k, 768, 465, 0, j1, class38_sub2_sub1_10, byte0, i);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[class1.anInt56], j, j1));
+                linkedList.method267(new Class38_Sub5(true, i1, i, 0, 1, Class18.aClass18Array364[class1.anInt56], j, j1));
         }
     }
 
@@ -827,7 +827,7 @@ public class Class3 {
         return l;
     }
 
-    public static void method166(int i, Class27 class27, Class8 class8, int j, int k, int[][][] ai, int l, int i1,
+    public static void method166(int i, LinkedList linkedList, Class8 class8, int j, int k, int[][][] ai, int l, int i1,
                                  int j1, int k1, Class32 class32, int l1) {
         if (l != 0)
             aBoolean105 = !aBoolean105;
@@ -847,7 +847,7 @@ public class Class3 {
             if (class1.aBoolean50 && class1.aBoolean52)
                 class8.method199((byte) 12, j, i);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, j1, i1, 0, 3, Class18.aClass18Array364[class1.anInt56], j, i));
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 3, Class18.aClass18Array364[class1.anInt56], j, i));
             return;
         }
         if (k1 == 10 || k1 == 11) {
@@ -870,7 +870,7 @@ public class Class3 {
             if (class1.aBoolean50)
                 class8.method198(k, class1.anInt49, class1.anInt48, i, 9, j, class1.aBoolean51);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, j1, i1, 0, 2, Class18.aClass18Array364[class1.anInt56], j, i));
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 2, Class18.aClass18Array364[class1.anInt56], j, i));
             return;
         }
         if (k1 >= 12) {
@@ -879,7 +879,7 @@ public class Class3 {
             if (class1.aBoolean50)
                 class8.method198(k, class1.anInt49, class1.anInt48, i, 9, j, class1.aBoolean51);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, j1, i1, 0, 2, Class18.aClass18Array364[class1.anInt56], j, i));
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 2, Class18.aClass18Array364[class1.anInt56], j, i));
             return;
         }
         if (k1 == 0) {
@@ -888,7 +888,7 @@ public class Class3 {
             if (class1.aBoolean50)
                 class8.method197(true, k, j, i, class1.aBoolean51, k1);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[class1.anInt56], j, i));
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[class1.anInt56], j, i));
             return;
         }
         if (k1 == 1) {
@@ -897,7 +897,7 @@ public class Class3 {
             if (class1.aBoolean50)
                 class8.method197(true, k, j, i, class1.aBoolean51, k1);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[class1.anInt56], j, i));
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[class1.anInt56], j, i));
             return;
         }
         if (k1 == 2) {
@@ -909,7 +909,7 @@ public class Class3 {
             if (class1.aBoolean50)
                 class8.method197(true, k, j, i, class1.aBoolean51, k1);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[class1.anInt56], j, i));
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[class1.anInt56], j, i));
             return;
         }
         if (k1 == 3) {
@@ -918,7 +918,7 @@ public class Class3 {
             if (class1.aBoolean50)
                 class8.method197(true, k, j, i, class1.aBoolean51, k1);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[class1.anInt56], j, i));
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 0, Class18.aClass18Array364[class1.anInt56], j, i));
             return;
         }
         if (k1 == 9) {
@@ -927,14 +927,14 @@ public class Class3 {
             if (class1.aBoolean50)
                 class8.method198(k, class1.anInt49, class1.anInt48, i, 9, j, class1.aBoolean51);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, j1, i1, 0, 2, Class18.aClass18Array364[class1.anInt56], j, i));
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 2, Class18.aClass18Array364[class1.anInt56], j, i));
             return;
         }
         if (k1 == 4) {
             Class38_Sub2_Sub1 class38_sub2_sub1_7 = class1.method145(4, 0, i2, j2, k2, l2, -1);
             class32.method290(i3, j, 0, j3, k * 512, anIntArray127[k], 465, 0, i, class38_sub2_sub1_7, byte0, i1);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[class1.anInt56], j, i));
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[class1.anInt56], j, i));
             return;
         }
         if (k1 == 5) {
@@ -946,28 +946,28 @@ public class Class3 {
             class32.method290(i3, j, anIntArray130[k] * l3, j3, k * 512, anIntArray127[k], 465, anIntArray129[k] * l3,
                     i, class38_sub2_sub1_13, byte0, i1);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[class1.anInt56], j, i));
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[class1.anInt56], j, i));
             return;
         }
         if (k1 == 6) {
             Class38_Sub2_Sub1 class38_sub2_sub1_8 = class1.method145(4, 0, i2, j2, k2, l2, -1);
             class32.method290(i3, j, 0, j3, k, 256, 465, 0, i, class38_sub2_sub1_8, byte0, i1);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[class1.anInt56], j, i));
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[class1.anInt56], j, i));
             return;
         }
         if (k1 == 7) {
             Class38_Sub2_Sub1 class38_sub2_sub1_9 = class1.method145(4, 0, i2, j2, k2, l2, -1);
             class32.method290(i3, j, 0, j3, k, 512, 465, 0, i, class38_sub2_sub1_9, byte0, i1);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[class1.anInt56], j, i));
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[class1.anInt56], j, i));
             return;
         }
         if (k1 == 8) {
             Class38_Sub2_Sub1 class38_sub2_sub1_10 = class1.method145(4, 0, i2, j2, k2, l2, -1);
             class32.method290(i3, j, 0, j3, k, 768, 465, 0, i, class38_sub2_sub1_10, byte0, i1);
             if (class1.anInt56 != -1)
-                class27.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[class1.anInt56], j, i));
+                linkedList.method267(new Class38_Sub5(true, j1, i1, 0, 1, Class18.aClass18Array364[class1.anInt56], j, i));
         }
     }
 

@@ -25,7 +25,7 @@ public class Class32 {
         if (!flag)
             aBoolean525 = !aBoolean525;
         aClass23ArrayArray564 = null;
-        aClass27_567 = null;
+        linkedList = null;
         aBooleanArrayArrayArrayArray581 = null;
         aBooleanArrayArray582 = null;
     }
@@ -1123,11 +1123,11 @@ public class Class32 {
     }
 
     public void method322(Class38_Sub1 class38_sub1, boolean flag) {
-        aClass27_567.method267(class38_sub1);
+        linkedList.method267(class38_sub1);
         do {
             Class38_Sub1 class38_sub1_1;
             do {
-                class38_sub1_1 = (Class38_Sub1) aClass27_567.method269();
+                class38_sub1_1 = (Class38_Sub1) linkedList.method269();
                 if (class38_sub1_1 == null)
                     return;
             } while (!class38_sub1_1.aBoolean1177);
@@ -1313,22 +1313,22 @@ public class Class32 {
                     if (i < anInt543 && (k4 & 4) != 0) {
                         Class38_Sub1 class38_sub1_17 = aclass38_sub1[i + 1][j];
                         if (class38_sub1_17 != null && class38_sub1_17.aBoolean1177)
-                            aClass27_567.method267(class38_sub1_17);
+                            linkedList.method267(class38_sub1_17);
                     }
                     if (j < anInt544 && (k4 & 2) != 0) {
                         Class38_Sub1 class38_sub1_18 = aclass38_sub1[i][j + 1];
                         if (class38_sub1_18 != null && class38_sub1_18.aBoolean1177)
-                            aClass27_567.method267(class38_sub1_18);
+                            linkedList.method267(class38_sub1_18);
                     }
                     if (i > anInt543 && (k4 & 1) != 0) {
                         Class38_Sub1 class38_sub1_19 = aclass38_sub1[i - 1][j];
                         if (class38_sub1_19 != null && class38_sub1_19.aBoolean1177)
-                            aClass27_567.method267(class38_sub1_19);
+                            linkedList.method267(class38_sub1_19);
                     }
                     if (j > anInt544 && (k4 & 8) != 0) {
                         Class38_Sub1 class38_sub1_20 = aclass38_sub1[i][j - 1];
                         if (class38_sub1_20 != null && class38_sub1_20.aBoolean1177)
-                            aClass27_567.method267(class38_sub1_20);
+                            linkedList.method267(class38_sub1_20);
                     }
                 }
             }
@@ -1426,9 +1426,9 @@ public class Class32 {
                         for (int i9 = class28_3.anInt493; i9 <= class28_3.anInt494; i9++) {
                             Class38_Sub1 class38_sub1_22 = aclass38_sub1[i8][i9];
                             if (class38_sub1_22.anInt1179 != 0)
-                                aClass27_567.method267(class38_sub1_22);
+                                linkedList.method267(class38_sub1_22);
                             else if ((i8 != i || i9 != j) && class38_sub1_22.aBoolean1177)
-                                aClass27_567.method267(class38_sub1_22);
+                                linkedList.method267(class38_sub1_22);
                         }
 
                     }
@@ -1526,27 +1526,27 @@ public class Class32 {
             if (k < anInt527 - 1) {
                 Class38_Sub1 class38_sub1_12 = aClass38_Sub1ArrayArrayArray531[k + 1][i][j];
                 if (class38_sub1_12 != null && class38_sub1_12.aBoolean1177)
-                    aClass27_567.method267(class38_sub1_12);
+                    linkedList.method267(class38_sub1_12);
             }
             if (i < anInt543) {
                 Class38_Sub1 class38_sub1_13 = aclass38_sub1[i + 1][j];
                 if (class38_sub1_13 != null && class38_sub1_13.aBoolean1177)
-                    aClass27_567.method267(class38_sub1_13);
+                    linkedList.method267(class38_sub1_13);
             }
             if (j < anInt544) {
                 Class38_Sub1 class38_sub1_14 = aclass38_sub1[i][j + 1];
                 if (class38_sub1_14 != null && class38_sub1_14.aBoolean1177)
-                    aClass27_567.method267(class38_sub1_14);
+                    linkedList.method267(class38_sub1_14);
             }
             if (i > anInt543) {
                 Class38_Sub1 class38_sub1_15 = aclass38_sub1[i - 1][j];
                 if (class38_sub1_15 != null && class38_sub1_15.aBoolean1177)
-                    aClass27_567.method267(class38_sub1_15);
+                    linkedList.method267(class38_sub1_15);
             }
             if (j > anInt544) {
                 Class38_Sub1 class38_sub1_16 = aclass38_sub1[i][j - 1];
                 if (class38_sub1_16 != null && class38_sub1_16.aBoolean1177)
-                    aClass27_567.method267(class38_sub1_16);
+                    linkedList.method267(class38_sub1_16);
             }
         } while (true);
     }
@@ -2147,7 +2147,7 @@ public class Class32 {
     public static Class23[][] aClass23ArrayArray564;
     public static int anInt565;
     public static Class23[] aClass23Array566 = new Class23[500];
-    public static Class27 aClass27_567 = new Class27(0);
+    public static LinkedList linkedList = new LinkedList();
     public static final int[] anIntArray568 = {
             19, 55, 38, 155, 255, 110, 137, 205, 76
     };

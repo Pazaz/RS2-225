@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class38_Sub2 extends Class38 {
+public class Class38_Sub2 extends Node {
 
     public void method350() {
         if (aClass38_Sub2_1185 == null) {
