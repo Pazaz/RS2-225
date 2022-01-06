@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class24 {
+public class WordEncoding {
 
     public static void method229(FileArchive fileArchive) {
         Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363,

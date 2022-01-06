@@ -1509,7 +1509,7 @@ public class client extends Applet_Sub1 {
                         TextEncoder.write(aClass38_Sub2_Sub3_798, aString765);
                         aClass38_Sub2_Sub3_798.method445(0, aClass38_Sub2_Sub3_798.offset - k);
                         aString765 = StringUtils.toSentence(aString765);
-                        aString765 = Class24.method239(aString765, 0);
+                        aString765 = WordEncoding.method239(aString765, 0);
                         method111(6, aString765, (byte) 4, StringUtils.formatName(StringUtils.fromBase37(aLong900)));
                         if (anInt755 == 2) {
                             anInt755 = 1;
@@ -1635,7 +1635,7 @@ public class client extends Applet_Sub1 {
                         TextEncoder.write(aClass38_Sub2_Sub3_798, aString1137);
                         aClass38_Sub2_Sub3_798.method445(0, aClass38_Sub2_Sub3_798.offset - i2);
                         aString1137 = StringUtils.toSentence(aString1137);
-                        aString1137 = Class24.method239(aString1137, 0);
+                        aString1137 = WordEncoding.method239(aString1137, 0);
                         aClass38_Sub7_Sub3_Sub2_967.aString1392 = aString1137;
                         aClass38_Sub7_Sub3_Sub2_967.anInt1394 = j1;
                         aClass38_Sub7_Sub3_Sub2_967.anInt1395 = k1;
@@ -4794,7 +4794,7 @@ public class client extends Applet_Sub1 {
             }
 
             Class32.method318(ai, 800, 512, aByte871, 334, 500);
-            Class24.method229(fileArchive_5);
+            WordEncoding.method229(fileArchive_5);
             return;
         } catch (Exception exception) {
             aBoolean865 = true;
@@ -8596,7 +8596,7 @@ public class client extends Applet_Sub1 {
                         anIntArray878[anInt855] = k19;
                         anInt855 = (anInt855 + 1) % 100;
                         String s7 = TextEncoder.read(aClass38_Sub2_Sub3_795, anInt779 - 13);
-                        s7 = Class24.method239(s7, 0);
+                        s7 = WordEncoding.method239(s7, 0);
                         if (j23 > 1)
                             method111(7, s7, (byte) 4, StringUtils.formatName(StringUtils.fromBase37(l5)));
                         else
@@ -9030,7 +9030,7 @@ public class client extends Applet_Sub1 {
                 if (!flag1 && anInt802 == 0)
                     try {
                         String s = TextEncoder.read(class38_sub2_sub3, i2);
-                        s = Class24.method239(s, 0);
+                        s = WordEncoding.method239(s, 0);
                         class38_sub7_sub3_sub2.aString1392 = s;
                         class38_sub7_sub3_sub2.anInt1394 = i1 >> 8;
                         class38_sub7_sub3_sub2.anInt1395 = i1 & 0xff;
