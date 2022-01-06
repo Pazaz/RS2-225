@@ -41,24 +41,24 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         anIntArray1303 = null;
     }
 
-    public static void method352(int i, Class39 class39) {
+    public static void method352(int i, FileArchive fileArchive) {
         if (i < 3 || i > 3)
             return;
         try {
-            aClass38_Sub2_Sub3_1260 = new Class38_Sub2_Sub3(363, class39.method474("ob_head.dat", null, (byte) 2));
-            aClass38_Sub2_Sub3_1261 = new Class38_Sub2_Sub3(363, class39.method474("ob_face1.dat", null, (byte) 2));
-            aClass38_Sub2_Sub3_1262 = new Class38_Sub2_Sub3(363, class39.method474("ob_face2.dat", null, (byte) 2));
-            aClass38_Sub2_Sub3_1263 = new Class38_Sub2_Sub3(363, class39.method474("ob_face3.dat", null, (byte) 2));
-            aClass38_Sub2_Sub3_1264 = new Class38_Sub2_Sub3(363, class39.method474("ob_face4.dat", null, (byte) 2));
-            aClass38_Sub2_Sub3_1265 = new Class38_Sub2_Sub3(363, class39.method474("ob_face5.dat", null, (byte) 2));
-            aClass38_Sub2_Sub3_1266 = new Class38_Sub2_Sub3(363, class39.method474("ob_point1.dat", null, (byte) 2));
-            aClass38_Sub2_Sub3_1267 = new Class38_Sub2_Sub3(363, class39.method474("ob_point2.dat", null, (byte) 2));
-            aClass38_Sub2_Sub3_1268 = new Class38_Sub2_Sub3(363, class39.method474("ob_point3.dat", null, (byte) 2));
-            aClass38_Sub2_Sub3_1269 = new Class38_Sub2_Sub3(363, class39.method474("ob_point4.dat", null, (byte) 2));
-            aClass38_Sub2_Sub3_1270 = new Class38_Sub2_Sub3(363, class39.method474("ob_point5.dat", null, (byte) 2));
-            aClass38_Sub2_Sub3_1271 = new Class38_Sub2_Sub3(363, class39.method474("ob_vertex1.dat", null, (byte) 2));
-            aClass38_Sub2_Sub3_1272 = new Class38_Sub2_Sub3(363, class39.method474("ob_vertex2.dat", null, (byte) 2));
-            aClass38_Sub2_Sub3_1273 = new Class38_Sub2_Sub3(363, class39.method474("ob_axis.dat", null, (byte) 2));
+            aClass38_Sub2_Sub3_1260 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_head.dat", null));
+            aClass38_Sub2_Sub3_1261 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_face1.dat", null));
+            aClass38_Sub2_Sub3_1262 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_face2.dat", null));
+            aClass38_Sub2_Sub3_1263 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_face3.dat", null));
+            aClass38_Sub2_Sub3_1264 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_face4.dat", null));
+            aClass38_Sub2_Sub3_1265 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_face5.dat", null));
+            aClass38_Sub2_Sub3_1266 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_point1.dat", null));
+            aClass38_Sub2_Sub3_1267 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_point2.dat", null));
+            aClass38_Sub2_Sub3_1268 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_point3.dat", null));
+            aClass38_Sub2_Sub3_1269 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_point4.dat", null));
+            aClass38_Sub2_Sub3_1270 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_point5.dat", null));
+            aClass38_Sub2_Sub3_1271 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_vertex1.dat", null));
+            aClass38_Sub2_Sub3_1272 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_vertex2.dat", null));
+            aClass38_Sub2_Sub3_1273 = new Class38_Sub2_Sub3(363, fileArchive.read("ob_axis.dat", null));
             aClass38_Sub2_Sub3_1260.anInt1329 = 0;
             aClass38_Sub2_Sub3_1266.anInt1329 = 0;
             aClass38_Sub2_Sub3_1267.anInt1329 = 0;

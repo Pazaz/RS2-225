@@ -2,8 +2,8 @@ package com.runescape;
 
 public class Class10 {
 
-    public static void method209(Class39 class39, int i) {
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, class39.method474("flo.dat", null, (byte) 2));
+    public static void method209(FileArchive fileArchive, int i) {
+        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read("flo.dat", null));
         anInt222 = class38_sub2_sub3.method448();
         i = 35 / i;
         if (aClass10Array223 == null)

@@ -1762,7 +1762,7 @@ public class client extends Applet_Sub1 {
         }
     }
 
-    public Class39 method37(String s, int i, String s1, int j, int k) {
+    public FileArchive method37(String s, int i, String s1, int j, int k) {
         int l = 5;
         byte[] abyte0 = signlink.cacheload(s1);
         if (abyte0 != null) {
@@ -1773,8 +1773,8 @@ public class client extends Applet_Sub1 {
                 abyte0 = null;
         }
         if (abyte0 != null) {
-            Class39 class39 = new Class39(abyte0, aBoolean912);
-            return class39;
+            FileArchive fileArchive = new FileArchive(abyte0);
+            return fileArchive;
         }
         while (abyte0 == null) {
             method13(true, "Requesting " + s, j);
@@ -1822,8 +1822,8 @@ public class client extends Applet_Sub1 {
             for (int l1 = 1; l1 > 0; l1++)
                 ;
         }
-        Class39 class39_1 = new Class39(abyte0, aBoolean912);
-        return class39_1;
+        FileArchive fileArchive_1 = new FileArchive(abyte0);
+        return fileArchive_1;
     }
 
     public void method38(boolean flag) {
@@ -2337,13 +2337,13 @@ public class client extends Applet_Sub1 {
     }
 
     public void method48(int i) {
-        aClass38_Sub2_Sub2_Sub3_1103 = new Class38_Sub2_Sub2_Sub3(aClass39_1136, "titlebox", 0);
-        aClass38_Sub2_Sub2_Sub3_1104 = new Class38_Sub2_Sub2_Sub3(aClass39_1136, "titlebutton", 0);
+        aClass38_Sub2_Sub2_Sub3_1103 = new Class38_Sub2_Sub2_Sub3(fileArchive, "titlebox", 0);
+        aClass38_Sub2_Sub2_Sub3_1104 = new Class38_Sub2_Sub2_Sub3(fileArchive, "titlebutton", 0);
         if (i != 0)
             anInt780 = aClass38_Sub2_Sub3_795.method446();
         aClass38_Sub2_Sub2_Sub3Array973 = new Class38_Sub2_Sub2_Sub3[12];
         for (int j = 0; j < 12; j++)
-            aClass38_Sub2_Sub2_Sub3Array973[j] = new Class38_Sub2_Sub2_Sub3(aClass39_1136, "runes", j);
+            aClass38_Sub2_Sub2_Sub3Array973[j] = new Class38_Sub2_Sub2_Sub3(fileArchive, "runes", j);
 
         aClass38_Sub2_Sub2_Sub2_978 = new Class38_Sub2_Sub2_Sub2(128, 265);
         aClass38_Sub2_Sub2_Sub2_979 = new Class38_Sub2_Sub2_Sub2(128, 265);
@@ -4572,20 +4572,20 @@ public class client extends Applet_Sub1 {
                 }
             }
 
-            aClass39_1136 = method37("title screen", anIntArray811[1], "title", 10, 0);
-            aClass38_Sub2_Sub2_Sub4_985 = new Class38_Sub2_Sub2_Sub4(aClass39_1136, "p11", 530);
-            aClass38_Sub2_Sub2_Sub4_986 = new Class38_Sub2_Sub2_Sub4(aClass39_1136, "p12", 530);
-            aClass38_Sub2_Sub2_Sub4_987 = new Class38_Sub2_Sub2_Sub4(aClass39_1136, "b12", 530);
-            aClass38_Sub2_Sub2_Sub4_988 = new Class38_Sub2_Sub2_Sub4(aClass39_1136, "q8", 530);
+            this.fileArchive = method37("title screen", anIntArray811[1], "title", 10, 0);
+            aClass38_Sub2_Sub2_Sub4_985 = new Class38_Sub2_Sub2_Sub4(this.fileArchive, "p11", 530);
+            aClass38_Sub2_Sub2_Sub4_986 = new Class38_Sub2_Sub2_Sub4(this.fileArchive, "p12", 530);
+            aClass38_Sub2_Sub2_Sub4_987 = new Class38_Sub2_Sub2_Sub4(this.fileArchive, "b12", 530);
+            aClass38_Sub2_Sub2_Sub4_988 = new Class38_Sub2_Sub2_Sub4(this.fileArchive, "q8", 530);
             method128((byte) 5);
             method48(0);
-            Class39 class39 = method37("config", anIntArray811[2], "config", 15, 0);
-            Class39 class39_1 = method37("interface", anIntArray811[3], "interface", 20, 0);
-            Class39 class39_2 = method37("2d graphics", anIntArray811[4], "media", 30, 0);
-            Class39 class39_3 = method37("3d graphics", anIntArray811[5], "models", 40, 0);
-            Class39 class39_4 = method37("textures", anIntArray811[6], "textures", 60, 0);
-            Class39 class39_5 = method37("chat system", anIntArray811[7], "wordenc", 65, 0);
-            Class39 class39_6 = method37("sound effects", anIntArray811[8], "sounds", 70, 0);
+            FileArchive fileArchive = method37("config", anIntArray811[2], "config", 15, 0);
+            FileArchive fileArchive_1 = method37("interface", anIntArray811[3], "interface", 20, 0);
+            FileArchive fileArchive_2 = method37("2d graphics", anIntArray811[4], "media", 30, 0);
+            FileArchive fileArchive_3 = method37("3d graphics", anIntArray811[5], "models", 40, 0);
+            FileArchive fileArchive_4 = method37("textures", anIntArray811[6], "textures", 60, 0);
+            FileArchive fileArchive_5 = method37("chat system", anIntArray811[7], "wordenc", 65, 0);
+            FileArchive fileArchive_6 = method37("sound effects", anIntArray811[8], "sounds", 70, 0);
             aByteArrayArrayArray840 = new byte[4][104][104];
             anIntArrayArrayArray794 = new int[4][105][105];
             aClass32_831 = new Class32(415, anIntArrayArrayArray794, 104, 4, 104);
@@ -4594,106 +4594,106 @@ public class client extends Applet_Sub1 {
 
             aClass38_Sub2_Sub2_Sub2_1053 = new Class38_Sub2_Sub2_Sub2(512, 512);
             method13(true, "Unpacking media", 75);
-            aClass38_Sub2_Sub2_Sub3_981 = new Class38_Sub2_Sub2_Sub3(class39_2, "invback", 0);
-            aClass38_Sub2_Sub2_Sub3_983 = new Class38_Sub2_Sub2_Sub3(class39_2, "chatback", 0);
-            aClass38_Sub2_Sub2_Sub3_982 = new Class38_Sub2_Sub2_Sub3(class39_2, "mapback", 0);
-            aClass38_Sub2_Sub2_Sub3_908 = new Class38_Sub2_Sub2_Sub3(class39_2, "backbase1", 0);
-            aClass38_Sub2_Sub2_Sub3_909 = new Class38_Sub2_Sub2_Sub3(class39_2, "backbase2", 0);
-            aClass38_Sub2_Sub2_Sub3_910 = new Class38_Sub2_Sub2_Sub3(class39_2, "backhmid1", 0);
+            aClass38_Sub2_Sub2_Sub3_981 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "invback", 0);
+            aClass38_Sub2_Sub2_Sub3_983 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "chatback", 0);
+            aClass38_Sub2_Sub2_Sub3_982 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "mapback", 0);
+            aClass38_Sub2_Sub2_Sub3_908 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "backbase1", 0);
+            aClass38_Sub2_Sub2_Sub3_909 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "backbase2", 0);
+            aClass38_Sub2_Sub2_Sub3_910 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "backhmid1", 0);
             for (int i1 = 0; i1 < 13; i1++)
-                aClass38_Sub2_Sub2_Sub3Array814[i1] = new Class38_Sub2_Sub2_Sub3(class39_2, "sideicons", i1);
+                aClass38_Sub2_Sub2_Sub3Array814[i1] = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "sideicons", i1);
 
-            aClass38_Sub2_Sub2_Sub2_1145 = new Class38_Sub2_Sub2_Sub2(class39_2, "compass", 0);
+            aClass38_Sub2_Sub2_Sub2_1145 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "compass", 0);
             try {
                 for (int j1 = 0; j1 < 50; j1++)
-                    aClass38_Sub2_Sub2_Sub3Array1038[j1] = new Class38_Sub2_Sub2_Sub3(class39_2, "mapscene", j1);
+                    aClass38_Sub2_Sub2_Sub3Array1038[j1] = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "mapscene", j1);
 
             } catch (Exception _ex) {
             }
             try {
                 for (int k1 = 0; k1 < 50; k1++)
-                    aClass38_Sub2_Sub2_Sub2Array1138[k1] = new Class38_Sub2_Sub2_Sub2(class39_2, "mapfunction", k1);
+                    aClass38_Sub2_Sub2_Sub2Array1138[k1] = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "mapfunction", k1);
 
             } catch (Exception _ex) {
             }
             try {
                 for (int l1 = 0; l1 < 20; l1++)
-                    aClass38_Sub2_Sub2_Sub2Array776[l1] = new Class38_Sub2_Sub2_Sub2(class39_2, "hitmarks", l1);
+                    aClass38_Sub2_Sub2_Sub2Array776[l1] = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "hitmarks", l1);
 
             } catch (Exception _ex) {
             }
             try {
                 for (int i2 = 0; i2 < 20; i2++)
-                    aClass38_Sub2_Sub2_Sub2Array956[i2] = new Class38_Sub2_Sub2_Sub2(class39_2, "headicons", i2);
+                    aClass38_Sub2_Sub2_Sub2Array956[i2] = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "headicons", i2);
 
             } catch (Exception _ex) {
             }
-            aClass38_Sub2_Sub2_Sub2_997 = new Class38_Sub2_Sub2_Sub2(class39_2, "mapflag", 0);
+            aClass38_Sub2_Sub2_Sub2_997 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "mapflag", 0);
             for (int j2 = 0; j2 < 8; j2++)
-                aClass38_Sub2_Sub2_Sub2Array1120[j2] = new Class38_Sub2_Sub2_Sub2(class39_2, "cross", j2);
+                aClass38_Sub2_Sub2_Sub2Array1120[j2] = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "cross", j2);
 
-            aClass38_Sub2_Sub2_Sub2_1057 = new Class38_Sub2_Sub2_Sub2(class39_2, "mapdots", 0);
-            aClass38_Sub2_Sub2_Sub2_1058 = new Class38_Sub2_Sub2_Sub2(class39_2, "mapdots", 1);
-            aClass38_Sub2_Sub2_Sub2_1059 = new Class38_Sub2_Sub2_Sub2(class39_2, "mapdots", 2);
-            aClass38_Sub2_Sub2_Sub2_1060 = new Class38_Sub2_Sub2_Sub2(class39_2, "mapdots", 3);
-            aClass38_Sub2_Sub2_Sub3_1081 = new Class38_Sub2_Sub2_Sub3(class39_2, "scrollbar", 0);
-            aClass38_Sub2_Sub2_Sub3_1082 = new Class38_Sub2_Sub2_Sub3(class39_2, "scrollbar", 1);
-            aClass38_Sub2_Sub2_Sub3_891 = new Class38_Sub2_Sub2_Sub3(class39_2, "redstone1", 0);
-            aClass38_Sub2_Sub2_Sub3_892 = new Class38_Sub2_Sub2_Sub3(class39_2, "redstone2", 0);
-            aClass38_Sub2_Sub2_Sub3_893 = new Class38_Sub2_Sub2_Sub3(class39_2, "redstone3", 0);
-            aClass38_Sub2_Sub2_Sub3_894 = new Class38_Sub2_Sub2_Sub3(class39_2, "redstone1", 0);
+            aClass38_Sub2_Sub2_Sub2_1057 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "mapdots", 0);
+            aClass38_Sub2_Sub2_Sub2_1058 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "mapdots", 1);
+            aClass38_Sub2_Sub2_Sub2_1059 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "mapdots", 2);
+            aClass38_Sub2_Sub2_Sub2_1060 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "mapdots", 3);
+            aClass38_Sub2_Sub2_Sub3_1081 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "scrollbar", 0);
+            aClass38_Sub2_Sub2_Sub3_1082 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "scrollbar", 1);
+            aClass38_Sub2_Sub2_Sub3_891 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "redstone1", 0);
+            aClass38_Sub2_Sub2_Sub3_892 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "redstone2", 0);
+            aClass38_Sub2_Sub2_Sub3_893 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "redstone3", 0);
+            aClass38_Sub2_Sub2_Sub3_894 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "redstone1", 0);
             aClass38_Sub2_Sub2_Sub3_894.method416(-725);
-            aClass38_Sub2_Sub2_Sub3_895 = new Class38_Sub2_Sub2_Sub3(class39_2, "redstone2", 0);
+            aClass38_Sub2_Sub2_Sub3_895 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "redstone2", 0);
             aClass38_Sub2_Sub2_Sub3_895.method416(-725);
-            aClass38_Sub2_Sub2_Sub3_1040 = new Class38_Sub2_Sub2_Sub3(class39_2, "redstone1", 0);
+            aClass38_Sub2_Sub2_Sub3_1040 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "redstone1", 0);
             aClass38_Sub2_Sub2_Sub3_1040.method417((byte) -74);
-            aClass38_Sub2_Sub2_Sub3_1041 = new Class38_Sub2_Sub2_Sub3(class39_2, "redstone2", 0);
+            aClass38_Sub2_Sub2_Sub3_1041 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "redstone2", 0);
             aClass38_Sub2_Sub2_Sub3_1041.method417((byte) -74);
-            aClass38_Sub2_Sub2_Sub3_1042 = new Class38_Sub2_Sub2_Sub3(class39_2, "redstone3", 0);
+            aClass38_Sub2_Sub2_Sub3_1042 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "redstone3", 0);
             aClass38_Sub2_Sub2_Sub3_1042.method417((byte) -74);
-            aClass38_Sub2_Sub2_Sub3_1043 = new Class38_Sub2_Sub2_Sub3(class39_2, "redstone1", 0);
+            aClass38_Sub2_Sub2_Sub3_1043 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "redstone1", 0);
             aClass38_Sub2_Sub2_Sub3_1043.method416(-725);
             aClass38_Sub2_Sub2_Sub3_1043.method417((byte) -74);
-            aClass38_Sub2_Sub2_Sub3_1044 = new Class38_Sub2_Sub2_Sub3(class39_2, "redstone2", 0);
+            aClass38_Sub2_Sub2_Sub3_1044 = new Class38_Sub2_Sub2_Sub3(fileArchive_2, "redstone2", 0);
             aClass38_Sub2_Sub2_Sub3_1044.method416(-725);
             aClass38_Sub2_Sub2_Sub3_1044.method417((byte) -74);
-            Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backleft1", 0);
+            Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backleft1", 0);
             drawArea1 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backleft2", 0);
+            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backleft2", 0);
             drawArea2 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backright1", 0);
+            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backright1", 0);
             drawArea3 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backright2", 0);
+            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backright2", 0);
             drawArea4 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backtop1", 0);
+            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backtop1", 0);
             drawArea5 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backtop2", 0);
+            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backtop2", 0);
             drawArea6 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backvmid1", 0);
+            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backvmid1", 0);
             drawArea7 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backvmid2", 0);
+            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backvmid2", 0);
             drawArea8 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backvmid3", 0);
+            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backvmid3", 0);
             drawArea9 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39_2, "backhmid2", 0);
+            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive_2, "backhmid2", 0);
             drawArea10 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
             class38_sub2_sub2_sub2.method403(34676, 0, 0);
@@ -4709,26 +4709,26 @@ public class client extends Applet_Sub1 {
             }
 
             method13(true, "Unpacking textures", 80);
-            Class38_Sub2_Sub2_Sub1.method389((byte) 2, class39_4);
+            Class38_Sub2_Sub2_Sub1.method389((byte) 2, fileArchive_4);
             Class38_Sub2_Sub2_Sub1.method393(true, 0.80000000000000004D);
             Class38_Sub2_Sub2_Sub1.method388(20, -20);
             method13(true, "Unpacking models", 83);
-            Class38_Sub2_Sub1.method352(anInt958, class39_3);
-            Class9.method208(false, class39_3);
-            Class11.method213(false, class39_3);
+            Class38_Sub2_Sub1.method352(anInt958, fileArchive_3);
+            Class9.method208(false, fileArchive_3);
+            Class11.method213(false, fileArchive_3);
             method13(true, "Unpacking config", 86);
-            Class18.method222(class39, 473);
-            Class1.method140(class39);
-            Class10.method209(class39, 473);
-            Class4.method167(class39);
-            Class2.method146(class39);
-            Class12.method214(class39, 473);
-            Class20.method224(class39, 473);
-            Class22.method227(class39, 473);
+            Class18.method222(fileArchive, 473);
+            Class1.method140(fileArchive);
+            Class10.method209(fileArchive, 473);
+            Class4.method167(fileArchive);
+            Class2.method146(fileArchive);
+            Class12.method214(fileArchive, 473);
+            Class20.method224(fileArchive, 473);
+            Class22.method227(fileArchive, 473);
             Class4.aBoolean142 = aBoolean888;
             if (!aBoolean889) {
                 method13(true, "Unpacking sounds", 90);
-                byte[] abyte0 = class39_6.method474("sounds.dat", null, (byte) 2);
+                byte[] abyte0 = fileArchive_6.read("sounds.dat", null);
                 Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(363, abyte0);
                 SoundTrack.load(class38_sub2_sub3_1);
             }
@@ -4737,7 +4737,7 @@ public class client extends Applet_Sub1 {
                     aClass38_Sub2_Sub2_Sub4_985, aClass38_Sub2_Sub2_Sub4_986, aClass38_Sub2_Sub2_Sub4_987,
                     aClass38_Sub2_Sub2_Sub4_988
             };
-            Class14.method218(class39_2, aclass38_sub2_sub2_sub4, 30, class39_1);
+            Class14.method218(fileArchive_2, aclass38_sub2_sub2_sub4, 30, fileArchive_1);
             method13(true, "Preparing game engine", 97);
             for (int l3 = 0; l3 < 33; l3++) {
                 int i4 = 999;
@@ -4794,7 +4794,7 @@ public class client extends Applet_Sub1 {
             }
 
             Class32.method318(ai, 800, 512, aByte871, 334, 500);
-            Class24.method229(class39_5);
+            Class24.method229(fileArchive_5);
             return;
         } catch (Exception exception) {
             aBoolean865 = true;
@@ -5267,7 +5267,7 @@ public class client extends Applet_Sub1 {
         Class38_Sub2_Sub2.method379(anInt1143);
         drawArea19 = new DrawArea(method11(aByte1116), 87, 79);
         Class38_Sub2_Sub2.method379(anInt1143);
-        if (aClass39_1136 != null) {
+        if (fileArchive != null) {
             method128((byte) 5);
             method48(0);
         }
@@ -7333,7 +7333,7 @@ public class client extends Applet_Sub1 {
     }
 
     public void method128(byte byte0) {
-        byte[] abyte0 = aClass39_1136.method474("title.dat", null, (byte) 2);
+        byte[] abyte0 = fileArchive.read("title.dat", null);
         Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(abyte0, this);
         drawArea14.init2D();
         class38_sub2_sub2_sub2.method403(34676, 0, 0);
@@ -7384,7 +7384,7 @@ public class client extends Applet_Sub1 {
         class38_sub2_sub2_sub2.method403(34676, 212, -186);
         drawArea19.init2D();
         class38_sub2_sub2_sub2.method403(34676, -180, -186);
-        class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(aClass39_1136, "logo", 0);
+        class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive, "logo", 0);
         drawArea11.init2D();
         class38_sub2_sub2_sub2.method405(18, super.anInt12 / 2 - class38_sub2_sub2_sub2.anInt1466 / 2 - 128, false);
         class38_sub2_sub2_sub2 = null;
@@ -9073,7 +9073,7 @@ public class client extends Applet_Sub1 {
 
     public void method13(boolean flag, String s, int i) {
         method95((byte) 99);
-        if (aClass39_1136 == null) {
+        if (fileArchive == null) {
             super.method13(true, s, i);
             return;
         }
@@ -9758,7 +9758,7 @@ public class client extends Applet_Sub1 {
     public int[] anIntArray1133;
     public int anInt1134;
     public int anInt1135;
-    public Class39 aClass39_1136;
+    public FileArchive fileArchive;
     public String aString1137;
     public Class38_Sub2_Sub2_Sub2[] aClass38_Sub2_Sub2_Sub2Array1138;
     public int[] anIntArray1139;

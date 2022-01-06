@@ -2,15 +2,15 @@ package com.runescape;
 
 public class Class24 {
 
-    public static void method229(Class39 class39) {
+    public static void method229(FileArchive fileArchive) {
         Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363,
-                class39.method474("fragmentsenc.txt", null, (byte) 2));
+                fileArchive.read("fragmentsenc.txt", null));
         Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(363,
-                class39.method474("badenc.txt", null, (byte) 2));
+                fileArchive.read("badenc.txt", null));
         Class38_Sub2_Sub3 class38_sub2_sub3_2 = new Class38_Sub2_Sub3(363,
-                class39.method474("domainenc.txt", null, (byte) 2));
+                fileArchive.read("domainenc.txt", null));
         Class38_Sub2_Sub3 class38_sub2_sub3_3 = new Class38_Sub2_Sub3(363,
-                class39.method474("tldlist.txt", null, (byte) 2));
+                fileArchive.read("tldlist.txt", null));
         method230(class38_sub2_sub3, class38_sub2_sub3_1, class38_sub2_sub3_2, class38_sub2_sub3_3);
     }
 

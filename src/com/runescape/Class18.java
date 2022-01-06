@@ -2,8 +2,8 @@ package com.runescape;
 
 public class Class18 {
 
-    public static void method222(Class39 class39, int i) {
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, class39.method474("seq.dat", null, (byte) 2));
+    public static void method222(FileArchive fileArchive, int i) {
+        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read("seq.dat", null));
         if (i <= 0)
             aBoolean361 = !aBoolean361;
         anInt363 = class38_sub2_sub3.method448();

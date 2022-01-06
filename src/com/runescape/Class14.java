@@ -2,12 +2,12 @@ package com.runescape;
 
 public class Class14 {
 
-    public static void method218(Class39 class39, Class38_Sub2_Sub2_Sub4[] aclass38_sub2_sub2_sub4, int i,
-                                 Class39 class39_1) {
+    public static void method218(FileArchive fileArchive, Class38_Sub2_Sub2_Sub4[] aclass38_sub2_sub2_sub4, int i,
+                                 FileArchive fileArchive_1) {
         i = 17 / i;
         aClass34_321 = new Class34((byte) 0, 50000);
         aClass34_322 = new Class34((byte) 0, 50000);
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, class39_1.method474("data", null, (byte) 2));
+        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive_1.read("data", null));
         int j = -1;
         int k = class38_sub2_sub3.method448();
         aClass14Array264 = new Class14[k];
@@ -87,9 +87,9 @@ public class Class14 {
                         class14.anIntArray296[k2] = class38_sub2_sub3.method449();
                         class14.anIntArray297[k2] = class38_sub2_sub3.method449();
                         String s1 = class38_sub2_sub3.method453();
-                        if (class39 != null && s1.length() > 0) {
+                        if (fileArchive != null && s1.length() > 0) {
                             int j5 = s1.lastIndexOf(",");
-                            class14.aClass38_Sub2_Sub2_Sub2Array295[k2] = method220(class39,
+                            class14.aClass38_Sub2_Sub2_Sub2Array295[k2] = method220(fileArchive,
                                     Integer.parseInt(s1.substring(j5 + 1)), s1.substring(0, j5), -36068);
                         }
                     }
@@ -124,15 +124,15 @@ public class Class14 {
             }
             if (class14.anInt271 == 5) {
                 String s = class38_sub2_sub3.method453();
-                if (class39 != null && s.length() > 0) {
+                if (fileArchive != null && s.length() > 0) {
                     int j4 = s.lastIndexOf(",");
-                    class14.aClass38_Sub2_Sub2_Sub2_308 = method220(class39, Integer.parseInt(s.substring(j4 + 1)),
+                    class14.aClass38_Sub2_Sub2_Sub2_308 = method220(fileArchive, Integer.parseInt(s.substring(j4 + 1)),
                             s.substring(0, j4), -36068);
                 }
                 s = class38_sub2_sub3.method453();
-                if (class39 != null && s.length() > 0) {
+                if (fileArchive != null && s.length() > 0) {
                     int k4 = s.lastIndexOf(",");
-                    class14.aClass38_Sub2_Sub2_Sub2_309 = method220(class39, Integer.parseInt(s.substring(k4 + 1)),
+                    class14.aClass38_Sub2_Sub2_Sub2_309 = method220(fileArchive, Integer.parseInt(s.substring(k4 + 1)),
                             s.substring(0, k4), -36068);
                 }
             }
@@ -219,7 +219,7 @@ public class Class14 {
         return class38_sub2_sub1_1;
     }
 
-    public static Class38_Sub2_Sub2_Sub2 method220(Class39 class39, int i, String s, int j) {
+    public static Class38_Sub2_Sub2_Sub2 method220(FileArchive fileArchive, int i, String s, int j) {
         long l = (StringUtils.genHash(s) << 8) + (long) i;
         Class38_Sub2_Sub2_Sub2 class38_sub2_sub2_sub2 = (Class38_Sub2_Sub2_Sub2) aClass34_321.method341(l);
         if (j != -36068)
@@ -227,7 +227,7 @@ public class Class14 {
         if (class38_sub2_sub2_sub2 != null)
             return class38_sub2_sub2_sub2;
         try {
-            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(class39, s, i);
+            class38_sub2_sub2_sub2 = new Class38_Sub2_Sub2_Sub2(fileArchive, s, i);
             aClass34_321.method342(6, l, class38_sub2_sub2_sub2);
         } catch (Exception _ex) {
             return null;

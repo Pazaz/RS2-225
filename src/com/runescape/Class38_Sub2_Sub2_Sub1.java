@@ -70,13 +70,13 @@ public class Class38_Sub2_Sub2_Sub1 extends Class38_Sub2_Sub2 {
         }
     }
 
-    public static void method389(byte byte0, Class39 class39) {
+    public static void method389(byte byte0, FileArchive fileArchive) {
         if (byte0 != 2)
             return;
         anInt1449 = 0;
         for (int i = 0; i < 50; i++)
             try {
-                aClass38_Sub2_Sub2_Sub3Array1450[i] = new Class38_Sub2_Sub2_Sub3(class39, String.valueOf(i), 0);
+                aClass38_Sub2_Sub2_Sub3Array1450[i] = new Class38_Sub2_Sub2_Sub3(fileArchive, String.valueOf(i), 0);
                 if (aBoolean1437 && aClass38_Sub2_Sub2_Sub3Array1450[i].anInt1482 == 128)
                     aClass38_Sub2_Sub2_Sub3Array1450[i].method414(aBoolean1434);
                 else

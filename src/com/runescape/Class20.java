@@ -2,10 +2,10 @@ package com.runescape;
 
 public class Class20 {
 
-    public static void method224(Class39 class39, int i) {
+    public static void method224(FileArchive fileArchive, int i) {
         i = 91 / i;
         Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363,
-                class39.method474("spotanim.dat", null, (byte) 2));
+                fileArchive.read("spotanim.dat", null));
         anInt386 = class38_sub2_sub3.method448();
         if (aClass20Array387 == null)
             aClass20Array387 = new Class20[anInt386];

@@ -2,9 +2,9 @@ package com.runescape;
 
 public class Class4 {
 
-    public static void method167(Class39 class39) {
-        aClass38_Sub2_Sub3_139 = new Class38_Sub2_Sub3(363, class39.method474("obj.dat", null, (byte) 2));
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, class39.method474("obj.idx", null, (byte) 2));
+    public static void method167(FileArchive fileArchive) {
+        aClass38_Sub2_Sub3_139 = new Class38_Sub2_Sub3(363, fileArchive.read("obj.dat", null));
+        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read("obj.idx", null));
         anInt137 = class38_sub2_sub3.method448();
         anIntArray138 = new int[anInt137];
         int i = 2;

@@ -2,14 +2,14 @@ package com.runescape;
 
 public class Class38_Sub2_Sub2_Sub3 extends Class38_Sub2_Sub2 {
 
-    public Class38_Sub2_Sub2_Sub3(Class39 class39, String s, int i) {
+    public Class38_Sub2_Sub2_Sub3(FileArchive fileArchive, String s, int i) {
         aBoolean1472 = false;
         anInt1473 = 45861;
         aByte1474 = 5;
         aBoolean1475 = true;
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, class39.method474(s + ".dat", null, (byte) 2));
+        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read(s + ".dat", null));
         Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(363,
-                class39.method474("index.dat", null, (byte) 2));
+                fileArchive.read("index.dat", null));
         class38_sub2_sub3_1.anInt1329 = class38_sub2_sub3.method448();
         anInt1482 = class38_sub2_sub3_1.method448();
         anInt1483 = class38_sub2_sub3_1.method448();

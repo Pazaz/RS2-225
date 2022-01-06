@@ -2,8 +2,8 @@ package com.runescape;
 
 public class Class22 {
 
-    public static void method227(Class39 class39, int i) {
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, class39.method474("varp.dat", null, (byte) 2));
+    public static void method227(FileArchive fileArchive, int i) {
+        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read("varp.dat", null));
         anInt421 = 0;
         i = 28 / i;
         anInt419 = class38_sub2_sub3.method448();

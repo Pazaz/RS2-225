@@ -2,8 +2,8 @@ package com.runescape;
 
 public class Class12 {
 
-    public static void method214(Class39 class39, int i) {
-        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, class39.method474("idk.dat", null, (byte) 2));
+    public static void method214(FileArchive fileArchive, int i) {
+        Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363, fileArchive.read("idk.dat", null));
         anInt246 = class38_sub2_sub3.method448();
         if (aClass12Array247 == null)
             aClass12Array247 = new Class12[anInt246];

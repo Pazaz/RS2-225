@@ -2,13 +2,13 @@ package com.runescape;
 
 public class Class9 {
 
-    public static void method208(boolean flag, Class39 class39) {
+    public static void method208(boolean flag, FileArchive fileArchive) {
         Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363,
-                class39.method474("base_head.dat", null, (byte) 2));
+                fileArchive.read("base_head.dat", null));
         Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(363,
-                class39.method474("base_type.dat", null, (byte) 2));
+                fileArchive.read("base_type.dat", null));
         Class38_Sub2_Sub3 class38_sub2_sub3_2 = new Class38_Sub2_Sub3(363,
-                class39.method474("base_label.dat", null, (byte) 2));
+                fileArchive.read("base_label.dat", null));
         int i = class38_sub2_sub3.method448();
         int j = class38_sub2_sub3.method448();
         aClass9Array216 = new Class9[j + 1];
