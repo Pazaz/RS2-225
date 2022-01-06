@@ -1,13 +1,12 @@
 package com.runescape.scene;
 
 import com.runescape.cache.SeqType;
-import com.runescape.scene.Entity;
 
 public class PathingEntity extends Entity {
 
     public void method466(boolean flag, boolean flag1, int i, int j) {
-        if (anInt1407 != -1 && SeqType.seqTypes[anInt1407].anInt372 <= 1)
-            anInt1407 = -1;
+        if (primarySeq != -1 && SeqType.seqTypes[primarySeq].anInt372 <= 1)
+            primarySeq = -1;
         if (!flag1) {
             int k = i - anIntArray1428[0];
             int l = j - anIntArray1429[0];
@@ -70,8 +69,8 @@ public class PathingEntity extends Entity {
             j++;
             k--;
         }
-        if (anInt1407 != -1 && SeqType.seqTypes[anInt1407].anInt372 <= 1)
-            anInt1407 = -1;
+        if (primarySeq != -1 && SeqType.seqTypes[primarySeq].anInt372 <= 1)
+            primarySeq = -1;
         if (anInt1427 < 9)
             anInt1427++;
         for (int l = anInt1427; l > 0; l--) {
@@ -85,7 +84,7 @@ public class PathingEntity extends Entity {
         aBooleanArray1430[0] = flag;
     }
 
-    public boolean method468(boolean flag) {
+    public boolean isValid(boolean flag) {
         if (flag)
             throw new NullPointerException();
         else
@@ -97,7 +96,7 @@ public class PathingEntity extends Entity {
         aBoolean1379 = false;
         aBoolean1383 = false;
         anInt1384 = 1;
-        anInt1385 = -1;
+        standSeq = -1;
         anInt1386 = -1;
         anInt1387 = -1;
         anInt1388 = -1;
@@ -107,9 +106,9 @@ public class PathingEntity extends Entity {
         anInt1393 = 100;
         anInt1398 = -1000;
         anInt1401 = -1;
-        anInt1404 = -1;
-        anInt1407 = -1;
-        anInt1412 = -1;
+        secondarySeq = -1;
+        primarySeq = -1;
+        spotAnimIndex = -1;
         anIntArray1428 = new int[10];
         anIntArray1429 = new int[10];
         aBooleanArray1430 = new boolean[10];
@@ -122,7 +121,7 @@ public class PathingEntity extends Entity {
     public int anInt1382;
     public boolean aBoolean1383;
     public int anInt1384;
-    public int anInt1385;
+    public int standSeq;
     public int anInt1386;
     public int anInt1387;
     public int anInt1388;
@@ -141,19 +140,19 @@ public class PathingEntity extends Entity {
     public int anInt1401;
     public int anInt1402;
     public int anInt1403;
-    public int anInt1404;
-    public int anInt1405;
+    public int secondarySeq;
+    public int secondarySeqFrame;
     public int anInt1406;
-    public int anInt1407;
-    public int anInt1408;
+    public int primarySeq;
+    public int primarySeqFrame;
     public int anInt1409;
-    public int anInt1410;
+    public int primarySeqDelay;
     public int anInt1411;
-    public int anInt1412;
-    public int anInt1413;
+    public int spotAnimIndex;
+    public int spotAnimFrame;
     public int anInt1414;
     public int anInt1415;
-    public int anInt1416;
+    public int spotanimOffsetY;
     public int anInt1417;
     public int anInt1418;
     public int anInt1419;
@@ -162,7 +161,7 @@ public class PathingEntity extends Entity {
     public int anInt1422;
     public int anInt1423;
     public int anInt1424;
-    public int anInt1425;
+    public int height;
     public int anInt1426;
     public int anInt1427;
     public int[] anIntArray1428;

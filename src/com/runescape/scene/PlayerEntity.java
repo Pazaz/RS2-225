@@ -35,9 +35,9 @@ public class PlayerEntity extends PathingEntity {
 
         if (flag)
             return;
-        super.anInt1385 = class38_sub2_sub3.readWord();
-        if (super.anInt1385 == 65535)
-            super.anInt1385 = -1;
+        super.standSeq = class38_sub2_sub3.readWord();
+        if (super.standSeq == 65535)
+            super.standSeq = -1;
         super.anInt1386 = class38_sub2_sub3.readWord();
         if (super.anInt1386 == 65535)
             super.anInt1386 = -1;
@@ -84,17 +84,17 @@ public class PlayerEntity extends PathingEntity {
         if (!aBoolean1506)
             return null;
         Model class38_sub2_sub1 = method471(false);
-        super.anInt1425 = class38_sub2_sub1.minY;
+        super.height = class38_sub2_sub1.minY;
         class38_sub2_sub1.pickable = true;
         if (aBoolean1524)
             return class38_sub2_sub1;
-        if (super.anInt1412 != -1 && super.anInt1413 != -1) {
-            SpotAnimType spotAnimType = SpotAnimType.instances[super.anInt1412];
+        if (super.spotAnimIndex != -1 && super.spotAnimFrame != -1) {
+            SpotAnimType spotAnimType = SpotAnimType.instances[super.spotAnimIndex];
             Model class38_sub2_sub1_2 = new Model(spotAnimType.getModel(), true,
                     !spotAnimType.disposeAlpha, anInt1503, false);
-            class38_sub2_sub1_2.translate(-super.anInt1416, 0, -122, 0);
+            class38_sub2_sub1_2.translate(-super.spotanimOffsetY, 0, -122, 0);
             class38_sub2_sub1_2.applyGroups(4);
-            class38_sub2_sub1_2.applyFrame(-16599, spotAnimType.seq.primaryFrames[super.anInt1413]);
+            class38_sub2_sub1_2.applyFrame(-16599, spotAnimType.seq.primaryFrames[super.spotAnimFrame]);
             class38_sub2_sub1_2.skinTriangle = null;
             class38_sub2_sub1_2.labelVertices = null;
             if (spotAnimType.breadthScale != 128 || spotAnimType.depthScale != 128)
@@ -149,11 +149,11 @@ public class PlayerEntity extends PathingEntity {
         int j = -1;
         int k = -1;
         int i1 = -1;
-        if (super.anInt1407 >= 0 && super.anInt1410 == 0) {
-            SeqType seqType = SeqType.seqTypes[super.anInt1407];
-            i = seqType.primaryFrames[super.anInt1408];
-            if (super.anInt1404 >= 0 && super.anInt1404 != super.anInt1385)
-                j = SeqType.seqTypes[super.anInt1404].primaryFrames[super.anInt1405];
+        if (super.primarySeq >= 0 && super.primarySeqDelay == 0) {
+            SeqType seqType = SeqType.seqTypes[super.primarySeq];
+            i = seqType.primaryFrames[super.primarySeqFrame];
+            if (super.secondarySeq >= 0 && super.secondarySeq != super.standSeq)
+                j = SeqType.seqTypes[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
             if (seqType.anInt373 >= 0) {
                 k = seqType.anInt373;
                 l += k - anIntArray1509[5] << 40;
@@ -162,8 +162,8 @@ public class PlayerEntity extends PathingEntity {
                 i1 = seqType.anInt374;
                 l += i1 - anIntArray1509[3] << 48;
             }
-        } else if (super.anInt1404 >= 0)
-            i = SeqType.seqTypes[super.anInt1404].primaryFrames[super.anInt1405];
+        } else if (super.secondarySeq >= 0)
+            i = SeqType.seqTypes[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
         Model class38_sub2_sub1 = (Model) cache.get(l);
         if (class38_sub2_sub1 == null) {
             Model[] aclass38_sub2_sub1 = new Model[12];
@@ -204,7 +204,7 @@ public class PlayerEntity extends PathingEntity {
         if (flag)
             aBoolean1504 = !aBoolean1504;
         if (i != -1 && j != -1)
-            class38_sub2_sub1_1.method359(j, 3, i, SeqType.seqTypes[super.anInt1407].anIntArray370);
+            class38_sub2_sub1_1.method359(j, 3, i, SeqType.seqTypes[super.primarySeq].labelGroups);
         else if (i != -1)
             class38_sub2_sub1_1.applyFrame(-16599, i);
         class38_sub2_sub1_1.calculateYBoundaries(2992);
@@ -243,7 +243,7 @@ public class PlayerEntity extends PathingEntity {
         return class38_sub2_sub1;
     }
 
-    public boolean method468(boolean flag) {
+    public boolean isValid(boolean flag) {
         if (flag)
             aBoolean1504 = !aBoolean1504;
         return aBoolean1506;

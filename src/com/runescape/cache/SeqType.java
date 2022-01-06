@@ -49,11 +49,11 @@ public class SeqType {
                 loopOffset = class38_sub2_sub3.readWord();
             else if (j == 3) {
                 int l = class38_sub2_sub3.readByte();
-                anIntArray370 = new int[l + 1];
+                labelGroups = new int[l + 1];
                 for (int i1 = 0; i1 < l; i1++)
-                    anIntArray370[i1] = class38_sub2_sub3.readByte();
+                    labelGroups[i1] = class38_sub2_sub3.readByte();
 
-                anIntArray370[l] = 0x98967f;
+                labelGroups[l] = 0x98967f;
             } else if (j == 4)
                 aBoolean371 = true;
             else if (j == 5)
@@ -96,7 +96,7 @@ public class SeqType {
     public int[] anIntArray367;
     public int[] instances;
     public int loopOffset;
-    public int[] anIntArray370;
+    public int[] labelGroups;
     public boolean aBoolean371;
     public int anInt372;
     public int anInt373;
