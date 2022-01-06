@@ -4729,7 +4729,7 @@ public class client extends Applet_Sub1 {
                 method13(true, "Unpacking sounds", 90);
                 byte[] abyte0 = class39_6.method474("sounds.dat", null, (byte) 2);
                 Class38_Sub2_Sub3 class38_sub2_sub3_1 = new Class38_Sub2_Sub3(363, abyte0);
-                Class43.method487(class38_sub2_sub3_1, 473);
+                SoundTrack.load(class38_sub2_sub3_1);
             }
             method13(true, "Unpacking interfaces", 92);
             Class38_Sub2_Sub2_Sub4[] aclass38_sub2_sub2_sub4 = {
@@ -5913,7 +5913,7 @@ public class client extends Applet_Sub1 {
                         if (!method78(anInt778))
                             flag1 = true;
                     } else {
-                        Class38_Sub2_Sub3 class38_sub2_sub3_1 = Class43.method488((byte) -16, anIntArray809[j],
+                        Class38_Sub2_Sub3 class38_sub2_sub3_1 = SoundTrack.generate(anIntArray809[j],
                                 anIntArray1124[j]);
                         if (System.currentTimeMillis() + (long) (class38_sub2_sub3_1.anInt1329 / 22) > aLong777
                                 + (long) (anInt815 / 22)) {
@@ -8426,7 +8426,7 @@ public class client extends Applet_Sub1 {
                 if (aBoolean1153 && !aBoolean889 && anInt1018 < 50) {
                     anIntArray1124[anInt1018] = l3;
                     anIntArray809[anInt1018] = l12;
-                    anIntArray858[anInt1018] = k18 + Class43.anIntArray692[l3];
+                    anIntArray858[anInt1018] = k18 + SoundTrack.delays[l3];
                     anInt1018++;
                 }
                 anInt780 = -1;
