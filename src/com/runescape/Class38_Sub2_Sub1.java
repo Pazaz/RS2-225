@@ -868,13 +868,13 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         if (j == -1)
             return;
         Class11 class11 = Class11.aClass11Array235[j];
-        Class9 class9 = class11.aClass9_237;
+        SeqBase seqBase = class11.seqBase;
         anInt1292 = 0;
         anInt1293 = 0;
         anInt1294 = 0;
         for (int k = 0; k < class11.anInt238; k++) {
             int l = class11.anIntArray239[k];
-            method360(class9.anIntArray218[l], class9.anIntArrayArray219[l], class11.anIntArray240[k],
+            method360(seqBase.anIntArray218[l], seqBase.anIntArrayArray219[l], class11.anIntArray240[k],
                     class11.anIntArray241[k], class11.anIntArray242[k]);
         }
 
@@ -893,7 +893,7 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
         if (j < 3 || j > 3)
             anInt1220 = -162;
         Class11 class11_1 = Class11.aClass11Array235[i];
-        Class9 class9 = class11.aClass9_237;
+        SeqBase seqBase = class11.seqBase;
         anInt1292 = 0;
         anInt1293 = 0;
         anInt1294 = 0;
@@ -903,8 +903,8 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
             int k1;
             for (k1 = class11.anIntArray239[j1]; k1 > i1; i1 = ai[l++])
                 ;
-            if (k1 != i1 || class9.anIntArray218[k1] == 0)
-                method360(class9.anIntArray218[k1], class9.anIntArrayArray219[k1], class11.anIntArray240[j1],
+            if (k1 != i1 || seqBase.anIntArray218[k1] == 0)
+                method360(seqBase.anIntArray218[k1], seqBase.anIntArrayArray219[k1], class11.anIntArray240[j1],
                         class11.anIntArray241[j1], class11.anIntArray242[j1]);
         }
 
@@ -917,8 +917,8 @@ public class Class38_Sub2_Sub1 extends CacheableNode {
             int i2;
             for (i2 = class11_1.anIntArray239[l1]; i2 > i1; i1 = ai[l++])
                 ;
-            if (i2 == i1 || class9.anIntArray218[i2] == 0)
-                method360(class9.anIntArray218[i2], class9.anIntArrayArray219[i2], class11_1.anIntArray240[l1],
+            if (i2 == i1 || seqBase.anIntArray218[i2] == 0)
+                method360(seqBase.anIntArray218[i2], seqBase.anIntArrayArray219[i2], class11_1.anIntArray240[l1],
                         class11_1.anIntArray241[l1], class11_1.anIntArray242[l1]);
         }
 

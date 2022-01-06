@@ -25,17 +25,17 @@ public class Class11 {
             Class11 class11 = aClass11Array235[l] = new Class11();
             class11.anInt236 = class38_sub2_sub3_3.method446();
             int i1 = class38_sub2_sub3.method448();
-            Class9 class9 = Class9.aClass9Array216[i1];
-            class11.aClass9_237 = class9;
+            SeqBase seqBase = SeqBase.seqBaseArray[i1];
+            class11.seqBase = seqBase;
             int j1 = class38_sub2_sub3.method446();
             int k1 = -1;
             int l1 = 0;
             for (int i2 = 0; i2 < j1; i2++) {
                 int j2 = class38_sub2_sub3_1.method446();
                 if (j2 > 0) {
-                    if (class9.anIntArray218[i2] != 0) {
+                    if (seqBase.anIntArray218[i2] != 0) {
                         for (int l2 = i2 - 1; l2 > k1; l2--) {
-                            if (class9.anIntArray218[l2] != 0)
+                            if (seqBase.anIntArray218[l2] != 0)
                                 continue;
                             ai[l1] = l2;
                             ai1[l1] = 0;
@@ -48,7 +48,7 @@ public class Class11 {
                     }
                     ai[l1] = i2;
                     char c = '\0';
-                    if (class9.anIntArray218[ai[l1]] == 3)
+                    if (seqBase.anIntArray218[ai[l1]] == 3)
                         c = '\200';
                     if ((j2 & 1) != 0)
                         ai1[l1] = class38_sub2_sub3_2.method459();
@@ -88,7 +88,7 @@ public class Class11 {
 
     public static Class11[] aClass11Array235;
     public int anInt236;
-    public Class9 aClass9_237;
+    public SeqBase seqBase;
     public int anInt238;
     public int[] anIntArray239;
     public int[] anIntArray240;

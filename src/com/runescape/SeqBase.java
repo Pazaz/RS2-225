@@ -1,6 +1,6 @@
 package com.runescape;
 
-public class Class9 {
+public class SeqBase {
 
     public static void method208(boolean flag, FileArchive fileArchive) {
         Class38_Sub2_Sub3 class38_sub2_sub3 = new Class38_Sub2_Sub3(363,
@@ -11,7 +11,7 @@ public class Class9 {
                 fileArchive.read("base_label.dat", null));
         int i = class38_sub2_sub3.method448();
         int j = class38_sub2_sub3.method448();
-        aClass9Array216 = new Class9[j + 1];
+        seqBaseArray = new SeqBase[j + 1];
         if (flag)
             throw new NullPointerException();
         for (int k = 0; k < i; k++) {
@@ -28,18 +28,18 @@ public class Class9 {
 
             }
 
-            aClass9Array216[l] = new Class9();
-            aClass9Array216[l].anInt217 = i1;
-            aClass9Array216[l].anIntArray218 = ai;
-            aClass9Array216[l].anIntArrayArray219 = ai1;
+            seqBaseArray[l] = new SeqBase();
+            seqBaseArray[l].anInt217 = i1;
+            seqBaseArray[l].anIntArray218 = ai;
+            seqBaseArray[l].anIntArrayArray219 = ai1;
         }
 
     }
 
-    public Class9() {
+    public SeqBase() {
     }
 
-    public static Class9[] aClass9Array216;
+    public static SeqBase[] seqBaseArray;
     public int anInt217;
     public int[] anIntArray218;
     public int[][] anIntArrayArray219;

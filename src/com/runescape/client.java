@@ -4714,7 +4714,7 @@ public class client extends Applet_Sub1 {
             Class38_Sub2_Sub2_Sub1.method388(20, -20);
             method13(true, "Unpacking models", 83);
             Class38_Sub2_Sub1.method352(anInt958, fileArchive_3);
-            Class9.method208(false, fileArchive_3);
+            SeqBase.method208(false, fileArchive_3);
             Class11.method213(false, fileArchive_3);
             method13(true, "Unpacking config", 86);
             Class18.method222(fileArchive, 473);
@@ -5803,7 +5803,7 @@ public class client extends Applet_Sub1 {
         Class38_Sub2_Sub2_Sub1.method384(true);
         Class32.method280(true);
         Class38_Sub2_Sub1.method351(true);
-        Class9.aClass9Array216 = null;
+        SeqBase.seqBaseArray = null;
         Class11.aClass11Array235 = null;
         System.gc();
     }
