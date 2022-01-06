@@ -1,15 +1,15 @@
 package com.runescape;
 
-public class Class33 {
+public class BZip2InputStream {
 
-    public static int method333(byte[] abyte0, int i, byte[] abyte1, int j, int k) {
+    public static int read(byte[] dest, int destLen, byte[] src, int srcLen, int srcOffset) {
         synchronized (context) {
-            context.src = abyte1;
-            context.srcOff = k;
-            context.dest = abyte0;
+            context.src = src;
+            context.srcOff = srcOffset;
+            context.dest = dest;
             context.anInt611 = 0;
-            context.srcLen = j;
-            context.destLen = i;
+            context.srcLen = srcLen;
+            context.destLen = destLen;
             context.anInt619 = 0;
             context.anInt618 = 0;
             context.anInt608 = 0;
@@ -18,8 +18,8 @@ public class Class33 {
             context.anInt614 = 0;
             context.anInt621 = 0;
             method335(context);
-            i -= context.destLen;
-            int l = i;
+            destLen -= context.destLen;
+            int l = destLen;
             return l;
         }
     }

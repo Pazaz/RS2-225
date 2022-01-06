@@ -898,7 +898,7 @@ public class client extends Applet_Sub1 {
                     return;
                 int l = (new Class38_Sub2_Sub3(363, abyte0)).method451();
                 byte[] abyte1 = new byte[l];
-                Class33.method333(abyte1, l, abyte0, j, 4);
+                BZip2InputStream.read(abyte1, l, abyte0, j, 4);
                 method52(abyte1, 625, l, true);
             }
         }
@@ -7113,7 +7113,7 @@ public class client extends Applet_Sub1 {
                 byte[] abyte2 = aByteArrayArray770[j1];
                 if (abyte2 != null) {
                     int i3 = (new Class38_Sub2_Sub3(363, abyte2)).method451();
-                    Class33.method333(abyte0, i3, abyte2, abyte2.length - 4, 4);
+                    BZip2InputStream.read(abyte0, i3, abyte2, abyte2.length - 4, 4);
                     class3.method153(abyte0, (anInt838 - 6) * 8, 1, j2, l1, (anInt839 - 6) * 8);
                 } else if (anInt839 < 800)
                     class3.method152(l1, j2, 3, 64, 64);
@@ -7124,7 +7124,7 @@ public class client extends Applet_Sub1 {
                 byte[] abyte1 = aByteArrayArray1000[i2];
                 if (abyte1 != null) {
                     int k2 = (new Class38_Sub2_Sub3(363, abyte1)).method451();
-                    Class33.method333(abyte0, k2, abyte1, abyte1.length - 4, 4);
+                    BZip2InputStream.read(abyte0, k2, abyte1, abyte1.length - 4, 4);
                     int j3 = (anIntArray925[i2] >> 8) * 64 - anInt761;
                     int l3 = (anIntArray925[i2] & 0xff) * 64 - anInt762;
                     class3.method154(abyte0, aClass32_831, aClass8Array954, linkedList2, true, l3, j3);
@@ -8407,7 +8407,7 @@ public class client extends Applet_Sub1 {
                     int k12 = aClass38_Sub2_Sub3_795.method451();
                     int j18 = anInt779 - 6;
                     byte[] abyte0 = new byte[k12];
-                    Class33.method333(abyte0, k12, aClass38_Sub2_Sub3_795.aByteArray1328, j18,
+                    BZip2InputStream.read(abyte0, k12, aClass38_Sub2_Sub3_795.aByteArray1328, j18,
                             aClass38_Sub2_Sub3_795.anInt1329);
                     method52(abyte0, 625, k12, false);
                     anInt744 = k3;
