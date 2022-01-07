@@ -915,7 +915,7 @@ public class Game extends GameShell {
         Scene.lowMemory = true;
         Draw3D.aBoolean1437 = true;
         aBoolean889 = true;
-        SceneBuilder.aBoolean108 = true;
+        SceneBuilder.lowMemory = true;
     }
 
     public void method28(boolean flag) {
@@ -5645,7 +5645,7 @@ public class Game extends GameShell {
                 int j3 = l1;
                 if (j3 < 3 && (aByteArrayArrayArray840[1][j][k] & 2) == 2)
                     j3++;
-                SceneBuilder.method166(j, linkedList2, collisionMaps[l1], k, i, anIntArrayArrayArray794, 0, l1, i1, j1,
+                SceneBuilder.addLoc(j, linkedList2, collisionMaps[l1], k, i, anIntArrayArrayArray794, l1, i1, j1,
                         scene, j3);
             }
         }
@@ -6194,7 +6194,7 @@ public class Game extends GameShell {
             return;
         } else {
             aBoolean889 = false;
-            SceneBuilder.aBoolean108 = false;
+            SceneBuilder.lowMemory = false;
             return;
         }
     }
@@ -7095,18 +7095,18 @@ public class Game extends GameShell {
                 collisionMaps[j].reset();
 
             System.gc();
-            SceneBuilder sceneBuilder = new SceneBuilder(104, aByteArrayArrayArray840, 104, anIntArrayArrayArray794, anInt1106);
+            SceneBuilder sceneBuilder = new SceneBuilder(104, aByteArrayArrayArray840, 104, anIntArrayArrayArray794);
             byte[] abyte0 = new byte[0x186a0];
             int k = aByteArrayArray770.length;
-            SceneBuilder.aBoolean108 = Scene.lowMemory;
+            SceneBuilder.lowMemory = Scene.lowMemory;
             for (int l = 0; l < k; l++) {
                 int i1 = anIntArray925[l] >> 8;
                 int k1 = anIntArray925[l] & 0xff;
                 if (i1 == 33 && k1 >= 71 && k1 <= 73)
-                    SceneBuilder.aBoolean108 = false;
+                    SceneBuilder.lowMemory = false;
             }
 
-            if (SceneBuilder.aBoolean108)
+            if (SceneBuilder.lowMemory)
                 scene.setup(anInt880);
             else
                 scene.setup(0);
@@ -7118,9 +7118,9 @@ public class Game extends GameShell {
                 if (abyte2 != null) {
                     int i3 = (new Buffer(abyte2)).readDWord();
                     BZip2InputStream.read(abyte0, i3, abyte2, abyte2.length - 4, 4);
-                    sceneBuilder.method153(abyte0, (anInt838 - 6) * 8, 1, j2, l1, (anInt839 - 6) * 8);
+                    sceneBuilder.readLandscape(abyte0, (anInt838 - 6) * 8, j2, l1, (anInt839 - 6) * 8);
                 } else if (anInt839 < 800)
-                    sceneBuilder.method152(l1, j2, 3, 64, 64);
+                    sceneBuilder.clearLandscape(l1, j2, 64, 64);
             }
 
             aClass38_Sub2_Sub3_798.writeOpcode(108);
@@ -7131,12 +7131,12 @@ public class Game extends GameShell {
                     BZip2InputStream.read(abyte0, k2, abyte1, abyte1.length - 4, 4);
                     int j3 = (anIntArray925[i2] >> 8) * 64 - anInt761;
                     int l3 = (anIntArray925[i2] & 0xff) * 64 - anInt762;
-                    sceneBuilder.method154(abyte0, scene, collisionMaps, linkedList2, true, l3, j3);
+                    sceneBuilder.readLocs(abyte0, scene, collisionMaps, linkedList2, l3, j3);
                 }
             }
 
             aClass38_Sub2_Sub3_798.writeOpcode(108);
-            sceneBuilder.method156(scene, -270, collisionMaps);
+            sceneBuilder.buildLandscape(scene, collisionMaps);
             drawArea22.init2D();
             aClass38_Sub2_Sub3_798.writeOpcode(108);
             for (LocEntity locEntity = (LocEntity) linkedList2
@@ -8882,15 +8882,15 @@ public class Game extends GameShell {
                 method109(aClass38_Sub2_Sub3_795, anInt779, 822);
                 if (anInt1078 == 1) {
                     anInt1078 = 2;
-                    SceneBuilder.anInt109 = anInt880;
+                    SceneBuilder.levelBuilt = anInt880;
                     method124(869);
                 }
-                if (aBoolean889 && anInt1078 == 2 && SceneBuilder.anInt109 != anInt880) {
+                if (aBoolean889 && anInt1078 == 2 && SceneBuilder.levelBuilt != anInt880) {
                     drawArea22.init2D();
                     indexedFont2.method421(151, (byte) 6, 0, "Loading - please wait.", 257);
                     indexedFont2.method421(150, (byte) 6, 0xffffff, "Loading - please wait.", 256);
                     drawArea22.drawImage(11, super.aGraphics14, 8);
-                    SceneBuilder.anInt109 = anInt880;
+                    SceneBuilder.levelBuilt = anInt880;
                     method124(869);
                 }
                 if (anInt880 != anInt774 && anInt1078 == 2) {
