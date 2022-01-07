@@ -144,7 +144,7 @@ public class Scene {
             tile3dArray[i][j][k].underlay = tileUnderlay_1;
             return;
         }
-        TileOverlay tileOverlay = new TileOverlay(j, l, l3, l1, i3, i1, k2, j2, l4, k3, j1, j4, k4, i2, i4, j3, 10659, k1, k, l2);
+        TileOverlay tileOverlay = new TileOverlay(j, l, l3, l1, i3, i1, k2, j2, l4, k3, j1, j4, k4, i2, i4, j3, k1, k, l2);
         for (int k5 = i; k5 >= 0; k5--)
             if (tile3dArray[k5][j][k] == null)
                 tile3dArray[k5][j][k] = new Tile(k5, j, k);
@@ -841,10 +841,10 @@ public class Scene {
         TileOverlay tileOverlay = tile.overlay;
         if (tileOverlay == null)
             return;
-        int l1 = tileOverlay.anInt334;
-        int i2 = tileOverlay.anInt335;
-        int j2 = tileOverlay.anInt336;
-        int k2 = tileOverlay.anInt337;
+        int l1 = tileOverlay.shape;
+        int i2 = tileOverlay.rotation;
+        int j2 = tileOverlay.underlayRGB;
+        int k2 = tileOverlay.overlayRGB;
         int[] ai1 = anIntArrayArray579[l1];
         int[] ai2 = anIntArrayArray580[i2];
         int l2 = 0;
@@ -1663,11 +1663,11 @@ public class Scene {
 
     public void method324(int i, int j, TileOverlay tileOverlay, int k, int l, int i1, int j1,
                           boolean flag) {
-        int k1 = tileOverlay.anIntArray323.length;
+        int k1 = tileOverlay.vertexX.length;
         for (int l1 = 0; l1 < k1; l1++) {
-            int i2 = tileOverlay.anIntArray323[l1] - anInt545;
-            int k2 = tileOverlay.anIntArray324[l1] - anInt546;
-            int i3 = tileOverlay.anIntArray325[l1] - anInt547;
+            int i2 = tileOverlay.vertexX[l1] - anInt545;
+            int k2 = tileOverlay.vertexY[l1] - anInt546;
+            int i3 = tileOverlay.vertexZ[l1] - anInt547;
             int k3 = i3 * i + i2 * j1 >> 16;
             i3 = i3 * j1 - i2 * i >> 16;
             i2 = k3;
@@ -1676,29 +1676,29 @@ public class Scene {
             k2 = k3;
             if (i3 < 50)
                 return;
-            if (tileOverlay.anIntArray332 != null) {
-                TileOverlay.anIntArray340[l1] = i2;
-                TileOverlay.anIntArray341[l1] = k2;
-                TileOverlay.anIntArray342[l1] = i3;
+            if (tileOverlay.triangleTextureIndex != null) {
+                TileOverlay.vertexSceneX[l1] = i2;
+                TileOverlay.vertexSceneY[l1] = k2;
+                TileOverlay.vertexSceneZ[l1] = i3;
             }
-            TileOverlay.anIntArray338[l1] = Draw3D.centerX + (i2 << 9) / i3;
-            TileOverlay.anIntArray339[l1] = Draw3D.centerY + (k2 << 9) / i3;
+            TileOverlay.tmpScreenX[l1] = Draw3D.centerX + (i2 << 9) / i3;
+            TileOverlay.tmpScreenY[l1] = Draw3D.centerY + (k2 << 9) / i3;
         }
 
         Draw3D.alpha = 0;
-        k1 = tileOverlay.anIntArray329.length;
+        k1 = tileOverlay.triangleVertexA.length;
         if (!flag)
             return;
         for (int j2 = 0; j2 < k1; j2++) {
-            int l2 = tileOverlay.anIntArray329[j2];
-            int j3 = tileOverlay.anIntArray330[j2];
-            int l3 = tileOverlay.anIntArray331[j2];
-            int i4 = TileOverlay.anIntArray338[l2];
-            int j4 = TileOverlay.anIntArray338[j3];
-            int k4 = TileOverlay.anIntArray338[l3];
-            int l4 = TileOverlay.anIntArray339[l2];
-            int i5 = TileOverlay.anIntArray339[j3];
-            int j5 = TileOverlay.anIntArray339[l3];
+            int l2 = tileOverlay.triangleVertexA[j2];
+            int j3 = tileOverlay.triangleVertexB[j2];
+            int l3 = tileOverlay.triangleVertexC[j2];
+            int i4 = TileOverlay.tmpScreenX[l2];
+            int j4 = TileOverlay.tmpScreenX[j3];
+            int k4 = TileOverlay.tmpScreenX[l3];
+            int l4 = TileOverlay.tmpScreenY[l2];
+            int i5 = TileOverlay.tmpScreenY[j3];
+            int j5 = TileOverlay.tmpScreenY[l3];
             if ((i4 - j4) * (j5 - i5) - (l4 - i5) * (k4 - j4) > 0) {
                 Draw3D.testX = i4 < 0 || j4 < 0 || k4 < 0 || i4 > Draw2D.rightX || j4 > Draw2D.rightX
                         || k4 > Draw2D.rightX;
@@ -1706,28 +1706,28 @@ public class Scene {
                     anInt560 = k;
                     anInt561 = j;
                 }
-                if (tileOverlay.anIntArray332 == null || tileOverlay.anIntArray332[j2] == -1) {
-                    if (tileOverlay.anIntArray326[j2] != 0xbc614e)
-                        Draw3D.fillShadedTriangle(l4, i5, j5, i4, j4, k4, tileOverlay.anIntArray326[j2],
-                                tileOverlay.anIntArray327[j2], tileOverlay.anIntArray328[j2]);
+                if (tileOverlay.triangleTextureIndex == null || tileOverlay.triangleTextureIndex[j2] == -1) {
+                    if (tileOverlay.triangleColorA[j2] != 0xbc614e)
+                        Draw3D.fillShadedTriangle(l4, i5, j5, i4, j4, k4, tileOverlay.triangleColorA[j2],
+                                tileOverlay.triangleColorB[j2], tileOverlay.triangleColorC[j2]);
                 } else if (!aBoolean526) {
-                    if (tileOverlay.aBoolean333)
-                        Draw3D.fillTexturedTriangle(l4, i5, j5, i4, j4, k4, tileOverlay.anIntArray326[j2],
-                                tileOverlay.anIntArray327[j2], tileOverlay.anIntArray328[j2], TileOverlay.anIntArray340[0],
-                                TileOverlay.anIntArray340[1], TileOverlay.anIntArray340[3], TileOverlay.anIntArray341[0],
-                                TileOverlay.anIntArray341[1], TileOverlay.anIntArray341[3], TileOverlay.anIntArray342[0],
-                                TileOverlay.anIntArray342[1], TileOverlay.anIntArray342[3], tileOverlay.anIntArray332[j2]);
+                    if (tileOverlay.isFlat)
+                        Draw3D.fillTexturedTriangle(l4, i5, j5, i4, j4, k4, tileOverlay.triangleColorA[j2],
+                                tileOverlay.triangleColorB[j2], tileOverlay.triangleColorC[j2], TileOverlay.vertexSceneX[0],
+                                TileOverlay.vertexSceneX[1], TileOverlay.vertexSceneX[3], TileOverlay.vertexSceneY[0],
+                                TileOverlay.vertexSceneY[1], TileOverlay.vertexSceneY[3], TileOverlay.vertexSceneZ[0],
+                                TileOverlay.vertexSceneZ[1], TileOverlay.vertexSceneZ[3], tileOverlay.triangleTextureIndex[j2]);
                     else
-                        Draw3D.fillTexturedTriangle(l4, i5, j5, i4, j4, k4, tileOverlay.anIntArray326[j2],
-                                tileOverlay.anIntArray327[j2], tileOverlay.anIntArray328[j2], TileOverlay.anIntArray340[l2],
-                                TileOverlay.anIntArray340[j3], TileOverlay.anIntArray340[l3], TileOverlay.anIntArray341[l2],
-                                TileOverlay.anIntArray341[j3], TileOverlay.anIntArray341[l3], TileOverlay.anIntArray342[l2],
-                                TileOverlay.anIntArray342[j3], TileOverlay.anIntArray342[l3], tileOverlay.anIntArray332[j2]);
+                        Draw3D.fillTexturedTriangle(l4, i5, j5, i4, j4, k4, tileOverlay.triangleColorA[j2],
+                                tileOverlay.triangleColorB[j2], tileOverlay.triangleColorC[j2], TileOverlay.vertexSceneX[l2],
+                                TileOverlay.vertexSceneX[j3], TileOverlay.vertexSceneX[l3], TileOverlay.vertexSceneY[l2],
+                                TileOverlay.vertexSceneY[j3], TileOverlay.vertexSceneY[l3], TileOverlay.vertexSceneZ[l2],
+                                TileOverlay.vertexSceneZ[j3], TileOverlay.vertexSceneZ[l3], tileOverlay.triangleTextureIndex[j2]);
                 } else {
-                    int k5 = anIntArray575[tileOverlay.anIntArray332[j2]];
+                    int k5 = anIntArray575[tileOverlay.triangleTextureIndex[j2]];
                     Draw3D.fillShadedTriangle(l4, i5, j5, i4, j4, k4,
-                            method325(tileOverlay.anIntArray326[j2], k5, 9), method325(tileOverlay.anIntArray327[j2], k5, 9),
-                            method325(tileOverlay.anIntArray328[j2], k5, 9));
+                            method325(tileOverlay.triangleColorA[j2], k5, 9), method325(tileOverlay.triangleColorB[j2], k5, 9),
+                            method325(tileOverlay.triangleColorC[j2], k5, 9));
                 }
             }
         }

@@ -2,328 +2,276 @@ package com.runescape.scene;
 
 public class TileOverlay {
 
-    public TileOverlay(int i, int j, int k, int l, int i1, int j1, int k1,
-                       int l1, int i2, int j2, int k2, int l2, int i3, int j3,
-                       int k3, int l3, int i4, int j4, int k4, int l4) {
-        aBoolean333 = j4 == l && j4 == j3 && j4 == l1;
-        anInt334 = j;
-        anInt335 = j1;
-        anInt336 = i3;
-        anInt337 = i2;
-        char c = '\200';
-        int i5 = c / 2;
-        int j5 = c / 4;
-        int k5 = (c * 3) / 4;
-        int[] ai = anIntArrayArray346[j];
-        int l5 = ai.length;
-        anIntArray323 = new int[l5];
-        anIntArray324 = new int[l5];
-        anIntArray325 = new int[l5];
-        int[] ai1 = new int[l5];
-        int[] ai2 = new int[l5];
-        int i6 = i * c;
-        int j6 = k4 * c;
-        for (int k6 = 0; k6 < l5; k6++) {
-            int l6 = ai[k6];
-            if ((l6 & 1) == 0 && l6 <= 8)
-                l6 = (l6 - j1 - j1 - 1 & 7) + 1;
-            if (l6 > 8 && l6 <= 12)
-                l6 = (l6 - 9 - j1 & 3) + 9;
-            if (l6 > 12 && l6 <= 16)
-                l6 = (l6 - 13 - j1 & 3) + 13;
-            int i7;
-            int k7;
-            int i8;
-            int k8;
-            int j9;
-            if (l6 == 1) {
-                i7 = i6;
-                k7 = j6;
-                i8 = j4;
-                k8 = k1;
-                j9 = j2;
-            } else if (l6 == 2) {
-                i7 = i6 + i5;
-                k7 = j6;
-                i8 = j4 + l >> 1;
-                k8 = k1 + l4 >> 1;
-                j9 = j2 + k >> 1;
-            } else if (l6 == 3) {
-                i7 = i6 + c;
-                k7 = j6;
-                i8 = l;
-                k8 = l4;
-                j9 = k;
-            } else if (l6 == 4) {
-                i7 = i6 + c;
-                k7 = j6 + i5;
-                i8 = l + j3 >> 1;
-                k8 = l4 + i1 >> 1;
-                j9 = k + k3 >> 1;
-            } else if (l6 == 5) {
-                i7 = i6 + c;
-                k7 = j6 + c;
-                i8 = j3;
-                k8 = i1;
-                j9 = k3;
-            } else if (l6 == 6) {
-                i7 = i6 + i5;
-                k7 = j6 + c;
-                i8 = j3 + l1 >> 1;
-                k8 = i1 + l3 >> 1;
-                j9 = k3 + l2 >> 1;
-            } else if (l6 == 7) {
-                i7 = i6;
-                k7 = j6 + c;
-                i8 = l1;
-                k8 = l3;
-                j9 = l2;
-            } else if (l6 == 8) {
-                i7 = i6;
-                k7 = j6 + i5;
-                i8 = l1 + j4 >> 1;
-                k8 = l3 + k1 >> 1;
-                j9 = l2 + j2 >> 1;
-            } else if (l6 == 9) {
-                i7 = i6 + i5;
-                k7 = j6 + j5;
-                i8 = j4 + l >> 1;
-                k8 = k1 + l4 >> 1;
-                j9 = j2 + k >> 1;
-            } else if (l6 == 10) {
-                i7 = i6 + k5;
-                k7 = j6 + i5;
-                i8 = l + j3 >> 1;
-                k8 = l4 + i1 >> 1;
-                j9 = k + k3 >> 1;
-            } else if (l6 == 11) {
-                i7 = i6 + i5;
-                k7 = j6 + k5;
-                i8 = j3 + l1 >> 1;
-                k8 = i1 + l3 >> 1;
-                j9 = k3 + l2 >> 1;
-            } else if (l6 == 12) {
-                i7 = i6 + j5;
-                k7 = j6 + i5;
-                i8 = l1 + j4 >> 1;
-                k8 = l3 + k1 >> 1;
-                j9 = l2 + j2 >> 1;
-            } else if (l6 == 13) {
-                i7 = i6 + j5;
-                k7 = j6 + j5;
-                i8 = j4;
-                k8 = k1;
-                j9 = j2;
-            } else if (l6 == 14) {
-                i7 = i6 + k5;
-                k7 = j6 + j5;
-                i8 = l;
-                k8 = l4;
-                j9 = k;
-            } else if (l6 == 15) {
-                i7 = i6 + k5;
-                k7 = j6 + k5;
-                i8 = j3;
-                k8 = i1;
-                j9 = k3;
-            } else {
-                i7 = i6 + j5;
-                k7 = j6 + k5;
-                i8 = l1;
-                k8 = l3;
-                j9 = l2;
+    public TileOverlay(int tileX, int shape, int southeastColor2, int southeastY, int northeastColor1, int rotation, int southwestColor1,
+                       int northwestY, int overlayRGB, int southwestColor2, int triangleIndex, int northwestColor2, int underlayRGB, int northeastY,
+                       int northeastColor2, int northwestColor1, int southwestY, int tileZ, int southeastColor1) {
+        isFlat = southwestY == southeastY && southwestY == northeastY && southwestY == northwestY;
+
+        this.shape = shape;
+        this.rotation = rotation;
+        this.underlayRGB = underlayRGB;
+        this.overlayRGB = overlayRGB;
+
+        int tileSize = 128;
+        int halfSize = tileSize / 2;
+        int quarterSize = tileSize / 4;
+        int threeQuarterSize = (tileSize * 3) / 4;
+
+        int[] vertices = SHAPE_VERTICES[shape];
+        int vertexCount = vertices.length;
+
+        vertexX = new int[vertexCount];
+        vertexY = new int[vertexCount];
+        vertexZ = new int[vertexCount];
+
+        int[] colors1 = new int[vertexCount];
+        int[] colors2 = new int[vertexCount];
+
+        int sceneX = tileX * tileSize;
+        int sceneZ = tileZ * tileSize;
+
+        for (int v = 0; v < vertexCount; v++) {
+            int vertex = vertices[v];
+            if ((vertex & 1) == 0 && vertex <= 8) {
+                vertex = (vertex - rotation - rotation - 1 & 7) + 1;
             }
-            anIntArray323[k6] = i7;
-            anIntArray324[k6] = i8;
-            anIntArray325[k6] = k7;
-            ai1[k6] = k8;
-            ai2[k6] = j9;
+
+            if (vertex > 8 && vertex <= 12) {
+                vertex = (vertex - 9 - rotation & 3) + 9;
+            }
+
+            if (vertex > 12 && vertex <= 16) {
+                vertex = (vertex - 13 - rotation & 3) + 13;
+            }
+
+            int x;
+            int y;
+            int z;
+            int color1;
+            int color2;
+
+            if (vertex == 1) {
+                x = sceneX;
+                z = sceneZ;
+                y = southwestY;
+                color1 = southwestColor1;
+                color2 = southwestColor2;
+            } else if (vertex == 2) {
+                x = sceneX + halfSize;
+                z = sceneZ;
+                y = southwestY + southeastY >> 1;
+                color1 = southwestColor1 + southeastColor1 >> 1;
+                color2 = southwestColor2 + southeastColor2 >> 1;
+            } else if (vertex == 3) {
+                x = sceneX + tileSize;
+                z = sceneZ;
+                y = southeastY;
+                color1 = southeastColor1;
+                color2 = southeastColor2;
+            } else if (vertex == 4) {
+                x = sceneX + tileSize;
+                z = sceneZ + halfSize;
+                y = southeastY + northeastY >> 1;
+                color1 = southeastColor1 + northeastColor1 >> 1;
+                color2 = southeastColor2 + northeastColor2 >> 1;
+            } else if (vertex == 5) {
+                x = sceneX + tileSize;
+                z = sceneZ + tileSize;
+                y = northeastY;
+                color1 = northeastColor1;
+                color2 = northeastColor2;
+            } else if (vertex == 6) {
+                x = sceneX + halfSize;
+                z = sceneZ + tileSize;
+                y = northeastY + northwestY >> 1;
+                color1 = northeastColor1 + northwestColor1 >> 1;
+                color2 = northeastColor2 + northwestColor2 >> 1;
+            } else if (vertex == 7) {
+                x = sceneX;
+                z = sceneZ + tileSize;
+                y = northwestY;
+                color1 = northwestColor1;
+                color2 = northwestColor2;
+            } else if (vertex == 8) {
+                x = sceneX;
+                z = sceneZ + halfSize;
+                y = northwestY + southwestY >> 1;
+                color1 = northwestColor1 + southwestColor1 >> 1;
+                color2 = northwestColor2 + southwestColor2 >> 1;
+            } else if (vertex == 9) {
+                x = sceneX + halfSize;
+                z = sceneZ + quarterSize;
+                y = southwestY + southeastY >> 1;
+                color1 = southwestColor1 + southeastColor1 >> 1;
+                color2 = southwestColor2 + southeastColor2 >> 1;
+            } else if (vertex == 10) {
+                x = sceneX + threeQuarterSize;
+                z = sceneZ + halfSize;
+                y = southeastY + northeastY >> 1;
+                color1 = southeastColor1 + northeastColor1 >> 1;
+                color2 = southeastColor2 + northeastColor2 >> 1;
+            } else if (vertex == 11) {
+                x = sceneX + halfSize;
+                z = sceneZ + threeQuarterSize;
+                y = northeastY + northwestY >> 1;
+                color1 = northeastColor1 + northwestColor1 >> 1;
+                color2 = northeastColor2 + northwestColor2 >> 1;
+            } else if (vertex == 12) {
+                x = sceneX + quarterSize;
+                z = sceneZ + halfSize;
+                y = northwestY + southwestY >> 1;
+                color1 = northwestColor1 + southwestColor1 >> 1;
+                color2 = northwestColor2 + southwestColor2 >> 1;
+            } else if (vertex == 13) {
+                x = sceneX + quarterSize;
+                z = sceneZ + quarterSize;
+                y = southwestY;
+                color1 = southwestColor1;
+                color2 = southwestColor2;
+            } else if (vertex == 14) {
+                x = sceneX + threeQuarterSize;
+                z = sceneZ + quarterSize;
+                y = southeastY;
+                color1 = southeastColor1;
+                color2 = southeastColor2;
+            } else if (vertex == 15) {
+                x = sceneX + threeQuarterSize;
+                z = sceneZ + threeQuarterSize;
+                y = northeastY;
+                color1 = northeastColor1;
+                color2 = northeastColor2;
+            } else {
+                x = sceneX + quarterSize;
+                z = sceneZ + threeQuarterSize;
+                y = northwestY;
+                color1 = northwestColor1;
+                color2 = northwestColor2;
+            }
+
+            vertexX[v] = x;
+            vertexY[v] = y;
+            vertexZ[v] = z;
+
+            colors1[v] = color1;
+            colors2[v] = color2;
         }
 
-        int[] ai3 = anIntArrayArray347[j];
-        int j7 = ai3.length / 4;
-        anIntArray329 = new int[j7];
-        anIntArray330 = new int[j7];
-        anIntArray331 = new int[j7];
-        anIntArray326 = new int[j7];
-        anIntArray327 = new int[j7];
-        if (i4 != 10659)
-            throw new NullPointerException();
-        anIntArray328 = new int[j7];
-        if (k2 != -1)
-            anIntArray332 = new int[j7];
-        int l7 = 0;
-        for (int j8 = 0; j8 < j7; j8++) {
-            int l8 = ai3[l7];
-            int k9 = ai3[l7 + 1];
-            int i10 = ai3[l7 + 2];
-            int j10 = ai3[l7 + 3];
-            l7 += 4;
-            if (k9 < 4)
-                k9 = k9 - j1 & 3;
-            if (i10 < 4)
-                i10 = i10 - j1 & 3;
-            if (j10 < 4)
-                j10 = j10 - j1 & 3;
-            anIntArray329[j8] = k9;
-            anIntArray330[j8] = i10;
-            anIntArray331[j8] = j10;
-            if (l8 == 0) {
-                anIntArray326[j8] = ai1[k9];
-                anIntArray327[j8] = ai1[i10];
-                anIntArray328[j8] = ai1[j10];
-                if (anIntArray332 != null)
-                    anIntArray332[j8] = -1;
-            } else {
-                anIntArray326[j8] = ai2[k9];
-                anIntArray327[j8] = ai2[i10];
-                anIntArray328[j8] = ai2[j10];
-                if (anIntArray332 != null)
-                    anIntArray332[j8] = k2;
-            }
+        int[] paths = SHAPE_PATHS[shape];
+        int triangleCount = paths.length / 4;
+
+        triangleVertexA = new int[triangleCount];
+        triangleVertexB = new int[triangleCount];
+        triangleVertexC = new int[triangleCount];
+
+        triangleColorA = new int[triangleCount];
+        triangleColorB = new int[triangleCount];
+        triangleColorC = new int[triangleCount];
+
+        if (triangleIndex != -1) {
+            triangleTextureIndex = new int[triangleCount];
         }
 
-        int i9 = j4;
-        int l9 = l;
-        if (l < i9)
-            i9 = l;
-        if (l > l9)
-            l9 = l;
-        if (j3 < i9)
-            i9 = j3;
-        if (j3 > l9)
-            l9 = j3;
-        if (l1 < i9)
-            i9 = l1;
-        if (l1 > l9)
-            l9 = l1;
-        i9 /= 14;
-        l9 /= 14;
+        int i = 0;
+        for (int n = 0; n < triangleCount; n++) {
+            int path = paths[i];
+            int a = paths[i + 1];
+            int b = paths[i + 2];
+            int c = paths[i + 3];
+
+            i += 4;
+
+            if (a < 4) {
+                a = a - rotation & 3;
+            }
+
+            if (b < 4) {
+                b = b - rotation & 3;
+            }
+
+            if (c < 4) {
+                c = c - rotation & 3;
+            }
+
+            triangleVertexA[n] = a;
+            triangleVertexB[n] = b;
+            triangleVertexC[n] = c;
+
+            if (path == 0) {
+                triangleColorA[n] = colors1[a];
+                triangleColorB[n] = colors1[b];
+                triangleColorC[n] = colors1[c];
+                if (triangleTextureIndex != null) {
+                    triangleTextureIndex[n] = -1;
+                }
+            } else {
+                triangleColorA[n] = colors2[a];
+                triangleColorB[n] = colors2[b];
+                triangleColorC[n] = colors2[c];
+                if (triangleTextureIndex != null) {
+                    triangleTextureIndex[n] = triangleIndex;
+                }
+            }
+        }
     }
 
-    public int[] anIntArray323;
-    public int[] anIntArray324;
-    public int[] anIntArray325;
-    public int[] anIntArray326;
-    public int[] anIntArray327;
-    public int[] anIntArray328;
-    public int[] anIntArray329;
-    public int[] anIntArray330;
-    public int[] anIntArray331;
-    public int[] anIntArray332;
-    public boolean aBoolean333;
-    public int anInt334;
-    public int anInt335;
-    public int anInt336;
-    public int anInt337;
-    public static int[] anIntArray338 = new int[6];
-    public static int[] anIntArray339 = new int[6];
-    public static int[] anIntArray340 = new int[6];
-    public static int[] anIntArray341 = new int[6];
-    public static int[] anIntArray342 = new int[6];
-    public static int[] anIntArray343 = {
-            1, 0
-    };
-    public static int[] anIntArray344 = {
-            2, 1
-    };
-    public static int[] anIntArray345 = {
-            3, 3
-    };
-    public static final int[][] anIntArrayArray346 = {
-            {
-                    1, 3, 5, 7
-            },
-            {
-                    1, 3, 5, 7
-            },
-            {
-                    1, 3, 5, 7
-            },
-            {
-                    1, 3, 5, 7, 6
-            },
-            {
-                    1, 3, 5, 7, 6
-            },
-            {
-                    1, 3, 5, 7, 6
-            },
-            {
-                    1, 3, 5, 7, 6
-            },
-            {
-                    1, 3, 5, 7, 2, 6
-            },
-            {
-                    1, 3, 5, 7, 2, 8
-            },
-            {
-                    1, 3, 5, 7, 2, 8
-            },
-            {
-                    1, 3, 5, 7, 11, 12
-            },
-            {
-                    1, 3, 5, 7, 11, 12
-            },
-            {
-                    1, 3, 5, 7, 13, 14
-            }
-    };
-    public static final int[][] anIntArrayArray347 = {
-            {
-                    0, 1, 2, 3, 0, 0, 1, 3
-            },
-            {
-                    1, 1, 2, 3, 1, 0, 1, 3
-            },
-            {
-                    0, 1, 2, 3, 1, 0, 1, 3
-            },
-            {
-                    0, 0, 1, 2, 0, 0, 2, 4, 1, 0,
-                    4, 3
-            },
-            {
-                    0, 0, 1, 4, 0, 0, 4, 3, 1, 1,
-                    2, 4
-            },
-            {
-                    0, 0, 4, 3, 1, 0, 1, 2, 1, 0,
-                    2, 4
-            },
-            {
-                    0, 1, 2, 4, 1, 0, 1, 4, 1, 0,
-                    4, 3
-            },
-            {
-                    0, 4, 1, 2, 0, 4, 2, 5, 1, 0,
-                    4, 5, 1, 0, 5, 3
-            },
-            {
-                    0, 4, 1, 2, 0, 4, 2, 3, 0, 4,
-                    3, 5, 1, 0, 4, 5
-            },
-            {
-                    0, 0, 4, 5, 1, 4, 1, 2, 1, 4,
-                    2, 3, 1, 4, 3, 5
-            },
-            {
-                    0, 0, 1, 5, 0, 1, 4, 5, 0, 1,
-                    2, 4, 1, 0, 5, 3, 1, 5, 4, 3,
-                    1, 4, 2, 3
-            },
-            {
-                    1, 0, 1, 5, 1, 1, 4, 5, 1, 1,
-                    2, 4, 0, 0, 5, 3, 0, 5, 4, 3,
-                    0, 4, 2, 3
-            },
-            {
-                    1, 0, 5, 4, 1, 0, 1, 5, 0, 0,
-                    4, 3, 0, 4, 5, 3, 0, 5, 2, 3,
-                    0, 1, 2, 5
-            }
+    public int[] vertexX;
+    public int[] vertexY;
+    public int[] vertexZ;
+
+    public int[] triangleColorA;
+    public int[] triangleColorB;
+    public int[] triangleColorC;
+
+    public int[] triangleVertexA;
+    public int[] triangleVertexB;
+    public int[] triangleVertexC;
+
+    public int[] triangleTextureIndex;
+
+    public boolean isFlat;
+
+    public int shape;
+    public int rotation;
+
+    public int underlayRGB;
+    public int overlayRGB;
+
+    public static int[] tmpScreenX = new int[6];
+    public static int[] tmpScreenY = new int[6];
+
+    public static int[] vertexSceneX = new int[6];
+    public static int[] vertexSceneY = new int[6];
+    public static int[] vertexSceneZ = new int[6];
+
+    public static final int[][] SHAPE_VERTICES = {
+        { 1, 3, 5, 7 },
+        { 1, 3, 5, 7 },
+        { 1, 3, 5, 7 },
+        { 1, 3, 5, 7, 6 },
+        { 1, 3, 5, 7, 6 },
+        { 1, 3, 5, 7, 6 },
+        { 1, 3, 5, 7, 6 },
+        { 1, 3, 5, 7, 2, 6 },
+        { 1, 3, 5, 7, 2, 8 },
+        { 1, 3, 5, 7, 2, 8 },
+        { 1, 3, 5, 7, 11, 12 },
+        { 1, 3, 5, 7, 11, 12 },
+        { 1, 3, 5, 7, 13, 14 }
     };
 
+    public static final int[][] SHAPE_PATHS = {
+        { 0, 1, 2, 3, 0, 0, 1, 3 },
+        { 1, 1, 2, 3, 1, 0, 1, 3 },
+        { 0, 1, 2, 3, 1, 0, 1, 3 },
+        { 0, 0, 1, 2, 0, 0, 2, 4, 1, 0, 4, 3 },
+        { 0, 0, 1, 4, 0, 0, 4, 3, 1, 1, 2, 4 },
+        { 0, 0, 4, 3, 1, 0, 1, 2, 1, 0, 2, 4 },
+        { 0, 1, 2, 4, 1, 0, 1, 4, 1, 0, 4, 3 },
+        { 0, 4, 1, 2, 0, 4, 2, 5, 1, 0, 4, 5, 1, 0, 5, 3 },
+        { 0, 4, 1, 2, 0, 4, 2, 3, 0, 4, 3, 5, 1, 0, 4, 5 },
+        { 0, 0, 4, 5, 1, 4, 1, 2, 1, 4, 2, 3, 1, 4, 3, 5 },
+        { 0, 0, 1, 5, 0, 1, 4, 5, 0, 1, 2, 4, 1, 0, 5, 3, 1, 5, 4, 3, 1, 4, 2, 3 },
+        { 1, 0, 1, 5, 1, 1, 4, 5, 1, 1, 2, 4, 0, 0, 5, 3, 0, 5, 4, 3, 0, 4, 2, 3 },
+        { 1, 0, 5, 4, 1, 0, 1, 5, 0, 0, 4, 3, 0, 4, 5, 3, 0, 5, 2, 3, 0, 1, 2, 5 }
+    };
 }
