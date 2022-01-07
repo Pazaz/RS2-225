@@ -163,7 +163,7 @@ public class NpcType {
         return model;
     }
 
-    public Model getHeadModel(boolean flag) {
+    public Model getHeadModel() {
         if (headModelIndices == null) {
             return null;
         }

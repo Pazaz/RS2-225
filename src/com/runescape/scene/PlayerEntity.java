@@ -12,273 +12,325 @@ import com.runescape.util.Cache;
 
 public class PlayerEntity extends PathingEntity {
 
-    public void method470(boolean flag, Buffer class38_sub2_sub3) {
-        class38_sub2_sub3.offset = 0;
-        anInt1507 = class38_sub2_sub3.readByte();
-        anInt1508 = class38_sub2_sub3.readByte();
-        for (int i = 0; i < 12; i++) {
-            int j = class38_sub2_sub3.readByte();
-            if (j == 0) {
-                anIntArray1509[i] = 0;
+    public void read(Buffer buffer) {
+        buffer.offset = 0;
+        gender = buffer.readByte();
+        headicons = buffer.readByte();
+        
+        for (int n = 0; n < 12; n++) {
+            int msb = buffer.readByte();
+
+            if (msb == 0) {
+                appearanceIndices[n] = 0;
             } else {
-                int l = class38_sub2_sub3.readByte();
-                anIntArray1509[i] = (j << 8) + l;
+                appearanceIndices[n] = (msb << 8) + buffer.readByte();
             }
         }
 
-        for (int k = 0; k < 5; k++) {
-            int i1 = class38_sub2_sub3.readByte();
-            if (i1 < 0 || i1 >= Game.anIntArrayArray942[k].length)
-                i1 = 0;
-            anIntArray1510[k] = i1;
+        for (int n = 0; n < 5; n++) {
+            int i = buffer.readByte();
+
+            if (i < 0 || i >= Game.APPEARANCE_COLORS[n].length) {
+                i = 0;
+            }
+
+            appearanceColors[n] = i;
         }
 
-        if (flag)
-            return;
-        super.standSeq = class38_sub2_sub3.readWord();
-        if (super.standSeq == 65535)
+        super.standSeq = buffer.readWord();
+        if (super.standSeq == 65535) {
             super.standSeq = -1;
-        super.turnSpeed = class38_sub2_sub3.readWord();
-        if (super.turnSpeed == 65535)
-            super.turnSpeed = -1;
-        super.runSeq = class38_sub2_sub3.readWord();
-        if (super.runSeq == 65535)
+        }
+
+        super.turnSeq = buffer.readWord();
+        if (super.turnSeq == 65535) {
+            super.turnSeq = -1;
+        }
+
+        super.runSeq = buffer.readWord();
+        if (super.runSeq == 65535) {
             super.runSeq = -1;
-        super.anInt1388 = class38_sub2_sub3.readWord();
-        if (super.anInt1388 == 65535)
-            super.anInt1388 = -1;
-        super.anInt1389 = class38_sub2_sub3.readWord();
-        if (super.anInt1389 == 65535)
-            super.anInt1389 = -1;
-        super.anInt1390 = class38_sub2_sub3.readWord();
-        if (super.anInt1390 == 65535)
-            super.anInt1390 = -1;
-        super.anInt1391 = class38_sub2_sub3.readWord();
-        if (super.anInt1391 == 65535)
-            super.anInt1391 = -1;
-        aString1505 = StringUtils.formatName(StringUtils.fromBase37(class38_sub2_sub3.readQWord()));
-        anInt1511 = class38_sub2_sub3.readByte();
-        aBoolean1506 = true;
-        aLong1512 = 0L;
-        for (int j1 = 0; j1 < 12; j1++) {
-            aLong1512 <<= 4;
-            if (anIntArray1509[j1] >= 256)
-                aLong1512 += anIntArray1509[j1] - 256;
         }
 
-        if (anIntArray1509[0] >= 256)
-            aLong1512 += anIntArray1509[0] - 256 >> 4;
-        if (anIntArray1509[1] >= 256)
-            aLong1512 += anIntArray1509[1] - 256 >> 8;
-        for (int k1 = 0; k1 < 5; k1++) {
-            aLong1512 <<= 3;
-            aLong1512 += anIntArray1510[k1];
+        super.walkSeq = buffer.readWord();
+        if (super.walkSeq == 65535) {
+            super.walkSeq = -1;
         }
 
-        aLong1512 <<= 1;
-        aLong1512 += anInt1507;
+        super.turnAroundSeq = buffer.readWord();
+        if (super.turnAroundSeq == 65535) {
+            super.turnAroundSeq = -1;
+        }
+
+        super.turnRightSeq = buffer.readWord();
+        if (super.turnRightSeq == 65535) {
+            super.turnRightSeq = -1;
+        }
+
+        super.turnLeftSeq = buffer.readWord();
+        if (super.turnLeftSeq == 65535) {
+            super.turnLeftSeq = -1;
+        }
+
+        name = StringUtils.formatName(StringUtils.fromBase37(buffer.readQWord()));
+        level = buffer.readByte();
+        
+        visible = true;
+        uid = 0L;
+
+        for (int n = 0; n < 12; n++) {
+            uid <<= 4;
+
+            if (appearanceIndices[n] >= 256) {
+                uid += appearanceIndices[n] - 256;
+            }
+        }
+
+        if (appearanceIndices[0] >= 256) {
+            uid += appearanceIndices[0] - 256 >> 4;
+        }
+
+        if (appearanceIndices[1] >= 256) {
+            uid += appearanceIndices[1] - 256 >> 8;
+        }
+
+        for (int n = 0; n < 5; n++) {
+            uid <<= 3;
+            uid += appearanceColors[n];
+        }
+
+        uid <<= 1;
+        uid += gender;
     }
 
     @Override
     public Model getDrawMethod() {
-        if (!aBoolean1506)
+        if (!visible) {
             return null;
-        Model class38_sub2_sub1 = method471(false);
-        super.height = class38_sub2_sub1.maxBoundY;
-        class38_sub2_sub1.pickable = true;
-        if (aBoolean1524)
-            return class38_sub2_sub1;
+        }
+
+        Model model = getModel();
+        super.height = model.maxBoundY;
+        model.pickable = true;
+
+        if (lowMemory) {
+            return model;
+        }
+
         if (super.spotAnimIndex != -1 && super.spotAnimFrame != -1) {
-            SpotAnimType spotAnimType = SpotAnimType.instances[super.spotAnimIndex];
-            Model class38_sub2_sub1_2 = new Model(spotAnimType.getModel(), true,
-                    !spotAnimType.disposeAlpha, false);
-            class38_sub2_sub1_2.translate(-super.spotanimOffsetY, 0, 0);
-            class38_sub2_sub1_2.applyGroups();
-            class38_sub2_sub1_2.applyFrame(spotAnimType.seq.primaryFrames[super.spotAnimFrame]);
-            class38_sub2_sub1_2.skinTriangle = null;
-            class38_sub2_sub1_2.labelVertices = null;
-            if (spotAnimType.breadthScale != 128 || spotAnimType.depthScale != 128)
-                class38_sub2_sub1_2.scale(spotAnimType.breadthScale, spotAnimType.depthScale, spotAnimType.breadthScale);
-            class38_sub2_sub1_2.applyLighting(64 + spotAnimType.ambience, 850 + spotAnimType.modelShadow, -30, -50, -30, true);
-            Model[] aclass38_sub2_sub1_1 = {
-                    class38_sub2_sub1, class38_sub2_sub1_2
-            };
-            class38_sub2_sub1 = new Model(aclass38_sub2_sub1_1, (byte) -31, 2);
+            SpotAnimType s = SpotAnimType.instances[super.spotAnimIndex];
+            Model m = new Model(s.getModel(), true, !s.disposeAlpha, false);
+            m.translate(-super.spotanimOffsetY, 0, 0);
+            m.applyGroups();
+            m.applyFrame(s.seq.primaryFrames[super.spotAnimFrame]);
+            m.skinTriangle = null;
+            m.labelVertices = null;
+            if (s.breadthScale != 128 || s.depthScale != 128) {
+                m.scale(s.breadthScale, s.depthScale, s.breadthScale);
+            }
+            m.applyLighting(64 + s.ambience, 850 + s.modelShadow, -30, -50, -30, true);
+            Model[] models = { model, m };
+            model = new Model(models, (byte) -31, 2);
         }
-        if (aClass38_Sub2_Sub1_1519 != null) {
-            if (Game.anInt955 >= anInt1515)
-                aClass38_Sub2_Sub1_1519 = null;
-            if (Game.anInt955 >= anInt1514 && Game.anInt955 < anInt1515) {
-                Model class38_sub2_sub1_1 = aClass38_Sub2_Sub1_1519;
-                class38_sub2_sub1_1.translate(anInt1517 - anInt1513, anInt1516 - super.x,
-                        anInt1518 - super.z);
-                if (super.anInt1426 == 512) {
-                    class38_sub2_sub1_1.rotateCounterClockwise();
-                    class38_sub2_sub1_1.rotateCounterClockwise();
-                    class38_sub2_sub1_1.rotateCounterClockwise();
-                } else if (super.anInt1426 == 1024) {
-                    class38_sub2_sub1_1.rotateCounterClockwise();
-                    class38_sub2_sub1_1.rotateCounterClockwise();
-                } else if (super.anInt1426 == 1536)
-                    class38_sub2_sub1_1.rotateCounterClockwise();
-                Model[] aclass38_sub2_sub1 = {
-                        class38_sub2_sub1, class38_sub2_sub1_1
-                };
-                class38_sub2_sub1 = new Model(aclass38_sub2_sub1, (byte) -31, 2);
-                if (super.anInt1426 == 512)
-                    class38_sub2_sub1_1.rotateCounterClockwise();
-                else if (super.anInt1426 == 1024) {
-                    class38_sub2_sub1_1.rotateCounterClockwise();
-                    class38_sub2_sub1_1.rotateCounterClockwise();
-                } else if (super.anInt1426 == 1536) {
-                    class38_sub2_sub1_1.rotateCounterClockwise();
-                    class38_sub2_sub1_1.rotateCounterClockwise();
-                    class38_sub2_sub1_1.rotateCounterClockwise();
+
+        if (locModel != null) {
+            if (Game.clientClock >= locLastCycle) {
+                locModel = null;
+            }
+
+            if (Game.clientClock >= locFirstCycle && Game.clientClock < locLastCycle) {
+                Model m = locModel;
+                m.translate(locSceneY - y, locSceneX - super.x, locSceneZ - super.z);
+
+                if (super.dstYaw == 512) {
+                    m.rotateCounterClockwise();
+                    m.rotateCounterClockwise();
+                    m.rotateCounterClockwise();
+                } else if (super.dstYaw == 1024) {
+                    m.rotateCounterClockwise();
+                    m.rotateCounterClockwise();
+                } else if (super.dstYaw == 1536) {
+                    m.rotateCounterClockwise();
                 }
-                class38_sub2_sub1_1.translate(anInt1513 - anInt1517, super.x - anInt1516,
-                        super.z - anInt1518);
+
+                Model[] models = { model, m };
+                model = new Model(models, (byte) -31, 2);
+
+                if (super.dstYaw == 512)
+                    m.rotateCounterClockwise();
+                else if (super.dstYaw == 1024) {
+                    m.rotateCounterClockwise();
+                    m.rotateCounterClockwise();
+                } else if (super.dstYaw == 1536) {
+                    m.rotateCounterClockwise();
+                    m.rotateCounterClockwise();
+                    m.rotateCounterClockwise();
+                }
+
+                m.translate(y - locSceneY, super.x - locSceneX, super.z - locSceneZ);
             }
         }
-        class38_sub2_sub1.pickable = true;
-        return class38_sub2_sub1;
+
+        model.pickable = true;
+        return model;
     }
 
-    public Model method471(boolean flag) {
-        long l = aLong1512;
-        int i = -1;
-        int j = -1;
-        int k = -1;
-        int i1 = -1;
+    public Model getModel() {
+        long bitset = uid;
+        int primaryFrame = -1;
+        int secondaryFrame = -1;
+        int shieldOverride = -1;
+        int weaponOverride = -1;
+
         if (super.primarySeq >= 0 && super.primarySeqDelay == 0) {
-            SeqType seqType = SeqType.animations[super.primarySeq];
-            i = seqType.primaryFrames[super.primarySeqFrame];
-            if (super.secondarySeq >= 0 && super.secondarySeq != super.standSeq)
-                j = SeqType.animations[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
-            if (seqType.shieldOverride >= 0) {
-                k = seqType.shieldOverride;
-                l += k - anIntArray1509[5] << 40;
-            }
-            if (seqType.weaponOverride >= 0) {
-                i1 = seqType.weaponOverride;
-                l += i1 - anIntArray1509[3] << 48;
-            }
-        } else if (super.secondarySeq >= 0)
-            i = SeqType.animations[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
-        Model class38_sub2_sub1 = (Model) cache.get(l);
-        if (class38_sub2_sub1 == null) {
-            Model[] aclass38_sub2_sub1 = new Model[12];
-            int j1 = 0;
-            for (int k1 = 0; k1 < 12; k1++) {
-                int l1 = anIntArray1509[k1];
-                if (i1 >= 0 && k1 == 3)
-                    l1 = i1;
-                if (k >= 0 && k1 == 5)
-                    l1 = k;
-                if (l1 >= 256 && l1 < 512)
-                    aclass38_sub2_sub1[j1++] = IdkType.instances[l1 - 256].getModel();
-                if (l1 >= 512) {
-                    ObjType objType = ObjType.get(l1 - 512);
-                    Model class38_sub2_sub1_2 = objType.getWornModel(anInt1507);
-                    if (class38_sub2_sub1_2 != null)
-                        aclass38_sub2_sub1[j1++] = class38_sub2_sub1_2;
-                }
+            SeqType s = SeqType.animations[super.primarySeq];
+            primaryFrame = s.primaryFrames[super.primarySeqFrame];
+
+            if (super.secondarySeq >= 0 && super.secondarySeq != super.standSeq) {
+                secondaryFrame = SeqType.animations[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
             }
 
-            class38_sub2_sub1 = new Model(aclass38_sub2_sub1, j1);
-            for (int i2 = 0; i2 < 5; i2++)
-                if (anIntArray1510[i2] != 0) {
-                    class38_sub2_sub1.recolor(Game.anIntArrayArray942[i2][0],
-                            Game.anIntArrayArray942[i2][anIntArray1510[i2]]);
-                    if (i2 == 1)
-                        class38_sub2_sub1.recolor(Game.anIntArray1073[0],
-                                Game.anIntArray1073[anIntArray1510[i2]]);
-                }
+            if (s.shieldOverride >= 0) {
+                shieldOverride = s.shieldOverride;
+                bitset += shieldOverride - appearanceIndices[5] << 40;
+            }
 
-            class38_sub2_sub1.applyGroups();
-            class38_sub2_sub1.applyLighting(64, 850, -30, -50, -30, true);
-            cache.put(l, class38_sub2_sub1);
+            if (s.weaponOverride >= 0) {
+                weaponOverride = s.weaponOverride;
+                bitset += weaponOverride - appearanceIndices[3] << 48;
+            }
+        } else if (super.secondarySeq >= 0) {
+            primaryFrame = SeqType.animations[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
         }
-        if (aBoolean1524)
-            return class38_sub2_sub1;
-        Model class38_sub2_sub1_1 = new Model(class38_sub2_sub1, true);
-        if (flag)
-            aBoolean1504 = !aBoolean1504;
-        if (i != -1 && j != -1)
-            class38_sub2_sub1_1.applyFrames(j, i, SeqType.animations[super.primarySeq].labelGroups);
-        else if (i != -1)
-            class38_sub2_sub1_1.applyFrame(i);
-        class38_sub2_sub1_1.calculateYBoundaries();
-        class38_sub2_sub1_1.skinTriangle = null;
-        class38_sub2_sub1_1.labelVertices = null;
-        return class38_sub2_sub1_1;
+        
+        Model m = (Model) models.get(bitset);
+        if (m == null) {
+            Model[] models = new Model[12];
+            int n = 0;
+
+            for (int i = 0; i < 12; i++) {
+                int index = appearanceIndices[i];
+
+                if (weaponOverride >= 0 && i == 3) {
+                    index = weaponOverride;
+                }
+
+                if (shieldOverride >= 0 && i == 5) {
+                    index = shieldOverride;
+                }
+
+                if (index >= 256 && index < 512) {
+                    models[n++] = IdkType.instances[index - 256].getModel();
+                }
+
+                if (index >= 512) {
+                    ObjType o = ObjType.get(index - 512);
+                    Model model = o.getWornModel(gender);
+                    if (model != null) {
+                        models[n++] = model;
+                    }
+                }
+            }
+
+            m = new Model(models, n);
+            for (int part = 0; part < 5; part++) {
+                if (appearanceColors[part] != 0) {
+                    m.recolor(Game.APPEARANCE_COLORS[part][0], Game.APPEARANCE_COLORS[part][appearanceColors[part]]);
+
+                    if (part == 1) {
+                        m.recolor(Game.BEARD_COLORS[0], Game.BEARD_COLORS[appearanceColors[part]]);
+                    }
+                }
+            }
+
+            m.applyGroups();
+            m.applyLighting(64, 850, -30, -50, -30, true);
+            PlayerEntity.models.put(bitset, m);
+        }
+
+        if (lowMemory) {
+            return m;
+        }
+
+        m = new Model(m, true);
+        
+        if (primaryFrame != -1 && secondaryFrame != -1) {
+            m.applyFrames(secondaryFrame, primaryFrame, SeqType.animations[super.primarySeq].labelGroups);
+        } else if (primaryFrame != -1) {
+            m.applyFrame(primaryFrame);
+        }
+
+        m.calculateYBoundaries();
+        m.skinTriangle = null;
+        m.labelVertices = null;
+        return m;
     }
 
-    public Model method472(int i) {
-        if (!aBoolean1506)
+    public Model getHeadModel() {
+        if (!visible) {
             return null;
-        Model[] aclass38_sub2_sub1 = new Model[12];
-        int j = 0;
-        for (int k = 0; k < 12; k++) {
-            int l = anIntArray1509[k];
-            if (l >= 256 && l < 512)
-                aclass38_sub2_sub1[j++] = IdkType.instances[l - 256].getHeadModel();
-            if (l >= 512) {
-                Model class38_sub2_sub1_1 = ObjType.get(l - 512).getHeadModel(anInt1507);
-                if (class38_sub2_sub1_1 != null)
-                    aclass38_sub2_sub1[j++] = class38_sub2_sub1_1;
+        }
+
+        Model[] models = new Model[12];
+        int count = 0;
+        for (int n = 0; n < 12; n++) {
+            int i = appearanceIndices[n];
+            if (i >= 256 && i < 512) {
+                models[count++] = IdkType.instances[i - 256].getHeadModel();
+            }
+
+            if (i >= 512) {
+                Model m = ObjType.get(i - 512).getHeadModel(gender);
+                if (m != null) {
+                    models[count++] = m;
+                }
             }
         }
 
-        Model class38_sub2_sub1 = new Model(aclass38_sub2_sub1, j);
-        for (int i1 = 0; i1 < 5; i1++)
-            if (anIntArray1510[i1] != 0) {
-                class38_sub2_sub1.recolor(Game.anIntArrayArray942[i1][0],
-                        Game.anIntArrayArray942[i1][anIntArray1510[i1]]);
-                if (i1 == 1)
-                    class38_sub2_sub1.recolor(Game.anIntArray1073[0], Game.anIntArray1073[anIntArray1510[i1]]);
+        Model m = new Model(models, count);
+        for (int n = 0; n < 5; n++) {
+            if (appearanceColors[n] != 0) {
+                m.recolor(Game.APPEARANCE_COLORS[n][0], Game.APPEARANCE_COLORS[n][appearanceColors[n]]);
+                if (n == 1) {
+                    m.recolor(Game.BEARD_COLORS[0], Game.BEARD_COLORS[appearanceColors[n]]);
+                }
             }
+        }
 
-        while (i >= 0)
-            throw new NullPointerException();
-        return class38_sub2_sub1;
+        return m;
     }
 
     public boolean isValid(boolean flag) {
-        if (flag)
-            aBoolean1504 = !aBoolean1504;
-        return aBoolean1506;
+        return visible;
     }
 
     public PlayerEntity() {
-        aBoolean1504 = false;
-        aBoolean1506 = false;
-        anIntArray1509 = new int[12];
-        anIntArray1510 = new int[5];
-        aBoolean1524 = false;
+        visible = false;
+        appearanceIndices = new int[12];
+        appearanceColors = new int[5];
+        lowMemory = false;
     }
 
-    public int anInt1503;
-    public boolean aBoolean1504;
-    public String aString1505;
-    public boolean aBoolean1506;
-    public int anInt1507;
-    public int anInt1508;
-    public int[] anIntArray1509;
-    public int[] anIntArray1510;
-    public int anInt1511;
-    public long aLong1512;
-    public int anInt1513;
-    public int anInt1514;
-    public int anInt1515;
-    public int anInt1516;
-    public int anInt1517;
-    public int anInt1518;
-    public Model aClass38_Sub2_Sub1_1519;
-    public int anInt1520;
-    public int anInt1521;
-    public int anInt1522;
-    public int anInt1523;
-    public boolean aBoolean1524;
-    public static Cache cache = new Cache(200);
+    public String name;
+    public boolean visible;
+    public int gender;
+    public int headicons;
+    public int[] appearanceIndices;
+    public int[] appearanceColors;
+    public int level;
+    public long uid;
+    public int y;
+    public int locFirstCycle;
+    public int locLastCycle;
+    public int locSceneX;
+    public int locSceneY;
+    public int locSceneZ;
+    public Model locModel;
+    public int locMinTileX;
+    public int locMinTileZ;
+    public int locMaxTileX;
+    public int locMaxTileZ;
+    public boolean lowMemory;
+    public static Cache models = new Cache(200);
 
 }
