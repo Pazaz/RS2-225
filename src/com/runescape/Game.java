@@ -71,9 +71,9 @@ public class Game extends GameShell {
                         || anInt976 == 1 && method138(-20, ((PlayerEntity) obj).name))) {
                     method90(((PathingEntity) (obj)).height, aBoolean860, ((PathingEntity) (obj)));
                     if (anInt1019 > -1 && anInt1091 < anInt1092) {
-                        anIntArray1096[anInt1091] = indexedFont3.method423(false,
+                        anIntArray1096[anInt1091] = indexedFont3.stringWidth(
                                 ((PathingEntity) (obj)).spoken) / 2;
-                        anIntArray1095[anInt1091] = indexedFont3.anInt1497;
+                        anIntArray1095[anInt1091] = indexedFont3.height;
                         anIntArray1093[anInt1091] = anInt1019;
                         anIntArray1094[anInt1091] = anInt1020;
                         anIntArray1097[anInt1091] = ((PathingEntity) (obj)).anInt1394;
@@ -104,9 +104,9 @@ public class Game extends GameShell {
                     if (anInt1019 > -1) {
                         aClass38_Sub2_Sub2_Sub2Array776[((PathingEntity) (obj)).anInt1397].method405(anInt1020 - 12,
                                 anInt1019 - 12, false);
-                        indexedFont1.method421(anInt1020 + 4, (byte) 6, 0,
+                        indexedFont1.drawRightAligned(anInt1020 + 4, 0,
                                 String.valueOf(((PathingEntity) (obj)).anInt1396), anInt1019);
-                        indexedFont1.method421(anInt1020 + 3, (byte) 6, 0xffffff,
+                        indexedFont1.drawRightAligned(anInt1020 + 3, 0xffffff,
                                 String.valueOf(((PathingEntity) (obj)).anInt1396), anInt1019 - 1);
                     }
                 }
@@ -172,24 +172,24 @@ public class Game extends GameShell {
                         l2 = 0xffffff - 0x50000 * (k3 - 100);
                 }
                 if (anIntArray1098[k] == 0) {
-                    indexedFont3.method421(anInt1020 + 1, (byte) 6, 0, s, anInt1019);
-                    indexedFont3.method421(anInt1020, (byte) 6, l2, s, anInt1019);
+                    indexedFont3.drawRightAligned(anInt1020 + 1, 0, s, anInt1019);
+                    indexedFont3.drawRightAligned(anInt1020, l2, s, anInt1019);
                 }
                 if (anIntArray1098[k] == 1) {
-                    indexedFont3.method425(anInt837, (byte) 8, anInt1019, anInt1020 + 1, 0, s);
-                    indexedFont3.method425(anInt837, (byte) 8, anInt1019, anInt1020, l2, s);
+                    indexedFont3.drawCenteredWave(anInt837, anInt1019, anInt1020 + 1, 0, s);
+                    indexedFont3.drawCenteredWave(anInt837, anInt1019, anInt1020, l2, s);
                 }
                 if (anIntArray1098[k] == 2) {
-                    int l3 = indexedFont3.method423(false, s);
+                    int l3 = indexedFont3.stringWidth(s);
                     int i4 = ((150 - anIntArray1099[k]) * (l3 + 100)) / 150;
                     Draw2D.setBounds(334, 0, anInt1019 + 50, anInt1019 - 50);
-                    indexedFont3.method424((anInt1019 + 50) - i4, anInt1020 + 1, false, 0, s);
-                    indexedFont3.method424((anInt1019 + 50) - i4, anInt1020, false, l2, s);
+                    indexedFont3.draw((anInt1019 + 50) - i4, anInt1020 + 1, 0, s);
+                    indexedFont3.draw((anInt1019 + 50) - i4, anInt1020, l2, s);
                     Draw2D.resetBounds();
                 }
             } else {
-                indexedFont3.method421(anInt1020 + 1, (byte) 6, 0, s, anInt1019);
-                indexedFont3.method421(anInt1020, (byte) 6, 0xffff00, s, anInt1019);
+                indexedFont3.drawRightAligned(anInt1020 + 1, 0, s, anInt1019);
+                indexedFont3.drawRightAligned(anInt1020, 0xffff00, s, anInt1019);
             }
         }
 
@@ -274,25 +274,25 @@ public class Game extends GameShell {
                 if ((l == 3 || l == 7)
                         && (l == 7 || anInt755 == 0 || anInt755 == 1 && method138(-20, aStringArray897[k]))) {
                     int i1 = 329 - j * 13;
-                    indexedFont.method424(4, i1, false, 0,
+                    indexedFont.draw(4, i1, 0,
                             "From " + aStringArray897[k] + ": " + aStringArray898[k]);
-                    indexedFont.method424(4, i1 - 1, false, 65535,
+                    indexedFont.draw(4, i1 - 1, 65535,
                             "From " + aStringArray897[k] + ": " + aStringArray898[k]);
                     if (++j >= 5)
                         return;
                 }
                 if (l == 5 && anInt755 < 2) {
                     int j1 = 329 - j * 13;
-                    indexedFont.method424(4, j1, false, 0, aStringArray898[k]);
-                    indexedFont.method424(4, j1 - 1, false, 65535, aStringArray898[k]);
+                    indexedFont.draw(4, j1, 0, aStringArray898[k]);
+                    indexedFont.draw(4, j1 - 1, 65535, aStringArray898[k]);
                     if (++j >= 5)
                         return;
                 }
                 if (l == 6 && anInt755 < 2) {
                     int k1 = 329 - j * 13;
-                    indexedFont.method424(4, k1, false, 0,
+                    indexedFont.draw(4, k1, 0,
                             "To " + aStringArray897[k] + ": " + aStringArray898[k]);
-                    indexedFont.method424(4, k1 - 1, false, 65535,
+                    indexedFont.draw(4, k1 - 1, 65535,
                             "To " + aStringArray897[k] + ": " + aStringArray898[k]);
                     if (++j >= 5)
                         return;
@@ -2558,56 +2558,56 @@ public class Game extends GameShell {
         char c1 = '\310';
         if (anInt1109 == 0) {
             int j = c1 / 2 - 20;
-            indexedFont3.method422(c / 2, 0xffff00, true, j, "Welcome to RuneScape", 0);
+            indexedFont3.drawCentered(c / 2, 0xffff00, true, j, "Welcome to RuneScape");
             j += 30;
             int i1 = c / 2 - 80;
             int l1 = c1 / 2 + 20;
             indexedSprite9.method419(l1 - 20, i1 - 73, false);
-            indexedFont3.method422(i1, 0xffffff, true, l1 + 5, "New user", 0);
+            indexedFont3.drawCentered(i1, 0xffffff, true, l1 + 5, "New user");
             i1 = c / 2 + 80;
             indexedSprite9.method419(l1 - 20, i1 - 73, false);
-            indexedFont3.method422(i1, 0xffffff, true, l1 + 5, "Existing User", 0);
+            indexedFont3.drawCentered(i1, 0xffffff, true, l1 + 5, "Existing User");
         }
         if (anInt1109 == 2) {
             int k = c1 / 2 - 40;
             if (aString1083.length() > 0) {
-                indexedFont3.method422(c / 2, 0xffff00, true, k - 15, aString1083, 0);
-                indexedFont3.method422(c / 2, 0xffff00, true, k, aString1084, 0);
+                indexedFont3.drawCentered(c / 2, 0xffff00, true, k - 15, aString1083);
+                indexedFont3.drawCentered(c / 2, 0xffff00, true, k, aString1084);
                 k += 30;
             } else {
-                indexedFont3.method422(c / 2, 0xffff00, true, k - 7, aString1084, 0);
+                indexedFont3.drawCentered(c / 2, 0xffff00, true, k - 7, aString1084);
                 k += 30;
             }
-            indexedFont3.method426(c / 2 - 90, 6, k,
+            indexedFont3.draw(c / 2 - 90, k,
                     "Username: " + aString1066 + ((anInt972 == 0) & (clientClock % 40 < 20) ? "@yel@|" : ""), true,
                     0xffffff);
             k += 15;
-            indexedFont3.method426(c / 2 - 88, 6, k, "Password: " + StringUtils.toAsterisks(aString1067)
+            indexedFont3.draw(c / 2 - 88, k, "Password: " + StringUtils.toAsterisks(aString1067)
                     + ((anInt972 == 1) & (clientClock % 40 < 20) ? "@yel@|" : ""), true, 0xffffff);
             k += 15;
             int j1 = c / 2 - 80;
             int i2 = c1 / 2 + 50;
             indexedSprite9.method419(i2 - 20, j1 - 73, false);
-            indexedFont3.method422(j1, 0xffffff, true, i2 + 5, "Login", 0);
+            indexedFont3.drawCentered(j1, 0xffffff, true, i2 + 5, "Login");
             j1 = c / 2 + 80;
             indexedSprite9.method419(i2 - 20, j1 - 73, false);
-            indexedFont3.method422(j1, 0xffffff, true, i2 + 5, "Cancel", 0);
+            indexedFont3.drawCentered(j1, 0xffffff, true, i2 + 5, "Cancel");
         }
         if (anInt1109 == 3) {
-            indexedFont3.method422(c / 2, 0xffff00, true, c1 / 2 - 60, "Create a free account", 0);
+            indexedFont3.drawCentered(c / 2, 0xffff00, true, c1 / 2 - 60, "Create a free account");
             int l = c1 / 2 - 35;
-            indexedFont3.method422(c / 2, 0xffffff, true, l, "To create a new account you need to", 0);
+            indexedFont3.drawCentered(c / 2, 0xffffff, true, l, "To create a new account you need to");
             l += 15;
-            indexedFont3.method422(c / 2, 0xffffff, true, l, "go back to the main RuneScape webpage", 0);
+            indexedFont3.drawCentered(c / 2, 0xffffff, true, l, "go back to the main RuneScape webpage");
             l += 15;
-            indexedFont3.method422(c / 2, 0xffffff, true, l, "and choose the red 'create account'", 0);
+            indexedFont3.drawCentered(c / 2, 0xffffff, true, l, "and choose the red 'create account'");
             l += 15;
-            indexedFont3.method422(c / 2, 0xffffff, true, l, "button at the top right of that page.", 0);
+            indexedFont3.drawCentered(c / 2, 0xffffff, true, l, "button at the top right of that page.");
             l += 15;
             int k1 = c / 2;
             int j2 = c1 / 2 + 50;
             indexedSprite9.method419(j2 - 20, k1 - 73, false);
-            indexedFont3.method422(k1, 0xffffff, true, j2 + 5, "Cancel", 0);
+            indexedFont3.drawCentered(k1, 0xffffff, true, j2 + 5, "Cancel");
         }
         drawArea13.drawImage(186, super.aGraphics14, 214);
         if (aBoolean751) {
@@ -2782,9 +2782,9 @@ public class Game extends GameShell {
                                         class38_sub2_sub2_sub2_2.method405(i6, j5, false);
                                     if (class38_sub2_sub2_sub2_2.cropW == 33 || interfaceComponent_1.anIntArray266[i3] != 1) {
                                         int k9 = interfaceComponent_1.anIntArray266[i3];
-                                        indexedFont1.method424(j5 + 1 + k6, i6 + 10 + k8, false, 0,
+                                        indexedFont1.draw(j5 + 1 + k6, i6 + 10 + k8, 0,
                                                 method108(true, k9));
-                                        indexedFont1.method424(j5 + k6, i6 + 9 + k8, false, 0xffff00,
+                                        indexedFont1.draw(j5 + k6, i6 + 9 + k8, 0xffff00,
                                                 method108(true, k9));
                                     }
                                 }
@@ -2821,8 +2821,8 @@ public class Game extends GameShell {
                         s = "Please wait...";
                         l3 = interfaceComponent_1.anInt305;
                     }
-                    for (int j6 = l2 + indexedFont.anInt1497; s
-                            .length() > 0; j6 += indexedFont.anInt1497) {
+                    for (int j6 = l2 + indexedFont.height; s
+                            .length() > 0; j6 += indexedFont.height) {
                         if (s.indexOf("%") != -1) {
                             do {
                                 int l6 = s.indexOf("%1");
@@ -2870,10 +2870,10 @@ public class Game extends GameShell {
                             s = "";
                         }
                         if (interfaceComponent_1.aBoolean300)
-                            indexedFont.method422(k2 + interfaceComponent_1.anInt274 / 2, l3, interfaceComponent_1.aBoolean301, j6,
-                                    s1, 0);
+                            indexedFont.drawCentered(k2 + interfaceComponent_1.anInt274 / 2, l3, interfaceComponent_1.aBoolean301, j6,
+                                    s1);
                         else
-                            indexedFont.method426(k2, 6, j6, s1, interfaceComponent_1.aBoolean301, l3);
+                            indexedFont.draw(k2, j6, s1, interfaceComponent_1.aBoolean301, l3);
                     }
 
                 } else if (interfaceComponent_1.anInt271 == 5) {
@@ -2922,10 +2922,10 @@ public class Game extends GameShell {
                                 int l8 = k2 + l5 * (115 + interfaceComponent_1.anInt293);
                                 int j9 = l2 + i5 * (12 + interfaceComponent_1.anInt294);
                                 if (interfaceComponent_1.aBoolean300)
-                                    indexedFont_1.method422(l8 + interfaceComponent_1.anInt274 / 2, interfaceComponent_1.anInt305,
-                                            interfaceComponent_1.aBoolean301, j9, s2, 0);
+                                    indexedFont_1.drawCentered(l8 + interfaceComponent_1.anInt274 / 2, interfaceComponent_1.anInt305,
+                                            interfaceComponent_1.aBoolean301, j9, s2);
                                 else
-                                    indexedFont_1.method426(l8, 6, j9, s2, interfaceComponent_1.aBoolean301,
+                                    indexedFont_1.draw(l8, j9, s2, interfaceComponent_1.aBoolean301,
                                             interfaceComponent_1.anInt305);
                             }
                             j4++;
@@ -3472,30 +3472,30 @@ public class Game extends GameShell {
             aBoolean921 = false;
             drawArea24.init2D();
             indexedSprite15.method419(0, 0, false);
-            indexedFont2.method422(57, 0xffffff, true, 33, "Public chat", 0);
+            indexedFont2.drawCentered(57, 0xffffff, true, 33, "Public chat");
             if (anInt976 == 0)
-                indexedFont2.method422(57, 65280, true, 46, "On", 0);
+                indexedFont2.drawCentered(57, 65280, true, 46, "On");
             if (anInt976 == 1)
-                indexedFont2.method422(57, 0xffff00, true, 46, "Friends", 0);
+                indexedFont2.drawCentered(57, 0xffff00, true, 46, "Friends");
             if (anInt976 == 2)
-                indexedFont2.method422(57, 0xff0000, true, 46, "Off", 0);
+                indexedFont2.drawCentered(57, 0xff0000, true, 46, "Off");
             if (anInt976 == 3)
-                indexedFont2.method422(57, 65535, true, 46, "Hide", 0);
-            indexedFont2.method422(186, 0xffffff, true, 33, "Private chat", 0);
+                indexedFont2.drawCentered(57, 65535, true, 46, "Hide");
+            indexedFont2.drawCentered(186, 0xffffff, true, 33, "Private chat");
             if (anInt755 == 0)
-                indexedFont2.method422(186, 65280, true, 46, "On", 0);
+                indexedFont2.drawCentered(186, 65280, true, 46, "On");
             if (anInt755 == 1)
-                indexedFont2.method422(186, 0xffff00, true, 46, "Friends", 0);
+                indexedFont2.drawCentered(186, 0xffff00, true, 46, "Friends");
             if (anInt755 == 2)
-                indexedFont2.method422(186, 0xff0000, true, 46, "Off", 0);
-            indexedFont2.method422(326, 0xffffff, true, 33, "Trade/duel", 0);
+                indexedFont2.drawCentered(186, 0xff0000, true, 46, "Off");
+            indexedFont2.drawCentered(326, 0xffffff, true, 33, "Trade/duel");
             if (anInt885 == 0)
-                indexedFont2.method422(326, 65280, true, 46, "On", 0);
+                indexedFont2.drawCentered(326, 65280, true, 46, "On");
             if (anInt885 == 1)
-                indexedFont2.method422(326, 0xffff00, true, 46, "Friends", 0);
+                indexedFont2.drawCentered(326, 0xffff00, true, 46, "Friends");
             if (anInt885 == 2)
-                indexedFont2.method422(326, 0xff0000, true, 46, "Off", 0);
-            indexedFont2.method422(462, 0xffffff, true, 38, "Report abuse", 0);
+                indexedFont2.drawCentered(326, 0xff0000, true, 46, "Off");
+            indexedFont2.drawCentered(462, 0xffffff, true, 38, "Report abuse");
             drawArea24.drawImage(471, super.aGraphics14, 0);
             drawArea22.init2D();
         }
@@ -4101,7 +4101,7 @@ public class Game extends GameShell {
         Draw2D.fillRect(k, j, j1, l, i1);
         Draw2D.fillRect(k + 1, j + 1, 0, l - 2, 16);
         Draw2D.drawRect(j + 1, 0, i1 - 19, k + 18, l - 2);
-        indexedFont3.method424(j + 3, k + 14, false, j1, "Choose Option");
+        indexedFont3.draw(j + 3, k + 14, j1, "Choose Option");
         int k1 = super.anInt21;
         int l1 = super.anInt22;
         if (anInt1148 == 0) {
@@ -4121,7 +4121,7 @@ public class Game extends GameShell {
             int k2 = 0xffffff;
             if (k1 > j && k1 < j + l && l1 > j2 - 13 && l1 < j2 + 3)
                 k2 = 0xffff00;
-            indexedFont3.method426(j + 3, 6, j2, aStringArray834[i2], true, k2);
+            indexedFont3.draw(j + 3, j2, aStringArray834[i2], true, k2);
         }
 
         if (i >= 0)
@@ -4912,21 +4912,21 @@ public class Game extends GameShell {
                 aClass38_Sub2_Sub2_Sub2Array956[1].method405(296, 472, false);
         if (anInt1101 > 0) {
             aClass38_Sub2_Sub2_Sub2Array956[0].method405(296, 472, false);
-            indexedFont2.method421(329, (byte) 6, 0xffff00, "Level: " + anInt1101, 484);
+            indexedFont2.drawRightAligned(329, 0xffff00, "Level: " + anInt1101, 484);
         }
         if (anInt933 == 1) {
             aClass38_Sub2_Sub2_Sub2Array956[6].method405(296, 472, false);
-            indexedFont2.method421(329, (byte) 6, 0xffff00, "Arena", 484);
+            indexedFont2.drawRightAligned(329, 0xffff00, "Arena", 484);
         }
         if (anInt957 != 0) {
             int k = anInt957 / 50;
             int l = k / 60;
             k %= 60;
             if (k < 10) {
-                indexedFont2.method424(4, 329, false, 0xffff00, "System update in: " + l + ":0" + k);
+                indexedFont2.draw(4, 329, 0xffff00, "System update in: " + l + ":0" + k);
                 return;
             }
-            indexedFont2.method424(4, 329, false, 0xffff00, "System update in: " + l + ":" + k);
+            indexedFont2.draw(4, 329, 0xffff00, "System update in: " + l + ":" + k);
         }
     }
 
@@ -5165,9 +5165,9 @@ public class Game extends GameShell {
     }
 
     public void method93(int i) {
-        int j = indexedFont3.method423(false, "Choose Option");
+        int j = indexedFont3.stringWidth("Choose Option");
         for (int k = 0; k < anInt1074; k++) {
-            int l = indexedFont3.method423(false, aStringArray834[k]);
+            int l = indexedFont3.stringWidth(aStringArray834[k]);
             if (l > j)
                 j = l;
         }
@@ -6152,7 +6152,7 @@ public class Game extends GameShell {
             s = aStringArray834[anInt1074 - 1];
         if (anInt1074 > 2)
             s = s + "@whi@ / " + (anInt1074 - 2) + " more options";
-        indexedFont3.method427(clientClock / 1000, true, (byte) -121, 15, 0xffffff, s, 4);
+        indexedFont3.drawTooltip(clientClock / 1000, true, 15, 0xffffff, s, 4);
         if (!flag)
             anInt780 = -1;
     }
@@ -6969,10 +6969,10 @@ public class Game extends GameShell {
         drawArea22.init2D();
         if (flag)
             method6();
-        indexedFont2.method421(144, (byte) 6, 0, "Connection lost", 257);
-        indexedFont2.method421(143, (byte) 6, 0xffffff, "Connection lost", 256);
-        indexedFont2.method421(159, (byte) 6, 0, "Please wait - attempting to reestablish", 257);
-        indexedFont2.method421(158, (byte) 6, 0xffffff, "Please wait - attempting to reestablish", 256);
+        indexedFont2.drawRightAligned(144, 0, "Connection lost", 257);
+        indexedFont2.drawRightAligned(143, 0xffffff, "Connection lost", 256);
+        indexedFont2.drawRightAligned(159, 0, "Please wait - attempting to reestablish", 257);
+        indexedFont2.drawRightAligned(158, 0xffffff, "Please wait - attempting to reestablish", 256);
         drawArea22.drawImage(11, super.aGraphics14, 8);
         anInt1051 = 0;
         BufferedStream bufferedStream = this.bufferedStream;
@@ -7769,14 +7769,14 @@ public class Game extends GameShell {
         Draw3D.offsets = anIntArray735;
         indexedSprite20.method419(0, 0, false);
         if (aBoolean869) {
-            indexedFont3.method421(40, (byte) 6, 0, aString775, 239);
-            indexedFont3.method421(60, (byte) 6, 128, aString765 + "*", 239);
+            indexedFont3.drawRightAligned(40, 0, aString775, 239);
+            indexedFont3.drawRightAligned(60, 128, aString765 + "*", 239);
         } else if (aBoolean1055) {
-            indexedFont3.method421(40, (byte) 6, 0, "Enter amount:", 239);
-            indexedFont3.method421(60, (byte) 6, 128, aString784 + "*", 239);
+            indexedFont3.drawRightAligned(40, 0, "Enter amount:", 239);
+            indexedFont3.drawRightAligned(60, 128, aString784 + "*", 239);
         } else if (aString936 != null) {
-            indexedFont3.method421(40, (byte) 6, 0, aString936, 239);
-            indexedFont3.method421(60, (byte) 6, 128, "Click to continue", 239);
+            indexedFont3.drawRightAligned(40, 0, aString936, 239);
+            indexedFont3.drawRightAligned(60, 128, "Click to continue", 239);
         } else if (anInt1001 != -1)
             method59(0, 0, 38682, InterfaceComponent.interfaceComponentArray[anInt1001], 0);
         else if (anInt1021 != -1) {
@@ -7791,23 +7791,23 @@ public class Game extends GameShell {
                     int l = (70 - i * 14) + anInt977;
                     if (k == 0) {
                         if (l > 0 && l < 110)
-                            indexedFont.method424(4, l, false, 0, aStringArray898[j]);
+                            indexedFont.draw(4, l, 0, aStringArray898[j]);
                         i++;
                     }
                     if (k == 1) {
                         if (l > 0 && l < 110) {
-                            indexedFont.method424(4, l, false, 0xffffff, aStringArray897[j] + ":");
-                            indexedFont.method424(
-                                    12 + indexedFont.method423(false, aStringArray897[j]), l, false, 255,
+                            indexedFont.draw(4, l, 0xffffff, aStringArray897[j] + ":");
+                            indexedFont.draw(
+                                    12 + indexedFont.stringWidth(aStringArray897[j]), l, 255,
                                     aStringArray898[j]);
                         }
                         i++;
                     }
                     if (k == 2 && (anInt976 == 0 || anInt976 == 1 && method138(-20, aStringArray897[j]))) {
                         if (l > 0 && l < 110) {
-                            indexedFont.method424(4, l, false, 0, aStringArray897[j] + ":");
-                            indexedFont.method424(
-                                    12 + indexedFont.method423(false, aStringArray897[j]), l, false, 255,
+                            indexedFont.draw(4, l, 0, aStringArray897[j] + ":");
+                            indexedFont.draw(
+                                    12 + indexedFont.stringWidth(aStringArray897[j]), l, 255,
                                     aStringArray898[j]);
                         }
                         i++;
@@ -7815,36 +7815,36 @@ public class Game extends GameShell {
                     if ((k == 3 || k == 7) && anInt833 == 0
                             && (k == 7 || anInt755 == 0 || anInt755 == 1 && method138(-20, aStringArray897[j]))) {
                         if (l > 0 && l < 110) {
-                            indexedFont.method424(4, l, false, 0, "From " + aStringArray897[j] + ":");
-                            indexedFont.method424(
-                                    12 + indexedFont.method423(false, "From " + aStringArray897[j]), l,
-                                    false, 0x800000, aStringArray898[j]);
+                            indexedFont.draw(4, l, 0, "From " + aStringArray897[j] + ":");
+                            indexedFont.draw(
+                                    12 + indexedFont.stringWidth("From " + aStringArray897[j]), l,
+                                    0x800000, aStringArray898[j]);
                         }
                         i++;
                     }
                     if (k == 4 && (anInt885 == 0 || anInt885 == 1 && method138(-20, aStringArray897[j]))) {
                         if (l > 0 && l < 110)
-                            indexedFont.method424(4, l, false, 0x800080,
+                            indexedFont.draw(4, l, 0x800080,
                                     aStringArray897[j] + " " + aStringArray898[j]);
                         i++;
                     }
                     if (k == 5 && anInt833 == 0 && anInt755 < 2) {
                         if (l > 0 && l < 110)
-                            indexedFont.method424(4, l, false, 0x800000, aStringArray898[j]);
+                            indexedFont.draw(4, l, 0x800000, aStringArray898[j]);
                         i++;
                     }
                     if (k == 6 && anInt833 == 0 && anInt755 < 2) {
                         if (l > 0 && l < 110) {
-                            indexedFont.method424(4, l, false, 0, "To " + aStringArray897[j] + ":");
-                            indexedFont.method424(
-                                    12 + indexedFont.method423(false, "To " + aStringArray897[j]), l, false,
+                            indexedFont.draw(4, l, 0, "To " + aStringArray897[j] + ":");
+                            indexedFont.draw(
+                                    12 + indexedFont.stringWidth("To " + aStringArray897[j]), l,
                                     0x800000, aStringArray898[j]);
                         }
                         i++;
                     }
                     if (k == 8 && (anInt885 == 0 || anInt885 == 1 && method138(-20, aStringArray897[j]))) {
                         if (l > 0 && l < 110)
-                            indexedFont.method424(4, l, false, 0xcbb789,
+                            indexedFont.draw(4, l, 0xcbb789,
                                     aStringArray897[j] + " " + aStringArray898[j]);
                         i++;
                     }
@@ -7855,8 +7855,8 @@ public class Game extends GameShell {
             if (anInt792 < 78)
                 anInt792 = 78;
             method50(anInt803, 463, 0, anInt792 - anInt977 - 77, anInt792, 77);
-            indexedFont.method424(4, 90, false, 0, StringUtils.formatName(aString1066) + ":");
-            indexedFont.method424(6 + indexedFont.method423(false, aString1066 + ": "), 90, false,
+            indexedFont.draw(4, 90, 0, StringUtils.formatName(aString1066) + ":");
+            indexedFont.draw(6 + indexedFont.stringWidth(aString1066 + ": "), 90,
                     255, aString1137 + "*");
             Draw2D.drawHorizontalLine(0, 77, 479, 0);
         }
@@ -8010,8 +8010,8 @@ public class Game extends GameShell {
                 anInt762 = (anInt839 - 6) * 8;
                 anInt1078 = 1;
                 drawArea22.init2D();
-                indexedFont2.method421(151, (byte) 6, 0, "Loading - please wait.", 257);
-                indexedFont2.method421(150, (byte) 6, 0xffffff, "Loading - please wait.", 256);
+                indexedFont2.drawRightAligned(151, 0, "Loading - please wait.", 257);
+                indexedFont2.drawRightAligned(150, 0xffffff, "Loading - please wait.", 256);
                 drawArea22.drawImage(11, super.aGraphics14, 8);
                 Signlink.looprate(5);
                 int l16 = (anInt779 - 2) / 10;
@@ -8069,9 +8069,9 @@ public class Game extends GameShell {
                 Signlink.looprate(50);
                 drawArea22.init2D();
                 if (anInt1078 == 0) {
-                    indexedFont2.method421(166, (byte) 6, 0,
+                    indexedFont2.drawRightAligned(166, 0,
                             "Map area updated since last visit, so load will take longer this time only", 257);
-                    indexedFont2.method421(165, (byte) 6, 0xffffff,
+                    indexedFont2.drawRightAligned(165, 0xffffff,
                             "Map area updated since last visit, so load will take longer this time only", 256);
                 }
                 drawArea22.drawImage(11, super.aGraphics14, 8);
@@ -8887,8 +8887,8 @@ public class Game extends GameShell {
                 }
                 if (aBoolean889 && anInt1078 == 2 && SceneBuilder.levelBuilt != anInt880) {
                     drawArea22.init2D();
-                    indexedFont2.method421(151, (byte) 6, 0, "Loading - please wait.", 257);
-                    indexedFont2.method421(150, (byte) 6, 0xffffff, "Loading - please wait.", 256);
+                    indexedFont2.drawRightAligned(151, 0, "Loading - please wait.", 257);
+                    indexedFont2.drawRightAligned(150, 0xffffff, "Loading - please wait.", 256);
                     drawArea22.drawImage(11, super.aGraphics14, 8);
                     SceneBuilder.levelBuilt = anInt880;
                     method124(869);
@@ -9085,7 +9085,7 @@ public class Game extends GameShell {
         char c = '\u0168';
         char c1 = '\310';
         byte byte0 = 20;
-        indexedFont3.method421(c1 / 2 - 26 - byte0, (byte) 6, 0xffffff,
+        indexedFont3.drawRightAligned(c1 / 2 - 26 - byte0, 0xffffff,
                 "RuneScape is loading - please wait...", c / 2);
         aBoolean974 &= flag;
         int j = c1 / 2 - 18 - byte0;
@@ -9093,7 +9093,7 @@ public class Game extends GameShell {
         Draw2D.drawRect(c / 2 - 151, 0, 32, j + 1, 302);
         Draw2D.fillRect(j + 2, c / 2 - 150, 0x8c1111, i * 3, 30);
         Draw2D.fillRect(j + 2, (c / 2 - 150) + i * 3, 0, 300 - i * 3, 30);
-        indexedFont3.method421((c1 / 2 + 5) - byte0, (byte) 6, 0xffffff, s, c / 2);
+        indexedFont3.drawRightAligned((c1 / 2 + 5) - byte0, 0xffffff, s, c / 2);
         drawArea13.drawImage(186, super.aGraphics14, 214);
         if (aBoolean751) {
             aBoolean751 = false;

@@ -8,192 +8,173 @@ import java.util.Random;
 public class IndexedFont extends Draw2D {
 
     public IndexedFont(FileArchive fileArchive, String s, int i) {
-        aBoolean1484 = true;
-        aByte1485 = 8;
-        aByte1486 = 6;
-        aByte1487 = 2;
-        anInt1488 = -708;
-        anInt1489 = 997;
-        aByteArrayArray1490 = new byte[94][];
-        anIntArray1491 = new int[94];
-        anIntArray1492 = new int[94];
-        anIntArray1493 = new int[94];
-        anIntArray1494 = new int[94];
-        anIntArray1495 = new int[95];
-        anIntArray1496 = new int[256];
-        aRandom1498 = new Random();
-        Buffer class38_sub2_sub3 = new Buffer(fileArchive.read(s + ".dat", null));
-        Buffer class38_sub2_sub3_1 = new Buffer(
+        pixels = new byte[94][];
+        charWidth = new int[94];
+        charHeight = new int[94];
+        charOffsetX = new int[94];
+        charOffsetY = new int[94];
+        charSpace = new int[95];
+        drawWidth = new int[256];
+        random = new Random();
+        Buffer data = new Buffer(fileArchive.read(s + ".dat", null));
+        Buffer idx = new Buffer(
                 fileArchive.read("index.dat", null));
-        class38_sub2_sub3_1.offset = class38_sub2_sub3.readWord() + 4;
-        int j = class38_sub2_sub3_1.readByte();
+        idx.offset = data.readWord() + 4;
+        int j = idx.readByte();
         if (j > 0)
-            class38_sub2_sub3_1.offset += 3 * (j - 1);
+            idx.offset += 3 * (j - 1);
         for (int k = 0; k < 94; k++) {
-            anIntArray1493[k] = class38_sub2_sub3_1.readByte();
-            anIntArray1494[k] = class38_sub2_sub3_1.readByte();
-            int l = anIntArray1491[k] = class38_sub2_sub3_1.readWord();
-            int j1 = anIntArray1492[k] = class38_sub2_sub3_1.readWord();
-            int k1 = class38_sub2_sub3_1.readByte();
+            charOffsetX[k] = idx.readByte();
+            charOffsetY[k] = idx.readByte();
+            int l = charWidth[k] = idx.readWord();
+            int j1 = charHeight[k] = idx.readWord();
+            int k1 = idx.readByte();
             int l1 = l * j1;
-            aByteArrayArray1490[k] = new byte[l1];
+            pixels[k] = new byte[l1];
             if (k1 == 0) {
                 for (int i2 = 0; i2 < l1; i2++)
-                    aByteArrayArray1490[k][i2] = class38_sub2_sub3.readByteSigned();
+                    pixels[k][i2] = data.readByteSigned();
 
             } else if (k1 == 1) {
                 for (int j2 = 0; j2 < l; j2++) {
                     for (int l2 = 0; l2 < j1; l2++)
-                        aByteArrayArray1490[k][j2 + l2 * l] = class38_sub2_sub3.readByteSigned();
+                        pixels[k][j2 + l2 * l] = data.readByteSigned();
 
                 }
 
             }
-            if (j1 > anInt1497)
-                anInt1497 = j1;
-            anIntArray1493[k] = 1;
-            anIntArray1495[k] = l + 2;
+            if (j1 > height)
+                height = j1;
+            charOffsetX[k] = 1;
+            charSpace[k] = l + 2;
             int k2 = 0;
             for (int i3 = j1 / 7; i3 < j1; i3++)
-                k2 += aByteArrayArray1490[k][i3 * l];
+                k2 += pixels[k][i3 * l];
 
             if (k2 <= j1 / 7) {
-                anIntArray1495[k]--;
-                anIntArray1493[k] = 0;
+                charSpace[k]--;
+                charOffsetX[k] = 0;
             }
             k2 = 0;
             for (int j3 = j1 / 7; j3 < j1; j3++)
-                k2 += aByteArrayArray1490[k][(l - 1) + j3 * l];
+                k2 += pixels[k][(l - 1) + j3 * l];
 
             if (k2 <= j1 / 7)
-                anIntArray1495[k]--;
+                charSpace[k]--;
         }
 
         i = 9 / i;
-        anIntArray1495[94] = anIntArray1495[8];
+        charSpace[94] = charSpace[8];
         for (int i1 = 0; i1 < 256; i1++)
-            anIntArray1496[i1] = anIntArray1495[anIntArray1499[i1]];
+            drawWidth[i1] = charSpace[CHAR_LOOKUP[i1]];
 
     }
 
-    public void method421(int i, byte byte0, int j, String s, int k) {
-        if (byte0 != 6)
-            anInt1489 = 140;
-        method424(k - method423(false, s) / 2, i, false, j, s);
+    public void drawRightAligned(int i, int j, String s, int k) {
+        draw(k - stringWidth(s) / 2, i, j, s);
     }
 
-    public void method422(int i, int j, boolean flag, int k, String s, int l) {
-        method426(i - method423(false, s) / 2, 6, k, s, flag, j);
-        if (l != 0)
-            aBoolean1484 = !aBoolean1484;
+    public void drawCentered(int i, int j, boolean flag, int k, String s) {
+        draw(i - stringWidth(s) / 2, k, s, flag, j);
     }
 
-    public int method423(boolean flag, String s) {
-        if (s == null)
+    public int stringWidth(String s) {
+        if (s == null) {
             return 0;
+        }
+
         int i = 0;
-        if (flag)
-            return anInt1488;
-        for (int j = 0; j < s.length(); j++)
-            if (s.charAt(j) == '@' && j + 4 < s.length() && s.charAt(j + 4) == '@')
+        for (int j = 0; j < s.length(); j++) {
+            if (s.charAt(j) == '@' && j + 4 < s.length() && s.charAt(j + 4) == '@') {
                 j += 4;
-            else
-                i += anIntArray1496[s.charAt(j)];
+            } else {
+                i += drawWidth[s.charAt(j)];
+            }
+        }
 
         return i;
     }
 
-    public void method424(int i, int j, boolean flag, int k, String s) {
-        if (s == null)
+    public void draw(int i, int j, int k, String s) {
+        if (s == null) {
             return;
-        j -= anInt1497;
-        if (flag)
-            aBoolean1484 = !aBoolean1484;
+        }
+
+        j -= height;
         for (int l = 0; l < s.length(); l++) {
-            int i1 = anIntArray1499[s.charAt(l)];
-            if (i1 != 94)
-                method429(aByteArrayArray1490[i1], i + anIntArray1493[i1], j + anIntArray1494[i1], anIntArray1491[i1],
-                        anIntArray1492[i1], k);
-            i += anIntArray1495[i1];
+            int i1 = CHAR_LOOKUP[s.charAt(l)];
+            if (i1 != 94) {
+                fillMaskedRect(pixels[i1], i + charOffsetX[i1], j + charOffsetY[i1], charWidth[i1], charHeight[i1], k);
+            }
+            i += charSpace[i1];
         }
-
     }
 
-    public void method425(int i, byte byte0, int j, int k, int l, String s) {
+    public void drawCenteredWave(int i, int j, int k, int l, String s) {
         if (s == null)
             return;
-        j -= method423(false, s) / 2;
-        k -= anInt1497;
-        if (byte0 != aByte1485) {
-            for (int i1 = 1; i1 > 0; i1++)
-                ;
-        }
+        j -= stringWidth(s) / 2;
+        k -= height;
         for (int j1 = 0; j1 < s.length(); j1++) {
-            int k1 = anIntArray1499[s.charAt(j1)];
+            int k1 = CHAR_LOOKUP[s.charAt(j1)];
             if (k1 != 94)
-                method429(aByteArrayArray1490[k1], j + anIntArray1493[k1],
-                        k + anIntArray1494[k1] + (int) (Math.sin((double) j1 / 2D + (double) i / 5D) * 5D),
-                        anIntArray1491[k1], anIntArray1492[k1], l);
-            j += anIntArray1495[k1];
+                fillMaskedRect(pixels[k1], j + charOffsetX[k1],
+                        k + charOffsetY[k1] + (int) (Math.sin((double) j1 / 2D + (double) i / 5D) * 5D),
+                        charWidth[k1], charHeight[k1], l);
+            j += charSpace[k1];
         }
 
     }
 
-    public void method426(int i, int j, int k, String s, boolean flag, int l) {
+    public void draw(int i, int k, String s, boolean shadow, int l) {
         if (s == null)
             return;
-        k -= anInt1497;
-        for (int i1 = 0; i1 < s.length(); i1++)
+        k -= height;
+        for (int i1 = 0; i1 < s.length(); i1++) {
             if (s.charAt(i1) == '@' && i1 + 4 < s.length() && s.charAt(i1 + 4) == '@') {
-                l = method428(0, s.substring(i1 + 1, i1 + 4));
+                l = evaluateTag(s.substring(i1 + 1, i1 + 4));
                 i1 += 4;
             } else {
-                int j1 = anIntArray1499[s.charAt(i1)];
+                int j1 = CHAR_LOOKUP[s.charAt(i1)];
                 if (j1 != 94) {
-                    if (flag)
-                        method429(aByteArrayArray1490[j1], i + anIntArray1493[j1] + 1, k + anIntArray1494[j1] + 1,
-                                anIntArray1491[j1], anIntArray1492[j1], 0);
-                    method429(aByteArrayArray1490[j1], i + anIntArray1493[j1], k + anIntArray1494[j1],
-                            anIntArray1491[j1], anIntArray1492[j1], l);
+                    if (shadow)
+                        fillMaskedRect(pixels[j1], i + charOffsetX[j1] + 1, k + charOffsetY[j1] + 1,
+                                charWidth[j1], charHeight[j1], 0);
+                    fillMaskedRect(pixels[j1], i + charOffsetX[j1], k + charOffsetY[j1],
+                            charWidth[j1], charHeight[j1], l);
                 }
-                i += anIntArray1495[j1];
+                i += charSpace[j1];
             }
-
-        if (j == 6)
-            ;
+        }
     }
 
-    public void method427(int i, boolean flag, byte byte0, int j, int k, String s, int l) {
+    public void drawTooltip(int i, boolean flag, int j, int k, String s, int l) {
         if (s == null)
             return;
-        aRandom1498.setSeed(i);
-        int i1 = 192 + (aRandom1498.nextInt() & 0x1f);
-        j -= anInt1497;
-        if (byte0 != -121)
-            anInt1489 = 341;
+        random.setSeed(i);
+        int i1 = 192 + (random.nextInt() & 0x1f);
+        j -= height;
         for (int j1 = 0; j1 < s.length(); j1++)
             if (s.charAt(j1) == '@' && j1 + 4 < s.length() && s.charAt(j1 + 4) == '@') {
-                k = method428(0, s.substring(j1 + 1, j1 + 4));
+                k = evaluateTag(s.substring(j1 + 1, j1 + 4));
                 j1 += 4;
             } else {
-                int k1 = anIntArray1499[s.charAt(j1)];
+                int k1 = CHAR_LOOKUP[s.charAt(j1)];
                 if (k1 != 94) {
                     if (flag)
-                        method431(aByteArrayArray1490[k1], (byte) 6, l + anIntArray1493[k1] + 1, anIntArray1492[k1], 0,
-                                j + anIntArray1494[k1] + 1, 192, anIntArray1491[k1]);
-                    method431(aByteArrayArray1490[k1], (byte) 6, l + anIntArray1493[k1], anIntArray1492[k1], k,
-                            j + anIntArray1494[k1], i1, anIntArray1491[k1]);
+                        fillMaskedRect(pixels[k1], l + charOffsetX[k1] + 1, charHeight[k1], 0,
+                                j + charOffsetY[k1] + 1, 192, charWidth[k1]);
+                    fillMaskedRect(pixels[k1], l + charOffsetX[k1], charHeight[k1], k,
+                            j + charOffsetY[k1], i1, charWidth[k1]);
                 }
-                l += anIntArray1495[k1];
-                if ((aRandom1498.nextInt() & 3) == 0)
+                l += charSpace[k1];
+                if ((random.nextInt() & 3) == 0)
                     l++;
             }
 
     }
 
-    public int method428(int i, String s) {
-        if (i != 0)
-            anInt1488 = 450;
+    public int evaluateTag(String s) {
         if (s.equals("red"))
             return 0xff0000;
         if (s.equals("gre"))
@@ -229,7 +210,7 @@ public class IndexedFont extends Draw2D {
         return !s.equals("gr3") ? 0 : 0x40ff00;
     }
 
-    public void method429(byte[] abyte0, int i, int j, int k, int l, int i1) {
+    public void fillMaskedRect(byte[] abyte0, int i, int j, int k, int l, int i1) {
         int j1 = i + j * Draw2D.width;
         int k1 = Draw2D.width - k;
         int l1 = 0;
@@ -258,16 +239,11 @@ public class IndexedFont extends Draw2D {
             l1 += l2;
             k1 += l2;
         }
-        if (k <= 0 || l <= 0) {
-            return;
-        } else {
-            method430(Draw2D.dest, abyte0, i1, i2, j1, k, l, k1, l1);
-            return;
-        }
+        fillMaskedRect(Draw2D.dest, abyte0, i1, i2, j1, k, l, k1, l1);
     }
 
-    public void method430(int[] ai, byte[] abyte0, int i, int j, int k, int l, int i1,
-                          int j1, int k1) {
+    public void fillMaskedRect(int[] ai, byte[] abyte0, int i, int j, int k, int l, int i1,
+                               int j1, int k1) {
         int l1 = -(l >> 2);
         l = -(l & 3);
         for (int i2 = -i1; i2 < 0; i2++) {
@@ -302,10 +278,7 @@ public class IndexedFont extends Draw2D {
 
     }
 
-    public void method431(byte[] abyte0, byte byte0, int i, int j, int k, int l, int i1,
-                          int j1) {
-        if (byte0 != aByte1486)
-            return;
+    public void fillMaskedRect(byte[] abyte0, int i, int j, int k, int l, int i1, int j1) {
         int k1 = i + l * Draw2D.width;
         int l1 = Draw2D.width - j1;
         int i2 = 0;
@@ -334,23 +307,12 @@ public class IndexedFont extends Draw2D {
             i2 += i3;
             l1 += i3;
         }
-        if (j1 <= 0 || j <= 0) {
-            return;
-        } else {
-            method432(j, k1, j1, Draw2D.dest, abyte0, i1, j2, l1, i2, (byte) 2, k);
-            return;
-        }
+        fillMaskedRect(j, k1, j1, Draw2D.dest, abyte0, i1, j2, l1, i2, k);
     }
 
-    public void method432(int i, int j, int k, int[] ai, byte[] abyte0, int l, int i1,
-                          int j1, int k1, byte byte0, int l1) {
+    public void fillMaskedRect(int i, int j, int k, int[] ai, byte[] abyte0, int l, int i1,
+                               int j1, int k1, int l1) {
         l1 = ((l1 & 0xff00ff) * l & 0xff00ff00) + ((l1 & 0xff00) * l & 0xff0000) >> 8;
-        if (byte0 == aByte1487) {
-            byte0 = 0;
-        } else {
-            for (int i2 = 1; i2 > 0; i2++)
-                ;
-        }
         l = 256 - l;
         for (int j2 = -i; j2 < 0; j2++) {
             for (int k2 = -k; k2 < 0; k2++)
@@ -364,35 +326,28 @@ public class IndexedFont extends Draw2D {
             j += j1;
             i1 += k1;
         }
-
     }
 
-    public boolean aBoolean1484;
-    public byte aByte1485;
-    public byte aByte1486;
-    public byte aByte1487;
-    public int anInt1488;
-    public int anInt1489;
-    public byte[][] aByteArrayArray1490;
-    public int[] anIntArray1491;
-    public int[] anIntArray1492;
-    public int[] anIntArray1493;
-    public int[] anIntArray1494;
-    public int[] anIntArray1495;
-    public int[] anIntArray1496;
-    public int anInt1497;
-    public Random aRandom1498;
-    public static int[] anIntArray1499;
+    public byte[][] pixels;
+    public int[] charWidth;
+    public int[] charHeight;
+    public int[] charOffsetX;
+    public int[] charOffsetY;
+    public int[] charSpace;
+    public int[] drawWidth;
+    public int height;
+    public Random random;
+    public static int[] CHAR_LOOKUP;
 
     static {
-        anIntArray1499 = new int[256];
+        CHAR_LOOKUP = new int[256];
         String s = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
         for (int i = 0; i < 256; i++) {
             int j = s.indexOf(i);
-            if (j == -1)
+            if (j == -1) {
                 j = 74;
-            anIntArray1499[i] = j;
+            }
+            CHAR_LOOKUP[i] = j;
         }
-
     }
 }
