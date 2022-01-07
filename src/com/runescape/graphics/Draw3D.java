@@ -62,9 +62,9 @@ public class Draw3D extends Draw2D {
             try {
                 indexedSpritesArray[i] = new IndexedSprite(fileArchive, String.valueOf(i), 0);
                 if (lowMemory && indexedSpritesArray[i].clipWidth == 128)
-                    indexedSpritesArray[i].shrink(aBoolean1434);
+                    indexedSpritesArray[i].shrink();
                 else
-                    indexedSpritesArray[i].crop(0);
+                    indexedSpritesArray[i].crop();
                 loadedTextureCount++;
             } catch (Exception _ex) {
             }
@@ -220,7 +220,7 @@ public class Draw3D extends Draw2D {
 
         for (int k = 0; k < 50; k++)
             if (indexedSpritesArray[k] != null) {
-                int[] ai = indexedSpritesArray[k].anIntArray1477;
+                int[] ai = indexedSpritesArray[k].palette;
                 texturePalettes[k] = new int[ai.length];
                 for (int i1 = 0; i1 < ai.length; i1++)
                     texturePalettes[k][i1] = powRGB(ai[i1], d);

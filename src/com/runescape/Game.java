@@ -1907,7 +1907,7 @@ public class Game extends GameShell {
         if (!aBoolean889) {
             if (Draw3D.textureCycles[17] >= i) {
                 IndexedSprite indexedSprite = Draw3D.indexedSpritesArray[17];
-                int j = indexedSprite.width * indexedSprite.anInt1479 - 1;
+                int j = indexedSprite.width * indexedSprite.height - 1;
                 int l = indexedSprite.width * anInt969 * 2;
                 byte[] abyte0 = indexedSprite.pixels;
                 byte[] abyte2 = aByteArray1069;
@@ -1920,7 +1920,7 @@ public class Game extends GameShell {
             }
             if (Draw3D.textureCycles[24] >= i) {
                 IndexedSprite indexedSprite_1 = Draw3D.indexedSpritesArray[24];
-                int k = indexedSprite_1.width * indexedSprite_1.anInt1479 - 1;
+                int k = indexedSprite_1.width * indexedSprite_1.height - 1;
                 int i1 = indexedSprite_1.width * anInt969 * 2;
                 byte[] abyte1 = indexedSprite_1.pixels;
                 byte[] abyte3 = aByteArray1069;
@@ -2191,9 +2191,9 @@ public class Game extends GameShell {
                 IndexedSprite class38_sub2_sub2_sub3_2 = indexedSpritesArray1[locType_2.mapscene];
                 if (class38_sub2_sub2_sub3_2 != null) {
                     int i6 = (locType_2.sizeX * 4 - class38_sub2_sub2_sub3_2.width) / 2;
-                    int j6 = (locType_2.sizeZ * 4 - class38_sub2_sub2_sub3_2.anInt1479) / 2;
-                    class38_sub2_sub2_sub3_2.method419(48 + (104 - j1 - locType_2.sizeZ) * 4 + j6, 48 + l * 4 + i6,
-                            false);
+                    int j6 = (locType_2.sizeZ * 4 - class38_sub2_sub2_sub3_2.height) / 2;
+                    class38_sub2_sub2_sub3_2.draw(48 + (104 - j1 - locType_2.sizeZ) * 4 + j6, 48 + l * 4 + i6
+                    );
                 }
             } else {
                 if (i3 == 0 || i3 == 2)
@@ -2263,9 +2263,9 @@ public class Game extends GameShell {
                 IndexedSprite indexedSprite_1 = indexedSpritesArray1[locType.mapscene];
                 if (indexedSprite_1 != null) {
                     int j5 = (locType.sizeX * 4 - indexedSprite_1.width) / 2;
-                    int k5 = (locType.sizeZ * 4 - indexedSprite_1.anInt1479) / 2;
-                    indexedSprite_1.method419(48 + (104 - j1 - locType.sizeZ) * 4 + k5, 48 + l * 4 + j5,
-                            false);
+                    int k5 = (locType.sizeZ * 4 - indexedSprite_1.height) / 2;
+                    indexedSprite_1.draw(48 + (104 - j1 - locType.sizeZ) * 4 + k5, 48 + l * 4 + j5
+                    );
                 }
             } else if (j3 == 9) {
                 int l4 = 0xeeeeee;
@@ -2294,8 +2294,8 @@ public class Game extends GameShell {
                 IndexedSprite indexedSprite = indexedSpritesArray1[locType.mapscene];
                 if (indexedSprite != null) {
                     int i4 = (locType.sizeX * 4 - indexedSprite.width) / 2;
-                    int j4 = (locType.sizeZ * 4 - indexedSprite.anInt1479) / 2;
-                    indexedSprite.method419(48 + (104 - j1 - locType.sizeZ) * 4 + j4, 48 + l * 4 + i4, false);
+                    int j4 = (locType.sizeZ * 4 - indexedSprite.height) / 2;
+                    indexedSprite.draw(48 + (104 - j1 - locType.sizeZ) * 4 + j4, 48 + l * 4 + i4);
                 }
             }
         }
@@ -2465,8 +2465,8 @@ public class Game extends GameShell {
     }
 
     public void method50(int i, int j, int k, int l, int i1, int j1) {
-        indexedSprite6.method419(k, j, false);
-        indexedSprite7.method419((k + j1) - 16, j, false);
+        indexedSprite6.draw(k, j);
+        indexedSprite7.draw((k + j1) - 16, j);
         Draw2D.fillRect(k + 16, j, anInt1050, 16, j1 - 32);
         int k1 = ((j1 - 32) * j1) / i1;
         if (k1 < 8)
@@ -2553,7 +2553,7 @@ public class Game extends GameShell {
         drawArea13.init2D();
         if (i < 4 || i > 4)
             return;
-        indexedSprite8.method419(0, 0, false);
+        indexedSprite8.draw(0, 0);
         char c = '\u0168';
         char c1 = '\310';
         if (anInt1109 == 0) {
@@ -2562,10 +2562,10 @@ public class Game extends GameShell {
             j += 30;
             int i1 = c / 2 - 80;
             int l1 = c1 / 2 + 20;
-            indexedSprite9.method419(l1 - 20, i1 - 73, false);
+            indexedSprite9.draw(l1 - 20, i1 - 73);
             indexedFont3.drawCentered(i1, 0xffffff, true, l1 + 5, "New user");
             i1 = c / 2 + 80;
-            indexedSprite9.method419(l1 - 20, i1 - 73, false);
+            indexedSprite9.draw(l1 - 20, i1 - 73);
             indexedFont3.drawCentered(i1, 0xffffff, true, l1 + 5, "Existing User");
         }
         if (anInt1109 == 2) {
@@ -2587,10 +2587,10 @@ public class Game extends GameShell {
             k += 15;
             int j1 = c / 2 - 80;
             int i2 = c1 / 2 + 50;
-            indexedSprite9.method419(i2 - 20, j1 - 73, false);
+            indexedSprite9.draw(i2 - 20, j1 - 73);
             indexedFont3.drawCentered(j1, 0xffffff, true, i2 + 5, "Login");
             j1 = c / 2 + 80;
-            indexedSprite9.method419(i2 - 20, j1 - 73, false);
+            indexedSprite9.draw(i2 - 20, j1 - 73);
             indexedFont3.drawCentered(j1, 0xffffff, true, i2 + 5, "Cancel");
         }
         if (anInt1109 == 3) {
@@ -2606,7 +2606,7 @@ public class Game extends GameShell {
             l += 15;
             int k1 = c / 2;
             int j2 = c1 / 2 + 50;
-            indexedSprite9.method419(j2 - 20, k1 - 73, false);
+            indexedSprite9.draw(j2 - 20, k1 - 73);
             indexedFont3.drawCentered(k1, 0xffffff, true, j2 + 5, "Cancel");
         }
         drawArea13.drawImage(186, super.aGraphics14, 214);
@@ -2641,7 +2641,7 @@ public class Game extends GameShell {
             drawArea23 = new DrawArea(method11(aByte1116), 479, 96);
             drawArea21 = new DrawArea(method11(aByte1116), 168, 160);
             Draw2D.clear();
-            indexedSprite19.method419(0, 0, false);
+            indexedSprite19.draw(0, 0);
             drawArea20 = new DrawArea(method11(aByte1116), 190, 261);
             drawArea22 = new DrawArea(method11(aByte1116), 512, 334);
             Draw2D.clear();
@@ -3399,71 +3399,71 @@ public class Game extends GameShell {
             }
             aBoolean1080 = false;
             drawArea26.init2D();
-            indexedSprite17.method419(0, 0, false);
+            indexedSprite17.draw(0, 0);
             if (anInt1129 == -1) {
                 if (anIntArray861[anInt757] != -1) {
                     if (anInt757 == 0)
-                        indexedSprite10.method419(30, 29, false);
+                        indexedSprite10.draw(30, 29);
                     if (anInt757 == 1)
-                        indexedSprite11.method419(29, 59, false);
+                        indexedSprite11.draw(29, 59);
                     if (anInt757 == 2)
-                        indexedSprite11.method419(29, 87, false);
+                        indexedSprite11.draw(29, 87);
                     if (anInt757 == 3)
-                        indexedSprite12.method419(29, 115, false);
+                        indexedSprite12.draw(29, 115);
                     if (anInt757 == 4)
-                        indexedSprite14.method419(29, 156, false);
+                        indexedSprite14.draw(29, 156);
                     if (anInt757 == 5)
-                        indexedSprite14.method419(29, 184, false);
+                        indexedSprite14.draw(29, 184);
                     if (anInt757 == 6)
-                        indexedSprite13.method419(30, 212, false);
+                        indexedSprite13.draw(30, 212);
                 }
                 if (anIntArray861[0] != -1 && (anInt1128 != 0 || clientClock % 20 < 10))
-                    indexedSpritesArray2[0].method419(34, 35, false);
+                    indexedSpritesArray2[0].draw(34, 35);
                 if (anIntArray861[1] != -1 && (anInt1128 != 1 || clientClock % 20 < 10))
-                    indexedSpritesArray2[1].method419(32, 59, false);
+                    indexedSpritesArray2[1].draw(32, 59);
                 if (anIntArray861[2] != -1 && (anInt1128 != 2 || clientClock % 20 < 10))
-                    indexedSpritesArray2[2].method419(32, 86, false);
+                    indexedSpritesArray2[2].draw(32, 86);
                 if (anIntArray861[3] != -1 && (anInt1128 != 3 || clientClock % 20 < 10))
-                    indexedSpritesArray2[3].method419(33, 121, false);
+                    indexedSpritesArray2[3].draw(33, 121);
                 if (anIntArray861[4] != -1 && (anInt1128 != 4 || clientClock % 20 < 10))
-                    indexedSpritesArray2[4].method419(34, 157, false);
+                    indexedSpritesArray2[4].draw(34, 157);
                 if (anIntArray861[5] != -1 && (anInt1128 != 5 || clientClock % 20 < 10))
-                    indexedSpritesArray2[5].method419(32, 185, false);
+                    indexedSpritesArray2[5].draw(32, 185);
                 if (anIntArray861[6] != -1 && (anInt1128 != 6 || clientClock % 20 < 10))
-                    indexedSpritesArray2[6].method419(34, 212, false);
+                    indexedSpritesArray2[6].draw(34, 212);
             }
             drawArea26.drawImage(165, super.aGraphics14, 520);
             drawArea25.init2D();
-            indexedSprite16.method419(0, 0, false);
+            indexedSprite16.draw(0, 0);
             if (anInt1129 == -1) {
                 if (anIntArray861[anInt757] != -1) {
                     if (anInt757 == 7)
-                        indexedSprite1.method419(0, 49, false);
+                        indexedSprite1.draw(0, 49);
                     if (anInt757 == 8)
-                        indexedSprite2.method419(0, 81, false);
+                        indexedSprite2.draw(0, 81);
                     if (anInt757 == 9)
-                        indexedSprite2.method419(0, 108, false);
+                        indexedSprite2.draw(0, 108);
                     if (anInt757 == 10)
-                        indexedSprite3.method419(1, 136, false);
+                        indexedSprite3.draw(1, 136);
                     if (anInt757 == 11)
-                        indexedSprite5.method419(0, 178, false);
+                        indexedSprite5.draw(0, 178);
                     if (anInt757 == 12)
-                        indexedSprite5.method419(0, 205, false);
+                        indexedSprite5.draw(0, 205);
                     if (anInt757 == 13)
-                        indexedSprite4.method419(0, 233, false);
+                        indexedSprite4.draw(0, 233);
                 }
                 if (anIntArray861[8] != -1 && (anInt1128 != 8 || clientClock % 20 < 10))
-                    indexedSpritesArray2[7].method419(2, 80, false);
+                    indexedSpritesArray2[7].draw(2, 80);
                 if (anIntArray861[9] != -1 && (anInt1128 != 9 || clientClock % 20 < 10))
-                    indexedSpritesArray2[8].method419(3, 107, false);
+                    indexedSpritesArray2[8].draw(3, 107);
                 if (anIntArray861[10] != -1 && (anInt1128 != 10 || clientClock % 20 < 10))
-                    indexedSpritesArray2[9].method419(4, 142, false);
+                    indexedSpritesArray2[9].draw(4, 142);
                 if (anIntArray861[11] != -1 && (anInt1128 != 11 || clientClock % 20 < 10))
-                    indexedSpritesArray2[10].method419(2, 179, false);
+                    indexedSpritesArray2[10].draw(2, 179);
                 if (anIntArray861[12] != -1 && (anInt1128 != 12 || clientClock % 20 < 10))
-                    indexedSpritesArray2[11].method419(2, 206, false);
+                    indexedSpritesArray2[11].draw(2, 206);
                 if (anIntArray861[13] != -1 && (anInt1128 != 13 || clientClock % 20 < 10))
-                    indexedSpritesArray2[12].method419(2, 230, false);
+                    indexedSpritesArray2[12].draw(2, 230);
             }
             drawArea25.drawImage(492, super.aGraphics14, 501);
             drawArea22.init2D();
@@ -3471,7 +3471,7 @@ public class Game extends GameShell {
         if (aBoolean921) {
             aBoolean921 = false;
             drawArea24.init2D();
-            indexedSprite15.method419(0, 0, false);
+            indexedSprite15.draw(0, 0);
             indexedFont2.drawCentered(57, 0xffffff, true, 33, "Public chat");
             if (anInt976 == 0)
                 indexedFont2.drawCentered(57, 65280, true, 46, "On");
@@ -4646,21 +4646,21 @@ public class Game extends GameShell {
             indexedSprite11 = new IndexedSprite(fileArchive_2, "redstone2", 0);
             indexedSprite12 = new IndexedSprite(fileArchive_2, "redstone3", 0);
             indexedSprite13 = new IndexedSprite(fileArchive_2, "redstone1", 0);
-            indexedSprite13.method416(-725);
+            indexedSprite13.flipHorizontally();
             indexedSprite14 = new IndexedSprite(fileArchive_2, "redstone2", 0);
-            indexedSprite14.method416(-725);
+            indexedSprite14.flipHorizontally();
             indexedSprite1 = new IndexedSprite(fileArchive_2, "redstone1", 0);
-            indexedSprite1.method417((byte) -74);
+            indexedSprite1.flipVertically();
             indexedSprite2 = new IndexedSprite(fileArchive_2, "redstone2", 0);
-            indexedSprite2.method417((byte) -74);
+            indexedSprite2.flipVertically();
             indexedSprite3 = new IndexedSprite(fileArchive_2, "redstone3", 0);
-            indexedSprite3.method417((byte) -74);
+            indexedSprite3.flipVertically();
             indexedSprite4 = new IndexedSprite(fileArchive_2, "redstone1", 0);
-            indexedSprite4.method416(-725);
-            indexedSprite4.method417((byte) -74);
+            indexedSprite4.flipHorizontally();
+            indexedSprite4.flipVertically();
             indexedSprite5 = new IndexedSprite(fileArchive_2, "redstone2", 0);
-            indexedSprite5.method416(-725);
-            indexedSprite5.method417((byte) -74);
+            indexedSprite5.flipHorizontally();
+            indexedSprite5.flipVertically();
             Sprite class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backleft1", 0);
             drawArea1 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
                     class38_sub2_sub2_sub2.anInt1467);
@@ -4709,7 +4709,7 @@ public class Game extends GameShell {
                 if (aClass38_Sub2_Sub2_Sub2Array1138[k3] != null)
                     aClass38_Sub2_Sub2_Sub2Array1138[k3].method402(k2 + j3, l2 + j3, i3 + j3, true);
                 if (indexedSpritesArray1[k3] != null)
-                    indexedSpritesArray1[k3].method418(k2 + j3, l2 + j3, i3 + j3, true);
+                    indexedSpritesArray1[k3].translate(k2 + j3, l2 + j3, i3 + j3);
             }
 
             method13(true, "Unpacking textures", 80);
@@ -7017,11 +7017,11 @@ public class Game extends GameShell {
             aBoolean912 = !aBoolean912;
         if (indexedSprite != null) {
             int l1 = 0;
-            for (int j2 = 0; j2 < indexedSprite.anInt1479; j2++) {
+            for (int j2 = 0; j2 < indexedSprite.height; j2++) {
                 for (int l2 = 0; l2 < indexedSprite.width; l2++)
                     if (indexedSprite.pixels[l1++] != 0) {
-                        int i3 = l2 + 16 + indexedSprite.anInt1480;
-                        int j3 = j2 + 16 + indexedSprite.anInt1481;
+                        int i3 = l2 + 16 + indexedSprite.clipX;
+                        int j3 = j2 + 16 + indexedSprite.clipY;
                         int k3 = i3 + (j3 << 7);
                         anIntArray841[k3] = 0;
                     }
@@ -7767,7 +7767,7 @@ public class Game extends GameShell {
             anInt780 = -1;
         drawArea23.init2D();
         Draw3D.offsets = anIntArray735;
-        indexedSprite20.method419(0, 0, false);
+        indexedSprite20.draw(0, 0);
         if (aBoolean869) {
             indexedFont3.drawRightAligned(40, 0, aString775, 239);
             indexedFont3.drawRightAligned(60, 128, aString765 + "*", 239);
@@ -8920,7 +8920,7 @@ public class Game extends GameShell {
     public void method137(byte byte0) {
         drawArea20.init2D();
         Draw3D.offsets = anIntArray736;
-        indexedSprite18.method419(0, 0, false);
+        indexedSprite18.draw(0, 0);
         if (anInt1129 != -1)
             method59(0, 0, 38682, InterfaceComponent.interfaceComponentArray[anInt1129], 0);
         else if (anIntArray861[anInt757] != -1)
