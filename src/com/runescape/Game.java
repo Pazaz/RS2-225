@@ -567,7 +567,7 @@ public class Game extends GameShell {
             if (l3 >= 0 && i6 >= 0 && l3 < 104 && i6 < 104) {
                 l3 = l3 * 128 + 64;
                 i6 = i6 * 128 + 64;
-                SpotAnimEntity spotAnimEntity = new SpotAnimEntity(l3, j8, false, i6, i12,
+                SpotAnimEntity spotAnimEntity = new SpotAnimEntity(l3, j8, i6, i12,
                         method33(anInt880, l3, (byte) 5, i6) - j10, anInt880, clientClock);
                 linkedList1.pushNext(spotAnimEntity);
             }
@@ -6163,15 +6163,15 @@ public class Game extends GameShell {
         for (SpotAnimEntity spotAnimEntity = (SpotAnimEntity) linkedList1
                 .peekLast(); spotAnimEntity != null; spotAnimEntity = (SpotAnimEntity) linkedList1
                 .getPrevious())
-            if (spotAnimEntity.anInt1371 != anInt880 || spotAnimEntity.aBoolean1377)
+            if (spotAnimEntity.level != anInt880 || spotAnimEntity.finished)
                 spotAnimEntity.unlink();
-            else if (clientClock >= spotAnimEntity.anInt1370) {
-                spotAnimEntity.method465(anInt969, 0);
-                if (spotAnimEntity.aBoolean1377)
+            else if (clientClock >= spotAnimEntity.firstCycle) {
+                spotAnimEntity.update(anInt969);
+                if (spotAnimEntity.finished)
                     spotAnimEntity.unlink();
                 else
-                    scene.method292(-44713, spotAnimEntity.anInt1373, 60, 0, spotAnimEntity.anInt1372, -1,
-                            false, null, spotAnimEntity, spotAnimEntity.anInt1374, spotAnimEntity.anInt1371);
+                    scene.method292(-44713, spotAnimEntity.z, 60, 0, spotAnimEntity.x, -1,
+                            false, null, spotAnimEntity, spotAnimEntity.y, spotAnimEntity.level);
             }
 
     }
