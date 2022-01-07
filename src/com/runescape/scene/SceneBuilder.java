@@ -186,7 +186,7 @@ public class SceneBuilder {
             if (aBoolean108 && !locType.interactable && !locType.aBoolean73)
                 return;
             Model class38_sub2_sub1 = locType.getModel(22, k, k1, l1, i2, j2, -1);
-            scene.method287(class38_sub2_sub1, (byte) 6, j1, l2, j, i, byte0, k2);
+            scene.addGroundDecoration(class38_sub2_sub1, j1, l2, j, i, byte0, k2);
             if (locType.hasCollision && locType.interactable && collisionMap != null)
                 collisionMap.setBlocked(j, j1);
             if (locType.animationIndex != -1)
@@ -208,7 +208,7 @@ public class SceneBuilder {
                     k3 = locType.sizeX;
                     i4 = locType.sizeZ;
                 }
-                if (scene.method291(k2, 775, i, null, l2, j, j1, k3, byte0, class38_sub2_sub1_1, j4, i4)
+                if (scene.addLocation(k2, i, null, l2, j, j1, k3, byte0, class38_sub2_sub1_1, j4, i4)
                         && locType.hasShadow) {
                     for (int k4 = 0; k4 <= k3; k4++) {
                         for (int l4 = 0; l4 <= i4; l4++) {
@@ -231,7 +231,7 @@ public class SceneBuilder {
         }
         if (l >= 12) {
             Model class38_sub2_sub1_2 = locType.getModel(l, k, k1, l1, i2, j2, -1);
-            scene.method291(k2, 775, i, null, l2, j, j1, 1, byte0, class38_sub2_sub1_2, 0, 1);
+            scene.addLocation(k2, i, null, l2, j, j1, 1, byte0, class38_sub2_sub1_2, 0, 1);
             if (l >= 12 && l <= 17 && l != 13 && i > 0)
                 anIntArrayArrayArray126[i][j1][j] |= 0x924;
             if (locType.hasCollision && collisionMap != null)
@@ -242,7 +242,7 @@ public class SceneBuilder {
         }
         if (l == 0) {
             Model class38_sub2_sub1_3 = locType.getModel(0, k, k1, l1, i2, j2, -1);
-            scene.method289(0, k2, i, anIntArray127[k], 8, class38_sub2_sub1_3, null, j1, l2, j, byte0);
+            scene.addWall(0, k2, i, anIntArray127[k], class38_sub2_sub1_3, null, j1, l2, j, byte0);
             if (k == 0) {
                 if (locType.hasShadow) {
                     aByteArrayArrayArray119[i][j1][j] = 50;
@@ -277,12 +277,12 @@ public class SceneBuilder {
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, i1, i, 0, SeqType.animations[locType.animationIndex], j, j1));
             if (locType.thickness != 16)
-                scene.method298(i, j, j1, locType.thickness, (byte) 6);
+                scene.method298(i, j, j1, locType.thickness);
             return;
         }
         if (l == 1) {
             Model class38_sub2_sub1_4 = locType.getModel(1, k, k1, l1, i2, j2, -1);
-            scene.method289(0, k2, i, anIntArray128[k], 8, class38_sub2_sub1_4, null, j1, l2, j, byte0);
+            scene.addWall(0, k2, i, anIntArray128[k], class38_sub2_sub1_4, null, j1, l2, j, byte0);
             if (locType.hasShadow)
                 if (k == 0)
                     aByteArrayArrayArray119[i][j1][j + 1] = 50;
@@ -302,7 +302,7 @@ public class SceneBuilder {
             int i3 = k + 1 & 3;
             Model class38_sub2_sub1_11 = locType.getModel(2, 4 + k, k1, l1, i2, j2, -1);
             Model class38_sub2_sub1_12 = locType.getModel(2, i3, k1, l1, i2, j2, -1);
-            scene.method289(anIntArray127[i3], k2, i, anIntArray127[k], 8, class38_sub2_sub1_11, class38_sub2_sub1_12,
+            scene.addWall(anIntArray127[i3], k2, i, anIntArray127[k], class38_sub2_sub1_11, class38_sub2_sub1_12,
                     j1, l2, j, byte0);
             if (locType.culls)
                 if (k == 0) {
@@ -323,12 +323,12 @@ public class SceneBuilder {
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, i1, i, 0, SeqType.animations[locType.animationIndex], j, j1));
             if (locType.thickness != 16)
-                scene.method298(i, j, j1, locType.thickness, (byte) 6);
+                scene.method298(i, j, j1, locType.thickness);
             return;
         }
         if (l == 3) {
             Model class38_sub2_sub1_5 = locType.getModel(3, k, k1, l1, i2, j2, -1);
-            scene.method289(0, k2, i, anIntArray128[k], 8, class38_sub2_sub1_5, null, j1, l2, j, byte0);
+            scene.addWall(0, k2, i, anIntArray128[k], class38_sub2_sub1_5, null, j1, l2, j, byte0);
             if (locType.hasShadow)
                 if (k == 0)
                     aByteArrayArrayArray119[i][j1][j + 1] = 50;
@@ -346,7 +346,7 @@ public class SceneBuilder {
         }
         if (l == 9) {
             Model class38_sub2_sub1_6 = locType.getModel(l, k, k1, l1, i2, j2, -1);
-            scene.method291(k2, 775, i, null, l2, j, j1, 1, byte0, class38_sub2_sub1_6, 0, 1);
+            scene.addLocation(k2, i, null, l2, j, j1, 1, byte0, class38_sub2_sub1_6, 0, 1);
             if (locType.hasCollision && collisionMap != null)
                 collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, j1, j, locType.isSolid);
             if (locType.animationIndex != -1)
@@ -355,18 +355,18 @@ public class SceneBuilder {
         }
         if (l == 4) {
             Model class38_sub2_sub1_7 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
-            scene.method290(k2, j, 0, l2, k * 512, anIntArray127[k], 465, 0, j1, class38_sub2_sub1_7, byte0, i);
+            scene.addWallDecoration(k2, j, 0, l2, k * 512, anIntArray127[k], 0, j1, class38_sub2_sub1_7, byte0, i);
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, i1, i, 1, SeqType.animations[locType.animationIndex], j, j1));
             return;
         }
         if (l == 5) {
             int j3 = 16;
-            int l3 = scene.method308(i, j1, j);
+            int l3 = scene.getWallBitset(i, j1, j);
             if (l3 > 0)
                 j3 = LocType.get(l3 >> 14 & 0x7fff).thickness;
             Model class38_sub2_sub1_13 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
-            scene.method290(k2, j, anIntArray130[k] * j3, l2, k * 512, anIntArray127[k], 465, anIntArray129[k] * j3,
+            scene.addWallDecoration(k2, j, anIntArray130[k] * j3, l2, k * 512, anIntArray127[k], anIntArray129[k] * j3,
                     j1, class38_sub2_sub1_13, byte0, i);
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, i1, i, 1, SeqType.animations[locType.animationIndex], j, j1));
@@ -374,21 +374,21 @@ public class SceneBuilder {
         }
         if (l == 6) {
             Model class38_sub2_sub1_8 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
-            scene.method290(k2, j, 0, l2, k, 256, 465, 0, j1, class38_sub2_sub1_8, byte0, i);
+            scene.addWallDecoration(k2, j, 0, l2, k, 256, 0, j1, class38_sub2_sub1_8, byte0, i);
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, i1, i, 1, SeqType.animations[locType.animationIndex], j, j1));
             return;
         }
         if (l == 7) {
             Model class38_sub2_sub1_9 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
-            scene.method290(k2, j, 0, l2, k, 512, 465, 0, j1, class38_sub2_sub1_9, byte0, i);
+            scene.addWallDecoration(k2, j, 0, l2, k, 512, 0, j1, class38_sub2_sub1_9, byte0, i);
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, i1, i, 1, SeqType.animations[locType.animationIndex], j, j1));
             return;
         }
         if (l == 8) {
             Model class38_sub2_sub1_10 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
-            scene.method290(k2, j, 0, l2, k, 768, 465, 0, j1, class38_sub2_sub1_10, byte0, i);
+            scene.addWallDecoration(k2, j, 0, l2, k, 768, 0, j1, class38_sub2_sub1_10, byte0, i);
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, i1, i, 1, SeqType.animations[locType.animationIndex], j, j1));
         }
@@ -544,7 +544,7 @@ public class SceneBuilder {
                                 if (k21 != -1)
                                     j22 = Draw3D.anIntArray1458[method163(l21, 96)];
                                 if (j19 == 0) {
-                                    scene.method286(l, i7, l17, 0, 0, -1, k19, l19, i20, j20, method163(k21, k20),
+                                    scene.addTile(l, i7, l17, 0, 0, -1, k19, l19, i20, j20, method163(k21, k20),
                                             method163(k21, l20), method163(k21, i21), method163(k21, j21), 0, 0, 0, 0,
                                             j22, 0);
                                 } else {
@@ -565,7 +565,7 @@ public class SceneBuilder {
                                         k23 = method165(floType_2.hue, floType_2.saturation, floType_2.lightness);
                                         l23 = Draw3D.anIntArray1458[method164(floType_2.blendHueMultiplier, 96)];
                                     }
-                                    scene.method286(l, i7, l17, l22, byte4, j23, k19, l19, i20, j20,
+                                    scene.addTile(l, i7, l17, l22, byte4, j23, k19, l19, i20, j20,
                                             method163(k21, k20), method163(k21, l20), method163(k21, i21),
                                             method163(k21, j21), method164(k23, k20), method164(k23, l20),
                                             method164(k23, i21), method164(k23, j21), j22, l23);
@@ -579,7 +579,7 @@ public class SceneBuilder {
 
             for (int k8 = 1; k8 < anInt112 - 1; k8++) {
                 for (int j10 = 1; j10 < anInt111 - 1; j10++)
-                    scene.method285(l, j10, k8, method157(l, (byte) 10, j10, k8));
+                    scene.setPhysicalLevel(l, j10, k8, method157(l, (byte) 10, j10, k8));
 
             }
 
@@ -590,11 +590,11 @@ public class SceneBuilder {
                 ;
         }
         if (!aBoolean110)
-            scene.method313(-10, 64, -50, 768, -50, false);
+            scene.applyLighting(-10, 64, -50, 768, -50);
         for (int k1 = 0; k1 < anInt111; k1++) {
             for (int i2 = 0; i2 < anInt112; i2++)
                 if ((aByteArrayArrayArray114[1][k1][i2] & 2) == 2)
-                    scene.method283(i2, k1, (byte) -41);
+                    scene.setBridge(i2, k1);
 
         }
 
@@ -642,7 +642,7 @@ public class SceneBuilder {
                                 char c1 = '\360';
                                 int l14 = anIntArrayArrayArray113[l8][j4][l4] - c1;
                                 int i16 = anIntArrayArrayArray113[j7][j4][l4];
-                                Scene.method284(i6 * 128 + 128, j4 * 128, -802, i16, 1, j4 * 128, i3, l14, l4 * 128);
+                                Scene.addOcclude(i6 * 128 + 128, j4 * 128, i16, 1, j4 * 128, i3, l14, l4 * 128);
                                 for (int i17 = j7; i17 <= l8; i17++) {
                                     for (int i18 = l4; i18 <= i6; i18++)
                                         anIntArrayArrayArray126[i17][j4][i18] &= ~j2;
@@ -681,7 +681,7 @@ public class SceneBuilder {
                                 char c2 = '\360';
                                 int i15 = anIntArrayArrayArray113[i9][i5][l3] - c2;
                                 int j16 = anIntArrayArrayArray113[k7][i5][l3];
-                                Scene.method284(l3 * 128, i5 * 128, -802, j16, 2, j6 * 128 + 128, i3, i15, l3 * 128);
+                                Scene.addOcclude(l3 * 128, i5 * 128, j16, 2, j6 * 128 + 128, i3, i15, l3 * 128);
                                 for (int j17 = k7; j17 <= i9; j17++) {
                                     for (int j18 = i5; j18 <= j6; j18++)
                                         anIntArrayArrayArray126[j17][j18][l3] &= ~k2;
@@ -717,7 +717,7 @@ public class SceneBuilder {
 
                             if (((k6 - j5) + 1) * ((j9 - l7) + 1) >= 4) {
                                 int k12 = anIntArrayArrayArray113[j3][j5][l7];
-                                Scene.method284(j9 * 128 + 128, j5 * 128, -802, k12, 4, k6 * 128 + 128, i3, k12,
+                                Scene.addOcclude(j9 * 128 + 128, j5 * 128, k12, 4, k6 * 128 + 128, i3, k12,
                                         l7 * 128);
                                 for (int l13 = j5; l13 <= k6; l13++) {
                                     for (int j15 = l7; j15 <= j9; j15++)
@@ -851,7 +851,7 @@ public class SceneBuilder {
         byte byte0 = (byte) ((k << 6) + k1);
         if (k1 == 22) {
             Model class38_sub2_sub1 = locType.getModel(22, k, i2, j2, k2, l2, -1);
-            scene.method287(class38_sub2_sub1, (byte) 6, i, j3, j, i1, byte0, i3);
+            scene.addGroundDecoration(class38_sub2_sub1, i, j3, j, i1, byte0, i3);
             if (locType.hasCollision && locType.interactable)
                 collisionMap.setBlocked(j, i);
             if (locType.animationIndex != -1)
@@ -873,7 +873,7 @@ public class SceneBuilder {
                     i4 = locType.sizeX;
                     k4 = locType.sizeZ;
                 }
-                scene.method291(i3, 775, i1, null, j3, j, i, i4, byte0, class38_sub2_sub1_1, l4, k4);
+                scene.addLocation(i3, i1, null, j3, j, i, i4, byte0, class38_sub2_sub1_1, l4, k4);
             }
             if (locType.hasCollision)
                 collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, i, j, locType.isSolid);
@@ -883,7 +883,7 @@ public class SceneBuilder {
         }
         if (k1 >= 12) {
             Model class38_sub2_sub1_2 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
-            scene.method291(i3, 775, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_2, 0, 1);
+            scene.addLocation(i3, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_2, 0, 1);
             if (locType.hasCollision)
                 collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, i, j, locType.isSolid);
             if (locType.animationIndex != -1)
@@ -892,7 +892,7 @@ public class SceneBuilder {
         }
         if (k1 == 0) {
             Model class38_sub2_sub1_3 = locType.getModel(0, k, i2, j2, k2, l2, -1);
-            scene.method289(0, i3, i1, anIntArray127[k], 8, class38_sub2_sub1_3, null, i, j3, j, byte0);
+            scene.addWall(0, i3, i1, anIntArray127[k], class38_sub2_sub1_3, null, i, j3, j, byte0);
             if (locType.hasCollision)
                 collisionMap.setWall(k, j, i, locType.isSolid, k1);
             if (locType.animationIndex != -1)
@@ -901,7 +901,7 @@ public class SceneBuilder {
         }
         if (k1 == 1) {
             Model class38_sub2_sub1_4 = locType.getModel(1, k, i2, j2, k2, l2, -1);
-            scene.method289(0, i3, i1, anIntArray128[k], 8, class38_sub2_sub1_4, null, i, j3, j, byte0);
+            scene.addWall(0, i3, i1, anIntArray128[k], class38_sub2_sub1_4, null, i, j3, j, byte0);
             if (locType.hasCollision)
                 collisionMap.setWall(k, j, i, locType.isSolid, k1);
             if (locType.animationIndex != -1)
@@ -912,7 +912,7 @@ public class SceneBuilder {
             int k3 = k + 1 & 3;
             Model class38_sub2_sub1_11 = locType.getModel(2, 4 + k, i2, j2, k2, l2, -1);
             Model class38_sub2_sub1_12 = locType.getModel(2, k3, i2, j2, k2, l2, -1);
-            scene.method289(anIntArray127[k3], i3, i1, anIntArray127[k], 8, class38_sub2_sub1_11,
+            scene.addWall(anIntArray127[k3], i3, i1, anIntArray127[k], class38_sub2_sub1_11,
                     class38_sub2_sub1_12, i, j3, j, byte0);
             if (locType.hasCollision)
                 collisionMap.setWall(k, j, i, locType.isSolid, k1);
@@ -922,7 +922,7 @@ public class SceneBuilder {
         }
         if (k1 == 3) {
             Model class38_sub2_sub1_5 = locType.getModel(3, k, i2, j2, k2, l2, -1);
-            scene.method289(0, i3, i1, anIntArray128[k], 8, class38_sub2_sub1_5, null, i, j3, j, byte0);
+            scene.addWall(0, i3, i1, anIntArray128[k], class38_sub2_sub1_5, null, i, j3, j, byte0);
             if (locType.hasCollision)
                 collisionMap.setWall(k, j, i, locType.isSolid, k1);
             if (locType.animationIndex != -1)
@@ -931,7 +931,7 @@ public class SceneBuilder {
         }
         if (k1 == 9) {
             Model class38_sub2_sub1_6 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
-            scene.method291(i3, 775, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_6, 0, 1);
+            scene.addLocation(i3, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_6, 0, 1);
             if (locType.hasCollision)
                 collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, i, j, locType.isSolid);
             if (locType.animationIndex != -1)
@@ -940,18 +940,18 @@ public class SceneBuilder {
         }
         if (k1 == 4) {
             Model class38_sub2_sub1_7 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            scene.method290(i3, j, 0, j3, k * 512, anIntArray127[k], 465, 0, i, class38_sub2_sub1_7, byte0, i1);
+            scene.addWallDecoration(i3, j, 0, j3, k * 512, anIntArray127[k], 0, i, class38_sub2_sub1_7, byte0, i1);
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.animations[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 5) {
             int l3 = 16;
-            int j4 = scene.method308(i1, i, j);
+            int j4 = scene.getWallBitset(i1, i, j);
             if (j4 > 0)
                 l3 = LocType.get(j4 >> 14 & 0x7fff).thickness;
             Model class38_sub2_sub1_13 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            scene.method290(i3, j, anIntArray130[k] * l3, j3, k * 512, anIntArray127[k], 465, anIntArray129[k] * l3,
+            scene.addWallDecoration(i3, j, anIntArray130[k] * l3, j3, k * 512, anIntArray127[k], anIntArray129[k] * l3,
                     i, class38_sub2_sub1_13, byte0, i1);
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.animations[locType.animationIndex], j, i));
@@ -959,21 +959,21 @@ public class SceneBuilder {
         }
         if (k1 == 6) {
             Model class38_sub2_sub1_8 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            scene.method290(i3, j, 0, j3, k, 256, 465, 0, i, class38_sub2_sub1_8, byte0, i1);
+            scene.addWallDecoration(i3, j, 0, j3, k, 256, 0, i, class38_sub2_sub1_8, byte0, i1);
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.animations[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 7) {
             Model class38_sub2_sub1_9 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            scene.method290(i3, j, 0, j3, k, 512, 465, 0, i, class38_sub2_sub1_9, byte0, i1);
+            scene.addWallDecoration(i3, j, 0, j3, k, 512, 0, i, class38_sub2_sub1_9, byte0, i1);
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.animations[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 8) {
             Model class38_sub2_sub1_10 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            scene.method290(i3, j, 0, j3, k, 768, 465, 0, i, class38_sub2_sub1_10, byte0, i1);
+            scene.addWallDecoration(i3, j, 0, j3, k, 768, 0, i, class38_sub2_sub1_10, byte0, i1);
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.animations[locType.animationIndex], j, i));
         }

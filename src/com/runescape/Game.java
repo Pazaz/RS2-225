@@ -434,15 +434,15 @@ public class Game extends GameShell {
                     int j17 = 0;
                     int l17 = 0;
                     if (i13 == 0)
-                        i16 = scene.method308(anInt880, k2, l4);
+                        i16 = scene.getWallBitset(anInt880, k2, l4);
                     if (i13 == 1)
-                        i16 = scene.method309(anInt880, l4, 3, k2);
+                        i16 = scene.getWallDecorationBitset(anInt880, l4, k2);
                     if (i13 == 2)
-                        i16 = scene.method310(anInt880, k2, l4);
+                        i16 = scene.getLocationBitset(anInt880, k2, l4);
                     if (i13 == 3)
-                        i16 = scene.method311(anInt880, k2, l4);
+                        i16 = scene.getGroundDecorationBitset(anInt880, k2, l4);
                     if (i16 != 0) {
-                        int i18 = scene.method312(anInt880, k2, l4, i16);
+                        int i18 = scene.getInfo(anInt880, k2, l4, i16);
                         l16 = i16 >> 14 & 0x7fff;
                         j17 = i18 & 0x1f;
                         l17 = i18 >> 6;
@@ -475,13 +475,13 @@ public class Game extends GameShell {
             if (l2 >= 0 && i5 >= 0 && l2 < 104 && i5 < 104) {
                 int j14 = 0;
                 if (k11 == 0)
-                    j14 = scene.method308(anInt880, l2, i5);
+                    j14 = scene.getWallBitset(anInt880, l2, i5);
                 if (k11 == 1)
-                    j14 = scene.method309(anInt880, i5, 3, l2);
+                    j14 = scene.getWallDecorationBitset(anInt880, i5, l2);
                 if (k11 == 2)
-                    j14 = scene.method310(anInt880, l2, i5);
+                    j14 = scene.getLocationBitset(anInt880, l2, i5);
                 if (k11 == 3)
-                    j14 = scene.method311(anInt880, l2, i5);
+                    j14 = scene.getGroundDecorationBitset(anInt880, l2, i5);
                 if (j14 != 0) {
                     LocEntity locEntity = new LocEntity(false, j14 >> 14 & 0x7fff, anInt880, k11,
                             SeqType.animations[j13], i5, l2);
@@ -834,8 +834,8 @@ public class Game extends GameShell {
         Model.anInt1296 = super.anInt21 - 8;
         Model.anInt1297 = super.anInt22 - 11;
         Draw2D.method379(anInt1143);
-        scene.method321(anInt1115, anInt1111, k, anInt1114, anInt1112, anInt1113, 0);
-        scene.method295(0);
+        scene.draw(anInt1115, anInt1111, k, anInt1114, anInt1112, anInt1113);
+        scene.clearFrameLocs();
         method15(anInt805);
         method133((byte) -11);
         method41(i3, true);
@@ -912,7 +912,7 @@ public class Game extends GameShell {
     public static void method27(boolean flag) {
         if (!flag)
             aBoolean870 = !aBoolean870;
-        Scene.aBoolean526 = true;
+        Scene.lowMemory = true;
         Draw3D.aBoolean1437 = true;
         aBoolean889 = true;
         SceneBuilder.aBoolean108 = true;
@@ -1346,10 +1346,10 @@ public class Game extends GameShell {
                 playerEntity.y = method33(anInt880,
                         playerEntity.x, (byte) 5,
                         playerEntity.z);
-                scene.method293(playerEntity.locMaxTileX, 60, null,
+                scene.add(playerEntity.locMaxTileX, null,
                         playerEntity.z, playerEntity.y, k,
                         playerEntity.animationDelay, playerEntity.locMinTileZ,
-                        playerEntity.locMinTileX, playerEntity, false, anInt880,
+                        playerEntity.locMinTileX, playerEntity, anInt880,
                         playerEntity.locMaxTileZ, playerEntity.x);
                 continue;
             }
@@ -1362,7 +1362,7 @@ public class Game extends GameShell {
             playerEntity.y = method33(anInt880,
                     playerEntity.x, (byte) 5,
                     playerEntity.z);
-            scene.method292(-44713, playerEntity.z, 60,
+            scene.add(playerEntity.z, 60,
                     playerEntity.animationDelay,
                     playerEntity.x, k,
                     playerEntity.animationStretches, null, playerEntity,
@@ -2112,9 +2112,9 @@ public class Game extends GameShell {
             int j1 = 24628 + (103 - i1) * 512 * 4;
             for (int l1 = 1; l1 < 103; l1++) {
                 if ((aByteArrayArrayArray840[i][l1][i1] & 0x18) == 0)
-                    scene.method317(ai, j1, 512, i, l1, i1);
+                    scene.drawMinimapTile(ai, j1, 512, i, l1, i1);
                 if (i < 3 && (aByteArrayArrayArray840[i + 1][l1][i1] & 8) != 0)
-                    scene.method317(ai, j1, 512, i + 1, l1, i1);
+                    scene.drawMinimapTile(ai, j1, 512, i + 1, l1, i1);
                 j1 += 4;
             }
 
@@ -2138,7 +2138,7 @@ public class Game extends GameShell {
         anInt917 = 0;
         for (int l2 = 0; l2 < 104; l2++) {
             for (int i3 = 0; i3 < 104; i3++) {
-                int j3 = scene.method311(anInt880, l2, i3);
+                int j3 = scene.getGroundDecorationBitset(anInt880, l2, i3);
                 if (j3 != 0) {
                     j3 = j3 >> 14 & 0x7fff;
                     int k3 = LocType.get(j3).mapfunction;
@@ -2175,9 +2175,9 @@ public class Game extends GameShell {
     }
 
     public void method46(int i, int j, int k, int l, int i1, int j1) {
-        int k1 = scene.method308(j, l, j1);
+        int k1 = scene.getWallBitset(j, l, j1);
         if (k1 != 0) {
-            int l1 = scene.method312(j, l, j1, k1);
+            int l1 = scene.getInfo(j, l, j1, k1);
             int k2 = l1 >> 6 & 3;
             int i3 = l1 & 0x1f;
             int k3 = k;
@@ -2251,10 +2251,10 @@ public class Game extends GameShell {
                     }
             }
         }
-        k1 = scene.method310(j, l, j1);
+        k1 = scene.getLocationBitset(j, l, j1);
         i = 56 / i;
         if (k1 != 0) {
-            int i2 = scene.method312(j, l, j1, k1);
+            int i2 = scene.getInfo(j, l, j1, k1);
             int l2 = i2 >> 6 & 3;
             int j3 = i2 & 0x1f;
             int l3 = k1 >> 14 & 0x7fff;
@@ -2286,7 +2286,7 @@ public class Game extends GameShell {
                 }
             }
         }
-        k1 = scene.method311(j, l, j1);
+        k1 = scene.getGroundDecorationBitset(j, l, j1);
         if (k1 != 0) {
             int j2 = k1 >> 14 & 0x7fff;
             LocType locType = LocType.get(j2);
@@ -2527,7 +2527,7 @@ public class Game extends GameShell {
                     continue;
                 anIntArrayArray920[k][l] = anInt837;
             }
-            scene.method292(-44713, npcEntity.z,
+            scene.add(npcEntity.z,
                     (npcEntity.index - 1) * 64 + 60,
                     npcEntity.animationDelay,
                     npcEntity.x, j,
@@ -2704,7 +2704,7 @@ public class Game extends GameShell {
         method83(aByte843);
         while (i >= 0)
             return;
-        scene.method281(742);
+        scene.reset();
         for (int j = 0; j < 4; j++)
             collisionMaps[j].reset();
 
@@ -3696,9 +3696,9 @@ public class Game extends GameShell {
         }
         if (i1 == 660)
             if (!aBoolean879)
-                scene.method320(4, super.anInt25 - 11, super.anInt24 - 8);
+                scene.setClick(4, super.anInt25 - 11, super.anInt24 - 8);
             else
-                scene.method320(4, l - 11, k - 8);
+                scene.setClick(4, l - 11, k - 8);
         if (i1 == 188) {
             anInt1002 = 1;
             anInt1003 = k;
@@ -4592,7 +4592,7 @@ public class Game extends GameShell {
             FileArchive fileArchive_6 = method37("sound effects", anIntArray811[8], "sounds", 70, 0);
             aByteArrayArrayArray840 = new byte[4][104][104];
             anIntArrayArrayArray794 = new int[4][105][105];
-            scene = new Scene(415, anIntArrayArrayArray794, 104, 4, 104);
+            scene = new Scene(anIntArrayArrayArray794, 104, 4, 104);
             for (int l = 0; l < 4; l++)
                 collisionMaps[l] = new CollisionMap(104, 104);
 
@@ -4797,7 +4797,7 @@ public class Game extends GameShell {
                 ai[k5] = j6 * k6 >> 16;
             }
 
-            Scene.method318(ai, 800, 512, aByte871, 334, 500);
+            Scene.init(ai, 800, 512, 334, 500);
             WordEncoding.load(fileArchive_5);
             return;
         } catch (Exception exception) {
@@ -5029,7 +5029,7 @@ public class Game extends GameShell {
                                 playerEntity.x, clientClock);
                 }
                 projectileEntity.update(anInt969);
-                scene.method292(-44713, (int) projectileEntity.y, 60, projectileEntity.yaw,
+                scene.add((int) projectileEntity.y, 60, projectileEntity.yaw,
                         (int) projectileEntity.x, -1, false, null, projectileEntity,
                         (int) projectileEntity.z, anInt880);
             }
@@ -5125,7 +5125,7 @@ public class Game extends GameShell {
 
     public boolean method92(int i, int j, int k, int l, boolean flag) {
         int i1 = l >> 14 & 0x7fff;
-        int j1 = scene.method312(anInt880, j, k, l);
+        int j1 = scene.getInfo(anInt880, j, k, l);
         if (j1 == -1)
             return false;
         int k1 = j1 & 0x1f;
@@ -5604,28 +5604,28 @@ public class Game extends GameShell {
             boolean flag = false;
             boolean flag1 = false;
             if (l == 0)
-                i2 = scene.method308(l1, j, k);
+                i2 = scene.getWallBitset(l1, j, k);
             if (l == 1)
-                i2 = scene.method309(l1, k, 3, j);
+                i2 = scene.getWallDecorationBitset(l1, k, j);
             if (l == 2)
-                i2 = scene.method310(l1, j, k);
+                i2 = scene.getLocationBitset(l1, j, k);
             if (l == 3)
-                i2 = scene.method311(l1, j, k);
+                i2 = scene.getGroundDecorationBitset(l1, j, k);
             if (i2 != 0) {
-                int i3 = scene.method312(l1, j, k, i2);
+                int i3 = scene.getInfo(l1, j, k, i2);
                 int j2 = i2 >> 14 & 0x7fff;
                 int k2 = i3 & 0x1f;
                 int l2 = i3 >> 6;
                 if (l == 0) {
-                    scene.method303(j, l1, k, 1);
+                    scene.removeWall(j, l1, k);
                     LocType locType = LocType.get(j2);
                     if (locType.hasCollision)
                         collisionMaps[l1].removeWall(locType.isSolid, l2, j, k, k2);
                 }
                 if (l == 1)
-                    scene.method304(l1, k, anInt1077, j);
+                    scene.removeWallDecoration(l1, k, j);
                 if (l == 2) {
-                    scene.method305(j, k, -54, l1);
+                    scene.removeLocations(j, k, l1);
                     LocType locType = LocType.get(j2);
                     if (j + locType.sizeX > 103 || k + locType.sizeX > 103 || j + locType.sizeZ > 103
                             || k + locType.sizeZ > 103)
@@ -5635,7 +5635,7 @@ public class Game extends GameShell {
                                 locType.sizeZ);
                 }
                 if (l == 3) {
-                    scene.method306(l1, anInt1022, j, k);
+                    scene.removeGroundDecoration(l1, j, k);
                     LocType locType_2 = LocType.get(j2);
                     if (locType_2.hasCollision && locType_2.interactable)
                         collisionMaps[l1].removeBlock(k, j);
@@ -5805,7 +5805,7 @@ public class Game extends GameShell {
         super.drawArea = null;
         PlayerEntity.models = null;
         Draw3D.method384(true);
-        Scene.method280(true);
+        Scene.unload();
         Model.unload();
         SeqBase.instance = null;
         SeqFrame.instance = null;
@@ -6038,12 +6038,12 @@ public class Game extends GameShell {
             aClass38_Sub2_Sub3_798.writeOpcode(215);
             aClass38_Sub2_Sub3_798.writeSWord(0x4c2b2c);
         }
-        if (Scene.anInt560 != -1) {
-            int l = Scene.anInt560;
-            int k1 = Scene.anInt561;
+        if (Scene.clickedTileX != -1) {
+            int l = Scene.clickedTileX;
+            int k1 = Scene.clickedTileZ;
             boolean flag2 = method107(localPlayerEntity.pathTileX[0], 0, true, l,
                     localPlayerEntity.pathTileZ[0], 0, 0, 0, k1, 0, 0, 0);
-            Scene.anInt560 = -1;
+            Scene.clickedTileX = -1;
             if (flag2) {
                 anInt738 = super.anInt24;
                 anInt739 = super.anInt25;
@@ -6170,7 +6170,7 @@ public class Game extends GameShell {
                 if (spotAnimEntity.finished)
                     spotAnimEntity.unlink();
                 else
-                    scene.method292(-44713, spotAnimEntity.z, 60, 0, spotAnimEntity.x, -1,
+                    scene.add(spotAnimEntity.z, 60, 0, spotAnimEntity.x, -1,
                             false, null, spotAnimEntity, spotAnimEntity.y, spotAnimEntity.level);
             }
 
@@ -6188,7 +6188,7 @@ public class Game extends GameShell {
     }
 
     public static void method106(int i) {
-        Scene.aBoolean526 = false;
+        Scene.lowMemory = false;
         Draw3D.aBoolean1437 = false;
         if (i != 9) {
             return;
@@ -7034,7 +7034,7 @@ public class Game extends GameShell {
     public void method123(int i, int j) {
         LinkedList linkedList = linkedList3dArray[anInt880][i][j];
         if (linkedList == null) {
-            scene.method307(anInt880, i, j);
+            scene.removeObject(anInt880, i, j);
             return;
         }
         int k = 0xfa0a1f01;
@@ -7077,8 +7077,8 @@ public class Game extends GameShell {
             class38_sub2_sub1_1 = ObjType.get(j1).getModel(l1);
         int i2 = i + (j << 7) + 0x60000000;
         ObjType objType_1 = ObjType.get(((ObjStackEntity) (obj)).model);
-        scene.method288(objType_1.getModel(((ObjStackEntity) (obj)).amount), class38_sub2_sub1,
-                method33(anInt880, i * 128 + 64, (byte) 5, j * 128 + 64), anInt880, i2, j, i, class38_sub2_sub1_1, 429);
+        scene.addObject(objType_1.getModel(((ObjStackEntity) (obj)).amount), class38_sub2_sub1,
+                method33(anInt880, i * 128 + 64, (byte) 5, j * 128 + 64), anInt880, i2, j, i, class38_sub2_sub1_1);
     }
 
     public void method124(int i) {
@@ -7090,7 +7090,7 @@ public class Game extends GameShell {
             linkedList4.clear();
             Draw3D.method387(false);
             method83(aByte843);
-            scene.method281(742);
+            scene.reset();
             for (int j = 0; j < 4; j++)
                 collisionMaps[j].reset();
 
@@ -7098,7 +7098,7 @@ public class Game extends GameShell {
             SceneBuilder sceneBuilder = new SceneBuilder(104, aByteArrayArrayArray840, 104, anIntArrayArrayArray794, anInt1106);
             byte[] abyte0 = new byte[0x186a0];
             int k = aByteArrayArray770.length;
-            SceneBuilder.aBoolean108 = Scene.aBoolean526;
+            SceneBuilder.aBoolean108 = Scene.lowMemory;
             for (int l = 0; l < k; l++) {
                 int i1 = anIntArray925[l] >> 8;
                 int k1 = anIntArray925[l] & 0xff;
@@ -7107,9 +7107,9 @@ public class Game extends GameShell {
             }
 
             if (SceneBuilder.aBoolean108)
-                scene.method282(0, anInt880);
+                scene.setup(anInt880);
             else
-                scene.method282(0, 0);
+                scene.setup(0);
             aClass38_Sub2_Sub3_798.writeOpcode(108);
             for (int j1 = 0; j1 < k; j1++) {
                 int l1 = (anIntArray925[j1] >> 8) * 64 - anInt761;
@@ -7426,13 +7426,13 @@ public class Game extends GameShell {
                 int l = locEntity.anInt1209;
                 int i1 = 0;
                 if (locEntity.anInt1207 == 0)
-                    i1 = scene.method308(j, k, l);
+                    i1 = scene.getWallBitset(j, k, l);
                 if (locEntity.anInt1207 == 1)
-                    i1 = scene.method309(j, l, 3, k);
+                    i1 = scene.getWallDecorationBitset(j, l, k);
                 if (locEntity.anInt1207 == 2)
-                    i1 = scene.method310(j, k, l);
+                    i1 = scene.getLocationBitset(j, k, l);
                 if (locEntity.anInt1207 == 3)
-                    i1 = scene.method311(j, k, l);
+                    i1 = scene.getGroundDecorationBitset(j, k, l);
                 if (i1 == 0 || (i1 >> 14 & 0x7fff) != locEntity.anInt1210) {
                     locEntity.unlink();
                 } else {
@@ -7445,34 +7445,34 @@ public class Game extends GameShell {
                     if (locEntity.currentFrameId != -1)
                         j2 = locEntity.seq.primaryFrames[locEntity.currentFrameId];
                     if (locEntity.anInt1207 == 2) {
-                        int k2 = scene.method312(j, k, l, i1);
+                        int k2 = scene.getInfo(j, k, l, i1);
                         int j3 = k2 & 0x1f;
                         int i4 = k2 >> 6;
                         if (j3 == 11)
                             j3 = 10;
                         Model class38_sub2_sub1_2 = locType.getModel(j3, i4, j1, k1, l1, i2, j2);
-                        scene.method297(k, class38_sub2_sub1_2, 1, j, l);
+                        scene.setLocModel(k, class38_sub2_sub1_2, j, l);
                     } else if (locEntity.anInt1207 == 1) {
                         Model class38_sub2_sub1 = locType.getModel(4, 0, j1, k1, l1, i2, j2);
-                        scene.method299(266, l, k, class38_sub2_sub1, j);
+                        scene.setWallDecorationModel(l, k, class38_sub2_sub1, j);
                     } else if (locEntity.anInt1207 == 0) {
-                        int l2 = scene.method312(j, k, l, i1);
+                        int l2 = scene.getInfo(j, k, l, i1);
                         int k3 = l2 & 0x1f;
                         int j4 = l2 >> 6;
                         if (k3 == 2) {
                             int k4 = j4 + 1 & 3;
                             Model class38_sub2_sub1_4 = locType.getModel(2, 4 + j4, j1, k1, l1, i2, j2);
                             Model class38_sub2_sub1_5 = locType.getModel(2, k4, j1, k1, l1, i2, j2);
-                            scene.method302(class38_sub2_sub1_4, class38_sub2_sub1_5, l, aBoolean849, k, j);
+                            scene.setWallModels(class38_sub2_sub1_4, class38_sub2_sub1_5, l, k, j);
                         } else {
                             Model class38_sub2_sub1_3 = locType.getModel(k3, j4, j1, k1, l1, i2, j2);
-                            scene.method301(35568, class38_sub2_sub1_3, l, k, j);
+                            scene.setWallModel(class38_sub2_sub1_3, l, k, j);
                         }
                     } else if (locEntity.anInt1207 == 3) {
-                        int i3 = scene.method312(j, k, l, i1);
+                        int i3 = scene.getInfo(j, k, l, i1);
                         int l3 = i3 >> 6;
                         Model class38_sub2_sub1_1 = locType.getModel(22, l3, j1, k1, l1, i2, j2);
-                        scene.method300(class38_sub2_sub1_1, l, -48639, k, j);
+                        scene.setGroundDecorationModel(class38_sub2_sub1_1, l, k, j);
                     }
                 }
             }
@@ -7518,7 +7518,7 @@ public class Game extends GameShell {
             int k1 = k >> 14 & 0x7fff;
             if (k != i) {
                 i = k;
-                if (j1 == 2 && scene.method312(anInt880, l, i1, k) >= 0) {
+                if (j1 == 2 && scene.getInfo(anInt880, l, i1, k) >= 0) {
                     LocType locType = LocType.get(k1);
                     if (anInt1002 == 1) {
                         aStringArray834[anInt1074] = "Use " + aString1006 + " with @cya@" + locType.name;
