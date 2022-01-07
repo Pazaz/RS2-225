@@ -18,10 +18,10 @@ public class DrawArea
         component.prepareImage(image, this);
         setPixels();
         component.prepareImage(image, this);
-        init2D();
+        bind();
     }
 
-    public void init2D() {
+    public void bind() {
         Draw2D.prepare(width, pixels, height);
     }
 

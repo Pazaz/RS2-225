@@ -16,14 +16,14 @@ public class InterfaceComponent {
         Buffer class38_sub2_sub3 = new Buffer(fileArchive_1.read("data", null));
         int j = -1;
         int k = class38_sub2_sub3.readWord();
-        interfaceComponentArray = new InterfaceComponent[k];
+        instances = new InterfaceComponent[k];
         while (class38_sub2_sub3.offset < class38_sub2_sub3.data.length) {
             int l = class38_sub2_sub3.readWord();
             if (l == 65535) {
                 j = class38_sub2_sub3.readWord();
                 l = class38_sub2_sub3.readWord();
             }
-            InterfaceComponent interfaceComponent = interfaceComponentArray[l] = new InterfaceComponent();
+            InterfaceComponent interfaceComponent = instances[l] = new InterfaceComponent();
             interfaceComponent.anInt269 = l;
             interfaceComponent.anInt270 = j;
             interfaceComponent.anInt271 = class38_sub2_sub3.readByte();
@@ -259,7 +259,7 @@ public class InterfaceComponent {
 
     public static int anInt262;
     public static boolean aBoolean263;
-    public static InterfaceComponent[] interfaceComponentArray;
+    public static InterfaceComponent[] instances;
     public int[] anIntArray265;
     public int[] anIntArray266;
     public int anInt267;

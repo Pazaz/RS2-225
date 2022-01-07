@@ -17,19 +17,19 @@ public class GameShell extends Applet
         anInt12 = j;
         anInt13 = i;
         frame = new GameFrame(anInt13, this, anInt12);
-        aGraphics14 = method11(aByte5).getGraphics();
+        graphics = method11(aByte5).getGraphics();
         drawArea = new DrawArea(method11(aByte5), anInt12, anInt13);
-        method12(this, 1);
+        startThread(this, 1);
     }
 
-    public void method2(int i, boolean flag, int j) {
+    public void initApplet(int i, boolean flag, int j) {
         anInt12 = j;
         anInt13 = i;
-        aGraphics14 = method11(aByte5).getGraphics();
+        graphics = method11(aByte5).getGraphics();
         drawArea = new DrawArea(method11(aByte5), anInt12, anInt13);
         if (flag)
             anInt3 = -370;
-        method12(this, 1);
+        startThread(this, 1);
     }
 
     public void run() {
@@ -39,7 +39,7 @@ public class GameShell extends Applet
         method11(aByte5).addFocusListener(this);
         if (frame != null)
             frame.addWindowListener(this);
-        method13(true, "Loading...", 0);
+        showProgress(true, "Loading...", 0);
         method6();
         int i = 0;
         int j = 256;
@@ -106,7 +106,7 @@ public class GameShell extends Applet
         while (i >= 0)
             aBoolean4 = !aBoolean4;
         anInt7 = -2;
-        method8((byte) -28);
+        unload((byte) -28);
         try {
             Thread.sleep(1000L);
         } catch (Exception _ex) {
@@ -146,15 +146,15 @@ public class GameShell extends Applet
     }
 
     public void update(Graphics g) {
-        if (aGraphics14 == null)
-            aGraphics14 = g;
+        if (graphics == null)
+            graphics = g;
         aBoolean18 = true;
         method10(3);
     }
 
     public void paint(Graphics g) {
-        if (aGraphics14 == null)
-            aGraphics14 = g;
+        if (graphics == null)
+            graphics = g;
         aBoolean18 = true;
         method10(3);
     }
@@ -358,7 +358,7 @@ public class GameShell extends Applet
             aBoolean2 = !aBoolean2;
     }
 
-    public void method8(byte byte0) {
+    public void unload(byte byte0) {
         if (byte0 != -28)
             anInt6 = -407;
     }
@@ -382,15 +382,15 @@ public class GameShell extends Applet
             return this;
     }
 
-    public void method12(Runnable runnable, int i) {
+    public void startThread(Runnable runnable, int i) {
         Thread thread = new Thread(runnable);
         thread.start();
         thread.setPriority(i);
     }
 
-    public void method13(boolean flag, String s, int i) {
-        while (aGraphics14 == null) {
-            aGraphics14 = method11(aByte5).getGraphics();
+    public void showProgress(boolean flag, String s, int i) {
+        while (graphics == null) {
+            graphics = method11(aByte5).getGraphics();
             try {
                 method11(aByte5).repaint();
             } catch (Exception _ex) {
@@ -405,23 +405,23 @@ public class GameShell extends Applet
         Font font1 = new Font("Helvetica", 0, 13);
         method11(aByte5).getFontMetrics(font1);
         if (aBoolean18) {
-            aGraphics14.setColor(Color.black);
-            aGraphics14.fillRect(0, 0, anInt12, anInt13);
+            graphics.setColor(Color.black);
+            graphics.fillRect(0, 0, anInt12, anInt13);
             aBoolean18 = false;
         }
         Color color = new Color(140, 17, 17);
         int j = anInt13 / 2 - 18;
-        aGraphics14.setColor(color);
-        aGraphics14.drawRect(anInt12 / 2 - 152, j, 304, 34);
-        aGraphics14.fillRect(anInt12 / 2 - 150, j + 2, i * 3, 30);
-        aGraphics14.setColor(Color.black);
-        aGraphics14.fillRect((anInt12 / 2 - 150) + i * 3, j + 2, 300 - i * 3, 30);
-        aGraphics14.setFont(font);
-        aGraphics14.setColor(Color.white);
+        graphics.setColor(color);
+        graphics.drawRect(anInt12 / 2 - 152, j, 304, 34);
+        graphics.fillRect(anInt12 / 2 - 150, j + 2, i * 3, 30);
+        graphics.setColor(Color.black);
+        graphics.fillRect((anInt12 / 2 - 150) + i * 3, j + 2, 300 - i * 3, 30);
+        graphics.setFont(font);
+        graphics.setColor(Color.white);
         if (!flag) {
             return;
         } else {
-            aGraphics14.drawString(s, (anInt12 - fontmetrics.stringWidth(s)) / 2, j + 22);
+            graphics.drawString(s, (anInt12 - fontmetrics.stringWidth(s)) / 2, j + 22);
             return;
         }
     }
@@ -454,7 +454,7 @@ public class GameShell extends Applet
     public int anInt11;
     public int anInt12;
     public int anInt13;
-    public Graphics aGraphics14;
+    public Graphics graphics;
     public DrawArea drawArea;
     public Sprite[] aClass38_Sub2_Sub2_Sub2Array16;
     public GameFrame frame;

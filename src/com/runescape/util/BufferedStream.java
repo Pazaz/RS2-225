@@ -108,7 +108,7 @@ public class BufferedStream
 
             if (!writing) {
                 writing = true;
-                applet.method12(this, 2);
+                applet.startThread(this, 2);
             }
             notify();
         }

@@ -73,7 +73,7 @@ public class PlayerEntity extends PathingEntity {
         }
 
         name = StringUtils.formatName(StringUtils.fromBase37(buffer.readQWord()));
-        level = buffer.readByte();
+        combatLevel = buffer.readByte();
         
         visible = true;
         uid = 0L;
@@ -120,7 +120,7 @@ public class PlayerEntity extends PathingEntity {
         if (super.spotAnimIndex != -1 && super.spotAnimFrame != -1) {
             SpotAnimType s = SpotAnimType.instances[super.spotAnimIndex];
             Model m = new Model(s.getModel(), true, !s.disposeAlpha, false);
-            m.translate(-super.spotanimOffsetY, 0, 0);
+            m.translate(-super.spotAnimOffsetY, 0, 0);
             m.applyGroups();
             m.applyFrame(s.seq.primaryFrames[super.spotAnimFrame]);
             m.skinTriangle = null;
@@ -317,7 +317,7 @@ public class PlayerEntity extends PathingEntity {
     public int headicons;
     public int[] appearanceIndices;
     public int[] appearanceColors;
-    public int level;
+    public int combatLevel;
     public long uid;
     public int y;
     public int locFirstCycle;
