@@ -309,7 +309,7 @@ public class ObjType {
         Draw3D.jagged = false;
         Draw2D.prepare(32, sprite.pixels, 32);
         Draw2D.fillRect(0, 0, 0, 32, 32);
-        Draw3D.init2D(-192);
+        Draw3D.prepareOffsets();
 
         Model model = info.getModel(1);
 

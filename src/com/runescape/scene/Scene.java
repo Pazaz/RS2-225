@@ -1526,7 +1526,7 @@ public class Scene {
             }
             if (tileUnderlay.textureIndex == -1) {
                 if (tileUnderlay.northeastColor != 0xbc614e)
-                    Draw3D.fillShadedTriangle(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
+                    Draw3D.fillGouraudScanline(j6, l6, l5, i6, k6, k5, tileUnderlay.northeastColor, tileUnderlay.northwestColor,
                             tileUnderlay.southeastColor);
             } else if (!lowMemory) {
                 if (tileUnderlay.isFlat)
@@ -1537,7 +1537,7 @@ public class Scene {
                             tileUnderlay.southeastColor, l2, l1, i3, j4, k4, i4, k3, j3, j2, tileUnderlay.textureIndex);
             } else {
                 int i7 = TEXTURE_HSL[tileUnderlay.textureIndex];
-                Draw3D.fillShadedTriangle(j6, l6, l5, i6, k6, k5, adjustHSLLightness(tileUnderlay.northeastColor, i7),
+                Draw3D.fillGouraudScanline(j6, l6, l5, i6, k6, k5, adjustHSLLightness(tileUnderlay.northeastColor, i7),
                         adjustHSLLightness(tileUnderlay.northwestColor, i7), adjustHSLLightness(tileUnderlay.southeastColor, i7));
             }
         }
@@ -1550,7 +1550,7 @@ public class Scene {
             }
             if (tileUnderlay.textureIndex == -1) {
                 if (tileUnderlay.southwestColor != 0xbc614e) {
-                    Draw3D.fillShadedTriangle(j5, l5, l6, i5, k5, k6, tileUnderlay.southwestColor, tileUnderlay.southeastColor,
+                    Draw3D.fillGouraudScanline(j5, l5, l6, i5, k5, k6, tileUnderlay.southwestColor, tileUnderlay.southeastColor,
                             tileUnderlay.northwestColor);
                     return;
                 }
@@ -1561,7 +1561,7 @@ public class Scene {
                     return;
                 }
                 int j7 = TEXTURE_HSL[tileUnderlay.textureIndex];
-                Draw3D.fillShadedTriangle(j5, l5, l6, i5, k5, k6, adjustHSLLightness(tileUnderlay.southwestColor, j7),
+                Draw3D.fillGouraudScanline(j5, l5, l6, i5, k5, k6, adjustHSLLightness(tileUnderlay.southwestColor, j7),
                         adjustHSLLightness(tileUnderlay.southeastColor, j7), adjustHSLLightness(tileUnderlay.northwestColor, j7));
             }
         }
@@ -1614,7 +1614,7 @@ public class Scene {
                 }
                 if (tileOverlay.triangleTextureIndex == null || tileOverlay.triangleTextureIndex[j2] == -1) {
                     if (tileOverlay.triangleColorA[j2] != 0xbc614e)
-                        Draw3D.fillShadedTriangle(l4, i5, j5, i4, j4, k4, tileOverlay.triangleColorA[j2],
+                        Draw3D.fillGouraudScanline(l4, i5, j5, i4, j4, k4, tileOverlay.triangleColorA[j2],
                                 tileOverlay.triangleColorB[j2], tileOverlay.triangleColorC[j2]);
                 } else if (!lowMemory) {
                     if (tileOverlay.isFlat)
@@ -1631,7 +1631,7 @@ public class Scene {
                                 TileOverlay.vertexSceneZ[j3], TileOverlay.vertexSceneZ[l3], tileOverlay.triangleTextureIndex[j2]);
                 } else {
                     int k5 = TEXTURE_HSL[tileOverlay.triangleTextureIndex[j2]];
-                    Draw3D.fillShadedTriangle(l4, i5, j5, i4, j4, k4,
+                    Draw3D.fillGouraudScanline(l4, i5, j5, i4, j4, k4,
                             adjustHSLLightness(tileOverlay.triangleColorA[j2], k5), adjustHSLLightness(tileOverlay.triangleColorB[j2], k5),
                             adjustHSLLightness(tileOverlay.triangleColorC[j2], k5));
                 }

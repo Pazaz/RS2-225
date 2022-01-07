@@ -527,7 +527,7 @@ public class SceneBuilder {
                                 }
                                 int j22 = 0;
                                 if (k21 != -1)
-                                    j22 = Draw3D.anIntArray1458[adjustHSLLightness1(l21, 96)];
+                                    j22 = Draw3D.palette[adjustHSLLightness1(l21, 96)];
                                 if (j19 == 0) {
                                     scene.addTile(l, i7, l17, 0, 0, -1, k19, l19, i20, j20, adjustHSLLightness1(k21, k20),
                                             adjustHSLLightness1(k21, l20), adjustHSLLightness1(k21, i21), adjustHSLLightness1(k21, j21), 0, 0, 0, 0,
@@ -540,7 +540,7 @@ public class SceneBuilder {
                                     int k23;
                                     int l23;
                                     if (j23 >= 0) {
-                                        l23 = Draw3D.method390(787, j23);
+                                        l23 = Draw3D.getAverageTextureRGB(j23);
                                         k23 = -1;
                                     } else if (floType_2.rgb == 0xff00ff) {
                                         l23 = 0;
@@ -548,7 +548,7 @@ public class SceneBuilder {
                                         j23 = -1;
                                     } else {
                                         k23 = hsl24To16(floType_2.hue, floType_2.saturation, floType_2.lightness);
-                                        l23 = Draw3D.anIntArray1458[adjustHSLLightness0(floType_2.blendHueMultiplier, 96)];
+                                        l23 = Draw3D.palette[adjustHSLLightness0(floType_2.blendHueMultiplier, 96)];
                                     }
                                     scene.addTile(l, i7, l17, l22, byte4, j23, k19, l19, i20, j20,
                                             adjustHSLLightness1(k21, k20), adjustHSLLightness1(k21, l20), adjustHSLLightness1(k21, i21),

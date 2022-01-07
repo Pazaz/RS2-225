@@ -1792,7 +1792,7 @@ public class Model extends CacheableNode {
         }
 
         if (type == 0) {
-            Draw3D.fillShadedTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], colorA[index], colorB[index], colorC[index]);
+            Draw3D.fillGouraudScanline(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], colorA[index], colorB[index], colorC[index]);
         } else if (type == 1) {
             Draw3D.fillTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], palette[colorA[index]]);
         } else if (type == 2) {
@@ -1925,7 +1925,7 @@ public class Model extends CacheableNode {
                 }
 
                 if (type == 0) {
-                    Draw3D.fillShadedTriangle(yA, yB, yC, xA, xB, xC, tmpZ[0], tmpZ[1], tmpZ[2]);
+                    Draw3D.fillGouraudScanline(yA, yB, yC, xA, xB, xC, tmpZ[0], tmpZ[1], tmpZ[2]);
                 } else if (type == 1) {
                     Draw3D.fillTriangle(yA, yB, yC, xA, xB, xC, palette[colorA[index]]);
                 } else if (type == 2) {
@@ -1962,8 +1962,8 @@ public class Model extends CacheableNode {
                 }
                 
                 if (type == 0) {
-                    Draw3D.fillShadedTriangle(yA, yB, yC, xA, xB, xC, tmpZ[0], tmpZ[1], tmpZ[2]);
-                    Draw3D.fillShadedTriangle(yA, yC, tmpY[3], xA, xC, tmpX[3], tmpZ[0], tmpZ[2], tmpZ[3]);
+                    Draw3D.fillGouraudScanline(yA, yB, yC, xA, xB, xC, tmpZ[0], tmpZ[1], tmpZ[2]);
+                    Draw3D.fillGouraudScanline(yA, yC, tmpY[3], xA, xC, tmpX[3], tmpZ[0], tmpZ[2], tmpZ[3]);
                 } else if (type == 1) {
                     int rgb = palette[colorA[index]];
                     Draw3D.fillTriangle(yA, yB, yC, xA, xB, xC, rgb);
@@ -2109,8 +2109,8 @@ public class Model extends CacheableNode {
     static {
         sin = Draw3D.sin;
         cos = Draw3D.cos;
-        palette = Draw3D.anIntArray1458;
-        oneOverFixed1616 = Draw3D.anIntArray1445;
+        palette = Draw3D.palette;
+        oneOverFixed1616 = Draw3D.reciprical16;
     }
 
     public static class Metadata {

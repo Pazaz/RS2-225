@@ -828,7 +828,7 @@ public class Game extends GameShell {
                 }
             }
 
-        int i3 = Draw3D.anInt1457;
+        int i3 = Draw3D.cycle;
         Model.aBoolean1295 = true;
         Model.anInt1298 = 0;
         Model.anInt1296 = super.anInt21 - 8;
@@ -913,7 +913,7 @@ public class Game extends GameShell {
         if (!flag)
             aBoolean870 = !aBoolean870;
         Scene.lowMemory = true;
-        Draw3D.aBoolean1437 = true;
+        Draw3D.lowMemory = true;
         aBoolean889 = true;
         SceneBuilder.lowMemory = true;
     }
@@ -1905,31 +1905,31 @@ public class Game extends GameShell {
         if (!flag)
             anInt780 = -1;
         if (!aBoolean889) {
-            if (Draw3D.anIntArray1456[17] >= i) {
+            if (Draw3D.textureCycles[17] >= i) {
                 IndexedSprite indexedSprite = Draw3D.indexedSpritesArray[17];
-                int j = indexedSprite.anInt1478 * indexedSprite.anInt1479 - 1;
-                int l = indexedSprite.anInt1478 * anInt969 * 2;
-                byte[] abyte0 = indexedSprite.aByteArray1476;
+                int j = indexedSprite.width * indexedSprite.anInt1479 - 1;
+                int l = indexedSprite.width * anInt969 * 2;
+                byte[] abyte0 = indexedSprite.pixels;
                 byte[] abyte2 = aByteArray1069;
                 for (int j1 = 0; j1 <= j; j1++)
                     abyte2[j1] = abyte0[j1 - l & j];
 
-                indexedSprite.aByteArray1476 = abyte2;
+                indexedSprite.pixels = abyte2;
                 aByteArray1069 = abyte0;
-                Draw3D.method391(17, 150);
+                Draw3D.updateTexture(17);
             }
-            if (Draw3D.anIntArray1456[24] >= i) {
+            if (Draw3D.textureCycles[24] >= i) {
                 IndexedSprite indexedSprite_1 = Draw3D.indexedSpritesArray[24];
-                int k = indexedSprite_1.anInt1478 * indexedSprite_1.anInt1479 - 1;
-                int i1 = indexedSprite_1.anInt1478 * anInt969 * 2;
-                byte[] abyte1 = indexedSprite_1.aByteArray1476;
+                int k = indexedSprite_1.width * indexedSprite_1.anInt1479 - 1;
+                int i1 = indexedSprite_1.width * anInt969 * 2;
+                byte[] abyte1 = indexedSprite_1.pixels;
                 byte[] abyte3 = aByteArray1069;
                 for (int k1 = 0; k1 <= k; k1++)
                     abyte3[k1] = abyte1[k1 - i1 & k];
 
-                indexedSprite_1.aByteArray1476 = abyte3;
+                indexedSprite_1.pixels = abyte3;
                 aByteArray1069 = abyte1;
-                Draw3D.method391(24, 150);
+                Draw3D.updateTexture(24);
             }
         }
     }
@@ -2190,7 +2190,7 @@ public class Game extends GameShell {
             if (locType_2.mapscene != -1) {
                 IndexedSprite class38_sub2_sub2_sub3_2 = indexedSpritesArray1[locType_2.mapscene];
                 if (class38_sub2_sub2_sub3_2 != null) {
-                    int i6 = (locType_2.sizeX * 4 - class38_sub2_sub2_sub3_2.anInt1478) / 2;
+                    int i6 = (locType_2.sizeX * 4 - class38_sub2_sub2_sub3_2.width) / 2;
                     int j6 = (locType_2.sizeZ * 4 - class38_sub2_sub2_sub3_2.anInt1479) / 2;
                     class38_sub2_sub2_sub3_2.method419(48 + (104 - j1 - locType_2.sizeZ) * 4 + j6, 48 + l * 4 + i6,
                             false);
@@ -2262,7 +2262,7 @@ public class Game extends GameShell {
             if (locType.mapscene != -1) {
                 IndexedSprite indexedSprite_1 = indexedSpritesArray1[locType.mapscene];
                 if (indexedSprite_1 != null) {
-                    int j5 = (locType.sizeX * 4 - indexedSprite_1.anInt1478) / 2;
+                    int j5 = (locType.sizeX * 4 - indexedSprite_1.width) / 2;
                     int k5 = (locType.sizeZ * 4 - indexedSprite_1.anInt1479) / 2;
                     indexedSprite_1.method419(48 + (104 - j1 - locType.sizeZ) * 4 + k5, 48 + l * 4 + j5,
                             false);
@@ -2293,7 +2293,7 @@ public class Game extends GameShell {
             if (locType.mapscene != -1) {
                 IndexedSprite indexedSprite = indexedSpritesArray1[locType.mapscene];
                 if (indexedSprite != null) {
-                    int i4 = (locType.sizeX * 4 - indexedSprite.anInt1478) / 2;
+                    int i4 = (locType.sizeX * 4 - indexedSprite.width) / 2;
                     int j4 = (locType.sizeZ * 4 - indexedSprite.anInt1479) / 2;
                     indexedSprite.method419(48 + (104 - j1 - locType.sizeZ) * 4 + j4, 48 + l * 4 + i4, false);
                 }
@@ -2960,13 +2960,13 @@ public class Game extends GameShell {
         int l = anIntArray938[i];
         if (k == 1) {
             if (l == 1)
-                Draw3D.method393(true, 0.90000000000000002D);
+                Draw3D.setBrightness(0.90000000000000002D);
             if (l == 2)
-                Draw3D.method393(true, 0.80000000000000004D);
+                Draw3D.setBrightness(0.80000000000000004D);
             if (l == 3)
-                Draw3D.method393(true, 0.69999999999999996D);
+                Draw3D.setBrightness(0.69999999999999996D);
             if (l == 4)
-                Draw3D.method393(true, 0.59999999999999998D);
+                Draw3D.setBrightness(0.59999999999999998D);
             ObjType.iconCache.clear();
             aBoolean751 = true;
         }
@@ -4713,9 +4713,9 @@ public class Game extends GameShell {
             }
 
             method13(true, "Unpacking textures", 80);
-            Draw3D.method389((byte) 2, fileArchive_4);
-            Draw3D.method393(true, 0.80000000000000004D);
-            Draw3D.method388(20, -20);
+            Draw3D.unpackTextures(fileArchive_4);
+            Draw3D.setBrightness(0.80000000000000004D);
+            Draw3D.setupPools(20);
             method13(true, "Unpacking models", 83);
             Model.load(fileArchive_3);
             SeqBase.load(fileArchive_3);
@@ -4747,8 +4747,8 @@ public class Game extends GameShell {
                 int i4 = 999;
                 int k4 = 0;
                 for (int i5 = 0; i5 < 35; i5++) {
-                    if (indexedSprite19.aByteArray1476[i5
-                            + l3 * indexedSprite19.anInt1478] == 0) {
+                    if (indexedSprite19.pixels[i5
+                            + l3 * indexedSprite19.width] == 0) {
                         if (i4 == 999)
                             i4 = i5;
                         continue;
@@ -4767,7 +4767,7 @@ public class Game extends GameShell {
                 int l4 = 999;
                 int j5 = 0;
                 for (int l5 = 10; l5 < 168; l5++) {
-                    if (indexedSprite19.aByteArray1476[l5 + j4 * indexedSprite19.anInt1478] == 0
+                    if (indexedSprite19.pixels[l5 + j4 * indexedSprite19.width] == 0
                             && (l5 > 34 || j4 > 34)) {
                         if (l4 == 999)
                             l4 = l5;
@@ -4783,11 +4783,11 @@ public class Game extends GameShell {
                 anIntArray953[j4 - 9] = j5 - l4;
             }
 
-            Draw3D.method386(96, 479, 0);
+            Draw3D.prepareOffsets(96, 479);
             anIntArray735 = Draw3D.offsets;
-            Draw3D.method386(261, 190, 0);
+            Draw3D.prepareOffsets(261, 190);
             anIntArray736 = Draw3D.offsets;
-            Draw3D.method386(334, 512, 0);
+            Draw3D.prepareOffsets(334, 512);
             anIntArray737 = Draw3D.offsets;
             int[] ai = new int[9];
             for (int k5 = 0; k5 < 9; k5++) {
@@ -5804,7 +5804,7 @@ public class Game extends GameShell {
         VarpType.instances = null;
         super.drawArea = null;
         PlayerEntity.models = null;
-        Draw3D.method384(true);
+        Draw3D.unload();
         Scene.unload();
         Model.unload();
         SeqBase.instance = null;
@@ -6189,7 +6189,7 @@ public class Game extends GameShell {
 
     public static void method106(int i) {
         Scene.lowMemory = false;
-        Draw3D.aBoolean1437 = false;
+        Draw3D.lowMemory = false;
         if (i != 9) {
             return;
         } else {
@@ -7018,8 +7018,8 @@ public class Game extends GameShell {
         if (indexedSprite != null) {
             int l1 = 0;
             for (int j2 = 0; j2 < indexedSprite.anInt1479; j2++) {
-                for (int l2 = 0; l2 < indexedSprite.anInt1478; l2++)
-                    if (indexedSprite.aByteArray1476[l1++] != 0) {
+                for (int l2 = 0; l2 < indexedSprite.width; l2++)
+                    if (indexedSprite.pixels[l1++] != 0) {
                         int i3 = l2 + 16 + indexedSprite.anInt1480;
                         int j3 = j2 + 16 + indexedSprite.anInt1481;
                         int k3 = i3 + (j3 << 7);
@@ -7088,7 +7088,7 @@ public class Game extends GameShell {
             linkedList2.clear();
             linkedList1.clear();
             linkedList4.clear();
-            Draw3D.method387(false);
+            Draw3D.clearPools();
             method83(aByte843);
             scene.reset();
             for (int j = 0; j < 4; j++)
@@ -7164,7 +7164,7 @@ public class Game extends GameShell {
         if (i <= 0)
             aBoolean1147 = !aBoolean1147;
         System.gc();
-        Draw3D.method388(20, -20);
+        Draw3D.setupPools(20);
     }
 
     public void method7(int i) {

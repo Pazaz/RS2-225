@@ -14,7 +14,7 @@ public class IndexedSprite extends Draw2D {
         Buffer class38_sub2_sub3_1 = new Buffer(
                 fileArchive.read("index.dat", null));
         class38_sub2_sub3_1.offset = class38_sub2_sub3.readWord();
-        anInt1482 = class38_sub2_sub3_1.readWord();
+        clipWidth = class38_sub2_sub3_1.readWord();
         anInt1483 = class38_sub2_sub3_1.readWord();
         int j = class38_sub2_sub3_1.readByte();
         anIntArray1477 = new int[j];
@@ -29,96 +29,96 @@ public class IndexedSprite extends Draw2D {
 
         anInt1480 = class38_sub2_sub3_1.readByte();
         anInt1481 = class38_sub2_sub3_1.readByte();
-        anInt1478 = class38_sub2_sub3_1.readWord();
+        width = class38_sub2_sub3_1.readWord();
         anInt1479 = class38_sub2_sub3_1.readWord();
         int i1 = class38_sub2_sub3_1.readByte();
-        int j1 = anInt1478 * anInt1479;
-        aByteArray1476 = new byte[j1];
+        int j1 = width * anInt1479;
+        pixels = new byte[j1];
         if (i1 == 0) {
             for (int k1 = 0; k1 < j1; k1++)
-                aByteArray1476[k1] = class38_sub2_sub3.readByteSigned();
+                pixels[k1] = class38_sub2_sub3.readByteSigned();
 
             return;
         }
         if (i1 == 1) {
-            for (int l1 = 0; l1 < anInt1478; l1++) {
+            for (int l1 = 0; l1 < width; l1++) {
                 for (int i2 = 0; i2 < anInt1479; i2++)
-                    aByteArray1476[l1 + i2 * anInt1478] = class38_sub2_sub3.readByteSigned();
+                    pixels[l1 + i2 * width] = class38_sub2_sub3.readByteSigned();
 
             }
 
         }
     }
 
-    public void method414(boolean flag) {
-        anInt1482 /= 2;
+    public void shrink(boolean flag) {
+        clipWidth /= 2;
         anInt1483 /= 2;
-        byte[] abyte0 = new byte[anInt1482 * anInt1483];
+        byte[] abyte0 = new byte[clipWidth * anInt1483];
         int i = 0;
         for (int j = 0; j < anInt1479; j++) {
-            for (int k = 0; k < anInt1478; k++)
-                abyte0[(k + anInt1480 >> 1) + (j + anInt1481 >> 1) * anInt1482] = aByteArray1476[i++];
+            for (int k = 0; k < width; k++)
+                abyte0[(k + anInt1480 >> 1) + (j + anInt1481 >> 1) * clipWidth] = pixels[i++];
 
         }
 
         if (flag)
             anInt1473 = 197;
-        aByteArray1476 = abyte0;
-        anInt1478 = anInt1482;
+        pixels = abyte0;
+        width = clipWidth;
         anInt1479 = anInt1483;
         anInt1480 = 0;
         anInt1481 = 0;
     }
 
-    public void method415(int i) {
-        if (anInt1478 == anInt1482 && anInt1479 == anInt1483)
+    public void crop(int i) {
+        if (width == clipWidth && anInt1479 == anInt1483)
             return;
-        byte[] abyte0 = new byte[anInt1482 * anInt1483];
+        byte[] abyte0 = new byte[clipWidth * anInt1483];
         int j = 0;
         if (i != 0)
             aBoolean1472 = !aBoolean1472;
         for (int k = 0; k < anInt1479; k++) {
-            for (int l = 0; l < anInt1478; l++)
-                abyte0[l + anInt1480 + (k + anInt1481) * anInt1482] = aByteArray1476[j++];
+            for (int l = 0; l < width; l++)
+                abyte0[l + anInt1480 + (k + anInt1481) * clipWidth] = pixels[j++];
 
         }
 
-        aByteArray1476 = abyte0;
-        anInt1478 = anInt1482;
+        pixels = abyte0;
+        width = clipWidth;
         anInt1479 = anInt1483;
         anInt1480 = 0;
         anInt1481 = 0;
     }
 
     public void method416(int i) {
-        byte[] abyte0 = new byte[anInt1478 * anInt1479];
+        byte[] abyte0 = new byte[width * anInt1479];
         int j = 0;
         for (int k = 0; k < anInt1479; k++) {
-            for (int l = anInt1478 - 1; l >= 0; l--)
-                abyte0[j++] = aByteArray1476[l + k * anInt1478];
+            for (int l = width - 1; l >= 0; l--)
+                abyte0[j++] = pixels[l + k * width];
 
         }
 
-        aByteArray1476 = abyte0;
-        for (anInt1480 = anInt1482 - anInt1478 - anInt1480; i >= 0; )
+        pixels = abyte0;
+        for (anInt1480 = clipWidth - width - anInt1480; i >= 0; )
             return;
 
     }
 
     public void method417(byte byte0) {
-        byte[] abyte0 = new byte[anInt1478 * anInt1479];
+        byte[] abyte0 = new byte[width * anInt1479];
         if (byte0 != -74) {
             for (int i = 1; i > 0; i++)
                 ;
         }
         int j = 0;
         for (int k = anInt1479 - 1; k >= 0; k--) {
-            for (int l = 0; l < anInt1478; l++)
-                abyte0[j++] = aByteArray1476[l + k * anInt1478];
+            for (int l = 0; l < width; l++)
+                abyte0[j++] = pixels[l + k * width];
 
         }
 
-        aByteArray1476 = abyte0;
+        pixels = abyte0;
         anInt1481 = anInt1483 - anInt1479 - anInt1481;
     }
 
@@ -157,7 +157,7 @@ public class IndexedSprite extends Draw2D {
         int k = j + i * Draw2D.width;
         int l = 0;
         int i1 = anInt1479;
-        int j1 = anInt1478;
+        int j1 = width;
         int k1 = Draw2D.width - j1;
         int l1 = 0;
         if (i < Draw2D.top) {
@@ -187,7 +187,7 @@ public class IndexedSprite extends Draw2D {
         if (j1 <= 0 || i1 <= 0) {
             return;
         } else {
-            method420(Draw2D.dest, l, l1, aByteArray1476, i1, 0, j1, k, k1, anIntArray1477);
+            method420(Draw2D.dest, l, l1, pixels, i1, 0, j1, k, k1, anIntArray1477);
             if (!flag)
                 ;
             return;
@@ -242,12 +242,12 @@ public class IndexedSprite extends Draw2D {
     public int anInt1473;
     public byte aByte1474;
     public boolean aBoolean1475;
-    public byte[] aByteArray1476;
+    public byte[] pixels;
     public int[] anIntArray1477;
-    public int anInt1478;
+    public int width;
     public int anInt1479;
     public int anInt1480;
     public int anInt1481;
-    public int anInt1482;
+    public int clipWidth;
     public int anInt1483;
 }

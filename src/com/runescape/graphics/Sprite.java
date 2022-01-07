@@ -507,7 +507,7 @@ public class Sprite extends Draw2D {
             return;
         } else {
             method413(j1, l1, 0, -478, i1, l, Draw2D.dest, pixels, k,
-                    indexedSprite.aByteArray1476, k1);
+                    indexedSprite.pixels, k1);
             return;
         }
     }
