@@ -94,8 +94,8 @@ public class Game extends GameShell {
                         int i1 = (((PathingEntity) (obj)).anInt1399 * 30) / ((PathingEntity) (obj)).anInt1400;
                         if (i1 > 30)
                             i1 = 30;
-                        Draw2D.fillRect(anInt1020 - 3, anInt1019 - 15, 65280, (byte) 93, i1, 5);
-                        Draw2D.fillRect(anInt1020 - 3, (anInt1019 - 15) + i1, 0xff0000, (byte) 93, 30 - i1,
+                        Draw2D.fillRect(anInt1020 - 3, anInt1019 - 15, 65280, i1, 5);
+                        Draw2D.fillRect(anInt1020 - 3, (anInt1019 - 15) + i1, 0xff0000, 30 - i1,
                                 5);
                     }
                 }
@@ -182,10 +182,10 @@ public class Game extends GameShell {
                 if (anIntArray1098[k] == 2) {
                     int l3 = indexedFont3.method423(false, s);
                     int i4 = ((150 - anIntArray1099[k]) * (l3 + 100)) / 150;
-                    Draw2D.setBounds(334, 0, anInt1019 + 50, 789, anInt1019 - 50);
+                    Draw2D.setBounds(334, 0, anInt1019 + 50, anInt1019 - 50);
                     indexedFont3.method424((anInt1019 + 50) - i4, anInt1020 + 1, false, 0, s);
                     indexedFont3.method424((anInt1019 + 50) - i4, anInt1020, false, l2, s);
-                    Draw2D.method377(0);
+                    Draw2D.resetBounds();
                 }
             } else {
                 indexedFont3.method421(anInt1020 + 1, (byte) 6, 0, s, anInt1019);
@@ -833,7 +833,7 @@ public class Game extends GameShell {
         Model.anInt1298 = 0;
         Model.anInt1296 = super.anInt21 - 8;
         Model.anInt1297 = super.anInt22 - 11;
-        Draw2D.method379(anInt1143);
+        Draw2D.clear();
         scene.draw(anInt1115, anInt1111, k, anInt1114, anInt1112, anInt1113);
         scene.clearFrameLocs();
         method15(anInt805);
@@ -2064,7 +2064,7 @@ public class Game extends GameShell {
             int i3 = (anInt1052 * 4 + 2) - localPlayerEntity.z / 32;
             method87(i3, 4, aClass38_Sub2_Sub2_Sub2_997, k1);
         }
-        Draw2D.fillRect(82, 93, 0xffffff, (byte) 93, 3, 3);
+        Draw2D.fillRect(82, 93, 0xffffff, 3, 3);
         drawArea22.init2D();
     }
 
@@ -2467,22 +2467,22 @@ public class Game extends GameShell {
     public void method50(int i, int j, int k, int l, int i1, int j1) {
         indexedSprite6.method419(k, j, false);
         indexedSprite7.method419((k + j1) - 16, j, false);
-        Draw2D.fillRect(k + 16, j, anInt1050, (byte) 93, 16, j1 - 32);
+        Draw2D.fillRect(k + 16, j, anInt1050, 16, j1 - 32);
         int k1 = ((j1 - 32) * j1) / i1;
         if (k1 < 8)
             k1 = 8;
         int l1 = ((j1 - 32 - k1) * l) / (i1 - j1);
         if (i <= 0)
             anInt780 = -1;
-        Draw2D.fillRect(k + 16 + l1, j, anInt1158, (byte) 93, 16, k1);
-        Draw2D.method383(anInt993, anInt727, k + 16 + l1, k1, j);
-        Draw2D.method383(anInt993, anInt727, k + 16 + l1, k1, j + 1);
-        Draw2D.method382(anInt993, 0, k + 16 + l1, 16, j);
-        Draw2D.method382(anInt993, 0, k + 17 + l1, 16, j);
-        Draw2D.method383(anInt980, anInt727, k + 16 + l1, k1, j + 15);
-        Draw2D.method383(anInt980, anInt727, k + 17 + l1, k1 - 1, j + 14);
-        Draw2D.method382(anInt980, 0, k + 15 + l1 + k1, 16, j);
-        Draw2D.method382(anInt980, 0, k + 14 + l1 + k1, 15, j + 1);
+        Draw2D.fillRect(k + 16 + l1, j, anInt1158, 16, k1);
+        Draw2D.drawVerticalLine(anInt993, k + 16 + l1, k1, j);
+        Draw2D.drawVerticalLine(anInt993, k + 16 + l1, k1, j + 1);
+        Draw2D.drawHorizontalLine(anInt993, k + 16 + l1, 16, j);
+        Draw2D.drawHorizontalLine(anInt993, k + 17 + l1, 16, j);
+        Draw2D.drawVerticalLine(anInt980, k + 16 + l1, k1, j + 15);
+        Draw2D.drawVerticalLine(anInt980, k + 17 + l1, k1 - 1, j + 14);
+        Draw2D.drawHorizontalLine(anInt980, k + 15 + l1 + k1, 16, j);
+        Draw2D.drawHorizontalLine(anInt980, k + 14 + l1 + k1, 15, j + 1);
     }
 
     public void method51(byte byte0) {
@@ -2640,11 +2640,11 @@ public class Game extends GameShell {
             drawArea19 = null;
             drawArea23 = new DrawArea(method11(aByte1116), 479, 96);
             drawArea21 = new DrawArea(method11(aByte1116), 168, 160);
-            Draw2D.method379(anInt1143);
+            Draw2D.clear();
             indexedSprite19.method419(0, 0, false);
             drawArea20 = new DrawArea(method11(aByte1116), 190, 261);
             drawArea22 = new DrawArea(method11(aByte1116), 512, 334);
-            Draw2D.method379(anInt1143);
+            Draw2D.clear();
             drawArea24 = new DrawArea(method11(aByte1116), 501, 61);
             drawArea25 = new DrawArea(method11(aByte1116), 288, 40);
             drawArea26 = new DrawArea(method11(aByte1116), 269, 66);
@@ -2726,7 +2726,7 @@ public class Game extends GameShell {
         int l1 = Draw2D.bottom;
         if (k != 38682)
             anInt780 = -1;
-        Draw2D.setBounds(i + interfaceComponent.anInt275, i, j + interfaceComponent.anInt274, 789, j);
+        Draw2D.setBounds(i + interfaceComponent.anInt275, i, j + interfaceComponent.anInt274, j);
         int i2 = interfaceComponent.anIntArray285.length;
         for (int j2 = 0; j2 < i2; j2++) {
             int k2 = interfaceComponent.anIntArray286[j2] + j;
@@ -2800,10 +2800,10 @@ public class Game extends GameShell {
 
                 } else if (interfaceComponent_1.anInt271 == 3) {
                     if (interfaceComponent_1.aBoolean299)
-                        Draw2D.fillRect(l2, k2, interfaceComponent_1.anInt305, (byte) 93, interfaceComponent_1.anInt274,
+                        Draw2D.fillRect(l2, k2, interfaceComponent_1.anInt305, interfaceComponent_1.anInt274,
                                 interfaceComponent_1.anInt275);
                     else
-                        Draw2D.method381(3, k2, interfaceComponent_1.anInt305, interfaceComponent_1.anInt275, l2,
+                        Draw2D.drawRect(k2, interfaceComponent_1.anInt305, interfaceComponent_1.anInt275, l2,
                                 interfaceComponent_1.anInt274);
                 } else if (interfaceComponent_1.anInt271 == 4) {
                     IndexedFont indexedFont = interfaceComponent_1.indexedFont;
@@ -2936,7 +2936,7 @@ public class Game extends GameShell {
                 }
         }
 
-        Draw2D.setBounds(l1, j1, k1, 789, i1);
+        Draw2D.setBounds(l1, j1, k1, i1);
     }
 
     public void method60(boolean flag, int i, Buffer class38_sub2_sub3) {
@@ -4098,9 +4098,9 @@ public class Game extends GameShell {
         int l = anInt1151;
         int i1 = anInt1152;
         int j1 = 0x5d5447;
-        Draw2D.fillRect(k, j, j1, (byte) 93, l, i1);
-        Draw2D.fillRect(k + 1, j + 1, 0, (byte) 93, l - 2, 16);
-        Draw2D.method381(3, j + 1, 0, i1 - 19, k + 18, l - 2);
+        Draw2D.fillRect(k, j, j1, l, i1);
+        Draw2D.fillRect(k + 1, j + 1, 0, l - 2, 16);
+        Draw2D.drawRect(j + 1, 0, i1 - 19, k + 18, l - 2);
         indexedFont3.method424(j + 3, k + 14, false, j1, "Choose Option");
         int k1 = super.anInt21;
         int l1 = super.anInt22;
@@ -5252,25 +5252,25 @@ public class Game extends GameShell {
         drawArea25 = null;
         drawArea26 = null;
         drawArea14 = new DrawArea(method11(aByte1116), 128, 265);
-        Draw2D.method379(anInt1143);
+        Draw2D.clear();
         drawArea15 = new DrawArea(method11(aByte1116), 128, 265);
-        Draw2D.method379(anInt1143);
+        Draw2D.clear();
         drawArea11 = new DrawArea(method11(aByte1116), 533, 186);
-        Draw2D.method379(anInt1143);
+        Draw2D.clear();
         drawArea12 = new DrawArea(method11(aByte1116), 360, 146);
-        Draw2D.method379(anInt1143);
+        Draw2D.clear();
         drawArea13 = new DrawArea(method11(aByte1116), 360, 200);
-        Draw2D.method379(anInt1143);
+        Draw2D.clear();
         drawArea16 = new DrawArea(method11(aByte1116), 214, 267);
-        Draw2D.method379(anInt1143);
+        Draw2D.clear();
         drawArea17 = new DrawArea(method11(aByte1116), 215, 267);
-        Draw2D.method379(anInt1143);
+        Draw2D.clear();
         drawArea18 = new DrawArea(method11(aByte1116), 86, 79);
         if (byte0 != aByte866)
             aClass38_Sub2_Sub3_798.writeByte(73);
-        Draw2D.method379(anInt1143);
+        Draw2D.clear();
         drawArea19 = new DrawArea(method11(aByte1116), 87, 79);
-        Draw2D.method379(anInt1143);
+        Draw2D.clear();
         if (fileArchive != null) {
             method128((byte) 5);
             method48(0);
@@ -7784,7 +7784,7 @@ public class Game extends GameShell {
         } else {
             IndexedFont indexedFont = indexedFont2;
             int i = 0;
-            Draw2D.setBounds(77, 0, 463, 789, 0);
+            Draw2D.setBounds(77, 0, 463, 0);
             for (int j = 0; j < 100; j++)
                 if (aStringArray898[j] != null) {
                     int k = anIntArray896[j];
@@ -7850,7 +7850,7 @@ public class Game extends GameShell {
                     }
                 }
 
-            Draw2D.method377(0);
+            Draw2D.resetBounds();
             anInt792 = i * 14 + 7;
             if (anInt792 < 78)
                 anInt792 = 78;
@@ -7858,7 +7858,7 @@ public class Game extends GameShell {
             indexedFont.method424(4, 90, false, 0, StringUtils.formatName(aString1066) + ":");
             indexedFont.method424(6 + indexedFont.method423(false, aString1066 + ": "), 90, false,
                     255, aString1137 + "*");
-            Draw2D.method382(0, 0, 77, 479, 0);
+            Draw2D.drawHorizontalLine(0, 77, 479, 0);
         }
         if (aBoolean879 && anInt1148 == 2)
             method74(-961);
@@ -9089,10 +9089,10 @@ public class Game extends GameShell {
                 "RuneScape is loading - please wait...", c / 2);
         aBoolean974 &= flag;
         int j = c1 / 2 - 18 - byte0;
-        Draw2D.method381(3, c / 2 - 152, 0x8c1111, 34, j, 304);
-        Draw2D.method381(3, c / 2 - 151, 0, 32, j + 1, 302);
-        Draw2D.fillRect(j + 2, c / 2 - 150, 0x8c1111, (byte) 93, i * 3, 30);
-        Draw2D.fillRect(j + 2, (c / 2 - 150) + i * 3, 0, (byte) 93, 300 - i * 3, 30);
+        Draw2D.drawRect(c / 2 - 152, 0x8c1111, 34, j, 304);
+        Draw2D.drawRect(c / 2 - 151, 0, 32, j + 1, 302);
+        Draw2D.fillRect(j + 2, c / 2 - 150, 0x8c1111, i * 3, 30);
+        Draw2D.fillRect(j + 2, (c / 2 - 150) + i * 3, 0, 300 - i * 3, 30);
         indexedFont3.method421((c1 / 2 + 5) - byte0, (byte) 6, 0xffffff, s, c / 2);
         drawArea13.drawImage(186, super.aGraphics14, 214);
         if (aBoolean751) {

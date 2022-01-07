@@ -1490,19 +1490,19 @@ public class Model extends CacheableNode {
             return;
         int j3 = l1 * l + j1 * i1 >> 16;
         int k3 = j3 - lengthXZ << 9;
-        if (k3 / i3 >= Draw2D.anInt1316)
+        if (k3 / i3 >= Draw2D.centerX)
             return;
         int l3 = j3 + lengthXZ << 9;
-        if (l3 / i3 <= -Draw2D.anInt1316)
+        if (l3 / i3 <= -Draw2D.centerX)
             return;
         int i4 = k1 * k - j2 * j >> 16;
         int j4 = lengthXZ * j >> 16;
         int k4 = i4 + j4 << 9;
-        if (k4 / i3 <= -Draw2D.anInt1317)
+        if (k4 / i3 <= -Draw2D.centerY)
             return;
         int l4 = j4 + (maxBoundY * k >> 16);
         int i5 = i4 - l4 << 9;
-        if (i5 / i3 >= Draw2D.anInt1317)
+        if (i5 / i3 >= Draw2D.centerY)
             return;
         int j5 = l2 + (maxBoundY * j >> 16);
         boolean flag = k2 - j5 <= 50;

@@ -98,7 +98,7 @@ public class Sprite extends Draw2D {
             for (int i = 1; i > 0; i++)
                 ;
         }
-        Draw2D.init(anInt1466, pixels, -657, anInt1467);
+        Draw2D.prepare(anInt1466, pixels, anInt1467);
     }
 
     public void method402(int i, int j, int k, boolean flag) {

@@ -307,8 +307,8 @@ public class ObjType {
         int bottom = Draw2D.bottom;
 
         Draw3D.jagged = false;
-        Draw2D.init(32, sprite.pixels, -657, 32);
-        Draw2D.fillRect(0, 0, 0, (byte) 93, 32, 32);
+        Draw2D.prepare(32, sprite.pixels, 32);
+        Draw2D.fillRect(0, 0, 0, 32, 32);
         Draw3D.init2D(-192);
 
         Model model = info.getModel(1);
@@ -354,8 +354,8 @@ public class ObjType {
         }
 
         iconCache.put(i, sprite);
-        Draw2D.init(width, data, -657, height);
-        Draw2D.setBounds(bottom, top, right, 789, left);
+        Draw2D.prepare(width, data, height);
+        Draw2D.setBounds(bottom, top, right, left);
         Draw3D.centerX = centerX;
         Draw3D.centerY = centerY;
         Draw3D.offsets = offsets;

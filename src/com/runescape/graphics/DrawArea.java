@@ -22,7 +22,7 @@ public class DrawArea
     }
 
     public void init2D() {
-        Draw2D.init(width, pixels, -657, height);
+        Draw2D.prepare(width, pixels, height);
     }
 
     public void drawImage(int y, Graphics g, int x) {
