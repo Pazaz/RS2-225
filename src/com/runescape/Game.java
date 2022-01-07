@@ -51,7 +51,7 @@ public class Game extends GameShell {
                         if (anInt1019 > -1) {
                             for (int l1 = 0; l1 < 8; l1++)
                                 if ((playerEntity.headicons & 1 << l1) != 0) {
-                                    aClass38_Sub2_Sub2_Sub2Array956[l1].method405(anInt1020 - l, anInt1019 - 12, false);
+                                    aClass38_Sub2_Sub2_Sub2Array956[l1].draw(anInt1020 - l, anInt1019 - 12);
                                     l -= 25;
                                 }
 
@@ -60,12 +60,12 @@ public class Game extends GameShell {
                     if (j >= 0 && anInt911 == 10 && anInt1076 == anIntArray824[j]) {
                         method90(((PathingEntity) (obj)).height + 15, aBoolean860, ((PathingEntity) (obj)));
                         if (anInt1019 > -1)
-                            aClass38_Sub2_Sub2_Sub2Array956[7].method405(anInt1020 - l, anInt1019 - 12, false);
+                            aClass38_Sub2_Sub2_Sub2Array956[7].draw(anInt1020 - l, anInt1019 - 12);
                     }
                 } else if (anInt911 == 1 && anInt801 == anIntArray929[j - anInt823] && clientClock % 20 < 10) {
                     method90(((PathingEntity) (obj)).height + 15, aBoolean860, ((PathingEntity) (obj)));
                     if (anInt1019 > -1)
-                        aClass38_Sub2_Sub2_Sub2Array956[2].method405(anInt1020 - 28, anInt1019 - 12, false);
+                        aClass38_Sub2_Sub2_Sub2Array956[2].draw(anInt1020 - 28, anInt1019 - 12);
                 }
                 if (((PathingEntity) (obj)).spoken != null && (j >= anInt823 || anInt976 == 0 || anInt976 == 3
                         || anInt976 == 1 && method138(-20, ((PlayerEntity) obj).name))) {
@@ -102,8 +102,8 @@ public class Game extends GameShell {
                 if (((PathingEntity) (obj)).cycleStatus > clientClock + 330) {
                     method90(((PathingEntity) (obj)).height / 2, aBoolean860, ((PathingEntity) (obj)));
                     if (anInt1019 > -1) {
-                        aClass38_Sub2_Sub2_Sub2Array776[((PathingEntity) (obj)).anInt1397].method405(anInt1020 - 12,
-                                anInt1019 - 12, false);
+                        aClass38_Sub2_Sub2_Sub2Array776[((PathingEntity) (obj)).anInt1397].draw(anInt1020 - 12,
+                                anInt1019 - 12);
                         indexedFont1.drawRightAligned(anInt1020 + 4, 0,
                                 String.valueOf(((PathingEntity) (obj)).anInt1396), anInt1019);
                         indexedFont1.drawRightAligned(anInt1020 + 3, 0xffffff,
@@ -2002,9 +2002,9 @@ public class Game extends GameShell {
         int i = anInt817 + anInt1085 & 0x7ff;
         int j = 48 + localPlayerEntity.x / 32;
         int l1 = 464 - localPlayerEntity.z / 32;
-        aClass38_Sub2_Sub2_Sub2_1053.method411(i, 146, anIntArray1133, 151, l1, 256 + anInt930, j, 21, 9, false,
+        aClass38_Sub2_Sub2_Sub2_1053.drawRotatedMasked(i, 146, anIntArray1133, 151, l1, 256 + anInt930, j, 21, 9,
                 anIntArray953);
-        aClass38_Sub2_Sub2_Sub2_1145.method411(anInt817, 33, anIntArray856, 33, 25, 256, 25, 0, 0, false,
+        aClass38_Sub2_Sub2_Sub2_1145.drawRotatedMasked(anInt817, 33, anIntArray856, 33, 25, 256, 25, 0, 0,
                 anIntArray1117);
         for (int j3 = 0; j3 < anInt917; j3++) {
             int k = (anIntArray918[j3] * 4 + 2) - localPlayerEntity.x / 32;
@@ -2123,7 +2123,7 @@ public class Game extends GameShell {
         int k1 = ((238 + (int) (Math.random() * 20D)) - 10 << 16) + ((238 + (int) (Math.random() * 20D)) - 10 << 8)
                 + ((238 + (int) (Math.random() * 20D)) - 10);
         int i2 = (238 + (int) (Math.random() * 20D)) - 10 << 16;
-        aClass38_Sub2_Sub2_Sub2_1053.method401((byte) 62);
+        aClass38_Sub2_Sub2_Sub2_1053.prepare();
         for (int j2 = 1; j2 < 103; j2++) {
             for (int k2 = 1; k2 < 103; k2++) {
                 if ((aByteArrayArrayArray840[i][k2][j2] & 0x18) == 0)
@@ -2775,11 +2775,11 @@ public class Game extends GameShell {
                                             k6 = 0;
                                             k8 = 0;
                                         }
-                                        class38_sub2_sub2_sub2_2.method409(128, j5 + k6, i6 + k8, (byte) -26);
+                                        class38_sub2_sub2_sub2_2.draw(128, j5 + k6, i6 + k8);
                                     } else if (anInt947 != 0 && anInt946 == i3 && anInt945 == interfaceComponent_1.anInt269)
-                                        class38_sub2_sub2_sub2_2.method409(128, j5, i6, (byte) -26);
+                                        class38_sub2_sub2_sub2_2.draw(128, j5, i6);
                                     else
-                                        class38_sub2_sub2_sub2_2.method405(i6, j5, false);
+                                        class38_sub2_sub2_sub2_2.draw(i6, j5);
                                     if (class38_sub2_sub2_sub2_2.cropW == 33 || interfaceComponent_1.anIntArray266[i3] != 1) {
                                         int k9 = interfaceComponent_1.anIntArray266[i3];
                                         indexedFont1.draw(j5 + 1 + k6, i6 + 10 + k8, 0,
@@ -2791,7 +2791,7 @@ public class Game extends GameShell {
                             } else if (interfaceComponent_1.aClass38_Sub2_Sub2_Sub2Array295 != null && i3 < 20) {
                                 Sprite class38_sub2_sub2_sub2_1 = interfaceComponent_1.aClass38_Sub2_Sub2_Sub2Array295[i3];
                                 if (class38_sub2_sub2_sub2_1 != null)
-                                    class38_sub2_sub2_sub2_1.method405(i6, j5, false);
+                                    class38_sub2_sub2_sub2_1.draw(i6, j5);
                             }
                             i3++;
                         }
@@ -2883,7 +2883,7 @@ public class Game extends GameShell {
                     else
                         class38_sub2_sub2_sub2 = interfaceComponent_1.aClass38_Sub2_Sub2_Sub2_308;
                     if (class38_sub2_sub2_sub2 != null)
-                        class38_sub2_sub2_sub2.method405(l2, k2, false);
+                        class38_sub2_sub2_sub2.draw(l2, k2);
                 } else if (interfaceComponent_1.anInt271 == 6) {
                     int j3 = Draw3D.centerX;
                     int i4 = Draw3D.centerY;
@@ -4662,52 +4662,52 @@ public class Game extends GameShell {
             indexedSprite5.flipHorizontally();
             indexedSprite5.flipVertically();
             Sprite class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backleft1", 0);
-            drawArea1 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
-                    class38_sub2_sub2_sub2.anInt1467);
-            class38_sub2_sub2_sub2.method403(34676, 0, 0);
+            drawArea1 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.width,
+                    class38_sub2_sub2_sub2.height);
+            class38_sub2_sub2_sub2.drawOpaque(0, 0);
             class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backleft2", 0);
-            drawArea2 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
-                    class38_sub2_sub2_sub2.anInt1467);
-            class38_sub2_sub2_sub2.method403(34676, 0, 0);
+            drawArea2 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.width,
+                    class38_sub2_sub2_sub2.height);
+            class38_sub2_sub2_sub2.drawOpaque(0, 0);
             class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backright1", 0);
-            drawArea3 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
-                    class38_sub2_sub2_sub2.anInt1467);
-            class38_sub2_sub2_sub2.method403(34676, 0, 0);
+            drawArea3 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.width,
+                    class38_sub2_sub2_sub2.height);
+            class38_sub2_sub2_sub2.drawOpaque(0, 0);
             class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backright2", 0);
-            drawArea4 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
-                    class38_sub2_sub2_sub2.anInt1467);
-            class38_sub2_sub2_sub2.method403(34676, 0, 0);
+            drawArea4 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.width,
+                    class38_sub2_sub2_sub2.height);
+            class38_sub2_sub2_sub2.drawOpaque(0, 0);
             class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backtop1", 0);
-            drawArea5 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
-                    class38_sub2_sub2_sub2.anInt1467);
-            class38_sub2_sub2_sub2.method403(34676, 0, 0);
+            drawArea5 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.width,
+                    class38_sub2_sub2_sub2.height);
+            class38_sub2_sub2_sub2.drawOpaque(0, 0);
             class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backtop2", 0);
-            drawArea6 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
-                    class38_sub2_sub2_sub2.anInt1467);
-            class38_sub2_sub2_sub2.method403(34676, 0, 0);
+            drawArea6 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.width,
+                    class38_sub2_sub2_sub2.height);
+            class38_sub2_sub2_sub2.drawOpaque(0, 0);
             class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backvmid1", 0);
-            drawArea7 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
-                    class38_sub2_sub2_sub2.anInt1467);
-            class38_sub2_sub2_sub2.method403(34676, 0, 0);
+            drawArea7 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.width,
+                    class38_sub2_sub2_sub2.height);
+            class38_sub2_sub2_sub2.drawOpaque(0, 0);
             class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backvmid2", 0);
-            drawArea8 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
-                    class38_sub2_sub2_sub2.anInt1467);
-            class38_sub2_sub2_sub2.method403(34676, 0, 0);
+            drawArea8 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.width,
+                    class38_sub2_sub2_sub2.height);
+            class38_sub2_sub2_sub2.drawOpaque(0, 0);
             class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backvmid3", 0);
-            drawArea9 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
-                    class38_sub2_sub2_sub2.anInt1467);
-            class38_sub2_sub2_sub2.method403(34676, 0, 0);
+            drawArea9 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.width,
+                    class38_sub2_sub2_sub2.height);
+            class38_sub2_sub2_sub2.drawOpaque(0, 0);
             class38_sub2_sub2_sub2 = new Sprite(fileArchive_2, "backhmid2", 0);
-            drawArea10 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.anInt1466,
-                    class38_sub2_sub2_sub2.anInt1467);
-            class38_sub2_sub2_sub2.method403(34676, 0, 0);
+            drawArea10 = new DrawArea(method11(aByte1116), class38_sub2_sub2_sub2.width,
+                    class38_sub2_sub2_sub2.height);
+            class38_sub2_sub2_sub2.drawOpaque(0, 0);
             int k2 = (int) (Math.random() * 21D) - 10;
             int l2 = (int) (Math.random() * 21D) - 10;
             int i3 = (int) (Math.random() * 21D) - 10;
             int j3 = (int) (Math.random() * 41D) - 20;
             for (int k3 = 0; k3 < 50; k3++) {
                 if (aClass38_Sub2_Sub2_Sub2Array1138[k3] != null)
-                    aClass38_Sub2_Sub2_Sub2Array1138[k3].method402(k2 + j3, l2 + j3, i3 + j3, true);
+                    aClass38_Sub2_Sub2_Sub2Array1138[k3].translate(k2 + j3, l2 + j3, i3 + j3);
                 if (indexedSpritesArray1[k3] != null)
                     indexedSpritesArray1[k3].translate(k2 + j3, l2 + j3, i3 + j3);
             }
@@ -4892,9 +4892,9 @@ public class Game extends GameShell {
         }
         method19(222);
         if (anInt741 == 1)
-            aClass38_Sub2_Sub2_Sub2Array1120[anInt740 / 100].method405(anInt739 - 8 - 11, anInt738 - 8 - 8, false);
+            aClass38_Sub2_Sub2_Sub2Array1120[anInt740 / 100].draw(anInt739 - 8 - 11, anInt738 - 8 - 8);
         if (anInt741 == 2)
-            aClass38_Sub2_Sub2_Sub2Array1120[4 + anInt740 / 100].method405(anInt739 - 8 - 11, anInt738 - 8 - 8, false);
+            aClass38_Sub2_Sub2_Sub2Array1120[4 + anInt740 / 100].draw(anInt739 - 8 - 11, anInt738 - 8 - 8);
         if (anInt971 != -1) {
             method110(anInt971, anInt969, 623);
             method59(0, 0, 38682, InterfaceComponent.interfaceComponentArray[anInt971], 0);
@@ -4907,15 +4907,15 @@ public class Game extends GameShell {
             method74(-961);
         if (anInt984 == 1)
             if (anInt1101 > 0 || anInt933 == 1)
-                aClass38_Sub2_Sub2_Sub2Array956[1].method405(258, 472, false);
+                aClass38_Sub2_Sub2_Sub2Array956[1].draw(258, 472);
             else
-                aClass38_Sub2_Sub2_Sub2Array956[1].method405(296, 472, false);
+                aClass38_Sub2_Sub2_Sub2Array956[1].draw(296, 472);
         if (anInt1101 > 0) {
-            aClass38_Sub2_Sub2_Sub2Array956[0].method405(296, 472, false);
+            aClass38_Sub2_Sub2_Sub2Array956[0].draw(296, 472);
             indexedFont2.drawRightAligned(329, 0xffff00, "Level: " + anInt1101, 484);
         }
         if (anInt933 == 1) {
-            aClass38_Sub2_Sub2_Sub2Array956[6].method405(296, 472, false);
+            aClass38_Sub2_Sub2_Sub2Array956[6].draw(296, 472);
             indexedFont2.drawRightAligned(329, 0xffff00, "Arena", 484);
         }
         if (anInt957 != 0) {
@@ -5056,13 +5056,13 @@ public class Game extends GameShell {
         int l1 = i * j1 + k * k1 >> 16;
         int i2 = i * k1 - k * j1 >> 16;
         if (i1 > 2500) {
-            class38_sub2_sub2_sub2.method412(indexedSprite19,
-                    83 - i2 - class38_sub2_sub2_sub2.cropH / 2, (94 + l1) - class38_sub2_sub2_sub2.cropW / 2,
-                    (byte) -15);
+            class38_sub2_sub2_sub2.drawMasked(indexedSprite19,
+                    83 - i2 - class38_sub2_sub2_sub2.cropH / 2, (94 + l1) - class38_sub2_sub2_sub2.cropW / 2
+            );
             return;
         } else {
-            class38_sub2_sub2_sub2.method405(83 - i2 - class38_sub2_sub2_sub2.cropH / 2,
-                    (94 + l1) - class38_sub2_sub2_sub2.cropW / 2, false);
+            class38_sub2_sub2_sub2.draw(83 - i2 - class38_sub2_sub2_sub2.cropH / 2,
+                    (94 + l1) - class38_sub2_sub2_sub2.cropW / 2);
             return;
         }
     }
@@ -7340,57 +7340,57 @@ public class Game extends GameShell {
         byte[] abyte0 = fileArchive.read("title.dat", null);
         Sprite class38_sub2_sub2_sub2 = new Sprite(abyte0, this);
         drawArea14.init2D();
-        class38_sub2_sub2_sub2.method403(34676, 0, 0);
+        class38_sub2_sub2_sub2.drawOpaque(0, 0);
         drawArea15.init2D();
-        class38_sub2_sub2_sub2.method403(34676, -661, 0);
+        class38_sub2_sub2_sub2.drawOpaque(-661, 0);
         drawArea11.init2D();
-        class38_sub2_sub2_sub2.method403(34676, -128, 0);
+        class38_sub2_sub2_sub2.drawOpaque(-128, 0);
         drawArea12.init2D();
-        class38_sub2_sub2_sub2.method403(34676, -214, -386);
+        class38_sub2_sub2_sub2.drawOpaque(-214, -386);
         drawArea13.init2D();
-        class38_sub2_sub2_sub2.method403(34676, -214, -186);
+        class38_sub2_sub2_sub2.drawOpaque(-214, -186);
         drawArea16.init2D();
-        class38_sub2_sub2_sub2.method403(34676, 0, -265);
+        class38_sub2_sub2_sub2.drawOpaque(0, -265);
         drawArea17.init2D();
-        class38_sub2_sub2_sub2.method403(34676, -574, -265);
+        class38_sub2_sub2_sub2.drawOpaque(-574, -265);
         drawArea18.init2D();
         if (byte0 != 5)
             aBoolean912 = !aBoolean912;
-        class38_sub2_sub2_sub2.method403(34676, -128, -186);
+        class38_sub2_sub2_sub2.drawOpaque(-128, -186);
         drawArea19.init2D();
-        class38_sub2_sub2_sub2.method403(34676, -574, -186);
-        int[] ai = new int[class38_sub2_sub2_sub2.anInt1466];
-        for (int i = 0; i < class38_sub2_sub2_sub2.anInt1467; i++) {
-            for (int j = 0; j < class38_sub2_sub2_sub2.anInt1466; j++)
-                ai[j] = class38_sub2_sub2_sub2.pixels[(class38_sub2_sub2_sub2.anInt1466 - j - 1)
-                        + class38_sub2_sub2_sub2.anInt1466 * i];
+        class38_sub2_sub2_sub2.drawOpaque(-574, -186);
+        int[] ai = new int[class38_sub2_sub2_sub2.width];
+        for (int i = 0; i < class38_sub2_sub2_sub2.height; i++) {
+            for (int j = 0; j < class38_sub2_sub2_sub2.width; j++)
+                ai[j] = class38_sub2_sub2_sub2.pixels[(class38_sub2_sub2_sub2.width - j - 1)
+                        + class38_sub2_sub2_sub2.width * i];
 
-            for (int k = 0; k < class38_sub2_sub2_sub2.anInt1466; k++)
-                class38_sub2_sub2_sub2.pixels[k + class38_sub2_sub2_sub2.anInt1466 * i] = ai[k];
+            for (int k = 0; k < class38_sub2_sub2_sub2.width; k++)
+                class38_sub2_sub2_sub2.pixels[k + class38_sub2_sub2_sub2.width * i] = ai[k];
 
         }
 
         drawArea14.init2D();
-        class38_sub2_sub2_sub2.method403(34676, 394, 0);
+        class38_sub2_sub2_sub2.drawOpaque(394, 0);
         drawArea15.init2D();
-        class38_sub2_sub2_sub2.method403(34676, -267, 0);
+        class38_sub2_sub2_sub2.drawOpaque(-267, 0);
         drawArea11.init2D();
-        class38_sub2_sub2_sub2.method403(34676, 266, 0);
+        class38_sub2_sub2_sub2.drawOpaque(266, 0);
         drawArea12.init2D();
-        class38_sub2_sub2_sub2.method403(34676, 180, -386);
+        class38_sub2_sub2_sub2.drawOpaque(180, -386);
         drawArea13.init2D();
-        class38_sub2_sub2_sub2.method403(34676, 180, -186);
+        class38_sub2_sub2_sub2.drawOpaque(180, -186);
         drawArea16.init2D();
-        class38_sub2_sub2_sub2.method403(34676, 394, -265);
+        class38_sub2_sub2_sub2.drawOpaque(394, -265);
         drawArea17.init2D();
-        class38_sub2_sub2_sub2.method403(34676, -180, -265);
+        class38_sub2_sub2_sub2.drawOpaque(-180, -265);
         drawArea18.init2D();
-        class38_sub2_sub2_sub2.method403(34676, 212, -186);
+        class38_sub2_sub2_sub2.drawOpaque(212, -186);
         drawArea19.init2D();
-        class38_sub2_sub2_sub2.method403(34676, -180, -186);
+        class38_sub2_sub2_sub2.drawOpaque(-180, -186);
         class38_sub2_sub2_sub2 = new Sprite(fileArchive, "logo", 0);
         drawArea11.init2D();
-        class38_sub2_sub2_sub2.method405(18, super.anInt12 / 2 - class38_sub2_sub2_sub2.anInt1466 / 2 - 128, false);
+        class38_sub2_sub2_sub2.draw(18, super.anInt12 / 2 - class38_sub2_sub2_sub2.width / 2 - 128);
         class38_sub2_sub2_sub2 = null;
         abyte0 = null;
         ai = null;
@@ -7717,7 +7717,7 @@ public class Game extends GameShell {
         if (byte0 != -11)
             aBoolean1147 = !aBoolean1147;
         if (anInt1019 > -1 && clientClock % 20 < 10)
-            aClass38_Sub2_Sub2_Sub2Array956[2].method405(anInt1020 - 28, anInt1019 - 12, false);
+            aClass38_Sub2_Sub2_Sub2Array956[2].draw(anInt1020 - 28, anInt1019 - 12);
     }
 
     public void method134(int i, int j, Buffer class38_sub2_sub3) {

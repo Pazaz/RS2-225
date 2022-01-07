@@ -348,7 +348,7 @@ public class ObjType {
             int h = originalIcon.cropH;
             originalIcon.cropW = 32;
             originalIcon.cropH = 32;
-            originalIcon.draw(22, 5, 22, 17713, 5);
+            originalIcon.draw(22, 5, 22, 5);
             originalIcon.cropW = w;
             originalIcon.cropH = h;
         }
