@@ -11,15 +11,18 @@ A little credit goes to Major for a few variable names as well.
 
 ## Status
 
-- Every class has been given a name.
-- Some classes are refactored (~60%)
-  - com.runescape.cache.* has 9/13 done
-  - com.runescape.graphics.* has 1/7 done
-  - com.runescape.scene.* has 14/23 done
-  - com.runescape.sound.* has 3/3 done
-  - com.runescape.util.* has 10/15 done
-  - com.runescape.* has 1/3 done
-- No new features yet.
+There's 4 steps to this project:
+1) Rename (first pass): rename all classes, fields, variables, and clean up obfuscation techniques. Replace some magic numbers with variables. Code flow remains largely unchanged
+2) Rename (second pass): reiterate through previous changes, rename anything that isn't consistent
+3) Refactor: Rewrite code flow to make things easier to understand and build on.
+4) Document: Describe every method and how their inputs/outputs work. Replace remaining magic numbers with clearly described variables.
+
+After step 2, I do plan to deviate and add my own improvements.
+
+Step 1 progress:
+- Every class has been given a new name.
+- Nearly all classes have had their methods and fields renamed.
+- Most functions have been cleaned up.
 
 ## Notes
 
