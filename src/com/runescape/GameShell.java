@@ -11,9 +11,7 @@ import java.awt.event.*;
 public class GameShell extends Applet
         implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
 
-    public void method1(int i, int j, int k) {
-        if (k != 0)
-            anInt3 = 411;
+    public void initFrame(int i, int j, int k) {
         anInt12 = j;
         anInt13 = i;
         frame = new GameFrame(anInt13, this, anInt12);
@@ -27,8 +25,6 @@ public class GameShell extends Applet
         anInt13 = i;
         graphics = method11(aByte5).getGraphics();
         drawArea = new DrawArea(method11(aByte5), anInt12, anInt13);
-        if (flag)
-            anInt3 = -370;
         startThread(this, 1);
     }
 
@@ -119,10 +115,8 @@ public class GameShell extends Applet
         }
     }
 
-    public void method4(int i, int j) {
+    public void method4(int j) {
         anInt8 = 1000 / j;
-        if (i <= 0)
-            aBoolean1 = !aBoolean1;
     }
 
     public void start() {
@@ -167,8 +161,8 @@ public class GameShell extends Applet
             j -= 22;
         }
         anInt19 = 0;
-        anInt24 = i;
-        anInt25 = j;
+        clickX = i;
+        clickY = j;
         if (mouseevent.isMetaDown()) {
             anInt23 = 2;
             anInt20 = 2;
@@ -176,28 +170,28 @@ public class GameShell extends Applet
             anInt23 = 1;
             anInt20 = 1;
         }
-        if (InputTracking.aBoolean198)
-            InputTracking.method187(i, mouseevent.isMetaDown() ? 1 : 0, j, (byte) 4);
+        if (InputTracking.enabled)
+            InputTracking.mousePressed(i, mouseevent.isMetaDown() ? 1 : 0, j);
     }
 
     public void mouseReleased(MouseEvent mouseevent) {
         anInt19 = 0;
         anInt20 = 0;
-        if (InputTracking.aBoolean198)
-            InputTracking.method188(mouseevent.isMetaDown() ? 1 : 0, 0);
+        if (InputTracking.enabled)
+            InputTracking.mouseReleased(mouseevent.isMetaDown() ? 1 : 0);
     }
 
     public void mouseClicked(MouseEvent mouseevent) {
     }
 
     public void mouseEntered(MouseEvent mouseevent) {
-        if (InputTracking.aBoolean198)
-            InputTracking.method194(-657);
+        if (InputTracking.enabled)
+            InputTracking.mouseEntered();
     }
 
     public void mouseExited(MouseEvent mouseevent) {
-        if (InputTracking.aBoolean198)
-            InputTracking.method195(false);
+        if (InputTracking.enabled)
+            InputTracking.mouseExited();
     }
 
     public void mouseDragged(MouseEvent mouseevent) {
@@ -210,8 +204,8 @@ public class GameShell extends Applet
         anInt19 = 0;
         anInt21 = i;
         anInt22 = j;
-        if (InputTracking.aBoolean198)
-            InputTracking.method189(j, true, i);
+        if (InputTracking.enabled)
+            InputTracking.mouseMoved(j, i);
     }
 
     public void mouseMoved(MouseEvent mouseevent) {
@@ -224,8 +218,8 @@ public class GameShell extends Applet
         anInt19 = 0;
         anInt21 = i;
         anInt22 = j;
-        if (InputTracking.aBoolean198)
-            InputTracking.method189(j, true, i);
+        if (InputTracking.enabled)
+            InputTracking.mouseMoved(j, i);
     }
 
     public void keyPressed(KeyEvent keyevent) {
@@ -268,8 +262,8 @@ public class GameShell extends Applet
             anIntArray27[anInt29] = j;
             anInt29 = anInt29 + 1 & 0x7f;
         }
-        if (InputTracking.aBoolean198)
-            InputTracking.method190(j, true);
+        if (InputTracking.enabled)
+            InputTracking.keyPressed(j);
     }
 
     public void keyReleased(KeyEvent keyevent) {
@@ -298,8 +292,8 @@ public class GameShell extends Applet
             c = '\n';
         if (c > 0 && c < '\200')
             anIntArray26[c] = 0;
-        if (InputTracking.aBoolean198)
-            InputTracking.method191(c, 1);
+        if (InputTracking.enabled)
+            InputTracking.keyReleased(c);
     }
 
     public void keyTyped(KeyEvent keyevent) {
@@ -308,13 +302,13 @@ public class GameShell extends Applet
     public void focusGained(FocusEvent focusevent) {
         aBoolean18 = true;
         method10(3);
-        if (InputTracking.aBoolean198)
-            InputTracking.method192(-936);
+        if (InputTracking.enabled)
+            InputTracking.focusGained();
     }
 
     public void focusLost(FocusEvent focusevent) {
-        if (InputTracking.aBoolean198)
-            InputTracking.method193(0);
+        if (InputTracking.enabled)
+            InputTracking.focusLost();
     }
 
     public int method5(boolean flag) {
@@ -359,23 +353,15 @@ public class GameShell extends Applet
     }
 
     public void unload(byte byte0) {
-        if (byte0 != -28)
-            anInt6 = -407;
     }
 
     public void method9(boolean flag) {
-        if (flag)
-            aBoolean4 = !aBoolean4;
     }
 
     public void method10(int i) {
-        if (i < 3 || i > 3)
-            aBoolean2 = !aBoolean2;
     }
 
     public Component method11(byte byte0) {
-        if (byte0 != 3)
-            throw new NullPointerException();
         if (frame != null)
             return frame;
         else
@@ -418,12 +404,7 @@ public class GameShell extends Applet
         graphics.fillRect((anInt12 / 2 - 150) + i * 3, j + 2, 300 - i * 3, 30);
         graphics.setFont(font);
         graphics.setColor(Color.white);
-        if (!flag) {
-            return;
-        } else {
-            graphics.drawString(s, (anInt12 - fontmetrics.stringWidth(s)) / 2, j + 22);
-            return;
-        }
+        graphics.drawString(s, (anInt12 - fontmetrics.stringWidth(s)) / 2, j + 22);
     }
 
     public GameShell() {
@@ -443,7 +424,6 @@ public class GameShell extends Applet
 
     public boolean aBoolean1;
     public boolean aBoolean2;
-    public int anInt3;
     public boolean aBoolean4;
     public byte aByte5;
     public int anInt6;
@@ -464,11 +444,10 @@ public class GameShell extends Applet
     public int anInt21;
     public int anInt22;
     public int anInt23;
-    public int anInt24;
-    public int anInt25;
+    public int clickX;
+    public int clickY;
     public int[] anIntArray26;
     public int[] anIntArray27;
     public int anInt28;
     public int anInt29;
-    public static int anInt30;
 }

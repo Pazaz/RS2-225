@@ -1217,7 +1217,7 @@ public class Game extends GameShell {
     public void method30(int i) {
         anInt779 += i;
         if (super.anInt23 == 1) {
-            if (super.anInt24 >= 8 && super.anInt24 <= 108 && super.anInt25 >= 490 && super.anInt25 <= 522) {
+            if (super.clickX >= 8 && super.clickX <= 108 && super.clickY >= 490 && super.clickY <= 522) {
                 anInt976 = (anInt976 + 1) % 4;
                 aBoolean921 = true;
                 aBoolean965 = true;
@@ -1226,7 +1226,7 @@ public class Game extends GameShell {
                 outBuffer.writeByte(anInt755);
                 outBuffer.writeByte(anInt885);
             }
-            if (super.anInt24 >= 137 && super.anInt24 <= 237 && super.anInt25 >= 490 && super.anInt25 <= 522) {
+            if (super.clickX >= 137 && super.clickX <= 237 && super.clickY >= 490 && super.clickY <= 522) {
                 anInt755 = (anInt755 + 1) % 3;
                 aBoolean921 = true;
                 aBoolean965 = true;
@@ -1235,7 +1235,7 @@ public class Game extends GameShell {
                 outBuffer.writeByte(anInt755);
                 outBuffer.writeByte(anInt885);
             }
-            if (super.anInt24 >= 275 && super.anInt24 <= 375 && super.anInt25 >= 490 && super.anInt25 <= 522) {
+            if (super.clickX >= 275 && super.clickX <= 375 && super.clickY >= 490 && super.clickY <= 522) {
                 anInt885 = (anInt885 + 1) % 3;
                 aBoolean921 = true;
                 aBoolean965 = true;
@@ -1244,7 +1244,7 @@ public class Game extends GameShell {
                 outBuffer.writeByte(anInt755);
                 outBuffer.writeByte(anInt885);
             }
-            if (super.anInt24 >= 416 && super.anInt24 <= 516 && super.anInt25 >= 490 && super.anInt25 <= 522) {
+            if (super.clickX >= 416 && super.clickX <= 516 && super.clickY >= 490 && super.clickY <= 522) {
                 method16((byte) -60);
                 aString970 = "";
                 aBoolean881 = false;
@@ -1691,14 +1691,14 @@ public class Game extends GameShell {
             int i = super.anInt12 / 2 - 80;
             int l = super.anInt13 / 2 + 20;
             l += 20;
-            if (super.anInt23 == 1 && super.anInt24 >= i - 75 && super.anInt24 <= i + 75 && super.anInt25 >= l - 20
-                    && super.anInt25 <= l + 20) {
+            if (super.anInt23 == 1 && super.clickX >= i - 75 && super.clickX <= i + 75 && super.clickY >= l - 20
+                    && super.clickY <= l + 20) {
                 anInt1109 = 3;
                 anInt972 = 0;
             }
             i = super.anInt12 / 2 + 80;
-            if (super.anInt23 == 1 && super.anInt24 >= i - 75 && super.anInt24 <= i + 75 && super.anInt25 >= l - 20
-                    && super.anInt25 <= l + 20) {
+            if (super.anInt23 == 1 && super.clickX >= i - 75 && super.clickX <= i + 75 && super.clickY >= l - 20
+                    && super.clickY <= l + 20) {
                 loginMessage0 = "";
                 loginMessage1 = "Enter your username & password.";
                 anInt1109 = 2;
@@ -1710,21 +1710,21 @@ public class Game extends GameShell {
                 int j = super.anInt13 / 2 - 40;
                 j += 30;
                 j += 25;
-                if (super.anInt23 == 1 && super.anInt25 >= j - 15 && super.anInt25 < j)
+                if (super.anInt23 == 1 && super.clickY >= j - 15 && super.clickY < j)
                     anInt972 = 0;
                 j += 15;
-                if (super.anInt23 == 1 && super.anInt25 >= j - 15 && super.anInt25 < j)
+                if (super.anInt23 == 1 && super.clickY >= j - 15 && super.clickY < j)
                     anInt972 = 1;
                 j += 15;
                 int i1 = super.anInt12 / 2 - 80;
                 int k1 = super.anInt13 / 2 + 50;
                 k1 += 20;
-                if (super.anInt23 == 1 && super.anInt24 >= i1 - 75 && super.anInt24 <= i1 + 75
-                        && super.anInt25 >= k1 - 20 && super.anInt25 <= k1 + 20)
+                if (super.anInt23 == 1 && super.clickX >= i1 - 75 && super.clickX <= i1 + 75
+                        && super.clickY >= k1 - 20 && super.clickY <= k1 + 20)
                     login(aString1066, aString1067, false);
                 i1 = super.anInt12 / 2 + 80;
-                if (super.anInt23 == 1 && super.anInt24 >= i1 - 75 && super.anInt24 <= i1 + 75
-                        && super.anInt25 >= k1 - 20 && super.anInt25 <= k1 + 20) {
+                if (super.anInt23 == 1 && super.clickX >= i1 - 75 && super.clickX <= i1 + 75
+                        && super.clickY >= k1 - 20 && super.clickY <= k1 + 20) {
                     anInt1109 = 0;
                     aString1066 = "";
                     aString1067 = "";
@@ -1767,8 +1767,8 @@ public class Game extends GameShell {
                 int k = super.anInt12 / 2;
                 int j1 = super.anInt13 / 2 + 50;
                 j1 += 20;
-                if (super.anInt23 == 1 && super.anInt24 >= k - 75 && super.anInt24 <= k + 75 && super.anInt25 >= j1 - 20
-                        && super.anInt25 <= j1 + 20)
+                if (super.anInt23 == 1 && super.clickX >= k - 75 && super.clickX <= k + 75 && super.clickY >= j1 - 20
+                        && super.clickY <= j1 + 20)
                     anInt1109 = 0;
             }
         }
@@ -2717,7 +2717,7 @@ public class Game extends GameShell {
         anInt1109 = 0;
         aString1066 = "";
         aString1067 = "";
-        InputTracking.method183((byte) 65);
+        InputTracking.setDisabled();
         method83(aByte843);
         while (i >= 0)
             return;
@@ -3616,8 +3616,8 @@ public class Game extends GameShell {
                         npcEntity.pathTileX[0],
                         self.pathTileZ[0], 2, 1,
                         npcEntity.pathTileZ[0], 0, 0, 0);
-                anInt738 = super.anInt24;
-                anInt739 = super.anInt25;
+                anInt738 = super.clickX;
+                anInt739 = super.clickY;
                 anInt741 = 2;
                 anInt740 = 0;
                 if (i1 == 542)
@@ -3653,8 +3653,8 @@ public class Game extends GameShell {
             if (!flag)
                 flag = moveTo(self.pathTileX[0], 1, false, k,
                         self.pathTileZ[0], 2, 1, l, 0, 0, 0);
-            anInt738 = super.anInt24;
-            anInt739 = super.anInt25;
+            anInt738 = super.clickX;
+            anInt739 = super.clickY;
             anInt741 = 2;
             anInt740 = 0;
             outBuffer.writeOpcode(239);
@@ -3711,7 +3711,7 @@ public class Game extends GameShell {
         }
         if (i1 == 660)
             if (!aBoolean879)
-                scene.setClick(4, super.anInt25 - 11, super.anInt24 - 8);
+                scene.setClick(4, super.clickY - 11, super.clickX - 8);
             else
                 scene.setClick(4, l - 11, k - 8);
         if (i1 == 188) {
@@ -3746,8 +3746,8 @@ public class Game extends GameShell {
                         npcEntity_1.pathTileX[0],
                         self.pathTileZ[0], 2, 1,
                         npcEntity_1.pathTileZ[0], 0, 0, 0);
-                anInt738 = super.anInt24;
-                anInt739 = super.anInt25;
+                anInt738 = super.clickX;
+                anInt739 = super.clickY;
                 anInt741 = 2;
                 anInt740 = 0;
                 outBuffer.writeOpcode(202);
@@ -3764,8 +3764,8 @@ public class Game extends GameShell {
                         playerEntity.pathTileX[0],
                         self.pathTileZ[0], 2, 1,
                         playerEntity.pathTileZ[0], 0, 0, 0);
-                anInt738 = super.anInt24;
-                anInt739 = super.anInt25;
+                anInt738 = super.clickX;
+                anInt739 = super.clickY;
                 anInt741 = 2;
                 anInt740 = 0;
                 if (i1 == 1101)
@@ -3792,8 +3792,8 @@ public class Game extends GameShell {
                         npcEntity_2.pathTileX[0],
                         self.pathTileZ[0], 2, 1,
                         npcEntity_2.pathTileZ[0], 0, 0, 0);
-                anInt738 = super.anInt24;
-                anInt739 = super.anInt25;
+                anInt738 = super.clickX;
+                anInt739 = super.clickY;
                 anInt741 = 2;
                 anInt740 = 0;
                 outBuffer.writeOpcode(134);
@@ -3833,8 +3833,8 @@ public class Game extends GameShell {
             if (!flag1)
                 flag1 = moveTo(self.pathTileX[0], 1, false, k,
                         self.pathTileZ[0], 2, 1, l, 0, 0, 0);
-            anInt738 = super.anInt24;
-            anInt739 = super.anInt25;
+            anInt738 = super.clickX;
+            anInt739 = super.clickY;
             anInt741 = 2;
             anInt740 = 0;
             if (i1 == 224)
@@ -3946,8 +3946,8 @@ public class Game extends GameShell {
             if (!flag2)
                 flag2 = moveTo(self.pathTileX[0], 1, false, k,
                         self.pathTileZ[0], 2, 1, l, 0, 0, 0);
-            anInt738 = super.anInt24;
-            anInt739 = super.anInt25;
+            anInt738 = super.clickX;
+            anInt739 = super.clickY;
             anInt741 = 2;
             anInt740 = 0;
             outBuffer.writeOpcode(138);
@@ -4013,8 +4013,8 @@ public class Game extends GameShell {
                         playerEntity_1.pathTileX[0],
                         self.pathTileZ[0], 2, 1,
                         playerEntity_1.pathTileZ[0], 0, 0, 0);
-                anInt738 = super.anInt24;
-                anInt739 = super.anInt25;
+                anInt738 = super.clickX;
+                anInt739 = super.clickY;
                 anInt741 = 2;
                 anInt740 = 0;
                 outBuffer.writeOpcode(248);
@@ -4057,8 +4057,8 @@ public class Game extends GameShell {
                         playerEntity.pathTileX[0],
                         self.pathTileZ[0], 2, 1,
                         playerEntity.pathTileZ[0], 0, 0, 0);
-                anInt738 = super.anInt24;
-                anInt739 = super.anInt25;
+                anInt738 = super.clickX;
+                anInt739 = super.clickY;
                 anInt741 = 2;
                 anInt740 = 0;
                 outBuffer.writeOpcode(177);
@@ -5175,8 +5175,8 @@ public class Game extends GameShell {
             moveTo(self.pathTileX[0], 0, false, j,
                     self.pathTileZ[0], 2, 0, k, l1, k1 + 1, 0);
         }
-        anInt738 = super.anInt24;
-        anInt739 = super.anInt25;
+        anInt738 = super.clickX;
+        anInt739 = super.clickY;
         anInt741 = 2;
         anInt740 = 0;
         outBuffer.writeOpcode(i);
@@ -5201,13 +5201,13 @@ public class Game extends GameShell {
         int i1 = 15 * optionCount + 21;
         if (i >= 0)
             return;
-        if (super.anInt24 > 8 && super.anInt25 > 11 && super.anInt24 < 520 && super.anInt25 < 345) {
-            int j1 = super.anInt24 - 8 - j / 2;
+        if (super.clickX > 8 && super.clickY > 11 && super.clickX < 520 && super.clickY < 345) {
+            int j1 = super.clickX - 8 - j / 2;
             if (j1 + j > 512)
                 j1 = 512 - j;
             if (j1 < 0)
                 j1 = 0;
-            int i2 = super.anInt25 - 11;
+            int i2 = super.clickY - 11;
             if (i2 + i1 > 334)
                 i2 = 334 - i1;
             if (i2 < 0)
@@ -5219,13 +5219,13 @@ public class Game extends GameShell {
             anInt1151 = j;
             anInt1152 = 15 * optionCount + 22;
         }
-        if (super.anInt24 > 562 && super.anInt25 > 231 && super.anInt24 < 752 && super.anInt25 < 492) {
-            int k1 = super.anInt24 - 562 - j / 2;
+        if (super.clickX > 562 && super.clickY > 231 && super.clickX < 752 && super.clickY < 492) {
+            int k1 = super.clickX - 562 - j / 2;
             if (k1 < 0)
                 k1 = 0;
             else if (k1 + j > 190)
                 k1 = 190 - j;
-            int j2 = super.anInt25 - 231;
+            int j2 = super.clickY - 231;
             if (j2 < 0)
                 j2 = 0;
             else if (j2 + i1 > 261)
@@ -5237,13 +5237,13 @@ public class Game extends GameShell {
             anInt1151 = j;
             anInt1152 = 15 * optionCount + 22;
         }
-        if (super.anInt24 > 22 && super.anInt25 > 375 && super.anInt24 < 501 && super.anInt25 < 471) {
-            int l1 = super.anInt24 - 22 - j / 2;
+        if (super.clickX > 22 && super.clickY > 375 && super.clickX < 501 && super.clickY < 471) {
+            int l1 = super.clickX - 22 - j / 2;
             if (l1 < 0)
                 l1 = 0;
             else if (l1 + j > 479)
                 l1 = 479 - j;
-            int k2 = super.anInt25 - 375;
+            int k2 = super.clickY - 375;
             if (k2 < 0)
                 k2 = 0;
             else if (k2 + i1 > 96)
@@ -5447,7 +5447,7 @@ public class Game extends GameShell {
 
             if (response == 2 || response == 18) {
                 rights = response == 18;
-                InputTracking.method183((byte) 65);
+                InputTracking.setDisabled();
                 aBoolean974 = true;
                 outBuffer.offset = 0;
                 inBuffer.offset = 0;
@@ -5991,7 +5991,7 @@ public class Game extends GameShell {
             if (anInt744 == 0 && aBoolean835 && !lowMemory)
                 method14(anInt1110, aString1119, anInt1155);
         }
-        Buffer class38_sub2_sub3 = InputTracking.method184(-809);
+        Buffer class38_sub2_sub3 = InputTracking.flushAndContinue();
         if (class38_sub2_sub3 != null) {
             outBuffer.writeOpcode(81);
             outBuffer.writeWord(class38_sub2_sub3.offset);
@@ -6079,8 +6079,8 @@ public class Game extends GameShell {
                     self.pathTileZ[0], 0, 0, k1, 0, 0, 0);
             Scene.clickedTileX = -1;
             if (flag2) {
-                anInt738 = super.anInt24;
-                anInt739 = super.anInt25;
+                anInt738 = super.clickX;
+                anInt739 = super.clickY;
                 anInt741 = 1;
                 anInt740 = 0;
             }
@@ -6602,8 +6602,8 @@ public class Game extends GameShell {
         if (byte0 != aByte1068)
             objects = null;
         if (super.anInt23 == 1) {
-            int i = super.anInt24 - 21 - 561;
-            int j = super.anInt25 - 9 - 5;
+            int i = super.clickX - 21 - 561;
+            int j = super.clickY - 9 - 5;
             if (i >= 0 && j >= 0 && i < 146 && j < 151) {
                 i -= 73;
                 j -= 75;
@@ -6642,8 +6642,8 @@ public class Game extends GameShell {
         if (anInt846 != 0)
             return;
         int i = super.anInt23;
-        if (selectedSpell == 1 && super.anInt24 >= 520 && super.anInt25 >= 165 && super.anInt24 <= 788
-                && super.anInt25 <= 230)
+        if (selectedSpell == 1 && super.clickX >= 520 && super.clickY >= 165 && super.clickX <= 788
+                && super.clickY <= 230)
             i = 0;
         if (aBoolean879) {
             if (i != 1) {
@@ -6674,8 +6674,8 @@ public class Game extends GameShell {
                 int k = anInt1149;
                 int j1 = anInt1150;
                 int l1 = anInt1151;
-                int j2 = super.anInt24;
-                int k2 = super.anInt25;
+                int j2 = super.clickX;
+                int k2 = super.clickY;
                 if (anInt1148 == 0) {
                     j2 -= 8;
                     k2 -= 11;
@@ -6719,8 +6719,8 @@ public class Game extends GameShell {
                         anInt844 = i2;
                         anInt845 = k1;
                         anInt846 = 2;
-                        anInt847 = super.anInt24;
-                        anInt848 = super.anInt25;
+                        anInt847 = super.clickX;
+                        anInt848 = super.clickY;
                         if (InterfaceComponent.instances[i2].anInt270 == anInt971)
                             anInt846 = 1;
                         if (InterfaceComponent.instances[i2].anInt270 == anInt1001)
@@ -6823,85 +6823,85 @@ public class Game extends GameShell {
         if (i != 29286)
             anInt771 = isaacState.nextInt();
         if (super.anInt23 == 1) {
-            if (super.anInt24 >= 549 && super.anInt24 <= 583 && super.anInt25 >= 195 && super.anInt25 < 231
+            if (super.clickX >= 549 && super.clickX <= 583 && super.clickY >= 195 && super.clickY < 231
                     && anIntArray861[0] != -1) {
                 aBoolean964 = true;
                 selectedTab = 0;
                 aBoolean1080 = true;
             }
-            if (super.anInt24 >= 579 && super.anInt24 <= 609 && super.anInt25 >= 194 && super.anInt25 < 231
+            if (super.clickX >= 579 && super.clickX <= 609 && super.clickY >= 194 && super.clickY < 231
                     && anIntArray861[1] != -1) {
                 aBoolean964 = true;
                 selectedTab = 1;
                 aBoolean1080 = true;
             }
-            if (super.anInt24 >= 607 && super.anInt24 <= 637 && super.anInt25 >= 194 && super.anInt25 < 231
+            if (super.clickX >= 607 && super.clickX <= 637 && super.clickY >= 194 && super.clickY < 231
                     && anIntArray861[2] != -1) {
                 aBoolean964 = true;
                 selectedTab = 2;
                 aBoolean1080 = true;
             }
-            if (super.anInt24 >= 635 && super.anInt24 <= 679 && super.anInt25 >= 194 && super.anInt25 < 229
+            if (super.clickX >= 635 && super.clickX <= 679 && super.clickY >= 194 && super.clickY < 229
                     && anIntArray861[3] != -1) {
                 aBoolean964 = true;
                 selectedTab = 3;
                 aBoolean1080 = true;
             }
-            if (super.anInt24 >= 676 && super.anInt24 <= 706 && super.anInt25 >= 194 && super.anInt25 < 231
+            if (super.clickX >= 676 && super.clickX <= 706 && super.clickY >= 194 && super.clickY < 231
                     && anIntArray861[4] != -1) {
                 aBoolean964 = true;
                 selectedTab = 4;
                 aBoolean1080 = true;
             }
-            if (super.anInt24 >= 704 && super.anInt24 <= 734 && super.anInt25 >= 194 && super.anInt25 < 231
+            if (super.clickX >= 704 && super.clickX <= 734 && super.clickY >= 194 && super.clickY < 231
                     && anIntArray861[5] != -1) {
                 aBoolean964 = true;
                 selectedTab = 5;
                 aBoolean1080 = true;
             }
-            if (super.anInt24 >= 732 && super.anInt24 <= 766 && super.anInt25 >= 195 && super.anInt25 < 231
+            if (super.clickX >= 732 && super.clickX <= 766 && super.clickY >= 195 && super.clickY < 231
                     && anIntArray861[6] != -1) {
                 aBoolean964 = true;
                 selectedTab = 6;
                 aBoolean1080 = true;
             }
-            if (super.anInt24 >= 550 && super.anInt24 <= 584 && super.anInt25 >= 492 && super.anInt25 < 528
+            if (super.clickX >= 550 && super.clickX <= 584 && super.clickY >= 492 && super.clickY < 528
                     && anIntArray861[7] != -1) {
                 aBoolean964 = true;
                 selectedTab = 7;
                 aBoolean1080 = true;
             }
-            if (super.anInt24 >= 582 && super.anInt24 <= 612 && super.anInt25 >= 492 && super.anInt25 < 529
+            if (super.clickX >= 582 && super.clickX <= 612 && super.clickY >= 492 && super.clickY < 529
                     && anIntArray861[8] != -1) {
                 aBoolean964 = true;
                 selectedTab = 8;
                 aBoolean1080 = true;
             }
-            if (super.anInt24 >= 609 && super.anInt24 <= 639 && super.anInt25 >= 492 && super.anInt25 < 529
+            if (super.clickX >= 609 && super.clickX <= 639 && super.clickY >= 492 && super.clickY < 529
                     && anIntArray861[9] != -1) {
                 aBoolean964 = true;
                 selectedTab = 9;
                 aBoolean1080 = true;
             }
-            if (super.anInt24 >= 637 && super.anInt24 <= 681 && super.anInt25 >= 493 && super.anInt25 < 528
+            if (super.clickX >= 637 && super.clickX <= 681 && super.clickY >= 493 && super.clickY < 528
                     && anIntArray861[10] != -1) {
                 aBoolean964 = true;
                 selectedTab = 10;
                 aBoolean1080 = true;
             }
-            if (super.anInt24 >= 679 && super.anInt24 <= 709 && super.anInt25 >= 492 && super.anInt25 < 529
+            if (super.clickX >= 679 && super.clickX <= 709 && super.clickY >= 492 && super.clickY < 529
                     && anIntArray861[11] != -1) {
                 aBoolean964 = true;
                 selectedTab = 11;
                 aBoolean1080 = true;
             }
-            if (super.anInt24 >= 706 && super.anInt24 <= 736 && super.anInt25 >= 492 && super.anInt25 < 529
+            if (super.clickX >= 706 && super.clickX <= 736 && super.clickY >= 492 && super.clickY < 529
                     && anIntArray861[12] != -1) {
                 aBoolean964 = true;
                 selectedTab = 12;
                 aBoolean1080 = true;
             }
-            if (super.anInt24 >= 734 && super.anInt24 <= 768 && super.anInt25 >= 492 && super.anInt25 < 528
+            if (super.clickX >= 734 && super.clickX <= 768 && super.clickY >= 492 && super.clickY < 528
                     && anIntArray861[13] != -1) {
                 aBoolean964 = true;
                 selectedTab = 13;
@@ -7330,7 +7330,7 @@ public class Game extends GameShell {
         Graphics g = method11(aByte1116).getGraphics();
         g.setColor(Color.black);
         g.fillRect(0, 0, 789, 532);
-        method4(386, 1);
+        method4(1);
         if (flag)
             method6();
         if (aBoolean865) {
@@ -8357,7 +8357,7 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 133) {
-                Buffer class38_sub2_sub3 = InputTracking.method185(854);
+                Buffer class38_sub2_sub3 = InputTracking.flushAndDisable();
                 if (class38_sub2_sub3 != null) {
                     outBuffer.writeOpcode(81);
                     outBuffer.writeWord(class38_sub2_sub3.offset);
@@ -8390,7 +8390,7 @@ public class Game extends GameShell {
                 return true;
             }
             if (anInt780 == 226) {
-                InputTracking.method182(-31717);
+                InputTracking.setEnabled();
                 anInt780 = -1;
                 return true;
             }
@@ -9191,7 +9191,7 @@ public class Game extends GameShell {
 
             Signlink.startpriv(InetAddress.getLocalHost());
             Game game = new Game();
-            game.method1(532, 789, 0);
+            game.initFrame(532, 789, 0);
         } catch (Exception exception) {
         }
     }

@@ -2,265 +2,287 @@ package com.runescape.util;
 
 public class InputTracking {
 
-    public static synchronized void method182(int i) {
-        aClass38_Sub2_Sub3_199 = Buffer.reserve(1);
-        aClass38_Sub2_Sub3_200 = null;
-        aLong201 = System.currentTimeMillis();
-        if (i != -31717)
-            aBoolean197 = !aBoolean197;
-        aBoolean198 = true;
+    public static synchronized void setEnabled() {
+        outBuffer = Buffer.reserve(1);
+        oldBuffer = null;
+        lastTime = System.currentTimeMillis();
+        enabled = true;
     }
 
-    public static synchronized void method183(byte byte0) {
-        aBoolean198 = false;
-        aClass38_Sub2_Sub3_199 = null;
-        if (byte0 != aByte194) {
+    public static synchronized void setDisabled() {
+        enabled = false;
+        outBuffer = null;
+        oldBuffer = null;
+    }
+
+    public static synchronized Buffer flushAndContinue() {
+        Buffer b = null;
+        if (oldBuffer != null && enabled) {
+            b = oldBuffer;
+        }
+        oldBuffer = null;
+        return b;
+    }
+
+    public static synchronized Buffer flushAndDisable() {
+        Buffer b = null;
+        if (outBuffer != null && outBuffer.offset > 0 && enabled) {
+            b = outBuffer;
+        }
+        setDisabled();
+        return b;
+    }
+
+    public static synchronized void resizeIfNeeded(int bytes) {
+        if (outBuffer.offset + bytes >= 500) {
+            Buffer b = outBuffer;
+            outBuffer = Buffer.reserve(1);
+            oldBuffer = b;
+        }
+    }
+
+    public static synchronized void mousePressed(int y, int button, int x) {
+        if (!enabled) {
             return;
+        }
+
+        if (y < 0 || y >= 789 || x < 0 || x >= 532) {
+            return;
+        }
+
+        trackedCount++;
+
+        long l = System.currentTimeMillis();
+        long l1 = (l - lastTime) / 10L;
+        if (l1 > 250L) {
+            l1 = 250L;
+        }
+
+        lastTime = l;
+
+        resizeIfNeeded(5);
+        if (button == 1) {
+            outBuffer.writeByte(1);
         } else {
-            aClass38_Sub2_Sub3_200 = null;
+            outBuffer.writeByte(2);
+        }
+        outBuffer.writeByte((int) l1);
+        outBuffer.writeSWord(y + (x << 10));
+    }
+
+    public static synchronized void mouseReleased(int button) {
+        if (!enabled) {
             return;
         }
-    }
 
-    public static synchronized Buffer method184(int i) {
-        Buffer class38_sub2_sub3 = null;
-        if (aClass38_Sub2_Sub3_200 != null && aBoolean198)
-            class38_sub2_sub3 = aClass38_Sub2_Sub3_200;
-        aClass38_Sub2_Sub3_200 = null;
-        if (i >= 0)
-            aBoolean196 = !aBoolean196;
-        return class38_sub2_sub3;
-    }
+        trackedCount++;
 
-    public static synchronized Buffer method185(int i) {
-        if (i <= 0)
-            aBoolean197 = !aBoolean197;
-        Buffer class38_sub2_sub3 = null;
-        if (aClass38_Sub2_Sub3_199 != null && aClass38_Sub2_Sub3_199.offset > 0 && aBoolean198)
-            class38_sub2_sub3 = aClass38_Sub2_Sub3_199;
-        method183((byte) 65);
-        return class38_sub2_sub3;
-    }
-
-    public static synchronized void method186(int i, int j) {
-        if (i <= 0)
-            aBoolean196 = !aBoolean196;
-        if (aClass38_Sub2_Sub3_199.offset + j >= 500) {
-            Buffer class38_sub2_sub3 = aClass38_Sub2_Sub3_199;
-            aClass38_Sub2_Sub3_199 = Buffer.reserve(1);
-            aClass38_Sub2_Sub3_200 = class38_sub2_sub3;
+        long currentTime = System.currentTimeMillis();
+        long deltaTime = (currentTime - lastTime) / 10L;
+        if (deltaTime > 250L) {
+            deltaTime = 250L;
         }
+        lastTime = currentTime;
+
+        resizeIfNeeded(2);
+        if (button == 1) {
+            outBuffer.writeByte(3);
+        } else {
+            outBuffer.writeByte(4);
+        }
+        outBuffer.writeByte((int) deltaTime);
     }
 
-    public static synchronized void method187(int i, int j, int k, byte byte0) {
-        if (!aBoolean198)
+    public static synchronized void mouseMoved(int x, int y) {
+        if (!enabled) {
             return;
-        if (i < 0 || i >= 789 || k < 0 || k >= 532)
-            return;
-        anInt202++;
-        long l = System.currentTimeMillis();
-        long l1 = (l - aLong201) / 10L;
-        if (l1 > 250L)
-            l1 = 250L;
-        aLong201 = l;
-        method186(anInt195, 5);
-        if (byte0 != 4)
-            return;
-        if (j == 1)
-            aClass38_Sub2_Sub3_199.writeByte(1);
-        else
-            aClass38_Sub2_Sub3_199.writeByte(2);
-        aClass38_Sub2_Sub3_199.writeByte((int) l1);
-        aClass38_Sub2_Sub3_199.writeSWord(i + (k << 10));
-    }
+        }
 
-    public static synchronized void method188(int i, int j) {
-        if (!aBoolean198)
+        if (y < 0 || y >= 789 || x < 0 || x >= 532) {
             return;
-        anInt202++;
-        long l = System.currentTimeMillis();
-        long l1 = (l - aLong201) / 10L;
-        if (l1 > 250L)
-            l1 = 250L;
-        aLong201 = l;
-        if (j != 0)
-            return;
-        method186(anInt195, 2);
-        if (i == 1)
-            aClass38_Sub2_Sub3_199.writeByte(3);
-        else
-            aClass38_Sub2_Sub3_199.writeByte(4);
-        aClass38_Sub2_Sub3_199.writeByte((int) l1);
-    }
+        }
 
-    public static synchronized void method189(int i, boolean flag, int j) {
-        if (!aBoolean198)
-            return;
-        if (j < 0 || j >= 789 || i < 0 || i >= 532)
-            return;
-        long l = System.currentTimeMillis();
-        if (!flag)
-            anInt195 = 445;
-        if (l - aLong203 >= 50L) {
-            aLong203 = l;
-            anInt202++;
-            long l1 = (l - aLong201) / 10L;
-            if (l1 > 250L)
-                l1 = 250L;
-            aLong201 = l;
-            if (j - anInt204 < 8 && j - anInt204 >= -8 && i - anInt205 < 8 && i - anInt205 >= -8) {
-                method186(anInt195, 3);
-                aClass38_Sub2_Sub3_199.writeByte(5);
-                aClass38_Sub2_Sub3_199.writeByte((int) l1);
-                aClass38_Sub2_Sub3_199.writeByte((j - anInt204) + 8 + ((i - anInt205) + 8 << 4));
-            } else if (j - anInt204 < 128 && j - anInt204 >= -128 && i - anInt205 < 128 && i - anInt205 >= -128) {
-                method186(anInt195, 4);
-                aClass38_Sub2_Sub3_199.writeByte(6);
-                aClass38_Sub2_Sub3_199.writeByte((int) l1);
-                aClass38_Sub2_Sub3_199.writeByte((j - anInt204) + 128);
-                aClass38_Sub2_Sub3_199.writeByte((i - anInt205) + 128);
-            } else {
-                method186(anInt195, 5);
-                aClass38_Sub2_Sub3_199.writeByte(7);
-                aClass38_Sub2_Sub3_199.writeByte((int) l1);
-                aClass38_Sub2_Sub3_199.writeSWord(j + (i << 10));
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - oldTime >= 50L) {
+            oldTime = currentTime;
+            trackedCount++;
+
+            long deltaTime = (currentTime - lastTime) / 10L;
+            if (deltaTime > 250L) {
+                deltaTime = 250L;
             }
-            anInt204 = j;
-            anInt205 = i;
+
+            lastTime = currentTime;
+            if (y - lastY < 8 && y - lastY >= -8 && x - lastX < 8 && x - lastX >= -8) {
+                resizeIfNeeded(3);
+                outBuffer.writeByte(5);
+                outBuffer.writeByte((int) deltaTime);
+                outBuffer.writeByte((y - lastY) + 8 + ((x - lastX) + 8 << 4));
+            } else if (y - lastY < 128 && y - lastY >= -128 && x - lastX < 128 && x - lastX >= -128) {
+                resizeIfNeeded(4);
+                outBuffer.writeByte(6);
+                outBuffer.writeByte((int) deltaTime);
+                outBuffer.writeByte((y - lastY) + 128);
+                outBuffer.writeByte((x - lastX) + 128);
+            } else {
+                resizeIfNeeded(5);
+                outBuffer.writeByte(7);
+                outBuffer.writeByte((int) deltaTime);
+                outBuffer.writeSWord(y + (x << 10));
+            }
+
+            lastY = y;
+            lastX = x;
         }
     }
 
-    public static synchronized void method190(int i, boolean flag) {
-        if (!aBoolean198)
+    public static synchronized void keyPressed(int key) {
+        if (!enabled) {
             return;
-        anInt202++;
-        long l = System.currentTimeMillis();
-        long l1 = (l - aLong201) / 10L;
-        if (l1 > 250L)
-            l1 = 250L;
-        aLong201 = l;
-        if (i == 1000)
-            i = 11;
-        if (i == 1001)
-            i = 12;
-        if (i == 1002)
-            i = 14;
-        if (i == 1003)
-            i = 15;
-        if (i >= 1008)
-            i -= 992;
-        method186(anInt195, 3);
-        if (!flag) {
-            for (int j = 1; j > 0; j++)
-                ;
         }
-        aClass38_Sub2_Sub3_199.writeByte(8);
-        aClass38_Sub2_Sub3_199.writeByte((int) l1);
-        aClass38_Sub2_Sub3_199.writeByte(i);
+
+        trackedCount++;
+
+        long currentTime = System.currentTimeMillis();
+        long deltaTime = (currentTime - lastTime) / 10L;
+        if (deltaTime > 250L) {
+            deltaTime = 250L;
+        }
+
+        lastTime = currentTime;
+        if (key == 1000) {
+            key = 11;
+        } else if (key == 1001) {
+            key = 12;
+        } else if (key == 1002) {
+            key = 14;
+        } else if (key == 1003) {
+            key = 15;
+        } else if (key >= 1008) {
+            key -= 992;
+        }
+
+        resizeIfNeeded(3);
+        outBuffer.writeByte(8);
+        outBuffer.writeByte((int) deltaTime);
+        outBuffer.writeByte(key);
     }
 
-    public static synchronized void method191(int i, int j) {
-        if (!aBoolean198)
+    public static synchronized void keyReleased(int key) {
+        if (!enabled) {
             return;
-        anInt202++;
-        long l = System.currentTimeMillis();
-        long l1 = (l - aLong201) / 10L;
-        if (l1 > 250L)
-            l1 = 250L;
-        aLong201 = l;
-        if (i == 1000)
-            i = 11;
-        if (i == 1001)
-            i = 12;
-        if (i == 1002)
-            i = 14;
-        if (i == 1003)
-            i = 15;
-        if (i >= 1008)
-            i -= 992;
-        method186(anInt195, 3);
-        aClass38_Sub2_Sub3_199.writeByte(9);
-        aClass38_Sub2_Sub3_199.writeByte((int) l1);
-        aClass38_Sub2_Sub3_199.writeByte(i);
-        if (j == 1)
-            ;
+        }
+
+        trackedCount++;
+
+        long currentTime = System.currentTimeMillis();
+        long deltaTime = (currentTime - lastTime) / 10L;
+        if (deltaTime > 250L) {
+            deltaTime = 250L;
+        }
+
+        lastTime = currentTime;
+        if (key == 1000) {
+            key = 11;
+        } else if (key == 1001) {
+            key = 12;
+        } else if (key == 1002) {
+            key = 14;
+        } else if (key == 1003) {
+            key = 15;
+        } else if (key >= 1008) {
+            key -= 992;
+        }
+
+        resizeIfNeeded(3);
+        outBuffer.writeByte(9);
+        outBuffer.writeByte((int) deltaTime);
+        outBuffer.writeByte(key);
     }
 
-    public static synchronized void method192(int i) {
-        if (!aBoolean198)
+    public static synchronized void focusGained() {
+        if (!enabled) {
             return;
-        anInt202++;
-        if (i >= 0)
-            return;
-        long l = System.currentTimeMillis();
-        long l1 = (l - aLong201) / 10L;
-        if (l1 > 250L)
-            l1 = 250L;
-        aLong201 = l;
-        method186(anInt195, 2);
-        aClass38_Sub2_Sub3_199.writeByte(10);
-        aClass38_Sub2_Sub3_199.writeByte((int) l1);
+        }
+
+        trackedCount++;
+
+        long currentTime = System.currentTimeMillis();
+        long deltaTime = (currentTime - lastTime) / 10L;
+        if (deltaTime > 250L) {
+            deltaTime = 250L;
+        }
+
+        lastTime = currentTime;
+        resizeIfNeeded(2);
+        outBuffer.writeByte(10);
+        outBuffer.writeByte((int) deltaTime);
     }
 
-    public static synchronized void method193(int i) {
-        if (!aBoolean198)
+    public static synchronized void focusLost() {
+        if (!enabled) {
             return;
-        anInt202++;
-        long l = System.currentTimeMillis();
-        long l1 = (l - aLong201) / 10L;
-        if (l1 > 250L)
-            l1 = 250L;
-        aLong201 = l;
-        method186(anInt195, 2);
-        if (i != 0)
-            aBoolean197 = !aBoolean197;
-        aClass38_Sub2_Sub3_199.writeByte(11);
-        aClass38_Sub2_Sub3_199.writeByte((int) l1);
+        }
+
+        trackedCount++;
+
+        long currentTime = System.currentTimeMillis();
+        long deltaTime = (currentTime - lastTime) / 10L;
+        if (deltaTime > 250L) {
+            deltaTime = 250L;
+        }
+
+        lastTime = currentTime;
+        resizeIfNeeded(2);
+        outBuffer.writeByte(11);
+        outBuffer.writeByte((int) deltaTime);
     }
 
-    public static synchronized void method194(int i) {
-        if (!aBoolean198)
+    public static synchronized void mouseEntered() {
+        if (!enabled) {
             return;
-        anInt202++;
-        long l = System.currentTimeMillis();
-        long l1 = (l - aLong201) / 10L;
-        if (l1 > 250L)
-            l1 = 250L;
-        aLong201 = l;
-        method186(anInt195, 2);
-        while (i >= 0)
-            return;
-        aClass38_Sub2_Sub3_199.writeByte(12);
-        aClass38_Sub2_Sub3_199.writeByte((int) l1);
+        }
+
+        trackedCount++;
+
+        long currentTime = System.currentTimeMillis();
+        long deltaTime = (currentTime - lastTime) / 10L;
+        if (deltaTime > 250L) {
+            deltaTime = 250L;
+        }
+
+        lastTime = currentTime;
+        resizeIfNeeded(2);
+        outBuffer.writeByte(12);
+        outBuffer.writeByte((int) deltaTime);
     }
 
-    public static synchronized void method195(boolean flag) {
-        if (flag)
+    public static synchronized void mouseExited() {
+        if (!enabled) {
             return;
-        if (!aBoolean198)
-            return;
-        anInt202++;
-        long l = System.currentTimeMillis();
-        long l1 = (l - aLong201) / 10L;
-        if (l1 > 250L)
-            l1 = 250L;
-        aLong201 = l;
-        method186(anInt195, 2);
-        aClass38_Sub2_Sub3_199.writeByte(13);
-        aClass38_Sub2_Sub3_199.writeByte((int) l1);
+        }
+
+        trackedCount++;
+
+        long currentTime = System.currentTimeMillis();
+        long deltaTime = (currentTime - lastTime) / 10L;
+        if (deltaTime > 250L) {
+            deltaTime = 250L;
+        }
+
+        lastTime = currentTime;
+        resizeIfNeeded(2);
+        outBuffer.writeByte(13);
+        outBuffer.writeByte((int) deltaTime);
     }
 
-    public static byte aByte194 = 65;
-    public static int anInt195 = 78;
-    public static boolean aBoolean196;
-    public static boolean aBoolean197;
-    public static boolean aBoolean198;
-    public static Buffer aClass38_Sub2_Sub3_199 = null;
-    public static Buffer aClass38_Sub2_Sub3_200 = null;
-    public static long aLong201;
-    public static int anInt202;
-    public static long aLong203;
-    public static int anInt204;
-    public static int anInt205;
+    public static boolean enabled;
+    public static Buffer outBuffer = null;
+    public static Buffer oldBuffer = null;
+    public static long lastTime;
+    public static int trackedCount;
+    public static long oldTime;
+    public static int lastY;
+    public static int lastX;
 
 }
