@@ -2,6 +2,7 @@ package com.runescape.util;
 
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequencer;
+import javax.sound.sampled.*;
 import java.applet.Applet;
 import java.io.*;
 import java.net.InetAddress;
@@ -77,15 +78,61 @@ public class Signlink
                 }
                 loadreq = null;
             } else if (savereq != null) {
-                if (savebuf != null)
+                if (savebuf != null) {
                     try {
                         FileOutputStream fileoutputstream = new FileOutputStream(s + savereq);
                         fileoutputstream.write(savebuf, 0, savelen);
                         fileoutputstream.close();
                     } catch (Exception _ex) {
                     }
+                }
                 if (waveplay) {
                     wave = s + savereq;
+                    AudioInputStream audioInputStream = null;
+                    try {
+                        audioInputStream = AudioSystem.getAudioInputStream(new File(wave));
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                        return;
+                    }
+
+                    AudioFormat format = audioInputStream.getFormat();
+                    SourceDataLine auline = null;
+                    DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
+
+                    try {
+                        auline = (SourceDataLine) AudioSystem.getLine(info);
+                        auline.open(format);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return;
+                    }
+
+                    if (auline.isControlSupported(FloatControl.Type.PAN)) {
+                        FloatControl pan = (FloatControl) auline
+                            .getControl(FloatControl.Type.PAN);
+                        if (curPosition == Position.RIGHT)
+                            pan.setValue(1.0f);
+                        else if (curPosition == Position.LEFT)
+                            pan.setValue(-1.0f);
+                    }
+
+                    auline.start();
+                    int nBytesRead = 0;
+                    byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
+
+                    try {
+                        while (nBytesRead != -1) {
+                            nBytesRead = audioInputStream.read(abData, 0, abData.length);
+                            if (nBytesRead >= 0)
+                                auline.write(abData, 0, nBytesRead);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        auline.drain();
+                        auline.close();
+                    }
                     waveplay = false;
                 }
                 if (midiplay) {
@@ -353,6 +400,11 @@ public class Signlink
     public static int wavepos;
     public static String wave = null;
     public static int wavevol;
+    enum Position {
+        LEFT, RIGHT, NORMAL
+    };
+    private final int EXTERNAL_BUFFER_SIZE = 524288;
+    private Position curPosition;
     public static boolean reporterror = true;
     public static String errorname = "";
 
