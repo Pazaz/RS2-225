@@ -8,197 +8,195 @@ import com.runescape.util.StringUtils;
 
 public class InterfaceComponent {
 
-    public static void method218(FileArchive fileArchive, IndexedFont[] aclass38_sub2_sub2_sub4, int i,
-                                 FileArchive fileArchive_1) {
+    public static void load(FileArchive fileArchive, IndexedFont[] aclass38_sub2_sub2_sub4, int i,
+                            FileArchive fileArchive_1) {
         i = 17 / i;
         cache1 = new Cache(50000);
         cache2 = new Cache(50000);
-        Buffer class38_sub2_sub3 = new Buffer(fileArchive_1.read("data", null));
+        Buffer b = new Buffer(fileArchive_1.read("data", null));
         int j = -1;
-        int k = class38_sub2_sub3.readWord();
+        int k = b.readWord();
         instances = new InterfaceComponent[k];
-        while (class38_sub2_sub3.offset < class38_sub2_sub3.data.length) {
-            int l = class38_sub2_sub3.readWord();
+        while (b.offset < b.data.length) {
+            int l = b.readWord();
             if (l == 65535) {
-                j = class38_sub2_sub3.readWord();
-                l = class38_sub2_sub3.readWord();
+                j = b.readWord();
+                l = b.readWord();
             }
-            InterfaceComponent interfaceComponent = instances[l] = new InterfaceComponent();
-            interfaceComponent.anInt269 = l;
-            interfaceComponent.anInt270 = j;
-            interfaceComponent.anInt271 = class38_sub2_sub3.readByte();
-            interfaceComponent.anInt272 = class38_sub2_sub3.readByte();
-            interfaceComponent.anInt273 = class38_sub2_sub3.readWord();
-            interfaceComponent.anInt274 = class38_sub2_sub3.readWord();
-            interfaceComponent.anInt275 = class38_sub2_sub3.readWord();
-            interfaceComponent.anInt281 = class38_sub2_sub3.readByte();
-            if (interfaceComponent.anInt281 != 0)
-                interfaceComponent.anInt281 = (interfaceComponent.anInt281 - 1 << 8) + class38_sub2_sub3.readByte();
+            InterfaceComponent w = instances[l] = new InterfaceComponent();
+            w.id = l;
+            w.parent = j;
+            w.type = b.readByte();
+            w.buttonType = b.readByte();
+            w.contentType = b.readWord();
+            w.width = b.readWord();
+            w.height = b.readWord();
+            w.hoverParentIndex = b.readByte();
+            if (w.hoverParentIndex != 0)
+                w.hoverParentIndex = (w.hoverParentIndex - 1 << 8) + b.readByte();
             else
-                interfaceComponent.anInt281 = -1;
-            int j1 = class38_sub2_sub3.readByte();
+                w.hoverParentIndex = -1;
+            int j1 = b.readByte();
             if (j1 > 0) {
-                interfaceComponent.anIntArray279 = new int[j1];
-                interfaceComponent.anIntArray280 = new int[j1];
+                w.scriptCompareType = new int[j1];
+                w.scriptCompareValue = new int[j1];
                 for (int k1 = 0; k1 < j1; k1++) {
-                    interfaceComponent.anIntArray279[k1] = class38_sub2_sub3.readByte();
-                    interfaceComponent.anIntArray280[k1] = class38_sub2_sub3.readWord();
+                    w.scriptCompareType[k1] = b.readByte();
+                    w.scriptCompareValue[k1] = b.readWord();
                 }
-
             }
-            int l1 = class38_sub2_sub3.readByte();
+            int l1 = b.readByte();
             if (l1 > 0) {
-                interfaceComponent.anIntArrayArray278 = new int[l1][];
+                w.script = new int[l1][];
                 for (int i2 = 0; i2 < l1; i2++) {
-                    int j3 = class38_sub2_sub3.readWord();
-                    interfaceComponent.anIntArrayArray278[i2] = new int[j3];
+                    int j3 = b.readWord();
+                    w.script[i2] = new int[j3];
                     for (int i5 = 0; i5 < j3; i5++)
-                        interfaceComponent.anIntArrayArray278[i2][i5] = class38_sub2_sub3.readWord();
-
+                        w.script[i2][i5] = b.readWord();
                 }
-
             }
-            if (interfaceComponent.anInt271 == 0) {
-                interfaceComponent.anInt282 = class38_sub2_sub3.readWord();
-                interfaceComponent.aBoolean284 = class38_sub2_sub3.readByte() == 1;
-                int j2 = class38_sub2_sub3.readByte();
-                interfaceComponent.anIntArray285 = new int[j2];
-                interfaceComponent.anIntArray286 = new int[j2];
-                interfaceComponent.anIntArray287 = new int[j2];
+
+            if (w.type == 0) {
+                w.scrollHeight = b.readWord();
+                w.hidden = b.readByte() == 1;
+                int j2 = b.readByte();
+                w.children = new int[j2];
+                w.childX = new int[j2];
+                w.childY = new int[j2];
                 for (int k3 = 0; k3 < j2; k3++) {
-                    interfaceComponent.anIntArray285[k3] = class38_sub2_sub3.readWord();
-                    interfaceComponent.anIntArray286[k3] = class38_sub2_sub3.readWordSigned();
-                    interfaceComponent.anIntArray287[k3] = class38_sub2_sub3.readWordSigned();
+                    w.children[k3] = b.readWord();
+                    w.childX[k3] = b.readWordSigned();
+                    w.childY[k3] = b.readWordSigned();
                 }
+            }
+            if (w.type == 1) {
+                w.anInt288 = b.readWord();
+                w.aBoolean289 = b.readByte() == 1;
+            }
+            if (w.type == 2) {
+                w.inventoryIndices = new int[w.width * w.height];
+                w.inventoryAmount = new int[w.width * w.height];
 
-            }
-            if (interfaceComponent.anInt271 == 1) {
-                interfaceComponent.anInt288 = class38_sub2_sub3.readWord();
-                interfaceComponent.aBoolean289 = class38_sub2_sub3.readByte() == 1;
-            }
-            if (interfaceComponent.anInt271 == 2) {
-                interfaceComponent.anIntArray265 = new int[interfaceComponent.anInt274 * interfaceComponent.anInt275];
-                interfaceComponent.anIntArray266 = new int[interfaceComponent.anInt274 * interfaceComponent.anInt275];
-                interfaceComponent.aBoolean290 = class38_sub2_sub3.readByte() == 1;
-                interfaceComponent.aBoolean291 = class38_sub2_sub3.readByte() == 1;
-                interfaceComponent.aBoolean292 = class38_sub2_sub3.readByte() == 1;
-                interfaceComponent.anInt293 = class38_sub2_sub3.readByte();
-                interfaceComponent.anInt294 = class38_sub2_sub3.readByte();
-                interfaceComponent.anIntArray296 = new int[20];
-                interfaceComponent.anIntArray297 = new int[20];
-                interfaceComponent.aClass38_Sub2_Sub2_Sub2Array295 = new Sprite[20];
+                w.inventoryDummy = b.readByte() == 1;
+                w.inventoryHasOptions = b.readByte() == 1;
+                w.inventoryIsUsable = b.readByte() == 1;
+                w.inventoryMarginX = b.readByte();
+                w.inventoryMarginY = b.readByte();
+                w.inventoryOffsetX = new int[20];
+                w.inventoryOffsetY = new int[20];
+                w.inventorySprite = new Sprite[20];
+
                 for (int k2 = 0; k2 < 20; k2++) {
-                    int l3 = class38_sub2_sub3.readByte();
+                    int l3 = b.readByte();
                     if (l3 == 1) {
-                        interfaceComponent.anIntArray296[k2] = class38_sub2_sub3.readWordSigned();
-                        interfaceComponent.anIntArray297[k2] = class38_sub2_sub3.readWordSigned();
-                        String s1 = class38_sub2_sub3.readString();
+                        w.inventoryOffsetX[k2] = b.readWordSigned();
+                        w.inventoryOffsetY[k2] = b.readWordSigned();
+                        String s1 = b.readString();
                         if (fileArchive != null && s1.length() > 0) {
                             int j5 = s1.lastIndexOf(",");
-                            interfaceComponent.aClass38_Sub2_Sub2_Sub2Array295[k2] = method220(fileArchive,
+                            w.inventorySprite[k2] = getSprite(fileArchive,
                                     Integer.parseInt(s1.substring(j5 + 1)), s1.substring(0, j5), -36068);
                         }
                     }
                 }
 
-                interfaceComponent.aStringArray298 = new String[5];
+                w.inventoryOptions = new String[5];
                 for (int i4 = 0; i4 < 5; i4++) {
-                    interfaceComponent.aStringArray298[i4] = class38_sub2_sub3.readString();
-                    if (interfaceComponent.aStringArray298[i4].length() == 0)
-                        interfaceComponent.aStringArray298[i4] = null;
+                    w.inventoryOptions[i4] = b.readString();
+                    if (w.inventoryOptions[i4].length() == 0)
+                        w.inventoryOptions[i4] = null;
                 }
-
             }
-            if (interfaceComponent.anInt271 == 3)
-                interfaceComponent.aBoolean299 = class38_sub2_sub3.readByte() == 1;
-            if (interfaceComponent.anInt271 == 4 || interfaceComponent.anInt271 == 1) {
-                interfaceComponent.aBoolean300 = class38_sub2_sub3.readByte() == 1;
-                int l2 = class38_sub2_sub3.readByte();
+            if (w.type == 3)
+                w.fill = b.readByte() == 1;
+            if (w.type == 4 || w.type == 1) {
+                w.center = b.readByte() == 1;
+                int l2 = b.readByte();
                 if (aclass38_sub2_sub2_sub4 != null)
-                    interfaceComponent.indexedFont = aclass38_sub2_sub2_sub4[l2];
-                interfaceComponent.aBoolean301 = class38_sub2_sub3.readByte() == 1;
+                    w.font = aclass38_sub2_sub2_sub4[l2];
+                w.shadow = b.readByte() == 1;
             }
-            if (interfaceComponent.anInt271 == 4) {
-                interfaceComponent.aString303 = class38_sub2_sub3.readString();
-                interfaceComponent.aString304 = class38_sub2_sub3.readString();
+            if (w.type == 4) {
+                w.text = b.readString();
+                w.activeText = b.readString();
             }
-            if (interfaceComponent.anInt271 == 1 || interfaceComponent.anInt271 == 3 || interfaceComponent.anInt271 == 4)
-                interfaceComponent.anInt305 = class38_sub2_sub3.readDWord();
-            if (interfaceComponent.anInt271 == 3 || interfaceComponent.anInt271 == 4) {
-                interfaceComponent.anInt306 = class38_sub2_sub3.readDWord();
-                interfaceComponent.anInt307 = class38_sub2_sub3.readDWord();
+            if (w.type == 1 || w.type == 3 || w.type == 4)
+                w.color = b.readDWord();
+            if (w.type == 3 || w.type == 4) {
+                w.colorEnabled = b.readDWord();
+                w.hoverColor = b.readDWord();
             }
-            if (interfaceComponent.anInt271 == 5) {
-                String s = class38_sub2_sub3.readString();
+            if (w.type == 5) {
+                String s = b.readString();
                 if (fileArchive != null && s.length() > 0) {
                     int j4 = s.lastIndexOf(",");
-                    interfaceComponent.aClass38_Sub2_Sub2_Sub2_308 = method220(fileArchive, Integer.parseInt(s.substring(j4 + 1)),
+                    w.image = getSprite(fileArchive, Integer.parseInt(s.substring(j4 + 1)),
                             s.substring(0, j4), -36068);
                 }
-                s = class38_sub2_sub3.readString();
+                s = b.readString();
                 if (fileArchive != null && s.length() > 0) {
                     int k4 = s.lastIndexOf(",");
-                    interfaceComponent.aClass38_Sub2_Sub2_Sub2_309 = method220(fileArchive, Integer.parseInt(s.substring(k4 + 1)),
+                    w.activeImage = getSprite(fileArchive, Integer.parseInt(s.substring(k4 + 1)),
                             s.substring(0, k4), -36068);
                 }
             }
-            if (interfaceComponent.anInt271 == 6) {
-                int i1 = class38_sub2_sub3.readByte();
+            if (w.type == 6) {
+                int i1 = b.readByte();
                 if (i1 != 0)
-                    interfaceComponent.aClass38_Sub2_Sub1_310 = method221(4, (i1 - 1 << 8) + class38_sub2_sub3.readByte());
-                i1 = class38_sub2_sub3.readByte();
+                    w.modelDisabled = getModel(4, (i1 - 1 << 8) + b.readByte());
+                i1 = b.readByte();
                 if (i1 != 0)
-                    interfaceComponent.aClass38_Sub2_Sub1_311 = method221(4, (i1 - 1 << 8) + class38_sub2_sub3.readByte());
-                i1 = class38_sub2_sub3.readByte();
+                    w.modelEnabled = getModel(4, (i1 - 1 << 8) + b.readByte());
+                i1 = b.readByte();
                 if (i1 != 0)
-                    interfaceComponent.anInt312 = (i1 - 1 << 8) + class38_sub2_sub3.readByte();
+                    w.seqId = (i1 - 1 << 8) + b.readByte();
                 else
-                    interfaceComponent.anInt312 = -1;
-                i1 = class38_sub2_sub3.readByte();
+                    w.seqId = -1;
+                i1 = b.readByte();
                 if (i1 != 0)
-                    interfaceComponent.anInt313 = (i1 - 1 << 8) + class38_sub2_sub3.readByte();
+                    w.activeSeqId = (i1 - 1 << 8) + b.readByte();
                 else
-                    interfaceComponent.anInt313 = -1;
-                interfaceComponent.anInt314 = class38_sub2_sub3.readWord();
-                interfaceComponent.anInt315 = class38_sub2_sub3.readWord();
-                interfaceComponent.anInt316 = class38_sub2_sub3.readWord();
+                    w.activeSeqId = -1;
+                w.modelZoom = b.readWord();
+                w.modelEyePitch = b.readWord();
+                w.modelYaw = b.readWord();
             }
-            if (interfaceComponent.anInt271 == 7) {
-                interfaceComponent.anIntArray265 = new int[interfaceComponent.anInt274 * interfaceComponent.anInt275];
-                interfaceComponent.anIntArray266 = new int[interfaceComponent.anInt274 * interfaceComponent.anInt275];
-                interfaceComponent.aBoolean300 = class38_sub2_sub3.readByte() == 1;
-                int i3 = class38_sub2_sub3.readByte();
+            if (w.type == 7) {
+                w.inventoryIndices = new int[w.width * w.height];
+                w.inventoryAmount = new int[w.width * w.height];
+                w.center = b.readByte() == 1;
+                int i3 = b.readByte();
                 if (aclass38_sub2_sub2_sub4 != null)
-                    interfaceComponent.indexedFont = aclass38_sub2_sub2_sub4[i3];
-                interfaceComponent.aBoolean301 = class38_sub2_sub3.readByte() == 1;
-                interfaceComponent.anInt305 = class38_sub2_sub3.readDWord();
-                interfaceComponent.anInt293 = class38_sub2_sub3.readWordSigned();
-                interfaceComponent.anInt294 = class38_sub2_sub3.readWordSigned();
-                interfaceComponent.aBoolean291 = class38_sub2_sub3.readByte() == 1;
-                interfaceComponent.aStringArray298 = new String[5];
+                    w.font = aclass38_sub2_sub2_sub4[i3];
+                w.shadow = b.readByte() == 1;
+                w.color = b.readDWord();
+                w.inventoryMarginX = b.readWordSigned();
+                w.inventoryMarginY = b.readWordSigned();
+                w.inventoryHasOptions = b.readByte() == 1;
+                w.inventoryOptions = new String[5];
                 for (int l4 = 0; l4 < 5; l4++) {
-                    interfaceComponent.aStringArray298[l4] = class38_sub2_sub3.readString();
-                    if (interfaceComponent.aStringArray298[l4].length() == 0)
-                        interfaceComponent.aStringArray298[l4] = null;
+                    w.inventoryOptions[l4] = b.readString();
+                    if (w.inventoryOptions[l4].length() == 0)
+                        w.inventoryOptions[l4] = null;
                 }
 
             }
-            if (interfaceComponent.anInt272 == 2 || interfaceComponent.anInt271 == 2) {
-                interfaceComponent.aString317 = class38_sub2_sub3.readString();
-                interfaceComponent.aString318 = class38_sub2_sub3.readString();
-                interfaceComponent.anInt319 = class38_sub2_sub3.readWord();
+            if (w.buttonType == 2 || w.type == 2) {
+                w.optionCircumfix = b.readString();
+                w.optionSuffix = b.readString();
+                w.optionFlags = b.readWord();
             }
-            if (interfaceComponent.anInt272 == 1 || interfaceComponent.anInt272 == 4 || interfaceComponent.anInt272 == 5 || interfaceComponent.anInt272 == 6) {
-                interfaceComponent.aString320 = class38_sub2_sub3.readString();
-                if (interfaceComponent.aString320.length() == 0) {
-                    if (interfaceComponent.anInt272 == 1)
-                        interfaceComponent.aString320 = "Ok";
-                    if (interfaceComponent.anInt272 == 4)
-                        interfaceComponent.aString320 = "Select";
-                    if (interfaceComponent.anInt272 == 5)
-                        interfaceComponent.aString320 = "Select";
-                    if (interfaceComponent.anInt272 == 6)
-                        interfaceComponent.aString320 = "Continue";
+            if (w.buttonType == 1 || w.buttonType == 4 || w.buttonType == 5 || w.buttonType == 6) {
+                w.option = b.readString();
+                if (w.option.length() == 0) {
+                    if (w.buttonType == 1)
+                        w.option = "Ok";
+                    if (w.buttonType == 4)
+                        w.option = "Select";
+                    if (w.buttonType == 5)
+                        w.option = "Select";
+                    if (w.buttonType == 6)
+                        w.option = "Continue";
                 }
             }
         }
@@ -206,10 +204,10 @@ public class InterfaceComponent {
         cache2 = null;
     }
 
-    public Model method219(int i, int j, boolean flag) {
-        Model class38_sub2_sub1 = aClass38_Sub2_Sub1_310;
+    public Model getModel(int i, int j, boolean flag) {
+        Model class38_sub2_sub1 = modelDisabled;
         if (flag)
-            class38_sub2_sub1 = aClass38_Sub2_Sub1_311;
+            class38_sub2_sub1 = modelEnabled;
         if (class38_sub2_sub1 == null)
             return null;
         if (i == -1 && j == -1 && class38_sub2_sub1.unmodifiedTriangleColor == null)
@@ -225,97 +223,91 @@ public class InterfaceComponent {
         return class38_sub2_sub1_1;
     }
 
-    public static Sprite method220(FileArchive fileArchive, int i, String s, int j) {
-        long l = (StringUtils.genHash(s) << 8) + (long) i;
-        Sprite class38_sub2_sub2_sub2 = (Sprite) cache1.get(l);
-        if (j != -36068)
-            throw new NullPointerException();
-        if (class38_sub2_sub2_sub2 != null)
-            return class38_sub2_sub2_sub2;
+    public static Sprite getSprite(FileArchive fileArchive, int i, String name, int j) {
+        long uid = (StringUtils.genHash(name) << 8) + (long) i;
+        Sprite s = (Sprite) cache1.get(uid);
+        if (s != null)
+            return s;
         try {
-            class38_sub2_sub2_sub2 = new Sprite(fileArchive, s, i);
-            cache1.put(l, class38_sub2_sub2_sub2);
+            s = new Sprite(fileArchive, name, i);
+            cache1.put(uid, s);
         } catch (Exception _ex) {
             return null;
         }
-        return class38_sub2_sub2_sub2;
+        return s;
     }
 
-    public static Model method221(int i, int j) {
-        Model class38_sub2_sub1 = (Model) cache2.get(j);
-        if (i != 4)
-            aBoolean263 = !aBoolean263;
-        if (class38_sub2_sub1 != null) {
-            return class38_sub2_sub1;
-        } else {
-            Model class38_sub2_sub1_1 = new Model(j);
-            cache2.put(j, class38_sub2_sub1_1);
-            return class38_sub2_sub1_1;
+    public static Model getModel(int i, int j) {
+        Model m = (Model) cache2.get(j);
+        if (m != null) {
+            return m;
         }
+
+        m = new Model(j);
+        cache2.put(j, m);
+        return m;
     }
 
     public InterfaceComponent() {
     }
 
-    public static int anInt262;
-    public static boolean aBoolean263;
     public static InterfaceComponent[] instances;
-    public int[] anIntArray265;
-    public int[] anIntArray266;
-    public int anInt267;
+    public int[] inventoryIndices;
+    public int[] inventoryAmount;
+    public int seqFrame;
     public int anInt268;
-    public int anInt269;
-    public int anInt270;
-    public int anInt271;
-    public int anInt272;
-    public int anInt273;
-    public int anInt274;
-    public int anInt275;
-    public int anInt276;
-    public int anInt277;
-    public int[][] anIntArrayArray278;
-    public int[] anIntArray279;
-    public int[] anIntArray280;
-    public int anInt281;
-    public int anInt282;
-    public int anInt283;
-    public boolean aBoolean284;
-    public int[] anIntArray285;
-    public int[] anIntArray286;
-    public int[] anIntArray287;
+    public int id;
+    public int parent;
+    public int type;
+    public int buttonType;
+    public int contentType;
+    public int width;
+    public int height;
+    public int x;
+    public int y;
+    public int[][] script;
+    public int[] scriptCompareType;
+    public int[] scriptCompareValue;
+    public int hoverParentIndex;
+    public int scrollHeight;
+    public int scrollY;
+    public boolean hidden;
+    public int[] children;
+    public int[] childX;
+    public int[] childY;
     public int anInt288;
     public boolean aBoolean289;
-    public boolean aBoolean290;
-    public boolean aBoolean291;
-    public boolean aBoolean292;
-    public int anInt293;
-    public int anInt294;
-    public Sprite[] aClass38_Sub2_Sub2_Sub2Array295;
-    public int[] anIntArray296;
-    public int[] anIntArray297;
-    public String[] aStringArray298;
-    public boolean aBoolean299;
-    public boolean aBoolean300;
-    public boolean aBoolean301;
-    public IndexedFont indexedFont;
-    public String aString303;
-    public String aString304;
-    public int anInt305;
-    public int anInt306;
-    public int anInt307;
-    public Sprite aClass38_Sub2_Sub2_Sub2_308;
-    public Sprite aClass38_Sub2_Sub2_Sub2_309;
-    public Model aClass38_Sub2_Sub1_310;
-    public Model aClass38_Sub2_Sub1_311;
-    public int anInt312;
-    public int anInt313;
-    public int anInt314;
-    public int anInt315;
-    public int anInt316;
-    public String aString317;
-    public String aString318;
-    public int anInt319;
-    public String aString320;
+    public boolean inventoryDummy;
+    public boolean inventoryHasOptions;
+    public boolean inventoryIsUsable;
+    public int inventoryMarginX;
+    public int inventoryMarginY;
+    public Sprite[] inventorySprite;
+    public int[] inventoryOffsetX;
+    public int[] inventoryOffsetY;
+    public String[] inventoryOptions;
+    public boolean fill;
+    public boolean center;
+    public boolean shadow;
+    public IndexedFont font;
+    public String text;
+    public String activeText;
+    public int color;
+    public int colorEnabled;
+    public int hoverColor;
+    public Sprite image;
+    public Sprite activeImage;
+    public Model modelDisabled;
+    public Model modelEnabled;
+    public int seqId;
+    public int activeSeqId;
+    public int modelZoom;
+    public int modelEyePitch;
+    public int modelYaw;
+    public String optionCircumfix;
+    public String optionSuffix;
+    public int optionFlags;
+    public String option;
     public static Cache cache1;
     public static Cache cache2;
 }

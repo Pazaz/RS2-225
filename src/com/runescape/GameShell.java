@@ -15,28 +15,28 @@ public class GameShell extends Applet
         anInt12 = j;
         anInt13 = i;
         frame = new GameFrame(anInt13, this, anInt12);
-        graphics = method11(aByte5).getGraphics();
-        drawArea = new DrawArea(method11(aByte5), anInt12, anInt13);
+        graphics = getBaseComponent(aByte5).getGraphics();
+        drawArea = new DrawArea(getBaseComponent(aByte5), anInt12, anInt13);
         startThread(this, 1);
     }
 
     public void initApplet(int i, boolean flag, int j) {
         anInt12 = j;
         anInt13 = i;
-        graphics = method11(aByte5).getGraphics();
-        drawArea = new DrawArea(method11(aByte5), anInt12, anInt13);
+        graphics = getBaseComponent(aByte5).getGraphics();
+        drawArea = new DrawArea(getBaseComponent(aByte5), anInt12, anInt13);
         startThread(this, 1);
     }
 
     public void run() {
-        method11(aByte5).addMouseListener(this);
-        method11(aByte5).addMouseMotionListener(this);
-        method11(aByte5).addKeyListener(this);
-        method11(aByte5).addFocusListener(this);
+        getBaseComponent(aByte5).addMouseListener(this);
+        getBaseComponent(aByte5).addMouseMotionListener(this);
+        getBaseComponent(aByte5).addKeyListener(this);
+        getBaseComponent(aByte5).addFocusListener(this);
         if (frame != null)
             frame.addWindowListener(this);
         showProgress(true, "Loading...", 0);
-        method6();
+        load();
         int i = 0;
         int j = 256;
         int k = 1;
@@ -49,7 +49,7 @@ public class GameShell extends Applet
             if (anInt7 > 0) {
                 anInt7--;
                 if (anInt7 == 0) {
-                    method3(-652);
+                    shutdown(-652);
                     return;
                 }
             }
@@ -84,21 +84,21 @@ public class GameShell extends Applet
             } catch (InterruptedException _ex) {
             }
             for (; i1 < 256; i1 += j) {
-                method7(437);
-                anInt23 = 0;
+                update(437);
+                mouseButton = 0;
                 anInt28 = anInt29;
             }
 
             i1 &= 0xff;
             if (anInt8 > 0)
                 anInt11 = (1000 * j) / (anInt8 * 256);
-            method9(false);
+            draw(false);
         }
         if (anInt7 == -1)
-            method3(-652);
+            shutdown(-652);
     }
 
-    public void method3(int i) {
+    public void shutdown(int i) {
         while (i >= 0)
             aBoolean4 = !aBoolean4;
         anInt7 = -2;
@@ -115,7 +115,7 @@ public class GameShell extends Applet
         }
     }
 
-    public void method4(int j) {
+    public void setLoopRate(int j) {
         anInt8 = 1000 / j;
     }
 
@@ -136,21 +136,21 @@ public class GameShell extends Applet
         } catch (Exception _ex) {
         }
         if (anInt7 == -1)
-            method3(-652);
+            shutdown(-652);
     }
 
     public void update(Graphics g) {
         if (graphics == null)
             graphics = g;
         aBoolean18 = true;
-        method10(3);
+        refresh(3);
     }
 
     public void paint(Graphics g) {
         if (graphics == null)
             graphics = g;
         aBoolean18 = true;
-        method10(3);
+        refresh(3);
     }
 
     public void mousePressed(MouseEvent mouseevent) {
@@ -164,10 +164,10 @@ public class GameShell extends Applet
         clickX = i;
         clickY = j;
         if (mouseevent.isMetaDown()) {
-            anInt23 = 2;
+            mouseButton = 2;
             anInt20 = 2;
         } else {
-            anInt23 = 1;
+            mouseButton = 1;
             anInt20 = 1;
         }
         if (InputTracking.enabled)
@@ -202,8 +202,8 @@ public class GameShell extends Applet
             j -= 22;
         }
         anInt19 = 0;
-        anInt21 = i;
-        anInt22 = j;
+        mouseX = i;
+        mouseY = j;
         if (InputTracking.enabled)
             InputTracking.mouseMoved(j, i);
     }
@@ -216,8 +216,8 @@ public class GameShell extends Applet
             j -= 22;
         }
         anInt19 = 0;
-        anInt21 = i;
-        anInt22 = j;
+        mouseX = i;
+        mouseY = j;
         if (InputTracking.enabled)
             InputTracking.mouseMoved(j, i);
     }
@@ -301,7 +301,7 @@ public class GameShell extends Applet
 
     public void focusGained(FocusEvent focusevent) {
         aBoolean18 = true;
-        method10(3);
+        refresh(3);
         if (InputTracking.enabled)
             InputTracking.focusGained();
     }
@@ -311,7 +311,7 @@ public class GameShell extends Applet
             InputTracking.focusLost();
     }
 
-    public int method5(boolean flag) {
+    public int pollKey(boolean flag) {
         int i = -1;
         if (flag)
             return 2;
@@ -344,24 +344,22 @@ public class GameShell extends Applet
     public void windowOpened(WindowEvent windowevent) {
     }
 
-    public void method6() {
+    public void load() {
     }
 
-    public void method7(int i) {
-        if (i <= 0)
-            aBoolean2 = !aBoolean2;
+    public void update(int i) {
     }
 
     public void unload(byte byte0) {
     }
 
-    public void method9(boolean flag) {
+    public void draw(boolean flag) {
     }
 
-    public void method10(int i) {
+    public void refresh(int i) {
     }
 
-    public Component method11(byte byte0) {
+    public Component getBaseComponent(byte byte0) {
         if (frame != null)
             return frame;
         else
@@ -376,9 +374,9 @@ public class GameShell extends Applet
 
     public void showProgress(boolean flag, String s, int i) {
         while (graphics == null) {
-            graphics = method11(aByte5).getGraphics();
+            graphics = getBaseComponent(aByte5).getGraphics();
             try {
-                method11(aByte5).repaint();
+                getBaseComponent(aByte5).repaint();
             } catch (Exception _ex) {
             }
             try {
@@ -387,9 +385,9 @@ public class GameShell extends Applet
             }
         }
         Font font = new Font("Helvetica", 1, 13);
-        FontMetrics fontmetrics = method11(aByte5).getFontMetrics(font);
+        FontMetrics fontmetrics = getBaseComponent(aByte5).getFontMetrics(font);
         Font font1 = new Font("Helvetica", 0, 13);
-        method11(aByte5).getFontMetrics(font1);
+        getBaseComponent(aByte5).getFontMetrics(font1);
         if (aBoolean18) {
             graphics.setColor(Color.black);
             graphics.fillRect(0, 0, anInt12, anInt13);
@@ -441,9 +439,9 @@ public class GameShell extends Applet
     public boolean aBoolean18;
     public int anInt19;
     public int anInt20;
-    public int anInt21;
-    public int anInt22;
-    public int anInt23;
+    public int mouseX;
+    public int mouseY;
+    public int mouseButton;
     public int clickX;
     public int clickY;
     public int[] anIntArray26;
