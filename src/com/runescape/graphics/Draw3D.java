@@ -9,7 +9,7 @@ public class Draw3D extends Draw2D {
         sin = null;
         cos = null;
         offsets = null;
-        indexedSpritesArray = null;
+        textures = null;
         textureHasTransparency = null;
         textureColors = null;
         texelBuffer2 = null;
@@ -60,11 +60,11 @@ public class Draw3D extends Draw2D {
         loadedTextureCount = 0;
         for (int i = 0; i < 50; i++) {
             try {
-                indexedSpritesArray[i] = new IndexedSprite(fileArchive, String.valueOf(i), 0);
-                if (lowMemory && indexedSpritesArray[i].clipWidth == 128)
-                    indexedSpritesArray[i].shrink();
+                textures[i] = new IndexedSprite(fileArchive, String.valueOf(i), 0);
+                if (lowMemory && textures[i].clipWidth == 128)
+                    textures[i].shrink();
                 else
-                    indexedSpritesArray[i].crop();
+                    textures[i].crop();
                 loadedTextureCount++;
             } catch (Exception _ex) {
             }
@@ -120,7 +120,7 @@ public class Draw3D extends Draw2D {
             texelBuffer1[k] = null;
         }
         texelBuffer1[i] = ai;
-        IndexedSprite indexedSprite = indexedSpritesArray[i];
+        IndexedSprite indexedSprite = textures[i];
         int[] ai1 = texturePalettes[i];
         if (lowMemory) {
             textureHasTransparency[i] = false;
@@ -219,8 +219,8 @@ public class Draw3D extends Draw2D {
         }
 
         for (int k = 0; k < 50; k++)
-            if (indexedSpritesArray[k] != null) {
-                int[] ai = indexedSpritesArray[k].palette;
+            if (textures[k] != null) {
+                int[] ai = textures[k].palette;
                 texturePalettes[k] = new int[ai.length];
                 for (int i1 = 0; i1 < ai.length; i1++)
                     texturePalettes[k][i1] = powRGB(ai[i1], d);
@@ -1954,7 +1954,7 @@ public class Draw3D extends Draw2D {
     public static int[] cos;
     public static int[] offsets;
     public static int loadedTextureCount;
-    public static IndexedSprite[] indexedSpritesArray = new IndexedSprite[50];
+    public static IndexedSprite[] textures = new IndexedSprite[50];
     public static boolean[] textureHasTransparency = new boolean[50];
     public static int[] textureColors = new int[50];
     public static int texelPoolPosition;

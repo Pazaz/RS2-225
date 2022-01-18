@@ -7,10 +7,10 @@ public class LocEntity extends Node {
 
     public LocEntity(boolean flag, int i, int j, int l, SeqType seq, int i1, int j1) {
         anInt1206 = j;
-        anInt1207 = l;
+        classType = l;
         anInt1208 = j1;
         anInt1209 = i1;
-        anInt1210 = i;
+        locIndex = i;
         this.seq = seq;
 
         if (flag && seq.delta != -1) {
@@ -23,10 +23,10 @@ public class LocEntity extends Node {
     }
 
     public int anInt1206;
-    public int anInt1207;
+    public int classType;
     public int anInt1208;
     public int anInt1209;
-    public int anInt1210;
+    public int locIndex;
     public SeqType seq;
     public int currentFrameId;
     public int currentFrameDuration;

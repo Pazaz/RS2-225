@@ -1525,11 +1525,11 @@ public class Model extends CacheableNode {
                 k4 /= i3;
                 i5 /= k5;
             }
-            int i6 = anInt1296 - Draw3D.centerX;
-            int k6 = anInt1297 - Draw3D.centerY;
+            int i6 = cursorX - Draw3D.centerX;
+            int k6 = cursorY - Draw3D.centerY;
             if (i6 > k3 && i6 < l3 && k6 > i5 && k6 < k4)
                 if (pickable)
-                    hoveredBitsets[anInt1298++] = i2;
+                    hoveredBitsets[resourceCount++] = i2;
                 else
                     flag1 = true;
         }
@@ -1602,8 +1602,8 @@ public class Model extends CacheableNode {
                     int depth = (vertexDepth[a] + vertexDepth[b] + vertexDepth[c]) / 3 + minDepth;
                     depthTriangles[depth][depthTriangleCount[depth]++] = t;
                 } else {
-                    if (hasInput && pointWithinTriangle(anInt1296, anInt1297, vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], x0, x1, x2)) {
-                        hoveredBitsets[anInt1298++] = bitset;
+                    if (hasInput && pointWithinTriangle(cursorX, cursorY, vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], x0, x1, x2)) {
+                        hoveredBitsets[resourceCount++] = bitset;
                         hasInput = false;
                     }
 
@@ -2097,9 +2097,9 @@ public class Model extends CacheableNode {
     public static int transformY;
     public static int transformZ;
     public static boolean aBoolean1295;
-    public static int anInt1296;
-    public static int anInt1297;
-    public static int anInt1298;
+    public static int cursorX;
+    public static int cursorY;
+    public static int resourceCount;
     public static int[] hoveredBitsets = new int[1000];
     public static int[] sin;
     public static int[] cos;

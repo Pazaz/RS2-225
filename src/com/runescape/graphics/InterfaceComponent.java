@@ -255,7 +255,7 @@ public class InterfaceComponent {
     public int[] inventoryIndices;
     public int[] inventoryAmount;
     public int seqFrame;
-    public int anInt268;
+    public int seqCycle;
     public int id;
     public int parent;
     public int type;

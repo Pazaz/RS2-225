@@ -12,19 +12,19 @@ public class GameShell extends Applet
         implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
 
     public void initFrame(int i, int j) {
-        anInt12 = j;
-        anInt13 = i;
-        frame = new GameFrame(anInt13, this, anInt12);
+        gameWidth = j;
+        gameHeight = i;
+        frame = new GameFrame(gameHeight, this, gameWidth);
         graphics = getBaseComponent().getGraphics();
-        drawArea = new DrawArea(getBaseComponent(), anInt12, anInt13);
+        drawArea = new DrawArea(getBaseComponent(), gameWidth, gameHeight);
         startThread(this, 1);
     }
 
     public void initApplet(int i, int j) {
-        anInt12 = j;
-        anInt13 = i;
+        gameWidth = j;
+        gameHeight = i;
         graphics = getBaseComponent().getGraphics();
-        drawArea = new DrawArea(getBaseComponent(), anInt12, anInt13);
+        drawArea = new DrawArea(getBaseComponent(), gameWidth, gameHeight);
         startThread(this, 1);
     }
 
@@ -257,7 +257,7 @@ public class GameShell extends Applet
         if (i == 34)
             j = 1003;
         if (j > 0 && j < 128)
-            anIntArray26[j] = 1;
+            keyDown[j] = 1;
         if (j > 4) {
             anIntArray27[anInt29] = j;
             anInt29 = anInt29 + 1 & 0x7f;
@@ -291,7 +291,7 @@ public class GameShell extends Applet
         if (i == 10)
             c = '\n';
         if (c > 0 && c < '\200')
-            anIntArray26[c] = 0;
+            keyDown[c] = 0;
         if (InputTracking.enabled)
             InputTracking.keyReleased(c);
     }
@@ -388,19 +388,19 @@ public class GameShell extends Applet
         getBaseComponent().getFontMetrics(font1);
         if (aBoolean18) {
             graphics.setColor(Color.black);
-            graphics.fillRect(0, 0, anInt12, anInt13);
+            graphics.fillRect(0, 0, gameWidth, gameHeight);
             aBoolean18 = false;
         }
         Color color = new Color(140, 17, 17);
-        int j = anInt13 / 2 - 18;
+        int j = gameHeight / 2 - 18;
         graphics.setColor(color);
-        graphics.drawRect(anInt12 / 2 - 152, j, 304, 34);
-        graphics.fillRect(anInt12 / 2 - 150, j + 2, i * 3, 30);
+        graphics.drawRect(gameWidth / 2 - 152, j, 304, 34);
+        graphics.fillRect(gameWidth / 2 - 150, j + 2, i * 3, 30);
         graphics.setColor(Color.black);
-        graphics.fillRect((anInt12 / 2 - 150) + i * 3, j + 2, 300 - i * 3, 30);
+        graphics.fillRect((gameWidth / 2 - 150) + i * 3, j + 2, 300 - i * 3, 30);
         graphics.setFont(font);
         graphics.setColor(Color.white);
-        graphics.drawString(s, (anInt12 - fontmetrics.stringWidth(s)) / 2, j + 22);
+        graphics.drawString(s, (gameWidth - fontmetrics.stringWidth(s)) / 2, j + 22);
     }
 
     public GameShell() {
@@ -414,7 +414,7 @@ public class GameShell extends Applet
         aLongArray10 = new long[10];
         aClass38_Sub2_Sub2_Sub2Array16 = new Sprite[6];
         aBoolean18 = true;
-        anIntArray26 = new int[128];
+        keyDown = new int[128];
         anIntArray27 = new int[128];
     }
 
@@ -428,8 +428,8 @@ public class GameShell extends Applet
     public int anInt9;
     public long[] aLongArray10;
     public int anInt11;
-    public int anInt12;
-    public int anInt13;
+    public int gameWidth;
+    public int gameHeight;
     public Graphics graphics;
     public DrawArea drawArea;
     public Sprite[] aClass38_Sub2_Sub2_Sub2Array16;
@@ -442,7 +442,7 @@ public class GameShell extends Applet
     public int mouseButton;
     public int clickX;
     public int clickY;
-    public int[] anIntArray26;
+    public int[] keyDown;
     public int[] anIntArray27;
     public int anInt28;
     public int anInt29;
