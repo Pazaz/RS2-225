@@ -11,28 +11,28 @@ import java.awt.event.*;
 public class GameShell extends Applet
         implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
 
-    public void initFrame(int i, int j, int k) {
+    public void initFrame(int i, int j) {
         anInt12 = j;
         anInt13 = i;
         frame = new GameFrame(anInt13, this, anInt12);
-        graphics = getBaseComponent(aByte5).getGraphics();
-        drawArea = new DrawArea(getBaseComponent(aByte5), anInt12, anInt13);
+        graphics = getBaseComponent().getGraphics();
+        drawArea = new DrawArea(getBaseComponent(), anInt12, anInt13);
         startThread(this, 1);
     }
 
-    public void initApplet(int i, boolean flag, int j) {
+    public void initApplet(int i, int j) {
         anInt12 = j;
         anInt13 = i;
-        graphics = getBaseComponent(aByte5).getGraphics();
-        drawArea = new DrawArea(getBaseComponent(aByte5), anInt12, anInt13);
+        graphics = getBaseComponent().getGraphics();
+        drawArea = new DrawArea(getBaseComponent(), anInt12, anInt13);
         startThread(this, 1);
     }
 
     public void run() {
-        getBaseComponent(aByte5).addMouseListener(this);
-        getBaseComponent(aByte5).addMouseMotionListener(this);
-        getBaseComponent(aByte5).addKeyListener(this);
-        getBaseComponent(aByte5).addFocusListener(this);
+        getBaseComponent().addMouseListener(this);
+        getBaseComponent().addMouseMotionListener(this);
+        getBaseComponent().addKeyListener(this);
+        getBaseComponent().addFocusListener(this);
         if (frame != null)
             frame.addWindowListener(this);
         showProgress(true, "Loading...", 0);
@@ -49,7 +49,7 @@ public class GameShell extends Applet
             if (anInt7 > 0) {
                 anInt7--;
                 if (anInt7 == 0) {
-                    shutdown(-652);
+                    shutdown();
                     return;
                 }
             }
@@ -84,7 +84,7 @@ public class GameShell extends Applet
             } catch (InterruptedException _ex) {
             }
             for (; i1 < 256; i1 += j) {
-                update(437);
+                update();
                 mouseButton = 0;
                 anInt28 = anInt29;
             }
@@ -92,26 +92,26 @@ public class GameShell extends Applet
             i1 &= 0xff;
             if (anInt8 > 0)
                 anInt11 = (1000 * j) / (anInt8 * 256);
-            draw(false);
+            draw();
         }
-        if (anInt7 == -1)
-            shutdown(-652);
+
+        if (anInt7 == -1) {
+            shutdown();
+        }
     }
 
-    public void shutdown(int i) {
-        while (i >= 0)
-            aBoolean4 = !aBoolean4;
+    public void shutdown() {
         anInt7 = -2;
-        unload((byte) -28);
+        unload();
+
         try {
             Thread.sleep(1000L);
         } catch (Exception _ex) {
         }
+
         try {
             System.exit(0);
-            return;
         } catch (Throwable _ex) {
-            return;
         }
     }
 
@@ -136,21 +136,21 @@ public class GameShell extends Applet
         } catch (Exception _ex) {
         }
         if (anInt7 == -1)
-            shutdown(-652);
+            shutdown();
     }
 
     public void update(Graphics g) {
         if (graphics == null)
             graphics = g;
         aBoolean18 = true;
-        refresh(3);
+        refresh();
     }
 
     public void paint(Graphics g) {
         if (graphics == null)
             graphics = g;
         aBoolean18 = true;
-        refresh(3);
+        refresh();
     }
 
     public void mousePressed(MouseEvent mouseevent) {
@@ -301,7 +301,7 @@ public class GameShell extends Applet
 
     public void focusGained(FocusEvent focusevent) {
         aBoolean18 = true;
-        refresh(3);
+        refresh();
         if (InputTracking.enabled)
             InputTracking.focusGained();
     }
@@ -311,10 +311,8 @@ public class GameShell extends Applet
             InputTracking.focusLost();
     }
 
-    public int pollKey(boolean flag) {
+    public int pollKey() {
         int i = -1;
-        if (flag)
-            return 2;
         if (anInt29 != anInt28) {
             i = anIntArray27[anInt28];
             anInt28 = anInt28 + 1 & 0x7f;
@@ -347,19 +345,19 @@ public class GameShell extends Applet
     public void load() {
     }
 
-    public void update(int i) {
+    public void update() {
     }
 
-    public void unload(byte byte0) {
+    public void unload() {
     }
 
-    public void draw(boolean flag) {
+    public void draw() {
     }
 
-    public void refresh(int i) {
+    public void refresh() {
     }
 
-    public Component getBaseComponent(byte byte0) {
+    public Component getBaseComponent() {
         if (frame != null)
             return frame;
         else
@@ -374,9 +372,9 @@ public class GameShell extends Applet
 
     public void showProgress(boolean flag, String s, int i) {
         while (graphics == null) {
-            graphics = getBaseComponent(aByte5).getGraphics();
+            graphics = getBaseComponent().getGraphics();
             try {
-                getBaseComponent(aByte5).repaint();
+                getBaseComponent().repaint();
             } catch (Exception _ex) {
             }
             try {
@@ -385,9 +383,9 @@ public class GameShell extends Applet
             }
         }
         Font font = new Font("Helvetica", 1, 13);
-        FontMetrics fontmetrics = getBaseComponent(aByte5).getFontMetrics(font);
+        FontMetrics fontmetrics = getBaseComponent().getFontMetrics(font);
         Font font1 = new Font("Helvetica", 0, 13);
-        getBaseComponent(aByte5).getFontMetrics(font1);
+        getBaseComponent().getFontMetrics(font1);
         if (aBoolean18) {
             graphics.setColor(Color.black);
             graphics.fillRect(0, 0, anInt12, anInt13);
