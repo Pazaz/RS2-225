@@ -2032,13 +2032,11 @@ public class Game extends GameShell {
     }
 
     public Component getBaseComponent() {
-        if (Signlink.mainapp != null)
+        if (Signlink.mainapp != null) {
             return Signlink.mainapp;
+        }
 
-        if (super.frame != null)
-            return super.frame;
-        else
-            return this;
+        return this;
     }
 
     public void updateTemporaryLocs() {

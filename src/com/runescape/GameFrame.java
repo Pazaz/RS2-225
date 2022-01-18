@@ -6,25 +6,17 @@ public class GameFrame extends Frame {
 
     public GameFrame(int height, GameShell applet, int width) {
         this.applet = applet;
-        setTitle("Jagex");
+
+        setTitle("RuneScape 2 - Revision 225");
         setResizable(false);
+
+        setLayout(new BorderLayout());
+        add(applet, BorderLayout.CENTER);
+        pack();
+        setLocationRelativeTo(null);
         setVisible(true);
+        transferFocus();
         toFront();
-        setSize(width + 8, height + 28);
-    }
-
-    public Graphics getGraphics() {
-        Graphics g = super.getGraphics();
-        g.translate(4, 24);
-        return g;
-    }
-
-    public void update(Graphics g) {
-        applet.update(g);
-    }
-
-    public void paint(Graphics g) {
-        applet.paint(g);
     }
 
     public GameShell applet;

@@ -5,20 +5,22 @@ import com.runescape.graphics.Sprite;
 import com.runescape.util.InputTracking;
 
 import javax.swing.*;
-import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameShell extends Applet
+public class GameShell extends JApplet
     implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
 
     public void initFrame(int i, int j) {
         gameWidth = j;
         gameHeight = i;
+        setSize(gameWidth, gameHeight);
+        setPreferredSize(getSize());
         frame = new GameFrame(gameHeight, this, gameWidth);
         graphics = getBaseComponent().getGraphics();
         drawArea = new DrawArea(getBaseComponent(), gameWidth, gameHeight);
         startThread(this, 1);
+        requestFocus();
     }
 
     public void initApplet(int i, int j) {
@@ -157,10 +159,6 @@ public class GameShell extends Applet
     public void mousePressed(MouseEvent e) {
         int i = e.getX();
         int j = e.getY();
-        if (frame != null) {
-            i -= 4;
-            j -= 22;
-        }
         idleCycles = 0;
         clickX = i;
         clickY = j;
@@ -198,10 +196,6 @@ public class GameShell extends Applet
     public void mouseDragged(MouseEvent mouseevent) {
         int i = mouseevent.getX();
         int j = mouseevent.getY();
-        if (frame != null) {
-            i -= 4;
-            j -= 22;
-        }
         idleCycles = 0;
         mouseX = i;
         mouseY = j;
@@ -212,10 +206,6 @@ public class GameShell extends Applet
     public void mouseMoved(MouseEvent mouseevent) {
         int i = mouseevent.getX();
         int j = mouseevent.getY();
-        if (frame != null) {
-            i -= 4;
-            j -= 22;
-        }
         idleCycles = 0;
         mouseX = i;
         mouseY = j;
@@ -359,10 +349,7 @@ public class GameShell extends Applet
     }
 
     public Component getBaseComponent() {
-        if (frame != null)
-            return frame;
-        else
-            return this;
+        return this;
     }
 
     public void startThread(Runnable runnable, int i) {
