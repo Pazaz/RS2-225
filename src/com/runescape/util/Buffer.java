@@ -1,8 +1,8 @@
 package com.runescape.util;
 
-import java.math.BigInteger;
-
 import net.burtleburtle.bob.rand.IsaacRandom;
+
+import java.math.BigInteger;
 
 public class Buffer extends CacheableNode {
 
@@ -45,10 +45,12 @@ public class Buffer extends CacheableNode {
             if (data.length == 100 && queueLowCount < 1000) {
                 queueLow.pushNext(this);
                 queueLowCount++;
-            } if (data.length == 5000 && queueMidCount < 250) {
+            }
+            if (data.length == 5000 && queueMidCount < 250) {
                 queueMid.pushNext(this);
                 queueMidCount++;
-            } if (data.length == 30000 && queueHighCount < 50) {
+            }
+            if (data.length == 30000 && queueHighCount < 50) {
                 queueHigh.pushNext(this);
                 queueHighCount++;
             }
@@ -168,13 +170,15 @@ public class Buffer extends CacheableNode {
 
     public String readString() {
         int start = offset;
-        while (data[offset++] != 10) {}
+        while (data[offset++] != 10) {
+        }
         return new String(data, start, offset - start - 1);
     }
 
     public byte[] readStringRaw() {
         int start = offset;
-        while (data[offset++] != 10) {}
+        while (data[offset++] != 10) {
+        }
         byte[] dest = new byte[offset - start - 1];
         System.arraycopy(data, start, dest, 0, offset - 1 - start);
         return dest;
@@ -207,7 +211,7 @@ public class Buffer extends CacheableNode {
         } else {
             i += data[byteOffset] >> msb - bits & BITMASK[bits];
         }
-        
+
         return i;
     }
 

@@ -1,7 +1,7 @@
 package com.runescape.scene;
 
-import com.runescape.util.Node;
 import com.runescape.cache.Model;
+import com.runescape.util.Node;
 
 public class Entity extends Node {
 

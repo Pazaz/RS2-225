@@ -1,7 +1,7 @@
 package com.runescape.scene;
 
-import com.runescape.util.Node;
 import com.runescape.cache.SeqType;
+import com.runescape.util.Node;
 
 public class LocEntity extends Node {
 

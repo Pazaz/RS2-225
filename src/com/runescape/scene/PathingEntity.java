@@ -58,7 +58,7 @@ public class PathingEntity extends Entity {
         } else if (direction == 5) {
             x--;
             z--;
-        } else  if (direction == 6) {
+        } else if (direction == 6) {
             z--;
         } else if (direction == 7) {
             x++;

@@ -1,7 +1,5 @@
 package com.runescape.util;
 
-import com.runescape.util.CacheableNode;
-
 public class Stack {
 
     public Stack() {

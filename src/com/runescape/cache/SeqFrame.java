@@ -23,7 +23,7 @@ public class SeqFrame {
         for (int i = 0; i < frameCount; i++) {
             SeqFrame frame = instance[head.readWord()] = new SeqFrame();
             frame.delay = del.readByte();
-            
+
             SeqBase base = SeqBase.instance[head.readWord()];
             frame.transform = base;
 

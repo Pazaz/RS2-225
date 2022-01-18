@@ -8,10 +8,10 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 public class BufferedStream
-        implements Runnable {
+    implements Runnable {
 
     public BufferedStream(GameShell applet, Socket socket)
-            throws IOException {
+        throws IOException {
         closed = false;
         writing = false;
         exception = false;
@@ -50,7 +50,7 @@ public class BufferedStream
     }
 
     public int read()
-            throws IOException {
+        throws IOException {
         if (closed) {
             return 0;
         }
@@ -59,7 +59,7 @@ public class BufferedStream
     }
 
     public int available()
-            throws IOException {
+        throws IOException {
         if (closed) {
             return 0;
         }
@@ -68,7 +68,7 @@ public class BufferedStream
     }
 
     public void read(byte[] dest, int off, int len)
-            throws IOException {
+        throws IOException {
         if (closed) {
             return;
         }
@@ -83,7 +83,7 @@ public class BufferedStream
     }
 
     public void write(byte[] src, int len, int off)
-            throws IOException {
+        throws IOException {
         if (closed) {
             return;
         }

@@ -1,7 +1,7 @@
 package com.runescape.scene;
 
-import com.runescape.cache.SpotAnimType;
 import com.runescape.cache.Model;
+import com.runescape.cache.SpotAnimType;
 
 public class ProjectileEntity extends Entity {
 

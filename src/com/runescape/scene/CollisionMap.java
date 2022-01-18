@@ -163,7 +163,7 @@ public class CollisionMap {
     public void removeWall(boolean blocks, int orientation, int x, int z, int type) {
         x -= xOffset;
         z -= zOffset;
-        
+
         if (type == 0) {
             if (orientation == 0) {
                 remove(z, x, 128);
@@ -278,7 +278,7 @@ public class CollisionMap {
             sizeX = sizeZ;
             sizeZ = w;
         }
-        
+
         for (int x = startX; x < startX + sizeX; x++) {
             if (x >= 0 && x < wide) {
                 for (int z = startZ; z < startZ + sizeZ; z++) {
@@ -304,7 +304,7 @@ public class CollisionMap {
         if (initialX == finalX && initialZ == finalZ) {
             return true;
         }
-        
+
         initialX -= xOffset;
         initialZ -= zOffset;
         finalX -= xOffset;
@@ -316,25 +316,29 @@ public class CollisionMap {
                     return true;
                 } else if (initialX == finalX && initialZ == finalZ + 1 && (flags[initialX][initialZ] & 0x280120) == 0) {
                     return true;
-                } else return initialX == finalX && initialZ == finalZ - 1 && (flags[initialX][initialZ] & 0x280102) == 0;
+                } else
+                    return initialX == finalX && initialZ == finalZ - 1 && (flags[initialX][initialZ] & 0x280102) == 0;
             } else if (direction == 1) {
                 if (initialX == finalX && initialZ == finalZ + 1) {
                     return true;
                 } else if (initialX == finalX - 1 && initialZ == finalZ && (flags[initialX][initialZ] & 0x280108) == 0) {
                     return true;
-                } else return initialX == finalX + 1 && initialZ == finalZ && (flags[initialX][initialZ] & 0x280180) == 0;
+                } else
+                    return initialX == finalX + 1 && initialZ == finalZ && (flags[initialX][initialZ] & 0x280180) == 0;
             } else if (direction == 2) {
                 if (initialX == finalX + 1 && initialZ == finalZ) {
                     return true;
                 } else if (initialX == finalX && initialZ == finalZ + 1 && (flags[initialX][initialZ] & 0x280120) == 0) {
                     return true;
-                } else return initialX == finalX && initialZ == finalZ - 1 && (flags[initialX][initialZ] & 0x280102) == 0;
+                } else
+                    return initialX == finalX && initialZ == finalZ - 1 && (flags[initialX][initialZ] & 0x280102) == 0;
             } else if (direction == 3) {
                 if (initialX == finalX && initialZ == finalZ - 1) {
                     return true;
                 } else if (initialX == finalX - 1 && initialZ == finalZ && (flags[initialX][initialZ] & 0x280108) == 0) {
                     return true;
-                } else return initialX == finalX + 1 && initialZ == finalZ && (flags[initialX][initialZ] & 0x280180) == 0;
+                } else
+                    return initialX == finalX + 1 && initialZ == finalZ && (flags[initialX][initialZ] & 0x280180) == 0;
             }
         } else if (type == 2) {
             if (direction == 0) {
@@ -344,7 +348,8 @@ public class CollisionMap {
                     return true;
                 } else if (initialX == finalX + 1 && initialZ == finalZ && (flags[initialX][initialZ] & 0x280180) == 0) {
                     return true;
-                } else return initialX == finalX && initialZ == finalZ - 1 && (flags[initialX][initialZ] & 0x280102) == 0;
+                } else
+                    return initialX == finalX && initialZ == finalZ - 1 && (flags[initialX][initialZ] & 0x280102) == 0;
             } else if (direction == 1) {
                 if (initialX == finalX - 1 && initialZ == finalZ && (flags[initialX][initialZ] & 0x280108) == 0) {
                     return true;
@@ -352,7 +357,8 @@ public class CollisionMap {
                     return true;
                 } else if (initialX == finalX + 1 && initialZ == finalZ) {
                     return true;
-                } else return initialX == finalX && initialZ == finalZ - 1 && (flags[initialX][initialZ] & 0x280102) == 0;
+                } else
+                    return initialX == finalX && initialZ == finalZ - 1 && (flags[initialX][initialZ] & 0x280102) == 0;
             } else if (direction == 2) {
                 if (initialX == finalX - 1 && initialZ == finalZ && (flags[initialX][initialZ] & 0x280108) == 0) {
                     return true;
@@ -381,7 +387,7 @@ public class CollisionMap {
 
             return initialX == finalX + 1 && initialZ == finalZ && (flags[initialX][initialZ] & 0x80) == 0;
         }
-        
+
         return false;
     }
 

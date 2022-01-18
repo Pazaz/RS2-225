@@ -127,7 +127,7 @@ public class LocType {
                 culls = true;
             } else if (opcode == 24) {
                 animationIndex = buffer.readWord();
-                
+
                 if (animationIndex == 65535) {
                     animationIndex = -1;
                 }

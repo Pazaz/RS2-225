@@ -1,8 +1,8 @@
 package com.runescape.cache;
 
-import com.runescape.graphics.Sprite;
 import com.runescape.graphics.Draw2D;
 import com.runescape.graphics.Draw3D;
+import com.runescape.graphics.Sprite;
 import com.runescape.util.Buffer;
 import com.runescape.util.Cache;
 
@@ -159,7 +159,7 @@ public class ObjType {
                 if (groundOptions == null) {
                     groundOptions = new String[5];
                 }
-                
+
                 groundOptions[opcode - 30] = buffer.readString();
                 if (groundOptions[opcode - 30].equalsIgnoreCase("hidden")) {
                     groundOptions[opcode - 30] = null;
@@ -168,13 +168,13 @@ public class ObjType {
                 if (options == null) {
                     options = new String[5];
                 }
-                
+
                 options[opcode - 35] = buffer.readString();
             } else if (opcode == 40) {
                 int count = buffer.readByte();
                 oldColors = new int[count];
                 newColors = new int[count];
-                
+
                 for (int n = 0; n < count; n++) {
                     oldColors[n] = buffer.readWord();
                     newColors[n] = buffer.readWord();
@@ -432,7 +432,7 @@ public class ObjType {
         if (m0 == -1) {
             return null;
         }
-        
+
         Model model = new Model(m0);
         if (m1 != -1) {
             Model model1 = new Model(m1);

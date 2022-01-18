@@ -1138,7 +1138,7 @@ public class Draw3D extends Draw2D {
                     i = offsets[i];
                     while (--j >= 0) {
                         drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8,
-                                l4, k5, j6, i5, l5, k6);
+                            l4, k5, j6, i5, l5, k6);
                         j1 += i8;
                         l += i7;
                         i2 += j8;
@@ -1150,7 +1150,7 @@ public class Draw3D extends Draw2D {
                     }
                     while (--k >= 0) {
                         drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8,
-                                l4, k5, j6, i5, l5, k6);
+                            l4, k5, j6, i5, l5, k6);
                         j1 += i8;
                         i1 += k7;
                         i2 += j8;
@@ -1167,7 +1167,7 @@ public class Draw3D extends Draw2D {
                 i = offsets[i];
                 while (--j >= 0) {
                     drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4,
-                            k5, j6, i5, l5, k6);
+                        k5, j6, i5, l5, k6);
                     j1 += i8;
                     l += i7;
                     i2 += j8;
@@ -1179,7 +1179,7 @@ public class Draw3D extends Draw2D {
                 }
                 while (--k >= 0) {
                     drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4,
-                            k5, j6, i5, l5, k6);
+                        k5, j6, i5, l5, k6);
                     j1 += i8;
                     i1 += k7;
                     i2 += j8;
@@ -1217,7 +1217,7 @@ public class Draw3D extends Draw2D {
                 i = offsets[i];
                 while (--k >= 0) {
                     drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
-                            k5, j6, i5, l5, k6);
+                        k5, j6, i5, l5, k6);
                     i1 += i8;
                     l += i7;
                     l1 += j8;
@@ -1229,7 +1229,7 @@ public class Draw3D extends Draw2D {
                 }
                 while (--j >= 0) {
                     drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4,
-                            k5, j6, i5, l5, k6);
+                        k5, j6, i5, l5, k6);
                     j1 += k7;
                     l += i7;
                     i2 += l7;
@@ -1246,7 +1246,7 @@ public class Draw3D extends Draw2D {
             i = offsets[i];
             while (--k >= 0) {
                 drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4, k5,
-                        j6, i5, l5, k6);
+                    j6, i5, l5, k6);
                 i1 += i8;
                 l += i7;
                 l1 += j8;
@@ -1258,7 +1258,7 @@ public class Draw3D extends Draw2D {
             }
             while (--j >= 0) {
                 drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4, k5,
-                        j6, i5, l5, k6);
+                    j6, i5, l5, k6);
                 j1 += k7;
                 l += i7;
                 i2 += l7;
@@ -1304,7 +1304,7 @@ public class Draw3D extends Draw2D {
                     j = offsets[j];
                     while (--k >= 0) {
                         drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8,
-                                l4, k5, j6, i5, l5, k6);
+                            l4, k5, j6, i5, l5, k6);
                         l += i7;
                         i1 += k7;
                         k1 += j7;
@@ -1316,7 +1316,7 @@ public class Draw3D extends Draw2D {
                     }
                     while (--i >= 0) {
                         drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8,
-                                l4, k5, j6, i5, l5, k6);
+                            l4, k5, j6, i5, l5, k6);
                         l += i7;
                         j1 += i8;
                         k1 += j7;
@@ -1333,7 +1333,7 @@ public class Draw3D extends Draw2D {
                 j = offsets[j];
                 while (--k >= 0) {
                     drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
-                            k5, j6, i5, l5, k6);
+                        k5, j6, i5, l5, k6);
                     l += i7;
                     i1 += k7;
                     k1 += j7;
@@ -1345,7 +1345,7 @@ public class Draw3D extends Draw2D {
                 }
                 while (--i >= 0) {
                     drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4,
-                            k5, j6, i5, l5, k6);
+                        k5, j6, i5, l5, k6);
                     l += i7;
                     j1 += i8;
                     k1 += j7;
@@ -1383,7 +1383,7 @@ public class Draw3D extends Draw2D {
                 j = offsets[j];
                 while (--i >= 0) {
                     drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4,
-                            k5, j6, i5, l5, k6);
+                        k5, j6, i5, l5, k6);
                     j1 += i7;
                     i1 += k7;
                     i2 += j7;
@@ -1395,7 +1395,7 @@ public class Draw3D extends Draw2D {
                 }
                 while (--k >= 0) {
                     drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4,
-                            k5, j6, i5, l5, k6);
+                        k5, j6, i5, l5, k6);
                     l += i8;
                     i1 += k7;
                     k1 += j8;
@@ -1412,7 +1412,7 @@ public class Draw3D extends Draw2D {
             j = offsets[j];
             while (--i >= 0) {
                 drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4, k5,
-                        j6, i5, l5, k6);
+                    j6, i5, l5, k6);
                 j1 += i7;
                 i1 += k7;
                 i2 += j7;
@@ -1424,7 +1424,7 @@ public class Draw3D extends Draw2D {
             }
             while (--k >= 0) {
                 drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4, k5,
-                        j6, i5, l5, k6);
+                    j6, i5, l5, k6);
                 l += i8;
                 i1 += k7;
                 k1 += j8;
@@ -1469,7 +1469,7 @@ public class Draw3D extends Draw2D {
                 k = offsets[k];
                 while (--i >= 0) {
                     drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4,
-                            k5, j6, i5, l5, k6);
+                        k5, j6, i5, l5, k6);
                     i1 += k7;
                     j1 += i8;
                     l1 += l7;
@@ -1481,7 +1481,7 @@ public class Draw3D extends Draw2D {
                 }
                 while (--j >= 0) {
                     drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
-                            k5, j6, i5, l5, k6);
+                        k5, j6, i5, l5, k6);
                     i1 += k7;
                     l += i7;
                     l1 += l7;
@@ -1498,7 +1498,7 @@ public class Draw3D extends Draw2D {
             k = offsets[k];
             while (--i >= 0) {
                 drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4, k5,
-                        j6, i5, l5, k6);
+                    j6, i5, l5, k6);
                 i1 += k7;
                 j1 += i8;
                 l1 += l7;
@@ -1510,7 +1510,7 @@ public class Draw3D extends Draw2D {
             }
             while (--j >= 0) {
                 drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4, k5,
-                        j6, i5, l5, k6);
+                    j6, i5, l5, k6);
                 i1 += k7;
                 l += i7;
                 l1 += l7;
@@ -1548,7 +1548,7 @@ public class Draw3D extends Draw2D {
             k = offsets[k];
             while (--j >= 0) {
                 drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4, k5,
-                        j6, i5, l5, k6);
+                    j6, i5, l5, k6);
                 l += k7;
                 j1 += i8;
                 k1 += l7;
@@ -1560,7 +1560,7 @@ public class Draw3D extends Draw2D {
             }
             while (--i >= 0) {
                 drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4, k5,
-                        j6, i5, l5, k6);
+                    j6, i5, l5, k6);
                 i1 += i7;
                 j1 += i8;
                 l1 += j7;
@@ -1577,7 +1577,7 @@ public class Draw3D extends Draw2D {
         k = offsets[k];
         while (--j >= 0) {
             drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4, k5, j6,
-                    i5, l5, k6);
+                i5, l5, k6);
             l += k7;
             j1 += i8;
             k1 += l7;
@@ -1589,7 +1589,7 @@ public class Draw3D extends Draw2D {
         }
         while (--i >= 0) {
             drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4, k5, j6,
-                    i5, l5, k6);
+                i5, l5, k6);
             i1 += i7;
             j1 += i8;
             l1 += j7;

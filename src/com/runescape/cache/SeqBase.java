@@ -14,11 +14,11 @@ public class SeqBase {
 
         for (int i = 0; i < total; i++) {
             int index = head.readWord();
-            
+
             int length = head.readByte();
             int[] transformTypes = new int[length];
             int[][] groups = new int[length][];
-            
+
             for (int j = 0; j < length; j++) {
                 transformTypes[j] = type.readByte();
 

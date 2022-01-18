@@ -1,14 +1,10 @@
 package com.runescape.scene;
 
 import com.runescape.Game;
-import com.runescape.cache.SpotAnimType;
-import com.runescape.util.StringUtils;
-import com.runescape.cache.IdkType;
-import com.runescape.cache.Model;
-import com.runescape.cache.ObjType;
-import com.runescape.cache.SeqType;
+import com.runescape.cache.*;
 import com.runescape.util.Buffer;
 import com.runescape.util.Cache;
+import com.runescape.util.StringUtils;
 
 public class PlayerEntity extends PathingEntity {
 
@@ -16,7 +12,7 @@ public class PlayerEntity extends PathingEntity {
         buffer.offset = 0;
         gender = buffer.readByte();
         headicons = buffer.readByte();
-        
+
         for (int n = 0; n < 12; n++) {
             int msb = buffer.readByte();
 
@@ -74,7 +70,7 @@ public class PlayerEntity extends PathingEntity {
 
         name = StringUtils.formatName(StringUtils.fromBase37(buffer.readQWord()));
         combatLevel = buffer.readByte();
-        
+
         visible = true;
         uid = 0L;
 
@@ -129,7 +125,7 @@ public class PlayerEntity extends PathingEntity {
                 m.scale(s.breadthScale, s.depthScale, s.breadthScale);
             }
             m.applyLighting(64 + s.ambience, 850 + s.modelShadow, -30, -50, -30, true);
-            Model[] models = { model, m };
+            Model[] models = {model, m};
             model = new Model(models, (byte) -31, 2);
         }
 
@@ -153,7 +149,7 @@ public class PlayerEntity extends PathingEntity {
                     m.rotateCounterClockwise();
                 }
 
-                Model[] models = { model, m };
+                Model[] models = {model, m};
                 model = new Model(models, (byte) -31, 2);
 
                 if (super.dstYaw == 512)
@@ -202,7 +198,7 @@ public class PlayerEntity extends PathingEntity {
         } else if (super.secondarySeq >= 0) {
             primaryFrame = SeqType.animations[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
         }
-        
+
         Model m = (Model) models.get(bitset);
         if (m == null) {
             Model[] models = new Model[12];
@@ -253,7 +249,7 @@ public class PlayerEntity extends PathingEntity {
         }
 
         m = new Model(m, true);
-        
+
         if (primaryFrame != -1 && secondaryFrame != -1) {
             m.applyFrames(secondaryFrame, primaryFrame, SeqType.animations[super.primarySeq].labelGroups);
         } else if (primaryFrame != -1) {

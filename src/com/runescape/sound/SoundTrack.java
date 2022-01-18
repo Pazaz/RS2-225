@@ -125,7 +125,7 @@ public class SoundTrack {
                 int toneSampleCount = (tones[tone].length * 22050) / 1000;
                 int start = (tones[tone].start * 22050) / 1000;
                 int[] samples = tones[tone].generate(toneSampleCount, tones[tone].length);
-                
+
                 for (int sample = 0; sample < toneSampleCount; sample++) {
                     bbuf[sample + start + 44] += (byte) (samples[sample] >> 8);
                 }

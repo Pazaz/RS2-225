@@ -95,7 +95,7 @@ public class InterfaceComponent {
                         if (fileArchive != null && s1.length() > 0) {
                             int j5 = s1.lastIndexOf(",");
                             w.inventorySprite[k2] = getSprite(fileArchive,
-                                    Integer.parseInt(s1.substring(j5 + 1)), s1.substring(0, j5), -36068);
+                                Integer.parseInt(s1.substring(j5 + 1)), s1.substring(0, j5), -36068);
                         }
                     }
                 }
@@ -131,13 +131,13 @@ public class InterfaceComponent {
                 if (fileArchive != null && s.length() > 0) {
                     int j4 = s.lastIndexOf(",");
                     w.image = getSprite(fileArchive, Integer.parseInt(s.substring(j4 + 1)),
-                            s.substring(0, j4), -36068);
+                        s.substring(0, j4), -36068);
                 }
                 s = b.readString();
                 if (fileArchive != null && s.length() > 0) {
                     int k4 = s.lastIndexOf(",");
                     w.activeImage = getSprite(fileArchive, Integer.parseInt(s.substring(k4 + 1)),
-                            s.substring(0, k4), -36068);
+                        s.substring(0, k4), -36068);
                 }
             }
             if (w.type == 6) {

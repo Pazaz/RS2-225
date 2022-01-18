@@ -234,7 +234,7 @@ public final class IsaacRandom {
         int i, j, x, y;
 
         b += ++c;
-        for (i = 0, j = SIZE / 2; i < SIZE / 2;) {
+        for (i = 0, j = SIZE / 2; i < SIZE / 2; ) {
             x = mem[i];
             a ^= a << 13;
             a += mem[j++];
@@ -260,7 +260,7 @@ public final class IsaacRandom {
             rsl[i++] = b = mem[(y >> LOG_SIZE & MASK) >> 2] + x;
         }
 
-        for (j = 0; j < SIZE / 2;) {
+        for (j = 0; j < SIZE / 2; ) {
             x = mem[i];
             a ^= a << 13;
             a += mem[j++];

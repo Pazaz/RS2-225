@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GameShell extends Applet
-        implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
+    implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
 
     public void initFrame(int i, int j) {
         gameWidth = j;

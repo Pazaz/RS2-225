@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.net.URL;
 
 public class Signlink
-        implements Runnable {
+    implements Runnable {
 
     public static void startpriv(InetAddress inetaddress) {
         threadliveid = (int) (Math.random() * 99999999D);
@@ -108,9 +108,9 @@ public class Signlink
     }
 
     public static String findcachedir() {
-        String as[] = {
-                "c:/windows/", "c:/winnt/", "d:/windows/", "d:/winnt/", "e:/windows/", "e:/winnt/", "f:/windows/", "f:/winnt/", "c:/", "~/",
-                "/tmp/", ""
+        String[] as = {
+            "c:/windows/", "c:/winnt/", "d:/windows/", "d:/winnt/", "e:/windows/", "e:/winnt/", "f:/windows/", "f:/winnt/", "c:/", "~/",
+            "/tmp/", ""
         };
         String s = ".file_store_32";
         for (int i = 0; i < as.length; i++)
@@ -183,7 +183,7 @@ public class Signlink
         return loadbuf;
     }
 
-    public static synchronized void cachesave(String s, byte abyte0[]) {
+    public static synchronized void cachesave(String s, byte[] abyte0) {
         if (!active)
             return;
         if (abyte0.length > 0x1e8480)
@@ -204,7 +204,7 @@ public class Signlink
     }
 
     public static synchronized Socket opensocket(int i)
-            throws IOException {
+        throws IOException {
         for (socketreq = i; socketreq != 0; )
             try {
                 Thread.sleep(50L);
@@ -218,7 +218,7 @@ public class Signlink
     }
 
     public static synchronized DataInputStream openurl(String s)
-            throws IOException {
+        throws IOException {
         for (urlreq = s; urlreq != null; )
             try {
                 Thread.sleep(50L);
@@ -241,7 +241,7 @@ public class Signlink
         threadreq = runnable;
     }
 
-    public static synchronized boolean wavesave(byte abyte0[], int i) {
+    public static synchronized boolean wavesave(byte[] abyte0, int i) {
         if (i > 0x1e8480)
             return false;
         if (savereq != null) {
@@ -267,7 +267,7 @@ public class Signlink
         }
     }
 
-    public static synchronized void midisave(byte abyte0[], int i) {
+    public static synchronized void midisave(byte[] abyte0, int i) {
         if (i > 0x1e8480)
             return;
         if (savereq != null) {
@@ -318,10 +318,10 @@ public class Signlink
     public static String dnsreq = null;
     public static String dns = null;
     public static String loadreq = null;
-    public static byte loadbuf[] = null;
+    public static byte[] loadbuf = null;
     public static int savelen;
     public static String savereq = null;
-    public static byte savebuf[] = null;
+    public static byte[] savebuf = null;
     public static String urlreq = null;
     public static DataInputStream urlstream = null;
     public static int looprate = 50;

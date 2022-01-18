@@ -11,7 +11,7 @@ public class FileArchive {
 
     public void parse(byte[] src) {
         Buffer buffer = new Buffer(src);
-        
+
         int unpackedSize = buffer.readSWord();
         int packedSize = buffer.readSWord();
 

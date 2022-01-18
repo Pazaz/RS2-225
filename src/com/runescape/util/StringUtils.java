@@ -73,7 +73,7 @@ public class StringUtils {
             if (chars[0] >= 'a' && chars[0] <= 'z') {
                 chars[0] = (char) ((chars[0] + 65) - 97);
             }
-            
+
             return new String(chars);
         }
 

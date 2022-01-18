@@ -7,7 +7,7 @@ public class SeqType {
     public static void load(FileArchive fileArchive) {
         Buffer buffer = new Buffer(fileArchive.read("seq.dat", null));
         count = buffer.readWord();
-        
+
         if (animations == null) {
             animations = new SeqType[count];
         }

@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.image.*;
 
 public class DrawArea
-        implements ImageProducer, ImageObserver {
+    implements ImageProducer, ImageObserver {
 
     public DrawArea(Component component, int width, int height) {
         this.width = width;

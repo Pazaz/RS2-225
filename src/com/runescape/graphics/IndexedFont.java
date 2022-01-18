@@ -18,7 +18,7 @@ public class IndexedFont extends Draw2D {
         random = new Random();
         Buffer data = new Buffer(fileArchive.read(s + ".dat", null));
         Buffer idx = new Buffer(
-                fileArchive.read("index.dat", null));
+            fileArchive.read("index.dat", null));
         idx.offset = data.readWord() + 4;
         int j = idx.readByte();
         if (j > 0)
@@ -119,8 +119,8 @@ public class IndexedFont extends Draw2D {
             int k1 = CHAR_LOOKUP[s.charAt(j1)];
             if (k1 != 94)
                 fillMaskedRect(pixels[k1], j + charOffsetX[k1],
-                        k + charOffsetY[k1] + (int) (Math.sin((double) j1 / 2D + (double) i / 5D) * 5D),
-                        charWidth[k1], charHeight[k1], l);
+                    k + charOffsetY[k1] + (int) (Math.sin((double) j1 / 2D + (double) i / 5D) * 5D),
+                    charWidth[k1], charHeight[k1], l);
             j += charSpace[k1];
         }
 
@@ -139,9 +139,9 @@ public class IndexedFont extends Draw2D {
                 if (j1 != 94) {
                     if (shadow)
                         fillMaskedRect(pixels[j1], i + charOffsetX[j1] + 1, k + charOffsetY[j1] + 1,
-                                charWidth[j1], charHeight[j1], 0);
+                            charWidth[j1], charHeight[j1], 0);
                     fillMaskedRect(pixels[j1], i + charOffsetX[j1], k + charOffsetY[j1],
-                            charWidth[j1], charHeight[j1], l);
+                        charWidth[j1], charHeight[j1], l);
                 }
                 i += charSpace[j1];
             }
@@ -163,9 +163,9 @@ public class IndexedFont extends Draw2D {
                 if (k1 != 94) {
                     if (flag)
                         fillMaskedRect(pixels[k1], l + charOffsetX[k1] + 1, charHeight[k1], 0,
-                                j + charOffsetY[k1] + 1, 192, charWidth[k1]);
+                            j + charOffsetY[k1] + 1, 192, charWidth[k1]);
                     fillMaskedRect(pixels[k1], l + charOffsetX[k1], charHeight[k1], k,
-                            j + charOffsetY[k1], i1, charWidth[k1]);
+                        j + charOffsetY[k1], i1, charWidth[k1]);
                 }
                 l += charSpace[k1];
                 if ((random.nextInt() & 3) == 0)

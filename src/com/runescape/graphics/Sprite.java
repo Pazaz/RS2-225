@@ -361,7 +361,7 @@ public class Sprite extends Draw2D {
                 if (j != 0) {
                     int l2 = ai1[i];
                     ai1[i++] = ((j & 0xff00ff) * k + (l2 & 0xff00ff) * i2 & 0xff00ff00)
-                            + ((j & 0xff00) * k + (l2 & 0xff00) * i2 & 0xff0000) >> 8;
+                        + ((j & 0xff00) * k + (l2 & 0xff00) * i2 & 0xff0000) >> 8;
                 } else {
                     i++;
                 }

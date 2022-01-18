@@ -265,7 +265,7 @@ public class BZip2InputStream {
                 }
 
                 method340(context.anIntArrayArray639[l3], context.anIntArrayArray640[l3],
-                        context.anIntArrayArray641[l3], context.aByteArrayArray638[l3], byte8, i, i4);
+                    context.anIntArrayArray641[l3], context.aByteArrayArray638[l3], byte8, i, i4);
                 context.anIntArray642[l3] = byte8;
             }
 
@@ -373,7 +373,7 @@ public class BZip2InputStream {
                         for (; l10 > 0; l10--) {
                             context.anIntArray635[l10]--;
                             context.aByteArray634[context.anIntArray635[l10]] = context.aByteArray634[(context.anIntArray635[l10
-                                    - 1] + 16) - 1];
+                                - 1] + 16) - 1];
                         }
 
                         context.anIntArray635[0]--;

@@ -27,7 +27,7 @@ public class WordEncoding {
 
         for (int n = 0; n < count; n++) {
             tldTypes[n] = buffer.readByte();
-            
+
             char[] string = new char[buffer.readByte()];
             for (int k = 0; k < string.length; k++) {
                 string[k] = (char) buffer.readByte();
@@ -154,7 +154,7 @@ public class WordEncoding {
 
         for (int n = 0; n < chars.length; n++) {
             char c = chars[n];
-            
+
             if (isAlpha(c)) {
                 if (flag) {
                     if (isLowercaseAlpha(c)) {
@@ -179,11 +179,11 @@ public class WordEncoding {
 
     public static void filterDomains(char[] chars) {
         char[] filteredAts = chars.clone();
-        char[] ac2 = { '(', 'a', ')' };
+        char[] ac2 = {'(', 'a', ')'};
         filterBad(null, filteredAts, ac2);
 
         char[] filteredDot = chars.clone();
-        char[] ac4 = { 'd', 'o', 't' };
+        char[] ac4 = {'d', 'o', 't'};
         filterBad(null, filteredDot, ac4);
 
         for (int n = domains.length - 1; n >= 0; n--) {
@@ -241,7 +241,7 @@ public class WordEncoding {
                 boolean bad = false;
                 int status0 = getDomainAtFilterStatus(start, chars, filteredAts);
                 int status1 = getDomainDotFilterStatus(filteredDot, chars, end - 1);
-                
+
                 if (status0 > 2 || status1 > 2) {
                     bad = true;
                 }
@@ -297,7 +297,7 @@ public class WordEncoding {
             if (!isSymbol(a[n])) {
                 break;
             }
-            
+
             if (a[n] == '.' || a[n] == ',') {
                 return 3;
             }
@@ -323,11 +323,11 @@ public class WordEncoding {
 
     public static void filterTlds(char[] chars) {
         char[] filteredDot = chars.clone();
-        char[] ac2 = { 'd', 'o', 't' };
+        char[] ac2 = {'d', 'o', 't'};
         filterBad(null, filteredDot, ac2);
 
         char[] filteredSlash = chars.clone();
-        char[] ac4 = { 's', 'l', 'a', 's', 'h' };
+        char[] ac4 = {'s', 'l', 'a', 's', 'h'};
         filterBad(null, filteredSlash, ac4);
 
         for (int j = 0; j < tlds.length; j++) {
@@ -551,7 +551,7 @@ public class WordEncoding {
             int fragOff = 0;
             int iterations = 0;
             stride = 1;
-            
+
             boolean isSymbol = false;
             boolean isEmulated = false;
             boolean isNumeral = false;
@@ -676,11 +676,11 @@ public class WordEncoding {
                         }
                     }
                 }
-                
+
                 if (bad) {
                     int numeralCount = 0;
                     int alphaCount = 0;
-                    
+
                     for (int n = start; n < end; n++) {
                         if (isNumeral(chars[n])) {
                             numeralCount++;
@@ -1094,6 +1094,6 @@ public class WordEncoding {
     public static char[][] domains;
     public static char[][] tlds;
     public static int[] tldTypes;
-    public static final String[] whitelist = { "cook", "cook's", "cooks", "seeks", "sheet" };
+    public static final String[] whitelist = {"cook", "cook's", "cooks", "seeks", "sheet"};
 
 }

@@ -65,7 +65,7 @@ public class SoundTone {
                 tmpDelays[harmonic] = (int) ((double) harmonicDelay[harmonic] * samplesPerStep);
                 tmpVolumes[harmonic] = (harmonicVolume[harmonic] << 14) / 100;
                 tmpSemitones[harmonic] = (int) (((double) (frequencyBase.end - frequencyBase.start)
-                        * 32.768000000000001D * Math.pow(1.0057929410678534D, harmonicSemitone[harmonic])) / samplesPerStep);
+                    * 32.768000000000001D * Math.pow(1.0057929410678534D, harmonicSemitone[harmonic])) / samplesPerStep);
                 tmpStarts[harmonic] = (int) (((double) frequencyBase.start * 32.768000000000001D) / samplesPerStep);
             }
         }
@@ -93,7 +93,7 @@ public class SoundTone {
                     int position = sample + tmpDelays[harmonic];
                     if (position < sampleCount) {
                         buffer[position] += generate(amplitude * tmpVolumes[harmonic] >> 15, tmpPhases[harmonic],
-                                frequencyBase.form);
+                            frequencyBase.form);
                         tmpPhases[harmonic] += (frequency * tmpSemitones[harmonic] >> 16) + tmpStarts[harmonic];
                     }
                 }
@@ -130,9 +130,9 @@ public class SoundTone {
         }
 
         if (reverbDelay > 0 && reverbVolume > 0) {
-            int start  = (int) ((double) reverbDelay * samplesPerStep);
-            for (int sample = start ; sample < sampleCount; sample++) {
-                buffer[sample] += (buffer[sample - start ] * reverbVolume) / 100;
+            int start = (int) ((double) reverbDelay * samplesPerStep);
+            for (int sample = start; sample < sampleCount; sample++) {
+                buffer[sample] += (buffer[sample - start] * reverbVolume) / 100;
             }
         }
 

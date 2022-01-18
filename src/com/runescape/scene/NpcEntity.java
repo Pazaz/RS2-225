@@ -1,9 +1,9 @@
 package com.runescape.scene;
 
-import com.runescape.cache.SpotAnimType;
 import com.runescape.cache.Model;
 import com.runescape.cache.NpcType;
 import com.runescape.cache.SeqType;
+import com.runescape.cache.SpotAnimType;
 
 public class NpcEntity extends PathingEntity {
 
@@ -19,7 +19,7 @@ public class NpcEntity extends PathingEntity {
 
         Model model = getModel();
         SpotAnimType spotAnim = SpotAnimType.instances[super.spotAnimIndex];
-        
+
         Model spotAnimModel = new Model(spotAnim.getModel(), true, !spotAnim.disposeAlpha, false);
         spotAnimModel.translate(-super.spotAnimOffsetY, 0, 0);
 
@@ -35,7 +35,7 @@ public class NpcEntity extends PathingEntity {
 
         spotAnimModel.applyLighting(64 + spotAnim.ambience, 850 + spotAnim.modelShadow, -30, -50, -30, true);
 
-        Model[] models = { model, spotAnimModel };
+        Model[] models = {model, spotAnimModel};
         Model animated = new Model(models, (byte) -31, 2);
 
         if (info.size == 1) {
@@ -49,11 +49,11 @@ public class NpcEntity extends PathingEntity {
         if (super.primarySeq >= 0 && super.primarySeqDelay == 0) {
             int frame1 = SeqType.animations[super.primarySeq].primaryFrames[super.primarySeqFrame];
             int frame2 = -1;
-            
+
             if (super.secondarySeq >= 0 && super.secondarySeq != super.standSeq) {
                 frame2 = SeqType.animations[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
             }
-            
+
             return info.getModel(frame1, frame2, SeqType.animations[super.primarySeq].labelGroups);
         }
 
