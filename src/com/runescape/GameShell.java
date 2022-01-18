@@ -4,6 +4,7 @@ import com.runescape.graphics.DrawArea;
 import com.runescape.graphics.Sprite;
 import com.runescape.util.InputTracking;
 
+import javax.swing.*;
 import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.*;
@@ -153,9 +154,9 @@ public class GameShell extends Applet
         refresh();
     }
 
-    public void mousePressed(MouseEvent mouseevent) {
-        int i = mouseevent.getX();
-        int j = mouseevent.getY();
+    public void mousePressed(MouseEvent e) {
+        int i = e.getX();
+        int j = e.getY();
         if (frame != null) {
             i -= 4;
             j -= 22;
@@ -163,7 +164,7 @@ public class GameShell extends Applet
         idleCycles = 0;
         clickX = i;
         clickY = j;
-        if (mouseevent.isMetaDown()) {
+        if (SwingUtilities.isRightMouseButton(e)) {
             mouseButton = 2;
             dragButton = 2;
         } else {
@@ -171,7 +172,7 @@ public class GameShell extends Applet
             dragButton = 1;
         }
         if (InputTracking.enabled)
-            InputTracking.mousePressed(i, mouseevent.isMetaDown() ? 1 : 0, j);
+            InputTracking.mousePressed(i, e.isMetaDown() ? 1 : 0, j);
     }
 
     public void mouseReleased(MouseEvent mouseevent) {
