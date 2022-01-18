@@ -160,23 +160,23 @@ public class GameShell extends Applet
             i -= 4;
             j -= 22;
         }
-        anInt19 = 0;
+        idleCycles = 0;
         clickX = i;
         clickY = j;
         if (mouseevent.isMetaDown()) {
             mouseButton = 2;
-            anInt20 = 2;
+            dragButton = 2;
         } else {
             mouseButton = 1;
-            anInt20 = 1;
+            dragButton = 1;
         }
         if (InputTracking.enabled)
             InputTracking.mousePressed(i, mouseevent.isMetaDown() ? 1 : 0, j);
     }
 
     public void mouseReleased(MouseEvent mouseevent) {
-        anInt19 = 0;
-        anInt20 = 0;
+        idleCycles = 0;
+        dragButton = 0;
         if (InputTracking.enabled)
             InputTracking.mouseReleased(mouseevent.isMetaDown() ? 1 : 0);
     }
@@ -201,7 +201,7 @@ public class GameShell extends Applet
             i -= 4;
             j -= 22;
         }
-        anInt19 = 0;
+        idleCycles = 0;
         mouseX = i;
         mouseY = j;
         if (InputTracking.enabled)
@@ -215,7 +215,7 @@ public class GameShell extends Applet
             i -= 4;
             j -= 22;
         }
-        anInt19 = 0;
+        idleCycles = 0;
         mouseX = i;
         mouseY = j;
         if (InputTracking.enabled)
@@ -223,7 +223,7 @@ public class GameShell extends Applet
     }
 
     public void keyPressed(KeyEvent keyevent) {
-        anInt19 = 0;
+        idleCycles = 0;
         int i = keyevent.getKeyCode();
         int j = keyevent.getKeyChar();
         if (j < 30)
@@ -267,7 +267,7 @@ public class GameShell extends Applet
     }
 
     public void keyReleased(KeyEvent keyevent) {
-        anInt19 = 0;
+        idleCycles = 0;
         int i = keyevent.getKeyCode();
         char c = keyevent.getKeyChar();
         if (c < '\036')
@@ -435,8 +435,8 @@ public class GameShell extends Applet
     public Sprite[] aClass38_Sub2_Sub2_Sub2Array16;
     public GameFrame frame;
     public boolean aBoolean18;
-    public int anInt19;
-    public int anInt20;
+    public int idleCycles;
+    public int dragButton;
     public int mouseX;
     public int mouseY;
     public int mouseButton;
