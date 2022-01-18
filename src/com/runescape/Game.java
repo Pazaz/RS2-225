@@ -267,7 +267,7 @@ public class Game extends GameShell {
             return;
         IndexedFont font = fontPlain12;
         int j = 0;
-        if (anInt957 != 0)
+        if (systemUpdateTimer != 0)
             j = 1;
         for (int k = 0; k < 100; k++)
             if (chatMessage[k] != null) {
@@ -409,7 +409,7 @@ public class Game extends GameShell {
     }
 
     public void readSecondaryPacket(Buffer b, int opcode) {
-        if (opcode == 59 || opcode == 76) {
+        if (opcode == Packet.ADD_LOCATION || opcode == Packet.REMOVE_LOCATION) {
             int j = b.readByte();
             int k2 = anInt862 + (j >> 4 & 7);
             int l4 = anInt863 + (j & 7);
@@ -470,7 +470,7 @@ public class Game extends GameShell {
             }
             return;
         }
-        if (opcode == 42) {
+        if (opcode == Packet.ADD_ANIMATED_LOCATION) {
             int k = b.readByte();
             int l2 = anInt862 + (k >> 4 & 7);
             int i5 = anInt863 + (k & 7);
@@ -496,7 +496,7 @@ public class Game extends GameShell {
             }
             return;
         }
-        if (opcode == 223) {
+        if (opcode == Packet.ADD_OBJECT_STACK) {
             int l = b.readByte();
             int i3 = anInt862 + (l >> 4 & 7);
             int j5 = anInt863 + (l & 7);
@@ -513,7 +513,7 @@ public class Game extends GameShell {
             }
             return;
         }
-        if (opcode == 49) {
+        if (opcode == Packet.REMOVE_OBJECT_STACK) {
             int i1 = b.readByte();
             int j3 = anInt862 + (i1 >> 4 & 7);
             int k5 = anInt863 + (i1 & 7);
@@ -537,7 +537,7 @@ public class Game extends GameShell {
             }
             return;
         }
-        if (opcode == 69) {
+        if (opcode == Packet.ADD_PROJECTILE) {
             int j1 = b.readByte();
             int k3 = anInt862 + (j1 >> 4 & 7);
             int l5 = anInt863 + (j1 & 7);
@@ -563,7 +563,7 @@ public class Game extends GameShell {
             }
             return;
         }
-        if (opcode == 191) {
+        if (opcode == Packet.ADD_SPOT_ANIMATION) {
             int k1 = b.readByte();
             int l3 = anInt862 + (k1 >> 4 & 7);
             int i6 = anInt863 + (k1 & 7);
@@ -579,7 +579,7 @@ public class Game extends GameShell {
             }
             return;
         }
-        if (opcode == 50) {
+        if (opcode == Packet.ADD_PRIVATE_OBJECT_STACK) {
             int l1 = b.readByte();
             int i4 = anInt862 + (l1 >> 4 & 7);
             int j6 = anInt863 + (l1 & 7);
@@ -597,7 +597,7 @@ public class Game extends GameShell {
             }
             return;
         }
-        if (opcode == 23) {
+        if (opcode == Packet.ATTACH_TEMPORARY_LOCATION_TO_PLAYER) {
             int i2 = b.readByte();
             int j4 = anInt862 + (i2 >> 4 & 7);
             int k6 = anInt863 + (i2 & 7);
@@ -657,7 +657,7 @@ public class Game extends GameShell {
                 playerEntity.locMaxTileZ = k6 + byte4;
             }
         }
-        if (opcode == 151) {
+        if (opcode == Packet.UPDATE_OBJECT_STACK) {
             int j2 = b.readByte();
             int k4 = anInt862 + (j2 >> 4 & 7);
             int l6 = anInt863 + (j2 & 7);
@@ -4043,7 +4043,7 @@ public class Game extends GameShell {
         if (anInt833 == 0)
             return;
         int l = 0;
-        if (anInt957 != 0)
+        if (systemUpdateTimer != 0)
             l = 1;
         for (int i1 = 0; i1 < 100; i1++)
             if (chatMessage[i1] != null) {
@@ -4827,8 +4827,8 @@ public class Game extends GameShell {
             headicons[6].draw(296, 472);
             fontPlain12.drawRightAligned(329, 0xffff00, "Arena", 484);
         }
-        if (anInt957 != 0) {
-            int k = anInt957 / 50;
+        if (systemUpdateTimer != 0) {
+            int k = systemUpdateTimer / 50;
             int l = k / 60;
             k %= 60;
             if (k < 10) {
@@ -5315,11 +5315,11 @@ public class Game extends GameShell {
                 inBuffer.offset = 0;
                 packetOpcode = -1;
                 lastPacketOpcode = -1;
-                anInt829 = -1;
-                anInt830 = -1;
+                secondMostRecentOpcode = -1;
+                thirdMostRecentOpcode = -1;
                 packetLength = 0;
                 anInt781 = 0;
-                anInt957 = 0;
+                systemUpdateTimer = 0;
                 idleTimeout = 0;
                 hintType = 0;
                 optionCount = 0;
@@ -5459,11 +5459,11 @@ public class Game extends GameShell {
                 inBuffer.offset = 0;
                 packetOpcode = -1;
                 lastPacketOpcode = -1;
-                anInt829 = -1;
-                anInt830 = -1;
+                secondMostRecentOpcode = -1;
+                thirdMostRecentOpcode = -1;
                 packetLength = 0;
                 anInt781 = 0;
-                anInt957 = 0;
+                systemUpdateTimer = 0;
                 optionCount = 0;
                 menuVisible = false;
                 return;
@@ -5787,8 +5787,8 @@ public class Game extends GameShell {
     }
 
     public void updateAudio() {
-        if (anInt957 > 1)
-            anInt957--;
+        if (systemUpdateTimer > 1)
+            systemUpdateTimer--;
         if (idleTimeout > 0)
             idleTimeout--;
         for (int i = 0; i < 5; i++)
@@ -7744,45 +7744,55 @@ public class Game extends GameShell {
         }
 
         try {
-            int i = stream.available();
-            if (i == 0)
+            int available = stream.available();
+            if (available == 0) {
                 return false;
+            }
+
             if (packetOpcode == -1) {
                 stream.read(inBuffer.data, 0, 1);
                 packetOpcode = inBuffer.data[0] & 0xff;
-                if (isaacState != null)
+                if (isaacState != null) {
                     packetOpcode = packetOpcode - isaacState.nextInt() & 0xff;
-                packetLength = Packet.packetLengths[packetOpcode];
-                i--;
+                }
+                packetLength = Packet.PACKET_LENGTH[packetOpcode];
+                available--;
             }
-            if (packetLength == -1)
-                if (i > 0) {
+
+            if (packetLength == -1) {
+                if (available > 0) {
                     stream.read(inBuffer.data, 0, 1);
                     packetLength = inBuffer.data[0] & 0xff;
-                    i--;
+                    available--;
                 } else {
                     return false;
                 }
-            if (packetLength == -2)
-                if (i > 1) {
+            }
+
+            if (packetLength == -2) {
+                if (available > 1) {
                     stream.read(inBuffer.data, 0, 2);
                     inBuffer.offset = 0;
                     packetLength = inBuffer.readWord();
-                    i -= 2;
+                    available -= 2;
                 } else {
                     return false;
                 }
-            if (i < packetLength)
+            }
+
+            if (available < packetLength) {
                 return false;
+            }
+
             inBuffer.offset = 0;
             stream.read(inBuffer.data, 0, packetLength);
 
             anInt781 = 0;
-            anInt830 = anInt829;
-            anInt829 = lastPacketOpcode;
+            thirdMostRecentOpcode = secondMostRecentOpcode;
+            secondMostRecentOpcode = lastPacketOpcode;
             lastPacketOpcode = packetOpcode;
 
-            if (packetOpcode == 150) {
+            if (packetOpcode == Packet.INTERFACE_SETTING_BYTE) {
                 int j = inBuffer.readWord();
                 byte byte0 = inBuffer.readByteSigned();
                 anIntArray1075[j] = byte0;
@@ -7796,7 +7806,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 152) {
+            if (packetOpcode == Packet.ADD_FRIEND) {
                 long l = inBuffer.readQWord();
                 int j16 = inBuffer.readByte();
                 String s6 = StringUtils.formatName(StringUtils.fromBase37(l));
@@ -7845,12 +7855,12 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 43) {
-                anInt957 = inBuffer.readWord() * 30;
+            if (packetOpcode == Packet.SYSTEM_UPDATE) {
+                systemUpdateTimer = inBuffer.readWord() * 30;
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 80) {
+            if (packetOpcode == Packet.DATA_LAND_DONE) {
                 int k = inBuffer.readByte();
                 int i10 = inBuffer.readByte();
                 int k16 = -1;
@@ -7865,12 +7875,12 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 1) {
+            if (packetOpcode == Packet.UPDATE_NPCS) {
                 updateNpcs(inBuffer, packetLength);
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 237) {
+            if (packetOpcode == Packet.LOAD_AREA) {
                 int i1 = inBuffer.readWord();
                 int j10 = inBuffer.readWord();
                 if (anInt838 == i1 && anInt839 == j10 && sceneState != 0) {
@@ -8024,13 +8034,13 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 197) {
+            if (packetOpcode == Packet.INTERFACE_PLAYERHEAD) {
                 int j1 = inBuffer.readWord();
                 InterfaceComponent.instances[j1].modelDisabled = self.getHeadModel();
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 25) {
+            if (packetOpcode == Packet.MOB_HINT) {
                 hintType = inBuffer.readByte();
                 if (hintType == 1)
                     anInt801 = inBuffer.readWord();
@@ -8065,7 +8075,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 54) {
+            if (packetOpcode == Packet.PLAY_SONG) {
                 String s = inBuffer.readString();
                 int k10 = inBuffer.readDWord();
                 int i17 = inBuffer.readDWord();
@@ -8078,12 +8088,12 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 142) {
+            if (packetOpcode == Packet.LOGOUT) {
                 disconnect();
                 packetOpcode = -1;
                 return false;
             }
-            if (packetOpcode == 20) {
+            if (packetOpcode == Packet.DATA_LOC_DONE) {
                 int k1 = inBuffer.readByte();
                 int l10 = inBuffer.readByte();
                 int j17 = -1;
@@ -8098,23 +8108,23 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 19) {
+            if (packetOpcode == Packet.CLEAR_WALKING_QUEUE) {
                 flagTileX = 0;
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 139) {
+            if (packetOpcode == Packet.PLAYER_INFO) {
                 anInt734 = inBuffer.readWord();
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 151 || packetOpcode == 23 || packetOpcode == 50 || packetOpcode == 191 || packetOpcode == 69
-                    || packetOpcode == 49 || packetOpcode == 223 || packetOpcode == 42 || packetOpcode == 76 || packetOpcode == 59) {
+            if (packetOpcode == Packet.UPDATE_OBJECT_STACK || packetOpcode == Packet.ATTACH_TEMPORARY_LOCATION_TO_PLAYER || packetOpcode == Packet.ADD_PRIVATE_OBJECT_STACK || packetOpcode == Packet.ADD_SPOT_ANIMATION || packetOpcode == Packet.ADD_PROJECTILE
+                    || packetOpcode == Packet.REMOVE_OBJECT_STACK || packetOpcode == Packet.ADD_OBJECT_STACK || packetOpcode == Packet.ADD_ANIMATED_LOCATION || packetOpcode == Packet.REMOVE_LOCATION || packetOpcode == Packet.ADD_LOCATION) {
                 readSecondaryPacket(inBuffer, packetOpcode);
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 28) {
+            if (packetOpcode == Packet.INTERFACE_CHILD) {
                 int l1 = inBuffer.readWord();
                 int i11 = inBuffer.readWord();
                 if (chatbackComponentId != -1) {
@@ -8133,7 +8143,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 175) {
+            if (packetOpcode == Packet.INTERFACE_SETTING_DWORD) {
                 int i2 = inBuffer.readWord();
                 int j11 = inBuffer.readDWord();
                 anIntArray1075[i2] = j11;
@@ -8147,14 +8157,14 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 146) {
+            if (packetOpcode == Packet.INTERFACE_ANIMATE) {
                 int j2 = inBuffer.readWord();
                 int k11 = inBuffer.readWord();
                 InterfaceComponent.instances[j2].seqId = k11;
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 167) {
+            if (packetOpcode == Packet.INTERFACE_SIDEBAR) {
                 int k2 = inBuffer.readWord();
                 int l11 = inBuffer.readByte();
                 if (k2 == 65535)
@@ -8165,7 +8175,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 220) {
+            if (packetOpcode == Packet.DATA_LOC) {
                 int l2 = inBuffer.readByte();
                 int i12 = inBuffer.readByte();
                 int k17 = inBuffer.readWord();
@@ -8183,19 +8193,19 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 133) {
-                Buffer class38_sub2_sub3 = InputTracking.flushAndDisable();
-                if (class38_sub2_sub3 != null) {
+            if (packetOpcode == Packet.FINISH_TRACKING) {
+                Buffer buf = InputTracking.flushAndDisable();
+                if (buf != null) {
                     outBuffer.writeOpcode(81);
-                    outBuffer.writeWord(class38_sub2_sub3.offset);
-                    outBuffer.writeBytes(class38_sub2_sub3.data, class38_sub2_sub3.offset, 0
+                    outBuffer.writeWord(buf.offset);
+                    outBuffer.writeBytes(buf.data, buf.offset, 0
                     );
-                    class38_sub2_sub3.release();
+                    buf.release();
                 }
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 98) {
+            if (packetOpcode == Packet.INTERFACE_ITEM_SLOT) {
                 sidebarRedraw = true;
                 int i3 = inBuffer.readWord();
                 InterfaceComponent interfaceComponent = InterfaceComponent.instances[i3];
@@ -8216,12 +8226,12 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 226) {
+            if (packetOpcode == Packet.ENABLE_TRACKING) {
                 InputTracking.setEnabled();
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 243) {
+            if (packetOpcode == Packet.INTERFACE_AMOUNT) {
                 showSocialInput = false;
                 chatbackInputType = true;
                 chatbackInput = "";
@@ -8229,7 +8239,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 15) {
+            if (packetOpcode == Packet.INTERFACE_ITEMS_CLEAR) {
                 int j3 = inBuffer.readWord();
                 InterfaceComponent interfaceComponent_1 = InterfaceComponent.instances[j3];
                 for (int i18 = 0; i18 < interfaceComponent_1.inventoryIndices.length; i18++) {
@@ -8240,7 +8250,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 140) {
+            if (packetOpcode == Packet.SHOW_WELCOME) {
                 anInt1061 = inBuffer.readDWord();
                 anInt873 = inBuffer.readWord();
                 anInt901 = inBuffer.readByte();
@@ -8264,7 +8274,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 126) {
+            if (packetOpcode == Packet.INTERFACE_SIDEBAR_FLASH) {
                 anInt1128 = inBuffer.readByte();
                 if (anInt1128 == selectedTab) {
                     if (anInt1128 == 3)
@@ -8276,7 +8286,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 212) {
+            if (packetOpcode == Packet.PLAY_JINGLE) {
                 if (aBoolean835 && !lowMemory) {
                     int k3 = inBuffer.readWord();
                     int k12 = inBuffer.readDWord();
@@ -8290,12 +8300,12 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 254) {
+            if (packetOpcode == Packet.DISPLAY_MULTI_ICON) {
                 inMultizone = inBuffer.readByte();
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 12) {
+            if (packetOpcode == Packet.PLAY_SOUND) {
                 int l3 = inBuffer.readWord();
                 int l12 = inBuffer.readByte();
                 int k18 = inBuffer.readWord();
@@ -8308,7 +8318,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 204) {
+            if (packetOpcode == Packet.INTERFACE_NPCHEAD) {
                 int i4 = inBuffer.readWord();
                 int i13 = inBuffer.readWord();
                 NpcType npcType = NpcType.get(i13);
@@ -8316,24 +8326,25 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 7) {
+            if (packetOpcode == Packet.PLAYER_POSITION) {
                 anInt862 = inBuffer.readByte();
                 anInt863 = inBuffer.readByte();
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 103) {
-                int j4 = inBuffer.readWord();
-                int j13 = inBuffer.readWord();
-                int l18 = inBuffer.readWord();
-                InterfaceComponent interfaceComponent_3 = InterfaceComponent.instances[j4];
-                Model class38_sub2_sub1 = interfaceComponent_3.modelDisabled;
-                if (class38_sub2_sub1 != null)
-                    class38_sub2_sub1.recolor(j13, l18);
+            if (packetOpcode == Packet.INTERFACE_MODEL_RECOLOR) {
+                int index = inBuffer.readWord();
+                int from = inBuffer.readWord();
+                int to = inBuffer.readWord();
+                InterfaceComponent c = InterfaceComponent.instances[index];
+                Model m = c.modelDisabled;
+                if (m != null) {
+                    m.recolor(from, to);
+                }
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 32) {
+            if (packetOpcode == Packet.INTERFACE_PRIVACY) {
                 chatPublicSetting = inBuffer.readByte();
                 chatPrivateSetting = inBuffer.readByte();
                 chatTradeDuelSetting = inBuffer.readByte();
@@ -8342,7 +8353,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 195) {
+            if (packetOpcode == Packet.INTERFACE_INVENTORY) {
                 int k4 = inBuffer.readWord();
                 resetParentComponentSeq(k4);
                 if (chatbackComponentId != -1) {
@@ -8361,7 +8372,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 14) {
+            if (packetOpcode == Packet.INTERFACE_CHATBOX) {
                 int l4 = inBuffer.readWord();
                 resetParentComponentSeq(l4);
                 if (sidebarInterfaceId != -1) {
@@ -8376,7 +8387,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 209) {
+            if (packetOpcode == Packet.INTERFACE_XY) {
                 int i5 = inBuffer.readWord();
                 int k13 = inBuffer.readWordSigned();
                 int i19 = inBuffer.readWordSigned();
@@ -8386,7 +8397,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 3) {
+            if (packetOpcode == Packet.CAMERA_SPIN) {
                 cutsceneActive = true;
                 anInt728 = inBuffer.readByte();
                 anInt729 = inBuffer.readByte();
@@ -8401,7 +8412,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 135) {
+            if (packetOpcode == Packet.GROUND_ITEM_REMOVE_ALL) {
                 anInt862 = inBuffer.readByte();
                 anInt863 = inBuffer.readByte();
                 for (int j5 = anInt862; j5 < anInt862 + 8; j5++) {
@@ -8427,7 +8438,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 132) {
+            if (packetOpcode == Packet.DATA_LAND) {
                 int k5 = inBuffer.readByte();
                 int i14 = inBuffer.readByte();
                 int j19 = inBuffer.readWord();
@@ -8445,7 +8456,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 41) {
+            if (packetOpcode == Packet.PRIVATE_MESSAGE) {
                 long l5 = inBuffer.readQWord();
                 int k19 = inBuffer.readDWord();
                 int j23 = inBuffer.readByte();
@@ -8482,7 +8493,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 193) {
+            if (packetOpcode == Packet.INTERFACE_SETTINGS_RESET) {
                 for (int i6 = 0; i6 < variables.length; i6++)
                     if (variables[i6] != anIntArray1075[i6]) {
                         variables[i6] = anIntArray1075[i6];
@@ -8493,28 +8504,28 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 87) {
+            if (packetOpcode == Packet.INTERFACE_MODEL) {
                 int j6 = inBuffer.readWord();
                 int j14 = inBuffer.readWord();
                 InterfaceComponent.instances[j6].modelDisabled = new Model(j14);
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 185) {
+            if (packetOpcode == Packet.INTERFACE_DIALOGUE) {
                 int k6 = inBuffer.readWordSigned();
                 stickyChatbackComponentId = k6;
                 redrawChatback = true;
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 68) {
+            if (packetOpcode == Packet.PLAYER_WEIGHT) {
                 if (selectedTab == 12)
                     sidebarRedraw = true;
                 energy = inBuffer.readByte();
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 74) {
+            if (packetOpcode == Packet.CAMERA_CUTSCENE) {
                 cutsceneActive = true;
                 anInt948 = inBuffer.readByte();
                 anInt949 = inBuffer.readByte();
@@ -8539,14 +8550,14 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 84) {
+            if (packetOpcode == Packet.INTERFACE_SIDEBAR_FOCUS) {
                 selectedTab = inBuffer.readByte();
                 sidebarRedraw = true;
                 sidebarRedrawIcons = true;
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 4) {
+            if (packetOpcode == Packet.SEND_MESSAGE) {
                 String s1 = inBuffer.readString();
                 if (s1.endsWith(":tradereq:")) {
                     String s3 = s1.substring(0, s1.indexOf(":"));
@@ -8580,7 +8591,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 46) {
+            if (packetOpcode == Packet.INTERFACE_ITEM_MODEL) {
                 int i7 = inBuffer.readWord();
                 int l14 = inBuffer.readWord();
                 int i20 = inBuffer.readWord();
@@ -8592,7 +8603,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 168) {
+            if (packetOpcode == Packet.INTERFACE_OPEN) {
                 int j7 = inBuffer.readWord();
                 resetParentComponentSeq(j7);
                 if (sidebarInterfaceId != -1) {
@@ -8613,7 +8624,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 2) {
+            if (packetOpcode == Packet.INTERFACE_COLOR) {
                 int k7 = inBuffer.readWord();
                 int i15 = inBuffer.readWord();
                 int j20 = i15 >> 10 & 0x1f;
@@ -8623,7 +8634,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 136) {
+            if (packetOpcode == Packet.RESET_ANIMATIONS) {
                 for (int l7 = 0; l7 < playerEntities.length; l7++)
                     if (playerEntities[l7] != null)
                         playerEntities[l7].primarySeq = -1;
@@ -8635,14 +8646,14 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 26) {
+            if (packetOpcode == Packet.INTERFACE_HOVER) {
                 int i8 = inBuffer.readWord();
                 boolean flag1 = inBuffer.readByte() == 1;
                 InterfaceComponent.instances[i8].hidden = flag1;
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 21) {
+            if (packetOpcode == Packet.ADD_IGNORE) {
                 ignoreCount = packetLength / 8;
                 for (int j8 = 0; j8 < ignoreCount; j8++)
                     ignoreName37[j8] = inBuffer.readQWord();
@@ -8650,7 +8661,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 239) {
+            if (packetOpcode == Packet.CAMERA_RESET) {
                 cutsceneActive = false;
                 for (int k8 = 0; k8 < 5; k8++)
                     customCameraActive[k8] = false;
@@ -8658,7 +8669,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 129) {
+            if (packetOpcode == Packet.INTERFACE_CLEAR) {
                 if (sidebarInterfaceId != -1) {
                     sidebarInterfaceId = -1;
                     sidebarRedraw = true;
@@ -8677,7 +8688,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 201) {
+            if (packetOpcode == Packet.INTERFACE_TEXT) {
                 int l8 = inBuffer.readWord();
                 String s5 = inBuffer.readString();
                 InterfaceComponent.instances[l8].text = s5;
@@ -8686,7 +8697,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 44) {
+            if (packetOpcode == Packet.GROUND_ITEM_ADD) {
                 sidebarRedraw = true;
                 int i9 = inBuffer.readByte();
                 int k15 = inBuffer.readDWord();
@@ -8701,7 +8712,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 162) {
+            if (packetOpcode == Packet.BATCH_PACKETS) {
                 anInt862 = inBuffer.readByte();
                 anInt863 = inBuffer.readByte();
                 while (inBuffer.offset < packetLength) {
@@ -8711,14 +8722,14 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 22) {
+            if (packetOpcode == Packet.PLAYER_ENERGY) {
                 if (selectedTab == 12)
                     sidebarRedraw = true;
                 weightCarried = inBuffer.readWordSigned();
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 13) {
+            if (packetOpcode == Packet.CAMERA_SHAKE) {
                 int k9 = inBuffer.readByte();
                 int l15 = inBuffer.readByte();
                 int i21 = inBuffer.readByte();
@@ -8731,7 +8742,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 213) {
+            if (packetOpcode == Packet.INTERFACE_ITEM_ARRAY) {
                 sidebarRedraw = true;
                 int l9 = inBuffer.readWord();
                 InterfaceComponent interfaceComponent_2 = InterfaceComponent.instances[l9];
@@ -8749,7 +8760,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == 184) {
+            if (packetOpcode == Packet.UPDATE_PLAYERS) {
                 updatePlayers(inBuffer, packetLength);
                 if (sceneState == 1) {
                     sceneState = 2;
@@ -8771,12 +8782,13 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            Signlink.reporterror("T1 - " + packetOpcode + "," + packetLength + " - " + anInt829 + "," + anInt830);
+
+            Signlink.reporterror("T1 - " + packetOpcode + "," + packetLength + " - " + secondMostRecentOpcode + "," + thirdMostRecentOpcode);
             disconnect();
         } catch (IOException _ex) {
             reconnect();
         } catch (Exception exception) {
-            String s2 = "T2 - " + packetOpcode + "," + anInt829 + "," + anInt830 + " - " + packetLength + ","
+            String s2 = "T2 - " + packetOpcode + "," + secondMostRecentOpcode + "," + thirdMostRecentOpcode + " - " + packetLength + ","
                     + (baseTileX + self.pathTileX[0]) + ","
                     + (baseTileZ + self.pathTileZ[0]) + " - ";
             for (int i16 = 0; i16 < packetLength && i16 < 50; i16++)
@@ -9118,8 +9130,8 @@ public class Game extends GameShell {
     public int[] entityUpdateIndices = new int[MAX_PLAYER_COUNT];
     public Buffer[] playerBuffers = new Buffer[MAX_PLAYER_COUNT];
     public int lastPacketOpcode;
-    public int anInt829;
-    public int anInt830;
+    public int secondMostRecentOpcode;
+    public int thirdMostRecentOpcode;
     public Scene scene;
     public LinkedList projectiles = new LinkedList();
     public int anInt833;
@@ -9256,7 +9268,7 @@ public class Game extends GameShell {
     public CollisionMap[] collisionMaps = new CollisionMap[4];
     public static int clientClock;
     public Sprite[] headicons = new Sprite[20];
-    public int anInt957;
+    public int systemUpdateTimer;
     public int[] cameraJitter = new int[5];
     public boolean aBoolean960 = false;
     public Sprite aClass38_Sub2_Sub2_Sub2_961;

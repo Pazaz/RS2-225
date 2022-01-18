@@ -2,7 +2,131 @@ package com.runescape.util;
 
 public class Packet {
 
-    public static final int[] scrambledOpcodes = {
+    // format: 225 opcode = 317 opcode
+    // (?) means it might be incorrectly matched and should be tested
+    // this is just a helpful reference for me and will be removed at some point
+    public static final int UPDATE_NPCS = 1;
+    // 2 = 122
+    public static final int INTERFACE_COLOR = 2;
+    // 3 = 166
+    public static final int CAMERA_SPIN = 3;
+    public static final int SEND_MESSAGE = 4;
+    // 7 = 85 (?)
+    public static final int PLAYER_POSITION = 7;
+    // 12 = 174
+    public static final int PLAY_SOUND = 12;
+    // 13 = 35
+    public static final int CAMERA_SHAKE = 13;
+    // 14 = 164
+    public static final int INTERFACE_CHATBOX = 14;
+    // 15 = 72
+    public static final int INTERFACE_ITEMS_CLEAR = 15;
+    // 19 = 78
+    public static final int CLEAR_WALKING_QUEUE = 19;
+    public static final int DATA_LOC_DONE = 20;
+    // 21 = 214
+    public static final int ADD_IGNORE = 21;
+    // 22 = 110
+    public static final int PLAYER_ENERGY = 22;
+    // 25 = 254
+    public static final int MOB_HINT = 25;
+    // 26 = 171
+    public static final int INTERFACE_HOVER = 26;
+    // 28 = 248
+    public static final int INTERFACE_CHILD = 28;
+    // 32 = 206
+    public static final int INTERFACE_PRIVACY = 32;
+    // 41 = 196
+    public static final int PRIVATE_MESSAGE = 41;
+    // 43 = 114
+    public static final int SYSTEM_UPDATE = 43;
+    // 44 = 134
+    public static final int GROUND_ITEM_ADD = 44;
+    // 46 = 246 (?)
+    public static final int INTERFACE_ITEM_MODEL = 46;
+    public static final int PLAY_SONG = 54;
+    // 68 = 240
+    public static final int PLAYER_WEIGHT = 68;
+    // 74 = 177
+    public static final int CAMERA_CUTSCENE = 74;
+    public static final int DATA_LAND_DONE = 80;
+    // 84 = 106
+    public static final int INTERFACE_SIDEBAR_FOCUS = 84;
+    // 87 = 8 (?)
+    public static final int INTERFACE_MODEL = 87;
+    // 98 = 34 (?)
+    public static final int INTERFACE_ITEM_SLOT = 98;
+    public static final int INTERFACE_MODEL_RECOLOR = 103;
+    // 126 = 24
+    public static final int INTERFACE_SIDEBAR_FLASH = 126;
+    // 129 = 219
+    public static final int INTERFACE_CLEAR = 129;
+    public static final int DATA_LAND = 132;
+    public static final int FINISH_TRACKING = 133;
+    // 135 = 64
+    public static final int GROUND_ITEM_REMOVE_ALL = 135;
+    // 136 = 1
+    public static final int RESET_ANIMATIONS = 136;
+    // 139 = 249
+    public static final int PLAYER_INFO = 139;
+    public static final int SHOW_WELCOME = 140;
+    // 142 = 109
+    public static final int LOGOUT = 142;
+    // 146 = 200 (?) (could be swapped with 87)
+    public static final int INTERFACE_ANIMATE = 146;
+    // 150 = 36
+    public static final int INTERFACE_SETTING_BYTE = 150;
+    // 152 = 50
+    public static final int ADD_FRIEND = 152;
+    // 162 = 60
+    public static final int BATCH_PACKETS = 162;
+    // 167 = 71
+    public static final int INTERFACE_SIDEBAR = 167;
+    // 168 = 97
+    public static final int INTERFACE_OPEN = 168;
+    // 175 = 87
+    public static final int INTERFACE_SETTING_DWORD = 175;
+    public static final int UPDATE_PLAYERS = 184;
+    // 185 = 218
+    public static final int INTERFACE_DIALOGUE = 185;
+    // 193 = 68
+    public static final int INTERFACE_SETTINGS_RESET = 193;
+    // 195 = 142
+    public static final int INTERFACE_INVENTORY = 195;
+    // 197 = 185
+    public static final int INTERFACE_PLAYERHEAD = 197;
+    // 201 = 126
+    public static final int INTERFACE_TEXT = 201;
+    // 204 = 75 (?)
+    public static final int INTERFACE_NPCHEAD = 204;
+    // 209 = 70
+    public static final int INTERFACE_XY = 209;
+    public static final int PLAY_JINGLE = 212;
+    // 213 = 53 (?)
+    public static final int INTERFACE_ITEM_ARRAY = 213;
+    public static final int DATA_LOC = 220;
+    public static final int ENABLE_TRACKING = 226;
+    public static final int LOAD_AREA = 237;
+    // 239 = 107
+    public static final int CAMERA_RESET = 239;
+    // 243 = 27
+    public static final int INTERFACE_AMOUNT = 243;
+    // 254 = 61 (?)
+    public static final int DISPLAY_MULTI_ICON = 254;
+
+    // Secondary packets
+    public static final int ATTACH_TEMPORARY_LOCATION_TO_PLAYER = 23;
+    public static final int ADD_ANIMATED_LOCATION = 42;
+    public static final int REMOVE_OBJECT_STACK = 49;
+    public static final int ADD_PRIVATE_OBJECT_STACK = 50;
+    public static final int ADD_LOCATION = 59;
+    public static final int ADD_PROJECTILE = 69;
+    public static final int REMOVE_LOCATION = 76;
+    public static final int UPDATE_OBJECT_STACK = 151;
+    public static final int ADD_SPOT_ANIMATION = 191;
+    public static final int ADD_OBJECT_STACK = 223;
+
+    public static final int[] PACKET_ORDER = {
         95, 218, 67, 50, 253, 222, 194, 60, 101, 128,
         8, 251, 92, 111, 24, 33, 223, 66, 232, 59,
         227, 113, 153, 105, 126, 98, 167, 102, 177, 238,
@@ -31,7 +155,7 @@ public class Packet {
         54, 53, 158, 166, 182, 133, 0
     };
 
-    public static final int[] packetLengths = {
+    public static final int[] PACKET_LENGTH = {
         0, -2, 4, 6, -1, 0, 0, 2, 0, 0,
         0, 0, 5, 4, 2, 2, 0, 0, 0, 0,
         2, -2, 2, 14, 0, 6, 3, 0, 4, 0,
