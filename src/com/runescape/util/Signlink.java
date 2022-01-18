@@ -1,5 +1,7 @@
 package com.runescape.util;
 
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.Sequencer;
 import java.applet.Applet;
 import java.io.*;
 import java.net.InetAddress;
@@ -88,6 +90,22 @@ public class Signlink
                 }
                 if (midiplay) {
                     midi = s + savereq;
+                    try {
+                        if (sequencer != null) {
+                            sequencer.stop();
+                            sequencer.close();
+                        }
+                        sequencer = null;
+
+                        File music = new File(midi);
+                        sequencer = MidiSystem.getSequencer();
+                        sequencer.open();
+                        sequencer.setSequence(MidiSystem.getSequence(music));
+                        sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
+                        sequencer.start();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                     midiplay = false;
                 }
                 savereq = null;
@@ -330,6 +348,7 @@ public class Signlink
     public static String midi = null;
     public static int midivol;
     public static int midifade;
+    private Sequencer sequencer = null;
     public static boolean waveplay;
     public static int wavepos;
     public static String wave = null;
