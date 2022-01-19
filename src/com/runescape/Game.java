@@ -4523,8 +4523,14 @@ public class Game extends GameShell {
 
             compass = new Sprite(mediaArchive, "compass", 0);
             try {
-                for (int j1 = 0; j1 < 50; j1++)
-                    mapscene[j1] = new IndexedSprite(mediaArchive, "mapscene", j1);
+                for (int n = 0; n < 50; n++) {
+                    // skip weird seaweed-like sprite on rivers
+                    if (n == 22) {
+                        continue;
+                    }
+
+                    mapscene[n] = new IndexedSprite(mediaArchive, "mapscene", n);
+                }
             } catch (Exception _ex) {
             }
             try {
