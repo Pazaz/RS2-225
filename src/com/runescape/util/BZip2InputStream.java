@@ -160,7 +160,8 @@ public class BZip2InputStream {
         int[] ai = null;
         int[] ai1 = null;
         int[] ai2 = null;
-        context.anInt620 = 1;
+        // had to increase the maximum size to be able to read later maps
+        context.anInt620 = 10;
         if (BZip2Context.anIntArray629 == null)
             BZip2Context.anIntArray629 = new int[context.anInt620 * 0x186a0];
         boolean flag19 = true;

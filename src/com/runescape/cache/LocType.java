@@ -42,6 +42,10 @@ public class LocType {
 
         position = (position + 1) % 10;
         LocType locType = cache[position];
+        // if the model ID does not exist (i.e. loading newer revision maps), fail gracefully
+        if (index > count - 1) {
+            return null;
+        }
         data.offset = offsets[index];
         locType.index = index;
         locType.reset();

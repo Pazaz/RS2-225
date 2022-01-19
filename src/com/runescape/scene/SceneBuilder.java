@@ -165,6 +165,11 @@ public class SceneBuilder {
         int j2 = heightmap[i][j1][j + 1];
         int k2 = k1 + l1 + i2 + j2 >> 2;
         LocType locType = LocType.get(i1);
+        // object does not exist
+        if (locType == null) {
+            // now would be the best time to notify the user, with a little popup stating "map load warning" perhaps
+            return;
+        }
         int l2 = j1 + (j << 7) + (i1 << 14) + 0x40000000;
         if (!locType.interactable)
             l2 += 0x80000000;
@@ -827,6 +832,11 @@ public class SceneBuilder {
         int l2 = ai[l1][i][j + 1];
         int i3 = i2 + j2 + k2 + l2 >> 2;
         LocType locType = LocType.get(j1);
+        // object does not exist
+        if (locType == null) {
+            // now would be the best time to notify the user, with a little popup stating "map load warning" perhaps
+            return;
+        }
         int j3 = i + (j << 7) + (j1 << 14) + 0x40000000;
         if (!locType.interactable)
             j3 += 0x80000000;
