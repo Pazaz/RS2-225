@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class IndexedFont extends Draw2D {
 
-    public IndexedFont(FileArchive fileArchive, String s, int i) {
+    public IndexedFont(FileArchive archive, String name) {
         pixels = new byte[94][];
         charWidth = new int[94];
         charHeight = new int[94];
@@ -16,66 +16,60 @@ public class IndexedFont extends Draw2D {
         charSpace = new int[95];
         drawWidth = new int[256];
         random = new Random();
-        Buffer data = new Buffer(fileArchive.read(s + ".dat", null));
-        Buffer idx = new Buffer(
-            fileArchive.read("index.dat", null));
+        Buffer data = new Buffer(archive.read(name + ".dat", null));
+        Buffer idx = new Buffer(archive.read("index.dat", null));
         idx.offset = data.readWord() + 4;
-        int j = idx.readByte();
-        if (j > 0)
-            idx.offset += 3 * (j - 1);
-        for (int k = 0; k < 94; k++) {
-            charOffsetX[k] = idx.readByte();
-            charOffsetY[k] = idx.readByte();
-            int l = charWidth[k] = idx.readWord();
-            int j1 = charHeight[k] = idx.readWord();
-            int k1 = idx.readByte();
-            int l1 = l * j1;
-            pixels[k] = new byte[l1];
-            if (k1 == 0) {
-                for (int i2 = 0; i2 < l1; i2++)
-                    pixels[k][i2] = data.readByteSigned();
-
-            } else if (k1 == 1) {
-                for (int j2 = 0; j2 < l; j2++) {
-                    for (int l2 = 0; l2 < j1; l2++)
-                        pixels[k][j2 + l2 * l] = data.readByteSigned();
-
+        int off = idx.readByte();
+        if (off > 0)
+            idx.offset += 3 * (off - 1);
+        for (int n = 0; n < 94; n++) {
+            charOffsetX[n] = idx.readByte();
+            charOffsetY[n] = idx.readByte();
+            int w = charWidth[n] = idx.readWord();
+            int h = charHeight[n] = idx.readWord();
+            int type = idx.readByte();
+            int len = w * h;
+            pixels[n] = new byte[len];
+            if (type == 0) {
+                for (int i2 = 0; i2 < len; i2++)
+                    pixels[n][i2] = data.readByteSigned();
+            } else if (type == 1) {
+                for (int j2 = 0; j2 < w; j2++) {
+                    for (int l2 = 0; l2 < h; l2++)
+                        pixels[n][j2 + l2 * w] = data.readByteSigned();
                 }
-
             }
-            if (j1 > height)
-                height = j1;
-            charOffsetX[k] = 1;
-            charSpace[k] = l + 2;
-            int k2 = 0;
-            for (int i3 = j1 / 7; i3 < j1; i3++)
-                k2 += pixels[k][i3 * l];
+            if (h > height)
+                height = h;
+            charOffsetX[n] = 1;
+            charSpace[n] = w + 2;
 
-            if (k2 <= j1 / 7) {
-                charSpace[k]--;
-                charOffsetX[k] = 0;
+            int i = 0;
+            for (int y = h / 7; y < h; y++)
+                i += pixels[n][y * w];
+            if (i <= h / 7) {
+                charSpace[n]--;
+                charOffsetX[n] = 0;
             }
-            k2 = 0;
-            for (int j3 = j1 / 7; j3 < j1; j3++)
-                k2 += pixels[k][(l - 1) + j3 * l];
 
-            if (k2 <= j1 / 7)
-                charSpace[k]--;
+            i = 0;
+            for (int y = h / 7; y < h; y++)
+                i += pixels[n][(w - 1) + y * w];
+            if (i <= h / 7)
+                charSpace[n]--;
         }
 
-        i = 9 / i;
         charSpace[94] = charSpace[8];
-        for (int i1 = 0; i1 < 256; i1++)
-            drawWidth[i1] = charSpace[CHAR_LOOKUP[i1]];
-
+        for (int c = 0; c < 256; c++)
+            drawWidth[c] = charSpace[CHAR_LOOKUP[c]];
     }
 
-    public void drawRightAligned(int i, int j, String s, int k) {
-        draw(k - stringWidth(s) / 2, i, j, s);
+    public void drawRightAligned(int i, int j, String s, int x) {
+        draw(x - stringWidth(s) / 2, i, j, s);
     }
 
-    public void drawCentered(int i, int j, boolean flag, int k, String s) {
-        draw(i - stringWidth(s) / 2, k, s, flag, j);
+    public void drawCentered(int x, int j, boolean flag, int k, String s) {
+        draw(x - stringWidth(s) / 2, k, s, flag, j);
     }
 
     public int stringWidth(String s) {
@@ -83,108 +77,107 @@ public class IndexedFont extends Draw2D {
             return 0;
         }
 
-        int i = 0;
-        for (int j = 0; j < s.length(); j++) {
-            if (s.charAt(j) == '@' && j + 4 < s.length() && s.charAt(j + 4) == '@') {
-                j += 4;
+        int w = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '@' && i + 4 < s.length() && s.charAt(i + 4) == '@') {
+                i += 4;
             } else {
-                i += drawWidth[s.charAt(j)];
+                w += drawWidth[s.charAt(i)];
             }
         }
 
-        return i;
+        return w;
     }
 
-    public void draw(int i, int j, int k, String s) {
+    public void draw(int x, int y, int rgb, String s) {
         if (s == null) {
             return;
         }
 
-        j -= height;
-        for (int l = 0; l < s.length(); l++) {
-            int i1 = CHAR_LOOKUP[s.charAt(l)];
-            if (i1 != 94) {
-                fillMaskedRect(pixels[i1], i + charOffsetX[i1], j + charOffsetY[i1], charWidth[i1], charHeight[i1], k);
+        y -= height;
+        for (int i = 0; i < s.length(); i++) {
+            int c = CHAR_LOOKUP[s.charAt(i)];
+            if (c != 94) {
+                fillMaskedRect(pixels[c], x + charOffsetX[c], y + charOffsetY[c], charWidth[c], charHeight[c], rgb);
             }
-            i += charSpace[i1];
+            x += charSpace[c];
         }
     }
 
-    public void drawCenteredWave(int i, int j, int k, int l, String s) {
+    public void drawCenteredWave(int phase, int x, int y, int rgb, String s) {
         if (s == null)
             return;
-        j -= stringWidth(s) / 2;
-        k -= height;
-        for (int j1 = 0; j1 < s.length(); j1++) {
-            int k1 = CHAR_LOOKUP[s.charAt(j1)];
-            if (k1 != 94)
-                fillMaskedRect(pixels[k1], j + charOffsetX[k1],
-                    k + charOffsetY[k1] + (int) (Math.sin((double) j1 / 2D + (double) i / 5D) * 5D),
-                    charWidth[k1], charHeight[k1], l);
-            j += charSpace[k1];
+        x -= stringWidth(s) / 2;
+        y -= height;
+        for (int i = 0; i < s.length(); i++) {
+            int c = CHAR_LOOKUP[s.charAt(i)];
+            if (c != 94) {
+                fillMaskedRect(pixels[c], x + charOffsetX[c],
+                    y + charOffsetY[c] + (int) (Math.sin((double) i / 2D + (double) phase / 5D) * 5D),
+                    charWidth[c], charHeight[c], rgb);
+            }
+            x += charSpace[c];
         }
-
     }
 
-    public void draw(int i, int k, String s, boolean shadow, int l) {
+    public void draw(int x, int y, String s, boolean shadow, int rgb) {
         if (s == null)
             return;
-        k -= height;
-        for (int i1 = 0; i1 < s.length(); i1++) {
-            if (s.charAt(i1) == '@' && i1 + 4 < s.length() && s.charAt(i1 + 4) == '@') {
-                l = evaluateTag(s.substring(i1 + 1, i1 + 4));
-                i1 += 4;
+        y -= height;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '@' && i + 4 < s.length() && s.charAt(i + 4) == '@') {
+                rgb = evaluateTag(s.substring(i + 1, i + 4));
+                i += 4;
             } else {
-                int j1 = CHAR_LOOKUP[s.charAt(i1)];
-                if (j1 != 94) {
-                    if (shadow)
-                        fillMaskedRect(pixels[j1], i + charOffsetX[j1] + 1, k + charOffsetY[j1] + 1,
-                            charWidth[j1], charHeight[j1], 0);
-                    fillMaskedRect(pixels[j1], i + charOffsetX[j1], k + charOffsetY[j1],
-                        charWidth[j1], charHeight[j1], l);
+                int c = CHAR_LOOKUP[s.charAt(i)];
+                if (c != 94) {
+                    if (shadow) {
+                        fillMaskedRect(pixels[c], x + charOffsetX[c] + 1, y + charOffsetY[c] + 1, charWidth[c], charHeight[c], 0);
+                    }
+                    fillMaskedRect(pixels[c], x + charOffsetX[c], y + charOffsetY[c], charWidth[c], charHeight[c], rgb);
                 }
-                i += charSpace[j1];
+                x += charSpace[c];
             }
         }
     }
 
-    public void drawTooltip(int i, boolean flag, int j, int k, String s, int l) {
+    public void drawTooltip(int seed, boolean shadow, int y, int rgb, String s, int x) {
         if (s == null)
             return;
-        random.setSeed(i);
-        int i1 = 192 + (random.nextInt() & 0x1f);
-        j -= height;
-        for (int j1 = 0; j1 < s.length(); j1++)
-            if (s.charAt(j1) == '@' && j1 + 4 < s.length() && s.charAt(j1 + 4) == '@') {
-                k = evaluateTag(s.substring(j1 + 1, j1 + 4));
-                j1 += 4;
+        random.setSeed(seed);
+        int alpha = 192 + (random.nextInt() & 0x1f);
+        y -= height;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '@' && i + 4 < s.length() && s.charAt(i + 4) == '@') {
+                rgb = evaluateTag(s.substring(i + 1, i + 4));
+                i += 4;
             } else {
-                int k1 = CHAR_LOOKUP[s.charAt(j1)];
-                if (k1 != 94) {
-                    if (flag)
-                        fillMaskedRect(pixels[k1], l + charOffsetX[k1] + 1, charHeight[k1], 0,
-                            j + charOffsetY[k1] + 1, 192, charWidth[k1]);
-                    fillMaskedRect(pixels[k1], l + charOffsetX[k1], charHeight[k1], k,
-                        j + charOffsetY[k1], i1, charWidth[k1]);
+                int c = CHAR_LOOKUP[s.charAt(i)];
+                if (c != 94) {
+                    if (shadow) {
+                        fillMaskedRect(pixels[c], x + charOffsetX[c] + 1, charHeight[c], 0, y + charOffsetY[c] + 1, 192, charWidth[c]);
+                    }
+
+                    fillMaskedRect(pixels[c], x + charOffsetX[c], charHeight[c], rgb, y + charOffsetY[c], alpha, charWidth[c]);
                 }
-                l += charSpace[k1];
+                x += charSpace[c];
                 if ((random.nextInt() & 3) == 0)
-                    l++;
+                    x++;
             }
-
+        }
     }
 
     public int evaluateTag(String s) {
         if (s.equals("red"))
             return 0xff0000;
         if (s.equals("gre"))
-            return 65280;
+            return 0xff00;
         if (s.equals("blu"))
-            return 255;
+            return 0xff;
         if (s.equals("yel"))
             return 0xffff00;
         if (s.equals("cya"))
-            return 65535;
+            return 0xffff;
         if (s.equals("mag"))
             return 0xff00ff;
         if (s.equals("whi"))
@@ -196,7 +189,7 @@ public class IndexedFont extends Draw2D {
         if (s.equals("dre"))
             return 0x800000;
         if (s.equals("dbl"))
-            return 128;
+            return 0x80;
         if (s.equals("or1"))
             return 0xffb000;
         if (s.equals("or2"))
@@ -210,121 +203,123 @@ public class IndexedFont extends Draw2D {
         return !s.equals("gr3") ? 0 : 0x40ff00;
     }
 
-    public void fillMaskedRect(byte[] abyte0, int i, int j, int k, int l, int i1) {
-        int j1 = i + j * Draw2D.width;
-        int k1 = Draw2D.width - k;
-        int l1 = 0;
-        int i2 = 0;
-        if (j < Draw2D.top) {
-            int j2 = Draw2D.top - j;
-            l -= j2;
-            j = Draw2D.top;
-            i2 += j2 * k;
-            j1 += j2 * Draw2D.width;
+    public void fillMaskedRect(byte[] data, int x, int y, int w, int h, int rgb) {
+        int dstOff = x + y * Draw2D.width;
+        int dstStep = Draw2D.width - w;
+        int srcStep = 0;
+        int srcOff = 0;
+        if (y < Draw2D.top) {
+            int cutoff = Draw2D.top - y;
+            h -= cutoff;
+            y = Draw2D.top;
+            srcOff += cutoff * w;
+            dstOff += cutoff * Draw2D.width;
         }
-        if (j + l >= Draw2D.bottom)
-            l -= ((j + l) - Draw2D.bottom) + 1;
-        if (i < Draw2D.left) {
-            int k2 = Draw2D.left - i;
-            k -= k2;
-            i = Draw2D.left;
-            i2 += k2;
-            j1 += k2;
-            l1 += k2;
-            k1 += k2;
+        if (y + h >= Draw2D.bottom)
+            h -= ((y + h) - Draw2D.bottom) + 1;
+        if (x < Draw2D.left) {
+            int cutoff = Draw2D.left - x;
+            w -= cutoff;
+            x = Draw2D.left;
+            srcOff += cutoff;
+            dstOff += cutoff;
+            srcStep += cutoff;
+            dstStep += cutoff;
         }
-        if (i + k >= Draw2D.right) {
-            int l2 = ((i + k) - Draw2D.right) + 1;
-            k -= l2;
-            l1 += l2;
-            k1 += l2;
+        if (x + w >= Draw2D.right) {
+            int cutoff = ((x + w) - Draw2D.right) + 1;
+            w -= cutoff;
+            srcStep += cutoff;
+            dstStep += cutoff;
         }
-        fillMaskedRect(Draw2D.dest, abyte0, i1, i2, j1, k, l, k1, l1);
+        fillMaskedRect(Draw2D.dest, data, rgb, srcOff, dstOff, w, h, dstStep, srcStep);
     }
 
-    public void fillMaskedRect(int[] ai, byte[] abyte0, int i, int j, int k, int l, int i1,
-                               int j1, int k1) {
-        int l1 = -(l >> 2);
-        l = -(l & 3);
-        for (int i2 = -i1; i2 < 0; i2++) {
-            for (int j2 = l1; j2 < 0; j2++) {
-                if (abyte0[j++] != 0)
-                    ai[k++] = i;
+    public void fillMaskedRect(int[] dst, byte[] src, int rgb, int srcOff, int dstOff, int w, int h,
+                               int dstStep, int srcStep) {
+        int hw = -(w >> 2);
+        w = -(w & 3);
+        
+        for (int y = -h; y < 0; y++) {
+            for (int x = hw; x < 0; x++) {
+                if (src[srcOff++] != 0)
+                    dst[dstOff++] = rgb;
                 else
-                    k++;
-                if (abyte0[j++] != 0)
-                    ai[k++] = i;
+                    dstOff++;
+                if (src[srcOff++] != 0)
+                    dst[dstOff++] = rgb;
                 else
-                    k++;
-                if (abyte0[j++] != 0)
-                    ai[k++] = i;
+                    dstOff++;
+                if (src[srcOff++] != 0)
+                    dst[dstOff++] = rgb;
                 else
-                    k++;
-                if (abyte0[j++] != 0)
-                    ai[k++] = i;
+                    dstOff++;
+                if (src[srcOff++] != 0)
+                    dst[dstOff++] = rgb;
                 else
-                    k++;
+                    dstOff++;
             }
 
-            for (int k2 = l; k2 < 0; k2++)
-                if (abyte0[j++] != 0)
-                    ai[k++] = i;
+            for (int x = w; x < 0; x++)
+                if (src[srcOff++] != 0)
+                    dst[dstOff++] = rgb;
                 else
-                    k++;
+                    dstOff++;
 
-            k += j1;
-            j += k1;
+            dstOff += dstStep;
+            srcOff += srcStep;
         }
-
     }
 
-    public void fillMaskedRect(byte[] abyte0, int i, int j, int k, int l, int i1, int j1) {
-        int k1 = i + l * Draw2D.width;
-        int l1 = Draw2D.width - j1;
-        int i2 = 0;
-        int j2 = 0;
-        if (l < Draw2D.top) {
-            int k2 = Draw2D.top - l;
-            j -= k2;
-            l = Draw2D.top;
-            j2 += k2 * j1;
-            k1 += k2 * Draw2D.width;
+    public void fillMaskedRect(byte[] mask, int x, int h, int rgb, int y, int alpha, int w) {
+        int dstOff = x + y * Draw2D.width;
+        int dstStep = Draw2D.width - w;
+        int maskStep = 0;
+        int maskOff = 0;
+        if (y < Draw2D.top) {
+            int trim = Draw2D.top - y;
+            h -= trim;
+            y = Draw2D.top;
+            maskOff += trim * w;
+            dstOff += trim * Draw2D.width;
         }
-        if (l + j >= Draw2D.bottom)
-            j -= ((l + j) - Draw2D.bottom) + 1;
-        if (i < Draw2D.left) {
-            int l2 = Draw2D.left - i;
-            j1 -= l2;
-            i = Draw2D.left;
-            j2 += l2;
-            k1 += l2;
-            i2 += l2;
-            l1 += l2;
+        if (y + h >= Draw2D.bottom)
+            h -= ((y + h) - Draw2D.bottom) + 1;
+        if (x < Draw2D.left) {
+            int trim = Draw2D.left - x;
+            w -= trim;
+            x = Draw2D.left;
+            maskOff += trim;
+            dstOff += trim;
+            maskStep += trim;
+            dstStep += trim;
         }
-        if (i + j1 >= Draw2D.right) {
-            int i3 = ((i + j1) - Draw2D.right) + 1;
-            j1 -= i3;
-            i2 += i3;
-            l1 += i3;
+        if (x + w >= Draw2D.right) {
+            int trim = ((x + w) - Draw2D.right) + 1;
+            w -= trim;
+            maskStep += trim;
+            dstStep += trim;
         }
-        fillMaskedRect(j, k1, j1, Draw2D.dest, abyte0, i1, j2, l1, i2, k);
+        fillMaskedRect(h, dstOff, w, Draw2D.dest, mask, alpha, maskOff, dstStep, maskStep, rgb);
     }
 
-    public void fillMaskedRect(int i, int j, int k, int[] ai, byte[] abyte0, int l, int i1,
-                               int j1, int k1, int l1) {
-        l1 = ((l1 & 0xff00ff) * l & 0xff00ff00) + ((l1 & 0xff00) * l & 0xff0000) >> 8;
-        l = 256 - l;
-        for (int j2 = -i; j2 < 0; j2++) {
-            for (int k2 = -k; k2 < 0; k2++)
-                if (abyte0[i1++] != 0) {
-                    int l2 = ai[j];
-                    ai[j++] = (((l2 & 0xff00ff) * l & 0xff00ff00) + ((l2 & 0xff00) * l & 0xff0000) >> 8) + l1;
+    public void fillMaskedRect(int h, int dstOff, int k, int[] dst, byte[] mask, int alpha, int maskOff,
+                               int dstStep, int maskStep, int rgb) {
+        rgb = ((rgb & 0xff00ff) * alpha & 0xff00ff00) + ((rgb & 0xff00) * alpha & 0xff0000) >> 8;
+        alpha = 256 - alpha;
+
+        for (int y = -h; y < 0; y++) {
+            for (int x = -k; x < 0; x++) {
+                if (mask[maskOff++] != 0) {
+                    int dstRGB = dst[dstOff];
+                    dst[dstOff++] = (((dstRGB & 0xff00ff) * alpha & 0xff00ff00) + ((dstRGB & 0xff00) * alpha & 0xff0000) >> 8) + rgb;
                 } else {
-                    j++;
+                    dstOff++;
                 }
+            }
 
-            j += j1;
-            i1 += k1;
+            dstOff += dstStep;
+            maskOff += maskStep;
         }
     }
 

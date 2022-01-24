@@ -4486,10 +4486,10 @@ public class Game extends GameShell {
 
             this.titleArchive = loadArchive("title screen", archiveChecksums[1], "title", 10);
 
-            fontPlain11 = new IndexedFont(this.titleArchive, "p11", 530);
-            fontPlain12 = new IndexedFont(this.titleArchive, "p12", 530);
-            fontBold12 = new IndexedFont(this.titleArchive, "b12", 530);
-            fontQuill8 = new IndexedFont(this.titleArchive, "q8", 530);
+            fontPlain11 = new IndexedFont(this.titleArchive, "p11");
+            fontPlain12 = new IndexedFont(this.titleArchive, "p12");
+            fontBold12 = new IndexedFont(this.titleArchive, "b12");
+            fontQuill8 = new IndexedFont(this.titleArchive, "q8");
 
             loadTitleBackground();
             loadTitleForeground();
