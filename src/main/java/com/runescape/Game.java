@@ -841,7 +841,7 @@ public class Game extends GameShell {
         drawViewport2d();
         drawTileHint();
         updateAnimatedTextures(i3);
-        drawViewport2();
+        drawViewport3d();
         areaViewport.drawImage(11, super.graphics, 8);
         cameraX = i1;
         cameraY = k1;
@@ -1543,13 +1543,12 @@ public class Game extends GameShell {
                     redrawChatback = true;
                 }
                 if ((j == 13 || j == 10) && input.length() > 0) {
-                    if (input.equals("::clientdrop")
-                        && (super.frame != null || getHost().indexOf("192.168.1.") != -1))
+                    if (input.equals("::clientdrop") && (super.frame != null || getHost().indexOf("192.168.1.") != -1)) {
                         reconnect();
-                    else if (input.startsWith("::")) {
-                        outBuffer.writeOpcode(4);
-                        outBuffer.writeByte(input.length() - 1);
-                        outBuffer.writeString(input.substring(2));
+                    } else if (input.startsWith("::")) {
+                            outBuffer.writeOpcode(4);
+                            outBuffer.writeByte(input.length() - 1);
+                            outBuffer.writeString(input.substring(2));
                     } else {
                         int j1 = 0;
                         if (input.startsWith("yellow:")) {
@@ -2841,8 +2840,9 @@ public class Game extends GameShell {
                         model = child.getModel(seqType.primaryFrames[child.seqFrame],
                             seqType.secondaryFrames[child.seqFrame], flag);
                     }
-                    if (model != null)
+                    if (model != null) {
                         model.drawSimple(0, child.modelYaw, 0, child.modelEyePitch, 0, l4, k5);
+                    }
                     Draw3D.centerX = j3;
                     Draw3D.centerY = i4;
                 } else if (child.type == 7) {
@@ -4727,7 +4727,8 @@ public class Game extends GameShell {
 
             Scene.init(ai, 800, 512, 334, 500);
             WordEncoding.load(wordencArchive);
-        } catch (Exception exception) {
+        } catch (Exception ex) {
+            ex.printStackTrace();
             errorLoading = true;
         }
     }
@@ -4802,7 +4803,7 @@ public class Game extends GameShell {
         SpotAnimType.models.clear();
     }
 
-    public void drawViewport2() {
+    public void drawViewport3d() {
         drawChat();
         if (crossType == 1)
             cross[crossCycle / 100].draw(crossY - 8 - 11, crossX - 8 - 8);
@@ -6915,9 +6916,7 @@ public class Game extends GameShell {
             disconnect();
         try {
             bufferedStream.close();
-            return;
         } catch (Exception _ex) {
-            return;
         }
     }
 
@@ -9097,14 +9096,16 @@ public class Game extends GameShell {
             }
 
             Signlink.startpriv(InetAddress.getLocalHost());
-            Game game = new Game();
-            game.initFrame(532, 789);
+            instance = new Game();
+            instance.initFrame(532, 789);
         } catch (Exception exception) {
         }
     }
 
     public Game() {
     }
+
+    public static Game instance;
 
     public static int anticheatCounter1;
     public static String ASCII_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
@@ -9345,7 +9346,7 @@ public class Game extends GameShell {
     public boolean sidebarRedraw = false;
     public boolean redrawChatback = false;
     public int[] cameraAmplitude = new int[5];
-    public PlayerEntity self;
+    public static PlayerEntity self;
     public boolean cutsceneActive = false;
     public int sceneDelta;
     public String reportInput = "";

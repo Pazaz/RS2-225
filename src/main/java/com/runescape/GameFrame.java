@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class GameFrame extends Frame {
 
-    public GameFrame(int height, GameShell applet, int width) {
+    public GameFrame(GameShell applet) {
         this.applet = applet;
 
         setTitle("RuneScape 2 - Revision 225");
