@@ -1,6 +1,18 @@
 bin/
 .idea/
 
+/target/
+.classpath
+.settings/org.eclipse.jdt.core.prefs
+.settings/org.eclipse.m2e.core.prefs
+.project
+/bin/
+*.txt
+*.iml
+*.class
+/.idea
+/out
+
 # Created by https://www.toptal.com/developers/gitignore/api/java,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,windows
 
