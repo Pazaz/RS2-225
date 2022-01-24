@@ -12,8 +12,8 @@ public class Draw3D extends Draw2D {
         textures = null;
         textureHasTransparency = null;
         textureColors = null;
-        texelBuffer2 = null;
-        texelBuffer1 = null;
+        texelPool = null;
+        activeTexels = null;
         textureCycles = null;
         palette = null;
         texturePalettes = null;
@@ -21,1926 +21,1993 @@ public class Draw3D extends Draw2D {
 
     public static void prepareOffsets() {
         offsets = new int[Draw2D.height];
-        for (int k = 0; k < Draw2D.height; k++) {
-            offsets[k] = Draw2D.width * k;
+        for (int n = 0; n < Draw2D.height; n++) {
+            offsets[n] = Draw2D.width * n;
         }
 
         centerX = Draw2D.width / 2;
         centerY = Draw2D.height / 2;
     }
 
-    public static void prepareOffsets(int i, int j) {
-        offsets = new int[i];
-        for (int l = 0; l < i; l++)
-            offsets[l] = j * l;
+    public static void prepareOffsets(int height, int width) {
+        offsets = new int[height];
+        for (int n = 0; n < height; n++) {
+            offsets[n] = width * n;
+        }
 
-        centerX = j / 2;
-        centerY = i / 2;
+        centerX = width / 2;
+        centerY = height / 2;
     }
 
     public static void clearPools() {
-        texelBuffer2 = null;
-        for (int i = 0; i < 50; i++)
-            texelBuffer1[i] = null;
+        texelPool = null;
+
+        for (int id = 0; id < 50; id++) {
+            activeTexels[id] = null;
+        }
     }
 
-    public static void setupPools(int i) {
-        if (texelBuffer2 == null) {
-            texelPoolPosition = i;
-            if (lowMemory)
-                texelBuffer2 = new int[texelPoolPosition][16384];
-            else
-                texelBuffer2 = new int[texelPoolPosition][0x10000];
-            for (int l = 0; l < 50; l++)
-                texelBuffer1[l] = null;
+    public static void setupPools(int id) {
+        if (texelPool == null) {
+            poolSize = id;
+
+            if (lowMemory) {
+                texelPool = new int[poolSize][64 * 64 * 4];
+            } else {
+                texelPool = new int[poolSize][128 * 128 * 4];
+            }
+
+            for (int t = 0; t < 50; t++) {
+                activeTexels[t] = null;
+            }
         }
     }
 
     public static void unpackTextures(FileArchive fileArchive) {
-        loadedTextureCount = 0;
-        for (int i = 0; i < 50; i++) {
+        textureCount = 0;
+
+        for (int id = 0; id < 50; id++) {
             try {
-                textures[i] = new IndexedSprite(fileArchive, String.valueOf(i), 0);
-                if (lowMemory && textures[i].clipWidth == 128)
-                    textures[i].shrink();
-                else
-                    textures[i].crop();
-                loadedTextureCount++;
+                textures[id] = new IndexedSprite(fileArchive, String.valueOf(id), 0);
+
+                if (lowMemory && textures[id].clipWidth == 128) {
+                    textures[id].shrink();
+                } else {
+                    textures[id].crop();
+                }
+
+                textureCount++;
             } catch (Exception _ex) {
             }
         }
     }
 
-    public static int getAverageTextureRGB(int j) {
-        if (textureColors[j] != 0)
-            return textureColors[j];
-        int k = 0;
-        int l = 0;
-        int i1 = 0;
-        int j1 = texturePalettes[j].length;
-        for (int k1 = 0; k1 < j1; k1++) {
-            k += texturePalettes[j][k1] >> 16 & 0xff;
-            l += texturePalettes[j][k1] >> 8 & 0xff;
-            i1 += texturePalettes[j][k1] & 0xff;
+    public static int getAverageTextureRGB(int id) {
+        if (textureColors[id] != 0) {
+            return textureColors[id];
         }
 
-        int l1 = (k / j1 << 16) + (l / j1 << 8) + i1 / j1;
-        l1 = powRGB(l1, 1.3999999999999999D);
-        if (l1 == 0)
-            l1 = 1;
-        textureColors[j] = l1;
-        return l1;
+        int r = 0;
+        int g = 0;
+        int b = 0;
+        int length = texturePalettes[id].length;
+
+        for (int i = 0; i < length; i++) {
+            r += texturePalettes[id][i] >> 16 & 0xff;
+            g += texturePalettes[id][i] >> 8 & 0xff;
+            b += texturePalettes[id][i] & 0xff;
+        }
+
+        int rgb = (r / length << 16) + (g / length << 8) + b / length;
+        rgb = powRGB(rgb, 1.3999999999999999D);
+        if (rgb == 0) {
+            rgb = 1;
+        }
+
+        textureColors[id] = rgb;
+        return rgb;
     }
 
-    public static void updateTexture(int i) {
-        if (texelBuffer1[i] != null) {
-            texelBuffer2[texelPoolPosition++] = texelBuffer1[i];
-            texelBuffer1[i] = null;
+    public static void updateTexture(int id) {
+        if (activeTexels[id] != null) {
+            texelPool[poolSize++] = activeTexels[id];
+            activeTexels[id] = null;
         }
     }
 
-    public static int[] getTexels(int i) {
-        textureCycles[i] = cycle++;
-        if (texelBuffer1[i] != null)
-            return texelBuffer1[i];
-        int[] ai;
-        if (texelPoolPosition > 0) {
-            ai = texelBuffer2[--texelPoolPosition];
-            texelBuffer2[texelPoolPosition] = null;
+    public static int[] getTexels(int id) {
+        textureCycles[id] = cycle++;
+        if (activeTexels[id] != null) {
+            return activeTexels[id];
+        }
+
+        int[] texels;
+        if (poolSize > 0) {
+            texels = texelPool[--poolSize];
+            texelPool[poolSize] = null;
         } else {
-            int j = 0;
-            int k = -1;
-            for (int l = 0; l < loadedTextureCount; l++)
-                if (texelBuffer1[l] != null && (textureCycles[l] < j || k == -1)) {
-                    j = textureCycles[l];
-                    k = l;
-                }
+            int cycle = 0;
+            int selected = -1;
 
-            ai = texelBuffer1[k];
-            texelBuffer1[k] = null;
+            for (int t = 0; t < textureCount; t++) {
+                if (activeTexels[t] != null && (textureCycles[t] < cycle || selected == -1)) {
+                    cycle = textureCycles[t];
+                    selected = t;
+                }
+            }
+
+            texels = activeTexels[selected];
+            activeTexels[selected] = null;
         }
-        texelBuffer1[i] = ai;
-        IndexedSprite indexedSprite = textures[i];
-        int[] ai1 = texturePalettes[i];
+
+        activeTexels[id] = texels;
+        IndexedSprite texture = textures[id];
+        int[] palette = texturePalettes[id];
+
         if (lowMemory) {
-            textureHasTransparency[i] = false;
-            for (int i1 = 0; i1 < 4096; i1++) {
-                int i2 = ai[i1] = ai1[indexedSprite.pixels[i1]] & 0xf8f8ff;
-                if (i2 == 0)
-                    textureHasTransparency[i] = true;
-                ai[4096 + i1] = i2 - (i2 >>> 3) & 0xf8f8ff;
-                ai[8192 + i1] = i2 - (i2 >>> 2) & 0xf8f8ff;
-                ai[12288 + i1] = i2 - (i2 >>> 2) - (i2 >>> 3) & 0xf8f8ff;
+            textureHasTransparency[id] = false;
+
+            for (int i = 0; i < 64 * 64; i++) {
+                int rgb = texels[i] = palette[texture.pixels[i]] & 0xf8f8ff;
+                if (rgb == 0) {
+                    textureHasTransparency[id] = true;
+                }
+
+                texels[64 * 64 + i] = rgb - (rgb >>> 3) & 0xf8f8ff;
+                texels[64 * 64 * 2 + i] = rgb - (rgb >>> 2) & 0xf8f8ff;
+                texels[64 * 64 * 3 + i] = rgb - (rgb >>> 2) - (rgb >>> 3) & 0xf8f8ff;
             }
         } else {
-            if (indexedSprite.width == 64) {
+            if (texture.width == 64) {
+                // upscale 64x64 textures to 128x128
                 for (int j1 = 0; j1 < 128; j1++) {
-                    for (int j2 = 0; j2 < 128; j2++)
-                        ai[j2 + (j1 << 7)] = ai1[indexedSprite.pixels[(j2 >> 1) + ((j1 >> 1) << 6)]];
+                    for (int j2 = 0; j2 < 128; j2++) {
+                        texels[j2 + (j1 << 7)] = palette[texture.pixels[(j2 >> 1) + ((j1 >> 1) << 6)]];
+                    }
                 }
             } else {
-                for (int k1 = 0; k1 < 16384; k1++)
-                    ai[k1] = ai1[indexedSprite.pixels[k1]];
-
+                for (int k1 = 0; k1 < 128 * 128; k1++) {
+                    texels[k1] = palette[texture.pixels[k1]];
+                }
             }
-            textureHasTransparency[i] = false;
-            for (int l1 = 0; l1 < 16384; l1++) {
-                ai[l1] &= 0xf8f8ff;
-                int k2 = ai[l1];
-                if (k2 == 0)
-                    textureHasTransparency[i] = true;
-                ai[16384 + l1] = k2 - (k2 >>> 3) & 0xf8f8ff;
-                ai[32768 + l1] = k2 - (k2 >>> 2) & 0xf8f8ff;
-                ai[49152 + l1] = k2 - (k2 >>> 2) - (k2 >>> 3) & 0xf8f8ff;
+
+            textureHasTransparency[id] = false;
+            for (int l1 = 0; l1 < 128 * 128; l1++) {
+                texels[l1] &= 0xf8f8ff;
+
+                int rgb = texels[l1];
+                if (rgb == 0) {
+                    textureHasTransparency[id] = true;
+                }
+
+                texels[128 * 128 + l1] = rgb - (rgb >>> 3) & 0xf8f8ff;
+                texels[128 * 128 * 2 + l1] = rgb - (rgb >>> 2) & 0xf8f8ff;
+                texels[128 * 128 * 3 + l1] = rgb - (rgb >>> 2) - (rgb >>> 3) & 0xf8f8ff;
             }
 
         }
-        return ai;
+        return texels;
     }
 
-    public static void setBrightness(double d) {
-        d += Math.random() * 0.029999999999999999D - 0.014999999999999999D;
-        int i = 0;
-        for (int j = 0; j < 512; j++) {
-            double d1 = (double) (j / 8) / 64D + 0.0078125D;
-            double d2 = (double) (j & 7) / 8D + 0.0625D;
-            for (int j1 = 0; j1 < 128; j1++) {
-                double d3 = (double) j1 / 128D;
-                double d4 = d3;
-                double d5 = d3;
-                double d6 = d3;
-                if (d2 != 0.0D) {
-                    double d7;
-                    if (d3 < 0.5D)
-                        d7 = d3 * (1.0D + d2);
-                    else
-                        d7 = (d3 + d2) - d3 * d2;
-                    double d8 = 2D * d3 - d7;
-                    double d9 = d1 + 0.33333333333333331D;
-                    if (d9 > 1.0D)
-                        d9--;
-                    double d10 = d1;
-                    double d11 = d1 - 0.33333333333333331D;
-                    if (d11 < 0.0D)
+    public static void setBrightness(double brightness) {
+        brightness += Math.random() * 0.029999999999999999D - 0.014999999999999999D;
+
+        int offset = 0;
+        for (int y = 0; y < 512; y++) {
+            double hue = (double) (y / 8) / 64D + 0.0078125D;
+            double saturation = (double) (y & 7) / 8D + 0.0625D;
+
+            for (int x = 0; x < 128; x++) {
+                double lightness = (double) x / 128D;
+
+                double r = lightness;
+                double g = lightness;
+                double b = lightness;
+
+                if (saturation != 0.0D) {
+                    double q;
+
+                    if (lightness < 0.5D) {
+                        q = lightness * (1.0D + saturation);
+                    } else {
+                        q = (lightness + saturation) - lightness * saturation;
+                    }
+
+                    double p = 2D * lightness - q;
+                    double t = hue + 0.33333333333333331D;
+                    if (t > 1.0D) {
+                        t--;
+                    }
+
+                    double d11 = hue - 0.33333333333333331D;
+                    if (d11 < 0.0D) {
                         d11++;
-                    if (6D * d9 < 1.0D)
-                        d4 = d8 + (d7 - d8) * 6D * d9;
-                    else if (2D * d9 < 1.0D)
-                        d4 = d7;
-                    else if (3D * d9 < 2D)
-                        d4 = d8 + (d7 - d8) * (0.66666666666666663D - d9) * 6D;
-                    else
-                        d4 = d8;
-                    if (6D * d10 < 1.0D)
-                        d5 = d8 + (d7 - d8) * 6D * d10;
-                    else if (2D * d10 < 1.0D)
-                        d5 = d7;
-                    else if (3D * d10 < 2D)
-                        d5 = d8 + (d7 - d8) * (0.66666666666666663D - d10) * 6D;
-                    else
-                        d5 = d8;
-                    if (6D * d11 < 1.0D)
-                        d6 = d8 + (d7 - d8) * 6D * d11;
-                    else if (2D * d11 < 1.0D)
-                        d6 = d7;
-                    else if (3D * d11 < 2D)
-                        d6 = d8 + (d7 - d8) * (0.66666666666666663D - d11) * 6D;
-                    else
-                        d6 = d8;
-                }
-                int k1 = (int) (d4 * 256D);
-                int l1 = (int) (d5 * 256D);
-                int i2 = (int) (d6 * 256D);
-                int j2 = (k1 << 16) + (l1 << 8) + i2;
-                j2 = powRGB(j2, d);
-                palette[i++] = j2;
-            }
-
-        }
-
-        for (int k = 0; k < 50; k++)
-            if (textures[k] != null) {
-                int[] ai = textures[k].palette;
-                texturePalettes[k] = new int[ai.length];
-                for (int i1 = 0; i1 < ai.length; i1++)
-                    texturePalettes[k][i1] = powRGB(ai[i1], d);
-
-            }
-
-        for (int l = 0; l < 50; l++)
-            updateTexture(l);
-    }
-
-    public static int powRGB(int i, double d) {
-        double d1 = (double) (i >> 16) / 256D;
-        double d2 = (double) (i >> 8 & 0xff) / 256D;
-        double d3 = (double) (i & 0xff) / 256D;
-        d1 = Math.pow(d1, d);
-        d2 = Math.pow(d2, d);
-        d3 = Math.pow(d3, d);
-        int j = (int) (d1 * 256D);
-        int k = (int) (d2 * 256D);
-        int l = (int) (d3 * 256D);
-        return (j << 16) + (k << 8) + l;
-    }
-
-    public static void fillGouraudScanline(int i, int j, int k, int l, int i1, int j1, int k1, int l1,
-                                           int i2) {
-        int j2 = 0;
-        int k2 = 0;
-        if (j != i) {
-            j2 = (i1 - l << 16) / (j - i);
-            k2 = (l1 - k1 << 15) / (j - i);
-        }
-        int l2 = 0;
-        int i3 = 0;
-        if (k != j) {
-            l2 = (j1 - i1 << 16) / (k - j);
-            i3 = (i2 - l1 << 15) / (k - j);
-        }
-        int j3 = 0;
-        int k3 = 0;
-        if (k != i) {
-            j3 = (l - j1 << 16) / (i - k);
-            k3 = (k1 - i2 << 15) / (i - k);
-        }
-        if (i <= j && i <= k) {
-            if (i >= Draw2D.bottom)
-                return;
-            if (j > Draw2D.bottom)
-                j = Draw2D.bottom;
-            if (k > Draw2D.bottom)
-                k = Draw2D.bottom;
-            if (j < k) {
-                j1 = l <<= 16;
-                i2 = k1 <<= 15;
-                if (i < 0) {
-                    j1 -= j3 * i;
-                    l -= j2 * i;
-                    i2 -= k3 * i;
-                    k1 -= k2 * i;
-                    i = 0;
-                }
-                i1 <<= 16;
-                l1 <<= 15;
-                if (j < 0) {
-                    i1 -= l2 * j;
-                    l1 -= i3 * j;
-                    j = 0;
-                }
-                if (i != j && j3 < j2 || i == j && j3 > l2) {
-                    k -= j;
-                    j -= i;
-                    for (i = offsets[i]; --j >= 0; i += Draw2D.width) {
-                        drawGouraudScanline(Draw2D.dest, i, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
-                        j1 += j3;
-                        l += j2;
-                        i2 += k3;
-                        k1 += k2;
                     }
 
-                    while (--k >= 0) {
-                        drawGouraudScanline(Draw2D.dest, i, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
-                        j1 += j3;
-                        i1 += l2;
-                        i2 += k3;
-                        l1 += i3;
-                        i += Draw2D.width;
+                    if (6D * t < 1.0D) {
+                        r = p + (q - p) * 6D * t;
+                    } else if (2D * t < 1.0D) {
+                        r = q;
+                    } else if (3D * t < 2D) {
+                        r = p + (q - p) * (0.66666666666666663D - t) * 6D;
+                    } else {
+                        r = p;
+                    }
+
+                    if (6D * hue < 1.0D) {
+                        g = p + (q - p) * 6D * hue;
+                    } else if (2D * hue < 1.0D) {
+                        g = q;
+                    } else if (3D * hue < 2D) {
+                        g = p + (q - p) * (0.66666666666666663D - hue) * 6D;
+                    } else {
+                        g = p;
+                    }
+
+                    if (6D * d11 < 1.0D) {
+                        b = p + (q - p) * 6D * d11;
+                    } else if (2D * d11 < 1.0D) {
+                        b = q;
+                    } else if (3D * d11 < 2D) {
+                        b = p + (q - p) * (0.66666666666666663D - d11) * 6D;
+                    } else {
+                        b = p;
+                    }
+                }
+
+                int intR = (int) (r * 256D);
+                int intG = (int) (g * 256D);
+                int intB = (int) (b * 256D);
+
+                int rgb = (intR << 16) + (intG << 8) + intB;
+                rgb = powRGB(rgb, brightness);
+                palette[offset++] = rgb;
+            }
+        }
+
+        for (int id = 0; id < 50; id++) {
+            if (textures[id] != null) {
+                int[] palette = textures[id].palette;
+                texturePalettes[id] = new int[palette.length];
+
+                for (int i = 0; i < palette.length; i++) {
+                    texturePalettes[id][i] = powRGB(palette[i], brightness);
+                }
+            }
+        }
+
+        for (int id = 0; id < 50; id++) {
+            updateTexture(id);
+        }
+    }
+
+    public static int powRGB(int rgb, double brightness) {
+        double r = (double) (rgb >> 16) / 256D;
+        double g = (double) (rgb >> 8 & 0xff) / 256D;
+        double b = (double) (rgb & 0xff) / 256D;
+
+        r = Math.pow(r, brightness);
+        g = Math.pow(g, brightness);
+        b = Math.pow(b, brightness);
+
+        int intR = (int) (r * 256D);
+        int intG = (int) (g * 256D);
+        int intB = (int) (b * 256D);
+
+        return (intR << 16) + (intG << 8) + intB;
+    }
+
+    public static void fillGouraudTriangle(int yA, int yB, int yC, int xA, int xB, int xC, int colorA, int colorB,
+                                           int colorC) {
+        int xStepAB = 0;
+        int colorStepAB = 0;
+        if (yB != yA) {
+            xStepAB = (xB - xA << 16) / (yB - yA);
+            colorStepAB = (colorB - colorA << 15) / (yB - yA);
+        }
+
+        int xStepBC = 0;
+        int colorStepBC = 0;
+        if (yC != yB) {
+            xStepBC = (xC - xB << 16) / (yC - yB);
+            colorStepBC = (colorC - colorB << 15) / (yC - yB);
+        }
+
+        int xStepAC = 0;
+        int colorStepAC = 0;
+        if (yC != yA) {
+            xStepAC = (xA - xC << 16) / (yA - yC);
+            colorStepAC = (colorA - colorC << 15) / (yA - yC);
+        }
+
+        if (yA <= yB && yA <= yC) {
+            if (yA >= Draw2D.bottom)
+                return;
+            if (yB > Draw2D.bottom)
+                yB = Draw2D.bottom;
+            if (yC > Draw2D.bottom)
+                yC = Draw2D.bottom;
+            if (yB < yC) {
+                xC = xA <<= 16;
+                colorC = colorA <<= 15;
+                if (yA < 0) {
+                    xC -= xStepAC * yA;
+                    xA -= xStepAB * yA;
+                    colorC -= colorStepAC * yA;
+                    colorA -= colorStepAB * yA;
+                    yA = 0;
+                }
+                xB <<= 16;
+                colorB <<= 15;
+                if (yB < 0) {
+                    xB -= xStepBC * yB;
+                    colorB -= colorStepBC * yB;
+                    yB = 0;
+                }
+                if (yA != yB && xStepAC < xStepAB || yA == yB && xStepAC > xStepBC) {
+                    yC -= yB;
+                    yB -= yA;
+                    for (yA = offsets[yA]; --yB >= 0; yA += Draw2D.width) {
+                        drawGouraudScanline(Draw2D.dest, yA, xC >> 16, xA >> 16, colorC >> 7, colorA >> 7);
+                        xC += xStepAC;
+                        xA += xStepAB;
+                        colorC += colorStepAC;
+                        colorA += colorStepAB;
+                    }
+
+                    while (--yC >= 0) {
+                        drawGouraudScanline(Draw2D.dest, yA, xC >> 16, xB >> 16, colorC >> 7, colorB >> 7);
+                        xC += xStepAC;
+                        xB += xStepBC;
+                        colorC += colorStepAC;
+                        colorB += colorStepBC;
+                        yA += Draw2D.width;
                     }
                     return;
                 }
-                k -= j;
-                j -= i;
-                for (i = offsets[i]; --j >= 0; i += Draw2D.width) {
-                    drawGouraudScanline(Draw2D.dest, i, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
-                    j1 += j3;
-                    l += j2;
-                    i2 += k3;
-                    k1 += k2;
+                yC -= yB;
+                yB -= yA;
+                for (yA = offsets[yA]; --yB >= 0; yA += Draw2D.width) {
+                    drawGouraudScanline(Draw2D.dest, yA, xA >> 16, xC >> 16, colorA >> 7, colorC >> 7);
+                    xC += xStepAC;
+                    xA += xStepAB;
+                    colorC += colorStepAC;
+                    colorA += colorStepAB;
                 }
 
-                while (--k >= 0) {
-                    drawGouraudScanline(Draw2D.dest, i, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
-                    j1 += j3;
-                    i1 += l2;
-                    i2 += k3;
-                    l1 += i3;
-                    i += Draw2D.width;
+                while (--yC >= 0) {
+                    drawGouraudScanline(Draw2D.dest, yA, xB >> 16, xC >> 16, colorB >> 7, colorC >> 7);
+                    xC += xStepAC;
+                    xB += xStepBC;
+                    colorC += colorStepAC;
+                    colorB += colorStepBC;
+                    yA += Draw2D.width;
                 }
                 return;
             }
-            i1 = l <<= 16;
-            l1 = k1 <<= 15;
-            if (i < 0) {
-                i1 -= j3 * i;
-                l -= j2 * i;
-                l1 -= k3 * i;
-                k1 -= k2 * i;
-                i = 0;
+            xB = xA <<= 16;
+            colorB = colorA <<= 15;
+            if (yA < 0) {
+                xB -= xStepAC * yA;
+                xA -= xStepAB * yA;
+                colorB -= colorStepAC * yA;
+                colorA -= colorStepAB * yA;
+                yA = 0;
             }
-            j1 <<= 16;
-            i2 <<= 15;
-            if (k < 0) {
-                j1 -= l2 * k;
-                i2 -= i3 * k;
-                k = 0;
+            xC <<= 16;
+            colorC <<= 15;
+            if (yC < 0) {
+                xC -= xStepBC * yC;
+                colorC -= colorStepBC * yC;
+                yC = 0;
             }
-            if (i != k && j3 < j2 || i == k && l2 > j2) {
-                j -= k;
-                k -= i;
-                for (i = offsets[i]; --k >= 0; i += Draw2D.width) {
-                    drawGouraudScanline(Draw2D.dest, i, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
-                    i1 += j3;
-                    l += j2;
-                    l1 += k3;
-                    k1 += k2;
+            if (yA != yC && xStepAC < xStepAB || yA == yC && xStepBC > xStepAB) {
+                yB -= yC;
+                yC -= yA;
+                for (yA = offsets[yA]; --yC >= 0; yA += Draw2D.width) {
+                    drawGouraudScanline(Draw2D.dest, yA, xB >> 16, xA >> 16, colorB >> 7, colorA >> 7);
+                    xB += xStepAC;
+                    xA += xStepAB;
+                    colorB += colorStepAC;
+                    colorA += colorStepAB;
                 }
 
-                while (--j >= 0) {
-                    drawGouraudScanline(Draw2D.dest, i, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
-                    j1 += l2;
-                    l += j2;
-                    i2 += i3;
-                    k1 += k2;
-                    i += Draw2D.width;
+                while (--yB >= 0) {
+                    drawGouraudScanline(Draw2D.dest, yA, xC >> 16, xA >> 16, colorC >> 7, colorA >> 7);
+                    xC += xStepBC;
+                    xA += xStepAB;
+                    colorC += colorStepBC;
+                    colorA += colorStepAB;
+                    yA += Draw2D.width;
                 }
                 return;
             }
-            j -= k;
-            k -= i;
-            for (i = offsets[i]; --k >= 0; i += Draw2D.width) {
-                drawGouraudScanline(Draw2D.dest, i, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
-                i1 += j3;
-                l += j2;
-                l1 += k3;
-                k1 += k2;
+            yB -= yC;
+            yC -= yA;
+            for (yA = offsets[yA]; --yC >= 0; yA += Draw2D.width) {
+                drawGouraudScanline(Draw2D.dest, yA, xA >> 16, xB >> 16, colorA >> 7, colorB >> 7);
+                xB += xStepAC;
+                xA += xStepAB;
+                colorB += colorStepAC;
+                colorA += colorStepAB;
             }
 
-            while (--j >= 0) {
-                drawGouraudScanline(Draw2D.dest, i, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
-                j1 += l2;
-                l += j2;
-                i2 += i3;
-                k1 += k2;
-                i += Draw2D.width;
+            while (--yB >= 0) {
+                drawGouraudScanline(Draw2D.dest, yA, xA >> 16, xC >> 16, colorA >> 7, colorC >> 7);
+                xC += xStepBC;
+                xA += xStepAB;
+                colorC += colorStepBC;
+                colorA += colorStepAB;
+                yA += Draw2D.width;
             }
             return;
         }
-        if (j <= k) {
-            if (j >= Draw2D.bottom)
+        if (yB <= yC) {
+            if (yB >= Draw2D.bottom)
                 return;
-            if (k > Draw2D.bottom)
-                k = Draw2D.bottom;
-            if (i > Draw2D.bottom)
-                i = Draw2D.bottom;
-            if (k < i) {
-                l = i1 <<= 16;
-                k1 = l1 <<= 15;
-                if (j < 0) {
-                    l -= j2 * j;
-                    i1 -= l2 * j;
-                    k1 -= k2 * j;
-                    l1 -= i3 * j;
-                    j = 0;
+            if (yC > Draw2D.bottom)
+                yC = Draw2D.bottom;
+            if (yA > Draw2D.bottom)
+                yA = Draw2D.bottom;
+            if (yC < yA) {
+                xA = xB <<= 16;
+                colorA = colorB <<= 15;
+                if (yB < 0) {
+                    xA -= xStepAB * yB;
+                    xB -= xStepBC * yB;
+                    colorA -= colorStepAB * yB;
+                    colorB -= colorStepBC * yB;
+                    yB = 0;
                 }
-                j1 <<= 16;
-                i2 <<= 15;
-                if (k < 0) {
-                    j1 -= j3 * k;
-                    i2 -= k3 * k;
-                    k = 0;
+                xC <<= 16;
+                colorC <<= 15;
+                if (yC < 0) {
+                    xC -= xStepAC * yC;
+                    colorC -= colorStepAC * yC;
+                    yC = 0;
                 }
-                if (j != k && j2 < l2 || j == k && j2 > j3) {
-                    i -= k;
-                    k -= j;
-                    for (j = offsets[j]; --k >= 0; j += Draw2D.width) {
-                        drawGouraudScanline(Draw2D.dest, j, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
-                        l += j2;
-                        i1 += l2;
-                        k1 += k2;
-                        l1 += i3;
+                if (yB != yC && xStepAB < xStepBC || yB == yC && xStepAB > xStepAC) {
+                    yA -= yC;
+                    yC -= yB;
+                    for (yB = offsets[yB]; --yC >= 0; yB += Draw2D.width) {
+                        drawGouraudScanline(Draw2D.dest, yB, xA >> 16, xB >> 16, colorA >> 7, colorB >> 7);
+                        xA += xStepAB;
+                        xB += xStepBC;
+                        colorA += colorStepAB;
+                        colorB += colorStepBC;
                     }
 
-                    while (--i >= 0) {
-                        drawGouraudScanline(Draw2D.dest, j, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
-                        l += j2;
-                        j1 += j3;
-                        k1 += k2;
-                        i2 += k3;
-                        j += Draw2D.width;
+                    while (--yA >= 0) {
+                        drawGouraudScanline(Draw2D.dest, yB, xA >> 16, xC >> 16, colorA >> 7, colorC >> 7);
+                        xA += xStepAB;
+                        xC += xStepAC;
+                        colorA += colorStepAB;
+                        colorC += colorStepAC;
+                        yB += Draw2D.width;
                     }
                     return;
                 }
-                i -= k;
-                k -= j;
-                for (j = offsets[j]; --k >= 0; j += Draw2D.width) {
-                    drawGouraudScanline(Draw2D.dest, j, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
-                    l += j2;
-                    i1 += l2;
-                    k1 += k2;
-                    l1 += i3;
+                yA -= yC;
+                yC -= yB;
+                for (yB = offsets[yB]; --yC >= 0; yB += Draw2D.width) {
+                    drawGouraudScanline(Draw2D.dest, yB, xB >> 16, xA >> 16, colorB >> 7, colorA >> 7);
+                    xA += xStepAB;
+                    xB += xStepBC;
+                    colorA += colorStepAB;
+                    colorB += colorStepBC;
                 }
 
-                while (--i >= 0) {
-                    drawGouraudScanline(Draw2D.dest, j, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
-                    l += j2;
-                    j1 += j3;
-                    k1 += k2;
-                    i2 += k3;
-                    j += Draw2D.width;
-                }
-                return;
-            }
-            j1 = i1 <<= 16;
-            i2 = l1 <<= 15;
-            if (j < 0) {
-                j1 -= j2 * j;
-                i1 -= l2 * j;
-                i2 -= k2 * j;
-                l1 -= i3 * j;
-                j = 0;
-            }
-            l <<= 16;
-            k1 <<= 15;
-            if (i < 0) {
-                l -= j3 * i;
-                k1 -= k3 * i;
-                i = 0;
-            }
-            if (j2 < l2) {
-                k -= i;
-                i -= j;
-                for (j = offsets[j]; --i >= 0; j += Draw2D.width) {
-                    drawGouraudScanline(Draw2D.dest, j, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
-                    j1 += j2;
-                    i1 += l2;
-                    i2 += k2;
-                    l1 += i3;
-                }
-
-                while (--k >= 0) {
-                    drawGouraudScanline(Draw2D.dest, j, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
-                    l += j3;
-                    i1 += l2;
-                    k1 += k3;
-                    l1 += i3;
-                    j += Draw2D.width;
+                while (--yA >= 0) {
+                    drawGouraudScanline(Draw2D.dest, yB, xC >> 16, xA >> 16, colorC >> 7, colorA >> 7);
+                    xA += xStepAB;
+                    xC += xStepAC;
+                    colorA += colorStepAB;
+                    colorC += colorStepAC;
+                    yB += Draw2D.width;
                 }
                 return;
             }
-            k -= i;
-            i -= j;
-            for (j = offsets[j]; --i >= 0; j += Draw2D.width) {
-                drawGouraudScanline(Draw2D.dest, j, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
-                j1 += j2;
-                i1 += l2;
-                i2 += k2;
-                l1 += i3;
+            xC = xB <<= 16;
+            colorC = colorB <<= 15;
+            if (yB < 0) {
+                xC -= xStepAB * yB;
+                xB -= xStepBC * yB;
+                colorC -= colorStepAB * yB;
+                colorB -= colorStepBC * yB;
+                yB = 0;
             }
-
-            while (--k >= 0) {
-                drawGouraudScanline(Draw2D.dest, j, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
-                l += j3;
-                i1 += l2;
-                k1 += k3;
-                l1 += i3;
-                j += Draw2D.width;
+            xA <<= 16;
+            colorA <<= 15;
+            if (yA < 0) {
+                xA -= xStepAC * yA;
+                colorA -= colorStepAC * yA;
+                yA = 0;
             }
-            return;
-        }
-        if (k >= Draw2D.bottom)
-            return;
-        if (i > Draw2D.bottom)
-            i = Draw2D.bottom;
-        if (j > Draw2D.bottom)
-            j = Draw2D.bottom;
-        if (i < j) {
-            i1 = j1 <<= 16;
-            l1 = i2 <<= 15;
-            if (k < 0) {
-                i1 -= l2 * k;
-                j1 -= j3 * k;
-                l1 -= i3 * k;
-                i2 -= k3 * k;
-                k = 0;
-            }
-            l <<= 16;
-            k1 <<= 15;
-            if (i < 0) {
-                l -= j2 * i;
-                k1 -= k2 * i;
-                i = 0;
-            }
-            if (l2 < j3) {
-                j -= i;
-                i -= k;
-                for (k = offsets[k]; --i >= 0; k += Draw2D.width) {
-                    drawGouraudScanline(Draw2D.dest, k, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
-                    i1 += l2;
-                    j1 += j3;
-                    l1 += i3;
-                    i2 += k3;
+            if (xStepAB < xStepBC) {
+                yC -= yA;
+                yA -= yB;
+                for (yB = offsets[yB]; --yA >= 0; yB += Draw2D.width) {
+                    drawGouraudScanline(Draw2D.dest, yB, xC >> 16, xB >> 16, colorC >> 7, colorB >> 7);
+                    xC += xStepAB;
+                    xB += xStepBC;
+                    colorC += colorStepAB;
+                    colorB += colorStepBC;
                 }
 
-                while (--j >= 0) {
-                    drawGouraudScanline(Draw2D.dest, k, i1 >> 16, l >> 16, l1 >> 7, k1 >> 7);
-                    i1 += l2;
-                    l += j2;
-                    l1 += i3;
-                    k1 += k2;
-                    k += Draw2D.width;
+                while (--yC >= 0) {
+                    drawGouraudScanline(Draw2D.dest, yB, xA >> 16, xB >> 16, colorA >> 7, colorB >> 7);
+                    xA += xStepAC;
+                    xB += xStepBC;
+                    colorA += colorStepAC;
+                    colorB += colorStepBC;
+                    yB += Draw2D.width;
                 }
                 return;
             }
-            j -= i;
-            i -= k;
-            for (k = offsets[k]; --i >= 0; k += Draw2D.width) {
-                drawGouraudScanline(Draw2D.dest, k, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
-                i1 += l2;
-                j1 += j3;
-                l1 += i3;
-                i2 += k3;
+            yC -= yA;
+            yA -= yB;
+            for (yB = offsets[yB]; --yA >= 0; yB += Draw2D.width) {
+                drawGouraudScanline(Draw2D.dest, yB, xB >> 16, xC >> 16, colorB >> 7, colorC >> 7);
+                xC += xStepAB;
+                xB += xStepBC;
+                colorC += colorStepAB;
+                colorB += colorStepBC;
             }
 
-            while (--j >= 0) {
-                drawGouraudScanline(Draw2D.dest, k, l >> 16, i1 >> 16, k1 >> 7, l1 >> 7);
-                i1 += l2;
-                l += j2;
-                l1 += i3;
-                k1 += k2;
-                k += Draw2D.width;
+            while (--yC >= 0) {
+                drawGouraudScanline(Draw2D.dest, yB, xB >> 16, xA >> 16, colorB >> 7, colorA >> 7);
+                xA += xStepAC;
+                xB += xStepBC;
+                colorA += colorStepAC;
+                colorB += colorStepBC;
+                yB += Draw2D.width;
             }
             return;
         }
-        l = j1 <<= 16;
-        k1 = i2 <<= 15;
-        if (k < 0) {
-            l -= l2 * k;
-            j1 -= j3 * k;
-            k1 -= i3 * k;
-            i2 -= k3 * k;
-            k = 0;
-        }
-        i1 <<= 16;
-        l1 <<= 15;
-        if (j < 0) {
-            i1 -= j2 * j;
-            l1 -= k2 * j;
-            j = 0;
-        }
-        if (l2 < j3) {
-            i -= j;
-            j -= k;
-            for (k = offsets[k]; --j >= 0; k += Draw2D.width) {
-                drawGouraudScanline(Draw2D.dest, k, l >> 16, j1 >> 16, k1 >> 7, i2 >> 7);
-                l += l2;
-                j1 += j3;
-                k1 += i3;
-                i2 += k3;
+        if (yC >= Draw2D.bottom)
+            return;
+        if (yA > Draw2D.bottom)
+            yA = Draw2D.bottom;
+        if (yB > Draw2D.bottom)
+            yB = Draw2D.bottom;
+        if (yA < yB) {
+            xB = xC <<= 16;
+            colorB = colorC <<= 15;
+            if (yC < 0) {
+                xB -= xStepBC * yC;
+                xC -= xStepAC * yC;
+                colorB -= colorStepBC * yC;
+                colorC -= colorStepAC * yC;
+                yC = 0;
+            }
+            xA <<= 16;
+            colorA <<= 15;
+            if (yA < 0) {
+                xA -= xStepAB * yA;
+                colorA -= colorStepAB * yA;
+                yA = 0;
+            }
+            if (xStepBC < xStepAC) {
+                yB -= yA;
+                yA -= yC;
+                for (yC = offsets[yC]; --yA >= 0; yC += Draw2D.width) {
+                    drawGouraudScanline(Draw2D.dest, yC, xB >> 16, xC >> 16, colorB >> 7, colorC >> 7);
+                    xB += xStepBC;
+                    xC += xStepAC;
+                    colorB += colorStepBC;
+                    colorC += colorStepAC;
+                }
+
+                while (--yB >= 0) {
+                    drawGouraudScanline(Draw2D.dest, yC, xB >> 16, xA >> 16, colorB >> 7, colorA >> 7);
+                    xB += xStepBC;
+                    xA += xStepAB;
+                    colorB += colorStepBC;
+                    colorA += colorStepAB;
+                    yC += Draw2D.width;
+                }
+                return;
+            }
+            yB -= yA;
+            yA -= yC;
+            for (yC = offsets[yC]; --yA >= 0; yC += Draw2D.width) {
+                drawGouraudScanline(Draw2D.dest, yC, xC >> 16, xB >> 16, colorC >> 7, colorB >> 7);
+                xB += xStepBC;
+                xC += xStepAC;
+                colorB += colorStepBC;
+                colorC += colorStepAC;
             }
 
-            while (--i >= 0) {
-                drawGouraudScanline(Draw2D.dest, k, i1 >> 16, j1 >> 16, l1 >> 7, i2 >> 7);
-                i1 += j2;
-                j1 += j3;
-                l1 += k2;
-                i2 += k3;
-                k += Draw2D.width;
+            while (--yB >= 0) {
+                drawGouraudScanline(Draw2D.dest, yC, xA >> 16, xB >> 16, colorA >> 7, colorB >> 7);
+                xB += xStepBC;
+                xA += xStepAB;
+                colorB += colorStepBC;
+                colorA += colorStepAB;
+                yC += Draw2D.width;
             }
             return;
         }
-        i -= j;
-        j -= k;
-        for (k = offsets[k]; --j >= 0; k += Draw2D.width) {
-            drawGouraudScanline(Draw2D.dest, k, j1 >> 16, l >> 16, i2 >> 7, k1 >> 7);
-            l += l2;
-            j1 += j3;
-            k1 += i3;
-            i2 += k3;
+        xA = xC <<= 16;
+        colorA = colorC <<= 15;
+        if (yC < 0) {
+            xA -= xStepBC * yC;
+            xC -= xStepAC * yC;
+            colorA -= colorStepBC * yC;
+            colorC -= colorStepAC * yC;
+            yC = 0;
+        }
+        xB <<= 16;
+        colorB <<= 15;
+        if (yB < 0) {
+            xB -= xStepAB * yB;
+            colorB -= colorStepAB * yB;
+            yB = 0;
+        }
+        if (xStepBC < xStepAC) {
+            yA -= yB;
+            yB -= yC;
+            for (yC = offsets[yC]; --yB >= 0; yC += Draw2D.width) {
+                drawGouraudScanline(Draw2D.dest, yC, xA >> 16, xC >> 16, colorA >> 7, colorC >> 7);
+                xA += xStepBC;
+                xC += xStepAC;
+                colorA += colorStepBC;
+                colorC += colorStepAC;
+            }
+
+            while (--yA >= 0) {
+                drawGouraudScanline(Draw2D.dest, yC, xB >> 16, xC >> 16, colorB >> 7, colorC >> 7);
+                xB += xStepAB;
+                xC += xStepAC;
+                colorB += colorStepAB;
+                colorC += colorStepAC;
+                yC += Draw2D.width;
+            }
+            return;
+        }
+        yA -= yB;
+        yB -= yC;
+        for (yC = offsets[yC]; --yB >= 0; yC += Draw2D.width) {
+            drawGouraudScanline(Draw2D.dest, yC, xC >> 16, xA >> 16, colorC >> 7, colorA >> 7);
+            xA += xStepBC;
+            xC += xStepAC;
+            colorA += colorStepBC;
+            colorC += colorStepAC;
         }
 
-        while (--i >= 0) {
-            drawGouraudScanline(Draw2D.dest, k, j1 >> 16, i1 >> 16, i2 >> 7, l1 >> 7);
-            i1 += j2;
-            j1 += j3;
-            l1 += k2;
-            i2 += k3;
-            k += Draw2D.width;
+        while (--yA >= 0) {
+            drawGouraudScanline(Draw2D.dest, yC, xC >> 16, xB >> 16, colorC >> 7, colorB >> 7);
+            xB += xStepAB;
+            xC += xStepAC;
+            colorB += colorStepAB;
+            colorC += colorStepAC;
+            yC += Draw2D.width;
         }
     }
 
-    public static void drawGouraudScanline(int[] ai, int i, int l, int i1, int j1, int k1) {
-        int j;
-        int k;
+    public static void drawGouraudScanline(int[] dst, int dstOff, int leftX, int rightX, int leftColor, int rightColor) {
+        int color;
+        int length;
+
         if (jagged) {
-            int l1;
+            int colorStep;
+
             if (testX) {
-                if (i1 - l > 3)
-                    l1 = (k1 - j1) / (i1 - l);
+                if (rightX - leftX > 3)
+                    colorStep = (rightColor - leftColor) / (rightX - leftX);
                 else
-                    l1 = 0;
-                if (i1 > Draw2D.rightX)
-                    i1 = Draw2D.rightX;
-                if (l < 0) {
-                    j1 -= l * l1;
-                    l = 0;
+                    colorStep = 0;
+                if (rightX > Draw2D.rightX)
+                    rightX = Draw2D.rightX;
+                if (leftX < 0) {
+                    leftColor -= leftX * colorStep;
+                    leftX = 0;
                 }
-                if (l >= i1)
+                if (leftX >= rightX)
                     return;
-                i += l;
-                k = i1 - l >> 2;
-                l1 <<= 2;
+                dstOff += leftX;
+                length = rightX - leftX >> 2;
+                colorStep <<= 2;
             } else {
-                if (l >= i1)
+                if (leftX >= rightX)
                     return;
-                i += l;
-                k = i1 - l >> 2;
-                if (k > 0)
-                    l1 = (k1 - j1) * reciprical15[k] >> 15;
+                dstOff += leftX;
+                length = rightX - leftX >> 2;
+                if (length > 0)
+                    colorStep = (rightColor - leftColor) * reciprical15[length] >> 15;
                 else
-                    l1 = 0;
+                    colorStep = 0;
             }
             if (alpha == 0) {
-                while (--k >= 0) {
-                    j = palette[j1 >> 8];
-                    j1 += l1;
-                    ai[i++] = j;
-                    ai[i++] = j;
-                    ai[i++] = j;
-                    ai[i++] = j;
+                while (--length >= 0) {
+                    color = palette[leftColor >> 8];
+                    leftColor += colorStep;
+                    dst[dstOff++] = color;
+                    dst[dstOff++] = color;
+                    dst[dstOff++] = color;
+                    dst[dstOff++] = color;
                 }
-                k = i1 - l & 3;
-                if (k > 0) {
-                    j = palette[j1 >> 8];
+                length = rightX - leftX & 3;
+                if (length > 0) {
+                    color = palette[leftColor >> 8];
                     do
-                        ai[i++] = j;
-                    while (--k > 0);
+                        dst[dstOff++] = color;
+                    while (--length > 0);
                     return;
                 }
             } else {
-                int j2 = alpha;
-                int l2 = 256 - alpha;
-                while (--k >= 0) {
-                    j = palette[j1 >> 8];
-                    j1 += l1;
-                    j = ((j & 0xff00ff) * l2 >> 8 & 0xff00ff) + ((j & 0xff00) * l2 >> 8 & 0xff00);
-                    ai[i++] = j + ((ai[i] & 0xff00ff) * j2 >> 8 & 0xff00ff) + ((ai[i] & 0xff00) * j2 >> 8 & 0xff00);
-                    ai[i++] = j + ((ai[i] & 0xff00ff) * j2 >> 8 & 0xff00ff) + ((ai[i] & 0xff00) * j2 >> 8 & 0xff00);
-                    ai[i++] = j + ((ai[i] & 0xff00ff) * j2 >> 8 & 0xff00ff) + ((ai[i] & 0xff00) * j2 >> 8 & 0xff00);
-                    ai[i++] = j + ((ai[i] & 0xff00ff) * j2 >> 8 & 0xff00ff) + ((ai[i] & 0xff00) * j2 >> 8 & 0xff00);
+                int alpha = Draw3D.alpha;
+                int invAlpha = 256 - Draw3D.alpha;
+                while (--length >= 0) {
+                    color = palette[leftColor >> 8];
+                    leftColor += colorStep;
+                    color = ((color & 0xff00ff) * invAlpha >> 8 & 0xff00ff) + ((color & 0xff00) * invAlpha >> 8 & 0xff00);
+                    dst[dstOff++] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
+                    dst[dstOff++] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
+                    dst[dstOff++] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
+                    dst[dstOff++] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
                 }
-                k = i1 - l & 3;
-                if (k > 0) {
-                    j = palette[j1 >> 8];
-                    j = ((j & 0xff00ff) * l2 >> 8 & 0xff00ff) + ((j & 0xff00) * l2 >> 8 & 0xff00);
+                length = rightX - leftX & 3;
+                if (length > 0) {
+                    color = palette[leftColor >> 8];
+                    color = ((color & 0xff00ff) * invAlpha >> 8 & 0xff00ff) + ((color & 0xff00) * invAlpha >> 8 & 0xff00);
                     do
-                        ai[i++] = j + ((ai[i] & 0xff00ff) * j2 >> 8 & 0xff00ff) + ((ai[i] & 0xff00) * j2 >> 8 & 0xff00);
-                    while (--k > 0);
+                        dst[dstOff++] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
+                    while (--length > 0);
                 }
             }
             return;
         }
-        if (l >= i1)
+        if (leftX >= rightX)
             return;
-        int i2 = (k1 - j1) / (i1 - l);
+        int colorStep = (rightColor - leftColor) / (rightX - leftX);
         if (testX) {
-            if (i1 > Draw2D.rightX)
-                i1 = Draw2D.rightX;
-            if (l < 0) {
-                j1 -= l * i2;
-                l = 0;
+            if (rightX > Draw2D.rightX)
+                rightX = Draw2D.rightX;
+            if (leftX < 0) {
+                leftColor -= leftX * colorStep;
+                leftX = 0;
             }
-            if (l >= i1)
+            if (leftX >= rightX)
                 return;
         }
-        i += l;
-        k = i1 - l;
+        dstOff += leftX;
+        length = rightX - leftX;
         if (alpha == 0) {
             do {
-                ai[i++] = palette[j1 >> 8];
-                j1 += i2;
-            } while (--k > 0);
+                dst[dstOff++] = palette[leftColor >> 8];
+                leftColor += colorStep;
+            } while (--length > 0);
             return;
         }
-        int k2 = alpha;
-        int i3 = 256 - alpha;
+        int alpha = Draw3D.alpha;
+        int invAlpha = 256 - Draw3D.alpha;
         do {
-            j = palette[j1 >> 8];
-            j1 += i2;
-            j = ((j & 0xff00ff) * i3 >> 8 & 0xff00ff) + ((j & 0xff00) * i3 >> 8 & 0xff00);
-            ai[i++] = j + ((ai[i] & 0xff00ff) * k2 >> 8 & 0xff00ff) + ((ai[i] & 0xff00) * k2 >> 8 & 0xff00);
-        } while (--k > 0);
+            color = palette[leftColor >> 8];
+            leftColor += colorStep;
+            color = ((color & 0xff00ff) * invAlpha >> 8 & 0xff00ff) + ((color & 0xff00) * invAlpha >> 8 & 0xff00);
+            dst[dstOff++] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
+        } while (--length > 0);
     }
 
-    public static void fillTriangle(int i, int j, int k, int l, int i1, int j1, int k1) {
-        int l1 = 0;
-        if (j != i)
-            l1 = (i1 - l << 16) / (j - i);
-        int i2 = 0;
-        if (k != j)
-            i2 = (j1 - i1 << 16) / (k - j);
-        int j2 = 0;
-        if (k != i)
-            j2 = (l - j1 << 16) / (i - k);
-        if (i <= j && i <= k) {
-            if (i >= Draw2D.bottom)
+    public static void fillTriangle(int yA, int yB, int yC, int xA, int xB, int xC, int color) {
+        int mAB = 0;
+        if (yB != yA)
+            mAB = (xB - xA << 16) / (yB - yA);
+        int mBC = 0;
+        if (yC != yB)
+            mBC = (xC - xB << 16) / (yC - yB);
+        int mCA = 0;
+        if (yC != yA)
+            mCA = (xA - xC << 16) / (yA - yC);
+        if (yA <= yB && yA <= yC) {
+            if (yA >= Draw2D.bottom)
                 return;
-            if (j > Draw2D.bottom)
-                j = Draw2D.bottom;
-            if (k > Draw2D.bottom)
-                k = Draw2D.bottom;
-            if (j < k) {
-                j1 = l <<= 16;
-                if (i < 0) {
-                    j1 -= j2 * i;
-                    l -= l1 * i;
-                    i = 0;
+            if (yB > Draw2D.bottom)
+                yB = Draw2D.bottom;
+            if (yC > Draw2D.bottom)
+                yC = Draw2D.bottom;
+            if (yB < yC) {
+                xC = xA <<= 16;
+                if (yA < 0) {
+                    xC -= mCA * yA;
+                    xA -= mAB * yA;
+                    yA = 0;
                 }
-                i1 <<= 16;
-                if (j < 0) {
-                    i1 -= i2 * j;
-                    j = 0;
+                xB <<= 16;
+                if (yB < 0) {
+                    xB -= mBC * yB;
+                    yB = 0;
                 }
-                if (i != j && j2 < l1 || i == j && j2 > i2) {
-                    k -= j;
-                    j -= i;
-                    for (i = offsets[i]; --j >= 0; i += Draw2D.width) {
-                        drawTriangleScanline(Draw2D.dest, i, k1, 0, j1 >> 16, l >> 16);
-                        j1 += j2;
-                        l += l1;
+                if (yA != yB && mCA < mAB || yA == yB && mCA > mBC) {
+                    yC -= yB;
+                    yB -= yA;
+                    for (yA = offsets[yA]; --yB >= 0; yA += Draw2D.width) {
+                        drawScanline(Draw2D.dest, yA, color, xC >> 16, xA >> 16);
+                        xC += mCA;
+                        xA += mAB;
                     }
 
-                    while (--k >= 0) {
-                        drawTriangleScanline(Draw2D.dest, i, k1, 0, j1 >> 16, i1 >> 16);
-                        j1 += j2;
-                        i1 += i2;
-                        i += Draw2D.width;
+                    while (--yC >= 0) {
+                        drawScanline(Draw2D.dest, yA, color, xC >> 16, xB >> 16);
+                        xC += mCA;
+                        xB += mBC;
+                        yA += Draw2D.width;
                     }
                     return;
                 }
-                k -= j;
-                j -= i;
-                for (i = offsets[i]; --j >= 0; i += Draw2D.width) {
-                    drawTriangleScanline(Draw2D.dest, i, k1, 0, l >> 16, j1 >> 16);
-                    j1 += j2;
-                    l += l1;
+                yC -= yB;
+                yB -= yA;
+                for (yA = offsets[yA]; --yB >= 0; yA += Draw2D.width) {
+                    drawScanline(Draw2D.dest, yA, color, xA >> 16, xC >> 16);
+                    xC += mCA;
+                    xA += mAB;
                 }
 
-                while (--k >= 0) {
-                    drawTriangleScanline(Draw2D.dest, i, k1, 0, i1 >> 16, j1 >> 16);
-                    j1 += j2;
-                    i1 += i2;
-                    i += Draw2D.width;
+                while (--yC >= 0) {
+                    drawScanline(Draw2D.dest, yA, color, xB >> 16, xC >> 16);
+                    xC += mCA;
+                    xB += mBC;
+                    yA += Draw2D.width;
                 }
                 return;
             }
-            i1 = l <<= 16;
-            if (i < 0) {
-                i1 -= j2 * i;
-                l -= l1 * i;
-                i = 0;
+            xB = xA <<= 16;
+            if (yA < 0) {
+                xB -= mCA * yA;
+                xA -= mAB * yA;
+                yA = 0;
             }
-            j1 <<= 16;
-            if (k < 0) {
-                j1 -= i2 * k;
-                k = 0;
+            xC <<= 16;
+            if (yC < 0) {
+                xC -= mBC * yC;
+                yC = 0;
             }
-            if (i != k && j2 < l1 || i == k && i2 > l1) {
-                j -= k;
-                k -= i;
-                for (i = offsets[i]; --k >= 0; i += Draw2D.width) {
-                    drawTriangleScanline(Draw2D.dest, i, k1, 0, i1 >> 16, l >> 16);
-                    i1 += j2;
-                    l += l1;
+            if (yA != yC && mCA < mAB || yA == yC && mBC > mAB) {
+                yB -= yC;
+                yC -= yA;
+                for (yA = offsets[yA]; --yC >= 0; yA += Draw2D.width) {
+                    drawScanline(Draw2D.dest, yA, color, xB >> 16, xA >> 16);
+                    xB += mCA;
+                    xA += mAB;
                 }
 
-                while (--j >= 0) {
-                    drawTriangleScanline(Draw2D.dest, i, k1, 0, j1 >> 16, l >> 16);
-                    j1 += i2;
-                    l += l1;
-                    i += Draw2D.width;
+                while (--yB >= 0) {
+                    drawScanline(Draw2D.dest, yA, color, xC >> 16, xA >> 16);
+                    xC += mBC;
+                    xA += mAB;
+                    yA += Draw2D.width;
                 }
                 return;
             }
-            j -= k;
-            k -= i;
-            for (i = offsets[i]; --k >= 0; i += Draw2D.width) {
-                drawTriangleScanline(Draw2D.dest, i, k1, 0, l >> 16, i1 >> 16);
-                i1 += j2;
-                l += l1;
+            yB -= yC;
+            yC -= yA;
+            for (yA = offsets[yA]; --yC >= 0; yA += Draw2D.width) {
+                drawScanline(Draw2D.dest, yA, color, xA >> 16, xB >> 16);
+                xB += mCA;
+                xA += mAB;
             }
 
-            while (--j >= 0) {
-                drawTriangleScanline(Draw2D.dest, i, k1, 0, l >> 16, j1 >> 16);
-                j1 += i2;
-                l += l1;
-                i += Draw2D.width;
+            while (--yB >= 0) {
+                drawScanline(Draw2D.dest, yA, color, xA >> 16, xC >> 16);
+                xC += mBC;
+                xA += mAB;
+                yA += Draw2D.width;
             }
             return;
         }
-        if (j <= k) {
-            if (j >= Draw2D.bottom)
+        if (yB <= yC) {
+            if (yB >= Draw2D.bottom)
                 return;
-            if (k > Draw2D.bottom)
-                k = Draw2D.bottom;
-            if (i > Draw2D.bottom)
-                i = Draw2D.bottom;
-            if (k < i) {
-                l = i1 <<= 16;
-                if (j < 0) {
-                    l -= l1 * j;
-                    i1 -= i2 * j;
-                    j = 0;
+            if (yC > Draw2D.bottom)
+                yC = Draw2D.bottom;
+            if (yA > Draw2D.bottom)
+                yA = Draw2D.bottom;
+            if (yC < yA) {
+                xA = xB <<= 16;
+                if (yB < 0) {
+                    xA -= mAB * yB;
+                    xB -= mBC * yB;
+                    yB = 0;
                 }
-                j1 <<= 16;
-                if (k < 0) {
-                    j1 -= j2 * k;
-                    k = 0;
+                xC <<= 16;
+                if (yC < 0) {
+                    xC -= mCA * yC;
+                    yC = 0;
                 }
-                if (j != k && l1 < i2 || j == k && l1 > j2) {
-                    i -= k;
-                    k -= j;
-                    for (j = offsets[j]; --k >= 0; j += Draw2D.width) {
-                        drawTriangleScanline(Draw2D.dest, j, k1, 0, l >> 16, i1 >> 16);
-                        l += l1;
-                        i1 += i2;
+                if (yB != yC && mAB < mBC || yB == yC && mAB > mCA) {
+                    yA -= yC;
+                    yC -= yB;
+                    for (yB = offsets[yB]; --yC >= 0; yB += Draw2D.width) {
+                        drawScanline(Draw2D.dest, yB, color, xA >> 16, xB >> 16);
+                        xA += mAB;
+                        xB += mBC;
                     }
 
-                    while (--i >= 0) {
-                        drawTriangleScanline(Draw2D.dest, j, k1, 0, l >> 16, j1 >> 16);
-                        l += l1;
-                        j1 += j2;
-                        j += Draw2D.width;
+                    while (--yA >= 0) {
+                        drawScanline(Draw2D.dest, yB, color, xA >> 16, xC >> 16);
+                        xA += mAB;
+                        xC += mCA;
+                        yB += Draw2D.width;
                     }
                     return;
                 }
-                i -= k;
-                k -= j;
-                for (j = offsets[j]; --k >= 0; j += Draw2D.width) {
-                    drawTriangleScanline(Draw2D.dest, j, k1, 0, i1 >> 16, l >> 16);
-                    l += l1;
-                    i1 += i2;
+                yA -= yC;
+                yC -= yB;
+                for (yB = offsets[yB]; --yC >= 0; yB += Draw2D.width) {
+                    drawScanline(Draw2D.dest, yB, color, xB >> 16, xA >> 16);
+                    xA += mAB;
+                    xB += mBC;
                 }
 
-                while (--i >= 0) {
-                    drawTriangleScanline(Draw2D.dest, j, k1, 0, j1 >> 16, l >> 16);
-                    l += l1;
-                    j1 += j2;
-                    j += Draw2D.width;
-                }
-                return;
-            }
-            j1 = i1 <<= 16;
-            if (j < 0) {
-                j1 -= l1 * j;
-                i1 -= i2 * j;
-                j = 0;
-            }
-            l <<= 16;
-            if (i < 0) {
-                l -= j2 * i;
-                i = 0;
-            }
-            if (l1 < i2) {
-                k -= i;
-                i -= j;
-                for (j = offsets[j]; --i >= 0; j += Draw2D.width) {
-                    drawTriangleScanline(Draw2D.dest, j, k1, 0, j1 >> 16, i1 >> 16);
-                    j1 += l1;
-                    i1 += i2;
-                }
-
-                while (--k >= 0) {
-                    drawTriangleScanline(Draw2D.dest, j, k1, 0, l >> 16, i1 >> 16);
-                    l += j2;
-                    i1 += i2;
-                    j += Draw2D.width;
+                while (--yA >= 0) {
+                    drawScanline(Draw2D.dest, yB, color, xC >> 16, xA >> 16);
+                    xA += mAB;
+                    xC += mCA;
+                    yB += Draw2D.width;
                 }
                 return;
             }
-            k -= i;
-            i -= j;
-            for (j = offsets[j]; --i >= 0; j += Draw2D.width) {
-                drawTriangleScanline(Draw2D.dest, j, k1, 0, i1 >> 16, j1 >> 16);
-                j1 += l1;
-                i1 += i2;
+            xC = xB <<= 16;
+            if (yB < 0) {
+                xC -= mAB * yB;
+                xB -= mBC * yB;
+                yB = 0;
             }
-
-            while (--k >= 0) {
-                drawTriangleScanline(Draw2D.dest, j, k1, 0, i1 >> 16, l >> 16);
-                l += j2;
-                i1 += i2;
-                j += Draw2D.width;
+            xA <<= 16;
+            if (yA < 0) {
+                xA -= mCA * yA;
+                yA = 0;
             }
-            return;
-        }
-        if (k >= Draw2D.bottom)
-            return;
-        if (i > Draw2D.bottom)
-            i = Draw2D.bottom;
-        if (j > Draw2D.bottom)
-            j = Draw2D.bottom;
-        if (i < j) {
-            i1 = j1 <<= 16;
-            if (k < 0) {
-                i1 -= i2 * k;
-                j1 -= j2 * k;
-                k = 0;
-            }
-            l <<= 16;
-            if (i < 0) {
-                l -= l1 * i;
-                i = 0;
-            }
-            if (i2 < j2) {
-                j -= i;
-                i -= k;
-                for (k = offsets[k]; --i >= 0; k += Draw2D.width) {
-                    drawTriangleScanline(Draw2D.dest, k, k1, 0, i1 >> 16, j1 >> 16);
-                    i1 += i2;
-                    j1 += j2;
+            if (mAB < mBC) {
+                yC -= yA;
+                yA -= yB;
+                for (yB = offsets[yB]; --yA >= 0; yB += Draw2D.width) {
+                    drawScanline(Draw2D.dest, yB, color, xC >> 16, xB >> 16);
+                    xC += mAB;
+                    xB += mBC;
                 }
 
-                while (--j >= 0) {
-                    drawTriangleScanline(Draw2D.dest, k, k1, 0, i1 >> 16, l >> 16);
-                    i1 += i2;
-                    l += l1;
-                    k += Draw2D.width;
+                while (--yC >= 0) {
+                    drawScanline(Draw2D.dest, yB, color, xA >> 16, xB >> 16);
+                    xA += mCA;
+                    xB += mBC;
+                    yB += Draw2D.width;
                 }
                 return;
             }
-            j -= i;
-            i -= k;
-            for (k = offsets[k]; --i >= 0; k += Draw2D.width) {
-                drawTriangleScanline(Draw2D.dest, k, k1, 0, j1 >> 16, i1 >> 16);
-                i1 += i2;
-                j1 += j2;
+            yC -= yA;
+            yA -= yB;
+            for (yB = offsets[yB]; --yA >= 0; yB += Draw2D.width) {
+                drawScanline(Draw2D.dest, yB, color, xB >> 16, xC >> 16);
+                xC += mAB;
+                xB += mBC;
             }
 
-            while (--j >= 0) {
-                drawTriangleScanline(Draw2D.dest, k, k1, 0, l >> 16, i1 >> 16);
-                i1 += i2;
-                l += l1;
-                k += Draw2D.width;
+            while (--yC >= 0) {
+                drawScanline(Draw2D.dest, yB, color, xB >> 16, xA >> 16);
+                xA += mCA;
+                xB += mBC;
+                yB += Draw2D.width;
             }
             return;
         }
-        l = j1 <<= 16;
-        if (k < 0) {
-            l -= i2 * k;
-            j1 -= j2 * k;
-            k = 0;
-        }
-        i1 <<= 16;
-        if (j < 0) {
-            i1 -= l1 * j;
-            j = 0;
-        }
-        if (i2 < j2) {
-            i -= j;
-            j -= k;
-            for (k = offsets[k]; --j >= 0; k += Draw2D.width) {
-                drawTriangleScanline(Draw2D.dest, k, k1, 0, l >> 16, j1 >> 16);
-                l += i2;
-                j1 += j2;
+        if (yC >= Draw2D.bottom)
+            return;
+        if (yA > Draw2D.bottom)
+            yA = Draw2D.bottom;
+        if (yB > Draw2D.bottom)
+            yB = Draw2D.bottom;
+        if (yA < yB) {
+            xB = xC <<= 16;
+            if (yC < 0) {
+                xB -= mBC * yC;
+                xC -= mCA * yC;
+                yC = 0;
+            }
+            xA <<= 16;
+            if (yA < 0) {
+                xA -= mAB * yA;
+                yA = 0;
+            }
+            if (mBC < mCA) {
+                yB -= yA;
+                yA -= yC;
+                for (yC = offsets[yC]; --yA >= 0; yC += Draw2D.width) {
+                    drawScanline(Draw2D.dest, yC, color, xB >> 16, xC >> 16);
+                    xB += mBC;
+                    xC += mCA;
+                }
+
+                while (--yB >= 0) {
+                    drawScanline(Draw2D.dest, yC, color, xB >> 16, xA >> 16);
+                    xB += mBC;
+                    xA += mAB;
+                    yC += Draw2D.width;
+                }
+                return;
+            }
+            yB -= yA;
+            yA -= yC;
+            for (yC = offsets[yC]; --yA >= 0; yC += Draw2D.width) {
+                drawScanline(Draw2D.dest, yC, color, xC >> 16, xB >> 16);
+                xB += mBC;
+                xC += mCA;
             }
 
-            while (--i >= 0) {
-                drawTriangleScanline(Draw2D.dest, k, k1, 0, i1 >> 16, j1 >> 16);
-                i1 += l1;
-                j1 += j2;
-                k += Draw2D.width;
+            while (--yB >= 0) {
+                drawScanline(Draw2D.dest, yC, color, xA >> 16, xB >> 16);
+                xB += mBC;
+                xA += mAB;
+                yC += Draw2D.width;
             }
             return;
         }
-        i -= j;
-        j -= k;
-        for (k = offsets[k]; --j >= 0; k += Draw2D.width) {
-            drawTriangleScanline(Draw2D.dest, k, k1, 0, j1 >> 16, l >> 16);
-            l += i2;
-            j1 += j2;
+        xA = xC <<= 16;
+        if (yC < 0) {
+            xA -= mBC * yC;
+            xC -= mCA * yC;
+            yC = 0;
+        }
+        xB <<= 16;
+        if (yB < 0) {
+            xB -= mAB * yB;
+            yB = 0;
+        }
+        if (mBC < mCA) {
+            yA -= yB;
+            yB -= yC;
+            for (yC = offsets[yC]; --yB >= 0; yC += Draw2D.width) {
+                drawScanline(Draw2D.dest, yC, color, xA >> 16, xC >> 16);
+                xA += mBC;
+                xC += mCA;
+            }
+
+            while (--yA >= 0) {
+                drawScanline(Draw2D.dest, yC, color, xB >> 16, xC >> 16);
+                xB += mAB;
+                xC += mCA;
+                yC += Draw2D.width;
+            }
+            return;
+        }
+        yA -= yB;
+        yB -= yC;
+        for (yC = offsets[yC]; --yB >= 0; yC += Draw2D.width) {
+            drawScanline(Draw2D.dest, yC, color, xC >> 16, xA >> 16);
+            xA += mBC;
+            xC += mCA;
         }
 
-        while (--i >= 0) {
-            drawTriangleScanline(Draw2D.dest, k, k1, 0, j1 >> 16, i1 >> 16);
-            i1 += l1;
-            j1 += j2;
-            k += Draw2D.width;
+        while (--yA >= 0) {
+            drawScanline(Draw2D.dest, yC, color, xC >> 16, xB >> 16);
+            xB += mAB;
+            xC += mCA;
+            yC += Draw2D.width;
         }
     }
 
-    public static void drawTriangleScanline(int[] ai, int i, int j, int k, int l, int i1) {
+    public static void drawScanline(int[] pixels, int offset, int color, int xA, int xB) {
         if (testX) {
-            if (i1 > Draw2D.rightX)
-                i1 = Draw2D.rightX;
-            if (l < 0)
-                l = 0;
+            if (xB > Draw2D.rightX)
+                xB = Draw2D.rightX;
+            if (xA < 0)
+                xA = 0;
         }
-        if (l >= i1)
+        if (xA >= xB)
             return;
-        i += l;
-        k = i1 - l >> 2;
+        offset += xA;
+        int length = xB - xA >> 2;
         if (alpha == 0) {
-            while (--k >= 0) {
-                ai[i++] = j;
-                ai[i++] = j;
-                ai[i++] = j;
-                ai[i++] = j;
+            while (--length >= 0) {
+                pixels[offset++] = color;
+                pixels[offset++] = color;
+                pixels[offset++] = color;
+                pixels[offset++] = color;
             }
-            for (k = i1 - l & 3; --k >= 0; )
-                ai[i++] = j;
+            for (length = xB - xA & 3; --length >= 0; )
+                pixels[offset++] = color;
 
             return;
         }
-        int j1 = alpha;
-        int k1 = 256 - alpha;
-        j = ((j & 0xff00ff) * k1 >> 8 & 0xff00ff) + ((j & 0xff00) * k1 >> 8 & 0xff00);
-        while (--k >= 0) {
-            ai[i++] = j + ((ai[i] & 0xff00ff) * j1 >> 8 & 0xff00ff) + ((ai[i] & 0xff00) * j1 >> 8 & 0xff00);
-            ai[i++] = j + ((ai[i] & 0xff00ff) * j1 >> 8 & 0xff00ff) + ((ai[i] & 0xff00) * j1 >> 8 & 0xff00);
-            ai[i++] = j + ((ai[i] & 0xff00ff) * j1 >> 8 & 0xff00ff) + ((ai[i] & 0xff00) * j1 >> 8 & 0xff00);
-            ai[i++] = j + ((ai[i] & 0xff00ff) * j1 >> 8 & 0xff00ff) + ((ai[i] & 0xff00) * j1 >> 8 & 0xff00);
+        int alpha = Draw3D.alpha;
+        int invAlpha = 256 - Draw3D.alpha;
+        color = ((color & 0xff00ff) * invAlpha >> 8 & 0xff00ff) + ((color & 0xff00) * invAlpha >> 8 & 0xff00);
+        while (--length >= 0) {
+            pixels[offset++] = color + ((pixels[offset] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((pixels[offset] & 0xff00) * alpha >> 8 & 0xff00);
+            pixels[offset++] = color + ((pixels[offset] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((pixels[offset] & 0xff00) * alpha >> 8 & 0xff00);
+            pixels[offset++] = color + ((pixels[offset] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((pixels[offset] & 0xff00) * alpha >> 8 & 0xff00);
+            pixels[offset++] = color + ((pixels[offset] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((pixels[offset] & 0xff00) * alpha >> 8 & 0xff00);
         }
-        for (k = i1 - l & 3; --k >= 0; )
-            ai[i++] = j + ((ai[i] & 0xff00ff) * j1 >> 8 & 0xff00ff) + ((ai[i] & 0xff00) * j1 >> 8 & 0xff00);
-
+        for (length = xB - xA & 3; --length >= 0; )
+            pixels[offset++] = color + ((pixels[offset] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((pixels[offset] & 0xff00) * alpha >> 8 & 0xff00);
     }
 
-    public static void fillTexturedTriangle(int i, int j, int k, int l, int i1, int j1, int k1, int l1,
-                                            int i2, int j2, int k2, int l2, int i3, int j3, int k3,
-                                            int l3, int i4, int j4, int k4) {
-        int[] ai = getTexels(k4);
-        opaque = !textureHasTransparency[k4];
-        k2 = j2 - k2;
-        j3 = i3 - j3;
-        i4 = l3 - i4;
-        l2 -= j2;
-        k3 -= i3;
-        j4 -= l3;
-        int l4 = l2 * i3 - k3 * j2 << 14;
-        int i5 = k3 * l3 - j4 * i3 << 8;
-        int j5 = j4 * j2 - l2 * l3 << 5;
-        int k5 = k2 * i3 - j3 * j2 << 14;
-        int l5 = j3 * l3 - i4 * i3 << 8;
-        int i6 = i4 * j2 - k2 * l3 << 5;
-        int j6 = j3 * l2 - k2 * k3 << 14;
-        int k6 = i4 * k3 - j3 * j4 << 8;
-        int l6 = k2 * j4 - i4 * l2 << 5;
-        int i7 = 0;
-        int j7 = 0;
-        if (j != i) {
-            i7 = (i1 - l << 16) / (j - i);
-            j7 = (l1 - k1 << 16) / (j - i);
+    public static void fillTexturedTriangle(int yA, int yB, int yC, int xA, int xB, int xC, int lightnessA, int lightnessB,
+                                            int lightnessC, int viewXA, int viewXB, int viewXC, int viewYA, int viewYB, int viewYC,
+                                            int viewZA, int viewZB, int viewZC, int id) {
+        int[] texels = getTexels(id);
+        opaque = !textureHasTransparency[id];
+
+        viewXB = viewXA - viewXB;
+        viewYB = viewYA - viewYB;
+        viewZB = viewZA - viewZB;
+
+        viewXC -= viewXA;
+        viewYC -= viewYA;
+        viewZC -= viewZA;
+
+        int l4 = viewXC * viewYA - viewYC * viewXA << 14;
+        int i5 = viewYC * viewZA - viewZC * viewYA << 8;
+        int j5 = viewZC * viewXA - viewXC * viewZA << 5;
+
+        int k5 = viewXB * viewYA - viewYB * viewXA << 14;
+        int l5 = viewYB * viewZA - viewZB * viewYA << 8;
+        int i6 = viewZB * viewXA - viewXB * viewZA << 5;
+
+        int j6 = viewYB * viewXC - viewXB * viewYC << 14;
+        int k6 = viewZB * viewYC - viewYB * viewZC << 8;
+        int l6 = viewXB * viewZC - viewZB * viewXC << 5;
+
+        int xStepAB = 0;
+        int lightnessStepAB = 0;
+        if (yB != yA) {
+            xStepAB = (xB - xA << 16) / (yB - yA);
+            lightnessStepAB = (lightnessB - lightnessA << 16) / (yB - yA);
         }
-        int k7 = 0;
-        int l7 = 0;
-        if (k != j) {
-            k7 = (j1 - i1 << 16) / (k - j);
-            l7 = (i2 - l1 << 16) / (k - j);
+
+        int xStepBC = 0;
+        int lightnessStepBC = 0;
+        if (yC != yB) {
+            xStepBC = (xC - xB << 16) / (yC - yB);
+            lightnessStepBC = (lightnessC - lightnessB << 16) / (yC - yB);
         }
-        int i8 = 0;
-        int j8 = 0;
-        if (k != i) {
-            i8 = (l - j1 << 16) / (i - k);
-            j8 = (k1 - i2 << 16) / (i - k);
+
+        int xStepAC = 0;
+        int lightnessStepAC = 0;
+        if (yC != yA) {
+            xStepAC = (xA - xC << 16) / (yA - yC);
+            lightnessStepAC = (lightnessA - lightnessC << 16) / (yA - yC);
         }
-        if (i <= j && i <= k) {
-            if (i >= Draw2D.bottom)
+
+        if (yA <= yB && yA <= yC) {
+            if (yA >= Draw2D.bottom)
                 return;
-            if (j > Draw2D.bottom)
-                j = Draw2D.bottom;
-            if (k > Draw2D.bottom)
-                k = Draw2D.bottom;
-            if (j < k) {
-                j1 = l <<= 16;
-                i2 = k1 <<= 16;
-                if (i < 0) {
-                    j1 -= i8 * i;
-                    l -= i7 * i;
-                    i2 -= j8 * i;
-                    k1 -= j7 * i;
-                    i = 0;
+            if (yB > Draw2D.bottom)
+                yB = Draw2D.bottom;
+            if (yC > Draw2D.bottom)
+                yC = Draw2D.bottom;
+            if (yB < yC) {
+                xC = xA <<= 16;
+                lightnessC = lightnessA <<= 16;
+                if (yA < 0) {
+                    xC -= xStepAC * yA;
+                    xA -= xStepAB * yA;
+                    lightnessC -= lightnessStepAC * yA;
+                    lightnessA -= lightnessStepAB * yA;
+                    yA = 0;
                 }
-                i1 <<= 16;
-                l1 <<= 16;
-                if (j < 0) {
-                    i1 -= k7 * j;
-                    l1 -= l7 * j;
-                    j = 0;
+                xB <<= 16;
+                lightnessB <<= 16;
+                if (yB < 0) {
+                    xB -= xStepBC * yB;
+                    lightnessB -= lightnessStepBC * yB;
+                    yB = 0;
                 }
-                int k8 = i - centerY;
+                int k8 = yA - centerY;
                 l4 += j5 * k8;
                 k5 += i6 * k8;
                 j6 += l6 * k8;
-                if (i != j && i8 < i7 || i == j && i8 > k7) {
-                    k -= j;
-                    j -= i;
-                    i = offsets[i];
-                    while (--j >= 0) {
-                        drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8,
+                if (yA != yB && xStepAC < xStepAB || yA == yB && xStepAC > xStepBC) {
+                    yC -= yB;
+                    yB -= yA;
+                    yA = offsets[yA];
+                    while (--yB >= 0) {
+                        drawTexturedScanline(Draw2D.dest, texels, 0, 0, yA, xC >> 16, xA >> 16, lightnessC >> 8, lightnessA >> 8,
                             l4, k5, j6, i5, l5, k6);
-                        j1 += i8;
-                        l += i7;
-                        i2 += j8;
-                        k1 += j7;
-                        i += Draw2D.width;
+                        xC += xStepAC;
+                        xA += xStepAB;
+                        lightnessC += lightnessStepAC;
+                        lightnessA += lightnessStepAB;
+                        yA += Draw2D.width;
                         l4 += j5;
                         k5 += i6;
                         j6 += l6;
                     }
-                    while (--k >= 0) {
-                        drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8,
+                    while (--yC >= 0) {
+                        drawTexturedScanline(Draw2D.dest, texels, 0, 0, yA, xC >> 16, xB >> 16, lightnessC >> 8, lightnessB >> 8,
                             l4, k5, j6, i5, l5, k6);
-                        j1 += i8;
-                        i1 += k7;
-                        i2 += j8;
-                        l1 += l7;
-                        i += Draw2D.width;
+                        xC += xStepAC;
+                        xB += xStepBC;
+                        lightnessC += lightnessStepAC;
+                        lightnessB += lightnessStepBC;
+                        yA += Draw2D.width;
                         l4 += j5;
                         k5 += i6;
                         j6 += l6;
                     }
                     return;
                 }
-                k -= j;
-                j -= i;
-                i = offsets[i];
-                while (--j >= 0) {
-                    drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4,
+                yC -= yB;
+                yB -= yA;
+                yA = offsets[yA];
+                while (--yB >= 0) {
+                    drawTexturedScanline(Draw2D.dest, texels, 0, 0, yA, xA >> 16, xC >> 16, lightnessA >> 8, lightnessC >> 8, l4,
                         k5, j6, i5, l5, k6);
-                    j1 += i8;
-                    l += i7;
-                    i2 += j8;
-                    k1 += j7;
-                    i += Draw2D.width;
+                    xC += xStepAC;
+                    xA += xStepAB;
+                    lightnessC += lightnessStepAC;
+                    lightnessA += lightnessStepAB;
+                    yA += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
-                while (--k >= 0) {
-                    drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4,
+                while (--yC >= 0) {
+                    drawTexturedScanline(Draw2D.dest, texels, 0, 0, yA, xB >> 16, xC >> 16, lightnessB >> 8, lightnessC >> 8, l4,
                         k5, j6, i5, l5, k6);
-                    j1 += i8;
-                    i1 += k7;
-                    i2 += j8;
-                    l1 += l7;
-                    i += Draw2D.width;
+                    xC += xStepAC;
+                    xB += xStepBC;
+                    lightnessC += lightnessStepAC;
+                    lightnessB += lightnessStepBC;
+                    yA += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
                 return;
             }
-            i1 = l <<= 16;
-            l1 = k1 <<= 16;
-            if (i < 0) {
-                i1 -= i8 * i;
-                l -= i7 * i;
-                l1 -= j8 * i;
-                k1 -= j7 * i;
-                i = 0;
+            xB = xA <<= 16;
+            lightnessB = lightnessA <<= 16;
+            if (yA < 0) {
+                xB -= xStepAC * yA;
+                xA -= xStepAB * yA;
+                lightnessB -= lightnessStepAC * yA;
+                lightnessA -= lightnessStepAB * yA;
+                yA = 0;
             }
-            j1 <<= 16;
-            i2 <<= 16;
-            if (k < 0) {
-                j1 -= k7 * k;
-                i2 -= l7 * k;
-                k = 0;
+            xC <<= 16;
+            lightnessC <<= 16;
+            if (yC < 0) {
+                xC -= xStepBC * yC;
+                lightnessC -= lightnessStepBC * yC;
+                yC = 0;
             }
-            int l8 = i - centerY;
+            int l8 = yA - centerY;
             l4 += j5 * l8;
             k5 += i6 * l8;
             j6 += l6 * l8;
-            if (i != k && i8 < i7 || i == k && k7 > i7) {
-                j -= k;
-                k -= i;
-                i = offsets[i];
-                while (--k >= 0) {
-                    drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
+            if (yA != yC && xStepAC < xStepAB || yA == yC && xStepBC > xStepAB) {
+                yB -= yC;
+                yC -= yA;
+                yA = offsets[yA];
+                while (--yC >= 0) {
+                    drawTexturedScanline(Draw2D.dest, texels, 0, 0, yA, xB >> 16, xA >> 16, lightnessB >> 8, lightnessA >> 8, l4,
                         k5, j6, i5, l5, k6);
-                    i1 += i8;
-                    l += i7;
-                    l1 += j8;
-                    k1 += j7;
-                    i += Draw2D.width;
+                    xB += xStepAC;
+                    xA += xStepAB;
+                    lightnessB += lightnessStepAC;
+                    lightnessA += lightnessStepAB;
+                    yA += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
-                while (--j >= 0) {
-                    drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4,
+                while (--yB >= 0) {
+                    drawTexturedScanline(Draw2D.dest, texels, 0, 0, yA, xC >> 16, xA >> 16, lightnessC >> 8, lightnessA >> 8, l4,
                         k5, j6, i5, l5, k6);
-                    j1 += k7;
-                    l += i7;
-                    i2 += l7;
-                    k1 += j7;
-                    i += Draw2D.width;
+                    xC += xStepBC;
+                    xA += xStepAB;
+                    lightnessC += lightnessStepBC;
+                    lightnessA += lightnessStepAB;
+                    yA += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
                 return;
             }
-            j -= k;
-            k -= i;
-            i = offsets[i];
-            while (--k >= 0) {
-                drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4, k5,
+            yB -= yC;
+            yC -= yA;
+            yA = offsets[yA];
+            while (--yC >= 0) {
+                drawTexturedScanline(Draw2D.dest, texels, 0, 0, yA, xA >> 16, xB >> 16, lightnessA >> 8, lightnessB >> 8, l4, k5,
                     j6, i5, l5, k6);
-                i1 += i8;
-                l += i7;
-                l1 += j8;
-                k1 += j7;
-                i += Draw2D.width;
+                xB += xStepAC;
+                xA += xStepAB;
+                lightnessB += lightnessStepAC;
+                lightnessA += lightnessStepAB;
+                yA += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
-            while (--j >= 0) {
-                drawTexturedScanline(Draw2D.dest, ai, 0, 0, i, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4, k5,
+            while (--yB >= 0) {
+                drawTexturedScanline(Draw2D.dest, texels, 0, 0, yA, xA >> 16, xC >> 16, lightnessA >> 8, lightnessC >> 8, l4, k5,
                     j6, i5, l5, k6);
-                j1 += k7;
-                l += i7;
-                i2 += l7;
-                k1 += j7;
-                i += Draw2D.width;
+                xC += xStepBC;
+                xA += xStepAB;
+                lightnessC += lightnessStepBC;
+                lightnessA += lightnessStepAB;
+                yA += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
             return;
         }
-        if (j <= k) {
-            if (j >= Draw2D.bottom)
+        if (yB <= yC) {
+            if (yB >= Draw2D.bottom)
                 return;
-            if (k > Draw2D.bottom)
-                k = Draw2D.bottom;
-            if (i > Draw2D.bottom)
-                i = Draw2D.bottom;
-            if (k < i) {
-                l = i1 <<= 16;
-                k1 = l1 <<= 16;
-                if (j < 0) {
-                    l -= i7 * j;
-                    i1 -= k7 * j;
-                    k1 -= j7 * j;
-                    l1 -= l7 * j;
-                    j = 0;
+            if (yC > Draw2D.bottom)
+                yC = Draw2D.bottom;
+            if (yA > Draw2D.bottom)
+                yA = Draw2D.bottom;
+            if (yC < yA) {
+                xA = xB <<= 16;
+                lightnessA = lightnessB <<= 16;
+                if (yB < 0) {
+                    xA -= xStepAB * yB;
+                    xB -= xStepBC * yB;
+                    lightnessA -= lightnessStepAB * yB;
+                    lightnessB -= lightnessStepBC * yB;
+                    yB = 0;
                 }
-                j1 <<= 16;
-                i2 <<= 16;
-                if (k < 0) {
-                    j1 -= i8 * k;
-                    i2 -= j8 * k;
-                    k = 0;
+                xC <<= 16;
+                lightnessC <<= 16;
+                if (yC < 0) {
+                    xC -= xStepAC * yC;
+                    lightnessC -= lightnessStepAC * yC;
+                    yC = 0;
                 }
-                int i9 = j - centerY;
+                int i9 = yB - centerY;
                 l4 += j5 * i9;
                 k5 += i6 * i9;
                 j6 += l6 * i9;
-                if (j != k && i7 < k7 || j == k && i7 > i8) {
-                    i -= k;
-                    k -= j;
-                    j = offsets[j];
-                    while (--k >= 0) {
-                        drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8,
+                if (yB != yC && xStepAB < xStepBC || yB == yC && xStepAB > xStepAC) {
+                    yA -= yC;
+                    yC -= yB;
+                    yB = offsets[yB];
+                    while (--yC >= 0) {
+                        drawTexturedScanline(Draw2D.dest, texels, 0, 0, yB, xA >> 16, xB >> 16, lightnessA >> 8, lightnessB >> 8,
                             l4, k5, j6, i5, l5, k6);
-                        l += i7;
-                        i1 += k7;
-                        k1 += j7;
-                        l1 += l7;
-                        j += Draw2D.width;
+                        xA += xStepAB;
+                        xB += xStepBC;
+                        lightnessA += lightnessStepAB;
+                        lightnessB += lightnessStepBC;
+                        yB += Draw2D.width;
                         l4 += j5;
                         k5 += i6;
                         j6 += l6;
                     }
-                    while (--i >= 0) {
-                        drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8,
+                    while (--yA >= 0) {
+                        drawTexturedScanline(Draw2D.dest, texels, 0, 0, yB, xA >> 16, xC >> 16, lightnessA >> 8, lightnessC >> 8,
                             l4, k5, j6, i5, l5, k6);
-                        l += i7;
-                        j1 += i8;
-                        k1 += j7;
-                        i2 += j8;
-                        j += Draw2D.width;
+                        xA += xStepAB;
+                        xC += xStepAC;
+                        lightnessA += lightnessStepAB;
+                        lightnessC += lightnessStepAC;
+                        yB += Draw2D.width;
                         l4 += j5;
                         k5 += i6;
                         j6 += l6;
                     }
                     return;
                 }
-                i -= k;
-                k -= j;
-                j = offsets[j];
-                while (--k >= 0) {
-                    drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
+                yA -= yC;
+                yC -= yB;
+                yB = offsets[yB];
+                while (--yC >= 0) {
+                    drawTexturedScanline(Draw2D.dest, texels, 0, 0, yB, xB >> 16, xA >> 16, lightnessB >> 8, lightnessA >> 8, l4,
                         k5, j6, i5, l5, k6);
-                    l += i7;
-                    i1 += k7;
-                    k1 += j7;
-                    l1 += l7;
-                    j += Draw2D.width;
+                    xA += xStepAB;
+                    xB += xStepBC;
+                    lightnessA += lightnessStepAB;
+                    lightnessB += lightnessStepBC;
+                    yB += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
-                while (--i >= 0) {
-                    drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4,
+                while (--yA >= 0) {
+                    drawTexturedScanline(Draw2D.dest, texels, 0, 0, yB, xC >> 16, xA >> 16, lightnessC >> 8, lightnessA >> 8, l4,
                         k5, j6, i5, l5, k6);
-                    l += i7;
-                    j1 += i8;
-                    k1 += j7;
-                    i2 += j8;
-                    j += Draw2D.width;
+                    xA += xStepAB;
+                    xC += xStepAC;
+                    lightnessA += lightnessStepAB;
+                    lightnessC += lightnessStepAC;
+                    yB += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
                 return;
             }
-            j1 = i1 <<= 16;
-            i2 = l1 <<= 16;
-            if (j < 0) {
-                j1 -= i7 * j;
-                i1 -= k7 * j;
-                i2 -= j7 * j;
-                l1 -= l7 * j;
-                j = 0;
+            xC = xB <<= 16;
+            lightnessC = lightnessB <<= 16;
+            if (yB < 0) {
+                xC -= xStepAB * yB;
+                xB -= xStepBC * yB;
+                lightnessC -= lightnessStepAB * yB;
+                lightnessB -= lightnessStepBC * yB;
+                yB = 0;
             }
-            l <<= 16;
-            k1 <<= 16;
-            if (i < 0) {
-                l -= i8 * i;
-                k1 -= j8 * i;
-                i = 0;
+            xA <<= 16;
+            lightnessA <<= 16;
+            if (yA < 0) {
+                xA -= xStepAC * yA;
+                lightnessA -= lightnessStepAC * yA;
+                yA = 0;
             }
-            int j9 = j - centerY;
+            int j9 = yB - centerY;
             l4 += j5 * j9;
             k5 += i6 * j9;
             j6 += l6 * j9;
-            if (i7 < k7) {
-                k -= i;
-                i -= j;
-                j = offsets[j];
-                while (--i >= 0) {
-                    drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4,
+            if (xStepAB < xStepBC) {
+                yC -= yA;
+                yA -= yB;
+                yB = offsets[yB];
+                while (--yA >= 0) {
+                    drawTexturedScanline(Draw2D.dest, texels, 0, 0, yB, xC >> 16, xB >> 16, lightnessC >> 8, lightnessB >> 8, l4,
                         k5, j6, i5, l5, k6);
-                    j1 += i7;
-                    i1 += k7;
-                    i2 += j7;
-                    l1 += l7;
-                    j += Draw2D.width;
+                    xC += xStepAB;
+                    xB += xStepBC;
+                    lightnessC += lightnessStepAB;
+                    lightnessB += lightnessStepBC;
+                    yB += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
-                while (--k >= 0) {
-                    drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4,
+                while (--yC >= 0) {
+                    drawTexturedScanline(Draw2D.dest, texels, 0, 0, yB, xA >> 16, xB >> 16, lightnessA >> 8, lightnessB >> 8, l4,
                         k5, j6, i5, l5, k6);
-                    l += i8;
-                    i1 += k7;
-                    k1 += j8;
-                    l1 += l7;
-                    j += Draw2D.width;
+                    xA += xStepAC;
+                    xB += xStepBC;
+                    lightnessA += lightnessStepAC;
+                    lightnessB += lightnessStepBC;
+                    yB += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
                 return;
             }
-            k -= i;
-            i -= j;
-            j = offsets[j];
-            while (--i >= 0) {
-                drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4, k5,
+            yC -= yA;
+            yA -= yB;
+            yB = offsets[yB];
+            while (--yA >= 0) {
+                drawTexturedScanline(Draw2D.dest, texels, 0, 0, yB, xB >> 16, xC >> 16, lightnessB >> 8, lightnessC >> 8, l4, k5,
                     j6, i5, l5, k6);
-                j1 += i7;
-                i1 += k7;
-                i2 += j7;
-                l1 += l7;
-                j += Draw2D.width;
+                xC += xStepAB;
+                xB += xStepBC;
+                lightnessC += lightnessStepAB;
+                lightnessB += lightnessStepBC;
+                yB += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
-            while (--k >= 0) {
-                drawTexturedScanline(Draw2D.dest, ai, 0, 0, j, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4, k5,
+            while (--yC >= 0) {
+                drawTexturedScanline(Draw2D.dest, texels, 0, 0, yB, xB >> 16, xA >> 16, lightnessB >> 8, lightnessA >> 8, l4, k5,
                     j6, i5, l5, k6);
-                l += i8;
-                i1 += k7;
-                k1 += j8;
-                l1 += l7;
-                j += Draw2D.width;
+                xA += xStepAC;
+                xB += xStepBC;
+                lightnessA += lightnessStepAC;
+                lightnessB += lightnessStepBC;
+                yB += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
             return;
         }
-        if (k >= Draw2D.bottom)
+        if (yC >= Draw2D.bottom)
             return;
-        if (i > Draw2D.bottom)
-            i = Draw2D.bottom;
-        if (j > Draw2D.bottom)
-            j = Draw2D.bottom;
-        if (i < j) {
-            i1 = j1 <<= 16;
-            l1 = i2 <<= 16;
-            if (k < 0) {
-                i1 -= k7 * k;
-                j1 -= i8 * k;
-                l1 -= l7 * k;
-                i2 -= j8 * k;
-                k = 0;
+        if (yA > Draw2D.bottom)
+            yA = Draw2D.bottom;
+        if (yB > Draw2D.bottom)
+            yB = Draw2D.bottom;
+        if (yA < yB) {
+            xB = xC <<= 16;
+            lightnessB = lightnessC <<= 16;
+            if (yC < 0) {
+                xB -= xStepBC * yC;
+                xC -= xStepAC * yC;
+                lightnessB -= lightnessStepBC * yC;
+                lightnessC -= lightnessStepAC * yC;
+                yC = 0;
             }
-            l <<= 16;
-            k1 <<= 16;
-            if (i < 0) {
-                l -= i7 * i;
-                k1 -= j7 * i;
-                i = 0;
+            xA <<= 16;
+            lightnessA <<= 16;
+            if (yA < 0) {
+                xA -= xStepAB * yA;
+                lightnessA -= lightnessStepAB * yA;
+                yA = 0;
             }
-            int k9 = k - centerY;
+            int k9 = yC - centerY;
             l4 += j5 * k9;
             k5 += i6 * k9;
             j6 += l6 * k9;
-            if (k7 < i8) {
-                j -= i;
-                i -= k;
-                k = offsets[k];
-                while (--i >= 0) {
-                    drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4,
+            if (xStepBC < xStepAC) {
+                yB -= yA;
+                yA -= yC;
+                yC = offsets[yC];
+                while (--yA >= 0) {
+                    drawTexturedScanline(Draw2D.dest, texels, 0, 0, yC, xB >> 16, xC >> 16, lightnessB >> 8, lightnessC >> 8, l4,
                         k5, j6, i5, l5, k6);
-                    i1 += k7;
-                    j1 += i8;
-                    l1 += l7;
-                    i2 += j8;
-                    k += Draw2D.width;
+                    xB += xStepBC;
+                    xC += xStepAC;
+                    lightnessB += lightnessStepBC;
+                    lightnessC += lightnessStepAC;
+                    yC += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
-                while (--j >= 0) {
-                    drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, i1 >> 16, l >> 16, l1 >> 8, k1 >> 8, l4,
+                while (--yB >= 0) {
+                    drawTexturedScanline(Draw2D.dest, texels, 0, 0, yC, xB >> 16, xA >> 16, lightnessB >> 8, lightnessA >> 8, l4,
                         k5, j6, i5, l5, k6);
-                    i1 += k7;
-                    l += i7;
-                    l1 += l7;
-                    k1 += j7;
-                    k += Draw2D.width;
+                    xB += xStepBC;
+                    xA += xStepAB;
+                    lightnessB += lightnessStepBC;
+                    lightnessA += lightnessStepAB;
+                    yC += Draw2D.width;
                     l4 += j5;
                     k5 += i6;
                     j6 += l6;
                 }
                 return;
             }
-            j -= i;
-            i -= k;
-            k = offsets[k];
-            while (--i >= 0) {
-                drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4, k5,
+            yB -= yA;
+            yA -= yC;
+            yC = offsets[yC];
+            while (--yA >= 0) {
+                drawTexturedScanline(Draw2D.dest, texels, 0, 0, yC, xC >> 16, xB >> 16, lightnessC >> 8, lightnessB >> 8, l4, k5,
                     j6, i5, l5, k6);
-                i1 += k7;
-                j1 += i8;
-                l1 += l7;
-                i2 += j8;
-                k += Draw2D.width;
+                xB += xStepBC;
+                xC += xStepAC;
+                lightnessB += lightnessStepBC;
+                lightnessC += lightnessStepAC;
+                yC += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
-            while (--j >= 0) {
-                drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, l >> 16, i1 >> 16, k1 >> 8, l1 >> 8, l4, k5,
+            while (--yB >= 0) {
+                drawTexturedScanline(Draw2D.dest, texels, 0, 0, yC, xA >> 16, xB >> 16, lightnessA >> 8, lightnessB >> 8, l4, k5,
                     j6, i5, l5, k6);
-                i1 += k7;
-                l += i7;
-                l1 += l7;
-                k1 += j7;
-                k += Draw2D.width;
+                xB += xStepBC;
+                xA += xStepAB;
+                lightnessB += lightnessStepBC;
+                lightnessA += lightnessStepAB;
+                yC += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
             return;
         }
-        l = j1 <<= 16;
-        k1 = i2 <<= 16;
-        if (k < 0) {
-            l -= k7 * k;
-            j1 -= i8 * k;
-            k1 -= l7 * k;
-            i2 -= j8 * k;
-            k = 0;
+        xA = xC <<= 16;
+        lightnessA = lightnessC <<= 16;
+        if (yC < 0) {
+            xA -= xStepBC * yC;
+            xC -= xStepAC * yC;
+            lightnessA -= lightnessStepBC * yC;
+            lightnessC -= lightnessStepAC * yC;
+            yC = 0;
         }
-        i1 <<= 16;
-        l1 <<= 16;
-        if (j < 0) {
-            i1 -= i7 * j;
-            l1 -= j7 * j;
-            j = 0;
+        xB <<= 16;
+        lightnessB <<= 16;
+        if (yB < 0) {
+            xB -= xStepAB * yB;
+            lightnessB -= lightnessStepAB * yB;
+            yB = 0;
         }
-        int l9 = k - centerY;
+        int l9 = yC - centerY;
         l4 += j5 * l9;
         k5 += i6 * l9;
         j6 += l6 * l9;
-        if (k7 < i8) {
-            i -= j;
-            j -= k;
-            k = offsets[k];
-            while (--j >= 0) {
-                drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, l >> 16, j1 >> 16, k1 >> 8, i2 >> 8, l4, k5,
+        if (xStepBC < xStepAC) {
+            yA -= yB;
+            yB -= yC;
+            yC = offsets[yC];
+            while (--yB >= 0) {
+                drawTexturedScanline(Draw2D.dest, texels, 0, 0, yC, xA >> 16, xC >> 16, lightnessA >> 8, lightnessC >> 8, l4, k5,
                     j6, i5, l5, k6);
-                l += k7;
-                j1 += i8;
-                k1 += l7;
-                i2 += j8;
-                k += Draw2D.width;
+                xA += xStepBC;
+                xC += xStepAC;
+                lightnessA += lightnessStepBC;
+                lightnessC += lightnessStepAC;
+                yC += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
-            while (--i >= 0) {
-                drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, i1 >> 16, j1 >> 16, l1 >> 8, i2 >> 8, l4, k5,
+            while (--yA >= 0) {
+                drawTexturedScanline(Draw2D.dest, texels, 0, 0, yC, xB >> 16, xC >> 16, lightnessB >> 8, lightnessC >> 8, l4, k5,
                     j6, i5, l5, k6);
-                i1 += i7;
-                j1 += i8;
-                l1 += j7;
-                i2 += j8;
-                k += Draw2D.width;
+                xB += xStepAB;
+                xC += xStepAC;
+                lightnessB += lightnessStepAB;
+                lightnessC += lightnessStepAC;
+                yC += Draw2D.width;
                 l4 += j5;
                 k5 += i6;
                 j6 += l6;
             }
             return;
         }
-        i -= j;
-        j -= k;
-        k = offsets[k];
-        while (--j >= 0) {
-            drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, j1 >> 16, l >> 16, i2 >> 8, k1 >> 8, l4, k5, j6,
+        yA -= yB;
+        yB -= yC;
+        yC = offsets[yC];
+        while (--yB >= 0) {
+            drawTexturedScanline(Draw2D.dest, texels, 0, 0, yC, xC >> 16, xA >> 16, lightnessC >> 8, lightnessA >> 8, l4, k5, j6,
                 i5, l5, k6);
-            l += k7;
-            j1 += i8;
-            k1 += l7;
-            i2 += j8;
-            k += Draw2D.width;
+            xA += xStepBC;
+            xC += xStepAC;
+            lightnessA += lightnessStepBC;
+            lightnessC += lightnessStepAC;
+            yC += Draw2D.width;
             l4 += j5;
             k5 += i6;
             j6 += l6;
         }
-        while (--i >= 0) {
-            drawTexturedScanline(Draw2D.dest, ai, 0, 0, k, j1 >> 16, i1 >> 16, i2 >> 8, l1 >> 8, l4, k5, j6,
+        while (--yA >= 0) {
+            drawTexturedScanline(Draw2D.dest, texels, 0, 0, yC, xC >> 16, xB >> 16, lightnessC >> 8, lightnessB >> 8, l4, k5, j6,
                 i5, l5, k6);
-            i1 += i7;
-            j1 += i8;
-            l1 += j7;
-            i2 += j8;
-            k += Draw2D.width;
+            xB += xStepAB;
+            xC += xStepAC;
+            lightnessB += lightnessStepAB;
+            lightnessC += lightnessStepAC;
+            yC += Draw2D.width;
             l4 += j5;
             k5 += i6;
             j6 += l6;
         }
     }
 
-    public static void drawTexturedScanline(int[] ai, int[] ai1, int i, int j, int k, int l, int i1, int j1,
-                                            int k1, int l1, int i2, int j2, int k2, int l2, int i3) {
-        if (l >= i1)
+    public static void drawTexturedScanline(int[] dst, int[] texels, int uA, int vA, int off, int xA, int xB, int lightnessA,
+                                            int lightnessB, int verticalA, int verticalB, int verticalC, int horizontalA, int horizontalB, int horizontalC) {
+        if (xA >= xB)
             return;
-        int j3;
-        int k3;
+        int lightnessSlope;
+        int length;
         if (testX) {
-            j3 = (k1 - j1) / (i1 - l);
-            if (i1 > Draw2D.rightX)
-                i1 = Draw2D.rightX;
-            if (l < 0) {
-                j1 -= l * j3;
-                l = 0;
+            lightnessSlope = (lightnessB - lightnessA) / (xB - xA);
+            if (xB > Draw2D.rightX)
+                xB = Draw2D.rightX;
+            if (xA < 0) {
+                lightnessA -= xA * lightnessSlope;
+                xA = 0;
             }
-            if (l >= i1)
+            if (xA >= xB)
                 return;
-            k3 = i1 - l >> 3;
-            j3 <<= 12;
-            j1 <<= 9;
+            length = xB - xA >> 3;
+            lightnessSlope <<= 12;
+            lightnessA <<= 9;
         } else {
-            if (i1 - l > 7) {
-                k3 = i1 - l >> 3;
-                j3 = (k1 - j1) * reciprical15[k3] >> 6;
+            if (xB - xA > 7) {
+                length = xB - xA >> 3;
+                lightnessSlope = (lightnessB - lightnessA) * reciprical15[length] >> 6;
             } else {
-                k3 = 0;
-                j3 = 0;
+                length = 0;
+                lightnessSlope = 0;
             }
-            j1 <<= 9;
+            lightnessA <<= 9;
         }
-        k += l;
+        off += xA;
         if (lowMemory) {
-            int i4 = 0;
-            int k4 = 0;
-            int k6 = l - centerX;
-            l1 += (k2 >> 3) * k6;
-            i2 += (l2 >> 3) * k6;
-            j2 += (i3 >> 3) * k6;
-            int i5 = j2 >> 12;
-            if (i5 != 0) {
-                i = l1 / i5;
-                j = i2 / i5;
-                if (i < 0)
-                    i = 0;
-                else if (i > 4032)
-                    i = 4032;
+            int uB = 0;
+            int vB = 0;
+            int delta = xA - centerX;
+            verticalA += (horizontalA >> 3) * delta;
+            verticalB += (horizontalB >> 3) * delta;
+            verticalC += (horizontalC >> 3) * delta;
+            int c = verticalC >> 12;
+            if (c != 0) {
+                uA = verticalA / c;
+                vA = verticalB / c;
+                if (uA < 0)
+                    uA = 0;
+                else if (uA > (63 << 6))
+                    uA = 63 << 6;
             }
-            l1 += k2;
-            i2 += l2;
-            j2 += i3;
-            i5 = j2 >> 12;
-            if (i5 != 0) {
-                i4 = l1 / i5;
-                k4 = i2 / i5;
-                if (i4 < 7)
-                    i4 = 7;
-                else if (i4 > 4032)
-                    i4 = 4032;
+            verticalA += horizontalA;
+            verticalB += horizontalB;
+            verticalC += horizontalC;
+            c = verticalC >> 12;
+            if (c != 0) {
+                uB = verticalA / c;
+                vB = verticalB / c;
+                if (uB < 7)
+                    uB = 7;
+                else if (uB > (63 << 6))
+                    uB = 63 << 6;
             }
-            int i7 = i4 - i >> 3;
-            int k7 = k4 - j >> 3;
-            i += (j1 & 0x600000) >> 3;
-            int i8 = j1 >> 23;
+            int uStep = uB - uA >> 3;
+            int vStep = vB - vA >> 3;
+            uA += (lightnessA & (3 << 21)) >> 3;
+            int lightness = lightnessA >> 23;
             if (opaque) {
-                while (k3-- > 0) {
-                    ai[k++] = ai1[(j & 0xfc0) + (i >> 6)] >>> i8;
-                    i += i7;
-                    j += k7;
-                    ai[k++] = ai1[(j & 0xfc0) + (i >> 6)] >>> i8;
-                    i += i7;
-                    j += k7;
-                    ai[k++] = ai1[(j & 0xfc0) + (i >> 6)] >>> i8;
-                    i += i7;
-                    j += k7;
-                    ai[k++] = ai1[(j & 0xfc0) + (i >> 6)] >>> i8;
-                    i += i7;
-                    j += k7;
-                    ai[k++] = ai1[(j & 0xfc0) + (i >> 6)] >>> i8;
-                    i += i7;
-                    j += k7;
-                    ai[k++] = ai1[(j & 0xfc0) + (i >> 6)] >>> i8;
-                    i += i7;
-                    j += k7;
-                    ai[k++] = ai1[(j & 0xfc0) + (i >> 6)] >>> i8;
-                    i += i7;
-                    j += k7;
-                    ai[k++] = ai1[(j & 0xfc0) + (i >> 6)] >>> i8;
-                    i = i4;
-                    j = k4;
-                    l1 += k2;
-                    i2 += l2;
-                    j2 += i3;
-                    int j5 = j2 >> 12;
-                    if (j5 != 0) {
-                        i4 = l1 / j5;
-                        k4 = i2 / j5;
-                        if (i4 < 7)
-                            i4 = 7;
-                        else if (i4 > 4032)
-                            i4 = 4032;
+                while (length-- > 0) {
+                    dst[off++] = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness;
+                    uA += uStep;
+                    vA += vStep;
+                    dst[off++] = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness;
+                    uA += uStep;
+                    vA += vStep;
+                    dst[off++] = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness;
+                    uA += uStep;
+                    vA += vStep;
+                    dst[off++] = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness;
+                    uA += uStep;
+                    vA += vStep;
+                    dst[off++] = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness;
+                    uA += uStep;
+                    vA += vStep;
+                    dst[off++] = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness;
+                    uA += uStep;
+                    vA += vStep;
+                    dst[off++] = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness;
+                    uA += uStep;
+                    vA += vStep;
+                    dst[off++] = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness;
+                    uA = uB;
+                    vA = vB;
+                    verticalA += horizontalA;
+                    verticalB += horizontalB;
+                    verticalC += horizontalC;
+                    c = verticalC >> 12;
+                    if (c != 0) {
+                        uB = verticalA / c;
+                        vB = verticalB / c;
+                        if (uB < 7)
+                            uB = 7;
+                        else if (uB > (63 << 6))
+                            uB = 63 << 6;
                     }
-                    i7 = i4 - i >> 3;
-                    k7 = k4 - j >> 3;
-                    j1 += j3;
-                    i += (j1 & 0x600000) >> 3;
-                    i8 = j1 >> 23;
+                    uStep = uB - uA >> 3;
+                    vStep = vB - vA >> 3;
+                    lightnessA += lightnessSlope;
+                    uA += (lightnessA & (3 << 21)) >> 3;
+                    lightness = lightnessA >> 23;
                 }
-                for (k3 = i1 - l & 7; k3-- > 0; ) {
-                    ai[k++] = ai1[(j & 0xfc0) + (i >> 6)] >>> i8;
-                    i += i7;
-                    j += k7;
+                length = xB - xA & 7;
+                while (length-- > 0) {
+                    dst[off++] = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness;
+                    uA += uStep;
+                    vA += vStep;
                 }
 
                 return;
             }
-            while (k3-- > 0) {
-                int k8;
-                if ((k8 = ai1[(j & 0xfc0) + (i >> 6)] >>> i8) != 0)
-                    ai[k] = k8;
-                k++;
-                i += i7;
-                j += k7;
-                if ((k8 = ai1[(j & 0xfc0) + (i >> 6)] >>> i8) != 0)
-                    ai[k] = k8;
-                k++;
-                i += i7;
-                j += k7;
-                if ((k8 = ai1[(j & 0xfc0) + (i >> 6)] >>> i8) != 0)
-                    ai[k] = k8;
-                k++;
-                i += i7;
-                j += k7;
-                if ((k8 = ai1[(j & 0xfc0) + (i >> 6)] >>> i8) != 0)
-                    ai[k] = k8;
-                k++;
-                i += i7;
-                j += k7;
-                if ((k8 = ai1[(j & 0xfc0) + (i >> 6)] >>> i8) != 0)
-                    ai[k] = k8;
-                k++;
-                i += i7;
-                j += k7;
-                if ((k8 = ai1[(j & 0xfc0) + (i >> 6)] >>> i8) != 0)
-                    ai[k] = k8;
-                k++;
-                i += i7;
-                j += k7;
-                if ((k8 = ai1[(j & 0xfc0) + (i >> 6)] >>> i8) != 0)
-                    ai[k] = k8;
-                k++;
-                i += i7;
-                j += k7;
-                if ((k8 = ai1[(j & 0xfc0) + (i >> 6)] >>> i8) != 0)
-                    ai[k] = k8;
-                k++;
-                i = i4;
-                j = k4;
-                l1 += k2;
-                i2 += l2;
-                j2 += i3;
-                int k5 = j2 >> 12;
-                if (k5 != 0) {
-                    i4 = l1 / k5;
-                    k4 = i2 / k5;
-                    if (i4 < 7)
-                        i4 = 7;
-                    else if (i4 > 4032)
-                        i4 = 4032;
+            while (length-- > 0) {
+                int rgb;
+                if ((rgb = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness) != 0)
+                    dst[off] = rgb;
+                off++;
+                uA += uStep;
+                vA += vStep;
+                if ((rgb = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness) != 0)
+                    dst[off] = rgb;
+                off++;
+                uA += uStep;
+                vA += vStep;
+                if ((rgb = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness) != 0)
+                    dst[off] = rgb;
+                off++;
+                uA += uStep;
+                vA += vStep;
+                if ((rgb = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness) != 0)
+                    dst[off] = rgb;
+                off++;
+                uA += uStep;
+                vA += vStep;
+                if ((rgb = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness) != 0)
+                    dst[off] = rgb;
+                off++;
+                uA += uStep;
+                vA += vStep;
+                if ((rgb = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness) != 0)
+                    dst[off] = rgb;
+                off++;
+                uA += uStep;
+                vA += vStep;
+                if ((rgb = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness) != 0)
+                    dst[off] = rgb;
+                off++;
+                uA += uStep;
+                vA += vStep;
+                if ((rgb = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness) != 0)
+                    dst[off] = rgb;
+                off++;
+                uA = uB;
+                vA = vB;
+                verticalA += horizontalA;
+                verticalB += horizontalB;
+                verticalC += horizontalC;
+                c = verticalC >> 12;
+                if (c != 0) {
+                    uB = verticalA / c;
+                    vB = verticalB / c;
+                    if (uB < 7)
+                        uB = 7;
+                    else if (uB > (63 << 6))
+                        uB = 63 << 6;
                 }
-                i7 = i4 - i >> 3;
-                k7 = k4 - j >> 3;
-                j1 += j3;
-                i += (j1 & 0x600000) >> 3;
-                i8 = j1 >> 23;
+                uStep = uB - uA >> 3;
+                vStep = vB - vA >> 3;
+                lightnessA += lightnessSlope;
+                uA += (lightnessA & (3 << 21)) >> 3;
+                lightness = lightnessA >> 23;
             }
-            for (k3 = i1 - l & 7; k3-- > 0; ) {
-                int l8;
-                if ((l8 = ai1[(j & 0xfc0) + (i >> 6)] >>> i8) != 0)
-                    ai[k] = l8;
-                k++;
-                i += i7;
-                j += k7;
+            length = xB - xA & 7;
+            while (length-- > 0) {
+                int rgb;
+                if ((rgb = texels[(vA & (63 << 6)) + (uA >> 6)] >>> lightness) != 0)
+                    dst[off] = rgb;
+                off++;
+                uA += uStep;
+                vA += vStep;
             }
 
             return;
         }
-        int j4 = 0;
-        int l4 = 0;
-        int l6 = l - centerX;
-        l1 += (k2 >> 3) * l6;
-        i2 += (l2 >> 3) * l6;
-        j2 += (i3 >> 3) * l6;
-        int l5 = j2 >> 14;
-        if (l5 != 0) {
-            i = l1 / l5;
-            j = i2 / l5;
-            if (i < 0)
-                i = 0;
-            else if (i > 16256)
-                i = 16256;
+        int u2 = 0;
+        int v2 = 0;
+        int delta = xA - centerX;
+        verticalA += (horizontalA >> 3) * delta;
+        verticalB += (horizontalB >> 3) * delta;
+        verticalC += (horizontalC >> 3) * delta;
+        int realC = verticalC >> 14;
+        if (realC != 0) {
+            uA = verticalA / realC;
+            vA = verticalB / realC;
+            if (uA < 0)
+                uA = 0;
+            else if (uA > (127 << 7))
+                uA = (127 << 7);
         }
-        l1 += k2;
-        i2 += l2;
-        j2 += i3;
-        l5 = j2 >> 14;
-        if (l5 != 0) {
-            j4 = l1 / l5;
-            l4 = i2 / l5;
-            if (j4 < 7)
-                j4 = 7;
-            else if (j4 > 16256)
-                j4 = 16256;
+        verticalA += horizontalA;
+        verticalB += horizontalB;
+        verticalC += horizontalC;
+        realC = verticalC >> 14;
+        if (realC != 0) {
+            u2 = verticalA / realC;
+            v2 = verticalB / realC;
+            if (u2 < 7)
+                u2 = 7;
+            else if (u2 > (127 << 7))
+                u2 = (127 << 7);
         }
-        int j7 = j4 - i >> 3;
-        int l7 = l4 - j >> 3;
-        i += j1 & 0x600000;
-        int j8 = j1 >> 23;
+        int deltaU = u2 - uA >> 3;
+        int deltaV = v2 - vA >> 3;
+        uA += lightnessA & (3 << 21);
+        int lightness = lightnessA >> 23;
         if (opaque) {
-            while (k3-- > 0) {
-                ai[k++] = ai1[(j & 0x3f80) + (i >> 7)] >>> j8;
-                i += j7;
-                j += l7;
-                ai[k++] = ai1[(j & 0x3f80) + (i >> 7)] >>> j8;
-                i += j7;
-                j += l7;
-                ai[k++] = ai1[(j & 0x3f80) + (i >> 7)] >>> j8;
-                i += j7;
-                j += l7;
-                ai[k++] = ai1[(j & 0x3f80) + (i >> 7)] >>> j8;
-                i += j7;
-                j += l7;
-                ai[k++] = ai1[(j & 0x3f80) + (i >> 7)] >>> j8;
-                i += j7;
-                j += l7;
-                ai[k++] = ai1[(j & 0x3f80) + (i >> 7)] >>> j8;
-                i += j7;
-                j += l7;
-                ai[k++] = ai1[(j & 0x3f80) + (i >> 7)] >>> j8;
-                i += j7;
-                j += l7;
-                ai[k++] = ai1[(j & 0x3f80) + (i >> 7)] >>> j8;
-                i = j4;
-                j = l4;
-                l1 += k2;
-                i2 += l2;
-                j2 += i3;
-                int i6 = j2 >> 14;
-                if (i6 != 0) {
-                    j4 = l1 / i6;
-                    l4 = i2 / i6;
-                    if (j4 < 7)
-                        j4 = 7;
-                    else if (j4 > 16256)
-                        j4 = 16256;
+            while (length-- > 0) {
+                dst[off++] = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness;
+                uA += deltaU;
+                vA += deltaV;
+                dst[off++] = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness;
+                uA += deltaU;
+                vA += deltaV;
+                dst[off++] = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness;
+                uA += deltaU;
+                vA += deltaV;
+                dst[off++] = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness;
+                uA += deltaU;
+                vA += deltaV;
+                dst[off++] = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness;
+                uA += deltaU;
+                vA += deltaV;
+                dst[off++] = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness;
+                uA += deltaU;
+                vA += deltaV;
+                dst[off++] = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness;
+                uA += deltaU;
+                vA += deltaV;
+                dst[off++] = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness;
+                uA = u2;
+                vA = v2;
+                verticalA += horizontalA;
+                verticalB += horizontalB;
+                verticalC += horizontalC;
+                realC = verticalC >> 14;
+                if (realC != 0) {
+                    u2 = verticalA / realC;
+                    v2 = verticalB / realC;
+                    if (u2 < 7)
+                        u2 = 7;
+                    else if (u2 > (127 << 7))
+                        u2 = 127 << 7;
                 }
-                j7 = j4 - i >> 3;
-                l7 = l4 - j >> 3;
-                j1 += j3;
-                i += j1 & 0x600000;
-                j8 = j1 >> 23;
+                deltaU = u2 - uA >> 3;
+                deltaV = v2 - vA >> 3;
+                lightnessA += lightnessSlope;
+                uA += lightnessA & (3 << 21);
+                lightness = lightnessA >> 23;
             }
-            for (k3 = i1 - l & 7; k3-- > 0; ) {
-                ai[k++] = ai1[(j & 0x3f80) + (i >> 7)] >>> j8;
-                i += j7;
-                j += l7;
+            for (length = xB - xA & 7; length-- > 0; ) {
+                dst[off++] = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness;
+                uA += deltaU;
+                vA += deltaV;
             }
 
             return;
         }
-        while (k3-- > 0) {
-            int i9;
-            if ((i9 = ai1[(j & 0x3f80) + (i >> 7)] >>> j8) != 0)
-                ai[k] = i9;
-            k++;
-            i += j7;
-            j += l7;
-            if ((i9 = ai1[(j & 0x3f80) + (i >> 7)] >>> j8) != 0)
-                ai[k] = i9;
-            k++;
-            i += j7;
-            j += l7;
-            if ((i9 = ai1[(j & 0x3f80) + (i >> 7)] >>> j8) != 0)
-                ai[k] = i9;
-            k++;
-            i += j7;
-            j += l7;
-            if ((i9 = ai1[(j & 0x3f80) + (i >> 7)] >>> j8) != 0)
-                ai[k] = i9;
-            k++;
-            i += j7;
-            j += l7;
-            if ((i9 = ai1[(j & 0x3f80) + (i >> 7)] >>> j8) != 0)
-                ai[k] = i9;
-            k++;
-            i += j7;
-            j += l7;
-            if ((i9 = ai1[(j & 0x3f80) + (i >> 7)] >>> j8) != 0)
-                ai[k] = i9;
-            k++;
-            i += j7;
-            j += l7;
-            if ((i9 = ai1[(j & 0x3f80) + (i >> 7)] >>> j8) != 0)
-                ai[k] = i9;
-            k++;
-            i += j7;
-            j += l7;
-            if ((i9 = ai1[(j & 0x3f80) + (i >> 7)] >>> j8) != 0)
-                ai[k] = i9;
-            k++;
-            i = j4;
-            j = l4;
-            l1 += k2;
-            i2 += l2;
-            j2 += i3;
-            int j6 = j2 >> 14;
-            if (j6 != 0) {
-                j4 = l1 / j6;
-                l4 = i2 / j6;
-                if (j4 < 7)
-                    j4 = 7;
-                else if (j4 > 16256)
-                    j4 = 16256;
+        while (length-- > 0) {
+            int rgb;
+            if ((rgb = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness) != 0)
+                dst[off] = rgb;
+            off++;
+            uA += deltaU;
+            vA += deltaV;
+            if ((rgb = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness) != 0)
+                dst[off] = rgb;
+            off++;
+            uA += deltaU;
+            vA += deltaV;
+            if ((rgb = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness) != 0)
+                dst[off] = rgb;
+            off++;
+            uA += deltaU;
+            vA += deltaV;
+            if ((rgb = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness) != 0)
+                dst[off] = rgb;
+            off++;
+            uA += deltaU;
+            vA += deltaV;
+            if ((rgb = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness) != 0)
+                dst[off] = rgb;
+            off++;
+            uA += deltaU;
+            vA += deltaV;
+            if ((rgb = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness) != 0)
+                dst[off] = rgb;
+            off++;
+            uA += deltaU;
+            vA += deltaV;
+            if ((rgb = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness) != 0)
+                dst[off] = rgb;
+            off++;
+            uA += deltaU;
+            vA += deltaV;
+            if ((rgb = texels[(vA & (127 << 7)) + (uA >> 7)] >>> lightness) != 0)
+                dst[off] = rgb;
+            off++;
+            uA = u2;
+            vA = v2;
+            verticalA += horizontalA;
+            verticalB += horizontalB;
+            verticalC += horizontalC;
+            realC = verticalC >> 14;
+            if (realC != 0) {
+                u2 = verticalA / realC;
+                v2 = verticalB / realC;
+                if (u2 < 7)
+                    u2 = 7;
+                else if (u2 > (127 << 7))
+                    u2 = 127 << 7;
             }
-            j7 = j4 - i >> 3;
-            l7 = l4 - j >> 3;
-            j1 += j3;
-            i += j1 & 0x600000;
-            j8 = j1 >> 23;
+            deltaU = u2 - uA >> 3;
+            deltaV = v2 - vA >> 3;
+            lightnessA += lightnessSlope;
+            uA += lightnessA & (3 << 21);
+            lightness = lightnessA >> 23;
         }
-        for (int l3 = i1 - l & 7; l3-- > 0; ) {
-            int j9;
-            if ((j9 = ai1[(j & 0x3f80) + (i >> 7)] >>> j8) != 0)
-                ai[k] = j9;
-            k++;
-            i += j7;
-            j += l7;
+        length = xB - xA & 7;
+        while (length-- > 0) {
+            int rgb;
+            if ((rgb = texels[(vA & 0x3f80) + (uA >> 7)] >>> lightness) != 0)
+                dst[off] = rgb;
+            off++;
+            uA += deltaU;
+            vA += deltaV;
         }
-
     }
 
-    public static boolean aBoolean1434;
     public static boolean lowMemory = true;
     public static boolean testX;
     public static boolean opaque;
@@ -1953,13 +2020,13 @@ public class Draw3D extends Draw2D {
     public static int[] sin;
     public static int[] cos;
     public static int[] offsets;
-    public static int loadedTextureCount;
+    public static int textureCount;
     public static IndexedSprite[] textures = new IndexedSprite[50];
     public static boolean[] textureHasTransparency = new boolean[50];
     public static int[] textureColors = new int[50];
-    public static int texelPoolPosition;
-    public static int[][] texelBuffer2;
-    public static int[][] texelBuffer1 = new int[50][];
+    public static int poolSize;
+    public static int[][] texelPool;
+    public static int[][] activeTexels = new int[50][];
     public static int[] textureCycles = new int[50];
     public static int cycle;
     public static int[] palette = new int[0x10000];
@@ -1973,7 +2040,7 @@ public class Draw3D extends Draw2D {
         cos = new int[2048];
 
         for (int i = 1; i < 512; i++) {
-            reciprical15[i] = 32768 / i;
+            reciprical15[i] = 0x8000 / i;
         }
 
         for (int j = 1; j < 2048; j++) {
