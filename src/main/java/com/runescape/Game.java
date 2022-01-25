@@ -831,7 +831,7 @@ public class Game extends GameShell {
             }
 
         int i3 = Draw3D.cycle;
-        Model.aBoolean1295 = true;
+        Model.allowInput = true;
         Model.resourceCount = 0;
         Model.cursorX = super.mouseX - 8;
         Model.cursorY = super.mouseY - 11;
@@ -2841,7 +2841,7 @@ public class Game extends GameShell {
                             seqType.secondaryFrames[child.seqFrame], flag);
                     }
                     if (model != null) {
-                        model.drawSimple(0, child.modelYaw, 0, child.modelEyePitch, 0, l4, k5);
+                        model.draw(0, child.modelYaw, 0, child.modelEyePitch, 0, l4, k5);
                     }
                     Draw3D.centerX = j3;
                     Draw3D.centerY = i4;

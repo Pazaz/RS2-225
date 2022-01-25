@@ -316,7 +316,7 @@ public class ObjType {
         int sinPitch = Draw3D.sin[info.iconCameraPitch] * info.iconZoom >> 16;
         int cosPitch = Draw3D.cos[info.iconCameraPitch] * info.iconZoom >> 16;
 
-        model.drawSimple(0, info.iconYaw, info.iconRoll, info.iconCameraPitch, info.iconX, sinPitch + model.maxBoundY / 2 + info.iconY, cosPitch + info.iconY);
+        model.draw(0, info.iconYaw, info.iconRoll, info.iconCameraPitch, info.iconX, sinPitch + model.maxBoundY / 2 + info.iconY, cosPitch + info.iconY);
 
         for (int x = 31; x >= 0; x--) {
             for (int y = 31; y >= 0; y--) {

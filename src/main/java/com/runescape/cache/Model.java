@@ -177,11 +177,6 @@ public class Model extends CacheableNode {
     }
 
     public Model(int index) {
-        anInt1217 = 45861;
-        aByte1218 = 47;
-        aByte1219 = 47;
-        anInt1220 = 5;
-        aBoolean1221 = false;
         pickable = false;
 
         if (metadata == null) {
@@ -363,12 +358,8 @@ public class Model extends CacheableNode {
         }
     }
 
+    // difference: keep skins
     public Model(Model[] models, int count) {
-        anInt1217 = 45861;
-        aByte1218 = 47;
-        aByte1219 = 47;
-        anInt1220 = 5;
-        aBoolean1221 = false;
         pickable = false;
 
         boolean keepInfo = false;
@@ -487,12 +478,8 @@ public class Model extends CacheableNode {
         }
     }
 
+    // difference: keep color
     public Model(Model[] models, byte dummy0, int count) {
-        anInt1217 = 45861;
-        aByte1218 = 47;
-        aByte1219 = 47;
-        anInt1220 = 5;
-        aBoolean1221 = false;
         pickable = false;
 
         boolean keepInfo = false;
@@ -630,11 +617,6 @@ public class Model extends CacheableNode {
     }
 
     public Model(Model from, boolean keepColors, boolean keepAlpha, boolean keepVertices) {
-        anInt1217 = 45861;
-        aByte1218 = 47;
-        aByte1219 = 47;
-        anInt1220 = 5;
-        aBoolean1221 = false;
         pickable = false;
 
         vertexCount = from.vertexCount;
@@ -691,11 +673,6 @@ public class Model extends CacheableNode {
     }
 
     public Model(Model from, boolean keepVertices, boolean keepColors) {
-        anInt1217 = 45861;
-        aByte1218 = 47;
-        aByte1219 = 47;
-        anInt1220 = 5;
-        aBoolean1221 = false;
         pickable = false;
 
         vertexCount = from.vertexCount;
@@ -770,11 +747,6 @@ public class Model extends CacheableNode {
     }
 
     public Model(Model from, boolean keepAlpha) {
-        anInt1217 = 45861;
-        aByte1218 = 47;
-        aByte1219 = 47;
-        anInt1220 = 5;
-        aBoolean1221 = false;
         pickable = false;
 
         vertexCount = from.vertexCount;
@@ -1408,177 +1380,218 @@ public class Model extends CacheableNode {
         unmodifiedTriangleColor = null;
     }
 
-    public static int adjustHSLLightness(int i, int j, int k) {
-        if ((k & 2) == 2) {
-            if (j < 0)
-                j = 0;
-            else if (j > 127)
-                j = 127;
-            j = 127 - j;
-            return j;
+    public static int adjustHSLLightness(int hsl, int lightness, int type) {
+        if ((type & 2) == 2) {
+            if (lightness < 0)
+                lightness = 0;
+            else if (lightness > 127)
+                lightness = 127;
+            lightness = 127 - lightness;
+            return lightness;
         }
-        j = j * (i & 0x7f) >> 7;
-        if (j < 2)
-            j = 2;
-        else if (j > 126)
-            j = 126;
-        return (i & 0xff80) + j;
+
+        lightness = lightness * (hsl & 0x7f) >> 7;
+        if (lightness < 2)
+            lightness = 2;
+        else if (lightness > 126)
+            lightness = 126;
+        return (hsl & 0xff80) + lightness;
     }
 
-    public void drawSimple(int i, int j, int k, int l, int i1, int j1, int k1) {
-        int l1 = Draw3D.centerX;
-        int i2 = Draw3D.centerY;
-        int j2 = sin[i];
-        int k2 = cos[i];
-        int l2 = sin[j];
-        int i3 = cos[j];
-        int j3 = sin[k];
-        int k3 = cos[k];
-        int l3 = sin[l];
-        int i4 = cos[l];
-        int j4 = j1 * l3 + k1 * i4 >> 16;
-        for (int k4 = 0; k4 < vertexCount; k4++) {
-            int l4 = vertexX[k4];
-            int i5 = vertexY[k4];
-            int j5 = vertexZ[k4];
-            if (k != 0) {
-                int k5 = i5 * j3 + l4 * k3 >> 16;
-                i5 = i5 * k3 - l4 * j3 >> 16;
-                l4 = k5;
+    public void draw(int pitch, int yaw, int roll, int cameraPitch, int cameraX, int cameraY, int cameraZ) {
+        final int centerX = Draw3D.centerX;
+        final int centerY = Draw3D.centerY;
+
+        int pitchsin = sin[pitch];
+        int pitchcos = cos[pitch];
+
+        int yawsin = sin[yaw];
+        int yawcos = cos[yaw];
+
+        int rollsin = sin[roll];
+        int rollcos = cos[roll];
+
+        int cpitchsin = sin[cameraPitch];
+        int cpitchcos = cos[cameraPitch];
+
+        int depth = cameraY * cpitchsin + cameraZ * cpitchcos >> 16;
+        
+        for (int v = 0; v < vertexCount; v++) {
+            int x = vertexX[v];
+            int y = vertexY[v];
+            int z = vertexZ[v];
+
+            if (roll != 0) {
+                int z0 = y * rollsin + x * rollcos >> 16;
+                y = y * rollcos - x * rollsin >> 16;
+                x = z0;
             }
-            if (i != 0) {
-                int l5 = i5 * k2 - j5 * j2 >> 16;
-                j5 = i5 * j2 + j5 * k2 >> 16;
-                i5 = l5;
+
+            if (pitch != 0) {
+                int x0 = y * pitchcos - z * pitchsin >> 16;
+                z = y * pitchsin + z * pitchcos >> 16;
+                y = x0;
             }
-            if (j != 0) {
-                int i6 = j5 * l2 + l4 * i3 >> 16;
-                j5 = j5 * i3 - l4 * l2 >> 16;
-                l4 = i6;
+
+            if (yaw != 0) {
+                int y0 = z * yawsin + x * yawcos >> 16;
+                z = z * yawcos - x * yawsin >> 16;
+                x = y0;
             }
-            l4 += i1;
-            i5 += j1;
-            j5 += k1;
-            int j6 = i5 * i4 - j5 * l3 >> 16;
-            j5 = i5 * l3 + j5 * i4 >> 16;
-            i5 = j6;
-            vertexDepth[k4] = j5 - j4;
-            vertexScreenX[k4] = l1 + (l4 << 9) / j5;
-            vertexScreenY[k4] = i2 + (i5 << 9) / j5;
+
+            x += cameraX;
+            y += cameraY;
+            z += cameraZ;
+
+            int x0 = y * cpitchcos - z * cpitchsin >> 16;
+            z = y * cpitchsin + z * cpitchcos >> 16;
+            y = x0;
+
+            vertexDepth[v] = z - depth;
+            vertexScreenX[v] = centerX + (x << 9) / z;
+            vertexScreenY[v] = centerY + (y << 9) / z;
             if (texturedCount > 0) {
-                projectSceneX[k4] = l4;
-                projectSceneY[k4] = i5;
-                projectSceneZ[k4] = j5;
+                projectSceneX[v] = x;
+                projectSceneY[v] = y;
+                projectSceneZ[v] = z;
             }
         }
 
         try {
             draw(false, false, 0);
-            return;
         } catch (Exception _ex) {
-            return;
         }
     }
 
-    public void draw(int i, int j, int k, int l, int i1, int j1, int k1,
-                     int l1, int i2) {
-        int j2 = l1 * i1 - j1 * l >> 16;
-        int k2 = k1 * j + j2 * k >> 16;
-        int l2 = lengthXZ * k >> 16;
-        int i3 = k2 + l2;
-        if (i3 <= 50 || k2 >= 3500)
+    public void draw(int yaw, int sinCameraPitch, int cosCameraPitch, int sinCameraYaw, int cosCameraYaw, int sceneX, int sceneY,
+                     int sceneZ, int uid) {
+        int a = sceneZ * cosCameraYaw - sceneX * sinCameraYaw >> 16;
+        int b = sceneY * sinCameraPitch + a * cosCameraPitch >> 16;
+        int c = lengthXZ * cosCameraPitch >> 16;
+        int d = b + c;
+        
+        if (d <= 50 || b >= 3500) {
             return;
-        int j3 = l1 * l + j1 * i1 >> 16;
-        int k3 = j3 - lengthXZ << 9;
-        if (k3 / i3 >= Draw2D.centerX)
-            return;
-        int l3 = j3 + lengthXZ << 9;
-        if (l3 / i3 <= -Draw2D.centerX)
-            return;
-        int i4 = k1 * k - j2 * j >> 16;
-        int j4 = lengthXZ * j >> 16;
-        int k4 = i4 + j4 << 9;
-        if (k4 / i3 <= -Draw2D.centerY)
-            return;
-        int l4 = j4 + (maxBoundY * k >> 16);
-        int i5 = i4 - l4 << 9;
-        if (i5 / i3 >= Draw2D.centerY)
-            return;
-        int j5 = l2 + (maxBoundY * j >> 16);
-        boolean flag = k2 - j5 <= 50;
-        boolean flag1 = false;
-        if (i2 > 0 && aBoolean1295) {
-            int k5 = k2 - l2;
-            if (k5 <= 50)
-                k5 = 50;
-            if (j3 > 0) {
-                k3 /= i3;
-                l3 /= k5;
-            } else {
-                l3 /= i3;
-                k3 /= k5;
-            }
-            if (i4 > 0) {
-                i5 /= i3;
-                k4 /= k5;
-            } else {
-                k4 /= i3;
-                i5 /= k5;
-            }
-            int i6 = cursorX - Draw3D.centerX;
-            int k6 = cursorY - Draw3D.centerY;
-            if (i6 > k3 && i6 < l3 && k6 > i5 && k6 < k4)
-                if (pickable)
-                    hoveredBitsets[resourceCount++] = i2;
-                else
-                    flag1 = true;
         }
-        int l5 = Draw3D.centerX;
-        int j6 = Draw3D.centerY;
-        int l6 = 0;
-        int i7 = 0;
-        if (i != 0) {
-            l6 = sin[i];
-            i7 = cos[i];
+        
+        int e = sceneZ * sinCameraYaw + sceneX * cosCameraYaw >> 16;
+
+        int minScreenX = e - lengthXZ << 9;
+        if (minScreenX / d >= Draw2D.centerX) {
+            return;
         }
-        for (int j7 = 0; j7 < vertexCount; j7++) {
-            int k7 = vertexX[j7];
-            int l7 = vertexY[j7];
-            int i8 = vertexZ[j7];
-            if (i != 0) {
-                int j8 = i8 * l6 + k7 * i7 >> 16;
-                i8 = i8 * i7 - k7 * l6 >> 16;
-                k7 = j8;
+
+        int maxScreenX = e + lengthXZ << 9;
+        if (maxScreenX / d <= -Draw2D.centerX) {
+            return;
+        }
+        
+        int f = sceneY * cosCameraPitch - a * sinCameraPitch >> 16;
+        int g = lengthXZ * sinCameraPitch >> 16;
+        
+        int maxScreenY = f + g << 9;
+        if (maxScreenY / d <= -Draw2D.centerY) {
+            return;
+        }
+        
+        int h = g + (maxBoundY * cosCameraPitch >> 16);
+
+        int minScreenY = f - h << 9;
+        if (minScreenY / d >= Draw2D.centerY) {
+            return;
+        }
+
+        int i = c + (maxBoundY * sinCameraPitch >> 16);
+        boolean project = b - i <= 50;
+        boolean hasInput = false;
+
+        if (uid > 0 && allowInput) {
+            int j = b - c;
+            if (j <= 50) {
+                j = 50;
             }
-            k7 += j1;
-            l7 += k1;
-            i8 += l1;
-            int k8 = i8 * l + k7 * i1 >> 16;
-            i8 = i8 * i1 - k7 * l >> 16;
-            k7 = k8;
-            k8 = l7 * k - i8 * j >> 16;
-            i8 = l7 * j + i8 * k >> 16;
-            l7 = k8;
-            vertexDepth[j7] = i8 - k2;
-            if (i8 >= 50) {
-                vertexScreenX[j7] = l5 + (k7 << 9) / i8;
-                vertexScreenY[j7] = j6 + (l7 << 9) / i8;
+            
+            if (e > 0) {
+                minScreenX /= d;
+                maxScreenX /= j;
             } else {
-                vertexScreenX[j7] = -5000;
-                flag = true;
+                maxScreenX /= d;
+                minScreenX /= j;
             }
-            if (flag || texturedCount > 0) {
-                projectSceneX[j7] = k7;
-                projectSceneY[j7] = l7;
-                projectSceneZ[j7] = i8;
+            
+            if (f > 0) {
+                minScreenY /= d;
+                maxScreenY /= j;
+            } else {
+                maxScreenY /= d;
+                minScreenY /= j;
+            }
+            
+            int x = cursorX - Draw3D.centerX;
+            int y = cursorY - Draw3D.centerY;
+
+            if (x > minScreenX && x < maxScreenX && y > minScreenY && y < maxScreenY) {
+                if (pickable) {
+                    hoveredBitsets[resourceCount++] = uid;
+                } else {
+                    hasInput = true;
+                }
+            }
+        }
+
+        int cx = Draw3D.centerX;
+        int cy = Draw3D.centerY;
+        
+        int yawsin = 0;
+        int yawcos = 0;
+        if (yaw != 0) {
+            yawsin = sin[yaw];
+            yawcos = cos[yaw];
+        }
+        
+        for (int v = 0; v < vertexCount; v++) {
+            int x = vertexX[v];
+            int y = vertexY[v];
+            int z = vertexZ[v];
+
+            if (yaw != 0) {
+                int w = z * yawsin + x * yawcos >> 16;
+                z = z * yawcos - x * yawsin >> 16;
+                x = w;
+            }
+
+            x += sceneX;
+            y += sceneY;
+            z += sceneZ;
+
+            int w = z * sinCameraYaw + x * cosCameraYaw >> 16;
+            z = z * cosCameraYaw - x * sinCameraYaw >> 16;
+            x = w;
+
+            w = y * cosCameraPitch - z * sinCameraPitch >> 16;
+            z = y * sinCameraPitch + z * cosCameraPitch >> 16;
+            y = w;
+
+            vertexDepth[v] = z - b;
+
+            if (z >= 50) {
+                vertexScreenX[v] = cx + (x << 9) / z;
+                vertexScreenY[v] = cy + (y << 9) / z;
+            } else {
+                vertexScreenX[v] = -5000;
+                project = true;
+            }
+
+            if (project || texturedCount > 0) {
+                projectSceneX[v] = x;
+                projectSceneY[v] = y;
+                projectSceneZ[v] = z;
             }
         }
 
         try {
-            draw(flag, flag1, i2);
-            return;
+            draw(project, hasInput, uid);
         } catch (Exception _ex) {
-            return;
         }
     }
 
@@ -2001,8 +2014,7 @@ public class Model extends CacheableNode {
         }
     }
 
-    public boolean pointWithinTriangle(int x, int y, int yA, int yB, int yC, int xA, int xB,
-                                       int xC) {
+    public boolean pointWithinTriangle(int x, int y, int yA, int yB, int yC, int xA, int xB, int xC) {
         if (y < yA && y < yB && y < yC) {
             return false;
         }
@@ -2018,11 +2030,6 @@ public class Model extends CacheableNode {
         return x <= xA || x <= xB || x <= xC;
     }
 
-    public int anInt1217;
-    public byte aByte1218;
-    public byte aByte1219;
-    public int anInt1220;
-    public boolean aBoolean1221;
     public int vertexCount;
     public int[] vertexX;
     public int[] vertexY;
@@ -2096,7 +2103,7 @@ public class Model extends CacheableNode {
     public static int transformX;
     public static int transformY;
     public static int transformZ;
-    public static boolean aBoolean1295;
+    public static boolean allowInput;
     public static int cursorX;
     public static int cursorY;
     public static int resourceCount;
