@@ -886,8 +886,7 @@ public class Game extends GameShell {
                             if (j1 != -1)
                                 continue;
                             byte[] abyte2 = new byte[i1];
-                            for (int k1 = 0; k1 < i1; k1++)
-                                abyte2[k1] = abyte0[k1];
+                            System.arraycopy(abyte0, 0, abyte2, 0, i1);
 
                             abyte0 = abyte2;
                             j = i1;
@@ -925,7 +924,6 @@ public class Game extends GameShell {
                     flameGradient[i] = flameGradientGreen[i];
                 else
                     flameGradient[i] = mix(flameGradientGreen[i], 256 - flameCycle1, flameGradientRed[i]);
-
         } else if (flameCycle2 > 0) {
             for (int j = 0; j < 256; j++)
                 if (flameCycle2 > 768)
@@ -934,14 +932,11 @@ public class Game extends GameShell {
                     flameGradient[j] = flameGradientViolet[j];
                 else
                     flameGradient[j] = mix(flameGradientViolet[j], 256 - flameCycle2, flameGradientRed[j]);
-
         } else {
-            for (int k = 0; k < 256; k++)
-                flameGradient[k] = flameGradientRed[k];
-
+            System.arraycopy(flameGradientRed, 0, flameGradient, 0, 256);
         }
-        for (int l = 0; l < 33920; l++)
-            titleLeft.pixels[l] = imageFlamesLeft.pixels[l];
+
+        System.arraycopy(imageFlamesLeft.pixels, 0, titleLeft.pixels, 0, 33920);
 
         int i1 = 0;
         int j1 = 1152;
@@ -969,8 +964,7 @@ public class Game extends GameShell {
         }
 
         titleLeft.drawImage(0, super.graphics, 0);
-        for (int i2 = 0; i2 < 33920; i2++)
-            titleRight.pixels[i2] = imageFlamesRight.pixels[i2];
+        System.arraycopy(imageFlamesRight.pixels, 0, titleRight.pixels, 0, 33920);
 
         i1 = 0;
         j1 = 1176;
@@ -1766,8 +1760,7 @@ public class Game extends GameShell {
                 int i2 = class38_sub2_sub3.readSWord() + 6;
                 int j2 = 6;
                 data = new byte[i2];
-                for (int k2 = 0; k2 < 6; k2++)
-                    data[k2] = abyte1[k2];
+                System.arraycopy(abyte1, 0, data, 0, 6);
 
                 while (j2 < i2) {
                     int l2 = i2 - j2;
@@ -1937,8 +1930,7 @@ public class Game extends GameShell {
             }
         }
 
-        for (int i3 = 0; i3 < c - 1; i3++)
-            flameShiftX[i3] = flameShiftX[i3 + 1];
+        System.arraycopy(flameShiftX, 1, flameShiftX, 0, c - 1);
 
         flameShiftX[c - 1] = (int) (Math.sin((double) clientClock / 14D) * 16D + Math.sin((double) clientClock / 15D) * 14D
             + Math.sin((double) clientClock / 16D) * 12D);
@@ -7286,13 +7278,12 @@ public class Game extends GameShell {
         titleRightSpace.bind();
         temp.drawOpaque(-574, -186);
 
-        int[] ai = new int[temp.width];
-        for (int i = 0; i < temp.height; i++) {
-            for (int j = 0; j < temp.width; j++)
-                ai[j] = temp.pixels[(temp.width - j - 1) + temp.width * i];
-
-            for (int k = 0; k < temp.width; k++)
-                temp.pixels[k + temp.width * i] = ai[k];
+        int[] tmp = new int[temp.width];
+        for (int y = 0; y < temp.height; y++) {
+            for (int x = 0; x < temp.width; x++) {
+                tmp[x] = temp.pixels[(temp.width - x - 1) + temp.width * y];
+            }
+            System.arraycopy(tmp, 0, temp.pixels, temp.width * y, temp.width);
         }
 
         titleLeft.bind();

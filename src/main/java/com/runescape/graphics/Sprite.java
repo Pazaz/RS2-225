@@ -149,21 +149,11 @@ public class Sprite extends Draw2D {
         copyImage(pixels, dstStep, h, srcOff, srcStep, dstOff, w, Draw2D.dest);
     }
 
+    // Used when drawing non-transparent images (title screen background)
     public void copyImage(int[] src, int dstStep, int h, int srcOff, int srcStep, int dstOff,
                           int w, int[] dst) {
-        int hw = -(w >> 2);
-        w = -(w & 3);
-        for (int y = -h; y < 0; y++) {
-            for (int x = hw; x < 0; x++) {
-                dst[dstOff++] = src[srcOff++];
-                dst[dstOff++] = src[srcOff++];
-                dst[dstOff++] = src[srcOff++];
-                dst[dstOff++] = src[srcOff++];
-            }
-
-            for (int x = w; x < 0; x++)
-                dst[dstOff++] = src[srcOff++];
-
+        for (int y = 0; y < h; ++y) {
+            System.arraycopy(src, srcOff + (y * w), dst, dstOff + (y * w), w);
             dstOff += dstStep;
             srcOff += srcStep;
         }
