@@ -3,8 +3,11 @@ package com.runescape.graphics;
 import com.runescape.cache.FileArchive;
 import com.runescape.util.Buffer;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
+import java.io.ByteArrayInputStream;
 
 public class Sprite extends Draw2D {
 
@@ -17,10 +20,9 @@ public class Sprite extends Draw2D {
 
     public Sprite(byte[] src, Component c) {
         try {
-            Image image = Toolkit.getDefaultToolkit().createImage(src);
-            MediaTracker mediatracker = new MediaTracker(c);
-            mediatracker.addImage(image, 0);
-            mediatracker.waitForAll();
+            ByteArrayInputStream bis = new ByteArrayInputStream(src);
+            BufferedImage image = ImageIO.read(bis);
+            bis.close();
             width = image.getWidth(c);
             height = image.getHeight(c);
             cropW = width;
