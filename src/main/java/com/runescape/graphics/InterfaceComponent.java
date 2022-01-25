@@ -8,72 +8,92 @@ import com.runescape.util.StringUtils;
 
 public class InterfaceComponent {
 
-    public static void load(FileArchive fileArchive, IndexedFont[] aclass38_sub2_sub2_sub4, int i,
-                            FileArchive fileArchive_1) {
-        i = 17 / i;
-        cache1 = new Cache(50000);
-        cache2 = new Cache(50000);
-        Buffer b = new Buffer(fileArchive_1.read("data", null));
-        int j = -1;
-        int k = b.readWord();
-        instances = new InterfaceComponent[k];
+    public static final int TYPE_PARENT = 0;
+    public static final int TYPE_UNUSED = 1;
+    public static final int TYPE_INVENTORY = 2;
+    public static final int TYPE_RECT = 3;
+    public static final int TYPE_TEXT = 4;
+    public static final int TYPE_SPRITE = 5;
+    public static final int TYPE_MODEL = 6;
+    public static final int TYPE_INVENTORY_TEXT = 7;
+
+    public static final int NO_BUTTON = 0;
+    public static final int BUTTON = 1;
+    public static final int TARGET_BUTTON = 2;
+    public static final int CLOSE_BUTTON = 3;
+    public static final int TOGGLE_BUTTON = 4;
+    public static final int SELECT_BUTTON = 5;
+    public static final int PAUSE_BUTTON = 6;
+
+    public static void load(FileArchive media, IndexedFont[] fonts, FileArchive interfaces) {
+        spriteCache = new Cache(50000);
+        modelCache = new Cache(50000);
+
+        Buffer b = new Buffer(interfaces.read("data", null));
+        instances = new InterfaceComponent[b.readWord()];
+
+        int parent = -1;
         while (b.offset < b.data.length) {
-            int l = b.readWord();
-            if (l == 65535) {
-                j = b.readWord();
-                l = b.readWord();
+            int index = b.readWord();
+            if (index == 65535) {
+                parent = b.readWord();
+                index = b.readWord();
             }
-            InterfaceComponent w = instances[l] = new InterfaceComponent();
-            w.id = l;
-            w.parent = j;
+            
+            InterfaceComponent w = instances[index] = new InterfaceComponent();
+            w.id = index;
+            w.parent = parent;
             w.type = b.readByte();
             w.buttonType = b.readByte();
             w.contentType = b.readWord();
             w.width = b.readWord();
             w.height = b.readWord();
             w.hoverParentIndex = b.readByte();
+            
             if (w.hoverParentIndex != 0)
                 w.hoverParentIndex = (w.hoverParentIndex - 1 << 8) + b.readByte();
             else
                 w.hoverParentIndex = -1;
-            int j1 = b.readByte();
-            if (j1 > 0) {
-                w.scriptCompareType = new int[j1];
-                w.scriptCompareValue = new int[j1];
-                for (int k1 = 0; k1 < j1; k1++) {
-                    w.scriptCompareType[k1] = b.readByte();
-                    w.scriptCompareValue[k1] = b.readWord();
+            
+            int comparatorCount = b.readByte();
+            if (comparatorCount > 0) {
+                w.scriptCompareType = new int[comparatorCount];
+                w.scriptCompareValue = new int[comparatorCount];
+                for (int n = 0; n < comparatorCount; n++) {
+                    w.scriptCompareType[n] = b.readByte();
+                    w.scriptCompareValue[n] = b.readWord();
                 }
             }
-            int l1 = b.readByte();
-            if (l1 > 0) {
-                w.script = new int[l1][];
-                for (int i2 = 0; i2 < l1; i2++) {
-                    int j3 = b.readWord();
-                    w.script[i2] = new int[j3];
-                    for (int i5 = 0; i5 < j3; i5++)
-                        w.script[i2][i5] = b.readWord();
+            
+            int scriptCount = b.readByte();
+            if (scriptCount > 0) {
+                w.script = new int[scriptCount][];
+                for (int script = 0; script < scriptCount; script++) {
+                    int opcodeCount = b.readWord();
+                    w.script[script] = new int[opcodeCount];
+                    for (int opcode = 0; opcode < opcodeCount; opcode++)
+                        w.script[script][opcode] = b.readWord();
                 }
             }
 
-            if (w.type == 0) {
+            if (w.type == TYPE_PARENT) {
                 w.scrollHeight = b.readWord();
                 w.hidden = b.readByte() == 1;
-                int j2 = b.readByte();
-                w.children = new int[j2];
-                w.childX = new int[j2];
-                w.childY = new int[j2];
-                for (int k3 = 0; k3 < j2; k3++) {
-                    w.children[k3] = b.readWord();
-                    w.childX[k3] = b.readWordSigned();
-                    w.childY[k3] = b.readWordSigned();
+                int n = b.readByte();
+                w.children = new int[n];
+                w.childX = new int[n];
+                w.childY = new int[n];
+                for (int m = 0; m < n; m++) {
+                    w.children[m] = b.readWord();
+                    w.childX[m] = b.readWordSigned();
+                    w.childY[m] = b.readWordSigned();
                 }
             }
-            if (w.type == 1) {
-                w.anInt288 = b.readWord();
-                w.aBoolean289 = b.readByte() == 1;
+            if (w.type == TYPE_UNUSED) {
+                w.unusedInt = b.readWord();
+                w.unusedBoolean = b.readByte() == 1;
             }
-            if (w.type == 2) {
+            if (w.type == TYPE_INVENTORY) {
                 w.inventoryIndices = new int[w.width * w.height];
                 w.inventoryAmount = new int[w.width * w.height];
 
@@ -86,16 +106,14 @@ public class InterfaceComponent {
                 w.inventoryOffsetY = new int[20];
                 w.inventorySprite = new Sprite[20];
 
-                for (int k2 = 0; k2 < 20; k2++) {
-                    int l3 = b.readByte();
-                    if (l3 == 1) {
-                        w.inventoryOffsetX[k2] = b.readWordSigned();
-                        w.inventoryOffsetY[k2] = b.readWordSigned();
-                        String s1 = b.readString();
-                        if (fileArchive != null && s1.length() > 0) {
-                            int j5 = s1.lastIndexOf(",");
-                            w.inventorySprite[k2] = getSprite(fileArchive,
-                                Integer.parseInt(s1.substring(j5 + 1)), s1.substring(0, j5), -36068);
+                for (int n = 0; n < 20; n++) {
+                    if (b.readByte() == 1) {
+                        w.inventoryOffsetX[n] = b.readWordSigned();
+                        w.inventoryOffsetY[n] = b.readWordSigned();
+                        String s = b.readString();
+                        if (media != null && s.length() > 0) {
+                            int j = s.lastIndexOf(",");
+                            w.inventorySprite[n] = getSprite(media, Integer.parseInt(s.substring(j + 1)), s.substring(0, j));
                         }
                     }
                 }
@@ -107,86 +125,83 @@ public class InterfaceComponent {
                         w.inventoryOptions[i4] = null;
                 }
             }
-            if (w.type == 3)
+            if (w.type == TYPE_RECT)
                 w.fill = b.readByte() == 1;
-            if (w.type == 4 || w.type == 1) {
+            if (w.type == TYPE_TEXT || w.type == TYPE_UNUSED) {
                 w.center = b.readByte() == 1;
-                int l2 = b.readByte();
-                if (aclass38_sub2_sub2_sub4 != null)
-                    w.font = aclass38_sub2_sub2_sub4[l2];
+                int font = b.readByte();
+                if (fonts != null)
+                    w.font = fonts[font];
                 w.shadow = b.readByte() == 1;
             }
-            if (w.type == 4) {
+            if (w.type == TYPE_TEXT) {
                 w.text = b.readString();
                 w.activeText = b.readString();
             }
-            if (w.type == 1 || w.type == 3 || w.type == 4)
+            if (w.type == TYPE_UNUSED || w.type == TYPE_RECT || w.type == TYPE_TEXT)
                 w.color = b.readDWord();
-            if (w.type == 3 || w.type == 4) {
+            if (w.type == TYPE_RECT || w.type == TYPE_TEXT) {
                 w.colorEnabled = b.readDWord();
                 w.hoverColor = b.readDWord();
             }
-            if (w.type == 5) {
+            if (w.type == TYPE_SPRITE) {
                 String s = b.readString();
-                if (fileArchive != null && s.length() > 0) {
-                    int j4 = s.lastIndexOf(",");
-                    w.image = getSprite(fileArchive, Integer.parseInt(s.substring(j4 + 1)),
-                        s.substring(0, j4), -36068);
+                if (media != null && s.length() > 0) {
+                    int j = s.lastIndexOf(",");
+                    w.image = getSprite(media, Integer.parseInt(s.substring(j + 1)), s.substring(0, j));
                 }
                 s = b.readString();
-                if (fileArchive != null && s.length() > 0) {
-                    int k4 = s.lastIndexOf(",");
-                    w.activeImage = getSprite(fileArchive, Integer.parseInt(s.substring(k4 + 1)),
-                        s.substring(0, k4), -36068);
+                if (media != null && s.length() > 0) {
+                    int j = s.lastIndexOf(",");
+                    w.activeImage = getSprite(media, Integer.parseInt(s.substring(j + 1)), s.substring(0, j));
                 }
             }
-            if (w.type == 6) {
-                int i1 = b.readByte();
-                if (i1 != 0)
-                    w.modelDisabled = getModel(4, (i1 - 1 << 8) + b.readByte());
-                i1 = b.readByte();
-                if (i1 != 0)
-                    w.modelEnabled = getModel(4, (i1 - 1 << 8) + b.readByte());
-                i1 = b.readByte();
-                if (i1 != 0)
-                    w.seqId = (i1 - 1 << 8) + b.readByte();
+            if (w.type == TYPE_MODEL) {
+                index = b.readByte();
+                if (index != 0)
+                    w.modelDisabled = getModel((index - 1 << 8) + b.readByte());
+                index = b.readByte();
+                if (index != 0)
+                    w.modelEnabled = getModel((index - 1 << 8) + b.readByte());
+                index = b.readByte();
+                if (index != 0)
+                    w.seqId = (index - 1 << 8) + b.readByte();
                 else
                     w.seqId = -1;
-                i1 = b.readByte();
-                if (i1 != 0)
-                    w.activeSeqId = (i1 - 1 << 8) + b.readByte();
+                index = b.readByte();
+                if (index != 0)
+                    w.activeSeqId = (index - 1 << 8) + b.readByte();
                 else
                     w.activeSeqId = -1;
                 w.modelZoom = b.readWord();
                 w.modelEyePitch = b.readWord();
                 w.modelYaw = b.readWord();
             }
-            if (w.type == 7) {
+            if (w.type == TYPE_INVENTORY_TEXT) {
                 w.inventoryIndices = new int[w.width * w.height];
                 w.inventoryAmount = new int[w.width * w.height];
                 w.center = b.readByte() == 1;
-                int i3 = b.readByte();
-                if (aclass38_sub2_sub2_sub4 != null)
-                    w.font = aclass38_sub2_sub2_sub4[i3];
+                int font = b.readByte();
+                if (fonts != null)
+                    w.font = fonts[font];
                 w.shadow = b.readByte() == 1;
                 w.color = b.readDWord();
                 w.inventoryMarginX = b.readWordSigned();
                 w.inventoryMarginY = b.readWordSigned();
                 w.inventoryHasOptions = b.readByte() == 1;
                 w.inventoryOptions = new String[5];
-                for (int l4 = 0; l4 < 5; l4++) {
-                    w.inventoryOptions[l4] = b.readString();
-                    if (w.inventoryOptions[l4].length() == 0)
-                        w.inventoryOptions[l4] = null;
+                for (int n = 0; n < 5; n++) {
+                    w.inventoryOptions[n] = b.readString();
+                    if (w.inventoryOptions[n].length() == 0)
+                        w.inventoryOptions[n] = null;
                 }
-
             }
-            if (w.buttonType == 2 || w.type == 2) {
+            if (w.buttonType == TARGET_BUTTON || w.type == TYPE_INVENTORY) {
                 w.optionCircumfix = b.readString();
                 w.optionSuffix = b.readString();
                 w.optionFlags = b.readWord();
             }
-            if (w.buttonType == 1 || w.buttonType == 4 || w.buttonType == 5 || w.buttonType == 6) {
+            if (w.buttonType == BUTTON || w.buttonType == TOGGLE_BUTTON || w.buttonType == SELECT_BUTTON || w.buttonType == PAUSE_BUTTON) {
                 w.option = b.readString();
                 if (w.option.length() == 0) {
                     if (w.buttonType == 1)
@@ -200,51 +215,52 @@ public class InterfaceComponent {
                 }
             }
         }
-        cache1 = null;
-        cache2 = null;
+        spriteCache = null;
+        modelCache = null;
     }
 
-    public Model getModel(int i, int j, boolean flag) {
-        Model class38_sub2_sub1 = modelDisabled;
-        if (flag)
-            class38_sub2_sub1 = modelEnabled;
-        if (class38_sub2_sub1 == null)
+    public Model getModel(int primaryFrame, int secondaryFrame, boolean enabled) {
+        Model m = modelDisabled;
+        if (enabled)
+            m = modelEnabled;
+        if (m == null)
             return null;
-        if (i == -1 && j == -1 && class38_sub2_sub1.unmodifiedTriangleColor == null)
-            return class38_sub2_sub1;
-        Model class38_sub2_sub1_1 = new Model(class38_sub2_sub1, true, true, false);
-        if (i != -1 || j != -1)
-            class38_sub2_sub1_1.applyGroups();
-        if (i != -1)
-            class38_sub2_sub1_1.applyFrame(i);
-        if (j != -1)
-            class38_sub2_sub1_1.applyFrame(j);
-        class38_sub2_sub1_1.applyLighting(64, 768, -50, -10, -50, true);
-        return class38_sub2_sub1_1;
+        if (primaryFrame == -1 && secondaryFrame == -1 && m.unmodifiedTriangleColor == null)
+            return m;
+
+        m = new Model(m, true, true, false);
+        if (primaryFrame != -1 || secondaryFrame != -1)
+            m.applyGroups();
+        if (primaryFrame != -1)
+            m.applyFrame(primaryFrame);
+        if (secondaryFrame != -1)
+            m.applyFrame(secondaryFrame);
+        m.applyLighting(64, 768, -50, -10, -50, true);
+        return m;
     }
 
-    public static Sprite getSprite(FileArchive fileArchive, int i, String name, int j) {
-        long uid = (StringUtils.genHash(name) << 8) + (long) i;
-        Sprite s = (Sprite) cache1.get(uid);
+    public static Sprite getSprite(FileArchive media, int index, String name) {
+        long uid = (StringUtils.genHash(name) << 8) + (long) index;
+        Sprite s = (Sprite) spriteCache.get(uid);
         if (s != null)
             return s;
         try {
-            s = new Sprite(fileArchive, name, i);
-            cache1.put(uid, s);
+            s = new Sprite(media, name, index);
+            spriteCache.put(uid, s);
         } catch (Exception _ex) {
             return null;
         }
         return s;
     }
 
-    public static Model getModel(int i, int j) {
-        Model m = (Model) cache2.get(j);
+    public static Model getModel(int index) {
+        Model m = (Model) modelCache.get(index);
         if (m != null) {
             return m;
         }
 
-        m = new Model(j);
-        cache2.put(j, m);
+        m = new Model(index);
+        modelCache.put(index, m);
         return m;
     }
 
@@ -275,8 +291,8 @@ public class InterfaceComponent {
     public int[] children;
     public int[] childX;
     public int[] childY;
-    public int anInt288;
-    public boolean aBoolean289;
+    public int unusedInt;
+    public boolean unusedBoolean;
     public boolean inventoryDummy;
     public boolean inventoryHasOptions;
     public boolean inventoryIsUsable;
@@ -308,6 +324,6 @@ public class InterfaceComponent {
     public String optionSuffix;
     public int optionFlags;
     public String option;
-    public static Cache cache1;
-    public static Cache cache2;
+    public static Cache spriteCache;
+    public static Cache modelCache;
 }

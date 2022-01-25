@@ -4666,7 +4666,7 @@ public class Game extends GameShell {
 
             showProgress(true, "Unpacking interfaces", 92);
             IndexedFont[] fonts = {fontPlain11, fontPlain12, fontBold12, fontQuill8};
-            InterfaceComponent.load(mediaArchive, fonts, 30, interfaceArchive);
+            InterfaceComponent.load(mediaArchive, fonts, interfaceArchive);
             showProgress(true, "Preparing game engine", 97);
             for (int l3 = 0; l3 < 33; l3++) {
                 int i4 = 999;
