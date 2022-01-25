@@ -1480,8 +1480,8 @@ public class Model extends CacheableNode {
         }
     }
 
-    public void method371(int i, int j, int k, int l, int i1, int j1, int k1,
-                          int l1, int i2) {
+    public void draw(int i, int j, int k, int l, int i1, int j1, int k1,
+                     int l1, int i2) {
         int j2 = l1 * i1 - j1 * l >> 16;
         int k2 = k1 * j + j2 * k >> 16;
         int l2 = lengthXZ * k >> 16;

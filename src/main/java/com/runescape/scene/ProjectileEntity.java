@@ -83,7 +83,6 @@ public class ProjectileEntity extends Entity {
         return m;
     }
 
-    public int anInt1341;
     public SpotAnimType spotAnim;
     public int level;
     public int sourceX;

@@ -3,7 +3,7 @@ package com.runescape.scene;
 public class TileOverlay {
 
     public TileOverlay(int tileX, int shape, int southeastColor2, int southeastY, int northeastColor1, int rotation, int southwestColor1,
-                       int northwestY, int overlayRGB, int southwestColor2, int triangleIndex, int northwestColor2, int underlayRGB, int northeastY,
+                       int northwestY, int overlayRGB, int southwestColor2, int texture, int northwestColor2, int underlayRGB, int northeastY,
                        int northeastColor2, int northwestColor1, int southwestY, int tileZ, int southeastColor1) {
         isFlat = southwestY == southeastY && southwestY == northeastY && southwestY == northwestY;
 
@@ -167,7 +167,7 @@ public class TileOverlay {
         triangleColorB = new int[triangleCount];
         triangleColorC = new int[triangleCount];
 
-        if (triangleIndex != -1) {
+        if (texture != -1) {
             triangleTextureIndex = new int[triangleCount];
         }
 
@@ -208,7 +208,7 @@ public class TileOverlay {
                 triangleColorB[n] = colors2[b];
                 triangleColorC[n] = colors2[c];
                 if (triangleTextureIndex != null) {
-                    triangleTextureIndex[n] = triangleIndex;
+                    triangleTextureIndex[n] = texture;
                 }
             }
         }

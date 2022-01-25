@@ -3614,9 +3614,9 @@ public class Game extends GameShell {
         }
         if (i1 == 660)
             if (!menuVisible)
-                scene.setClick(4, super.clickY - 11, super.clickX - 8);
+                scene.setClick(super.clickY - 11, super.clickX - 8);
             else
-                scene.setClick(4, l - 11, k - 8);
+                scene.setClick(l - 11, k - 8);
         if (i1 == 188) {
             selectedObject = 1;
             selectedObjSlot = k;

@@ -75,6 +75,5 @@ public class NpcEntity extends PathingEntity {
     public NpcEntity() {
     }
 
-    public int anInt1500;
     public NpcType info;
 }
