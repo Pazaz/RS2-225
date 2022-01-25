@@ -21,14 +21,22 @@ public class Draw2D extends CacheableNode {
     }
 
     public static void setBounds(int y1, int y0, int x1, int x0) {
-        if (x0 < 0)
+        if (x0 < 0) {
             x0 = 0;
-        if (y0 < 0)
+        }
+
+        if (y0 < 0) {
             y0 = 0;
-        if (x1 > width)
+        }
+
+        if (x1 > width) {
             x1 = width;
-        if (y1 > height)
+        }
+
+        if (y1 > height) {
             y1 = height;
+        }
+
         left = x0;
         top = y0;
         right = x1;
@@ -50,20 +58,27 @@ public class Draw2D extends CacheableNode {
             w -= left - x;
             x = left;
         }
+
         if (y < top) {
             h -= top - y;
             y = top;
         }
-        if (x + w > right)
+
+        if (x + w > right) {
             w = right - x;
-        if (y + h > bottom)
+        }
+
+        if (y + h > bottom) {
             h = bottom - y;
-        int stride = width - w;
-        int off = x + y * width;
-        for (int i = -h; i < 0; i++) {
-            for (int j = -w; j < 0; j++)
-                dest[off++] = rgb;
-            off += stride;
+        }
+
+        int off = x + y * Draw2D.width;
+        for (int col = -w; col < 0; ++col) {
+            dest[off++] = rgb;
+        }
+
+        for (int row = 0; row < h; ++row) {
+            System.arraycopy(dest, off - w, dest, (off - w) + Draw2D.width * row, w);
         }
     }
 
@@ -75,31 +90,43 @@ public class Draw2D extends CacheableNode {
     }
 
     public static void drawHorizontalLine(int rgb, int y, int len, int x) {
-        if (y < top || y >= bottom)
+        if (y < top || y >= bottom) {
             return;
+        }
+
         if (x < left) {
             len -= left - x;
             x = left;
         }
-        if (x + len > right)
+
+        if (x + len > right) {
             len = right - x;
+        }
+
         int off = x + y * width;
-        for (int i = 0; i < len; i++)
-            dest[off + i] = rgb;
+        for (int w = 0; w < len; w++) {
+            dest[off + w] = rgb;
+        }
     }
 
     public static void drawVerticalLine(int rgb, int y, int len, int x) {
-        if (x < left || x >= right)
+        if (x < left || x >= right) {
             return;
+        }
+
         if (y < top) {
             len -= top - y;
             y = top;
         }
-        if (y + len > bottom)
+
+        if (y + len > bottom) {
             len = bottom - y;
+        }
+
         int off = x + y * width;
-        for (int i = 0; i < len; i++)
-            dest[off + i * width] = rgb;
+        for (int v = 0; v < len; v++) {
+            dest[off + v * width] = rgb;
+        }
     }
 
     public Draw2D() {
