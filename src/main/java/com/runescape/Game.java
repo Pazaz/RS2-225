@@ -2648,6 +2648,9 @@ public class Game extends GameShell {
         midistop();
         currentMidi = null;
         jingleId = 0;
+        if (!lowMemory) {
+            setMidi(0xbc614e, "scape_main", 40000);
+        }
     }
 
     public void drawInterface(int i, int j, InterfaceComponent interfaceComponent, int l) {
@@ -6297,28 +6300,27 @@ public class Game extends GameShell {
         }
 
         if (current > 0) {
-            int count = current;
-            if (count > 25)
-                count = 25;
+            int steps = current;
+            if (steps > 25) {
+                steps = 25;
+            }
+
             current--;
             int startX = waypointX[current];
             int startZ = waypointY[current];
             if (type == 0) {
                 outBuffer.writeOpcode(Packet.MOVEMENT_WORLD);
-                outBuffer.writeByte(count + count + 3);
+                outBuffer.writeByte(steps + steps + 3);
             } else if (type == 1) {
                 outBuffer.writeOpcode(Packet.MOVEMENT_MINIMAP);
-                outBuffer.writeByte(count + count + 3 + 14);
+                outBuffer.writeByte(steps + steps + 3 + 14);
             } else if (type == 2) {
                 outBuffer.writeOpcode(Packet.MOVEMENT_WORLD_ACTION);
-                outBuffer.writeByte(count + count + 3);
+                outBuffer.writeByte(steps + steps + 3);
             }
 
-            if (super.keyDown[5] == 1) {
-                outBuffer.writeByte(1);
-            } else {
-                outBuffer.writeByte(0);
-            }
+            // control held down
+            outBuffer.writeByte(super.keyDown[5] == 1 ? 1 : 0);
 
             outBuffer.writeWord(startX + baseTileX);
             outBuffer.writeWord(startZ + baseTileZ);
@@ -6326,7 +6328,7 @@ public class Game extends GameShell {
             flagTileX = waypointX[0];
             flagTileY = waypointY[0];
 
-            for (int n = 1; n < count; n++) {
+            for (int n = 1; n < steps; n++) {
                 current--;
                 outBuffer.writeByte(waypointX[current] - startX);
                 outBuffer.writeByte(waypointY[current] - startZ);
@@ -7657,19 +7659,19 @@ public class Game extends GameShell {
         if (type == 0) {
             entityUpdateIndices[updateCount++] = LOCAL_PLAYER_INDEX;
         } else if (type == 1) {
-            int i1 = buffer.getBits(3);
-            self.walk(false, i1);
-            int l1 = buffer.getBits(1);
-            if (l1 == 1) {
+            int walkDir = buffer.getBits(3);
+            self.walk(false, walkDir);
+            int update = buffer.getBits(1);
+            if (update == 1) {
                 entityUpdateIndices[updateCount++] = LOCAL_PLAYER_INDEX;
             }
         } else if (type == 2) {
-            int j1 = buffer.getBits(3);
-            self.walk(true, j1);
-            int i2 = buffer.getBits(3);
-            self.walk(true, i2);
-            int k2 = buffer.getBits(1);
-            if (k2 == 1) {
+            int walkDir = buffer.getBits(3);
+            self.walk(true, walkDir);
+            int runDir = buffer.getBits(3);
+            self.walk(true, runDir);
+            int update = buffer.getBits(1);
+            if (update == 1) {
                 entityUpdateIndices[updateCount++] = LOCAL_PLAYER_INDEX;
             }
         } else if (type == 3) {
@@ -7678,8 +7680,8 @@ public class Game extends GameShell {
             int j2 = buffer.getBits(7);
             int l2 = buffer.getBits(1);
             self.move(l2 == 1, k1, j2);
-            int i3 = buffer.getBits(1);
-            if (i3 == 1) {
+            int update = buffer.getBits(1);
+            if (update == 1) {
                 entityUpdateIndices[updateCount++] = LOCAL_PLAYER_INDEX;
             }
         }
