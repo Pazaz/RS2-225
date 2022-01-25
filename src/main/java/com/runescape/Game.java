@@ -7069,9 +7069,9 @@ public class Game extends GameShell {
             outBuffer.writeOpcode(108);
             for (LocEntity locEntity = (LocEntity) list
                 .peekLast(); locEntity != null; locEntity = (LocEntity) list.getPrevious())
-                if ((levelRenderFlags[1][locEntity.anInt1208][locEntity.anInt1209] & 2) == 2) {
-                    locEntity.anInt1206--;
-                    if (locEntity.anInt1206 < 0)
+                if ((levelRenderFlags[1][locEntity.tileX][locEntity.tileZ] & 2) == 2) {
+                    locEntity.level--;
+                    if (locEntity.level < 0)
                         locEntity.unlink();
                 }
 
@@ -7332,28 +7332,28 @@ public class Game extends GameShell {
         for (LocEntity e = (LocEntity) list
             .peekLast(); e != null; e = (LocEntity) list.getPrevious()) {
             boolean append = false;
-            e.currentFrameDuration += sceneDelta;
-            if (e.currentFrameId == -1) {
-                e.currentFrameId = 0;
+            e.seqCycle += sceneDelta;
+            if (e.seqFrame == -1) {
+                e.seqFrame = 0;
                 append = true;
             }
-            while (e.currentFrameDuration > e.seq.frameDelay[e.currentFrameId]) {
-                e.currentFrameDuration -= e.seq.frameDelay[e.currentFrameId] + 1;
-                e.currentFrameId++;
+            while (e.seqCycle > e.seq.frameDelay[e.seqFrame]) {
+                e.seqCycle -= e.seq.frameDelay[e.seqFrame] + 1;
+                e.seqFrame++;
                 append = true;
-                if (e.currentFrameId < e.seq.frameCount)
+                if (e.seqFrame < e.seq.frameCount)
                     continue;
-                e.currentFrameId -= e.seq.delta;
-                if (e.currentFrameId >= 0 && e.currentFrameId < e.seq.frameCount)
+                e.seqFrame -= e.seq.delta;
+                if (e.seqFrame >= 0 && e.seqFrame < e.seq.frameCount)
                     continue;
                 e.unlink();
                 append = false;
                 break;
             }
             if (append) {
-                int j = e.anInt1206;
-                int k = e.anInt1208;
-                int l = e.anInt1209;
+                int j = e.level;
+                int k = e.tileX;
+                int l = e.tileZ;
                 int bitset = 0;
                 if (e.classType == 0)
                     bitset = scene.getWallBitset(j, k, l);
@@ -7372,8 +7372,8 @@ public class Game extends GameShell {
                     int i2 = levelHeightMaps[j][k][l + 1];
                     LocType locType = LocType.get(e.locIndex);
                     int j2 = -1;
-                    if (e.currentFrameId != -1)
-                        j2 = e.seq.primaryFrames[e.currentFrameId];
+                    if (e.seqFrame != -1)
+                        j2 = e.seq.primaryFrames[e.seqFrame];
                     if (e.classType == 2) {
                         int k2 = scene.getInfo(j, k, l, bitset);
                         int j3 = k2 & 0x1f;

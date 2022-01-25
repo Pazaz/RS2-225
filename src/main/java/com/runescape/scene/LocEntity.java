@@ -5,29 +5,29 @@ import com.runescape.util.Node;
 
 public class LocEntity extends Node {
 
-    public LocEntity(boolean flag, int i, int j, int l, SeqType seq, int i1, int j1) {
-        anInt1206 = j;
-        classType = l;
-        anInt1208 = j1;
-        anInt1209 = i1;
-        locIndex = i;
+    public LocEntity(boolean flag, int locIndex, int level, int classType, SeqType seq, int tileZ, int tileX) {
+        this.level = level;
+        this.classType = classType;
+        this.tileX = tileX;
+        this.tileZ = tileZ;
+        this.locIndex = locIndex;
         this.seq = seq;
 
         if (flag && seq.delta != -1) {
-            currentFrameId = (int) (Math.random() * (double) this.seq.frameCount);
-            currentFrameDuration = (int) (Math.random() * (double) this.seq.frameDelay[currentFrameId]);
+            seqFrame = (int) (Math.random() * (double) this.seq.frameCount);
+            seqCycle = (int) (Math.random() * (double) this.seq.frameDelay[seqFrame]);
         } else {
-            currentFrameId = -1;
-            currentFrameDuration = 0;
+            seqFrame = -1;
+            seqCycle = 0;
         }
     }
 
-    public int anInt1206;
+    public int level;
     public int classType;
-    public int anInt1208;
-    public int anInt1209;
+    public int tileX;
+    public int tileZ;
     public int locIndex;
     public SeqType seq;
-    public int currentFrameId;
-    public int currentFrameDuration;
+    public int seqFrame;
+    public int seqCycle;
 }
