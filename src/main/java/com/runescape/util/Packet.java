@@ -2,6 +2,88 @@ package com.runescape.util;
 
 public class Packet {
 
+    // Outbound Packets
+    public static final int ANTICHEAT_PLAYER_ACTION_2 = 2;
+    public static final int CHAT_COMMAND = 4;
+    public static final int ITEM_ACTION_5 = 6;
+    public static final int ANTICHEAT_OBJECT_ACTION_4 = 7;
+    public static final int NPC_ACTION_2 = 8;
+    public static final int MAGIC_ON_OBJECT = 9;
+    public static final int SOCIAL_FRIEND_REMOVE = 11;
+    public static final int ANTICHEAT_ITEM_ACTION_5 = 17;
+    public static final int NPC_ACTION_3 = 27;
+    public static final int ANTICHEAT_ITEM_OPTION_1 = 30;
+    public static final int ITEM_ACTION_1 = 31;
+    public static final int ITEM_ACTION_4 = 38;
+    public static final int GROUND_ITEM_5 = 40;
+    public static final int MAGIC_ON_ITEM = 48;
+    public static final int INTERFACE_DESIGN = 52;
+    public static final int PLAYER_ACTION_2 = 53;
+    public static final int ITEM_ACTION_2 = 59;
+    public static final int ANTICHEAT_OBJECT_ACTION_5 = 66;
+    public static final int IDLE_TIMER = 70;
+    public static final int ITEM_OPTION_2 = 71;
+    public static final int ITEM_ON_OBJECT = 75;
+    public static final int SOCIAL_IGNORE_ADD = 79;
+    public static final int TRACKING_DATA = 81;
+    public static final int ANTICHEAT_UPDATE_LOC = 85;
+    public static final int ANTICHEAT_NPC_ACTION_3 = 88;
+    public static final int MOVEMENT_WORLD_ACTION = 93;
+    public static final int OBJECT_ACTION_3 = 96;
+    public static final int OBJECT_ACTION_4 = 97;
+    public static final int NPC_ACTION_5 = 100;
+    public static final int KEEPALIVE = 108;
+    public static final int NPC_ACTION_4 = 113;
+    public static final int OBJECT_ACTION_5 = 116;
+    public static final int SOCIAL_FRIEND_ADD = 118;
+    public static final int ITEM_ON_ITEM = 130;
+    public static final int ITEM_OPTION_3 = 133;
+    public static final int MAGIC_ON_NPC = 134;
+    public static final int MAGIC_ON_GROUND_ITEM = 138;
+    public static final int GROUND_ITEM_1 = 140;
+    public static final int ANTICHEAT_UPDATE_VIEWPORT = 146;
+    public static final int CHAT_PRIVATE = 148;
+    public static final int REQUEST_MAP = 150;
+    public static final int INTERFACE_BUTTON = 155;
+    public static final int ITEM_OPTION_4 = 157;
+    public static final int CHAT_PUBLIC = 158;
+    public static final int ITEM_MOVE = 159;
+    public static final int PLAYER_ACTION_1 = 164;
+    public static final int MOVEMENT_MINIMAP = 165;
+    public static final int SOCIAL_IGNORE_REMOVE = 171;
+    public static final int OBJECT_ACTION_2 = 172;
+    public static final int INTERFACE_FLASHING_TAB_CLICKED = 175;
+    public static final int ANTICHEAT_NPC_ACTION_5 = 176;
+    public static final int MAGIC_ON_PLAYER = 177;
+    public static final int GROUND_ITEM_ACTION = 178;
+    public static final int MOVEMENT_WORLD = 181;
+    public static final int PLAYER_ACTION_3 = 185;
+    public static final int CAMERA_MOVEMENT = 189;
+    public static final int REPORT_ABUSE = 190;
+    public static final int NPC_ACTION_1 = 194;
+    public static final int ITEM_OPTION_1 = 195;
+    public static final int PICKUP_GROUND_ITEM = 200;
+    public static final int ITEM_ON_NPC = 202;
+    public static final int PLAYER_ACTION_4 = 206;
+    public static final int ITEM_OPTION_5 = 211;
+    public static final int ITEM_ACTION_3 = 212;
+    public static final int ANTICHEAT_UPDATE_GAME = 215;
+    public static final int ANTICHEAT_UPDATE_PLAYERS = 219;
+    public static final int ANTICHEAT_ITEM_OPTION_4 = 220;
+    public static final int INTERFACE_CLOSED = 231;
+    public static final int ANTICHEAT_SIDEBAR_CLICKED = 233;
+    public static final int INTERFACE_CONTINUE = 235;
+    public static final int ANTICHEAT_UPDATE_GAME_2 = 236;
+    public static final int INTERFACE_ENTERED_AMOUNT = 237;
+    public static final int ANTICHEAT_ITEM_ACTION_4 = 238;
+    public static final int ITEM_ON_GROUND_ITEM = 239;
+    public static final int PRIVACY_OPTIONS = 244;
+    public static final int OBJECT_ACTION_1 = 245;
+    public static final int LIGHT_ITEM = 247;
+    public static final int ITEM_ON_PLAYER = 248;
+
+    // Inbound Packets
+
     // format: 225 opcode = 317 opcode
     // (?) means it might be incorrectly matched and should be tested
     // this is just a helpful reference for me and will be removed at some point

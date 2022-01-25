@@ -98,7 +98,7 @@ public class PathingEntity extends Entity {
         turnRightSeq = -1;
         turnLeftSeq = -1;
         textCycle = 100;
-        cycleStatus = -1000;
+        lastCombatCycle = -1000;
         targetEntity = -1;
         secondarySeq = -1;
         primarySeq = -1;
@@ -126,7 +126,7 @@ public class PathingEntity extends Entity {
     public int spokenEffect;
     public int damageTaken;
     public int damageType;
-    public int cycleStatus;
+    public int lastCombatCycle;
     public int currentHealth;
     public int maxHealth;
     public int targetEntity;
