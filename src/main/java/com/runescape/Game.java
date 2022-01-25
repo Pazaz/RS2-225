@@ -1002,7 +1002,7 @@ public class Game extends GameShell {
     public void updateInterface(int i, int j, int k, InterfaceComponent interfaceComponent, int i1, int j1) {
         if (interfaceComponent.type != 0 || interfaceComponent.children == null || interfaceComponent.hidden)
             return;
-        if (j < i1 || i < k || j > i1 + interfaceComponent.width || i > k + interfaceComponent.height)
+        if (j < i1 || i < k || j >= i1 + interfaceComponent.width || i >= k + interfaceComponent.height)
             return;
         int k1 = interfaceComponent.children.length;
         for (int l1 = 0; l1 < k1; l1++) {
