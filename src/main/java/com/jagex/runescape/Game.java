@@ -1,10 +1,17 @@
 package com.jagex.runescape;
 
-import com.jagex.runescape.cache.*;
-import com.jagex.runescape.graphics.*;
-import com.jagex.runescape.scene.*;
-import com.jagex.runescape.sound.SoundTrack;
+import com.jagex.runescape.formats.*;
+import com.jagex.runetek3.cache.FileArchive;
+import com.jagex.runetek3.formats.Model;
+import com.jagex.runetek3.formats.SeqBase;
+import com.jagex.runetek3.formats.SeqFrame;
+import com.jagex.runetek3.formats.SeqType;
+import com.jagex.runetek3.graphics.*;
+import com.jagex.runetek3.scene.*;
+import com.jagex.runetek3.sound.SoundTrack;
 import com.jagex.runescape.util.*;
+import com.jagex.runetek3.GameShell;
+import com.jagex.runetek3.util.*;
 import net.burtleburtle.bob.rand.IsaacRandom;
 
 import java.awt.*;
