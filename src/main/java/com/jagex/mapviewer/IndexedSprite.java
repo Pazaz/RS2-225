@@ -1,14 +1,12 @@
 package com.jagex.mapviewer;
 
-import java.io.PrintStream;
-
-public final class h extends e
+public final class IndexedSprite extends Draw2D
 {
 
-    public h(o o1, String s, int i)
+    public IndexedSprite(FileArchive o1, String s, int i)
     {
-        j j1 = new j(o1.abl((new StringBuilder()).append(s).append(".dat").toString(), null));
-        j j2 = new j(o1.abl("index.dat", null));
+        Buffer j1 = new Buffer(o1.abl((new StringBuilder()).append(s).append(".dat").toString(), null));
+        Buffer j2 = new Buffer(o1.abl("index.dat", null));
         j2.ala = j1.aik();
         agg = j2.aik();
         agh = j2.aik();
@@ -71,34 +69,34 @@ public final class h extends e
                 i2 = (i3 - (agf * i1) % i3 << 16) / i1;
             l = (l * (agc - (l1 >> 16))) / l2;
             i1 = (i1 * (agd - (i2 >> 16))) / i3;
-            int j3 = i + k * e.bbf;
-            int k3 = e.bbf - l;
-            if(k < e.bbh)
+            int j3 = i + k * Draw2D.bbf;
+            int k3 = Draw2D.bbf - l;
+            if(k < Draw2D.bbh)
             {
-                int l3 = e.bbh - k;
+                int l3 = Draw2D.bbh - k;
                 i1 -= l3;
                 k = 0;
-                j3 += l3 * e.bbf;
+                j3 += l3 * Draw2D.bbf;
                 i2 += k2 * l3;
             }
-            if(k + i1 > e.bbi)
-                i1 -= (k + i1) - e.bbi;
-            if(i < e.bbj)
+            if(k + i1 > Draw2D.bbi)
+                i1 -= (k + i1) - Draw2D.bbi;
+            if(i < Draw2D.bbj)
             {
-                int i4 = e.bbj - i;
+                int i4 = Draw2D.bbj - i;
                 l -= i4;
                 i = 0;
                 j3 += i4;
                 l1 += j2 * i4;
                 k3 += i4;
             }
-            if(i + l > e.bbk)
+            if(i + l > Draw2D.bbk)
             {
-                int j4 = (i + l) - e.bbk;
+                int j4 = (i + l) - Draw2D.bbk;
                 l -= j4;
                 k3 += j4;
             }
-            acd(e.bbe, aga, agb, l1, i2, j3, k3, l, i1, j2, k2, j1);
+            acd(Draw2D.bbe, aga, agb, l1, i2, j3, k3, l, i1, j2, k2, j1);
         }
         catch(Exception exception)
         {

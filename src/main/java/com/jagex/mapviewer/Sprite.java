@@ -1,46 +1,46 @@
 package com.jagex.mapviewer;
 
-public final class g extends e
+public final class Sprite extends Draw2D
 {
 
     public void acf()
     {
-        e.ajj(agk, agl, agm);
+        Draw2D.ajj(agk, agl, agm);
     }
 
     public void acg(int i, int k)
     {
         i += agn;
         k += aha;
-        int l = i + k * e.bbf;
+        int l = i + k * Draw2D.bbf;
         int i1 = 0;
         int j1 = agm;
         int k1 = agl;
-        int l1 = e.bbf - k1;
+        int l1 = Draw2D.bbf - k1;
         int i2 = 0;
-        if(k < e.bbh)
+        if(k < Draw2D.bbh)
         {
-            int j2 = e.bbh - k;
+            int j2 = Draw2D.bbh - k;
             j1 -= j2;
-            k = e.bbh;
+            k = Draw2D.bbh;
             i1 += j2 * k1;
-            l += j2 * e.bbf;
+            l += j2 * Draw2D.bbf;
         }
-        if(k + j1 > e.bbi)
-            j1 -= (k + j1) - e.bbi;
-        if(i < e.bbj)
+        if(k + j1 > Draw2D.bbi)
+            j1 -= (k + j1) - Draw2D.bbi;
+        if(i < Draw2D.bbj)
         {
-            int k2 = e.bbj - i;
+            int k2 = Draw2D.bbj - i;
             k1 -= k2;
-            i = e.bbj;
+            i = Draw2D.bbj;
             i1 += k2;
             l += k2;
             i2 += k2;
             l1 += k2;
         }
-        if(i + k1 > e.bbk)
+        if(i + k1 > Draw2D.bbk)
         {
-            int l2 = (i + k1) - e.bbk;
+            int l2 = (i + k1) - Draw2D.bbk;
             k1 -= l2;
             i2 += l2;
             l1 += l2;
@@ -50,7 +50,7 @@ public final class g extends e
             return;
         } else
         {
-            ach(e.bbe, agk, 0, i1, l, k1, j1, l1, i2);
+            ach(Draw2D.bbe, agk, 0, i1, l, k1, j1, l1, i2);
             return;
         }
     }
@@ -101,7 +101,7 @@ public final class g extends e
 
     }
 
-    public g(int i, int k)
+    public Sprite(int i, int k)
     {
         agk = new int[i * k];
         agl = ahb = i;
@@ -109,10 +109,10 @@ public final class g extends e
         agn = aha = 0;
     }
 
-    public g(o o1, String s, int i)
+    public Sprite(FileArchive o1, String s, int i)
     {
-        j j1 = new j(o1.abl((new StringBuilder()).append(s).append(".dat").toString(), null));
-        j j2 = new j(o1.abl("index.dat", null));
+        Buffer j1 = new Buffer(o1.abl((new StringBuilder()).append(s).append(".dat").toString(), null));
+        Buffer j2 = new Buffer(o1.abl("index.dat", null));
         j2.ala = j1.aik();
         ahb = j2.aik();
         ahc = j2.aik();
@@ -161,35 +161,35 @@ public final class g extends e
     {
         i += agn;
         k += aha;
-        int l = i + k * e.bbf;
+        int l = i + k * Draw2D.bbf;
         int i1 = 0;
         int j1 = agm;
         int k1 = agl;
-        int l1 = e.bbf - k1;
+        int l1 = Draw2D.bbf - k1;
         int i2 = 0;
-        if(k < e.bbh)
+        if(k < Draw2D.bbh)
         {
-            int j2 = e.bbh - k;
+            int j2 = Draw2D.bbh - k;
             j1 -= j2;
-            k = e.bbh;
+            k = Draw2D.bbh;
             i1 += j2 * k1;
-            l += j2 * e.bbf;
+            l += j2 * Draw2D.bbf;
         }
-        if(k + j1 > e.bbi)
-            j1 -= (k + j1) - e.bbi;
-        if(i < e.bbj)
+        if(k + j1 > Draw2D.bbi)
+            j1 -= (k + j1) - Draw2D.bbi;
+        if(i < Draw2D.bbj)
         {
-            int k2 = e.bbj - i;
+            int k2 = Draw2D.bbj - i;
             k1 -= k2;
-            i = e.bbj;
+            i = Draw2D.bbj;
             i1 += k2;
             l += k2;
             i2 += k2;
             l1 += k2;
         }
-        if(i + k1 > e.bbk)
+        if(i + k1 > Draw2D.bbk)
         {
-            int l2 = (i + k1) - e.bbk;
+            int l2 = (i + k1) - Draw2D.bbk;
             k1 -= l2;
             i2 += l2;
             l1 += l2;
@@ -199,7 +199,7 @@ public final class g extends e
             return;
         } else
         {
-            acl(e.bbe, agk, i1, l, k1, j1, l1, i2);
+            acl(Draw2D.bbe, agk, i1, l, k1, j1, l1, i2);
             return;
         }
     }

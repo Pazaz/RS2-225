@@ -1,6 +1,6 @@
 package com.jagex.mapviewer;
 
-public class e extends d
+public class Draw2D extends CacheableNode
 {
 
     public static void ajd(int i, int j, int k, int l)
@@ -37,7 +37,7 @@ public class e extends d
 
     }
 
-    public e()
+    public Draw2D()
     {
     }
 

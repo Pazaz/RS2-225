@@ -3,9 +3,8 @@ package com.jagex.mapviewer;
 import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.PrintStream;
 
-public class a extends Applet
+public class GameShell extends Applet
     implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener
 {
 
@@ -183,9 +182,9 @@ public class a extends Applet
     {
         aim = i;
         ain = j;
-        ajd = new b(this, aim, ain);
+        ajd = new GameFrame(this, aim, ain);
         aja = agf().getGraphics();
-        ajb = new l(aim, ain, agf());
+        ajb = new DrawArea(aim, ain, agf());
         aff(this, 1);
     }
 
@@ -259,7 +258,7 @@ public class a extends Applet
         aim = i;
         ain = j;
         aja = agf().getGraphics();
-        ajb = new l(aim, ain, agf());
+        ajb = new DrawArea(aim, ain, agf());
         aff(this, 1);
     }
 
@@ -309,7 +308,7 @@ public class a extends Applet
     {
     }
 
-    public a()
+    public GameShell()
     {
         aig = 0;
         aih = 20;
@@ -317,7 +316,7 @@ public class a extends Applet
         aij = new long[10];
         aik = 0;
         ail = false;
-        ajc = new g[6];
+        ajc = new Sprite[6];
         aje = true;
         ajf = true;
         ajg = 0;
@@ -510,9 +509,9 @@ public class a extends Applet
     public int aim;
     public int ain;
     public Graphics aja;
-    public l ajb;
-    public g ajc[];
-    public b ajd;
+    public DrawArea ajb;
+    public Sprite ajc[];
+    public GameFrame ajd;
     public boolean aje;
     public boolean ajf;
     public int ajg;

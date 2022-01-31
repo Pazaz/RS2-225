@@ -1,20 +1,18 @@
 package com.jagex.mapviewer;
 
-import java.io.PrintStream;
-
-public final class m
+public final class BZip2InputStream
 {
 
-    public m()
+    public BZip2InputStream()
     {
     }
 
-    private static byte aef(n n1)
+    private static byte aef(BZip2Context n1)
     {
         return (byte)aen(8, n1);
     }
 
-    private static void aeg(n n1)
+    private static void aeg(BZip2Context n1)
     {
         boolean flag = false;
         boolean flag1 = false;
@@ -41,8 +39,8 @@ public final class m
         int ai1[] = null;
         int ai2[] = null;
         n1.ani = 1;
-        if(n.bad == null)
-            n.bad = new int[n1.ani * 0x186a0];
+        if(BZip2Context.bad == null)
+            BZip2Context.bad = new int[n1.ani * 0x186a0];
         for(boolean flag20 = true; flag20;)
         {
             byte byte0 = aef(n1);
@@ -246,7 +244,7 @@ public final class m
                     n1.ann[byte14 & 0xff] += i8;
                     while(i8 > 0) 
                     {
-                        n.bad[i6] = byte14 & 0xff;
+                        BZip2Context.bad[i6] = byte14 & 0xff;
                         i6++;
                         i8--;
                     }
@@ -306,7 +304,7 @@ public final class m
                         }
                     }
                     n1.ann[n1.bah[byte12 & 0xff] & 0xff]++;
-                    n.bad[i6] = n1.bah[byte12 & 0xff] & 0xff;
+                    BZip2Context.bad[i6] = n1.bah[byte12 & 0xff] & 0xff;
                     i6++;
                     if(i5 == 0)
                     {
@@ -342,14 +340,14 @@ public final class m
 
             for(int l7 = 0; l7 < i6; l7++)
             {
-                byte byte11 = (byte)(n.bad[l7] & 0xff);
-                n.bad[n1.bab[byte11 & 0xff]] |= l7 << 8;
+                byte byte11 = (byte)(BZip2Context.bad[l7] & 0xff);
+                BZip2Context.bad[n1.bab[byte11 & 0xff]] |= l7 << 8;
                 n1.bab[byte11 & 0xff]++;
             }
 
-            n1.anl = n.bad[n1.ank] >> 8;
+            n1.anl = BZip2Context.bad[n1.ank] >> 8;
             n1.baa = 0;
-            n1.anl = n.bad[n1.anl];
+            n1.anl = BZip2Context.bad[n1.anl];
             n1.anm = (byte)(n1.anl & 0xff);
             n1.anl >>= 8;
             n1.baa++;
@@ -363,13 +361,13 @@ public final class m
 
     }
 
-    private static void aeh(n n1)
+    private static void aeh(BZip2Context n1)
     {
         byte byte0 = n1.and;
         int i = n1.ane;
         int j = n1.baa;
         int k = n1.anm;
-        int ai[] = n.bad;
+        int ai[] = BZip2Context.bad;
         int l = n1.anl;
         byte abyte0[] = n1.amm;
         int i1 = n1.amn;
@@ -485,14 +483,14 @@ label0:
         n1.ane = i;
         n1.baa = j;
         n1.anm = k;
-        n.bad = ai;
+        BZip2Context.bad = ai;
         n1.anl = l;
         n1.amm = abyte0;
         n1.amn = i1;
         n1.ana = j1;
     }
 
-    private static void aei(n n1)
+    private static void aei(BZip2Context n1)
     {
         n1.bae = 0;
         for(int i = 0; i < 256; i++)
@@ -504,7 +502,7 @@ label0:
 
     }
 
-    private static byte aej(n n1)
+    private static byte aej(BZip2Context n1)
     {
         return (byte)aen(1, n1);
     }
@@ -550,7 +548,7 @@ label0:
 
     public static int aem(byte abyte0[], int i, byte abyte1[], int j, int k)
     {
-        n n1 = aif;
+        BZip2Context n1 = aif;
         aif.amh = abyte1;
         aif.ami = k;
         aif.amm = abyte0;
@@ -570,7 +568,7 @@ label0:
         return l;
     }
 
-    private static int aen(int i, n n1)
+    private static int aen(int i, BZip2Context n1)
     {
         int j;
         do
@@ -593,6 +591,6 @@ label0:
         return j;
     }
 
-    private static n aif = new n();
+    private static BZip2Context aif = new BZip2Context();
 
 }

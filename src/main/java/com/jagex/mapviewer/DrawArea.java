@@ -2,18 +2,17 @@ package com.jagex.mapviewer;
 
 import java.awt.*;
 import java.awt.image.*;
-import java.io.PrintStream;
 
-public final class l
+public final class DrawArea
     implements ImageProducer, ImageObserver
 {
 
     public void acm()
     {
-        e.ajj(ahd, ahe, ahf);
+        Draw2D.ajj(ahd, ahe, ahf);
     }
 
-    public l(int i, int j, Component component)
+    public DrawArea(int i, int j, Component component)
     {
         ahe = i;
         ahf = j;

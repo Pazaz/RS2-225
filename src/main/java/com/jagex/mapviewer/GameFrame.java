@@ -3,10 +3,10 @@ package com.jagex.mapviewer;
 import java.awt.Frame;
 import java.awt.Graphics;
 
-public final class b extends Frame
+public final class GameFrame extends Frame
 {
 
-    public b(a a1, int i, int j)
+    public GameFrame(GameShell a1, int i, int j)
     {
         ahj = a1;
         setTitle("Jagex");
@@ -33,5 +33,5 @@ public final class b extends Frame
         return g;
     }
 
-    a ahj;
+    GameShell ahj;
 }

@@ -6,12 +6,12 @@ import java.io.*;
 import java.net.URL;
 import java.security.MessageDigest;
 
-public class mapview extends a
+public class Viewer extends GameShell
 {
 
     public static final void main(String args[])
     {
-        mapview mapview1 = new mapview();
+        Viewer mapview1 = new Viewer();
         mapview1.agc(635, 503);
     }
 
@@ -22,9 +22,9 @@ public class mapview extends a
 
     public final void aga()
     {
-        o o1 = abb();
+        FileArchive o1 = abb();
         afc(100, "Please wait... Rendering Map");
-        j j1 = new j(o1.abl("size.dat", null));
+        Buffer j1 = new Buffer(o1.abl("size.dat", null));
         aaj = j1.aik();
         aak = j1.aik();
         aal = j1.aik();
@@ -35,7 +35,7 @@ public class mapview extends a
         adj = (aal * adi) / aam;
         adk = 635 - adj - 5;
         adl = 503 - adi - 20;
-        j1 = new j(o1.abl("labels.dat", null));
+        j1 = new Buffer(o1.abl("labels.dat", null));
         aef = j1.aik();
         for(int k = 0; k < aef; k++)
         {
@@ -45,7 +45,7 @@ public class mapview extends a
             aek[k] = j1.aii();
         }
 
-        j1 = new j(o1.abl("floorcol.dat", null));
+        j1 = new Buffer(o1.abl("floorcol.dat", null));
         int i1 = j1.aik();
         aan = new int[i1 + 1];
         aba = new int[i1 + 1];
@@ -70,33 +70,33 @@ public class mapview extends a
         try
         {
             for(int l1 = 0; l1 < 100; l1++)
-                abh[l1] = new h(o1, "mapscene", l1);
+                abh[l1] = new IndexedSprite(o1, "mapscene", l1);
 
         }
         catch(Exception exception) { }
         try
         {
             for(int i2 = 0; i2 < 100; i2++)
-                abi[i2] = new g(o1, "mapfunction", i2);
+                abi[i2] = new Sprite(o1, "mapfunction", i2);
 
         }
         catch(Exception exception1) { }
-        abj = new i(o1, "b12_full", false);
-        abk = new f(11, true, this);
-        abl = new f(12, true, this);
-        abm = new f(14, true, this);
-        abn = new f(17, true, this);
-        aca = new f(19, true, this);
-        acb = new f(22, true, this);
-        acc = new f(26, true, this);
-        acd = new f(30, true, this);
+        abj = new IndexedFont(o1, "b12_full", false);
+        abk = new DrawText(11, true, this);
+        abl = new DrawText(12, true, this);
+        abm = new DrawText(14, true, this);
+        abn = new DrawText(17, true, this);
+        aca = new DrawText(19, true, this);
+        acb = new DrawText(22, true, this);
+        acc = new DrawText(26, true, this);
+        acd = new DrawText(30, true, this);
         abb = new int[aal][aam];
         aag(abyte1, abb);
-        adn = new g(adj, adi);
+        adn = new Sprite(adj, adi);
         adn.acf();
         aan(0, 0, aal, aam, 0, 0, adj, adi);
-        e.aji(0, 0, adj, adi, 0);
-        e.aji(1, 1, adj - 2, adi - 2, aab);
+        Draw2D.aji(0, 0, adj, adi, 0);
+        Draw2D.aji(1, 1, adj - 2, adi - 2, aab);
         super.ajb.acm();
     }
 
@@ -423,7 +423,7 @@ public class mapview extends a
             if(super.ajd != null && k == 101)
             {
                 System.out.println("Starting export...");
-                g g1 = new g(aal * 2, aam * 2);
+                Sprite g1 = new Sprite(aal * 2, aam * 2);
                 g1.acf();
                 aan(0, 0, aal, aam, 0, 0, aal * 2, aam * 2);
                 super.ajb.acm();
@@ -600,7 +600,7 @@ public class mapview extends a
         {
             aah = false;
             aai = 0;
-            e.ajm();
+            Draw2D.ajm();
             int k = aen - (int)(635D / ael);
             int i1 = afa - (int)(503D / ael);
             int j1 = aen + (int)(635D / ael);
@@ -609,8 +609,8 @@ public class mapview extends a
             if(adm)
             {
                 adn.ack(adk, adl);
-                e.ajh(adk + (adj * k) / aal, adl + (adi * i1) / aam, ((j1 - k) * adj) / aal, ((k1 - i1) * adi) / aam, 0xff0000, 128);
-                e.aji(adk + (adj * k) / aal, adl + (adi * i1) / aam, ((j1 - k) * adj) / aal, ((k1 - i1) * adi) / aam, 0xff0000);
+                Draw2D.ajh(adk + (adj * k) / aal, adl + (adi * i1) / aam, ((j1 - k) * adj) / aal, ((k1 - i1) * adi) / aam, 0xff0000, 128);
+                Draw2D.aji(adk + (adj * k) / aal, adl + (adi * i1) / aam, ((j1 - k) * adj) / aal, ((k1 - i1) * adi) / aam, 0xff0000);
                 if(adh > 0 && adh % 10 < 5)
                 {
                     for(int l1 = 0; l1 < ach; l1++)
@@ -618,7 +618,7 @@ public class mapview extends a
                         {
                             int j2 = adk + (adj * aci[l1]) / aal;
                             int l2 = adl + (adi * acj[l1]) / aam;
-                            e.ajn(j2, l2, 2, 0xffff00, 256);
+                            Draw2D.ajn(j2, l2, 2, 0xffff00, 256);
                         }
 
                 }
@@ -683,16 +683,16 @@ public class mapview extends a
     private final void aam(int k, int i1, int j1, int k1, int l1, int i2, int j2, 
             String s)
     {
-        e.aji(k, i1, j1, k1, 0);
+        Draw2D.aji(k, i1, j1, k1, 0);
         k++;
         i1++;
         j1 -= 2;
         k1 -= 2;
-        e.ajl(k, i1, j1, k1, i2);
-        e.ajd(k, i1, j1, l1);
-        e.aje(k, i1, k1, l1);
-        e.ajd(k, (i1 + k1) - 1, j1, j2);
-        e.aje((k + j1) - 1, i1, k1, j2);
+        Draw2D.ajl(k, i1, j1, k1, i2);
+        Draw2D.ajd(k, i1, j1, l1);
+        Draw2D.aje(k, i1, k1, l1);
+        Draw2D.ajd(k, (i1 + k1) - 1, j1, j2);
+        Draw2D.aje((k + j1) - 1, i1, k1, j2);
         abj.aec(s, k + j1 / 2 + 1, i1 + k1 / 2 + 1 + 4, 0);
         abj.aec(s, k + j1 / 2, i1 + k1 / 2 + 4, 0xffffff);
     }
@@ -728,15 +728,15 @@ public class mapview extends a
                 int j12 = ai1[k9 + i1];
                 if(j12 == 0)
                 {
-                    e.ajl(j4, j10, l5 - j4, i11 - j10, ai[k9 + i1]);
+                    Draw2D.ajl(j4, j10, l5 - j4, i11 - j10, ai[k9 + i1]);
                     continue;
                 }
                 byte byte0 = abyte1[k9 + i1];
                 int k13 = byte0 & 0xfc;
                 if(k13 == 0 || l6 <= 1 || k11 <= 1)
-                    e.ajl(j4, j10, l6, k11, j12);
+                    Draw2D.ajl(j4, j10, l6, k11, j12);
                 else
-                    aba(e.bbe, j10 * e.bbf + j4, ai[k9 + i1], j12, l6, k11, k13 >> 2, byte0 & 3);
+                    aba(Draw2D.bbe, j10 * Draw2D.bbf + j4, ai[k9 + i1], j12, l6, k11, k13 >> 2, byte0 & 3);
             }
 
         }
@@ -781,59 +781,59 @@ public class mapview extends a
                         j13 -= 4;
                     }
                     if(j13 == 1)
-                        e.aje(i6, j11, k12, l14);
+                        Draw2D.aje(i6, j11, k12, l14);
                     else
                     if(j13 == 2)
-                        e.ajd(i6, j11, l7, l14);
+                        Draw2D.ajd(i6, j11, l7, l14);
                     else
                     if(j13 == 3)
-                        e.aje(l13, j11, k12, l14);
+                        Draw2D.aje(l13, j11, k12, l14);
                     else
                     if(j13 == 4)
-                        e.ajd(i6, j14, l7, l14);
+                        Draw2D.ajd(i6, j14, l7, l14);
                     else
                     if(j13 == 9)
                     {
-                        e.aje(i6, j11, k12, 0xffffff);
-                        e.ajd(i6, j11, l7, l14);
+                        Draw2D.aje(i6, j11, k12, 0xffffff);
+                        Draw2D.ajd(i6, j11, l7, l14);
                     } else
                     if(j13 == 10)
                     {
-                        e.aje(l13, j11, k12, 0xffffff);
-                        e.ajd(i6, j11, l7, l14);
+                        Draw2D.aje(l13, j11, k12, 0xffffff);
+                        Draw2D.ajd(i6, j11, l7, l14);
                     } else
                     if(j13 == 11)
                     {
-                        e.aje(l13, j11, k12, 0xffffff);
-                        e.ajd(i6, j14, l7, l14);
+                        Draw2D.aje(l13, j11, k12, 0xffffff);
+                        Draw2D.ajd(i6, j14, l7, l14);
                     } else
                     if(j13 == 12)
                     {
-                        e.aje(i6, j11, k12, 0xffffff);
-                        e.ajd(i6, j14, l7, l14);
+                        Draw2D.aje(i6, j11, k12, 0xffffff);
+                        Draw2D.ajd(i6, j14, l7, l14);
                     } else
                     if(j13 == 17)
-                        e.ajd(i6, j11, 1, l14);
+                        Draw2D.ajd(i6, j11, 1, l14);
                     else
                     if(j13 == 18)
-                        e.ajd(l13, j11, 1, l14);
+                        Draw2D.ajd(l13, j11, 1, l14);
                     else
                     if(j13 == 19)
-                        e.ajd(l13, j14, 1, l14);
+                        Draw2D.ajd(l13, j14, 1, l14);
                     else
                     if(j13 == 20)
-                        e.ajd(i6, j14, 1, l14);
+                        Draw2D.ajd(i6, j14, 1, l14);
                     else
                     if(j13 == 25)
                     {
                         for(int i15 = 0; i15 < k12; i15++)
-                            e.ajd(i6 + i15, j14 - i15, 1, l14);
+                            Draw2D.ajd(i6 + i15, j14 - i15, 1, l14);
 
                     } else
                     if(j13 == 26)
                     {
                         for(int j15 = 0; j15 < k12; j15++)
-                            e.ajd(i6 + j15, j11 + j15, 1, l14);
+                            Draw2D.ajd(i6 + j15, j11 + j15, 1, l14);
 
                     }
                 }
@@ -865,8 +865,8 @@ public class mapview extends a
                 abi[acg[i5]].acg(ace[i5] - 7, acf[i5] - 7);
                 if(adh % 10 < 5)
                 {
-                    e.ajn(ace[i5], acf[i5], 15, 0xffff00, 128);
-                    e.ajn(ace[i5], acf[i5], 7, 0xffffff, 256);
+                    Draw2D.ajn(ace[i5], acf[i5], 15, 0xffff00, 128);
+                    Draw2D.ajn(ace[i5], acf[i5], 7, 0xffffff, 256);
                 }
             }
 
@@ -884,7 +884,7 @@ label0:
                 int k8 = i2 + ((k2 - i2) * (j7 - i1)) / (k1 - i1);
                 int i9 = aek[j5];
                 int l9 = 0xffffff;
-                f f1 = null;
+                DrawText f1 = null;
                 if(i9 == 0)
                 {
                     if(ael == 3D)
@@ -959,7 +959,7 @@ label0:
                     int j9 = i2 + ((k2 - i2) * (j8 - 64 - i1)) / (k1 - i1);
                     int i10 = l1 + ((j2 - l1) * ((k7 + 64) - k)) / (j1 - k);
                     int l10 = i2 + ((k2 - i2) * (j8 - i1)) / (k1 - i1);
-                    e.aji(l8, j9, i10 - l8, l10 - j9, 0xffffff);
+                    Draw2D.aji(l8, j9, i10 - l8, l10 - j9, 0xffffff);
                     abj.aeb((new StringBuilder()).append(k5).append("_").append(k6).toString(), i10 - 5, l10 - 5, 0xffffff);
                     if(k5 == 33 && k6 >= 71 && k6 <= 73)
                     {
@@ -978,7 +978,7 @@ label0:
     private final void aba(int ai[], int k, int i1, int j1, int k1, int l1, int i2, 
             int j2)
     {
-        int k2 = e.bbf - k1;
+        int k2 = Draw2D.bbf - k1;
         if(i2 == 9)
         {
             i2 = 1;
@@ -1514,7 +1514,7 @@ label0:
         }
     }
 
-    private final o abb()
+    private final FileArchive abb()
     {
         byte abyte0[] = null;
         String s = null;
@@ -1525,7 +1525,7 @@ label0:
             if(!abg(abyte0))
                 abyte0 = null;
             if(abyte0 != null)
-                return new o(abyte0);
+                return new FileArchive(abyte0);
         }
         catch(Throwable throwable) { }
         abyte0 = abc();
@@ -1535,7 +1535,7 @@ label0:
                 abf((new StringBuilder()).append(s).append("/worldmap.dat").toString(), abyte0);
             }
             catch(Throwable throwable1) { }
-        return new o(abyte0);
+        return new FileArchive(abyte0);
     }
 
     private final byte[] abc()
@@ -1546,7 +1546,7 @@ label0:
         {
             String s = "";
             for(int k = 0; k < 10; k++)
-                s = (new StringBuilder()).append(s).append(p.agi[k]).toString();
+                s = (new StringBuilder()).append(s).append(Signature.agi[k]).toString();
 
             DataInputStream datainputstream;
             if(super.ajd != null)
@@ -1618,13 +1618,13 @@ label0:
         messagedigest.update(abyte0);
         byte abyte1[] = messagedigest.digest();
         for(int k = 0; k < 20; k++)
-            if(abyte1[k] != p.agi[k])
+            if(abyte1[k] != Signature.agi[k])
                 return false;
 
         return true;
     }
 
-    public mapview()
+    public Viewer()
     {
         aab = 0x887755;
         aac = 0x776644;
@@ -1633,8 +1633,8 @@ label0:
         aaf = 0x990000;
         aag = 0x880000;
         aah = true;
-        abh = new h[100];
-        abi = new g[100];
+        abh = new IndexedSprite[100];
+        abi = new Sprite[100];
         ace = new int[2000];
         acf = new int[2000];
         acg = new int[2000];
@@ -1680,17 +1680,17 @@ label0:
     private byte abe[][];
     private byte abf[][];
     private byte abg[][];
-    private h abh[];
-    private g abi[];
-    private i abj;
-    private f abk;
-    private f abl;
-    private f abm;
-    private f abn;
-    private f aca;
-    private f acb;
-    private f acc;
-    private f acd;
+    private IndexedSprite abh[];
+    private Sprite abi[];
+    private IndexedFont abj;
+    private DrawText abk;
+    private DrawText abl;
+    private DrawText abm;
+    private DrawText abn;
+    private DrawText aca;
+    private DrawText acb;
+    private DrawText acc;
+    private DrawText acd;
     private int ace[];
     private int acf[];
     private int acg[];
@@ -1714,7 +1714,7 @@ label0:
     private int adk;
     private int adl;
     private boolean adm;
-    private g adn;
+    private Sprite adn;
     private int aea;
     private int aeb;
     private int aec;

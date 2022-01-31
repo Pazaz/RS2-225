@@ -1,9 +1,9 @@
 package com.jagex.mapviewer;
 
-public class d extends c
+public class CacheableNode extends Node
 {
 
-    public d()
+    public CacheableNode()
     {
     }
 

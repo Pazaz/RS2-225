@@ -1,6 +1,6 @@
 package com.jagex.mapviewer;
 
-public final class j extends d
+public final class Buffer extends CacheableNode
 {
 
     public int aih()
@@ -38,11 +38,11 @@ public final class j extends d
         return ((akn[ala - 3] & 0xff) << 16) + ((akn[ala - 2] & 0xff) << 8) + (akn[ala - 1] & 0xff);
     }
 
-    private j()
+    private Buffer()
     {
     }
 
-    public j(byte abyte0[])
+    public Buffer(byte abyte0[])
     {
         akn = abyte0;
         ala = 0;
@@ -60,9 +60,6 @@ public final class j extends d
     private static int ald = 0;
     private static int ale = 0;
     private static int alf = 0;
-    private static k alg = new k();
-    private static k alh = new k();
-    private static k ali = new k();
     private static char alj[] = {
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
         'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 

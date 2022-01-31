@@ -1,24 +1,24 @@
 package com.jagex.mapviewer;
 
-public final class o
+public final class FileArchive
 {
 
-    public o(byte abyte0[])
+    public FileArchive(byte abyte0[])
     {
         abk(abyte0);
     }
 
     private void abk(byte abyte0[])
     {
-        j j1 = new j(abyte0);
+        Buffer j1 = new Buffer(abyte0);
         int i = j1.aim();
         int k = j1.aim();
         if(k != i)
         {
             byte abyte1[] = new byte[i];
-            m.aem(abyte1, i, abyte0, k, 6);
+            BZip2InputStream.aem(abyte1, i, abyte0, k, 6);
             afc = abyte1;
-            j1 = new j(afc);
+            j1 = new Buffer(afc);
             afi = true;
         } else
         {
@@ -56,7 +56,7 @@ public final class o
                     abyte0 = new byte[aff[l]];
                 if(!afi)
                 {
-                    m.aem(abyte0, aff[l], afc, afg[l], afh[l]);
+                    BZip2InputStream.aem(abyte0, aff[l], afc, afg[l], afh[l]);
                 } else
                 {
                     for(int i1 = 0; i1 < aff[l]; i1++)

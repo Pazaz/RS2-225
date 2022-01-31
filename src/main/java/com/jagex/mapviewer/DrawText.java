@@ -2,12 +2,11 @@ package com.jagex.mapviewer;
 
 import java.awt.*;
 import java.awt.image.PixelGrabber;
-import java.io.PrintStream;
 
-public class f extends e
+public class DrawText extends Draw2D
 {
 
-    private void ahk(Font font, FontMetrics fontmetrics, char c, int i, boolean flag, a a1)
+    private void ahk(Font font, FontMetrics fontmetrics, char c, int i, boolean flag, GameShell a1)
     {
         int j = fontmetrics.charWidth(c);
         int k = j;
@@ -166,7 +165,7 @@ label3:
         }
     }
 
-    public f(int i, boolean flag, a a1)
+    public DrawText(int i, boolean flag, GameShell a1)
     {
         akj = false;
         akk = 0;
@@ -207,11 +206,11 @@ label3:
     {
         int l = aic(s) / 2;
         int i1 = aig();
-        if(i - l > e.bbk)
+        if(i - l > Draw2D.bbk)
             return;
-        if(i + l < e.bbj)
+        if(i + l < Draw2D.bbj)
             return;
-        if(j - i1 > e.bbi)
+        if(j - i1 > Draw2D.bbi)
             return;
         if(j < 0)
         {
@@ -284,41 +283,41 @@ label3:
         int k1 = abyte0[i + 3];
         int l1 = abyte0[i + 4];
         int i2 = abyte0[i] * 16384 + abyte0[i + 1] * 128 + abyte0[i + 2];
-        int j2 = i1 + j1 * e.bbf;
-        int k2 = e.bbf - k1;
+        int j2 = i1 + j1 * Draw2D.bbf;
+        int k2 = Draw2D.bbf - k1;
         int l2 = 0;
-        if(j1 < e.bbh)
+        if(j1 < Draw2D.bbh)
         {
-            int i3 = e.bbh - j1;
+            int i3 = Draw2D.bbh - j1;
             l1 -= i3;
-            j1 = e.bbh;
+            j1 = Draw2D.bbh;
             i2 += i3 * k1;
-            j2 += i3 * e.bbf;
+            j2 += i3 * Draw2D.bbf;
         }
-        if(j1 + l1 >= e.bbi)
-            l1 -= ((j1 + l1) - e.bbi) + 1;
-        if(i1 < e.bbj)
+        if(j1 + l1 >= Draw2D.bbi)
+            l1 -= ((j1 + l1) - Draw2D.bbi) + 1;
+        if(i1 < Draw2D.bbj)
         {
-            int j3 = e.bbj - i1;
+            int j3 = Draw2D.bbj - i1;
             k1 -= j3;
-            i1 = e.bbj;
+            i1 = Draw2D.bbj;
             i2 += j3;
             j2 += j3;
             l2 += j3;
             k2 += j3;
         }
-        if(i1 + k1 >= e.bbk)
+        if(i1 + k1 >= Draw2D.bbk)
         {
-            int k3 = ((i1 + k1) - e.bbk) + 1;
+            int k3 = ((i1 + k1) - Draw2D.bbk) + 1;
             k1 -= k3;
             l2 += k3;
             k2 += k3;
         }
         if(k1 > 0 && l1 > 0)
             if(flag)
-                aia(e.bbe, abyte0, l, i2, j2, k1, l1, k2, l2);
+                aia(Draw2D.bbe, abyte0, l, i2, j2, k1, l1, k2, l2);
             else
-                aif(e.bbe, abyte0, l, i2, j2, k1, l1, k2, l2);
+                aif(Draw2D.bbe, abyte0, l, i2, j2, k1, l1, k2, l2);
     }
 
     private void aif(int ai[], byte abyte0[], int i, int j, int k, int l, int i1, 

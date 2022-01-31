@@ -1,13 +1,13 @@
 package com.jagex.mapviewer;
 
-public class c
+public class Node
 {
 
-    public c()
+    public Node()
     {
     }
 
-    public c afl;
-    c afm;
+    public Node afl;
+    Node afm;
     public static int afn;
 }

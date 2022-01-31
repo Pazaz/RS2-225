@@ -1,9 +1,9 @@
 package com.jagex.mapviewer;
 
-class n
+class BZip2Context
 {
 
-    n()
+    BZip2Context()
     {
         ami = 0;
         amn = 0;

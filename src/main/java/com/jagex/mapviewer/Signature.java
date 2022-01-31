@@ -1,9 +1,9 @@
 package com.jagex.mapviewer;
 
-public class p
+public class Signature
 {
 
-    public p()
+    public Signature()
     {
     }
 

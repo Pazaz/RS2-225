@@ -2,7 +2,7 @@ package com.jagex.mapviewer;
 
 import java.util.Random;
 
-public final class i extends e
+public final class IndexedFont extends Draw2D
 {
 
     public int adm(String s)
@@ -31,7 +31,7 @@ public final class i extends e
 
     }
 
-    public i(o o1, String s, boolean flag)
+    public IndexedFont(FileArchive o1, String s, boolean flag)
     {
         ahk = new byte[256][];
         ahl = new int[256];
@@ -42,8 +42,8 @@ public final class i extends e
         aic = 0;
         aid = new Random();
         aie = false;
-        j j1 = new j(o1.abl((new StringBuilder()).append(s).append(".dat").toString(), null));
-        j j2 = new j(o1.abl("index.dat", null));
+        Buffer j1 = new Buffer(o1.abl((new StringBuilder()).append(s).append(".dat").toString(), null));
+        Buffer j2 = new Buffer(o1.abl("index.dat", null));
         byte byte0 = -1;
         j2.ala = j1.aik() + 4;
         int k = j2.aii();
@@ -114,33 +114,33 @@ public final class i extends e
 
     private void aed(byte abyte0[], int k, int l, int i1, int j1, int k1)
     {
-        int l1 = k + l * e.bbf;
-        int i2 = e.bbf - i1;
+        int l1 = k + l * Draw2D.bbf;
+        int i2 = Draw2D.bbf - i1;
         int j2 = 0;
         int k2 = 0;
-        if(l < e.bbh)
+        if(l < Draw2D.bbh)
         {
-            int l2 = e.bbh - l;
+            int l2 = Draw2D.bbh - l;
             j1 -= l2;
-            l = e.bbh;
+            l = Draw2D.bbh;
             k2 += l2 * i1;
-            l1 += l2 * e.bbf;
+            l1 += l2 * Draw2D.bbf;
         }
-        if(l + j1 >= e.bbi)
-            j1 -= ((l + j1) - e.bbi) + 1;
-        if(k < e.bbj)
+        if(l + j1 >= Draw2D.bbi)
+            j1 -= ((l + j1) - Draw2D.bbi) + 1;
+        if(k < Draw2D.bbj)
         {
-            int i3 = e.bbj - k;
+            int i3 = Draw2D.bbj - k;
             i1 -= i3;
-            k = e.bbj;
+            k = Draw2D.bbj;
             k2 += i3;
             l1 += i3;
             j2 += i3;
             i2 += i3;
         }
-        if(k + i1 >= e.bbk)
+        if(k + i1 >= Draw2D.bbk)
         {
-            int j3 = ((k + i1) - e.bbk) + 1;
+            int j3 = ((k + i1) - Draw2D.bbk) + 1;
             i1 -= j3;
             j2 += j3;
             i2 += j3;
@@ -150,7 +150,7 @@ public final class i extends e
             return;
         } else
         {
-            aee(e.bbe, abyte0, k1, k2, l1, i1, j1, i2, j2);
+            aee(Draw2D.bbe, abyte0, k1, k2, l1, i1, j1, i2, j2);
             return;
         }
     }
