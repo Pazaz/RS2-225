@@ -1,5 +1,7 @@
 package com.jagex.mapviewer;
 
+import com.jagex.runetek3.util.CacheableNode;
+
 public class Draw2D extends CacheableNode
 {
 

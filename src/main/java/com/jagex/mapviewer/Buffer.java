@@ -1,5 +1,7 @@
 package com.jagex.mapviewer;
 
+import com.jagex.runetek3.util.CacheableNode;
+
 public class Buffer extends CacheableNode
 {
 
