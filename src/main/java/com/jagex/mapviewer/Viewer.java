@@ -1,5 +1,6 @@
 package com.jagex.mapviewer;
 
+import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.util.Signlink;
 
@@ -25,7 +26,7 @@ public class Viewer extends GameShell
     {
         FileArchive o1 = abb();
         afc(100, "Please wait... Rendering Map");
-        Buffer j1 = new Buffer(o1.abl("size.dat", null));
+        Buffer j1 = new Buffer(o1.read("size.dat", null));
         aaj = j1.readWord();
         aak = j1.readWord();
         aal = j1.readWord();
@@ -36,7 +37,7 @@ public class Viewer extends GameShell
         adj = (aal * adi) / aam;
         adk = 635 - adj - 5;
         adl = 503 - adi - 20;
-        j1 = new Buffer(o1.abl("labels.dat", null));
+        j1 = new Buffer(o1.read("labels.dat", null));
         aef = j1.readWord();
         for(int k = 0; k < aef; k++)
         {
@@ -46,7 +47,7 @@ public class Viewer extends GameShell
             aek[k] = j1.readByte();
         }
 
-        j1 = new Buffer(o1.abl("floorcol.dat", null));
+        j1 = new Buffer(o1.read("floorcol.dat", null));
         int i1 = j1.readWord();
         aan = new int[i1 + 1];
         aba = new int[i1 + 1];
@@ -56,14 +57,14 @@ public class Viewer extends GameShell
             aba[k1 + 1] = j1.readDWord();
         }
 
-        byte abyte0[] = o1.abl("underlay.dat", null);
+        byte abyte0[] = o1.read("underlay.dat", null);
         byte abyte1[][] = new byte[aal][aam];
         aae(abyte0, abyte1);
-        byte abyte2[] = o1.abl("overlay.dat", null);
+        byte abyte2[] = o1.read("overlay.dat", null);
         abc = new int[aal][aam];
         abd = new byte[aal][aam];
         aaf(abyte2, abc, abd);
-        byte abyte3[] = o1.abl("loc.dat", null);
+        byte abyte3[] = o1.read("loc.dat", null);
         abe = new byte[aal][aam];
         abg = new byte[aal][aam];
         abf = new byte[aal][aam];

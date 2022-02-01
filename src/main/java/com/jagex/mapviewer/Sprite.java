@@ -1,5 +1,6 @@
 package com.jagex.mapviewer;
 
+import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.util.Buffer;
 
 public class Sprite extends Draw2D
@@ -113,8 +114,8 @@ public class Sprite extends Draw2D
 
     public Sprite(FileArchive o1, String s, int i)
     {
-        Buffer j1 = new Buffer(o1.abl((new StringBuilder()).append(s).append(".dat").toString(), null));
-        Buffer j2 = new Buffer(o1.abl("index.dat", null));
+        Buffer j1 = new Buffer(o1.read((new StringBuilder()).append(s).append(".dat").toString(), null));
+        Buffer j2 = new Buffer(o1.read("index.dat", null));
         j2.offset = j1.readWord();
         ahb = j2.readWord();
         ahc = j2.readWord();
