@@ -9,18 +9,18 @@ import java.security.MessageDigest;
 public class Viewer extends GameShell
 {
 
-    public static final void main(String args[])
+    public static void main(String args[])
     {
         Viewer mapview1 = new Viewer();
         mapview1.agc(635, 503);
     }
 
-    public final void aab()
+    public void aab()
     {
         agj(635, 503);
     }
 
-    public final void aga()
+    public void aga()
     {
         FileArchive o1 = abb();
         afc(100, "Please wait... Rendering Map");
@@ -100,7 +100,7 @@ public class Viewer extends GameShell
         super.ajb.acm();
     }
 
-    private final void aad(byte abyte0[], byte abyte1[][], byte abyte2[][], byte abyte3[][])
+    private void aad(byte abyte0[], byte abyte1[][], byte abyte2[][], byte abyte3[][])
     {
         for(int k = 0; k < abyte0.length;)
         {
@@ -162,7 +162,7 @@ public class Viewer extends GameShell
 
     }
 
-    private final void aae(byte abyte0[], byte abyte1[][])
+    private void aae(byte abyte0[], byte abyte1[][])
     {
         for(int k = 0; k < abyte0.length;)
         {
@@ -188,7 +188,7 @@ public class Viewer extends GameShell
 
     }
 
-    private final void aaf(byte abyte0[], int ai[][], byte abyte1[][])
+    private void aaf(byte abyte0[], int ai[][], byte abyte1[][])
     {
         for(int k = 0; k < abyte0.length;)
         {
@@ -232,7 +232,7 @@ public class Viewer extends GameShell
 
     }
 
-    private final void aag(byte abyte0[][], int ai[][])
+    private void aag(byte abyte0[][], int ai[][])
     {
         int k = aal;
         int i1 = aam;
@@ -268,7 +268,7 @@ public class Viewer extends GameShell
 
     }
 
-    private final int aah(double d, double d1, double d2)
+    private int aah(double d, double d1, double d2)
     {
         double d3 = d2;
         double d4 = d2;
@@ -326,7 +326,7 @@ public class Viewer extends GameShell
         return k1;
     }
 
-    public final void ahb()
+    public void ahb()
     {
         try
         {
@@ -362,7 +362,7 @@ public class Viewer extends GameShell
         }
     }
 
-    public final void ahd()
+    public void ahd()
     {
         if(super.ake[1] == 1)
         {
@@ -594,7 +594,7 @@ public class Viewer extends GameShell
             afa = aam - 48 - (int)(503D / ael);
     }
 
-    public final void age()
+    public void age()
     {
         if(aah)
         {
@@ -675,12 +675,12 @@ public class Viewer extends GameShell
         }
     }
 
-    public final void afb()
+    public void afb()
     {
         aai = 0;
     }
 
-    private final void aam(int k, int i1, int j1, int k1, int l1, int i2, int j2, 
+    private void aam(int k, int i1, int j1, int k1, int l1, int i2, int j2, 
             String s)
     {
         Draw2D.aji(k, i1, j1, k1, 0);
@@ -697,7 +697,7 @@ public class Viewer extends GameShell
         abj.aec(s, k + j1 / 2, i1 + k1 / 2 + 4, 0xffffff);
     }
 
-    private final void aan(int k, int i1, int j1, int k1, int l1, int i2, int j2, 
+    private void aan(int k, int i1, int j1, int k1, int l1, int i2, int j2, 
             int k2)
     {
         int l2 = j1 - k;
@@ -975,7 +975,7 @@ label0:
         }
     }
 
-    private final void aba(int ai[], int k, int i1, int j1, int k1, int l1, int i2, 
+    private void aba(int ai[], int k, int i1, int j1, int k1, int l1, int i2, 
             int j2)
     {
         int k2 = Draw2D.bbf - k1;
@@ -1514,7 +1514,7 @@ label0:
         }
     }
 
-    private final FileArchive abb()
+    private FileArchive abb()
     {
         byte abyte0[] = null;
         String s = null;
@@ -1538,7 +1538,7 @@ label0:
         return new FileArchive(abyte0);
     }
 
-    private final byte[] abc()
+    private byte[] abc()
     {
         System.out.println("Updating");
         afc(0, "Requesting map");
@@ -1582,7 +1582,7 @@ label0:
         }
     }
 
-    private final byte[] abe(String s)
+    private byte[] abe(String s)
         throws IOException
     {
         File file = new File(s);
@@ -1600,7 +1600,7 @@ label0:
         }
     }
 
-    private final void abf(String s, byte abyte0[])
+    private void abf(String s, byte abyte0[])
         throws IOException
     {
         FileOutputStream fileoutputstream = new FileOutputStream(s);
@@ -1608,7 +1608,7 @@ label0:
         fileoutputstream.close();
     }
 
-    private final boolean abg(byte abyte0[])
+    private boolean abg(byte abyte0[])
         throws Exception
     {
         if(abyte0 == null)

@@ -24,16 +24,16 @@ class BZip2Context
         bbc = new int[6];
     }
 
-    final int all = 4096;
-    final int alm = 16;
-    final int aln = 258;
-    final int ama = 23;
-    final int amb = 0;
-    final int amc = 1;
-    final int amd = 6;
-    final int ame = 50;
-    final int amf = 4;
-    final int amg = 18002;
+    int all = 4096;
+    int alm = 16;
+    int aln = 258;
+    int ama = 23;
+    int amb = 0;
+    int amc = 1;
+    int amd = 6;
+    int ame = 50;
+    int amf = 4;
+    int amg = 18002;
     byte amh[];
     int ami;
     int amj;

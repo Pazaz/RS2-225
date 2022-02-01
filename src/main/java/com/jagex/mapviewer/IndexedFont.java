@@ -2,7 +2,7 @@ package com.jagex.mapviewer;
 
 import java.util.Random;
 
-public final class IndexedFont extends Draw2D
+public class IndexedFont extends Draw2D
 {
 
     public int adm(String s)

@@ -1,6 +1,6 @@
 package com.jagex.mapviewer;
 
-public final class FileArchive
+public class FileArchive
 {
 
     public FileArchive(byte abyte0[])

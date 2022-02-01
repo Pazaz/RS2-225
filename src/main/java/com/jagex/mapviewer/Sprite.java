@@ -1,6 +1,6 @@
 package com.jagex.mapviewer;
 
-public final class Sprite extends Draw2D
+public class Sprite extends Draw2D
 {
 
     public void acf()

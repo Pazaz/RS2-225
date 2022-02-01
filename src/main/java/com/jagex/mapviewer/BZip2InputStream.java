@@ -1,6 +1,6 @@
 package com.jagex.mapviewer;
 
-public final class BZip2InputStream
+public class BZip2InputStream
 {
 
     public BZip2InputStream()

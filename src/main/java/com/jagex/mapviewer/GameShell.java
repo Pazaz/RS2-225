@@ -8,7 +8,7 @@ public class GameShell extends Applet
     implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener
 {
 
-    public final void stop()
+    public void stop()
     {
         if(aig >= 0)
             aig = 4000 / aih;
@@ -56,13 +56,13 @@ public class GameShell extends Applet
         aja.drawString(s, (aim - fontmetrics.stringWidth(s)) / 2, j + 22);
     }
 
-    public final void mouseReleased(MouseEvent mouseevent)
+    public void mouseReleased(MouseEvent mouseevent)
     {
         ajg = 0;
         ajh = 0;
     }
 
-    public final void keyPressed(KeyEvent keyevent)
+    public void keyPressed(KeyEvent keyevent)
     {
         ajg = 0;
         int i = keyevent.getKeyCode();
@@ -113,12 +113,12 @@ public class GameShell extends Applet
         thread.setPriority(i);
     }
 
-    public final void windowClosing(WindowEvent windowevent)
+    public void windowClosing(WindowEvent windowevent)
     {
         destroy();
     }
 
-    public final void afh()
+    public void afh()
     {
         aig = -2;
         ahb();
@@ -137,7 +137,7 @@ public class GameShell extends Applet
         }
     }
 
-    public final void afi(Graphics g1)
+    public void afi(Graphics g1)
     {
         if(aja == null)
             aja = g1;
@@ -145,26 +145,26 @@ public class GameShell extends Applet
         afb();
     }
 
-    public final void mouseEntered(MouseEvent mouseevent)
+    public void mouseEntered(MouseEvent mouseevent)
     {
     }
 
-    public final void mouseExited(MouseEvent mouseevent)
+    public void mouseExited(MouseEvent mouseevent)
     {
         ajg = 0;
         aji = -1;
         ajj = -1;
     }
 
-    public final void windowOpened(WindowEvent windowevent)
+    public void windowOpened(WindowEvent windowevent)
     {
     }
 
-    public final void windowDeiconified(WindowEvent windowevent)
+    public void windowDeiconified(WindowEvent windowevent)
     {
     }
 
-    public final void windowActivated(WindowEvent windowevent)
+    public void windowActivated(WindowEvent windowevent)
     {
     }
 
@@ -172,13 +172,13 @@ public class GameShell extends Applet
     {
     }
 
-    public final void start()
+    public void start()
     {
         if(aig >= 0)
             aig = 0;
     }
 
-    public final void agc(int i, int j)
+    public void agc(int i, int j)
     {
         aim = i;
         ain = j;
@@ -188,7 +188,7 @@ public class GameShell extends Applet
         aff(this, 1);
     }
 
-    public final int agd()
+    public int agd()
     {
         int i = -1;
         if(akh != akg)
@@ -211,11 +211,11 @@ public class GameShell extends Applet
             return this;
     }
 
-    public final void mouseClicked(MouseEvent mouseevent)
+    public void mouseClicked(MouseEvent mouseevent)
     {
     }
 
-    public final void mousePressed(MouseEvent mouseevent)
+    public void mousePressed(MouseEvent mouseevent)
     {
         int i = mouseevent.getX();
         int j = mouseevent.getY();
@@ -239,7 +239,7 @@ public class GameShell extends Applet
         }
     }
 
-    public final void mouseDragged(MouseEvent mouseevent)
+    public void mouseDragged(MouseEvent mouseevent)
     {
         int i = mouseevent.getX();
         int j = mouseevent.getY();
@@ -253,7 +253,7 @@ public class GameShell extends Applet
         ajj = j;
     }
 
-    public final void agj(int i, int j)
+    public void agj(int i, int j)
     {
         aim = i;
         ain = j;
@@ -262,7 +262,7 @@ public class GameShell extends Applet
         aff(this, 1);
     }
 
-    public final void mouseMoved(MouseEvent mouseevent)
+    public void mouseMoved(MouseEvent mouseevent)
     {
         int i = mouseevent.getX();
         int j = mouseevent.getY();
@@ -276,15 +276,15 @@ public class GameShell extends Applet
         ajj = j;
     }
 
-    public final void keyTyped(KeyEvent keyevent)
+    public void keyTyped(KeyEvent keyevent)
     {
     }
 
-    public final void windowDeactivated(WindowEvent windowevent)
+    public void windowDeactivated(WindowEvent windowevent)
     {
     }
 
-    public final void agn(Graphics g1)
+    public void agn(Graphics g1)
     {
         if(aja == null)
             aja = g1;
@@ -292,7 +292,7 @@ public class GameShell extends Applet
         afb();
     }
 
-    public final void destroy()
+    public void destroy()
     {
         aig = -1;
         try
@@ -341,7 +341,7 @@ public class GameShell extends Applet
     {
     }
 
-    public final void focusLost(FocusEvent focusevent)
+    public void focusLost(FocusEvent focusevent)
     {
         ajf = false;
         for(int i = 0; i < 128; i++)
@@ -349,7 +349,7 @@ public class GameShell extends Applet
 
     }
 
-    public final void keyReleased(KeyEvent keyevent)
+    public void keyReleased(KeyEvent keyevent)
     {
         ajg = 0;
         int i = keyevent.getKeyCode();
@@ -378,7 +378,7 @@ public class GameShell extends Applet
             ake[c] = 0;
     }
 
-    public final void windowClosed(WindowEvent windowevent)
+    public void windowClosed(WindowEvent windowevent)
     {
     }
 
@@ -489,14 +489,14 @@ public class GameShell extends Applet
             afh();
     }
 
-    public final void focusGained(FocusEvent focusevent)
+    public void focusGained(FocusEvent focusevent)
     {
         ajf = true;
         aje = true;
         afb();
     }
 
-    public final void windowIconified(WindowEvent windowevent)
+    public void windowIconified(WindowEvent windowevent)
     {
     }
 

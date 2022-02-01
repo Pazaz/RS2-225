@@ -3,7 +3,7 @@ package com.jagex.mapviewer;
 import java.awt.Frame;
 import java.awt.Graphics;
 
-public final class GameFrame extends Frame
+public class GameFrame extends Frame
 {
 
     public GameFrame(GameShell a1, int i, int j)
@@ -16,12 +16,12 @@ public final class GameFrame extends Frame
         resize(i + 8, j + 28);
     }
 
-    public final void adj(Graphics g)
+    public void adj(Graphics g)
     {
         ahj.agn(g);
     }
 
-    public final void adk(Graphics g)
+    public void adk(Graphics g)
     {
         ahj.afi(g);
     }

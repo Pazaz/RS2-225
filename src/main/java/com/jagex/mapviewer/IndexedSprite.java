@@ -1,6 +1,6 @@
 package com.jagex.mapviewer;
 
-public final class IndexedSprite extends Draw2D
+public class IndexedSprite extends Draw2D
 {
 
     public IndexedSprite(FileArchive o1, String s, int i)

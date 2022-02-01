@@ -3,7 +3,7 @@ package com.jagex.mapviewer;
 import java.awt.*;
 import java.awt.image.*;
 
-public final class DrawArea
+public class DrawArea
     implements ImageProducer, ImageObserver
 {
 
