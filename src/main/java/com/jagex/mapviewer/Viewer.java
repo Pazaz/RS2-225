@@ -98,7 +98,7 @@ public class Viewer extends GameShell
         aan(0, 0, aal, aam, 0, 0, adj, adi);
         Draw2D.aji(0, 0, adj, adi, 0);
         Draw2D.aji(1, 1, adj - 2, adi - 2, aab);
-        super.ajb.acm();
+        super.drawArea.bind();
     }
 
     private void aad(byte abyte0[], byte abyte1[][], byte abyte2[][], byte abyte3[][])
@@ -421,13 +421,13 @@ public class Viewer extends GameShell
                 adm = !adm;
                 aah = true;
             }
-            if(super.ajd != null && k == 101)
+            if(super.frame != null && k == 101)
             {
                 System.out.println("Starting export...");
                 Sprite g1 = new Sprite(aal * 2, aam * 2);
                 g1.acf();
                 aan(0, 0, aal, aam, 0, 0, aal * 2, aam * 2);
-                super.ajb.acm();
+                super.drawArea.bind();
                 int l1 = g1.agk.length;
                 byte abyte0[] = new byte[l1 * 3];
                 int k2 = 0;
@@ -671,7 +671,7 @@ public class Viewer extends GameShell
         aai--;
         if(aai <= 0)
         {
-            super.ajb.ade(super.aja, 0, 0);
+            super.drawArea.drawImage(super.graphics, 0, 0);
             aai = 50;
         }
     }
@@ -1550,7 +1550,7 @@ label0:
                 s = (new StringBuilder()).append(s).append(Signature.sha[k]).toString();
 
             DataInputStream datainputstream;
-            if(super.ajd != null)
+            if(super.frame != null)
                 datainputstream = new DataInputStream(new FileInputStream("worldmap.jag"));
             else
                 datainputstream = new DataInputStream((new URL(getCodeBase(), (new StringBuilder()).append("worldmap").append(s).append(".jag").toString())).openStream());

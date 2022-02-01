@@ -7,7 +7,7 @@ public class Sprite extends Draw2D
 
     public void acf()
     {
-        Draw2D.ajj(agk, agl, agm);
+        Draw2D.prepare(agk, agl, agm);
     }
 
     public void acg(int i, int k)

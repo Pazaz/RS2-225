@@ -20,9 +20,9 @@ public class GameShell extends Applet
 
     public void afc(int i, String s)
     {
-        while(aja == null) 
+        while(graphics == null)
         {
-            aja = agf().getGraphics();
+            graphics = agf().getGraphics();
             try
             {
                 agf().repaint();
@@ -40,20 +40,20 @@ public class GameShell extends Applet
         FontMetrics fontmetrics1 = agf().getFontMetrics(font1);
         if(aje)
         {
-            aja.setColor(Color.black);
-            aja.fillRect(0, 0, aim, ain);
+            graphics.setColor(Color.black);
+            graphics.fillRect(0, 0, aim, ain);
             aje = false;
         }
         Color color = new Color(140, 17, 17);
         int j = ain / 2 - 18;
-        aja.setColor(color);
-        aja.drawRect(aim / 2 - 152, j, 304, 34);
-        aja.fillRect(aim / 2 - 150, j + 2, i * 3, 30);
-        aja.setColor(Color.black);
-        aja.fillRect((aim / 2 - 150) + i * 3, j + 2, 300 - i * 3, 30);
-        aja.setFont(font);
-        aja.setColor(Color.white);
-        aja.drawString(s, (aim - fontmetrics.stringWidth(s)) / 2, j + 22);
+        graphics.setColor(color);
+        graphics.drawRect(aim / 2 - 152, j, 304, 34);
+        graphics.fillRect(aim / 2 - 150, j + 2, i * 3, 30);
+        graphics.setColor(Color.black);
+        graphics.fillRect((aim / 2 - 150) + i * 3, j + 2, 300 - i * 3, 30);
+        graphics.setFont(font);
+        graphics.setColor(Color.white);
+        graphics.drawString(s, (aim - fontmetrics.stringWidth(s)) / 2, j + 22);
     }
 
     public void mouseReleased(MouseEvent mouseevent)
@@ -122,7 +122,7 @@ public class GameShell extends Applet
     {
         aig = -2;
         ahb();
-        if(ajd != null)
+        if(frame != null)
         {
             try
             {
@@ -139,8 +139,8 @@ public class GameShell extends Applet
 
     public void afi(Graphics g1)
     {
-        if(aja == null)
-            aja = g1;
+        if(graphics == null)
+            graphics = g1;
         aje = true;
         afb();
     }
@@ -182,9 +182,9 @@ public class GameShell extends Applet
     {
         aim = i;
         ain = j;
-        ajd = new GameFrame(this, aim, ain);
-        aja = agf().getGraphics();
-        ajb = new DrawArea(aim, ain, agf());
+        frame = new GameFrame(this, aim, ain);
+        graphics = agf().getGraphics();
+        drawArea = new DrawArea(aim, ain, agf());
         aff(this, 1);
     }
 
@@ -205,8 +205,8 @@ public class GameShell extends Applet
 
     public Component agf()
     {
-        if(ajd != null)
-            return ajd;
+        if(frame != null)
+            return frame;
         else
             return this;
     }
@@ -219,7 +219,7 @@ public class GameShell extends Applet
     {
         int i = mouseevent.getX();
         int j = mouseevent.getY();
-        if(ajd != null)
+        if(frame != null)
         {
             i -= 4;
             j -= 22;
@@ -243,7 +243,7 @@ public class GameShell extends Applet
     {
         int i = mouseevent.getX();
         int j = mouseevent.getY();
-        if(ajd != null)
+        if(frame != null)
         {
             i -= 4;
             j -= 22;
@@ -257,8 +257,8 @@ public class GameShell extends Applet
     {
         aim = i;
         ain = j;
-        aja = agf().getGraphics();
-        ajb = new DrawArea(aim, ain, agf());
+        graphics = agf().getGraphics();
+        drawArea = new DrawArea(aim, ain, agf());
         aff(this, 1);
     }
 
@@ -266,7 +266,7 @@ public class GameShell extends Applet
     {
         int i = mouseevent.getX();
         int j = mouseevent.getY();
-        if(ajd != null)
+        if(frame != null)
         {
             i -= 4;
             j -= 22;
@@ -286,8 +286,8 @@ public class GameShell extends Applet
 
     public void agn(Graphics g1)
     {
-        if(aja == null)
-            aja = g1;
+        if(graphics == null)
+            graphics = g1;
         aje = true;
         afb();
     }
@@ -316,7 +316,6 @@ public class GameShell extends Applet
         aij = new long[10];
         aik = 0;
         ail = false;
-        ajc = new Sprite[6];
         aje = true;
         ajf = true;
         ajg = 0;
@@ -388,8 +387,8 @@ public class GameShell extends Applet
         agf().addMouseMotionListener(this);
         agf().addKeyListener(this);
         agf().addFocusListener(this);
-        if(ajd != null)
-            ajd.addWindowListener(this);
+        if(frame != null)
+            frame.addWindowListener(this);
         afc(0, "Loading...");
         aga();
         int i = 0;
@@ -508,10 +507,9 @@ public class GameShell extends Applet
     public boolean ail;
     public int aim;
     public int ain;
-    public Graphics aja;
-    public DrawArea ajb;
-    public Sprite ajc[];
-    public GameFrame ajd;
+    public Graphics graphics;
+    public DrawArea drawArea;
+    public GameFrame frame;
     public boolean aje;
     public boolean ajf;
     public int ajg;

@@ -108,7 +108,7 @@ public class Draw2D extends CacheableNode
         aje((i + k) - 1, j, l, i1);
     }
 
-    public static void ajj(int ai[], int i, int j)
+    public static void prepare(int ai[], int i, int j)
     {
         bbe = ai;
         bbf = i;
