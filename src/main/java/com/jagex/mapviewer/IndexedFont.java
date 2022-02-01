@@ -1,5 +1,7 @@
 package com.jagex.mapviewer;
 
+import com.jagex.runetek3.util.Buffer;
+
 import java.util.Random;
 
 public class IndexedFont extends Draw2D
@@ -45,24 +47,24 @@ public class IndexedFont extends Draw2D
         Buffer j1 = new Buffer(o1.abl((new StringBuilder()).append(s).append(".dat").toString(), null));
         Buffer j2 = new Buffer(o1.abl("index.dat", null));
         byte byte0 = -1;
-        j2.ala = j1.aik() + 4;
-        int k = j2.aii();
+        j2.offset = j1.readWord() + 4;
+        int k = j2.readByte();
         if(k > 0)
-            j2.ala += 3 * (k - 1);
+            j2.offset += 3 * (k - 1);
         for(int l = 0; l < 256; l++)
         {
             int i1 = l;
-            ahn[l] = j2.aii();
-            aia[l] = j2.aii();
-            int k1 = ahl[l] = j2.aik();
-            int l1 = ahm[l] = j2.aik();
-            int i2 = j2.aii();
+            ahn[l] = j2.readByte();
+            aia[l] = j2.readByte();
+            int k1 = ahl[l] = j2.readWord();
+            int l1 = ahm[l] = j2.readWord();
+            int i2 = j2.readByte();
             int k2 = k1 * l1;
             ahk[l] = new byte[k2];
             if(i2 == 0)
             {
                 for(int l2 = 0; l2 < k2; l2++)
-                    ahk[l][l2] = j1.aij();
+                    ahk[l][l2] = j1.readByteSigned();
 
             } else
             if(i2 == 1)
@@ -70,7 +72,7 @@ public class IndexedFont extends Draw2D
                 for(int i3 = 0; i3 < k1; i3++)
                 {
                     for(int k3 = 0; k3 < l1; k3++)
-                        ahk[l][i3 + k3 * k1] = j1.aij();
+                        ahk[l][i3 + k3 * k1] = j1.readByteSigned();
 
                 }
 

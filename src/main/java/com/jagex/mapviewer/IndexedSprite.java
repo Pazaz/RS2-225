@@ -1,5 +1,7 @@
 package com.jagex.mapviewer;
 
+import com.jagex.runetek3.util.Buffer;
+
 public class IndexedSprite extends Draw2D
 {
 
@@ -7,32 +9,32 @@ public class IndexedSprite extends Draw2D
     {
         Buffer j1 = new Buffer(o1.abl((new StringBuilder()).append(s).append(".dat").toString(), null));
         Buffer j2 = new Buffer(o1.abl("index.dat", null));
-        j2.ala = j1.aik();
-        agg = j2.aik();
-        agh = j2.aik();
-        int k = j2.aii();
+        j2.offset = j1.readWord();
+        agg = j2.readWord();
+        agh = j2.readWord();
+        int k = j2.readByte();
         agb = new int[k];
         for(int l = 0; l < k - 1; l++)
-            agb[l + 1] = j2.aim();
+            agb[l + 1] = j2.readSWord();
 
         for(int i1 = 0; i1 < i; i1++)
         {
-            j2.ala += 2;
-            j1.ala += j2.aik() * j2.aik();
-            j2.ala++;
+            j2.offset += 2;
+            j1.offset += j2.readWord() * j2.readWord();
+            j2.offset++;
         }
 
-        age = j2.aii();
-        agf = j2.aii();
-        agc = j2.aik();
-        agd = j2.aik();
-        int k1 = j2.aii();
+        age = j2.readByte();
+        agf = j2.readByte();
+        agc = j2.readWord();
+        agd = j2.readWord();
+        int k1 = j2.readByte();
         int l1 = agc * agd;
         aga = new byte[l1];
         if(k1 == 0)
         {
             for(int i2 = 0; i2 < l1; i2++)
-                aga[i2] = j1.aij();
+                aga[i2] = j1.readByteSigned();
 
         } else
         if(k1 == 1)
@@ -40,7 +42,7 @@ public class IndexedSprite extends Draw2D
             for(int k2 = 0; k2 < agc; k2++)
             {
                 for(int l2 = 0; l2 < agd; l2++)
-                    aga[k2 + l2 * agc] = j1.aij();
+                    aga[k2 + l2 * agc] = j1.readByteSigned();
 
             }
 

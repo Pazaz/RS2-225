@@ -1,5 +1,7 @@
 package com.jagex.mapviewer;
 
+import com.jagex.runetek3.util.Buffer;
+
 public class Sprite extends Draw2D
 {
 
@@ -113,36 +115,36 @@ public class Sprite extends Draw2D
     {
         Buffer j1 = new Buffer(o1.abl((new StringBuilder()).append(s).append(".dat").toString(), null));
         Buffer j2 = new Buffer(o1.abl("index.dat", null));
-        j2.ala = j1.aik();
-        ahb = j2.aik();
-        ahc = j2.aik();
-        int k = j2.aii();
+        j2.offset = j1.readWord();
+        ahb = j2.readWord();
+        ahc = j2.readWord();
+        int k = j2.readByte();
         int ai[] = new int[k];
         for(int l = 0; l < k - 1; l++)
         {
-            ai[l + 1] = j2.aim();
+            ai[l + 1] = j2.readSWord();
             if(ai[l + 1] == 0)
                 ai[l + 1] = 1;
         }
 
         for(int i1 = 0; i1 < i; i1++)
         {
-            j2.ala += 2;
-            j1.ala += j2.aik() * j2.aik();
-            j2.ala++;
+            j2.offset += 2;
+            j1.offset += j2.readWord() * j2.readWord();
+            j2.offset++;
         }
 
-        agn = j2.aii();
-        aha = j2.aii();
-        agl = j2.aik();
-        agm = j2.aik();
-        int k1 = j2.aii();
+        agn = j2.readByte();
+        aha = j2.readByte();
+        agl = j2.readWord();
+        agm = j2.readWord();
+        int k1 = j2.readByte();
         int l1 = agl * agm;
         agk = new int[l1];
         if(k1 == 0)
         {
             for(int i2 = 0; i2 < l1; i2++)
-                agk[i2] = ai[j1.aii()];
+                agk[i2] = ai[j1.readByte()];
 
         } else
         if(k1 == 1)
@@ -150,7 +152,7 @@ public class Sprite extends Draw2D
             for(int k2 = 0; k2 < agl; k2++)
             {
                 for(int l2 = 0; l2 < agm; l2++)
-                    agk[k2 + l2 * agl] = ai[j1.aii()];
+                    agk[k2 + l2 * agl] = ai[j1.readByte()];
 
             }
 

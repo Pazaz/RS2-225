@@ -1,6 +1,7 @@
 package com.jagex.mapviewer;
 
 import com.jagex.runetek3.util.BZip2InputStream;
+import com.jagex.runetek3.util.Buffer;
 
 public class FileArchive
 {
@@ -13,8 +14,8 @@ public class FileArchive
     private void abk(byte abyte0[])
     {
         Buffer j1 = new Buffer(abyte0);
-        int i = j1.aim();
-        int k = j1.aim();
+        int i = j1.readSWord();
+        int k = j1.readSWord();
         if(k != i)
         {
             byte abyte1[] = new byte[i];
@@ -27,17 +28,17 @@ public class FileArchive
             afc = abyte0;
             afi = false;
         }
-        afd = j1.aik();
+        afd = j1.readWord();
         afe = new int[afd];
         aff = new int[afd];
         afg = new int[afd];
         afh = new int[afd];
-        int l = j1.ala + afd * 10;
+        int l = j1.offset + afd * 10;
         for(int i1 = 0; i1 < afd; i1++)
         {
-            afe[i1] = j1.aih();
-            aff[i1] = j1.aim();
-            afg[i1] = j1.aim();
+            afe[i1] = j1.readDWord();
+            aff[i1] = j1.readSWord();
+            afg[i1] = j1.readSWord();
             afh[i1] = l;
             l += afg[i1];
         }
