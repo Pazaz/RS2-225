@@ -341,19 +341,19 @@ public class Viewer extends GameShell {
     }
 
     public void update() {
-        if (super.ake[1] == 1) {
+        if (super.actionKey[1] == 1) {
             offsetX = (int) ((double) offsetX - 16D / zoomX);
             shouldDraw = true;
         }
-        if (super.ake[2] == 1) {
+        if (super.actionKey[2] == 1) {
             offsetX = (int) ((double) offsetX + 16D / zoomX);
             shouldDraw = true;
         }
-        if (super.ake[3] == 1) {
+        if (super.actionKey[3] == 1) {
             offsetY = (int) ((double) offsetY - 16D / zoomX);
             shouldDraw = true;
         }
-        if (super.ake[4] == 1) {
+        if (super.actionKey[4] == 1) {
             offsetY = (int) ((double) offsetY + 16D / zoomX);
             shouldDraw = true;
         }
@@ -361,7 +361,7 @@ public class Viewer extends GameShell {
         do {
             if (k <= 0)
                 break;
-            k = agd();
+            k = pollKey();
             if (k == 49) {
                 zoomY = 3D;
                 shouldDraw = true;
@@ -414,7 +414,7 @@ public class Viewer extends GameShell {
             }
         } while (true);
 
-        if (super.aka == 1) {
+        if (super.mousePressButton == 1) {
             mouseClickX = super.mousePressX;
             mouseClickY = super.mousePressY;
             lastOffsetX = offsetX;
@@ -463,7 +463,7 @@ public class Viewer extends GameShell {
                         continue;
                     if (super.mouseY >= k && super.mouseY < k + 17) {
                         currentKeyHover = i1 + lastKeyPage;
-                        if (super.aka == 1) {
+                        if (super.mousePressButton == 1) {
                             currentKey = i1 + lastKeyPage;
                             flashTimer = 50;
                         }
@@ -478,7 +478,7 @@ public class Viewer extends GameShell {
             }
         }
 
-        if ((super.mouseButton == 1 || super.aka == 1) && showOverview) {
+        if ((super.mouseButton == 1 || super.mousePressButton == 1) && showOverview) {
             k = super.mousePressX;
             int j1 = super.mousePressY;
             if (super.mouseButton == 1) {

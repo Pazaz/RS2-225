@@ -22,7 +22,7 @@ public class DrawText extends Draw2D
         int l = fontmetrics.getMaxAscent();
         int i1 = fontmetrics.getMaxAscent() + fontmetrics.getMaxDescent();
         int j1 = fontmetrics.getHeight();
-        Image image = a1.agf().createImage(j, i1);
+        Image image = a1.getBaseComponent().createImage(j, i1);
         Graphics g = image.getGraphics();
         g.setColor(Color.black);
         g.fillRect(0, 0, j, i1);
