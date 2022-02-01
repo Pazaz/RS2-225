@@ -85,7 +85,7 @@ public class Viewer extends GameShell {
         } catch (Exception exception1) {
         }
 
-        b12 = new IndexedFont(worldmap, "b12_full", false);
+        b12 = new IndexedFontFull(worldmap, "b12_full", false);
         f11 = new DrawText(11, true, this);
         f12 = new DrawText(12, true, this);
         f14 = new DrawText(14, true, this);
@@ -1461,7 +1461,7 @@ public class Viewer extends GameShell {
     private byte[][] locScenes;
     private IndexedSprite[] mapscenes = new IndexedSprite[100];
     private Sprite[] mapfunctions = new Sprite[100];
-    private IndexedFont b12;
+    private IndexedFontFull b12;
     private DrawText f11;
     private DrawText f12;
     private DrawText f14;
