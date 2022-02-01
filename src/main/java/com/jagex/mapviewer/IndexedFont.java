@@ -19,7 +19,7 @@ public class IndexedFont extends Draw2D
         return k;
     }
 
-    public void adn(String s, int k, int l, int i1)
+    public void drawString(String s, int k, int l, int i1)
     {
         if(s == null)
             return;
@@ -105,20 +105,20 @@ public class IndexedFont extends Draw2D
             aib[32] = aib[105];
     }
 
-    public void aeb(String s, int k, int l, int i1)
+    public void drawStringRight(String s, int k, int l, int i1)
     {
-        adn(s, k - adm(s), l, i1);
+        drawString(s, k - adm(s), l, i1);
     }
 
-    public void aec(String s, int k, int l, int i1)
+    public void drawStringCenter(String s, int k, int l, int i1)
     {
-        adn(s, k - adm(s) / 2, l, i1);
+        drawString(s, k - adm(s) / 2, l, i1);
     }
 
     private void aed(byte abyte0[], int k, int l, int i1, int j1, int k1)
     {
-        int l1 = k + l * Draw2D.bbf;
-        int i2 = Draw2D.bbf - i1;
+        int l1 = k + l * Draw2D.width;
+        int i2 = Draw2D.width - i1;
         int j2 = 0;
         int k2 = 0;
         if(l < Draw2D.bbh)
@@ -127,7 +127,7 @@ public class IndexedFont extends Draw2D
             j1 -= l2;
             l = Draw2D.bbh;
             k2 += l2 * i1;
-            l1 += l2 * Draw2D.bbf;
+            l1 += l2 * Draw2D.width;
         }
         if(l + j1 >= Draw2D.bbi)
             j1 -= ((l + j1) - Draw2D.bbi) + 1;
@@ -153,7 +153,7 @@ public class IndexedFont extends Draw2D
             return;
         } else
         {
-            aee(Draw2D.bbe, abyte0, k1, k2, l1, i1, j1, i2, j2);
+            aee(Draw2D.pixels, abyte0, k1, k2, l1, i1, j1, i2, j2);
             return;
         }
     }

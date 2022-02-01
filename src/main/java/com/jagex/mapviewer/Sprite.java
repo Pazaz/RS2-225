@@ -6,20 +6,20 @@ import com.jagex.runetek3.util.Buffer;
 public class Sprite extends Draw2D
 {
 
-    public void acf()
+    public void bind()
     {
         Draw2D.prepare(agk, agl, agm);
     }
 
-    public void acg(int i, int k)
+    public void draw(int i, int k)
     {
         i += agn;
         k += aha;
-        int l = i + k * Draw2D.bbf;
+        int l = i + k * Draw2D.width;
         int i1 = 0;
         int j1 = agm;
         int k1 = agl;
-        int l1 = Draw2D.bbf - k1;
+        int l1 = Draw2D.width - k1;
         int i2 = 0;
         if(k < Draw2D.bbh)
         {
@@ -27,7 +27,7 @@ public class Sprite extends Draw2D
             j1 -= j2;
             k = Draw2D.bbh;
             i1 += j2 * k1;
-            l += j2 * Draw2D.bbf;
+            l += j2 * Draw2D.width;
         }
         if(k + j1 > Draw2D.bbi)
             j1 -= (k + j1) - Draw2D.bbi;
@@ -53,7 +53,7 @@ public class Sprite extends Draw2D
             return;
         } else
         {
-            ach(Draw2D.bbe, agk, 0, i1, l, k1, j1, l1, i2);
+            ach(Draw2D.pixels, agk, 0, i1, l, k1, j1, l1, i2);
             return;
         }
     }
@@ -160,15 +160,15 @@ public class Sprite extends Draw2D
         }
     }
 
-    public void ack(int i, int k)
+    public void drawOpaque(int i, int k)
     {
         i += agn;
         k += aha;
-        int l = i + k * Draw2D.bbf;
+        int l = i + k * Draw2D.width;
         int i1 = 0;
         int j1 = agm;
         int k1 = agl;
-        int l1 = Draw2D.bbf - k1;
+        int l1 = Draw2D.width - k1;
         int i2 = 0;
         if(k < Draw2D.bbh)
         {
@@ -176,7 +176,7 @@ public class Sprite extends Draw2D
             j1 -= j2;
             k = Draw2D.bbh;
             i1 += j2 * k1;
-            l += j2 * Draw2D.bbf;
+            l += j2 * Draw2D.width;
         }
         if(k + j1 > Draw2D.bbi)
             j1 -= (k + j1) - Draw2D.bbi;
@@ -202,7 +202,7 @@ public class Sprite extends Draw2D
             return;
         } else
         {
-            acl(Draw2D.bbe, agk, i1, l, k1, j1, l1, i2);
+            acl(Draw2D.pixels, agk, i1, l, k1, j1, l1, i2);
             return;
         }
     }

@@ -283,8 +283,8 @@ label3:
         int k1 = abyte0[i + 3];
         int l1 = abyte0[i + 4];
         int i2 = abyte0[i] * 16384 + abyte0[i + 1] * 128 + abyte0[i + 2];
-        int j2 = i1 + j1 * Draw2D.bbf;
-        int k2 = Draw2D.bbf - k1;
+        int j2 = i1 + j1 * Draw2D.width;
+        int k2 = Draw2D.width - k1;
         int l2 = 0;
         if(j1 < Draw2D.bbh)
         {
@@ -292,7 +292,7 @@ label3:
             l1 -= i3;
             j1 = Draw2D.bbh;
             i2 += i3 * k1;
-            j2 += i3 * Draw2D.bbf;
+            j2 += i3 * Draw2D.width;
         }
         if(j1 + l1 >= Draw2D.bbi)
             l1 -= ((j1 + l1) - Draw2D.bbi) + 1;
@@ -315,9 +315,9 @@ label3:
         }
         if(k1 > 0 && l1 > 0)
             if(flag)
-                aia(Draw2D.bbe, abyte0, l, i2, j2, k1, l1, k2, l2);
+                aia(Draw2D.pixels, abyte0, l, i2, j2, k1, l1, k2, l2);
             else
-                aif(Draw2D.bbe, abyte0, l, i2, j2, k1, l1, k2, l2);
+                aif(Draw2D.pixels, abyte0, l, i2, j2, k1, l1, k2, l2);
     }
 
     private void aif(int ai[], byte abyte0[], int i, int j, int k, int l, int i1, 

@@ -14,11 +14,11 @@ public class GameShell extends Applet
             aig = 4000 / aih;
     }
 
-    public void afb()
+    public void refresh()
     {
     }
 
-    public void afc(int i, String s)
+    public void showProgress(int i, String s)
     {
         while(graphics == null)
         {
@@ -59,7 +59,7 @@ public class GameShell extends Applet
     public void mouseReleased(MouseEvent mouseevent)
     {
         ajg = 0;
-        ajh = 0;
+        mouseButton = 0;
     }
 
     public void keyPressed(KeyEvent keyevent)
@@ -121,7 +121,7 @@ public class GameShell extends Applet
     public void afh()
     {
         aig = -2;
-        ahb();
+        unload();
         if(frame != null)
         {
             try
@@ -142,7 +142,7 @@ public class GameShell extends Applet
         if(graphics == null)
             graphics = g1;
         aje = true;
-        afb();
+        refresh();
     }
 
     public void mouseEntered(MouseEvent mouseevent)
@@ -152,8 +152,8 @@ public class GameShell extends Applet
     public void mouseExited(MouseEvent mouseevent)
     {
         ajg = 0;
-        aji = -1;
-        ajj = -1;
+        mouseX = -1;
+        mouseY = -1;
     }
 
     public void windowOpened(WindowEvent windowevent)
@@ -168,7 +168,7 @@ public class GameShell extends Applet
     {
     }
 
-    public void aga()
+    public void load()
     {
     }
 
@@ -178,7 +178,7 @@ public class GameShell extends Applet
             aig = 0;
     }
 
-    public void agc(int i, int j)
+    public void initFrame(int i, int j)
     {
         aim = i;
         ain = j;
@@ -199,7 +199,7 @@ public class GameShell extends Applet
         return i;
     }
 
-    public void age()
+    public void draw()
     {
     }
 
@@ -231,11 +231,11 @@ public class GameShell extends Applet
         if(mouseevent.isMetaDown())
         {
             ajk = 2;
-            ajh = 2;
+            mouseButton = 2;
         } else
         {
             ajk = 1;
-            ajh = 1;
+            mouseButton = 1;
         }
     }
 
@@ -249,11 +249,11 @@ public class GameShell extends Applet
             j -= 22;
         }
         ajg = 0;
-        aji = i;
-        ajj = j;
+        mouseX = i;
+        mouseY = j;
     }
 
-    public void agj(int i, int j)
+    public void initApplet(int i, int j)
     {
         aim = i;
         ain = j;
@@ -272,8 +272,8 @@ public class GameShell extends Applet
             j -= 22;
         }
         ajg = 0;
-        aji = i;
-        ajj = j;
+        mouseX = i;
+        mouseY = j;
     }
 
     public void keyTyped(KeyEvent keyevent)
@@ -289,7 +289,7 @@ public class GameShell extends Applet
         if(graphics == null)
             graphics = g1;
         aje = true;
-        afb();
+        refresh();
     }
 
     public void destroy()
@@ -304,7 +304,7 @@ public class GameShell extends Applet
             afh();
     }
 
-    public void ahb()
+    public void unload()
     {
     }
 
@@ -319,16 +319,16 @@ public class GameShell extends Applet
         aje = true;
         ajf = true;
         ajg = 0;
-        ajh = 0;
-        aji = 0;
-        ajj = 0;
+        mouseButton = 0;
+        mouseX = 0;
+        mouseY = 0;
         ajk = 0;
         ajl = 0;
         ajm = 0;
         ajn = 0L;
         aka = 0;
-        akb = 0;
-        akc = 0;
+        mousePressX = 0;
+        mousePressY = 0;
         akd = 0L;
         ake = new int[128];
         akf = new int[128];
@@ -336,7 +336,7 @@ public class GameShell extends Applet
         akh = 0;
     }
 
-    public void ahd()
+    public void update()
     {
     }
 
@@ -389,8 +389,8 @@ public class GameShell extends Applet
         agf().addFocusListener(this);
         if(frame != null)
             frame.addWindowListener(this);
-        afc(0, "Loading...");
-        aga();
+        showProgress(0, "Loading...");
+        load();
         int i = 0;
         int j = 256;
         int k = 1;
@@ -456,18 +456,18 @@ public class GameShell extends Applet
             for(; i1 < 256; i1 += j)
             {
                 aka = ajk;
-                akb = ajl;
-                akc = ajm;
+                mousePressX = ajl;
+                mousePressY = ajm;
                 akd = ajn;
                 ajk = 0;
-                ahd();
+                update();
                 akg = akh;
             }
 
             i1 &= 0xff;
             if(aih > 0)
                 aik = (1000 * j) / (aih * 256);
-            age();
+            draw();
             if(ail)
             {
                 System.out.println((new StringBuilder()).append("ntime:").append(l2).toString());
@@ -492,7 +492,7 @@ public class GameShell extends Applet
     {
         ajf = true;
         aje = true;
-        afb();
+        refresh();
     }
 
     public void windowIconified(WindowEvent windowevent)
@@ -513,16 +513,16 @@ public class GameShell extends Applet
     public boolean aje;
     public boolean ajf;
     public int ajg;
-    public int ajh;
-    public int aji;
-    public int ajj;
+    public int mouseButton;
+    public int mouseX;
+    public int mouseY;
     public int ajk;
     public int ajl;
     public int ajm;
     public long ajn;
     public int aka;
-    public int akb;
-    public int akc;
+    public int mousePressX;
+    public int mousePressY;
     public long akd;
     public int ake[];
     private int akf[];

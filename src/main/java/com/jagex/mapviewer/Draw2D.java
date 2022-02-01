@@ -5,7 +5,7 @@ import com.jagex.runetek3.util.CacheableNode;
 public class Draw2D extends CacheableNode
 {
 
-    public static void ajd(int i, int j, int k, int l)
+    public static void drawLineX(int i, int j, int k, int l)
     {
         if(j < bbh || j >= bbi)
             return;
@@ -16,13 +16,13 @@ public class Draw2D extends CacheableNode
         }
         if(i + k > bbk)
             k = bbk - i;
-        int i1 = i + j * bbf;
+        int i1 = i + j * width;
         for(int j1 = 0; j1 < k; j1++)
-            bbe[i1 + j1] = l;
+            pixels[i1 + j1] = l;
 
     }
 
-    public static void aje(int i, int j, int k, int l)
+    public static void drawLineY(int i, int j, int k, int l)
     {
         if(i < bbj || i >= bbk)
             return;
@@ -33,9 +33,9 @@ public class Draw2D extends CacheableNode
         }
         if(j + k > bbi)
             k = bbi - j;
-        int i1 = i + j * bbf;
+        int i1 = i + j * width;
         for(int j1 = 0; j1 < k; j1++)
-            bbe[i1 + j1 * bbf] = l;
+            pixels[i1 + j1 * width] = l;
 
     }
 
@@ -49,8 +49,8 @@ public class Draw2D extends CacheableNode
             i = 0;
         if(j < 0)
             j = 0;
-        if(k > bbf)
-            k = bbf;
+        if(k > width)
+            k = width;
         if(l > bbg)
             l = bbg;
         bbj = i;
@@ -62,7 +62,7 @@ public class Draw2D extends CacheableNode
         bbn = bbi / 2;
     }
 
-    public static void ajh(int i, int j, int k, int l, int i1, int j1)
+    public static void fillRect(int i, int j, int k, int l, int i1, int j1)
     {
         if(i < bbj)
         {
@@ -82,17 +82,17 @@ public class Draw2D extends CacheableNode
         int l1 = (i1 >> 16 & 0xff) * j1;
         int i2 = (i1 >> 8 & 0xff) * j1;
         int j2 = (i1 & 0xff) * j1;
-        int k2 = bbf - k;
-        int l2 = i + j * bbf;
+        int k2 = width - k;
+        int l2 = i + j * width;
         for(int i3 = 0; i3 < l; i3++)
         {
             for(int j3 = -k; j3 < 0; j3++)
             {
-                int k3 = (bbe[l2] >> 16 & 0xff) * k1;
-                int l3 = (bbe[l2] >> 8 & 0xff) * k1;
-                int i4 = (bbe[l2] & 0xff) * k1;
+                int k3 = (pixels[l2] >> 16 & 0xff) * k1;
+                int l3 = (pixels[l2] >> 8 & 0xff) * k1;
+                int i4 = (pixels[l2] & 0xff) * k1;
                 int j4 = ((l1 + k3 >> 8) << 16) + ((i2 + l3 >> 8) << 8) + (j2 + i4 >> 8);
-                bbe[l2++] = j4;
+                pixels[l2++] = j4;
             }
 
             l2 += k2;
@@ -100,23 +100,23 @@ public class Draw2D extends CacheableNode
 
     }
 
-    public static void aji(int i, int j, int k, int l, int i1)
+    public static void drawRect(int i, int j, int k, int l, int i1)
     {
-        ajd(i, j, k, i1);
-        ajd(i, (j + l) - 1, k, i1);
-        aje(i, j, l, i1);
-        aje((i + k) - 1, j, l, i1);
+        drawLineX(i, j, k, i1);
+        drawLineX(i, (j + l) - 1, k, i1);
+        drawLineY(i, j, l, i1);
+        drawLineY((i + k) - 1, j, l, i1);
     }
 
     public static void prepare(int ai[], int i, int j)
     {
-        bbe = ai;
-        bbf = i;
+        pixels = ai;
+        width = i;
         bbg = j;
         ajg(0, 0, i, j);
     }
 
-    public static void ajl(int i, int j, int k, int l, int i1)
+    public static void fillRect(int i, int j, int k, int l, int i1)
     {
         if(i < bbj)
         {
@@ -132,28 +132,28 @@ public class Draw2D extends CacheableNode
             k = bbk - i;
         if(j + l > bbi)
             l = bbi - j;
-        int j1 = bbf - k;
+        int j1 = width - k;
         boolean flag = true;
-        int k1 = i + j * bbf;
+        int k1 = i + j * width;
         for(int l1 = -l; l1 < 0; l1++)
         {
             for(int i2 = -k; i2 < 0; i2++)
-                bbe[k1++] = i1;
+                pixels[k1++] = i1;
 
             k1 += j1;
         }
 
     }
 
-    public static void ajm()
+    public static void clear()
     {
-        int i = bbf * bbg;
+        int i = width * bbg;
         for(int j = 0; j < i; j++)
-            bbe[j] = 0;
+            pixels[j] = 0;
 
     }
 
-    public static void ajn(int i, int j, int k, int l, int i1)
+    public static void fillCircle(int i, int j, int k, int l, int i1)
     {
         int j1 = 256 - i1;
         int k1 = (l >> 16 & 0xff) * i1;
@@ -173,24 +173,24 @@ public class Draw2D extends CacheableNode
             if(k3 < 0)
                 k3 = 0;
             int l3 = i + j3;
-            if(l3 >= bbf)
-                l3 = bbf - 1;
-            int i4 = k3 + l2 * bbf;
+            if(l3 >= width)
+                l3 = width - 1;
+            int i4 = k3 + l2 * width;
             for(int j4 = k3; j4 <= l3; j4++)
             {
-                int k4 = (bbe[i4] >> 16 & 0xff) * j1;
-                int l4 = (bbe[i4] >> 8 & 0xff) * j1;
-                int i5 = (bbe[i4] & 0xff) * j1;
+                int k4 = (pixels[i4] >> 16 & 0xff) * j1;
+                int l4 = (pixels[i4] >> 8 & 0xff) * j1;
+                int i5 = (pixels[i4] & 0xff) * j1;
                 int j5 = ((k1 + k4 >> 8) << 16) + ((l1 + l4 >> 8) << 8) + (i2 + i5 >> 8);
-                bbe[i4++] = j5;
+                pixels[i4++] = j5;
             }
 
         }
 
     }
 
-    public static int bbe[];
-    public static int bbf;
+    public static int pixels[];
+    public static int width;
     public static int bbg;
     public static int bbh = 0;
     public static int bbi = 0;

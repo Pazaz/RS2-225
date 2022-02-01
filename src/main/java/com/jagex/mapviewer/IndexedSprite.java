@@ -72,14 +72,14 @@ public class IndexedSprite extends Draw2D
                 i2 = (i3 - (agf * i1) % i3 << 16) / i1;
             l = (l * (agc - (l1 >> 16))) / l2;
             i1 = (i1 * (agd - (i2 >> 16))) / i3;
-            int j3 = i + k * Draw2D.bbf;
-            int k3 = Draw2D.bbf - l;
+            int j3 = i + k * Draw2D.width;
+            int k3 = Draw2D.width - l;
             if(k < Draw2D.bbh)
             {
                 int l3 = Draw2D.bbh - k;
                 i1 -= l3;
                 k = 0;
-                j3 += l3 * Draw2D.bbf;
+                j3 += l3 * Draw2D.width;
                 i2 += k2 * l3;
             }
             if(k + i1 > Draw2D.bbi)
@@ -99,7 +99,7 @@ public class IndexedSprite extends Draw2D
                 l -= j4;
                 k3 += j4;
             }
-            acd(Draw2D.bbe, aga, agb, l1, i2, j3, k3, l, i1, j2, k2, j1);
+            acd(Draw2D.pixels, aga, agb, l1, i2, j3, k3, l, i1, j2, k2, j1);
         }
         catch(Exception exception)
         {
