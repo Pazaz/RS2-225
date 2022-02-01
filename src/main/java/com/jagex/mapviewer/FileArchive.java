@@ -1,5 +1,7 @@
 package com.jagex.mapviewer;
 
+import com.jagex.runetek3.util.BZip2InputStream;
+
 public class FileArchive
 {
 
@@ -16,7 +18,7 @@ public class FileArchive
         if(k != i)
         {
             byte abyte1[] = new byte[i];
-            BZip2InputStream.aem(abyte1, i, abyte0, k, 6);
+            BZip2InputStream.read(abyte1, i, abyte0, k, 6);
             afc = abyte1;
             j1 = new Buffer(afc);
             afi = true;
@@ -56,7 +58,7 @@ public class FileArchive
                     abyte0 = new byte[aff[l]];
                 if(!afi)
                 {
-                    BZip2InputStream.aem(abyte0, aff[l], afc, afg[l], afh[l]);
+                    BZip2InputStream.read(abyte0, aff[l], afc, afg[l], afh[l]);
                 } else
                 {
                     for(int i1 = 0; i1 < aff[l]; i1++)
