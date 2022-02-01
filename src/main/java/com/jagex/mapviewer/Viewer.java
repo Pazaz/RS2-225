@@ -1547,7 +1547,7 @@ label0:
         {
             String s = "";
             for(int k = 0; k < 10; k++)
-                s = (new StringBuilder()).append(s).append(Signature.agi[k]).toString();
+                s = (new StringBuilder()).append(s).append(Signature.sha[k]).toString();
 
             DataInputStream datainputstream;
             if(super.ajd != null)
@@ -1556,7 +1556,7 @@ label0:
                 datainputstream = new DataInputStream((new URL(getCodeBase(), (new StringBuilder()).append("worldmap").append(s).append(".jag").toString())).openStream());
             int i1 = 0;
             int j1 = 0;
-            int k1 = 0x50a34;
+            int k1 = Signature.length;
             byte abyte0[] = new byte[k1];
             while(j1 < k1) 
             {
@@ -1619,7 +1619,7 @@ label0:
         messagedigest.update(abyte0);
         byte abyte1[] = messagedigest.digest();
         for(int k = 0; k < 20; k++)
-            if(abyte1[k] != Signature.agi[k])
+            if(abyte1[k] != Signature.sha[k])
                 return false;
 
         return true;
