@@ -145,10 +145,10 @@ public class IndexedSprite extends Draw2D {
 
         int h = height;
         int w = width;
-        
+
         int dstStep = Draw2D.width - w;
         int srcStep = 0;
-        
+
         if (y < Draw2D.top) {
             int trim = Draw2D.top - y;
             h -= trim;
@@ -187,7 +187,7 @@ public class IndexedSprite extends Draw2D {
                           int dstOff, int dstStep, int[] palette) {
         int hw = -(w >> 2);
         w = -(w & 3);
-        
+
         for (int y = -h; y < 0; y++) {
             for (int x = hw; x < 0; x++) {
                 byte p = src[srcOff++];
@@ -222,6 +222,80 @@ public class IndexedSprite extends Draw2D {
 
             dstOff += dstStep;
             srcOff += srcStep;
+        }
+    }
+
+    public void clip(int i, int k, int l, int i1) {
+        try {
+            int j1 = width;
+            int k1 = height;
+            int l1 = 0;
+            int i2 = 0;
+            int j2 = (j1 << 16) / l;
+            int k2 = (k1 << 16) / i1;
+            int l2 = clipWidth;
+            int i3 = clipHeight;
+            j2 = (l2 << 16) / l;
+            k2 = (i3 << 16) / i1;
+            i += ((clipX * l + l2) - 1) / l2;
+            k += ((clipY * i1 + i3) - 1) / i3;
+            if ((clipX * l) % l2 != 0)
+                l1 = (l2 - (clipX * l) % l2 << 16) / l;
+            if ((clipY * i1) % i3 != 0)
+                i2 = (i3 - (clipY * i1) % i3 << 16) / i1;
+            l = (l * (width - (l1 >> 16))) / l2;
+            i1 = (i1 * (height - (i2 >> 16))) / i3;
+            int j3 = i + k * com.jagex.mapviewer.Draw2D.width;
+            int k3 = com.jagex.mapviewer.Draw2D.width - l;
+            if (k < com.jagex.mapviewer.Draw2D.bbh) {
+                int l3 = com.jagex.mapviewer.Draw2D.bbh - k;
+                i1 -= l3;
+                k = 0;
+                j3 += l3 * com.jagex.mapviewer.Draw2D.width;
+                i2 += k2 * l3;
+            }
+            if (k + i1 > com.jagex.mapviewer.Draw2D.bbi)
+                i1 -= (k + i1) - com.jagex.mapviewer.Draw2D.bbi;
+            if (i < com.jagex.mapviewer.Draw2D.bbj) {
+                int i4 = com.jagex.mapviewer.Draw2D.bbj - i;
+                l -= i4;
+                i = 0;
+                j3 += i4;
+                l1 += j2 * i4;
+                k3 += i4;
+            }
+            if (i + l > com.jagex.mapviewer.Draw2D.bbk) {
+                int j4 = (i + l) - com.jagex.mapviewer.Draw2D.bbk;
+                l -= j4;
+                k3 += j4;
+            }
+            plot_scale(com.jagex.mapviewer.Draw2D.pixels, pixels, palette, l1, i2, j3, k3, l, i1, j2, k2, j1);
+        } catch (Exception exception) {
+            System.out.println("error in sprite clipping routine");
+        }
+    }
+
+    private void plot_scale(int[] ai, byte[] abyte0, int[] ai1, int i, int k, int l, int i1,
+                            int j1, int k1, int l1, int i2, int j2) {
+        try {
+            int k2 = i;
+            for (int l2 = -k1; l2 < 0; l2++) {
+                int i3 = (k >> 16) * j2;
+                for (int j3 = -j1; j3 < 0; j3++) {
+                    byte byte0 = abyte0[(i >> 16) + i3];
+                    if (byte0 != 0)
+                        ai[l++] = ai1[byte0 & 0xff];
+                    else
+                        l++;
+                    i += l1;
+                }
+
+                k += i2;
+                i = k2;
+                l += i1;
+            }
+        } catch (Exception exception) {
+            System.out.println("error in plot_scale");
         }
     }
 

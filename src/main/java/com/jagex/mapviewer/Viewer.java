@@ -1,6 +1,7 @@
 package com.jagex.mapviewer;
 
 import com.jagex.runetek3.cache.FileArchive;
+import com.jagex.runetek3.graphics.IndexedSprite;
 import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.util.Signlink;
 
@@ -755,7 +756,7 @@ public class Viewer extends GameShell {
 
                 int scene = mapscene[k10 + i1] & 0xff;
                 if (scene != 0)
-                    mapscenes[scene - 1].acc(i6 - l7 / 2, j11 - k12 / 2, l7 * 2, k12 * 2);
+                    mapscenes[scene - 1].clip(i6 - l7 / 2, j11 - k12 / 2, l7 * 2, k12 * 2);
 
                 int icon = abyte3[k10 + i1] & 0xff;
                 if (icon != 0) {
