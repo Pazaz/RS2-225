@@ -1,6 +1,7 @@
 package com.jagex.mapviewer;
 
 import com.jagex.runetek3.cache.FileArchive;
+import com.jagex.runetek3.graphics.IndexedFontFull;
 import com.jagex.runetek3.graphics.IndexedSprite;
 import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.util.Signlink;

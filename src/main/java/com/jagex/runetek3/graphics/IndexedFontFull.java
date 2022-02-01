@@ -1,11 +1,12 @@
-package com.jagex.mapviewer;
+package com.jagex.runetek3.graphics;
 
+import com.jagex.mapviewer.Draw2D;
 import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.util.Buffer;
 
 import java.util.Random;
 
-public class IndexedFontFull extends Draw2D {
+public class IndexedFontFull extends com.jagex.mapviewer.Draw2D {
 
     public int stringWidth(String str) {
         if (str == null) {
@@ -111,35 +112,35 @@ public class IndexedFontFull extends Draw2D {
     }
 
     private void fillMaskedRect(byte[] mask, int x, int y, int w, int h, int rgb) {
-        int dstOff = x + y * Draw2D.width;
-        int dstStep = Draw2D.width - w;
+        int dstOff = x + y * com.jagex.mapviewer.Draw2D.width;
+        int dstStep = com.jagex.mapviewer.Draw2D.width - w;
         int maskStep = 0;
         int maskOff = 0;
 
-        if (y < Draw2D.bbh) {
-            int trim = Draw2D.bbh - y;
+        if (y < com.jagex.mapviewer.Draw2D.bbh) {
+            int trim = com.jagex.mapviewer.Draw2D.bbh - y;
             h -= trim;
-            y = Draw2D.bbh;
+            y = com.jagex.mapviewer.Draw2D.bbh;
             maskOff += trim * w;
-            dstOff += trim * Draw2D.width;
+            dstOff += trim * com.jagex.mapviewer.Draw2D.width;
         }
 
-        if (y + h >= Draw2D.bbi) {
-            h -= ((y + h) - Draw2D.bbi) + 1;
+        if (y + h >= com.jagex.mapviewer.Draw2D.bbi) {
+            h -= ((y + h) - com.jagex.mapviewer.Draw2D.bbi) + 1;
         }
 
-        if (x < Draw2D.bbj) {
-            int trim = Draw2D.bbj - x;
+        if (x < com.jagex.mapviewer.Draw2D.bbj) {
+            int trim = com.jagex.mapviewer.Draw2D.bbj - x;
             w -= trim;
-            x = Draw2D.bbj;
+            x = com.jagex.mapviewer.Draw2D.bbj;
             maskOff += trim;
             dstOff += trim;
             maskStep += trim;
             dstStep += trim;
         }
 
-        if (x + w >= Draw2D.bbk) {
-            int trim = ((x + w) - Draw2D.bbk) + 1;
+        if (x + w >= com.jagex.mapviewer.Draw2D.bbk) {
+            int trim = ((x + w) - com.jagex.mapviewer.Draw2D.bbk) + 1;
             w -= trim;
             maskStep += trim;
             dstStep += trim;
