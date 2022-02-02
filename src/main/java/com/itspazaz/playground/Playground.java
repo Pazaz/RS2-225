@@ -64,6 +64,8 @@ public class Playground extends GameShell {
 
         showProgress("Finished loading", 90);
         obj = ObjType.get(995);
+        yaw = obj.iconYaw;
+        roll = obj.iconRoll;
         model = obj.getModel(12345);
     }
 
@@ -91,18 +93,44 @@ public class Playground extends GameShell {
 
     @Override
     public void update() {
-        pitch++;
-        yaw++;
-        roll++;
-
+        // Rotate X axis
+        if (keyDown[GameShell.KEY_UP] == 1) {
+            pitch--; // flipped to be more natural
+        } else if (keyDown[GameShell.KEY_DOWN] == 1) {
+            pitch++;
+        }
         if (pitch > 2047) {
             pitch = 0;
+        } else if (pitch < 0) {
+            pitch = 2047;
+        }
+
+        // Rotate on Y axis
+        if (keyDown[GameShell.KEY_LEFT] == 1) {
+            yaw++;
+        } else if (keyDown[GameShell.KEY_RIGHT] == 1) {
+            yaw--;
         }
         if (yaw > 2047) {
             yaw = 0;
+        } else if (yaw < 0) {
+            yaw = 2047;
+        }
+
+        // Rotate on Z axis
+        if (keyDown[GameShell.KEY_HOME] == 1) {
+            roll++;
+        } else if (keyDown[GameShell.KEY_END] == 1) {
+            roll--;
         }
         if (roll > 2047) {
             roll = 0;
+        } else if (roll < 0) {
+            roll = 2047;
+        }
+
+        if (keyDown['e'] == 1) {
+            exportImage(drawArea.pixels, "dump/test" + frame++);
         }
     }
 
@@ -117,7 +145,7 @@ public class Playground extends GameShell {
         Draw2D.fillRect(0, 0, 0x00FF00, Draw2D.width, Draw2D.height);
 
         // Draw a model
-        model.draw(0, obj.iconYaw, obj.iconRoll, obj.iconCameraPitch, 0, 200, 220);
+        model.draw(pitch, yaw, roll, obj.iconCameraPitch, 0, 200, 220);
 
         // Debug text
         //p12.draw(1, 13, 0x000000, "FPS: " + fps);
@@ -125,7 +153,6 @@ public class Playground extends GameShell {
 
         // Render the frame
         drawArea.drawImage(0, graphics, 0);
-        exportImage(drawArea.pixels, "dump/test" + frame++);
     }
 
     @Override

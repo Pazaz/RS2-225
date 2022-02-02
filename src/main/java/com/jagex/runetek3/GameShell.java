@@ -18,6 +18,8 @@ public class GameShell extends JApplet implements Runnable, MouseListener, Mouse
     public static int KEY_TAB = 9;
     public static int KEY_ENTER = 10; // \n
     public static int KEY_RETURN = 13; // \r
+    public static int KEY_HOME = 1000;
+    public static int KEY_END = 1001;
 
     public void initFrame(int height, int width, String title) {
         gameWidth = width;
@@ -286,19 +288,19 @@ public class GameShell extends JApplet implements Runnable, MouseListener, Mouse
             ch = KEY_TAB;
         } else if (code == KeyEvent.VK_ENTER) {
             ch = KEY_ENTER;
-        } else if (code >= KeyEvent.VK_F1 && code <= KeyEvent.VK_F12) {
-            ch = (1008 + code) - KeyEvent.VK_F1;
         } else if (code == KeyEvent.VK_HOME) {
-            ch = 1000;
+            ch = KEY_HOME;
         } else if (code == KeyEvent.VK_END) {
-            ch = 1001;
+            ch = KEY_END;
         } else if (code == KeyEvent.VK_PAGE_UP) {
             ch = 1002;
         } else if (code == KeyEvent.VK_PAGE_DOWN) {
             ch = 1003;
+        } else if (code >= KeyEvent.VK_F1 && code <= KeyEvent.VK_F12) {
+            ch = (1008 + code) - KeyEvent.VK_F1;
         }
 
-        if (ch > 0 && ch < 128) {
+        if (ch > 0 && ch < 1024) {
             keyDown[ch] = 1;
         }
 
@@ -316,7 +318,7 @@ public class GameShell extends JApplet implements Runnable, MouseListener, Mouse
         idleCycles = 0;
 
         int code = keyevent.getKeyCode();
-        char ch = keyevent.getKeyChar();
+        int ch = keyevent.getKeyChar();
 
         if (ch < 30) {
             ch = 0;
@@ -340,9 +342,19 @@ public class GameShell extends JApplet implements Runnable, MouseListener, Mouse
             ch = 9;
         } else if (code == KeyEvent.VK_ENTER) {
             ch = 10;
+        } else if (code == KeyEvent.VK_HOME) {
+            ch = KEY_HOME;
+        } else if (code == KeyEvent.VK_END) {
+            ch = KEY_END;
+        } else if (code == KeyEvent.VK_PAGE_UP) {
+            ch = 1002;
+        } else if (code == KeyEvent.VK_PAGE_DOWN) {
+            ch = 1003;
+        } else if (code >= KeyEvent.VK_F1 && code <= KeyEvent.VK_F12) {
+            ch = (1008 + code) - KeyEvent.VK_F1;
         }
 
-        if (ch > 0 && ch < 128) {
+        if (ch > 0 && ch < 1024) {
             keyDown[ch] = 0;
         }
 
@@ -484,8 +496,8 @@ public class GameShell extends JApplet implements Runnable, MouseListener, Mouse
     public int mouseButton;
     public int clickX;
     public int clickY;
-    public int[] keyDown = new int[128];
-    public int[] pressedKeys = new int[128];
+    public int[] keyDown = new int[1024];
+    public int[] pressedKeys = new int[1024];
     public int lastProcessedKey;
     public int unprocessedKeyCount;
 }
