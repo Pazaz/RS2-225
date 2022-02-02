@@ -348,56 +348,45 @@ public class Viewer extends GameShell {
     }
 
     public void update() {
-        if (super.keyDown[1] == 1) {
+        if (super.keyDown[GameShell.KEY_LEFT] == 1) {
             offsetX = (int) ((double) offsetX - 16D / zoomX);
             shouldDraw = true;
-        }
-        if (super.keyDown[2] == 1) {
+        } else if (super.keyDown[GameShell.KEY_RIGHT] == 1) {
             offsetX = (int) ((double) offsetX + 16D / zoomX);
             shouldDraw = true;
         }
-        if (super.keyDown[3] == 1) {
+
+        if (super.keyDown[GameShell.KEY_UP] == 1) {
             offsetY = (int) ((double) offsetY - 16D / zoomX);
             shouldDraw = true;
-        }
-        if (super.keyDown[4] == 1) {
+        } else if (super.keyDown[GameShell.KEY_DOWN] == 1) {
             offsetY = (int) ((double) offsetY + 16D / zoomX);
             shouldDraw = true;
         }
-        int k = 1;
-        while (k > 0) {
-            k = pollKey();
-            if (k == '1') {
+
+        int key = 1;
+        while (key > 0) {
+            key = pollKey();
+
+            if (key == '1') {
                 zoomY = 3D;
                 shouldDraw = true;
-            }
-
-            if (k == '2') {
+            } else if (key == '2') {
                 zoomY = 4D;
                 shouldDraw = true;
-            }
-
-            if (k == '3') {
+            } else if (key == '3') {
                 zoomY = 6D;
                 shouldDraw = true;
-            }
-
-            if (k == '4') {
+            } else if (key == '4') {
                 zoomY = 8D;
                 shouldDraw = true;
-            }
-
-            if (k == 'k' || k == 'K') {
+            } else if (key == 'k' || key == 'K') {
                 showKey = !showKey;
                 shouldDraw = true;
-            }
-
-            if (k == 'o' || k == 'O') {
+            } else if (key == 'o' || key == 'O') {
                 showOverview = !showOverview;
                 shouldDraw = true;
-            }
-
-            if (super.frame != null && k == 'e') {
+            } else if (super.frame != null && key == 'e') {
                 System.out.println("Starting export...");
                 int width = originX * 2;
                 int height = originY * 2;
@@ -430,6 +419,9 @@ public class Viewer extends GameShell {
                 }
 
                 System.out.println("Done export: " + width + "," + height);
+            } else if (super.frame != null && key == 'd') {
+                this.shouldDrawDebug = !this.shouldDrawDebug;
+                this.shouldDraw = true;
             }
         }
 
@@ -438,56 +430,62 @@ public class Viewer extends GameShell {
             mouseClickY = super.clickY;
             lastOffsetX = offsetX;
             lastOffsetY = offsetY;
+
             if (super.clickX > 170 && super.clickX < 220 && super.clickY > 471 && super.clickY < 503) {
                 zoomY = 3D;
                 mouseClickX = -1;
-            }
-            if (super.clickX > 230 && super.clickX < 280 && super.clickY > 471 && super.clickY < 503) {
+            } else if (super.clickX > 230 && super.clickX < 280 && super.clickY > 471 && super.clickY < 503) {
                 zoomY = 4D;
                 mouseClickX = -1;
-            }
-            if (super.clickX > 290 && super.clickX < 340 && super.clickY > 471 && super.clickY < 503) {
+            } else if (super.clickX > 290 && super.clickX < 340 && super.clickY > 471 && super.clickY < 503) {
                 zoomY = 6D;
                 mouseClickX = -1;
-            }
-            if (super.clickX > 350 && super.clickX < 400 && super.clickY > 471 && super.clickY < 503) {
+            } else if (super.clickX > 350 && super.clickX < 400 && super.clickY > 471 && super.clickY < 503) {
                 zoomY = 8D;
                 mouseClickX = -1;
-            }
-            if (super.clickX > keyX && super.clickY > keyY + keyOffset && super.clickX < keyX + keyWidth && super.clickY < 503) {
+            } else if (super.clickX > keyX && super.clickY > keyY + keyOffset && super.clickX < keyX + keyWidth && super.clickY < 503) {
                 showKey = !showKey;
                 mouseClickX = -1;
-            }
-            if (super.clickX > overviewX && super.clickY > overviewY + imageOverviewHeight && super.clickX < overviewX + imageOverviewWidth && super.clickY < 503) {
+            } else if (super.clickX > overviewX && super.clickY > overviewY + imageOverviewHeight && super.clickX < overviewX + imageOverviewWidth && super.clickY < 503) {
                 showOverview = !showOverview;
                 mouseClickX = -1;
             }
+
             if (showKey) {
-                if (super.clickX > keyX && super.clickY > keyY && super.clickX < keyX + keyWidth && super.clickY < keyY + keyOffset)
+                if (super.clickX > keyX && super.clickY > keyY && super.clickX < keyX + keyWidth && super.clickY < keyY + keyOffset) {
                     mouseClickX = -1;
-                if (super.clickX > keyX && super.clickY > keyY && super.clickX < keyX + keyWidth && super.clickY < keyY + 18 && keyPage > 0)
+                }
+
+                if (super.clickX > keyX && super.clickY > keyY && super.clickX < keyX + keyWidth && super.clickY < keyY + 18 && keyPage > 0) {
                     keyPage -= 25;
-                if (super.clickX > keyX && super.clickY > (keyY + keyOffset) - 18 && super.clickX < keyX + keyWidth && super.clickY < keyY + keyOffset && keyPage < 50)
+                }
+
+                if (super.clickX > keyX && super.clickY > (keyY + keyOffset) - 18 && super.clickX < keyX + keyWidth && super.clickY < keyY + keyOffset && keyPage < 50) {
                     keyPage += 25;
+                }
             }
+
             shouldDraw = true;
         }
 
         if (showKey) {
             currentKeyHover = -1;
             if (super.mouseX > keyX && super.mouseX < keyX + keyWidth) {
-                k = keyY + 21 + 5;
+                int y = keyY + 21 + 5;
                 for (int i1 = 0; i1 < 25; i1++) {
-                    if (i1 + lastKeyPage < keyNames.length && keyNames[i1 + lastKeyPage].equals("???"))
+                    if (i1 + lastKeyPage < keyNames.length && keyNames[i1 + lastKeyPage].equals("???")) {
                         continue;
-                    if (super.mouseY >= k && super.mouseY < k + 17) {
+                    }
+
+                    if (super.mouseY >= y && super.mouseY < y + 17) {
                         currentKeyHover = i1 + lastKeyPage;
                         if (super.mouseButton == 1) {
                             currentKey = i1 + lastKeyPage;
                             flashTimer = 50;
                         }
                     }
-                    k += 17;
+
+                    y += 17;
                 }
             }
 
@@ -498,21 +496,21 @@ public class Viewer extends GameShell {
         }
 
         if ((super.dragButton == 1 || super.mouseButton == 1) && showOverview) {
-            k = super.clickX;
-            int j1 = super.clickY;
+            int x = super.clickX;
+            int y = super.clickY;
+
             if (super.dragButton == 1) {
-                k = super.mouseX;
-                j1 = super.mouseY;
+                x = super.mouseX;
+                y = super.mouseY;
             }
-            if (k > overviewX && j1 > overviewY && k < overviewX + imageOverviewWidth && j1 < overviewY + imageOverviewHeight) {
-                offsetX = ((k - overviewX) * originX) / imageOverviewWidth;
-                offsetY = ((j1 - overviewY) * originY) / imageOverviewHeight;
+
+            if (x > overviewX && y > overviewY && x < overviewX + imageOverviewWidth && y < overviewY + imageOverviewHeight) {
+                offsetX = ((x - overviewX) * originX) / imageOverviewWidth;
+                offsetY = ((y - overviewY) * originY) / imageOverviewHeight;
                 mouseClickX = -1;
                 shouldDraw = true;
             }
-        }
-
-        if (super.dragButton == 1 && mouseClickX != -1) {
+        } else if (super.dragButton == 1 && mouseClickX != -1) {
             offsetX = lastOffsetX + (int) (((double) (mouseClickX - super.mouseX) * 2D) / zoomY);
             offsetY = lastOffsetY + (int) (((double) (mouseClickY - super.mouseY) * 2D) / zoomY);
             shouldDraw = true;
@@ -521,23 +519,21 @@ public class Viewer extends GameShell {
         if (zoomX < zoomY) {
             shouldDraw = true;
             zoomX += zoomX / 30D;
-            if (zoomX > zoomY)
+            if (zoomX > zoomY) {
                 zoomX = zoomY;
-        }
-
-        if (zoomX > zoomY) {
+            }
+        } else if (zoomX > zoomY) {
             shouldDraw = true;
             zoomX -= zoomX / 30D;
-            if (zoomX < zoomY)
+            if (zoomX < zoomY) {
                 zoomX = zoomY;
+            }
         }
 
         if (lastKeyPage < keyPage) {
             shouldDraw = true;
             lastKeyPage++;
-        }
-
-        if (lastKeyPage > keyPage) {
+        } else if (lastKeyPage > keyPage) {
             shouldDraw = true;
             lastKeyPage--;
         }
@@ -547,11 +543,11 @@ public class Viewer extends GameShell {
             flashTimer--;
         }
 
-        k = offsetX - (int) (635D / zoomX);
+        key = offsetX - (int) (635D / zoomX);
         int k1 = offsetY - (int) (503D / zoomX);
         int i2 = offsetX + (int) (635D / zoomX);
         int j2 = offsetY + (int) (503D / zoomX);
-        if (k < 48)
+        if (key < 48)
             offsetX = 48 + (int) (635D / zoomX);
         if (k1 < 48)
             offsetY = 48 + (int) (503D / zoomX);

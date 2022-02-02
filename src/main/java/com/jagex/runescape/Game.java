@@ -1454,36 +1454,37 @@ public class Game extends GameShell {
 
     public void updateKeyboardInput() {
         do {
-            int j = pollKey();
-            if (j == -1)
+            int key = pollKey();
+            if (key == -1) {
                 break;
+            }
+
             if (viewportInterfaceIndex != -1 && viewportInterfaceIndex == openInterfaceId) {
-                if (j == 8 && reportInput.length() > 0)
+                if (key == GameShell.KEY_DELETE && reportInput.length() > 0) {
                     reportInput = reportInput.substring(0, reportInput.length() - 1);
-                if ((j >= 97 && j <= 122 || j >= 65 && j <= 90 || j >= 48 && j <= 57 || j == 32)
-                    && reportInput.length() < 12)
-                    reportInput += (char) j;
-            } else if (showSocialInput) {
-                if (j >= 32 && j <= 122 && socialInput.length() < 80) {
-                    socialInput += (char) j;
-                    redrawChatback = true;
+                } else if ((key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z' || key >= '0' && key <= '9' || key == ' ') && reportInput.length() < 12) {
+                    reportInput += (char) key;
                 }
-                if (j == 8 && socialInput.length() > 0) {
+            } else if (showSocialInput) {
+                if (key >= ' ' && key <= 'z' && socialInput.length() < 80) {
+                    socialInput += (char) key;
+                    redrawChatback = true;
+                } else if (key == GameShell.KEY_DELETE && socialInput.length() > 0) {
                     socialInput = socialInput.substring(0, socialInput.length() - 1);
                     redrawChatback = true;
                 }
-                if (j == 13 || j == 10) {
+
+                if (key == GameShell.KEY_RETURN || key == GameShell.KEY_ENTER) {
                     showSocialInput = false;
                     redrawChatback = true;
+
                     if (socialAction == 1) {
                         long l = StringUtils.toBase37(socialInput);
                         addFriend(l);
-                    }
-                    if (socialAction == 2 && friendCount > 0) {
+                    } else if (socialAction == 2 && friendCount > 0) {
                         long l1 = StringUtils.toBase37(socialInput);
                         removeFriend(l1);
-                    }
-                    if (socialAction == 3 && socialInput.length() > 0) {
+                    } else if (socialAction == 3 && socialInput.length() > 0) {
                         outBuffer.writeOpcode(Packet.CHAT_PRIVATE);
                         outBuffer.writeByte(0);
                         int k = outBuffer.offset;
@@ -1501,26 +1502,22 @@ public class Game extends GameShell {
                             outBuffer.writeByte(chatPrivateSetting);
                             outBuffer.writeByte(chatTradeDuelSetting);
                         }
-                    }
-                    if (socialAction == 4 && ignoreCount < 100) {
+                    } else if (socialAction == 4 && ignoreCount < 100) {
                         long l2 = StringUtils.toBase37(socialInput);
                         addIgnore(l2);
-                    }
-                    if (socialAction == 5 && ignoreCount > 0) {
+                    } else if (socialAction == 5 && ignoreCount > 0) {
                         long l3 = StringUtils.toBase37(socialInput);
                         removeIgnore(l3);
                     }
                 }
             } else if (chatbackInputType) {
-                if (j >= 48 && j <= 57 && chatbackInput.length() < 10) {
-                    chatbackInput += (char) j;
+                if (key >= '0' && key <= '9' && chatbackInput.length() < 10) {
+                    chatbackInput += (char) key;
                     redrawChatback = true;
-                }
-                if (j == 8 && chatbackInput.length() > 0) {
+                } else if (key == GameShell.KEY_DELETE && chatbackInput.length() > 0) {
                     chatbackInput = chatbackInput.substring(0, chatbackInput.length() - 1);
                     redrawChatback = true;
-                }
-                if (j == 13 || j == 10) {
+                } else if (key == GameShell.KEY_RETURN || key == GameShell.KEY_ENTER) {
                     if (chatbackInput.length() > 0) {
                         int i1 = 0;
                         try {
@@ -1530,19 +1527,18 @@ public class Game extends GameShell {
                         outBuffer.writeOpcode(Packet.INTERFACE_ENTERED_AMOUNT);
                         outBuffer.writeDWord(i1);
                     }
+
                     chatbackInputType = false;
                     redrawChatback = true;
                 }
             } else if (chatbackComponentId == -1) {
-                if (j >= 32 && j <= 122 && input.length() < 80) {
-                    input += (char) j;
+                if (key >= ' ' && key <= 'z' && input.length() < 80) {
+                    input += (char) key;
                     redrawChatback = true;
-                }
-                if (j == 8 && input.length() > 0) {
+                } else if (key == GameShell.KEY_DELETE && input.length() > 0) {
                     input = input.substring(0, input.length() - 1);
                     redrawChatback = true;
-                }
-                if ((j == 13 || j == 10) && input.length() > 0) {
+                } else if ((key == GameShell.KEY_RETURN || key == GameShell.KEY_ENTER) && input.length() > 0) {
                     if (input.equals("::clientdrop") && (super.frame != null || getHost().indexOf("192.168.1.") != -1)) {
                         reconnect();
                     } else if (input.startsWith("::")) {
@@ -1550,79 +1546,68 @@ public class Game extends GameShell {
                             outBuffer.writeByte(input.length() - 1);
                             outBuffer.writeString(input.substring(2));
                     } else {
-                        int j1 = 0;
+                        int color = 0;
                         if (input.startsWith("yellow:")) {
-                            j1 = 0;
+                            color = 0;
                             input = input.substring(7);
-                        }
-                        if (input.startsWith("red:")) {
-                            j1 = 1;
+                        } else if (input.startsWith("red:")) {
+                            color = 1;
                             input = input.substring(4);
-                        }
-                        if (input.startsWith("green:")) {
-                            j1 = 2;
+                        } else if (input.startsWith("green:")) {
+                            color = 2;
                             input = input.substring(6);
-                        }
-                        if (input.startsWith("cyan:")) {
-                            j1 = 3;
+                        } else if (input.startsWith("cyan:")) {
+                            color = 3;
                             input = input.substring(5);
-                        }
-                        if (input.startsWith("purple:")) {
-                            j1 = 4;
+                        } else if (input.startsWith("purple:")) {
+                            color = 4;
                             input = input.substring(7);
-                        }
-                        if (input.startsWith("white:")) {
-                            j1 = 5;
+                        } else if (input.startsWith("white:")) {
+                            color = 5;
+                            input = input.substring(6);
+                        } else if (input.startsWith("flash1:")) {
+                            color = 6;
+                            input = input.substring(7);
+                        } else if (input.startsWith("flash2:")) {
+                            color = 7;
+                            input = input.substring(7);
+                        } else if (input.startsWith("flash3:")) {
+                            color = 8;
+                            input = input.substring(7);
+                        } else if (input.startsWith("glow1:")) {
+                            color = 9;
+                            input = input.substring(6);
+                        } else if (input.startsWith("glow2:")) {
+                            color = 10;
+                            input = input.substring(6);
+                        } else if (input.startsWith("glow3:")) {
+                            color = 11;
                             input = input.substring(6);
                         }
-                        if (input.startsWith("flash1:")) {
-                            j1 = 6;
-                            input = input.substring(7);
-                        }
-                        if (input.startsWith("flash2:")) {
-                            j1 = 7;
-                            input = input.substring(7);
-                        }
-                        if (input.startsWith("flash3:")) {
-                            j1 = 8;
-                            input = input.substring(7);
-                        }
-                        if (input.startsWith("glow1:")) {
-                            j1 = 9;
-                            input = input.substring(6);
-                        }
-                        if (input.startsWith("glow2:")) {
-                            j1 = 10;
-                            input = input.substring(6);
-                        }
-                        if (input.startsWith("glow3:")) {
-                            j1 = 11;
-                            input = input.substring(6);
-                        }
-                        int k1 = 0;
+
+                        int effect = 0;
                         if (input.startsWith("wave:")) {
-                            k1 = 1;
+                            effect = 1;
                             input = input.substring(5);
-                        }
-                        if (input.startsWith("scroll:")) {
-                            k1 = 2;
+                        } else if (input.startsWith("scroll:")) {
+                            effect = 2;
                             input = input.substring(7);
                         }
+
                         outBuffer.writeOpcode(Packet.CHAT_PUBLIC);
                         outBuffer.writeByte(0);
                         int i2 = outBuffer.offset;
-                        outBuffer.writeByte(j1);
-                        outBuffer.writeByte(k1);
+                        outBuffer.writeByte(color);
+                        outBuffer.writeByte(effect);
                         TextEncoder.write(outBuffer, input);
                         outBuffer.writeSize(outBuffer.offset - i2);
                         input = StringUtils.toSentence(input);
                         input = WordEncoding.getFiltered(input);
                         self.spoken = input;
-                        self.spokenColor = j1;
-                        self.spokenEffect = k1;
+                        self.spokenColor = color;
+                        self.spokenEffect = effect;
                         self.textCycle = 150;
-                        addMessage(2, self.spoken,
-                            self.name);
+                        addMessage(2, self.spoken, self.name);
                         if (chatPublicSetting == 2) {
                             chatPublicSetting = 3;
                             chatRedrawSettings = true;
@@ -1632,6 +1617,7 @@ public class Game extends GameShell {
                             outBuffer.writeByte(chatTradeDuelSetting);
                         }
                     }
+
                     input = "";
                     redrawChatback = true;
                 }
@@ -1697,34 +1683,35 @@ public class Game extends GameShell {
                     username = "";
                     password = "";
                 }
+
                 do {
-                    int l1 = pollKey();
-                    if (l1 == -1)
+                    int key = pollKey();
+                    if (key == -1)
                         break;
                     boolean flag = false;
                     for (int i2 = 0; i2 < ASCII_CHARSET.length(); i2++) {
-                        if (l1 != ASCII_CHARSET.charAt(i2))
+                        if (key != ASCII_CHARSET.charAt(i2))
                             continue;
                         flag = true;
                         break;
                     }
 
                     if (loginFocusedLine == 0) {
-                        if (l1 == 8 && username.length() > 0)
+                        if (key == GameShell.KEY_DELETE && username.length() > 0)
                             username = username.substring(0, username.length() - 1);
-                        if (l1 == 9 || l1 == 10 || l1 == 13)
+                        if (key == GameShell.KEY_TAB || key == GameShell.KEY_ENTER || key == GameShell.KEY_RETURN)
                             loginFocusedLine = 1;
                         if (flag)
-                            username += (char) l1;
+                            username += (char) key;
                         if (username.length() > 12)
                             username = username.substring(0, 12);
                     } else if (loginFocusedLine == 1) {
-                        if (l1 == 8 && password.length() > 0)
+                        if (key == GameShell.KEY_DELETE && password.length() > 0)
                             password = password.substring(0, password.length() - 1);
-                        if (l1 == 9 || l1 == 10 || l1 == 13)
+                        if (key == GameShell.KEY_TAB || key == GameShell.KEY_ENTER || key == GameShell.KEY_RETURN)
                             loginFocusedLine = 0;
                         if (flag)
-                            password += (char) l1;
+                            password += (char) key;
                         if (password.length() > 20)
                             password = password.substring(0, 20);
                     }
@@ -4855,18 +4842,21 @@ public class Game extends GameShell {
             cameraOrbitX += (j - cameraOrbitX) / 16;
         if (cameraOrbitZ != k)
             cameraOrbitZ += (k - cameraOrbitZ) / 16;
-        if (super.keyDown[1] == 1)
+
+        if (super.keyDown[GameShell.KEY_LEFT] == 1)
             cameraYawModifier += (-24 - cameraYawModifier) / 2;
-        else if (super.keyDown[2] == 1)
+        else if (super.keyDown[GameShell.KEY_RIGHT] == 1)
             cameraYawModifier += (24 - cameraYawModifier) / 2;
         else
             cameraYawModifier /= 2;
-        if (super.keyDown[3] == 1)
+
+        if (super.keyDown[GameShell.KEY_UP] == 1)
             cameraPitchModifier += (12 - cameraPitchModifier) / 2;
-        else if (super.keyDown[4] == 1)
+        else if (super.keyDown[GameShell.KEY_DOWN] == 1)
             cameraPitchModifier += (-12 - cameraPitchModifier) / 2;
         else
             cameraPitchModifier /= 2;
+
         cameraYaw = cameraYaw + cameraYawModifier / 2 & 0x7ff;
         cameraOrbitPitch += cameraPitchModifier / 2;
         if (cameraOrbitPitch < 128)
@@ -5880,7 +5870,7 @@ public class Game extends GameShell {
         updateNpcEntity(true);
         updateEntityVoices();
         updateTemporaryLocs();
-        if ((super.keyDown[1] == 1 || super.keyDown[2] == 1 || super.keyDown[3] == 1 || super.keyDown[4] == 1) && cameraMovedWrite++ > 5) {
+        if ((super.keyDown[GameShell.KEY_LEFT] == 1 || super.keyDown[GameShell.KEY_RIGHT] == 1 || super.keyDown[GameShell.KEY_UP] == 1 || super.keyDown[GameShell.KEY_DOWN] == 1) && cameraMovedWrite++ > 5) {
             cameraMovedWrite = 0;
             outBuffer.writeOpcode(Packet.CAMERA_MOVEMENT);
             outBuffer.writeWord(cameraOrbitPitch);
@@ -6319,7 +6309,7 @@ public class Game extends GameShell {
             }
 
             // control held down
-            outBuffer.writeByte(super.keyDown[5] == 1 ? 1 : 0);
+            outBuffer.writeByte(super.keyDown[GameShell.KEY_CONTROL] == 1 ? 1 : 0);
 
             outBuffer.writeWord(startX + baseTileX);
             outBuffer.writeWord(startZ + baseTileZ);

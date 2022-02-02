@@ -7,8 +7,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameShell extends JApplet
-    implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
+public class GameShell extends JApplet implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
+
+    public static int KEY_LEFT = 1;
+    public static int KEY_RIGHT = 2;
+    public static int KEY_UP = 3;
+    public static int KEY_DOWN = 4;
+    public static int KEY_CONTROL = 5;
+    public static int KEY_DELETE = 8;
+    public static int KEY_TAB = 9;
+    public static int KEY_ENTER = 10; // \n
+    public static int KEY_RETURN = 13; // \r
 
     public void initFrame(int height, int width, String title) {
         gameWidth = width;
@@ -259,33 +268,33 @@ public class GameShell extends JApplet
             ch = 0;
         }
 
-        if (code == 37) {
-            ch = 1;
-        } else if (code == 39) {
-            ch = 2;
-        } else if (code == 38) {
-            ch = 3;
-        } else if (code == 40) {
-            ch = 4;
-        } else if (code == 17) {
-            ch = 5;
-        } else if (code == 8) {
-            ch = 8;
-        } else if (code == 127) {
-            ch = 8;
-        } else if (code == 9) {
-            ch = 9;
-        } else if (code == 10) {
-            ch = 10;
-        } else if (code >= 112 && code <= 123) {
-            ch = (1008 + code) - 112;
-        } else if (code == 36) {
+        if (code == KeyEvent.VK_LEFT) {
+            ch = KEY_LEFT;
+        } else if (code == KeyEvent.VK_RIGHT) {
+            ch = KEY_RIGHT;
+        } else if (code == KeyEvent.VK_UP) {
+            ch = KEY_UP;
+        } else if (code == KeyEvent.VK_DOWN) {
+            ch = KEY_DOWN;
+        } else if (code == KeyEvent.VK_CONTROL) {
+            ch = KEY_CONTROL;
+        } else if (code == KeyEvent.VK_BACK_SPACE) {
+            ch = KEY_DELETE;
+        } else if (code == KeyEvent.VK_DELETE) {
+            ch = KEY_DELETE;
+        } else if (code == KeyEvent.VK_TAB) {
+            ch = KEY_TAB;
+        } else if (code == KeyEvent.VK_ENTER) {
+            ch = KEY_ENTER;
+        } else if (code >= KeyEvent.VK_F1 && code <= KeyEvent.VK_F12) {
+            ch = (1008 + code) - KeyEvent.VK_F1;
+        } else if (code == KeyEvent.VK_HOME) {
             ch = 1000;
-        } else if (code == 35) {
+        } else if (code == KeyEvent.VK_END) {
             ch = 1001;
-        } else if (code == 33) {
+        } else if (code == KeyEvent.VK_PAGE_UP) {
             ch = 1002;
-        } else if (code == 34) {
+        } else if (code == KeyEvent.VK_PAGE_DOWN) {
             ch = 1003;
         }
 
@@ -313,23 +322,23 @@ public class GameShell extends JApplet
             ch = 0;
         }
 
-        if (code == 37) {
+        if (code == KeyEvent.VK_LEFT) {
             ch = 1;
-        } else if (code == 39) {
+        } else if (code == KeyEvent.VK_RIGHT) {
             ch = 2;
-        } else if (code == 38) {
+        } else if (code == KeyEvent.VK_UP) {
             ch = 3;
-        } else if (code == 40) {
+        } else if (code == KeyEvent.VK_DOWN) {
             ch = 4;
-        } else if (code == 17) {
+        } else if (code == KeyEvent.VK_CONTROL) {
             ch = 5;
-        } else if (code == 8) {
+        } else if (code == KeyEvent.VK_BACK_SPACE) {
             ch = 8;
-        } else if (code == 127) {
+        } else if (code == KeyEvent.VK_DELETE) {
             ch = 8;
-        } else if (code == 9) {
+        } else if (code == KeyEvent.VK_TAB) {
             ch = 9;
-        } else if (code == 10) {
+        } else if (code == KeyEvent.VK_ENTER) {
             ch = 10;
         }
 
