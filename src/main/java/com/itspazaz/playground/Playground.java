@@ -28,6 +28,10 @@ public class Playground extends GameShell {
     private ObjType obj;
     private NpcEntity npc = new NpcEntity();
     private LocType loc;
+    private SeqType locSeq;
+    private int locFrame = 0;
+    private int locDelay = 0;
+    private int locCycle = 0;
     private Model model;
     private int pitch;
     private int yaw;
@@ -258,18 +262,31 @@ public class Playground extends GameShell {
                                 status = "Loaded NPC " + id;
                             }
                         } else if (loadType.equals("Loc")) {
-                            // load 2725
-                            int id = Integer.parseInt(textInput);
-                            loc = LocType.get(id);
-                            pitch = 0;
-                            yaw = 143;
-                            roll = 0;
-                            camera.pitch = 192;
-                            camera.x = 0;
-                            camera.z = 357;
-                            camera.y = 427;
-                            model = loc.getModel(loc.modelTypes[0], 0, -400, -400, -400, -400, -1);
-                            status = "Loaded Loc: " + loc.name + " (" + id + ")";
+                            if (textInput.startsWith("a")) {
+                                int id = Integer.parseInt(textInput.substring(1));
+                                locSeq = SeqType.animations[id];
+                                loc.animationIndex = id;
+                                locFrame = 0;
+                                locDelay = 0;
+                                locCycle = 0;
+                                status = "Applied Loc animation " + id;
+                            } else {
+                                int id = Integer.parseInt(textInput);
+                                loc = LocType.get(id);
+                                locSeq = null;
+                                locFrame = 0;
+                                locDelay = 0;
+                                locCycle = 0;
+                                pitch = 0;
+                                yaw = 143;
+                                roll = 0;
+                                camera.pitch = 192;
+                                camera.x = 0;
+                                camera.z = 357;
+                                camera.y = 427;
+                                model = loc.getModel(loc.modelTypes[0], 0, -400, -400, -400, -400, -1);
+                                status = "Loaded Loc: " + loc.name + " (" + id + ")";
+                            }
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -377,6 +394,22 @@ public class Playground extends GameShell {
                         p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + camera.x + "," + camera.z + "," + camera.y, gameWidth - 4, true);
                     }
                 } else if (loadType.equals("Loc")) {
+                    if (loc.animationIndex != -1 && locDelay == 0) {
+                        SeqType seq = SeqType.animations[loc.animationIndex];
+                        locFrame++;
+                        if (locFrame > seq.primaryFrames.length - 1) {
+                            locCycle = 1;
+                            locFrame = 0;
+                        }
+                        model = loc.getModel(loc.modelTypes[0], 0, -400, -400, -400, -400, seq.primaryFrames[locFrame]);
+                        locDelay = 4;
+                        if (locCycle == 0) {
+                            newFrame = true;
+                        }
+                    } else if (locDelay > 0) {
+                        locDelay--;
+                    }
+
                     model.draw(pitch, yaw, roll, camera.pitch, camera.x, camera.z, camera.y);
 
                     if (drawText) {

@@ -5,7 +5,7 @@ import com.jagex.runetek3.util.Node;
 
 public class LocEntity extends Node {
 
-    public LocEntity(boolean flag, int locIndex, int level, int classType, SeqType seq, int tileZ, int tileX) {
+    public LocEntity(boolean animated, int locIndex, int level, int classType, SeqType seq, int tileZ, int tileX) {
         this.level = level;
         this.classType = classType;
         this.tileX = tileX;
@@ -13,7 +13,7 @@ public class LocEntity extends Node {
         this.locIndex = locIndex;
         this.seq = seq;
 
-        if (flag && seq.delta != -1) {
+        if (animated && seq.delta != -1) {
             seqFrame = (int) (Math.random() * (double) this.seq.frameCount);
             seqCycle = (int) (Math.random() * (double) this.seq.frameDelay[seqFrame]);
         } else {
