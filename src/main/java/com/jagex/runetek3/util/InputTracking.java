@@ -41,12 +41,12 @@ public class InputTracking {
         }
     }
 
-    public static synchronized void mousePressed(int y, int button, int x) {
+    public static synchronized void mousePressed(int x, int button, int y) {
         if (!enabled) {
             return;
         }
 
-        if (y < 0 || y >= 789 || x < 0 || x >= 532) {
+        if (x < 0 || x >= 789 || y < 0 || y >= 532) {
             return;
         }
 
@@ -67,7 +67,7 @@ public class InputTracking {
             outBuffer.writeByte(2);
         }
         outBuffer.writeByte((int) l1);
-        outBuffer.writeSWord(y + (x << 10));
+        outBuffer.writeSWord(x + (y << 10));
     }
 
     public static synchronized void mouseReleased(int button) {
@@ -93,12 +93,12 @@ public class InputTracking {
         outBuffer.writeByte((int) deltaTime);
     }
 
-    public static synchronized void mouseMoved(int x, int y) {
+    public static synchronized void mouseMoved(int y, int x) {
         if (!enabled) {
             return;
         }
 
-        if (y < 0 || y >= 789 || x < 0 || x >= 532) {
+        if (x < 0 || x >= 789 || y < 0 || y >= 532) {
             return;
         }
 
@@ -113,26 +113,26 @@ public class InputTracking {
             }
 
             lastTime = currentTime;
-            if (y - lastY < 8 && y - lastY >= -8 && x - lastX < 8 && x - lastX >= -8) {
+            if (x - lastY < 8 && x - lastY >= -8 && y - lastX < 8 && y - lastX >= -8) {
                 resizeIfNeeded(3);
                 outBuffer.writeByte(5);
                 outBuffer.writeByte((int) deltaTime);
-                outBuffer.writeByte((y - lastY) + 8 + ((x - lastX) + 8 << 4));
-            } else if (y - lastY < 128 && y - lastY >= -128 && x - lastX < 128 && x - lastX >= -128) {
+                outBuffer.writeByte((x - lastY) + 8 + ((y - lastX) + 8 << 4));
+            } else if (x - lastY < 128 && x - lastY >= -128 && y - lastX < 128 && y - lastX >= -128) {
                 resizeIfNeeded(4);
                 outBuffer.writeByte(6);
                 outBuffer.writeByte((int) deltaTime);
-                outBuffer.writeByte((y - lastY) + 128);
-                outBuffer.writeByte((x - lastX) + 128);
+                outBuffer.writeByte((x - lastY) + 128);
+                outBuffer.writeByte((y - lastX) + 128);
             } else {
                 resizeIfNeeded(5);
                 outBuffer.writeByte(7);
                 outBuffer.writeByte((int) deltaTime);
-                outBuffer.writeSWord(y + (x << 10));
+                outBuffer.writeSWord(x + (y << 10));
             }
 
-            lastY = y;
-            lastX = x;
+            lastY = x;
+            lastX = y;
         }
     }
 

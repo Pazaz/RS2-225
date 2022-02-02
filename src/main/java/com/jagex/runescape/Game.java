@@ -1756,7 +1756,7 @@ public class Game extends GameShell {
             return new FileArchive(data);
         }
         while (data == null) {
-            showProgress(true, "Requesting " + s, j);
+            showProgress("Requesting " + s, j);
             try {
                 int j1 = 0;
                 DataInputStream datainputstream = openStream(s1 + i);
@@ -1776,14 +1776,14 @@ public class Game extends GameShell {
                     j2 += datainputstream.read(data, j2, l2);
                     int i3 = (j2 * 100) / i2;
                     if (i3 != j1)
-                        showProgress(true, "Loading " + s + " - " + i3 + "%", j);
+                        showProgress("Loading " + s + " - " + i3 + "%", j);
                     j1 = i3;
                 }
                 datainputstream.close();
             } catch (IOException _ex) {
                 data = null;
                 for (int k1 = l; k1 > 0; k1--) {
-                    showProgress(true, "Error loading - Will retry in " + k1 + " secs.", j);
+                    showProgress("Error loading - Will retry in " + k1 + " secs.", j);
                     try {
                         Thread.sleep(1000L);
                     } catch (Exception _ex2) {
@@ -2348,7 +2348,7 @@ public class Game extends GameShell {
         updateFlameDissolve(null);
         flameIntensity = new int[32768];
         flameIntensityBuffer = new int[32768];
-        showProgress(true, "Connecting to fileserver", 10);
+        showProgress("Connecting to fileserver", 10);
 
         if (!flameActive) {
             flamesThread = true;
@@ -4421,7 +4421,7 @@ public class Game extends GameShell {
 
     public void load() {
         if (Signlink.sunjava)
-            super.anInt9 = 5;
+            super.mindel = 5;
         if (!lowMemory) {
             aBoolean799 = true;
             aBoolean812 = true;
@@ -4458,7 +4458,7 @@ public class Game extends GameShell {
         try {
             int i = 5;
             for (archiveChecksums[8] = 0; archiveChecksums[8] == 0; ) {
-                showProgress(true, "Connecting to fileserver", 10);
+                showProgress("Connecting to fileserver", 10);
                 try {
                     DataInputStream datainputstream = openStream("crc" + (int) (Math.random() * 99999999D));
                     Buffer class38_sub2_sub3 = new Buffer(new byte[36]);
@@ -4470,7 +4470,7 @@ public class Game extends GameShell {
                     datainputstream.close();
                 } catch (IOException _ex) {
                     for (int j = i; j > 0; j--) {
-                        showProgress(true, "Error loading - Will retry in " + j + " secs.", 10);
+                        showProgress("Error loading - Will retry in " + j + " secs.", 10);
                         try {
                             Thread.sleep(1000L);
                         } catch (Exception _ex2) {
@@ -4510,7 +4510,7 @@ public class Game extends GameShell {
             }
             minimap = new Sprite(512, 512);
 
-            showProgress(true, "Unpacking media", 75);
+            showProgress("Unpacking media", 75);
             inback = new IndexedSprite(mediaArchive, "invback", 0);
             chatback = new IndexedSprite(mediaArchive, "chatback", 0);
             mapback = new IndexedSprite(mediaArchive, "mapback", 0);
@@ -4638,15 +4638,15 @@ public class Game extends GameShell {
                     mapscene[k3].translate(k2 + j3, l2 + j3, i3 + j3);
             }
 
-            showProgress(true, "Unpacking textures", 80);
+            showProgress("Unpacking textures", 80);
             Draw3D.unpackTextures(texturesArchive);
             Draw3D.setBrightness(0.80000000000000004D);
             Draw3D.setupPools(20);
-            showProgress(true, "Unpacking models", 83);
+            showProgress("Unpacking models", 83);
             Model.load(modelsArchive);
             SeqBase.load(modelsArchive);
             SeqFrame.load(modelsArchive);
-            showProgress(true, "Unpacking config", 86);
+            showProgress("Unpacking config", 86);
             SeqType.load(configArchive);
             LocType.load(configArchive);
             FloType.load(configArchive);
@@ -4658,16 +4658,16 @@ public class Game extends GameShell {
             ObjType.isMember = members;
 
             if (!lowMemory) {
-                showProgress(true, "Unpacking sounds", 90);
+                showProgress("Unpacking sounds", 90);
                 byte[] abyte0 = soundsArchive.read("sounds.dat", null);
                 Buffer sounds = new Buffer(abyte0);
                 SoundTrack.load(sounds);
             }
 
-            showProgress(true, "Unpacking interfaces", 92);
+            showProgress("Unpacking interfaces", 92);
             IndexedFont[] fonts = {fontPlain11, fontPlain12, fontBold12, fontQuill8};
             InterfaceComponent.load(mediaArchive, fonts, interfaceArchive);
-            showProgress(true, "Preparing game engine", 97);
+            showProgress("Preparing game engine", 97);
             for (int l3 = 0; l3 < 33; l3++) {
                 int i4 = 999;
                 int k4 = 0;
@@ -9024,10 +9024,10 @@ public class Game extends GameShell {
         }
     }
 
-    public void showProgress(boolean flag, String s, int i) {
+    public void showProgress(String str, int progress) {
         prepareTitleScreen();
         if (titleArchive == null) {
-            super.showProgress(true, s, i);
+            super.showProgress(str, progress);
             return;
         }
 
@@ -9041,10 +9041,10 @@ public class Game extends GameShell {
         int j = c1 / 2 - 18 - byte0;
         Draw2D.drawRect(c / 2 - 152, 0x8c1111, 34, j, 304);
         Draw2D.drawRect(c / 2 - 151, 0, 32, j + 1, 302);
-        Draw2D.fillRect(j + 2, c / 2 - 150, 0x8c1111, i * 3, 30);
-        Draw2D.fillRect(j + 2, (c / 2 - 150) + i * 3, 0, 300 - i * 3, 30);
+        Draw2D.fillRect(j + 2, c / 2 - 150, 0x8c1111, progress * 3, 30);
+        Draw2D.fillRect(j + 2, (c / 2 - 150) + progress * 3, 0, 300 - progress * 3, 30);
 
-        fontBold12.drawRightAligned((c1 / 2 + 5) - byte0, 0xffffff, s, c / 2);
+        fontBold12.drawRightAligned((c1 / 2 + 5) - byte0, 0xffffff, str, c / 2);
         titleCenter.drawImage(186, super.graphics, 214);
 
         if (redrawTitleBackground) {
