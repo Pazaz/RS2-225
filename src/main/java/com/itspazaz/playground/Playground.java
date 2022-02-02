@@ -55,7 +55,6 @@ public class Playground extends GameShell {
 
     @Override
     public void load() {
-        setLoopRate(165);
         drawArea.bind();
         Draw3D.prepareOffsets();
 
@@ -202,9 +201,15 @@ public class Playground extends GameShell {
                             status = "Loaded object " + id;
                         } else if (loadType.equals("Npc")) {
                             if (textInput.startsWith("a")) {
+                                int id = Integer.parseInt(textInput.substring(1));
+                                npc.primarySeq = id;
+                                npc.primarySeqFrame = 0;
+                                npc.primarySeqDelay = 0;
+                                status = "Applied NPC animation " + id;
                             } else {
                                 int id = Integer.parseInt(textInput);
                                 npc.info = NpcType.get(id);
+                                npc.primarySeq = 0;
                                 pitch = 0;
                                 yaw = 169;
                                 roll = 0;
@@ -213,11 +218,6 @@ public class Playground extends GameShell {
                                 camera.z = 180;
                                 camera.y = 195;
                                 model = npc.getModel();
-                                npc.runSeq = npc.info.walkSeq;
-                                npc.walkSeq = npc.info.turnAroundSeq;
-                                npc.turnAroundSeq = npc.info.turnRightSeq;
-                                npc.turnRightSeq = npc.info.turnLeftSeq;
-                                npc.standSeq = npc.info.standSeq;
                                 status = "Loaded NPC " + id;
                             }
                         }
@@ -287,6 +287,18 @@ public class Playground extends GameShell {
                     // Draw model/camera data
                     p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + (obj.iconX + camera.x) + "," + (sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z) + "," + (cosPitch + obj.iconY + camera.y), gameWidth - 4, true);
                 } else if (loadType.equals("Npc")) {
+                    if (npc.primarySeq != 0 && npc.primarySeqDelay == 0) {
+                        SeqType seq = SeqType.animations[npc.primarySeq];
+                        npc.primarySeqFrame++;
+                        if (npc.primarySeqFrame > seq.primaryFrames.length - 1) {
+                            npc.primarySeqFrame = 0;
+                        }
+                        model = npc.getModel();
+                        npc.primarySeqDelay = 4;
+                    } else if (npc.primarySeqDelay > 0) {
+                        npc.primarySeqDelay--;
+                    }
+
                     model.draw(pitch, yaw, roll, camera.pitch, camera.x, camera.z, camera.y);
 
                     // Draw model name
