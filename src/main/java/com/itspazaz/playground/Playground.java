@@ -44,9 +44,11 @@ public class Playground extends GameShell {
     private boolean textInputEnabled = false;
     private String textInput = "";
     private Camera camera = new Camera();
-    private int frame;
+    private int exported;
     private String status = "";
     private String loadType = "Obj";
+    private int loadId = 0;
+    private int loadSeq = 0;
     private boolean drawText = true;
 
     private static int COLOR_BACKGROUND = 0x7F555555;
@@ -228,12 +230,13 @@ public class Playground extends GameShell {
                 if (textInputEnabled) {
                     try {
                         if (loadType.equals("Obj")) {
-                            int id = Integer.parseInt(textInput);
-                            sprite = ObjType.getSprite(id, 10000);
-                            obj = ObjType.get(id);
+                            loadId = Integer.parseInt(textInput);
+                            sprite = ObjType.getSprite(loadId, 10000);
+                            obj = ObjType.get(loadId);
                             if (obj.certificateId != -1) {
                                 obj = ObjType.get(obj.linkedId);
                             }
+                            loadSeq = 0;
                             pitch = 0;
                             yaw = obj.iconYaw;
                             roll = obj.iconRoll;
@@ -242,19 +245,21 @@ public class Playground extends GameShell {
                             camera.y = 0;
                             camera.z = 0;
                             model = obj.getModel(1);
-                            status = "Loaded object " + id;
+                            status = "Loaded Obj " + loadId;
                         } else if (loadType.equals("Npc")) {
                             if (textInput.startsWith("a")) {
                                 int id = Integer.parseInt(textInput.substring(1));
                                 npc.primarySeq = id;
                                 npc.primarySeqFrame = 0;
                                 npc.primarySeqDelay = 0;
+                                loadSeq = id;
                                 animCycle = 0;
                                 status = "Applied NPC animation " + id;
                             } else {
-                                int id = Integer.parseInt(textInput);
-                                npc.info = NpcType.get(id);
+                                loadId = Integer.parseInt(textInput);
+                                npc.info = NpcType.get(loadId);
                                 npc.primarySeq = 0;
+                                loadSeq = 0;
                                 animCycle = 0;
                                 pitch = 0;
                                 yaw = 169;
@@ -264,7 +269,7 @@ public class Playground extends GameShell {
                                 camera.z = 180;
                                 camera.y = 195;
                                 model = npc.getModel();
-                                status = "Loaded NPC " + id;
+                                status = "Loaded NPC " + loadId;
                             }
                         } else if (loadType.equals("Loc")) {
                             if (textInput.startsWith("a")) {
@@ -272,13 +277,15 @@ public class Playground extends GameShell {
                                 loc.animationIndex = id;
                                 locFrame = 0;
                                 locDelay = 0;
+                                loadSeq = id;
                                 animCycle = 0;
                                 status = "Applied Loc animation " + id;
                             } else {
-                                int id = Integer.parseInt(textInput);
-                                loc = LocType.get(id);
+                                loadId = Integer.parseInt(textInput);
+                                loc = LocType.get(loadId);
                                 locFrame = 0;
                                 locDelay = 0;
+                                loadSeq = 0;
                                 animCycle = 0;
                                 pitch = 0;
                                 yaw = 143;
@@ -288,7 +295,7 @@ public class Playground extends GameShell {
                                 camera.z = 357;
                                 camera.y = 427;
                                 model = loc.getModel(loc.modelTypes[0], 0, -400, -400, -400, -400, -1);
-                                status = "Loaded Loc: " + loc.name + " (" + id + ")";
+                                status = "Loaded Loc " + loadId;
                             }
                         }
                     } catch (Exception ex) {
@@ -309,9 +316,13 @@ public class Playground extends GameShell {
                 }
             } else {
                 if (key == '\\') {
-                    exportImage(drawArea.pixels, "dump/test" + frame);
-                    status = "Exported image as dump/test" + frame + ".png";
-                    frame++;
+                    String name = "dump/" + exported + "." + loadType + "-" + loadId;
+                    if (loadSeq != 0) {
+                        name += "." + loadSeq;
+                    }
+                    exportImage(drawArea.pixels, name);
+                    status = "Exported image as " + name + ".png";
+                    exported++;
                 } else if (key == 'j') {
                     Draw3D.jagged = !Draw3D.jagged;
                     status = "Jagged: " + Draw3D.jagged;
@@ -450,8 +461,12 @@ public class Playground extends GameShell {
         }
 
         if (newFrame) {
-            exportImage(drawArea.pixels, "dump/test" + frame);
-            frame++;
+            String name = "dump/" + exported + "." + loadType + "-" + loadId;
+            if (loadSeq != 0) {
+                name += "." + loadSeq;
+            }
+            exportImage(drawArea.pixels, name);
+            exported++;
         }
 
         // Render the frame
