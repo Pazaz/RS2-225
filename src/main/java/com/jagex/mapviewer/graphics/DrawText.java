@@ -1,4 +1,4 @@
-package com.jagex.mapviewer;
+package com.jagex.mapviewer.graphics;
 
 import com.jagex.runetek3.GameShell;
 import com.jagex.runetek3.graphics.Draw2D;

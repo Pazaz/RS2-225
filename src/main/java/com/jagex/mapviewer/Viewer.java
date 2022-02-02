@@ -1,5 +1,7 @@
 package com.jagex.mapviewer;
 
+import com.jagex.mapviewer.graphics.DrawText;
+import com.jagex.mapviewer.util.Signature;
 import com.jagex.runetek3.GameShell;
 import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.graphics.Draw2D;

@@ -1,4 +1,4 @@
-package com.jagex.mapviewer;
+package com.jagex.mapviewer.util;
 
 public class Signature {
 
