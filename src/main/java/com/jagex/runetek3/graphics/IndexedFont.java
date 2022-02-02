@@ -64,12 +64,16 @@ public class IndexedFont extends Draw2D {
             drawWidth[c] = charSpace[CHAR_LOOKUP[c]];
     }
 
-    public void drawRightAligned(int i, int j, String s, int x) {
-        draw(x - stringWidth(s) / 2, i, j, s);
+    public void drawCentered(int y, int rgb, String str, int x) {
+        draw(x - stringWidth(str) / 2, y, rgb, str);
     }
 
-    public void drawCentered(int x, int j, boolean flag, int k, String s) {
-        draw(x - stringWidth(s) / 2, k, s, flag, j);
+    public void drawRightAligned(int y, int rgb, String str, int x, boolean shadow) {
+        draw(x - stringWidth(str), y, str, shadow, rgb);
+    }
+
+    public void drawCentered(int x, int rgb, boolean shadow, int y, String str) {
+        draw(x - stringWidth(str) / 2, y, str, shadow, rgb);
     }
 
     public int stringWidth(String s) {

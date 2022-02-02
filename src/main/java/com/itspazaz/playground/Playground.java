@@ -22,9 +22,8 @@ import java.net.InetAddress;
 
 public class Playground extends GameShell {
     private IndexedFont p11, p12, b12, q8;
-    private Sprite backgroundLeft;
-    private Sprite backgroundRight;
 
+    private Sprite sprite;
     private ObjType obj;
     private Model model;
     private int pitch;
@@ -186,7 +185,11 @@ public class Playground extends GameShell {
                     try {
                         if (loadType == "Obj") {
                             int id = Integer.parseInt(textInput);
+                            sprite = ObjType.getSprite(id, 10000);
                             obj = ObjType.get(id);
+                            if (obj.certificateId != -1) {
+                                obj = ObjType.get(obj.linkedId);
+                            }
                             pitch = 0;
                             yaw = obj.iconYaw;
                             roll = obj.iconRoll;
@@ -239,8 +242,12 @@ public class Playground extends GameShell {
                 int sinPitch = Draw3D.sin[obj.iconCameraPitch] * obj.iconZoom >> 16;
                 int cosPitch = Draw3D.cos[obj.iconCameraPitch] * obj.iconZoom >> 16;
                 model.draw(pitch, yaw, roll, camera.pitch, obj.iconX + camera.x, sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z, cosPitch + obj.iconY + camera.y);
+
+                sprite.draw(0, gameWidth - 33);
+                p12.drawRightAligned(sprite.height + p12.height, COLOR_TEXT, obj.name, gameWidth, true);
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
             status = "Failed to draw model";
         }
 

@@ -123,8 +123,8 @@ public class Game extends GameShell {
                 setDrawPos(e.height / 2, e);
                 if (drawX > -1) {
                     hitmarks[e.damageType].draw(drawY - 12, drawX - 12);
-                    fontPlain11.drawRightAligned(drawY + 4, 0, String.valueOf(e.damageTaken), drawX);
-                    fontPlain11.drawRightAligned(drawY + 3, 0xffffff, String.valueOf(e.damageTaken), drawX - 1);
+                    fontPlain11.drawCentered(drawY + 4, 0, String.valueOf(e.damageTaken), drawX);
+                    fontPlain11.drawCentered(drawY + 3, 0xffffff, String.valueOf(e.damageTaken), drawX - 1);
                 }
             }
         }
@@ -188,8 +188,8 @@ public class Game extends GameShell {
                         color = 0xffffff - 0x50000 * (k3 - 100);
                 }
                 if (chatStyles[k] == 0) {
-                    fontBold12.drawRightAligned(drawY + 1, 0, s, drawX);
-                    fontBold12.drawRightAligned(drawY, color, s, drawX);
+                    fontBold12.drawCentered(drawY + 1, 0, s, drawX);
+                    fontBold12.drawCentered(drawY, color, s, drawX);
                 }
                 if (chatStyles[k] == 1) {
                     fontBold12.drawCenteredWave(sceneCycle, drawX, drawY + 1, 0, s);
@@ -204,8 +204,8 @@ public class Game extends GameShell {
                     Draw2D.resetBounds();
                 }
             } else {
-                fontBold12.drawRightAligned(drawY + 1, 0, s, drawX);
-                fontBold12.drawRightAligned(drawY, 0xffff00, s, drawX);
+                fontBold12.drawCentered(drawY + 1, 0, s, drawX);
+                fontBold12.drawCentered(drawY, 0xffff00, s, drawX);
             }
         }
     }
@@ -4820,11 +4820,11 @@ public class Game extends GameShell {
                 headicons[1].draw(296, 472);
         if (wildernessLevel > 0) {
             headicons[0].draw(296, 472);
-            fontPlain12.drawRightAligned(329, 0xffff00, "Level: " + wildernessLevel, 484);
+            fontPlain12.drawCentered(329, 0xffff00, "Level: " + wildernessLevel, 484);
         }
         if (worldLocationState == 1) {
             headicons[6].draw(296, 472);
-            fontPlain12.drawRightAligned(329, 0xffff00, "Arena", 484);
+            fontPlain12.drawCentered(329, 0xffff00, "Arena", 484);
         }
         if (systemUpdateTimer != 0) {
             int k = systemUpdateTimer / 50;
@@ -6899,10 +6899,10 @@ public class Game extends GameShell {
             return;
         }
         areaViewport.bind();
-        fontPlain12.drawRightAligned(144, 0, "Connection lost", 257);
-        fontPlain12.drawRightAligned(143, 0xffffff, "Connection lost", 256);
-        fontPlain12.drawRightAligned(159, 0, "Please wait - attempting to reestablish", 257);
-        fontPlain12.drawRightAligned(158, 0xffffff, "Please wait - attempting to reestablish", 256);
+        fontPlain12.drawCentered(144, 0, "Connection lost", 257);
+        fontPlain12.drawCentered(143, 0xffffff, "Connection lost", 256);
+        fontPlain12.drawCentered(159, 0, "Please wait - attempting to reestablish", 257);
+        fontPlain12.drawCentered(158, 0xffffff, "Please wait - attempting to reestablish", 256);
         areaViewport.drawImage(11, super.graphics, 8);
         flagTileX = 0;
         BufferedStream bufferedStream = this.stream;
@@ -7687,14 +7687,14 @@ public class Game extends GameShell {
         Draw3D.offsets = chatOffsets;
         chatback.draw(0, 0);
         if (showSocialInput) {
-            fontBold12.drawRightAligned(40, 0, socialMessage, 239);
-            fontBold12.drawRightAligned(60, 128, socialInput + "*", 239);
+            fontBold12.drawCentered(40, 0, socialMessage, 239);
+            fontBold12.drawCentered(60, 128, socialInput + "*", 239);
         } else if (chatbackInputType) {
-            fontBold12.drawRightAligned(40, 0, "Enter amount:", 239);
-            fontBold12.drawRightAligned(60, 128, chatbackInput + "*", 239);
+            fontBold12.drawCentered(40, 0, "Enter amount:", 239);
+            fontBold12.drawCentered(60, 128, chatbackInput + "*", 239);
         } else if (chatbackMessage != null) {
-            fontBold12.drawRightAligned(40, 0, chatbackMessage, 239);
-            fontBold12.drawRightAligned(60, 128, "Click to continue", 239);
+            fontBold12.drawCentered(40, 0, chatbackMessage, 239);
+            fontBold12.drawCentered(60, 128, "Click to continue", 239);
         } else if (chatbackComponentId != -1)
             drawInterface(0, 0, InterfaceComponent.instances[chatbackComponentId], 0);
         else if (stickyChatbackComponentId != -1) {
@@ -7944,8 +7944,8 @@ public class Game extends GameShell {
                 baseTileZ = (centerSectorY - 6) * 8;
                 sceneState = 1;
                 areaViewport.bind();
-                fontPlain12.drawRightAligned(151, 0, "Loading - please wait.", 257);
-                fontPlain12.drawRightAligned(150, 0xffffff, "Loading - please wait.", 256);
+                fontPlain12.drawCentered(151, 0, "Loading - please wait.", 257);
+                fontPlain12.drawCentered(150, 0xffffff, "Loading - please wait.", 256);
                 areaViewport.drawImage(11, super.graphics, 8);
                 Signlink.looprate(5);
                 int l16 = (packetLength - 2) / 10;
@@ -8006,9 +8006,9 @@ public class Game extends GameShell {
                 Signlink.looprate(50);
                 areaViewport.bind();
                 if (sceneState == 0) {
-                    fontPlain12.drawRightAligned(166, 0,
+                    fontPlain12.drawCentered(166, 0,
                         "Map area updated since last visit, so load will take longer this time only", 257);
-                    fontPlain12.drawRightAligned(165, 0xffffff,
+                    fontPlain12.drawCentered(165, 0xffffff,
                         "Map area updated since last visit, so load will take longer this time only", 256);
                 }
                 areaViewport.drawImage(11, super.graphics, 8);
@@ -8832,8 +8832,8 @@ public class Game extends GameShell {
                 }
                 if (lowMemory && sceneState == 2 && SceneBuilder.levelBuilt != currentLevel) {
                     areaViewport.bind();
-                    fontPlain12.drawRightAligned(151, 0, "Loading - please wait.", 257);
-                    fontPlain12.drawRightAligned(150, 0xffffff, "Loading - please wait.", 256);
+                    fontPlain12.drawCentered(151, 0, "Loading - please wait.", 257);
+                    fontPlain12.drawCentered(150, 0xffffff, "Loading - please wait.", 256);
                     areaViewport.drawImage(11, super.graphics, 8);
                     SceneBuilder.levelBuilt = currentLevel;
                     createScene();
@@ -9033,7 +9033,7 @@ public class Game extends GameShell {
         byte byte0 = 20;
 
         titleCenter.bind();
-        fontBold12.drawRightAligned(c1 / 2 - 26 - byte0, 0xffffff, "RuneScape is loading - please wait...", c / 2);
+        fontBold12.drawCentered(c1 / 2 - 26 - byte0, 0xffffff, "RuneScape is loading - please wait...", c / 2);
 
         int j = c1 / 2 - 18 - byte0;
         Draw2D.drawRect(c / 2 - 152, 0x8c1111, 34, j, 304);
@@ -9041,7 +9041,7 @@ public class Game extends GameShell {
         Draw2D.fillRect(j + 2, c / 2 - 150, 0x8c1111, progress * 3, 30);
         Draw2D.fillRect(j + 2, (c / 2 - 150) + progress * 3, 0, 300 - progress * 3, 30);
 
-        fontBold12.drawRightAligned((c1 / 2 + 5) - byte0, 0xffffff, str, c / 2);
+        fontBold12.drawCentered((c1 / 2 + 5) - byte0, 0xffffff, str, c / 2);
         titleCenter.drawImage(186, super.graphics, 214);
 
         if (redrawTitleBackground) {
