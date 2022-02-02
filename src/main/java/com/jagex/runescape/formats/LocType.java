@@ -84,9 +84,9 @@ public class LocType {
         scaleY = 128;
         scaleZ = 128;
         interactionSideFlags = 0;
-        anInt69 = 0;
-        anInt70 = 0;
-        anInt71 = 0;
+        translateX = 0;
+        translateY = 0;
+        translateZ = 0;
         aBoolean73 = false;
     }
 
@@ -179,11 +179,11 @@ public class LocType {
             } else if (opcode == 69) {
                 interactionSideFlags = buffer.readByte();
             } else if (opcode == 70) {
-                anInt69 = buffer.readWordSigned();
+                translateX = buffer.readWordSigned();
             } else if (opcode == 71) {
-                anInt70 = buffer.readWordSigned();
+                translateY = buffer.readWordSigned();
             } else if (opcode == 72) {
-                anInt71 = buffer.readWordSigned();
+                translateZ = buffer.readWordSigned();
             } else if (opcode == 73) {
                 aBoolean73 = true;
             }
@@ -201,139 +201,136 @@ public class LocType {
         }
     }
 
-    public Model getModel(int i, int j, int k, int l, int i1, int j1, int k1) {
-        int l1 = -1;
-        for (int i2 = 0; i2 < modelTypes.length; i2++) {
-            if (modelTypes[i2] != i)
+    public Model getModel(int type, int rotation, int southwestY, int southeastY, int northeastY, int northwestY, int seqFrame) {
+        int modelType = -1;
+        for (int i = 0; i < modelTypes.length; i++) {
+            if (modelTypes[i] != type) {
                 continue;
-            l1 = i2;
+            }
+            modelType = i;
             break;
         }
 
-        if (l1 == -1)
+        if (modelType == -1) {
             return null;
-
-        long l2 = ((long) index << 6) + ((long) l1 << 3) + j + ((long) (k1 + 1) << 32);
-        if (aBoolean35) {
-            l2 = 0L;
         }
 
-        Model class38_sub2_sub1 = (Model) builtModels.get(l2);
-        if (class38_sub2_sub1 != null) {
+        long uid = ((long) index << 6) + ((long) modelType << 3) + rotation + ((long) (seqFrame + 1) << 32);
+        if (aBoolean35) {
+            uid = 0L;
+        }
+
+        Model m = (Model) builtModels.get(uid);
+        if (m != null) {
             if (aBoolean35) {
-                return class38_sub2_sub1;
+                return m;
             }
 
             if (adjustToTerrain || flatShaded) {
-                class38_sub2_sub1 = new Model(class38_sub2_sub1, adjustToTerrain, flatShaded);
+                m = new Model(m, adjustToTerrain, flatShaded);
             }
 
             if (adjustToTerrain) {
-                int j2 = (k + l + i1 + j1) / 4;
-                for (int i3 = 0; i3 < class38_sub2_sub1.vertexCount; i3++) {
-                    int j3 = class38_sub2_sub1.vertexX[i3];
-                    int k3 = class38_sub2_sub1.vertexZ[i3];
-                    int l3 = k + ((l - k) * (j3 + 64)) / 128;
-                    int i4 = j1 + ((i1 - j1) * (j3 + 64)) / 128;
+                int j2 = (southwestY + southeastY + northeastY + northwestY) / 4;
+                for (int i3 = 0; i3 < m.vertexCount; i3++) {
+                    int j3 = m.vertexX[i3];
+                    int k3 = m.vertexZ[i3];
+                    int l3 = southwestY + ((southeastY - southwestY) * (j3 + 64)) / 128;
+                    int i4 = northwestY + ((northeastY - northwestY) * (j3 + 64)) / 128;
                     int j4 = l3 + ((i4 - l3) * (k3 + 64)) / 128;
-                    class38_sub2_sub1.vertexY[i3] += j4 - j2;
+                    m.vertexY[i3] += j4 - j2;
                 }
 
-                class38_sub2_sub1.calculateYBoundaries2();
+                m.calculateYBoundaries2();
             }
-            return class38_sub2_sub1;
+            return m;
         }
 
-        if (l1 >= modelIndices.length) {
+        if (modelType >= modelIndices.length) {
             return null;
         }
 
-        int k2 = modelIndices[l1];
-        if (k2 == -1) {
+        int modelIndex = modelIndices[modelType];
+        if (modelIndex == -1) {
             return null;
         }
 
-        boolean flag = rotateCounterClockwise ^ (j > 3);
-        if (flag) {
-            k2 += 0x10000;
+        boolean flipBackwards = rotateCounterClockwise ^ (rotation > 3);
+        if (flipBackwards) {
+            modelIndex += 0x10000;
         }
 
-        Model class38_sub2_sub1_1 = (Model) models.get(k2);
-        if (class38_sub2_sub1_1 == null) {
-            class38_sub2_sub1_1 = new Model(k2 & 0xffff);
-            if (flag) {
-                class38_sub2_sub1_1.flipBackwards();
+        Model m2 = (Model) models.get(modelIndex);
+        if (m2 == null) {
+            m2 = new Model(modelIndex & 0xffff);
+            if (flipBackwards) {
+                m2.flipBackwards();
             }
-            models.put(k2, class38_sub2_sub1_1);
+            models.put(modelIndex, m2);
         }
 
-        boolean flag1;
-        flag1 = scaleX != 128 || scaleY != 128 || scaleZ != 128;
+        boolean rescale = scaleX != 128 || scaleY != 128 || scaleZ != 128;
+        boolean move = translateX != 0 || translateY != 0 || translateZ != 0;
+        Model m3 = new Model(m2, oldColors == null, !disposeAlpha, rotation == 0 && seqFrame == -1 && !rescale && !move);
 
-        boolean flag2;
-        flag2 = anInt69 != 0 || anInt70 != 0 || anInt71 != 0;
-        Model model = new Model(class38_sub2_sub1_1, oldColors == null, !disposeAlpha, j == 0 && k1 == -1 && !flag1 && !flag2);
-
-        if (k1 != -1) {
-            model.applyGroups();
-            model.applyFrame(k1);
-            model.skinTriangle = null;
-            model.labelVertices = null;
+        if (seqFrame != -1) {
+            m3.applyGroups();
+            m3.applyFrame(seqFrame);
+            m3.skinTriangle = null;
+            m3.labelVertices = null;
         }
 
-        while (j-- > 0) {
-            model.rotateCounterClockwise();
+        while (rotation-- > 0) {
+            m3.rotateCounterClockwise();
         }
 
         if (oldColors != null) {
-            for (int k4 = 0; k4 < oldColors.length; k4++) {
-                model.recolor(oldColors[k4], newColors[k4]);
+            for (int n = 0; n < oldColors.length; n++) {
+                m3.recolor(oldColors[n], newColors[n]);
             }
         }
 
-        if (flag1) {
-            model.scale(scaleZ, scaleY, scaleX);
+        if (rescale) {
+            m3.scale(scaleZ, scaleY, scaleX);
         }
 
-        if (flag2) {
-            model.translate(anInt70, anInt69, anInt71);
+        if (move) {
+            m3.translate(translateY, translateX, translateZ);
         }
 
-        model.applyLighting(64 + brightness, 768 + specular * 5, -50, -10, -50, !flatShaded);
+        m3.applyLighting(64 + brightness, 768 + specular * 5, -50, -10, -50, !flatShaded);
 
         if (hasCollision) {
-            model.anInt1251 = model.maxBoundY;
+            m3.anInt1251 = m3.maxBoundY;
         }
 
-        builtModels.put(l2, model);
+        builtModels.put(uid, m3);
 
         if (adjustToTerrain || flatShaded) {
-            model = new Model(model, adjustToTerrain, flatShaded);
+            m3 = new Model(m3, adjustToTerrain, flatShaded);
         }
 
         if (adjustToTerrain) {
-            int l4 = (k + l + i1 + j1) / 4;
-            for (int i5 = 0; i5 < model.vertexCount; i5++) {
-                int j5 = model.vertexX[i5];
-                int k5 = model.vertexZ[i5];
-                int l5 = k + ((l - k) * (j5 + 64)) / 128;
-                int i6 = j1 + ((i1 - j1) * (j5 + 64)) / 128;
-                int j6 = l5 + ((i6 - l5) * (k5 + 64)) / 128;
-                model.vertexY[i5] += j6 - l4;
+            int averageY = (southwestY + southeastY + northeastY + northwestY) / 4;
+            for (int v = 0; v < m3.vertexCount; v++) {
+                int x = m3.vertexX[v];
+                int z = m3.vertexZ[v];
+                int averageY1 = southwestY + ((southeastY - southwestY) * (x + 64)) / 128;
+                int averageY2 = northwestY + ((northeastY - northwestY) * (x + 64)) / 128;
+                int y = averageY1 + ((averageY2 - averageY1) * (z + 64)) / 128;
+                m3.vertexY[v] += y - averageY;
             }
 
-            model.calculateYBoundaries2();
+            m3.calculateYBoundaries2();
         }
 
-        return model;
+        return m3;
     }
 
     public LocType() {
         index = -1;
     }
 
-    public static int anInt33;
-    public static int anInt34;
     public static boolean aBoolean35;
     public static int count;
     public static int[] offsets;
@@ -368,9 +365,9 @@ public class LocType {
     public int scaleX;
     public int scaleY;
     public int scaleZ;
-    public int anInt69;
-    public int anInt70;
-    public int anInt71;
+    public int translateX;
+    public int translateY;
+    public int translateZ;
     public int interactionSideFlags;
     public boolean aBoolean73;
     public static Cache models = new Cache(500);
