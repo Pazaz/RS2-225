@@ -422,6 +422,21 @@ public class Viewer extends GameShell {
             } else if (super.frame != null && key == 'd') {
                 this.shouldDrawDebug = !this.shouldDrawDebug;
                 this.shouldDraw = true;
+            } else if (super.frame != null && key == 'l') {
+                this.shouldDrawLabels = !this.shouldDrawLabels;
+                this.shouldDraw = true;
+            } else if (super.frame != null && key == 'w') {
+                this.shouldDrawWalls = !this.shouldDrawWalls;
+                this.shouldDraw = true;
+            } else if (super.frame != null && key == 's') {
+                this.shouldDrawMapscene = !this.shouldDrawMapscene;
+                this.shouldDraw = true;
+            } else if (super.frame != null && key == 'i') {
+                this.shouldDrawIcons = !this.shouldDrawIcons;
+                this.shouldDraw = true;
+            } else if (super.frame != null && key == 'x') {
+                this.shouldSmoothEdges = !this.shouldSmoothEdges;
+                this.shouldDraw = true;
             }
         }
 
@@ -701,7 +716,11 @@ public class Viewer extends GameShell {
                 if (k13 == 0 || l6 <= 1 || k11 <= 1) {
                     Draw2D.fillRect(j10, j4, j12, l6, k11);
                 } else {
-                    drawSmoothEdges(Draw2D.dest, j10 * Draw2D.width + j4, ai[k9 + i1], j12, l6, k11, k13 >> 2, byte0 & 3);
+                    if (shouldSmoothEdges) {
+                        drawSmoothEdges(Draw2D.dest, j10 * Draw2D.width + j4, ai[k9 + i1], j12, l6, k11, k13 >> 2, byte0 & 3);
+                    } else {
+                        Draw2D.fillRect(j10, j4, ai[k9 + i1], l6, k11);
+                    }
                 }
             }
         }
@@ -720,8 +739,8 @@ public class Viewer extends GameShell {
             }
 
             byte[] abyte0 = locWalls[k4 + k];
-            byte[] mapscene = locScenes[k4 + k];
-            byte[] abyte3 = locIcons[k4 + k];
+            byte[] scenes = locScenes[k4 + k];
+            byte[] functions = locIcons[k4 + k];
             for (int k10 = 0; k10 < i3; k10++) {
                 int j11 = k3 * k10 >> 16;
                 int l11 = k3 * (k10 + 1) >> 16;
@@ -731,7 +750,7 @@ public class Viewer extends GameShell {
                 }
 
                 int wall = abyte0[k10 + i1] & 0xff;
-                if (wall != 0) {
+                if (shouldDrawWalls && wall != 0) {
                     int l13;
                     if (l7 == 1) {
                         l13 = i6;
@@ -791,13 +810,13 @@ public class Viewer extends GameShell {
                     }
                 }
 
-                int scene = mapscene[k10 + i1] & 0xff;
-                if (scene != 0) {
+                int scene = scenes[k10 + i1] & 0xff;
+                if (shouldDrawMapscene && scene != 0) {
                     mapscenes[scene - 1].clip(i6 - l7 / 2, j11 - k12 / 2, l7 * 2, k12 * 2);
                 }
 
-                int icon = abyte3[k10 + i1] & 0xff;
-                if (icon != 0) {
+                int icon = functions[k10 + i1] & 0xff;
+                if (shouldDrawIcons && icon != 0) {
                     visibleMapIcons[i4] = icon - 1;
                     visibleMapIconsX[i4] = i6 + l7 / 2;
                     visibleMapIconsY[i4] = j11 + k12 / 2;
@@ -1365,30 +1384,37 @@ public class Viewer extends GameShell {
 
                     k += k2;
                 }
-
             }
         }
     }
 
     private FileArchive loadData() {
-        byte[] abyte0;
+        byte[] data;
         String s = null;
+
         try {
             s = Signlink.findcachedir();
-            abyte0 = loadFile(s + "/worldmap.dat");
-            if (!compareChecksum(abyte0))
-                abyte0 = null;
-            if (abyte0 != null)
-                return new FileArchive(abyte0);
+            data = loadFile(s + "/worldmap.dat");
+
+            if (!compareChecksum(data)) {
+                data = null;
+            }
+
+            if (data != null) {
+                return new FileArchive(data);
+            }
         } catch (Throwable throwable) {
         }
-        abyte0 = getLatestData();
-        if (s != null && abyte0 != null)
+
+        data = getLatestData();
+        if (s != null && data != null) {
             try {
-                saveFile(s + "/worldmap.dat", abyte0);
+                saveFile(s + "/worldmap.dat", data);
             } catch (Throwable throwable1) {
             }
-        return new FileArchive(abyte0);
+        }
+
+        return new FileArchive(data);
     }
 
     private byte[] getLatestData() {
@@ -1400,11 +1426,11 @@ public class Viewer extends GameShell {
                 s.append(Signature.sha[k]);
             }
 
-            DataInputStream datainputstream;
+            DataInputStream stream;
             if (super.frame != null)
-                datainputstream = new DataInputStream(new FileInputStream("worldmap.jag"));
+                stream = new DataInputStream(new FileInputStream("worldmap.jag"));
             else
-                datainputstream = new DataInputStream((new URL(getCodeBase(), "worldmap" + s + ".jag")).openStream());
+                stream = new DataInputStream((new URL(getCodeBase(), "worldmap" + s + ".jag")).openStream());
             int i1 = 0;
             int j1 = 0;
             int k1 = Signature.length;
@@ -1413,7 +1439,7 @@ public class Viewer extends GameShell {
                 int l1 = k1 - j1;
                 if (l1 > 1000)
                     l1 = 1000;
-                int i2 = datainputstream.read(abyte0, j1, l1);
+                int i2 = stream.read(abyte0, j1, l1);
                 if (i2 < 0)
                     throw new IOException("EOF");
                 j1 += i2;
@@ -1422,48 +1448,48 @@ public class Viewer extends GameShell {
                     showProgress("Loading map - " + j2 + "%", j2);
                 i1 = j2;
             }
-            datainputstream.close();
+            stream.close();
             return abyte0;
-        } catch (IOException ioexception) {
+        } catch (IOException exception) {
             System.out.println("Error loading");
-            ioexception.printStackTrace();
+            exception.printStackTrace();
             return null;
         }
     }
 
-    private byte[] loadFile(String name)
-        throws IOException {
+    private byte[] loadFile(String name) throws IOException {
         File file = new File(name);
         if (!file.exists()) {
             return null;
-        } else {
-            int k = (int) file.length();
-            byte[] abyte0 = new byte[k];
-            DataInputStream datainputstream = new DataInputStream(new BufferedInputStream(new FileInputStream(name)));
-            datainputstream.readFully(abyte0, 0, k);
-            datainputstream.close();
-            return abyte0;
         }
+
+        int length = (int) file.length();
+        byte[] dest = new byte[length];
+        DataInputStream stream = new DataInputStream(new BufferedInputStream(new FileInputStream(name)));
+        stream.readFully(dest, 0, length);
+        stream.close();
+        return dest;
     }
 
-    private void saveFile(String name, byte[] data)
-        throws IOException {
-        FileOutputStream fileoutputstream = new FileOutputStream(name);
-        fileoutputstream.write(data, 0, data.length);
-        fileoutputstream.close();
+    private void saveFile(String name, byte[] data) throws IOException {
+        FileOutputStream stream = new FileOutputStream(name);
+        stream.write(data, 0, data.length);
+        stream.close();
     }
 
-    private boolean compareChecksum(byte[] data)
-        throws Exception {
-        if (data == null)
+    private boolean compareChecksum(byte[] data) throws Exception {
+        if (data == null) {
             return false;
-        MessageDigest messagedigest = MessageDigest.getInstance("SHA");
-        messagedigest.reset();
-        messagedigest.update(data);
-        byte[] abyte1 = messagedigest.digest();
-        for (int k = 0; k < 20; k++)
-            if (abyte1[k] != Signature.sha[k])
+        }
+        MessageDigest digest = MessageDigest.getInstance("SHA");
+        digest.reset();
+        digest.update(data);
+        byte[] sha = digest.digest();
+        for (int k = 0; k < 20; k++) {
+            if (sha[k] != Signature.sha[k]) {
                 return false;
+            }
+        }
 
         return true;
     }
@@ -1471,29 +1497,45 @@ public class Viewer extends GameShell {
     public Viewer() {
     }
 
-    private static boolean shouldDrawDebug;
+    private boolean shouldDraw = true;
+    private int drawTimer;
+
+    private boolean shouldDrawDebug = false;
+    private boolean shouldDrawLabels = true;
+    private boolean shouldDrawWalls = true;
+    private boolean shouldDrawMapscene = true;
+    private boolean shouldDrawIcons = true;
+    private boolean shouldSmoothEdges = true;
+
     private final int colorInactiveBorderTL = 0x887755;
     private final int colorInactive = 0x776644;
     private final int colorInactiveBorderBR = 0x665533;
     private final int colorActiveBorderTL = 0xaa0000;
     private final int colorActive = 0x990000;
     private final int colorActiveBorderBR = 0x880000;
-    private boolean shouldDraw = true;
-    private int drawTimer;
+
     private static int centerX;
     private static int centerY;
+
     private static int originX;
     private static int originY;
+
     private int[] floormapsUnderlay;
     private int[] floormapsOverlay;
+
     private int[][] floormapColors;
     private int[][] overlayColors;
+
     private byte[][] overlayTypes;
+
     private byte[][] locWalls;
     private byte[][] locIcons;
     private byte[][] locScenes;
+
     private IndexedSprite[] mapscenes = new IndexedSprite[100];
+
     private Sprite[] mapfunctions = new Sprite[100];
+
     private IndexedFontFull b12;
     private DrawText f11;
     private DrawText f12;
@@ -1503,13 +1545,17 @@ public class Viewer extends GameShell {
     private DrawText f22;
     private DrawText f26;
     private DrawText f30;
+
+    private int mapIconCount;
+
     private int[] visibleMapIconsX = new int[2000];
     private int[] visibleMapIconsY = new int[2000];
     private int[] visibleMapIcons = new int[2000];
-    private int mapIconCount;
+
     private int[] mapIconsX = new int[2000];
     private int[] mapIconsY = new int[2000];
     private int[] mapIcons = new int[2000];
+
     private final int keyX = 5;
     private final int keyY = 13;
     private final int keyWidth = 140;
@@ -1521,27 +1567,32 @@ public class Viewer extends GameShell {
     private int lastKeyHover = -1;
     private int currentKey = -1;
     private int flashTimer;
+
     private int imageOverviewHeight;
     private int imageOverviewWidth;
     private int overviewX;
     private int overviewY;
     private boolean showOverview = false;
     private Sprite imageOverview;
+
     private int mouseClickX;
     private int mouseClickY;
     private int lastOffsetX;
     private int lastOffsetY;
-    private static final boolean shouldDrawLabels = true;
+
     private int labelCount;
     private final int maxLabels = 1000;
     private String[] labelText = new String[maxLabels];
     private int[] labelX = new int[maxLabels];
     private int[] labelY = new int[maxLabels];
     private int[] labelType = new int[maxLabels];
+
     private double zoomX = 4D;
     private double zoomY = 4D;
+
     private static int offsetX;
     private static int offsetY;
+
     private String[] keyNames = {
         "General Store", "Sword Shop", "Magic Shop", "Axe Shop", "Helmet Shop", "Bank", "Quest Start", "Amulet Shop", "Mining Site", "Furnace",
         "Anvil", "Combat Training", "Dungeon", "Staff Shop", "Platebody Shop", "Platelegs Shop", "Scimitar Shop", "Archery Shop", "Shield Shop", "Altar",
