@@ -3,6 +3,7 @@ package com.jagex.mapviewer;
 import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.graphics.IndexedFontFull;
 import com.jagex.runetek3.graphics.IndexedSprite;
+import com.jagex.runetek3.graphics.Sprite;
 import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.util.Signlink;
 
@@ -101,7 +102,7 @@ public class Viewer extends GameShell {
         averageUnderlayColors(underlays, floormapColors);
 
         imageOverview = new Sprite(imageOverviewWidth, imageOverviewHeight);
-        imageOverview.bind();
+        imageOverview.prepare();
         drawMap(0, 0, originX, originY, 0, 0, imageOverviewWidth, imageOverviewHeight);
         Draw2D.drawRect(0, 0, imageOverviewWidth, imageOverviewHeight, 0);
         Draw2D.drawRect(1, 1, imageOverviewWidth - 2, imageOverviewHeight - 2, colorInactiveBorderTL);
@@ -389,14 +390,14 @@ public class Viewer extends GameShell {
             if (super.frame != null && k == 101) {
                 System.out.println("Starting export...");
                 Sprite g1 = new Sprite(originX * 2, originY * 2);
-                g1.bind();
+                g1.prepare();
                 drawMap(0, 0, originX, originY, 0, 0, originX * 2, originY * 2);
                 super.drawArea.bind();
-                int l1 = g1.agk.length;
+                int l1 = g1.pixels.length;
                 byte[] abyte0 = new byte[l1 * 3];
                 int k2 = 0;
                 for (int l2 = 0; l2 < l1; l2++) {
-                    int i3 = g1.agk[l2];
+                    int i3 = g1.pixels[l2];
                     abyte0[k2++] = (byte) (i3 >> 16);
                     abyte0[k2++] = (byte) (i3 >> 8);
                     abyte0[k2++] = (byte) i3;
@@ -578,7 +579,7 @@ public class Viewer extends GameShell {
                     if (k2 + lastKeyPage < mapfunctions.length && k2 + lastKeyPage < keyNames.length) {
                         if (keyNames[k2 + lastKeyPage].equals("???"))
                             continue;
-                        mapfunctions[k2 + lastKeyPage].draw(keyX + 3, i2);
+                        mapfunctions[k2 + lastKeyPage].draw(i2, keyX + 3);
                         b12.drawString(keyNames[k2 + lastKeyPage], keyX + 21, i2 + 14, 0);
                         int i3 = 0xffffff;
                         if (currentKeyHover == k2 + lastKeyPage)
@@ -772,7 +773,7 @@ public class Viewer extends GameShell {
 
         for (int l4 = 0; l4 < i4; l4++) {
             if (mapfunctions[visibleMapIcons[l4]] != null) {
-                mapfunctions[visibleMapIcons[l4]].draw(visibleMapIconsX[l4] - 7, visibleMapIconsY[l4] - 7);
+                mapfunctions[visibleMapIcons[l4]].draw(visibleMapIconsY[l4] - 7, visibleMapIconsX[l4] - 7);
             }
         }
 
@@ -782,7 +783,7 @@ public class Viewer extends GameShell {
                     continue;
                 }
 
-                mapfunctions[visibleMapIcons[i5]].draw(visibleMapIconsX[i5] - 7, visibleMapIconsY[i5] - 7);
+                mapfunctions[visibleMapIcons[i5]].draw(visibleMapIconsY[i5] - 7, visibleMapIconsX[i5] - 7);
                 if (flashTimer % 10 < 5) {
                     Draw2D.fillCircle(visibleMapIconsX[i5], visibleMapIconsY[i5], 15, 0xffff00, 128);
                     Draw2D.fillCircle(visibleMapIconsX[i5], visibleMapIconsY[i5], 7, 0xffffff, 256);

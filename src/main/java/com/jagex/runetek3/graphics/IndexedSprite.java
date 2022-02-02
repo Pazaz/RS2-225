@@ -247,25 +247,25 @@ public class IndexedSprite extends Draw2D {
             i1 = (i1 * (height - (i2 >> 16))) / i3;
             int j3 = i + k * com.jagex.mapviewer.Draw2D.width;
             int k3 = com.jagex.mapviewer.Draw2D.width - l;
-            if (k < com.jagex.mapviewer.Draw2D.bbh) {
-                int l3 = com.jagex.mapviewer.Draw2D.bbh - k;
+            if (k < com.jagex.mapviewer.Draw2D.top) {
+                int l3 = com.jagex.mapviewer.Draw2D.top - k;
                 i1 -= l3;
                 k = 0;
                 j3 += l3 * com.jagex.mapviewer.Draw2D.width;
                 i2 += k2 * l3;
             }
-            if (k + i1 > com.jagex.mapviewer.Draw2D.bbi)
-                i1 -= (k + i1) - com.jagex.mapviewer.Draw2D.bbi;
-            if (i < com.jagex.mapviewer.Draw2D.bbj) {
-                int i4 = com.jagex.mapviewer.Draw2D.bbj - i;
+            if (k + i1 > com.jagex.mapviewer.Draw2D.bottom)
+                i1 -= (k + i1) - com.jagex.mapviewer.Draw2D.bottom;
+            if (i < com.jagex.mapviewer.Draw2D.left) {
+                int i4 = com.jagex.mapviewer.Draw2D.left - i;
                 l -= i4;
                 i = 0;
                 j3 += i4;
                 l1 += j2 * i4;
                 k3 += i4;
             }
-            if (i + l > com.jagex.mapviewer.Draw2D.bbk) {
-                int j4 = (i + l) - com.jagex.mapviewer.Draw2D.bbk;
+            if (i + l > com.jagex.mapviewer.Draw2D.right) {
+                int j4 = (i + l) - com.jagex.mapviewer.Draw2D.right;
                 l -= j4;
                 k3 += j4;
             }

@@ -7,15 +7,15 @@ public class Draw2D extends CacheableNode
 
     public static void drawLineX(int i, int j, int k, int l)
     {
-        if(j < bbh || j >= bbi)
+        if(j < top || j >= bottom)
             return;
-        if(i < bbj)
+        if(i < left)
         {
-            k -= bbj - i;
-            i = bbj;
+            k -= left - i;
+            i = left;
         }
-        if(i + k > bbk)
-            k = bbk - i;
+        if(i + k > right)
+            k = right - i;
         int i1 = i + j * width;
         for(int j1 = 0; j1 < k; j1++)
             pixels[i1 + j1] = l;
@@ -24,15 +24,15 @@ public class Draw2D extends CacheableNode
 
     public static void drawLineY(int i, int j, int k, int l)
     {
-        if(i < bbj || i >= bbk)
+        if(i < left || i >= right)
             return;
-        if(j < bbh)
+        if(j < top)
         {
-            k -= bbh - j;
-            j = bbh;
+            k -= top - j;
+            j = top;
         }
-        if(j + k > bbi)
-            k = bbi - j;
+        if(j + k > bottom)
+            k = bottom - j;
         int i1 = i + j * width;
         for(int j1 = 0; j1 < k; j1++)
             pixels[i1 + j1 * width] = l;
@@ -53,31 +53,31 @@ public class Draw2D extends CacheableNode
             k = width;
         if(l > bbg)
             l = bbg;
-        bbj = i;
-        bbh = j;
-        bbk = k;
-        bbi = l;
-        bbl = bbk - 1;
-        bbm = bbk / 2;
-        bbn = bbi / 2;
+        left = i;
+        top = j;
+        right = k;
+        bottom = l;
+        bbl = right - 1;
+        bbm = right / 2;
+        bbn = bottom / 2;
     }
 
     public static void fillRect(int i, int j, int k, int l, int i1, int j1)
     {
-        if(i < bbj)
+        if(i < left)
         {
-            k -= bbj - i;
-            i = bbj;
+            k -= left - i;
+            i = left;
         }
-        if(j < bbh)
+        if(j < top)
         {
-            l -= bbh - j;
-            j = bbh;
+            l -= top - j;
+            j = top;
         }
-        if(i + k > bbk)
-            k = bbk - i;
-        if(j + l > bbi)
-            l = bbi - j;
+        if(i + k > right)
+            k = right - i;
+        if(j + l > bottom)
+            l = bottom - j;
         int k1 = 256 - j1;
         int l1 = (i1 >> 16 & 0xff) * j1;
         int i2 = (i1 >> 8 & 0xff) * j1;
@@ -118,20 +118,20 @@ public class Draw2D extends CacheableNode
 
     public static void fillRect(int i, int j, int k, int l, int i1)
     {
-        if(i < bbj)
+        if(i < left)
         {
-            k -= bbj - i;
-            i = bbj;
+            k -= left - i;
+            i = left;
         }
-        if(j < bbh)
+        if(j < top)
         {
-            l -= bbh - j;
-            j = bbh;
+            l -= top - j;
+            j = top;
         }
-        if(i + k > bbk)
-            k = bbk - i;
-        if(j + l > bbi)
-            l = bbi - j;
+        if(i + k > right)
+            k = right - i;
+        if(j + l > bottom)
+            l = bottom - j;
         int j1 = width - k;
         boolean flag = true;
         int k1 = i + j * width;
@@ -192,10 +192,10 @@ public class Draw2D extends CacheableNode
     public static int pixels[];
     public static int width;
     public static int bbg;
-    public static int bbh = 0;
-    public static int bbi = 0;
-    public static int bbj = 0;
-    public static int bbk = 0;
+    public static int top = 0;
+    public static int bottom = 0;
+    public static int left = 0;
+    public static int right = 0;
     public static int bbl;
     public static int bbm;
     public static int bbn;

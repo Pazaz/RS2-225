@@ -206,11 +206,11 @@ label3:
     {
         int l = aic(s) / 2;
         int i1 = aig();
-        if(i - l > Draw2D.bbk)
+        if(i - l > Draw2D.right)
             return;
-        if(i + l < Draw2D.bbj)
+        if(i + l < Draw2D.left)
             return;
-        if(j - i1 > Draw2D.bbi)
+        if(j - i1 > Draw2D.bottom)
             return;
         if(j < 0)
         {
@@ -286,29 +286,29 @@ label3:
         int j2 = i1 + j1 * Draw2D.width;
         int k2 = Draw2D.width - k1;
         int l2 = 0;
-        if(j1 < Draw2D.bbh)
+        if(j1 < Draw2D.top)
         {
-            int i3 = Draw2D.bbh - j1;
+            int i3 = Draw2D.top - j1;
             l1 -= i3;
-            j1 = Draw2D.bbh;
+            j1 = Draw2D.top;
             i2 += i3 * k1;
             j2 += i3 * Draw2D.width;
         }
-        if(j1 + l1 >= Draw2D.bbi)
-            l1 -= ((j1 + l1) - Draw2D.bbi) + 1;
-        if(i1 < Draw2D.bbj)
+        if(j1 + l1 >= Draw2D.bottom)
+            l1 -= ((j1 + l1) - Draw2D.bottom) + 1;
+        if(i1 < Draw2D.left)
         {
-            int j3 = Draw2D.bbj - i1;
+            int j3 = Draw2D.left - i1;
             k1 -= j3;
-            i1 = Draw2D.bbj;
+            i1 = Draw2D.left;
             i2 += j3;
             j2 += j3;
             l2 += j3;
             k2 += j3;
         }
-        if(i1 + k1 >= Draw2D.bbk)
+        if(i1 + k1 >= Draw2D.right)
         {
-            int k3 = ((i1 + k1) - Draw2D.bbk) + 1;
+            int k3 = ((i1 + k1) - Draw2D.right) + 1;
             k1 -= k3;
             l2 += k3;
             k2 += k3;

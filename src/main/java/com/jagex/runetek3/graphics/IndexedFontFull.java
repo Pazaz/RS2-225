@@ -117,30 +117,30 @@ public class IndexedFontFull extends com.jagex.mapviewer.Draw2D {
         int maskStep = 0;
         int maskOff = 0;
 
-        if (y < com.jagex.mapviewer.Draw2D.bbh) {
-            int trim = com.jagex.mapviewer.Draw2D.bbh - y;
+        if (y < com.jagex.mapviewer.Draw2D.top) {
+            int trim = com.jagex.mapviewer.Draw2D.top - y;
             h -= trim;
-            y = com.jagex.mapviewer.Draw2D.bbh;
+            y = com.jagex.mapviewer.Draw2D.top;
             maskOff += trim * w;
             dstOff += trim * com.jagex.mapviewer.Draw2D.width;
         }
 
-        if (y + h >= com.jagex.mapviewer.Draw2D.bbi) {
-            h -= ((y + h) - com.jagex.mapviewer.Draw2D.bbi) + 1;
+        if (y + h >= com.jagex.mapviewer.Draw2D.bottom) {
+            h -= ((y + h) - com.jagex.mapviewer.Draw2D.bottom) + 1;
         }
 
-        if (x < com.jagex.mapviewer.Draw2D.bbj) {
-            int trim = com.jagex.mapviewer.Draw2D.bbj - x;
+        if (x < com.jagex.mapviewer.Draw2D.left) {
+            int trim = com.jagex.mapviewer.Draw2D.left - x;
             w -= trim;
-            x = com.jagex.mapviewer.Draw2D.bbj;
+            x = com.jagex.mapviewer.Draw2D.left;
             maskOff += trim;
             dstOff += trim;
             maskStep += trim;
             dstStep += trim;
         }
 
-        if (x + w >= com.jagex.mapviewer.Draw2D.bbk) {
-            int trim = ((x + w) - com.jagex.mapviewer.Draw2D.bbk) + 1;
+        if (x + w >= com.jagex.mapviewer.Draw2D.right) {
+            int trim = ((x + w) - com.jagex.mapviewer.Draw2D.right) + 1;
             w -= trim;
             maskStep += trim;
             dstStep += trim;
