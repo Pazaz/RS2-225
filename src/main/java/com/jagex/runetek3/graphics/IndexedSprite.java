@@ -269,7 +269,7 @@ public class IndexedSprite extends Draw2D {
                 l -= j4;
                 k3 += j4;
             }
-            plot_scale(com.jagex.mapviewer.Draw2D.pixels, pixels, palette, l1, i2, j3, k3, l, i1, j2, k2, j1);
+            plot_scale(com.jagex.mapviewer.Draw2D.dest, pixels, palette, l1, i2, j3, k3, l, i1, j2, k2, j1);
         } catch (Exception exception) {
             System.out.println("error in sprite clipping routine");
         }

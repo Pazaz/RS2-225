@@ -18,7 +18,7 @@ public class Draw2D extends CacheableNode
             k = right - i;
         int i1 = i + j * width;
         for(int j1 = 0; j1 < k; j1++)
-            pixels[i1 + j1] = l;
+            dest[i1 + j1] = l;
 
     }
 
@@ -35,7 +35,7 @@ public class Draw2D extends CacheableNode
             k = bottom - j;
         int i1 = i + j * width;
         for(int j1 = 0; j1 < k; j1++)
-            pixels[i1 + j1 * width] = l;
+            dest[i1 + j1 * width] = l;
 
     }
 
@@ -88,11 +88,11 @@ public class Draw2D extends CacheableNode
         {
             for(int j3 = -k; j3 < 0; j3++)
             {
-                int k3 = (pixels[l2] >> 16 & 0xff) * k1;
-                int l3 = (pixels[l2] >> 8 & 0xff) * k1;
-                int i4 = (pixels[l2] & 0xff) * k1;
+                int k3 = (dest[l2] >> 16 & 0xff) * k1;
+                int l3 = (dest[l2] >> 8 & 0xff) * k1;
+                int i4 = (dest[l2] & 0xff) * k1;
                 int j4 = ((l1 + k3 >> 8) << 16) + ((i2 + l3 >> 8) << 8) + (j2 + i4 >> 8);
-                pixels[l2++] = j4;
+                dest[l2++] = j4;
             }
 
             l2 += k2;
@@ -108,9 +108,9 @@ public class Draw2D extends CacheableNode
         drawLineY((i + k) - 1, j, l, i1);
     }
 
-    public static void prepare(int ai[], int i, int j)
+    public static void prepare(int i, int[] ai, int j)
     {
-        pixels = ai;
+        dest = ai;
         width = i;
         bbg = j;
         ajg(0, 0, i, j);
@@ -138,7 +138,7 @@ public class Draw2D extends CacheableNode
         for(int l1 = -l; l1 < 0; l1++)
         {
             for(int i2 = -k; i2 < 0; i2++)
-                pixels[k1++] = i1;
+                dest[k1++] = i1;
 
             k1 += j1;
         }
@@ -149,7 +149,7 @@ public class Draw2D extends CacheableNode
     {
         int i = width * bbg;
         for(int j = 0; j < i; j++)
-            pixels[j] = 0;
+            dest[j] = 0;
 
     }
 
@@ -178,18 +178,18 @@ public class Draw2D extends CacheableNode
             int i4 = k3 + l2 * width;
             for(int j4 = k3; j4 <= l3; j4++)
             {
-                int k4 = (pixels[i4] >> 16 & 0xff) * j1;
-                int l4 = (pixels[i4] >> 8 & 0xff) * j1;
-                int i5 = (pixels[i4] & 0xff) * j1;
+                int k4 = (dest[i4] >> 16 & 0xff) * j1;
+                int l4 = (dest[i4] >> 8 & 0xff) * j1;
+                int i5 = (dest[i4] & 0xff) * j1;
                 int j5 = ((k1 + k4 >> 8) << 16) + ((l1 + l4 >> 8) << 8) + (i2 + i5 >> 8);
-                pixels[i4++] = j5;
+                dest[i4++] = j5;
             }
 
         }
 
     }
 
-    public static int pixels[];
+    public static int dest[];
     public static int width;
     public static int bbg;
     public static int top = 0;

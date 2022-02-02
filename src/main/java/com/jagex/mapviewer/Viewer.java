@@ -618,7 +618,7 @@ public class Viewer extends GameShell {
 
         drawTimer--;
         if (drawTimer <= 0) {
-            super.drawArea.drawImage(super.graphics, 0, 0);
+            super.drawArea.drawImage(0, super.graphics, 0);
             drawTimer = 50;
         }
     }
@@ -678,7 +678,7 @@ public class Viewer extends GameShell {
                 if (k13 == 0 || l6 <= 1 || k11 <= 1)
                     Draw2D.fillRect(j4, j10, l6, k11, j12);
                 else
-                    drawSmoothEdges(Draw2D.pixels, j10 * Draw2D.width + j4, ai[k9 + i1], j12, l6, k11, k13 >> 2, byte0 & 3);
+                    drawSmoothEdges(Draw2D.dest, j10 * Draw2D.width + j4, ai[k9 + i1], j12, l6, k11, k13 >> 2, byte0 & 3);
             }
 
         }

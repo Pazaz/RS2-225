@@ -315,9 +315,9 @@ label3:
         }
         if(k1 > 0 && l1 > 0)
             if(flag)
-                aia(Draw2D.pixels, abyte0, l, i2, j2, k1, l1, k2, l2);
+                aia(Draw2D.dest, abyte0, l, i2, j2, k1, l1, k2, l2);
             else
-                aif(Draw2D.pixels, abyte0, l, i2, j2, k1, l1, k2, l2);
+                aif(Draw2D.dest, abyte0, l, i2, j2, k1, l1, k2, l2);
     }
 
     private void aif(int ai[], byte abyte0[], int i, int j, int k, int l, int i1, 

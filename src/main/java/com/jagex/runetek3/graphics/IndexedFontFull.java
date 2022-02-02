@@ -147,7 +147,7 @@ public class IndexedFontFull extends com.jagex.mapviewer.Draw2D {
         }
 
         if (w > 0 && h > 0) {
-            fillMaskedRect(Draw2D.pixels, mask, rgb, maskOff, dstOff, w, h, dstStep, maskStep);
+            fillMaskedRect(Draw2D.dest, mask, rgb, maskOff, dstOff, w, h, dstStep, maskStep);
         }
     }
 

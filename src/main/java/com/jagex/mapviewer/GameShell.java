@@ -1,5 +1,7 @@
 package com.jagex.mapviewer;
 
+import com.jagex.runetek3.graphics.DrawArea;
+
 import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.*;
@@ -157,7 +159,7 @@ public class GameShell extends Applet
         this.height = height;
         frame = new GameFrame(this, this.width, this.height);
         graphics = getBaseComponent().getGraphics();
-        drawArea = new DrawArea(this.width, this.height, getBaseComponent());
+        drawArea = new DrawArea(getBaseComponent(), this.width, this.height);
         startThread(this, 1);
     }
 
@@ -220,7 +222,7 @@ public class GameShell extends Applet
         this.width = width;
         this.height = height;
         graphics = getBaseComponent().getGraphics();
-        drawArea = new DrawArea(this.width, this.height, getBaseComponent());
+        drawArea = new DrawArea(getBaseComponent(), this.width, this.height);
         startThread(this, 1);
     }
 
