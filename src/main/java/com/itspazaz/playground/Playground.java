@@ -31,6 +31,7 @@ public class Playground extends GameShell {
     private int pitch;
     private int yaw;
     private int roll;
+    private static int modifier = 1;
 
     private boolean textInputEnabled = false;
     private String textInput = "";
@@ -130,53 +131,60 @@ public class Playground extends GameShell {
 
     private void pollKeyDown() {
         if (!textInputEnabled) {
+            // Change modifier
+            if (keyDown['['] == 1) {
+                modifier--;
+            } else if (keyDown[']'] == 1) {
+                modifier++;
+            }
+
             // Rotate X axis
             if (keyDown[GameShell.KEY_UP] == 1) {
-                pitch--; // flipped to be more natural feeling
+                pitch -= modifier; // flipped to be more natural feeling
             } else if (keyDown[GameShell.KEY_DOWN] == 1) {
-                pitch++;
+                pitch += modifier;
             }
 
             // Rotate on Y axis
             if (keyDown[GameShell.KEY_LEFT] == 1) {
-                yaw++;
+                yaw += modifier;
             } else if (keyDown[GameShell.KEY_RIGHT] == 1) {
-                yaw--;
+                yaw -= modifier;
             }
 
             // Rotate on Z axis
             if (keyDown['.'] == 1) {
-                roll++;
+                roll += modifier;
             } else if (keyDown['/'] == 1) {
-                roll--;
+                roll -= modifier;
             }
 
             // Zoom in/out
             if (keyDown['e'] == 1) {
-                camera.z++;
+                camera.z += modifier;
             } else if (keyDown['q'] == 1) {
-                camera.z--;
+                camera.z -= modifier;
             }
 
             // Move up/down
             if (keyDown['w'] == 1) {
-                camera.y++;
+                camera.y += modifier;
             } else if (keyDown['s'] == 1) {
-                camera.y--;
+                camera.y -= modifier;
             }
 
             // Move left/right
             if (keyDown['d'] == 1) {
-                camera.x++;
+                camera.x += modifier;
             } else if (keyDown['a'] == 1) {
-                camera.x--;
+                camera.x -= modifier;
             }
 
             // Rotate camera (not model)
             if (keyDown['c'] == 1) {
-                camera.pitch++;
+                camera.pitch += modifier;
             } else if (keyDown['v'] == 1) {
-                camera.pitch--;
+                camera.pitch -= modifier;
             }
 
             // Sanity checks
