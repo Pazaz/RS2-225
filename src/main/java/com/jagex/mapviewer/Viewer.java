@@ -339,9 +339,7 @@ public class Viewer extends GameShell {
             labelType = null;
             keyNames = null;
             System.gc();
-            return;
         } catch (Throwable throwable) {
-            return;
         }
     }
 
@@ -363,9 +361,7 @@ public class Viewer extends GameShell {
             shouldDraw = true;
         }
         int k = 1;
-        do {
-            if (k <= 0)
-                break;
+        while (k > 0) {
             k = pollKey();
             if (k == 49) {
                 zoomY = 3D;
@@ -409,15 +405,15 @@ public class Viewer extends GameShell {
 
                 System.out.println("Saving to disk");
                 try {
-                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream((new StringBuilder()).append("map-").append(originX * 2).append("-").append(originY * 2).append("-rgb.raw").toString()));
+                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream("map-" + originX * 2 + "-" + originY * 2 + "-rgb.raw"));
                     stream.write(abyte0);
                     stream.close();
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
-                System.out.println((new StringBuilder()).append("Done export: ").append(originX * 2).append(",").append(originY * 2));
+                System.out.println("Done export: " + originX * 2 + "," + originY * 2);
             }
-        } while (true);
+        }
 
         if (super.mouseButton == 1) {
             mouseClickX = super.clickX;
@@ -876,7 +872,7 @@ public class Viewer extends GameShell {
                     int i10 = l1 + ((j2 - l1) * ((k7 + 64) - k)) / (j1 - k);
                     int l10 = i2 + ((k2 - i2) * (j8 - i1)) / (k1 - i1);
                     Draw2D.drawRect(l8, 0xffffff, l10 - j9, j9, i10 - l8);
-                    b12.drawStringRight((new StringBuilder()).append(k5).append("_").append(k6).toString(), i10 - 5, l10 - 5, 0xffffff);
+                    b12.drawStringRight(k5 + "_" + k6, i10 - 5, l10 - 5, 0xffffff);
                     if (k5 == 33 && k6 >= 71 && k6 <= 73) {
                         b12.drawStringCenter("u_pass", (i10 + l8) / 2, (l10 + j9) / 2, 0xff0000);
                     } else if (k5 >= 32 && k5 <= 34 && k6 >= 70 && k6 <= 74) {
@@ -953,10 +949,8 @@ public class Viewer extends GameShell {
                     k += k2;
                 }
 
-                return;
-            } else {
-                return;
             }
+            return;
         }
         if (i2 == 2) {
             if (j2 == 0) {
@@ -1009,10 +1003,8 @@ public class Viewer extends GameShell {
                     k += k2;
                 }
 
-                return;
-            } else {
-                return;
             }
+            return;
         }
         if (i2 == 3) {
             if (j2 == 0) {
@@ -1065,10 +1057,8 @@ public class Viewer extends GameShell {
                     k += k2;
                 }
 
-                return;
-            } else {
-                return;
             }
+            return;
         }
         if (i2 == 4) {
             if (j2 == 0) {
@@ -1121,10 +1111,8 @@ public class Viewer extends GameShell {
                     k += k2;
                 }
 
-                return;
-            } else {
-                return;
             }
+            return;
         }
         if (i2 == 5) {
             if (j2 == 0) {
@@ -1177,10 +1165,8 @@ public class Viewer extends GameShell {
                     k += k2;
                 }
 
-                return;
-            } else {
-                return;
             }
+            return;
         }
         if (i2 == 6) {
             if (j2 == 0) {
@@ -1346,11 +1332,11 @@ public class Viewer extends GameShell {
     }
 
     private FileArchive loadData() {
-        byte[] abyte0 = null;
+        byte[] abyte0;
         String s = null;
         try {
             s = Signlink.findcachedir();
-            abyte0 = loadFile((new StringBuilder()).append(s).append("/worldmap.dat").toString());
+            abyte0 = loadFile(s + "/worldmap.dat");
             if (!compareChecksum(abyte0))
                 abyte0 = null;
             if (abyte0 != null)
@@ -1360,7 +1346,7 @@ public class Viewer extends GameShell {
         abyte0 = getLatestData();
         if (s != null && abyte0 != null)
             try {
-                saveFile((new StringBuilder()).append(s).append("/worldmap.dat").toString(), abyte0);
+                saveFile(s + "/worldmap.dat", abyte0);
             } catch (Throwable throwable1) {
             }
         return new FileArchive(abyte0);
@@ -1370,15 +1356,16 @@ public class Viewer extends GameShell {
         System.out.println("Updating");
         showProgress("Requesting map", 0);
         try {
-            String s = "";
-            for (int k = 0; k < 10; k++)
-                s = (new StringBuilder()).append(s).append(Signature.sha[k]).toString();
+            StringBuilder s = new StringBuilder();
+            for (int k = 0; k < 10; k++) {
+                s.append(Signature.sha[k]);
+            }
 
             DataInputStream datainputstream;
             if (super.frame != null)
                 datainputstream = new DataInputStream(new FileInputStream("worldmap.jag"));
             else
-                datainputstream = new DataInputStream((new URL(getCodeBase(), (new StringBuilder()).append("worldmap").append(s).append(".jag").toString())).openStream());
+                datainputstream = new DataInputStream((new URL(getCodeBase(), "worldmap" + s + ".jag")).openStream());
             int i1 = 0;
             int j1 = 0;
             int k1 = Signature.length;
@@ -1393,7 +1380,7 @@ public class Viewer extends GameShell {
                 j1 += i2;
                 int j2 = (j1 * 100) / k1;
                 if (j2 != i1)
-                    showProgress((new StringBuilder()).append("Loading map - ").append(j2).append("%").toString(), j2);
+                    showProgress("Loading map - " + j2 + "%", j2);
                 i1 = j2;
             }
             datainputstream.close();
