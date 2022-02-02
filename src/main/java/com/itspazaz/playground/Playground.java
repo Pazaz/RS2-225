@@ -42,6 +42,33 @@ public class Playground extends GameShell {
     private static int COLOR_BACKGROUND = 0x7F555555;
     private static int COLOR_TEXT = 0xFFFF00;
 
+    private static String[] SONGS = {
+        "adventure_mi",  "alone_mid",    "al_kharid_mi", "arabian2_mid",
+        "arabian3_mid",  "arabian_mid",  "arabique_mid", "army_of_dark",
+        "arrival_mid",   "attack2_mid",  "attention_mi", "autumn_voyag",
+        "beyond_mid",    "book_of_spel", "camelot_mid",  "cave_backgro",
+        "crystal_cave",  "crystal_swor", "dangerous_mi", "dark2_mid",
+        "deep_wildy_m",  "desert_voyag", "doorways_mid", "dream1_mid",
+        "duel_arena_m",  "egypt_mid",    "emperor_mid",  "expanse_mid",
+        "fanfare3_mid",  "fanfare_mid",  "fishing_mid",  "flute_salad_",
+        "forever_mid",   "gaol_mid",     "garden_mid",   "gnome_mid",
+        "gnome_theme_",  "gnome_villag", "greatness_mi", "harmony_mid",
+        "heart_and_mi",  "horizon_mid",  "ice_melody_m", "inspiration_",
+        "jungle_islan",  "knightly_mid", "lasting_mid",  "legion_mid",
+        "lightness_mi",  "lightwalk_mi", "long_ago_mid", "march2_mid",
+        "medieval_mid",  "mellow_mid",   "miles_away_m", "miracle_danc",
+        "neverland_mi",  "newbie_melod", "nightfall_mi", "overture_mid",
+        "parade_mid",    "quest_mid",    "reggae_mid",   "rune_essence",
+        "sad_meadow_m",  "scape_cave_m", "scape_main_m", "scape_sad1_m",
+        "scape_soft_m",  "scape_wild1_", "sea_shanty2_", "sea_shanty_m",
+        "serenade_mid",  "serene_mid",   "shine_mid",    "spirit_mid",
+        "splendour_mid", "spooky2_mid",  "start_mid",    "still_night_",
+        "talking_fore",  "the_shadow_m", "the_tower_mi", "tomorrow_mid",
+        "tribal2_mid",   "troubled_mid", "unknown_land", "vision_mid",
+        "wander_mid",    "waterfall_mi", "wilderness2_", "wilderness4_",
+        "wonderous_mi",  "wonder_mid",   "workshop_mid", "yesteryear_m"
+    };
+
     public static void main(String[] args) {
         try {
             Draw3D.lowMemory = false;
@@ -59,7 +86,7 @@ public class Playground extends GameShell {
         Draw3D.prepareOffsets();
 
         // play some background music
-        playSong("autumn voyage");
+        playSong(SONGS[(int)Math.floor(Math.random() * SONGS.length)]);
 
         // load some cache files
         loadTitle();
