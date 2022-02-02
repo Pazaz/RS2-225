@@ -1,7 +1,5 @@
 package com.jagex.runetek3.graphics;
 
-import com.jagex.mapviewer.Draw2D;
-
 import java.awt.*;
 import java.awt.image.*;
 

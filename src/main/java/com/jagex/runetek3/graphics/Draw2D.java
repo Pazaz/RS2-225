@@ -82,11 +82,11 @@ public class Draw2D extends CacheableNode {
         }
     }
 
-    public static void drawRect(int x, int rgb, int h, int y, int len) {
-        drawHorizontalLine(rgb, y, len, x);
-        drawHorizontalLine(rgb, (y + h) - 1, len, x);
+    public static void drawRect(int x, int rgb, int h, int y, int w) {
+        drawHorizontalLine(rgb, y, w, x);
+        drawHorizontalLine(rgb, (y + h) - 1, w, x);
         drawVerticalLine(rgb, y, h, x);
-        drawVerticalLine(rgb, y, h, (x + len) - 1);
+        drawVerticalLine(rgb, y, h, (x + w) - 1);
     }
 
     public static void drawHorizontalLine(int rgb, int y, int len, int x) {
@@ -126,6 +126,86 @@ public class Draw2D extends CacheableNode {
         int off = x + y * width;
         for (int v = 0; v < len; v++) {
             dest[off + v * width] = rgb;
+        }
+    }
+
+    // new
+    public static void fillCircle(int xCenter, int yCenter, int yRadius, int rgb, int alpha) {
+        int invAlpha = 256 - alpha;
+        int r0 = (rgb >> 16 & 0xff) * alpha;
+        int g0 = (rgb >> 8 & 0xff) * alpha;
+        int b0 = (rgb & 0xff) * alpha;
+
+        int yStart = yCenter - yRadius;
+        if (yStart < 0) {
+            yStart = 0;
+        }
+
+        int yEnd = yCenter + yRadius;
+        if (yEnd >= Draw2D.height) {
+            yEnd = Draw2D.height - 1;
+        }
+
+        for (int y = yStart; y <= yEnd; y++) {
+            int midpoint = y - yCenter;
+            int xRadius = (int) Math.sqrt(yRadius * yRadius - midpoint * midpoint);
+
+            int xStart = xCenter - xRadius;
+            if (xStart < 0) {
+                xStart = 0;
+            }
+
+            int xEnd = xCenter + xRadius;
+            if (xEnd >= Draw2D.width) {
+                xEnd = Draw2D.width - 1;
+            }
+
+            int offset = xStart + y * width;
+            for (int l3 = xStart; l3 <= xEnd; l3++) {
+                int r1 = (dest[offset] >> 16 & 0xff) * invAlpha;
+                int g1 = (dest[offset] >> 8 & 0xff) * invAlpha;
+                int b1 = (dest[offset] & 0xff) * invAlpha;
+                dest[offset++] = ((r0 + r1 >> 8) << 16) + ((g0 + b1 >> 8) << 8) + (b0 + g1 >> 8);
+            }
+        }
+    }
+
+    // new
+    public static void fillRect(int x, int y, int w, int h, int rgb, int alpha) {
+        if (x < left) {
+            w -= left - x;
+            x = left;
+        }
+
+        if (y < top) {
+            h -= top - y;
+            y = top;
+        }
+
+        if ((x + w) > right) {
+            w = right - x;
+        }
+
+        if ((y + h) > bottom) {
+            h = bottom - y;
+        }
+
+        int invAlpha = 256 - alpha;
+        int r0 = ((rgb >> 16) & 0xff) * alpha;
+        int g0 = ((rgb >> 8) & 0xff) * alpha;
+        int b0 = (rgb & 0xff) * alpha;
+
+        int step = width - w;
+        int offset = x + (y * width);
+
+        for (int i = 0; i < h; i++) {
+            for (int j = -w; j < 0; j++) {
+                int r1 = ((dest[offset] >> 16) & 0xff) * invAlpha;
+                int g1 = ((dest[offset] >> 8) & 0xff) * invAlpha;
+                int b1 = (dest[offset] & 0xff) * invAlpha;
+                dest[offset++] = (((r0 + r1) >> 8) << 16) + (((g0 + g1) >> 8) << 8) + ((b0 + b1) >> 8);
+            }
+            offset += step;
         }
     }
 

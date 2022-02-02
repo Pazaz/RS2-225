@@ -1,6 +1,7 @@
 package com.jagex.mapviewer;
 
 import com.jagex.runetek3.cache.FileArchive;
+import com.jagex.runetek3.graphics.Draw2D;
 import com.jagex.runetek3.graphics.IndexedFontFull;
 import com.jagex.runetek3.graphics.IndexedSprite;
 import com.jagex.runetek3.graphics.Sprite;
@@ -104,8 +105,8 @@ public class Viewer extends GameShell {
         imageOverview = new Sprite(imageOverviewWidth, imageOverviewHeight);
         imageOverview.prepare();
         drawMap(0, 0, originX, originY, 0, 0, imageOverviewWidth, imageOverviewHeight);
-        Draw2D.drawRect(0, 0, imageOverviewWidth, imageOverviewHeight, 0);
-        Draw2D.drawRect(1, 1, imageOverviewWidth - 2, imageOverviewHeight - 2, colorInactiveBorderTL);
+        Draw2D.drawRect(0, 0, imageOverviewHeight, 0, imageOverviewWidth);
+        Draw2D.drawRect(1, colorInactiveBorderTL, imageOverviewHeight - 2, 1, imageOverviewWidth - 2);
         super.drawArea.bind();
     }
 
@@ -558,7 +559,7 @@ public class Viewer extends GameShell {
             if (showOverview) {
                 imageOverview.drawOpaque(overviewX, overviewY);
                 Draw2D.fillRect(overviewX + (imageOverviewWidth * k) / originX, overviewY + (imageOverviewHeight * i1) / originY, ((j1 - k) * imageOverviewWidth) / originX, ((k1 - i1) * imageOverviewHeight) / originY, 0xff0000, 128);
-                Draw2D.drawRect(overviewX + (imageOverviewWidth * k) / originX, overviewY + (imageOverviewHeight * i1) / originY, ((j1 - k) * imageOverviewWidth) / originX, ((k1 - i1) * imageOverviewHeight) / originY, 0xff0000);
+                Draw2D.drawRect(overviewX + (imageOverviewWidth * k) / originX, 0xff0000, ((k1 - i1) * imageOverviewHeight) / originY, overviewY + (imageOverviewHeight * i1) / originY, ((j1 - k) * imageOverviewWidth) / originX);
                 if (flashTimer > 0 && flashTimer % 10 < 5) {
                     for (int l1 = 0; l1 < mapIconCount; l1++) {
                         if (mapIcons[l1] == currentKey) {
@@ -629,16 +630,16 @@ public class Viewer extends GameShell {
 
     private void drawString(int k, int i1, int j1, int k1, int l1, int i2, int j2,
                             String s) {
-        Draw2D.drawRect(k, i1, j1, k1, 0);
+        Draw2D.drawRect(k, 0, k1, i1, j1);
         k++;
         i1++;
         j1 -= 2;
         k1 -= 2;
-        Draw2D.fillRect(k, i1, j1, k1, i2);
-        Draw2D.drawLineX(k, i1, j1, l1);
-        Draw2D.drawLineY(k, i1, k1, l1);
-        Draw2D.drawLineX(k, (i1 + k1) - 1, j1, j2);
-        Draw2D.drawLineY((k + j1) - 1, i1, k1, j2);
+        Draw2D.fillRect(i1, k, i2, j1, k1);
+        Draw2D.drawHorizontalLine(l1, i1, j1, k);
+        Draw2D.drawVerticalLine(l1, i1, k1, k);
+        Draw2D.drawHorizontalLine(j2, (i1 + k1) - 1, j1, k);
+        Draw2D.drawVerticalLine(j2, i1, k1, (k + j1) - 1);
         b12.drawStringCenter(s, k + j1 / 2 + 1, i1 + k1 / 2 + 1 + 4, 0);
         b12.drawStringCenter(s, k + j1 / 2, i1 + k1 / 2 + 4, 0xffffff);
     }
@@ -670,13 +671,13 @@ public class Viewer extends GameShell {
                 i11 += i2;
                 int j12 = ai1[k9 + i1];
                 if (j12 == 0) {
-                    Draw2D.fillRect(j4, j10, l5 - j4, i11 - j10, ai[k9 + i1]);
+                    Draw2D.fillRect(j10, j4, ai[k9 + i1], l5 - j4, i11 - j10);
                     continue;
                 }
                 byte byte0 = abyte1[k9 + i1];
                 int k13 = byte0 & 0xfc;
                 if (k13 == 0 || l6 <= 1 || k11 <= 1)
-                    Draw2D.fillRect(j4, j10, l6, k11, j12);
+                    Draw2D.fillRect(j10, j4, j12, l6, k11);
                 else
                     drawSmoothEdges(Draw2D.dest, j10 * Draw2D.width + j4, ai[k9 + i1], j12, l6, k11, k13 >> 2, byte0 & 3);
             }
@@ -719,40 +720,40 @@ public class Viewer extends GameShell {
                         wall -= 4;
                     }
                     if (wall == 1)
-                        Draw2D.drawLineY(i6, j11, k12, l14);
+                        Draw2D.drawVerticalLine(l14, j11, k12, i6);
                     else if (wall == 2)
-                        Draw2D.drawLineX(i6, j11, l7, l14);
+                        Draw2D.drawHorizontalLine(l14, j11, l7, i6);
                     else if (wall == 3)
-                        Draw2D.drawLineY(l13, j11, k12, l14);
+                        Draw2D.drawVerticalLine(l14, j11, k12, l13);
                     else if (wall == 4)
-                        Draw2D.drawLineX(i6, j14, l7, l14);
+                        Draw2D.drawHorizontalLine(l14, j14, l7, i6);
                     else if (wall == 9) {
-                        Draw2D.drawLineY(i6, j11, k12, 0xffffff);
-                        Draw2D.drawLineX(i6, j11, l7, l14);
+                        Draw2D.drawVerticalLine(0xffffff, j11, k12, i6);
+                        Draw2D.drawHorizontalLine(l14, j11, l7, i6);
                     } else if (wall == 10) {
-                        Draw2D.drawLineY(l13, j11, k12, 0xffffff);
-                        Draw2D.drawLineX(i6, j11, l7, l14);
+                        Draw2D.drawVerticalLine(0xffffff, j11, k12, l13);
+                        Draw2D.drawHorizontalLine(l14, j11, l7, i6);
                     } else if (wall == 11) {
-                        Draw2D.drawLineY(l13, j11, k12, 0xffffff);
-                        Draw2D.drawLineX(i6, j14, l7, l14);
+                        Draw2D.drawVerticalLine(0xffffff, j11, k12, l13);
+                        Draw2D.drawHorizontalLine(l14, j14, l7, i6);
                     } else if (wall == 12) {
-                        Draw2D.drawLineY(i6, j11, k12, 0xffffff);
-                        Draw2D.drawLineX(i6, j14, l7, l14);
+                        Draw2D.drawVerticalLine(0xffffff, j11, k12, i6);
+                        Draw2D.drawHorizontalLine(l14, j14, l7, i6);
                     } else if (wall == 17)
-                        Draw2D.drawLineX(i6, j11, 1, l14);
+                        Draw2D.drawHorizontalLine(l14, j11, 1, i6);
                     else if (wall == 18)
-                        Draw2D.drawLineX(l13, j11, 1, l14);
+                        Draw2D.drawHorizontalLine(l14, j11, 1, l13);
                     else if (wall == 19)
-                        Draw2D.drawLineX(l13, j14, 1, l14);
+                        Draw2D.drawHorizontalLine(l14, j14, 1, l13);
                     else if (wall == 20)
-                        Draw2D.drawLineX(i6, j14, 1, l14);
+                        Draw2D.drawHorizontalLine(l14, j14, 1, i6);
                     else if (wall == 25) {
                         for (int i15 = 0; i15 < k12; i15++)
-                            Draw2D.drawLineX(i6 + i15, j14 - i15, 1, l14);
+                            Draw2D.drawHorizontalLine(l14, j14 - i15, 1, i6 + i15);
 
                     } else if (wall == 26) {
                         for (int j15 = 0; j15 < k12; j15++)
-                            Draw2D.drawLineX(i6 + j15, j11 + j15, 1, l14);
+                            Draw2D.drawHorizontalLine(l14, j11 + j15, 1, i6 + j15);
                     }
                 }
 
@@ -871,7 +872,7 @@ public class Viewer extends GameShell {
                     int j9 = i2 + ((k2 - i2) * (j8 - 64 - i1)) / (k1 - i1);
                     int i10 = l1 + ((j2 - l1) * ((k7 + 64) - k)) / (j1 - k);
                     int l10 = i2 + ((k2 - i2) * (j8 - i1)) / (k1 - i1);
-                    Draw2D.drawRect(l8, j9, i10 - l8, l10 - j9, 0xffffff);
+                    Draw2D.drawRect(l8, 0xffffff, l10 - j9, j9, i10 - l8);
                     b12.drawStringRight((new StringBuilder()).append(k5).append("_").append(k6).toString(), i10 - 5, l10 - 5, 0xffffff);
                     if (k5 == 33 && k6 >= 71 && k6 <= 73) {
                         b12.drawStringCenter("u_pass", (i10 + l8) / 2, (l10 + j9) / 2, 0xff0000);

@@ -1,12 +1,11 @@
 package com.jagex.runetek3.graphics;
 
-import com.jagex.mapviewer.Draw2D;
 import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.util.Buffer;
 
 import java.util.Random;
 
-public class IndexedFontFull extends com.jagex.mapviewer.Draw2D {
+public class IndexedFontFull extends Draw2D {
 
     public int stringWidth(String str) {
         if (str == null) {
@@ -112,35 +111,35 @@ public class IndexedFontFull extends com.jagex.mapviewer.Draw2D {
     }
 
     private void fillMaskedRect(byte[] mask, int x, int y, int w, int h, int rgb) {
-        int dstOff = x + y * com.jagex.mapviewer.Draw2D.width;
-        int dstStep = com.jagex.mapviewer.Draw2D.width - w;
+        int dstOff = x + y * Draw2D.width;
+        int dstStep = Draw2D.width - w;
         int maskStep = 0;
         int maskOff = 0;
 
-        if (y < com.jagex.mapviewer.Draw2D.top) {
-            int trim = com.jagex.mapviewer.Draw2D.top - y;
+        if (y < Draw2D.top) {
+            int trim = Draw2D.top - y;
             h -= trim;
-            y = com.jagex.mapviewer.Draw2D.top;
+            y = Draw2D.top;
             maskOff += trim * w;
-            dstOff += trim * com.jagex.mapviewer.Draw2D.width;
+            dstOff += trim * Draw2D.width;
         }
 
-        if (y + h >= com.jagex.mapviewer.Draw2D.bottom) {
-            h -= ((y + h) - com.jagex.mapviewer.Draw2D.bottom) + 1;
+        if (y + h >= Draw2D.bottom) {
+            h -= ((y + h) - Draw2D.bottom) + 1;
         }
 
-        if (x < com.jagex.mapviewer.Draw2D.left) {
-            int trim = com.jagex.mapviewer.Draw2D.left - x;
+        if (x < Draw2D.left) {
+            int trim = Draw2D.left - x;
             w -= trim;
-            x = com.jagex.mapviewer.Draw2D.left;
+            x = Draw2D.left;
             maskOff += trim;
             dstOff += trim;
             maskStep += trim;
             dstStep += trim;
         }
 
-        if (x + w >= com.jagex.mapviewer.Draw2D.right) {
-            int trim = ((x + w) - com.jagex.mapviewer.Draw2D.right) + 1;
+        if (x + w >= Draw2D.right) {
+            int trim = ((x + w) - Draw2D.right) + 1;
             w -= trim;
             maskStep += trim;
             dstStep += trim;
