@@ -11,6 +11,10 @@ import com.jagex.runetek3.graphics.Sprite;
 import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.util.Signlink;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.color.ColorSpace;
+import java.awt.image.*;
 import java.io.*;
 import java.net.URL;
 import java.security.MessageDigest;
@@ -395,29 +399,37 @@ public class Viewer extends GameShell {
 
             if (super.frame != null && k == 'e') {
                 System.out.println("Starting export...");
-                Sprite g1 = new Sprite(originX * 2, originY * 2);
-                g1.prepare();
-                drawMap(0, 0, originX, originY, 0, 0, originX * 2, originY * 2);
+                int width = originX * 2;
+                int height = originY * 2;
+
+                Sprite map = new Sprite(width, height);
+                map.prepare();
+                drawMap(0, 0, originX, originY, 0, 0, width, height);
                 super.drawArea.bind();
-                int l1 = g1.pixels.length;
-                byte[] abyte0 = new byte[l1 * 3];
-                int k2 = 0;
-                for (int l2 = 0; l2 < l1; l2++) {
-                    int i3 = g1.pixels[l2];
-                    abyte0[k2++] = (byte) (i3 >> 16);
-                    abyte0[k2++] = (byte) (i3 >> 8);
-                    abyte0[k2++] = (byte) i3;
+
+                byte[] raw = new byte[map.pixels.length * 3];
+                int offset = 0;
+                for (int n = 0; n < map.pixels.length; n++) {
+                    int rgb = map.pixels[n];
+                    raw[offset++] = (byte) (rgb >> 16);
+                    raw[offset++] = (byte) (rgb >> 8);
+                    raw[offset++] = (byte) rgb;
                 }
 
-                System.out.println("Saving to disk");
+                System.out.println("Saving png to disk");
                 try {
-                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream("map-" + originX * 2 + "-" + originY * 2 + "-rgb.raw"));
-                    stream.write(abyte0);
-                    stream.close();
+                    DataBuffer buffer = new DataBufferByte(raw, raw.length);
+                    int samplesPerPixel = 3;
+                    int[] bandOffsets = { 0, 1, 2 };
+                    ColorModel colorModel = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), false, true, Transparency.TRANSLUCENT, DataBuffer.TYPE_BYTE);
+                    WritableRaster raster = Raster.createInterleavedRaster(buffer, width, height, samplesPerPixel * width, samplesPerPixel, bandOffsets, null);
+                    BufferedImage image = new BufferedImage(colorModel, raster, colorModel.isAlphaPremultiplied(), null);
+                    ImageIO.write(image, "PNG", new File("map-" + width + "-" + height + ".png"));
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
-                System.out.println("Done export: " + originX * 2 + "," + originY * 2);
+
+                System.out.println("Done export: " + width + "," + height);
             }
         }
 
