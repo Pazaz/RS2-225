@@ -8,6 +8,7 @@ import com.jagex.runetek3.formats.SeqBase;
 import com.jagex.runetek3.formats.SeqFrame;
 import com.jagex.runetek3.formats.SeqType;
 import com.jagex.runetek3.graphics.*;
+import com.jagex.runetek3.scene.NpcEntity;
 import com.jagex.runetek3.sound.SoundTrack;
 import com.jagex.runetek3.util.BZip2InputStream;
 import com.jagex.runetek3.util.Buffer;
@@ -25,6 +26,7 @@ public class Playground extends GameShell {
 
     private Sprite sprite;
     private ObjType obj;
+    private NpcEntity npc = new NpcEntity();
     private Model model;
     private int pitch;
     private int yaw;
@@ -179,11 +181,10 @@ public class Playground extends GameShell {
                 break;
             }
 
-            // Export to PNG
             if (key == GameShell.KEY_ENTER) {
                 if (textInputEnabled) {
                     try {
-                        if (loadType == "Obj") {
+                        if (loadType.equals("Obj")) {
                             int id = Integer.parseInt(textInput);
                             sprite = ObjType.getSprite(id, 10000);
                             obj = ObjType.get(id);
@@ -199,8 +200,29 @@ public class Playground extends GameShell {
                             camera.z = 0;
                             model = obj.getModel(1);
                             status = "Loaded object " + id;
+                        } else if (loadType.equals("Npc")) {
+                            if (textInput.startsWith("a")) {
+                            } else {
+                                int id = Integer.parseInt(textInput);
+                                npc.info = NpcType.get(id);
+                                pitch = 0;
+                                yaw = 169;
+                                roll = 0;
+                                camera.pitch = 128;
+                                camera.x = 5;
+                                camera.z = 180;
+                                camera.y = 195;
+                                model = npc.getModel();
+                                npc.runSeq = npc.info.walkSeq;
+                                npc.walkSeq = npc.info.turnAroundSeq;
+                                npc.turnAroundSeq = npc.info.turnRightSeq;
+                                npc.turnRightSeq = npc.info.turnLeftSeq;
+                                npc.standSeq = npc.info.standSeq;
+                                status = "Loaded NPC " + id;
+                            }
                         }
                     } catch (Exception ex) {
+                        ex.printStackTrace();
                         status = "Failed to load: " + textInput;
                     }
                 }
@@ -223,6 +245,20 @@ public class Playground extends GameShell {
                 } else if (key == 'j') {
                     Draw3D.jagged = !Draw3D.jagged;
                     status = "Jagged: " + Draw3D.jagged;
+                } else if (key == '1') {
+                    loadType = "Obj";
+                    sprite = null;
+                    obj = null;
+                    npc.info = null;
+                    model = null;
+                    status = "Switched to Obj";
+                } else if (key == '2') {
+                    loadType = "Npc";
+                    sprite = null;
+                    obj = null;
+                    npc.info = null;
+                    model = null;
+                    status = "Switched to Npc";
                 }
             }
         }
@@ -238,13 +274,27 @@ public class Playground extends GameShell {
 
         // Draw a model
         try {
-            if (model != null) {
-                int sinPitch = Draw3D.sin[obj.iconCameraPitch] * obj.iconZoom >> 16;
-                int cosPitch = Draw3D.cos[obj.iconCameraPitch] * obj.iconZoom >> 16;
-                model.draw(pitch, yaw, roll, camera.pitch, obj.iconX + camera.x, sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z, cosPitch + obj.iconY + camera.y);
+            if (obj != null || npc.info != null) {
+                if (loadType.equals("Obj")) {
+                    int sinPitch = Draw3D.sin[obj.iconCameraPitch] * obj.iconZoom >> 16;
+                    int cosPitch = Draw3D.cos[obj.iconCameraPitch] * obj.iconZoom >> 16;
+                    model.draw(pitch, yaw, roll, camera.pitch, obj.iconX + camera.x, sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z, cosPitch + obj.iconY + camera.y);
 
-                sprite.draw(0, gameWidth - 33);
-                p12.drawRightAligned(sprite.height + p12.height, COLOR_TEXT, obj.name, gameWidth, true);
+                    // Draw sprite
+                    sprite.draw(0, gameWidth - 33);
+                    p12.drawRightAligned(sprite.height + p12.height, COLOR_TEXT, obj.name, gameWidth, true);
+
+                    // Draw model/camera data
+                    p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + (obj.iconX + camera.x) + "," + (sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z) + "," + (cosPitch + obj.iconY + camera.y), gameWidth - 4, true);
+                } else if (loadType.equals("Npc")) {
+                    model.draw(pitch, yaw, roll, camera.pitch, camera.x, camera.z, camera.y);
+
+                    // Draw model name
+                    p12.drawRightAligned(p12.height + 3, COLOR_TEXT, npc.info.name, gameWidth - 3, true);
+
+                    // Draw model/camera data
+                    p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + camera.x + "," + camera.z + "," + camera.y, gameWidth - 4, true);
+                }
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -253,18 +303,18 @@ public class Playground extends GameShell {
 
         // Debug text
         int y = p12.height;
-        p12.draw(0, y, COLOR_TEXT, "FPS: " + fps, true);
+        p12.draw(3, y, COLOR_TEXT, "FPS: " + fps, true);
         y += p12.height + 2;
 
-        p12.draw(0, y, COLOR_TEXT, status, true);
+        p12.draw(3, y, COLOR_TEXT, status, true);
         y += p12.height + 2;
 
         if (textInputEnabled) {
-            p12.draw(0, y, COLOR_TEXT, loadType + "> " + textInput, true);
+            p12.draw(3, y, COLOR_TEXT, loadType + "> " + textInput, true);
         }
 
         y = Draw2D.height - p12.height / 2;
-        p12.draw(0, y, COLOR_TEXT, "Help: Press Enter to enter a (" + loadType + ") ID", true);
+        p12.draw(3, y, COLOR_TEXT, "Help: Press Enter to enter a (" + loadType + ") ID", true);
 
         // Render the frame
         drawArea.drawImage(0, graphics, 0);
