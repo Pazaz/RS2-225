@@ -10,12 +10,12 @@ import java.awt.event.*;
 public class GameShell extends JApplet
     implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
 
-    public void initFrame(int height, int width) {
+    public void initFrame(int height, int width, String title) {
         gameWidth = width;
         gameHeight = height;
         setSize(gameWidth, gameHeight);
         setPreferredSize(getSize());
-        frame = new GameFrame(this);
+        frame = new GameFrame(this, title);
         graphics = getBaseComponent().getGraphics();
         drawArea = new DrawArea(getBaseComponent(), gameWidth, gameHeight);
         startThread(this, 1);

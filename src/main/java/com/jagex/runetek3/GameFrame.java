@@ -4,10 +4,10 @@ import java.awt.*;
 
 public class GameFrame extends Frame {
 
-    public GameFrame(GameShell applet) {
+    public GameFrame(GameShell applet, String title) {
         this.applet = applet;
 
-        setTitle("RuneScape 2 - Revision 225");
+        setTitle("RuneScape 2 - " + title);
         setResizable(false);
 
         setLayout(new BorderLayout());

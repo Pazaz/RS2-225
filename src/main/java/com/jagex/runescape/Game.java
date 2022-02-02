@@ -9096,7 +9096,7 @@ public class Game extends GameShell {
 
             Signlink.startpriv(InetAddress.getLocalHost());
             instance = new Game();
-            instance.initFrame(532, 789);
+            instance.initFrame(532, 789, "Revision 225");
         } catch (Exception exception) {
         }
     }

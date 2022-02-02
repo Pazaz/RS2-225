@@ -19,7 +19,7 @@ public class Viewer extends GameShell {
 
     public static void main(String[] args) {
         Viewer viewer = new Viewer();
-        viewer.initFrame(503, 633);
+        viewer.initFrame(503, 633, "World Map Viewer");
     }
 
     @Override
@@ -363,31 +363,37 @@ public class Viewer extends GameShell {
         int k = 1;
         while (k > 0) {
             k = pollKey();
-            if (k == 49) {
+            if (k == '1') {
                 zoomY = 3D;
                 shouldDraw = true;
             }
-            if (k == 50) {
+
+            if (k == '2') {
                 zoomY = 4D;
                 shouldDraw = true;
             }
-            if (k == 51) {
+
+            if (k == '3') {
                 zoomY = 6D;
                 shouldDraw = true;
             }
-            if (k == 52) {
+
+            if (k == '4') {
                 zoomY = 8D;
                 shouldDraw = true;
             }
-            if (k == 107 || k == 75) {
+
+            if (k == 'k' || k == 'K') {
                 showKey = !showKey;
                 shouldDraw = true;
             }
-            if (k == 111 || k == 79) {
+
+            if (k == 'o' || k == 'O') {
                 showOverview = !showOverview;
                 shouldDraw = true;
             }
-            if (super.frame != null && k == 101) {
+
+            if (super.frame != null && k == 'e') {
                 System.out.println("Starting export...");
                 Sprite g1 = new Sprite(originX * 2, originY * 2);
                 g1.prepare();
@@ -649,49 +655,62 @@ public class Viewer extends GameShell {
         int i3 = k1 - i1;
         int j3 = (j2 - l1 << 16) / l2;
         int k3 = (k2 - i2 << 16) / i3;
+
         for (int l3 = 0; l3 < l2; l3++) {
             int j4 = j3 * l3 >> 16;
             int l5 = j3 * (l3 + 1) >> 16;
             int l6 = l5 - j4;
-            if (l6 <= 0)
+            if (l6 <= 0) {
                 continue;
+            }
+
             j4 += l1;
             l5 += l1;
+
             int[] ai = floormapColors[l3 + k];
             int[] ai1 = overlayColors[l3 + k];
             byte[] abyte1 = overlayTypes[l3 + k];
+
             for (int k9 = 0; k9 < i3; k9++) {
                 int j10 = k3 * k9 >> 16;
                 int i11 = k3 * (k9 + 1) >> 16;
                 int k11 = i11 - j10;
-                if (k11 <= 0)
+                if (k11 <= 0) {
                     continue;
+                }
+
                 j10 += i2;
                 i11 += i2;
+
                 int j12 = ai1[k9 + i1];
                 if (j12 == 0) {
                     Draw2D.fillRect(j10, j4, ai[k9 + i1], l5 - j4, i11 - j10);
                     continue;
                 }
+
                 byte byte0 = abyte1[k9 + i1];
                 int k13 = byte0 & 0xfc;
-                if (k13 == 0 || l6 <= 1 || k11 <= 1)
+                if (k13 == 0 || l6 <= 1 || k11 <= 1) {
                     Draw2D.fillRect(j10, j4, j12, l6, k11);
-                else
+                } else {
                     drawSmoothEdges(Draw2D.dest, j10 * Draw2D.width + j4, ai[k9 + i1], j12, l6, k11, k13 >> 2, byte0 & 3);
+                }
             }
-
         }
 
-        if (j1 - k > j2 - l1)
+        if (j1 - k > j2 - l1) {
             return;
+        }
+
         int i4 = 0;
         for (int k4 = 0; k4 < l2; k4++) {
             int i6 = j3 * k4 >> 16;
             int i7 = j3 * (k4 + 1) >> 16;
             int l7 = i7 - i6;
-            if (l7 <= 0)
+            if (l7 <= 0) {
                 continue;
+            }
+
             byte[] abyte0 = locWalls[k4 + k];
             byte[] mapscene = locScenes[k4 + k];
             byte[] abyte3 = locIcons[k4 + k];
@@ -699,34 +718,41 @@ public class Viewer extends GameShell {
                 int j11 = k3 * k10 >> 16;
                 int l11 = k3 * (k10 + 1) >> 16;
                 int k12 = l11 - j11;
-                if (k12 <= 0)
+                if (k12 <= 0) {
                     continue;
+                }
+
                 int wall = abyte0[k10 + i1] & 0xff;
                 if (wall != 0) {
                     int l13;
-                    if (l7 == 1)
+                    if (l7 == 1) {
                         l13 = i6;
-                    else
+                    } else {
                         l13 = i7 - 1;
+                    }
+
                     int j14;
-                    if (k12 == 1)
+                    if (k12 == 1) {
                         j14 = j11;
-                    else
+                    } else {
                         j14 = l11 - 1;
+                    }
+
                     int l14 = 0xcccccc;
                     if (wall >= 5 && wall <= 8 || wall >= 13 && wall <= 16 || wall >= 21 && wall <= 24 || wall == 27 || wall == 28) {
                         l14 = 0xcc0000;
                         wall -= 4;
                     }
-                    if (wall == 1)
+
+                    if (wall == 1) {
                         Draw2D.drawVerticalLine(l14, j11, k12, i6);
-                    else if (wall == 2)
+                    } else if (wall == 2) {
                         Draw2D.drawHorizontalLine(l14, j11, l7, i6);
-                    else if (wall == 3)
+                    } else if (wall == 3) {
                         Draw2D.drawVerticalLine(l14, j11, k12, l13);
-                    else if (wall == 4)
+                    } else if (wall == 4) {
                         Draw2D.drawHorizontalLine(l14, j14, l7, i6);
-                    else if (wall == 9) {
+                    } else if (wall == 9) {
                         Draw2D.drawVerticalLine(0xffffff, j11, k12, i6);
                         Draw2D.drawHorizontalLine(l14, j11, l7, i6);
                     } else if (wall == 10) {
@@ -747,18 +773,20 @@ public class Viewer extends GameShell {
                     else if (wall == 20)
                         Draw2D.drawHorizontalLine(l14, j14, 1, i6);
                     else if (wall == 25) {
-                        for (int i15 = 0; i15 < k12; i15++)
+                        for (int i15 = 0; i15 < k12; i15++) {
                             Draw2D.drawHorizontalLine(l14, j14 - i15, 1, i6 + i15);
-
+                        }
                     } else if (wall == 26) {
-                        for (int j15 = 0; j15 < k12; j15++)
+                        for (int j15 = 0; j15 < k12; j15++) {
                             Draw2D.drawHorizontalLine(l14, j11 + j15, 1, i6 + j15);
+                        }
                     }
                 }
 
                 int scene = mapscene[k10 + i1] & 0xff;
-                if (scene != 0)
+                if (scene != 0) {
                     mapscenes[scene - 1].clip(i6 - l7 / 2, j11 - k12 / 2, l7 * 2, k12 * 2);
+                }
 
                 int icon = abyte3[k10 + i1] & 0xff;
                 if (icon != 0) {
@@ -768,7 +796,6 @@ public class Viewer extends GameShell {
                     i4++;
                 }
             }
-
         }
 
         for (int l4 = 0; l4 < i4; l4++) {
@@ -801,38 +828,41 @@ public class Viewer extends GameShell {
                 int k8 = i2 + ((k2 - i2) * (j7 - i1)) / (k1 - i1);
                 int i9 = labelType[j5];
                 int l9 = 0xffffff;
-                DrawText f1 = null;
+                DrawText font = null;
                 if (i9 == 0) {
-                    if (zoomX == 3D)
-                        f1 = this.f11;
-                    if (zoomX == 4D)
-                        f1 = f12;
-                    if (zoomX == 6D)
-                        f1 = f14;
-                    if (zoomX == 8D)
-                        f1 = f17;
+                    if (zoomX == 3D) {
+                        font = f11;
+                    } else if (zoomX == 4D) {
+                        font = f12;
+                    } else if (zoomX == 6D) {
+                        font = f14;
+                    } else if (zoomX == 8D) {
+                        font = f17;
+                    }
                 } else if (i9 == 1) {
-                    if (zoomX == 3D)
-                        f1 = f14;
-                    if (zoomX == 4D)
-                        f1 = f17;
-                    if (zoomX == 6D)
-                        f1 = f19;
-                    if (zoomX == 8D)
-                        f1 = f22;
+                    if (zoomX == 3D) {
+                        font = f14;
+                    } else if (zoomX == 4D) {
+                        font = f17;
+                    } else if (zoomX == 6D) {
+                        font = f19;
+                    } else if (zoomX == 8D) {
+                        font = f22;
+                    }
                 } else if (i9 == 2) {
                     l9 = 0xffaa00;
-                    if (zoomX == 3D)
-                        f1 = f19;
-                    if (zoomX == 4D)
-                        f1 = f22;
-                    if (zoomX == 6D)
-                        f1 = f26;
-                    if (zoomX == 8D)
-                        f1 = f30;
+                    if (zoomX == 3D) {
+                        font = f19;
+                    } else if (zoomX == 4D) {
+                        font = f22;
+                    } else if (zoomX == 6D) {
+                        font = f26;
+                    } else if (zoomX == 8D) {
+                        font = f30;
+                    }
                 }
 
-                if (f1 == null) {
+                if (font == null) {
                     continue;
                 }
 
@@ -844,22 +874,23 @@ public class Viewer extends GameShell {
                     }
                 }
 
-                k8 -= (f1.aib() * (i12 - 1)) / 2;
-                k8 += f1.aig() / 2;
+                k8 -= (font.aib() * (i12 - 1)) / 2;
+                k8 += font.aig() / 2;
 
                 do {
                     int i13 = s.indexOf("/");
                     if (i13 == -1) {
-                        f1.ahn(s, i8, k8, l9, true);
+                        font.ahn(s, i8, k8, l9, true);
                         break;
                     }
                     String s1 = s.substring(0, i13);
-                    f1.ahn(s1, i8, k8, l9, true);
-                    k8 += f1.aib();
+                    font.ahn(s1, i8, k8, l9, true);
+                    k8 += font.aib();
                     s = s.substring(i13 + 1);
                 } while (true);
             }
         }
+
         if (shouldDrawDebug) {
             for (int k5 = centerX / 64; k5 < (centerX + originX) / 64; k5++) {
                 for (int k6 = centerY / 64; k6 < (centerY + originY) / 64; k6++) {
