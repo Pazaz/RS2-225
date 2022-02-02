@@ -31,9 +31,9 @@ public class Game extends GameShell {
         }
 
         synchronized (midiSync) {
-            midiString = s;
-            midiInt1 = i;
-            midiInt2 = j;
+            midiSyncName = s;
+            midiSyncCrc = i;
+            midiSyncLen = j;
         }
     }
 
@@ -863,53 +863,60 @@ public class Game extends GameShell {
                 Thread.sleep(50L);
             } catch (Exception _ex) {
             }
-            String s;
-            int i;
-            int j;
+            String name;
+            int crc;
+            int len;
             synchronized (midiSync) {
-                s = midiString;
-                i = midiInt1;
-                j = midiInt2;
-                midiString = null;
-                midiInt1 = 0;
-                midiInt2 = 0;
+                name = midiSyncName;
+                crc = midiSyncCrc;
+                len = midiSyncLen;
+                midiSyncName = null;
+                midiSyncCrc = 0;
+                midiSyncLen = 0;
             }
-            if (s != null) {
-                byte[] abyte0 = Signlink.cacheload(s + ".mid");
-                if (abyte0 != null && i != 0xbc614e) {
+
+            if (name != null) {
+                byte[] src = Signlink.cacheload(name + ".mid");
+                if (src != null && crc != 12345678) {
                     crc32.reset();
-                    crc32.update(abyte0);
-                    int k = (int) crc32.getValue();
-                    if (k != i)
-                        abyte0 = null;
+                    crc32.update(src);
+                    int other = (int) crc32.getValue();
+                    if (other != crc) {
+                        src = null;
+                    }
                 }
-                if (abyte0 == null)
+
+                if (src == null) {
                     try {
-                        DataInputStream datainputstream = openStream(s + "_" + i + ".mid");
-                        abyte0 = new byte[j];
+                        DataInputStream datainputstream = openStream(name + "_" + crc + ".mid");
+                        src = new byte[len];
                         int j1;
-                        for (int i1 = 0; i1 < j; i1 += j1) {
-                            j1 = datainputstream.read(abyte0, i1, j - i1);
+                        for (int i1 = 0; i1 < len; i1 += j1) {
+                            j1 = datainputstream.read(src, i1, len - i1);
                             if (j1 != -1)
                                 continue;
                             byte[] abyte2 = new byte[i1];
-                            System.arraycopy(abyte0, 0, abyte2, 0, i1);
+                            System.arraycopy(src, 0, abyte2, 0, i1);
 
-                            abyte0 = abyte2;
-                            j = i1;
+                            src = abyte2;
+                            len = i1;
                             break;
                         }
 
                         datainputstream.close();
-                        Signlink.cachesave(s + ".mid", abyte0);
+                        Signlink.cachesave(name + ".mid", src);
                     } catch (Exception _ex) {
                     }
-                if (abyte0 == null)
+                }
+
+                if (src == null) {
                     return;
-                int l = (new Buffer(abyte0)).readDWord();
-                byte[] abyte1 = new byte[l];
-                BZip2InputStream.read(abyte1, l, abyte0, j, 4);
-                midisave(abyte1, l, true);
+                }
+
+                int length = (new Buffer(src)).readDWord();
+                byte[] decompressed = new byte[length];
+                BZip2InputStream.read(decompressed, length, src, len, 4);
+                midisave(decompressed, length, true);
             }
         }
     }
@@ -9098,7 +9105,7 @@ public class Game extends GameShell {
 
     public static int itemOption4Counter;
     public static String ASCII_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
-    public int midiInt2;
+    public int midiSyncLen;
     public int anInt728;
     public int anInt729;
     public int anInt730;
@@ -9331,7 +9338,7 @@ public class Game extends GameShell {
     public boolean objGrabThreshold = false;
     public Sprite aClass38_Sub2_Sub2_Sub2_961;
     public Sprite aClass38_Sub2_Sub2_Sub2_962;
-    public int midiInt1;
+    public int midiSyncCrc;
     public boolean sidebarRedraw = false;
     public boolean redrawChatback = false;
     public int[] cameraAmplitude = new int[5];
@@ -9431,7 +9438,7 @@ public class Game extends GameShell {
     public int lastLoginIP;
     public static BigInteger modulus = new BigInteger("7162900525229798032761816791230527296329313291232324290237849263501208207972894053929065636522363163621000728841182238772712427862772219676577293600221789");
     public int viewportHoveredInterfaceIndex;
-    public String midiString;
+    public String midiSyncName;
     public int lastWaveLoops = -1;
     public String username = "";
     public String password = "";
