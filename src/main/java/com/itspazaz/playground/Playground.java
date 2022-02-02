@@ -24,14 +24,19 @@ public class Playground extends GameShell {
     private IndexedFont p11, p12, b12, q8;
     private Sprite backgroundLeft;
     private Sprite backgroundRight;
+
     private ObjType obj;
     private Model model;
-
     private int pitch;
     private int yaw;
     private int roll;
 
+    private boolean textInputEnabled = false;
+    private String textInput = "";
+    private Camera camera = new Camera();
     private int frame;
+    private String status = "";
+    private String loadType = "Obj";
 
     public static void main(String[] args) {
         try {
@@ -63,10 +68,6 @@ public class Playground extends GameShell {
         loadSounds();
 
         showProgress("Finished loading", 90);
-        obj = ObjType.get(995);
-        yaw = obj.iconYaw;
-        roll = obj.iconRoll;
-        model = obj.getModel(12345);
     }
 
     @Override
@@ -93,44 +94,130 @@ public class Playground extends GameShell {
 
     @Override
     public void update() {
-        // Rotate X axis
-        if (keyDown[GameShell.KEY_UP] == 1) {
-            pitch--; // flipped to be more natural
-        } else if (keyDown[GameShell.KEY_DOWN] == 1) {
-            pitch++;
-        }
-        if (pitch > 2047) {
-            pitch = 0;
-        } else if (pitch < 0) {
-            pitch = 2047;
-        }
+        pollKeyDown();
+        pollKeyPressed();
+    }
 
-        // Rotate on Y axis
-        if (keyDown[GameShell.KEY_LEFT] == 1) {
-            yaw++;
-        } else if (keyDown[GameShell.KEY_RIGHT] == 1) {
-            yaw--;
-        }
-        if (yaw > 2047) {
-            yaw = 0;
-        } else if (yaw < 0) {
-            yaw = 2047;
-        }
+    private void pollKeyDown() {
+        if (!textInputEnabled) {
+            // Rotate X axis
+            if (keyDown[GameShell.KEY_UP] == 1) {
+                pitch--; // flipped to be more natural feeling
+            } else if (keyDown[GameShell.KEY_DOWN] == 1) {
+                pitch++;
+            }
 
-        // Rotate on Z axis
-        if (keyDown[GameShell.KEY_HOME] == 1) {
-            roll++;
-        } else if (keyDown[GameShell.KEY_END] == 1) {
-            roll--;
-        }
-        if (roll > 2047) {
-            roll = 0;
-        } else if (roll < 0) {
-            roll = 2047;
-        }
+            // Rotate on Y axis
+            if (keyDown[GameShell.KEY_LEFT] == 1) {
+                yaw++;
+            } else if (keyDown[GameShell.KEY_RIGHT] == 1) {
+                yaw--;
+            }
 
-        if (keyDown['e'] == 1) {
-            exportImage(drawArea.pixels, "dump/test" + frame++);
+            // Rotate on Z axis
+            if (keyDown['.'] == 1) {
+                roll++;
+            } else if (keyDown['/'] == 1) {
+                roll--;
+            }
+
+            // Zoom in/out
+            if (keyDown['e'] == 1) {
+                camera.z++;
+            } else if (keyDown['q'] == 1) {
+                camera.z--;
+            }
+
+            // Move up/down
+            if (keyDown['w'] == 1) {
+                camera.y++;
+            } else if (keyDown['s'] == 1) {
+                camera.y--;
+            }
+
+            // Move left/right
+            if (keyDown['d'] == 1) {
+                camera.x++;
+            } else if (keyDown['a'] == 1) {
+                camera.x--;
+            }
+
+            // Rotate camera (not model)
+            if (keyDown['c'] == 1) {
+                camera.pitch++;
+            } else if (keyDown['v'] == 1) {
+                camera.pitch--;
+            }
+
+            // Sanity checks
+            if (pitch > 2047) {
+                pitch = 0;
+            } else if (pitch < 0) {
+                pitch = 2047;
+            }
+
+            if (yaw > 2047) {
+                yaw = 0;
+            } else if (yaw < 0) {
+                yaw = 2047;
+            }
+
+            if (roll > 2047) {
+                roll = 0;
+            } else if (roll < 0) {
+                roll = 2047;
+            }
+        }
+    }
+
+    private void pollKeyPressed() {
+        while (true) {
+            int key = pollKey();
+            if (key == -1) {
+                break;
+            }
+
+            // Export to PNG
+            if (key == GameShell.KEY_ENTER) {
+                if (textInputEnabled) {
+                    try {
+                        if (loadType == "Obj") {
+                            int id = Integer.parseInt(textInput);
+                            obj = ObjType.get(id);
+                            yaw = obj.iconYaw;
+                            roll = obj.iconRoll;
+                            camera.pitch = obj.iconCameraPitch;
+                            camera.x = 0;
+                            camera.y = 0;
+                            camera.z = 0;
+                            model = obj.getModel(1);
+                            status = "Loaded object " + id;
+                        }
+                    } catch (Exception ex) {
+                        status = "Failed to load: " + textInput;
+                    }
+                }
+
+                textInputEnabled = !textInputEnabled;
+                textInput = "";
+            }
+
+            if (textInputEnabled) {
+                if (key >= ' ' && key < 'z') {
+                    textInput += (char)key;
+                } else if (key == GameShell.KEY_DELETE && textInput.length() > 0) {
+                    textInput = textInput.substring(0, textInput.length() - 1);
+                }
+            } else {
+                if (key == '\\') {
+                    exportImage(drawArea.pixels, "dump/test" + frame);
+                    status = "Exported image as dump/test" + frame + ".png";
+                    frame++;
+                } else if (key == 'j') {
+                    Draw3D.jagged = !Draw3D.jagged;
+                    status = "Jagged: " + Draw3D.jagged;
+                }
+            }
         }
     }
 
@@ -140,16 +227,33 @@ public class Playground extends GameShell {
         Draw2D.clear();
 
         // Draw the background
-        //backgroundLeft.drawOpaque(0, 0);
-        //backgroundRight.drawOpaque(backgroundLeft.width, 0);
         Draw2D.fillRect(0, 0, 0x00FF00, Draw2D.width, Draw2D.height);
 
         // Draw a model
-        model.draw(pitch, yaw, roll, obj.iconCameraPitch, 0, 200, 220);
+        try {
+            if (model != null) {
+                int sinPitch = Draw3D.sin[obj.iconCameraPitch] * obj.iconZoom >> 16;
+                int cosPitch = Draw3D.cos[obj.iconCameraPitch] * obj.iconZoom >> 16;
+                model.draw(pitch, yaw, roll, camera.pitch, obj.iconX + camera.x, sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z, cosPitch + obj.iconY + camera.y);
+            }
+        } catch (Exception ex) {
+            status = "Failed to draw model";
+        }
 
         // Debug text
-        //p12.draw(1, 13, 0x000000, "FPS: " + fps);
-        //p12.draw(0, 12, 0xFFFF00, "FPS: " + fps);
+        int y = p12.height;
+        p12.draw(0, y, 0xFFFF00, "FPS: " + fps, true);
+        y += p12.height + 2;
+
+        p12.draw(0, y, 0xFFFF00, status, true);
+        y += p12.height + 2;
+
+        if (textInputEnabled) {
+            p12.draw(0, y, 0xFFFF00, loadType + "> " + textInput, true);
+        }
+
+        y = Draw2D.height - p12.height / 2;
+        p12.draw(0, y, 0xFFFF00, "Help: Press Enter to enter a (" + loadType + ") ID", true);
 
         // Render the frame
         drawArea.drawImage(0, graphics, 0);
@@ -178,18 +282,6 @@ public class Playground extends GameShell {
         p12 = new IndexedFont(title, "p12");
         b12 = new IndexedFont(title, "b12");
         q8 = new IndexedFont(title, "q8");
-
-        /*backgroundLeft = new Sprite(title.read("title.dat", null), this);
-        backgroundRight = new Sprite(title.read("title.dat", null), this);
-        // flip the background
-        int[] tmp = new int[backgroundRight.width];
-        for (int y = 0; y < backgroundRight.height; y++) {
-            for (int x = 0; x < backgroundRight.width; x++) {
-                tmp[x] = backgroundRight.pixels[(backgroundRight.width - x - 1) + backgroundRight.width * y];
-            }
-
-            System.arraycopy(tmp, 0, backgroundRight.pixels, backgroundRight.width * y, backgroundRight.width);
-        }*/
     }
 
     private void loadModels() {

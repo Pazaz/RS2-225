@@ -104,6 +104,13 @@ public class IndexedFont extends Draw2D {
         }
     }
 
+    public void draw(int x, int y, int rgb, String str, boolean shadow) {
+        if (shadow) {
+            draw(x + 1, y + 1, 0x000000, str);
+        }
+        draw(x, y, rgb, str);
+    }
+
     public void drawCenteredWave(int phase, int x, int y, int rgb, String s) {
         if (s == null)
             return;
