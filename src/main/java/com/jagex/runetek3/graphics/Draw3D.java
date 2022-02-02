@@ -47,19 +47,21 @@ public class Draw3D extends Draw2D {
         }
     }
 
-    public static void setupPools(int id) {
-        if (texelPool == null) {
-            poolSize = id;
+    public static void setupPools(int size) {
+        if (texelPool != null) {
+            return;
+        }
 
-            if (lowMemory) {
-                texelPool = new int[poolSize][64 * 64 * 4];
-            } else {
-                texelPool = new int[poolSize][128 * 128 * 4];
-            }
+        poolSize = size;
 
-            for (int t = 0; t < 50; t++) {
-                activeTexels[t] = null;
-            }
+        if (lowMemory) {
+            texelPool = new int[poolSize][64 * 64 * 4];
+        } else {
+            texelPool = new int[poolSize][128 * 128 * 4];
+        }
+
+        for (int t = 0; t < 50; t++) {
+            activeTexels[t] = null;
         }
     }
 

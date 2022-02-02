@@ -13,17 +13,25 @@ import com.jagex.runetek3.util.BZip2InputStream;
 import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.util.Signlink;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.color.ColorSpace;
+import java.awt.image.*;
+import java.io.File;
 import java.net.InetAddress;
 
 public class Playground extends GameShell {
     private IndexedFont p11, p12, b12, q8;
     private Sprite backgroundLeft;
     private Sprite backgroundRight;
+    private ObjType obj;
     private Model model;
 
     private int pitch;
     private int yaw;
     private int roll;
+
+    private int frame;
 
     public static void main(String[] args) {
         try {
@@ -55,8 +63,8 @@ public class Playground extends GameShell {
         loadSounds();
 
         showProgress("Finished loading", 90);
-        ObjType info = ObjType.get(995);
-        model = info.getModel(12030);
+        obj = ObjType.get(995);
+        model = obj.getModel(12345);
     }
 
     @Override
@@ -109,14 +117,15 @@ public class Playground extends GameShell {
         Draw2D.fillRect(0, 0, 0x00FF00, Draw2D.width, Draw2D.height);
 
         // Draw a model
-        model.draw(0, yaw, 0, 184, 0, 200, 220);
+        model.draw(0, obj.iconYaw, obj.iconRoll, obj.iconCameraPitch, 0, 200, 220);
 
         // Debug text
-        p12.draw(1, 13, 0x000000, "FPS: " + fps);
-        p12.draw(0, 12, 0xFFFF00, "FPS: " + fps);
+        //p12.draw(1, 13, 0x000000, "FPS: " + fps);
+        //p12.draw(0, 12, 0xFFFF00, "FPS: " + fps);
 
         // Render the frame
         drawArea.drawImage(0, graphics, 0);
+        exportImage(drawArea.pixels, "dump/test" + frame++);
     }
 
     @Override
@@ -218,5 +227,28 @@ public class Playground extends GameShell {
         byte[] src = sounds.read("sounds.dat", null);
         Buffer buffer = new Buffer(src);
         SoundTrack.load(buffer);
+    }
+
+    private void exportImage(int[] pixels, String filename) {
+        byte[] raw = new byte[pixels.length * 3];
+        int offset = 0;
+        for (int n = 0; n < pixels.length; n++) {
+            int rgb = pixels[n];
+            raw[offset++] = (byte) (rgb >> 16);
+            raw[offset++] = (byte) (rgb >> 8);
+            raw[offset++] = (byte) rgb;
+        }
+
+        try {
+            DataBuffer buffer = new DataBufferByte(raw, raw.length);
+            int samplesPerPixel = 3;
+            int[] bandOffsets = { 0, 1, 2 };
+            ColorModel colorModel = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), false, true, Transparency.TRANSLUCENT, DataBuffer.TYPE_BYTE);
+            WritableRaster raster = Raster.createInterleavedRaster(buffer, gameWidth, gameHeight, samplesPerPixel * gameWidth, samplesPerPixel, bandOffsets, null);
+            BufferedImage image = new BufferedImage(colorModel, raster, colorModel.isAlphaPremultiplied(), null);
+            ImageIO.write(image, "PNG", new File(filename + ".png"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

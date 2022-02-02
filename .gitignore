@@ -1,5 +1,7 @@
 bin/
+dump/
 .idea/
+*.png
 
 /target/
 .classpath
