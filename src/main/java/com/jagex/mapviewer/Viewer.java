@@ -31,6 +31,7 @@ public class Viewer extends GameShell {
         initApplet(503, 633);
     }
 
+    @Override
     public void load() {
         FileArchive worldmap = loadData();
         showProgress("Please wait... Rendering Map", 100);
@@ -68,7 +69,7 @@ public class Viewer extends GameShell {
         }
 
         byte[] underlay = worldmap.read("underlay.dat", null);
-        byte[][] underlays = new byte[originX][originY];
+        underlays = new byte[originX][originY];
         decodeUnderlay(underlay, underlays);
 
         byte[] overlay = worldmap.read("overlay.dat", null);
@@ -216,42 +217,41 @@ public class Viewer extends GameShell {
                 }
             }
         }
-
     }
 
     private void averageUnderlayColors(byte[][] underlays, int[][] underlayColors) {
-        int k = originX;
-        int i1 = originY;
+        int[] colors = new int[originY];
 
-        int[] colors = new int[i1];
-        for (int y = 0; y < i1; y++) {
-            colors[y] = 0;
-        }
+        for (int x = 5; x < originX - 5; x++) {
+            byte[] tile1 = underlays[x + 5];
+            byte[] tile2 = underlays[x - 5];
 
-        for (int k1 = 5; k1 < k - 5; k1++) {
-            byte[] tile1 = underlays[k1 + 5];
-            byte[] tile2 = underlays[k1 - 5];
-            for (int l1 = 0; l1 < i1; l1++) {
-                colors[l1] += floormapsUnderlay[tile1[l1] & 0xff] - floormapsUnderlay[tile2[l1] & 0xff];
+            for (int y = 0; y < originY; y++) {
+                colors[y] += floormapsUnderlay[tile1[y] & 0xff] - floormapsUnderlay[tile2[y] & 0xff];
             }
 
-            if (k1 <= 10 || k1 >= k - 10) {
+            if (x <= 10 || x >= originX - 10) {
                 continue;
             }
 
             int h = 0;
             int s = 0;
             int l = 0;
-            int[] samples = underlayColors[k1];
-            for (int l2 = 5; l2 < i1 - 5; l2++) {
-                int color1 = colors[l2 - 5];
-                int color2 = colors[l2 + 5];
+
+            int[] samples = underlayColors[x];
+            for (int y = 5; y < originY - 5; y++) {
+                int color1 = colors[y - 5];
+                int color2 = colors[y + 5];
+
                 h += (color2 >> 20) - (color1 >> 20);
                 s += (color2 >> 10 & 0x3ff) - (color1 >> 10 & 0x3ff);
                 l += (color2 & 0x3ff) - (color1 & 0x3ff);
-                if (l > 0) {
-                    samples[l2] = convertHSL((double) h / 8533D, (double) s / 8533D, (double) l / 8533D);
+
+                if (l == 0) {
+                    continue;
                 }
+
+                samples[y] = convertHSL((double) h / 8533D, (double) s / 8533D, (double) l / 8533D);
             }
         }
     }
@@ -263,6 +263,7 @@ public class Viewer extends GameShell {
 
         if (saturation != 0.0D) {
             double q;
+
             if (lightness < 0.5D) {
                 q = lightness * (1.0D + saturation);
             } else {
@@ -317,6 +318,7 @@ public class Viewer extends GameShell {
         return (intR << 16) + (intG << 8) + intB;
     }
 
+    @Override
     public void unload() {
         try {
             floormapsUnderlay = null;
@@ -347,6 +349,7 @@ public class Viewer extends GameShell {
         }
     }
 
+    @Override
     public void update() {
         if (super.keyDown[GameShell.KEY_LEFT] == 1) {
             offsetX = (int) ((double) offsetX - 16D / zoomX);
@@ -573,6 +576,7 @@ public class Viewer extends GameShell {
             offsetY = originY - 48 - (int) (503D / zoomX);
     }
 
+    @Override
     public void draw() {
         if (shouldDraw) {
             shouldDraw = false;
@@ -653,6 +657,7 @@ public class Viewer extends GameShell {
         }
     }
 
+    @Override
     public void refresh() {
         drawTimer = 0;
     }
@@ -1522,6 +1527,8 @@ public class Viewer extends GameShell {
 
     private int[] floormapsUnderlay;
     private int[] floormapsOverlay;
+
+    byte[][] underlays;
 
     private int[][] floormapColors;
     private int[][] overlayColors;
