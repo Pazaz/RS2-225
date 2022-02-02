@@ -39,6 +39,7 @@ public class Playground extends GameShell {
     private int frame;
     private String status = "";
     private String loadType = "Obj";
+    private boolean drawText = true;
 
     private static int COLOR_BACKGROUND = 0x7F555555;
     private static int COLOR_TEXT = 0xFFFF00;
@@ -294,6 +295,8 @@ public class Playground extends GameShell {
                     npc.info = null;
                     model = null;
                     status = "Switched to Npc";
+                } else if (key == 'h') {
+                    drawText = !drawText;
                 }
             }
         }
@@ -307,6 +310,8 @@ public class Playground extends GameShell {
         // Draw the background
         Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
 
+        boolean newFrame = false;
+
         // Draw a model
         try {
             if (obj != null || npc.info != null) {
@@ -315,12 +320,14 @@ public class Playground extends GameShell {
                     int cosPitch = Draw3D.cos[obj.iconCameraPitch] * obj.iconZoom >> 16;
                     model.draw(pitch, yaw, roll, camera.pitch, obj.iconX + camera.x, sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z, cosPitch + obj.iconY + camera.y);
 
-                    // Draw sprite
-                    sprite.draw(0, gameWidth - 33);
-                    p12.drawRightAligned(sprite.height + p12.height, COLOR_TEXT, obj.name, gameWidth, true);
+                    if (drawText) {
+                        // Draw sprite
+                        sprite.draw(0, gameWidth - 33);
+                        p12.drawRightAligned(sprite.height + p12.height, COLOR_TEXT, obj.name, gameWidth, true);
 
-                    // Draw model/camera data
-                    p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + (obj.iconX + camera.x) + "," + (sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z) + "," + (cosPitch + obj.iconY + camera.y), gameWidth - 4, true);
+                        // Draw model/camera data
+                        p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + (obj.iconX + camera.x) + "," + (sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z) + "," + (cosPitch + obj.iconY + camera.y), gameWidth - 4, true);
+                    }
                 } else if (loadType.equals("Npc")) {
                     if (npc.primarySeq != 0 && npc.primarySeqDelay == 0) {
                         SeqType seq = SeqType.animations[npc.primarySeq];
@@ -330,17 +337,20 @@ public class Playground extends GameShell {
                         }
                         model = npc.getModel();
                         npc.primarySeqDelay = 4;
+                        newFrame = true;
                     } else if (npc.primarySeqDelay > 0) {
                         npc.primarySeqDelay--;
                     }
 
                     model.draw(pitch, yaw, roll, camera.pitch, camera.x, camera.z, camera.y);
 
-                    // Draw model name
-                    p12.drawRightAligned(p12.height + 3, COLOR_TEXT, npc.info.name, gameWidth - 3, true);
+                    if (drawText) {
+                        // Draw model name
+                        p12.drawRightAligned(p12.height + 3, COLOR_TEXT, npc.info.name, gameWidth - 3, true);
 
-                    // Draw model/camera data
-                    p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + camera.x + "," + camera.z + "," + camera.y, gameWidth - 4, true);
+                        // Draw model/camera data
+                        p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + camera.x + "," + camera.z + "," + camera.y, gameWidth - 4, true);
+                    }
                 }
             }
         } catch (Exception ex) {
@@ -349,19 +359,26 @@ public class Playground extends GameShell {
         }
 
         // Debug text
-        int y = p12.height;
-        p12.draw(3, y, COLOR_TEXT, "FPS: " + fps, true);
-        y += p12.height + 2;
+        if (drawText) {
+            int y = p12.height;
+            p12.draw(3, y, COLOR_TEXT, "FPS: " + fps, true);
+            y += p12.height + 2;
 
-        p12.draw(3, y, COLOR_TEXT, status, true);
-        y += p12.height + 2;
+            p12.draw(3, y, COLOR_TEXT, status, true);
+            y += p12.height + 2;
 
-        if (textInputEnabled) {
-            p12.draw(3, y, COLOR_TEXT, loadType + "> " + textInput, true);
+            if (textInputEnabled) {
+                p12.draw(3, y, COLOR_TEXT, loadType + "> " + textInput, true);
+            }
+
+            y = Draw2D.height - p12.height / 2;
+            p12.draw(3, y, COLOR_TEXT, "Help: Press Enter to enter a (" + loadType + ") ID", true);
         }
 
-        y = Draw2D.height - p12.height / 2;
-        p12.draw(3, y, COLOR_TEXT, "Help: Press Enter to enter a (" + loadType + ") ID", true);
+        if (newFrame) {
+            exportImage(drawArea.pixels, "dump/test" + frame);
+            frame++;
+        }
 
         // Render the frame
         drawArea.drawImage(0, graphics, 0);
@@ -372,8 +389,9 @@ public class Playground extends GameShell {
     }
 
     private void playSong(String name) {
+        System.out.println("Playing song " + name);
         try {
-            byte[] src = Signlink.cacheload(name + ".mid");
+            byte[] src = Signlink.cacheload(name);
             int length = (new Buffer(src)).readDWord();
             byte[] decompressed = new byte[length];
             BZip2InputStream.read(decompressed, length, src, 0, 4);
