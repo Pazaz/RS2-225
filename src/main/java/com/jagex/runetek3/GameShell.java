@@ -404,9 +404,12 @@ public class GameShell extends JApplet implements Runnable, MouseListener, Mouse
     }
 
     public void windowDeiconified(WindowEvent e) {
+        deltime = oldRate; // foreground FPS
     }
 
     public void windowIconified(WindowEvent e) {
+        oldRate = deltime;
+        setLoopRate(15); // background FPS
     }
 
     public void windowOpened(WindowEvent e) {
@@ -480,6 +483,7 @@ public class GameShell extends JApplet implements Runnable, MouseListener, Mouse
 
     public int state;
     public int deltime = 20;
+    public int oldRate = 20;
     public int mindel = 1;
     public long[] otim = new long[10];
     public int fps;
