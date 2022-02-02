@@ -27,6 +27,7 @@ public class Playground extends GameShell {
     private Sprite sprite;
     private ObjType obj;
     private NpcEntity npc = new NpcEntity();
+    private LocType loc;
     private Model model;
     private int pitch;
     private int yaw;
@@ -256,6 +257,19 @@ public class Playground extends GameShell {
                                 model = npc.getModel();
                                 status = "Loaded NPC " + id;
                             }
+                        } else if (loadType.equals("Loc")) {
+                            // load 2725
+                            int id = Integer.parseInt(textInput);
+                            loc = LocType.get(id);
+                            pitch = 0;
+                            yaw = 143;
+                            roll = 0;
+                            camera.pitch = 192;
+                            camera.x = 0;
+                            camera.z = 357;
+                            camera.y = 427;
+                            model = loc.getModel(loc.modelTypes[0], 0, -400, -400, -400, -400, -1);
+                            status = "Loaded Loc: " + loc.name + " (" + id + ")";
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -281,6 +295,8 @@ public class Playground extends GameShell {
                 } else if (key == 'j') {
                     Draw3D.jagged = !Draw3D.jagged;
                     status = "Jagged: " + Draw3D.jagged;
+                } else if (key == 'h') {
+                    drawText = !drawText;
                 } else if (key == '1') {
                     loadType = "Obj";
                     sprite = null;
@@ -295,8 +311,14 @@ public class Playground extends GameShell {
                     npc.info = null;
                     model = null;
                     status = "Switched to Npc";
-                } else if (key == 'h') {
-                    drawText = !drawText;
+                } else if (key == '3') {
+                    loadType = "Loc";
+                    sprite = null;
+                    obj = null;
+                    npc.info = null;
+                    model = null;
+                    loc = null;
+                    status = "Switched to Loc";
                 }
             }
         }
@@ -314,11 +336,14 @@ public class Playground extends GameShell {
 
         // Draw a model
         try {
-            if (obj != null || npc.info != null) {
+            if (model != null) {
                 if (loadType.equals("Obj")) {
                     int sinPitch = Draw3D.sin[obj.iconCameraPitch] * obj.iconZoom >> 16;
                     int cosPitch = Draw3D.cos[obj.iconCameraPitch] * obj.iconZoom >> 16;
                     model.draw(pitch, yaw, roll, camera.pitch, obj.iconX + camera.x, sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z, cosPitch + obj.iconY + camera.y);
+
+                    // Used to copy and paste
+                    //System.out.println(pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + (obj.iconX + camera.x) + "," +  (sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z) + "," + (cosPitch + obj.iconY + camera.y));
 
                     if (drawText) {
                         // Draw sprite
@@ -347,6 +372,16 @@ public class Playground extends GameShell {
                     if (drawText) {
                         // Draw model name
                         p12.drawRightAligned(p12.height + 3, COLOR_TEXT, npc.info.name, gameWidth - 3, true);
+
+                        // Draw model/camera data
+                        p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + camera.x + "," + camera.z + "," + camera.y, gameWidth - 4, true);
+                    }
+                } else if (loadType.equals("Loc")) {
+                    model.draw(pitch, yaw, roll, camera.pitch, camera.x, camera.z, camera.y);
+
+                    if (drawText) {
+                        // Draw model name
+                        p12.drawRightAligned(p12.height + 3, COLOR_TEXT, loc.name, gameWidth - 3, true);
 
                         // Draw model/camera data
                         p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + camera.x + "," + camera.z + "," + camera.y, gameWidth - 4, true);
