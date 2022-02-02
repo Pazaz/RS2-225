@@ -1,5 +1,6 @@
 package com.jagex.mapviewer;
 
+import com.jagex.runetek3.GameShell;
 import com.jagex.runetek3.graphics.Draw2D;
 
 import java.awt.*;

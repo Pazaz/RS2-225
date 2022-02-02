@@ -1,5 +1,6 @@
 package com.jagex.mapviewer;
 
+import com.jagex.runetek3.GameShell;
 import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.graphics.Draw2D;
 import com.jagex.runetek3.graphics.IndexedFontFull;
@@ -16,17 +17,17 @@ public class Viewer extends GameShell {
 
     public static void main(String[] args) {
         Viewer viewer = new Viewer();
-        viewer.initFrame(635, 503);
+        viewer.initFrame(503, 633);
     }
 
     @Override
     public void init() {
-        initApplet(635, 503);
+        initApplet(503, 633);
     }
 
     public void load() {
         FileArchive worldmap = loadData();
-        showProgress(100, "Please wait... Rendering Map");
+        showProgress("Please wait... Rendering Map", 100);
 
         Buffer buffer = new Buffer(worldmap.read("size.dat", null));
         centerX = buffer.readWord();
@@ -39,8 +40,8 @@ public class Viewer extends GameShell {
 
         imageOverviewHeight = 180;
         imageOverviewWidth = (originX * imageOverviewHeight) / originY;
-        overviewX = 635 - imageOverviewWidth - 5;
-        overviewY = 503 - imageOverviewHeight - 20;
+        overviewX = super.gameWidth - imageOverviewWidth - 5;
+        overviewY = super.gameHeight - imageOverviewHeight - 20;
 
         buffer = new Buffer(worldmap.read("labels.dat", null));
         labelCount = buffer.readWord();
@@ -343,19 +344,19 @@ public class Viewer extends GameShell {
     }
 
     public void update() {
-        if (super.actionKey[1] == 1) {
+        if (super.keyDown[1] == 1) {
             offsetX = (int) ((double) offsetX - 16D / zoomX);
             shouldDraw = true;
         }
-        if (super.actionKey[2] == 1) {
+        if (super.keyDown[2] == 1) {
             offsetX = (int) ((double) offsetX + 16D / zoomX);
             shouldDraw = true;
         }
-        if (super.actionKey[3] == 1) {
+        if (super.keyDown[3] == 1) {
             offsetY = (int) ((double) offsetY - 16D / zoomX);
             shouldDraw = true;
         }
-        if (super.actionKey[4] == 1) {
+        if (super.keyDown[4] == 1) {
             offsetY = (int) ((double) offsetY + 16D / zoomX);
             shouldDraw = true;
         }
@@ -416,41 +417,41 @@ public class Viewer extends GameShell {
             }
         } while (true);
 
-        if (super.mousePressButton == 1) {
-            mouseClickX = super.mousePressX;
-            mouseClickY = super.mousePressY;
+        if (super.mouseButton == 1) {
+            mouseClickX = super.clickX;
+            mouseClickY = super.clickY;
             lastOffsetX = offsetX;
             lastOffsetY = offsetY;
-            if (super.mousePressX > 170 && super.mousePressX < 220 && super.mousePressY > 471 && super.mousePressY < 503) {
+            if (super.clickX > 170 && super.clickX < 220 && super.clickY > 471 && super.clickY < 503) {
                 zoomY = 3D;
                 mouseClickX = -1;
             }
-            if (super.mousePressX > 230 && super.mousePressX < 280 && super.mousePressY > 471 && super.mousePressY < 503) {
+            if (super.clickX > 230 && super.clickX < 280 && super.clickY > 471 && super.clickY < 503) {
                 zoomY = 4D;
                 mouseClickX = -1;
             }
-            if (super.mousePressX > 290 && super.mousePressX < 340 && super.mousePressY > 471 && super.mousePressY < 503) {
+            if (super.clickX > 290 && super.clickX < 340 && super.clickY > 471 && super.clickY < 503) {
                 zoomY = 6D;
                 mouseClickX = -1;
             }
-            if (super.mousePressX > 350 && super.mousePressX < 400 && super.mousePressY > 471 && super.mousePressY < 503) {
+            if (super.clickX > 350 && super.clickX < 400 && super.clickY > 471 && super.clickY < 503) {
                 zoomY = 8D;
                 mouseClickX = -1;
             }
-            if (super.mousePressX > keyX && super.mousePressY > keyY + keyOffset && super.mousePressX < keyX + keyWidth && super.mousePressY < 503) {
+            if (super.clickX > keyX && super.clickY > keyY + keyOffset && super.clickX < keyX + keyWidth && super.clickY < 503) {
                 showKey = !showKey;
                 mouseClickX = -1;
             }
-            if (super.mousePressX > overviewX && super.mousePressY > overviewY + imageOverviewHeight && super.mousePressX < overviewX + imageOverviewWidth && super.mousePressY < 503) {
+            if (super.clickX > overviewX && super.clickY > overviewY + imageOverviewHeight && super.clickX < overviewX + imageOverviewWidth && super.clickY < 503) {
                 showOverview = !showOverview;
                 mouseClickX = -1;
             }
             if (showKey) {
-                if (super.mousePressX > keyX && super.mousePressY > keyY && super.mousePressX < keyX + keyWidth && super.mousePressY < keyY + keyOffset)
+                if (super.clickX > keyX && super.clickY > keyY && super.clickX < keyX + keyWidth && super.clickY < keyY + keyOffset)
                     mouseClickX = -1;
-                if (super.mousePressX > keyX && super.mousePressY > keyY && super.mousePressX < keyX + keyWidth && super.mousePressY < keyY + 18 && keyPage > 0)
+                if (super.clickX > keyX && super.clickY > keyY && super.clickX < keyX + keyWidth && super.clickY < keyY + 18 && keyPage > 0)
                     keyPage -= 25;
-                if (super.mousePressX > keyX && super.mousePressY > (keyY + keyOffset) - 18 && super.mousePressX < keyX + keyWidth && super.mousePressY < keyY + keyOffset && keyPage < 50)
+                if (super.clickX > keyX && super.clickY > (keyY + keyOffset) - 18 && super.clickX < keyX + keyWidth && super.clickY < keyY + keyOffset && keyPage < 50)
                     keyPage += 25;
             }
             shouldDraw = true;
@@ -465,7 +466,7 @@ public class Viewer extends GameShell {
                         continue;
                     if (super.mouseY >= k && super.mouseY < k + 17) {
                         currentKeyHover = i1 + lastKeyPage;
-                        if (super.mousePressButton == 1) {
+                        if (super.mouseButton == 1) {
                             currentKey = i1 + lastKeyPage;
                             flashTimer = 50;
                         }
@@ -480,10 +481,10 @@ public class Viewer extends GameShell {
             }
         }
 
-        if ((super.mouseButton == 1 || super.mousePressButton == 1) && showOverview) {
-            k = super.mousePressX;
-            int j1 = super.mousePressY;
-            if (super.mouseButton == 1) {
+        if ((super.dragButton == 1 || super.mouseButton == 1) && showOverview) {
+            k = super.clickX;
+            int j1 = super.clickY;
+            if (super.dragButton == 1) {
                 k = super.mouseX;
                 j1 = super.mouseY;
             }
@@ -495,7 +496,7 @@ public class Viewer extends GameShell {
             }
         }
 
-        if (super.mouseButton == 1 && mouseClickX != -1) {
+        if (super.dragButton == 1 && mouseClickX != -1) {
             offsetX = lastOffsetX + (int) (((double) (mouseClickX - super.mouseX) * 2D) / zoomY);
             offsetY = lastOffsetY + (int) (((double) (mouseClickY - super.mouseY) * 2D) / zoomY);
             shouldDraw = true;
@@ -1365,7 +1366,7 @@ public class Viewer extends GameShell {
 
     private byte[] getLatestData() {
         System.out.println("Updating");
-        showProgress(0, "Requesting map");
+        showProgress("Requesting map", 0);
         try {
             String s = "";
             for (int k = 0; k < 10; k++)
@@ -1390,7 +1391,7 @@ public class Viewer extends GameShell {
                 j1 += i2;
                 int j2 = (j1 * 100) / k1;
                 if (j2 != i1)
-                    showProgress(j2, (new StringBuilder()).append("Loading map - ").append(j2).append("%").toString());
+                    showProgress((new StringBuilder()).append("Loading map - ").append(j2).append("%").toString(), j2);
                 i1 = j2;
             }
             datainputstream.close();
