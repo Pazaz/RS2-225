@@ -26,12 +26,15 @@ public class Playground extends GameShell {
 
     private Sprite sprite;
     private ObjType obj;
+
     private NpcEntity npc = new NpcEntity();
+
     private LocType loc;
     private SeqType locSeq;
     private int locFrame = 0;
     private int locDelay = 0;
-    private int locCycle = 0;
+    private int animCycle = 0;
+
     private Model model;
     private int pitch;
     private int yaw;
@@ -246,11 +249,13 @@ public class Playground extends GameShell {
                                 npc.primarySeq = id;
                                 npc.primarySeqFrame = 0;
                                 npc.primarySeqDelay = 0;
+                                animCycle = 0;
                                 status = "Applied NPC animation " + id;
                             } else {
                                 int id = Integer.parseInt(textInput);
                                 npc.info = NpcType.get(id);
                                 npc.primarySeq = 0;
+                                animCycle = 0;
                                 pitch = 0;
                                 yaw = 169;
                                 roll = 0;
@@ -264,19 +269,17 @@ public class Playground extends GameShell {
                         } else if (loadType.equals("Loc")) {
                             if (textInput.startsWith("a")) {
                                 int id = Integer.parseInt(textInput.substring(1));
-                                locSeq = SeqType.animations[id];
                                 loc.animationIndex = id;
                                 locFrame = 0;
                                 locDelay = 0;
-                                locCycle = 0;
+                                animCycle = 0;
                                 status = "Applied Loc animation " + id;
                             } else {
                                 int id = Integer.parseInt(textInput);
                                 loc = LocType.get(id);
-                                locSeq = null;
                                 locFrame = 0;
                                 locDelay = 0;
-                                locCycle = 0;
+                                animCycle = 0;
                                 pitch = 0;
                                 yaw = 143;
                                 roll = 0;
@@ -375,11 +378,14 @@ public class Playground extends GameShell {
                         SeqType seq = SeqType.animations[npc.primarySeq];
                         npc.primarySeqFrame++;
                         if (npc.primarySeqFrame > seq.primaryFrames.length - 1) {
+                            animCycle++;
                             npc.primarySeqFrame = 0;
                         }
                         model = npc.getModel();
                         npc.primarySeqDelay = 4;
-                        newFrame = true;
+                        if (animCycle == 0) {
+                            newFrame = true;
+                        }
                     } else if (npc.primarySeqDelay > 0) {
                         npc.primarySeqDelay--;
                     }
@@ -398,12 +404,12 @@ public class Playground extends GameShell {
                         SeqType seq = SeqType.animations[loc.animationIndex];
                         locFrame++;
                         if (locFrame > seq.primaryFrames.length - 1) {
-                            locCycle = 1;
+                            animCycle++;
                             locFrame = 0;
                         }
                         model = loc.getModel(loc.modelTypes[0], 0, -400, -400, -400, -400, seq.primaryFrames[locFrame]);
                         locDelay = 4;
-                        if (locCycle == 0) {
+                        if (animCycle == 0) {
                             newFrame = true;
                         }
                     } else if (locDelay > 0) {
