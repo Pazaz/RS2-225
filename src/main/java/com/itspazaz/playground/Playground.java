@@ -38,6 +38,9 @@ public class Playground extends GameShell {
     private String status = "";
     private String loadType = "Obj";
 
+    private static int COLOR_BACKGROUND = 0x7F555555;
+    private static int COLOR_TEXT = 0xFFFF00;
+
     public static void main(String[] args) {
         try {
             Draw3D.lowMemory = false;
@@ -184,6 +187,7 @@ public class Playground extends GameShell {
                         if (loadType == "Obj") {
                             int id = Integer.parseInt(textInput);
                             obj = ObjType.get(id);
+                            pitch = 0;
                             yaw = obj.iconYaw;
                             roll = obj.iconRoll;
                             camera.pitch = obj.iconCameraPitch;
@@ -227,7 +231,7 @@ public class Playground extends GameShell {
         Draw2D.clear();
 
         // Draw the background
-        Draw2D.fillRect(0, 0, 0x00FF00, Draw2D.width, Draw2D.height);
+        Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
 
         // Draw a model
         try {
@@ -242,18 +246,18 @@ public class Playground extends GameShell {
 
         // Debug text
         int y = p12.height;
-        p12.draw(0, y, 0xFFFF00, "FPS: " + fps, true);
+        p12.draw(0, y, COLOR_TEXT, "FPS: " + fps, true);
         y += p12.height + 2;
 
-        p12.draw(0, y, 0xFFFF00, status, true);
+        p12.draw(0, y, COLOR_TEXT, status, true);
         y += p12.height + 2;
 
         if (textInputEnabled) {
-            p12.draw(0, y, 0xFFFF00, loadType + "> " + textInput, true);
+            p12.draw(0, y, COLOR_TEXT, loadType + "> " + textInput, true);
         }
 
         y = Draw2D.height - p12.height / 2;
-        p12.draw(0, y, 0xFFFF00, "Help: Press Enter to enter a (" + loadType + ") ID", true);
+        p12.draw(0, y, COLOR_TEXT, "Help: Press Enter to enter a (" + loadType + ") ID", true);
 
         // Render the frame
         drawArea.drawImage(0, graphics, 0);
@@ -349,20 +353,28 @@ public class Playground extends GameShell {
     }
 
     private void exportImage(int[] pixels, String filename) {
-        byte[] raw = new byte[pixels.length * 3];
+        byte[] raw = new byte[pixels.length * 4];
         int offset = 0;
         for (int n = 0; n < pixels.length; n++) {
             int rgb = pixels[n];
-            raw[offset++] = (byte) (rgb >> 16);
-            raw[offset++] = (byte) (rgb >> 8);
-            raw[offset++] = (byte) rgb;
+
+            raw[offset++] = (byte) (rgb >> 16); // red
+            raw[offset++] = (byte) (rgb >> 8); // green
+            raw[offset++] = (byte) (rgb); // blue
+
+            // set transparency for background color
+            if (rgb >> 24 == 0x7F) {
+                raw[offset++] = (byte) 0;
+            } else {
+                raw[offset++] = (byte) 0xFF;
+            }
         }
 
         try {
             DataBuffer buffer = new DataBufferByte(raw, raw.length);
-            int samplesPerPixel = 3;
-            int[] bandOffsets = { 0, 1, 2 };
-            ColorModel colorModel = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), false, true, Transparency.TRANSLUCENT, DataBuffer.TYPE_BYTE);
+            int samplesPerPixel = 4;
+            int[] bandOffsets = { 0, 1, 2, 3 };
+            ColorModel colorModel = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), true, false, Transparency.TRANSLUCENT, DataBuffer.TYPE_BYTE);
             WritableRaster raster = Raster.createInterleavedRaster(buffer, gameWidth, gameHeight, samplesPerPixel * gameWidth, samplesPerPixel, bandOffsets, null);
             BufferedImage image = new BufferedImage(colorModel, raster, colorModel.isAlphaPremultiplied(), null);
             ImageIO.write(image, "PNG", new File(filename + ".png"));
