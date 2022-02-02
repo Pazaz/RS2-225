@@ -388,8 +388,9 @@ public class Viewer extends GameShell {
                 shouldDraw = true;
             } else if (super.frame != null && key == 'e') {
                 System.out.println("Starting export...");
-                int width = originX * 2;
-                int height = originY * 2;
+
+                int width = (int)Math.floor(originX * (zoomX / 3));
+                int height = (int)Math.floor(originY * (zoomY / 3));
 
                 Sprite map = new Sprite(width, height);
                 map.prepare();
@@ -418,7 +419,7 @@ public class Viewer extends GameShell {
                     exception.printStackTrace();
                 }
 
-                System.out.println("Done export: " + width + "," + height);
+                System.out.println("Done exporting: resolution was " + width + "x" + height);
             } else if (super.frame != null && key == 'd') {
                 this.shouldDrawDebug = !this.shouldDrawDebug;
                 this.shouldDraw = true;
@@ -672,10 +673,9 @@ public class Viewer extends GameShell {
         b12.drawStringCenter(s, k + j1 / 2, i1 + k1 / 2 + 4, 0xffffff);
     }
 
-    private void drawMap(int k, int i1, int j1, int k1, int l1, int i2, int j2,
-                         int k2) {
-        int l2 = j1 - k;
-        int i3 = k1 - i1;
+    private void drawMap(int k, int i1, int startX, int startY, int l1, int i2, int j2, int k2) {
+        int l2 = startX - k;
+        int i3 = startY - i1;
         int j3 = (j2 - l1 << 16) / l2;
         int k3 = (k2 - i2 << 16) / i3;
 
@@ -725,7 +725,7 @@ public class Viewer extends GameShell {
             }
         }
 
-        if (j1 - k > j2 - l1) {
+        if (startX - k > j2 - l1) {
             return;
         }
 
@@ -851,8 +851,8 @@ public class Viewer extends GameShell {
                 int j7 = labelY[j5];
                 j6 -= centerX;
                 j7 = (centerY + originY) - j7;
-                int i8 = l1 + ((j2 - l1) * (j6 - k)) / (j1 - k);
-                int k8 = i2 + ((k2 - i2) * (j7 - i1)) / (k1 - i1);
+                int i8 = l1 + ((j2 - l1) * (j6 - k)) / (startX - k);
+                int k8 = i2 + ((k2 - i2) * (j7 - i1)) / (startY - i1);
                 int i9 = labelType[j5];
                 int l9 = 0xffffff;
                 DrawText font = null;
@@ -863,7 +863,7 @@ public class Viewer extends GameShell {
                         font = f12;
                     } else if (zoomX == 6D) {
                         font = f14;
-                    } else if (zoomX == 8D) {
+                    } else if (zoomX >= 8D) {
                         font = f17;
                     }
                 } else if (i9 == 1) {
@@ -873,7 +873,7 @@ public class Viewer extends GameShell {
                         font = f17;
                     } else if (zoomX == 6D) {
                         font = f19;
-                    } else if (zoomX == 8D) {
+                    } else if (zoomX >= 8D) {
                         font = f22;
                     }
                 } else if (i9 == 2) {
@@ -884,7 +884,7 @@ public class Viewer extends GameShell {
                         font = f22;
                     } else if (zoomX == 6D) {
                         font = f26;
-                    } else if (zoomX == 8D) {
+                    } else if (zoomX >= 8D) {
                         font = f30;
                     }
                 }
@@ -925,10 +925,10 @@ public class Viewer extends GameShell {
                     int j8 = k6 * 64;
                     k7 -= centerX;
                     j8 = (centerY + originY) - j8;
-                    int l8 = l1 + ((j2 - l1) * (k7 - k)) / (j1 - k);
-                    int j9 = i2 + ((k2 - i2) * (j8 - 64 - i1)) / (k1 - i1);
-                    int i10 = l1 + ((j2 - l1) * ((k7 + 64) - k)) / (j1 - k);
-                    int l10 = i2 + ((k2 - i2) * (j8 - i1)) / (k1 - i1);
+                    int l8 = l1 + ((j2 - l1) * (k7 - k)) / (startX - k);
+                    int j9 = i2 + ((k2 - i2) * (j8 - 64 - i1)) / (startY - i1);
+                    int i10 = l1 + ((j2 - l1) * ((k7 + 64) - k)) / (startX - k);
+                    int l10 = i2 + ((k2 - i2) * (j8 - i1)) / (startY - i1);
                     Draw2D.drawRect(l8, 0xffffff, l10 - j9, j9, i10 - l8);
                     b12.drawStringRight(k5 + "_" + k6, i10 - 5, l10 - 5, 0xffffff);
                     if (k5 == 33 && k6 >= 71 && k6 <= 73) {
@@ -1587,8 +1587,8 @@ public class Viewer extends GameShell {
     private int[] labelY = new int[maxLabels];
     private int[] labelType = new int[maxLabels];
 
-    private double zoomX = 4D;
-    private double zoomY = 4D;
+    private double zoomX = 6D;
+    private double zoomY = 6D;
 
     private static int offsetX;
     private static int offsetY;
