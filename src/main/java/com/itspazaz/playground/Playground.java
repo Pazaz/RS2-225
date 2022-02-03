@@ -292,10 +292,22 @@ public class Playground extends GameShell {
                                     camera.z = 180;
                                     camera.y = 195;
                                 }
+                            } else if (textInput.equals("stand")) {
+                                npc.primarySeq = npc.info.standSeq;
+                                npc.primarySeqFrame = 0;
+                                npc.primarySeqDelay = 0;
+                                animCycle = 0;
+                                loadSeq = npc.info.standSeq;
+                            } else if (textInput.equals("walk")) {
+                                npc.primarySeq = npc.info.walkSeq;
+                                npc.primarySeqFrame = 0;
+                                npc.primarySeqDelay = 0;
+                                animCycle = 0;
+                                loadSeq = npc.info.walkSeq;
                             } else {
                                 loadId = Integer.parseInt(textInput);
                                 npc.info = NpcType.get(loadId);
-                                npc.primarySeq = 0;
+                                npc.primarySeq = npc.info.standSeq;
                                 loadSeq = 0;
                                 animCycle = 0;
                                 pitch = 0;
@@ -360,6 +372,7 @@ public class Playground extends GameShell {
                     exportImage(drawArea.pixels, name);
                     status = "Exported image as " + name + ".png";
                     exported++;
+                    animCycle = 0;
                 } else if (key == 'j') {
                     Draw3D.jagged = !Draw3D.jagged;
                     status = "Jagged: " + Draw3D.jagged;
@@ -430,12 +443,11 @@ public class Playground extends GameShell {
                             npc.primarySeqFrame = 0;
                         }
                         if (npcHead) {
-                            //seqType.primaryFrames[child.seqFrame]
                             model = component.getModel(SeqType.animations[npc.primarySeq].primaryFrames[npc.primarySeqFrame], -1, false);
                         } else {
                             model = npc.getModel();
                         }
-                        npc.primarySeqDelay = 4;
+                        npc.primarySeqDelay = 6;
                         if (animCycle == 0) {
                             newFrame = true;
                         }
