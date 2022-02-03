@@ -24,10 +24,13 @@ import java.net.InetAddress;
 public class Playground extends GameShell {
     private IndexedFont p11, p12, b12, q8;
 
+    private InterfaceComponent component;
+
     private Sprite sprite;
     private ObjType obj;
 
     private NpcEntity npc = new NpcEntity();
+    private boolean npcHead = false;
 
     private LocType loc;
     private SeqType locSeq;
@@ -249,12 +252,46 @@ public class Playground extends GameShell {
                         } else if (loadType.equals("Npc")) {
                             if (textInput.startsWith("a")) {
                                 int id = Integer.parseInt(textInput.substring(1));
+                                if (component != null && npcHead) {
+                                    component.seqId = id;
+                                }
                                 npc.primarySeq = id;
                                 npc.primarySeqFrame = 0;
                                 npc.primarySeqDelay = 0;
                                 loadSeq = id;
                                 animCycle = 0;
                                 status = "Applied NPC animation " + id;
+                            } else if (textInput.startsWith("h")) {
+                                npcHead = !npcHead;
+                                if (npcHead) {
+                                    component = InterfaceComponent.instances[4901];
+                                    component.modelDisabled = npc.info.getHeadModel();
+                                    model = component.getModel(-1, -1, false);
+                                    npc.primarySeq = 0;
+                                    npc.primarySeqFrame = 0;
+                                    npc.primarySeqDelay = 0;
+                                    loadSeq = 0;
+                                    animCycle = 0;
+                                    pitch = 1963;
+                                    yaw = 1963;
+                                    roll = 0;
+                                    camera.pitch = 128;
+                                    camera.x = 0;
+                                    camera.z = 84;
+                                    camera.y = 232;
+                                } else {
+                                    model = npc.getModel();
+                                    npc.primarySeq = 0;
+                                    loadSeq = 0;
+                                    animCycle = 0;
+                                    pitch = 0;
+                                    yaw = 169;
+                                    roll = 0;
+                                    camera.pitch = 128;
+                                    camera.x = 5;
+                                    camera.z = 180;
+                                    camera.y = 195;
+                                }
                             } else {
                                 loadId = Integer.parseInt(textInput);
                                 npc.info = NpcType.get(loadId);
@@ -374,7 +411,7 @@ public class Playground extends GameShell {
                     model.draw(pitch, yaw, roll, camera.pitch, obj.iconX + camera.x, sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z, cosPitch + obj.iconY + camera.y);
 
                     // Used to copy and paste
-                    //System.out.println(pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + (obj.iconX + camera.x) + "," +  (sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z) + "," + (cosPitch + obj.iconY + camera.y));
+                    // System.out.println(pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + (obj.iconX + camera.x) + "," +  (sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z) + "," + (cosPitch + obj.iconY + camera.y));
 
                     if (drawText) {
                         // Draw sprite
@@ -392,7 +429,12 @@ public class Playground extends GameShell {
                             animCycle++;
                             npc.primarySeqFrame = 0;
                         }
-                        model = npc.getModel();
+                        if (npcHead) {
+                            //seqType.primaryFrames[child.seqFrame]
+                            model = component.getModel(SeqType.animations[npc.primarySeq].primaryFrames[npc.primarySeqFrame], -1, false);
+                        } else {
+                            model = npc.getModel();
+                        }
                         npc.primarySeqDelay = 4;
                         if (animCycle == 0) {
                             newFrame = true;
