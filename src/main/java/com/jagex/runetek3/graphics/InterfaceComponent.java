@@ -119,10 +119,10 @@ public class InterfaceComponent {
                 }
 
                 w.inventoryOptions = new String[5];
-                for (int i4 = 0; i4 < 5; i4++) {
-                    w.inventoryOptions[i4] = b.readString();
-                    if (w.inventoryOptions[i4].length() == 0)
-                        w.inventoryOptions[i4] = null;
+                for (int n = 0; n < 5; n++) {
+                    w.inventoryOptions[n] = b.readString();
+                    if (w.inventoryOptions[n].length() == 0)
+                        w.inventoryOptions[n] = null;
                 }
             }
             if (w.type == TYPE_RECT)
@@ -204,13 +204,13 @@ public class InterfaceComponent {
             if (w.buttonType == BUTTON || w.buttonType == TOGGLE_BUTTON || w.buttonType == SELECT_BUTTON || w.buttonType == PAUSE_BUTTON) {
                 w.option = b.readString();
                 if (w.option.length() == 0) {
-                    if (w.buttonType == 1)
+                    if (w.buttonType == BUTTON)
                         w.option = "Ok";
-                    if (w.buttonType == 4)
+                    if (w.buttonType == TOGGLE_BUTTON)
                         w.option = "Select";
-                    if (w.buttonType == 5)
+                    if (w.buttonType == SELECT_BUTTON)
                         w.option = "Select";
-                    if (w.buttonType == 6)
+                    if (w.buttonType == PAUSE_BUTTON)
                         w.option = "Continue";
                 }
             }

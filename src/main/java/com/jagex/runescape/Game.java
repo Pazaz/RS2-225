@@ -25,15 +25,15 @@ import java.util.zip.CRC32;
 
 public class Game extends GameShell {
 
-    public void setMidi(int i, String s, int j) {
-        if (s == null) {
+    public void setMidi(int crc, String name, int len) {
+        if (name == null) {
             return;
         }
 
         synchronized (midiSync) {
-            midiSyncName = s;
-            midiSyncCrc = i;
-            midiSyncLen = j;
+            midiSyncName = name;
+            midiSyncCrc = crc;
+            midiSyncLen = len;
         }
     }
 
@@ -689,72 +689,86 @@ public class Game extends GameShell {
     }
 
     public int getTopLevel() {
-        int i = 3;
+        int level = 3;
+        int ctx = cameraX >> 7;
+        int ctz = cameraZ >> 7;
+        if ((ctx < 0) || (ctz < 0) || (ctx > 103) || (ctz > 103)) {
+            return level;
+        }
         if (cameraPitch < 310) {
-            int j = cameraX >> 7;
-            int k = cameraZ >> 7;
             int l = self.x >> 7;
             int i1 = self.z >> 7;
-            if ((levelRenderFlags[currentLevel][j][k] & 4) != 0)
-                i = currentLevel;
+            if ((levelRenderFlags[currentLevel][ctx][ctz] & 4) != 0) {
+                level = currentLevel;
+            }
             int j1;
-            if (l > j)
-                j1 = l - j;
-            else
-                j1 = j - l;
+            if (l > ctx) {
+                j1 = l - ctx;
+            } else {
+                j1 = ctx - l;
+            }
             int k1;
-            if (i1 > k)
-                k1 = i1 - k;
-            else
-                k1 = k - i1;
+            if (i1 > ctz) {
+                k1 = i1 - ctz;
+            } else {
+                k1 = ctz - i1;
+            }
             if (j1 > k1) {
                 int l1 = (k1 * 0x10000) / j1;
-                int j2 = 32768;
-                while (j != l) {
-                    if (j < l)
-                        j++;
-                    else if (j > l)
-                        j--;
-                    if ((levelRenderFlags[currentLevel][j][k] & 4) != 0)
-                        i = currentLevel;
+                int j2 = 0x8000;
+                while (ctx != l) {
+                    if (ctx < l) {
+                        ctx++;
+                    } else if (ctx > l) {
+                        ctx--;
+                    }
+                    if ((levelRenderFlags[currentLevel][ctx][ctz] & 4) != 0) {
+                        level = currentLevel;
+                    }
                     j2 += l1;
                     if (j2 >= 0x10000) {
                         j2 -= 0x10000;
-                        if (k < i1)
-                            k++;
-                        else if (k > i1)
-                            k--;
-                        if ((levelRenderFlags[currentLevel][j][k] & 4) != 0)
-                            i = currentLevel;
+                        if (ctz < i1) {
+                            ctz++;
+                        } else if (ctz > i1) {
+                            ctz--;
+                        }
+                        if ((levelRenderFlags[currentLevel][ctx][ctz] & 4) != 0) {
+                            level = currentLevel;
+                        }
                     }
                 }
             } else {
                 int i2 = (j1 * 0x10000) / k1;
-                int k2 = 32768;
-                while (k != i1) {
-                    if (k < i1)
-                        k++;
-                    else if (k > i1)
-                        k--;
-                    if ((levelRenderFlags[currentLevel][j][k] & 4) != 0)
-                        i = currentLevel;
+                int k2 = 0x8000;
+                while (ctz != i1) {
+                    if (ctz < i1) {
+                        ctz++;
+                    } else if (ctz > i1) {
+                        ctz--;
+                    }
+                    if ((levelRenderFlags[currentLevel][ctx][ctz] & 4) != 0) {
+                        level = currentLevel;
+                    }
                     k2 += i2;
                     if (k2 >= 0x10000) {
                         k2 -= 0x10000;
-                        if (j < l)
-                            j++;
-                        else if (j > l)
-                            j--;
-                        if ((levelRenderFlags[currentLevel][j][k] & 4) != 0)
-                            i = currentLevel;
+                        if (ctx < l) {
+                            ctx++;
+                        } else if (ctx > l) {
+                            ctx--;
+                        }
+                        if ((levelRenderFlags[currentLevel][ctx][ctz] & 4) != 0) {
+                            level = currentLevel;
+                        }
                     }
                 }
             }
         }
-        if ((levelRenderFlags[currentLevel][self.x >> 7][self.z >> 7]
-            & 4) != 0)
-            i = currentLevel;
-        return i;
+        if ((levelRenderFlags[currentLevel][self.x >> 7][self.z >> 7] & 4) != 0) {
+            level = currentLevel;
+        }
+        return level;
     }
 
     public int getCameraPlaneCutscene() {
@@ -858,11 +872,13 @@ public class Game extends GameShell {
 
     public void loadMidi() {
         aBoolean799 = false;
+
         while (aBoolean812) {
             try {
                 Thread.sleep(50L);
             } catch (Exception _ex) {
             }
+
             String name;
             int crc;
             int len;
@@ -877,6 +893,7 @@ public class Game extends GameShell {
 
             if (name != null) {
                 byte[] src = Signlink.cacheload(name + ".mid");
+
                 if (src != null && crc != 12345678) {
                     crc32.reset();
                     crc32.update(src);
@@ -910,7 +927,7 @@ public class Game extends GameShell {
                 }
 
                 if (src == null) {
-                    return;
+                    continue;
                 }
 
                 int length = (new Buffer(src)).readDWord();
@@ -1364,18 +1381,21 @@ public class Game extends GameShell {
         }
     }
 
-    public int getLandY(int i, int j, int k) {
-        int l = j >> 7;
-        int i1 = k >> 7;
-        int j1 = i;
-        if (j1 < 3 && (levelRenderFlags[1][l][i1] & 2) == 2)
-            j1++;
-        int k1 = j & 0x7f;
-        int l1 = k & 0x7f;
-        int i2 = levelHeightMaps[j1][l][i1] * (128 - k1) + levelHeightMaps[j1][l + 1][i1] * k1 >> 7;
-        int j2 = levelHeightMaps[j1][l][i1 + 1] * (128 - k1)
-            + levelHeightMaps[j1][l + 1][i1 + 1] * k1 >> 7;
-        return i2 * (128 - l1) + j2 * l1 >> 7;
+    public int getLandY(int plane, int sceneX, int sceneZ) {
+        int stx = sceneX >> 7;
+        int stz = sceneZ >> 7;
+        if ((stx < 0) || (stz < 0) || (stx > 103) || (stz > 103)) {
+            return 0;
+        }
+        int p = plane;
+        if (p < 3 && (levelRenderFlags[1][stx][stz] & 2) == 2) {
+            p++;
+        }
+        int ltx = sceneX & 0x7f;
+        int ltz = sceneZ & 0x7f;
+        int y00 = levelHeightMaps[p][stx][stz] * (128 - ltx) + levelHeightMaps[p][stx + 1][stz] * ltx >> 7;
+        int y11 = levelHeightMaps[p][stx][stz + 1] * (128 - ltx) + levelHeightMaps[p][stx + 1][stz + 1] * ltx >> 7;
+        return y00 * (128 - ltz) + y11 * ltz >> 7;
     }
 
     public void drawTooltip(NpcType npcType, int j, int k, int l) {
@@ -2640,9 +2660,9 @@ public class Game extends GameShell {
         System.gc();
         midistop();
         currentMidi = null;
-        jingleId = 0;
+        nextMusicDelay = 0;
         if (!lowMemory) {
-            setMidi(0xbc614e, "scape_main", 40000);
+            setMidi(12345678, "scape_main", 40000);
         }
     }
 
@@ -2922,7 +2942,7 @@ public class Game extends GameShell {
                     setMidi(midiCrc, currentMidi, midiSize);
                 else
                     midistop();
-                jingleId = 0;
+                nextMusicDelay = 0;
             }
         }
         if (k == 4) {
@@ -5850,12 +5870,12 @@ public class Game extends GameShell {
             }
         }
 
-        if (jingleId > 0) {
-            jingleId -= 20;
-            if (jingleId < 0) {
-                jingleId = 0;
+        if (nextMusicDelay > 0) {
+            nextMusicDelay -= 20;
+            if (nextMusicDelay < 0) {
+                nextMusicDelay = 0;
             }
-            if (jingleId == 0 && midiActive && !lowMemory) {
+            if (nextMusicDelay == 0 && midiActive && !lowMemory) {
                 setMidi(midiCrc, currentMidi, midiSize);
             }
         }
@@ -7931,32 +7951,36 @@ public class Game extends GameShell {
                 return true;
             }
             if (packetOpcode == Packet.LOAD_AREA) {
-                int i1 = inBuffer.readWord();
-                int j10 = inBuffer.readWord();
-                if (centerSectorX == i1 && centerSectorY == j10 && sceneState != 0) {
+                int sectorX = inBuffer.readWord();
+                int sectorY = inBuffer.readWord();
+
+                if (centerSectorX == sectorX && centerSectorY == sectorY && sceneState != 0) {
                     packetOpcode = -1;
                     return true;
                 }
 
-                centerSectorX = i1;
-                centerSectorY = j10;
+                centerSectorX = sectorX;
+                centerSectorY = sectorY;
                 baseTileX = (centerSectorX - 6) * 8;
                 baseTileZ = (centerSectorY - 6) * 8;
+
                 sceneState = 1;
+
                 areaViewport.bind();
                 fontPlain12.drawCentered(151, 0, "Loading - please wait.", 257);
                 fontPlain12.drawCentered(150, 0xffffff, "Loading - please wait.", 256);
                 areaViewport.drawImage(11, super.graphics, 8);
+
                 Signlink.looprate(5);
-                int l16 = (packetLength - 2) / 10;
-                sceneMapLandData = new byte[l16][];
-                sceneMapLocData = new byte[l16][];
-                sceneMapIndex = new int[l16];
+                int mapCount = (packetLength - 2) / 10;
+                sceneMapLandData = new byte[mapCount][];
+                sceneMapLocData = new byte[mapCount][];
+                sceneMapIndex = new int[mapCount];
 
                 outBuffer.writeOpcode(Packet.REQUEST_MAP);
                 outBuffer.writeByte(0);
                 int i22 = 0;
-                for (int n = 0; n < l16; n++) {
+                for (int n = 0; n < mapCount; n++) {
                     int x = inBuffer.readByte();
                     int y = inBuffer.readByte();
                     int landCrc = inBuffer.readDWord();
@@ -8017,12 +8041,12 @@ public class Game extends GameShell {
                 mapLastBaseX = baseTileX;
                 mapLastBaseZ = baseTileZ;
 
-                for (int l30 = 0; l30 < 8192; l30++) {
-                    NpcEntity e = npcEntities[l30];
+                for (int n = 0; n < 8192; n++) {
+                    NpcEntity e = npcEntities[n];
                     if (e != null) {
-                        for (int k31 = 0; k31 < 10; k31++) {
-                            e.pathTileX[k31] -= deltaX;
-                            e.pathTileZ[k31] -= deltaZ;
+                        for (int m = 0; m < 10; m++) {
+                            e.pathTileX[m] -= deltaX;
+                            e.pathTileZ[m] -= deltaZ;
                         }
 
                         e.x -= deltaX * 128;
@@ -8030,12 +8054,12 @@ public class Game extends GameShell {
                     }
                 }
 
-                for (int j31 = 0; j31 < MAX_PLAYER_COUNT; j31++) {
-                    PlayerEntity e = playerEntities[j31];
+                for (int n = 0; n < MAX_PLAYER_COUNT; n++) {
+                    PlayerEntity e = playerEntities[n];
                     if (e != null) {
-                        for (int i32 = 0; i32 < 10; i32++) {
-                            e.pathTileX[i32] -= deltaX;
-                            e.pathTileZ[i32] -= deltaZ;
+                        for (int m = 0; m < 10; m++) {
+                            e.pathTileX[m] -= deltaX;
+                            e.pathTileZ[m] -= deltaZ;
                         }
 
                         e.x -= deltaX * 128;
@@ -8061,32 +8085,34 @@ public class Game extends GameShell {
                     dirZ = -1;
                 }
 
-                for (int j32 = startTileX; j32 != endTileX; j32 += dirX) {
-                    for (int k32 = startTileZ; k32 != endTileZ; k32 += dirZ) {
-                        int l32 = j32 + deltaX;
-                        int i33 = k32 + deltaZ;
-                        for (int j33 = 0; j33 < 4; j33++)
-                            if (l32 >= 0 && i33 >= 0 && l32 < 104 && i33 < 104)
-                                objects[j33][j32][k32] = objects[j33][l32][i33];
-                            else
-                                objects[j33][j32][k32] = null;
+                for (int x = startTileX; x != endTileX; x += dirX) {
+                    for (int z = startTileZ; z != endTileZ; z += dirZ) {
+                        int dstX = x + deltaX;
+                        int dstZ = z + deltaZ;
+
+                        for (int plane = 0; plane < 4; plane++) {
+                            if (dstX >= 0 && dstZ >= 0 && dstX < 104 && dstZ < 104) {
+                                objects[plane][x][z] = objects[plane][dstX][dstZ];
+                            } else {
+                                objects[plane][x][z] = null;
+                            }
+                        }
                     }
                 }
 
-                for (SpawnedLoc loc = (SpawnedLoc) spawnedLocations
-                    .peekLast(); loc != null; loc = (SpawnedLoc) spawnedLocations
-                    .getPrevious()) {
+                for (SpawnedLoc loc = (SpawnedLoc) spawnedLocations.peekLast(); loc != null; loc = (SpawnedLoc) spawnedLocations.getPrevious()) {
                     loc.tileX -= deltaX;
                     loc.tileZ -= deltaZ;
-                    if (loc.tileX < 0 || loc.tileZ < 0 || loc.tileX >= 104
-                        || loc.tileZ >= 104)
+                    if (loc.tileX < 0 || loc.tileZ < 0 || loc.tileX >= 104  || loc.tileZ >= 104) {
                         loc.unlink();
+                    }
                 }
 
                 if (flagTileX != 0) {
                     flagTileX -= deltaX;
                     flagTileY -= deltaZ;
                 }
+
                 cutsceneActive = false;
                 packetOpcode = -1;
                 return true;
@@ -8135,16 +8161,16 @@ public class Game extends GameShell {
                 return true;
             }
             if (packetOpcode == Packet.PLAY_SONG) {
-                String s = inBuffer.readString();
-                int k10 = inBuffer.readDWord();
-                int i17 = inBuffer.readDWord();
-                if (!s.equals(currentMidi) && midiActive && !lowMemory) {
-                    setMidi(k10, s, i17);
+                String name = inBuffer.readString();
+                int crc = inBuffer.readDWord();
+                int size = inBuffer.readDWord();
+                if (!name.equals(currentMidi) && midiActive && !lowMemory) {
+                    setMidi(crc, name, size);
                 }
-                currentMidi = s;
-                midiCrc = k10;
-                midiSize = i17;
-                jingleId = 0;
+                currentMidi = name;
+                midiCrc = crc;
+                midiSize = size;
+                nextMusicDelay = 0;
                 packetOpcode = -1;
                 return true;
             }
@@ -8352,13 +8378,13 @@ public class Game extends GameShell {
             }
             if (packetOpcode == Packet.PLAY_JINGLE) {
                 if (midiActive && !lowMemory) {
-                    int id = inBuffer.readWord();
+                    int delay = inBuffer.readWord();
                     int length = inBuffer.readDWord();
                     int streamLength = packetLength - 6;
                     byte[] data = new byte[length];
                     BZip2InputStream.read(data, length, inBuffer.data, streamLength, inBuffer.offset);
                     midisave(data, length, false);
-                    jingleId = id;
+                    nextMusicDelay = delay;
                 }
                 packetOpcode = -1;
                 return true;
@@ -8854,8 +8880,10 @@ public class Game extends GameShell {
             String s2 = "T2 - " + packetOpcode + "," + secondMostRecentOpcode + "," + thirdMostRecentOpcode + " - " + packetLength + ","
                 + (baseTileX + self.pathTileX[0]) + ","
                 + (baseTileZ + self.pathTileZ[0]) + " - ";
-            for (int i16 = 0; i16 < packetLength && i16 < 50; i16++)
+            for (int i16 = 0; i16 < packetLength && i16 < 50; i16++) {
                 s2 = s2 + inBuffer.data[i16] + ",";
+            }
+            exception.printStackTrace();
 
             Signlink.reporterror(s2);
             disconnect();
@@ -9121,7 +9149,7 @@ public class Game extends GameShell {
     public int crossType;
     public int[] characterDesignColors = new int[5];
     public Buffer loginBuffer = Buffer.reserve(1);
-    public int jingleId;
+    public int nextMusicDelay;
     public int hintTileX;
     public int hintTileZ;
     public int hintHeight;
