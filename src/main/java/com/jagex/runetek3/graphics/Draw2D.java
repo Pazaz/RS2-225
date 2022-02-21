@@ -16,7 +16,7 @@ public class Draw2D extends CacheableNode {
         top = 0;
         right = width;
         bottom = height;
-        rightX = right - 1;
+        rightX = right;
         centerX = right / 2;
     }
 
@@ -41,7 +41,7 @@ public class Draw2D extends CacheableNode {
         top = y0;
         right = x1;
         bottom = y1;
-        rightX = right - 1;
+        rightX = right;
         centerX = right / 2;
         centerY = bottom / 2;
     }
