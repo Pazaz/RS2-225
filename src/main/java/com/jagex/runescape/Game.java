@@ -25,7 +25,7 @@ import java.util.zip.CRC32;
 
 public class Game extends GameShell {
 
-    public static int SKY_COLOR = 0xC8C0A8; // 0x000000;
+    public static int skyColor = 0x000000;
 
     public void setMidi(int crc, String name, int len) {
         if (name == null) {
@@ -857,7 +857,7 @@ public class Game extends GameShell {
         Model.resourceCount = 0;
         Model.cursorX = super.mouseX - 8;
         Model.cursorY = super.mouseY - 11;
-        Draw2D.fillRect(0, 0, SKY_COLOR, super.gameWidth, super.gameHeight);
+        Draw2D.fillRect(0, 0, skyColor, super.gameWidth, super.gameHeight);
         scene.draw(cameraOrbitYaw, cameraX, k, cameraPitch, cameraY, cameraZ);
         scene.clearFrameLocs();
         drawViewport2d();
@@ -7861,6 +7861,11 @@ public class Game extends GameShell {
             secondMostRecentOpcode = lastPacketOpcode;
             lastPacketOpcode = packetOpcode;
 
+            if (packetOpcode == Packet.CHANGE_SKY) {
+                skyColor = inBuffer.readSWord();
+                packetOpcode = -1;
+                return true;
+            }
             if (packetOpcode == Packet.INTERFACE_SETTING_BYTE) {
                 int j = inBuffer.readWord();
                 byte byte0 = inBuffer.readByteSigned();

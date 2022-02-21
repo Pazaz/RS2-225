@@ -208,6 +208,9 @@ public class Packet {
     public static final int ADD_SPOT_ANIMATION = 191;
     public static final int ADD_OBJECT_STACK = 223;
 
+    // Custom packets
+    public static final int CHANGE_SKY = 5;
+
     public static final int[] PACKET_ORDER = {
         95, 218, 67, 50, 253, 222, 194, 60, 101, 128,
         8, 251, 92, 111, 24, 33, 223, 66, 232, 59,
@@ -238,7 +241,7 @@ public class Packet {
     };
 
     public static final int[] PACKET_LENGTH = {
-        0, -2, 4, 6, -1, 0, 0, 2, 0, 0,
+        0, -2, 4, 6, -1, 3, 0, 2, 0, 0,
         0, 0, 5, 4, 2, 2, 0, 0, 0, 0,
         2, -2, 2, 14, 0, 6, 3, 0, 4, 0,
         0, 0, 3, 0, 0, 0, 0, 0, 0, 0,
