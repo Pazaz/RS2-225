@@ -2374,21 +2374,21 @@ public class Game extends GameShell {
     }
 
     public void updateOtherPlayers(Buffer buffer) {
-        int k = buffer.getBits(8);
+        int players = buffer.getBits(8);
 
-        if (k < playerCount) {
-            for (int i1 = k; i1 < playerCount; i1++) {
-                deadEntityIndices[deadEntityCount++] = playerIndices[i1];
+        if (players < playerCount) {
+            for (int n = players; n < playerCount; n++) {
+                deadEntityIndices[deadEntityCount++] = playerIndices[n];
             }
         }
 
-        if (k > playerCount) {
+        if (players > playerCount) {
             Signlink.reporterror(username + " Too many players");
             throw new RuntimeException("eek");
         }
 
         playerCount = 0;
-        for (int n = 0; n < k; n++) {
+        for (int n = 0; n < players; n++) {
             int index = playerIndices[n];
             PlayerEntity p = playerEntities[index];
 
@@ -6328,18 +6328,19 @@ public class Game extends GameShell {
             int startZ = waypointY[current];
             if (type == 0) {
                 outBuffer.writeOpcode(Packet.MOVEMENT_WORLD);
-                outBuffer.writeByte(steps + steps + 3);
+                outBuffer.writeByte(steps * 2 + 3);
             } else if (type == 1) {
                 outBuffer.writeOpcode(Packet.MOVEMENT_MINIMAP);
-                outBuffer.writeByte(steps + steps + 3 + 14);
+                outBuffer.writeByte(steps * 2 + 3 + 14);
             } else if (type == 2) {
                 outBuffer.writeOpcode(Packet.MOVEMENT_WORLD_ACTION);
-                outBuffer.writeByte(steps + steps + 3);
+                outBuffer.writeByte(steps * 2 + 3);
             }
 
             // control held down
             outBuffer.writeByte(super.keyDown[GameShell.KEY_CONTROL] == 1 ? 1 : 0);
 
+            // steps are relative to these starting values
             outBuffer.writeWord(startX + baseTileX);
             outBuffer.writeWord(startZ + baseTileZ);
 
@@ -8793,17 +8794,19 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == Packet.GROUND_ITEM_ADD) {
+            if (packetOpcode == Packet.SKILL_UPDATE) {
                 sidebarRedraw = true;
-                int i9 = inBuffer.readByte();
-                int k15 = inBuffer.readDWord();
-                int k20 = inBuffer.readByte();
-                skillExperience[i9] = k15;
-                skillLevelReal[i9] = k20;
-                skillLevel[i9] = 1;
-                for (int i24 = 0; i24 < 98; i24++)
-                    if (k15 >= EXPERIENCE_TABLE[i24])
-                        skillLevel[i9] = i24 + 2;
+                int skill = inBuffer.readByte();
+                int exp = inBuffer.readDWord();
+                int level = inBuffer.readByte();
+                skillExperience[skill] = exp;
+                skillLevelReal[skill] = level;
+                skillLevel[skill] = 1;
+                for (int lvl = 0; lvl < 98; lvl++) {
+                    if (exp >= EXPERIENCE_TABLE[lvl]) {
+                        skillLevel[skill] = lvl + 2;
+                    }
+                }
 
                 packetOpcode = -1;
                 return true;

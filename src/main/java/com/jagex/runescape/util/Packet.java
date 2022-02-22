@@ -123,7 +123,7 @@ public class Packet {
     // 43 = 114
     public static final int SYSTEM_UPDATE = 43;
     // 44 = 134
-    public static final int GROUND_ITEM_ADD = 44;
+    public static final int SKILL_UPDATE = 44;
     // 46 = 246 (?)
     public static final int INTERFACE_ITEM_MODEL = 46;
     public static final int PLAY_SONG = 54;
