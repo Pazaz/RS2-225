@@ -5819,7 +5819,8 @@ public class Game extends GameShell {
             idleTimeout--;
         }
 
-        for (int i = 0; i < 5; i++) {
+        // read 100 packets per client tick
+        for (int i = 0; i < 100; i++) {
             if (!readPacket()) {
                 break;
             }
