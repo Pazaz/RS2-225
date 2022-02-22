@@ -229,7 +229,7 @@ public class Game extends GameShell {
     }
 
     public void midistop() {
-        Signlink.midifade = 0;
+        Signlink.midifade = false;
         Signlink.midi = "stop";
     }
 
@@ -2462,7 +2462,7 @@ public class Game extends GameShell {
     }
 
     public void midisave(byte[] abyte0, int j, boolean fade) {
-        Signlink.midifade = fade ? 1 : 0;
+        Signlink.midifade = fade;
         Signlink.midisave(abyte0, j);
     }
 
@@ -2494,10 +2494,11 @@ public class Game extends GameShell {
         }
     }
 
-    public void midivol(int j, boolean flag) {
-        Signlink.midivol = j;
-        if (flag)
+    public void midivol(int vol, boolean active) {
+        Signlink.midivol = vol;
+        if (active) {
             Signlink.midi = "voladjust";
+        }
     }
 
     public void drawTitleScreen() {
@@ -2922,28 +2923,30 @@ public class Game extends GameShell {
         if (k == 3) {
             boolean flag = midiActive;
             if (l == 0) {
-                midivol(0, midiActive);
+                midivol(256, midiActive);
                 midiActive = true;
             }
             if (l == 1) {
-                midivol(-400, midiActive);
+                midivol(192, midiActive);
                 midiActive = true;
             }
             if (l == 2) {
-                midivol(-800, midiActive);
+                midivol(96, midiActive);
                 midiActive = true;
             }
             if (l == 3) {
-                midivol(-1200, midiActive);
+                midivol(32, midiActive);
                 midiActive = true;
             }
-            if (l == 4)
+            if (l == 4) {
                 midiActive = false;
+            }
             if (midiActive != flag) {
-                if (midiActive)
+                if (midiActive) {
                     setMidi(midiCrc, currentMidi, midiSize);
-                else
+                } else {
                     midistop();
+                }
                 nextMusicDelay = 0;
             }
         }
@@ -7940,15 +7943,18 @@ public class Game extends GameShell {
                 return true;
             }
             if (packetOpcode == Packet.DATA_LAND_DONE) {
-                int k = inBuffer.readByte();
-                int i10 = inBuffer.readByte();
-                int k16 = -1;
-                for (int k21 = 0; k21 < sceneMapIndex.length; k21++)
-                    if (sceneMapIndex[k21] == (k << 8) + i10)
-                        k16 = k21;
+                int x = inBuffer.readByte();
+                int y = inBuffer.readByte();
 
-                if (k16 != -1) {
-                    Signlink.cachesave("m" + k + "_" + i10, sceneMapLandData[k16]);
+                int region = -1;
+                for (int n = 0; n < sceneMapIndex.length; n++) {
+                    if (sceneMapIndex[n] == (x << 8) + y) {
+                        region = n;
+                    }
+                }
+
+                if (region != -1) {
+                    Signlink.cachesave("m" + x + "_" + y, sceneMapLandData[region]);
                     sceneState = 1;
                 }
                 packetOpcode = -1;
@@ -8189,17 +8195,18 @@ public class Game extends GameShell {
                 return false;
             }
             if (packetOpcode == Packet.DATA_LOC_DONE) {
-                int k1 = inBuffer.readByte();
-                int l10 = inBuffer.readByte();
-                int j17 = -1;
-                for (int j22 = 0; j22 < sceneMapIndex.length; j22++) {
-                    if (sceneMapIndex[j22] == (k1 << 8) + l10) {
-                        j17 = j22;
+                int x = inBuffer.readByte();
+                int y = inBuffer.readByte();
+
+                int region = -1;
+                for (int n = 0; n < sceneMapIndex.length; n++) {
+                    if (sceneMapIndex[n] == (x << 8) + y) {
+                        region = n;
                     }
                 }
 
-                if (j17 != -1) {
-                    Signlink.cachesave("l" + k1 + "_" + l10, sceneMapLocData[j17]);
+                if (region != -1) {
+                    Signlink.cachesave("l" + x + "_" + y, sceneMapLocData[region]);
                     sceneState = 1;
                 }
                 packetOpcode = -1;
@@ -8274,21 +8281,23 @@ public class Game extends GameShell {
                 return true;
             }
             if (packetOpcode == Packet.DATA_LOC) {
-                int l2 = inBuffer.readByte();
-                int i12 = inBuffer.readByte();
-                int k17 = inBuffer.readWord();
-                int k22 = inBuffer.readWord();
-                int j25 = -1;
-                for (int k27 = 0; k27 < sceneMapIndex.length; k27++) {
-                    if (sceneMapIndex[k27] == (l2 << 8) + i12) {
-                        j25 = k27;
+                int x = inBuffer.readByte();
+                int y = inBuffer.readByte();
+                int offset = inBuffer.readWord();
+                int length = inBuffer.readWord();
+
+                int region = -1;
+                for (int n = 0; n < sceneMapIndex.length; n++) {
+                    if (sceneMapIndex[n] == (x << 8) + y) {
+                        region = n;
                     }
                 }
 
-                if (j25 != -1) {
-                    if (sceneMapLocData[j25] == null || sceneMapLocData[j25].length != k22)
-                        sceneMapLocData[j25] = new byte[k22];
-                    inBuffer.readBytes(packetLength - 6, k17, sceneMapLocData[j25]);
+                if (region != -1) {
+                    if (sceneMapLocData[region] == null || sceneMapLocData[region].length != length) {
+                        sceneMapLocData[region] = new byte[length];
+                    }
+                    inBuffer.readBytes(packetLength - 6, offset, sceneMapLocData[region]);
                 }
                 packetOpcode = -1;
                 return true;
@@ -8538,19 +8547,23 @@ public class Game extends GameShell {
                 return true;
             }
             if (packetOpcode == Packet.DATA_LAND) {
-                int k5 = inBuffer.readByte();
-                int i14 = inBuffer.readByte();
-                int j19 = inBuffer.readWord();
-                int i23 = inBuffer.readWord();
-                int i26 = -1;
-                for (int l27 = 0; l27 < sceneMapIndex.length; l27++)
-                    if (sceneMapIndex[l27] == (k5 << 8) + i14)
-                        i26 = l27;
+                int x = inBuffer.readByte();
+                int y = inBuffer.readByte();
+                int offset = inBuffer.readWord();
+                int length = inBuffer.readWord();
 
-                if (i26 != -1) {
-                    if (sceneMapLandData[i26] == null || sceneMapLandData[i26].length != i23)
-                        sceneMapLandData[i26] = new byte[i23];
-                    inBuffer.readBytes(packetLength - 6, j19, sceneMapLandData[i26]);
+                int region = -1;
+                for (int n = 0; n < sceneMapIndex.length; n++) {
+                    if (sceneMapIndex[n] == (x << 8) + y) {
+                        region = n;
+                    }
+                }
+
+                if (region != -1) {
+                    if (sceneMapLandData[region] == null || sceneMapLandData[region].length != length) {
+                        sceneMapLandData[region] = new byte[length];
+                    }
+                    inBuffer.readBytes(packetLength - 6, offset, sceneMapLandData[region]);
                 }
                 packetOpcode = -1;
                 return true;
@@ -9061,6 +9074,8 @@ public class Game extends GameShell {
     }
 
     public void showProgress(String str, int progress) {
+        System.out.println(str);
+
         prepareTitleScreen();
         if (titleArchive == null) {
             super.showProgress(str, progress);
@@ -9102,7 +9117,7 @@ public class Game extends GameShell {
 
     public static void main(String[] args) {
         try {
-            System.out.println("RS2 user client - release #" + 225);
+            System.out.println("RS2 user client - release #" + Signlink.clientversion);
 
             if (args.length != 4) {
                 System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");

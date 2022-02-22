@@ -1,7 +1,6 @@
 package com.jagex.runetek3.util;
 
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.Sequencer;
+import javax.sound.midi.*;
 import javax.sound.sampled.*;
 import java.applet.Applet;
 import java.io.*;
@@ -9,8 +8,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
 
-public class Signlink
-    implements Runnable {
+public class Signlink implements Runnable {
 
     public static void startpriv(InetAddress address) {
         threadliveid = (int) (Math.random() * 99999999D);
@@ -24,6 +22,11 @@ public class Signlink
         }
 
         socketip = address;
+
+        try {
+            midiPlayer = new MidiPlayer();
+        } catch (Exception ex) {
+        }
 
         Thread thread = new Thread(new Signlink());
         thread.setDaemon(true);
@@ -111,44 +114,41 @@ public class Signlink
         }
     }
 
-    void stopMidi() {
-        if (sequencer != null) {
-            sequencer.stop();
-            sequencer.close();
-        }
-
-        sequencer = null;
-    }
-
-    void playMidi(String file) {
-        stopMidi();
-
-        try {
-            File music = new File(file);
-            sequencer = MidiSystem.getSequencer();
-            sequencer.open();
-            sequencer.setSequence(MidiSystem.getSequence(music));
-            sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
-            sequencer.start();
-        } catch (Exception ex) {
-            System.out.println(file);
-            ex.printStackTrace();
-        }
-    }
-
     // adapted from play_members.html's JS loop
     void audioLoop() {
-        // TODO: volume control, midi fading
+        if (midiFadingIn) {
+            midiFadeVol += 8;
+            if (midiFadeVol > midivol) {
+                midiFadeVol = midivol;
+            }
+            midiPlayer.setVolume(0, midiFadeVol);
+            if (midiFadeVol == midivol) {
+                midiFadingIn = false;
+            }
+        } else if (midiFadingOut) {
+            midiFadeVol -= 8;
+            if (midiFadeVol < 0) {
+                midiFadeVol = 0;
+            }
+            midiPlayer.setVolume(0, midiFadeVol);
+            if (midiFadeVol == 0) {
+                midiFadingOut = false;
+                midiFadingIn = true;
+            }
+        }
 
         if (midi != "none") {
             if (midi == "stop") {
-                stopMidi();
+                midiPlayer.stop();
             } else if (midi == "voladjust") {
+                midiPlayer.setVolume(0, midivol);
             } else {
                 playMidi(midi);
             }
 
-            midi = "none";
+            if (!midiFadingOut) {
+                midi = "none";
+            }
         }
 
         if (wave != "none") {
@@ -201,6 +201,28 @@ public class Signlink
             }
 
             wave = "none";
+        }
+    }
+
+    public static void playMidi(String music) {
+        if (midiFadingOut) {
+            return;
+        } else if (!midiFadingOut && !midiFadingIn && midifade && midiPlayer.running()) {
+            midiFadingOut = true;
+            midiFadeVol = midivol;
+            return;
+        }
+
+        try {
+            if (midifade && midiFadingIn) {
+                midiFadingOut = false;
+                midiFadingIn = true;
+                midiFadeVol = 0;
+                midiPlayer.play(MidiSystem.getSequence(new File(music)), midifade, midiFadeVol);
+            } else {
+                midiPlayer.play(MidiSystem.getSequence(new File(music)), midifade, midivol);
+            }
+        } catch (Exception ex) {
         }
     }
 
@@ -456,9 +478,12 @@ public class Signlink
     public static boolean midiplay;
     public static int midipos;
     public static String midi = "none";
-    public static int midivol;
-    public static int midifade;
-    private Sequencer sequencer;
+    public static int midivol = 192;
+    public static boolean midifade = false;
+    public static boolean midiFadingIn = false;
+    public static boolean midiFadingOut = false;
+    public static int midiFadeVol = 0;
+    private static MidiPlayer midiPlayer = null;
 
     public static boolean waveplay;
     public static int wavepos;

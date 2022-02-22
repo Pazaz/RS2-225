@@ -117,7 +117,7 @@ public class Playground extends GameShell {
 
     @Override
     public void unload() {
-        Signlink.midifade = 0;
+        Signlink.midifade = false;
         Signlink.midi = "stop";
         LocType.unload();
         NpcType.unload();
@@ -538,7 +538,7 @@ public class Playground extends GameShell {
             int length = (new Buffer(src)).readDWord();
             byte[] decompressed = new byte[length];
             BZip2InputStream.read(decompressed, length, src, 0, 4);
-            Signlink.midifade = 0;
+            Signlink.midifade = false;
             Signlink.midisave(decompressed, length);
         } catch (Exception ex) {}
     }
