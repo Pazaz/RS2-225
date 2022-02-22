@@ -228,10 +228,9 @@ public class Signlink implements Runnable {
 
     public static String findcachedir() {
         String[] directories = {
-            "c:/windows/", "c:/winnt/", "d:/windows/", "d:/winnt/", "e:/windows/", "e:/winnt/", "f:/windows/", "f:/winnt/", "c:/", "~/",
-            "/tmp/", ""
+            "~/", "/tmp/", ""
         };
-        String name = ".file_store_32";
+        String name = ".225_store";
 
         for (int i = 0; i < directories.length; i++) {
             try {
