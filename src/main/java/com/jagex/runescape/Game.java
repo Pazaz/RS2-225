@@ -26,6 +26,9 @@ import java.util.zip.CRC32;
 public class Game extends GameShell {
 
     public static int skyColor = 0x000000;
+    public static String serverAddress = "127.0.0.1";
+    public static int serverHttpPort = 80;
+    public static int serverGamePort = 43594;
 
     public void setMidi(int crc, String name, int len) {
         if (name == null) {
@@ -5280,7 +5283,7 @@ public class Game extends GameShell {
                 drawTitleScreen();
             }
 
-            stream = new BufferedStream(this, opensocket(43594 + portoff));
+            stream = new BufferedStream(this, opensocket(serverGamePort + portoff));
             stream.read(inBuffer.data, 0, 8);
             inBuffer.offset = 0;
 
@@ -6146,8 +6149,9 @@ public class Game extends GameShell {
         if (Signlink.mainapp != null)
             return Signlink.mainapp.getCodeBase();
         try {
-            if (super.frame != null)
-                return new URL("http://127.0.0.1:" + (80 + portoff));
+            if (super.frame != null) {
+                return new URL("http://" + serverAddress + ":" + (serverHttpPort + portoff));
+            }
         } catch (Exception _ex) {
         }
         return super.getCodeBase();
@@ -9119,30 +9123,32 @@ public class Game extends GameShell {
         try {
             System.out.println("RS2 user client - release #" + Signlink.clientversion);
 
-            if (args.length != 4) {
-                System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
-                return;
-            }
+            if (args.length == 4) {
+                nodeid = Integer.parseInt(args[0]);
+                portoff = Integer.parseInt(args[1]);
 
-            nodeid = Integer.parseInt(args[0]);
-            portoff = Integer.parseInt(args[1]);
+                if (args[2].equals("lowmem")) {
+                    setLowMemory();
+                } else if (args[2].equals("highmem")) {
+                    setHighMemory();
+                } else {
+                    System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
+                    return;
+                }
 
-            if (args[2].equals("lowmem")) {
-                setLowMemory();
-            } else if (args[2].equals("highmem")) {
+                if (args[3].equals("free")) {
+                    members = false;
+                } else if (args[3].equals("members")) {
+                    members = true;
+                } else {
+                    System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
+                    return;
+                }
+            } else {
+                nodeid = 10;
+                portoff = 0;
                 setHighMemory();
-            } else {
-                System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
-                return;
-            }
-
-            if (args[3].equals("free")) {
-                members = false;
-            } else if (args[3].equals("members")) {
                 members = true;
-            } else {
-                System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
-                return;
             }
 
             Signlink.startpriv(InetAddress.getLocalHost());
