@@ -470,27 +470,27 @@ public class SceneBuilder {
                 }
 
                 if (i7 >= 1 && i7 < tileCountX - 1) {
-                    int i10 = 0;
-                    int k13 = 0;
-                    int k14 = 0;
-                    int l15 = 0;
-                    int l16 = 0;
+                    int hue = 0;
+                    int saturation = 0;
+                    int lightness = 0;
+                    int hueMultiplier = 0;
+                    int directionTracker = 0;
                     for (int l17 = -5; l17 < tileCountZ + 5; l17++) {
                         int k18 = l17 + 5;
                         if (k18 >= 0 && k18 < tileCountZ) {
-                            i10 += blendedHue[k18];
-                            k13 += blendedSaturation[k18];
-                            k14 += blendedLightness[k18];
-                            l15 += blendedHueMultiplier[k18];
-                            l16 += blendDirectionTracker[k18];
+                            hue += blendedHue[k18];
+                            saturation += blendedSaturation[k18];
+                            lightness += blendedLightness[k18];
+                            hueMultiplier += blendedHueMultiplier[k18];
+                            directionTracker += blendDirectionTracker[k18];
                         }
                         int l18 = l17 - 5;
                         if (l18 >= 0 && l18 < tileCountZ) {
-                            i10 -= blendedHue[l18];
-                            k13 -= blendedSaturation[l18];
-                            k14 -= blendedLightness[l18];
-                            l15 -= blendedHueMultiplier[l18];
-                            l16 -= blendDirectionTracker[l18];
+                            hue -= blendedHue[l18];
+                            saturation -= blendedSaturation[l18];
+                            lightness -= blendedLightness[l18];
+                            hueMultiplier -= blendedHueMultiplier[l18];
+                            directionTracker -= blendDirectionTracker[l18];
                         }
                         if (l17 >= 1 && l17 < tileCountZ - 1
                             && (!lowMemory || (renderFlags[l][i7][l17] & 0x10) == 0
@@ -509,9 +509,12 @@ public class SceneBuilder {
                                 int k21 = -1;
                                 int l21 = -1;
                                 if (i19 > 0) {
-                                    int i22 = (i10 * 256) / l15;
-                                    int k22 = k13 / l16;
-                                    int i23 = k14 / l16;
+                                    if (hueMultiplier == 0) {
+                                        hueMultiplier = 1;
+                                    }
+                                    int i22 = (hue * 256) / hueMultiplier;
+                                    int k22 = saturation / directionTracker;
+                                    int i23 = lightness / directionTracker;
                                     k21 = hsl24To16(i22, k22, i23);
                                     i22 = i22 + rand1 & 0xff;
                                     i23 += rand2;
