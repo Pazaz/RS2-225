@@ -910,7 +910,7 @@ public class Game extends GameShell {
 
                 if (src == null) {
                     try {
-                        DataInputStream datainputstream = openStream(name + "_" + crc + ".mid");
+                        DataInputStream datainputstream = openStream("songs/" + name + "_" + crc + ".mid");
                         src = new byte[len];
                         int j1;
                         for (int i1 = 0; i1 < len; i1 += j1) {
@@ -1761,60 +1761,68 @@ public class Game extends GameShell {
         }
     }
 
-    public FileArchive loadArchive(String s, int i, String s1, int j) {
-        int l = 5;
-        byte[] data = Signlink.cacheload(s1);
+    public FileArchive loadArchive(String displayName, int expectedCrc, String fileName, int progress) {
+        int nextSecs = 5;
+        byte[] data = Signlink.cacheload(fileName);
         if (data != null) {
             crc32.reset();
             crc32.update(data);
-            int i1 = (int) crc32.getValue();
-            if (i1 != i)
+            int realCrc = (int) crc32.getValue();
+            if (realCrc != expectedCrc) {
+                System.out.println(realCrc + " " + expectedCrc);
                 data = null;
+            }
         }
+
         if (data != null) {
             return new FileArchive(data);
         }
+
         while (data == null) {
-            showProgress("Requesting " + s, j);
+            showProgress("Requesting " + displayName, progress);
             try {
-                int j1 = 0;
-                DataInputStream datainputstream = openStream(s1 + i);
-                byte[] abyte1 = new byte[6];
-                datainputstream.readFully(abyte1, 0, 6);
-                Buffer class38_sub2_sub3 = new Buffer(abyte1);
-                class38_sub2_sub3.offset = 3;
-                int i2 = class38_sub2_sub3.readSWord() + 6;
+                int lastPercent = 0;
+                DataInputStream dis = openStream(fileName + expectedCrc);
+                byte[] lenBuffer = new byte[6];
+                dis.readFully(lenBuffer, 0, 6);
+                Buffer b = new Buffer(lenBuffer);
+                b.offset = 3;
+                int i2 = b.readSWord() + 6;
                 int j2 = 6;
                 data = new byte[i2];
-                System.arraycopy(abyte1, 0, data, 0, 6);
+                System.arraycopy(lenBuffer, 0, data, 0, 6);
 
                 while (j2 < i2) {
-                    int l2 = i2 - j2;
-                    if (l2 > 1000)
-                        l2 = 1000;
-                    j2 += datainputstream.read(data, j2, l2);
-                    int i3 = (j2 * 100) / i2;
-                    if (i3 != j1)
-                        showProgress("Loading " + s + " - " + i3 + "%", j);
-                    j1 = i3;
+                    int remaining = i2 - j2;
+                    if (remaining > 1000) {
+                        remaining = 1000;
+                    }
+                    j2 += dis.read(data, j2, remaining);
+                    int currentPercent = (j2 * 100) / i2;
+                    if (currentPercent != lastPercent) {
+                        showProgress("Loading " + displayName + " - " + currentPercent + "%", progress);
+                    }
+                    lastPercent = currentPercent;
                 }
-                datainputstream.close();
+                dis.close();
             } catch (IOException _ex) {
                 data = null;
-                for (int k1 = l; k1 > 0; k1--) {
-                    showProgress("Error loading - Will retry in " + k1 + " secs.", j);
+                for (int secs = nextSecs; secs > 0; secs--) {
+                    showProgress("Error loading - Will retry in " + secs + " secs.", progress);
                     try {
                         Thread.sleep(1000L);
                     } catch (Exception _ex2) {
                     }
                 }
 
-                l *= 2;
-                if (l > 60)
-                    l = 60;
+                nextSecs *= 2;
+                if (nextSecs > 60) {
+                    nextSecs = 60;
+                }
             }
         }
-        Signlink.cachesave(s1, data);
+
+        Signlink.cachesave(fileName, data);
         return new FileArchive(data);
     }
 
@@ -4442,68 +4450,49 @@ public class Game extends GameShell {
     }
 
     public void load() {
-        if (Signlink.sunjava)
+        if (Signlink.sunjava) {
             super.mindel = 5;
-        if (!lowMemory) {
-            aBoolean799 = true;
-            aBoolean812 = true;
-            startThread(this, 2);
-            setMidi(0xbc614e, "scape_main", 40000);
         }
-        if (aBoolean1102) {
+        if (alreadyStarted) {
             errorStarted = true;
             return;
         }
-        aBoolean1102 = true;
-        boolean flag = false;
-        String s = getHost();
-        if (s.endsWith("jagex.com"))
-            flag = true;
-        if (s.endsWith("runescape.com"))
-            flag = true;
-        if (s.endsWith("192.168.1.2"))
-            flag = true;
-        if (s.endsWith("192.168.1.249"))
-            flag = true;
-        if (s.endsWith("192.168.1.252"))
-            flag = true;
-        if (s.endsWith("192.168.1.253"))
-            flag = true;
-        if (s.endsWith("192.168.1.254"))
-            flag = true;
-        if (s.endsWith("127.0.0.1"))
-            flag = true;
-        if (!flag) {
-            errorHost = true;
-            return;
-        }
+        alreadyStarted = true;
+
         try {
-            int i = 5;
-            for (archiveChecksums[8] = 0; archiveChecksums[8] == 0; ) {
+            int nextSecs = 5;
+            for (archiveChecksums[9] = 0; archiveChecksums[9] == 0; ) {
                 showProgress("Connecting to fileserver", 10);
                 try {
-                    DataInputStream datainputstream = openStream("crc" + (int) (Math.random() * 99999999D));
-                    Buffer class38_sub2_sub3 = new Buffer(new byte[36]);
-                    datainputstream.readFully(class38_sub2_sub3.data, 0, 36);
-                    for (int k = 0; k < 9; k++) {
-                        archiveChecksums[k] = class38_sub2_sub3.readDWord();
+                    DataInputStream dis = openStream("crc" + (int) (Math.random() * 99999999D));
+                    Buffer b = new Buffer(new byte[40]);
+                    dis.readFully(b.data, 0, 40);
+                    for (int k = 0; k < 10; k++) {
+                        archiveChecksums[k] = b.readDWord();
                     }
-
-                    datainputstream.close();
+                    dis.close();
                 } catch (IOException _ex) {
-                    for (int j = i; j > 0; j--) {
-                        showProgress("Error loading - Will retry in " + j + " secs.", 10);
+                    for (int secs = nextSecs; secs > 0; secs--) {
+                        showProgress("Error loading - Will retry in " + secs + " secs.", 10);
                         try {
                             Thread.sleep(1000L);
                         } catch (Exception _ex2) {
                         }
                     }
 
-                    i *= 2;
-                    if (i > 60) {
-                        i = 60;
+                    nextSecs *= 2;
+                    if (nextSecs > 60) {
+                        nextSecs = 60;
                     }
                 }
+            }
+
+            if (!lowMemory) {
+                aBoolean799 = true;
+                aBoolean812 = true;
+                startThread(this, 2);
+                Signlink.setSoundfont(loadArchive("virtual instruments", archiveChecksums[9], "soundfont", 5));
+                setMidi(0xbc614e, "scape_main", 40000);
             }
 
             this.titleArchive = loadArchive("title screen", archiveChecksums[1], "title", 10);
@@ -9244,7 +9233,7 @@ public class Game extends GameShell {
     public InterfaceComponent interfaceComponent = new InterfaceComponent();
     public int[] waveLoops = new int[50];
     public int button;
-    public int[] archiveChecksums = new int[9];
+    public int[] archiveChecksums = new int[10];
     public boolean aBoolean812 = true;
     public IndexedSprite[] sideicons = new IndexedSprite[13];
     public int lastWaveLength;
@@ -9542,7 +9531,7 @@ public class Game extends GameShell {
     public int[] chatTimers = new int[overheadMessageCount];
     public String[] chatMessages = new String[overheadMessageCount];
     public int wildernessLevel;
-    public static boolean aBoolean1102;
+    public static boolean alreadyStarted;
     public IndexedSprite imageTitlebox;
     public IndexedSprite imageTitlebutton;
     public final int[] objectGroups = {

@@ -1,5 +1,7 @@
 package com.jagex.runetek3.util;
 
+import com.jagex.runetek3.cache.FileArchive;
+
 import javax.sound.midi.*;
 import javax.sound.sampled.*;
 import java.applet.Applet;
@@ -26,6 +28,7 @@ public class Signlink implements Runnable {
         try {
             midiPlayer = new MidiPlayer();
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
         Thread thread = new Thread(new Signlink());
@@ -112,6 +115,10 @@ public class Signlink implements Runnable {
             } catch (Exception _ex) {
             }
         }
+    }
+
+    public static void setSoundfont(FileArchive archive) {
+        midiPlayer.setSoundfont(archive.read("soundfont", null));
     }
 
     // adapted from play_members.html's JS loop
@@ -223,6 +230,7 @@ public class Signlink implements Runnable {
                 midiPlayer.play(MidiSystem.getSequence(new File(music)), midifade, midivol);
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -246,7 +254,8 @@ public class Signlink implements Runnable {
                 if (file1.exists() || file1.mkdir()) {
                     return dir + name + "/";
                 }
-            } catch (Exception _ex) {
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
 
@@ -261,7 +270,8 @@ public class Signlink implements Runnable {
                 dataoutputstream.writeInt((int) (Math.random() * 99999999D));
                 dataoutputstream.close();
             }
-        } catch (Exception _ex) {
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
         try {
@@ -270,6 +280,7 @@ public class Signlink implements Runnable {
             datainputstream.close();
             return i + 1;
         } catch (Exception _ex) {
+            _ex.printStackTrace();
             return 0;
         }
     }
@@ -316,7 +327,7 @@ public class Signlink implements Runnable {
             return;
         }
 
-        if (src.length > 2000000) {
+        if (src.length > 20000000) {
             return;
         }
 

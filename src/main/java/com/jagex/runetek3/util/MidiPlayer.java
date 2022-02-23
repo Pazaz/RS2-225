@@ -1,16 +1,27 @@
 package com.jagex.runetek3.util;
 
 import javax.sound.midi.*;
+import java.io.ByteArrayInputStream;
 
-// something about this only works in Java 11+?
 public final class MidiPlayer implements Receiver {
     public MidiPlayer() throws Exception {
         resetChannels();
-        receiver = MidiSystem.getReceiver();
+        synth = MidiSystem.getSynthesizer();
+        synth.open();
+        receiver = synth.getReceiver();
         sequencer = MidiSystem.getSequencer(false);
         sequencer.getTransmitter().setReceiver(this);
         sequencer.open();
         setTick(-1L);
+    }
+
+    public void setSoundfont(byte[] soundfont) {
+        try {
+            synth.unloadAllInstruments(synth.getDefaultSoundbank());
+            synth.loadAllInstruments(MidiSystem.getSoundbank(new ByteArrayInputStream(soundfont)));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public synchronized void setVolume(int velocity, int volume) {
@@ -24,6 +35,7 @@ public final class MidiPlayer implements Receiver {
             setVolume(0, volume, -1L);
             sequencer.start();
         } catch (InvalidMidiDataException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -72,6 +84,7 @@ public final class MidiPlayer implements Receiver {
             msg.setMessage(status, data1, data2);
             receiver.send(msg, tick);
         } catch (InvalidMidiDataException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -143,6 +156,7 @@ public final class MidiPlayer implements Receiver {
         return false;
     }
 
+    @Override
     public synchronized void send(MidiMessage msg, long tick) {
         byte[] data = msg.getMessage();
         if (data.length < 3 || !check(data[0], data[1], data[2], tick)) {
@@ -150,6 +164,7 @@ public final class MidiPlayer implements Receiver {
         }
     }
 
+    @Override
     public void close() {
     }
 
@@ -165,4 +180,5 @@ public final class MidiPlayer implements Receiver {
     private final int[] channels = new int[16];
     private final Receiver receiver;
     private final Sequencer sequencer;
+    private final Synthesizer synth;
 }
