@@ -32,29 +32,28 @@ public class SceneBuilder {
     public void clearLandscape(int i, int j, int l, int i1) {
         byte byte0 = 0;
         for (int j1 = 0; j1 < FloType.count; j1++) {
-            if (!FloType.instances[j1].name.equalsIgnoreCase("water"))
+            if (!FloType.instances[j1].name.equalsIgnoreCase("water")) {
                 continue;
+            }
             byte0 = (byte) (j1 + 1);
             break;
         }
 
         for (int k1 = j; k1 < j + i1; k1++) {
-            for (int l1 = i; l1 < i + l; l1++)
+            for (int l1 = i; l1 < i + l; l1++) {
                 if (l1 >= 0 && l1 < tileCountX && k1 >= 0 && k1 < tileCountZ) {
                     planeOverlayFloorIndices[0][l1][k1] = byte0;
                     for (int i2 = 0; i2 < 4; i2++) {
                         heightmap[i2][l1][k1] = 0;
                         renderFlags[i2][l1][k1] = 0;
                     }
-
                 }
-
+            }
         }
-
     }
 
-    public void readLandscape(byte[] abyte0, int i, int k, int l, int i1) {
-        Buffer class38_sub2_sub3 = new Buffer(abyte0);
+    public void readLandscape(byte[] src, int i, int k, int l, int i1) {
+        Buffer b = new Buffer(src);
         for (int j1 = 0; j1 < 4; j1++) {
             for (int k1 = 0; k1 < 64; k1++) {
                 for (int l1 = 0; l1 < 64; l1++) {
@@ -63,7 +62,7 @@ public class SceneBuilder {
                     if (i2 >= 0 && i2 < 104 && j2 >= 0 && j2 < 104) {
                         renderFlags[j1][i2][j2] = 0;
                         do {
-                            int k2 = class38_sub2_sub3.readByte();
+                            int k2 = b.readByte();
                             if (k2 == 0) {
                                 if (j1 == 0)
                                     heightmap[0][i2][j2] = -getPerlinNoise(0xe3b7b + i2 + i, 0x87cce + j2 + i1)
@@ -73,7 +72,7 @@ public class SceneBuilder {
                                 break;
                             }
                             if (k2 == 1) {
-                                int i3 = class38_sub2_sub3.readByte();
+                                int i3 = b.readByte();
                                 if (i3 == 1)
                                     i3 = 0;
                                 if (j1 == 0)
@@ -84,7 +83,7 @@ public class SceneBuilder {
                                 break;
                             }
                             if (k2 <= 49) {
-                                planeOverlayFloorIndices[j1][i2][j2] = class38_sub2_sub3.readByteSigned();
+                                planeOverlayFloorIndices[j1][i2][j2] = b.readByteSigned();
                                 planeOverlayTypes[j1][i2][j2] = (byte) ((k2 - 2) / 4);
                                 planeOverlayRotations[j1][i2][j2] = (byte) (k2 - 2 & 3);
                             } else if (k2 <= 81)
@@ -94,23 +93,22 @@ public class SceneBuilder {
                         } while (true);
                     } else {
                         do {
-                            int l2 = class38_sub2_sub3.readByte();
-                            if (l2 == 0)
-                                break;
-                            if (l2 == 1) {
-                                class38_sub2_sub3.readByte();
+                            int l2 = b.readByte();
+                            if (l2 == 0) {
                                 break;
                             }
-                            if (l2 <= 49)
-                                class38_sub2_sub3.readByte();
+                            if (l2 == 1) {
+                                b.readByte();
+                                break;
+                            }
+                            if (l2 <= 49) {
+                                b.readByte();
+                            }
                         } while (true);
                     }
                 }
-
             }
-
         }
-
     }
 
     public void readLocs(byte[] abyte0, Scene scene, CollisionMap[] aclass8, LinkedList linkedList, int i, int j) {
@@ -498,8 +496,8 @@ public class SceneBuilder {
                             && (!lowMemory || (renderFlags[l][i7][l17] & 0x10) == 0
                             && getRenderLevel(l, i7, l17) == levelBuilt)) {
                             int i19 = planeUnderlayFloorIndices[l][i7][l17] & 0xff;
-                            int j19 = planeOverlayFloorIndices[l][i7][l17] & 0xff;
-                            if (i19 > 0 || j19 > 0) {
+                            int floType = planeOverlayFloorIndices[l][i7][l17] & 0xff;
+                            if (i19 > 0 || floType > 0) {
                                 int k19 = heightmap[l][i7][l17];
                                 int l19 = heightmap[l][i7 + 1][l17];
                                 int i20 = heightmap[l][i7 + 1][l17 + 1];
@@ -525,7 +523,7 @@ public class SceneBuilder {
                                 }
                                 if (l > 0) {
                                     boolean flag = i19 != 0 || planeOverlayTypes[l][i7][l17] == 0;
-                                    if (j19 > 0 && !FloType.instances[j19 - 1].occlude)
+                                    if (floType > 0 && !FloType.instances[floType - 1].occlude)
                                         flag = false;
                                     if (flag && k19 == l19 && k19 == i20 && k19 == j20)
                                         occludeFlags[l][i7][l17] |= 0x924;
@@ -533,14 +531,18 @@ public class SceneBuilder {
                                 int j22 = 0;
                                 if (k21 != -1)
                                     j22 = Draw3D.palette[adjustHSLLightness1(l21, 96)];
-                                if (j19 == 0) {
+                                if (floType == 0) {
                                     scene.addTile(l, i7, l17, 0, 0, -1, k19, l19, i20, j20, adjustHSLLightness1(k21, k20),
                                         adjustHSLLightness1(k21, l20), adjustHSLLightness1(k21, i21), adjustHSLLightness1(k21, j21), 0, 0, 0, 0,
                                         j22, 0);
                                 } else {
                                     int l22 = planeOverlayTypes[l][i7][l17] + 1;
                                     byte byte4 = planeOverlayRotations[l][i7][l17];
-                                    FloType floType_2 = FloType.instances[j19 - 1];
+                                    if (floType > FloType.count) {
+                                        // when loading newer maps, it's possible to have less flotypes defined
+                                        floType = FloType.count;
+                                    }
+                                    FloType floType_2 = FloType.instances[floType - 1];
                                     int j23 = floType_2.textureIndex;
                                     int k23;
                                     int l23;

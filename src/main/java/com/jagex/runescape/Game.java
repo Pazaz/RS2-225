@@ -7051,43 +7051,48 @@ public class Game extends GameShell {
 
             System.gc();
             SceneBuilder sceneBuilder = new SceneBuilder(104, levelRenderFlags, 104, levelHeightMaps);
-            byte[] abyte0 = new byte[100000];
-            int k = sceneMapLandData.length;
+            byte[] dest = new byte[1000000];
+
+            int mapCount = sceneMapLandData.length;
             SceneBuilder.lowMemory = Scene.lowMemory;
-            for (int l = 0; l < k; l++) {
-                int i1 = sceneMapIndex[l] >> 8;
-                int k1 = sceneMapIndex[l] & 0xff;
-                if (i1 == 33 && k1 >= 71 && k1 <= 73)
+            for (int n = 0; n < mapCount; n++) {
+                int x = sceneMapIndex[n] >> 8;
+                int y = sceneMapIndex[n] & 0xff;
+                if (x == 33 && y >= 71 && y <= 73) {
                     SceneBuilder.lowMemory = false;
+                    break;
+                }
             }
 
-            if (SceneBuilder.lowMemory)
+            if (SceneBuilder.lowMemory) {
                 scene.setup(currentLevel);
-            else
+            } else {
                 scene.setup(0);
-
-            outBuffer.writeOpcode(Packet.KEEPALIVE);
-            for (int j1 = 0; j1 < k; j1++) {
-                int l1 = (sceneMapIndex[j1] >> 8) * 64 - baseTileX;
-                int j2 = (sceneMapIndex[j1] & 0xff) * 64 - baseTileZ;
-                byte[] abyte2 = sceneMapLandData[j1];
-                if (abyte2 != null) {
-                    int i3 = (new Buffer(abyte2)).readDWord();
-                    BZip2InputStream.read(abyte0, i3, abyte2, abyte2.length - 4, 4);
-                    sceneBuilder.readLandscape(abyte0, (centerSectorX - 6) * 8, j2, l1, (centerSectorY - 6) * 8);
-                } else if (centerSectorY < 800)
-                    sceneBuilder.clearLandscape(l1, j2, 64, 64);
             }
 
             outBuffer.writeOpcode(Packet.KEEPALIVE);
-            for (int i2 = 0; i2 < k; i2++) {
-                byte[] abyte1 = sceneMapLocData[i2];
-                if (abyte1 != null) {
-                    int k2 = (new Buffer(abyte1)).readDWord();
-                    BZip2InputStream.read(abyte0, k2, abyte1, abyte1.length - 4, 4);
-                    int j3 = (sceneMapIndex[i2] >> 8) * 64 - baseTileX;
-                    int l3 = (sceneMapIndex[i2] & 0xff) * 64 - baseTileZ;
-                    sceneBuilder.readLocs(abyte0, scene, collisionMaps, list, l3, j3);
+            for (int n = 0; n < mapCount; n++) {
+                int relX = (sceneMapIndex[n] >> 8) * 64 - baseTileX;
+                int relZ = (sceneMapIndex[n] & 0xff) * 64 - baseTileZ;
+                byte[] data = sceneMapLandData[n];
+                if (data != null) {
+                    int uncompressedLength = (new Buffer(data)).readDWord();
+                    BZip2InputStream.read(dest, uncompressedLength, data, data.length - 4, 4);
+                    sceneBuilder.readLandscape(dest, (centerSectorX - 6) * 8, relZ, relX, (centerSectorY - 6) * 8);
+                } else if (centerSectorY < 800) {
+                    sceneBuilder.clearLandscape(relX, relZ, 64, 64);
+                }
+            }
+
+            outBuffer.writeOpcode(Packet.KEEPALIVE);
+            for (int n = 0; n < mapCount; n++) {
+                byte[] data = sceneMapLocData[n];
+                if (data != null) {
+                    int uncompressedLength = (new Buffer(data)).readDWord();
+                    BZip2InputStream.read(dest, uncompressedLength, data, data.length - 4, 4);
+                    int relX = (sceneMapIndex[n] >> 8) * 64 - baseTileX;
+                    int relZ = (sceneMapIndex[n] & 0xff) * 64 - baseTileZ;
+                    sceneBuilder.readLocs(dest, scene, collisionMaps, list, relZ, relX);
                 }
             }
 
@@ -7095,27 +7100,28 @@ public class Game extends GameShell {
             sceneBuilder.buildLandscape(scene, collisionMaps);
             areaViewport.bind();
             outBuffer.writeOpcode(Packet.KEEPALIVE);
-            for (LocEntity locEntity = (LocEntity) list
-                .peekLast(); locEntity != null; locEntity = (LocEntity) list.getPrevious())
+            for (LocEntity locEntity = (LocEntity) list.peekLast(); locEntity != null; locEntity = (LocEntity) list.getPrevious()) {
                 if ((levelRenderFlags[1][locEntity.tileX][locEntity.tileZ] & 2) == 2) {
                     locEntity.level--;
-                    if (locEntity.level < 0)
+                    if (locEntity.level < 0) {
                         locEntity.unlink();
+                    }
                 }
-
-            for (int l2 = 0; l2 < 104; l2++) {
-                for (int k3 = 0; k3 < 104; k3++)
-                    updateObjectStack(l2, k3);
-
             }
 
-            for (SpawnedLoc spawnedLoc = (SpawnedLoc) spawnedLocations
-                .peekLast(); spawnedLoc != null; spawnedLoc = (SpawnedLoc) spawnedLocations.getPrevious())
-                addLoc(spawnedLoc.rotation, spawnedLoc.tileX, spawnedLoc.tileZ, spawnedLoc.classType,
-                    spawnedLoc.locIndex, spawnedLoc.type, spawnedLoc.level);
+            for (int x = 0; x < 104; x++) {
+                for (int y = 0; y < 104; y++) {
+                    updateObjectStack(x, y);
+                }
+            }
 
+            for (SpawnedLoc spawnedLoc = (SpawnedLoc) spawnedLocations.peekLast(); spawnedLoc != null; spawnedLoc = (SpawnedLoc) spawnedLocations.getPrevious()) {
+                addLoc(spawnedLoc.rotation, spawnedLoc.tileX, spawnedLoc.tileZ, spawnedLoc.classType, spawnedLoc.locIndex, spawnedLoc.type, spawnedLoc.level);
+            }
         } catch (Exception exception) {
+            exception.printStackTrace();
         }
+
         LocType.models.clear();
         System.gc();
         Draw3D.setupPools(20);
