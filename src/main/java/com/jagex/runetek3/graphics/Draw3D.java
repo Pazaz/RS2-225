@@ -744,18 +744,19 @@ public class Draw3D extends Draw2D {
                     color = palette[leftColor >> 8];
                     leftColor += colorStep;
                     color = ((color & 0xff00ff) * invAlpha >> 8 & 0xff00ff) + ((color & 0xff00) * invAlpha >> 8 & 0xff00);
-                    dst[dstOff++] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
-                    dst[dstOff++] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
-                    dst[dstOff++] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
-                    dst[dstOff++] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
+                    for (int i = 0; i < 4; ++i) {
+                        dst[dstOff] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
+                        dstOff++; // incrementing here instead fixes a transparency bug
+                    }
                 }
                 length = rightX - leftX & 3;
                 if (length > 0) {
                     color = palette[leftColor >> 8];
                     color = ((color & 0xff00ff) * invAlpha >> 8 & 0xff00ff) + ((color & 0xff00) * invAlpha >> 8 & 0xff00);
-                    do
-                        dst[dstOff++] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
-                    while (--length > 0);
+                    do {
+                        dst[dstOff] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
+                        dstOff++; // incrementing here instead fixes a transparency bug
+                    } while (--length > 0);
                 }
             }
             return;

@@ -1,5 +1,6 @@
 package com.jagex.runetek3.util;
 
+import com.jagex.runescape.Game;
 import com.jagex.runetek3.cache.FileArchive;
 
 import javax.sound.midi.*;
@@ -25,12 +26,6 @@ public class Signlink implements Runnable {
 
         socketip = address;
 
-        try {
-            midiPlayer = new MidiPlayer();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
         Thread thread = new Thread(new Signlink());
         thread.setDaemon(true);
         thread.start();
@@ -44,6 +39,13 @@ public class Signlink implements Runnable {
     }
 
     public void run() {
+        if (!Game.lowMemory) {
+            try {
+                midiPlayer = new MidiPlayer();
+            } catch (Exception ex) {
+            }
+        }
+
         active = true;
         String s = findcachedir();
         uid = getuid(s);
@@ -234,9 +236,15 @@ public class Signlink implements Runnable {
         }
     }
 
+    public static void printMemUsage() {
+        Runtime runtime = Runtime.getRuntime();
+        int mb = (int) ((runtime.totalMemory() - runtime.freeMemory()) / 1024L / 1024L);
+        System.out.println("RAM: " + mb + " MB");
+    }
+
     public static String findcachedir() {
         String[] directories = {
-            "~/", "/tmp/", ""
+            ""
         };
         String name = ".225_store";
 

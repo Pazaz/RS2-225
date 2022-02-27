@@ -152,7 +152,7 @@ public class PathingEntity extends Entity {
     public int firstMoveCycle;
     public int lastMoveCycle;
     public int faceDirection;
-    public int remove;
+    public int removeTimer;
     public int height;
     public int dstYaw;
     public int pathRemaining;

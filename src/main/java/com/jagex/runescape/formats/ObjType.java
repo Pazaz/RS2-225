@@ -138,7 +138,6 @@ public class ObjType {
                 if (iconY > 32767) {
                     iconY -= 0x10000;
                 }
-            } else if (opcode == 9) {
             } else if (opcode == 10) {
                 buffer.readWord();
             } else if (opcode == 11) {

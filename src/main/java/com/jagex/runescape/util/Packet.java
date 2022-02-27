@@ -109,7 +109,7 @@ public class Packet {
     // 21 = 214
     public static final int ADD_IGNORE = 21;
     // 22 = 110
-    public static final int PLAYER_ENERGY = 22;
+    public static final int PLAYER_WEIGHT = 22;
     // 25 = 254
     public static final int MOB_HINT = 25;
     // 26 = 171
@@ -128,7 +128,7 @@ public class Packet {
     public static final int INTERFACE_ITEM_MODEL = 46;
     public static final int PLAY_SONG = 54;
     // 68 = 240
-    public static final int PLAYER_WEIGHT = 68;
+    public static final int PLAYER_ENERGY = 68;
     // 74 = 177
     public static final int CAMERA_CUTSCENE = 74;
     public static final int DATA_LAND_DONE = 80;

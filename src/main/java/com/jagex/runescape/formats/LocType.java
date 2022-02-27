@@ -99,13 +99,13 @@ public class LocType {
             if (opcode == 0) {
                 break;
             } else if (opcode == 1) {
-                int n = buffer.readByte();
-                modelTypes = new int[n];
-                modelIndices = new int[n];
+                int count = buffer.readByte();
+                modelTypes = new int[count];
+                modelIndices = new int[count];
 
-                for (int j1 = 0; j1 < n; j1++) {
-                    modelIndices[j1] = buffer.readWord();
-                    modelTypes[j1] = buffer.readByte();
+                for (int n = 0; n < count; n++) {
+                    modelIndices[n] = buffer.readWord();
+                    modelTypes[n] = buffer.readByte();
                 }
             } else if (opcode == 2) {
                 name = buffer.readString();

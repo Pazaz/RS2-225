@@ -54,42 +54,40 @@ public class SceneBuilder {
 
     public void readLandscape(byte[] src, int i, int k, int l, int i1) {
         Buffer b = new Buffer(src);
-        for (int j1 = 0; j1 < 4; j1++) {
-            for (int k1 = 0; k1 < 64; k1++) {
-                for (int l1 = 0; l1 < 64; l1++) {
-                    int i2 = k1 + l;
-                    int j2 = l1 + k;
+        for (int p = 0; p < 4; p++) {
+            for (int x = 0; x < 64; x++) {
+                for (int z = 0; z < 64; z++) {
+                    int i2 = x + l;
+                    int j2 = z + k;
                     if (i2 >= 0 && i2 < 104 && j2 >= 0 && j2 < 104) {
-                        renderFlags[j1][i2][j2] = 0;
+                        renderFlags[p][i2][j2] = 0;
                         do {
                             int k2 = b.readByte();
                             if (k2 == 0) {
-                                if (j1 == 0)
-                                    heightmap[0][i2][j2] = -getPerlinNoise(0xe3b7b + i2 + i, 0x87cce + j2 + i1)
-                                        * 8;
+                                if (p == 0)
+                                    heightmap[0][i2][j2] = -getPerlinNoise(0xe3b7b + i2 + i, 0x87cce + j2 + i1) * 8;
                                 else
-                                    heightmap[j1][i2][j2] = heightmap[j1 - 1][i2][j2] - 240;
+                                    heightmap[p][i2][j2] = heightmap[p - 1][i2][j2] - 240;
                                 break;
                             }
                             if (k2 == 1) {
                                 int i3 = b.readByte();
                                 if (i3 == 1)
                                     i3 = 0;
-                                if (j1 == 0)
+                                if (p == 0)
                                     heightmap[0][i2][j2] = -i3 * 8;
                                 else
-                                    heightmap[j1][i2][j2] = heightmap[j1 - 1][i2][j2]
-                                        - i3 * 8;
+                                    heightmap[p][i2][j2] = heightmap[p - 1][i2][j2] - i3 * 8;
                                 break;
                             }
                             if (k2 <= 49) {
-                                planeOverlayFloorIndices[j1][i2][j2] = b.readByteSigned();
-                                planeOverlayTypes[j1][i2][j2] = (byte) ((k2 - 2) / 4);
-                                planeOverlayRotations[j1][i2][j2] = (byte) (k2 - 2 & 3);
+                                planeOverlayFloorIndices[p][i2][j2] = b.readByteSigned();
+                                planeOverlayTypes[p][i2][j2] = (byte) ((k2 - 2) / 4);
+                                planeOverlayRotations[p][i2][j2] = (byte) (k2 - 2 & 3);
                             } else if (k2 <= 81)
-                                renderFlags[j1][i2][j2] = (byte) (k2 - 49);
+                                renderFlags[p][i2][j2] = (byte) (k2 - 49);
                             else
-                                planeUnderlayFloorIndices[j1][i2][j2] = (byte) (k2 - 81);
+                                planeUnderlayFloorIndices[p][i2][j2] = (byte) (k2 - 81);
                         } while (true);
                     } else {
                         do {
@@ -111,276 +109,284 @@ public class SceneBuilder {
         }
     }
 
-    public void readLocs(byte[] abyte0, Scene scene, CollisionMap[] aclass8, LinkedList linkedList, int i, int j) {
-        label0:
-        {
-            Buffer class38_sub2_sub3 = new Buffer(abyte0);
-            int k = -1;
+    public void readLocs(byte[] src, Scene scene, CollisionMap[] collisionMaps, LinkedList linkedList, int startZ, int startX) {
+        Buffer b = new Buffer(src);
+        int locType = -1;
+        do {
+            int locTypeOff = b.readSmart();
+            if (locTypeOff == 0) {
+                break;
+            }
+            locType += locTypeOff;
+
+            int locInfo = 0;
             do {
-                int l = class38_sub2_sub3.readSmart();
-                if (l == 0)
-                    break label0;
-                k += l;
-                int i1 = 0;
-                do {
-                    int j1 = class38_sub2_sub3.readSmart();
-                    if (j1 == 0)
-                        break;
-                    i1 += j1 - 1;
-                    int k1 = i1 & 0x3f;
-                    int l1 = i1 >> 6 & 0x3f;
-                    int i2 = i1 >> 12;
-                    int j2 = class38_sub2_sub3.readByte();
-                    int k2 = j2 >> 2;
-                    int l2 = j2 & 3;
-                    int i3 = l1 + j;
-                    int j3 = k1 + i;
-                    if (i3 > 0 && j3 > 0 && i3 < 103 && j3 < 103) {
-                        int k3 = i2;
-                        if ((renderFlags[1][i3][j3] & 2) == 2)
-                            k3--;
-                        CollisionMap collisionMap = null;
-                        if (k3 >= 0)
-                            collisionMap = aclass8[k3];
-                        addLoc(collisionMap, i2, j3, l2, k2, scene, linkedList, k, i3);
+                int locInfoOff = b.readSmart();
+                if (locInfoOff == 0) {
+                    break;
+                }
+                locInfo += locInfoOff - 1;
+
+                int localZ = locInfo & 0x3f;
+                int localX = locInfo >> 6 & 0x3f;
+                int p = locInfo >> 12;
+                int x = localX + startX;
+                int z = localZ + startZ;
+
+                int objInfo = b.readByte();
+                int objType = objInfo >> 2;
+                int orientation = objInfo & 3;
+
+                if (x > 0 && z > 0 && x < 103 && z < 103) {
+                    int plane = p;
+                    if ((renderFlags[1][x][z] & 2) == 2) {
+                        plane--;
                     }
-                } while (true);
+                    CollisionMap collisionMap = null;
+                    if (plane >= 0) {
+                        collisionMap = collisionMaps[plane];
+                    }
+                    addLoc(collisionMap, p, z, orientation, objType, scene, linkedList, locType, x);
+                }
             } while (true);
-        }
+        } while (true);
     }
 
-    public void addLoc(CollisionMap collisionMap, int i, int j, int k, int l, Scene scene,
-                       LinkedList linkedList, int i1, int j1) {
+    public void addLoc(CollisionMap collisionMap, int p, int z, int orientation, int objType, Scene scene,
+                       LinkedList locList, int locType, int x) {
         if (lowMemory) {
-            if ((renderFlags[i][j1][j] & 0x10) != 0)
+            if ((renderFlags[p][x][z] & 0x10) != 0) {
                 return;
-            if (getRenderLevel(i, j1, j) != levelBuilt)
+            }
+
+            if (getRenderLevel(p, x, z) != levelBuilt) {
                 return;
+            }
         }
-        int k1 = heightmap[i][j1][j];
-        int l1 = heightmap[i][j1 + 1][j];
-        int i2 = heightmap[i][j1 + 1][j + 1];
-        int j2 = heightmap[i][j1][j + 1];
-        int k2 = k1 + l1 + i2 + j2 >> 2;
-        LocType locType = LocType.get(i1);
+
+        int currentRegion = heightmap[p][x][z];
+        int northRegion = heightmap[p][x + 1][z];
+        int northEastRegion = heightmap[p][x + 1][z + 1];
+        int southRegion = heightmap[p][x][z + 1];
+        int average = currentRegion + northRegion + northEastRegion + southRegion >> 2;
+        LocType loc = LocType.get(locType);
         // object does not exist
-        if (locType == null) {
+        if (loc == null) {
             // now would be the best time to notify the user, with a little popup stating "map load warning" perhaps
             return;
         }
-        int l2 = j1 + (j << 7) + (i1 << 14) + 0x40000000;
-        if (!locType.interactable)
-            l2 += 0x80000000;
-        byte byte0 = (byte) ((k << 6) + l);
-        if (l == 22) {
-            if (lowMemory && !locType.interactable && !locType.aBoolean73)
+        int flag = x + (z << 7) + (locType << 14) + 0x40000000;
+        if (!loc.interactable) {
+            flag += 0x80000000;
+        }
+        byte byte0 = (byte) ((orientation << 6) + objType);
+        if (objType == 22) {
+            if (lowMemory && !loc.interactable && !loc.aBoolean73)
                 return;
-            Model class38_sub2_sub1 = locType.getModel(22, k, k1, l1, i2, j2, -1);
-            scene.addGroundDecoration(class38_sub2_sub1, j1, l2, j, i, byte0, k2);
-            if (locType.hasCollision && locType.interactable && collisionMap != null)
-                collisionMap.setBlocked(j, j1);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, i1, i, 3, SeqType.animations[locType.animationIndex], j, j1));
+            Model m = loc.getModel(22, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
+            scene.addGroundDecoration(m, x, flag, z, p, byte0, average);
+            if (loc.hasCollision && loc.interactable && collisionMap != null)
+                collisionMap.setBlocked(z, x);
+            if (loc.animationIndex != -1)
+                locList.pushNext(new LocEntity(true, locType, p, 3, SeqType.animations[loc.animationIndex], z, x));
             return;
         }
-        if (l == 10 || l == 11) {
-            Model class38_sub2_sub1_1 = locType.getModel(10, k, k1, l1, i2, j2, -1);
-            if (class38_sub2_sub1_1 != null) {
+        if (objType == 10 || objType == 11) {
+            Model m = loc.getModel(10, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
+            if (m != null) {
                 int j4 = 0;
-                if (l == 11)
+                if (objType == 11)
                     j4 += 256;
                 int k3;
                 int i4;
-                if (k == 1 || k == 3) {
-                    k3 = locType.sizeZ;
-                    i4 = locType.sizeX;
+                if (orientation == 1 || orientation == 3) {
+                    k3 = loc.sizeZ;
+                    i4 = loc.sizeX;
                 } else {
-                    k3 = locType.sizeX;
-                    i4 = locType.sizeZ;
+                    k3 = loc.sizeX;
+                    i4 = loc.sizeZ;
                 }
-                if (scene.addLocation(k2, i, null, l2, j, j1, k3, byte0, class38_sub2_sub1_1, j4, i4)
-                    && locType.hasShadow) {
+                if (scene.addLocation(average, p, null, flag, z, x, k3, byte0, m, j4, i4)
+                    && loc.hasShadow) {
                     for (int k4 = 0; k4 <= k3; k4++) {
                         for (int l4 = 0; l4 <= i4; l4++) {
-                            int i5 = class38_sub2_sub1_1.lengthXZ / 4;
+                            int i5 = m.lengthXZ / 4;
                             if (i5 > 30)
                                 i5 = 30;
-                            if (i5 > shadowmap[i][j1 + k4][j + l4])
-                                shadowmap[i][j1 + k4][j + l4] = (byte) i5;
+                            if (i5 > shadowmap[p][x + k4][z + l4])
+                                shadowmap[p][x + k4][z + l4] = (byte) i5;
                         }
-
                     }
-
                 }
             }
-            if (locType.hasCollision && collisionMap != null)
-                collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, j1, j, locType.isSolid);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, i1, i, 2, SeqType.animations[locType.animationIndex], j, j1));
+            if (loc.hasCollision && collisionMap != null)
+                collisionMap.setLoc(orientation, loc.sizeZ, loc.sizeX, x, z, loc.isSolid);
+            if (loc.animationIndex != -1)
+                locList.pushNext(new LocEntity(true, locType, p, 2, SeqType.animations[loc.animationIndex], z, x));
             return;
         }
-        if (l >= 12) {
-            Model class38_sub2_sub1_2 = locType.getModel(l, k, k1, l1, i2, j2, -1);
-            scene.addLocation(k2, i, null, l2, j, j1, 1, byte0, class38_sub2_sub1_2, 0, 1);
-            if (l >= 12 && l <= 17 && l != 13 && i > 0)
-                occludeFlags[i][j1][j] |= 0x924;
-            if (locType.hasCollision && collisionMap != null)
-                collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, j1, j, locType.isSolid);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, i1, i, 2, SeqType.animations[locType.animationIndex], j, j1));
+        if (objType >= 12) {
+            Model m = loc.getModel(objType, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
+            scene.addLocation(average, p, null, flag, z, x, 1, byte0, m, 0, 1);
+            if (objType <= 17 && objType != 13 && p > 0)
+                occludeFlags[p][x][z] |= 0x924;
+            if (loc.hasCollision && collisionMap != null)
+                collisionMap.setLoc(orientation, loc.sizeZ, loc.sizeX, x, z, loc.isSolid);
+            if (loc.animationIndex != -1)
+                locList.pushNext(new LocEntity(true, locType, p, 2, SeqType.animations[loc.animationIndex], z, x));
             return;
         }
-        if (l == 0) {
-            Model class38_sub2_sub1_3 = locType.getModel(0, k, k1, l1, i2, j2, -1);
-            scene.addWall(0, k2, i, WALL_ROTATION_TYPE1[k], class38_sub2_sub1_3, null, j1, l2, j, byte0);
-            if (k == 0) {
-                if (locType.hasShadow) {
-                    shadowmap[i][j1][j] = 50;
-                    shadowmap[i][j1][j + 1] = 50;
+        if (objType == 0) {
+            Model m = loc.getModel(0, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
+            scene.addWall(0, average, p, WALL_ROTATION_TYPE1[orientation], m, null, x, flag, z, byte0);
+            if (orientation == 0) {
+                if (loc.hasShadow) {
+                    shadowmap[p][x][z] = 50;
+                    shadowmap[p][x][z + 1] = 50;
                 }
-                if (locType.culls)
-                    occludeFlags[i][j1][j] |= 0x249;
-            } else if (k == 1) {
-                if (locType.hasShadow) {
-                    shadowmap[i][j1][j + 1] = 50;
-                    shadowmap[i][j1 + 1][j + 1] = 50;
+                if (loc.culls)
+                    occludeFlags[p][x][z] |= 0x249;
+            } else if (orientation == 1) {
+                if (loc.hasShadow) {
+                    shadowmap[p][x][z + 1] = 50;
+                    shadowmap[p][x + 1][z + 1] = 50;
                 }
-                if (locType.culls)
-                    occludeFlags[i][j1][j + 1] |= 0x492;
-            } else if (k == 2) {
-                if (locType.hasShadow) {
-                    shadowmap[i][j1 + 1][j] = 50;
-                    shadowmap[i][j1 + 1][j + 1] = 50;
+                if (loc.culls)
+                    occludeFlags[p][x][z + 1] |= 0x492;
+            } else if (orientation == 2) {
+                if (loc.hasShadow) {
+                    shadowmap[p][x + 1][z] = 50;
+                    shadowmap[p][x + 1][z + 1] = 50;
                 }
-                if (locType.culls)
-                    occludeFlags[i][j1 + 1][j] |= 0x249;
-            } else if (k == 3) {
-                if (locType.hasShadow) {
-                    shadowmap[i][j1][j] = 50;
-                    shadowmap[i][j1 + 1][j] = 50;
+                if (loc.culls)
+                    occludeFlags[p][x + 1][z] |= 0x249;
+            } else if (orientation == 3) {
+                if (loc.hasShadow) {
+                    shadowmap[p][x][z] = 50;
+                    shadowmap[p][x + 1][z] = 50;
                 }
-                if (locType.culls)
-                    occludeFlags[i][j1][j] |= 0x492;
+                if (loc.culls)
+                    occludeFlags[p][x][z] |= 0x492;
             }
-            if (locType.hasCollision && collisionMap != null)
-                collisionMap.setWall(k, j, j1, locType.isSolid, l);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, i1, i, 0, SeqType.animations[locType.animationIndex], j, j1));
-            if (locType.thickness != 16)
-                scene.method298(i, j, j1, locType.thickness);
+            if (loc.hasCollision && collisionMap != null)
+                collisionMap.setWall(orientation, z, x, loc.isSolid, objType);
+            if (loc.animationIndex != -1)
+                locList.pushNext(new LocEntity(true, locType, p, 0, SeqType.animations[loc.animationIndex], z, x));
+            if (loc.thickness != 16)
+                scene.method298(p, z, x, loc.thickness);
             return;
         }
-        if (l == 1) {
-            Model class38_sub2_sub1_4 = locType.getModel(1, k, k1, l1, i2, j2, -1);
-            scene.addWall(0, k2, i, WALL_ROTATION_TYPE2[k], class38_sub2_sub1_4, null, j1, l2, j, byte0);
-            if (locType.hasShadow)
-                if (k == 0)
-                    shadowmap[i][j1][j + 1] = 50;
-                else if (k == 1)
-                    shadowmap[i][j1 + 1][j + 1] = 50;
-                else if (k == 2)
-                    shadowmap[i][j1 + 1][j] = 50;
-                else if (k == 3)
-                    shadowmap[i][j1][j] = 50;
-            if (locType.hasCollision && collisionMap != null)
-                collisionMap.setWall(k, j, j1, locType.isSolid, l);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, i1, i, 0, SeqType.animations[locType.animationIndex], j, j1));
+        if (objType == 1) {
+            Model m = loc.getModel(1, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
+            scene.addWall(0, average, p, WALL_ROTATION_TYPE2[orientation], m, null, x, flag, z, byte0);
+            if (loc.hasShadow)
+                if (orientation == 0)
+                    shadowmap[p][x][z + 1] = 50;
+                else if (orientation == 1)
+                    shadowmap[p][x + 1][z + 1] = 50;
+                else if (orientation == 2)
+                    shadowmap[p][x + 1][z] = 50;
+                else if (orientation == 3)
+                    shadowmap[p][x][z] = 50;
+            if (loc.hasCollision && collisionMap != null)
+                collisionMap.setWall(orientation, z, x, loc.isSolid, objType);
+            if (loc.animationIndex != -1)
+                locList.pushNext(new LocEntity(true, locType, p, 0, SeqType.animations[loc.animationIndex], z, x));
             return;
         }
-        if (l == 2) {
-            int i3 = k + 1 & 3;
-            Model class38_sub2_sub1_11 = locType.getModel(2, 4 + k, k1, l1, i2, j2, -1);
-            Model class38_sub2_sub1_12 = locType.getModel(2, i3, k1, l1, i2, j2, -1);
-            scene.addWall(WALL_ROTATION_TYPE1[i3], k2, i, WALL_ROTATION_TYPE1[k], class38_sub2_sub1_11, class38_sub2_sub1_12,
-                j1, l2, j, byte0);
-            if (locType.culls)
-                if (k == 0) {
-                    occludeFlags[i][j1][j] |= 0x249;
-                    occludeFlags[i][j1][j + 1] |= 0x492;
-                } else if (k == 1) {
-                    occludeFlags[i][j1][j + 1] |= 0x492;
-                    occludeFlags[i][j1 + 1][j] |= 0x249;
-                } else if (k == 2) {
-                    occludeFlags[i][j1 + 1][j] |= 0x249;
-                    occludeFlags[i][j1][j] |= 0x492;
-                } else if (k == 3) {
-                    occludeFlags[i][j1][j] |= 0x492;
-                    occludeFlags[i][j1][j] |= 0x249;
+        if (objType == 2) {
+            int i3 = orientation + 1 & 3;
+            Model m1 = loc.getModel(2, 4 + orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
+            Model m2 = loc.getModel(2, i3, currentRegion, northRegion, northEastRegion, southRegion, -1);
+            scene.addWall(WALL_ROTATION_TYPE1[i3], average, p, WALL_ROTATION_TYPE1[orientation], m1, m2,
+                x, flag, z, byte0);
+            if (loc.culls)
+                if (orientation == 0) {
+                    occludeFlags[p][x][z] |= 0x249;
+                    occludeFlags[p][x][z + 1] |= 0x492;
+                } else if (orientation == 1) {
+                    occludeFlags[p][x][z + 1] |= 0x492;
+                    occludeFlags[p][x + 1][z] |= 0x249;
+                } else if (orientation == 2) {
+                    occludeFlags[p][x + 1][z] |= 0x249;
+                    occludeFlags[p][x][z] |= 0x492;
+                } else if (orientation == 3) {
+                    occludeFlags[p][x][z] |= 0x492;
+                    occludeFlags[p][x][z] |= 0x249;
                 }
-            if (locType.hasCollision && collisionMap != null)
-                collisionMap.setWall(k, j, j1, locType.isSolid, l);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, i1, i, 0, SeqType.animations[locType.animationIndex], j, j1));
-            if (locType.thickness != 16)
-                scene.method298(i, j, j1, locType.thickness);
+            if (loc.hasCollision && collisionMap != null)
+                collisionMap.setWall(orientation, z, x, loc.isSolid, objType);
+            if (loc.animationIndex != -1)
+                locList.pushNext(new LocEntity(true, locType, p, 0, SeqType.animations[loc.animationIndex], z, x));
+            if (loc.thickness != 16)
+                scene.method298(p, z, x, loc.thickness);
             return;
         }
-        if (l == 3) {
-            Model class38_sub2_sub1_5 = locType.getModel(3, k, k1, l1, i2, j2, -1);
-            scene.addWall(0, k2, i, WALL_ROTATION_TYPE2[k], class38_sub2_sub1_5, null, j1, l2, j, byte0);
-            if (locType.hasShadow)
-                if (k == 0)
-                    shadowmap[i][j1][j + 1] = 50;
-                else if (k == 1)
-                    shadowmap[i][j1 + 1][j + 1] = 50;
-                else if (k == 2)
-                    shadowmap[i][j1 + 1][j] = 50;
-                else if (k == 3)
-                    shadowmap[i][j1][j] = 50;
-            if (locType.hasCollision && collisionMap != null)
-                collisionMap.setWall(k, j, j1, locType.isSolid, l);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, i1, i, 0, SeqType.animations[locType.animationIndex], j, j1));
+        if (objType == 3) {
+            Model m = loc.getModel(3, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
+            scene.addWall(0, average, p, WALL_ROTATION_TYPE2[orientation], m, null, x, flag, z, byte0);
+            if (loc.hasShadow)
+                if (orientation == 0)
+                    shadowmap[p][x][z + 1] = 50;
+                else if (orientation == 1)
+                    shadowmap[p][x + 1][z + 1] = 50;
+                else if (orientation == 2)
+                    shadowmap[p][x + 1][z] = 50;
+                else if (orientation == 3)
+                    shadowmap[p][x][z] = 50;
+            if (loc.hasCollision && collisionMap != null)
+                collisionMap.setWall(orientation, z, x, loc.isSolid, objType);
+            if (loc.animationIndex != -1)
+                locList.pushNext(new LocEntity(true, locType, p, 0, SeqType.animations[loc.animationIndex], z, x));
             return;
         }
-        if (l == 9) {
-            Model class38_sub2_sub1_6 = locType.getModel(l, k, k1, l1, i2, j2, -1);
-            scene.addLocation(k2, i, null, l2, j, j1, 1, byte0, class38_sub2_sub1_6, 0, 1);
-            if (locType.hasCollision && collisionMap != null)
-                collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, j1, j, locType.isSolid);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, i1, i, 2, SeqType.animations[locType.animationIndex], j, j1));
+        if (objType == 9) {
+            Model m = loc.getModel(objType, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
+            scene.addLocation(average, p, null, flag, z, x, 1, byte0, m, 0, 1);
+            if (loc.hasCollision && collisionMap != null)
+                collisionMap.setLoc(orientation, loc.sizeZ, loc.sizeX, x, z, loc.isSolid);
+            if (loc.animationIndex != -1)
+                locList.pushNext(new LocEntity(true, locType, p, 2, SeqType.animations[loc.animationIndex], z, x));
             return;
         }
-        if (l == 4) {
-            Model class38_sub2_sub1_7 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
-            scene.addWallDecoration(k2, j, 0, l2, k * 512, WALL_ROTATION_TYPE1[k], 0, j1, class38_sub2_sub1_7, byte0, i);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, i1, i, 1, SeqType.animations[locType.animationIndex], j, j1));
+        if (objType == 4) {
+            Model m = loc.getModel(4, 0, currentRegion, northRegion, northEastRegion, southRegion, -1);
+            scene.addWallDecoration(average, z, 0, flag, orientation * 512, WALL_ROTATION_TYPE1[orientation], 0, x, m, byte0, p);
+            if (loc.animationIndex != -1)
+                locList.pushNext(new LocEntity(true, locType, p, 1, SeqType.animations[loc.animationIndex], z, x));
             return;
         }
-        if (l == 5) {
+        if (objType == 5) {
             int j3 = 16;
-            int l3 = scene.getWallBitset(i, j1, j);
+            int l3 = scene.getWallBitset(p, x, z);
             if (l3 > 0)
                 j3 = LocType.get(l3 >> 14 & 0x7fff).thickness;
-            Model class38_sub2_sub1_13 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
-            scene.addWallDecoration(k2, j, WALL_DECO_ROT_SIZE_Y_DIR[k] * j3, l2, k * 512, WALL_ROTATION_TYPE1[k], WALL_DECO_ROT_SIZE_X_DIR[k] * j3,
-                j1, class38_sub2_sub1_13, byte0, i);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, i1, i, 1, SeqType.animations[locType.animationIndex], j, j1));
+            Model m = loc.getModel(4, 0, currentRegion, northRegion, northEastRegion, southRegion, -1);
+            scene.addWallDecoration(average, z, WALL_DECO_ROT_SIZE_Y_DIR[orientation] * j3, flag, orientation * 512, WALL_ROTATION_TYPE1[orientation], WALL_DECO_ROT_SIZE_X_DIR[orientation] * j3,
+                x, m, byte0, p);
+            if (loc.animationIndex != -1)
+                locList.pushNext(new LocEntity(true, locType, p, 1, SeqType.animations[loc.animationIndex], z, x));
             return;
         }
-        if (l == 6) {
-            Model class38_sub2_sub1_8 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
-            scene.addWallDecoration(k2, j, 0, l2, k, 256, 0, j1, class38_sub2_sub1_8, byte0, i);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, i1, i, 1, SeqType.animations[locType.animationIndex], j, j1));
+        if (objType == 6) {
+            Model m = loc.getModel(4, 0, currentRegion, northRegion, northEastRegion, southRegion, -1);
+            scene.addWallDecoration(average, z, 0, flag, orientation, 256, 0, x, m, byte0, p);
+            if (loc.animationIndex != -1)
+                locList.pushNext(new LocEntity(true, locType, p, 1, SeqType.animations[loc.animationIndex], z, x));
             return;
         }
-        if (l == 7) {
-            Model class38_sub2_sub1_9 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
-            scene.addWallDecoration(k2, j, 0, l2, k, 512, 0, j1, class38_sub2_sub1_9, byte0, i);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, i1, i, 1, SeqType.animations[locType.animationIndex], j, j1));
+        if (objType == 7) {
+            Model m = loc.getModel(4, 0, currentRegion, northRegion, northEastRegion, southRegion, -1);
+            scene.addWallDecoration(average, z, 0, flag, orientation, 512, 0, x, m, byte0, p);
+            if (loc.animationIndex != -1)
+                locList.pushNext(new LocEntity(true, locType, p, 1, SeqType.animations[loc.animationIndex], z, x));
             return;
         }
-        if (l == 8) {
-            Model class38_sub2_sub1_10 = locType.getModel(4, 0, k1, l1, i2, j2, -1);
-            scene.addWallDecoration(k2, j, 0, l2, k, 768, 0, j1, class38_sub2_sub1_10, byte0, i);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, i1, i, 1, SeqType.animations[locType.animationIndex], j, j1));
+        if (objType == 8) {
+            Model m = loc.getModel(4, 0, currentRegion, northRegion, northEastRegion, southRegion, -1);
+            scene.addWallDecoration(average, z, 0, flag, orientation, 768, 0, x, m, byte0, p);
+            if (loc.animationIndex != -1)
+                locList.pushNext(new LocEntity(true, locType, p, 1, SeqType.animations[loc.animationIndex], z, x));
         }
     }
 

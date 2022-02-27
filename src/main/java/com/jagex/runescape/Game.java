@@ -319,6 +319,8 @@ public class Game extends GameShell {
             NpcEntity npc = npcEntities[nid];
 
             int mask = buffer.readByte();
+
+            // Play animation
             if ((mask & 2) == 2) {
                 int j1 = buffer.readWord();
                 if (j1 == 65535) {
@@ -341,6 +343,7 @@ public class Game extends GameShell {
                 }
             }
 
+            // Face entity
             if ((mask & 4) == 4) {
                 npc.targetEntity = buffer.readWord();
                 if (npc.targetEntity == 65535) {
@@ -348,11 +351,13 @@ public class Game extends GameShell {
                 }
             }
 
+            // Chat
             if ((mask & 8) == 8) {
                 npc.spoken = buffer.readString();
                 npc.textCycle = 100;
             }
 
+            // Combat hit
             if ((mask & 0x10) == 16) {
                 npc.damageTaken = buffer.readByte();
                 npc.damageType = buffer.readByte();
@@ -361,6 +366,7 @@ public class Game extends GameShell {
                 npc.maxHealth = buffer.readByte();
             }
 
+            // Change NPC
             if ((mask & 0x20) == 32) {
                 npc.info = NpcType.get(buffer.readWord());
                 npc.runSeq = npc.info.walkSeq;
@@ -370,6 +376,7 @@ public class Game extends GameShell {
                 npc.standSeq = npc.info.standSeq;
             }
 
+            // Play graphic
             if ((mask & 0x40) == 64) {
                 npc.spotAnimIndex = buffer.readWord();
                 int k1 = buffer.readDWord();
@@ -386,6 +393,7 @@ public class Game extends GameShell {
                 }
             }
 
+            // Focus on tile
             if ((mask & 0x80) == 128) {
                 npc.focusX = buffer.readWord();
                 npc.focusY = buffer.readWord();
@@ -886,11 +894,11 @@ public class Game extends GameShell {
 
             String name;
             int crc;
-            int len;
+            int totalSize;
             synchronized (midiSync) {
                 name = midiSyncName;
                 crc = midiSyncCrc;
-                len = midiSyncLen;
+                totalSize = midiSyncLen;
                 midiSyncName = null;
                 midiSyncCrc = 0;
                 midiSyncLen = 0;
@@ -910,22 +918,22 @@ public class Game extends GameShell {
 
                 if (src == null) {
                     try {
-                        DataInputStream datainputstream = openStream("songs/" + name + "_" + crc + ".mid");
-                        src = new byte[len];
-                        int j1;
-                        for (int i1 = 0; i1 < len; i1 += j1) {
-                            j1 = datainputstream.read(src, i1, len - i1);
-                            if (j1 != -1)
+                        DataInputStream dis = openStream("songs/" + name + "_" + crc + ".mid");
+                        src = new byte[totalSize];
+                        int bytesRead;
+                        for (int size = 0; size < totalSize; size += bytesRead) {
+                            bytesRead = dis.read(src, size, totalSize - size);
+                            if (bytesRead != -1) {
                                 continue;
-                            byte[] abyte2 = new byte[i1];
-                            System.arraycopy(src, 0, abyte2, 0, i1);
-
-                            src = abyte2;
-                            len = i1;
+                            }
+                            byte[] dest = new byte[size];
+                            System.arraycopy(src, 0, dest, 0, size);
+                            src = dest;
+                            totalSize = size;
                             break;
                         }
 
-                        datainputstream.close();
+                        dis.close();
                         Signlink.cachesave(name + ".mid", src);
                     } catch (Exception _ex) {
                     }
@@ -937,7 +945,7 @@ public class Game extends GameShell {
 
                 int length = (new Buffer(src)).readDWord();
                 byte[] decompressed = new byte[length];
-                BZip2InputStream.read(decompressed, length, src, len, 4);
+                BZip2InputStream.read(decompressed, length, src, totalSize, 4);
                 midisave(decompressed, length, true);
             }
         }
@@ -1712,7 +1720,6 @@ public class Game extends GameShell {
                 if (super.mouseButton == 1 && super.clickX >= i1 - 75 && super.clickX <= i1 + 75
                     && super.clickY >= k1 - 20 && super.clickY <= k1 + 20) {
                     titleState = 0;
-                    username = "";
                     password = "";
                 }
 
@@ -1769,7 +1776,6 @@ public class Game extends GameShell {
             crc32.update(data);
             int realCrc = (int) crc32.getValue();
             if (realCrc != expectedCrc) {
-                System.out.println(realCrc + " " + expectedCrc);
                 data = null;
             }
         }
@@ -2284,11 +2290,11 @@ public class Game extends GameShell {
         updateLocalNpcs(buffer, size);
         updateNpcMasks(buffer);
 
-        for (int j = 0; j < deadEntityCount; j++) {
-            int k = deadEntityIndices[j];
-            if (npcEntities[k].remove != clientClock) {
-                npcEntities[k].info = null;
-                npcEntities[k] = null;
+        for (int n = 0; n < deadEntityCount; n++) {
+            int id = deadEntityIndices[n];
+            if (npcEntities[id].removeTimer != clientClock) {
+                npcEntities[id].info = null;
+                npcEntities[id] = null;
             }
         }
 
@@ -2403,19 +2409,19 @@ public class Game extends GameShell {
             int index = playerIndices[n];
             PlayerEntity p = playerEntities[index];
 
-            int shouldRemove = buffer.getBits(1);
-            if (shouldRemove == 0) {
+            int keepPlayer = buffer.getBits(1);
+            if (keepPlayer == 0) {
                 playerIndices[playerCount++] = index;
-                p.remove = clientClock;
+                p.removeTimer = clientClock;
             } else {
                 int type = buffer.getBits(2);
                 if (type == 0) {
                     playerIndices[playerCount++] = index;
-                    p.remove = clientClock;
+                    p.removeTimer = clientClock;
                     entityUpdateIndices[updateCount++] = index;
                 } else if (type == 1) {
                     playerIndices[playerCount++] = index;
-                    p.remove = clientClock;
+                    p.removeTimer = clientClock;
                     int j2 = buffer.getBits(3);
                     p.walk(false, j2);
                     int l2 = buffer.getBits(1);
@@ -2424,7 +2430,7 @@ public class Game extends GameShell {
                     }
                 } else if (type == 2) {
                     playerIndices[playerCount++] = index;
-                    p.remove = clientClock;
+                    p.removeTimer = clientClock;
                     int k2 = buffer.getBits(3);
                     p.walk(true, k2);
                     int i3 = buffer.getBits(3);
@@ -2630,7 +2636,7 @@ public class Game extends GameShell {
 
             playerIndices[playerCount++] = pid;
             PlayerEntity p = playerEntities[pid];
-            p.remove = clientClock;
+            p.removeTimer = clientClock;
 
             int x = buffer.getBits(5);
             if (x > 15) {
@@ -2663,7 +2669,6 @@ public class Game extends GameShell {
         stream = null;
         ingame = false;
         titleState = 0;
-        username = "";
         password = "";
         InputTracking.setDisabled();
         clearCaches();
@@ -2675,7 +2680,7 @@ public class Game extends GameShell {
         midistop();
         currentMidi = null;
         nextMusicDelay = 0;
-        if (!lowMemory) {
+        if (!lowMemory && midiActive) {
             setMidi(12345678, "scape_main", 40000);
         }
     }
@@ -2906,53 +2911,53 @@ public class Game extends GameShell {
         for (int j = 0; j < updateCount; j++) {
             int k = entityUpdateIndices[j];
             PlayerEntity player = playerEntities[k];
-            int l = buffer.readByte();
-            if ((l & 0x80) == 128) {
-                l += buffer.readByte() << 8;
+            int type = buffer.readByte();
+            if ((type & 0x80) == 0x80) {
+                type += buffer.readByte() << 8;
             }
-            updatePlayerMask(k, l, buffer, player);
+            updatePlayerMask(k, type, buffer, player);
         }
     }
 
     public void updateVarp(int i) {
-        int k = VarpType.instances[i].type;
-        if (k == 0)
+        int varpType = VarpType.instances[i].type;
+        if (varpType == 0)
             return;
-        int l = variables[i];
-        if (k == 1) {
-            if (l == 1)
+        int varp = variables[i];
+        if (varpType == 1) {
+            if (varp == 1)
                 Draw3D.setBrightness(0.90000000000000002D);
-            if (l == 2)
+            if (varp == 2)
                 Draw3D.setBrightness(0.80000000000000004D);
-            if (l == 3)
+            if (varp == 3)
                 Draw3D.setBrightness(0.69999999999999996D);
-            if (l == 4)
+            if (varp == 4)
                 Draw3D.setBrightness(0.59999999999999998D);
             ObjType.iconCache.clear();
             redrawTitleBackground = true;
         }
-        if (k == 3) {
-            boolean flag = midiActive;
-            if (l == 0) {
+        if (varpType == 3) {
+            boolean lastActive = midiActive;
+            if (varp == 0) {
                 midivol(256, midiActive);
                 midiActive = true;
             }
-            if (l == 1) {
+            if (varp == 1) {
                 midivol(192, midiActive);
                 midiActive = true;
             }
-            if (l == 2) {
+            if (varp == 2) {
                 midivol(96, midiActive);
                 midiActive = true;
             }
-            if (l == 3) {
+            if (varp == 3) {
                 midivol(32, midiActive);
                 midiActive = true;
             }
-            if (l == 4) {
+            if (varp == 4) {
                 midiActive = false;
             }
-            if (midiActive != flag) {
+            if (midiActive != lastActive) {
                 if (midiActive) {
                     setMidi(midiCrc, currentMidi, midiSize);
                 } else {
@@ -2961,32 +2966,32 @@ public class Game extends GameShell {
                 nextMusicDelay = 0;
             }
         }
-        if (k == 4) {
-            if (l == 0) {
+        if (varpType == 4) {
+            if (varp == 0) {
                 effectsEnabled = true;
                 wavevol(0);
             }
-            if (l == 1) {
+            if (varp == 1) {
                 effectsEnabled = true;
                 wavevol(-400);
             }
-            if (l == 2) {
+            if (varp == 2) {
                 effectsEnabled = true;
                 wavevol(-800);
             }
-            if (l == 3) {
+            if (varp == 3) {
                 effectsEnabled = true;
                 wavevol(-1200);
             }
-            if (l == 4)
+            if (varp == 4)
                 effectsEnabled = false;
         }
-        if (k == 5)
-            button = l;
-        if (k == 6)
-            chatEffects = l;
-        if (k == 8) {
-            splitPrivateChat = l;
+        if (varpType == 5)
+            button = varp;
+        if (varpType == 6)
+            chatEffects = varp;
+        if (varpType == 8) {
+            splitPrivateChat = varp;
             redrawChatback = true;
         }
     }
@@ -3190,12 +3195,12 @@ public class Game extends GameShell {
                     pathingEntity.dstYaw = (int) (Math.atan2(k1, l1) * 325.94900000000001D) & 0x7ff;
             }
         }
-        if ((pathingEntity.focusX != 0 || pathingEntity.focusY != 0)
-            && (pathingEntity.pathRemaining == 0 || pathingEntity.anInt1431 > 0)) {
-            int j = pathingEntity.x - (pathingEntity.focusX - baseTileX - baseTileX) * 64;
-            int i1 = pathingEntity.z - (pathingEntity.focusY - baseTileZ - baseTileZ) * 64;
-            if (j != 0 || i1 != 0)
-                pathingEntity.dstYaw = (int) (Math.atan2(j, i1) * 325.94900000000001D) & 0x7ff;
+        if ((pathingEntity.focusX != 0 || pathingEntity.focusY != 0) && (pathingEntity.pathRemaining == 0 || pathingEntity.anInt1431 > 0)) {
+            int targetX = pathingEntity.x - (pathingEntity.focusX - baseTileX - baseTileX) * 64;
+            int targetZ = pathingEntity.z - (pathingEntity.focusY - baseTileZ - baseTileZ) * 64;
+            if (targetX != 0 || targetZ != 0) {
+                pathingEntity.dstYaw = (int) (Math.atan2(targetX, targetZ) * 325.94900000000001D) & 0x7ff;
+            }
             pathingEntity.focusX = 0;
             pathingEntity.focusY = 0;
         }
@@ -4304,24 +4309,24 @@ public class Game extends GameShell {
         Signlink.wavevol = i;
     }
 
-    public void updateLocalNpcs(Buffer buffer, int i) {
+    public void updateLocalNpcs(Buffer buffer, int size) {
         do {
-            if (buffer.bitOffset + 21 >= i * 8) {
+            if (buffer.bitOffset + 21 >= size * 8) {
                 break;
             }
 
-            int j = buffer.getBits(13);
-            if (j == 8191) {
+            int nid = buffer.getBits(13);
+            if (nid == 8191) {
                 break;
             }
 
-            if (npcEntities[j] == null) {
-                npcEntities[j] = new NpcEntity();
+            if (npcEntities[nid] == null) {
+                npcEntities[nid] = new NpcEntity();
             }
 
-            NpcEntity npc = npcEntities[j];
-            npcIndices[npcCount++] = j;
-            npc.remove = clientClock;
+            NpcEntity npc = npcEntities[nid];
+            npcIndices[npcCount++] = nid;
+            npc.removeTimer = clientClock;
             npc.info = NpcType.get(buffer.getBits(11));
             npc.index = npc.info.size;
             npc.runSeq = npc.info.walkSeq;
@@ -4344,7 +4349,7 @@ public class Game extends GameShell {
 
             int hasUpdate = buffer.getBits(1);
             if (hasUpdate == 1) {
-                entityUpdateIndices[updateCount++] = j;
+                entityUpdateIndices[updateCount++] = nid;
             }
         } while (true);
 
@@ -6372,14 +6377,14 @@ public class Game extends GameShell {
         deadEntityCount = 0;
         updateCount = 0;
 
-        updateLocalPlayers(buffer);
+        updateLocalPlayer(buffer);
         updateOtherPlayers(buffer);
         updateNewPlayers(size, buffer);
         updatePlayerMasks(buffer);
 
         for (int n = 0; n < deadEntityCount; n++) {
             int l = deadEntityIndices[n];
-            if (playerEntities[l].remove != clientClock) {
+            if (playerEntities[l].removeTimer != clientClock) {
                 playerEntities[l] = null;
             }
         }
@@ -6437,9 +6442,9 @@ public class Game extends GameShell {
         return flag;
     }
 
-    public void addMessage(int i, String s, String s1) {
-        if (i == 0 && stickyChatbackComponentId != -1) {
-            chatbackMessage = s;
+    public void addMessage(int type, String message, String prefix) {
+        if (type == 0 && stickyChatbackComponentId != -1) {
+            chatbackMessage = message;
             super.mouseButton = 0;
         }
 
@@ -6453,9 +6458,9 @@ public class Game extends GameShell {
             chatMessage[j] = chatMessage[j - 1];
         }
 
-        chatMessageType[0] = i;
-        chatMessagePrefix[0] = s1;
-        chatMessage[0] = s;
+        chatMessageType[0] = type;
+        chatMessagePrefix[0] = prefix;
+        chatMessage[0] = message;
     }
 
     public void resetParentComponentSeq(int j) {
@@ -6853,8 +6858,8 @@ public class Game extends GameShell {
 
         int count = buffer.getBits(8);
         if (count < npcCount) {
-            for (int l = count; l < npcCount; l++) {
-                deadEntityIndices[deadEntityCount++] = npcIndices[l];
+            for (int n = count; n < npcCount; n++) {
+                deadEntityIndices[deadEntityCount++] = npcIndices[n];
             }
         }
 
@@ -6868,34 +6873,34 @@ public class Game extends GameShell {
             int nid = npcIndices[n];
             NpcEntity npc = npcEntities[nid];
 
-            int shouldRemove = buffer.getBits(1);
-            if (shouldRemove == 0) {
+            int hasUpdate = buffer.getBits(1);
+            if (hasUpdate == 0) {
                 npcIndices[npcCount++] = nid;
-                npc.remove = clientClock;
+                npc.removeTimer = clientClock;
             } else {
                 int type = buffer.getBits(2);
                 if (type == 0) {
                     npcIndices[npcCount++] = nid;
-                    npc.remove = clientClock;
+                    npc.removeTimer = clientClock;
                     entityUpdateIndices[updateCount++] = nid;
                 } else if (type == 1) {
                     npcIndices[npcCount++] = nid;
-                    npc.remove = clientClock;
-                    int i2 = buffer.getBits(3);
-                    npc.walk(false, i2);
-                    int k2 = buffer.getBits(1);
-                    if (k2 == 1) {
+                    npc.removeTimer = clientClock;
+                    int dir1 = buffer.getBits(3);
+                    npc.walk(false, dir1);
+                    int maskUpdate = buffer.getBits(1);
+                    if (maskUpdate == 1) {
                         entityUpdateIndices[updateCount++] = nid;
                     }
                 } else if (type == 2) {
                     npcIndices[npcCount++] = nid;
-                    npc.remove = clientClock;
-                    int j2 = buffer.getBits(3);
-                    npc.walk(true, j2);
-                    int l2 = buffer.getBits(3);
-                    npc.walk(true, l2);
-                    int i3 = buffer.getBits(1);
-                    if (i3 == 1) {
+                    npc.removeTimer = clientClock;
+                    int dir1 = buffer.getBits(3);
+                    npc.walk(true, dir1);
+                    int dir2 = buffer.getBits(3);
+                    npc.walk(true, dir2);
+                    int makeUpdate = buffer.getBits(1);
+                    if (makeUpdate == 1) {
                         entityUpdateIndices[updateCount++] = nid;
                     }
                 } else if (type == 3) {
@@ -7668,7 +7673,7 @@ public class Game extends GameShell {
         }
     }
 
-    public void updateLocalPlayers(Buffer buffer) {
+    public void updateLocalPlayer(Buffer buffer) {
         buffer.accessBits();
 
         int hasUpdate = buffer.getBits(1);
@@ -7871,12 +7876,12 @@ public class Game extends GameShell {
                 return true;
             }
             if (packetOpcode == Packet.INTERFACE_SETTING_BYTE) {
-                int j = inBuffer.readWord();
-                byte byte0 = inBuffer.readByteSigned();
-                defaultVariables[j] = byte0;
-                if (variables[j] != byte0) {
-                    variables[j] = byte0;
-                    updateVarp(j);
+                int variable = inBuffer.readWord();
+                byte state = inBuffer.readByteSigned();
+                defaultVariables[variable] = state;
+                if (variables[variable] != state) {
+                    variables[variable] = state;
+                    updateVarp(variable);
                     sidebarRedraw = true;
                     if (stickyChatbackComponentId != -1)
                         redrawChatback = true;
@@ -8247,12 +8252,12 @@ public class Game extends GameShell {
                 return true;
             }
             if (packetOpcode == Packet.INTERFACE_SETTING_DWORD) {
-                int i2 = inBuffer.readWord();
-                int j11 = inBuffer.readDWord();
-                defaultVariables[i2] = j11;
-                if (variables[i2] != j11) {
-                    variables[i2] = j11;
-                    updateVarp(i2);
+                int variable = inBuffer.readWord();
+                int value = inBuffer.readDWord();
+                defaultVariables[variable] = value;
+                if (variables[variable] != value) {
+                    variables[variable] = value;
+                    updateVarp(variable);
                     sidebarRedraw = true;
                     if (stickyChatbackComponentId != -1) {
                         redrawChatback = true;
@@ -8628,7 +8633,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == Packet.PLAYER_WEIGHT) {
+            if (packetOpcode == Packet.PLAYER_ENERGY) {
                 if (selectedTab == 12)
                     sidebarRedraw = true;
                 energy = inBuffer.readByte();
@@ -8735,12 +8740,12 @@ public class Game extends GameShell {
                 return true;
             }
             if (packetOpcode == Packet.INTERFACE_COLOR) {
-                int k7 = inBuffer.readWord();
-                int i15 = inBuffer.readWord();
-                int j20 = i15 >> 10 & 0x1f;
-                int l23 = i15 >> 5 & 0x1f;
-                int k26 = i15 & 0x1f;
-                InterfaceComponent.instances[k7].color = (j20 << 19) + (l23 << 11) + (k26 << 3);
+                int id = inBuffer.readWord();
+                int color = inBuffer.readWord();
+                int r = color >> 10 & 0x1f;
+                int g = color >> 5 & 0x1f;
+                int b = color & 0x1f;
+                InterfaceComponent.instances[id].color = (r << 19) + (g << 11) + (b << 3);
                 packetOpcode = -1;
                 return true;
             }
@@ -8799,9 +8804,9 @@ public class Game extends GameShell {
                 return true;
             }
             if (packetOpcode == Packet.INTERFACE_TEXT) {
-                int l8 = inBuffer.readWord();
-                InterfaceComponent.instances[l8].text = inBuffer.readString();
-                if (InterfaceComponent.instances[l8].parent == tabComponentId[selectedTab]) {
+                int id = inBuffer.readWord();
+                InterfaceComponent.instances[id].text = inBuffer.readString();
+                if (InterfaceComponent.instances[id].parent == tabComponentId[selectedTab]) {
                     sidebarRedraw = true;
                 }
                 packetOpcode = -1;
@@ -8834,7 +8839,7 @@ public class Game extends GameShell {
                 packetOpcode = -1;
                 return true;
             }
-            if (packetOpcode == Packet.PLAYER_ENERGY) {
+            if (packetOpcode == Packet.PLAYER_WEIGHT) {
                 if (selectedTab == 12)
                     sidebarRedraw = true;
                 weightCarried = inBuffer.readWordSigned();
@@ -8900,13 +8905,13 @@ public class Game extends GameShell {
         } catch (IOException _ex) {
             reconnect();
         } catch (Exception exception) {
+            exception.printStackTrace();
             String s2 = "T2 - " + packetOpcode + "," + secondMostRecentOpcode + "," + thirdMostRecentOpcode + " - " + packetLength + ","
                 + (baseTileX + self.pathTileX[0]) + ","
                 + (baseTileZ + self.pathTileZ[0]) + " - ";
             for (int i16 = 0; i16 < packetLength && i16 < 50; i16++) {
                 s2 = s2 + inBuffer.data[i16] + ",";
             }
-            exception.printStackTrace();
 
             Signlink.reporterror(s2);
             disconnect();
@@ -8954,7 +8959,8 @@ public class Game extends GameShell {
     }
 
     public void updatePlayerMask(int i, int mask, Buffer b, PlayerEntity p) {
-        if ((mask & 1) == 1) {
+        // update appearance
+        if ((mask & 1) == 0x1) {
             int k = b.readByte();
             byte[] data = new byte[k];
             Buffer buffer = new Buffer(data);
@@ -8963,31 +8969,34 @@ public class Game extends GameShell {
             p.read(buffer);
         }
 
-        if ((mask & 2) == 2) {
-            int l = b.readWord();
-            if (l == 65535)
-                l = -1;
-            if (l == p.primarySeq)
+        // play animation
+        if ((mask & 2) == 0x2) {
+            int anim = b.readWord();
+            if (anim == 65535) {
+                anim = -1;
+            }
+            if (anim == p.primarySeq) {
                 p.primarySeqPlays = 0;
-            int k1 = b.readByte();
-            if (l == -1 || p.primarySeq == -1
-                || SeqType.animations[l].priority > SeqType.animations[p.primarySeq].priority
-                || SeqType.animations[p.primarySeq].priority == 0) {
-                p.primarySeq = l;
+            }
+            int delay = b.readByte();
+            if (anim == -1 || p.primarySeq == -1 || SeqType.animations[anim].priority > SeqType.animations[p.primarySeq].priority || SeqType.animations[p.primarySeq].priority == 0) {
+                p.primarySeq = anim;
                 p.primarySeqFrame = 0;
                 p.primarySeqCycle = 0;
-                p.primarySeqDelay = k1;
+                p.primarySeqDelay = delay;
                 p.primarySeqPlays = 0;
             }
         }
 
-        if ((mask & 4) == 4) {
+        // face entity
+        if ((mask & 4) == 0x4) {
             p.targetEntity = b.readWord();
             if (p.targetEntity == 65535) {
                 p.targetEntity = -1;
             }
         }
 
+        // forced chat
         if ((mask & 8) == 0x8) {
             p.spoken = b.readString();
             p.spokenColor = 0;
@@ -8996,6 +9005,7 @@ public class Game extends GameShell {
             addMessage(2, p.spoken, p.name);
         }
 
+        // combat hit
         if ((mask & 0x10) == 0x10) {
             p.damageTaken = b.readByte();
             p.damageType = b.readByte();
@@ -9004,60 +9014,68 @@ public class Game extends GameShell {
             p.maxHealth = b.readByte();
         }
 
+        // face tile
         if ((mask & 0x20) == 0x20) {
             p.focusX = b.readWord();
             p.focusY = b.readWord();
         }
 
+        // chat
         if ((mask & 0x40) == 0x40) {
-            int i1 = b.readWord();
-            int l1 = b.readByte();
-            int i2 = b.readByte();
-            int j2 = b.offset;
+            int info = b.readWord();
+            int type = b.readByte();
+            int length = b.readByte();
+            int offset = b.offset;
             if (p.name != null) {
-                long l2 = StringUtils.toBase37(p.name);
+                long name37 = StringUtils.toBase37(p.name);
                 boolean ignore = false;
-                if (l1 <= 1) {
-                    for (int k2 = 0; k2 < ignoreCount; k2++) {
-                        if (ignoreName37[k2] != l2)
+                if (type <= 1) {
+                    for (int n = 0; n < ignoreCount; n++) {
+                        if (ignoreName37[n] != name37) {
                             continue;
+                        }
                         ignore = true;
                         break;
                     }
-
                 }
                 if (!ignore && tutorialIslandState == 0)
                     try {
-                        String s = TextEncoder.read(b, i2);
+                        String s = TextEncoder.read(b, length);
                         s = WordEncoding.getFiltered(s);
                         p.spoken = s;
-                        p.spokenColor = i1 >> 8;
-                        p.spokenEffect = i1 & 0xff;
+                        p.spokenColor = info >> 8;
+                        p.spokenEffect = info & 0xff;
                         p.textCycle = 150;
-                        if (l1 > 1)
+                        if (type > 1) {
                             addMessage(1, s, p.name);
-                        else
+                        } else {
                             addMessage(2, s, p.name);
+                        }
                     } catch (Exception exception) {
                         Signlink.reporterror("cde2");
                     }
             }
-            b.offset = j2 + i2;
+            b.offset = offset + length;
         }
 
+        // play graphic
         if ((mask & 0x100) == 0x100) {
             p.spotAnimIndex = b.readWord();
-            int j1 = b.readDWord();
-            p.spotAnimOffsetY = j1 >> 16;
-            p.lastSpotAnimCycle = clientClock + (j1 & 0xffff);
+            int delay = b.readWord();
+            int height = b.readWord();
+            p.spotAnimOffsetY = height >> 16;
+            p.lastSpotAnimCycle = clientClock + (delay & 0xffff);
             p.spotAnimFrame = 0;
             p.spotAnimCycle = 0;
-            if (p.lastSpotAnimCycle > clientClock)
+            if (p.lastSpotAnimCycle > clientClock) {
                 p.spotAnimFrame = -1;
-            if (p.spotAnimIndex == 65535)
+            }
+            if (p.spotAnimIndex == 65535) {
                 p.spotAnimIndex = -1;
+            }
         }
 
+        // forced movement
         if ((mask & 0x200) == 0x200) {
             p.srcTileX = b.readByte();
             p.srcTileY = b.readByte();
@@ -9149,7 +9167,8 @@ public class Game extends GameShell {
             Signlink.startpriv(InetAddress.getLocalHost());
             instance = new Game();
             instance.initFrame(532, 789, "Revision 225");
-        } catch (Exception exception) {
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
