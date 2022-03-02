@@ -26,7 +26,7 @@ public class GameShell extends JApplet implements Runnable, MouseListener, Mouse
         gameHeight = height;
         setSize(gameWidth, gameHeight);
         setPreferredSize(getSize());
-        frame = new GameFrame(this, title, navbar);
+        frame = new GameFrame(this, title);
         graphics = getBaseComponent().getGraphics();
         drawArea = new DrawArea(getBaseComponent(), gameWidth, gameHeight);
         startThread(this, 1);
