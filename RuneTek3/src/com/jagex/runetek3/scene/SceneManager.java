@@ -1,16 +1,16 @@
 package com.jagex.runetek3.scene;
 
-import com.jagex.runetek3.formats.FloType;
+import com.jagex.runetek3.formats.FloorType;
 import com.jagex.runetek3.formats.LocType;
-import com.jagex.runetek3.formats.Model;
-import com.jagex.runetek3.formats.SeqType;
+import com.jagex.runetek3.graphics.Model;
+import com.jagex.runetek3.graphics.SeqType;
 import com.jagex.runetek3.graphics.Draw3D;
 import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.util.LinkedList;
 
-public class SceneBuilder {
+public class SceneManager {
 
-    public SceneBuilder(int sizeY, byte[][][] renderFlags, int sizeX, int[][][] heightmap) {
+    public SceneManager(int sizeY, byte[][][] renderFlags, int sizeX, int[][][] heightmap) {
         tileCountX = sizeX;
         tileCountZ = sizeY;
         this.heightmap = heightmap;
@@ -31,8 +31,8 @@ public class SceneBuilder {
 
     public void clearLandscape(int i, int j, int l, int i1) {
         byte byte0 = 0;
-        for (int j1 = 0; j1 < FloType.count; j1++) {
-            if (!FloType.instances[j1].name.equalsIgnoreCase("water")) {
+        for (int j1 = 0; j1 < FloorType.count; j1++) {
+            if (!FloorType.instances[j1].name.equalsIgnoreCase("water")) {
                 continue;
             }
             byte0 = (byte) (j1 + 1);
@@ -109,7 +109,7 @@ public class SceneBuilder {
         }
     }
 
-    public void readLocs(byte[] src, Scene scene, CollisionMap[] collisionMaps, LinkedList linkedList, int startZ, int startX) {
+    public void readLocs(byte[] src, MapSquare mapSquare, CollisionMap[] collisionMaps, LinkedList linkedList, int startZ, int startX) {
         Buffer b = new Buffer(src);
         int locType = -1;
         do {
@@ -146,13 +146,13 @@ public class SceneBuilder {
                     if (plane >= 0) {
                         collisionMap = collisionMaps[plane];
                     }
-                    addLoc(collisionMap, p, z, orientation, objType, scene, linkedList, locType, x);
+                    addLoc(collisionMap, p, z, orientation, objType, mapSquare, linkedList, locType, x);
                 }
             } while (true);
         } while (true);
     }
 
-    public void addLoc(CollisionMap collisionMap, int p, int z, int orientation, int objType, Scene scene,
+    public void addLoc(CollisionMap collisionMap, int p, int z, int orientation, int objType, MapSquare mapSquare,
                        LinkedList locList, int locType, int x) {
         if (lowMemory) {
             if ((renderFlags[p][x][z] & 0x10) != 0) {
@@ -184,7 +184,7 @@ public class SceneBuilder {
             if (lowMemory && !loc.interactable && !loc.aBoolean73)
                 return;
             Model m = loc.getModel(22, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            scene.addGroundDecoration(m, x, flag, z, p, byte0, average);
+            mapSquare.addGroundDecoration(m, x, flag, z, p, byte0, average);
             if (loc.hasCollision && loc.interactable && collisionMap != null)
                 collisionMap.setBlocked(z, x);
             if (loc.animationIndex != -1)
@@ -206,7 +206,7 @@ public class SceneBuilder {
                     k3 = loc.sizeX;
                     i4 = loc.sizeZ;
                 }
-                if (scene.addLocation(average, p, null, flag, z, x, k3, byte0, m, j4, i4)
+                if (mapSquare.addLocation(average, p, null, flag, z, x, k3, byte0, m, j4, i4)
                     && loc.hasShadow) {
                     for (int k4 = 0; k4 <= k3; k4++) {
                         for (int l4 = 0; l4 <= i4; l4++) {
@@ -227,7 +227,7 @@ public class SceneBuilder {
         }
         if (objType >= 12) {
             Model m = loc.getModel(objType, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            scene.addLocation(average, p, null, flag, z, x, 1, byte0, m, 0, 1);
+            mapSquare.addLocation(average, p, null, flag, z, x, 1, byte0, m, 0, 1);
             if (objType <= 17 && objType != 13 && p > 0)
                 occludeFlags[p][x][z] |= 0x924;
             if (loc.hasCollision && collisionMap != null)
@@ -238,7 +238,7 @@ public class SceneBuilder {
         }
         if (objType == 0) {
             Model m = loc.getModel(0, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            scene.addWall(0, average, p, WALL_ROTATION_TYPE1[orientation], m, null, x, flag, z, byte0);
+            mapSquare.addWall(0, average, p, WALL_ROTATION_TYPE1[orientation], m, null, x, flag, z, byte0);
             if (orientation == 0) {
                 if (loc.hasShadow) {
                     shadowmap[p][x][z] = 50;
@@ -279,13 +279,13 @@ public class SceneBuilder {
                 locList.pushNext(new LocEntity(true, locType, p, 0, SeqType.instances[loc.animationIndex], z, x));
             }
             if (loc.thickness != 16) {
-                scene.method298(p, z, x, loc.thickness);
+                mapSquare.method298(p, z, x, loc.thickness);
             }
             return;
         }
         if (objType == 1) {
             Model m = loc.getModel(1, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            scene.addWall(0, average, p, WALL_ROTATION_TYPE2[orientation], m, null, x, flag, z, byte0);
+            mapSquare.addWall(0, average, p, WALL_ROTATION_TYPE2[orientation], m, null, x, flag, z, byte0);
             if (loc.hasShadow)
                 if (orientation == 0)
                     shadowmap[p][x][z + 1] = 50;
@@ -305,7 +305,7 @@ public class SceneBuilder {
             int i3 = orientation + 1 & 3;
             Model m1 = loc.getModel(2, 4 + orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
             Model m2 = loc.getModel(2, i3, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            scene.addWall(WALL_ROTATION_TYPE1[i3], average, p, WALL_ROTATION_TYPE1[orientation], m1, m2,
+            mapSquare.addWall(WALL_ROTATION_TYPE1[i3], average, p, WALL_ROTATION_TYPE1[orientation], m1, m2,
                 x, flag, z, byte0);
             if (loc.culls)
                 if (orientation == 0) {
@@ -326,12 +326,12 @@ public class SceneBuilder {
             if (loc.animationIndex != -1)
                 locList.pushNext(new LocEntity(true, locType, p, 0, SeqType.instances[loc.animationIndex], z, x));
             if (loc.thickness != 16)
-                scene.method298(p, z, x, loc.thickness);
+                mapSquare.method298(p, z, x, loc.thickness);
             return;
         }
         if (objType == 3) {
             Model m = loc.getModel(3, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            scene.addWall(0, average, p, WALL_ROTATION_TYPE2[orientation], m, null, x, flag, z, byte0);
+            mapSquare.addWall(0, average, p, WALL_ROTATION_TYPE2[orientation], m, null, x, flag, z, byte0);
             if (loc.hasShadow)
                 if (orientation == 0)
                     shadowmap[p][x][z + 1] = 50;
@@ -349,7 +349,7 @@ public class SceneBuilder {
         }
         if (objType == 9) {
             Model m = loc.getModel(objType, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            scene.addLocation(average, p, null, flag, z, x, 1, byte0, m, 0, 1);
+            mapSquare.addLocation(average, p, null, flag, z, x, 1, byte0, m, 0, 1);
             if (loc.hasCollision && collisionMap != null)
                 collisionMap.setLoc(orientation, loc.sizeZ, loc.sizeX, x, z, loc.isSolid);
             if (loc.animationIndex != -1)
@@ -358,18 +358,18 @@ public class SceneBuilder {
         }
         if (objType == 4) {
             Model m = loc.getModel(4, 0, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            scene.addWallDecoration(average, z, 0, flag, orientation * 512, WALL_ROTATION_TYPE1[orientation], 0, x, m, byte0, p);
+            mapSquare.addWallDecoration(average, z, 0, flag, orientation * 512, WALL_ROTATION_TYPE1[orientation], 0, x, m, byte0, p);
             if (loc.animationIndex != -1)
                 locList.pushNext(new LocEntity(true, locType, p, 1, SeqType.instances[loc.animationIndex], z, x));
             return;
         }
         if (objType == 5) {
             int j3 = 16;
-            int l3 = scene.getWallBitset(p, x, z);
+            int l3 = mapSquare.getWallBitset(p, x, z);
             if (l3 > 0)
                 j3 = LocType.get(l3 >> 14 & 0x7fff).thickness;
             Model m = loc.getModel(4, 0, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            scene.addWallDecoration(average, z, WALL_DECO_ROT_SIZE_Y_DIR[orientation] * j3, flag, orientation * 512, WALL_ROTATION_TYPE1[orientation], WALL_DECO_ROT_SIZE_X_DIR[orientation] * j3,
+            mapSquare.addWallDecoration(average, z, WALL_DECO_ROT_SIZE_Y_DIR[orientation] * j3, flag, orientation * 512, WALL_ROTATION_TYPE1[orientation], WALL_DECO_ROT_SIZE_X_DIR[orientation] * j3,
                 x, m, byte0, p);
             if (loc.animationIndex != -1)
                 locList.pushNext(new LocEntity(true, locType, p, 1, SeqType.instances[loc.animationIndex], z, x));
@@ -377,27 +377,27 @@ public class SceneBuilder {
         }
         if (objType == 6) {
             Model m = loc.getModel(4, 0, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            scene.addWallDecoration(average, z, 0, flag, orientation, 256, 0, x, m, byte0, p);
+            mapSquare.addWallDecoration(average, z, 0, flag, orientation, 256, 0, x, m, byte0, p);
             if (loc.animationIndex != -1)
                 locList.pushNext(new LocEntity(true, locType, p, 1, SeqType.instances[loc.animationIndex], z, x));
             return;
         }
         if (objType == 7) {
             Model m = loc.getModel(4, 0, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            scene.addWallDecoration(average, z, 0, flag, orientation, 512, 0, x, m, byte0, p);
+            mapSquare.addWallDecoration(average, z, 0, flag, orientation, 512, 0, x, m, byte0, p);
             if (loc.animationIndex != -1)
                 locList.pushNext(new LocEntity(true, locType, p, 1, SeqType.instances[loc.animationIndex], z, x));
             return;
         }
         if (objType == 8) {
             Model m = loc.getModel(4, 0, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            scene.addWallDecoration(average, z, 0, flag, orientation, 768, 0, x, m, byte0, p);
+            mapSquare.addWallDecoration(average, z, 0, flag, orientation, 768, 0, x, m, byte0, p);
             if (loc.animationIndex != -1)
                 locList.pushNext(new LocEntity(true, locType, p, 1, SeqType.instances[loc.animationIndex], z, x));
         }
     }
 
-    public void buildLandscape(Scene scene, CollisionMap[] planeCollisions) {
+    public void buildLandscape(MapSquare mapSquare, CollisionMap[] planeCollisions) {
         for (int j = 0; j < 4; j++) {
             for (int k = 0; k < 104; k++) {
                 for (int i1 = 0; i1 < 104; i1++)
@@ -460,11 +460,11 @@ public class SceneBuilder {
                     if (l9 >= 0 && l9 < tileCountX) {
                         int i13 = planeUnderlayFloorIndices[l][l9][j8] & 0xff;
                         if (i13 > 0) {
-                            FloType floType = FloType.instances[i13 - 1];
-                            blendedHue[j8] += floType.blendHue;
-                            blendedSaturation[j8] += floType.saturation;
-                            blendedLightness[j8] += floType.lightness;
-                            blendedHueMultiplier[j8] += floType.hsl16;
+                            FloorType floorType = FloorType.instances[i13 - 1];
+                            blendedHue[j8] += floorType.blendHue;
+                            blendedSaturation[j8] += floorType.saturation;
+                            blendedLightness[j8] += floorType.lightness;
+                            blendedHueMultiplier[j8] += floorType.hsl16;
                             blendDirectionTracker[j8]++;
                         }
                     }
@@ -472,11 +472,11 @@ public class SceneBuilder {
                     if (j13 >= 0 && j13 < tileCountX) {
                         int j14 = planeUnderlayFloorIndices[l][j13][j8] & 0xff;
                         if (j14 > 0) {
-                            FloType floType_1 = FloType.instances[j14 - 1];
-                            blendedHue[j8] -= floType_1.blendHue;
-                            blendedSaturation[j8] -= floType_1.saturation;
-                            blendedLightness[j8] -= floType_1.lightness;
-                            blendedHueMultiplier[j8] -= floType_1.hsl16;
+                            FloorType floorType_1 = FloorType.instances[j14 - 1];
+                            blendedHue[j8] -= floorType_1.blendHue;
+                            blendedSaturation[j8] -= floorType_1.saturation;
+                            blendedLightness[j8] -= floorType_1.lightness;
+                            blendedHueMultiplier[j8] -= floorType_1.hsl16;
                             blendDirectionTracker[j8]--;
                         }
                     }
@@ -539,7 +539,7 @@ public class SceneBuilder {
                                 }
                                 if (l > 0) {
                                     boolean flag = i19 != 0 || planeOverlayTypes[l][i7][l17] == 0;
-                                    if (floType > 0 && !FloType.instances[floType - 1].occlude)
+                                    if (floType > 0 && !FloorType.instances[floType - 1].occlude)
                                         flag = false;
                                     if (flag && k19 == l19 && k19 == i20 && k19 == j20)
                                         occludeFlags[l][i7][l17] |= 0x924;
@@ -548,32 +548,32 @@ public class SceneBuilder {
                                 if (k21 != -1)
                                     j22 = Draw3D.palette[adjustHSLLightness1(l21, 96)];
                                 if (floType == 0) {
-                                    scene.addTile(l, i7, l17, 0, 0, -1, k19, l19, i20, j20, adjustHSLLightness1(k21, k20),
+                                    mapSquare.addTile(l, i7, l17, 0, 0, -1, k19, l19, i20, j20, adjustHSLLightness1(k21, k20),
                                         adjustHSLLightness1(k21, l20), adjustHSLLightness1(k21, i21), adjustHSLLightness1(k21, j21), 0, 0, 0, 0,
                                         j22, 0);
                                 } else {
                                     int l22 = planeOverlayTypes[l][i7][l17] + 1;
                                     byte byte4 = planeOverlayRotations[l][i7][l17];
-                                    if (floType > FloType.count) {
+                                    if (floType > FloorType.count) {
                                         // when loading newer maps, it's possible to have less flotypes defined
-                                        floType = FloType.count;
+                                        floType = FloorType.count;
                                     }
-                                    FloType floType_2 = FloType.instances[floType - 1];
-                                    int j23 = floType_2.textureIndex;
+                                    FloorType floorType_2 = FloorType.instances[floType - 1];
+                                    int j23 = floorType_2.textureIndex;
                                     int k23;
                                     int l23;
                                     if (j23 >= 0) {
                                         l23 = Draw3D.getAverageTextureRGB(j23);
                                         k23 = -1;
-                                    } else if (floType_2.rgb == 0xff00ff) {
+                                    } else if (floorType_2.rgb == 0xff00ff) {
                                         l23 = 0;
                                         k23 = -2;
                                         j23 = -1;
                                     } else {
-                                        k23 = hsl24To16(floType_2.hue, floType_2.saturation, floType_2.lightness);
-                                        l23 = Draw3D.palette[adjustHSLLightness0(floType_2.blendHueMultiplier, 96)];
+                                        k23 = hsl24To16(floorType_2.hue, floorType_2.saturation, floorType_2.lightness);
+                                        l23 = Draw3D.palette[adjustHSLLightness0(floorType_2.blendHueMultiplier, 96)];
                                     }
-                                    scene.addTile(l, i7, l17, l22, byte4, j23, k19, l19, i20, j20,
+                                    mapSquare.addTile(l, i7, l17, l22, byte4, j23, k19, l19, i20, j20,
                                         adjustHSLLightness1(k21, k20), adjustHSLLightness1(k21, l20), adjustHSLLightness1(k21, i21),
                                         adjustHSLLightness1(k21, j21), adjustHSLLightness0(k23, k20), adjustHSLLightness0(k23, l20),
                                         adjustHSLLightness0(k23, i21), adjustHSLLightness0(k23, j21), j22, l23);
@@ -587,20 +587,20 @@ public class SceneBuilder {
 
             for (int k8 = 1; k8 < tileCountZ - 1; k8++) {
                 for (int j10 = 1; j10 < tileCountX - 1; j10++)
-                    scene.setPhysicalLevel(l, j10, k8, getRenderLevel(l, j10, k8));
+                    mapSquare.setPhysicalLevel(l, j10, k8, getRenderLevel(l, j10, k8));
 
             }
 
         }
 
         if (!occlusionEnabled) {
-            scene.applyLighting(-10, 64, -50, 768, -50);
+            mapSquare.applyLighting(-10, 64, -50, 768, -50);
         }
 
         for (int k1 = 0; k1 < tileCountX; k1++) {
             for (int i2 = 0; i2 < tileCountZ; i2++) {
                 if ((renderFlags[1][k1][i2] & 2) == 2) {
-                    scene.setBridge(i2, k1);
+                    mapSquare.setBridge(i2, k1);
                 }
             }
         }
@@ -651,7 +651,7 @@ public class SceneBuilder {
                                 char c1 = '\360';
                                 int l14 = heightmap[l8][j4][l4] - c1;
                                 int i16 = heightmap[j7][j4][l4];
-                                Scene.addOcclude(i6 * 128 + 128, j4 * 128, i16, 1, j4 * 128, i3, l14, l4 * 128);
+                                MapSquare.addOcclude(i6 * 128 + 128, j4 * 128, i16, 1, j4 * 128, i3, l14, l4 * 128);
                                 for (int i17 = j7; i17 <= l8; i17++) {
                                     for (int i18 = l4; i18 <= i6; i18++)
                                         occludeFlags[i17][j4][i18] &= ~j2;
@@ -690,7 +690,7 @@ public class SceneBuilder {
                                 char c2 = '\360';
                                 int i15 = heightmap[i9][i5][l3] - c2;
                                 int j16 = heightmap[k7][i5][l3];
-                                Scene.addOcclude(l3 * 128, i5 * 128, j16, 2, j6 * 128 + 128, i3, i15, l3 * 128);
+                                MapSquare.addOcclude(l3 * 128, i5 * 128, j16, 2, j6 * 128 + 128, i3, i15, l3 * 128);
                                 for (int j17 = k7; j17 <= i9; j17++) {
                                     for (int j18 = i5; j18 <= j6; j18++)
                                         occludeFlags[j17][j18][l3] &= ~k2;
@@ -726,7 +726,7 @@ public class SceneBuilder {
 
                             if (((k6 - j5) + 1) * ((j9 - l7) + 1) >= 4) {
                                 int k12 = heightmap[j3][j5][l7];
-                                Scene.addOcclude(j9 * 128 + 128, j5 * 128, k12, 4, k6 * 128 + 128, i3, k12,
+                                MapSquare.addOcclude(j9 * 128 + 128, j5 * 128, k12, 4, k6 * 128 + 128, i3, k12,
                                     l7 * 128);
                                 for (int l13 = j5; l13 <= k6; l13++) {
                                     for (int j15 = l7; j15 <= j9; j15++)
@@ -843,7 +843,7 @@ public class SceneBuilder {
     }
 
     public static void addLoc(int i, LinkedList linkedList, CollisionMap collisionMap, int j, int k, int[][][] ai, int i1,
-                              int j1, int k1, Scene scene, int l1) {
+                              int j1, int k1, MapSquare mapSquare, int l1) {
         int i2 = ai[l1][i][j];
         int j2 = ai[l1][i + 1][j];
         int k2 = ai[l1][i + 1][j + 1];
@@ -861,7 +861,7 @@ public class SceneBuilder {
         byte byte0 = (byte) ((k << 6) + k1);
         if (k1 == 22) {
             Model class38_sub2_sub1 = locType.getModel(22, k, i2, j2, k2, l2, -1);
-            scene.addGroundDecoration(class38_sub2_sub1, i, j3, j, i1, byte0, i3);
+            mapSquare.addGroundDecoration(class38_sub2_sub1, i, j3, j, i1, byte0, i3);
             if (locType.hasCollision && locType.interactable)
                 collisionMap.setBlocked(j, i);
             if (locType.animationIndex != -1)
@@ -883,7 +883,7 @@ public class SceneBuilder {
                     i4 = locType.sizeX;
                     k4 = locType.sizeZ;
                 }
-                scene.addLocation(i3, i1, null, j3, j, i, i4, byte0, class38_sub2_sub1_1, l4, k4);
+                mapSquare.addLocation(i3, i1, null, j3, j, i, i4, byte0, class38_sub2_sub1_1, l4, k4);
             }
             if (locType.hasCollision)
                 collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, i, j, locType.isSolid);
@@ -893,7 +893,7 @@ public class SceneBuilder {
         }
         if (k1 >= 12) {
             Model class38_sub2_sub1_2 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
-            scene.addLocation(i3, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_2, 0, 1);
+            mapSquare.addLocation(i3, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_2, 0, 1);
             if (locType.hasCollision)
                 collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, i, j, locType.isSolid);
             if (locType.animationIndex != -1)
@@ -902,7 +902,7 @@ public class SceneBuilder {
         }
         if (k1 == 0) {
             Model class38_sub2_sub1_3 = locType.getModel(0, k, i2, j2, k2, l2, -1);
-            scene.addWall(0, i3, i1, WALL_ROTATION_TYPE1[k], class38_sub2_sub1_3, null, i, j3, j, byte0);
+            mapSquare.addWall(0, i3, i1, WALL_ROTATION_TYPE1[k], class38_sub2_sub1_3, null, i, j3, j, byte0);
             if (locType.hasCollision)
                 collisionMap.setWall(k, j, i, locType.isSolid, k1);
             if (locType.animationIndex != -1)
@@ -911,7 +911,7 @@ public class SceneBuilder {
         }
         if (k1 == 1) {
             Model class38_sub2_sub1_4 = locType.getModel(1, k, i2, j2, k2, l2, -1);
-            scene.addWall(0, i3, i1, WALL_ROTATION_TYPE2[k], class38_sub2_sub1_4, null, i, j3, j, byte0);
+            mapSquare.addWall(0, i3, i1, WALL_ROTATION_TYPE2[k], class38_sub2_sub1_4, null, i, j3, j, byte0);
             if (locType.hasCollision)
                 collisionMap.setWall(k, j, i, locType.isSolid, k1);
             if (locType.animationIndex != -1)
@@ -922,7 +922,7 @@ public class SceneBuilder {
             int k3 = k + 1 & 3;
             Model class38_sub2_sub1_11 = locType.getModel(2, 4 + k, i2, j2, k2, l2, -1);
             Model class38_sub2_sub1_12 = locType.getModel(2, k3, i2, j2, k2, l2, -1);
-            scene.addWall(WALL_ROTATION_TYPE1[k3], i3, i1, WALL_ROTATION_TYPE1[k], class38_sub2_sub1_11,
+            mapSquare.addWall(WALL_ROTATION_TYPE1[k3], i3, i1, WALL_ROTATION_TYPE1[k], class38_sub2_sub1_11,
                 class38_sub2_sub1_12, i, j3, j, byte0);
             if (locType.hasCollision)
                 collisionMap.setWall(k, j, i, locType.isSolid, k1);
@@ -932,7 +932,7 @@ public class SceneBuilder {
         }
         if (k1 == 3) {
             Model class38_sub2_sub1_5 = locType.getModel(3, k, i2, j2, k2, l2, -1);
-            scene.addWall(0, i3, i1, WALL_ROTATION_TYPE2[k], class38_sub2_sub1_5, null, i, j3, j, byte0);
+            mapSquare.addWall(0, i3, i1, WALL_ROTATION_TYPE2[k], class38_sub2_sub1_5, null, i, j3, j, byte0);
             if (locType.hasCollision)
                 collisionMap.setWall(k, j, i, locType.isSolid, k1);
             if (locType.animationIndex != -1)
@@ -941,7 +941,7 @@ public class SceneBuilder {
         }
         if (k1 == 9) {
             Model class38_sub2_sub1_6 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
-            scene.addLocation(i3, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_6, 0, 1);
+            mapSquare.addLocation(i3, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_6, 0, 1);
             if (locType.hasCollision)
                 collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, i, j, locType.isSolid);
             if (locType.animationIndex != -1)
@@ -950,18 +950,18 @@ public class SceneBuilder {
         }
         if (k1 == 4) {
             Model class38_sub2_sub1_7 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            scene.addWallDecoration(i3, j, 0, j3, k * 512, WALL_ROTATION_TYPE1[k], 0, i, class38_sub2_sub1_7, byte0, i1);
+            mapSquare.addWallDecoration(i3, j, 0, j3, k * 512, WALL_ROTATION_TYPE1[k], 0, i, class38_sub2_sub1_7, byte0, i1);
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.instances[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 5) {
             int l3 = 16;
-            int j4 = scene.getWallBitset(i1, i, j);
+            int j4 = mapSquare.getWallBitset(i1, i, j);
             if (j4 > 0)
                 l3 = LocType.get(j4 >> 14 & 0x7fff).thickness;
             Model class38_sub2_sub1_13 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            scene.addWallDecoration(i3, j, WALL_DECO_ROT_SIZE_Y_DIR[k] * l3, j3, k * 512, WALL_ROTATION_TYPE1[k], WALL_DECO_ROT_SIZE_X_DIR[k] * l3,
+            mapSquare.addWallDecoration(i3, j, WALL_DECO_ROT_SIZE_Y_DIR[k] * l3, j3, k * 512, WALL_ROTATION_TYPE1[k], WALL_DECO_ROT_SIZE_X_DIR[k] * l3,
                 i, class38_sub2_sub1_13, byte0, i1);
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.instances[locType.animationIndex], j, i));
@@ -969,21 +969,21 @@ public class SceneBuilder {
         }
         if (k1 == 6) {
             Model class38_sub2_sub1_8 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            scene.addWallDecoration(i3, j, 0, j3, k, 256, 0, i, class38_sub2_sub1_8, byte0, i1);
+            mapSquare.addWallDecoration(i3, j, 0, j3, k, 256, 0, i, class38_sub2_sub1_8, byte0, i1);
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.instances[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 7) {
             Model class38_sub2_sub1_9 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            scene.addWallDecoration(i3, j, 0, j3, k, 512, 0, i, class38_sub2_sub1_9, byte0, i1);
+            mapSquare.addWallDecoration(i3, j, 0, j3, k, 512, 0, i, class38_sub2_sub1_9, byte0, i1);
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.instances[locType.animationIndex], j, i));
             return;
         }
         if (k1 == 8) {
             Model class38_sub2_sub1_10 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            scene.addWallDecoration(i3, j, 0, j3, k, 768, 0, i, class38_sub2_sub1_10, byte0, i1);
+            mapSquare.addWallDecoration(i3, j, 0, j3, k, 768, 0, i, class38_sub2_sub1_10, byte0, i1);
             if (locType.animationIndex != -1)
                 linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.instances[locType.animationIndex], j, i));
         }

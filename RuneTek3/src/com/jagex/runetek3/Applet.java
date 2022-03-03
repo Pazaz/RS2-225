@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameShell extends JApplet implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
+public class Applet extends JApplet implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
 
     public static int KEY_LEFT = 1;
     public static int KEY_RIGHT = 2;
@@ -21,12 +21,12 @@ public class GameShell extends JApplet implements Runnable, MouseListener, Mouse
     public static int KEY_HOME = 1000;
     public static int KEY_END = 1001;
 
-    public void initFrame(int height, int width, String title, boolean navbar) {
+    public void initFrame(int height, int width, String title) {
         gameWidth = width;
         gameHeight = height;
         setSize(gameWidth, gameHeight);
         setPreferredSize(getSize());
-        frame = new GameFrame(this, title);
+        frame = new Window(this, title);
         graphics = getBaseComponent().getGraphics();
         drawArea = new DrawArea(getBaseComponent(), gameWidth, gameHeight);
         startThread(this, 1);
@@ -478,7 +478,7 @@ public class GameShell extends JApplet implements Runnable, MouseListener, Mouse
         graphics.drawString(str, (gameWidth - metrics.stringWidth(str)) / 2, y + 22);
     }
 
-    public GameShell() {
+    public Applet() {
     }
 
     public int state;
@@ -491,7 +491,7 @@ public class GameShell extends JApplet implements Runnable, MouseListener, Mouse
     public int gameHeight;
     public Graphics graphics;
     public DrawArea drawArea;
-    public GameFrame frame;
+    public Window frame;
     public boolean refresh = true;
     public int idleCycles;
     public int dragButton;

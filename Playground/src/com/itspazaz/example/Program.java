@@ -1,11 +1,11 @@
 package com.itspazaz.example;
 
-import com.jagex.runetek3.GameShell;
+import com.jagex.runetek3.Applet;
 
-public class Program extends GameShell {
+public class Program extends Applet {
     public static void main(String[] args) {
         Program program = new Program();
-        program.initFrame(600, 800, "Example", false);
+        program.initFrame(600, 800, "Example");
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.jagex.runetek3.util.Buffer;
 
 import java.util.Random;
 
-public class IndexedFontFull extends Draw2D {
+public class FontFull extends Draw2D {
 
     public int stringWidth(String str) {
         if (str == null) {
@@ -35,7 +35,7 @@ public class IndexedFontFull extends Draw2D {
         }
     }
 
-    public IndexedFontFull(FileArchive archive, String name, boolean quill) {
+    public FontFull(FileArchive archive, String name, boolean quill) {
         Buffer dat = new Buffer(archive.read((new StringBuilder()).append(name).append(".dat").toString(), null));
         Buffer idx = new Buffer(archive.read("index.dat", null));
         idx.offset = dat.g2() + 4;

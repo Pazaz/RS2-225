@@ -3,7 +3,7 @@ package com.jagex.runetek3.formats;
 import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.util.Buffer;
 
-public class WordEncoding {
+public class WordPack {
 
     public static void load(FileArchive fileArchive) {
         Buffer fragments = new Buffer(fileArchive.read("fragmentsenc.txt", null));

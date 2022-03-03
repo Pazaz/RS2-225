@@ -1,6 +1,6 @@
 package com.jagex.mapviewer.graphics;
 
-import com.jagex.runetek3.GameShell;
+import com.jagex.runetek3.Applet;
 import com.jagex.runetek3.graphics.Draw2D;
 
 import java.awt.*;
@@ -8,7 +8,7 @@ import java.awt.image.PixelGrabber;
 
 public class DrawText extends Draw2D {
 
-    private void ahk(Font font, FontMetrics fontmetrics, char c, int i, boolean flag, GameShell a1) {
+    private void ahk(Font font, FontMetrics fontmetrics, char c, int i, boolean flag, Applet a1) {
         int j = fontmetrics.charWidth(c);
         int k = j;
         if (flag)
@@ -144,7 +144,7 @@ public class DrawText extends Draw2D {
         }
     }
 
-    public DrawText(int i, boolean bold, GameShell a1) {
+    public DrawText(int i, boolean bold, Applet a1) {
         akj = false;
         akk = 0;
         akl = new byte[0x186a0];

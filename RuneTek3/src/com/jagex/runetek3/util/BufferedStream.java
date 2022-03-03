@@ -1,6 +1,6 @@
 package com.jagex.runetek3.util;
 
-import com.jagex.runetek3.GameShell;
+import com.jagex.runetek3.Applet;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,7 +10,7 @@ import java.net.Socket;
 public class BufferedStream
     implements Runnable {
 
-    public BufferedStream(GameShell applet, Socket socket)
+    public BufferedStream(Applet applet, Socket socket)
         throws IOException {
         closed = false;
         writing = false;
@@ -162,7 +162,7 @@ public class BufferedStream
     public OutputStream out;
     public Socket socket;
     public boolean closed;
-    public GameShell applet;
+    public Applet applet;
     public byte[] buffer;
     public int bufLen;
     public int bufPos;

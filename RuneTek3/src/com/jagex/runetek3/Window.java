@@ -2,9 +2,9 @@ package com.jagex.runetek3;
 
 import java.awt.*;
 
-public class GameFrame extends Frame {
+public class Window extends Frame {
 
-    public GameFrame(GameShell applet, String title) {
+    public Window(Applet applet, String title) {
         this.applet = applet;
 
         setTitle("RuneScape 2 - " + title);
@@ -20,5 +20,5 @@ public class GameFrame extends Frame {
         toFront();
     }
 
-    public GameShell applet;
+    public Applet applet;
 }

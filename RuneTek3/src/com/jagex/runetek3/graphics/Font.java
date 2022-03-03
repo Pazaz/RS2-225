@@ -5,9 +5,9 @@ import com.jagex.runetek3.util.Buffer;
 
 import java.util.Random;
 
-public class IndexedFont extends Draw2D {
+public class Font extends Draw2D {
 
-    public IndexedFont(FileArchive archive, String name) {
+    public Font(FileArchive archive, String name) {
         pixels = new byte[94][];
         charWidth = new int[94];
         charHeight = new int[94];

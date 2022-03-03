@@ -1,13 +1,13 @@
 package com.jagex.runetek3.scene;
 
-import com.jagex.runetek3.formats.Model;
+import com.jagex.runetek3.graphics.Model;
 import com.jagex.runetek3.graphics.Draw2D;
 import com.jagex.runetek3.graphics.Draw3D;
 import com.jagex.runetek3.util.LinkedList;
 
-public class Scene {
+public class MapSquare {
 
-    public Scene(int[][][] heightmap, int tileCountZ, int maxLevel, int tileCountX) {
+    public MapSquare(int[][][] heightmap, int tileCountZ, int maxLevel, int tileCountX) {
         locs = new Loc[5000];
         vertexAMergeIndex = new int[10000];
         vertexBMergeIndex = new int[10000];
@@ -982,8 +982,8 @@ public class Scene {
 
     public void setClick(int clickY, int clickX) {
         checkClick = true;
-        Scene.clickX = clickX;
-        Scene.clickY = clickY;
+        MapSquare.clickX = clickX;
+        MapSquare.clickY = clickY;
         clickedTileX = -1;
         clickedTileZ = -1;
     }

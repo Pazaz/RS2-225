@@ -3,16 +3,16 @@ package com.jagex.runetek3.formats;
 import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.util.Buffer;
 
-public class VarpType {
+public class VarType {
 
     public static void load(FileArchive fileArchive) {
         Buffer buffer = new Buffer(fileArchive.read("varp.dat", null));
         count = buffer.g2();
-        instances = new VarpType[count];
+        instances = new VarType[count];
 
         for (int n = 0; n < count; n++) {
             if (instances[n] == null) {
-                instances[n] = new VarpType();
+                instances[n] = new VarType();
             }
 
             instances[n].read(buffer);
@@ -40,11 +40,11 @@ public class VarpType {
         } while (true);
     }
 
-    public VarpType() {
+    public VarType() {
     }
 
     public static int count;
-    public static VarpType[] instances;
+    public static VarType[] instances;
     public int type;
 
 }

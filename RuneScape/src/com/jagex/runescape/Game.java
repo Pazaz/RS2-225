@@ -2,10 +2,12 @@ package com.jagex.runescape;
 
 import com.jagex.runescape.scene.PlayerEntity;
 import com.jagex.runescape.util.Packet;
-import com.jagex.runetek3.GameShell;
+import com.jagex.runetek3.Applet;
 import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.formats.*;
 import com.jagex.runetek3.graphics.*;
+import com.jagex.runetek3.graphics.Component;
+import com.jagex.runetek3.graphics.Font;
 import com.jagex.runetek3.scene.*;
 import com.jagex.runetek3.sound.SoundTrack;
 import com.jagex.runetek3.util.*;
@@ -27,7 +29,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.zip.CRC32;
 
-public class Game extends GameShell {
+public class Game extends Applet {
 
     public static int skyColor = 0x000000;
     public static String serverAddress = "127.0.0.1";
@@ -280,7 +282,7 @@ public class Game extends GameShell {
     public void drawChat() {
         if (splitPrivateChat == 0)
             return;
-        IndexedFont font = fontPlain12;
+        Font font = fontPlain12;
         int j = 0;
         if (systemUpdateTimer != 0)
             j = 1;
@@ -320,7 +322,7 @@ public class Game extends GameShell {
     public void updateNpcMasks(Buffer buffer) {
         for (int n = 0; n < updateCount; n++) {
             int nid = entityUpdateIndices[n];
-            NpcEntity npc = npcEntities[nid];
+            NPCEntity npc = npcEntities[nid];
 
             int mask = buffer.g1();
 
@@ -372,7 +374,7 @@ public class Game extends GameShell {
 
             // Change NPC
             if ((mask & 0x20) == 32) {
-                npc.info = NpcType.get(buffer.g2());
+                npc.info = NPCType.get(buffer.g2());
                 npc.runSeq = npc.info.walkSeq;
                 npc.walkSeq = npc.info.turnAroundSeq;
                 npc.turnAroundSeq = npc.info.turnRightSeq;
@@ -463,15 +465,15 @@ public class Game extends GameShell {
                     int j17 = 0;
                     int l17 = 0;
                     if (i13 == 0)
-                        i16 = scene.getWallBitset(currentLevel, k2, l4);
+                        i16 = mapSquare.getWallBitset(currentLevel, k2, l4);
                     if (i13 == 1)
-                        i16 = scene.getWallDecorationBitset(currentLevel, l4, k2);
+                        i16 = mapSquare.getWallDecorationBitset(currentLevel, l4, k2);
                     if (i13 == 2)
-                        i16 = scene.getLocationBitset(currentLevel, k2, l4);
+                        i16 = mapSquare.getLocationBitset(currentLevel, k2, l4);
                     if (i13 == 3)
-                        i16 = scene.getGroundDecorationBitset(currentLevel, k2, l4);
+                        i16 = mapSquare.getGroundDecorationBitset(currentLevel, k2, l4);
                     if (i16 != 0) {
-                        int i18 = scene.getInfo(currentLevel, k2, l4, i16);
+                        int i18 = mapSquare.getInfo(currentLevel, k2, l4, i16);
                         l16 = i16 >> 14 & 0x7fff;
                         j17 = i18 & 0x1f;
                         l17 = i18 >> 6;
@@ -504,13 +506,13 @@ public class Game extends GameShell {
             if (l2 >= 0 && i5 >= 0 && l2 < 104 && i5 < 104) {
                 int j14 = 0;
                 if (k11 == 0)
-                    j14 = scene.getWallBitset(currentLevel, l2, i5);
+                    j14 = mapSquare.getWallBitset(currentLevel, l2, i5);
                 if (k11 == 1)
-                    j14 = scene.getWallDecorationBitset(currentLevel, i5, l2);
+                    j14 = mapSquare.getWallDecorationBitset(currentLevel, i5, l2);
                 if (k11 == 2)
-                    j14 = scene.getLocationBitset(currentLevel, l2, i5);
+                    j14 = mapSquare.getLocationBitset(currentLevel, l2, i5);
                 if (k11 == 3)
-                    j14 = scene.getGroundDecorationBitset(currentLevel, l2, i5);
+                    j14 = mapSquare.getGroundDecorationBitset(currentLevel, l2, i5);
                 if (j14 != 0) {
                     LocEntity locEntity = new LocEntity(false, j14 >> 14 & 0x7fff, currentLevel, k11,
                         SeqType.instances[j13], i5, l2);
@@ -873,8 +875,8 @@ public class Game extends GameShell {
         Model.cursorX = super.mouseX - 8;
         Model.cursorY = super.mouseY - 11;
         Draw2D.fillRect(0, 0, skyColor, super.gameWidth, super.gameHeight);
-        scene.draw(cameraOrbitYaw, cameraX, k, cameraPitch, cameraY, cameraZ);
-        scene.clearFrameLocs();
+        mapSquare.draw(cameraOrbitYaw, cameraX, k, cameraPitch, cameraY, cameraZ);
+        mapSquare.clearFrameLocs();
         drawViewport2d();
         drawTileHint();
         updateAnimatedTextures(i3);
@@ -956,10 +958,10 @@ public class Game extends GameShell {
     }
 
     public static void setLowMemory() {
-        Scene.lowMemory = true;
+        MapSquare.lowMemory = true;
         Draw3D.lowMemory = true;
         lowMemory = true;
-        SceneBuilder.lowMemory = true;
+        SceneManager.lowMemory = true;
         Signlink.lowMemory = true;
     }
 
@@ -1042,16 +1044,16 @@ public class Game extends GameShell {
         titleRight.drawImage(0, super.graphics, 661);
     }
 
-    public void updateInterface(int i, int j, int k, InterfaceComponent interfaceComponent, int i1, int j1) {
-        if (interfaceComponent.type != 0 || interfaceComponent.children == null || interfaceComponent.hidden)
+    public void updateInterface(int i, int j, int k, Component component, int i1, int j1) {
+        if (component.type != 0 || component.children == null || component.hidden)
             return;
-        if (j < i1 || i < k || j >= i1 + interfaceComponent.width || i >= k + interfaceComponent.height)
+        if (j < i1 || i < k || j >= i1 + component.width || i >= k + component.height)
             return;
-        int k1 = interfaceComponent.children.length;
+        int k1 = component.children.length;
         for (int l1 = 0; l1 < k1; l1++) {
-            int i2 = interfaceComponent.childX[l1] + i1;
-            int j2 = (interfaceComponent.childY[l1] + k) - j1;
-            InterfaceComponent inter = InterfaceComponent.instances[interfaceComponent.children[l1]];
+            int i2 = component.childX[l1] + i1;
+            int j2 = (component.childY[l1] + k) - j1;
+            Component inter = Component.instances[component.children[l1]];
             i2 += inter.x;
             j2 += inter.y;
             if ((inter.hoverParentIndex >= 0 || inter.hoverColor != 0) && j >= i2 && i >= j2
@@ -1272,9 +1274,9 @@ public class Game extends GameShell {
                 closeInterface();
                 reportInput = "";
                 reportAbuseMuteToggle = false;
-                for (int j = 0; j < InterfaceComponent.instances.length; j++) {
-                    if (InterfaceComponent.instances[j] != null && InterfaceComponent.instances[j].contentType == 600) {
-                        openInterfaceId = viewportInterfaceIndex = InterfaceComponent.instances[j].parent;
+                for (int j = 0; j < Component.instances.length; j++) {
+                    if (Component.instances[j] != null && Component.instances[j].contentType == 600) {
+                        openInterfaceId = viewportInterfaceIndex = Component.instances[j].parent;
                         return;
                     }
                 }
@@ -1375,7 +1377,7 @@ public class Game extends GameShell {
                 playerEntity.y = getLandY(currentLevel,
                     playerEntity.x,
                     playerEntity.z);
-                scene.add(playerEntity.locMaxTileX, null,
+                mapSquare.add(playerEntity.locMaxTileX, null,
                     playerEntity.z, playerEntity.y, k,
                     playerEntity.animationDelay, playerEntity.locMinTileZ,
                     playerEntity.locMinTileX, playerEntity, currentLevel,
@@ -1391,7 +1393,7 @@ public class Game extends GameShell {
             playerEntity.y = getLandY(currentLevel,
                 playerEntity.x,
                 playerEntity.z);
-            scene.add(playerEntity.z, 60,
+            mapSquare.add(playerEntity.z, 60,
                 playerEntity.animationDelay,
                 playerEntity.x, k,
                 playerEntity.animationStretches, null, playerEntity,
@@ -1416,7 +1418,7 @@ public class Game extends GameShell {
         return y00 * (128 - ltz) + y11 * ltz >> 7;
     }
 
-    public void drawTooltip(NpcType npcType, int j, int k, int l) {
+    public void drawTooltip(NPCType npcType, int j, int k, int l) {
         if (optionCount >= 400)
             return;
         String s = npcType.name;
@@ -1504,7 +1506,7 @@ public class Game extends GameShell {
             }
 
             if (viewportInterfaceIndex != -1 && viewportInterfaceIndex == openInterfaceId) {
-                if (key == GameShell.KEY_DELETE && reportInput.length() > 0) {
+                if (key == Applet.KEY_DELETE && reportInput.length() > 0) {
                     reportInput = reportInput.substring(0, reportInput.length() - 1);
                 } else if ((key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z' || key >= '0' && key <= '9' || key == ' ') && reportInput.length() < 12) {
                     reportInput += (char) key;
@@ -1513,12 +1515,12 @@ public class Game extends GameShell {
                 if (key >= ' ' && key <= 'z' && socialInput.length() < 80) {
                     socialInput += (char) key;
                     redrawChatback = true;
-                } else if (key == GameShell.KEY_DELETE && socialInput.length() > 0) {
+                } else if (key == Applet.KEY_DELETE && socialInput.length() > 0) {
                     socialInput = socialInput.substring(0, socialInput.length() - 1);
                     redrawChatback = true;
                 }
 
-                if (key == GameShell.KEY_RETURN || key == GameShell.KEY_ENTER) {
+                if (key == Applet.KEY_RETURN || key == Applet.KEY_ENTER) {
                     showSocialInput = false;
                     redrawChatback = true;
 
@@ -1536,7 +1538,7 @@ public class Game extends GameShell {
                         TextEncoder.write(outBuffer, socialInput);
                         outBuffer.pSize(outBuffer.offset - k);
                         socialInput = StringUtils.toSentence(socialInput);
-                        socialInput = WordEncoding.getFiltered(socialInput);
+                        socialInput = WordPack.getFiltered(socialInput);
                         addMessage(6, socialInput, StringUtils.formatName(StringUtils.fromBase37(aLong900)));
                         if (chatPrivateSetting == 2) {
                             chatPrivateSetting = 1;
@@ -1558,10 +1560,10 @@ public class Game extends GameShell {
                 if (key >= '0' && key <= '9' && chatbackInput.length() < 10) {
                     chatbackInput += (char) key;
                     redrawChatback = true;
-                } else if (key == GameShell.KEY_DELETE && chatbackInput.length() > 0) {
+                } else if (key == Applet.KEY_DELETE && chatbackInput.length() > 0) {
                     chatbackInput = chatbackInput.substring(0, chatbackInput.length() - 1);
                     redrawChatback = true;
-                } else if (key == GameShell.KEY_RETURN || key == GameShell.KEY_ENTER) {
+                } else if (key == Applet.KEY_RETURN || key == Applet.KEY_ENTER) {
                     if (chatbackInput.length() > 0) {
                         int i1 = 0;
                         try {
@@ -1579,10 +1581,10 @@ public class Game extends GameShell {
                 if (key >= ' ' && key <= 'z' && input.length() < 80) {
                     input += (char) key;
                     redrawChatback = true;
-                } else if (key == GameShell.KEY_DELETE && input.length() > 0) {
+                } else if (key == Applet.KEY_DELETE && input.length() > 0) {
                     input = input.substring(0, input.length() - 1);
                     redrawChatback = true;
-                } else if ((key == GameShell.KEY_RETURN || key == GameShell.KEY_ENTER) && input.length() > 0) {
+                } else if ((key == Applet.KEY_RETURN || key == Applet.KEY_ENTER) && input.length() > 0) {
                     if (input.equals("::clientdrop") && (super.frame != null || getHost().contains("192.168.1."))) {
                         reconnect();
                     } else if (input.startsWith("::")) {
@@ -1646,7 +1648,7 @@ public class Game extends GameShell {
                         TextEncoder.write(outBuffer, input);
                         outBuffer.pSize(outBuffer.offset - i2);
                         input = StringUtils.toSentence(input);
-                        input = WordEncoding.getFiltered(input);
+                        input = WordPack.getFiltered(input);
                         self.spoken = input;
                         self.spokenColor = color;
                         self.spokenEffect = effect;
@@ -1739,18 +1741,18 @@ public class Game extends GameShell {
                     }
 
                     if (loginFocusedLine == 0) {
-                        if (key == GameShell.KEY_DELETE && username.length() > 0)
+                        if (key == Applet.KEY_DELETE && username.length() > 0)
                             username = username.substring(0, username.length() - 1);
-                        if (key == GameShell.KEY_TAB || key == GameShell.KEY_ENTER || key == GameShell.KEY_RETURN)
+                        if (key == Applet.KEY_TAB || key == Applet.KEY_ENTER || key == Applet.KEY_RETURN)
                             loginFocusedLine = 1;
                         if (flag)
                             username += (char) key;
                         if (username.length() > 12)
                             username = username.substring(0, 12);
                     } else if (loginFocusedLine == 1) {
-                        if (key == GameShell.KEY_DELETE && password.length() > 0)
+                        if (key == Applet.KEY_DELETE && password.length() > 0)
                             password = password.substring(0, password.length() - 1);
-                        if (key == GameShell.KEY_TAB || key == GameShell.KEY_ENTER || key == GameShell.KEY_RETURN)
+                        if (key == Applet.KEY_TAB || key == Applet.KEY_ENTER || key == Applet.KEY_RETURN)
                             loginFocusedLine = 0;
                         if (flag)
                             password += (char) key;
@@ -2021,7 +2023,7 @@ public class Game extends GameShell {
         }
 
         for (int i4 = 0; i4 < npcCount; i4++) {
-            NpcEntity npcEntity = npcEntities[npcIndices[i4]];
+            NPCEntity npcEntity = npcEntities[npcIndices[i4]];
             if (npcEntity != null && npcEntity.isValid(false)
                 && npcEntity.info.showOnMinimap) {
                 int i1 = npcEntity.x / 32
@@ -2064,7 +2066,7 @@ public class Game extends GameShell {
         areaViewport.bind();
     }
 
-    public Component getBaseComponent() {
+    public java.awt.Component getBaseComponent() {
         if (Signlink.mainapp != null) {
             return Signlink.mainapp;
         }
@@ -2101,9 +2103,9 @@ public class Game extends GameShell {
             int j1 = 24628 + (103 - i1) * 512 * 4;
             for (int l1 = 1; l1 < 103; l1++) {
                 if ((levelRenderFlags[i][l1][i1] & 0x18) == 0)
-                    scene.drawMinimapTile(ai, j1, 512, i, l1, i1);
+                    mapSquare.drawMinimapTile(ai, j1, 512, i, l1, i1);
                 if (i < 3 && (levelRenderFlags[i + 1][l1][i1] & 8) != 0)
-                    scene.drawMinimapTile(ai, j1, 512, i + 1, l1, i1);
+                    mapSquare.drawMinimapTile(ai, j1, 512, i + 1, l1, i1);
                 j1 += 4;
             }
         }
@@ -2126,7 +2128,7 @@ public class Game extends GameShell {
         activeMapFunctionCount = 0;
         for (int l2 = 0; l2 < 104; l2++) {
             for (int i3 = 0; i3 < 104; i3++) {
-                int j3 = scene.getGroundDecorationBitset(currentLevel, l2, i3);
+                int j3 = mapSquare.getGroundDecorationBitset(currentLevel, l2, i3);
                 if (j3 != 0) {
                     j3 = j3 >> 14 & 0x7fff;
                     int k3 = LocType.get(j3).mapfunction;
@@ -2161,9 +2163,9 @@ public class Game extends GameShell {
     }
 
     public void drawMinimapLoc(int j, int k, int l, int i1, int j1) {
-        int k1 = scene.getWallBitset(j, l, j1);
+        int k1 = mapSquare.getWallBitset(j, l, j1);
         if (k1 != 0) {
-            int l1 = scene.getInfo(j, l, j1, k1);
+            int l1 = mapSquare.getInfo(j, l, j1, k1);
             int k2 = l1 >> 6 & 3;
             int i3 = l1 & 0x1f;
             int k3 = k;
@@ -2236,9 +2238,9 @@ public class Game extends GameShell {
                     }
             }
         }
-        k1 = scene.getLocationBitset(j, l, j1);
+        k1 = mapSquare.getLocationBitset(j, l, j1);
         if (k1 != 0) {
-            int i2 = scene.getInfo(j, l, j1, k1);
+            int i2 = mapSquare.getInfo(j, l, j1, k1);
             int l2 = i2 >> 6 & 3;
             int j3 = i2 & 0x1f;
             int l3 = k1 >> 14 & 0x7fff;
@@ -2270,7 +2272,7 @@ public class Game extends GameShell {
                 }
             }
         }
-        k1 = scene.getGroundDecorationBitset(j, l, j1);
+        k1 = mapSquare.getGroundDecorationBitset(j, l, j1);
         if (k1 != 0) {
             int j2 = k1 >> 14 & 0x7fff;
             LocType locType = LocType.get(j2);
@@ -2472,8 +2474,8 @@ public class Game extends GameShell {
         characterDesignUpdate = true;
         for (int i = 0; i < 7; i++) {
             characterDesigns[i] = -1;
-            for (int j = 0; j < IdkType.count; j++) {
-                if (IdkType.instances[j].validStyle || IdkType.instances[j].type != i + (characterDesignIsMale ? 0 : 7))
+            for (int j = 0; j < IDKType.count; j++) {
+                if (IDKType.instances[j].validStyle || IDKType.instances[j].type != i + (characterDesignIsMale ? 0 : 7))
                     continue;
                 characterDesigns[i] = j;
                 break;
@@ -2488,7 +2490,7 @@ public class Game extends GameShell {
 
     public void updateSceneNpcs() {
         for (int i = 0; i < npcCount; i++) {
-            NpcEntity npcEntity = npcEntities[npcIndices[i]];
+            NPCEntity npcEntity = npcEntities[npcIndices[i]];
             int j = 0x20000000 + (npcIndices[i] << 14);
             if (npcEntity == null || !npcEntity.isValid(false))
                 continue;
@@ -2503,7 +2505,7 @@ public class Game extends GameShell {
                     continue;
                 tileRenderCount[k][l] = sceneCycle;
             }
-            scene.add(npcEntity.z,
+            mapSquare.add(npcEntity.z,
                 (npcEntity.index - 1) * 64 + 60,
                 npcEntity.animationDelay,
                 npcEntity.x, j,
@@ -2675,7 +2677,7 @@ public class Game extends GameShell {
         password = "";
         InputTracking.setDisabled();
         clearCaches();
-        scene.reset();
+        mapSquare.reset();
         for (int j = 0; j < 4; j++)
             collisionMaps[j].reset();
 
@@ -2688,7 +2690,7 @@ public class Game extends GameShell {
         }
     }
 
-    public void drawInterface(int y, int x, InterfaceComponent inter, int scrollY) {
+    public void drawInterface(int y, int x, Component inter, int scrollY) {
         if (inter.type != 0 || inter.children == null) {
             return;
         }
@@ -2706,7 +2708,7 @@ public class Game extends GameShell {
         for (int n = 0; n < count; n++) {
             int offsetX = inter.childX[n] + x;
             int offsetY = (inter.childY[n] + y) - scrollY;
-            InterfaceComponent child = InterfaceComponent.instances[inter.children[n]];
+            Component child = Component.instances[inter.children[n]];
             offsetX += child.x;
             offsetY += child.y;
             if (child.contentType > 0) {
@@ -2781,7 +2783,7 @@ public class Game extends GameShell {
                     Draw2D.drawRect(offsetX, child.color, child.height, offsetY, child.width);
                 }
             } else if (child.type == 4) {
-                IndexedFont indexedFont = child.font;
+                Font font = child.font;
                 int color = child.color;
                 String text = child.text;
 
@@ -2801,7 +2803,7 @@ public class Game extends GameShell {
                     color = child.color;
                 }
 
-                for (int textY = offsetY + indexedFont.height; text.length() > 0; textY += indexedFont.height) {
+                for (int textY = offsetY + font.height; text.length() > 0; textY += font.height) {
                     if (text.contains("%")) {
                         do {
                             int var1 = text.indexOf("%1");
@@ -2849,9 +2851,9 @@ public class Game extends GameShell {
                         text = "";
                     }
                     if (child.center) {
-                        indexedFont.drawCentered(offsetX + child.width / 2, color, child.shadow, textY, str);
+                        font.drawCentered(offsetX + child.width / 2, color, child.shadow, textY, str);
                     } else {
-                        indexedFont.draw(offsetX, textY, str, child.shadow, color);
+                        font.draw(offsetX, textY, str, child.shadow, color);
                     }
                 }
             } else if (child.type == 5) {
@@ -2891,7 +2893,7 @@ public class Game extends GameShell {
                 Draw3D.centerX = oldX;
                 Draw3D.centerY = oldY;
             } else if (child.type == 7) {
-                IndexedFont font = child.font;
+                Font font = child.font;
                 int invItem = 0;
                 for (int childY = 0; childY < child.height; childY++) {
                     for (int childX = 0; childX < child.width; childX++) {
@@ -2931,7 +2933,7 @@ public class Game extends GameShell {
     }
 
     public void updateVarp(int i) {
-        int varpType = VarpType.instances[i].type;
+        int varpType = VarType.instances[i].type;
         if (varpType == 0)
             return;
         int varp = variables[i];
@@ -3011,7 +3013,7 @@ public class Game extends GameShell {
         ingame &= flag;
         for (int i = 0; i < npcCount; i++) {
             int j = npcIndices[i];
-            NpcEntity npcEntity = npcEntities[j];
+            NPCEntity npcEntity = npcEntities[j];
             if (npcEntity != null) {
                 updateEntity(npcEntity);
             }
@@ -3186,7 +3188,7 @@ public class Game extends GameShell {
 
     public void updateEntity2(PathingEntity pathingEntity) {
         if (pathingEntity.targetEntity != -1 && pathingEntity.targetEntity < 32768) {
-            NpcEntity npcEntity = npcEntities[pathingEntity.targetEntity];
+            NPCEntity npcEntity = npcEntities[pathingEntity.targetEntity];
             if (npcEntity != null) {
                 int l = pathingEntity.x - npcEntity.x;
                 int j1 = pathingEntity.z - npcEntity.z;
@@ -3324,10 +3326,10 @@ public class Game extends GameShell {
             sidebarRedraw = false;
         }
         if (chatbackComponentId == -1) {
-            interfaceComponent.scrollY = chatScrollY - chatScrollAmount - 77;
+            component.scrollY = chatScrollY - chatScrollAmount - 77;
             if (super.mouseX > 453 && super.mouseX < 565 && super.mouseY > 350)
-                updateInterfaceScrollbar(super.mouseX - 22, super.mouseY - 375, chatScrollY, 77, false, 463, 0, interfaceComponent);
-            int j = chatScrollY - 77 - interfaceComponent.scrollY;
+                updateInterfaceScrollbar(super.mouseX - 22, super.mouseY - 375, chatScrollY, 77, false, 463, 0, component);
+            int j = chatScrollY - 77 - component.scrollY;
             if (j < 0)
                 j = 0;
             if (j > chatScrollY - 77)
@@ -3571,15 +3573,15 @@ public class Game extends GameShell {
             anInt945 = b;
             anInt946 = a;
             selectedArea = 2;
-            if (InterfaceComponent.instances[b].parent == viewportInterfaceIndex) {
+            if (Component.instances[b].parent == viewportInterfaceIndex) {
                 selectedArea = 1;
             }
-            if (InterfaceComponent.instances[b].parent == chatbackComponentId) {
+            if (Component.instances[b].parent == chatbackComponentId) {
                 selectedArea = 3;
             }
         }
         if (action == 728 || action == 542 || action == 6 || action == 963 || action == 245) {
-            NpcEntity npc = npcEntities[c];
+            NPCEntity npc = npcEntities[c];
             if (npc != null) {
                 moveTo(self.pathTileX[0], 1, false, npc.pathTileX[0], self.pathTileZ[0], 2, 1, npc.pathTileZ[0], 0, 0, 0);
                 crossX = super.clickX;
@@ -3657,10 +3659,10 @@ public class Game extends GameShell {
             anInt945 = b;
             anInt946 = a;
             selectedArea = 2;
-            if (InterfaceComponent.instances[b].parent == viewportInterfaceIndex) {
+            if (Component.instances[b].parent == viewportInterfaceIndex) {
                 selectedArea = 1;
             }
-            if (InterfaceComponent.instances[b].parent == chatbackComponentId) {
+            if (Component.instances[b].parent == chatbackComponentId) {
                 selectedArea = 3;
             }
         }
@@ -3674,18 +3676,18 @@ public class Game extends GameShell {
             anInt945 = b;
             anInt946 = a;
             selectedArea = 2;
-            if (InterfaceComponent.instances[b].parent == viewportInterfaceIndex) {
+            if (Component.instances[b].parent == viewportInterfaceIndex) {
                 selectedArea = 1;
             }
-            if (InterfaceComponent.instances[b].parent == chatbackComponentId) {
+            if (Component.instances[b].parent == chatbackComponentId) {
                 selectedArea = 3;
             }
         }
         if (action == 660) {
             if (!menuVisible) {
-                scene.setClick(super.clickY - 11, super.clickX - 8);
+                mapSquare.setClick(super.clickY - 11, super.clickX - 8);
             } else {
-                scene.setClick(b - 11, a - 8);
+                mapSquare.setClick(b - 11, a - 8);
             }
         }
         if (action == 188) {
@@ -3715,7 +3717,7 @@ public class Game extends GameShell {
             addMessage(0, s4, "");
         }
         if (action == 900) {
-            NpcEntity npc = npcEntities[c];
+            NPCEntity npc = npcEntities[c];
             if (npc != null) {
                 moveTo(self.pathTileX[0], 1, false, npc.pathTileX[0], self.pathTileZ[0], 2, 1, npc.pathTileZ[0], 0, 0, 0);
                 crossX = super.clickX;
@@ -3755,7 +3757,7 @@ public class Game extends GameShell {
             }
         }
         if (action == 265) {
-            NpcEntity npc = npcEntities[c];
+            NPCEntity npc = npcEntities[c];
             if (npc != null) {
                 moveTo(self.pathTileX[0], 1, false,
                     npc.pathTileX[0],
@@ -3825,7 +3827,7 @@ public class Game extends GameShell {
             outBuffer.p2(c);
         }
         if (action == 1607) {
-            NpcEntity npc = npcEntities[c];
+            NPCEntity npc = npcEntities[c];
             if (npc != null) {
                 String examine;
                 if (npc.info.description != null) {
@@ -3840,20 +3842,20 @@ public class Game extends GameShell {
             interactWithLoc(Packet.Client.OPOBJ2, a, b, c);
         }
         if (action == 930) {
-            InterfaceComponent interfaceComponent = InterfaceComponent.instances[b];
+            Component component = Component.instances[b];
             selectedSpell = 1;
             anInt1026 = b;
-            selectedFlags = interfaceComponent.optionFlags;
+            selectedFlags = component.optionFlags;
             selectedObject = 0;
-            String s6 = interfaceComponent.optionCircumfix;
+            String s6 = component.optionCircumfix;
             if (s6.contains(" ")) {
                 s6 = s6.substring(0, s6.indexOf(" "));
             }
-            String s10 = interfaceComponent.optionCircumfix;
+            String s10 = component.optionCircumfix;
             if (s10.contains(" ")) {
                 s10 = s10.substring(s10.indexOf(" ") + 1);
             }
-            selectedSpellPrefix = s6 + " " + interfaceComponent.optionSuffix + " " + s10;
+            selectedSpellPrefix = s6 + " " + component.optionSuffix + " " + s10;
             if (selectedFlags == 16) {
                 sidebarRedraw = true;
                 selectedTab = 3;
@@ -3862,7 +3864,7 @@ public class Game extends GameShell {
             return;
         }
         if (action == 951) {
-            InterfaceComponent inter = InterfaceComponent.instances[b];
+            Component inter = Component.instances[b];
             boolean flag3 = true;
             if (inter.contentType > 0)
                 flag3 = handleComponentAction(inter);
@@ -3908,10 +3910,10 @@ public class Game extends GameShell {
             anInt945 = b;
             anInt946 = a;
             selectedArea = 2;
-            if (InterfaceComponent.instances[b].parent == viewportInterfaceIndex) {
+            if (Component.instances[b].parent == viewportInterfaceIndex) {
                 selectedArea = 1;
             }
-            if (InterfaceComponent.instances[b].parent == chatbackComponentId) {
+            if (Component.instances[b].parent == chatbackComponentId) {
                 selectedArea = 3;
             }
         }
@@ -3962,11 +3964,11 @@ public class Game extends GameShell {
         if (action == 960) {
             outBuffer.p1isaac(Packet.Client.INTERFACE_BUTTON);
             outBuffer.p2(b);
-            InterfaceComponent interfaceComponent_2 = InterfaceComponent.instances[b];
-            if (interfaceComponent_2.script != null && interfaceComponent_2.script[0][0] == 5) {
-                int j2 = interfaceComponent_2.script[0][1];
-                if (variables[j2] != interfaceComponent_2.scriptCompareValue[0]) {
-                    variables[j2] = interfaceComponent_2.scriptCompareValue[0];
+            Component component_2 = Component.instances[b];
+            if (component_2.script != null && component_2.script[0][0] == 5) {
+                int j2 = component_2.script[0][1];
+                if (variables[j2] != component_2.scriptCompareValue[0]) {
+                    variables[j2] = component_2.scriptCompareValue[0];
                     updateVarp(j2);
                     sidebarRedraw = true;
                 }
@@ -3979,10 +3981,10 @@ public class Game extends GameShell {
                 closeInterface();
                 reportInput = s2.substring(k2 + 5).trim();
                 reportAbuseMuteToggle = false;
-                for (int j3 = 0; j3 < InterfaceComponent.instances.length; j3++) {
-                    if (InterfaceComponent.instances[j3] == null || InterfaceComponent.instances[j3].contentType != 600)
+                for (int j3 = 0; j3 < Component.instances.length; j3++) {
+                    if (Component.instances[j3] == null || Component.instances[j3].contentType != 600)
                         continue;
-                    openInterfaceId = viewportInterfaceIndex = InterfaceComponent.instances[j3].parent;
+                    openInterfaceId = viewportInterfaceIndex = Component.instances[j3].parent;
                     break;
                 }
             }
@@ -4011,9 +4013,9 @@ public class Game extends GameShell {
         if (action == 465) {
             outBuffer.p1isaac(Packet.Client.INTERFACE_BUTTON);
             outBuffer.p2(b);
-            InterfaceComponent interfaceComponent_3 = InterfaceComponent.instances[b];
-            if (interfaceComponent_3.script != null && interfaceComponent_3.script[0][0] == 5) {
-                int l2 = interfaceComponent_3.script[0][1];
+            Component component_3 = Component.instances[b];
+            if (component_3.script != null && component_3.script[0][0] == 5) {
+                int l2 = component_3.script[0][1];
                 variables[l2] = 1 - variables[l2];
                 updateVarp(l2);
                 sidebarRedraw = true;
@@ -4151,7 +4153,7 @@ public class Game extends GameShell {
             }
     }
 
-    public void updateComponentContent(InterfaceComponent inter) {
+    public void updateComponentContent(Component inter) {
         int type = inter.contentType;
         if (type >= 1 && type <= 100) {
             if (--type >= friendCount) {
@@ -4218,7 +4220,7 @@ public class Game extends GameShell {
                 for (int l = 0; l < 7; l++) {
                     int i1 = characterDesigns[l];
                     if (i1 >= 0) {
-                        models[k++] = IdkType.instances[i1].getModel();
+                        models[k++] = IDKType.instances[i1].getModel();
                     }
                 }
 
@@ -4398,14 +4400,14 @@ public class Game extends GameShell {
             }
 
             if (npcEntities[nid] == null) {
-                npcEntities[nid] = new NpcEntity();
+                npcEntities[nid] = new NPCEntity();
             }
 
-            NpcEntity npc = npcEntities[nid];
+            NPCEntity npc = npcEntities[nid];
             npcIndices[npcCount++] = nid;
             npc.removeTimer = clientClock;
             try {
-                npc.info = NpcType.get(buffer.gBit(11));
+                npc.info = NPCType.get(buffer.gBit(11));
                 npc.index = npc.info.size;
                 npc.runSeq = npc.info.walkSeq;
                 npc.walkSeq = npc.info.turnAroundSeq;
@@ -4436,8 +4438,8 @@ public class Game extends GameShell {
         buffer.accessBytes();
     }
 
-    public boolean handleComponentAction(InterfaceComponent interfaceComponent) {
-        int type = interfaceComponent.contentType;
+    public boolean handleComponentAction(Component component) {
+        int type = component.contentType;
         if (type == 201) {
             redrawChatback = true;
             chatbackInputType = false;
@@ -4481,11 +4483,11 @@ public class Game extends GameShell {
             if (l1 != -1) {
                 do {
                     if (i1 == 0 && --l1 < 0)
-                        l1 = IdkType.count - 1;
-                    if (i1 == 1 && ++l1 >= IdkType.count)
+                        l1 = IDKType.count - 1;
+                    if (i1 == 1 && ++l1 >= IDKType.count)
                         l1 = 0;
-                } while (IdkType.instances[l1].validStyle
-                    || IdkType.instances[l1].type != j + (characterDesignIsMale ? 0 : 7));
+                } while (IDKType.instances[l1].validStyle
+                    || IDKType.instances[l1].type != j + (characterDesignIsMale ? 0 : 7));
                 characterDesigns[j] = l1;
                 characterDesignUpdate = true;
             }
@@ -4582,10 +4584,10 @@ public class Game extends GameShell {
 
             this.titleArchive = loadArchive("title screen", archiveChecksums[1], "title", 10);
 
-            fontPlain11 = new IndexedFont(this.titleArchive, "p11");
-            fontPlain12 = new IndexedFont(this.titleArchive, "p12");
-            fontBold12 = new IndexedFont(this.titleArchive, "b12");
-            fontQuill8 = new IndexedFont(this.titleArchive, "q8");
+            fontPlain11 = new Font(this.titleArchive, "p11");
+            fontPlain12 = new Font(this.titleArchive, "p12");
+            fontBold12 = new Font(this.titleArchive, "b12");
+            fontQuill8 = new Font(this.titleArchive, "q8");
 
             loadTitleBackground();
             loadTitleForeground();
@@ -4600,7 +4602,7 @@ public class Game extends GameShell {
 
             levelRenderFlags = new byte[4][104][104];
             levelHeightMaps = new int[4][105][105];
-            scene = new Scene(levelHeightMaps, 104, 4, 104);
+            mapSquare = new MapSquare(levelHeightMaps, 104, 4, 104);
             for (int l = 0; l < 4; l++) {
                 collisionMaps[l] = new CollisionMap(104, 104);
             }
@@ -4761,12 +4763,12 @@ public class Game extends GameShell {
             showProgress("Unpacking config", 86);
             SeqType.load(configArchive);
             LocType.load(configArchive);
-            FloType.load(configArchive);
+            FloorType.load(configArchive);
             ObjType.load(configArchive);
-            NpcType.load(configArchive);
-            IdkType.load(configArchive);
+            NPCType.load(configArchive);
+            IDKType.load(configArchive);
             SpotAnimType.load(configArchive);
-            VarpType.load(configArchive);
+            VarType.load(configArchive);
             ObjType.isMember = members;
 
             if (!lowMemory) {
@@ -4777,8 +4779,8 @@ public class Game extends GameShell {
             }
 
             showProgress("Unpacking interfaces", 92);
-            IndexedFont[] fonts = {fontPlain11, fontPlain12, fontBold12, fontQuill8};
-            InterfaceComponent.load(mediaArchive, fonts, interfaceArchive);
+            Font[] fonts = {fontPlain11, fontPlain12, fontBold12, fontQuill8};
+            Component.load(mediaArchive, fonts, interfaceArchive);
             showProgress("Preparing game engine", 97);
             for (int l3 = 0; l3 < 33; l3++) {
                 int i4 = 999;
@@ -4837,8 +4839,8 @@ public class Game extends GameShell {
                 ai[k5] = j6 * k6 >> 16;
             }
 
-            Scene.init(ai, 800, 512, 334, 500);
-            WordEncoding.load(wordencArchive);
+            MapSquare.init(ai, 800, 512, 334, 500);
+            WordPack.load(wordencArchive);
         } catch (Exception ex) {
             ex.printStackTrace();
             errorLoading = true;
@@ -4855,9 +4857,10 @@ public class Game extends GameShell {
         optionCount = 1;
         handleChatInput(super.mouseY);
         hoveredInterfaceIndex = 0;
+
         if (super.mouseX > 8 && super.mouseY > 11 && super.mouseX < 520 && super.mouseY < 345) {
-            if (viewportInterfaceIndex != -1) {
-                updateInterface(super.mouseY, super.mouseX, 11, InterfaceComponent.instances[viewportInterfaceIndex], 8, 0);
+            if (viewportInterfaceIndex != -1 && viewportInterfaceIndex < Component.instances.length) {
+                updateInterface(super.mouseY, super.mouseX, 11, Component.instances[viewportInterfaceIndex], 8, 0);
             } else {
                 updateViewport();
             }
@@ -4870,9 +4873,9 @@ public class Game extends GameShell {
         hoveredInterfaceIndex = 0;
         if (super.mouseX > 562 && super.mouseY > 231 && super.mouseX < 752 && super.mouseY < 492) {
             if (sidebarInterfaceId != -1) {
-                updateInterface(super.mouseY, super.mouseX, 231, InterfaceComponent.instances[sidebarInterfaceId], 562, 0);
+                updateInterface(super.mouseY, super.mouseX, 231, Component.instances[sidebarInterfaceId], 562, 0);
             } else if (tabComponentId[selectedTab] != -1) {
-                updateInterface(super.mouseY, super.mouseX, 231, InterfaceComponent.instances[tabComponentId[selectedTab]], 562, 0);
+                updateInterface(super.mouseY, super.mouseX, 231, Component.instances[tabComponentId[selectedTab]], 562, 0);
             }
         }
 
@@ -4884,7 +4887,7 @@ public class Game extends GameShell {
         hoveredInterfaceIndex = 0;
         if (super.mouseX > 22 && super.mouseY > 375 && super.mouseX < 431 && super.mouseY < 471) {
             if (chatbackComponentId != -1) {
-                updateInterface(super.mouseY, super.mouseX, 375, InterfaceComponent.instances[chatbackComponentId], 22, 0);
+                updateInterface(super.mouseY, super.mouseX, 375, Component.instances[chatbackComponentId], 22, 0);
             } else {
                 updatePlayerTooltip(super.mouseY - 375);
             }
@@ -4923,7 +4926,7 @@ public class Game extends GameShell {
     public void clearCaches() {
         LocType.models.clear();
         LocType.builtModels.clear();
-        NpcType.models.clear();
+        NPCType.models.clear();
         ObjType.modelCache.clear();
         ObjType.iconCache.clear();
         PlayerEntity.models.clear();
@@ -4940,9 +4943,9 @@ public class Game extends GameShell {
             cross[4 + crossCycle / 100].draw(crossY - 8 - 11, crossX - 8 - 8);
         }
 
-        if (viewportInterfaceIndex != -1) {
+        if (viewportInterfaceIndex != -1 && viewportInterfaceIndex < Component.instances.length) {
             animateInterface(viewportInterfaceIndex, sceneDelta);
-            drawInterface(0, 0, InterfaceComponent.instances[viewportInterfaceIndex], 0);
+            drawInterface(0, 0, Component.instances[viewportInterfaceIndex], 0);
         }
 
         drawWildyLevel();
@@ -4998,17 +5001,17 @@ public class Game extends GameShell {
             cameraOrbitZ += (k - cameraOrbitZ) / 16;
         }
 
-        if (super.keyDown[GameShell.KEY_LEFT] == 1) {
+        if (super.keyDown[Applet.KEY_LEFT] == 1) {
             cameraYawModifier += (-24 - cameraYawModifier) / 2;
-        } else if (super.keyDown[GameShell.KEY_RIGHT] == 1) {
+        } else if (super.keyDown[Applet.KEY_RIGHT] == 1) {
             cameraYawModifier += (24 - cameraYawModifier) / 2;
         } else {
             cameraYawModifier /= 2;
         }
 
-        if (super.keyDown[GameShell.KEY_UP] == 1) {
+        if (super.keyDown[Applet.KEY_UP] == 1) {
             cameraPitchModifier += (12 - cameraPitchModifier) / 2;
-        } else if (super.keyDown[GameShell.KEY_DOWN] == 1) {
+        } else if (super.keyDown[Applet.KEY_DOWN] == 1) {
             cameraPitchModifier += (-12 - cameraPitchModifier) / 2;
         } else {
             cameraPitchModifier /= 2;
@@ -5060,7 +5063,7 @@ public class Game extends GameShell {
                 entity.unlink();
             } else if (clientClock >= entity.firstCycle) {
                 if (entity.targetIndex > 0) {
-                    NpcEntity npc = npcEntities[entity.targetIndex - 1];
+                    NPCEntity npc = npcEntities[entity.targetIndex - 1];
                     if (npc != null) {
                         entity.setTarget(getLandY(entity.level, npc.x, npc.z) - entity.baseZ, npc.z, npc.x, clientClock);
                     }
@@ -5078,7 +5081,7 @@ public class Game extends GameShell {
                     }
                 }
                 entity.update(sceneDelta);
-                scene.add((int) entity.y, 60, entity.yaw, (int) entity.x, -1, false, null, entity, (int) entity.z, currentLevel);
+                mapSquare.add((int) entity.y, 60, entity.yaw, (int) entity.x, -1, false, null, entity, (int) entity.z, currentLevel);
             }
         }
     }
@@ -5157,7 +5160,7 @@ public class Game extends GameShell {
 
     public boolean interactWithLoc(int i, int j, int k, int l) {
         int i1 = l >> 14 & 0x7fff;
-        int j1 = scene.getInfo(currentLevel, j, k, l);
+        int j1 = mapSquare.getInfo(currentLevel, j, k, l);
         if (j1 == -1)
             return false;
         int k1 = j1 & 0x1f;
@@ -5356,19 +5359,19 @@ public class Game extends GameShell {
     }
 
     public void updateInterfaceScrollbar(int i, int k, int l, int i1, boolean flag, int j1,
-                                         int k1, InterfaceComponent interfaceComponent) {
+                                         int k1, Component component) {
         if (scrollGripHeld)
             scrollGripInputPadding = 32;
         else
             scrollGripInputPadding = 0;
         scrollGripHeld = false;
         if (i >= j1 && i < j1 + 16 && k >= k1 && k < k1 + 16) {
-            interfaceComponent.scrollY -= dragCycle * 4;
+            component.scrollY -= dragCycle * 4;
             if (flag) {
                 sidebarRedraw = true;
             }
         } else if (i >= j1 && i < j1 + 16 && k >= (k1 + i1) - 16 && k < k1 + i1) {
-            interfaceComponent.scrollY += dragCycle * 4;
+            component.scrollY += dragCycle * 4;
             if (flag) {
                 sidebarRedraw = true;
             }
@@ -5379,7 +5382,7 @@ public class Game extends GameShell {
                 l1 = 8;
             int i2 = k - k1 - 16 - l1 / 2;
             int j2 = i1 - 32 - l1;
-            interfaceComponent.scrollY = ((l - i1) * i2) / j2;
+            component.scrollY = ((l - i1) * i2) / j2;
             if (flag)
                 sidebarRedraw = true;
             scrollGripHeld = true;
@@ -5632,28 +5635,28 @@ public class Game extends GameShell {
                 return;
             int i2 = 0;
             if (l == 0)
-                i2 = scene.getWallBitset(l1, j, k);
+                i2 = mapSquare.getWallBitset(l1, j, k);
             if (l == 1)
-                i2 = scene.getWallDecorationBitset(l1, k, j);
+                i2 = mapSquare.getWallDecorationBitset(l1, k, j);
             if (l == 2)
-                i2 = scene.getLocationBitset(l1, j, k);
+                i2 = mapSquare.getLocationBitset(l1, j, k);
             if (l == 3)
-                i2 = scene.getGroundDecorationBitset(l1, j, k);
+                i2 = mapSquare.getGroundDecorationBitset(l1, j, k);
             if (i2 != 0) {
-                int i3 = scene.getInfo(l1, j, k, i2);
+                int i3 = mapSquare.getInfo(l1, j, k, i2);
                 int j2 = i2 >> 14 & 0x7fff;
                 int k2 = i3 & 0x1f;
                 int l2 = i3 >> 6;
                 if (l == 0) {
-                    scene.removeWall(j, l1, k);
+                    mapSquare.removeWall(j, l1, k);
                     LocType locType = LocType.get(j2);
                     if (locType.hasCollision)
                         collisionMaps[l1].removeWall(locType.isSolid, l2, j, k, k2);
                 }
                 if (l == 1)
-                    scene.removeWallDecoration(l1, k, j);
+                    mapSquare.removeWallDecoration(l1, k, j);
                 if (l == 2) {
-                    scene.removeLocations(j, k, l1);
+                    mapSquare.removeLocations(j, k, l1);
                     LocType locType = LocType.get(j2);
                     if (j + locType.sizeX > 103 || k + locType.sizeX > 103 || j + locType.sizeZ > 103
                         || k + locType.sizeZ > 103)
@@ -5663,7 +5666,7 @@ public class Game extends GameShell {
                             locType.sizeZ);
                 }
                 if (l == 3) {
-                    scene.removeGroundDecoration(l1, j, k);
+                    mapSquare.removeGroundDecoration(l1, j, k);
                     LocType locType_2 = LocType.get(j2);
                     if (locType_2.hasCollision && locType_2.interactable)
                         collisionMaps[l1].removeBlock(k, j);
@@ -5673,8 +5676,8 @@ public class Game extends GameShell {
                 int j3 = l1;
                 if (j3 < 3 && (levelRenderFlags[1][j][k] & 2) == 2)
                     j3++;
-                SceneBuilder.addLoc(j, list, collisionMaps[l1], k, i, levelHeightMaps, l1, i1, j1,
-                    scene, j3);
+                SceneManager.addLoc(j, list, collisionMaps[l1], k, i, levelHeightMaps, l1, i1, j1,
+                    mapSquare, j3);
             }
         }
     }
@@ -5731,7 +5734,7 @@ public class Game extends GameShell {
         sceneMapLocData = null;
         levelHeightMaps = null;
         levelRenderFlags = null;
-        scene = null;
+        mapSquare = null;
         collisionMaps = null;
         pathWaypoint = null;
         pathDistance = null;
@@ -5820,19 +5823,19 @@ public class Game extends GameShell {
         titleRightSpace = null;
         disposeTitleComponents();
         LocType.unload();
-        NpcType.unload();
+        NPCType.unload();
         ObjType.unload();
-        FloType.instances = null;
-        IdkType.instances = null;
-        InterfaceComponent.instances = null;
+        FloorType.instances = null;
+        IDKType.instances = null;
+        Component.instances = null;
         SeqType.instances = null;
         SpotAnimType.instances = null;
         SpotAnimType.models = null;
-        VarpType.instances = null;
+        VarType.instances = null;
         super.drawArea = null;
         PlayerEntity.models = null;
         Draw3D.unload();
-        Scene.unload();
+        MapSquare.unload();
         Model.unload();
         SeqBase.instances = null;
         SeqFrame.instances = null;
@@ -6017,7 +6020,7 @@ public class Game extends GameShell {
         updateNpcEntity(true);
         updateEntityVoices();
         updateTemporaryLocs();
-        if ((super.keyDown[GameShell.KEY_LEFT] == 1 || super.keyDown[GameShell.KEY_RIGHT] == 1 || super.keyDown[GameShell.KEY_UP] == 1 || super.keyDown[GameShell.KEY_DOWN] == 1) && cameraMovedWrite++ > 5) {
+        if ((super.keyDown[Applet.KEY_LEFT] == 1 || super.keyDown[Applet.KEY_RIGHT] == 1 || super.keyDown[Applet.KEY_UP] == 1 || super.keyDown[Applet.KEY_DOWN] == 1) && cameraMovedWrite++ > 5) {
             cameraMovedWrite = 0;
             outBuffer.p1isaac(Packet.Client.CAMERA_MOVEMENT);
             outBuffer.p2(cameraOrbitPitch);
@@ -6059,7 +6062,7 @@ public class Game extends GameShell {
                     hoveredSlotParentId = -1;
                     updateInput();
                     if (hoveredSlotParentId == objDragComponentId && hoveredSlot != objDragSlot) {
-                        InterfaceComponent inter = InterfaceComponent.instances[objDragComponentId];
+                        Component inter = Component.instances[objDragComponentId];
                         int j1 = inter.inventoryIndices[hoveredSlot];
                         inter.inventoryIndices[hoveredSlot] = inter.inventoryIndices[objDragSlot];
                         inter.inventoryIndices[objDragSlot] = j1;
@@ -6087,11 +6090,11 @@ public class Game extends GameShell {
             outBuffer.p3(0x4c2b2c);
         }
 
-        if (Scene.clickedTileX != -1) {
-            int l = Scene.clickedTileX;
-            int k1 = Scene.clickedTileZ;
+        if (MapSquare.clickedTileX != -1) {
+            int l = MapSquare.clickedTileX;
+            int k1 = MapSquare.clickedTileZ;
             boolean canMove = moveTo(self.pathTileX[0], 0, true, l, self.pathTileZ[0], 0, 0, k1, 0, 0, 0);
-            Scene.clickedTileX = -1;
+            MapSquare.clickedTileX = -1;
 
             if (canMove) {
                 crossX = super.clickX;
@@ -6249,7 +6252,7 @@ public class Game extends GameShell {
                 if (entity.finished)
                     entity.unlink();
                 else
-                    scene.add(entity.z, 60, 0, entity.x, -1,
+                    mapSquare.add(entity.z, 60, 0, entity.x, -1,
                         false, null, entity, entity.y, entity.level);
             }
 
@@ -6268,10 +6271,10 @@ public class Game extends GameShell {
     }
 
     public static void setHighMemory() {
-        Scene.lowMemory = false;
+        MapSquare.lowMemory = false;
         Draw3D.lowMemory = false;
         lowMemory = false;
-        SceneBuilder.lowMemory = false;
+        SceneManager.lowMemory = false;
         Signlink.lowMemory = false;
     }
 
@@ -6457,7 +6460,7 @@ public class Game extends GameShell {
             }
 
             // control held down
-            outBuffer.p1(super.keyDown[GameShell.KEY_CONTROL] == 1 ? 1 : 0);
+            outBuffer.p1(super.keyDown[Applet.KEY_CONTROL] == 1 ? 1 : 0);
 
             // steps are relative to these starting values
             outBuffer.p2(startX + baseTileX);
@@ -6522,13 +6525,21 @@ public class Game extends GameShell {
     public boolean animateInterface(int id, int sceneDelta) {
         boolean animated = false;
 
-        InterfaceComponent parent = InterfaceComponent.instances[id];
+        if (Component.instances.length < id) {
+            return false;
+        }
+
+        Component parent = Component.instances[id];
+        if (parent.children == null) {
+            return false;
+        }
+
         for (int l = 0; l < parent.children.length; l++) {
             if (parent.children[l] == -1) {
                 break;
             }
 
-            InterfaceComponent child = InterfaceComponent.instances[parent.children[l]];
+            Component child = Component.instances[parent.children[l]];
             if (child.type == 1) {
                 animated |= animateInterface(child.id, sceneDelta);
             }
@@ -6582,7 +6593,11 @@ public class Game extends GameShell {
     }
 
     public static void resetParentComponentSeq(int id) {
-        InterfaceComponent parent = InterfaceComponent.instances[id];
+        if (Component.instances.length < id) {
+            return;
+        }
+
+        Component parent = Component.instances[id];
         if (parent == null || parent.children == null) {
             return;
         }
@@ -6591,7 +6606,7 @@ public class Game extends GameShell {
                 break;
             }
 
-            InterfaceComponent child = InterfaceComponent.instances[parent.children[n]];
+            Component child = Component.instances[parent.children[n]];
             if (child.type == 1) {
                 resetParentComponentSeq(child.id);
             }
@@ -6619,19 +6634,19 @@ public class Game extends GameShell {
             }
     }
 
-    public boolean isInterfaceEnabled(InterfaceComponent interfaceComponent) {
-        if (interfaceComponent.scriptCompareType == null)
+    public boolean isInterfaceEnabled(Component component) {
+        if (component.scriptCompareType == null)
             return false;
-        for (int j = 0; j < interfaceComponent.scriptCompareType.length; j++) {
-            int k = executeInterface(interfaceComponent, j);
-            int l = interfaceComponent.scriptCompareValue[j];
-            if (interfaceComponent.scriptCompareType[j] == 2) {
+        for (int j = 0; j < component.scriptCompareType.length; j++) {
+            int k = executeInterface(component, j);
+            int l = component.scriptCompareValue[j];
+            if (component.scriptCompareType[j] == 2) {
                 if (k >= l)
                     return false;
-            } else if (interfaceComponent.scriptCompareType[j] == 3) {
+            } else if (component.scriptCompareType[j] == 3) {
                 if (k <= l)
                     return false;
-            } else if (interfaceComponent.scriptCompareType[j] == 4) {
+            } else if (component.scriptCompareType[j] == 4) {
                 if (k == l)
                     return false;
             } else if (k != l)
@@ -6750,8 +6765,8 @@ public class Game extends GameShell {
                     || l == 478 || l == 347 || l == 188) {
                     int k1 = paramA[optionCount - 1];
                     int i2 = paramB[optionCount - 1];
-                    InterfaceComponent interfaceComponent = InterfaceComponent.instances[i2];
-                    if (interfaceComponent.inventoryDummy) {
+                    Component component = Component.instances[i2];
+                    if (component.inventoryDummy) {
                         objGrabThreshold = false;
                         objDragCycles = 0;
                         objDragComponentId = i2;
@@ -6759,9 +6774,9 @@ public class Game extends GameShell {
                         objDragArea = 2;
                         objGrabX = super.clickX;
                         objGrabY = super.clickY;
-                        if (InterfaceComponent.instances[i2].parent == viewportInterfaceIndex)
+                        if (Component.instances[i2].parent == viewportInterfaceIndex)
                             objDragArea = 1;
-                        if (InterfaceComponent.instances[i2].parent == chatbackComponentId)
+                        if (Component.instances[i2].parent == chatbackComponentId)
                             objDragArea = 3;
                         return;
                     }
@@ -6957,8 +6972,8 @@ public class Game extends GameShell {
         }
     }
 
-    public boolean updateInterfaceTooltip(InterfaceComponent interfaceComponent) {
-        int i = interfaceComponent.contentType;
+    public boolean updateInterfaceTooltip(Component component) {
+        int i = component.contentType;
         if (i >= 1 && i <= 200) {
             if (i >= 101)
                 i -= 101;
@@ -6973,7 +6988,7 @@ public class Game extends GameShell {
             return true;
         }
         if (i >= 401 && i <= 500) {
-            options[optionCount] = "Remove @whi@" + interfaceComponent.text;
+            options[optionCount] = "Remove @whi@" + component.text;
             actions[optionCount] = 556;
             optionCount++;
             return true;
@@ -7000,7 +7015,7 @@ public class Game extends GameShell {
         npcCount = 0;
         for (int n = 0; n < count; n++) {
             int nid = npcIndices[n];
-            NpcEntity npc = npcEntities[nid];
+            NPCEntity npc = npcEntities[nid];
 
             int hasUpdate = buffer.gBit(1);
             if (hasUpdate == 0) {
@@ -7109,7 +7124,7 @@ public class Game extends GameShell {
     public void updateObjectStack(int i, int j) {
         LinkedList stacks = objects[currentLevel][i][j];
         if (stacks == null) {
-            scene.removeObject(currentLevel, i, j);
+            mapSquare.removeObject(currentLevel, i, j);
             return;
         }
         int k = -99999999;
@@ -7150,7 +7165,7 @@ public class Game extends GameShell {
             m2 = ObjType.get(j1).getModel(l1);
         int i2 = i + (j << 7) + 0x60000000;
         ObjType objType = ObjType.get(obj.model);
-        scene.addObject(objType.getModel(obj.amount), m1, getLandY(currentLevel, i * 128 + 64, j * 128 + 64), currentLevel, i2, j, i, m2);
+        mapSquare.addObject(objType.getModel(obj.amount), m1, getLandY(currentLevel, i * 128 + 64, j * 128 + 64), currentLevel, i2, j, i, m2);
     }
 
     public void createScene() {
@@ -7162,29 +7177,29 @@ public class Game extends GameShell {
             projectiles.clear();
             Draw3D.clearPools();
             clearCaches();
-            scene.reset();
+            mapSquare.reset();
             for (int j = 0; j < 4; j++)
                 collisionMaps[j].reset();
 
             System.gc();
-            SceneBuilder sceneBuilder = new SceneBuilder(104, levelRenderFlags, 104, levelHeightMaps);
+            SceneManager sceneManager = new SceneManager(104, levelRenderFlags, 104, levelHeightMaps);
             byte[] dest = new byte[1000000];
 
             int mapCount = sceneMapLandData.length;
-            SceneBuilder.lowMemory = Scene.lowMemory;
+            SceneManager.lowMemory = MapSquare.lowMemory;
             for (int n = 0; n < mapCount; n++) {
                 int x = sceneMapIndex[n] >> 8;
                 int y = sceneMapIndex[n] & 0xff;
                 if (x == 33 && y >= 71 && y <= 73) {
-                    SceneBuilder.lowMemory = false;
+                    SceneManager.lowMemory = false;
                     break;
                 }
             }
 
-            if (SceneBuilder.lowMemory) {
-                scene.setup(currentLevel);
+            if (SceneManager.lowMemory) {
+                mapSquare.setup(currentLevel);
             } else {
-                scene.setup(0);
+                mapSquare.setup(0);
             }
 
             outBuffer.p1isaac(Packet.Client.KEEPALIVE);
@@ -7195,9 +7210,9 @@ public class Game extends GameShell {
                 if (data != null) {
                     int uncompressedLength = (new Buffer(data)).g4();
                     BZip2InputStream.read(dest, uncompressedLength, data, data.length - 4, 4);
-                    sceneBuilder.readLandscape(dest, (centerSectorX - 6) * 8, relZ, relX, (centerSectorY - 6) * 8);
+                    sceneManager.readLandscape(dest, (centerSectorX - 6) * 8, relZ, relX, (centerSectorY - 6) * 8);
                 } else if (centerSectorY < 800) {
-                    sceneBuilder.clearLandscape(relX, relZ, 64, 64);
+                    sceneManager.clearLandscape(relX, relZ, 64, 64);
                 }
             }
 
@@ -7209,12 +7224,12 @@ public class Game extends GameShell {
                     BZip2InputStream.read(dest, uncompressedLength, data, data.length - 4, 4);
                     int relX = (sceneMapIndex[n] >> 8) * 64 - baseTileX;
                     int relZ = (sceneMapIndex[n] & 0xff) * 64 - baseTileZ;
-                    sceneBuilder.readLocs(dest, scene, collisionMaps, list, relZ, relX);
+                    sceneManager.readLocs(dest, mapSquare, collisionMaps, list, relZ, relX);
                 }
             }
 
             outBuffer.p1isaac(Packet.Client.KEEPALIVE);
-            sceneBuilder.buildLandscape(scene, collisionMaps);
+            sceneManager.buildLandscape(mapSquare, collisionMaps);
             areaViewport.bind();
             outBuffer.p1isaac(Packet.Client.KEEPALIVE);
             for (LocEntity locEntity = (LocEntity) list.peekLast(); locEntity != null; locEntity = (LocEntity) list.getPrevious()) {
@@ -7276,7 +7291,7 @@ public class Game extends GameShell {
 
         for (int k = 0; k < npcCount; k++) {
             int l = npcIndices[k];
-            NpcEntity npcEntity = npcEntities[l];
+            NPCEntity npcEntity = npcEntities[l];
             if (npcEntity != null && npcEntity.textCycle > 0) {
                 npcEntity.textCycle--;
                 if (npcEntity.textCycle == 0) {
@@ -7300,7 +7315,7 @@ public class Game extends GameShell {
     public static int INTERFACE_OPCODE_ENERGY = 11;
     public static int INTERFACE_OPCODE_WEIGHT = 12;
 
-    public int executeInterface(InterfaceComponent inter, int script) {
+    public int executeInterface(Component inter, int script) {
         if (inter.script == null || script >= inter.script.length) {
             return -2;
         }
@@ -7324,7 +7339,7 @@ public class Game extends GameShell {
                     } else if (opcode == INTERFACE_OPCODE_SKILL_LEVEL_EXPERIENCE) {
                         a += skillExperience[code[position++]];
                     } else if (opcode == INTERFACE_OPCODE_INVENTORY_ITEM_AMOUNT) {
-                        InterfaceComponent c = InterfaceComponent.instances[code[position++]];
+                        Component c = Component.instances[code[position++]];
                         int itemId = code[position++] + 1;
                         for (int n = 0; n < c.inventoryIndices.length; n++) {
                             if (c.inventoryIndices[n] == itemId) {
@@ -7347,7 +7362,7 @@ public class Game extends GameShell {
                             a += skillLevel[n];
                         }
                     } else if (opcode == INTERFACE_OPCODE_INVENTORY_CAPACITY) {
-                        InterfaceComponent c = InterfaceComponent.instances[code[position++]];
+                        Component c = Component.instances[code[position++]];
                         int itemId = code[position++] + 1;
                         for (int n = 0; n < c.inventoryIndices.length; n++) {
                             if (c.inventoryIndices[n] != itemId) {
@@ -7380,7 +7395,7 @@ public class Game extends GameShell {
 
         if (errorLoading) {
             flameActive = false;
-            g.setFont(new Font("Helvetica", Font.BOLD, 16));
+            g.setFont(new java.awt.Font("Helvetica", java.awt.Font.BOLD, 16));
             g.setColor(Color.yellow);
             int i = 35;
             g.drawString("Sorry, an error has occured whilst loading RuneScape", 30, i);
@@ -7389,7 +7404,7 @@ public class Game extends GameShell {
             g.drawString("To fix this try the following (in order):", 30, i);
             i += 50;
             g.setColor(Color.white);
-            g.setFont(new Font("Helvetica", Font.BOLD, 12));
+            g.setFont(new java.awt.Font("Helvetica", java.awt.Font.BOLD, 12));
             g.drawString("1: Try closing ALL open web-browser windows, and reloading", 30, i);
             i += 30;
             g.drawString("2: Try clearing your web-browsers cache from tools->internet options", 30, i);
@@ -7403,7 +7418,7 @@ public class Game extends GameShell {
 
         if (errorHost) {
             flameActive = false;
-            g.setFont(new Font("Helvetica", Font.BOLD, 20));
+            g.setFont(new java.awt.Font("Helvetica", java.awt.Font.BOLD, 20));
             g.setColor(Color.white);
             g.drawString("Error - unable to load game!", 50, 50);
             g.drawString("To play RuneScape make sure you play from", 50, 100);
@@ -7420,7 +7435,7 @@ public class Game extends GameShell {
             g.drawString("To fix this try the following (in order):", 30, j);
             j += 50;
             g.setColor(Color.white);
-            g.setFont(new Font("Helvetica", Font.BOLD, 12));
+            g.setFont(new java.awt.Font("Helvetica", java.awt.Font.BOLD, 12));
             g.drawString("1: Try closing ALL open web-browser windows, and reloading", 30, j);
             j += 30;
             g.drawString("2: Try rebooting your computer, and reloading", 30, j);
@@ -7527,13 +7542,13 @@ public class Game extends GameShell {
                 int l = e.tileZ;
                 int bitset = 0;
                 if (e.classType == 0)
-                    bitset = scene.getWallBitset(j, k, l);
+                    bitset = mapSquare.getWallBitset(j, k, l);
                 if (e.classType == 1)
-                    bitset = scene.getWallDecorationBitset(j, l, k);
+                    bitset = mapSquare.getWallDecorationBitset(j, l, k);
                 if (e.classType == 2)
-                    bitset = scene.getLocationBitset(j, k, l);
+                    bitset = mapSquare.getLocationBitset(j, k, l);
                 if (e.classType == 3)
-                    bitset = scene.getGroundDecorationBitset(j, k, l);
+                    bitset = mapSquare.getGroundDecorationBitset(j, k, l);
                 if (bitset == 0 || (bitset >> 14 & 0x7fff) != e.locIndex) {
                     e.unlink();
                 } else {
@@ -7546,34 +7561,34 @@ public class Game extends GameShell {
                     if (e.seqFrame != -1)
                         j2 = e.seq.primaryFrames[e.seqFrame];
                     if (e.classType == 2) {
-                        int k2 = scene.getInfo(j, k, l, bitset);
+                        int k2 = mapSquare.getInfo(j, k, l, bitset);
                         int j3 = k2 & 0x1f;
                         int i4 = k2 >> 6;
                         if (j3 == 11)
                             j3 = 10;
                         Model m = locType.getModel(j3, i4, j1, k1, l1, i2, j2);
-                        scene.setLocModel(k, m, j, l);
+                        mapSquare.setLocModel(k, m, j, l);
                     } else if (e.classType == 1) {
                         Model m = locType.getModel(4, 0, j1, k1, l1, i2, j2);
-                        scene.setWallDecorationModel(l, k, m, j);
+                        mapSquare.setWallDecorationModel(l, k, m, j);
                     } else if (e.classType == 0) {
-                        int l2 = scene.getInfo(j, k, l, bitset);
+                        int l2 = mapSquare.getInfo(j, k, l, bitset);
                         int k3 = l2 & 0x1f;
                         int j4 = l2 >> 6;
                         if (k3 == 2) {
                             int k4 = j4 + 1 & 3;
                             Model m1 = locType.getModel(2, 4 + j4, j1, k1, l1, i2, j2);
                             Model m2 = locType.getModel(2, k4, j1, k1, l1, i2, j2);
-                            scene.setWallModels(m1, m2, l, k, j);
+                            mapSquare.setWallModels(m1, m2, l, k, j);
                         } else {
                             Model m = locType.getModel(k3, j4, j1, k1, l1, i2, j2);
-                            scene.setWallModel(m, l, k, j);
+                            mapSquare.setWallModel(m, l, k, j);
                         }
                     } else if (e.classType == 3) {
-                        int i3 = scene.getInfo(j, k, l, bitset);
+                        int i3 = mapSquare.getInfo(j, k, l, bitset);
                         int l3 = i3 >> 6;
                         Model m = locType.getModel(22, l3, j1, k1, l1, i2, j2);
-                        scene.setGroundDecorationModel(m, l, k, j);
+                        mapSquare.setGroundDecorationModel(m, l, k, j);
                     }
                 }
             }
@@ -7616,7 +7631,7 @@ public class Game extends GameShell {
             int k1 = k >> 14 & 0x7fff;
             if (k != i) {
                 i = k;
-                if (j1 == 2 && scene.getInfo(currentLevel, l, i1, k) >= 0) {
+                if (j1 == 2 && mapSquare.getInfo(currentLevel, l, i1, k) >= 0) {
                     LocType locType = LocType.get(k1);
                     if (selectedObject == 1) {
                         options[optionCount] = "Use " + selectedObjName + " with @cya@" + locType.name;
@@ -7666,13 +7681,13 @@ public class Game extends GameShell {
                     }
                 }
                 if (j1 == 1) {
-                    NpcEntity e = npcEntities[k1];
+                    NPCEntity e = npcEntities[k1];
                     if (e.info.size == 1
                         && (e.x & 0x7f) == 64
                         && (e.z & 0x7f) == 64) {
                         for (int i2 = 0; i2 < npcCount; i2++) {
                             try {
-                                NpcEntity npc = npcEntities[npcIndices[i2]];
+                                NPCEntity npc = npcEntities[npcIndices[i2]];
                                 if (npc != null && npc != e && npc.info.size == 1 && npc.x == e.x && npc.z == e.z) {
                                     drawTooltip(npc.info, i1, l, npcIndices[i2]);
                                 }
@@ -7688,7 +7703,7 @@ public class Game extends GameShell {
                     if ((e.x & 0x7f) == 64 && (e.z & 0x7f) == 64) {
                         for (int j2 = 0; j2 < npcCount; j2++) {
                             try {
-                                NpcEntity npc = npcEntities[npcIndices[j2]];
+                                NPCEntity npc = npcEntities[npcIndices[j2]];
                                 if (npc != null && npc.info.size == 1 && npc.x == e.x && npc.z == e.z) {
                                     drawTooltip(npc.info, i1, l, npcIndices[j2]);
                                 }
@@ -7872,11 +7887,11 @@ public class Game extends GameShell {
             fontBold12.drawCentered(40, 0, chatbackMessage, 239);
             fontBold12.drawCentered(60, 128, "Click to continue", 239);
         } else if (chatbackComponentId != -1)
-            drawInterface(0, 0, InterfaceComponent.instances[chatbackComponentId], 0);
+            drawInterface(0, 0, Component.instances[chatbackComponentId], 0);
         else if (stickyChatbackComponentId != -1) {
-            drawInterface(0, 0, InterfaceComponent.instances[stickyChatbackComponentId], 0);
+            drawInterface(0, 0, Component.instances[stickyChatbackComponentId], 0);
         } else {
-            IndexedFont indexedFont = fontPlain12;
+            Font font = fontPlain12;
             int i = 0;
             Draw2D.setBounds(77, 0, 463, 0);
             for (int j = 0; j < 100; j++)
@@ -7885,23 +7900,23 @@ public class Game extends GameShell {
                     int l = (70 - i * 14) + chatScrollAmount;
                     if (k == 0) {
                         if (l > 0 && l < 110)
-                            indexedFont.draw(4, l, 0, chatMessage[j]);
+                            font.draw(4, l, 0, chatMessage[j]);
                         i++;
                     }
                     if (k == 1) {
                         if (l > 0 && l < 110) {
-                            indexedFont.draw(4, l, 0xffffff, chatMessagePrefix[j] + ":");
-                            indexedFont.draw(
-                                12 + indexedFont.stringWidth(chatMessagePrefix[j]), l, 255,
+                            font.draw(4, l, 0xffffff, chatMessagePrefix[j] + ":");
+                            font.draw(
+                                12 + font.stringWidth(chatMessagePrefix[j]), l, 255,
                                 chatMessage[j]);
                         }
                         i++;
                     }
                     if (k == 2 && (chatPublicSetting == 0 || chatPublicSetting == 1 && isFriend(chatMessagePrefix[j]))) {
                         if (l > 0 && l < 110) {
-                            indexedFont.draw(4, l, 0, chatMessagePrefix[j] + ":");
-                            indexedFont.draw(
-                                12 + indexedFont.stringWidth(chatMessagePrefix[j]), l, 255,
+                            font.draw(4, l, 0, chatMessagePrefix[j] + ":");
+                            font.draw(
+                                12 + font.stringWidth(chatMessagePrefix[j]), l, 255,
                                 chatMessage[j]);
                         }
                         i++;
@@ -7909,36 +7924,36 @@ public class Game extends GameShell {
                     if ((k == 3 || k == 7) && splitPrivateChat == 0
                         && (k == 7 || chatPrivateSetting == 0 || chatPrivateSetting == 1 && isFriend(chatMessagePrefix[j]))) {
                         if (l > 0 && l < 110) {
-                            indexedFont.draw(4, l, 0, "From " + chatMessagePrefix[j] + ":");
-                            indexedFont.draw(
-                                12 + indexedFont.stringWidth("From " + chatMessagePrefix[j]), l,
+                            font.draw(4, l, 0, "From " + chatMessagePrefix[j] + ":");
+                            font.draw(
+                                12 + font.stringWidth("From " + chatMessagePrefix[j]), l,
                                 0x800000, chatMessage[j]);
                         }
                         i++;
                     }
                     if (k == 4 && (chatTradeDuelSetting == 0 || chatTradeDuelSetting == 1 && isFriend(chatMessagePrefix[j]))) {
                         if (l > 0 && l < 110)
-                            indexedFont.draw(4, l, 0x800080,
+                            font.draw(4, l, 0x800080,
                                 chatMessagePrefix[j] + " " + chatMessage[j]);
                         i++;
                     }
                     if (k == 5 && splitPrivateChat == 0 && chatPrivateSetting < 2) {
                         if (l > 0 && l < 110)
-                            indexedFont.draw(4, l, 0x800000, chatMessage[j]);
+                            font.draw(4, l, 0x800000, chatMessage[j]);
                         i++;
                     }
                     if (k == 6 && splitPrivateChat == 0 && chatPrivateSetting < 2) {
                         if (l > 0 && l < 110) {
-                            indexedFont.draw(4, l, 0, "To " + chatMessagePrefix[j] + ":");
-                            indexedFont.draw(
-                                12 + indexedFont.stringWidth("To " + chatMessagePrefix[j]), l,
+                            font.draw(4, l, 0, "To " + chatMessagePrefix[j] + ":");
+                            font.draw(
+                                12 + font.stringWidth("To " + chatMessagePrefix[j]), l,
                                 0x800000, chatMessage[j]);
                         }
                         i++;
                     }
                     if (k == 8 && (chatTradeDuelSetting == 0 || chatTradeDuelSetting == 1 && isFriend(chatMessagePrefix[j]))) {
                         if (l > 0 && l < 110)
-                            indexedFont.draw(4, l, 0xcbb789,
+                            font.draw(4, l, 0xcbb789,
                                 chatMessagePrefix[j] + " " + chatMessage[j]);
                         i++;
                     }
@@ -7949,8 +7964,8 @@ public class Game extends GameShell {
             if (chatScrollY < 78)
                 chatScrollY = 78;
             drawScrollbar(463, 0, chatScrollY - chatScrollAmount - 77, chatScrollY, 77);
-            indexedFont.draw(4, 90, 0, StringUtils.formatName(username) + ":");
-            indexedFont.draw(6 + indexedFont.stringWidth(username + ": "), 90,
+            font.draw(4, 90, 0, StringUtils.formatName(username) + ":");
+            font.draw(6 + font.stringWidth(username + ": "), 90,
                 255, input + "*");
             Draw2D.drawHorizontalLine(0, 77, 479, 0);
         }
@@ -8209,7 +8224,7 @@ public class Game extends GameShell {
                 mapLastBaseZ = baseTileZ;
 
                 for (int n = 0; n < 8192; n++) {
-                    NpcEntity e = npcEntities[n];
+                    NPCEntity e = npcEntities[n];
                     if (e != null) {
                         for (int m = 0; m < 10; m++) {
                             e.pathTileX[m] -= deltaX;
@@ -8285,7 +8300,7 @@ public class Game extends GameShell {
                 return true;
             } else if (packetOpcode == Packet.Server.IF_SETPLAYERHEAD) {
                 int id = inBuffer.g2();
-                InterfaceComponent.instances[id].modelDisabled = self.getHeadModel();
+                Component.instances[id].modelDisabled = self.getHeadModel();
                 packetOpcode = -1;
                 return true;
             } else if (packetOpcode == Packet.Server.HINT_ARROW) {
@@ -8409,7 +8424,7 @@ public class Game extends GameShell {
             } else if (packetOpcode == Packet.Server.IF_SETANIM) {
                 int id = inBuffer.g2();
                 int anim = inBuffer.g2();
-                InterfaceComponent.instances[id].seqId = anim;
+                Component.instances[id].seqId = anim;
                 packetOpcode = -1;
                 return true;
             } else if (packetOpcode == Packet.Server.IF_OPENSIDE) {
@@ -8458,7 +8473,7 @@ public class Game extends GameShell {
             } else if (packetOpcode == Packet.Server.UPDATE_INV_PARTIAL) {
                 sidebarRedraw = true;
                 int id = inBuffer.g2();
-                InterfaceComponent inter = InterfaceComponent.instances[id];
+                Component inter = Component.instances[id];
                 int slot = inBuffer.g1();
                 for (int n = 0; n < slot; n++) {
                     inter.inventoryIndices[n] = inBuffer.g2();
@@ -8488,7 +8503,7 @@ public class Game extends GameShell {
                 return true;
             } else if (packetOpcode == Packet.Server.INTERFACE_ITEMS_CLEAR) {
                 int id = inBuffer.g2();
-                InterfaceComponent inter = InterfaceComponent.instances[id];
+                Component inter = Component.instances[id];
                 for (int n = 0; n < inter.inventoryIndices.length; n++) {
                     inter.inventoryIndices[n] = -1;
                     inter.inventoryIndices[n] = 0;
@@ -8510,11 +8525,11 @@ public class Game extends GameShell {
                     }
                     reportInput = "";
                     reportAbuseMuteToggle = false;
-                    for (int id = 0; id < InterfaceComponent.instances.length; id++) {
-                        if (InterfaceComponent.instances[id] == null || InterfaceComponent.instances[id].contentType != c) {
+                    for (int id = 0; id < Component.instances.length; id++) {
+                        if (Component.instances[id] == null || Component.instances[id].contentType != c) {
                             continue;
                         }
-                        viewportInterfaceIndex = InterfaceComponent.instances[id].parent;
+                        viewportInterfaceIndex = Component.instances[id].parent;
                         break;
                     }
                 }
@@ -8562,8 +8577,8 @@ public class Game extends GameShell {
             } else if (packetOpcode == Packet.Server.IF_SETNPCHEAD) {
                 int id = inBuffer.g2();
                 int npcId = inBuffer.g2();
-                NpcType npcType = NpcType.get(npcId);
-                InterfaceComponent.instances[id].modelDisabled = npcType.getHeadModel();
+                NPCType npcType = NPCType.get(npcId);
+                Component.instances[id].modelDisabled = npcType.getHeadModel();
                 packetOpcode = -1;
                 return true;
             } else if (packetOpcode == Packet.Server.PLAYER_POSITION) {
@@ -8575,7 +8590,7 @@ public class Game extends GameShell {
                 int index = inBuffer.g2();
                 int from = inBuffer.g2();
                 int to = inBuffer.g2();
-                InterfaceComponent c = InterfaceComponent.instances[index];
+                Component c = Component.instances[index];
                 Model m = c.modelDisabled;
                 if (m != null) {
                     m.recolor(from, to);
@@ -8626,7 +8641,7 @@ public class Game extends GameShell {
                 int id = inBuffer.g2();
                 int x = inBuffer.g2s();
                 int y = inBuffer.g2s();
-                InterfaceComponent inter = InterfaceComponent.instances[id];
+                Component inter = Component.instances[id];
                 inter.x = x;
                 inter.y = y;
                 packetOpcode = -1;
@@ -8717,7 +8732,7 @@ public class Game extends GameShell {
                         privateMessageIndex[privateMessageCount] = messageId;
                         privateMessageCount = (privateMessageCount + 1) % 100;
                         String message = TextEncoder.read(inBuffer, packetLength - 13);
-                        message = WordEncoding.getFiltered(message);
+                        message = WordPack.getFiltered(message);
                         if (forceMessage > 1) {
                             addMessage(7, message, StringUtils.formatName(StringUtils.fromBase37(name)));
                         } else {
@@ -8741,7 +8756,7 @@ public class Game extends GameShell {
             } else if (packetOpcode == Packet.Server.IF_SETMODEL) {
                 int id = inBuffer.g2();
                 int modelId = inBuffer.g2();
-                InterfaceComponent.instances[id].modelDisabled = new Model(modelId);
+                Component.instances[id].modelDisabled = new Model(modelId);
                 packetOpcode = -1;
                 return true;
             } else if (packetOpcode == Packet.Server.INTERFACE_DIALOGUE) {
@@ -8829,10 +8844,10 @@ public class Game extends GameShell {
                 int objectId = inBuffer.g2();
                 int modelZoomDivisor = inBuffer.g2();
                 ObjType objType = ObjType.get(objectId);
-                InterfaceComponent.instances[id].modelDisabled = objType.getModel(50);
-                InterfaceComponent.instances[id].modelEyePitch = objType.iconCameraPitch;
-                InterfaceComponent.instances[id].modelYaw = objType.iconYaw;
-                InterfaceComponent.instances[id].modelZoom = (objType.iconZoom * 100) / modelZoomDivisor;
+                Component.instances[id].modelDisabled = objType.getModel(50);
+                Component.instances[id].modelEyePitch = objType.iconCameraPitch;
+                Component.instances[id].modelYaw = objType.iconYaw;
+                Component.instances[id].modelZoom = (objType.iconZoom * 100) / modelZoomDivisor;
                 packetOpcode = -1;
                 return true;
             } else if (packetOpcode == Packet.Server.IF_OPENTOP) {
@@ -8862,7 +8877,7 @@ public class Game extends GameShell {
                     int r = color >> 10 & 0x1f;
                     int g = color >> 5 & 0x1f;
                     int b = color & 0x1f;
-                    InterfaceComponent.instances[id].color = (r << 19) + (g << 11) + (b << 3);
+                    Component.instances[id].color = (r << 19) + (g << 11) + (b << 3);
                 } catch (Exception ex) {
                     System.out.println("Bad interface from server");
                 }
@@ -8875,7 +8890,7 @@ public class Game extends GameShell {
                     }
                 }
 
-                for (NpcEntity npcEntity : npcEntities) {
+                for (NPCEntity npcEntity : npcEntities) {
                     if (npcEntity != null) {
                         npcEntity.primarySeq = -1;
                     }
@@ -8886,7 +8901,7 @@ public class Game extends GameShell {
             } else if (packetOpcode == Packet.Server.INTERFACE_HOVER) {
                 int id = inBuffer.g2();
                 boolean state = inBuffer.g1() == 1;
-                InterfaceComponent.instances[id].hidden = state;
+                Component.instances[id].hidden = state;
                 packetOpcode = -1;
                 return true;
             } else if (packetOpcode == Packet.Server.UPDATE_IGNORELIST) {
@@ -8926,8 +8941,8 @@ public class Game extends GameShell {
             } else if (packetOpcode == Packet.Server.IF_SETTEXT) {
                 try {
                     int id = inBuffer.g2();
-                    InterfaceComponent.instances[id].text = inBuffer.gString();
-                    if (InterfaceComponent.instances[id].parent == tabComponentId[selectedTab]) {
+                    Component.instances[id].text = inBuffer.gString();
+                    if (Component.instances[id].parent == tabComponentId[selectedTab]) {
                         sidebarRedraw = true;
                     }
                 } catch (Exception ex) {
@@ -8982,7 +8997,7 @@ public class Game extends GameShell {
             } else if (packetOpcode == Packet.Server.UPDATE_INV_FULL) {
                 sidebarRedraw = true;
                 int id = inBuffer.g2();
-                InterfaceComponent inter = InterfaceComponent.instances[id];
+                Component inter = Component.instances[id];
                 while (inBuffer.offset < packetLength) {
                     int slot = inBuffer.g1();
                     int item = inBuffer.g2();
@@ -9001,15 +9016,15 @@ public class Game extends GameShell {
                 updatePlayers(inBuffer, packetLength);
                 if (sceneState == 1) {
                     sceneState = 2;
-                    SceneBuilder.levelBuilt = currentLevel;
+                    SceneManager.levelBuilt = currentLevel;
                     createScene();
                 }
-                if (lowMemory && sceneState == 2 && SceneBuilder.levelBuilt != currentLevel) {
+                if (lowMemory && sceneState == 2 && SceneManager.levelBuilt != currentLevel) {
                     areaViewport.bind();
                     fontPlain12.drawCentered(151, 0, "Loading - please wait.", 257);
                     fontPlain12.drawCentered(150, 0xffffff, "Loading - please wait.", 256);
                     areaViewport.drawImage(11, super.graphics, 8);
-                    SceneBuilder.levelBuilt = currentLevel;
+                    SceneManager.levelBuilt = currentLevel;
                     createScene();
                 }
                 if (currentLevel != lastSceneLevel && sceneState == 2) {
@@ -9044,9 +9059,9 @@ public class Game extends GameShell {
         Draw3D.offsets = sidebarOffsets;
         inback.draw(0, 0);
         if (sidebarInterfaceId != -1)
-            drawInterface(0, 0, InterfaceComponent.instances[sidebarInterfaceId], 0);
+            drawInterface(0, 0, Component.instances[sidebarInterfaceId], 0);
         else if (tabComponentId[selectedTab] != -1)
-            drawInterface(0, 0, InterfaceComponent.instances[tabComponentId[selectedTab]], 0);
+            drawInterface(0, 0, Component.instances[tabComponentId[selectedTab]], 0);
         if (menuVisible && mouseArea == 1)
             drawMenu();
         areaInvback.drawImage(231, super.graphics, 562);
@@ -9161,7 +9176,7 @@ public class Game extends GameShell {
                 if (!ignore && tutorialIslandState == 0)
                     try {
                         String s = TextEncoder.read(b, length);
-                        s = WordEncoding.getFiltered(s);
+                        s = WordPack.getFiltered(s);
                         p.spoken = s;
                         p.spokenColor = info >> 8;
                         p.spokenEffect = info & 0xff;
@@ -9293,10 +9308,10 @@ public class Game extends GameShell {
 
             Signlink.startpriv(InetAddress.getLocalHost());
             instance = new Game();
-            instance.initFrame(532, 789, "Revision 225", true);
+            instance.initFrame(532, 789, "Revision 225");
 
             try {
-                Font arial = new Font("Arial", Font.PLAIN, 11);
+                java.awt.Font arial = new java.awt.Font("Arial", java.awt.Font.PLAIN, 11);
                 Map attributes = arial.getAttributes();
                 attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 
@@ -9487,7 +9502,7 @@ public class Game extends GameShell {
     public static int drawViewportCounter;
     public static int itemOption1Counter;
     public int[] skillLevelReal = new int[50];
-    public InterfaceComponent interfaceComponent = new InterfaceComponent();
+    public Component component = new Component();
     public int[] waveLoops = new int[50];
     public int button;
     public int[] archiveChecksums = new int[10];
@@ -9509,7 +9524,7 @@ public class Game extends GameShell {
     public int lastPacketOpcode;
     public int secondMostRecentOpcode;
     public int thirdMostRecentOpcode;
-    public Scene scene;
+    public MapSquare mapSquare;
     public LinkedList projectiles = new LinkedList();
     public int splitPrivateChat;
     public String[] options = new String[500];
@@ -9597,7 +9612,7 @@ public class Game extends GameShell {
     public int objDragCycles;
     public int[] sceneMapIndex;
     public int[] skillLevel = new int[50];
-    public NpcEntity[] npcEntities = new NpcEntity[8192];
+    public NPCEntity[] npcEntities = new NPCEntity[8192];
     public int npcCount;
     public int[] npcIndices = new int[8192];
     public int minimapZoom;
@@ -9672,10 +9687,10 @@ public class Game extends GameShell {
     public IndexedSprite mapback;
     public IndexedSprite chatback;
     public int inMultizone;
-    public IndexedFont fontPlain11;
-    public IndexedFont fontPlain12;
-    public IndexedFont fontBold12;
-    public IndexedFont fontQuill8;
+    public Font fontPlain11;
+    public Font fontPlain12;
+    public Font fontBold12;
+    public Font fontQuill8;
     public int clickedMinimap;
     public int[] flameIntensity;
     public int[] flameIntensityBuffer;

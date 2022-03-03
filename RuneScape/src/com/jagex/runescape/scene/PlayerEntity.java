@@ -2,6 +2,8 @@ package com.jagex.runescape.scene;
 
 import com.jagex.runescape.Game;
 import com.jagex.runetek3.formats.*;
+import com.jagex.runetek3.graphics.Model;
+import com.jagex.runetek3.graphics.SeqType;
 import com.jagex.runetek3.scene.PathingEntity;
 import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.util.Cache;
@@ -222,7 +224,7 @@ public class PlayerEntity extends PathingEntity {
 
                 if (index >= 256 && index < 512) {
                     try {
-                        models[n++] = IdkType.instances[index - 256].getModel();
+                        models[n++] = IDKType.instances[index - 256].getModel();
                     } catch (Exception ex) {
                     }
                 }
@@ -280,7 +282,7 @@ public class PlayerEntity extends PathingEntity {
         for (int n = 0; n < 12; n++) {
             int i = appearanceIndices[n];
             if (i >= 256 && i < 512) {
-                models[count++] = IdkType.instances[i - 256].getHeadModel();
+                models[count++] = IDKType.instances[i - 256].getHeadModel();
             }
 
             if (i >= 512) {

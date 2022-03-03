@@ -1,6 +1,6 @@
 package com.jagex.runetek3.scene;
 
-import com.jagex.runetek3.formats.SeqType;
+import com.jagex.runetek3.graphics.SeqType;
 
 public class PathingEntity extends Entity {
 

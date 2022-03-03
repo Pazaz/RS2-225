@@ -1,6 +1,6 @@
 package com.jagex.runetek3.scene;
 
-import com.jagex.runetek3.formats.SeqType;
+import com.jagex.runetek3.graphics.SeqType;
 import com.jagex.runetek3.util.Node;
 
 public class LocEntity extends Node {

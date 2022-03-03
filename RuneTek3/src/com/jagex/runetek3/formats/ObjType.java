@@ -3,6 +3,7 @@ package com.jagex.runetek3.formats;
 import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.graphics.Draw2D;
 import com.jagex.runetek3.graphics.Draw3D;
+import com.jagex.runetek3.graphics.Model;
 import com.jagex.runetek3.graphics.Sprite;
 import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.util.Cache;

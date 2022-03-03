@@ -1,18 +1,19 @@
 package com.jagex.runetek3.formats;
 
 import com.jagex.runetek3.cache.FileArchive;
+import com.jagex.runetek3.graphics.Model;
 import com.jagex.runetek3.util.Buffer;
 
-public class IdkType {
+public class IDKType {
 
     public static void load(FileArchive fileArchive) {
         Buffer buffer = new Buffer(fileArchive.read("idk.dat", null));
         count = buffer.g2();
-        instances = new IdkType[count];
+        instances = new IDKType[count];
 
         for (int j = 0; j < count; j++) {
             if (instances[j] == null) {
-                instances[j] = new IdkType();
+                instances[j] = new IDKType();
             }
 
             instances[j].read(buffer);
@@ -97,14 +98,14 @@ public class IdkType {
         return model;
     }
 
-    public IdkType() {
+    public IDKType() {
         type = -1;
         oldColors = new int[6];
         newColors = new int[6];
     }
 
     public static int count;
-    public static IdkType[] instances;
+    public static IDKType[] instances;
     public int type;
     public int[] modelIndices;
     public int[] oldColors;

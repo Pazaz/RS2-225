@@ -1,6 +1,6 @@
 package com.jagex.runetek3.scene;
 
-import com.jagex.runetek3.formats.Model;
+import com.jagex.runetek3.graphics.Model;
 
 public class Loc {
 

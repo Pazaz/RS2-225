@@ -6,7 +6,7 @@ import java.awt.image.*;
 public class DrawArea
     implements ImageProducer, ImageObserver {
 
-    public DrawArea(Component component, int width, int height) {
+    public DrawArea(java.awt.Component component, int width, int height) {
         this.width = width;
         this.height = height;
         pixels = new int[width * height];

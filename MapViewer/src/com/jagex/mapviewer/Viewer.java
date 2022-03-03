@@ -2,14 +2,14 @@ package com.jagex.mapviewer;
 
 import com.jagex.mapviewer.graphics.DrawText;
 import com.jagex.mapviewer.util.Signature;
-import com.jagex.runetek3.GameShell;
+import com.jagex.runetek3.Applet;
 import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.graphics.Draw2D;
 import com.jagex.runetek3.graphics.IndexedSprite;
 import com.jagex.runetek3.graphics.Sprite;
 import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.util.Signlink;
-import com.jagex.runetek3.graphics.IndexedFontFull;
+import com.jagex.runetek3.graphics.FontFull;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,11 +19,11 @@ import java.io.*;
 import java.net.URL;
 import java.security.MessageDigest;
 
-public class Viewer extends GameShell {
+public class Viewer extends Applet {
 
     public static void main(String[] args) {
         Viewer viewer = new Viewer();
-        viewer.initFrame(503, 633, "World Map Viewer", false);
+        viewer.initFrame(503, 633, "World Map Viewer");
     }
 
     @Override
@@ -97,7 +97,7 @@ public class Viewer extends GameShell {
         } catch (Exception exception1) {
         }
 
-        b12 = new IndexedFontFull(worldmap, "b12_full", false);
+        b12 = new FontFull(worldmap, "b12_full", false);
         f11 = new DrawText(11, true, this);
         f12 = new DrawText(12, true, this);
         f14 = new DrawText(14, true, this);
@@ -351,18 +351,18 @@ public class Viewer extends GameShell {
 
     @Override
     public void update() {
-        if (super.keyDown[GameShell.KEY_LEFT] == 1) {
+        if (super.keyDown[Applet.KEY_LEFT] == 1) {
             offsetX = (int) ((double) offsetX - 16D / zoomX);
             shouldDraw = true;
-        } else if (super.keyDown[GameShell.KEY_RIGHT] == 1) {
+        } else if (super.keyDown[Applet.KEY_RIGHT] == 1) {
             offsetX = (int) ((double) offsetX + 16D / zoomX);
             shouldDraw = true;
         }
 
-        if (super.keyDown[GameShell.KEY_UP] == 1) {
+        if (super.keyDown[Applet.KEY_UP] == 1) {
             offsetY = (int) ((double) offsetY - 16D / zoomX);
             shouldDraw = true;
-        } else if (super.keyDown[GameShell.KEY_DOWN] == 1) {
+        } else if (super.keyDown[Applet.KEY_DOWN] == 1) {
             offsetY = (int) ((double) offsetY + 16D / zoomX);
             shouldDraw = true;
         }
@@ -1543,7 +1543,7 @@ public class Viewer extends GameShell {
 
     private Sprite[] mapfunctions = new Sprite[100];
 
-    private IndexedFontFull b12;
+    private FontFull b12;
     private DrawText f11;
     private DrawText f12;
     private DrawText f14;

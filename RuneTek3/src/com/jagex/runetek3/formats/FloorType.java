@@ -3,16 +3,16 @@ package com.jagex.runetek3.formats;
 import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.util.Buffer;
 
-public class FloType {
+public class FloorType {
 
     public static void load(FileArchive fileArchive) {
         Buffer buffer = new Buffer(fileArchive.read("flo.dat", null));
         count = buffer.g2();
-        instances = new FloType[count];
+        instances = new FloorType[count];
 
         for (int j = 0; j < count; j++) {
             if (instances[j] == null) {
-                instances[j] = new FloType();
+                instances[j] = new FloorType();
             }
 
             instances[j].read(buffer);
@@ -150,13 +150,13 @@ public class FloType {
         return (h / 4 << 10) + (s / 32 << 7) + l / 2;
     }
 
-    public FloType() {
+    public FloorType() {
         textureIndex = -1;
         occlude = true;
     }
 
     public static int count;
-    public static FloType[] instances;
+    public static FloorType[] instances;
     public int rgb;
     public int textureIndex;
     public boolean occlude;

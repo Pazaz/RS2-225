@@ -1,10 +1,12 @@
 package com.itspazaz.playground;
 
-import com.jagex.runetek3.GameShell;
+import com.jagex.runetek3.Applet;
 import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.formats.*;
 import com.jagex.runetek3.graphics.*;
-import com.jagex.runetek3.scene.NpcEntity;
+import com.jagex.runetek3.graphics.Component;
+import com.jagex.runetek3.graphics.Font;
+import com.jagex.runetek3.scene.NPCEntity;
 import com.jagex.runetek3.sound.SoundTrack;
 import com.jagex.runetek3.util.BZip2InputStream;
 import com.jagex.runetek3.util.Buffer;
@@ -17,15 +19,15 @@ import java.awt.image.*;
 import java.io.File;
 import java.net.InetAddress;
 
-public class Playground extends GameShell {
-    private IndexedFont p11, p12, b12, q8;
+public class Playground extends Applet {
+    private Font p11, p12, b12, q8;
 
-    private InterfaceComponent component;
+    private Component component;
 
     private Sprite sprite;
     private ObjType obj;
 
-    private NpcEntity npc = new NpcEntity();
+    private NPCEntity npc = new NPCEntity();
     private boolean npcHead = false;
 
     private LocType loc;
@@ -86,7 +88,7 @@ public class Playground extends GameShell {
             Signlink.startpriv(InetAddress.getLocalHost());
 
             Playground program = new Playground();
-            program.initFrame(720, 1280, "Playground", false);
+            program.initFrame(720, 1280, "Playground");
         } catch (Exception ex) {}
     }
 
@@ -115,15 +117,15 @@ public class Playground extends GameShell {
         Signlink.midifade = false;
         Signlink.midi = "stop";
         LocType.unload();
-        NpcType.unload();
+        NPCType.unload();
         ObjType.unload();
         FloType.instances = null;
-        IdkType.instances = null;
-        InterfaceComponent.instances = null;
+        IDKType.instances = null;
+        Component.instances = null;
         SeqType.instances = null;
         SpotAnimType.instances = null;
         SpotAnimType.models = null;
-        VarpType.instances = null;
+        VarType.instances = null;
         drawArea = null;
         Draw3D.unload();
         Model.unload();
@@ -148,16 +150,16 @@ public class Playground extends GameShell {
             }
 
             // Rotate X axis
-            if (keyDown[GameShell.KEY_UP] == 1) {
+            if (keyDown[Applet.KEY_UP] == 1) {
                 pitch -= modifier; // flipped to be more natural feeling
-            } else if (keyDown[GameShell.KEY_DOWN] == 1) {
+            } else if (keyDown[Applet.KEY_DOWN] == 1) {
                 pitch += modifier;
             }
 
             // Rotate on Y axis
-            if (keyDown[GameShell.KEY_LEFT] == 1) {
+            if (keyDown[Applet.KEY_LEFT] == 1) {
                 yaw += modifier;
-            } else if (keyDown[GameShell.KEY_RIGHT] == 1) {
+            } else if (keyDown[Applet.KEY_RIGHT] == 1) {
                 yaw -= modifier;
             }
 
@@ -224,7 +226,7 @@ public class Playground extends GameShell {
                 break;
             }
 
-            if (key == GameShell.KEY_ENTER) {
+            if (key == Applet.KEY_ENTER) {
                 if (textInputEnabled) {
                     try {
                         if (loadType.equals("Obj")) {
@@ -259,7 +261,7 @@ public class Playground extends GameShell {
                             } else if (textInput.startsWith("h")) {
                                 npcHead = !npcHead;
                                 if (npcHead) {
-                                    component = InterfaceComponent.instances[4901];
+                                    component = Component.instances[4901];
                                     component.modelDisabled = npc.info.getHeadModel();
                                     model = component.getModel(-1, -1, false);
                                     npc.primarySeq = 0;
@@ -301,7 +303,7 @@ public class Playground extends GameShell {
                                 loadSeq = npc.info.walkSeq;
                             } else {
                                 loadId = Integer.parseInt(textInput);
-                                npc.info = NpcType.get(loadId);
+                                npc.info = NPCType.get(loadId);
                                 npc.primarySeq = npc.info.standSeq;
                                 loadSeq = 0;
                                 animCycle = 0;
@@ -368,7 +370,7 @@ public class Playground extends GameShell {
             if (textInputEnabled) {
                 if (key >= ' ' && key < 'z') {
                     textInput += (char)key;
-                } else if (key == GameShell.KEY_DELETE && textInput.length() > 0) {
+                } else if (key == Applet.KEY_DELETE && textInput.length() > 0) {
                     textInput = textInput.substring(0, textInput.length() - 1);
                 }
             } else {
@@ -571,10 +573,10 @@ public class Playground extends GameShell {
 
         try {
             FileArchive title = new FileArchive(Signlink.cacheload("title", false));
-            p11 = new IndexedFont(title, "p11");
-            p12 = new IndexedFont(title, "p12");
-            b12 = new IndexedFont(title, "b12");
-            q8 = new IndexedFont(title, "q8");
+            p11 = new Font(title, "p11");
+            p12 = new Font(title, "p12");
+            b12 = new Font(title, "b12");
+            q8 = new Font(title, "q8");
         } catch (Exception ex) {
             ex.printStackTrace();
             System.exit(1);
@@ -607,10 +609,10 @@ public class Playground extends GameShell {
         LocType.load(config);
         FloType.load(config);
         ObjType.load(config);
-        NpcType.load(config);
-        IdkType.load(config);
+        NPCType.load(config);
+        IDKType.load(config);
         SpotAnimType.load(config);
-        VarpType.load(config);
+        VarType.load(config);
     }
 
     private void loadMedia() {
@@ -625,15 +627,15 @@ public class Playground extends GameShell {
         showProgress("Loading interface", 30);
 
         FileArchive archive = new FileArchive(Signlink.cacheload("interface", false));
-        IndexedFont[] fonts = { p11, p12, b12, q8 };
-        InterfaceComponent.load(media, fonts, archive);
+        Font[] fonts = { p11, p12, b12, q8 };
+        Component.load(media, fonts, archive);
     }
 
     private void loadWordEnc() {
         showProgress("Loading word encoding", 70);
 
         FileArchive wordenc = new FileArchive(Signlink.cacheload("wordenc", false));
-        WordEncoding.load(wordenc);
+        WordPack.load(wordenc);
     }
 
     private void loadSounds() {

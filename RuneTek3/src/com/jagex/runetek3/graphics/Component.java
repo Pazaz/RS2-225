@@ -1,12 +1,11 @@
 package com.jagex.runetek3.graphics;
 
 import com.jagex.runetek3.cache.FileArchive;
-import com.jagex.runetek3.formats.Model;
 import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.util.Cache;
 import com.jagex.runetek3.util.StringUtils;
 
-public class InterfaceComponent {
+public class Component {
 
     public static final int TYPE_PARENT = 0;
     public static final int TYPE_UNUSED = 1;
@@ -25,12 +24,12 @@ public class InterfaceComponent {
     public static final int SELECT_BUTTON = 5;
     public static final int PAUSE_BUTTON = 6;
 
-    public static void load(FileArchive media, IndexedFont[] fonts, FileArchive interfaces) {
+    public static void load(FileArchive media, Font[] fonts, FileArchive interfaces) {
         spriteCache = new Cache(50000);
         modelCache = new Cache(50000);
 
         Buffer b = new Buffer(interfaces.read("data", null));
-        instances = new InterfaceComponent[b.g2()];
+        instances = new Component[b.g2()];
 
         int parent = -1;
         while (b.offset < b.data.length) {
@@ -40,7 +39,7 @@ public class InterfaceComponent {
                 index = b.g2();
             }
 
-            InterfaceComponent w = instances[index] = new InterfaceComponent();
+            Component w = instances[index] = new Component();
             w.id = index;
             w.parent = parent;
             w.type = b.g1();
@@ -273,10 +272,10 @@ public class InterfaceComponent {
         return m;
     }
 
-    public InterfaceComponent() {
+    public Component() {
     }
 
-    public static InterfaceComponent[] instances;
+    public static Component[] instances;
     public int[] inventoryIndices;
     public int[] inventoryAmount;
     public int seqFrame;
@@ -314,7 +313,7 @@ public class InterfaceComponent {
     public boolean fill;
     public boolean center;
     public boolean shadow;
-    public IndexedFont font;
+    public Font font;
     public String text;
     public String activeText;
     public int color;

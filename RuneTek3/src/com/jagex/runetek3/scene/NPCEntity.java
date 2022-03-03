@@ -1,11 +1,11 @@
 package com.jagex.runetek3.scene;
 
-import com.jagex.runetek3.formats.Model;
-import com.jagex.runetek3.formats.NpcType;
-import com.jagex.runetek3.formats.SeqType;
+import com.jagex.runetek3.graphics.Model;
+import com.jagex.runetek3.formats.NPCType;
+import com.jagex.runetek3.graphics.SeqType;
 import com.jagex.runetek3.formats.SpotAnimType;
 
-public class NpcEntity extends PathingEntity {
+public class NPCEntity extends PathingEntity {
 
     @Override
     public Model getDrawMethod() {
@@ -72,8 +72,8 @@ public class NpcEntity extends PathingEntity {
         return info != null;
     }
 
-    public NpcEntity() {
+    public NPCEntity() {
     }
 
-    public NpcType info;
+    public NPCType info;
 }

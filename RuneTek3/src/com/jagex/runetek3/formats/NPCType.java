@@ -1,10 +1,11 @@
 package com.jagex.runetek3.formats;
 
 import com.jagex.runetek3.cache.FileArchive;
+import com.jagex.runetek3.graphics.Model;
 import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.util.Cache;
 
-public class NpcType {
+public class NPCType {
 
     public static void load(FileArchive fileArchive) {
         data = new Buffer(fileArchive.read("npc.dat", null));
@@ -18,9 +19,9 @@ public class NpcType {
             off += idx.g2();
         }
 
-        cache = new NpcType[20];
+        cache = new NPCType[20];
         for (int n = 0; n < 20; n++) {
-            cache[n] = new NpcType();
+            cache[n] = new NPCType();
         }
     }
 
@@ -31,7 +32,7 @@ public class NpcType {
         data = null;
     }
 
-    public static NpcType get(int index) {
+    public static NPCType get(int index) {
         for (int n = 0; n < 20; n++) {
             if (cache[n].index == (long) index) {
                 return cache[n];
@@ -40,7 +41,7 @@ public class NpcType {
 
         try {
             cacheIndex = (cacheIndex + 1) % 20;
-            NpcType npcType = cache[cacheIndex] = new NpcType();
+            NPCType npcType = cache[cacheIndex] = new NPCType();
             data.offset = offsets[index];
             npcType.index = index;
             npcType.read(data);
@@ -142,7 +143,7 @@ public class NpcType {
 
             model.applyGroups();
             model.applyLighting(64, 850, -30, -50, -30, true);
-            NpcType.models.put(index, model);
+            NPCType.models.put(index, model);
         }
 
         model = new Model(model, !disposeAlpha);
@@ -194,7 +195,7 @@ public class NpcType {
         return model;
     }
 
-    public NpcType() {
+    public NPCType() {
         aBoolean76 = false;
         index = -1L;
         size = 1;
@@ -217,7 +218,7 @@ public class NpcType {
     public static int count;
     public static int[] offsets;
     public static Buffer data;
-    public static NpcType[] cache;
+    public static NPCType[] cache;
     public static int cacheIndex;
     public long index;
     public String name;

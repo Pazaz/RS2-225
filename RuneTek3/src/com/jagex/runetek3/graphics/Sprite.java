@@ -18,7 +18,7 @@ public class Sprite extends Draw2D {
         clipX = clipY = 0;
     }
 
-    public Sprite(byte[] src, Component c) {
+    public Sprite(byte[] src, java.awt.Component c) {
         try {
             ByteArrayInputStream bis = new ByteArrayInputStream(src);
             BufferedImage image = ImageIO.read(bis);
