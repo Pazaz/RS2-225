@@ -2,6 +2,9 @@ package com.jagex.runetek3.util;
 
 public class Hashtable {
 
+    public int size;
+    public Node[] nodes;
+
     public Hashtable(int size) {
         this.size = size;
         nodes = new Node[size];
@@ -36,7 +39,4 @@ public class Hashtable {
         value.prev.next = value;
         value.id = key;
     }
-
-    public int size;
-    public Node[] nodes;
 }

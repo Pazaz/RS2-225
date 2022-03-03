@@ -5,6 +5,15 @@ import com.jagex.runetek3.util.Buffer;
 
 public class IndexedSprite extends Draw2D {
 
+    public byte[] pixels;
+    public int[] palette;
+    public int width;
+    public int height;
+    public int clipX;
+    public int clipY;
+    public int clipWidth;
+    public int clipHeight;
+
     public IndexedSprite(FileArchive archive, String name, int index) {
         Buffer data = new Buffer(archive.read(name + ".dat", null));
         Buffer idx = new Buffer(archive.read("index.dat", null));
@@ -298,13 +307,4 @@ public class IndexedSprite extends Draw2D {
             System.out.println("error in plot_scale");
         }
     }
-
-    public byte[] pixels;
-    public int[] palette;
-    public int width;
-    public int height;
-    public int clipX;
-    public int clipY;
-    public int clipWidth;
-    public int clipHeight;
 }

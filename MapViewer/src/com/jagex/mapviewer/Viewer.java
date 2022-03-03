@@ -5,11 +5,11 @@ import com.jagex.mapviewer.util.Signature;
 import com.jagex.runetek3.Applet;
 import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.graphics.Draw2D;
+import com.jagex.runetek3.graphics.FontFull;
 import com.jagex.runetek3.graphics.IndexedSprite;
 import com.jagex.runetek3.graphics.Sprite;
 import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.util.Signlink;
-import com.jagex.runetek3.graphics.FontFull;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -20,6 +20,95 @@ import java.net.URL;
 import java.security.MessageDigest;
 
 public class Viewer extends Applet {
+
+    private static int centerX;
+    private static int centerY;
+    private static int originX;
+    private static int originY;
+    private static int offsetX;
+    private static int offsetY;
+    private final int colorInactiveBorderTL = 0x887755;
+    private final int colorInactive = 0x776644;
+    private final int colorInactiveBorderBR = 0x665533;
+    private final int colorActiveBorderTL = 0xaa0000;
+    private final int colorActive = 0x990000;
+    private final int colorActiveBorderBR = 0x880000;
+    private final int keyX = 5;
+    private final int keyY = 13;
+    private final int keyWidth = 140;
+    private final int keyOffset = 470;
+    private final int maxLabels = 1000;
+    byte[][] underlays;
+    private boolean shouldDraw = true;
+    private int drawTimer;
+    private boolean shouldDrawDebug = false;
+    private boolean shouldDrawLabels = true;
+    private boolean shouldDrawWalls = true;
+    private boolean shouldDrawMapscene = true;
+    private boolean shouldDrawIcons = true;
+    private boolean shouldSmoothEdges = true;
+    private int[] floormapsUnderlay;
+    private int[] floormapsOverlay;
+    private int[][] floormapColors;
+    private int[][] overlayColors;
+    private byte[][] overlayTypes;
+    private byte[][] locWalls;
+    private byte[][] locIcons;
+    private byte[][] locScenes;
+    private IndexedSprite[] mapscenes = new IndexedSprite[100];
+    private Sprite[] mapfunctions = new Sprite[100];
+    private FontFull b12;
+    private DrawText f11;
+    private DrawText f12;
+    private DrawText f14;
+    private DrawText f17;
+    private DrawText f19;
+    private DrawText f22;
+    private DrawText f26;
+    private DrawText f30;
+    private int mapIconCount;
+    private int[] visibleMapIconsX = new int[2000];
+    private int[] visibleMapIconsY = new int[2000];
+    private int[] visibleMapIcons = new int[2000];
+    private int[] mapIconsX = new int[2000];
+    private int[] mapIconsY = new int[2000];
+    private int[] mapIcons = new int[2000];
+    private int lastKeyPage;
+    private int keyPage;
+    private boolean showKey = false;
+    private int currentKeyHover = -1;
+    private int lastKeyHover = -1;
+    private int currentKey = -1;
+    private int flashTimer;
+    private int imageOverviewHeight;
+    private int imageOverviewWidth;
+    private int overviewX;
+    private int overviewY;
+    private boolean showOverview = false;
+    private Sprite imageOverview;
+    private int mouseClickX;
+    private int mouseClickY;
+    private int lastOffsetX;
+    private int lastOffsetY;
+    private int labelCount;
+    private String[] labelText = new String[maxLabels];
+    private int[] labelX = new int[maxLabels];
+    private int[] labelY = new int[maxLabels];
+    private int[] labelType = new int[maxLabels];
+    private double zoomX = 6D;
+    private double zoomY = 6D;
+    private String[] keyNames = {
+        "General Store", "Sword Shop", "Magic Shop", "Axe Shop", "Helmet Shop", "Bank", "Quest Start", "Amulet Shop", "Mining Site", "Furnace",
+        "Anvil", "Combat Training", "Dungeon", "Staff Shop", "Platebody Shop", "Platelegs Shop", "Scimitar Shop", "Archery Shop", "Shield Shop", "Altar",
+        "Herbalist", "Jewelery", "Gem Shop", "Crafting Shop", "Candle Shop", "Fishing Shop", "Fishing Spot", "Clothes Shop", "Apothecary", "Silk Trader",
+        "Kebab Seller", "Pub/Bar", "Mace Shop", "Tannery", "Rare Trees", "Spinning Wheel", "Food Shop", "Cookery Shop", "Mini-Game", "Water Source",
+        "Cooking Range", "Skirt Shop", "Potters Wheel", "Windmill", "Mining Shop", "Chainmail Shop", "Silver Shop", "Fur Trader", "Spice Shop", "Agility Training",
+        "Vegetable Store", "Slayer Master", "Hair Dressers", "Farming patch", "Makeover Mage", "Guide", "Transportation", "???", "Farming shop", "Loom",
+        "Brewery"
+    };
+
+    public Viewer() {
+    }
 
     public static void main(String[] args) {
         Viewer viewer = new Viewer();
@@ -392,8 +481,8 @@ public class Viewer extends Applet {
             } else if (super.frame != null && key == 'e') {
                 System.out.println("Starting export...");
 
-                int width = (int)Math.floor(originX * (zoomX / 3));
-                int height = (int)Math.floor(originY * (zoomY / 3));
+                int width = (int) Math.floor(originX * (zoomX / 3));
+                int height = (int) Math.floor(originY * (zoomY / 3));
 
                 Sprite map = new Sprite(width, height);
                 map.prepare();
@@ -413,7 +502,7 @@ public class Viewer extends Applet {
                 try {
                     DataBuffer buffer = new DataBufferByte(raw, raw.length);
                     int samplesPerPixel = 3;
-                    int[] bandOffsets = { 0, 1, 2 };
+                    int[] bandOffsets = {0, 1, 2};
                     ColorModel colorModel = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), false, true, Transparency.TRANSLUCENT, DataBuffer.TYPE_BYTE);
                     WritableRaster raster = Raster.createInterleavedRaster(buffer, width, height, samplesPerPixel * width, samplesPerPixel, bandOffsets, null);
                     BufferedImage image = new BufferedImage(colorModel, raster, colorModel.isAlphaPremultiplied(), null);
@@ -1498,116 +1587,5 @@ public class Viewer extends Applet {
 
         return true;
     }
-
-    public Viewer() {
-    }
-
-    private boolean shouldDraw = true;
-    private int drawTimer;
-
-    private boolean shouldDrawDebug = false;
-    private boolean shouldDrawLabels = true;
-    private boolean shouldDrawWalls = true;
-    private boolean shouldDrawMapscene = true;
-    private boolean shouldDrawIcons = true;
-    private boolean shouldSmoothEdges = true;
-
-    private final int colorInactiveBorderTL = 0x887755;
-    private final int colorInactive = 0x776644;
-    private final int colorInactiveBorderBR = 0x665533;
-    private final int colorActiveBorderTL = 0xaa0000;
-    private final int colorActive = 0x990000;
-    private final int colorActiveBorderBR = 0x880000;
-
-    private static int centerX;
-    private static int centerY;
-
-    private static int originX;
-    private static int originY;
-
-    private int[] floormapsUnderlay;
-    private int[] floormapsOverlay;
-
-    byte[][] underlays;
-
-    private int[][] floormapColors;
-    private int[][] overlayColors;
-
-    private byte[][] overlayTypes;
-
-    private byte[][] locWalls;
-    private byte[][] locIcons;
-    private byte[][] locScenes;
-
-    private IndexedSprite[] mapscenes = new IndexedSprite[100];
-
-    private Sprite[] mapfunctions = new Sprite[100];
-
-    private FontFull b12;
-    private DrawText f11;
-    private DrawText f12;
-    private DrawText f14;
-    private DrawText f17;
-    private DrawText f19;
-    private DrawText f22;
-    private DrawText f26;
-    private DrawText f30;
-
-    private int mapIconCount;
-
-    private int[] visibleMapIconsX = new int[2000];
-    private int[] visibleMapIconsY = new int[2000];
-    private int[] visibleMapIcons = new int[2000];
-
-    private int[] mapIconsX = new int[2000];
-    private int[] mapIconsY = new int[2000];
-    private int[] mapIcons = new int[2000];
-
-    private final int keyX = 5;
-    private final int keyY = 13;
-    private final int keyWidth = 140;
-    private final int keyOffset = 470;
-    private int lastKeyPage;
-    private int keyPage;
-    private boolean showKey = false;
-    private int currentKeyHover = -1;
-    private int lastKeyHover = -1;
-    private int currentKey = -1;
-    private int flashTimer;
-
-    private int imageOverviewHeight;
-    private int imageOverviewWidth;
-    private int overviewX;
-    private int overviewY;
-    private boolean showOverview = false;
-    private Sprite imageOverview;
-
-    private int mouseClickX;
-    private int mouseClickY;
-    private int lastOffsetX;
-    private int lastOffsetY;
-
-    private int labelCount;
-    private final int maxLabels = 1000;
-    private String[] labelText = new String[maxLabels];
-    private int[] labelX = new int[maxLabels];
-    private int[] labelY = new int[maxLabels];
-    private int[] labelType = new int[maxLabels];
-
-    private double zoomX = 6D;
-    private double zoomY = 6D;
-
-    private static int offsetX;
-    private static int offsetY;
-
-    private String[] keyNames = {
-        "General Store", "Sword Shop", "Magic Shop", "Axe Shop", "Helmet Shop", "Bank", "Quest Start", "Amulet Shop", "Mining Site", "Furnace",
-        "Anvil", "Combat Training", "Dungeon", "Staff Shop", "Platebody Shop", "Platelegs Shop", "Scimitar Shop", "Archery Shop", "Shield Shop", "Altar",
-        "Herbalist", "Jewelery", "Gem Shop", "Crafting Shop", "Candle Shop", "Fishing Shop", "Fishing Spot", "Clothes Shop", "Apothecary", "Silk Trader",
-        "Kebab Seller", "Pub/Bar", "Mace Shop", "Tannery", "Rare Trees", "Spinning Wheel", "Food Shop", "Cookery Shop", "Mini-Game", "Water Source",
-        "Cooking Range", "Skirt Shop", "Potters Wheel", "Windmill", "Mining Shop", "Chainmail Shop", "Silver Shop", "Fur Trader", "Spice Shop", "Agility Training",
-        "Vegetable Store", "Slayer Master", "Hair Dressers", "Farming patch", "Makeover Mage", "Guide", "Transportation", "???", "Farming shop", "Loom",
-        "Brewery"
-    };
 
 }

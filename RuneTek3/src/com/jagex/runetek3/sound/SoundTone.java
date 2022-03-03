@@ -4,6 +4,38 @@ import com.jagex.runetek3.util.Buffer;
 
 public class SoundTone {
 
+    public static int[] buffer;
+    public static int[] noise;
+    public static int[] sin;
+    public static int[] tmpPhases = new int[5];
+    public static int[] tmpDelays = new int[5];
+    public static int[] tmpVolumes = new int[5];
+    public static int[] tmpSemitones = new int[5];
+    public static int[] tmpStarts = new int[5];
+    public SoundEnvelope frequencyBase;
+    public SoundEnvelope amplitudeBase;
+    public SoundEnvelope frequencyModRate;
+    public SoundEnvelope frequencyModRange;
+    public SoundEnvelope amplitudeModRate;
+    public SoundEnvelope amplitudeModRange;
+    public SoundEnvelope release;
+    public SoundEnvelope attack;
+    public int[] harmonicVolume;
+    public int[] harmonicSemitone;
+    public int[] harmonicDelay;
+    public int reverbDelay;
+    public int reverbVolume;
+    public int length;
+    public int start;
+
+    public SoundTone() {
+        harmonicVolume = new int[5];
+        harmonicSemitone = new int[5];
+        harmonicDelay = new int[5];
+        reverbVolume = 100;
+        length = 500;
+    }
+
     public static void init() {
         noise = new int[32768];
         for (int i = 0; i < 32768; i++) {
@@ -214,41 +246,5 @@ public class SoundTone {
         length = buffer.g2();
         start = buffer.g2();
     }
-
-    public SoundTone() {
-        harmonicVolume = new int[5];
-        harmonicSemitone = new int[5];
-        harmonicDelay = new int[5];
-        reverbVolume = 100;
-        length = 500;
-    }
-
-    public SoundEnvelope frequencyBase;
-    public SoundEnvelope amplitudeBase;
-    public SoundEnvelope frequencyModRate;
-    public SoundEnvelope frequencyModRange;
-    public SoundEnvelope amplitudeModRate;
-    public SoundEnvelope amplitudeModRange;
-    public SoundEnvelope release;
-    public SoundEnvelope attack;
-
-    public int[] harmonicVolume;
-    public int[] harmonicSemitone;
-    public int[] harmonicDelay;
-
-    public int reverbDelay;
-    public int reverbVolume;
-    public int length;
-    public int start;
-
-    public static int[] buffer;
-    public static int[] noise;
-    public static int[] sin;
-
-    public static int[] tmpPhases = new int[5];
-    public static int[] tmpDelays = new int[5];
-    public static int[] tmpVolumes = new int[5];
-    public static int[] tmpSemitones = new int[5];
-    public static int[] tmpStarts = new int[5];
 
 }

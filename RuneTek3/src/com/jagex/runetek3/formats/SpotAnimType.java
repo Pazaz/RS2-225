@@ -8,6 +8,30 @@ import com.jagex.runetek3.util.Cache;
 
 public class SpotAnimType {
 
+    public static int count;
+    public static SpotAnimType[] instances;
+    public static Cache models = new Cache(30);
+    public int index;
+    public int modelIndex;
+    public int seqIndex;
+    public SeqType seq;
+    public boolean disposeAlpha;
+    public int[] oldColors;
+    public int[] newColors;
+    public int breadthScale;
+    public int depthScale;
+    public int orientation;
+    public int ambience;
+    public int modelShadow;
+    public SpotAnimType() {
+        seqIndex = -1;
+        disposeAlpha = false;
+        oldColors = new int[6];
+        newColors = new int[6];
+        breadthScale = 128;
+        depthScale = 128;
+    }
+
     public static void load(FileArchive fileArchive) {
         Buffer buffer = new Buffer(fileArchive.read("spotanim.dat", null));
         count = buffer.g2();
@@ -76,30 +100,5 @@ public class SpotAnimType {
         models.put(index, model);
         return model;
     }
-
-    public SpotAnimType() {
-        seqIndex = -1;
-        disposeAlpha = false;
-        oldColors = new int[6];
-        newColors = new int[6];
-        breadthScale = 128;
-        depthScale = 128;
-    }
-
-    public static int count;
-    public static SpotAnimType[] instances;
-    public int index;
-    public int modelIndex;
-    public int seqIndex;
-    public SeqType seq;
-    public boolean disposeAlpha;
-    public int[] oldColors;
-    public int[] newColors;
-    public int breadthScale;
-    public int depthScale;
-    public int orientation;
-    public int ambience;
-    public int modelShadow;
-    public static Cache models = new Cache(30);
 
 }

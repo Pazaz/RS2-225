@@ -8,6 +8,55 @@ import java.awt.image.PixelGrabber;
 
 public class DrawText extends Draw2D {
 
+    static int[] akm;
+
+    static {
+        akm = new int[256];
+        for (int i = 0; i < 256; i++) {
+            int j = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".indexOf(i);
+            if (j == -1)
+                j = 74;
+            akm[i] = j * 9;
+        }
+    }
+
+    boolean akj;
+    int akk;
+    byte[] akl;
+
+    public DrawText(int i, boolean bold, Applet a1) {
+        akj = false;
+        akk = 0;
+        akl = new byte[0x186a0];
+        akk = 855;
+        akj = false;
+        Font font = new Font("Helvetica", bold ? Font.BOLD : Font.PLAIN, i);
+        FontMetrics metrics = a1.getFontMetrics(font);
+        for (int j = 0; j < 95; j++)
+            ahk(font, metrics, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".charAt(j), j, false, a1);
+
+        if (bold && akj) {
+            akk = 855;
+            akj = false;
+            Font font1 = new Font("Helvetica", Font.PLAIN, i);
+            FontMetrics fontmetrics1 = a1.getFontMetrics(font1);
+            for (int l = 0; l < 95; l++)
+                ahk(font1, fontmetrics1, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".charAt(l), l, false, a1);
+
+            if (!akj) {
+                akk = 855;
+                akj = false;
+                for (int i1 = 0; i1 < 95; i1++)
+                    ahk(font1, fontmetrics1, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".charAt(i1), i1, true, a1);
+
+            }
+        }
+        byte[] abyte0 = new byte[akk];
+        System.arraycopy(akl, 0, abyte0, 0, akk);
+
+        akl = abyte0;
+    }
+
     private void ahk(Font font, FontMetrics fontmetrics, char c, int i, boolean flag, Applet a1) {
         int j = fontmetrics.charWidth(c);
         int k = j;
@@ -142,39 +191,6 @@ public class DrawText extends Draw2D {
             System.out.println("drawstring: " + exception);
             exception.printStackTrace();
         }
-    }
-
-    public DrawText(int i, boolean bold, Applet a1) {
-        akj = false;
-        akk = 0;
-        akl = new byte[0x186a0];
-        akk = 855;
-        akj = false;
-        Font font = new Font("Helvetica", bold ? Font.BOLD : Font.PLAIN, i);
-        FontMetrics metrics = a1.getFontMetrics(font);
-        for (int j = 0; j < 95; j++)
-            ahk(font, metrics, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".charAt(j), j, false, a1);
-
-        if (bold && akj) {
-            akk = 855;
-            akj = false;
-            Font font1 = new Font("Helvetica", Font.PLAIN, i);
-            FontMetrics fontmetrics1 = a1.getFontMetrics(font1);
-            for (int l = 0; l < 95; l++)
-                ahk(font1, fontmetrics1, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".charAt(l), l, false, a1);
-
-            if (!akj) {
-                akk = 855;
-                akj = false;
-                for (int i1 = 0; i1 < 95; i1++)
-                    ahk(font1, fontmetrics1, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".charAt(i1), i1, true, a1);
-
-            }
-        }
-        byte[] abyte0 = new byte[akk];
-        System.arraycopy(akl, 0, abyte0, 0, akk);
-
-        akl = abyte0;
     }
 
     public void ahn(String s, int i, int j, int k, boolean flag) {
@@ -317,20 +333,5 @@ public class DrawText extends Draw2D {
 
     public int aig() {
         return akl[6];
-    }
-
-    boolean akj;
-    int akk;
-    byte[] akl;
-    static int[] akm;
-
-    static {
-        akm = new int[256];
-        for (int i = 0; i < 256; i++) {
-            int j = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".indexOf(i);
-            if (j == -1)
-                j = 74;
-            akm[i] = j * 9;
-        }
     }
 }

@@ -5,6 +5,14 @@ import com.jagex.runetek3.util.Node;
 
 public class LocEntity extends Node {
 
+    public int level;
+    public int classType;
+    public int tileX;
+    public int tileZ;
+    public int locIndex;
+    public SeqType seq;
+    public int seqFrame;
+    public int seqCycle;
     public LocEntity(boolean animated, int locIndex, int level, int classType, SeqType seq, int tileZ, int tileX) {
         this.level = level;
         this.classType = classType;
@@ -21,13 +29,4 @@ public class LocEntity extends Node {
             seqCycle = 0;
         }
     }
-
-    public int level;
-    public int classType;
-    public int tileX;
-    public int tileZ;
-    public int locIndex;
-    public SeqType seq;
-    public int seqFrame;
-    public int seqCycle;
 }

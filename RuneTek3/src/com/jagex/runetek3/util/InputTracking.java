@@ -2,6 +2,15 @@ package com.jagex.runetek3.util;
 
 public class InputTracking {
 
+    public static boolean enabled;
+    public static Buffer outBuffer = null;
+    public static Buffer oldBuffer = null;
+    public static long lastTime;
+    public static int trackedCount;
+    public static long oldTime;
+    public static int lastY;
+    public static int lastX;
+
     public static synchronized void setEnabled() {
         outBuffer = Buffer.reserve(1);
         oldBuffer = null;
@@ -275,14 +284,5 @@ public class InputTracking {
         outBuffer.p1(13);
         outBuffer.p1((int) deltaTime);
     }
-
-    public static boolean enabled;
-    public static Buffer outBuffer = null;
-    public static Buffer oldBuffer = null;
-    public static long lastTime;
-    public static int trackedCount;
-    public static long oldTime;
-    public static int lastY;
-    public static int lastX;
 
 }

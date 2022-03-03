@@ -7,6 +7,30 @@ import java.util.Random;
 
 public class Font extends Draw2D {
 
+    public static int[] CHAR_LOOKUP;
+
+    static {
+        CHAR_LOOKUP = new int[256];
+        String s = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
+        for (int i = 0; i < 256; i++) {
+            int j = s.indexOf(i);
+            if (j == -1) {
+                j = 74;
+            }
+            CHAR_LOOKUP[i] = j;
+        }
+    }
+
+    public byte[][] pixels;
+    public int[] charWidth;
+    public int[] charHeight;
+    public int[] charOffsetX;
+    public int[] charOffsetY;
+    public int[] charSpace;
+    public int[] drawWidth;
+    public int height;
+    public Random random;
+
     public Font(FileArchive archive, String name) {
         pixels = new byte[94][];
         charWidth = new int[94];
@@ -331,29 +355,6 @@ public class Font extends Draw2D {
 
             dstOff += dstStep;
             maskOff += maskStep;
-        }
-    }
-
-    public byte[][] pixels;
-    public int[] charWidth;
-    public int[] charHeight;
-    public int[] charOffsetX;
-    public int[] charOffsetY;
-    public int[] charSpace;
-    public int[] drawWidth;
-    public int height;
-    public Random random;
-    public static int[] CHAR_LOOKUP;
-
-    static {
-        CHAR_LOOKUP = new int[256];
-        String s = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
-        for (int i = 0; i < 256; i++) {
-            int j = s.indexOf(i);
-            if (j == -1) {
-                j = 74;
-            }
-            CHAR_LOOKUP[i] = j;
         }
     }
 }

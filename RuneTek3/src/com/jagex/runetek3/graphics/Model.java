@@ -7,175 +7,88 @@ import com.jagex.runetek3.util.CacheableNode;
 
 public class Model extends CacheableNode {
 
-    public static void unload() {
-        metadata = null;
-        obhead = null;
-        obface1 = null;
-        obface2 = null;
-        obface3 = null;
-        obface4 = null;
-        obface5 = null;
-        obpoint1 = null;
-        obpoint2 = null;
-        obpoint3 = null;
-        obpoint4 = null;
-        obpoint5 = null;
-        obvertex1 = null;
-        obvertex2 = null;
-        obaxis = null;
-        testTriangleX = new boolean[4096];
-        projectTriangle = new boolean[4096];
-        vertexScreenX = new int[4096];
-        vertexScreenY = new int[4096];
-        vertexDepth = new int[4096];
-        projectSceneX = new int[4096];
-        projectSceneY = new int[4096];
-        projectSceneZ = new int[4096];
-        depthTriangleCount = new int[1500];
-        depthTriangles = new int[1500][512];
-        priorityTriangleCounts = new int[12];
-        priorityTriangles = new int[12][2000];
-        normalTrianglePriority = new int[2000];
-        highTrianglePriority = new int[2000];
-        lowTrianglePriority = new int[12];
-    }
-
-    public static void load(FileArchive fileArchive) {
-        sin = Draw3D.sin;
-        cos = Draw3D.cos;
-        palette = Draw3D.palette;
-        oneOverFixed1616 = Draw3D.reciprical16;
-
-        try {
-            obhead = new Buffer(fileArchive.read("ob_head.dat", null));
-            obface1 = new Buffer(fileArchive.read("ob_face1.dat", null));
-            obface2 = new Buffer(fileArchive.read("ob_face2.dat", null));
-            obface3 = new Buffer(fileArchive.read("ob_face3.dat", null));
-            obface4 = new Buffer(fileArchive.read("ob_face4.dat", null));
-            obface5 = new Buffer(fileArchive.read("ob_face5.dat", null));
-            obpoint1 = new Buffer(fileArchive.read("ob_point1.dat", null));
-            obpoint2 = new Buffer(fileArchive.read("ob_point2.dat", null));
-            obpoint3 = new Buffer(fileArchive.read("ob_point3.dat", null));
-            obpoint4 = new Buffer(fileArchive.read("ob_point4.dat", null));
-            obpoint5 = new Buffer(fileArchive.read("ob_point5.dat", null));
-            obvertex1 = new Buffer(fileArchive.read("ob_vertex1.dat", null));
-            obvertex2 = new Buffer(fileArchive.read("ob_vertex2.dat", null));
-            obaxis = new Buffer(fileArchive.read("ob_axis.dat", null));
-
-            obhead.offset = 0;
-            obpoint1.offset = 0;
-            obpoint2.offset = 0;
-            obpoint3.offset = 0;
-            obpoint4.offset = 0;
-            obvertex1.offset = 0;
-            obvertex2.offset = 0;
-
-            int count = obhead.g2();
-            metadata = new Metadata[count + 100];
-
-            int vertexTextureDataOffset = 0;
-            int labelDataOffset = 0;
-            int triangleColorDataOffset = 0;
-            int triangleInfoDataOffset = 0;
-            int trianglePriorityDataOffset = 0;
-            int triangleAlphaDataOffset = 0;
-            int triangleSkinDataOffset = 0;
-
-            for (int n = 0; n < count; n++) {
-                int index = obhead.g2();
-                Metadata meta = Model.metadata[index] = new Metadata();
-
-                meta.vertexCount = obhead.g2();
-                meta.triangleCount = obhead.g2();
-                meta.texturedCount = obhead.g1();
-
-                meta.vertexFlagDataOffset = obpoint1.offset;
-                meta.vertexXDataOffset = obpoint2.offset;
-                meta.vertexYDataOffset = obpoint3.offset;
-                meta.vertexZDataOffset = obpoint4.offset;
-                meta.vertexIndexDataOffset = obvertex1.offset;
-                meta.triangleTypeDataOffset = obvertex2.offset;
-
-                int hasInfo = obhead.g1();
-                int hasPriorities = obhead.g1();
-                int hasAlpha = obhead.g1();
-                int hasSkins = obhead.g1();
-                int hasLabels = obhead.g1();
-
-                for (int v = 0; v < meta.vertexCount; v++) {
-                    int flags = obpoint1.g1();
-
-                    if ((flags & 1) != 0) {
-                        obpoint2.gSmart1or2s();
-                    }
-
-                    if ((flags & 2) != 0) {
-                        obpoint3.gSmart1or2s();
-                    }
-
-                    if ((flags & 4) != 0) {
-                        obpoint4.gSmart1or2s();
-                    }
-                }
-
-                for (int t = 0; t < meta.triangleCount; t++) {
-                    int type = obvertex2.g1();
-
-                    if (type == 1) {
-                        obvertex1.gSmart1or2s();
-                        obvertex1.gSmart1or2s();
-                    }
-
-                    obvertex1.gSmart1or2s();
-                }
-
-                meta.triangleColorDataOffset = triangleColorDataOffset;
-                triangleColorDataOffset += meta.triangleCount * 2;
-
-                if (hasInfo == 1) {
-                    meta.triangleInfoDataOffset = triangleInfoDataOffset;
-                    triangleInfoDataOffset += meta.triangleCount;
-                } else {
-                    meta.triangleInfoDataOffset = -1;
-                }
-
-                if (hasPriorities == 255) {
-                    meta.trianglePriorityDataOffset = trianglePriorityDataOffset;
-                    trianglePriorityDataOffset += meta.triangleCount;
-                } else {
-                    meta.trianglePriorityDataOffset = -hasPriorities - 1;
-                }
-
-                if (hasAlpha == 1) {
-                    meta.triangleAlphaDataOffset = triangleAlphaDataOffset;
-                    triangleAlphaDataOffset += meta.triangleCount;
-                } else {
-                    meta.triangleAlphaDataOffset = -1;
-                }
-
-                if (hasSkins == 1) {
-                    meta.triangleSkinDataOffset = triangleSkinDataOffset;
-                    triangleSkinDataOffset += meta.triangleCount;
-                } else {
-                    meta.triangleSkinDataOffset = -1;
-                }
-
-                if (hasLabels == 1) {
-                    meta.vertexLabelDataOffset = labelDataOffset;
-                    labelDataOffset += meta.vertexCount;
-                } else {
-                    meta.vertexLabelDataOffset = -1;
-                }
-
-                meta.triangleTextureDataOffset = vertexTextureDataOffset;
-                vertexTextureDataOffset += meta.texturedCount;
-            }
-        } catch (Exception exception) {
-            System.out.println("Error loading model index");
-            exception.printStackTrace();
-        }
-    }
-
+    public static Metadata[] metadata;
+    public static Buffer obhead;
+    public static Buffer obface1;
+    public static Buffer obface2;
+    public static Buffer obface3;
+    public static Buffer obface4;
+    public static Buffer obface5;
+    public static Buffer obpoint1;
+    public static Buffer obpoint2;
+    public static Buffer obpoint3;
+    public static Buffer obpoint4;
+    public static Buffer obpoint5;
+    public static Buffer obvertex1;
+    public static Buffer obvertex2;
+    public static Buffer obaxis;
+    public static boolean[] testTriangleX = new boolean[4096];
+    public static boolean[] projectTriangle = new boolean[4096];
+    public static int[] vertexScreenX = new int[4096];
+    public static int[] vertexScreenY = new int[4096];
+    public static int[] vertexDepth = new int[4096];
+    public static int[] projectSceneX = new int[4096];
+    public static int[] projectSceneY = new int[4096];
+    public static int[] projectSceneZ = new int[4096];
+    public static int[] depthTriangleCount = new int[1500];
+    public static int[][] depthTriangles = new int[1500][512];
+    public static int[] priorityTriangleCounts = new int[12];
+    public static int[][] priorityTriangles = new int[12][2000];
+    public static int[] normalTrianglePriority = new int[2000];
+    public static int[] highTrianglePriority = new int[2000];
+    public static int[] lowTrianglePriority = new int[12];
+    public static int[] tmpX = new int[10];
+    public static int[] tmpY = new int[10];
+    public static int[] tmpZ = new int[10];
+    public static int transformX;
+    public static int transformY;
+    public static int transformZ;
+    public static boolean allowInput;
+    public static int cursorX;
+    public static int cursorY;
+    public static int resourceCount;
+    public static int[] hoveredBitsets = new int[1000];
+    public static int[] sin;
+    public static int[] cos;
+    public static int[] palette;
+    public static int[] oneOverFixed1616;
+    public int vertexCount;
+    public int[] vertexX;
+    public int[] vertexY;
+    public int[] vertexZ;
+    public int triangleCount;
+    public int[] triangleVertexA;
+    public int[] triangleVertexB;
+    public int[] triangleVertexC;
+    public int[] colorA;
+    public int[] colorB;
+    public int[] colorC;
+    public int[] triangleInfo;
+    public int[] trianglePriorities;
+    public int[] triangleAlpha;
+    public int[] unmodifiedTriangleColor;
+    public int priority;
+    public int texturedCount;
+    public int[] textureVertexA;
+    public int[] textureVertexB;
+    public int[] textureVertexC;
+    public int minBoundX;
+    public int maxBoundX;
+    public int maxBoundZ;
+    public int minBoundZ;
+    public int lengthXZ;
+    public int maxBoundY;
+    public int minBoundY;
+    public int maxDepth;
+    public int minDepth;
+    public int anInt1251;
+    public int[] vertexLabel;
+    public int[] triangleSkin;
+    public int[][] labelVertices;
+    public int[][] skinTriangle;
+    public boolean pickable;
+    public VertexNormal[] vertexNormals;
+    public VertexNormal[] unmodifiedVertexNormals;
     public Model(int index) {
         pickable = false;
 
@@ -357,7 +270,6 @@ public class Model extends CacheableNode {
             textureVertexC[t] = obaxis.g2();
         }
     }
-
     // difference: keep skins
     public Model(Model[] models, int count) {
         pickable = false;
@@ -477,7 +389,6 @@ public class Model extends CacheableNode {
             }
         }
     }
-
     // difference: keep color
     public Model(Model[] models, byte dummy0, int count) {
         pickable = false;
@@ -615,7 +526,6 @@ public class Model extends CacheableNode {
 
         calculateYBoundaries();
     }
-
     public Model(Model from, boolean keepColors, boolean keepAlpha, boolean keepVertices) {
         pickable = false;
 
@@ -671,7 +581,6 @@ public class Model extends CacheableNode {
         textureVertexB = from.textureVertexB;
         textureVertexC = from.textureVertexC;
     }
-
     public Model(Model from, boolean keepVertices, boolean keepColors) {
         pickable = false;
 
@@ -745,7 +654,6 @@ public class Model extends CacheableNode {
         minBoundZ = from.minBoundZ;
         maxBoundX = from.maxBoundX;
     }
-
     public Model(Model from, boolean keepAlpha) {
         pickable = false;
 
@@ -791,6 +699,193 @@ public class Model extends CacheableNode {
         textureVertexA = from.textureVertexA;
         textureVertexB = from.textureVertexB;
         textureVertexC = from.textureVertexC;
+    }
+
+    public static void unload() {
+        metadata = null;
+        obhead = null;
+        obface1 = null;
+        obface2 = null;
+        obface3 = null;
+        obface4 = null;
+        obface5 = null;
+        obpoint1 = null;
+        obpoint2 = null;
+        obpoint3 = null;
+        obpoint4 = null;
+        obpoint5 = null;
+        obvertex1 = null;
+        obvertex2 = null;
+        obaxis = null;
+        testTriangleX = new boolean[4096];
+        projectTriangle = new boolean[4096];
+        vertexScreenX = new int[4096];
+        vertexScreenY = new int[4096];
+        vertexDepth = new int[4096];
+        projectSceneX = new int[4096];
+        projectSceneY = new int[4096];
+        projectSceneZ = new int[4096];
+        depthTriangleCount = new int[1500];
+        depthTriangles = new int[1500][512];
+        priorityTriangleCounts = new int[12];
+        priorityTriangles = new int[12][2000];
+        normalTrianglePriority = new int[2000];
+        highTrianglePriority = new int[2000];
+        lowTrianglePriority = new int[12];
+    }
+
+    public static void load(FileArchive fileArchive) {
+        sin = Draw3D.sin;
+        cos = Draw3D.cos;
+        palette = Draw3D.palette;
+        oneOverFixed1616 = Draw3D.reciprical16;
+
+        try {
+            obhead = new Buffer(fileArchive.read("ob_head.dat", null));
+            obface1 = new Buffer(fileArchive.read("ob_face1.dat", null));
+            obface2 = new Buffer(fileArchive.read("ob_face2.dat", null));
+            obface3 = new Buffer(fileArchive.read("ob_face3.dat", null));
+            obface4 = new Buffer(fileArchive.read("ob_face4.dat", null));
+            obface5 = new Buffer(fileArchive.read("ob_face5.dat", null));
+            obpoint1 = new Buffer(fileArchive.read("ob_point1.dat", null));
+            obpoint2 = new Buffer(fileArchive.read("ob_point2.dat", null));
+            obpoint3 = new Buffer(fileArchive.read("ob_point3.dat", null));
+            obpoint4 = new Buffer(fileArchive.read("ob_point4.dat", null));
+            obpoint5 = new Buffer(fileArchive.read("ob_point5.dat", null));
+            obvertex1 = new Buffer(fileArchive.read("ob_vertex1.dat", null));
+            obvertex2 = new Buffer(fileArchive.read("ob_vertex2.dat", null));
+            obaxis = new Buffer(fileArchive.read("ob_axis.dat", null));
+
+            obhead.offset = 0;
+            obpoint1.offset = 0;
+            obpoint2.offset = 0;
+            obpoint3.offset = 0;
+            obpoint4.offset = 0;
+            obvertex1.offset = 0;
+            obvertex2.offset = 0;
+
+            int count = obhead.g2();
+            metadata = new Metadata[count + 100];
+
+            int vertexTextureDataOffset = 0;
+            int labelDataOffset = 0;
+            int triangleColorDataOffset = 0;
+            int triangleInfoDataOffset = 0;
+            int trianglePriorityDataOffset = 0;
+            int triangleAlphaDataOffset = 0;
+            int triangleSkinDataOffset = 0;
+
+            for (int n = 0; n < count; n++) {
+                int index = obhead.g2();
+                Metadata meta = Model.metadata[index] = new Metadata();
+
+                meta.vertexCount = obhead.g2();
+                meta.triangleCount = obhead.g2();
+                meta.texturedCount = obhead.g1();
+
+                meta.vertexFlagDataOffset = obpoint1.offset;
+                meta.vertexXDataOffset = obpoint2.offset;
+                meta.vertexYDataOffset = obpoint3.offset;
+                meta.vertexZDataOffset = obpoint4.offset;
+                meta.vertexIndexDataOffset = obvertex1.offset;
+                meta.triangleTypeDataOffset = obvertex2.offset;
+
+                int hasInfo = obhead.g1();
+                int hasPriorities = obhead.g1();
+                int hasAlpha = obhead.g1();
+                int hasSkins = obhead.g1();
+                int hasLabels = obhead.g1();
+
+                for (int v = 0; v < meta.vertexCount; v++) {
+                    int flags = obpoint1.g1();
+
+                    if ((flags & 1) != 0) {
+                        obpoint2.gSmart1or2s();
+                    }
+
+                    if ((flags & 2) != 0) {
+                        obpoint3.gSmart1or2s();
+                    }
+
+                    if ((flags & 4) != 0) {
+                        obpoint4.gSmart1or2s();
+                    }
+                }
+
+                for (int t = 0; t < meta.triangleCount; t++) {
+                    int type = obvertex2.g1();
+
+                    if (type == 1) {
+                        obvertex1.gSmart1or2s();
+                        obvertex1.gSmart1or2s();
+                    }
+
+                    obvertex1.gSmart1or2s();
+                }
+
+                meta.triangleColorDataOffset = triangleColorDataOffset;
+                triangleColorDataOffset += meta.triangleCount * 2;
+
+                if (hasInfo == 1) {
+                    meta.triangleInfoDataOffset = triangleInfoDataOffset;
+                    triangleInfoDataOffset += meta.triangleCount;
+                } else {
+                    meta.triangleInfoDataOffset = -1;
+                }
+
+                if (hasPriorities == 255) {
+                    meta.trianglePriorityDataOffset = trianglePriorityDataOffset;
+                    trianglePriorityDataOffset += meta.triangleCount;
+                } else {
+                    meta.trianglePriorityDataOffset = -hasPriorities - 1;
+                }
+
+                if (hasAlpha == 1) {
+                    meta.triangleAlphaDataOffset = triangleAlphaDataOffset;
+                    triangleAlphaDataOffset += meta.triangleCount;
+                } else {
+                    meta.triangleAlphaDataOffset = -1;
+                }
+
+                if (hasSkins == 1) {
+                    meta.triangleSkinDataOffset = triangleSkinDataOffset;
+                    triangleSkinDataOffset += meta.triangleCount;
+                } else {
+                    meta.triangleSkinDataOffset = -1;
+                }
+
+                if (hasLabels == 1) {
+                    meta.vertexLabelDataOffset = labelDataOffset;
+                    labelDataOffset += meta.vertexCount;
+                } else {
+                    meta.vertexLabelDataOffset = -1;
+                }
+
+                meta.triangleTextureDataOffset = vertexTextureDataOffset;
+                vertexTextureDataOffset += meta.texturedCount;
+            }
+        } catch (Exception exception) {
+            System.out.println("Error loading model index");
+            exception.printStackTrace();
+        }
+    }
+
+    public static int adjustHSLLightness(int hsl, int lightness, int type) {
+        if ((type & 2) == 2) {
+            if (lightness < 0)
+                lightness = 0;
+            else if (lightness > 127)
+                lightness = 127;
+            lightness = 127 - lightness;
+            return lightness;
+        }
+
+        lightness = lightness * (hsl & 0x7f) >> 7;
+        if (lightness < 2)
+            lightness = 2;
+        else if (lightness > 126)
+            lightness = 126;
+        return (hsl & 0xff80) + lightness;
     }
 
     public int copyVertex(Model from, int index) {
@@ -1382,24 +1477,6 @@ public class Model extends CacheableNode {
             }
         }
         unmodifiedTriangleColor = null;
-    }
-
-    public static int adjustHSLLightness(int hsl, int lightness, int type) {
-        if ((type & 2) == 2) {
-            if (lightness < 0)
-                lightness = 0;
-            else if (lightness > 127)
-                lightness = 127;
-            lightness = 127 - lightness;
-            return lightness;
-        }
-
-        lightness = lightness * (hsl & 0x7f) >> 7;
-        if (lightness < 2)
-            lightness = 2;
-        else if (lightness > 126)
-            lightness = 126;
-        return (hsl & 0xff80) + lightness;
     }
 
     public void draw(int pitch, int yaw, int roll, int cameraPitch, int cameraX, int cameraY, int cameraZ) {
@@ -2034,106 +2111,16 @@ public class Model extends CacheableNode {
         return x <= xA || x <= xB || x <= xC;
     }
 
-    public int vertexCount;
-    public int[] vertexX;
-    public int[] vertexY;
-    public int[] vertexZ;
-    public int triangleCount;
-    public int[] triangleVertexA;
-    public int[] triangleVertexB;
-    public int[] triangleVertexC;
-    public int[] colorA;
-    public int[] colorB;
-    public int[] colorC;
-    public int[] triangleInfo;
-    public int[] trianglePriorities;
-    public int[] triangleAlpha;
-    public int[] unmodifiedTriangleColor;
-    public int priority;
-    public int texturedCount;
-    public int[] textureVertexA;
-    public int[] textureVertexB;
-    public int[] textureVertexC;
-    public int minBoundX;
-    public int maxBoundX;
-    public int maxBoundZ;
-    public int minBoundZ;
-    public int lengthXZ;
-    public int maxBoundY;
-    public int minBoundY;
-    public int maxDepth;
-    public int minDepth;
-    public int anInt1251;
-    public int[] vertexLabel;
-    public int[] triangleSkin;
-    public int[][] labelVertices;
-    public int[][] skinTriangle;
-    public boolean pickable;
-    public VertexNormal[] vertexNormals;
-    public VertexNormal[] unmodifiedVertexNormals;
-    public static Metadata[] metadata;
-    public static Buffer obhead;
-    public static Buffer obface1;
-    public static Buffer obface2;
-    public static Buffer obface3;
-    public static Buffer obface4;
-    public static Buffer obface5;
-    public static Buffer obpoint1;
-    public static Buffer obpoint2;
-    public static Buffer obpoint3;
-    public static Buffer obpoint4;
-    public static Buffer obpoint5;
-    public static Buffer obvertex1;
-    public static Buffer obvertex2;
-    public static Buffer obaxis;
-    public static boolean[] testTriangleX = new boolean[4096];
-    public static boolean[] projectTriangle = new boolean[4096];
-    public static int[] vertexScreenX = new int[4096];
-    public static int[] vertexScreenY = new int[4096];
-    public static int[] vertexDepth = new int[4096];
-    public static int[] projectSceneX = new int[4096];
-    public static int[] projectSceneY = new int[4096];
-    public static int[] projectSceneZ = new int[4096];
-    public static int[] depthTriangleCount = new int[1500];
-    public static int[][] depthTriangles = new int[1500][512];
-    public static int[] priorityTriangleCounts = new int[12];
-    public static int[][] priorityTriangles = new int[12][2000];
-    public static int[] normalTrianglePriority = new int[2000];
-    public static int[] highTrianglePriority = new int[2000];
-    public static int[] lowTrianglePriority = new int[12];
-    public static int[] tmpX = new int[10];
-    public static int[] tmpY = new int[10];
-    public static int[] tmpZ = new int[10];
-    public static int transformX;
-    public static int transformY;
-    public static int transformZ;
-    public static boolean allowInput;
-    public static int cursorX;
-    public static int cursorY;
-    public static int resourceCount;
-    public static int[] hoveredBitsets = new int[1000];
-    public static int[] sin;
-    public static int[] cos;
-    public static int[] palette;
-    public static int[] oneOverFixed1616;
-
     public static class Metadata {
-        public Metadata() {
-        }
-
         public int vertexCount;
         public int triangleCount;
         public int texturedCount;
-
         public int vertexFlagDataOffset;
-
         public int vertexXDataOffset;
         public int vertexYDataOffset;
         public int vertexZDataOffset;
-
         public int vertexLabelDataOffset;
         public int vertexIndexDataOffset;
-
         public int triangleTypeDataOffset;
         public int triangleColorDataOffset;
         public int triangleInfoDataOffset;
@@ -2141,5 +2128,7 @@ public class Model extends CacheableNode {
         public int triangleAlphaDataOffset;
         public int triangleSkinDataOffset;
         public int triangleTextureDataOffset;
+        public Metadata() {
+        }
     }
 }

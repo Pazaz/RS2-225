@@ -5,6 +5,23 @@ import com.jagex.runetek3.util.Buffer;
 
 public class FloorType {
 
+    public static int count;
+    public static FloorType[] instances;
+    public int rgb;
+    public int textureIndex;
+    public boolean occlude;
+    public String name;
+    public int hue;
+    public int saturation;
+    public int lightness;
+    public int blendHue;
+    public int hsl16;
+    public int blendHueMultiplier;
+    public FloorType() {
+        textureIndex = -1;
+        occlude = true;
+    }
+
     public static void load(FileArchive fileArchive) {
         Buffer buffer = new Buffer(fileArchive.read("flo.dat", null));
         count = buffer.g2();
@@ -149,23 +166,5 @@ public class FloorType {
 
         return (h / 4 << 10) + (s / 32 << 7) + l / 2;
     }
-
-    public FloorType() {
-        textureIndex = -1;
-        occlude = true;
-    }
-
-    public static int count;
-    public static FloorType[] instances;
-    public int rgb;
-    public int textureIndex;
-    public boolean occlude;
-    public String name;
-    public int hue;
-    public int saturation;
-    public int lightness;
-    public int blendHue;
-    public int hsl16;
-    public int blendHueMultiplier;
 
 }

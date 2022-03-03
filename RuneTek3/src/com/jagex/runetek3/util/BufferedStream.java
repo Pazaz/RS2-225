@@ -10,6 +10,16 @@ import java.net.Socket;
 public class BufferedStream
     implements Runnable {
 
+    public InputStream in;
+    public OutputStream out;
+    public Socket socket;
+    public boolean closed;
+    public Applet applet;
+    public byte[] buffer;
+    public int bufLen;
+    public int bufPos;
+    public boolean writing;
+    public boolean exception;
     public BufferedStream(Applet applet, Socket socket)
         throws IOException {
         closed = false;
@@ -157,15 +167,4 @@ public class BufferedStream
             }
         }
     }
-
-    public InputStream in;
-    public OutputStream out;
-    public Socket socket;
-    public boolean closed;
-    public Applet applet;
-    public byte[] buffer;
-    public int bufLen;
-    public int bufPos;
-    public boolean writing;
-    public boolean exception;
 }

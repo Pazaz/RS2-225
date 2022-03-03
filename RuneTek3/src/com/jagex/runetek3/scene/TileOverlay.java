@@ -2,6 +2,57 @@ package com.jagex.runetek3.scene;
 
 public class TileOverlay {
 
+    public static final int[][] SHAPE_VERTICES = {
+        {1, 3, 5, 7},
+        {1, 3, 5, 7},
+        {1, 3, 5, 7},
+        {1, 3, 5, 7, 6},
+        {1, 3, 5, 7, 6},
+        {1, 3, 5, 7, 6},
+        {1, 3, 5, 7, 6},
+        {1, 3, 5, 7, 2, 6},
+        {1, 3, 5, 7, 2, 8},
+        {1, 3, 5, 7, 2, 8},
+        {1, 3, 5, 7, 11, 12},
+        {1, 3, 5, 7, 11, 12},
+        {1, 3, 5, 7, 13, 14}
+    };
+    public static final int[][] SHAPE_PATHS = {
+        {0, 1, 2, 3, 0, 0, 1, 3},
+        {1, 1, 2, 3, 1, 0, 1, 3},
+        {0, 1, 2, 3, 1, 0, 1, 3},
+        {0, 0, 1, 2, 0, 0, 2, 4, 1, 0, 4, 3},
+        {0, 0, 1, 4, 0, 0, 4, 3, 1, 1, 2, 4},
+        {0, 0, 4, 3, 1, 0, 1, 2, 1, 0, 2, 4},
+        {0, 1, 2, 4, 1, 0, 1, 4, 1, 0, 4, 3},
+        {0, 4, 1, 2, 0, 4, 2, 5, 1, 0, 4, 5, 1, 0, 5, 3},
+        {0, 4, 1, 2, 0, 4, 2, 3, 0, 4, 3, 5, 1, 0, 4, 5},
+        {0, 0, 4, 5, 1, 4, 1, 2, 1, 4, 2, 3, 1, 4, 3, 5},
+        {0, 0, 1, 5, 0, 1, 4, 5, 0, 1, 2, 4, 1, 0, 5, 3, 1, 5, 4, 3, 1, 4, 2, 3},
+        {1, 0, 1, 5, 1, 1, 4, 5, 1, 1, 2, 4, 0, 0, 5, 3, 0, 5, 4, 3, 0, 4, 2, 3},
+        {1, 0, 5, 4, 1, 0, 1, 5, 0, 0, 4, 3, 0, 4, 5, 3, 0, 5, 2, 3, 0, 1, 2, 5}
+    };
+    public static int[] tmpScreenX = new int[6];
+    public static int[] tmpScreenY = new int[6];
+    public static int[] vertexSceneX = new int[6];
+    public static int[] vertexSceneY = new int[6];
+    public static int[] vertexSceneZ = new int[6];
+    public int[] vertexX;
+    public int[] vertexY;
+    public int[] vertexZ;
+    public int[] triangleColorA;
+    public int[] triangleColorB;
+    public int[] triangleColorC;
+    public int[] triangleVertexA;
+    public int[] triangleVertexB;
+    public int[] triangleVertexC;
+    public int[] triangleTextureIndex;
+    public boolean isFlat;
+    public int shape;
+    public int rotation;
+    public int underlayRGB;
+    public int overlayRGB;
+
     public TileOverlay(int tileX, int shape, int southeastColor2, int southeastY, int northeastColor1, int rotation, int southwestColor1,
                        int northwestY, int overlayRGB, int southwestColor2, int texture, int northwestColor2, int underlayRGB, int northeastY,
                        int northeastColor2, int northwestColor1, int southwestY, int tileZ, int southeastColor1) {
@@ -213,65 +264,4 @@ public class TileOverlay {
             }
         }
     }
-
-    public int[] vertexX;
-    public int[] vertexY;
-    public int[] vertexZ;
-
-    public int[] triangleColorA;
-    public int[] triangleColorB;
-    public int[] triangleColorC;
-
-    public int[] triangleVertexA;
-    public int[] triangleVertexB;
-    public int[] triangleVertexC;
-
-    public int[] triangleTextureIndex;
-
-    public boolean isFlat;
-
-    public int shape;
-    public int rotation;
-
-    public int underlayRGB;
-    public int overlayRGB;
-
-    public static int[] tmpScreenX = new int[6];
-    public static int[] tmpScreenY = new int[6];
-
-    public static int[] vertexSceneX = new int[6];
-    public static int[] vertexSceneY = new int[6];
-    public static int[] vertexSceneZ = new int[6];
-
-    public static final int[][] SHAPE_VERTICES = {
-        {1, 3, 5, 7},
-        {1, 3, 5, 7},
-        {1, 3, 5, 7},
-        {1, 3, 5, 7, 6},
-        {1, 3, 5, 7, 6},
-        {1, 3, 5, 7, 6},
-        {1, 3, 5, 7, 6},
-        {1, 3, 5, 7, 2, 6},
-        {1, 3, 5, 7, 2, 8},
-        {1, 3, 5, 7, 2, 8},
-        {1, 3, 5, 7, 11, 12},
-        {1, 3, 5, 7, 11, 12},
-        {1, 3, 5, 7, 13, 14}
-    };
-
-    public static final int[][] SHAPE_PATHS = {
-        {0, 1, 2, 3, 0, 0, 1, 3},
-        {1, 1, 2, 3, 1, 0, 1, 3},
-        {0, 1, 2, 3, 1, 0, 1, 3},
-        {0, 0, 1, 2, 0, 0, 2, 4, 1, 0, 4, 3},
-        {0, 0, 1, 4, 0, 0, 4, 3, 1, 1, 2, 4},
-        {0, 0, 4, 3, 1, 0, 1, 2, 1, 0, 2, 4},
-        {0, 1, 2, 4, 1, 0, 1, 4, 1, 0, 4, 3},
-        {0, 4, 1, 2, 0, 4, 2, 5, 1, 0, 4, 5, 1, 0, 5, 3},
-        {0, 4, 1, 2, 0, 4, 2, 3, 0, 4, 3, 5, 1, 0, 4, 5},
-        {0, 0, 4, 5, 1, 4, 1, 2, 1, 4, 2, 3, 1, 4, 3, 5},
-        {0, 0, 1, 5, 0, 1, 4, 5, 0, 1, 2, 4, 1, 0, 5, 3, 1, 5, 4, 3, 1, 4, 2, 3},
-        {1, 0, 1, 5, 1, 1, 4, 5, 1, 1, 2, 4, 0, 0, 5, 3, 0, 5, 4, 3, 0, 4, 2, 3},
-        {1, 0, 5, 4, 1, 0, 1, 5, 0, 0, 4, 3, 0, 4, 5, 3, 0, 5, 2, 3, 0, 1, 2, 5}
-    };
 }

@@ -4,6 +4,12 @@ import javax.sound.midi.*;
 import java.io.ByteArrayInputStream;
 
 public final class MidiPlayer implements Receiver {
+    private final int[] channels = new int[16];
+    private final Receiver receiver;
+    private final Sequencer sequencer;
+    private final Synthesizer synth;
+    private int volume;
+
     public MidiPlayer() throws Exception {
         resetChannels();
         synth = MidiSystem.getSynthesizer();
@@ -175,10 +181,4 @@ public final class MidiPlayer implements Receiver {
             super.finalize();
         }
     }
-
-    private int volume;
-    private final int[] channels = new int[16];
-    private final Receiver receiver;
-    private final Sequencer sequencer;
-    private final Synthesizer synth;
 }

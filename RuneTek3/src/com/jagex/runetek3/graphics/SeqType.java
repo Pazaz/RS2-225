@@ -6,6 +6,28 @@ import com.jagex.runetek3.util.Signlink;
 
 public class SeqType {
 
+    public static int count;
+    public static SeqType[] instances;
+    public int frameCount;
+    public int[] primaryFrames;
+    public int[] secondaryFrames;
+    public int[] frameDelay;
+    public int delay;
+    public int[] labelGroups;
+    public boolean renderPadding;
+    public int priority;
+    public int shieldOverride;
+    public int weaponOverride;
+    public int replays;
+    public SeqType() {
+        delay = -1;
+        renderPadding = false;
+        priority = 5;
+        shieldOverride = -1;
+        weaponOverride = -1;
+        replays = 99;
+    }
+
     public static void load(FileArchive fileArchive) {
         Buffer buffer = new Buffer(fileArchive.read("seq.dat", null));
         count = buffer.g2();
@@ -93,28 +115,5 @@ public class SeqType {
             frameDelay[0] = -1;
         }
     }
-
-    public SeqType() {
-        delay = -1;
-        renderPadding = false;
-        priority = 5;
-        shieldOverride = -1;
-        weaponOverride = -1;
-        replays = 99;
-    }
-
-    public static int count;
-    public static SeqType[] instances;
-    public int frameCount;
-    public int[] primaryFrames;
-    public int[] secondaryFrames;
-    public int[] frameDelay;
-    public int delay;
-    public int[] labelGroups;
-    public boolean renderPadding;
-    public int priority;
-    public int shieldOverride;
-    public int weaponOverride;
-    public int replays;
 
 }

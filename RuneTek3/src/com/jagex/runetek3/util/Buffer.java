@@ -6,6 +6,31 @@ import java.math.BigInteger;
 
 public class Buffer extends CacheableNode {
 
+    public static final int[] BITMASK = {
+        0, 1, 3, 7, 15, 31, 63, 127, 255, 511,
+        1023, 2047, 4095, 8191, 16383, 32767, 65535, 0x1ffff, 0x3ffff, 0x7ffff,
+        0xfffff, 0x1fffff, 0x3fffff, 0x7fffff, 0xffffff, 0x1ffffff, 0x3ffffff, 0x7ffffff, 0xfffffff, 0x1fffffff,
+        0x3fffffff, 0x7fffffff, -1
+    };
+    public static final LinkedList queueLow = new LinkedList();
+    public static final LinkedList queueMid = new LinkedList();
+    public static final LinkedList queueHigh = new LinkedList();
+    public static int queueLowCount;
+    public static int queueMidCount;
+    public static int queueHighCount;
+    public byte[] data;
+    public int offset;
+    public int bitOffset;
+    public IsaacRandom isaacState;
+
+    public Buffer() {
+    }
+
+    public Buffer(byte[] src) {
+        data = src;
+        offset = 0;
+    }
+
     public static Buffer reserve(int type) {
         synchronized (queueMid) {
             Buffer buffer = null;
@@ -55,14 +80,6 @@ public class Buffer extends CacheableNode {
                 queueHighCount++;
             }
         }
-    }
-
-    public Buffer() {
-    }
-
-    public Buffer(byte[] src) {
-        data = src;
-        offset = 0;
     }
 
     // might not be official naming
@@ -246,22 +263,5 @@ public class Buffer extends CacheableNode {
         p1(encrypted.length);
         pArrayBuffer(encrypted, encrypted.length, 0);
     }
-
-    public byte[] data;
-    public int offset;
-    public int bitOffset;
-    public static final int[] BITMASK = {
-        0, 1, 3, 7, 15, 31, 63, 127, 255, 511,
-        1023, 2047, 4095, 8191, 16383, 32767, 65535, 0x1ffff, 0x3ffff, 0x7ffff,
-        0xfffff, 0x1fffff, 0x3fffff, 0x7fffff, 0xffffff, 0x1ffffff, 0x3ffffff, 0x7ffffff, 0xfffffff, 0x1fffffff,
-        0x3fffffff, 0x7fffffff, -1
-    };
-    public IsaacRandom isaacState;
-    public static int queueLowCount;
-    public static int queueMidCount;
-    public static int queueHighCount;
-    public static final LinkedList queueLow = new LinkedList();
-    public static final LinkedList queueMid = new LinkedList();
-    public static final LinkedList queueHigh = new LinkedList();
 
 }

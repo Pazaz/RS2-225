@@ -2,6 +2,8 @@ package com.jagex.runetek3.util;
 
 public class Stack {
 
+    public CacheableNode head;
+
     public Stack() {
         head = new CacheableNode();
         head.nextCacheable = head;
@@ -28,6 +30,4 @@ public class Stack {
         node.uncache();
         return node;
     }
-
-    public CacheableNode head;
 }

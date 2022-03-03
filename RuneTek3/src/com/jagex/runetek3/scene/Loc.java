@@ -4,9 +4,6 @@ import com.jagex.runetek3.graphics.Model;
 
 public class Loc {
 
-    public Loc() {
-    }
-
     public int plane;
     public int y;
     public int x;
@@ -22,4 +19,6 @@ public class Loc {
     public int cycle;
     public int bitset;
     public byte info;
+    public Loc() {
+    }
 }

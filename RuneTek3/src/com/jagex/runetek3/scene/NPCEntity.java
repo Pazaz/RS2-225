@@ -1,11 +1,16 @@
 package com.jagex.runetek3.scene;
 
-import com.jagex.runetek3.graphics.Model;
 import com.jagex.runetek3.formats.NPCType;
-import com.jagex.runetek3.graphics.SeqType;
 import com.jagex.runetek3.formats.SpotAnimType;
+import com.jagex.runetek3.graphics.Model;
+import com.jagex.runetek3.graphics.SeqType;
 
 public class NPCEntity extends PathingEntity {
+
+    public NPCType info;
+
+    public NPCEntity() {
+    }
 
     @Override
     public Model getDrawMethod() {
@@ -71,9 +76,4 @@ public class NPCEntity extends PathingEntity {
     public boolean isValid(boolean flag) {
         return info != null;
     }
-
-    public NPCEntity() {
-    }
-
-    public NPCType info;
 }

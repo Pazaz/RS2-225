@@ -2,6 +2,8 @@ package com.jagex.runetek3.util;
 
 public class BZip2InputStream {
 
+    public static BZip2Context context = new BZip2Context();
+
     public static int read(byte[] dest, int destLen, byte[] src, int srcLen, int srcOffset) {
         synchronized (context) {
             context.src = src;
@@ -515,7 +517,5 @@ public class BZip2InputStream {
             ai1[k2] = (ai[k2 - 1] + 1 << 1) - ai1[k2];
 
     }
-
-    public static BZip2Context context = new BZip2Context();
 
 }

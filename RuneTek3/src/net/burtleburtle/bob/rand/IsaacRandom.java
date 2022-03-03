@@ -44,36 +44,30 @@ public final class IsaacRandom {
      * A mask for pseudorandom lookup.
      */
     private static final int MASK = SIZE - 1 << 2;
-
-    /**
-     * The accumulator.
-     */
-    private int a;
-
-    /**
-     * The last result.
-     */
-    private int b;
-
-    /**
-     * The counter.
-     */
-    private int c;
-
-    /**
-     * The count through the results in the results array.
-     */
-    private int count;
-
     /**
      * The internal state.
      */
     private final int[] mem;
-
     /**
      * The results given to the user.
      */
     private final int[] rsl;
+    /**
+     * The accumulator.
+     */
+    private int a;
+    /**
+     * The last result.
+     */
+    private int b;
+    /**
+     * The counter.
+     */
+    private int c;
+    /**
+     * The count through the results in the results array.
+     */
+    private int count;
 
     /**
      * Creates the random number generator without an initial seed.

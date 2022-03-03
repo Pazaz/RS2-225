@@ -1,10 +1,19 @@
 package com.jagex.runetek3.scene;
 
-import com.jagex.runetek3.graphics.Model;
 import com.jagex.runetek3.formats.SpotAnimType;
+import com.jagex.runetek3.graphics.Model;
 
 public class SpotAnimEntity extends Entity {
 
+    public SpotAnimType spotanim;
+    public int firstCycle;
+    public int level;
+    public int x;
+    public int z;
+    public int y;
+    public int seqFrame;
+    public int frameCycle;
+    public boolean finished;
     public SpotAnimEntity(int x, int spotanimIndex, int z, int duration, int y, int level, int startCycle) {
         spotanim = SpotAnimType.instances[spotanimIndex];
         this.level = level;
@@ -61,14 +70,4 @@ public class SpotAnimEntity extends Entity {
         m.applyLighting(64 + spotanim.ambience, 850 + spotanim.modelShadow, -30, -50, -30, true);
         return m;
     }
-
-    public SpotAnimType spotanim;
-    public int firstCycle;
-    public int level;
-    public int x;
-    public int z;
-    public int y;
-    public int seqFrame;
-    public int frameCycle;
-    public boolean finished;
 }

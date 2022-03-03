@@ -7,6 +7,51 @@ import com.jagex.runetek3.util.Cache;
 
 public class LocType {
 
+    public static boolean aBoolean35;
+    public static int count;
+    public static int[] offsets;
+    public static Buffer data;
+    public static LocType[] cache;
+    public static int position;
+    public static Cache models = new Cache(500);
+    public static Cache builtModels = new Cache(30);
+    public int index;
+    public int[] modelIndices;
+    public int[] modelTypes;
+    public String name;
+    public String description;
+    public int[] oldColors;
+    public int[] newColors;
+    public int sizeX;
+    public int sizeZ;
+    public boolean hasCollision;
+    public boolean isSolid;
+    public boolean interactable;
+    public boolean adjustToTerrain;
+    public boolean flatShaded;
+    public boolean culls;
+    public int animationIndex;
+    public int thickness;
+    public byte brightness;
+    public byte specular;
+    public String[] actions;
+    public boolean disposeAlpha;
+    public int mapfunction;
+    public int mapscene;
+    public boolean rotateCounterClockwise;
+    public boolean hasShadow;
+    public int scaleX;
+    public int scaleY;
+    public int scaleZ;
+    public int translateX;
+    public int translateY;
+    public int translateZ;
+    public int interactionSideFlags;
+    public boolean aBoolean73;
+    public LocType() {
+        index = -1;
+    }
+
     public static void load(FileArchive fileArchive) {
         data = new Buffer(fileArchive.read("loc.dat", null));
         Buffer buffer = new Buffer(fileArchive.read("loc.idx", null));
@@ -326,51 +371,5 @@ public class LocType {
 
         return m3;
     }
-
-    public LocType() {
-        index = -1;
-    }
-
-    public static boolean aBoolean35;
-    public static int count;
-    public static int[] offsets;
-    public static Buffer data;
-    public static LocType[] cache;
-    public static int position;
-    public int index;
-    public int[] modelIndices;
-    public int[] modelTypes;
-    public String name;
-    public String description;
-    public int[] oldColors;
-    public int[] newColors;
-    public int sizeX;
-    public int sizeZ;
-    public boolean hasCollision;
-    public boolean isSolid;
-    public boolean interactable;
-    public boolean adjustToTerrain;
-    public boolean flatShaded;
-    public boolean culls;
-    public int animationIndex;
-    public int thickness;
-    public byte brightness;
-    public byte specular;
-    public String[] actions;
-    public boolean disposeAlpha;
-    public int mapfunction;
-    public int mapscene;
-    public boolean rotateCounterClockwise;
-    public boolean hasShadow;
-    public int scaleX;
-    public int scaleY;
-    public int scaleZ;
-    public int translateX;
-    public int translateY;
-    public int translateZ;
-    public int interactionSideFlags;
-    public boolean aBoolean73;
-    public static Cache models = new Cache(500);
-    public static Cache builtModels = new Cache(30);
 
 }

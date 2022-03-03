@@ -4,14 +4,6 @@ import com.jagex.runetek3.util.Node;
 
 public class Tile extends Node {
 
-    public Tile(int level, int x, int z) {
-        locs = new Loc[5];
-        locFlags = new int[5];
-        renderLevel = this.level = level;
-        this.x = x;
-        this.z = z;
-    }
-
     public int level;
     public int x;
     public int z;
@@ -35,4 +27,11 @@ public class Tile extends Node {
     public int wallCullOppositeDirection;
     public int wallDrawFlags;
     public Tile bridge;
+    public Tile(int level, int x, int z) {
+        locs = new Loc[5];
+        locFlags = new int[5];
+        renderLevel = this.level = level;
+        this.x = x;
+        this.z = z;
+    }
 }

@@ -6,6 +6,22 @@ import com.jagex.runetek3.util.Buffer;
 
 public class IDKType {
 
+    public static int count;
+    public static IDKType[] instances;
+    public int type;
+    public int[] modelIndices;
+    public int[] oldColors;
+    public int[] newColors;
+    public int[] headModelIndices = {
+        -1, -1, -1, -1, -1
+    };
+    public boolean validStyle;
+    public IDKType() {
+        type = -1;
+        oldColors = new int[6];
+        newColors = new int[6];
+    }
+
     public static void load(FileArchive fileArchive) {
         Buffer buffer = new Buffer(fileArchive.read("idk.dat", null));
         count = buffer.g2();
@@ -97,22 +113,5 @@ public class IDKType {
 
         return model;
     }
-
-    public IDKType() {
-        type = -1;
-        oldColors = new int[6];
-        newColors = new int[6];
-    }
-
-    public static int count;
-    public static IDKType[] instances;
-    public int type;
-    public int[] modelIndices;
-    public int[] oldColors;
-    public int[] newColors;
-    public int[] headModelIndices = {
-        -1, -1, -1, -1, -1
-    };
-    public boolean validStyle;
 
 }

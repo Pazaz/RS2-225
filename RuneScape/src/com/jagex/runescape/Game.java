@@ -5,9 +5,9 @@ import com.jagex.runescape.util.Packet;
 import com.jagex.runetek3.Applet;
 import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.formats.*;
-import com.jagex.runetek3.graphics.*;
 import com.jagex.runetek3.graphics.Component;
 import com.jagex.runetek3.graphics.Font;
+import com.jagex.runetek3.graphics.*;
 import com.jagex.runetek3.scene.*;
 import com.jagex.runetek3.sound.SoundTrack;
 import com.jagex.runetek3.util.*;
@@ -31,10 +31,717 @@ import java.util.zip.CRC32;
 
 public class Game extends Applet {
 
+    public static final int[][] APPEARANCE_COLORS = {
+        {
+            6798, 107, 10283, 16, 4797, 7744, 5799, 4634, 33697, 22433,
+            2983, 54193
+        },
+        {
+            8741, 12, 64030, 43162, 7735, 8404, 1701, 38430, 24094, 10153,
+            56621, 4783, 1341, 16578, 35003, 25239
+        },
+        {
+            25238, 8742, 12, 64030, 43162, 7735, 8404, 1701, 38430, 24094,
+            10153, 56621, 4783, 1341, 16578, 35003
+        },
+        {
+            4626, 11146, 6439, 12, 4758, 10270
+        },
+        {
+            4550, 4537, 5681, 5673, 5790, 6806, 8076, 4574
+        }
+    };
+    public static final int[] BEARD_COLORS = {
+        9104, 10275, 7595, 3610, 7975, 8526, 918, 38802, 24466, 10145,
+        58654, 5027, 1457, 16565, 34991, 25486
+    };
     public static int skyColor = 0x000000;
     public static String serverAddress = "127.0.0.1";
     public static int serverHttpPort = 80;
     public static int serverGamePort = 43594;
+    public static int INTERFACE_OPCODE_RETURN = 0;
+    public static int INTERFACE_OPCODE_SKILL_LEVEL_REAL = 1;
+    public static int INTERFACE_OPCODE_SKILL_LEVEL = 2;
+    public static int INTERFACE_OPCODE_SKILL_LEVEL_EXPERIENCE = 3;
+    public static int INTERFACE_OPCODE_INVENTORY_ITEM_AMOUNT = 4;
+    public static int INTERFACE_OPCODE_VARIABLE = 5;
+    public static int INTERFACE_OPCODE_SKILL_EXPERIENCE = 6;
+    public static int INTERFACE_OPCODE_VARIABLE_MUL = 7;
+    public static int INTERFACE_OPCODE_COMBAT_LEVEL = 8;
+    public static int INTERFACE_OPCODE_TOTAL_LEVEL = 9;
+    public static int INTERFACE_OPCODE_INVENTORY_CAPACITY = 10;
+    public static int INTERFACE_OPCODE_ENERGY = 11;
+    public static int INTERFACE_OPCODE_WEIGHT = 12;
+    public static Game instance;
+    public static int itemOption4Counter;
+    public static String ASCII_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
+    public static int objectAction4Counter;
+    public static int npcAction5Counter;
+    public static int drawViewportCounter;
+    public static int itemOption1Counter;
+    public static int objectAction5Counter;
+    public static int[] EXPERIENCE_TABLE;
+    public static int npcAction3Counter;
+    public static int itemAction4Counter;
+    public static int sidebarClickedCounter;
+    public static int nodeid = 10;
+    public static int portoff = 0;
+    public static boolean members = true;
+    public static boolean lowMemory;
+    public static int playerAction2Counter;
+    public static int updatePlayersCounter;
+    public static BigInteger exponent = new BigInteger("58778699976184461502525193738213253649000149147835990136706041084440742975821");
+    public static int itemAction5Counter;
+    public static int clientClock;
+    public static PlayerEntity self;
+    public static int updateGameCounter;
+    public static BigInteger modulus = new BigInteger("7162900525229798032761816791230527296329313291232324290237849263501208207972894053929065636522363163621000728841182238772712427862772219676577293600221789");
+    public static int updateGameCounter2;
+    public static boolean alreadyStarted;
+    public static int updateLocCounter;
+
+    static {
+        EXPERIENCE_TABLE = new int[99];
+        int i = 0;
+        for (int j = 0; j < 99; j++) {
+            int k = j + 1;
+            int l = (int) ((double) k + 300D * Math.pow(2D, (double) k / 7D));
+            i += l;
+            EXPERIENCE_TABLE[j] = i / 4;
+        }
+    }
+
+    public final int[] objectGroups = {
+        0, 0, 0, 0, 1, 1, 1, 1, 1, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 3
+    };
+    public final Object midiSync = new Object();
+    public int midiSyncLen;
+    public int cameraLocalX;
+    public int cameraLocalZ;
+    public int cameraHeightOffset;
+    public int cameraSpinSpeed;
+    public int cameraSpinMultiplier;
+    public int selfPlayerId = -1;
+    public int[] chatOffsets;
+    public int[] sidebarOffsets;
+    public int[] viewportOffsets;
+    public int crossX;
+    public int crossY;
+    public int crossCycle;
+    public int crossType;
+    public int[] characterDesignColors = new int[5];
+    public Buffer loginBuffer = Buffer.reserve(1);
+    public int nextMusicDelay;
+    public int hintTileX;
+    public int hintTileZ;
+    public int hintHeight;
+    public int hintOffsetX;
+    public int hintOffsetZ;
+    public int minimapOffsetCycle;
+    public boolean redrawTitleBackground = false;
+    public LinkedList list = new LinkedList();
+    public IsaacRandom isaacState;
+    public boolean[] customCameraActive = new boolean[5];
+    public int chatPrivateSetting;
+    public int selectedTab = 3;
+    public int[][] pathDistance = new int[104][104];
+    public int socialAction;
+    public int baseTileX;
+    public int baseTileZ;
+    public int mapLastBaseX;
+    public int mapLastBaseZ;
+    public String socialInput = "";
+    public LinkedList temporaryLocs = new LinkedList();
+    public long[] ignoreName37 = new long[100];
+    public int weightCarried;
+    public byte[][] sceneMapLandData;
+    public int[] friendWorld = new int[100];
+    public int lastSceneLevel = -1;
+    public String socialMessage = "";
+    public Sprite[] hitmarks = new Sprite[20];
+    public long lastWaveStartTime;
+    public int packetLength;
+    public int packetOpcode;
+    public int netIdleCycles;
+    public int keepaliveCounter;
+    public int idleTimeout;
+    public String chatbackInput = "";
+    public int cameraOffsetCycle;
+    public int lastWaveId = -1;
+    public boolean characterDesignUpdate = false;
+    public int[] characterDesigns = new int[7];
+    public Sprite[] activeMapFunctions = new Sprite[1000];
+    public int chatScrollY = 78;
+    public int ignoreCount;
+    public int[][][] levelHeightMaps;
+    public Buffer inBuffer = Buffer.reserve(1);
+    public Buffer outBuffer = Buffer.reserve(1);
+    public boolean startMidiThread = false;
+    public int chatEffects;
+    public int hintNPC;
+    public int tutorialIslandState;
+    public int[] skillLevelReal = new int[50];
+    public Component component = new Component();
+    public int[] waveLoops = new int[50];
+    public int button;
+    public int[] archiveChecksums = new int[10];
+    public boolean midiThreadActive = false;
+    public IndexedSprite[] sideicons = new IndexedSprite[13];
+    public int lastWaveLength;
+    public int cameraOrbitPitch = 128;
+    public int cameraYaw;
+    public int cameraYawModifier;
+    public int cameraPitchModifier;
+    public int MAX_PLAYER_COUNT = 2048;
+    public int LOCAL_PLAYER_INDEX = 2047;
+    public PlayerEntity[] playerEntities = new PlayerEntity[MAX_PLAYER_COUNT];
+    public int playerCount;
+    public int[] playerIndices = new int[MAX_PLAYER_COUNT];
+    public int updateCount;
+    public int[] entityUpdateIndices = new int[MAX_PLAYER_COUNT];
+    public Buffer[] playerBuffers = new Buffer[MAX_PLAYER_COUNT];
+    public int lastPacketOpcode;
+    public int secondMostRecentOpcode;
+    public int thirdMostRecentOpcode;
+    public MapSquare mapSquare;
+    public LinkedList projectiles = new LinkedList();
+    public int splitPrivateChat;
+    public String[] options = new String[500];
+    public boolean midiActive = true;
+    public boolean characterDesignIsMale = true;
+    public int sceneCycle;
+    public int centerSectorX;
+    public int centerSectorY;
+    public byte[][][] levelRenderFlags;
+    public int[] flameBuffer1;
+    public int[] flameBuffer2;
+    public int objDragComponentId;
+    public int objDragSlot;
+    public int objDragArea;
+    public int objGrabX;
+    public int objGrabY;
+    public int[] flameShiftX = new int[256];
+    public DrawArea areaBackbase1;
+    public DrawArea areaBackbase2;
+    public DrawArea areaBackhmid1;
+    public int privateMessageCount;
+    public int[] compassLeft = new int[33];
+    public int[] waveDelay = new int[50];
+    public int chatHoveredInterfaceIndex;
+    public int[] tabComponentId = {
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1
+    };
+    public int playerPositionZ;
+    public int playerPositionX;
+    public boolean errorLoading = false;
+    public int hoveredInterfaceIndex;
+    public boolean showSocialInput = false;
+    public boolean chatContinuingDialogue = false;
+    public int daysSinceLogin;
+    public int flameCycle1;
+    public int flameCycle2;
+    public int[] privateMessageIndex = new int[100];
+    public boolean menuVisible = false;
+    public int currentLevel;
+    public boolean reportAbuseMuteToggle = false;
+    public LinkedList spawnedLocations = new LinkedList();
+    public int chatTradeDuelSetting;
+    public IndexedSprite redstone1;
+    public IndexedSprite redstone2;
+    public IndexedSprite redstone3;
+    public IndexedSprite redstone1h;
+    public IndexedSprite redstone2h;
+    public int[] chatMessageType = new int[100];
+    public String[] chatMessagePrefix = new String[100];
+    public String[] chatMessage = new String[100];
+    public long aLong900;
+    public int daysSinceRecoveryChange;
+    public boolean flameActive = false;
+    public int[] flameGradient;
+    public int[] flameGradientRed;
+    public int[] flameGradientGreen;
+    public int[] flameGradientViolet;
+    public int openInterfaceId = -1;
+    public IndexedSprite backbase1;
+    public IndexedSprite backbase2;
+    public IndexedSprite backhmid1;
+    public int hintType;
+    public int cameraOrbitX;
+    public int cameraOrbitZ;
+    public int cameraMovedWrite;
+    public int activeMapFunctionCount;
+    public int[] activeMapFunctionX = new int[1000];
+    public int[] activeMapFunctionZ = new int[1000];
+    public int[][] tileRenderCount = new int[104][104];
+    public boolean chatRedrawSettings = false;
+    public boolean errorHost = false;
+    public int objDragCycles;
+    public int[] sceneMapIndex;
+    public int[] skillLevel = new int[50];
+    public NPCEntity[] npcEntities = new NPCEntity[8192];
+    public int npcCount;
+    public int[] npcIndices = new int[8192];
+    public int minimapZoom;
+    public int minimapZoomModifier = 1;
+    public int cameraMaxY;
+    public int worldLocationState;
+    public int dragCycle;
+    public String chatbackMessage;
+    public int[] variables = new int[2000];
+    public int deadEntityCount;
+    public int[] deadEntityIndices = new int[1000];
+    public int sidebarHoveredInterfaceIndex;
+    public long[] friendName37 = new long[100];
+    public int selectedCycle;
+    public int selectedInterface;
+    public int selectedItem;
+    public int selectedArea;
+    public int cutsceneLocalX;
+    public int cutsceneLocalY;
+    public int cutsceneHeightOffset;
+    public int cutsceneSpinSpeed;
+    public int cutsceneSpinMultiplier;
+    public int[] minimapLineWidth = new int[151];
+    public CollisionMap[] collisionMaps = new CollisionMap[4];
+    public Sprite[] headicons = new Sprite[20];
+    public int systemUpdateTimer;
+    public int[] cameraJitter = new int[5];
+    public boolean objGrabThreshold = false;
+    public Sprite sprite;
+    public Sprite spriteActive;
+    public int midiSyncCrc;
+    public boolean sidebarRedraw = false;
+    public boolean redrawChatback = false;
+    public int[] cameraAmplitude = new int[5];
+    public boolean cameraOriented = false;
+    public int sceneDelta;
+    public String reportInput = "";
+    public int viewportInterfaceIndex = -1;
+    public int loginFocusedLine;
+    public IndexedSprite[] imageRunes;
+    public boolean ingame = false;
+    public boolean startFlamesThread = false;
+    public int chatPublicSetting;
+    public int chatScrollAmount;
+    public Sprite imageFlamesLeft;
+    public Sprite imageFlamesRight;
+    public int SCROLLBAR_GRIP_LOWLIGHT = 0x332d25;
+    public IndexedSprite inback;
+    public IndexedSprite mapback;
+    public IndexedSprite chatback;
+    public int inMultizone;
+    public Font fontPlain11;
+    public Font fontPlain12;
+    public Font fontBold12;
+    public Font fontQuill8;
+    public int clickedMinimap;
+    public int[] flameIntensity;
+    public int[] flameIntensityBuffer;
+    public int SCROLLBAR_GRIP_HIGHLIGHT = 0x766654;
+    public int[] waypointX = new int[4000];
+    public int[] waypointY = new int[4000];
+    public CRC32 crc32 = new CRC32();
+    public Sprite mapflag;
+    public BufferedStream stream;
+    public byte[][] sceneMapLocData;
+    public int chatbackComponentId = -1;
+    public int selectedObject;
+    public int selectedObjSlot;
+    public int selectedObjInterface;
+    public int objInterface;
+    public String selectedObjName;
+    public DrawArea backleft1;
+    public DrawArea backleft2;
+    public DrawArea backright1;
+    public DrawArea backright2;
+    public DrawArea backtop1;
+    public DrawArea backtop2;
+    public DrawArea backvmid1;
+    public DrawArea backvmid2;
+    public DrawArea backvmid3;
+    public DrawArea backhmid2;
+    public int waveCount;
+    public int drawX = -1;
+    public int drawY = -1;
+    public int stickyChatbackComponentId = -1;
+    public boolean rights = false;
+    public int[] unknownCameraVariable = new int[5];
+    public int selectedSpell;
+    public int spellInterface;
+    public int selectedFlags;
+    public String selectedSpellPrefix;
+    public DrawArea titleTop;
+    public DrawArea titleBottom;
+    public DrawArea titleCenter;
+    public DrawArea titleLeft;
+    public DrawArea titleRight;
+    public DrawArea titleBottomLeft;
+    public DrawArea titleBottomRight;
+    public DrawArea titleLeftSpace;
+    public DrawArea titleRightSpace;
+    public IndexedSprite[] mapscene = new IndexedSprite[50];
+    public IndexedSprite redstone1v;
+    public IndexedSprite redstone2v;
+    public IndexedSprite redstone3v;
+    public IndexedSprite redstone1hv;
+    public IndexedSprite redstone2hv;
+    public int[] textColors = {
+        0xffff00, 0xff0000, 0xff00, 0xffff, 0xff00ff, 0xffffff
+    };
+    public DrawArea areaInvback;
+    public DrawArea areaMapback;
+    public DrawArea areaViewport;
+    public DrawArea areaChatback;
+    public int SCROLLBAR_TRACK = 0x23201b;
+    public int flagTileX;
+    public int flagTileY;
+    public Sprite minimap;
+    public int unreadMessageCount;
+    public boolean chatbackInputType = false;
+    public LinkedList spotanims = new LinkedList();
+    public Sprite mapdot1;
+    public Sprite mapdot2;
+    public Sprite mapdot3;
+    public Sprite mapdot4;
+    public int lastLoginIP;
+    public int viewportHoveredInterfaceIndex;
+    public String midiSyncName;
+    public int lastWaveLoops = -1;
+    public String username = "";
+    public String password = "";
+    public byte[] tmpTexels = new byte[16384];
+    public boolean errorStarted = false;
+    public int energy;
+    public int optionCount;
+    public int[] defaultVariables = new int[2000];
+    public int hintPlayer;
+    public int sceneState;
+    public int[] skillExperience = new int[50];
+    public boolean sidebarRedrawIcons = false;
+    public IndexedSprite scrollbar1;
+    public IndexedSprite scrollbar2;
+    public String loginMessage0 = "";
+    public String loginMessage1 = "";
+    public int minimapAnticheatAngle;
+    public int minimapAngleModifier = 2;
+    public int hoveredSlot;
+    public int hoveredSlotParentId;
+    public int friendCount;
+    public int chatCount;
+    public int overheadMessageCount = 50;
+    public int[] chatScreenX = new int[overheadMessageCount];
+    public int[] chatScreenY = new int[overheadMessageCount];
+    public int[] chatHeight = new int[overheadMessageCount];
+    public int[] chatPadding = new int[overheadMessageCount];
+    public int[] chatColors = new int[overheadMessageCount];
+    public int[] chatStyles = new int[overheadMessageCount];
+    public int[] chatTimers = new int[overheadMessageCount];
+    public String[] chatMessages = new String[overheadMessageCount];
+    public int wildernessLevel;
+    public IndexedSprite imageTitlebox;
+    public IndexedSprite imageTitlebutton;
+    public int titleState;
+    public int midiCrc;
+    public int cameraX;
+    public int cameraY;
+    public int cameraZ;
+    public int cameraPitch;
+    public int cameraOrbitYaw;
+    public int[] compassLineWidth = new int[33];
+    public int[][] pathWaypoint = new int[104][104];
+    public String currentMidi;
+    public Sprite[] cross = new Sprite[8];
+    public boolean flamesThreadActive = false;
+    public int[] waveId = new int[50];
+    public int cameraAnticheatOffsetX;
+    public int cameraOffsetXModifier = 2;
+    public String[] friendName = new String[100];
+    public int flashingSidebarId = -1;
+    public int sidebarInterfaceId = -1;
+    public int cameraAnticheatOffsetZ;
+    public int cameraOffsetZModifier = 2;
+    public int[] minimapLeft = new int[151];
+    public int cameraAnticheatAngle;
+    public int cameraOffsetYawModifier = 1;
+    public FileArchive titleArchive;
+    public String input = "";
+    public Sprite[] mapfunction = new Sprite[50];
+    public int[] paramA = new int[500];
+    public int[] paramB = new int[500];
+    public int[] actions = new int[500];
+    public int[] paramC = new int[500];
+    public boolean scrollGripHeld = false;
+    public Sprite compass;
+    public long serverSeed;
+    public int mouseArea;
+    public int menuX;
+    public int menuY;
+    public int menuWidth;
+    public int menuHeight;
+    public boolean effectsEnabled = true;
+    public int scrollGripInputPadding;
+    public int midiSize;
+    public int flameOffset;
+    public LinkedList[][][] objects = new LinkedList[4][104][104];
+    public int SCROLLBAR_GRIP_FOREGROUND = 0x4d4233;
+    public int[] cameraFrequency = new int[5];
+    public Game() {
+    }
+
+    public static void setLowMemory() {
+        MapSquare.lowMemory = true;
+        Draw3D.lowMemory = true;
+        lowMemory = true;
+        SceneManager.lowMemory = true;
+        Signlink.lowMemory = true;
+    }
+
+    public static String formatNumber(int i) {
+        String s = String.valueOf(i);
+        for (int k = s.length() - 3; k > 0; k -= 3)
+            s = s.substring(0, k) + "," + s.substring(k);
+
+        if (s.length() > 8)
+            s = "@gre@" + s.substring(0, s.length() - 8) + " million @whi@(" + s + ")";
+        else if (s.length() > 4)
+            s = "@cya@" + s.substring(0, s.length() - 4) + "K @whi@(" + s + ")";
+        return " " + s;
+    }
+
+    public static String getLevelColorTag(int lvl1, int lvl2) {
+        int diff = lvl1 - lvl2;
+        if (diff < -9) {
+            return "@red@";
+        } else if (diff < -6) {
+            return "@or3@";
+        } else if (diff < -3) {
+            return "@or2@";
+        } else if (diff < 0) {
+            return "@or1@";
+        } else if (diff > 9) {
+            return "@gre@";
+        } else if (diff > 6) {
+            return "@gr3@";
+        } else if (diff > 3) {
+            return "@gr2@";
+        } else if (diff > 0) {
+            return "@gr1@";
+        } else {
+            return "@yel@";
+        }
+    }
+
+    public static String getIntString(int value) {
+        if (value < 999999999) {
+            return String.valueOf(value);
+        } else {
+            return "*";
+        }
+    }
+
+    public static void setHighMemory() {
+        MapSquare.lowMemory = false;
+        Draw3D.lowMemory = false;
+        lowMemory = false;
+        SceneManager.lowMemory = false;
+        Signlink.lowMemory = false;
+    }
+
+    public static String formatObjAmount(int amount) {
+        if (amount < 100000) {
+            return String.valueOf(amount);
+        }
+
+        if (amount < 10000000) {
+            return amount / 1000 + "K";
+        } else {
+            return amount / 1000000 + "M";
+        }
+    }
+
+    public static void resetParentComponentSeq(int id) {
+        if (Component.instances.length < id) {
+            return;
+        }
+
+        Component parent = Component.instances[id];
+        if (parent == null || parent.children == null) {
+            return;
+        }
+        for (int n = 0; n < parent.children.length; n++) {
+            if (parent.children[n] == -1) {
+                break;
+            }
+
+            Component child = Component.instances[parent.children[n]];
+            if (child.type == 1) {
+                resetParentComponentSeq(child.id);
+            }
+            child.seqFrame = 0;
+            child.seqCycle = 0;
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            System.out.println("RS2 user client - release #" + Signlink.clientversion);
+
+            if (args.length == 4) {
+                nodeid = Integer.parseInt(args[0]);
+                portoff = Integer.parseInt(args[1]);
+
+                if (args[2].equals("lowmem")) {
+                    setLowMemory();
+                } else if (args[2].equals("highmem")) {
+                    setHighMemory();
+                } else {
+                    System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
+                    return;
+                }
+
+                if (args[3].equals("free")) {
+                    members = false;
+                } else if (args[3].equals("members")) {
+                    members = true;
+                } else {
+                    System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
+                    return;
+                }
+            } else if (args.length == 2) {
+                nodeid = 10;
+                portoff = 0;
+                setHighMemory();
+                members = true;
+                serverAddress = args[0];
+                serverHttpPort = Integer.parseInt(args[1]);
+            } else {
+                nodeid = 10;
+                portoff = 0;
+                setHighMemory();
+                members = true;
+            }
+
+            Signlink.startpriv(InetAddress.getLocalHost());
+            instance = new Game();
+            instance.initFrame(532, 789, "Revision 225");
+
+            try {
+                java.awt.Font arial = new java.awt.Font("Arial", java.awt.Font.PLAIN, 11);
+                Map attributes = arial.getAttributes();
+                attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+
+                JLayeredPane layers = new JLayeredPane();
+                layers.setPreferredSize(new Dimension(789, 25));
+
+                ImageIcon backgroundImg = new ImageIcon(Game.class.getResource("navbar.gif"));
+                ImageIcon menuImg = new ImageIcon(Game.class.getResource("navbar_mainmenu.gif"));
+                ImageIcon companyImg = new ImageIcon(Game.class.getResource("navbar_jagex.gif"));
+                ImageIcon worldmapImg = new ImageIcon(Game.class.getResource("navbar_worldmap.gif"));
+                ImageIcon manualImg = new ImageIcon(Game.class.getResource("navbar_manual.gif"));
+                ImageIcon rulesImg = new ImageIcon(Game.class.getResource("navbar_rules.gif"));
+
+                // set up containers
+                JLabel background = new JLabel(backgroundImg);
+                background.setBounds(0, 0, backgroundImg.getIconWidth(), backgroundImg.getIconHeight());
+
+                JLabel company = new JLabel(companyImg);
+                company.setBounds(5, 0, companyImg.getIconWidth(), companyImg.getIconHeight());
+
+                JLabel mainMenu = new JLabel(menuImg);
+                mainMenu.setBounds(126, 0, menuImg.getIconWidth(), menuImg.getIconHeight());
+                mainMenu.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent e) {
+                    }
+                });
+                JLabel mainMenuText = new JLabel();
+                mainMenuText.setForeground(Color.WHITE);
+                mainMenuText.setFont(arial.deriveFont(attributes));
+                mainMenuText.setBounds(126 + menuImg.getIconWidth() + 4, 0, 75, 25);
+                mainMenuText.setText("Main Menu");
+
+                JLabel worldSelect = new JLabel(menuImg);
+                worldSelect.setBounds(250, 0, menuImg.getIconWidth(), menuImg.getIconHeight());
+                worldSelect.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent e) {
+                    }
+                });
+                JLabel worldSelectText = new JLabel();
+                worldSelectText.setForeground(Color.WHITE);
+                worldSelectText.setFont(arial.deriveFont(attributes));
+                worldSelectText.setBounds(250 + menuImg.getIconWidth() + 4, 0, 75, 25);
+                worldSelectText.setText("World Select");
+
+                JLabel worldmap = new JLabel(worldmapImg); // TODO: "World Map" label text
+                worldmap.setBounds(387, 0, worldmapImg.getIconWidth(), worldmapImg.getIconHeight());
+                worldmap.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent e) {
+                    }
+                });
+                JLabel worldmapText = new JLabel();
+                worldmapText.setForeground(Color.WHITE);
+                worldmapText.setFont(arial.deriveFont(attributes));
+                worldmapText.setBounds(387 + worldmapImg.getIconWidth() + 4, 0, 75, 25);
+                worldmapText.setText("World Map");
+
+                JLabel manual = new JLabel(manualImg); // TODO: "Manual" label text
+                manual.setBounds(520, 0, manualImg.getIconWidth(), manualImg.getIconHeight());
+                manual.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent e) {
+                        try {
+                            Desktop.getDesktop().browse(URI.create("howtoplay.html"));
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                JLabel manualText = new JLabel();
+                manualText.setForeground(Color.WHITE);
+                manualText.setFont(arial.deriveFont(attributes));
+                manualText.setBounds(520 + manualImg.getIconWidth() + 4, 0, 50, 25);
+                manualText.setText("Manual");
+
+                JLabel rules = new JLabel(rulesImg); // TODO: "Rules & Security" label text
+                rules.setBounds(656, 0, rulesImg.getIconWidth(), rulesImg.getIconHeight());
+                manual.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent e) {
+                        try {
+                            Desktop.getDesktop().browse(URI.create("rules.html"));
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                JLabel rulesText = new JLabel();
+                rulesText.setForeground(Color.WHITE);
+                rulesText.setFont(arial.deriveFont(attributes));
+                rulesText.setBounds(656 + rulesImg.getIconWidth() + 4, 0, 100, 25);
+                rulesText.setText("Rules & Security");
+
+                // layer images
+                layers.add(background, 0);
+                layers.add(company, 0);
+                layers.add(mainMenu, 0);
+                layers.add(mainMenuText, 0);
+                layers.add(worldSelect, 0);
+                layers.add(worldSelectText, 0);
+                layers.add(worldmap, 0);
+                layers.add(worldmapText, 0);
+                layers.add(manual, 0);
+                layers.add(manualText, 0);
+                layers.add(rules, 0);
+                layers.add(rulesText, 0);
+                instance.frame.add(layers, BorderLayout.NORTH);
+                instance.frame.pack();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     public void setMidi(int crc, String name, int len) {
         if (name == null) {
@@ -955,14 +1662,6 @@ public class Game extends Applet {
                 midisave(decompressed, length, true);
             }
         }
-    }
-
-    public static void setLowMemory() {
-        MapSquare.lowMemory = true;
-        Draw3D.lowMemory = true;
-        lowMemory = true;
-        SceneManager.lowMemory = true;
-        Signlink.lowMemory = true;
     }
 
     public void drawFlames() {
@@ -1886,18 +2585,6 @@ public class Game extends Applet {
         cameraZ = j1 - l2;
         cameraPitch = l;
         cameraOrbitYaw = k;
-    }
-
-    public static String formatNumber(int i) {
-        String s = String.valueOf(i);
-        for (int k = s.length() - 3; k > 0; k -= 3)
-            s = s.substring(0, k) + "," + s.substring(k);
-
-        if (s.length() > 8)
-            s = "@gre@" + s.substring(0, s.length() - 8) + " million @whi@(" + s + ")";
-        else if (s.length() > 4)
-            s = "@cya@" + s.substring(0, s.length() - 4) + "K @whi@(" + s + ")";
-        return " " + s;
     }
 
     public void updateAnimatedTextures(int cycle) {
@@ -4080,29 +4767,6 @@ public class Game extends Applet {
         selectedSpell = 0;
     }
 
-    public static String getLevelColorTag(int lvl1, int lvl2) {
-        int diff = lvl1 - lvl2;
-        if (diff < -9) {
-            return "@red@";
-        } else if (diff < -6) {
-            return "@or3@";
-        } else if (diff < -3) {
-            return "@or2@";
-        } else if (diff < 0) {
-            return "@or1@";
-        } else if (diff > 9) {
-            return "@gre@";
-        } else if (diff > 6) {
-            return "@gr3@";
-        } else if (diff > 3) {
-            return "@gr2@";
-        } else if (diff > 0) {
-            return "@gr1@";
-        } else {
-            return "@yel@";
-        }
-    }
-
     public String getHost() {
         if (Signlink.mainapp != null) {
             return Signlink.mainapp.getDocumentBase().getHost().toLowerCase();
@@ -5145,14 +5809,6 @@ public class Game extends Applet {
     public int mix(int i, int j, int k) {
         int i1 = 256 - j;
         return ((i & 0xff00ff) * i1 + (k & 0xff00ff) * j & 0xff00ff00) + ((i & 0xff00) * i1 + (k & 0xff00) * j & 0xff0000) >> 8;
-    }
-
-    public static String getIntString(int value) {
-        if (value < 999999999) {
-            return String.valueOf(value);
-        } else {
-            return "*";
-        }
     }
 
     public void setDrawPos(int i, PathingEntity entity) {
@@ -6305,14 +6961,6 @@ public class Game extends Applet {
         return super.getCodeBase();
     }
 
-    public static void setHighMemory() {
-        MapSquare.lowMemory = false;
-        Draw3D.lowMemory = false;
-        lowMemory = false;
-        SceneManager.lowMemory = false;
-        Signlink.lowMemory = false;
-    }
-
     public boolean moveTo(int i, int j, boolean flag, int k, int l, int type,
                           int k1, int l1, int i2, int j2, int k2) {
         byte byte0 = 104;
@@ -6516,18 +7164,6 @@ public class Game extends Applet {
         return type != 1;
     }
 
-    public static String formatObjAmount(int amount) {
-        if (amount < 100000) {
-            return String.valueOf(amount);
-        }
-
-        if (amount < 10000000) {
-            return amount / 1000 + "K";
-        } else {
-            return amount / 1000000 + "M";
-        }
-    }
-
     public void updatePlayers(Buffer buffer, int size) {
         deadEntityCount = 0;
         updateCount = 0;
@@ -6625,29 +7261,6 @@ public class Game extends Applet {
         chatMessageType[0] = type;
         chatMessagePrefix[0] = prefix;
         chatMessage[0] = message;
-    }
-
-    public static void resetParentComponentSeq(int id) {
-        if (Component.instances.length < id) {
-            return;
-        }
-
-        Component parent = Component.instances[id];
-        if (parent == null || parent.children == null) {
-            return;
-        }
-        for (int n = 0; n < parent.children.length; n++) {
-            if (parent.children[n] == -1) {
-                break;
-            }
-
-            Component child = Component.instances[parent.children[n]];
-            if (child.type == 1) {
-                resetParentComponentSeq(child.id);
-            }
-            child.seqFrame = 0;
-            child.seqCycle = 0;
-        }
     }
 
     public void removeFriend(long l) {
@@ -7335,20 +7948,6 @@ public class Game extends Applet {
             }
         }
     }
-
-    public static int INTERFACE_OPCODE_RETURN = 0;
-    public static int INTERFACE_OPCODE_SKILL_LEVEL_REAL = 1;
-    public static int INTERFACE_OPCODE_SKILL_LEVEL = 2;
-    public static int INTERFACE_OPCODE_SKILL_LEVEL_EXPERIENCE = 3;
-    public static int INTERFACE_OPCODE_INVENTORY_ITEM_AMOUNT = 4;
-    public static int INTERFACE_OPCODE_VARIABLE = 5;
-    public static int INTERFACE_OPCODE_SKILL_EXPERIENCE = 6;
-    public static int INTERFACE_OPCODE_VARIABLE_MUL = 7;
-    public static int INTERFACE_OPCODE_COMBAT_LEVEL = 8;
-    public static int INTERFACE_OPCODE_TOTAL_LEVEL = 9;
-    public static int INTERFACE_OPCODE_INVENTORY_CAPACITY = 10;
-    public static int INTERFACE_OPCODE_ENERGY = 11;
-    public static int INTERFACE_OPCODE_WEIGHT = 12;
 
     public int executeInterface(Component inter, int script) {
         if (inter.script == null || script >= inter.script.length) {
@@ -9299,608 +9898,6 @@ public class Game extends Applet {
             titleBottomRight.drawImage(265, super.graphics, 574);
             titleLeftSpace.drawImage(186, super.graphics, 128);
             titleRightSpace.drawImage(186, super.graphics, 574);
-        }
-    }
-
-    public static void main(String[] args) {
-        try {
-            System.out.println("RS2 user client - release #" + Signlink.clientversion);
-
-            if (args.length == 4) {
-                nodeid = Integer.parseInt(args[0]);
-                portoff = Integer.parseInt(args[1]);
-
-                if (args[2].equals("lowmem")) {
-                    setLowMemory();
-                } else if (args[2].equals("highmem")) {
-                    setHighMemory();
-                } else {
-                    System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
-                    return;
-                }
-
-                if (args[3].equals("free")) {
-                    members = false;
-                } else if (args[3].equals("members")) {
-                    members = true;
-                } else {
-                    System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
-                    return;
-                }
-            } else if (args.length == 2) {
-                nodeid = 10;
-                portoff = 0;
-                setHighMemory();
-                members = true;
-                serverAddress = args[0];
-                serverHttpPort = Integer.parseInt(args[1]);
-            } else {
-                nodeid = 10;
-                portoff = 0;
-                setHighMemory();
-                members = true;
-            }
-
-            Signlink.startpriv(InetAddress.getLocalHost());
-            instance = new Game();
-            instance.initFrame(532, 789, "Revision 225");
-
-            try {
-                java.awt.Font arial = new java.awt.Font("Arial", java.awt.Font.PLAIN, 11);
-                Map attributes = arial.getAttributes();
-                attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-
-                JLayeredPane layers = new JLayeredPane();
-                layers.setPreferredSize(new Dimension(789, 25));
-
-                ImageIcon backgroundImg = new ImageIcon(Game.class.getResource("navbar.gif"));
-                ImageIcon menuImg = new ImageIcon(Game.class.getResource("navbar_mainmenu.gif"));
-                ImageIcon companyImg = new ImageIcon(Game.class.getResource("navbar_jagex.gif"));
-                ImageIcon worldmapImg = new ImageIcon(Game.class.getResource("navbar_worldmap.gif"));
-                ImageIcon manualImg = new ImageIcon(Game.class.getResource("navbar_manual.gif"));
-                ImageIcon rulesImg = new ImageIcon(Game.class.getResource("navbar_rules.gif"));
-
-                // set up containers
-                JLabel background = new JLabel(backgroundImg);
-                background.setBounds(0, 0, backgroundImg.getIconWidth(), backgroundImg.getIconHeight());
-
-                JLabel company = new JLabel(companyImg);
-                company.setBounds(5, 0, companyImg.getIconWidth(), companyImg.getIconHeight());
-
-                JLabel mainMenu = new JLabel(menuImg);
-                mainMenu.setBounds(126, 0, menuImg.getIconWidth(), menuImg.getIconHeight());
-                mainMenu.addMouseListener(new MouseAdapter() {
-                    public void mouseClicked(MouseEvent e) {
-                    }
-                });
-                JLabel mainMenuText = new JLabel();
-                mainMenuText.setForeground(Color.WHITE);
-                mainMenuText.setFont(arial.deriveFont(attributes));
-                mainMenuText.setBounds(126 + menuImg.getIconWidth() + 4, 0, 75, 25);
-                mainMenuText.setText("Main Menu");
-
-                JLabel worldSelect = new JLabel(menuImg);
-                worldSelect.setBounds(250, 0, menuImg.getIconWidth(), menuImg.getIconHeight());
-                worldSelect.addMouseListener(new MouseAdapter() {
-                    public void mouseClicked(MouseEvent e) {
-                    }
-                });
-                JLabel worldSelectText = new JLabel();
-                worldSelectText.setForeground(Color.WHITE);
-                worldSelectText.setFont(arial.deriveFont(attributes));
-                worldSelectText.setBounds(250 + menuImg.getIconWidth() + 4, 0, 75, 25);
-                worldSelectText.setText("World Select");
-
-                JLabel worldmap = new JLabel(worldmapImg); // TODO: "World Map" label text
-                worldmap.setBounds(387, 0, worldmapImg.getIconWidth(), worldmapImg.getIconHeight());
-                worldmap.addMouseListener(new MouseAdapter() {
-                    public void mouseClicked(MouseEvent e) {
-                    }
-                });
-                JLabel worldmapText = new JLabel();
-                worldmapText.setForeground(Color.WHITE);
-                worldmapText.setFont(arial.deriveFont(attributes));
-                worldmapText.setBounds(387 + worldmapImg.getIconWidth() + 4, 0, 75, 25);
-                worldmapText.setText("World Map");
-
-                JLabel manual = new JLabel(manualImg); // TODO: "Manual" label text
-                manual.setBounds(520, 0, manualImg.getIconWidth(), manualImg.getIconHeight());
-                manual.addMouseListener(new MouseAdapter() {
-                    public void mouseClicked(MouseEvent e) {
-                        try {
-                            Desktop.getDesktop().browse(URI.create("howtoplay.html"));
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                });
-                JLabel manualText = new JLabel();
-                manualText.setForeground(Color.WHITE);
-                manualText.setFont(arial.deriveFont(attributes));
-                manualText.setBounds(520 + manualImg.getIconWidth() + 4, 0, 50, 25);
-                manualText.setText("Manual");
-
-                JLabel rules = new JLabel(rulesImg); // TODO: "Rules & Security" label text
-                rules.setBounds(656, 0, rulesImg.getIconWidth(), rulesImg.getIconHeight());
-                manual.addMouseListener(new MouseAdapter() {
-                    public void mouseClicked(MouseEvent e) {
-                        try {
-                            Desktop.getDesktop().browse(URI.create("rules.html"));
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                });
-                JLabel rulesText = new JLabel();
-                rulesText.setForeground(Color.WHITE);
-                rulesText.setFont(arial.deriveFont(attributes));
-                rulesText.setBounds(656 + rulesImg.getIconWidth() + 4, 0, 100, 25);
-                rulesText.setText("Rules & Security");
-
-                // layer images
-                layers.add(background, 0);
-                layers.add(company, 0);
-                layers.add(mainMenu, 0);
-                layers.add(mainMenuText, 0);
-                layers.add(worldSelect, 0);
-                layers.add(worldSelectText, 0);
-                layers.add(worldmap, 0);
-                layers.add(worldmapText, 0);
-                layers.add(manual, 0);
-                layers.add(manualText, 0);
-                layers.add(rules, 0);
-                layers.add(rulesText, 0);
-                instance.frame.add(layers, BorderLayout.NORTH);
-                instance.frame.pack();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public Game() {
-    }
-
-    public static Game instance;
-
-    public static int itemOption4Counter;
-    public static String ASCII_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
-    public int midiSyncLen;
-    public int cameraLocalX;
-    public int cameraLocalZ;
-    public int cameraHeightOffset;
-    public int cameraSpinSpeed;
-    public int cameraSpinMultiplier;
-    public int selfPlayerId = -1;
-    public int[] chatOffsets;
-    public int[] sidebarOffsets;
-    public int[] viewportOffsets;
-    public int crossX;
-    public int crossY;
-    public int crossCycle;
-    public int crossType;
-    public int[] characterDesignColors = new int[5];
-    public Buffer loginBuffer = Buffer.reserve(1);
-    public int nextMusicDelay;
-    public int hintTileX;
-    public int hintTileZ;
-    public int hintHeight;
-    public int hintOffsetX;
-    public int hintOffsetZ;
-    public int minimapOffsetCycle;
-    public boolean redrawTitleBackground = false;
-    public LinkedList list = new LinkedList();
-    public IsaacRandom isaacState;
-    public boolean[] customCameraActive = new boolean[5];
-    public int chatPrivateSetting;
-    public int selectedTab = 3;
-    public int[][] pathDistance = new int[104][104];
-    public int socialAction;
-    public int baseTileX;
-    public int baseTileZ;
-    public int mapLastBaseX;
-    public int mapLastBaseZ;
-    public String socialInput = "";
-    public LinkedList temporaryLocs = new LinkedList();
-    public long[] ignoreName37 = new long[100];
-    public int weightCarried;
-    public byte[][] sceneMapLandData;
-    public static int objectAction4Counter;
-    public int[] friendWorld = new int[100];
-    public int lastSceneLevel = -1;
-    public String socialMessage = "";
-    public Sprite[] hitmarks = new Sprite[20];
-    public long lastWaveStartTime;
-    public int packetLength;
-    public int packetOpcode;
-    public int netIdleCycles;
-    public int keepaliveCounter;
-    public int idleTimeout;
-    public String chatbackInput = "";
-    public int cameraOffsetCycle;
-    public int lastWaveId = -1;
-    public boolean characterDesignUpdate = false;
-    public int[] characterDesigns = new int[7];
-    public Sprite[] activeMapFunctions = new Sprite[1000];
-    public int chatScrollY = 78;
-    public int ignoreCount;
-    public int[][][] levelHeightMaps;
-    public Buffer inBuffer = Buffer.reserve(1);
-    public static int npcAction5Counter;
-    public Buffer outBuffer = Buffer.reserve(1);
-    public boolean startMidiThread = false;
-    public int chatEffects;
-    public int hintNPC;
-    public int tutorialIslandState;
-    public static int drawViewportCounter;
-    public static int itemOption1Counter;
-    public int[] skillLevelReal = new int[50];
-    public Component component = new Component();
-    public int[] waveLoops = new int[50];
-    public int button;
-    public int[] archiveChecksums = new int[10];
-    public boolean midiThreadActive = false;
-    public IndexedSprite[] sideicons = new IndexedSprite[13];
-    public int lastWaveLength;
-    public int cameraOrbitPitch = 128;
-    public int cameraYaw;
-    public int cameraYawModifier;
-    public int cameraPitchModifier;
-    public int MAX_PLAYER_COUNT = 2048;
-    public int LOCAL_PLAYER_INDEX = 2047;
-    public PlayerEntity[] playerEntities = new PlayerEntity[MAX_PLAYER_COUNT];
-    public int playerCount;
-    public int[] playerIndices = new int[MAX_PLAYER_COUNT];
-    public int updateCount;
-    public int[] entityUpdateIndices = new int[MAX_PLAYER_COUNT];
-    public Buffer[] playerBuffers = new Buffer[MAX_PLAYER_COUNT];
-    public int lastPacketOpcode;
-    public int secondMostRecentOpcode;
-    public int thirdMostRecentOpcode;
-    public MapSquare mapSquare;
-    public LinkedList projectiles = new LinkedList();
-    public int splitPrivateChat;
-    public String[] options = new String[500];
-    public boolean midiActive = true;
-    public boolean characterDesignIsMale = true;
-    public int sceneCycle;
-    public int centerSectorX;
-    public int centerSectorY;
-    public byte[][][] levelRenderFlags;
-    public int[] flameBuffer1;
-    public int[] flameBuffer2;
-    public int objDragComponentId;
-    public int objDragSlot;
-    public int objDragArea;
-    public int objGrabX;
-    public int objGrabY;
-    public int[] flameShiftX = new int[256];
-    public DrawArea areaBackbase1;
-    public DrawArea areaBackbase2;
-    public DrawArea areaBackhmid1;
-    public int privateMessageCount;
-    public int[] compassLeft = new int[33];
-    public static int objectAction5Counter;
-    public int[] waveDelay = new int[50];
-    public int chatHoveredInterfaceIndex;
-    public int[] tabComponentId = {
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-        -1, -1, -1, -1, -1
-    };
-    public int playerPositionZ;
-    public int playerPositionX;
-    public static int[] EXPERIENCE_TABLE;
-    public boolean errorLoading = false;
-    public static int npcAction3Counter;
-    public int hoveredInterfaceIndex;
-    public boolean showSocialInput = false;
-    public boolean chatContinuingDialogue = false;
-    public int daysSinceLogin;
-    public int flameCycle1;
-    public int flameCycle2;
-    public static int itemAction4Counter;
-    public int[] privateMessageIndex = new int[100];
-    public boolean menuVisible = false;
-    public int currentLevel;
-    public boolean reportAbuseMuteToggle = false;
-    public static int sidebarClickedCounter;
-    public LinkedList spawnedLocations = new LinkedList();
-    public int chatTradeDuelSetting;
-    public static int nodeid = 10;
-    public static int portoff;
-    public static boolean members = true;
-    public static boolean lowMemory;
-    public static int playerAction2Counter;
-    public IndexedSprite redstone1;
-    public IndexedSprite redstone2;
-    public IndexedSprite redstone3;
-    public IndexedSprite redstone1h;
-    public IndexedSprite redstone2h;
-    public int[] chatMessageType = new int[100];
-    public String[] chatMessagePrefix = new String[100];
-    public String[] chatMessage = new String[100];
-    public long aLong900;
-    public int daysSinceRecoveryChange;
-    public boolean flameActive = false;
-    public int[] flameGradient;
-    public int[] flameGradientRed;
-    public int[] flameGradientGreen;
-    public int[] flameGradientViolet;
-    public int openInterfaceId = -1;
-    public IndexedSprite backbase1;
-    public IndexedSprite backbase2;
-    public IndexedSprite backhmid1;
-    public int hintType;
-    public static int updatePlayersCounter;
-    public int cameraOrbitX;
-    public int cameraOrbitZ;
-    public int cameraMovedWrite;
-    public int activeMapFunctionCount;
-    public int[] activeMapFunctionX = new int[1000];
-    public int[] activeMapFunctionZ = new int[1000];
-    public int[][] tileRenderCount = new int[104][104];
-    public boolean chatRedrawSettings = false;
-    public static BigInteger exponent = new BigInteger("58778699976184461502525193738213253649000149147835990136706041084440742975821");
-    public boolean errorHost = false;
-    public int objDragCycles;
-    public int[] sceneMapIndex;
-    public int[] skillLevel = new int[50];
-    public NPCEntity[] npcEntities = new NPCEntity[8192];
-    public int npcCount;
-    public int[] npcIndices = new int[8192];
-    public int minimapZoom;
-    public int minimapZoomModifier = 1;
-    public int cameraMaxY;
-    public int worldLocationState;
-    public int dragCycle;
-    public String chatbackMessage;
-    public static int itemAction5Counter;
-    public int[] variables = new int[2000];
-    public int deadEntityCount;
-    public int[] deadEntityIndices = new int[1000];
-    public int sidebarHoveredInterfaceIndex;
-    public static final int[][] APPEARANCE_COLORS = {
-        {
-            6798, 107, 10283, 16, 4797, 7744, 5799, 4634, 33697, 22433,
-            2983, 54193
-        },
-        {
-            8741, 12, 64030, 43162, 7735, 8404, 1701, 38430, 24094, 10153,
-            56621, 4783, 1341, 16578, 35003, 25239
-        },
-        {
-            25238, 8742, 12, 64030, 43162, 7735, 8404, 1701, 38430, 24094,
-            10153, 56621, 4783, 1341, 16578, 35003
-        },
-        {
-            4626, 11146, 6439, 12, 4758, 10270
-        },
-        {
-            4550, 4537, 5681, 5673, 5790, 6806, 8076, 4574
-        }
-    };
-    public long[] friendName37 = new long[100];
-    public int selectedCycle;
-    public int selectedInterface;
-    public int selectedItem;
-    public int selectedArea;
-    public int cutsceneLocalX;
-    public int cutsceneLocalY;
-    public int cutsceneHeightOffset;
-    public int cutsceneSpinSpeed;
-    public int cutsceneSpinMultiplier;
-    public int[] minimapLineWidth = new int[151];
-    public CollisionMap[] collisionMaps = new CollisionMap[4];
-    public static int clientClock;
-    public Sprite[] headicons = new Sprite[20];
-    public int systemUpdateTimer;
-    public int[] cameraJitter = new int[5];
-    public boolean objGrabThreshold = false;
-    public Sprite sprite;
-    public Sprite spriteActive;
-    public int midiSyncCrc;
-    public boolean sidebarRedraw = false;
-    public boolean redrawChatback = false;
-    public int[] cameraAmplitude = new int[5];
-    public static PlayerEntity self;
-    public boolean cameraOriented = false;
-    public int sceneDelta;
-    public String reportInput = "";
-    public int viewportInterfaceIndex = -1;
-    public int loginFocusedLine;
-    public IndexedSprite[] imageRunes;
-    public boolean ingame = false;
-    public boolean startFlamesThread = false;
-    public int chatPublicSetting;
-    public int chatScrollAmount;
-    public Sprite imageFlamesLeft;
-    public Sprite imageFlamesRight;
-    public int SCROLLBAR_GRIP_LOWLIGHT = 0x332d25;
-    public IndexedSprite inback;
-    public IndexedSprite mapback;
-    public IndexedSprite chatback;
-    public int inMultizone;
-    public Font fontPlain11;
-    public Font fontPlain12;
-    public Font fontBold12;
-    public Font fontQuill8;
-    public int clickedMinimap;
-    public int[] flameIntensity;
-    public int[] flameIntensityBuffer;
-    public int SCROLLBAR_GRIP_HIGHLIGHT = 0x766654;
-    public int[] waypointX = new int[4000];
-    public int[] waypointY = new int[4000];
-    public CRC32 crc32 = new CRC32();
-    public Sprite mapflag;
-    public static int updateGameCounter;
-    public BufferedStream stream;
-    public byte[][] sceneMapLocData;
-    public int chatbackComponentId = -1;
-    public int selectedObject;
-    public int selectedObjSlot;
-    public int selectedObjInterface;
-    public int objInterface;
-    public String selectedObjName;
-    public DrawArea backleft1;
-    public DrawArea backleft2;
-    public DrawArea backright1;
-    public DrawArea backright2;
-    public DrawArea backtop1;
-    public DrawArea backtop2;
-    public DrawArea backvmid1;
-    public DrawArea backvmid2;
-    public DrawArea backvmid3;
-    public DrawArea backhmid2;
-    public int waveCount;
-    public int drawX = -1;
-    public int drawY = -1;
-    public int stickyChatbackComponentId = -1;
-    public boolean rights = false;
-    public int[] unknownCameraVariable = new int[5];
-    public int selectedSpell;
-    public int spellInterface;
-    public int selectedFlags;
-    public String selectedSpellPrefix;
-    public DrawArea titleTop;
-    public DrawArea titleBottom;
-    public DrawArea titleCenter;
-    public DrawArea titleLeft;
-    public DrawArea titleRight;
-    public DrawArea titleBottomLeft;
-    public DrawArea titleBottomRight;
-    public DrawArea titleLeftSpace;
-    public DrawArea titleRightSpace;
-    public IndexedSprite[] mapscene = new IndexedSprite[50];
-    public IndexedSprite redstone1v;
-    public IndexedSprite redstone2v;
-    public IndexedSprite redstone3v;
-    public IndexedSprite redstone1hv;
-    public IndexedSprite redstone2hv;
-    public int[] textColors = {
-        0xffff00, 0xff0000, 0xff00, 0xffff, 0xff00ff, 0xffffff
-    };
-    public DrawArea areaInvback;
-    public DrawArea areaMapback;
-    public DrawArea areaViewport;
-    public DrawArea areaChatback;
-    public int SCROLLBAR_TRACK = 0x23201b;
-    public int flagTileX;
-    public int flagTileY;
-    public Sprite minimap;
-    public int unreadMessageCount;
-    public boolean chatbackInputType = false;
-    public LinkedList spotanims = new LinkedList();
-    public Sprite mapdot1;
-    public Sprite mapdot2;
-    public Sprite mapdot3;
-    public Sprite mapdot4;
-    public int lastLoginIP;
-    public static BigInteger modulus = new BigInteger("7162900525229798032761816791230527296329313291232324290237849263501208207972894053929065636522363163621000728841182238772712427862772219676577293600221789");
-    public int viewportHoveredInterfaceIndex;
-    public String midiSyncName;
-    public int lastWaveLoops = -1;
-    public String username = "";
-    public String password = "";
-    public byte[] tmpTexels = new byte[16384];
-    public boolean errorStarted = false;
-    public int energy;
-    public static final int[] BEARD_COLORS = {
-        9104, 10275, 7595, 3610, 7975, 8526, 918, 38802, 24466, 10145,
-        58654, 5027, 1457, 16565, 34991, 25486
-    };
-    public int optionCount;
-    public int[] defaultVariables = new int[2000];
-    public int hintPlayer;
-    public int sceneState;
-    public int[] skillExperience = new int[50];
-    public boolean sidebarRedrawIcons = false;
-    public IndexedSprite scrollbar1;
-    public IndexedSprite scrollbar2;
-    public String loginMessage0 = "";
-    public String loginMessage1 = "";
-    public int minimapAnticheatAngle;
-    public int minimapAngleModifier = 2;
-    public int hoveredSlot;
-    public int hoveredSlotParentId;
-    public int friendCount;
-    public static int updateGameCounter2;
-    public int chatCount;
-    public int overheadMessageCount = 50;
-    public int[] chatScreenX = new int[overheadMessageCount];
-    public int[] chatScreenY = new int[overheadMessageCount];
-    public int[] chatHeight = new int[overheadMessageCount];
-    public int[] chatPadding = new int[overheadMessageCount];
-    public int[] chatColors = new int[overheadMessageCount];
-    public int[] chatStyles = new int[overheadMessageCount];
-    public int[] chatTimers = new int[overheadMessageCount];
-    public String[] chatMessages = new String[overheadMessageCount];
-    public int wildernessLevel;
-    public static boolean alreadyStarted;
-    public IndexedSprite imageTitlebox;
-    public IndexedSprite imageTitlebutton;
-    public final int[] objectGroups = {
-        0, 0, 0, 0, 1, 1, 1, 1, 1, 2,
-        2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-        2, 2, 3
-    };
-    public static int updateLocCounter;
-    public int titleState;
-    public int midiCrc;
-    public int cameraX;
-    public int cameraY;
-    public int cameraZ;
-    public int cameraPitch;
-    public int cameraOrbitYaw;
-    public int[] compassLineWidth = new int[33];
-    public int[][] pathWaypoint = new int[104][104];
-    public String currentMidi;
-    public Sprite[] cross = new Sprite[8];
-    public boolean flamesThreadActive = false;
-    public final Object midiSync = new Object();
-    public int[] waveId = new int[50];
-    public int cameraAnticheatOffsetX;
-    public int cameraOffsetXModifier = 2;
-    public String[] friendName = new String[100];
-    public int flashingSidebarId = -1;
-    public int sidebarInterfaceId = -1;
-    public int cameraAnticheatOffsetZ;
-    public int cameraOffsetZModifier = 2;
-    public int[] minimapLeft = new int[151];
-    public int cameraAnticheatAngle;
-    public int cameraOffsetYawModifier = 1;
-    public FileArchive titleArchive;
-    public String input = "";
-    public Sprite[] mapfunction = new Sprite[50];
-    public int[] paramA = new int[500];
-    public int[] paramB = new int[500];
-    public int[] actions = new int[500];
-    public int[] paramC = new int[500];
-    public boolean scrollGripHeld = false;
-    public Sprite compass;
-    public long serverSeed;
-    public int mouseArea;
-    public int menuX;
-    public int menuY;
-    public int menuWidth;
-    public int menuHeight;
-    public boolean effectsEnabled = true;
-    public int scrollGripInputPadding;
-    public int midiSize;
-    public int flameOffset;
-    public LinkedList[][][] objects = new LinkedList[4][104][104];
-    public int SCROLLBAR_GRIP_FOREGROUND = 0x4d4233;
-    public int[] cameraFrequency = new int[5];
-
-    static {
-        EXPERIENCE_TABLE = new int[99];
-        int i = 0;
-        for (int j = 0; j < 99; j++) {
-            int k = j + 1;
-            int l = (int) ((double) k + 300D * Math.pow(2D, (double) k / 7D));
-            i += l;
-            EXPERIENCE_TABLE[j] = i / 4;
         }
     }
 }

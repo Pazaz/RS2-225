@@ -2,6 +2,9 @@ package com.jagex.runetek3.util;
 
 public class LinkedList {
 
+    public Node head;
+    public Node selected;
+
     public LinkedList() {
         head = new Node();
         head.prev = head;
@@ -86,7 +89,4 @@ public class LinkedList {
             node.unlink();
         } while (true);
     }
-
-    public Node head;
-    public Node selected;
 }

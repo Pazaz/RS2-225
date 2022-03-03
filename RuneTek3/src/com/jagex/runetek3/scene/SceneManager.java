@@ -2,14 +2,39 @@ package com.jagex.runetek3.scene;
 
 import com.jagex.runetek3.formats.FloorType;
 import com.jagex.runetek3.formats.LocType;
+import com.jagex.runetek3.graphics.Draw3D;
 import com.jagex.runetek3.graphics.Model;
 import com.jagex.runetek3.graphics.SeqType;
-import com.jagex.runetek3.graphics.Draw3D;
 import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.util.LinkedList;
 
 public class SceneManager {
 
+    private static final int[] WALL_ROTATION_TYPE1 = {0x1, 0x2, 0x4, 0x8};
+    private static final int[] WALL_ROTATION_TYPE2 = {0x10, 0x20, 0x40, 0x80};
+    private static final int[] WALL_DECO_ROT_SIZE_X_DIR = {1, 0, -1, 0};
+    private static final int[] WALL_DECO_ROT_SIZE_Y_DIR = {0, -1, 0, 1};
+    public static boolean lowMemory = true;
+    public static int levelBuilt;
+    public static boolean occlusionEnabled;
+    public static int rand1 = (int) (Math.random() * 17D) - 8;
+    public static int rand2 = (int) (Math.random() * 33D) - 16;
+    public int tileCountX;
+    public int tileCountZ;
+    public int[][][] heightmap;
+    public byte[][][] renderFlags;
+    public byte[][][] planeUnderlayFloorIndices;
+    public byte[][][] planeOverlayFloorIndices;
+    public byte[][][] planeOverlayTypes;
+    public byte[][][] planeOverlayRotations;
+    public byte[][][] shadowmap;
+    public int[][] lightmap;
+    public int[] blendedHue;
+    public int[] blendedSaturation;
+    public int[] blendedLightness;
+    public int[] blendedHueMultiplier;
+    public int[] blendDirectionTracker;
+    public int[][][] occludeFlags;
     public SceneManager(int sizeY, byte[][][] renderFlags, int sizeX, int[][][] heightmap) {
         tileCountX = sizeX;
         tileCountZ = sizeY;
@@ -27,6 +52,208 @@ public class SceneManager {
         blendedLightness = new int[tileCountZ];
         blendedHueMultiplier = new int[tileCountZ];
         blendDirectionTracker = new int[tileCountZ];
+    }
+
+    public static int getPerlinNoise(int i, int j) {
+        int k = (getSmoothNoise(i + 45365, j + 0x16713, 4) - 128) + (getSmoothNoise(i + 10294, j + 37821, 2) - 128 >> 1)
+            + (getSmoothNoise(i, j, 1) - 128 >> 2);
+        k = (int) ((double) k * 0.29999999999999999D) + 35;
+        if (k < 10)
+            k = 10;
+        else if (k > 60)
+            k = 60;
+        return k;
+    }
+
+    public static int getSmoothNoise(int i, int j, int k) {
+        int l = i / k;
+        int i1 = i & k - 1;
+        int j1 = j / k;
+        int k1 = j & k - 1;
+        int l1 = getSmoothNoise2D(l, j1);
+        int i2 = getSmoothNoise2D(l + 1, j1);
+        int j2 = getSmoothNoise2D(l, j1 + 1);
+        int k2 = getSmoothNoise2D(l + 1, j1 + 1);
+        int l2 = getCosineLerp(l1, i2, i1, k);
+        int i3 = getCosineLerp(j2, k2, i1, k);
+        return getCosineLerp(l2, i3, k1, k);
+    }
+
+    public static int getCosineLerp(int i, int j, int k, int l) {
+        int i1 = 0x10000 - Draw3D.cos[(k * 1024) / l] >> 1;
+        return (i * (0x10000 - i1) >> 16) + (j * i1 >> 16);
+    }
+
+    public static int getSmoothNoise2D(int i, int j) {
+        int k = getNoise(i - 1, j - 1) + getNoise(i + 1, j - 1) + getNoise(i - 1, j + 1) + getNoise(i + 1, j + 1);
+        int l = getNoise(i - 1, j) + getNoise(i + 1, j) + getNoise(i, j - 1) + getNoise(i, j + 1);
+        int i1 = getNoise(i, j);
+        return k / 16 + l / 8 + i1 / 4;
+    }
+
+    public static int getNoise(int i, int j) {
+        int k = i + j * 57;
+        k = k << 13 ^ k;
+        int l = k * (k * k * 15731 + 0xc0ae5) + 0x5208dd0d & 0x7fffffff;
+        return l >> 19 & 0xff;
+    }
+
+    public static int adjustHSLLightness1(int i, int j) {
+        if (i == -1)
+            return 0xbc614e;
+        j = (j * (i & 0x7f)) / 128;
+        if (j < 2)
+            j = 2;
+        else if (j > 126)
+            j = 126;
+        return (i & 0xff80) + j;
+    }
+
+    public static void addLoc(int i, LinkedList linkedList, CollisionMap collisionMap, int j, int k, int[][][] ai, int i1,
+                              int j1, int k1, MapSquare mapSquare, int l1) {
+        int i2 = ai[l1][i][j];
+        int j2 = ai[l1][i + 1][j];
+        int k2 = ai[l1][i + 1][j + 1];
+        int l2 = ai[l1][i][j + 1];
+        int i3 = i2 + j2 + k2 + l2 >> 2;
+        LocType locType = LocType.get(j1);
+        // object does not exist
+        if (locType == null) {
+            // now would be the best time to notify the user, with a little popup stating "map load warning" perhaps
+            return;
+        }
+        int j3 = i + (j << 7) + (j1 << 14) + 0x40000000;
+        if (!locType.interactable)
+            j3 += 0x80000000;
+        byte byte0 = (byte) ((k << 6) + k1);
+        if (k1 == 22) {
+            Model class38_sub2_sub1 = locType.getModel(22, k, i2, j2, k2, l2, -1);
+            mapSquare.addGroundDecoration(class38_sub2_sub1, i, j3, j, i1, byte0, i3);
+            if (locType.hasCollision && locType.interactable)
+                collisionMap.setBlocked(j, i);
+            if (locType.animationIndex != -1)
+                linkedList.pushNext(new LocEntity(true, j1, i1, 3, SeqType.instances[locType.animationIndex], j, i));
+            return;
+        }
+        if (k1 == 10 || k1 == 11) {
+            Model class38_sub2_sub1_1 = locType.getModel(10, k, i2, j2, k2, l2, -1);
+            if (class38_sub2_sub1_1 != null) {
+                int l4 = 0;
+                if (k1 == 11)
+                    l4 += 256;
+                int i4;
+                int k4;
+                if (k == 1 || k == 3) {
+                    i4 = locType.sizeZ;
+                    k4 = locType.sizeX;
+                } else {
+                    i4 = locType.sizeX;
+                    k4 = locType.sizeZ;
+                }
+                mapSquare.addLocation(i3, i1, null, j3, j, i, i4, byte0, class38_sub2_sub1_1, l4, k4);
+            }
+            if (locType.hasCollision)
+                collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, i, j, locType.isSolid);
+            if (locType.animationIndex != -1)
+                linkedList.pushNext(new LocEntity(true, j1, i1, 2, SeqType.instances[locType.animationIndex], j, i));
+            return;
+        }
+        if (k1 >= 12) {
+            Model class38_sub2_sub1_2 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
+            mapSquare.addLocation(i3, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_2, 0, 1);
+            if (locType.hasCollision)
+                collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, i, j, locType.isSolid);
+            if (locType.animationIndex != -1)
+                linkedList.pushNext(new LocEntity(true, j1, i1, 2, SeqType.instances[locType.animationIndex], j, i));
+            return;
+        }
+        if (k1 == 0) {
+            Model class38_sub2_sub1_3 = locType.getModel(0, k, i2, j2, k2, l2, -1);
+            mapSquare.addWall(0, i3, i1, WALL_ROTATION_TYPE1[k], class38_sub2_sub1_3, null, i, j3, j, byte0);
+            if (locType.hasCollision)
+                collisionMap.setWall(k, j, i, locType.isSolid, k1);
+            if (locType.animationIndex != -1)
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, SeqType.instances[locType.animationIndex], j, i));
+            return;
+        }
+        if (k1 == 1) {
+            Model class38_sub2_sub1_4 = locType.getModel(1, k, i2, j2, k2, l2, -1);
+            mapSquare.addWall(0, i3, i1, WALL_ROTATION_TYPE2[k], class38_sub2_sub1_4, null, i, j3, j, byte0);
+            if (locType.hasCollision)
+                collisionMap.setWall(k, j, i, locType.isSolid, k1);
+            if (locType.animationIndex != -1)
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, SeqType.instances[locType.animationIndex], j, i));
+            return;
+        }
+        if (k1 == 2) {
+            int k3 = k + 1 & 3;
+            Model class38_sub2_sub1_11 = locType.getModel(2, 4 + k, i2, j2, k2, l2, -1);
+            Model class38_sub2_sub1_12 = locType.getModel(2, k3, i2, j2, k2, l2, -1);
+            mapSquare.addWall(WALL_ROTATION_TYPE1[k3], i3, i1, WALL_ROTATION_TYPE1[k], class38_sub2_sub1_11,
+                class38_sub2_sub1_12, i, j3, j, byte0);
+            if (locType.hasCollision)
+                collisionMap.setWall(k, j, i, locType.isSolid, k1);
+            if (locType.animationIndex != -1)
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, SeqType.instances[locType.animationIndex], j, i));
+            return;
+        }
+        if (k1 == 3) {
+            Model class38_sub2_sub1_5 = locType.getModel(3, k, i2, j2, k2, l2, -1);
+            mapSquare.addWall(0, i3, i1, WALL_ROTATION_TYPE2[k], class38_sub2_sub1_5, null, i, j3, j, byte0);
+            if (locType.hasCollision)
+                collisionMap.setWall(k, j, i, locType.isSolid, k1);
+            if (locType.animationIndex != -1)
+                linkedList.pushNext(new LocEntity(true, j1, i1, 0, SeqType.instances[locType.animationIndex], j, i));
+            return;
+        }
+        if (k1 == 9) {
+            Model class38_sub2_sub1_6 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
+            mapSquare.addLocation(i3, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_6, 0, 1);
+            if (locType.hasCollision)
+                collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, i, j, locType.isSolid);
+            if (locType.animationIndex != -1)
+                linkedList.pushNext(new LocEntity(true, j1, i1, 2, SeqType.instances[locType.animationIndex], j, i));
+            return;
+        }
+        if (k1 == 4) {
+            Model class38_sub2_sub1_7 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
+            mapSquare.addWallDecoration(i3, j, 0, j3, k * 512, WALL_ROTATION_TYPE1[k], 0, i, class38_sub2_sub1_7, byte0, i1);
+            if (locType.animationIndex != -1)
+                linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.instances[locType.animationIndex], j, i));
+            return;
+        }
+        if (k1 == 5) {
+            int l3 = 16;
+            int j4 = mapSquare.getWallBitset(i1, i, j);
+            if (j4 > 0)
+                l3 = LocType.get(j4 >> 14 & 0x7fff).thickness;
+            Model class38_sub2_sub1_13 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
+            mapSquare.addWallDecoration(i3, j, WALL_DECO_ROT_SIZE_Y_DIR[k] * l3, j3, k * 512, WALL_ROTATION_TYPE1[k], WALL_DECO_ROT_SIZE_X_DIR[k] * l3,
+                i, class38_sub2_sub1_13, byte0, i1);
+            if (locType.animationIndex != -1)
+                linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.instances[locType.animationIndex], j, i));
+            return;
+        }
+        if (k1 == 6) {
+            Model class38_sub2_sub1_8 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
+            mapSquare.addWallDecoration(i3, j, 0, j3, k, 256, 0, i, class38_sub2_sub1_8, byte0, i1);
+            if (locType.animationIndex != -1)
+                linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.instances[locType.animationIndex], j, i));
+            return;
+        }
+        if (k1 == 7) {
+            Model class38_sub2_sub1_9 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
+            mapSquare.addWallDecoration(i3, j, 0, j3, k, 512, 0, i, class38_sub2_sub1_9, byte0, i1);
+            if (locType.animationIndex != -1)
+                linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.instances[locType.animationIndex], j, i));
+            return;
+        }
+        if (k1 == 8) {
+            Model class38_sub2_sub1_10 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
+            mapSquare.addWallDecoration(i3, j, 0, j3, k, 768, 0, i, class38_sub2_sub1_10, byte0, i1);
+            if (locType.animationIndex != -1)
+                linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.instances[locType.animationIndex], j, i));
+        }
     }
 
     public void clearLandscape(int i, int j, int l, int i1) {
@@ -755,61 +982,6 @@ public class SceneManager {
             return i;
     }
 
-    public static int getPerlinNoise(int i, int j) {
-        int k = (getSmoothNoise(i + 45365, j + 0x16713, 4) - 128) + (getSmoothNoise(i + 10294, j + 37821, 2) - 128 >> 1)
-            + (getSmoothNoise(i, j, 1) - 128 >> 2);
-        k = (int) ((double) k * 0.29999999999999999D) + 35;
-        if (k < 10)
-            k = 10;
-        else if (k > 60)
-            k = 60;
-        return k;
-    }
-
-    public static int getSmoothNoise(int i, int j, int k) {
-        int l = i / k;
-        int i1 = i & k - 1;
-        int j1 = j / k;
-        int k1 = j & k - 1;
-        int l1 = getSmoothNoise2D(l, j1);
-        int i2 = getSmoothNoise2D(l + 1, j1);
-        int j2 = getSmoothNoise2D(l, j1 + 1);
-        int k2 = getSmoothNoise2D(l + 1, j1 + 1);
-        int l2 = getCosineLerp(l1, i2, i1, k);
-        int i3 = getCosineLerp(j2, k2, i1, k);
-        return getCosineLerp(l2, i3, k1, k);
-    }
-
-    public static int getCosineLerp(int i, int j, int k, int l) {
-        int i1 = 0x10000 - Draw3D.cos[(k * 1024) / l] >> 1;
-        return (i * (0x10000 - i1) >> 16) + (j * i1 >> 16);
-    }
-
-    public static int getSmoothNoise2D(int i, int j) {
-        int k = getNoise(i - 1, j - 1) + getNoise(i + 1, j - 1) + getNoise(i - 1, j + 1) + getNoise(i + 1, j + 1);
-        int l = getNoise(i - 1, j) + getNoise(i + 1, j) + getNoise(i, j - 1) + getNoise(i, j + 1);
-        int i1 = getNoise(i, j);
-        return k / 16 + l / 8 + i1 / 4;
-    }
-
-    public static int getNoise(int i, int j) {
-        int k = i + j * 57;
-        k = k << 13 ^ k;
-        int l = k * (k * k * 15731 + 0xc0ae5) + 0x5208dd0d & 0x7fffffff;
-        return l >> 19 & 0xff;
-    }
-
-    public static int adjustHSLLightness1(int i, int j) {
-        if (i == -1)
-            return 0xbc614e;
-        j = (j * (i & 0x7f)) / 128;
-        if (j < 2)
-            j = 2;
-        else if (j > 126)
-            j = 126;
-        return (i & 0xff80) + j;
-    }
-
     public int adjustHSLLightness0(int i, int j) {
         if (i == -2)
             return 0xbc614e;
@@ -841,180 +1013,5 @@ public class SceneManager {
         int l = (i / 4 << 10) + (j / 32 << 7) + k / 2;
         return l;
     }
-
-    public static void addLoc(int i, LinkedList linkedList, CollisionMap collisionMap, int j, int k, int[][][] ai, int i1,
-                              int j1, int k1, MapSquare mapSquare, int l1) {
-        int i2 = ai[l1][i][j];
-        int j2 = ai[l1][i + 1][j];
-        int k2 = ai[l1][i + 1][j + 1];
-        int l2 = ai[l1][i][j + 1];
-        int i3 = i2 + j2 + k2 + l2 >> 2;
-        LocType locType = LocType.get(j1);
-        // object does not exist
-        if (locType == null) {
-            // now would be the best time to notify the user, with a little popup stating "map load warning" perhaps
-            return;
-        }
-        int j3 = i + (j << 7) + (j1 << 14) + 0x40000000;
-        if (!locType.interactable)
-            j3 += 0x80000000;
-        byte byte0 = (byte) ((k << 6) + k1);
-        if (k1 == 22) {
-            Model class38_sub2_sub1 = locType.getModel(22, k, i2, j2, k2, l2, -1);
-            mapSquare.addGroundDecoration(class38_sub2_sub1, i, j3, j, i1, byte0, i3);
-            if (locType.hasCollision && locType.interactable)
-                collisionMap.setBlocked(j, i);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, j1, i1, 3, SeqType.instances[locType.animationIndex], j, i));
-            return;
-        }
-        if (k1 == 10 || k1 == 11) {
-            Model class38_sub2_sub1_1 = locType.getModel(10, k, i2, j2, k2, l2, -1);
-            if (class38_sub2_sub1_1 != null) {
-                int l4 = 0;
-                if (k1 == 11)
-                    l4 += 256;
-                int i4;
-                int k4;
-                if (k == 1 || k == 3) {
-                    i4 = locType.sizeZ;
-                    k4 = locType.sizeX;
-                } else {
-                    i4 = locType.sizeX;
-                    k4 = locType.sizeZ;
-                }
-                mapSquare.addLocation(i3, i1, null, j3, j, i, i4, byte0, class38_sub2_sub1_1, l4, k4);
-            }
-            if (locType.hasCollision)
-                collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, i, j, locType.isSolid);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, j1, i1, 2, SeqType.instances[locType.animationIndex], j, i));
-            return;
-        }
-        if (k1 >= 12) {
-            Model class38_sub2_sub1_2 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
-            mapSquare.addLocation(i3, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_2, 0, 1);
-            if (locType.hasCollision)
-                collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, i, j, locType.isSolid);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, j1, i1, 2, SeqType.instances[locType.animationIndex], j, i));
-            return;
-        }
-        if (k1 == 0) {
-            Model class38_sub2_sub1_3 = locType.getModel(0, k, i2, j2, k2, l2, -1);
-            mapSquare.addWall(0, i3, i1, WALL_ROTATION_TYPE1[k], class38_sub2_sub1_3, null, i, j3, j, byte0);
-            if (locType.hasCollision)
-                collisionMap.setWall(k, j, i, locType.isSolid, k1);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, j1, i1, 0, SeqType.instances[locType.animationIndex], j, i));
-            return;
-        }
-        if (k1 == 1) {
-            Model class38_sub2_sub1_4 = locType.getModel(1, k, i2, j2, k2, l2, -1);
-            mapSquare.addWall(0, i3, i1, WALL_ROTATION_TYPE2[k], class38_sub2_sub1_4, null, i, j3, j, byte0);
-            if (locType.hasCollision)
-                collisionMap.setWall(k, j, i, locType.isSolid, k1);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, j1, i1, 0, SeqType.instances[locType.animationIndex], j, i));
-            return;
-        }
-        if (k1 == 2) {
-            int k3 = k + 1 & 3;
-            Model class38_sub2_sub1_11 = locType.getModel(2, 4 + k, i2, j2, k2, l2, -1);
-            Model class38_sub2_sub1_12 = locType.getModel(2, k3, i2, j2, k2, l2, -1);
-            mapSquare.addWall(WALL_ROTATION_TYPE1[k3], i3, i1, WALL_ROTATION_TYPE1[k], class38_sub2_sub1_11,
-                class38_sub2_sub1_12, i, j3, j, byte0);
-            if (locType.hasCollision)
-                collisionMap.setWall(k, j, i, locType.isSolid, k1);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, j1, i1, 0, SeqType.instances[locType.animationIndex], j, i));
-            return;
-        }
-        if (k1 == 3) {
-            Model class38_sub2_sub1_5 = locType.getModel(3, k, i2, j2, k2, l2, -1);
-            mapSquare.addWall(0, i3, i1, WALL_ROTATION_TYPE2[k], class38_sub2_sub1_5, null, i, j3, j, byte0);
-            if (locType.hasCollision)
-                collisionMap.setWall(k, j, i, locType.isSolid, k1);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, j1, i1, 0, SeqType.instances[locType.animationIndex], j, i));
-            return;
-        }
-        if (k1 == 9) {
-            Model class38_sub2_sub1_6 = locType.getModel(k1, k, i2, j2, k2, l2, -1);
-            mapSquare.addLocation(i3, i1, null, j3, j, i, 1, byte0, class38_sub2_sub1_6, 0, 1);
-            if (locType.hasCollision)
-                collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, i, j, locType.isSolid);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, j1, i1, 2, SeqType.instances[locType.animationIndex], j, i));
-            return;
-        }
-        if (k1 == 4) {
-            Model class38_sub2_sub1_7 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            mapSquare.addWallDecoration(i3, j, 0, j3, k * 512, WALL_ROTATION_TYPE1[k], 0, i, class38_sub2_sub1_7, byte0, i1);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.instances[locType.animationIndex], j, i));
-            return;
-        }
-        if (k1 == 5) {
-            int l3 = 16;
-            int j4 = mapSquare.getWallBitset(i1, i, j);
-            if (j4 > 0)
-                l3 = LocType.get(j4 >> 14 & 0x7fff).thickness;
-            Model class38_sub2_sub1_13 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            mapSquare.addWallDecoration(i3, j, WALL_DECO_ROT_SIZE_Y_DIR[k] * l3, j3, k * 512, WALL_ROTATION_TYPE1[k], WALL_DECO_ROT_SIZE_X_DIR[k] * l3,
-                i, class38_sub2_sub1_13, byte0, i1);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.instances[locType.animationIndex], j, i));
-            return;
-        }
-        if (k1 == 6) {
-            Model class38_sub2_sub1_8 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            mapSquare.addWallDecoration(i3, j, 0, j3, k, 256, 0, i, class38_sub2_sub1_8, byte0, i1);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.instances[locType.animationIndex], j, i));
-            return;
-        }
-        if (k1 == 7) {
-            Model class38_sub2_sub1_9 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            mapSquare.addWallDecoration(i3, j, 0, j3, k, 512, 0, i, class38_sub2_sub1_9, byte0, i1);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.instances[locType.animationIndex], j, i));
-            return;
-        }
-        if (k1 == 8) {
-            Model class38_sub2_sub1_10 = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            mapSquare.addWallDecoration(i3, j, 0, j3, k, 768, 0, i, class38_sub2_sub1_10, byte0, i1);
-            if (locType.animationIndex != -1)
-                linkedList.pushNext(new LocEntity(true, j1, i1, 1, SeqType.instances[locType.animationIndex], j, i));
-        }
-    }
-
-    public static boolean lowMemory = true;
-    public static int levelBuilt;
-    public static boolean occlusionEnabled;
-    public int tileCountX;
-    public int tileCountZ;
-    public int[][][] heightmap;
-    public byte[][][] renderFlags;
-    public byte[][][] planeUnderlayFloorIndices;
-    public byte[][][] planeOverlayFloorIndices;
-    public byte[][][] planeOverlayTypes;
-    public byte[][][] planeOverlayRotations;
-    public byte[][][] shadowmap;
-    public int[][] lightmap;
-    public int[] blendedHue;
-    public int[] blendedSaturation;
-    public int[] blendedLightness;
-    public int[] blendedHueMultiplier;
-    public int[] blendDirectionTracker;
-    public int[][][] occludeFlags;
-
-    private static final int[] WALL_ROTATION_TYPE1 = {0x1, 0x2, 0x4, 0x8};
-    private static final int[] WALL_ROTATION_TYPE2 = {0x10, 0x20, 0x40, 0x80};
-    private static final int[] WALL_DECO_ROT_SIZE_X_DIR = {1, 0, -1, 0};
-    private static final int[] WALL_DECO_ROT_SIZE_Y_DIR = {0, -1, 0, 1};
-
-    public static int rand1 = (int) (Math.random() * 17D) - 8;
-    public static int rand2 = (int) (Math.random() * 33D) - 16;
 
 }

@@ -4,12 +4,19 @@ import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.util.Buffer;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
 import java.io.ByteArrayInputStream;
 
 public class Sprite extends Draw2D {
+
+    public int[] pixels;
+    public int width;
+    public int height;
+    public int clipX;
+    public int clipY;
+    public int cropW;
+    public int cropH;
 
     public Sprite(int w, int h) {
         pixels = new int[w * h];
@@ -502,12 +509,4 @@ public class Sprite extends Draw2D {
             srcOff += srcStep;
         }
     }
-
-    public int[] pixels;
-    public int width;
-    public int height;
-    public int clipX;
-    public int clipY;
-    public int cropW;
-    public int cropH;
 }

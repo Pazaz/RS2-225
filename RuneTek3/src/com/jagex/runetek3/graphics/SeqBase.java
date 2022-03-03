@@ -5,6 +5,13 @@ import com.jagex.runetek3.util.Buffer;
 
 public class SeqBase {
 
+    public static SeqBase[] instances;
+    public int length;
+    public int[] types;
+    public int[][] groupLabels;
+    public SeqBase() {
+    }
+
     public static void load(FileArchive fileArchive) {
         Buffer head = new Buffer(fileArchive.read("base_head.dat", null));
         Buffer type = new Buffer(fileArchive.read("base_type.dat", null));
@@ -37,12 +44,4 @@ public class SeqBase {
             instances[index].groupLabels = groups;
         }
     }
-
-    public SeqBase() {
-    }
-
-    public static SeqBase[] instances;
-    public int length;
-    public int[] types;
-    public int[][] groupLabels;
 }

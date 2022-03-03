@@ -1,12 +1,173 @@
 package com.jagex.runetek3.scene;
 
-import com.jagex.runetek3.graphics.Model;
 import com.jagex.runetek3.graphics.Draw2D;
 import com.jagex.runetek3.graphics.Draw3D;
+import com.jagex.runetek3.graphics.Model;
 import com.jagex.runetek3.util.LinkedList;
 
 public class MapSquare {
 
+    public static final int[] DECO_TYPE1_OFFSET_X = {53, -53, -53, 53};
+    public static final int[] DECO_TYPE1_OFFSET_Z = {-53, -53, 53, 53};
+    public static final int[] DECO_TYPE2_OFFSET_X = {-45, 45, 45, -45};
+    public static final int[] DECO_TYPE2_OFFSET_Z = {45, 45, -45, -45};
+    public static final int[] TILE_WALL_DRAW_FLAGS_0 = {19, 55, 38, 155, 255, 110, 137, 205, 76};
+    public static final int[] WALL_DRAW_FLAGS = {160, 192, 80, 96, 0, 144, 80, 48, 160};
+    public static final int[] TILE_WALL_DRAW_FLAGS_1 = {76, 8, 137, 4, 0, 1, 38, 2, 19};
+    public static final int[] WALL_UNCULL_FLAGS_0 = {0, 0, 2, 0, 0, 2, 1, 1, 0};
+    public static final int[] WALL_UNCULL_FLAGS_1 = {2, 0, 0, 2, 0, 0, 0, 4, 4};
+    public static final int[] WALL_UNCULL_FLAGS_2 = {0, 4, 4, 8, 0, 0, 8, 0, 0};
+    public static final int[] WALL_UNCULL_FLAGS_3 = {1, 1, 0, 0, 0, 8, 0, 0, 8};
+    public static final int[] TEXTURE_HSL = {
+        41, 39248, 41, 4643, 41, 41, 41, 41, 41, 41,
+        41, 41, 41, 41, 41, 43086, 41, 41, 41, 41,
+        41, 41, 41, 8602, 41, 28992, 41, 41, 41, 41,
+        41, 5056, 41, 41, 41, 41, 41, 41, 41, 41,
+        41, 41, 41, 41, 41, 41, 3131, 41, 41, 41
+    };
+    public static boolean lowMemory = true;
+    public static int lastTileUpdateCount;
+    public static int tileUpdateCount;
+    public static int activeLevel;
+    public static int minTileX;
+    public static int maxTileX;
+    public static int minTileY;
+    public static int maxTileZ;
+    public static int screenCenterX;
+    public static int screenCenterY;
+    public static int cameraX2;
+    public static int cameraY2;
+    public static int cameraZ2;
+    public static int pitchSin;
+    public static int pitchCos;
+    public static int yawSin;
+    public static int yawCos;
+    public static Loc[] locBuffer = new Loc[100];
+    public static boolean checkClick;
+    public static int clickX;
+    public static int clickY;
+    public static int clickedTileX = -1;
+    public static int clickedTileZ = -1;
+    public static int MAX_OCCLUDER_LEVELS;
+    public static int[] levelOccluderCount;
+    public static Occluder[][] levelOccluders;
+    public static int activeOccluderCount;
+    public static Occluder[] activeOccluders = new Occluder[500];
+    public static LinkedList tileQueue = new LinkedList();
+    public static boolean[][][][] visibilityMaps = new boolean[8][32][51][51];
+    public static boolean[][] visibilityMap;
+    public static int viewportCenterX;
+    public static int viewportCenterY;
+    public static int viewportLeft;
+    public static int viewportTop;
+    public static int viewportRight;
+    public static int viewportBottom;
+
+    static {
+        MAX_OCCLUDER_LEVELS = 4;
+        levelOccluderCount = new int[MAX_OCCLUDER_LEVELS];
+        levelOccluders = new Occluder[MAX_OCCLUDER_LEVELS][500];
+    }
+
+    public int maxLevel;
+    public int tileCountX;
+    public int tileCountZ;
+    public int[][][] heightmap;
+    public Tile[][][] levelTiles;
+    public int minLevel;
+    public int locCount;
+    public Loc[] locs;
+    public int[][][] levelTileCycles;
+    public int[] vertexAMergeIndex;
+    public int[] vertexBMergeIndex;
+    public int normalMergeIndex;
+    public int[][] TILE_MASK_2D = {
+        new int[16],
+        {
+            1, 1, 1, 1,
+            1, 1, 1, 1,
+            1, 1, 1, 1,
+            1, 1, 1, 1
+        }, {
+        1, 0, 0, 0,
+        1, 1, 0, 0,
+        1, 1, 1, 0,
+        1, 1, 1, 1
+    }, {
+        1, 1, 0, 0,
+        1, 1, 0, 0,
+        1, 0, 0, 0,
+        1, 0, 0, 0
+    }, {
+        0, 0, 1, 1,
+        0, 0, 1, 1,
+        0, 0, 0, 1,
+        0, 0, 0, 1
+    }, {
+        0, 1, 1, 1,
+        0, 1, 1, 1,
+        1, 1, 1, 1,
+        1, 1, 1, 1
+    }, {
+        1, 1, 1, 0,
+        1, 1, 1, 0,
+        1, 1, 1, 1,
+        1, 1, 1, 1
+    }, {
+        1, 1, 0, 0,
+        1, 1, 0, 0,
+        1, 1, 0, 0,
+        1, 1, 0, 0
+    }, {
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        1, 0, 0, 0,
+        1, 1, 0, 0
+    }, {
+        1, 1, 1, 1,
+        1, 1, 1, 1,
+        0, 1, 1, 1,
+        0, 0, 1, 1
+    }, {
+        1, 1, 1, 1,
+        1, 1, 0, 0,
+        1, 0, 0, 0,
+        1, 0, 0, 0
+    }, {
+        0, 0, 0, 0,
+        0, 0, 1, 1,
+        0, 1, 1, 1,
+        0, 1, 1, 1
+    }, {
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 1, 1, 0,
+        1, 1, 1, 1
+    }
+    };
+    public int[][] TILE_ROTATION_2D = {
+        {
+            0, 1, 2, 3,
+            4, 5, 6, 7,
+            8, 9, 10, 11,
+            12, 13, 14, 15
+        }, {
+        12, 8, 4, 0,
+        13, 9, 5, 1,
+        14, 10, 6, 2,
+        15, 11, 7, 3
+    }, {
+        15, 14, 13, 12,
+        11, 10, 9, 8,
+        7, 6, 5, 4,
+        3, 2, 1, 0
+    }, {
+        3, 7, 11, 15,
+        2, 6, 10, 14,
+        1, 5, 9, 13,
+        0, 4, 8, 12
+    }
+    };
     public MapSquare(int[][][] heightmap, int tileCountZ, int maxLevel, int tileCountX) {
         locs = new Loc[5000];
         vertexAMergeIndex = new int[10000];
@@ -27,6 +188,114 @@ public class MapSquare {
         tileQueue = null;
         visibilityMaps = null;
         visibilityMap = null;
+    }
+
+    public static void addOcclude(int maxZ, int minX, int maxY, int type, int maxX, int level, int minY, int minZ) {
+        Occluder o = new Occluder();
+        o.minTileX = minX / 128;
+        o.maxTileX = maxX / 128;
+        o.minTileZ = minZ / 128;
+        o.maxTileZ = maxZ / 128;
+        o.type = type;
+        o.minX = minX;
+        o.maxX = maxX;
+        o.minZ = minZ;
+        o.maxZ = maxZ;
+        o.minY = minY;
+        o.maxY = maxY;
+        levelOccluders[level][levelOccluderCount[level]++] = o;
+    }
+
+    public static void init(int[] pitchZ, int maxZ, int width, int height, int minZ) {
+        viewportLeft = 0;
+        viewportTop = 0;
+        viewportRight = width;
+        viewportBottom = height;
+        viewportCenterX = width / 2;
+        viewportCenterY = height / 2;
+
+        boolean[][][][] visibilityMap = new boolean[9][32][53][53];
+
+        for (int pitch = 128; pitch <= 384; pitch += 32) {
+            for (int yaw = 0; yaw < 2048; yaw += 64) {
+                pitchSin = Model.sin[pitch];
+                pitchCos = Model.cos[pitch];
+                yawSin = Model.sin[yaw];
+                yawCos = Model.cos[yaw];
+
+                int pitchIndex = (pitch - 128) / 32;
+                int yawIndex = yaw / 64;
+
+                for (int x = -26; x <= 26; x++) {
+                    for (int y = -26; y <= 26; y++) {
+                        int sceneX = x * 128;
+                        int sceneY = y * 128;
+                        boolean visible = false;
+
+                        for (int sceneZ = -minZ; sceneZ <= maxZ; sceneZ += 128) {
+                            if (!isPointVisible(sceneX, sceneY, pitchZ[pitchIndex] + sceneZ)) {
+                                continue;
+                            }
+
+                            visible = true;
+                            break;
+                        }
+
+                        visibilityMap[pitchIndex][yawIndex][x + 25 + 1][y + 25 + 1] = visible;
+                    }
+                }
+            }
+        }
+
+        for (int pitch = 0; pitch < 8; pitch++) {
+            for (int yaw = 0; yaw < 32; yaw++) {
+                for (int x = -25; x < 25; x++) {
+                    for (int y = -25; y < 25; y++) {
+                        boolean visible = false;
+
+                        loop:
+                        for (int dx = -1; dx <= 1; dx++) {
+                            for (int dy = -1; dy <= 1; dy++) {
+                                if (visibilityMap[pitch][yaw][x + dx + 25 + 1][y + dy + 25 + 1]) {
+                                    visible = true;
+                                } else if (visibilityMap[pitch][(yaw + 1) % 31][x + dx + 25 + 1][y + dy + 25 + 1]) {
+                                    visible = true;
+                                } else if (visibilityMap[pitch + 1][yaw][x + dx + 25 + 1][y + dy + 25 + 1]) {
+                                    visible = true;
+                                } else {
+                                    if (!visibilityMap[pitch + 1][(yaw + 1) % 31][x + dx + 25 + 1][y + dy + 25 + 1]) {
+                                        continue;
+                                    }
+
+                                    visible = true;
+                                }
+
+                                break loop;
+                            }
+
+                        }
+
+                        visibilityMaps[pitch][yaw][x + 25][y + 25] = visible;
+                    }
+                }
+            }
+        }
+    }
+
+    public static boolean isPointVisible(int sceneX, int sceneY, int sceneZ) {
+        int x = sceneY * yawSin + sceneX * yawCos >> 16;
+        int w = sceneY * yawCos - sceneX * yawSin >> 16;
+        int z = sceneZ * pitchSin + w * pitchCos >> 16;
+        int y = sceneZ * pitchCos - w * pitchSin >> 16;
+
+        if (z < 50 || z > 3500) {
+            return false;
+        }
+
+        int screenX = viewportCenterX + (x << 9) / z;
+        int screenY = viewportCenterY + (y << 9) / z;
+
+        return screenX >= viewportLeft && screenX <= viewportRight && screenY >= viewportTop && screenY <= viewportBottom;
     }
 
     public void reset() {
@@ -82,22 +351,6 @@ public class MapSquare {
 
         levelTiles[0][stx][stz].bridge = ground;
         levelTiles[3][stx][stz] = null;
-    }
-
-    public static void addOcclude(int maxZ, int minX, int maxY, int type, int maxX, int level, int minY, int minZ) {
-        Occluder o = new Occluder();
-        o.minTileX = minX / 128;
-        o.maxTileX = maxX / 128;
-        o.minTileZ = minZ / 128;
-        o.maxTileZ = maxZ / 128;
-        o.type = type;
-        o.minX = minX;
-        o.maxX = maxX;
-        o.minZ = minZ;
-        o.maxZ = maxZ;
-        o.minY = minY;
-        o.maxY = maxY;
-        levelOccluders[level][levelOccluderCount[level]++] = o;
     }
 
     public void setPhysicalLevel(int level, int tileX, int tileZ, int physicalLevel) {
@@ -886,98 +1139,6 @@ public class MapSquare {
                 dstOff += dstStep;
             }
         }
-    }
-
-    public static void init(int[] pitchZ, int maxZ, int width, int height, int minZ) {
-        viewportLeft = 0;
-        viewportTop = 0;
-        viewportRight = width;
-        viewportBottom = height;
-        viewportCenterX = width / 2;
-        viewportCenterY = height / 2;
-
-        boolean[][][][] visibilityMap = new boolean[9][32][53][53];
-
-        for (int pitch = 128; pitch <= 384; pitch += 32) {
-            for (int yaw = 0; yaw < 2048; yaw += 64) {
-                pitchSin = Model.sin[pitch];
-                pitchCos = Model.cos[pitch];
-                yawSin = Model.sin[yaw];
-                yawCos = Model.cos[yaw];
-
-                int pitchIndex = (pitch - 128) / 32;
-                int yawIndex = yaw / 64;
-
-                for (int x = -26; x <= 26; x++) {
-                    for (int y = -26; y <= 26; y++) {
-                        int sceneX = x * 128;
-                        int sceneY = y * 128;
-                        boolean visible = false;
-
-                        for (int sceneZ = -minZ; sceneZ <= maxZ; sceneZ += 128) {
-                            if (!isPointVisible(sceneX, sceneY, pitchZ[pitchIndex] + sceneZ)) {
-                                continue;
-                            }
-
-                            visible = true;
-                            break;
-                        }
-
-                        visibilityMap[pitchIndex][yawIndex][x + 25 + 1][y + 25 + 1] = visible;
-                    }
-                }
-            }
-        }
-
-        for (int pitch = 0; pitch < 8; pitch++) {
-            for (int yaw = 0; yaw < 32; yaw++) {
-                for (int x = -25; x < 25; x++) {
-                    for (int y = -25; y < 25; y++) {
-                        boolean visible = false;
-
-                        loop:
-                        for (int dx = -1; dx <= 1; dx++) {
-                            for (int dy = -1; dy <= 1; dy++) {
-                                if (visibilityMap[pitch][yaw][x + dx + 25 + 1][y + dy + 25 + 1]) {
-                                    visible = true;
-                                } else if (visibilityMap[pitch][(yaw + 1) % 31][x + dx + 25 + 1][y + dy + 25 + 1]) {
-                                    visible = true;
-                                } else if (visibilityMap[pitch + 1][yaw][x + dx + 25 + 1][y + dy + 25 + 1]) {
-                                    visible = true;
-                                } else {
-                                    if (!visibilityMap[pitch + 1][(yaw + 1) % 31][x + dx + 25 + 1][y + dy + 25 + 1]) {
-                                        continue;
-                                    }
-
-                                    visible = true;
-                                }
-
-                                break loop;
-                            }
-
-                        }
-
-                        visibilityMaps[pitch][yaw][x + 25][y + 25] = visible;
-                    }
-                }
-            }
-        }
-    }
-
-    public static boolean isPointVisible(int sceneX, int sceneY, int sceneZ) {
-        int x = sceneY * yawSin + sceneX * yawCos >> 16;
-        int w = sceneY * yawCos - sceneX * yawSin >> 16;
-        int z = sceneZ * pitchSin + w * pitchCos >> 16;
-        int y = sceneZ * pitchCos - w * pitchSin >> 16;
-
-        if (z < 50 || z > 3500) {
-            return false;
-        }
-
-        int screenX = viewportCenterX + (x << 9) / z;
-        int screenY = viewportCenterY + (y << 9) / z;
-
-        return screenX >= viewportLeft && screenX <= viewportRight && screenY >= viewportTop && screenY <= viewportBottom;
     }
 
     public void setClick(int clickY, int clickX) {
@@ -2319,175 +2480,5 @@ public class MapSquare {
         }
 
         return false;
-    }
-
-    public static boolean lowMemory = true;
-    public int maxLevel;
-    public int tileCountX;
-    public int tileCountZ;
-    public int[][][] heightmap;
-    public Tile[][][] levelTiles;
-    public int minLevel;
-    public int locCount;
-    public Loc[] locs;
-    public int[][][] levelTileCycles;
-    public static int lastTileUpdateCount;
-    public static int tileUpdateCount;
-    public static int activeLevel;
-    public static int minTileX;
-    public static int maxTileX;
-    public static int minTileY;
-    public static int maxTileZ;
-    public static int screenCenterX;
-    public static int screenCenterY;
-    public static int cameraX2;
-    public static int cameraY2;
-    public static int cameraZ2;
-    public static int pitchSin;
-    public static int pitchCos;
-    public static int yawSin;
-    public static int yawCos;
-    public static Loc[] locBuffer = new Loc[100];
-
-    public static final int[] DECO_TYPE1_OFFSET_X = {53, -53, -53, 53};
-    public static final int[] DECO_TYPE1_OFFSET_Z = {-53, -53, 53, 53};
-    public static final int[] DECO_TYPE2_OFFSET_X = {-45, 45, 45, -45};
-    public static final int[] DECO_TYPE2_OFFSET_Z = {45, 45, -45, -45};
-
-    public static boolean checkClick;
-    public static int clickX;
-    public static int clickY;
-    public static int clickedTileX = -1;
-    public static int clickedTileZ = -1;
-    public static int MAX_OCCLUDER_LEVELS;
-    public static int[] levelOccluderCount;
-    public static Occluder[][] levelOccluders;
-    public static int activeOccluderCount;
-    public static Occluder[] activeOccluders = new Occluder[500];
-    public static LinkedList tileQueue = new LinkedList();
-
-    public static final int[] TILE_WALL_DRAW_FLAGS_0 = {19, 55, 38, 155, 255, 110, 137, 205, 76};
-    public static final int[] WALL_DRAW_FLAGS = {160, 192, 80, 96, 0, 144, 80, 48, 160};
-    public static final int[] TILE_WALL_DRAW_FLAGS_1 = {76, 8, 137, 4, 0, 1, 38, 2, 19};
-
-    public static final int[] WALL_UNCULL_FLAGS_0 = {0, 0, 2, 0, 0, 2, 1, 1, 0};
-    public static final int[] WALL_UNCULL_FLAGS_1 = {2, 0, 0, 2, 0, 0, 0, 4, 4};
-    public static final int[] WALL_UNCULL_FLAGS_2 = {0, 4, 4, 8, 0, 0, 8, 0, 0};
-    public static final int[] WALL_UNCULL_FLAGS_3 = {1, 1, 0, 0, 0, 8, 0, 0, 8};
-
-    public static final int[] TEXTURE_HSL = {
-        41, 39248, 41, 4643, 41, 41, 41, 41, 41, 41,
-        41, 41, 41, 41, 41, 43086, 41, 41, 41, 41,
-        41, 41, 41, 8602, 41, 28992, 41, 41, 41, 41,
-        41, 5056, 41, 41, 41, 41, 41, 41, 41, 41,
-        41, 41, 41, 41, 41, 41, 3131, 41, 41, 41
-    };
-
-    public int[] vertexAMergeIndex;
-    public int[] vertexBMergeIndex;
-    public int normalMergeIndex;
-
-    public int[][] TILE_MASK_2D = {
-        new int[16],
-        {
-            1, 1, 1, 1,
-            1, 1, 1, 1,
-            1, 1, 1, 1,
-            1, 1, 1, 1
-        }, {
-        1, 0, 0, 0,
-        1, 1, 0, 0,
-        1, 1, 1, 0,
-        1, 1, 1, 1
-    }, {
-        1, 1, 0, 0,
-        1, 1, 0, 0,
-        1, 0, 0, 0,
-        1, 0, 0, 0
-    }, {
-        0, 0, 1, 1,
-        0, 0, 1, 1,
-        0, 0, 0, 1,
-        0, 0, 0, 1
-    }, {
-        0, 1, 1, 1,
-        0, 1, 1, 1,
-        1, 1, 1, 1,
-        1, 1, 1, 1
-    }, {
-        1, 1, 1, 0,
-        1, 1, 1, 0,
-        1, 1, 1, 1,
-        1, 1, 1, 1
-    }, {
-        1, 1, 0, 0,
-        1, 1, 0, 0,
-        1, 1, 0, 0,
-        1, 1, 0, 0
-    }, {
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        1, 0, 0, 0,
-        1, 1, 0, 0
-    }, {
-        1, 1, 1, 1,
-        1, 1, 1, 1,
-        0, 1, 1, 1,
-        0, 0, 1, 1
-    }, {
-        1, 1, 1, 1,
-        1, 1, 0, 0,
-        1, 0, 0, 0,
-        1, 0, 0, 0
-    }, {
-        0, 0, 0, 0,
-        0, 0, 1, 1,
-        0, 1, 1, 1,
-        0, 1, 1, 1
-    }, {
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 1, 1, 0,
-        1, 1, 1, 1
-    }
-    };
-
-    public int[][] TILE_ROTATION_2D = {
-        {
-            0, 1, 2, 3,
-            4, 5, 6, 7,
-            8, 9, 10, 11,
-            12, 13, 14, 15
-        }, {
-        12, 8, 4, 0,
-        13, 9, 5, 1,
-        14, 10, 6, 2,
-        15, 11, 7, 3
-    }, {
-        15, 14, 13, 12,
-        11, 10, 9, 8,
-        7, 6, 5, 4,
-        3, 2, 1, 0
-    }, {
-        3, 7, 11, 15,
-        2, 6, 10, 14,
-        1, 5, 9, 13,
-        0, 4, 8, 12
-    }
-    };
-
-    public static boolean[][][][] visibilityMaps = new boolean[8][32][51][51];
-    public static boolean[][] visibilityMap;
-    public static int viewportCenterX;
-    public static int viewportCenterY;
-    public static int viewportLeft;
-    public static int viewportTop;
-    public static int viewportRight;
-    public static int viewportBottom;
-
-    static {
-        MAX_OCCLUDER_LEVELS = 4;
-        levelOccluderCount = new int[MAX_OCCLUDER_LEVELS];
-        levelOccluders = new Occluder[MAX_OCCLUDER_LEVELS][500];
     }
 }

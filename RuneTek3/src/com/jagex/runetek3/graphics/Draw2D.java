@@ -4,6 +4,20 @@ import com.jagex.runetek3.util.CacheableNode;
 
 public class Draw2D extends CacheableNode {
 
+    public static int[] dest;
+    public static int width;
+    public static int height;
+    public static int top;
+    public static int bottom;
+    public static int left;
+    public static int right;
+    public static int rightX;
+    public static int centerX;
+    public static int centerY;
+
+    public Draw2D() {
+    }
+
     public static void prepare(int width, int[] data, int height) {
         dest = data;
         Draw2D.width = width;
@@ -208,19 +222,5 @@ public class Draw2D extends CacheableNode {
             offset += step;
         }
     }
-
-    public Draw2D() {
-    }
-
-    public static int[] dest;
-    public static int width;
-    public static int height;
-    public static int top;
-    public static int bottom;
-    public static int left;
-    public static int right;
-    public static int rightX;
-    public static int centerX;
-    public static int centerY;
 
 }

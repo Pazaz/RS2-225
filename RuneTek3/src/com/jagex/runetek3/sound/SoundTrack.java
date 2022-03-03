@@ -4,6 +4,18 @@ import com.jagex.runetek3.util.Buffer;
 
 public class SoundTrack {
 
+    public static SoundTrack[] tracks = new SoundTrack[1000];
+    public static int[] delays = new int[1000];
+    public static byte[] bbuf;
+    public static Buffer buffer;
+    public SoundTone[] tones;
+    public int loopBegin;
+    public int loopEnd;
+
+    public SoundTrack() {
+        tones = new SoundTone[10];
+    }
+
     public static void load(Buffer src) {
         bbuf = new byte[441000];
 
@@ -150,17 +162,5 @@ public class SoundTrack {
 
         return totalSampleCount;
     }
-
-    public SoundTrack() {
-        tones = new SoundTone[10];
-    }
-
-    public static SoundTrack[] tracks = new SoundTrack[1000];
-    public static int[] delays = new int[1000];
-    public static byte[] bbuf;
-    public static Buffer buffer;
-    public SoundTone[] tones;
-    public int loopBegin;
-    public int loopEnd;
 
 }

@@ -4,9 +4,6 @@ import com.jagex.runetek3.graphics.Model;
 
 public class ObjEntity {
 
-    public ObjEntity() {
-    }
-
     public int y;
     public int x;
     public int z;
@@ -15,4 +12,6 @@ public class ObjEntity {
     public Model entity2;
     public int bitset;
     public int offsetY;
+    public ObjEntity() {
+    }
 }

@@ -4,9 +4,6 @@ import com.jagex.runetek3.graphics.Model;
 
 public class WallDecoration {
 
-    public WallDecoration() {
-    }
-
     public int sceneY;
     public int sceneX;
     public int sceneZ;
@@ -15,4 +12,6 @@ public class WallDecoration {
     public Model model;
     public int bitset;
     public byte info;
+    public WallDecoration() {
+    }
 }

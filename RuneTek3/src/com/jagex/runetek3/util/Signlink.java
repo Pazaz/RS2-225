@@ -12,6 +12,49 @@ import java.net.URL;
 
 public class Signlink implements Runnable {
 
+    public static boolean lowMemory = false;
+    public static int clientversion = 225;
+    public static String cachedir = "." + clientversion + "_store";
+    public static int uid;
+    public static Applet mainapp;
+    public static boolean sunjava;
+    public static boolean active;
+    public static int threadliveid;
+    public static InetAddress socketip;
+    public static int socketreq;
+    public static Socket socket;
+    public static int threadreqpri = 1;
+    public static Runnable threadreq;
+    public static String dnsreq;
+    public static String dns;
+    public static String loadreq;
+    public static byte[] loadbuf;
+    public static int savelen;
+    public static String savereq;
+    public static byte[] savebuf;
+    public static String urlreq;
+    public static DataInputStream urlstream;
+    public static int looprate = 50;
+    public static boolean midiplay;
+    public static int midipos;
+    public static String midi = "none";
+    public static int midivol = 192;
+    public static boolean midifade = false;
+    public static boolean midiFadingIn = false;
+    public static boolean midiFadingOut = false;
+    public static int midiFadeVol = 0;
+    public static boolean waveplay;
+    public static int wavepos;
+    public static String wave = "none";
+    public static int wavevol;
+    public static boolean reporterror = true;
+    public static String errorname = "";
+    private static MidiPlayer midiPlayer = null;
+    private final int EXTERNAL_BUFFER_SIZE = 524288;
+    private Position curPosition = Position.NORMAL;
+    public Signlink() {
+    }
+
     public static void startpriv(InetAddress address) {
         threadliveid = (int) (Math.random() * 99999999D);
 
@@ -37,180 +80,8 @@ public class Signlink implements Runnable {
         }
     }
 
-    public void run() {
-        if (!Signlink.lowMemory) {
-            try {
-                midiPlayer = new MidiPlayer();
-            } catch (Exception ex) {
-            }
-        }
-
-        active = true;
-        String s = findcachedir();
-        uid = getuid(s);
-        for (int i = threadliveid; threadliveid == i; ) {
-            audioLoop();
-
-            if (socketreq != 0) {
-                try {
-                    socket = new Socket(socketip, socketreq);
-                } catch (Exception _ex) {
-                    socket = null;
-                }
-                socketreq = 0;
-            } else if (threadreq != null) {
-                Thread thread = new Thread(threadreq);
-                thread.setDaemon(true);
-                thread.start();
-                thread.setPriority(threadreqpri);
-                threadreq = null;
-            } else if (dnsreq != null) {
-                try {
-                    dns = InetAddress.getByName(dnsreq).getHostName();
-                } catch (Exception _ex) {
-                    dns = "unknown";
-                }
-                dnsreq = null;
-            } else if (loadreq != null) {
-                loadbuf = null;
-                try {
-                    s = findcachedir();
-                    File file = new File(s + loadreq);
-                    if (file.exists()) {
-                        int j = (int) file.length();
-                        loadbuf = new byte[j];
-                        DataInputStream datainputstream = new DataInputStream(new FileInputStream(s + loadreq));
-                        datainputstream.readFully(loadbuf, 0, j);
-                        datainputstream.close();
-                    }
-                } catch (Exception _ex) {
-                }
-                loadreq = null;
-            } else if (savereq != null) {
-                if (savebuf != null) {
-                    try {
-                        FileOutputStream fileoutputstream = new FileOutputStream(s + savereq);
-                        fileoutputstream.write(savebuf, 0, savelen);
-                        fileoutputstream.close();
-                    } catch (Exception _ex) {
-                    }
-                }
-                if (waveplay) {
-                    wave = s + savereq;
-                    waveplay = false;
-                }
-                if (midiplay) {
-                    midi = s + savereq;
-                    midiplay = false;
-                }
-                savereq = null;
-            } else if (urlreq != null) {
-                try {
-                    urlstream = new DataInputStream((new URL(mainapp.getCodeBase(), urlreq)).openStream());
-                } catch (Exception _ex) {
-                    urlstream = null;
-                }
-                urlreq = null;
-            }
-            try {
-                Thread.sleep(looprate);
-            } catch (Exception _ex) {
-            }
-        }
-    }
-
     public static void setSoundfont(FileArchive archive) {
         midiPlayer.setSoundfont(archive.read("soundfont", null));
-    }
-
-    // adapted from play_members.html's JS loop
-    void audioLoop() {
-        if (midiFadingIn) {
-            midiFadeVol += 8;
-            if (midiFadeVol > midivol) {
-                midiFadeVol = midivol;
-            }
-            midiPlayer.setVolume(0, midiFadeVol);
-            if (midiFadeVol == midivol) {
-                midiFadingIn = false;
-            }
-        } else if (midiFadingOut) {
-            midiFadeVol -= 8;
-            if (midiFadeVol < 0) {
-                midiFadeVol = 0;
-            }
-            midiPlayer.setVolume(0, midiFadeVol);
-            if (midiFadeVol == 0) {
-                midiFadingOut = false;
-                midiFadingIn = true;
-            }
-        }
-
-        if (midi != "none") {
-            if (midi == "stop") {
-                midiPlayer.stop();
-            } else if (midi == "voladjust") {
-                midiPlayer.setVolume(0, midivol);
-            } else {
-                playMidi(midi);
-            }
-
-            if (!midiFadingOut) {
-                midi = "none";
-            }
-        }
-
-        if (wave != "none") {
-            AudioInputStream audioInputStream;
-
-            try {
-                audioInputStream = AudioSystem.getAudioInputStream(new File(wave));
-            } catch (Exception e1) {
-                e1.printStackTrace();
-                return;
-            }
-
-            AudioFormat format = audioInputStream.getFormat();
-            SourceDataLine auline;
-            DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
-
-            try {
-                auline = (SourceDataLine) AudioSystem.getLine(info);
-                auline.open(format);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return;
-            }
-
-            if (auline.isControlSupported(FloatControl.Type.PAN)) {
-                FloatControl pan = (FloatControl) auline.getControl(FloatControl.Type.PAN);
-                if (curPosition == Position.RIGHT) {
-                    pan.setValue(1.0f);
-                } else if (curPosition == Position.LEFT) {
-                    pan.setValue(-1.0f);
-                }
-            }
-
-            auline.start();
-            int nBytesRead = 0;
-            byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
-
-            try {
-                while (nBytesRead != -1) {
-                    nBytesRead = audioInputStream.read(abData, 0, abData.length);
-                    if (nBytesRead >= 0) {
-                        auline.write(abData, 0, nBytesRead);
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                auline.drain();
-                auline.close();
-            }
-
-            wave = "none";
-        }
     }
 
     public static void playMidi(String music) {
@@ -460,63 +331,179 @@ public class Signlink implements Runnable {
 //        }
     }
 
-    public Signlink() {
+    public void run() {
+        if (!Signlink.lowMemory) {
+            try {
+                midiPlayer = new MidiPlayer();
+            } catch (Exception ex) {
+            }
+        }
+
+        active = true;
+        String s = findcachedir();
+        uid = getuid(s);
+        for (int i = threadliveid; threadliveid == i; ) {
+            audioLoop();
+
+            if (socketreq != 0) {
+                try {
+                    socket = new Socket(socketip, socketreq);
+                } catch (Exception _ex) {
+                    socket = null;
+                }
+                socketreq = 0;
+            } else if (threadreq != null) {
+                Thread thread = new Thread(threadreq);
+                thread.setDaemon(true);
+                thread.start();
+                thread.setPriority(threadreqpri);
+                threadreq = null;
+            } else if (dnsreq != null) {
+                try {
+                    dns = InetAddress.getByName(dnsreq).getHostName();
+                } catch (Exception _ex) {
+                    dns = "unknown";
+                }
+                dnsreq = null;
+            } else if (loadreq != null) {
+                loadbuf = null;
+                try {
+                    s = findcachedir();
+                    File file = new File(s + loadreq);
+                    if (file.exists()) {
+                        int j = (int) file.length();
+                        loadbuf = new byte[j];
+                        DataInputStream datainputstream = new DataInputStream(new FileInputStream(s + loadreq));
+                        datainputstream.readFully(loadbuf, 0, j);
+                        datainputstream.close();
+                    }
+                } catch (Exception _ex) {
+                }
+                loadreq = null;
+            } else if (savereq != null) {
+                if (savebuf != null) {
+                    try {
+                        FileOutputStream fileoutputstream = new FileOutputStream(s + savereq);
+                        fileoutputstream.write(savebuf, 0, savelen);
+                        fileoutputstream.close();
+                    } catch (Exception _ex) {
+                    }
+                }
+                if (waveplay) {
+                    wave = s + savereq;
+                    waveplay = false;
+                }
+                if (midiplay) {
+                    midi = s + savereq;
+                    midiplay = false;
+                }
+                savereq = null;
+            } else if (urlreq != null) {
+                try {
+                    urlstream = new DataInputStream((new URL(mainapp.getCodeBase(), urlreq)).openStream());
+                } catch (Exception _ex) {
+                    urlstream = null;
+                }
+                urlreq = null;
+            }
+            try {
+                Thread.sleep(looprate);
+            } catch (Exception _ex) {
+            }
+        }
     }
 
-    public static boolean lowMemory = false;
-    public static int clientversion = 225;
-    public static String cachedir = "." + clientversion + "_store";
-    public static int uid;
-    public static Applet mainapp;
-    public static boolean sunjava;
-    public static boolean active;
-    public static int threadliveid;
-    public static InetAddress socketip;
+    // adapted from play_members.html's JS loop
+    void audioLoop() {
+        if (midiFadingIn) {
+            midiFadeVol += 8;
+            if (midiFadeVol > midivol) {
+                midiFadeVol = midivol;
+            }
+            midiPlayer.setVolume(0, midiFadeVol);
+            if (midiFadeVol == midivol) {
+                midiFadingIn = false;
+            }
+        } else if (midiFadingOut) {
+            midiFadeVol -= 8;
+            if (midiFadeVol < 0) {
+                midiFadeVol = 0;
+            }
+            midiPlayer.setVolume(0, midiFadeVol);
+            if (midiFadeVol == 0) {
+                midiFadingOut = false;
+                midiFadingIn = true;
+            }
+        }
 
-    public static int socketreq;
-    public static Socket socket;
+        if (midi != "none") {
+            if (midi == "stop") {
+                midiPlayer.stop();
+            } else if (midi == "voladjust") {
+                midiPlayer.setVolume(0, midivol);
+            } else {
+                playMidi(midi);
+            }
 
-    public static int threadreqpri = 1;
-    public static Runnable threadreq;
+            if (!midiFadingOut) {
+                midi = "none";
+            }
+        }
 
-    public static String dnsreq;
-    public static String dns;
+        if (wave != "none") {
+            AudioInputStream audioInputStream;
 
-    public static String loadreq;
-    public static byte[] loadbuf;
+            try {
+                audioInputStream = AudioSystem.getAudioInputStream(new File(wave));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                return;
+            }
 
-    public static int savelen;
-    public static String savereq;
-    public static byte[] savebuf;
+            AudioFormat format = audioInputStream.getFormat();
+            SourceDataLine auline;
+            DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
 
-    public static String urlreq;
-    public static DataInputStream urlstream;
+            try {
+                auline = (SourceDataLine) AudioSystem.getLine(info);
+                auline.open(format);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
+            }
 
-    public static int looprate = 50;
+            if (auline.isControlSupported(FloatControl.Type.PAN)) {
+                FloatControl pan = (FloatControl) auline.getControl(FloatControl.Type.PAN);
+                if (curPosition == Position.RIGHT) {
+                    pan.setValue(1.0f);
+                } else if (curPosition == Position.LEFT) {
+                    pan.setValue(-1.0f);
+                }
+            }
 
-    public static boolean midiplay;
-    public static int midipos;
-    public static String midi = "none";
-    public static int midivol = 192;
-    public static boolean midifade = false;
-    public static boolean midiFadingIn = false;
-    public static boolean midiFadingOut = false;
-    public static int midiFadeVol = 0;
-    private static MidiPlayer midiPlayer = null;
+            auline.start();
+            int nBytesRead = 0;
+            byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
 
-    public static boolean waveplay;
-    public static int wavepos;
-    public static String wave = "none";
-    public static int wavevol;
+            try {
+                while (nBytesRead != -1) {
+                    nBytesRead = audioInputStream.read(abData, 0, abData.length);
+                    if (nBytesRead >= 0) {
+                        auline.write(abData, 0, nBytesRead);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                auline.drain();
+                auline.close();
+            }
 
+            wave = "none";
+        }
+    }
     enum Position {
         LEFT, RIGHT, NORMAL
     }
-
-    private final int EXTERNAL_BUFFER_SIZE = 524288;
-    private Position curPosition = Position.NORMAL;
-
-    public static boolean reporterror = true;
-    public static String errorname = "";
 
 }

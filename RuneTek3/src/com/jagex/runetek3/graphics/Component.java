@@ -23,6 +23,67 @@ public class Component {
     public static final int TOGGLE_BUTTON = 4;
     public static final int SELECT_BUTTON = 5;
     public static final int PAUSE_BUTTON = 6;
+    public static Component[] instances;
+    public static Cache spriteCache;
+    public static Cache modelCache;
+    public int[] inventoryIndices;
+    public int[] inventoryAmount;
+    public int seqFrame;
+    public int seqCycle;
+    public int id;
+    public int parent;
+    public int type;
+    public int buttonType;
+    public int contentType;
+    public int width;
+    public int height;
+    public int x;
+    public int y;
+    public int[][] script;
+    public int[] scriptCompareType;
+    public int[] scriptCompareValue;
+    public int hoverParentIndex;
+    public int scrollHeight;
+    public int scrollY;
+    public boolean hidden;
+    public int[] children;
+    public int[] childX;
+    public int[] childY;
+    public int unusedInt;
+    public boolean unusedBoolean;
+    public boolean inventoryDummy;
+    public boolean inventoryHasOptions;
+    public boolean inventoryIsUsable;
+    public int inventoryMarginX;
+    public int inventoryMarginY;
+    public Sprite[] inventorySprite;
+    public int[] inventoryOffsetX;
+    public int[] inventoryOffsetY;
+    public String[] inventoryOptions;
+    public boolean fill;
+    public boolean center;
+    public boolean shadow;
+    public Font font;
+    public String text;
+    public String activeText;
+    public int color;
+    public int colorEnabled;
+    public int hoverColor;
+    public Sprite image;
+    public Sprite activeImage;
+    public Model modelDisabled;
+    public Model modelEnabled;
+    public int seqId;
+    public int activeSeqId;
+    public int modelZoom;
+    public int modelEyePitch;
+    public int modelYaw;
+    public String optionCircumfix;
+    public String optionSuffix;
+    public int optionFlags;
+    public String option;
+    public Component() {
+    }
 
     public static void load(FileArchive media, Font[] fonts, FileArchive interfaces) {
         spriteCache = new Cache(50000);
@@ -219,6 +280,31 @@ public class Component {
         modelCache = null;
     }
 
+    public static Sprite getSprite(FileArchive media, int index, String name) {
+        long uid = (StringUtils.genHash(name) << 8) + (long) index;
+        Sprite s = (Sprite) spriteCache.get(uid);
+        if (s != null)
+            return s;
+        try {
+            s = new Sprite(media, name, index);
+            spriteCache.put(uid, s);
+        } catch (Exception _ex) {
+            return null;
+        }
+        return s;
+    }
+
+    public static Model getModel(int index) {
+        Model m = (Model) modelCache.get(index);
+        if (m != null) {
+            return m;
+        }
+
+        m = new Model(index);
+        modelCache.put(index, m);
+        return m;
+    }
+
     public Model getModel(int primaryFrame, int secondaryFrame, boolean enabled) {
         Model m = modelDisabled;
         if (enabled) {
@@ -246,92 +332,4 @@ public class Component {
         m.applyLighting(64, 768, -50, -10, -50, true);
         return m;
     }
-
-    public static Sprite getSprite(FileArchive media, int index, String name) {
-        long uid = (StringUtils.genHash(name) << 8) + (long) index;
-        Sprite s = (Sprite) spriteCache.get(uid);
-        if (s != null)
-            return s;
-        try {
-            s = new Sprite(media, name, index);
-            spriteCache.put(uid, s);
-        } catch (Exception _ex) {
-            return null;
-        }
-        return s;
-    }
-
-    public static Model getModel(int index) {
-        Model m = (Model) modelCache.get(index);
-        if (m != null) {
-            return m;
-        }
-
-        m = new Model(index);
-        modelCache.put(index, m);
-        return m;
-    }
-
-    public Component() {
-    }
-
-    public static Component[] instances;
-    public int[] inventoryIndices;
-    public int[] inventoryAmount;
-    public int seqFrame;
-    public int seqCycle;
-    public int id;
-    public int parent;
-    public int type;
-    public int buttonType;
-    public int contentType;
-    public int width;
-    public int height;
-    public int x;
-    public int y;
-    public int[][] script;
-    public int[] scriptCompareType;
-    public int[] scriptCompareValue;
-    public int hoverParentIndex;
-    public int scrollHeight;
-    public int scrollY;
-    public boolean hidden;
-    public int[] children;
-    public int[] childX;
-    public int[] childY;
-    public int unusedInt;
-    public boolean unusedBoolean;
-    public boolean inventoryDummy;
-    public boolean inventoryHasOptions;
-    public boolean inventoryIsUsable;
-    public int inventoryMarginX;
-    public int inventoryMarginY;
-    public Sprite[] inventorySprite;
-    public int[] inventoryOffsetX;
-    public int[] inventoryOffsetY;
-    public String[] inventoryOptions;
-    public boolean fill;
-    public boolean center;
-    public boolean shadow;
-    public Font font;
-    public String text;
-    public String activeText;
-    public int color;
-    public int colorEnabled;
-    public int hoverColor;
-    public Sprite image;
-    public Sprite activeImage;
-    public Model modelDisabled;
-    public Model modelEnabled;
-    public int seqId;
-    public int activeSeqId;
-    public int modelZoom;
-    public int modelEyePitch;
-    public int modelYaw;
-    public String optionCircumfix;
-    public String optionSuffix;
-    public int optionFlags;
-    public String option;
-    public static Cache spriteCache;
-    public static Cache modelCache;
 }

@@ -5,6 +5,13 @@ import com.jagex.runetek3.util.Buffer;
 
 public class VarType {
 
+    public static int count;
+    public static VarType[] instances;
+    public int type;
+
+    public VarType() {
+    }
+
     public static void load(FileArchive fileArchive) {
         Buffer buffer = new Buffer(fileArchive.read("varp.dat", null));
         count = buffer.g2();
@@ -39,12 +46,5 @@ public class VarType {
             }
         } while (true);
     }
-
-    public VarType() {
-    }
-
-    public static int count;
-    public static VarType[] instances;
-    public int type;
 
 }

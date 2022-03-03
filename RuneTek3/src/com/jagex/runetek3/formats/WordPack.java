@@ -5,6 +5,14 @@ import com.jagex.runetek3.util.Buffer;
 
 public class WordPack {
 
+    public static final String[] whitelist = {"cook", "cook's", "cooks", "seeks", "sheet"};
+    public static int[] fragments;
+    public static char[][] bads;
+    public static byte[][][] badCombinations;
+    public static char[][] domains;
+    public static char[][] tlds;
+    public static int[] tldTypes;
+
     public static void load(FileArchive fileArchive) {
         Buffer fragments = new Buffer(fileArchive.read("fragmentsenc.txt", null));
         Buffer bad = new Buffer(fileArchive.read("badenc.txt", null));
@@ -1088,13 +1096,5 @@ public class WordPack {
 
         return value;
     }
-
-    public static int[] fragments;
-    public static char[][] bads;
-    public static byte[][][] badCombinations;
-    public static char[][] domains;
-    public static char[][] tlds;
-    public static int[] tldTypes;
-    public static final String[] whitelist = {"cook", "cook's", "cooks", "seeks", "sheet"};
 
 }

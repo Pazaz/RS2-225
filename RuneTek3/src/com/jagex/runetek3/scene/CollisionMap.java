@@ -27,6 +27,11 @@ public class CollisionMap {
 
     public static final int SOLID = 0x20000;
     public static final int BLOCKED_TILE = 0x200000;
+    public int xOffset;
+    public int zOffset;
+    public int wide;
+    public int tall;
+    public int[][] flags;
 
     public CollisionMap(int wide, int tall) {
         this.wide = wide;
@@ -485,10 +490,4 @@ public class CollisionMap {
 
         return y == maxZ + 1 && x >= finalX && x <= maxX && (flags[x - xOffset][y - zOffset] & WALL_SOUTH) == 0 && (surroundings & 1) == 0;
     }
-
-    public int xOffset;
-    public int zOffset;
-    public int wide;
-    public int tall;
-    public int[][] flags;
 }

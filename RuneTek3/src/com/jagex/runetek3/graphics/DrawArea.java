@@ -6,6 +6,13 @@ import java.awt.image.*;
 public class DrawArea
     implements ImageProducer, ImageObserver {
 
+    public int[] pixels;
+    public int width;
+    public int height;
+    public ColorModel colorModel;
+    public ImageConsumer consumer;
+    public Image image;
+
     public DrawArea(java.awt.Component component, int width, int height) {
         this.width = width;
         this.height = height;
@@ -66,11 +73,4 @@ public class DrawArea
     public boolean imageUpdate(Image image, int i, int j, int k, int l, int i1) {
         return true;
     }
-
-    public int[] pixels;
-    public int width;
-    public int height;
-    public ColorModel colorModel;
-    public ImageConsumer consumer;
-    public Image image;
 }

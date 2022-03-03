@@ -7,34 +7,15 @@ import java.util.Random;
 
 public class FontFull extends Draw2D {
 
-    public int stringWidth(String str) {
-        if (str == null) {
-            return 0;
-        }
-
-        int w = 0;
-        for (int n = 0; n < str.length(); n++) {
-            w += charAdvance[str.charAt(n)];
-        }
-
-        return w;
-    }
-
-    public void drawString(String str, int x, int y, int rgb) {
-        if (str == null) {
-            return;
-        }
-
-        y -= height;
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            if (c != ' ') {
-                fillMaskedRect(charMask[c], x + charOffsetX[c], y + charOffsetY[c], charMaskWidth[c], charMaskHeight[c], rgb);
-            }
-            x += charAdvance[c];
-        }
-    }
-
+    public int[] charAdvance = new int[256];
+    public int height = 0;
+    byte[][] charMask = new byte[256][];
+    int[] charMaskWidth = new int[256];
+    int[] charMaskHeight = new int[256];
+    int[] charOffsetX = new int[256];
+    int[] charOffsetY = new int[256];
+    Random random = new Random();
+    boolean strikethrough = false;
     public FontFull(FileArchive archive, String name, boolean quill) {
         Buffer dat = new Buffer(archive.read((new StringBuilder()).append(name).append(".dat").toString(), null));
         Buffer idx = new Buffer(archive.read("index.dat", null));
@@ -99,6 +80,34 @@ public class FontFull extends Draw2D {
             charAdvance[' '] = charAdvance['I'];
         } else {
             charAdvance[' '] = charAdvance['i'];
+        }
+    }
+
+    public int stringWidth(String str) {
+        if (str == null) {
+            return 0;
+        }
+
+        int w = 0;
+        for (int n = 0; n < str.length(); n++) {
+            w += charAdvance[str.charAt(n)];
+        }
+
+        return w;
+    }
+
+    public void drawString(String str, int x, int y, int rgb) {
+        if (str == null) {
+            return;
+        }
+
+        y -= height;
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c != ' ') {
+                fillMaskedRect(charMask[c], x + charOffsetX[c], y + charOffsetY[c], charMaskWidth[c], charMaskHeight[c], rgb);
+            }
+            x += charAdvance[c];
         }
     }
 
@@ -185,14 +194,4 @@ public class FontFull extends Draw2D {
             mastOff += maskStep;
         }
     }
-
-    byte[][] charMask = new byte[256][];
-    int[] charMaskWidth = new int[256];
-    int[] charMaskHeight = new int[256];
-    int[] charOffsetX = new int[256];
-    int[] charOffsetY = new int[256];
-    public int[] charAdvance = new int[256];
-    public int height = 0;
-    Random random = new Random();
-    boolean strikethrough = false;
 }

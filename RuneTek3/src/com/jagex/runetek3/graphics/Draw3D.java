@@ -4,6 +4,51 @@ import com.jagex.runetek3.cache.FileArchive;
 
 public class Draw3D extends Draw2D {
 
+    public static boolean lowMemory = true;
+    public static boolean testX;
+    public static boolean opaque;
+    public static boolean jagged = true;
+    public static int alpha;
+    public static int centerX;
+    public static int centerY;
+    public static int[] reciprical15;
+    public static int[] reciprical16;
+    public static int[] sin;
+    public static int[] cos;
+    public static int[] offsets;
+    public static int textureCount;
+    public static IndexedSprite[] textures = new IndexedSprite[50];
+    public static boolean[] textureHasTransparency = new boolean[50];
+    public static int[] textureColors = new int[50];
+    public static int poolSize;
+    public static int[][] texelPool;
+    public static int[][] activeTexels = new int[50][];
+    public static int[] textureCycles = new int[50];
+    public static int cycle;
+    public static int[] palette = new int[0x10000];
+    public static int[][] texturePalettes = new int[50][];
+
+    static {
+        reciprical15 = new int[512];
+        reciprical16 = new int[2048];
+
+        sin = new int[2048];
+        cos = new int[2048];
+
+        for (int i = 1; i < 512; i++) {
+            reciprical15[i] = 0x8000 / i;
+        }
+
+        for (int j = 1; j < 2048; j++) {
+            reciprical16[j] = 0x10000 / j;
+        }
+
+        for (int k = 0; k < 2048; k++) {
+            sin[k] = (int) (65536D * Math.sin((double) k * 0.0030679614999999999D));
+            cos[k] = (int) (65536D * Math.cos((double) k * 0.0030679614999999999D));
+        }
+    }
+
     public static void unload() {
         reciprical15 = null;
         sin = null;
@@ -2008,51 +2053,6 @@ public class Draw3D extends Draw2D {
             off++;
             uA += deltaU;
             vA += deltaV;
-        }
-    }
-
-    public static boolean lowMemory = true;
-    public static boolean testX;
-    public static boolean opaque;
-    public static boolean jagged = true;
-    public static int alpha;
-    public static int centerX;
-    public static int centerY;
-    public static int[] reciprical15;
-    public static int[] reciprical16;
-    public static int[] sin;
-    public static int[] cos;
-    public static int[] offsets;
-    public static int textureCount;
-    public static IndexedSprite[] textures = new IndexedSprite[50];
-    public static boolean[] textureHasTransparency = new boolean[50];
-    public static int[] textureColors = new int[50];
-    public static int poolSize;
-    public static int[][] texelPool;
-    public static int[][] activeTexels = new int[50][];
-    public static int[] textureCycles = new int[50];
-    public static int cycle;
-    public static int[] palette = new int[0x10000];
-    public static int[][] texturePalettes = new int[50][];
-
-    static {
-        reciprical15 = new int[512];
-        reciprical16 = new int[2048];
-
-        sin = new int[2048];
-        cos = new int[2048];
-
-        for (int i = 1; i < 512; i++) {
-            reciprical15[i] = 0x8000 / i;
-        }
-
-        for (int j = 1; j < 2048; j++) {
-            reciprical16[j] = 0x10000 / j;
-        }
-
-        for (int k = 0; k < 2048; k++) {
-            sin[k] = (int) (65536D * Math.sin((double) k * 0.0030679614999999999D));
-            cos[k] = (int) (65536D * Math.cos((double) k * 0.0030679614999999999D));
         }
     }
 }

@@ -4,9 +4,6 @@ import com.jagex.runetek3.util.Node;
 
 public class SpawnedLoc extends Node {
 
-    public SpawnedLoc() {
-    }
-
     public int level;
     public int classType;
     public int tileX;
@@ -17,4 +14,6 @@ public class SpawnedLoc extends Node {
     public int lastLocIndex;
     public int lastRotation;
     public int lastType;
+    public SpawnedLoc() {
+    }
 }

@@ -1,10 +1,34 @@
 package com.jagex.runetek3.scene;
 
-import com.jagex.runetek3.graphics.Model;
 import com.jagex.runetek3.formats.SpotAnimType;
+import com.jagex.runetek3.graphics.Model;
 
 public class ProjectileEntity extends Entity {
 
+    public SpotAnimType spotAnim;
+    public int level;
+    public int sourceX;
+    public int sourceY;
+    public int sourceZ;
+    public int baseZ;
+    public int firstCycle;
+    public int lastCycle;
+    public int elevationPitch;
+    public int arcScale;
+    public int targetIndex;
+    public boolean isMobile;
+    public double x;
+    public double y;
+    public double z;
+    public double velocityX;
+    public double velocityY;
+    public double velocity;
+    public double velocityZ;
+    public double accelerationZ;
+    public int yaw;
+    public int pitch;
+    public int seqFrame;
+    public int frameCycle;
     public ProjectileEntity(int baseZ, int elevationPitch, int sourceY, int lastCycle, int level, int targetIndex, int firstCycle,
                             int arcScale, int sourceZ, int spotAnim, int sourceX) {
         this.spotAnim = SpotAnimType.instances[spotAnim];
@@ -82,29 +106,4 @@ public class ProjectileEntity extends Entity {
         m.applyLighting(64 + spotAnim.ambience, 850 + spotAnim.modelShadow, -30, -50, -30, true);
         return m;
     }
-
-    public SpotAnimType spotAnim;
-    public int level;
-    public int sourceX;
-    public int sourceY;
-    public int sourceZ;
-    public int baseZ;
-    public int firstCycle;
-    public int lastCycle;
-    public int elevationPitch;
-    public int arcScale;
-    public int targetIndex;
-    public boolean isMobile;
-    public double x;
-    public double y;
-    public double z;
-    public double velocityX;
-    public double velocityY;
-    public double velocity;
-    public double velocityZ;
-    public double accelerationZ;
-    public int yaw;
-    public int pitch;
-    public int seqFrame;
-    public int frameCycle;
 }

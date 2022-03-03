@@ -10,6 +10,51 @@ import com.jagex.runetek3.util.Cache;
 
 public class ObjType {
 
+    public static int count;
+    public static int[] offsets;
+    public static Buffer data;
+    public static ObjType[] objTypes;
+    public static int cacheIndex;
+    public static boolean isMember = true;
+    public static Cache modelCache = new Cache(50);
+    public static Cache iconCache = new Cache(200);
+    public int index;
+    public int modelIndex;
+    public String name;
+    public String description;
+    public int[] oldColors;
+    public int[] newColors;
+    public int iconZoom;
+    public int iconCameraPitch;
+    public int iconYaw;
+    public int iconRoll;
+    public int iconX;
+    public int iconY;
+    public boolean stackable;
+    public int value;
+    public boolean members;
+    public String[] groundOptions;
+    public String[] options;
+    public int maleModel0;
+    public int maleModel1;
+    public byte maleOffsetY;
+    public int femaleModel0;
+    public int femaleModel1;
+    public byte femaleOffsetY;
+    public int maleModel2;
+    public int femaleModel2;
+    public int maleHeadModelA;
+    public int maleHeadModelB;
+    public int femaleHeadModelA;
+    public int femaleHeadModelB;
+    public int[] stackId;
+    public int[] stackAmount;
+    public int linkedId;
+    public int certificateId;
+    public ObjType() {
+        index = -1;
+    }
+
     public static void load(FileArchive fileArchive) {
         data = new Buffer(fileArchive.read("obj.dat", null));
         Buffer idx = new Buffer(fileArchive.read("obj.idx", null));
@@ -62,6 +107,113 @@ public class ObjType {
         }
 
         return objType;
+    }
+
+    public static Sprite getSprite(int id, int amount) {
+        Sprite sprite = (Sprite) iconCache.get(id);
+
+        if (sprite != null && sprite.cropH != amount && sprite.cropH != -1) {
+            sprite.unlink();
+            sprite = null;
+        }
+
+        if (sprite != null) {
+            return sprite;
+        }
+
+        ObjType info = get(id);
+        if (info.stackId == null) {
+            amount = -1;
+        }
+
+        if (amount > 1) {
+            int l = -1;
+            for (int j1 = 0; j1 < 10; j1++) {
+                if (amount >= info.stackAmount[j1] && info.stackAmount[j1] != 0) {
+                    l = info.stackId[j1];
+                }
+            }
+
+            if (l != -1) {
+                info = get(l);
+            }
+        }
+
+        sprite = new Sprite(32, 32);
+        int centerX = Draw3D.centerX;
+        int centerY = Draw3D.centerY;
+        int[] offsets = Draw3D.offsets;
+        int[] data = Draw2D.dest;
+        int width = Draw2D.width;
+        int height = Draw2D.height;
+        int left = Draw2D.left;
+        int right = Draw2D.right;
+        int top = Draw2D.top;
+        int bottom = Draw2D.bottom;
+
+        Draw3D.jagged = false;
+        Draw2D.prepare(32, sprite.pixels, 32);
+        Draw2D.fillRect(0, 0, 0, 32, 32);
+        Draw3D.prepareOffsets();
+
+        Model model = info.getModel(1);
+
+        int sinPitch = Draw3D.sin[info.iconCameraPitch] * info.iconZoom >> 16;
+        int cosPitch = Draw3D.cos[info.iconCameraPitch] * info.iconZoom >> 16;
+
+        model.draw(0, info.iconYaw, info.iconRoll, info.iconCameraPitch, info.iconX, sinPitch + model.maxBoundY / 2 + info.iconY, cosPitch + info.iconY);
+
+        for (int x = 31; x >= 0; x--) {
+            for (int y = 31; y >= 0; y--) {
+                if (sprite.pixels[x + y * 32] == 0) {
+                    if (x > 0 && sprite.pixels[(x - 1) + y * 32] > 1) {
+                        sprite.pixels[x + y * 32] = 1;
+                    } else if (y > 0 && sprite.pixels[x + (y - 1) * 32] > 1) {
+                        sprite.pixels[x + y * 32] = 1;
+                    } else if (x < 31 && sprite.pixels[x + 1 + y * 32] > 1) {
+                        sprite.pixels[x + y * 32] = 1;
+                    } else if (y < 31 && sprite.pixels[x + (y + 1) * 32] > 1) {
+                        sprite.pixels[x + y * 32] = 1;
+                    }
+                }
+            }
+        }
+
+        for (int x = 31; x >= 0; x--) {
+            for (int y = 31; y >= 0; y--) {
+                if (sprite.pixels[x + y * 32] == 0 && x > 0 && y > 0 && sprite.pixels[(x - 1) + (y - 1) * 32] > 0) {
+                    sprite.pixels[x + y * 32] = 0x302020;
+                }
+            }
+        }
+
+        if (info.certificateId != -1) {
+            Sprite originalIcon = getSprite(info.linkedId, 10);
+            int w = originalIcon.cropW;
+            int h = originalIcon.cropH;
+            originalIcon.cropW = 32;
+            originalIcon.cropH = 32;
+            originalIcon.draw(22, 5, 22, 5);
+            originalIcon.cropW = w;
+            originalIcon.cropH = h;
+        }
+
+        iconCache.put(id, sprite);
+        Draw2D.prepare(width, data, height);
+        Draw2D.setBounds(bottom, top, right, left);
+        Draw3D.centerX = centerX;
+        Draw3D.centerY = centerY;
+        Draw3D.offsets = offsets;
+        Draw3D.jagged = true;
+
+        if (info.stackable) {
+            sprite.cropW = 33;
+        } else {
+            sprite.cropW = 32;
+        }
+
+        sprite.cropH = amount;
+        return sprite;
     }
 
     public void reset() {
@@ -265,113 +417,6 @@ public class ObjType {
         return model;
     }
 
-    public static Sprite getSprite(int id, int amount) {
-        Sprite sprite = (Sprite) iconCache.get(id);
-
-        if (sprite != null && sprite.cropH != amount && sprite.cropH != -1) {
-            sprite.unlink();
-            sprite = null;
-        }
-
-        if (sprite != null) {
-            return sprite;
-        }
-
-        ObjType info = get(id);
-        if (info.stackId == null) {
-            amount = -1;
-        }
-
-        if (amount > 1) {
-            int l = -1;
-            for (int j1 = 0; j1 < 10; j1++) {
-                if (amount >= info.stackAmount[j1] && info.stackAmount[j1] != 0) {
-                    l = info.stackId[j1];
-                }
-            }
-
-            if (l != -1) {
-                info = get(l);
-            }
-        }
-
-        sprite = new Sprite(32, 32);
-        int centerX = Draw3D.centerX;
-        int centerY = Draw3D.centerY;
-        int[] offsets = Draw3D.offsets;
-        int[] data = Draw2D.dest;
-        int width = Draw2D.width;
-        int height = Draw2D.height;
-        int left = Draw2D.left;
-        int right = Draw2D.right;
-        int top = Draw2D.top;
-        int bottom = Draw2D.bottom;
-
-        Draw3D.jagged = false;
-        Draw2D.prepare(32, sprite.pixels, 32);
-        Draw2D.fillRect(0, 0, 0, 32, 32);
-        Draw3D.prepareOffsets();
-
-        Model model = info.getModel(1);
-
-        int sinPitch = Draw3D.sin[info.iconCameraPitch] * info.iconZoom >> 16;
-        int cosPitch = Draw3D.cos[info.iconCameraPitch] * info.iconZoom >> 16;
-
-        model.draw(0, info.iconYaw, info.iconRoll, info.iconCameraPitch, info.iconX, sinPitch + model.maxBoundY / 2 + info.iconY, cosPitch + info.iconY);
-
-        for (int x = 31; x >= 0; x--) {
-            for (int y = 31; y >= 0; y--) {
-                if (sprite.pixels[x + y * 32] == 0) {
-                    if (x > 0 && sprite.pixels[(x - 1) + y * 32] > 1) {
-                        sprite.pixels[x + y * 32] = 1;
-                    } else if (y > 0 && sprite.pixels[x + (y - 1) * 32] > 1) {
-                        sprite.pixels[x + y * 32] = 1;
-                    } else if (x < 31 && sprite.pixels[x + 1 + y * 32] > 1) {
-                        sprite.pixels[x + y * 32] = 1;
-                    } else if (y < 31 && sprite.pixels[x + (y + 1) * 32] > 1) {
-                        sprite.pixels[x + y * 32] = 1;
-                    }
-                }
-            }
-        }
-
-        for (int x = 31; x >= 0; x--) {
-            for (int y = 31; y >= 0; y--) {
-                if (sprite.pixels[x + y * 32] == 0 && x > 0 && y > 0 && sprite.pixels[(x - 1) + (y - 1) * 32] > 0) {
-                    sprite.pixels[x + y * 32] = 0x302020;
-                }
-            }
-        }
-
-        if (info.certificateId != -1) {
-            Sprite originalIcon = getSprite(info.linkedId, 10);
-            int w = originalIcon.cropW;
-            int h = originalIcon.cropH;
-            originalIcon.cropW = 32;
-            originalIcon.cropH = 32;
-            originalIcon.draw(22, 5, 22, 5);
-            originalIcon.cropW = w;
-            originalIcon.cropH = h;
-        }
-
-        iconCache.put(id, sprite);
-        Draw2D.prepare(width, data, height);
-        Draw2D.setBounds(bottom, top, right, left);
-        Draw3D.centerX = centerX;
-        Draw3D.centerY = centerY;
-        Draw3D.offsets = offsets;
-        Draw3D.jagged = true;
-
-        if (info.stackable) {
-            sprite.cropW = 33;
-        } else {
-            sprite.cropW = 32;
-        }
-
-        sprite.cropH = amount;
-        return sprite;
-    }
-
     public Model getWornModel(int gender) {
         int m0 = maleModel0;
         int m1 = maleModel1;
@@ -451,65 +496,5 @@ public class ObjType {
 
         return model;
     }
-
-    public ObjType() {
-        index = -1;
-    }
-
-    public static int count;
-    public static int[] offsets;
-    public static Buffer data;
-    public static ObjType[] objTypes;
-    public static int cacheIndex;
-    public static boolean isMember = true;
-
-    public int index;
-    public int modelIndex;
-
-    public String name;
-    public String description;
-
-    public int[] oldColors;
-    public int[] newColors;
-
-    public int iconZoom;
-    public int iconCameraPitch;
-    public int iconYaw;
-    public int iconRoll;
-    public int iconX;
-    public int iconY;
-
-    public boolean stackable;
-    public int value;
-
-    public boolean members;
-
-    public String[] groundOptions;
-    public String[] options;
-
-    public int maleModel0;
-    public int maleModel1;
-    public byte maleOffsetY;
-
-    public int femaleModel0;
-    public int femaleModel1;
-    public byte femaleOffsetY;
-
-    public int maleModel2;
-    public int femaleModel2;
-
-    public int maleHeadModelA;
-    public int maleHeadModelB;
-
-    public int femaleHeadModelA;
-    public int femaleHeadModelB;
-
-    public int[] stackId;
-    public int[] stackAmount;
-    public int linkedId;
-    public int certificateId;
-
-    public static Cache modelCache = new Cache(50);
-    public static Cache iconCache = new Cache(200);
 
 }

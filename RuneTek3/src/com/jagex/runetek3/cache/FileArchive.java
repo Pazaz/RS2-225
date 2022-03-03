@@ -5,6 +5,13 @@ import com.jagex.runetek3.util.Buffer;
 
 public class FileArchive {
 
+    public byte[] data;
+    public int fileCount;
+    public int[] fileHash;
+    public int[] fileUnpackedSize;
+    public int[] filePackedSize;
+    public int[] fileOffset;
+    public boolean isCompressedWhole;
     public FileArchive(byte[] src) {
         parse(src);
     }
@@ -67,12 +74,4 @@ public class FileArchive {
 
         return null;
     }
-
-    public byte[] data;
-    public int fileCount;
-    public int[] fileHash;
-    public int[] fileUnpackedSize;
-    public int[] filePackedSize;
-    public int[] fileOffset;
-    public boolean isCompressedWhole;
 }

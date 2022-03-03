@@ -20,6 +20,32 @@ public class Applet extends JApplet implements Runnable, MouseListener, MouseMot
     public static int KEY_RETURN = 13; // \r
     public static int KEY_HOME = 1000;
     public static int KEY_END = 1001;
+    public int state;
+    public int deltime = 20;
+    public int oldRate = 20;
+    public int mindel = 1;
+    public long[] otim = new long[10];
+    public int fps;
+    public int gameWidth;
+    public int gameHeight;
+    public Graphics graphics;
+    public DrawArea drawArea;
+    public Window frame;
+    public boolean refresh = true;
+    public int idleCycles;
+    public int dragButton;
+    public int mouseX;
+    public int mouseY;
+    public int mouseButton;
+    public int clickX;
+    public int clickY;
+    public int[] keyDown = new int[1024];
+    public int[] pressedKeys = new int[1024];
+    public int lastProcessedKey;
+    public int unprocessedKeyCount;
+
+    public Applet() {
+    }
 
     public void initFrame(int height, int width, String title) {
         gameWidth = width;
@@ -477,31 +503,4 @@ public class Applet extends JApplet implements Runnable, MouseListener, MouseMot
         graphics.setColor(Color.white);
         graphics.drawString(str, (gameWidth - metrics.stringWidth(str)) / 2, y + 22);
     }
-
-    public Applet() {
-    }
-
-    public int state;
-    public int deltime = 20;
-    public int oldRate = 20;
-    public int mindel = 1;
-    public long[] otim = new long[10];
-    public int fps;
-    public int gameWidth;
-    public int gameHeight;
-    public Graphics graphics;
-    public DrawArea drawArea;
-    public Window frame;
-    public boolean refresh = true;
-    public int idleCycles;
-    public int dragButton;
-    public int mouseX;
-    public int mouseY;
-    public int mouseButton;
-    public int clickX;
-    public int clickY;
-    public int[] keyDown = new int[1024];
-    public int[] pressedKeys = new int[1024];
-    public int lastProcessedKey;
-    public int unprocessedKeyCount;
 }

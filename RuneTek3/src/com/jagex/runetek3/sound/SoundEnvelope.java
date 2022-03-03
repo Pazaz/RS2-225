@@ -4,6 +4,20 @@ import com.jagex.runetek3.util.Buffer;
 
 public class SoundEnvelope {
 
+    public int length;
+    public int[] shapeDelta;
+    public int[] shapePeak;
+    public int start;
+    public int end;
+    public int form;
+    public int threshold;
+    public int position;
+    public int delta;
+    public int amplitude;
+    public int ticks;
+    public SoundEnvelope() {
+    }
+
     public void readShape(Buffer buffer) {
         form = buffer.g1();
         start = buffer.g4();
@@ -38,19 +52,4 @@ public class SoundEnvelope {
         ticks++;
         return amplitude - this.delta >> 15;
     }
-
-    public SoundEnvelope() {
-    }
-
-    public int length;
-    public int[] shapeDelta;
-    public int[] shapePeak;
-    public int start;
-    public int end;
-    public int form;
-    public int threshold;
-    public int position;
-    public int delta;
-    public int amplitude;
-    public int ticks;
 }

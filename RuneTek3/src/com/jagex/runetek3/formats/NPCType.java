@@ -7,6 +7,54 @@ import com.jagex.runetek3.util.Cache;
 
 public class NPCType {
 
+    public static int count;
+    public static int[] offsets;
+    public static Buffer data;
+    public static NPCType[] cache;
+    public static int cacheIndex;
+    public static Cache models = new Cache(30);
+    public boolean aBoolean76;
+    public long index;
+    public String name;
+    public String description;
+    public byte size;
+    public int[] modelIndices;
+    public int[] headModelIndices;
+    public int standSeq;
+    public int walkSeq;
+    public int turnAroundSeq;
+    public int turnRightSeq;
+    public int turnLeftSeq;
+    public boolean disposeAlpha;
+    public int[] oldColors;
+    public int[] newColors;
+    public String[] options;
+    public int anInt97;
+    public int anInt98;
+    public int anInt99;
+    public boolean showOnMinimap;
+    public int level;
+    public int scaleX;
+    public int scaleY;
+    public NPCType() {
+        aBoolean76 = false;
+        index = -1L;
+        size = 1;
+        standSeq = -1;
+        walkSeq = -1;
+        turnAroundSeq = -1;
+        turnRightSeq = -1;
+        turnLeftSeq = -1;
+        disposeAlpha = false;
+        anInt97 = -1;
+        anInt98 = -1;
+        anInt99 = -1;
+        showOnMinimap = true;
+        level = -1;
+        scaleX = 128;
+        scaleY = 128;
+    }
+
     public static void load(FileArchive fileArchive) {
         data = new Buffer(fileArchive.read("npc.dat", null));
         Buffer idx = new Buffer(fileArchive.read("npc.idx", null));
@@ -194,54 +242,5 @@ public class NPCType {
 
         return model;
     }
-
-    public NPCType() {
-        aBoolean76 = false;
-        index = -1L;
-        size = 1;
-        standSeq = -1;
-        walkSeq = -1;
-        turnAroundSeq = -1;
-        turnRightSeq = -1;
-        turnLeftSeq = -1;
-        disposeAlpha = false;
-        anInt97 = -1;
-        anInt98 = -1;
-        anInt99 = -1;
-        showOnMinimap = true;
-        level = -1;
-        scaleX = 128;
-        scaleY = 128;
-    }
-
-    public boolean aBoolean76;
-    public static int count;
-    public static int[] offsets;
-    public static Buffer data;
-    public static NPCType[] cache;
-    public static int cacheIndex;
-    public long index;
-    public String name;
-    public String description;
-    public byte size;
-    public int[] modelIndices;
-    public int[] headModelIndices;
-    public int standSeq;
-    public int walkSeq;
-    public int turnAroundSeq;
-    public int turnRightSeq;
-    public int turnLeftSeq;
-    public boolean disposeAlpha;
-    public int[] oldColors;
-    public int[] newColors;
-    public String[] options;
-    public int anInt97;
-    public int anInt98;
-    public int anInt99;
-    public boolean showOnMinimap;
-    public int level;
-    public int scaleX;
-    public int scaleY;
-    public static Cache models = new Cache(30);
 
 }

@@ -5,6 +5,17 @@ import com.jagex.runetek3.util.Buffer;
 
 public class SeqFrame {
 
+    public static SeqFrame[] instances;
+    public int delay;
+    public SeqBase transform;
+    public int groupCount;
+    public int[] groups;
+    public int[] x;
+    public int[] y;
+    public int[] z;
+    public SeqFrame() {
+    }
+
     public static void load(FileArchive fileArchive) {
         Buffer head = new Buffer(fileArchive.read("frame_head.dat", null));
         Buffer tran1 = new Buffer(fileArchive.read("frame_tran1.dat", null));
@@ -95,16 +106,4 @@ public class SeqFrame {
             }
         }
     }
-
-    public SeqFrame() {
-    }
-
-    public static SeqFrame[] instances;
-    public int delay;
-    public SeqBase transform;
-    public int groupCount;
-    public int[] groups;
-    public int[] x;
-    public int[] y;
-    public int[] z;
 }

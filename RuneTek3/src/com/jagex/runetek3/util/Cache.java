@@ -2,6 +2,11 @@ package com.jagex.runetek3.util;
 
 public class Cache {
 
+    public int capacity;
+    public int available;
+    public Hashtable table;
+    public Stack history;
+
     public Cache(int length) {
         table = new Hashtable(1024);
         history = new Stack();
@@ -43,10 +48,5 @@ public class Cache {
             }
         } while (true);
     }
-
-    public int capacity;
-    public int available;
-    public Hashtable table;
-    public Stack history;
 
 }
