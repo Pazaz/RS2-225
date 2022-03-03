@@ -11,8 +11,8 @@ public class SeqFrame {
         Buffer tran2 = new Buffer(fileArchive.read("frame_tran2.dat", null));
         Buffer del = new Buffer(fileArchive.read("frame_del.dat", null));
 
-        int frameCount = head.readWord();
-        int totalFrames = head.readWord();
+        int frameCount = head.g2();
+        int totalFrames = head.g2();
 
         instances = new SeqFrame[totalFrames + 1];
 
@@ -22,18 +22,18 @@ public class SeqFrame {
         int[] z = new int[500];
 
         for (int i = 0; i < frameCount; i++) {
-            SeqFrame frame = instances[head.readWord()] = new SeqFrame();
-            frame.delay = del.readByte();
+            SeqFrame frame = instances[head.g2()] = new SeqFrame();
+            frame.delay = del.g1();
 
-            SeqBase base = SeqBase.instances[head.readWord()];
+            SeqBase base = SeqBase.instances[head.g2()];
             frame.transform = base;
 
-            int groupCount = head.readByte();
+            int groupCount = head.g1();
             int lastGroup = -1;
             int count = 0;
 
             for (int n = 0; n < groupCount; n++) {
-                int flags = tran1.readByte();
+                int flags = tran1.g1();
 
                 if (flags > 0) {
                     if (base.types[n] != 0) {
@@ -59,19 +59,19 @@ public class SeqFrame {
                     }
 
                     if ((flags & 1) != 0) {
-                        x[count] = tran2.readSmartSigned();
+                        x[count] = tran2.gSmart1or2s();
                     } else {
                         x[count] = defaultValue;
                     }
 
                     if ((flags & 2) != 0) {
-                        y[count] = tran2.readSmartSigned();
+                        y[count] = tran2.gSmart1or2s();
                     } else {
                         y[count] = defaultValue;
                     }
 
                     if ((flags & 4) != 0) {
-                        z[count] = tran2.readSmartSigned();
+                        z[count] = tran2.gSmart1or2s();
                     } else {
                         z[count] = defaultValue;
                     }

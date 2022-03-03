@@ -7,7 +7,7 @@ public class FloType {
 
     public static void load(FileArchive fileArchive) {
         Buffer buffer = new Buffer(fileArchive.read("flo.dat", null));
-        count = buffer.readWord();
+        count = buffer.g2();
         instances = new FloType[count];
 
         for (int j = 0; j < count; j++) {
@@ -21,16 +21,16 @@ public class FloType {
 
     public void read(Buffer buffer) {
         do {
-            int opcode = buffer.readByte();
+            int opcode = buffer.g1();
             switch (opcode) {
                 case 0:
                     return;
                 case 1:
-                    rgb = buffer.readSWord();
+                    rgb = buffer.g3();
                     setColor(rgb);
                     break;
                 case 2:
-                    textureIndex = buffer.readByte();
+                    textureIndex = buffer.g1();
                     break;
                 case 3:
                     break;
@@ -38,7 +38,7 @@ public class FloType {
                     occlude = false;
                     break;
                 case 6:
-                    name = buffer.readString();
+                    name = buffer.gString();
                     break;
                 default:
                     System.out.println("Error unrecognised config code: " + opcode);

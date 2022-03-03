@@ -9,13 +9,13 @@ public class NpcType {
     public static void load(FileArchive fileArchive) {
         data = new Buffer(fileArchive.read("npc.dat", null));
         Buffer idx = new Buffer(fileArchive.read("npc.idx", null));
-        count = idx.readWord();
+        count = idx.g2();
         offsets = new int[count];
 
         int off = 2;
         for (int n = 0; n < count; n++) {
             offsets[n] = off;
-            off += idx.readWord();
+            off += idx.g2();
         }
 
         cache = new NpcType[20];
@@ -52,70 +52,70 @@ public class NpcType {
 
     public void read(Buffer buffer) {
         do {
-            int opcode = buffer.readByte();
+            int opcode = buffer.g1();
 
             if (opcode == 0) {
                 return;
             } else if (opcode == 1) {
-                int count = buffer.readByte();
+                int count = buffer.g1();
                 modelIndices = new int[count];
                 for (int n = 0; n < count; n++) {
-                    modelIndices[n] = buffer.readWord();
+                    modelIndices[n] = buffer.g2();
                 }
             } else if (opcode == 2) {
-                name = buffer.readString();
+                name = buffer.gString();
             } else if (opcode == 3) {
-                description = buffer.readString();
+                description = buffer.gString();
             } else if (opcode == 12) {
-                size = buffer.readByteSigned();
+                size = buffer.g1s();
             } else if (opcode == 13) {
-                standSeq = buffer.readWord();
+                standSeq = buffer.g2();
             } else if (opcode == 14) {
-                walkSeq = buffer.readWord();
+                walkSeq = buffer.g2();
             } else if (opcode == 16) {
                 disposeAlpha = true;
             } else if (opcode == 17) {
-                walkSeq = buffer.readWord();
-                turnAroundSeq = buffer.readWord();
-                turnRightSeq = buffer.readWord();
-                turnLeftSeq = buffer.readWord();
+                walkSeq = buffer.g2();
+                turnAroundSeq = buffer.g2();
+                turnRightSeq = buffer.g2();
+                turnLeftSeq = buffer.g2();
             } else if (opcode >= 30 && opcode < 40) {
                 if (options == null) {
                     options = new String[5];
                 }
 
-                options[opcode - 30] = buffer.readString();
+                options[opcode - 30] = buffer.gString();
                 if (options[opcode - 30].equalsIgnoreCase("hidden")) {
                     options[opcode - 30] = null;
                 }
             } else if (opcode == 40) {
-                int count = buffer.readByte();
+                int count = buffer.g1();
                 oldColors = new int[count];
                 newColors = new int[count];
                 for (int n = 0; n < count; n++) {
-                    oldColors[n] = buffer.readWord();
-                    newColors[n] = buffer.readWord();
+                    oldColors[n] = buffer.g2();
+                    newColors[n] = buffer.g2();
                 }
             } else if (opcode == 60) {
-                int count = buffer.readByte();
+                int count = buffer.g1();
                 headModelIndices = new int[count];
                 for (int n = 0; n < count; n++) {
-                    headModelIndices[n] = buffer.readWord();
+                    headModelIndices[n] = buffer.g2();
                 }
             } else if (opcode == 90) {
-                buffer.readWord();
+                buffer.g2();
             } else if (opcode == 91) {
-                buffer.readWord();
+                buffer.g2();
             } else if (opcode == 92) {
-                buffer.readWord();
+                buffer.g2();
             } else if (opcode == 93) {
                 showOnMinimap = false;
             } else if (opcode == 95) {
-                level = buffer.readWord();
+                level = buffer.g2();
             } else if (opcode == 97) {
-                scaleX = buffer.readWord();
+                scaleX = buffer.g2();
             } else if (opcode == 98) {
-                scaleY = buffer.readWord();
+                scaleY = buffer.g2();
             }
         } while (true);
     }

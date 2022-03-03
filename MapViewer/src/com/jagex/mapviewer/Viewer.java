@@ -37,10 +37,10 @@ public class Viewer extends GameShell {
         showProgress("Please wait... Rendering Map", 100);
 
         Buffer buffer = new Buffer(worldmap.read("size.dat", null));
-        centerX = buffer.readWord();
-        centerY = buffer.readWord();
-        originX = buffer.readWord();
-        originY = buffer.readWord();
+        centerX = buffer.g2();
+        centerY = buffer.g2();
+        originX = buffer.g2();
+        originY = buffer.g2();
 
         offsetX = 3200 - centerX;
         offsetY = (centerY + originY) - 3200;
@@ -51,21 +51,21 @@ public class Viewer extends GameShell {
         overviewY = super.gameHeight - imageOverviewHeight - 20;
 
         buffer = new Buffer(worldmap.read("labels.dat", null));
-        labelCount = buffer.readWord();
+        labelCount = buffer.g2();
         for (int n = 0; n < labelCount; n++) {
-            labelText[n] = buffer.readString();
-            labelX[n] = buffer.readWord();
-            labelY[n] = buffer.readWord();
-            labelType[n] = buffer.readByte();
+            labelText[n] = buffer.gString();
+            labelX[n] = buffer.g2();
+            labelY[n] = buffer.g2();
+            labelType[n] = buffer.g1();
         }
 
         buffer = new Buffer(worldmap.read("floorcol.dat", null));
-        int floorcolCount = buffer.readWord();
+        int floorcolCount = buffer.g2();
         floormapsUnderlay = new int[floorcolCount + 1];
         floormapsOverlay = new int[floorcolCount + 1];
         for (int n = 0; n < floorcolCount; n++) {
-            floormapsUnderlay[n + 1] = buffer.readDWord();
-            floormapsOverlay[n + 1] = buffer.readDWord();
+            floormapsUnderlay[n + 1] = buffer.g4();
+            floormapsOverlay[n + 1] = buffer.g4();
         }
 
         byte[] underlay = worldmap.read("underlay.dat", null);

@@ -21,17 +21,17 @@ public class WordEncoding {
     }
 
     public static void readTld(Buffer buffer) {
-        int count = buffer.readDWord();
+        int count = buffer.g4();
 
         tlds = new char[count][];
         tldTypes = new int[count];
 
         for (int n = 0; n < count; n++) {
-            tldTypes[n] = buffer.readByte();
+            tldTypes[n] = buffer.g1();
 
-            char[] string = new char[buffer.readByte()];
+            char[] string = new char[buffer.g1()];
             for (int k = 0; k < string.length; k++) {
-                string[k] = (char) buffer.readByte();
+                string[k] = (char) buffer.g1();
             }
 
             tlds[n] = string;
@@ -39,7 +39,7 @@ public class WordEncoding {
     }
 
     public static void readBad(Buffer buffer) {
-        int count = buffer.readDWord();
+        int count = buffer.g4();
 
         bads = new char[count][];
         badCombinations = new byte[count][][];
@@ -48,32 +48,32 @@ public class WordEncoding {
     }
 
     public static void readDomain(Buffer buffer) {
-        domains = new char[buffer.readDWord()][];
+        domains = new char[buffer.g4()][];
 
         readDomain(buffer, domains);
     }
 
     public static void readFragments(Buffer buffer) {
-        fragments = new int[buffer.readDWord()];
+        fragments = new int[buffer.g4()];
 
         for (int n = 0; n < fragments.length; n++) {
-            fragments[n] = buffer.readWord();
+            fragments[n] = buffer.g2();
         }
     }
 
     public static void readBad(byte[][][] badCombinations, char[][] bads, Buffer buffer) {
         for (int n = 0; n < bads.length; n++) {
-            char[] chars = new char[buffer.readByte()];
+            char[] chars = new char[buffer.g1()];
             for (int j = 0; j < chars.length; j++) {
-                chars[j] = (char) buffer.readByte();
+                chars[j] = (char) buffer.g1();
             }
             bads[n] = chars;
 
-            byte[][] combo = new byte[buffer.readByte()][2];
+            byte[][] combo = new byte[buffer.g1()][2];
 
             for (int k = 0; k < combo.length; k++) {
-                combo[k][0] = (byte) buffer.readByte();
-                combo[k][1] = (byte) buffer.readByte();
+                combo[k][0] = (byte) buffer.g1();
+                combo[k][1] = (byte) buffer.g1();
             }
 
             if (combo.length > 0) {
@@ -84,9 +84,9 @@ public class WordEncoding {
 
     public static void readDomain(Buffer buffer, char[][] domains) {
         for (int n = 0; n < domains.length; n++) {
-            char[] string = new char[buffer.readByte()];
+            char[] string = new char[buffer.g1()];
             for (int k = 0; k < string.length; k++) {
-                string[k] = (char) buffer.readByte();
+                string[k] = (char) buffer.g1();
             }
 
             domains[n] = string;

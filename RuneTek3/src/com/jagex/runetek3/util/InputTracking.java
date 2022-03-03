@@ -62,12 +62,12 @@ public class InputTracking {
 
         resizeIfNeeded(5);
         if (button == 1) {
-            outBuffer.writeByte(1);
+            outBuffer.p1(1);
         } else {
-            outBuffer.writeByte(2);
+            outBuffer.p1(2);
         }
-        outBuffer.writeByte((int) l1);
-        outBuffer.writeSWord(x + (y << 10));
+        outBuffer.p1((int) l1);
+        outBuffer.p3(x + (y << 10));
     }
 
     public static synchronized void mouseReleased(int button) {
@@ -86,11 +86,11 @@ public class InputTracking {
 
         resizeIfNeeded(2);
         if (button == 1) {
-            outBuffer.writeByte(3);
+            outBuffer.p1(3);
         } else {
-            outBuffer.writeByte(4);
+            outBuffer.p1(4);
         }
-        outBuffer.writeByte((int) deltaTime);
+        outBuffer.p1((int) deltaTime);
     }
 
     public static synchronized void mouseMoved(int y, int x) {
@@ -115,20 +115,20 @@ public class InputTracking {
             lastTime = currentTime;
             if (x - lastY < 8 && x - lastY >= -8 && y - lastX < 8 && y - lastX >= -8) {
                 resizeIfNeeded(3);
-                outBuffer.writeByte(5);
-                outBuffer.writeByte((int) deltaTime);
-                outBuffer.writeByte((x - lastY) + 8 + ((y - lastX) + 8 << 4));
+                outBuffer.p1(5);
+                outBuffer.p1((int) deltaTime);
+                outBuffer.p1((x - lastY) + 8 + ((y - lastX) + 8 << 4));
             } else if (x - lastY < 128 && x - lastY >= -128 && y - lastX < 128 && y - lastX >= -128) {
                 resizeIfNeeded(4);
-                outBuffer.writeByte(6);
-                outBuffer.writeByte((int) deltaTime);
-                outBuffer.writeByte((x - lastY) + 128);
-                outBuffer.writeByte((y - lastX) + 128);
+                outBuffer.p1(6);
+                outBuffer.p1((int) deltaTime);
+                outBuffer.p1((x - lastY) + 128);
+                outBuffer.p1((y - lastX) + 128);
             } else {
                 resizeIfNeeded(5);
-                outBuffer.writeByte(7);
-                outBuffer.writeByte((int) deltaTime);
-                outBuffer.writeSWord(x + (y << 10));
+                outBuffer.p1(7);
+                outBuffer.p1((int) deltaTime);
+                outBuffer.p3(x + (y << 10));
             }
 
             lastY = x;
@@ -163,9 +163,9 @@ public class InputTracking {
         }
 
         resizeIfNeeded(3);
-        outBuffer.writeByte(8);
-        outBuffer.writeByte((int) deltaTime);
-        outBuffer.writeByte(key);
+        outBuffer.p1(8);
+        outBuffer.p1((int) deltaTime);
+        outBuffer.p1(key);
     }
 
     public static synchronized void keyReleased(int key) {
@@ -195,9 +195,9 @@ public class InputTracking {
         }
 
         resizeIfNeeded(3);
-        outBuffer.writeByte(9);
-        outBuffer.writeByte((int) deltaTime);
-        outBuffer.writeByte(key);
+        outBuffer.p1(9);
+        outBuffer.p1((int) deltaTime);
+        outBuffer.p1(key);
     }
 
     public static synchronized void focusGained() {
@@ -215,8 +215,8 @@ public class InputTracking {
 
         lastTime = currentTime;
         resizeIfNeeded(2);
-        outBuffer.writeByte(10);
-        outBuffer.writeByte((int) deltaTime);
+        outBuffer.p1(10);
+        outBuffer.p1((int) deltaTime);
     }
 
     public static synchronized void focusLost() {
@@ -234,8 +234,8 @@ public class InputTracking {
 
         lastTime = currentTime;
         resizeIfNeeded(2);
-        outBuffer.writeByte(11);
-        outBuffer.writeByte((int) deltaTime);
+        outBuffer.p1(11);
+        outBuffer.p1((int) deltaTime);
     }
 
     public static synchronized void mouseEntered() {
@@ -253,8 +253,8 @@ public class InputTracking {
 
         lastTime = currentTime;
         resizeIfNeeded(2);
-        outBuffer.writeByte(12);
-        outBuffer.writeByte((int) deltaTime);
+        outBuffer.p1(12);
+        outBuffer.p1((int) deltaTime);
     }
 
     public static synchronized void mouseExited() {
@@ -272,8 +272,8 @@ public class InputTracking {
 
         lastTime = currentTime;
         resizeIfNeeded(2);
-        outBuffer.writeByte(13);
-        outBuffer.writeByte((int) deltaTime);
+        outBuffer.p1(13);
+        outBuffer.p1((int) deltaTime);
     }
 
     public static boolean enabled;

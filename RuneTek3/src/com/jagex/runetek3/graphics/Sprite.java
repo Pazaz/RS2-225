@@ -45,40 +45,40 @@ public class Sprite extends Draw2D {
             return;
         }
 
-        idx.offset = data.readWord();
-        cropW = idx.readWord();
-        cropH = idx.readWord();
+        idx.offset = data.g2();
+        cropW = idx.g2();
+        cropH = idx.g2();
 
-        int[] palette = new int[idx.readByte()];
+        int[] palette = new int[idx.g1()];
         for (int k = 0; k < palette.length - 1; k++) {
-            palette[k + 1] = idx.readSWord();
+            palette[k + 1] = idx.g3();
             if (palette[k + 1] == 0)
                 palette[k + 1] = 1;
         }
 
         for (int i = 0; i < index; i++) {
             idx.offset += 2;
-            data.offset += idx.readWord() * idx.readWord();
+            data.offset += idx.g2() * idx.g2();
             idx.offset++;
         }
 
-        clipX = idx.readByte();
-        clipY = idx.readByte();
-        width = idx.readWord();
-        height = idx.readWord();
+        clipX = idx.g1();
+        clipY = idx.g1();
+        width = idx.g2();
+        height = idx.g2();
 
-        int type = idx.readByte();
+        int type = idx.g1();
         int len = width * height;
         pixels = new int[len];
 
         if (type == 0) {
             for (int i = 0; i < len; i++) {
-                pixels[i] = palette[data.readByte()];
+                pixels[i] = palette[data.g1()];
             }
         } else if (type == 1) {
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
-                    pixels[x + y * width] = palette[data.readByte()];
+                    pixels[x + y * width] = palette[data.g1()];
                 }
             }
         }

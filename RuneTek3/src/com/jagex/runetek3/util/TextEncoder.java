@@ -7,7 +7,7 @@ public class TextEncoder {
         int last = -1;
 
         for (int n = 0; n < len; n++) {
-            int c = buffer.readByte();
+            int c = buffer.g1();
             int value = c >> 4 & 0xf;
 
             if (last == -1) {
@@ -73,23 +73,23 @@ public class TextEncoder {
 
             if (msb != -1) {
                 if (lsb < 13) {
-                    buffer.writeByte((msb << 4) + lsb);
+                    buffer.p1((msb << 4) + lsb);
                     msb = -1;
                 } else {
-                    buffer.writeByte((msb << 4) + (lsb >> 4));
+                    buffer.p1((msb << 4) + (lsb >> 4));
                     msb = lsb & 0xf;
                 }
             } else {
                 if (lsb < 13) {
                     msb = lsb;
                 } else {
-                    buffer.writeByte(lsb);
+                    buffer.p1(lsb);
                 }
             }
         }
 
         if (msb != -1) {
-            buffer.writeByte(msb << 4);
+            buffer.p1(msb << 4);
         }
     }
 

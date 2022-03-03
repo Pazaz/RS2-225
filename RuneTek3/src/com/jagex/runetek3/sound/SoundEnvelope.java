@@ -5,15 +5,15 @@ import com.jagex.runetek3.util.Buffer;
 public class SoundEnvelope {
 
     public void readShape(Buffer buffer) {
-        form = buffer.readByte();
-        start = buffer.readDWord();
-        end = buffer.readDWord();
-        length = buffer.readByte();
+        form = buffer.g1();
+        start = buffer.g4();
+        end = buffer.g4();
+        length = buffer.g1();
         shapeDelta = new int[length];
         shapePeak = new int[length];
         for (int j = 0; j < length; j++) {
-            shapeDelta[j] = buffer.readWord();
-            shapePeak[j] = buffer.readWord();
+            shapeDelta[j] = buffer.g2();
+            shapePeak[j] = buffer.g2();
         }
     }
 

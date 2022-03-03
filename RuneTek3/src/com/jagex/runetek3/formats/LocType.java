@@ -10,13 +10,13 @@ public class LocType {
         data = new Buffer(fileArchive.read("loc.dat", null));
         Buffer buffer = new Buffer(fileArchive.read("loc.idx", null));
 
-        count = buffer.readWord();
+        count = buffer.g2();
         offsets = new int[count];
 
         int i = 2;
         for (int n = 0; n < count; n++) {
             offsets[n] = i;
-            i += buffer.readWord();
+            i += buffer.g2();
         }
 
         cache = new LocType[10];
@@ -93,33 +93,33 @@ public class LocType {
         int bool = -1;
 
         do {
-            int opcode = buffer.readByte();
+            int opcode = buffer.g1();
 
             if (opcode == 0) {
                 break;
             } else if (opcode == 1) {
-                int count = buffer.readByte();
+                int count = buffer.g1();
                 modelTypes = new int[count];
                 modelIndices = new int[count];
 
                 for (int n = 0; n < count; n++) {
-                    modelIndices[n] = buffer.readWord();
-                    modelTypes[n] = buffer.readByte();
+                    modelIndices[n] = buffer.g2();
+                    modelTypes[n] = buffer.g1();
                 }
             } else if (opcode == 2) {
-                name = buffer.readString();
+                name = buffer.gString();
             } else if (opcode == 3) {
-                description = buffer.readString();
+                description = buffer.gString();
             } else if (opcode == 14) {
-                sizeX = buffer.readByte();
+                sizeX = buffer.g1();
             } else if (opcode == 15) {
-                sizeZ = buffer.readByte();
+                sizeZ = buffer.g1();
             } else if (opcode == 17) {
                 hasCollision = false;
             } else if (opcode == 18) {
                 isSolid = false;
             } else if (opcode == 19) {
-                bool = buffer.readByte();
+                bool = buffer.g1();
 
                 if (bool == 1) {
                     interactable = true;
@@ -131,7 +131,7 @@ public class LocType {
             } else if (opcode == 23) {
                 culls = true;
             } else if (opcode == 24) {
-                animationIndex = buffer.readWord();
+                animationIndex = buffer.g2();
 
                 if (animationIndex == 65535) {
                     animationIndex = -1;
@@ -139,50 +139,50 @@ public class LocType {
             } else if (opcode == 25) {
                 disposeAlpha = true;
             } else if (opcode == 28) {
-                thickness = buffer.readByte();
+                thickness = buffer.g1();
             } else if (opcode == 29) {
-                brightness = buffer.readByteSigned();
+                brightness = buffer.g1s();
             } else if (opcode == 39) {
-                specular = buffer.readByteSigned();
+                specular = buffer.g1s();
             } else if (opcode >= 30 && opcode < 39) {
                 if (actions == null) {
                     actions = new String[5];
                 }
 
-                actions[opcode - 30] = buffer.readString();
+                actions[opcode - 30] = buffer.gString();
                 if (actions[opcode - 30].equalsIgnoreCase("hidden")) {
                     actions[opcode - 30] = null;
                 }
             } else if (opcode == 40) {
-                int n = buffer.readByte();
+                int n = buffer.g1();
                 oldColors = new int[n];
                 newColors = new int[n];
                 for (int m = 0; m < n; m++) {
-                    oldColors[m] = buffer.readWord();
-                    newColors[m] = buffer.readWord();
+                    oldColors[m] = buffer.g2();
+                    newColors[m] = buffer.g2();
                 }
             } else if (opcode == 60) {
-                mapfunction = buffer.readWord();
+                mapfunction = buffer.g2();
             } else if (opcode == 62) {
                 rotateCounterClockwise = true;
             } else if (opcode == 64) {
                 hasShadow = false;
             } else if (opcode == 65) {
-                scaleX = buffer.readWord();
+                scaleX = buffer.g2();
             } else if (opcode == 66) {
-                scaleY = buffer.readWord();
+                scaleY = buffer.g2();
             } else if (opcode == 67) {
-                scaleZ = buffer.readWord();
+                scaleZ = buffer.g2();
             } else if (opcode == 68) {
-                mapscene = buffer.readWord();
+                mapscene = buffer.g2();
             } else if (opcode == 69) {
-                interactionSideFlags = buffer.readByte();
+                interactionSideFlags = buffer.g1();
             } else if (opcode == 70) {
-                translateX = buffer.readWordSigned();
+                translateX = buffer.g2s();
             } else if (opcode == 71) {
-                translateY = buffer.readWordSigned();
+                translateY = buffer.g2s();
             } else if (opcode == 72) {
-                translateZ = buffer.readWordSigned();
+                translateZ = buffer.g2s();
             } else if (opcode == 73) {
                 aBoolean73 = true;
             }

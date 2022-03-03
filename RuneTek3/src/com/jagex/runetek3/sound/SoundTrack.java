@@ -11,7 +11,7 @@ public class SoundTrack {
         SoundTone.init();
 
         do {
-            int id = src.readWord();
+            int id = src.g2();
             if (id == 65535) {
                 return;
             }
@@ -32,15 +32,15 @@ public class SoundTrack {
 
     public void read(Buffer buffer) {
         for (int tone = 0; tone < 10; tone++) {
-            if (buffer.readByte() != 0) {
+            if (buffer.g1() != 0) {
                 buffer.offset--;
                 tones[tone] = new SoundTone();
                 tones[tone].read(buffer);
             }
         }
 
-        loopBegin = buffer.readWord();
-        loopEnd = buffer.readWord();
+        loopBegin = buffer.g2();
+        loopEnd = buffer.g2();
     }
 
     public int trim() {
@@ -76,19 +76,19 @@ public class SoundTrack {
     public Buffer getWaveform(int loopCount) {
         int j = generate(loopCount);
         buffer.offset = 0;
-        buffer.writeDWord(0x52494646);
-        buffer.writeDWordLE(36 + j);
-        buffer.writeDWord(0x57415645);
-        buffer.writeDWord(0x666d7420);
-        buffer.writeDWordLE(16);
-        buffer.writeWordLE(1);
-        buffer.writeWordLE(1);
-        buffer.writeDWordLE(22050);
-        buffer.writeDWordLE(22050);
-        buffer.writeWordLE(1);
-        buffer.writeWordLE(8);
-        buffer.writeDWord(0x64617461);
-        buffer.writeDWordLE(j);
+        buffer.p4(0x52494646);
+        buffer.p4LE(36 + j);
+        buffer.p4(0x57415645);
+        buffer.p4(0x666d7420);
+        buffer.p4LE(16);
+        buffer.p2LE(1);
+        buffer.p2LE(1);
+        buffer.p4LE(22050);
+        buffer.p4LE(22050);
+        buffer.p2LE(1);
+        buffer.p2LE(8);
+        buffer.p4(0x64617461);
+        buffer.p4LE(j);
         buffer.offset += j;
         return buffer;
     }

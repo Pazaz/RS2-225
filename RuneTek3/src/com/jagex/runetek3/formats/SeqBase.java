@@ -10,24 +10,24 @@ public class SeqBase {
         Buffer type = new Buffer(fileArchive.read("base_type.dat", null));
         Buffer label = new Buffer(fileArchive.read("base_label.dat", null));
 
-        int total = head.readWord();
-        instances = new SeqBase[head.readWord() + 1];
+        int total = head.g2();
+        instances = new SeqBase[head.g2() + 1];
 
         for (int i = 0; i < total; i++) {
-            int index = head.readWord();
+            int index = head.g2();
 
-            int length = head.readByte();
+            int length = head.g1();
             int[] transformTypes = new int[length];
             int[][] groups = new int[length][];
 
             for (int j = 0; j < length; j++) {
-                transformTypes[j] = type.readByte();
+                transformTypes[j] = type.g1();
 
-                int groupCount = label.readByte();
+                int groupCount = label.g1();
                 groups[j] = new int[groupCount];
 
                 for (int k = 0; k < groupCount; k++) {
-                    groups[j][k] = label.readByte();
+                    groups[j][k] = label.g1();
                 }
             }
 

@@ -12,8 +12,8 @@ public class FileArchive {
     public void parse(byte[] src) {
         Buffer buffer = new Buffer(src);
 
-        int unpackedSize = buffer.readSWord();
-        int packedSize = buffer.readSWord();
+        int unpackedSize = buffer.g3();
+        int packedSize = buffer.g3();
 
         if (packedSize != unpackedSize) {
             byte[] temp = new byte[unpackedSize];
@@ -26,7 +26,7 @@ public class FileArchive {
             isCompressedWhole = false;
         }
 
-        fileCount = buffer.readWord();
+        fileCount = buffer.g2();
         fileHash = new int[fileCount];
         fileUnpackedSize = new int[fileCount];
         filePackedSize = new int[fileCount];
@@ -34,9 +34,9 @@ public class FileArchive {
 
         int offset = buffer.offset + fileCount * 10;
         for (int l = 0; l < fileCount; l++) {
-            fileHash[l] = buffer.readDWord();
-            fileUnpackedSize[l] = buffer.readSWord();
-            filePackedSize[l] = buffer.readSWord();
+            fileHash[l] = buffer.g4();
+            fileUnpackedSize[l] = buffer.g3();
+            filePackedSize[l] = buffer.g3();
             fileOffset[l] = offset;
             offset += filePackedSize[l];
         }

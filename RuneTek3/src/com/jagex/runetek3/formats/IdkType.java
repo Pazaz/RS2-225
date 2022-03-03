@@ -7,7 +7,7 @@ public class IdkType {
 
     public static void load(FileArchive fileArchive) {
         Buffer buffer = new Buffer(fileArchive.read("idk.dat", null));
-        count = buffer.readWord();
+        count = buffer.g2();
         instances = new IdkType[count];
 
         for (int j = 0; j < count; j++) {
@@ -21,26 +21,26 @@ public class IdkType {
 
     public void read(Buffer buffer) {
         do {
-            int opcode = buffer.readByte();
+            int opcode = buffer.g1();
 
             if (opcode == 0) {
                 return;
             } else if (opcode == 1) {
-                type = buffer.readByte();
+                type = buffer.g1();
             } else if (opcode == 2) {
-                int n = buffer.readByte();
+                int n = buffer.g1();
                 modelIndices = new int[n];
                 for (int k = 0; k < n; k++) {
-                    modelIndices[k] = buffer.readWord();
+                    modelIndices[k] = buffer.g2();
                 }
             } else if (opcode == 3) {
                 validStyle = true;
             } else if (opcode >= 40 && opcode < 50) {
-                oldColors[opcode - 40] = buffer.readWord();
+                oldColors[opcode - 40] = buffer.g2();
             } else if (opcode >= 50 && opcode < 60) {
-                newColors[opcode - 50] = buffer.readWord();
+                newColors[opcode - 50] = buffer.g2();
             } else if (opcode >= 60 && opcode < 70) {
-                headModelIndices[opcode - 60] = buffer.readWord();
+                headModelIndices[opcode - 60] = buffer.g2();
             } else {
                 System.out.println("Error unrecognised config code: " + opcode);
             }

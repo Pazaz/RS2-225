@@ -18,25 +18,25 @@ public class IndexedFont extends Draw2D {
         random = new Random();
         Buffer data = new Buffer(archive.read(name + ".dat", null));
         Buffer idx = new Buffer(archive.read("index.dat", null));
-        idx.offset = data.readWord() + 4;
-        int off = idx.readByte();
+        idx.offset = data.g2() + 4;
+        int off = idx.g1();
         if (off > 0)
             idx.offset += 3 * (off - 1);
         for (int n = 0; n < 94; n++) {
-            charOffsetX[n] = idx.readByte();
-            charOffsetY[n] = idx.readByte();
-            int w = charWidth[n] = idx.readWord();
-            int h = charHeight[n] = idx.readWord();
-            int type = idx.readByte();
+            charOffsetX[n] = idx.g1();
+            charOffsetY[n] = idx.g1();
+            int w = charWidth[n] = idx.g2();
+            int h = charHeight[n] = idx.g2();
+            int type = idx.g1();
             int len = w * h;
             pixels[n] = new byte[len];
             if (type == 0) {
                 for (int i2 = 0; i2 < len; i2++)
-                    pixels[n][i2] = data.readByteSigned();
+                    pixels[n][i2] = data.g1s();
             } else if (type == 1) {
                 for (int j2 = 0; j2 < w; j2++) {
                     for (int l2 = 0; l2 < h; l2++)
-                        pixels[n][j2 + l2 * w] = data.readByteSigned();
+                        pixels[n][j2 + l2 * w] = data.g1s();
                 }
             }
             if (h > height)

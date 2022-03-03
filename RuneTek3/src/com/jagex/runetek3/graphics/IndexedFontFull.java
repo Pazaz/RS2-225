@@ -38,32 +38,32 @@ public class IndexedFontFull extends Draw2D {
     public IndexedFontFull(FileArchive archive, String name, boolean quill) {
         Buffer dat = new Buffer(archive.read((new StringBuilder()).append(name).append(".dat").toString(), null));
         Buffer idx = new Buffer(archive.read("index.dat", null));
-        idx.offset = dat.readWord() + 4;
+        idx.offset = dat.g2() + 4;
 
-        int k = idx.readByte();
+        int k = idx.g1();
         if (k > 0) {
             idx.offset += 3 * (k - 1);
         }
 
         for (int c = 0; c < 256; c++) {
-            charOffsetX[c] = idx.readByte();
-            charOffsetY[c] = idx.readByte();
+            charOffsetX[c] = idx.g1();
+            charOffsetY[c] = idx.g1();
 
-            int w = charMaskWidth[c] = idx.readWord();
-            int h = charMaskHeight[c] = idx.readWord();
-            int storeOrder = idx.readByte();
+            int w = charMaskWidth[c] = idx.g2();
+            int h = charMaskHeight[c] = idx.g2();
+            int storeOrder = idx.g1();
 
             int maskLength = w * h;
             charMask[c] = new byte[maskLength];
 
             if (storeOrder == 0) {
                 for (int n = 0; n < maskLength; n++) {
-                    charMask[c][n] = dat.readByteSigned();
+                    charMask[c][n] = dat.g1s();
                 }
             } else if (storeOrder == 1) {
                 for (int y = 0; y < w; y++) {
                     for (int x = 0; x < h; x++) {
-                        charMask[c][y + x * w] = dat.readByteSigned();
+                        charMask[c][y + x * w] = dat.g1s();
                     }
                 }
             }

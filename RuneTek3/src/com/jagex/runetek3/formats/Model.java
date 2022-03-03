@@ -72,7 +72,7 @@ public class Model extends CacheableNode {
             obvertex1.offset = 0;
             obvertex2.offset = 0;
 
-            int count = obhead.readWord();
+            int count = obhead.g2();
             metadata = new Metadata[count + 100];
 
             int vertexTextureDataOffset = 0;
@@ -84,12 +84,12 @@ public class Model extends CacheableNode {
             int triangleSkinDataOffset = 0;
 
             for (int n = 0; n < count; n++) {
-                int index = obhead.readWord();
+                int index = obhead.g2();
                 Metadata meta = Model.metadata[index] = new Metadata();
 
-                meta.vertexCount = obhead.readWord();
-                meta.triangleCount = obhead.readWord();
-                meta.texturedCount = obhead.readByte();
+                meta.vertexCount = obhead.g2();
+                meta.triangleCount = obhead.g2();
+                meta.texturedCount = obhead.g1();
 
                 meta.vertexFlagDataOffset = obpoint1.offset;
                 meta.vertexXDataOffset = obpoint2.offset;
@@ -98,37 +98,37 @@ public class Model extends CacheableNode {
                 meta.vertexIndexDataOffset = obvertex1.offset;
                 meta.triangleTypeDataOffset = obvertex2.offset;
 
-                int hasInfo = obhead.readByte();
-                int hasPriorities = obhead.readByte();
-                int hasAlpha = obhead.readByte();
-                int hasSkins = obhead.readByte();
-                int hasLabels = obhead.readByte();
+                int hasInfo = obhead.g1();
+                int hasPriorities = obhead.g1();
+                int hasAlpha = obhead.g1();
+                int hasSkins = obhead.g1();
+                int hasLabels = obhead.g1();
 
                 for (int v = 0; v < meta.vertexCount; v++) {
-                    int flags = obpoint1.readByte();
+                    int flags = obpoint1.g1();
 
                     if ((flags & 1) != 0) {
-                        obpoint2.readSmartSigned();
+                        obpoint2.gSmart1or2s();
                     }
 
                     if ((flags & 2) != 0) {
-                        obpoint3.readSmartSigned();
+                        obpoint3.gSmart1or2s();
                     }
 
                     if ((flags & 4) != 0) {
-                        obpoint4.readSmartSigned();
+                        obpoint4.gSmart1or2s();
                     }
                 }
 
                 for (int t = 0; t < meta.triangleCount; t++) {
-                    int type = obvertex2.readByte();
+                    int type = obvertex2.g1();
 
                     if (type == 1) {
-                        obvertex1.readSmartSigned();
-                        obvertex1.readSmartSigned();
+                        obvertex1.gSmart1or2s();
+                        obvertex1.gSmart1or2s();
                     }
 
-                    obvertex1.readSmartSigned();
+                    obvertex1.gSmart1or2s();
                 }
 
                 meta.triangleColorDataOffset = triangleColorDataOffset;
@@ -242,21 +242,21 @@ public class Model extends CacheableNode {
         int z = 0;
 
         for (int v = 0; v < vertexCount; v++) {
-            int flags = obpoint1.readByte();
+            int flags = obpoint1.g1();
 
             int x0 = 0;
             if ((flags & 1) != 0) {
-                x0 = obpoint2.readSmartSigned();
+                x0 = obpoint2.gSmart1or2s();
             }
 
             int y0 = 0;
             if ((flags & 2) != 0) {
-                y0 = obpoint3.readSmartSigned();
+                y0 = obpoint3.gSmart1or2s();
             }
 
             int z0 = 0;
             if ((flags & 4) != 0) {
-                z0 = obpoint4.readSmartSigned();
+                z0 = obpoint4.gSmart1or2s();
             }
 
             vertexX[v] = x + x0;
@@ -268,7 +268,7 @@ public class Model extends CacheableNode {
             z = vertexZ[v];
 
             if (vertexLabel != null) {
-                vertexLabel[v] = obpoint5.readByte();
+                vertexLabel[v] = obpoint5.g1();
             }
         }
 
@@ -279,22 +279,22 @@ public class Model extends CacheableNode {
         obface5.offset = meta.triangleSkinDataOffset;
 
         for (int n = 0; n < triangleCount; n++) {
-            unmodifiedTriangleColor[n] = obface1.readWord();
+            unmodifiedTriangleColor[n] = obface1.g2();
 
             if (triangleInfo != null) {
-                triangleInfo[n] = obface2.readByte();
+                triangleInfo[n] = obface2.g1();
             }
 
             if (trianglePriorities != null) {
-                trianglePriorities[n] = obface3.readByte();
+                trianglePriorities[n] = obface3.g1();
             }
 
             if (triangleAlpha != null) {
-                triangleAlpha[n] = obface4.readByte();
+                triangleAlpha[n] = obface4.g1();
             }
 
             if (triangleSkin != null) {
-                triangleSkin[n] = obface5.readByte();
+                triangleSkin[n] = obface5.g1();
             }
         }
 
@@ -307,16 +307,16 @@ public class Model extends CacheableNode {
         int last = 0;
 
         for (int n = 0; n < triangleCount; n++) {
-            int type = obvertex2.readByte();
+            int type = obvertex2.g1();
 
             if (type == 1) {
-                a = obvertex1.readSmartSigned() + last;
+                a = obvertex1.gSmart1or2s() + last;
                 last = a;
 
-                b = obvertex1.readSmartSigned() + last;
+                b = obvertex1.gSmart1or2s() + last;
                 last = b;
 
-                c = obvertex1.readSmartSigned() + last;
+                c = obvertex1.gSmart1or2s() + last;
                 last = c;
 
                 triangleVertexA[n] = a;
@@ -324,7 +324,7 @@ public class Model extends CacheableNode {
                 triangleVertexC[n] = c;
             } else if (type == 2) {
                 b = c;
-                c = obvertex1.readSmartSigned() + last;
+                c = obvertex1.gSmart1or2s() + last;
                 last = c;
 
                 triangleVertexA[n] = a;
@@ -332,7 +332,7 @@ public class Model extends CacheableNode {
                 triangleVertexC[n] = c;
             } else if (type == 3) {
                 a = c;
-                c = obvertex1.readSmartSigned() + last;
+                c = obvertex1.gSmart1or2s() + last;
                 last = c;
 
                 triangleVertexA[n] = a;
@@ -342,7 +342,7 @@ public class Model extends CacheableNode {
                 int b0 = a;
                 a = b;
                 b = b0;
-                c = obvertex1.readSmartSigned() + last;
+                c = obvertex1.gSmart1or2s() + last;
                 last = c;
 
                 triangleVertexA[n] = a;
@@ -354,9 +354,9 @@ public class Model extends CacheableNode {
         obaxis.offset = meta.triangleTextureDataOffset * 6;
 
         for (int t = 0; t < texturedCount; t++) {
-            textureVertexA[t] = obaxis.readWord();
-            textureVertexB[t] = obaxis.readWord();
-            textureVertexC[t] = obaxis.readWord();
+            textureVertexA[t] = obaxis.g2();
+            textureVertexB[t] = obaxis.g2();
+            textureVertexC[t] = obaxis.g2();
         }
     }
 

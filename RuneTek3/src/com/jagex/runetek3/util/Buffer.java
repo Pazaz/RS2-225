@@ -65,45 +65,46 @@ public class Buffer extends CacheableNode {
         offset = 0;
     }
 
-    public void writeOpcode(int opcode) {
+    // might not be official naming
+    public void p1isaac(int opcode) {
         data[offset++] = (byte) (opcode + isaacState.nextInt());
     }
 
-    public void writeByte(int value) {
+    public void p1(int value) {
         data[offset++] = (byte) value;
     }
 
-    public void writeWord(int value) {
+    public void p2(int value) {
         data[offset++] = (byte) (value >> 8);
         data[offset++] = (byte) value;
     }
 
-    public void writeWordLE(int value) {
+    public void p2LE(int value) {
         data[offset++] = (byte) value;
         data[offset++] = (byte) (value >> 8);
     }
 
-    public void writeSWord(int value) {
+    public void p3(int value) {
         data[offset++] = (byte) (value >> 16);
         data[offset++] = (byte) (value >> 8);
         data[offset++] = (byte) value;
     }
 
-    public void writeDWord(int value) {
+    public void p4(int value) {
         data[offset++] = (byte) (value >> 24);
         data[offset++] = (byte) (value >> 16);
         data[offset++] = (byte) (value >> 8);
         data[offset++] = (byte) value;
     }
 
-    public void writeDWordLE(int value) {
+    public void p4LE(int value) {
         data[offset++] = (byte) value;
         data[offset++] = (byte) (value >> 8);
         data[offset++] = (byte) (value >> 16);
         data[offset++] = (byte) (value >> 24);
     }
 
-    public void writeQWord(long value) {
+    public void p8(long value) {
         data[offset++] = (byte) (int) (value >> 56);
         data[offset++] = (byte) (int) (value >> 48);
         data[offset++] = (byte) (int) (value >> 40);
@@ -114,36 +115,37 @@ public class Buffer extends CacheableNode {
         data[offset++] = (byte) (int) value;
     }
 
-    public void writeString(String str) {
+    public void pString(String str) {
         System.arraycopy(str.getBytes(), 0, data, offset, str.length());
         offset += str.length();
         data[offset++] = 10;
     }
 
-    public void writeBytes(byte[] src, int srcLen, int srcOff) {
+    public void pArrayBuffer(byte[] src, int srcLen, int srcOff) {
         for (int l = srcOff; l < srcOff + srcLen; l++) {
             data[offset++] = src[l];
         }
     }
 
-    public void writeSize(int size) {
+    // not official naming
+    public void pSize(int size) {
         data[offset - size - 1] = (byte) size;
     }
 
-    public int readByte() {
+    public int g1() {
         return data[offset++] & 0xff;
     }
 
-    public byte readByteSigned() {
+    public byte g1s() {
         return data[offset++];
     }
 
-    public int readWord() {
+    public int g2() {
         offset += 2;
         return ((data[offset - 2] & 0xff) << 8) + (data[offset - 1] & 0xff);
     }
 
-    public int readWordSigned() {
+    public int g2s() {
         offset += 2;
         int i = ((data[offset - 2] & 0xff) << 8) + (data[offset - 1] & 0xff);
         if (i > 32767) {
@@ -152,49 +154,41 @@ public class Buffer extends CacheableNode {
         return i;
     }
 
-    public int readSWord() {
+    public int g3() {
         offset += 3;
         return ((data[offset - 3] & 0xff) << 16) + ((data[offset - 2] & 0xff) << 8) + (data[offset - 1] & 0xff);
     }
 
-    public int readDWord() {
+    public int g4() {
         offset += 4;
         return ((data[offset - 4] & 0xff) << 24) + ((data[offset - 3] & 0xff) << 16) + ((data[offset - 2] & 0xff) << 8) + (data[offset - 1] & 0xff);
     }
 
-    public long readQWord() {
-        long high = (long) readDWord() & 0xffffffffL;
-        long low = (long) readDWord() & 0xffffffffL;
+    public long g8() {
+        long high = (long) g4() & 0xffffffffL;
+        long low = (long) g4() & 0xffffffffL;
         return (high << 32) + low;
     }
 
-    public String readString() {
+    public String gString() {
         int start = offset;
         while (data[offset++] != 10) {
         }
         return new String(data, start, offset - start - 1);
     }
 
-    public byte[] readStringRaw() {
-        int start = offset;
-        while (data[offset++] != 10) {
-        }
-        byte[] dest = new byte[offset - start - 1];
-        System.arraycopy(data, start, dest, 0, offset - 1 - start);
-        return dest;
-    }
-
-    public void readBytes(int destLen, int destOff, byte[] dest) {
+    public void gArrayBuffer(int destLen, int destOff, byte[] dest) {
         for (int n = destOff; n < destOff + destLen; n++) {
             dest[n] = data[offset++];
         }
     }
 
+    // not official naming
     public void accessBits() {
         bitOffset = offset * 8;
     }
 
-    public int getBits(int bits) {
+    public int gBit(int bits) {
         int byteOffset = bitOffset >> 3;
         int msb = 8 - (bitOffset & 7);
         int i = 0;
@@ -215,41 +209,42 @@ public class Buffer extends CacheableNode {
         return i;
     }
 
+    // not official naming
     public void accessBytes() {
         offset = (bitOffset + 7) / 8;
     }
 
     // range: -16384 to 16383
-    public int readSmartSigned() {
+    public int gSmart1or2s() {
         int peek = data[offset] & 0xff;
         if (peek < 128) {
-            return readByte() - 64;
+            return g1() - 64;
         } else {
-            return readWord() - 0xc000;
+            return g2() - 0xc000;
         }
     }
 
     // range: 0 to 32768
-    public int readSmart() {
+    public int gSmart1or2() {
         int peek = data[offset] & 0xff;
         if (peek < 128) {
-            return readByte();
+            return g1();
         } else {
-            return readWord() - 0x8000;
+            return g2() - 0x8000;
         }
     }
 
-    public void encryptPublic(BigInteger modulus, BigInteger exponent) {
+    public void rsaEncrypt(BigInteger modulus, BigInteger exponent) {
         int start = offset;
         offset = 0;
 
         byte[] raw = new byte[start];
-        readBytes(start, 0, raw);
+        gArrayBuffer(start, 0, raw);
         byte[] encrypted = new BigInteger(raw).modPow(exponent, modulus).toByteArray();
 
         offset = 0;
-        writeByte(encrypted.length);
-        writeBytes(encrypted, encrypted.length, 0);
+        p1(encrypted.length);
+        pArrayBuffer(encrypted, encrypted.length, 0);
     }
 
     public byte[] data;

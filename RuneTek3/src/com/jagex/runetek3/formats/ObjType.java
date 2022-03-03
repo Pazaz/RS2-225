@@ -12,13 +12,13 @@ public class ObjType {
     public static void load(FileArchive fileArchive) {
         data = new Buffer(fileArchive.read("obj.dat", null));
         Buffer idx = new Buffer(fileArchive.read("obj.idx", null));
-        count = idx.readWord();
+        count = idx.g2();
         offsets = new int[count];
 
         int off = 2;
         for (int n = 0; n < count; n++) {
             offsets[n] = off;
-            off += idx.readWord();
+            off += idx.g2();
         }
 
         objTypes = new ObjType[10];
@@ -110,57 +110,57 @@ public class ObjType {
 
     public void read(Buffer buffer) {
         do {
-            int opcode = buffer.readByte();
+            int opcode = buffer.g1();
             if (opcode == 0) {
                 return;
             } else if (opcode == 1) {
-                modelIndex = buffer.readWord();
+                modelIndex = buffer.g2();
             } else if (opcode == 2) {
-                name = buffer.readString();
+                name = buffer.gString();
             } else if (opcode == 3) {
-                description = buffer.readString();
+                description = buffer.gString();
             } else if (opcode == 4) {
-                iconZoom = buffer.readWord();
+                iconZoom = buffer.g2();
             } else if (opcode == 5) {
-                iconCameraPitch = buffer.readWord();
+                iconCameraPitch = buffer.g2();
             } else if (opcode == 6) {
-                iconYaw = buffer.readWord();
+                iconYaw = buffer.g2();
             } else if (opcode == 7) {
-                iconX = buffer.readWord();
+                iconX = buffer.g2();
 
                 if (iconX > 32767) {
                     iconX -= 0x10000;
                 }
             } else if (opcode == 8) {
-                iconY = buffer.readWord();
+                iconY = buffer.g2();
 
                 if (iconY > 32767) {
                     iconY -= 0x10000;
                 }
             } else if (opcode == 10) {
-                buffer.readWord();
+                buffer.g2();
             } else if (opcode == 11) {
                 stackable = true;
             } else if (opcode == 12) {
-                value = buffer.readDWord();
+                value = buffer.g4();
             } else if (opcode == 16) {
                 members = true;
             } else if (opcode == 23) {
-                maleModel0 = buffer.readWord();
-                maleOffsetY = buffer.readByteSigned();
+                maleModel0 = buffer.g2();
+                maleOffsetY = buffer.g1s();
             } else if (opcode == 24) {
-                maleModel1 = buffer.readWord();
+                maleModel1 = buffer.g2();
             } else if (opcode == 25) {
-                femaleModel0 = buffer.readWord();
-                femaleOffsetY = buffer.readByteSigned();
+                femaleModel0 = buffer.g2();
+                femaleOffsetY = buffer.g1s();
             } else if (opcode == 26) {
-                femaleModel1 = buffer.readWord();
+                femaleModel1 = buffer.g2();
             } else if (opcode >= 30 && opcode < 35) {
                 if (groundOptions == null) {
                     groundOptions = new String[5];
                 }
 
-                groundOptions[opcode - 30] = buffer.readString();
+                groundOptions[opcode - 30] = buffer.gString();
                 if (groundOptions[opcode - 30].equalsIgnoreCase("hidden")) {
                     groundOptions[opcode - 30] = null;
                 }
@@ -169,42 +169,42 @@ public class ObjType {
                     options = new String[5];
                 }
 
-                options[opcode - 35] = buffer.readString();
+                options[opcode - 35] = buffer.gString();
             } else if (opcode == 40) {
-                int count = buffer.readByte();
+                int count = buffer.g1();
                 oldColors = new int[count];
                 newColors = new int[count];
 
                 for (int n = 0; n < count; n++) {
-                    oldColors[n] = buffer.readWord();
-                    newColors[n] = buffer.readWord();
+                    oldColors[n] = buffer.g2();
+                    newColors[n] = buffer.g2();
                 }
             } else if (opcode == 78) {
-                maleModel2 = buffer.readWord();
+                maleModel2 = buffer.g2();
             } else if (opcode == 79) {
-                femaleModel2 = buffer.readWord();
+                femaleModel2 = buffer.g2();
             } else if (opcode == 90) {
-                maleHeadModelA = buffer.readWord();
+                maleHeadModelA = buffer.g2();
             } else if (opcode == 91) {
-                femaleHeadModelA = buffer.readWord();
+                femaleHeadModelA = buffer.g2();
             } else if (opcode == 92) {
-                maleHeadModelB = buffer.readWord();
+                maleHeadModelB = buffer.g2();
             } else if (opcode == 93) {
-                femaleHeadModelB = buffer.readWord();
+                femaleHeadModelB = buffer.g2();
             } else if (opcode == 95) {
-                iconRoll = buffer.readWord();
+                iconRoll = buffer.g2();
             } else if (opcode == 97) {
-                linkedId = buffer.readWord();
+                linkedId = buffer.g2();
             } else if (opcode == 98) {
-                certificateId = buffer.readWord();
+                certificateId = buffer.g2();
             } else if (opcode >= 100 && opcode < 110) {
                 if (stackId == null) {
                     stackId = new int[10];
                     stackAmount = new int[10];
                 }
 
-                stackId[opcode - 100] = buffer.readWord();
-                stackAmount[opcode - 100] = buffer.readWord();
+                stackId[opcode - 100] = buffer.g2();
+                stackAmount[opcode - 100] = buffer.g2();
             }
         } while (true);
     }

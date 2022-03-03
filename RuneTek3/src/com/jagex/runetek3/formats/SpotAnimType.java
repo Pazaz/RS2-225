@@ -8,7 +8,7 @@ public class SpotAnimType {
 
     public static void load(FileArchive fileArchive) {
         Buffer buffer = new Buffer(fileArchive.read("spotanim.dat", null));
-        count = buffer.readWord();
+        count = buffer.g2();
         instances = new SpotAnimType[count];
 
         for (int n = 0; n < count; n++) {
@@ -23,33 +23,33 @@ public class SpotAnimType {
 
     public void read(Buffer buffer) {
         do {
-            int opcode = buffer.readByte();
+            int opcode = buffer.g1();
 
             if (opcode == 0) {
                 return;
             } else if (opcode == 1) {
-                modelIndex = buffer.readWord();
+                modelIndex = buffer.g2();
             } else if (opcode == 2) {
-                seqIndex = buffer.readWord();
+                seqIndex = buffer.g2();
                 if (SeqType.instances != null) {
                     seq = SeqType.instances[seqIndex];
                 }
             } else if (opcode == 3) {
                 disposeAlpha = true;
             } else if (opcode == 4) {
-                breadthScale = buffer.readWord();
+                breadthScale = buffer.g2();
             } else if (opcode == 5) {
-                depthScale = buffer.readWord();
+                depthScale = buffer.g2();
             } else if (opcode == 6) {
-                orientation = buffer.readWord();
+                orientation = buffer.g2();
             } else if (opcode == 7) {
-                ambience = buffer.readByte();
+                ambience = buffer.g1();
             } else if (opcode == 8) {
-                modelShadow = buffer.readByte();
+                modelShadow = buffer.g1();
             } else if (opcode >= 40 && opcode < 50) {
-                oldColors[opcode - 40] = buffer.readWord();
+                oldColors[opcode - 40] = buffer.g2();
             } else if (opcode >= 50 && opcode < 60) {
-                newColors[opcode - 50] = buffer.readWord();
+                newColors[opcode - 50] = buffer.g2();
             } else {
                 System.out.println("Error unrecognised spotanim config code: " + opcode);
             }

@@ -30,87 +30,87 @@ public class InterfaceComponent {
         modelCache = new Cache(50000);
 
         Buffer b = new Buffer(interfaces.read("data", null));
-        instances = new InterfaceComponent[b.readWord()];
+        instances = new InterfaceComponent[b.g2()];
 
         int parent = -1;
         while (b.offset < b.data.length) {
-            int index = b.readWord();
+            int index = b.g2();
             if (index == 65535) {
-                parent = b.readWord();
-                index = b.readWord();
+                parent = b.g2();
+                index = b.g2();
             }
 
             InterfaceComponent w = instances[index] = new InterfaceComponent();
             w.id = index;
             w.parent = parent;
-            w.type = b.readByte();
-            w.buttonType = b.readByte();
-            w.contentType = b.readWord();
-            w.width = b.readWord();
-            w.height = b.readWord();
-            w.hoverParentIndex = b.readByte();
+            w.type = b.g1();
+            w.buttonType = b.g1();
+            w.contentType = b.g2();
+            w.width = b.g2();
+            w.height = b.g2();
+            w.hoverParentIndex = b.g1();
 
             if (w.hoverParentIndex != 0)
-                w.hoverParentIndex = (w.hoverParentIndex - 1 << 8) + b.readByte();
+                w.hoverParentIndex = (w.hoverParentIndex - 1 << 8) + b.g1();
             else
                 w.hoverParentIndex = -1;
 
-            int comparatorCount = b.readByte();
+            int comparatorCount = b.g1();
             if (comparatorCount > 0) {
                 w.scriptCompareType = new int[comparatorCount];
                 w.scriptCompareValue = new int[comparatorCount];
                 for (int n = 0; n < comparatorCount; n++) {
-                    w.scriptCompareType[n] = b.readByte();
-                    w.scriptCompareValue[n] = b.readWord();
+                    w.scriptCompareType[n] = b.g1();
+                    w.scriptCompareValue[n] = b.g2();
                 }
             }
 
-            int scriptCount = b.readByte();
+            int scriptCount = b.g1();
             if (scriptCount > 0) {
                 w.script = new int[scriptCount][];
                 for (int script = 0; script < scriptCount; script++) {
-                    int opcodeCount = b.readWord();
+                    int opcodeCount = b.g2();
                     w.script[script] = new int[opcodeCount];
                     for (int opcode = 0; opcode < opcodeCount; opcode++)
-                        w.script[script][opcode] = b.readWord();
+                        w.script[script][opcode] = b.g2();
                 }
             }
 
             if (w.type == TYPE_PARENT) {
-                w.scrollHeight = b.readWord();
-                w.hidden = b.readByte() == 1;
-                int n = b.readByte();
+                w.scrollHeight = b.g2();
+                w.hidden = b.g1() == 1;
+                int n = b.g1();
                 w.children = new int[n];
                 w.childX = new int[n];
                 w.childY = new int[n];
                 for (int m = 0; m < n; m++) {
-                    w.children[m] = b.readWord();
-                    w.childX[m] = b.readWordSigned();
-                    w.childY[m] = b.readWordSigned();
+                    w.children[m] = b.g2();
+                    w.childX[m] = b.g2s();
+                    w.childY[m] = b.g2s();
                 }
             }
             if (w.type == TYPE_UNUSED) {
-                w.unusedInt = b.readWord();
-                w.unusedBoolean = b.readByte() == 1;
+                w.unusedInt = b.g2();
+                w.unusedBoolean = b.g1() == 1;
             }
             if (w.type == TYPE_INVENTORY) {
                 w.inventoryIndices = new int[w.width * w.height];
                 w.inventoryAmount = new int[w.width * w.height];
 
-                w.inventoryDummy = b.readByte() == 1;
-                w.inventoryHasOptions = b.readByte() == 1;
-                w.inventoryIsUsable = b.readByte() == 1;
-                w.inventoryMarginX = b.readByte();
-                w.inventoryMarginY = b.readByte();
+                w.inventoryDummy = b.g1() == 1;
+                w.inventoryHasOptions = b.g1() == 1;
+                w.inventoryIsUsable = b.g1() == 1;
+                w.inventoryMarginX = b.g1();
+                w.inventoryMarginY = b.g1();
                 w.inventoryOffsetX = new int[20];
                 w.inventoryOffsetY = new int[20];
                 w.inventorySprite = new Sprite[20];
 
                 for (int n = 0; n < 20; n++) {
-                    if (b.readByte() == 1) {
-                        w.inventoryOffsetX[n] = b.readWordSigned();
-                        w.inventoryOffsetY[n] = b.readWordSigned();
-                        String s = b.readString();
+                    if (b.g1() == 1) {
+                        w.inventoryOffsetX[n] = b.g2s();
+                        w.inventoryOffsetY[n] = b.g2s();
+                        String s = b.gString();
                         if (media != null && s.length() > 0) {
                             int j = s.lastIndexOf(",");
                             w.inventorySprite[n] = getSprite(media, Integer.parseInt(s.substring(j + 1)), s.substring(0, j));
@@ -120,90 +120,90 @@ public class InterfaceComponent {
 
                 w.inventoryOptions = new String[5];
                 for (int n = 0; n < 5; n++) {
-                    w.inventoryOptions[n] = b.readString();
+                    w.inventoryOptions[n] = b.gString();
                     if (w.inventoryOptions[n].length() == 0)
                         w.inventoryOptions[n] = null;
                 }
             }
             if (w.type == TYPE_RECT)
-                w.fill = b.readByte() == 1;
+                w.fill = b.g1() == 1;
             if (w.type == TYPE_TEXT || w.type == TYPE_UNUSED) {
-                w.center = b.readByte() == 1;
-                int font = b.readByte();
+                w.center = b.g1() == 1;
+                int font = b.g1();
                 if (fonts != null)
                     w.font = fonts[font];
-                w.shadow = b.readByte() == 1;
+                w.shadow = b.g1() == 1;
             }
             if (w.type == TYPE_TEXT) {
-                w.text = b.readString();
-                w.activeText = b.readString();
+                w.text = b.gString();
+                w.activeText = b.gString();
             }
             if (w.type == TYPE_UNUSED || w.type == TYPE_RECT || w.type == TYPE_TEXT)
-                w.color = b.readDWord();
+                w.color = b.g4();
             if (w.type == TYPE_RECT || w.type == TYPE_TEXT) {
-                w.colorEnabled = b.readDWord();
-                w.hoverColor = b.readDWord();
+                w.colorEnabled = b.g4();
+                w.hoverColor = b.g4();
             }
             if (w.type == TYPE_SPRITE) {
-                String s = b.readString();
+                String s = b.gString();
                 if (media != null && s.length() > 0) {
                     int j = s.lastIndexOf(",");
                     w.image = getSprite(media, Integer.parseInt(s.substring(j + 1)), s.substring(0, j));
                 }
 
-                s = b.readString();
+                s = b.gString();
                 if (media != null && s.length() > 0) {
                     int j = s.lastIndexOf(",");
                     w.activeImage = getSprite(media, Integer.parseInt(s.substring(j + 1)), s.substring(0, j));
                 }
             }
             if (w.type == TYPE_MODEL) {
-                index = b.readByte();
+                index = b.g1();
                 if (index != 0)
-                    w.modelDisabled = getModel((index - 1 << 8) + b.readByte());
-                index = b.readByte();
+                    w.modelDisabled = getModel((index - 1 << 8) + b.g1());
+                index = b.g1();
                 if (index != 0)
-                    w.modelEnabled = getModel((index - 1 << 8) + b.readByte());
-                index = b.readByte();
+                    w.modelEnabled = getModel((index - 1 << 8) + b.g1());
+                index = b.g1();
                 if (index != 0)
-                    w.seqId = (index - 1 << 8) + b.readByte();
+                    w.seqId = (index - 1 << 8) + b.g1();
                 else
                     w.seqId = -1;
-                index = b.readByte();
+                index = b.g1();
                 if (index != 0)
-                    w.activeSeqId = (index - 1 << 8) + b.readByte();
+                    w.activeSeqId = (index - 1 << 8) + b.g1();
                 else
                     w.activeSeqId = -1;
-                w.modelZoom = b.readWord();
-                w.modelEyePitch = b.readWord();
-                w.modelYaw = b.readWord();
+                w.modelZoom = b.g2();
+                w.modelEyePitch = b.g2();
+                w.modelYaw = b.g2();
             }
             if (w.type == TYPE_INVENTORY_TEXT) {
                 w.inventoryIndices = new int[w.width * w.height];
                 w.inventoryAmount = new int[w.width * w.height];
-                w.center = b.readByte() == 1;
-                int font = b.readByte();
+                w.center = b.g1() == 1;
+                int font = b.g1();
                 if (fonts != null)
                     w.font = fonts[font];
-                w.shadow = b.readByte() == 1;
-                w.color = b.readDWord();
-                w.inventoryMarginX = b.readWordSigned();
-                w.inventoryMarginY = b.readWordSigned();
-                w.inventoryHasOptions = b.readByte() == 1;
+                w.shadow = b.g1() == 1;
+                w.color = b.g4();
+                w.inventoryMarginX = b.g2s();
+                w.inventoryMarginY = b.g2s();
+                w.inventoryHasOptions = b.g1() == 1;
                 w.inventoryOptions = new String[5];
                 for (int n = 0; n < 5; n++) {
-                    w.inventoryOptions[n] = b.readString();
+                    w.inventoryOptions[n] = b.gString();
                     if (w.inventoryOptions[n].length() == 0)
                         w.inventoryOptions[n] = null;
                 }
             }
             if (w.buttonType == TARGET_BUTTON || w.type == TYPE_INVENTORY) {
-                w.optionCircumfix = b.readString();
-                w.optionSuffix = b.readString();
-                w.optionFlags = b.readWord();
+                w.optionCircumfix = b.gString();
+                w.optionSuffix = b.gString();
+                w.optionFlags = b.g2();
             }
             if (w.buttonType == BUTTON || w.buttonType == TOGGLE_BUTTON || w.buttonType == SELECT_BUTTON || w.buttonType == PAUSE_BUTTON) {
-                w.option = b.readString();
+                w.option = b.gString();
                 if (w.option.length() == 0) {
                     if (w.buttonType == BUTTON)
                         w.option = "Ok";

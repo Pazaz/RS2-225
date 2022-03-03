@@ -9,37 +9,37 @@ public class IndexedSprite extends Draw2D {
         Buffer data = new Buffer(archive.read(name + ".dat", null));
         Buffer idx = new Buffer(archive.read("index.dat", null));
 
-        idx.offset = data.readWord();
-        clipWidth = idx.readWord();
-        clipHeight = idx.readWord();
+        idx.offset = data.g2();
+        clipWidth = idx.g2();
+        clipHeight = idx.g2();
 
-        palette = new int[idx.readByte()];
+        palette = new int[idx.g1()];
         for (int n = 0; n < palette.length - 1; n++) {
-            palette[n + 1] = idx.readSWord();
+            palette[n + 1] = idx.g3();
         }
 
         for (int n = 0; n < index; n++) {
             idx.offset += 2;
-            data.offset += idx.readWord() * idx.readWord();
+            data.offset += idx.g2() * idx.g2();
             idx.offset++;
         }
 
-        clipX = idx.readByte();
-        clipY = idx.readByte();
-        width = idx.readWord();
-        height = idx.readWord();
+        clipX = idx.g1();
+        clipY = idx.g1();
+        width = idx.g2();
+        height = idx.g2();
 
-        int type = idx.readByte();
+        int type = idx.g1();
         pixels = new byte[width * height];
 
         if (type == 0) {
             for (int n = 0; n < pixels.length; n++) {
-                pixels[n] = data.readByteSigned();
+                pixels[n] = data.g1s();
             }
         } else if (type == 1) {
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
-                    pixels[x + y * width] = data.readByteSigned();
+                    pixels[x + y * width] = data.g1s();
                 }
             }
         }

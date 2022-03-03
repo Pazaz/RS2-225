@@ -11,21 +11,21 @@ public class PlayerEntity extends PathingEntity {
 
     public void read(Buffer buffer) {
         buffer.offset = 0;
-        gender = buffer.readByte();
-        headicons = buffer.readByte();
+        gender = buffer.g1();
+        headicons = buffer.g1();
 
         for (int n = 0; n < 12; n++) {
-            int msb = buffer.readByte();
+            int msb = buffer.g1();
 
             if (msb == 0) {
                 appearanceIndices[n] = 0;
             } else {
-                appearanceIndices[n] = (msb << 8) + buffer.readByte();
+                appearanceIndices[n] = (msb << 8) + buffer.g1();
             }
         }
 
         for (int n = 0; n < 5; n++) {
-            int i = buffer.readByte();
+            int i = buffer.g1();
 
             if (i < 0 || i >= Game.APPEARANCE_COLORS[n].length) {
                 i = 0;
@@ -34,43 +34,43 @@ public class PlayerEntity extends PathingEntity {
             appearanceColors[n] = i;
         }
 
-        super.standSeq = buffer.readWord();
+        super.standSeq = buffer.g2();
         if (super.standSeq == 65535) {
             super.standSeq = -1;
         }
 
-        super.turnSeq = buffer.readWord();
+        super.turnSeq = buffer.g2();
         if (super.turnSeq == 65535) {
             super.turnSeq = -1;
         }
 
-        super.runSeq = buffer.readWord();
+        super.runSeq = buffer.g2();
         if (super.runSeq == 65535) {
             super.runSeq = -1;
         }
 
-        super.walkSeq = buffer.readWord();
+        super.walkSeq = buffer.g2();
         if (super.walkSeq == 65535) {
             super.walkSeq = -1;
         }
 
-        super.turnAroundSeq = buffer.readWord();
+        super.turnAroundSeq = buffer.g2();
         if (super.turnAroundSeq == 65535) {
             super.turnAroundSeq = -1;
         }
 
-        super.turnRightSeq = buffer.readWord();
+        super.turnRightSeq = buffer.g2();
         if (super.turnRightSeq == 65535) {
             super.turnRightSeq = -1;
         }
 
-        super.turnLeftSeq = buffer.readWord();
+        super.turnLeftSeq = buffer.g2();
         if (super.turnLeftSeq == 65535) {
             super.turnLeftSeq = -1;
         }
 
-        name = StringUtils.formatName(StringUtils.fromBase37(buffer.readQWord()));
-        combatLevel = buffer.readByte();
+        name = StringUtils.formatName(StringUtils.fromBase37(buffer.g8()));
+        combatLevel = buffer.g1();
 
         visible = true;
         uid = 0L;

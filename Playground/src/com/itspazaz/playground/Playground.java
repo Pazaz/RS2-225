@@ -558,7 +558,7 @@ public class Playground extends GameShell {
         System.out.println("Playing song " + name);
         try {
             byte[] src = Signlink.cacheload(name, false);
-            int length = (new Buffer(src)).readDWord();
+            int length = (new Buffer(src)).g4();
             byte[] decompressed = new byte[length];
             BZip2InputStream.read(decompressed, length, src, 0, 4);
             Signlink.midifade = false;

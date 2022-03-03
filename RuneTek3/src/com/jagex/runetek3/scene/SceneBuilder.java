@@ -62,7 +62,7 @@ public class SceneBuilder {
                     if (i2 >= 0 && i2 < 104 && j2 >= 0 && j2 < 104) {
                         renderFlags[p][i2][j2] = 0;
                         do {
-                            int k2 = b.readByte();
+                            int k2 = b.g1();
                             if (k2 == 0) {
                                 if (p == 0)
                                     heightmap[0][i2][j2] = -getPerlinNoise(0xe3b7b + i2 + i, 0x87cce + j2 + i1) * 8;
@@ -71,7 +71,7 @@ public class SceneBuilder {
                                 break;
                             }
                             if (k2 == 1) {
-                                int i3 = b.readByte();
+                                int i3 = b.g1();
                                 if (i3 == 1)
                                     i3 = 0;
                                 if (p == 0)
@@ -81,7 +81,7 @@ public class SceneBuilder {
                                 break;
                             }
                             if (k2 <= 49) {
-                                planeOverlayFloorIndices[p][i2][j2] = b.readByteSigned();
+                                planeOverlayFloorIndices[p][i2][j2] = b.g1s();
                                 planeOverlayTypes[p][i2][j2] = (byte) ((k2 - 2) / 4);
                                 planeOverlayRotations[p][i2][j2] = (byte) (k2 - 2 & 3);
                             } else if (k2 <= 81)
@@ -91,16 +91,16 @@ public class SceneBuilder {
                         } while (true);
                     } else {
                         do {
-                            int l2 = b.readByte();
+                            int l2 = b.g1();
                             if (l2 == 0) {
                                 break;
                             }
                             if (l2 == 1) {
-                                b.readByte();
+                                b.g1();
                                 break;
                             }
                             if (l2 <= 49) {
-                                b.readByte();
+                                b.g1();
                             }
                         } while (true);
                     }
@@ -113,7 +113,7 @@ public class SceneBuilder {
         Buffer b = new Buffer(src);
         int locType = -1;
         do {
-            int locTypeOff = b.readSmart();
+            int locTypeOff = b.gSmart1or2();
             if (locTypeOff == 0) {
                 break;
             }
@@ -121,7 +121,7 @@ public class SceneBuilder {
 
             int locInfo = 0;
             do {
-                int locInfoOff = b.readSmart();
+                int locInfoOff = b.gSmart1or2();
                 if (locInfoOff == 0) {
                     break;
                 }
@@ -133,7 +133,7 @@ public class SceneBuilder {
                 int x = localX + startX;
                 int z = localZ + startZ;
 
-                int objInfo = b.readByte();
+                int objInfo = b.g1();
                 int objType = objInfo >> 2;
                 int orientation = objInfo & 3;
 

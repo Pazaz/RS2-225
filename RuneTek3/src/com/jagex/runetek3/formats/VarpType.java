@@ -7,7 +7,7 @@ public class VarpType {
 
     public static void load(FileArchive fileArchive) {
         Buffer buffer = new Buffer(fileArchive.read("varp.dat", null));
-        count = buffer.readWord();
+        count = buffer.g2();
         instances = new VarpType[count];
 
         for (int n = 0; n < count; n++) {
@@ -21,18 +21,18 @@ public class VarpType {
 
     public void read(Buffer buffer) {
         do {
-            int opcode = buffer.readByte();
+            int opcode = buffer.g1();
 
             if (opcode == 0) {
                 return;
             } else if (opcode == 1 || opcode == 2) {
-                buffer.readByte();
+                buffer.g1();
             } else if (opcode == 5) {
-                type = buffer.readWord();
+                type = buffer.g2();
             } else if (opcode == 7) {
-                buffer.readDWord();
+                buffer.g4();
             } else if (opcode == 10) {
-                buffer.readString();
+                buffer.gString();
             } else if (opcode == 3 || opcode == 4 || opcode == 6 || opcode == 8) {
             } else {
                 System.out.println("Error unrecognised config code: " + opcode);
