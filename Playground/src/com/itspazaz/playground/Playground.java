@@ -119,7 +119,7 @@ public class Playground extends Applet {
         LocType.unload();
         NPCType.unload();
         ObjType.unload();
-        FloType.instances = null;
+        FloorType.instances = null;
         IDKType.instances = null;
         Component.instances = null;
         SeqType.instances = null;
@@ -453,7 +453,7 @@ public class Playground extends Applet {
                         p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + (obj.iconX + camera.x) + "," + (sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z) + "," + (cosPitch + obj.iconY + camera.y), gameWidth - 4, true);
                     }
                 } else if (loadType.equals("Npc")) {
-                    if (npc.primarySeq != 0 && npc.primarySeqDelay == 0) {
+                    if (npc.primarySeq != -1 && npc.primarySeqDelay == 0) {
                         SeqType seq = SeqType.instances[npc.primarySeq];
                         npc.primarySeqFrame++;
                         if (npc.primarySeqFrame > seq.primaryFrames.length - 1) {
@@ -607,7 +607,7 @@ public class Playground extends Applet {
         FileArchive config = new FileArchive(Signlink.cacheload("config", false));
         SeqType.load(config);
         LocType.load(config);
-        FloType.load(config);
+        FloorType.load(config);
         ObjType.load(config);
         NPCType.load(config);
         IDKType.load(config);

@@ -31,6 +31,12 @@ import java.util.zip.CRC32;
 
 public class Game extends Applet {
 
+    public static String serverAddress = "127.0.0.1";
+    public static int serverHttpPort = 80;
+    public static int serverGamePort = 43594;
+
+    public static int skyColor = 0x000000;
+
     public static final int[][] APPEARANCE_COLORS = {
         {
             6798, 107, 10283, 16, 4797, 7744, 5799, 4634, 33697, 22433,
@@ -55,304 +61,460 @@ public class Game extends Applet {
         9104, 10275, 7595, 3610, 7975, 8526, 918, 38802, 24466, 10145,
         58654, 5027, 1457, 16565, 34991, 25486
     };
-    public static int skyColor = 0x000000;
-    public static String serverAddress = "127.0.0.1";
-    public static int serverHttpPort = 80;
-    public static int serverGamePort = 43594;
-    public static int INTERFACE_OPCODE_RETURN = 0;
-    public static int INTERFACE_OPCODE_SKILL_LEVEL_REAL = 1;
-    public static int INTERFACE_OPCODE_SKILL_LEVEL = 2;
-    public static int INTERFACE_OPCODE_SKILL_LEVEL_EXPERIENCE = 3;
-    public static int INTERFACE_OPCODE_INVENTORY_ITEM_AMOUNT = 4;
-    public static int INTERFACE_OPCODE_VARIABLE = 5;
-    public static int INTERFACE_OPCODE_SKILL_EXPERIENCE = 6;
-    public static int INTERFACE_OPCODE_VARIABLE_MUL = 7;
-    public static int INTERFACE_OPCODE_COMBAT_LEVEL = 8;
-    public static int INTERFACE_OPCODE_TOTAL_LEVEL = 9;
-    public static int INTERFACE_OPCODE_INVENTORY_CAPACITY = 10;
-    public static int INTERFACE_OPCODE_ENERGY = 11;
-    public static int INTERFACE_OPCODE_WEIGHT = 12;
+
+    // interface opcodes
+    public static int OPCODE_RETURN = 0;
+    public static int OPCODE_SKILL_LEVEL_REAL = 1;
+    public static int OPCODE_SKILL_LEVEL = 2;
+    public static int OPCODE_SKILL_LEVEL_EXPERIENCE = 3;
+    public static int OPCODE_INVENTORY_ITEM_AMOUNT = 4;
+    public static int OPCODE_VARIABLE = 5;
+    public static int OPCODE_SKILL_EXPERIENCE = 6;
+    public static int OPCODE_VARIABLE_MUL = 7;
+    public static int OPCODE_COMBAT_LEVEL = 8;
+    public static int OPCODE_TOTAL_LEVEL = 9;
+    public static int OPCODE_INVENTORY_CAPACITY = 10;
+    public static int OPCODE_ENERGY = 11;
+    public static int OPCODE_WEIGHT = 12;
+
+    // chat colors
+    public static int COLOR_YELLOW = 0;
+    public static int COLOR_RED = 1;
+    public static int COLOR_GREEN = 2;
+    public static int COLOR_CYAN = 3;
+    public static int COLOR_PURPLE = 4;
+    public static int COLOR_WHITE = 5;
+    public static int COLOR_FLASH1 = 6;
+    public static int COLOR_FLASH2 = 7;
+    public static int COLOR_FLASH3 = 8;
+    public static int COLOR_GLOW1 = 9;
+    public static int COLOR_GLOW2 = 10;
+    public static int COLOR_GLOW3 = 11;
+    public int[] textColors = {
+        0xffff00, 0xff0000, 0xff00, 0xffff, 0xff00ff, 0xffffff
+    };
+
+    // chat effects
+    public static int EFFECT_WAVE = 1;
+    public static int EFFECT_SCROLL = 2;
+
     public static Game instance;
-    public static int itemOption4Counter;
+    public static PlayerEntity self;
+    public static int[] EXPERIENCE_TABLE;
+    public static int nodeid = 10;
+    public static int portoff = 0;
+    public static boolean members = true;
+    public static boolean lowMemory;
+    public static boolean alreadyStarted;
+    public static int clientClock;
+    public static BigInteger exponent = new BigInteger("58778699976184461502525193738213253649000149147835990136706041084440742975821");
+    public static BigInteger modulus = new BigInteger("7162900525229798032761816791230527296329313291232324290237849263501208207972894053929065636522363163621000728841182238772712427862772219676577293600221789");
     public static String ASCII_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"\243$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
+
+    // anticheat counters
+    public static int playerAction2Counter;
+    public static int updatePlayersCounter;
+    public static int itemAction5Counter;
+    public static int updateGameCounter;
+    public static int updateGameCounter2;
+    public static int updateLocCounter;
+    public static int itemOption4Counter;
     public static int objectAction4Counter;
     public static int npcAction5Counter;
     public static int drawViewportCounter;
     public static int itemOption1Counter;
     public static int objectAction5Counter;
-    public static int[] EXPERIENCE_TABLE;
     public static int npcAction3Counter;
     public static int itemAction4Counter;
     public static int sidebarClickedCounter;
-    public static int nodeid = 10;
-    public static int portoff = 0;
-    public static boolean members = true;
-    public static boolean lowMemory;
-    public static int playerAction2Counter;
-    public static int updatePlayersCounter;
-    public static BigInteger exponent = new BigInteger("58778699976184461502525193738213253649000149147835990136706041084440742975821");
-    public static int itemAction5Counter;
-    public static int clientClock;
-    public static PlayerEntity self;
-    public static int updateGameCounter;
-    public static BigInteger modulus = new BigInteger("7162900525229798032761816791230527296329313291232324290237849263501208207972894053929065636522363163621000728841182238772712427862772219676577293600221789");
-    public static int updateGameCounter2;
-    public static boolean alreadyStarted;
-    public static int updateLocCounter;
+    public int keepaliveCounter;
 
     static {
         EXPERIENCE_TABLE = new int[99];
-        int i = 0;
-        for (int j = 0; j < 99; j++) {
-            int k = j + 1;
-            int l = (int) ((double) k + 300D * Math.pow(2D, (double) k / 7D));
-            i += l;
-            EXPERIENCE_TABLE[j] = i / 4;
+        int xpAccum = 0;
+        for (int level = 0; level < 99; level++) {
+            int nextLevel = level + 1;
+            int nextLevelXp = (int) ((double) nextLevel + 300D * Math.pow(2D, (double) nextLevel / 7D));
+            xpAccum += nextLevelXp;
+            EXPERIENCE_TABLE[level] = xpAccum / 4;
         }
     }
 
-    public final int[] objectGroups = {
-        0, 0, 0, 0, 1, 1, 1, 1, 1, 2,
-        2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-        2, 2, 3
-    };
-    public final Object midiSync = new Object();
-    public int midiSyncLen;
-    public int cameraLocalX;
-    public int cameraLocalZ;
-    public int cameraHeightOffset;
-    public int cameraSpinSpeed;
-    public int cameraSpinMultiplier;
-    public int selfPlayerId = -1;
+    public int netIdleCycles;
+    public int idleTimeout;
+
+    public boolean showSocialInput = false;
+    public boolean characterDesignIsMale = true;
+
+    public int lastSceneLevel = -1;
+    public int mouseArea;
+    public int updateCount;
+    public int sceneCycle;
+    public int sceneState;
+    public int titleState;
+    public int worldLocationState;
+    public int tutorialIslandState;
+
+    public Buffer loginBuffer = Buffer.reserve(1);
+    public Buffer inBuffer = Buffer.reserve(1);
+    public Buffer outBuffer = Buffer.reserve(1);
+    public CRC32 crc32 = new CRC32();
+    public BufferedStream stream;
+    public IsaacRandom isaacState;
+    public int packetLength;
+    public int packetOpcode;
+    public int lastPacketOpcode;
+    public int secondMostRecentOpcode;
+    public int thirdMostRecentOpcode;
+
+    public int[] archiveChecksums = new int[10];
+    public FileArchive titleArchive;
+
+    public boolean errorLoading = false;
+    public boolean errorStarted = false;
+    public boolean errorHost = false;
+
     public int[] chatOffsets;
     public int[] sidebarOffsets;
     public int[] viewportOffsets;
+
+    public int minimapOffsetCycle;
+    public int minimapZoom;
+    public int minimapZoomModifier = 1;
+    public int[] minimapLineWidth = new int[151];
+    public int clickedMinimap;
+    public int minimapAnticheatAngle;
+    public int minimapAngleModifier = 2;
+    public int[] compassLeft = new int[33];
+    public int[] minimapLeft = new int[151];
+    public int[] compassLineWidth = new int[33];
+    public int activeMapFunctionCount;
+    public int[] activeMapFunctionX = new int[1000];
+    public int[] activeMapFunctionZ = new int[1000];
+    public int flagTileX;
+    public int flagTileY;
+
+    public int systemUpdateTimer;
+    public int sceneDelta;
+    public boolean ingame = false;
+
     public int crossX;
     public int crossY;
     public int crossCycle;
     public int crossType;
-    public int[] characterDesignColors = new int[5];
-    public Buffer loginBuffer = Buffer.reserve(1);
-    public int nextMusicDelay;
+
     public int hintTileX;
     public int hintTileZ;
     public int hintHeight;
     public int hintOffsetX;
     public int hintOffsetZ;
-    public int minimapOffsetCycle;
-    public boolean redrawTitleBackground = false;
-    public LinkedList list = new LinkedList();
-    public IsaacRandom isaacState;
-    public boolean[] customCameraActive = new boolean[5];
-    public int chatPrivateSetting;
-    public int selectedTab = 3;
-    public int[][] pathDistance = new int[104][104];
-    public int socialAction;
+    public int hintType;
+    public int hintNPC;
+    public int hintPlayer;
+
     public int baseTileX;
     public int baseTileZ;
     public int mapLastBaseX;
     public int mapLastBaseZ;
-    public String socialInput = "";
-    public LinkedList temporaryLocs = new LinkedList();
-    public long[] ignoreName37 = new long[100];
-    public int weightCarried;
     public byte[][] sceneMapLandData;
-    public int[] friendWorld = new int[100];
-    public int lastSceneLevel = -1;
-    public String socialMessage = "";
-    public Sprite[] hitmarks = new Sprite[20];
-    public long lastWaveStartTime;
-    public int packetLength;
-    public int packetOpcode;
-    public int netIdleCycles;
-    public int keepaliveCounter;
-    public int idleTimeout;
-    public String chatbackInput = "";
-    public int cameraOffsetCycle;
-    public int lastWaveId = -1;
-    public boolean characterDesignUpdate = false;
-    public int[] characterDesigns = new int[7];
-    public Sprite[] activeMapFunctions = new Sprite[1000];
-    public int chatScrollY = 78;
-    public int ignoreCount;
+    public byte[][] sceneMapLocData;
+    public byte[][][] levelRenderFlags;
     public int[][][] levelHeightMaps;
-    public Buffer inBuffer = Buffer.reserve(1);
-    public Buffer outBuffer = Buffer.reserve(1);
-    public boolean startMidiThread = false;
-    public int chatEffects;
-    public int hintNPC;
-    public int tutorialIslandState;
-    public int[] skillLevelReal = new int[50];
-    public Component component = new Component();
-    public int[] waveLoops = new int[50];
-    public int button;
-    public int[] archiveChecksums = new int[10];
-    public boolean midiThreadActive = false;
-    public IndexedSprite[] sideicons = new IndexedSprite[13];
-    public int lastWaveLength;
-    public int cameraOrbitPitch = 128;
-    public int cameraYaw;
-    public int cameraYawModifier;
-    public int cameraPitchModifier;
-    public int MAX_PLAYER_COUNT = 2048;
-    public int LOCAL_PLAYER_INDEX = 2047;
-    public PlayerEntity[] playerEntities = new PlayerEntity[MAX_PLAYER_COUNT];
-    public int playerCount;
-    public int[] playerIndices = new int[MAX_PLAYER_COUNT];
-    public int updateCount;
-    public int[] entityUpdateIndices = new int[MAX_PLAYER_COUNT];
-    public Buffer[] playerBuffers = new Buffer[MAX_PLAYER_COUNT];
-    public int lastPacketOpcode;
-    public int secondMostRecentOpcode;
-    public int thirdMostRecentOpcode;
     public MapSquare mapSquare;
+    public int[] sceneMapIndex;
+    public byte[] tmpTexels = new byte[16384];
+    public CollisionMap[] collisionMaps = new CollisionMap[4];
+    public LinkedList spotanims = new LinkedList();
+    public LinkedList spawnedLocations = new LinkedList();
+    public LinkedList[][][] objects = new LinkedList[4][104][104];
     public LinkedList projectiles = new LinkedList();
-    public int splitPrivateChat;
-    public String[] options = new String[500];
-    public boolean midiActive = true;
-    public boolean characterDesignIsMale = true;
-    public int sceneCycle;
+    public LinkedList locs = new LinkedList();
+    public LinkedList temporaryLocs = new LinkedList();
+    public int[][] tileRenderCount = new int[104][104];
     public int centerSectorX;
     public int centerSectorY;
-    public byte[][][] levelRenderFlags;
-    public int[] flameBuffer1;
-    public int[] flameBuffer2;
-    public int objDragComponentId;
-    public int objDragSlot;
-    public int objDragArea;
-    public int objGrabX;
-    public int objGrabY;
-    public int[] flameShiftX = new int[256];
-    public DrawArea areaBackbase1;
-    public DrawArea areaBackbase2;
-    public DrawArea areaBackhmid1;
-    public int privateMessageCount;
-    public int[] compassLeft = new int[33];
-    public int[] waveDelay = new int[50];
-    public int chatHoveredInterfaceIndex;
-    public int[] tabComponentId = {
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-        -1, -1, -1, -1, -1
-    };
     public int localPosX;
     public int localPosZ;
-    public boolean errorLoading = false;
-    public int hoveredInterfaceIndex;
-    public boolean showSocialInput = false;
-    public boolean chatContinuingDialogue = false;
-    public int daysSinceLogin;
-    public int flameCycle1;
-    public int flameCycle2;
-    public int[] privateMessageIndex = new int[100];
-    public boolean menuVisible = false;
-    public int currentLevel;
-    public boolean reportAbuseMuteToggle = false;
-    public LinkedList spawnedLocations = new LinkedList();
-    public int chatTradeDuelSetting;
-    public IndexedSprite redstone1;
-    public IndexedSprite redstone2;
-    public IndexedSprite redstone3;
-    public IndexedSprite redstone1h;
-    public IndexedSprite redstone2h;
+    public final int[] objectGroups = {
+        0, 0, 0, 0,
+        1, 1, 1, 1,
+        1, 2, 2, 2,
+        2, 2, 2, 2,
+        2, 2, 2, 2,
+        2, 2, 3
+    };
+
+    public String socialInput = "";
+    public String socialMessage = "";
+    public String chatbackInput = "";
+    public String reportInput = "";
     public int[] chatMessageType = new int[100];
     public String[] chatMessagePrefix = new String[100];
     public String[] chatMessage = new String[100];
-    public long aLong900;
-    public int daysSinceRecoveryChange;
-    public boolean flameActive = false;
-    public int[] flameGradient;
-    public int[] flameGradientRed;
-    public int[] flameGradientGreen;
-    public int[] flameGradientViolet;
-    public int openInterfaceId = -1;
-    public IndexedSprite backbase1;
-    public IndexedSprite backbase2;
-    public IndexedSprite backhmid1;
-    public int hintType;
-    public int cameraOrbitX;
-    public int cameraOrbitZ;
-    public int cameraMovedWrite;
-    public int activeMapFunctionCount;
-    public int[] activeMapFunctionX = new int[1000];
-    public int[] activeMapFunctionZ = new int[1000];
-    public int[][] tileRenderCount = new int[104][104];
-    public boolean chatRedrawSettings = false;
-    public boolean errorHost = false;
-    public int objDragCycles;
-    public int[] sceneMapIndex;
-    public int[] skillLevel = new int[50];
-    public NPCEntity[] npcEntities = new NPCEntity[8192];
-    public int npcCount;
-    public int[] npcIndices = new int[8192];
-    public int minimapZoom;
-    public int minimapZoomModifier = 1;
-    public int cameraMaxY;
-    public int worldLocationState;
-    public int dragCycle;
+    public int[] privateMessageIndex = new int[100];
+    public boolean reportAbuseMuteToggle = false;
     public String chatbackMessage;
-    public int[] variables = new int[2000];
+    public int chatScrollY = 78;
+    public int chatEffects;
+    public int chatScrollAmount;
+    public int chatCount;
+
     public int deadEntityCount;
     public int[] deadEntityIndices = new int[1000];
-    public int sidebarHoveredInterfaceIndex;
-    public long[] friendName37 = new long[100];
-    public int selectedCycle;
-    public int selectedInterface;
-    public int selectedItem;
-    public int selectedArea;
-    public int cutsceneLocalX;
-    public int cutsceneLocalY;
-    public int cutsceneHeightOffset;
-    public int cutsceneSpinSpeed;
-    public int cutsceneSpinMultiplier;
-    public int[] minimapLineWidth = new int[151];
-    public CollisionMap[] collisionMaps = new CollisionMap[4];
-    public Sprite[] headicons = new Sprite[20];
-    public int systemUpdateTimer;
-    public int[] cameraJitter = new int[5];
-    public boolean objGrabThreshold = false;
-    public Sprite sprite;
-    public Sprite spriteActive;
-    public int midiSyncCrc;
-    public boolean sidebarRedraw = false;
-    public boolean redrawChatback = false;
-    public int[] cameraAmplitude = new int[5];
-    public boolean cameraOriented = false;
-    public int sceneDelta;
-    public String reportInput = "";
-    public int viewportInterfaceIndex = -1;
-    public int loginFocusedLine;
-    public IndexedSprite[] imageRunes;
-    public boolean ingame = false;
-    public boolean startFlamesThread = false;
-    public int chatPublicSetting;
-    public int chatScrollAmount;
-    public Sprite imageFlamesLeft;
-    public Sprite imageFlamesRight;
-    public int SCROLLBAR_GRIP_LOWLIGHT = 0x332d25;
-    public IndexedSprite inback;
-    public IndexedSprite mapback;
-    public IndexedSprite chatback;
-    public int inMultizone;
-    public Font fontPlain11;
-    public Font fontPlain12;
-    public Font fontBold12;
-    public Font fontQuill8;
-    public int clickedMinimap;
-    public int[] flameIntensity;
-    public int[] flameIntensityBuffer;
-    public int SCROLLBAR_GRIP_HIGHLIGHT = 0x766654;
-    public int[] waypointX = new int[4000];
-    public int[] waypointY = new int[4000];
-    public CRC32 crc32 = new CRC32();
-    public Sprite mapflag;
-    public BufferedStream stream;
-    public byte[][] sceneMapLocData;
+
+    public Component component = new Component();
+    public int flashingSidebarId = -1;
+    public int sidebarInterfaceId = -1;
+    public int menuX;
+    public int menuY;
+    public int menuWidth;
+    public int menuHeight;
+    public int optionCount;
+    public int drawX = -1;
+    public int drawY = -1;
     public int chatbackComponentId = -1;
     public int selectedObject;
     public int selectedObjSlot;
     public int selectedObjInterface;
     public int objInterface;
     public String selectedObjName;
+    public int stickyChatbackComponentId = -1;
+    public int selectedSpell;
+    public int spellInterface;
+    public int selectedFlags;
+    public String selectedSpellPrefix;
+    public int viewportInterfaceIndex = -1;
+    public int selectedTab = 3;
+    public int socialAction;
+    public String[] options = new String[500];
+    public int[] paramA = new int[500];
+    public int[] paramB = new int[500];
+    public int[] paramC = new int[500];
+    public int[] actions = new int[500];
+    public int[] defaultVariables = new int[2000];
+    public int[] variables = new int[2000];
+    public int sidebarHoveredInterfaceIndex;
+    public int selectedCycle;
+    public int selectedInterface;
+    public int selectedItem;
+    public int selectedArea;
+    public boolean objGrabThreshold = false;
+    public int hoveredSlot;
+    public int hoveredSlotParentId;
+    public int openInterfaceId = -1;
+    public int hoveredInterfaceIndex;
+    public boolean menuVisible = false;
+    public boolean chatContinuingDialogue = false;
+    public int objDragComponentId;
+    public int objDragSlot;
+    public int objDragArea;
+    public int objGrabX;
+    public int objGrabY;
+    public int chatHoveredInterfaceIndex;
+    public int[] tabComponentId = {
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1
+    };
+    public boolean chatbackInputType = false;
+    public int viewportHoveredInterfaceIndex;
+    public int objDragCycles;
+    public int dragCycle;
+    public long targetPlayerName;
+    public int button;
+
+    public long lastWaveStartTime;
+    public int lastWaveId = -1;
+    public int[] waveLoops = new int[50];
+    public int[] waveId = new int[50];
+    public int lastWaveLoops = -1;
+    public int waveCount;
+    public int[] waveDelay = new int[50];
+    public int lastWaveLength;
+
+    public boolean sidebarRedrawIcons = false;
+    public boolean sidebarRedraw = false;
+    public boolean redrawChatback = false;
+    public boolean chatRedrawSettings = false;
+    public boolean redrawTitleBackground = false;
+
+    public int MAX_PLAYER_COUNT = 2048;
+    public int LOCAL_PLAYER_INDEX = 2047;
+    public PlayerEntity[] playerEntities = new PlayerEntity[MAX_PLAYER_COUNT];
+    public boolean rights = false;
+    public int playerCount;
+    public int[] playerIndices = new int[MAX_PLAYER_COUNT];
+    public int[] entityUpdateIndices = new int[MAX_PLAYER_COUNT];
+    public Buffer[] playerBuffers = new Buffer[MAX_PLAYER_COUNT];
+    public int selfPlayerId = -1;
+    public int[] characterDesignColors = new int[5];
+    public int energy;
+    public int wildernessLevel;
+    public int[] skillExperience = new int[50];
+    public int[] skillLevel = new int[50];
+    public int[] skillLevelReal = new int[50];
+    public int unreadMessageCount;
+    public int lastLoginIP;
+    public int inMultizone;
+    public int splitPrivateChat;
+    public int privateMessageCount;
+    public int currentLevel;
+    public int daysSinceRecoveryChange;
+    public int daysSinceLogin;
+    public int[][] pathWaypoint = new int[104][104];
+    public int[][] pathDistance = new int[104][104];
+    public int[] waypointX = new int[4000];
+    public int[] waypointY = new int[4000];
+    public boolean characterDesignUpdate = false;
+    public int[] characterDesigns = new int[7];
+    public int chatTradeDuelSetting;
+    public int chatPrivateSetting;
+    public int chatPublicSetting;
+    public int weightCarried;
+
+    public NPCEntity[] npcEntities = new NPCEntity[8192];
+    public int[] npcIndices = new int[8192];
+    public int npcCount;
+
+    public boolean midiActive = true;
+    public boolean midiThreadActive = false;
+    public boolean startMidiThread = false;
+    public final Object midiSync = new Object();
+    public String midiSyncName;
+    public int midiSyncLen;
+    public int midiSyncCrc;
+    public String currentMidi;
+    public int midiSize;
+    public int midiCrc;
+    public int nextMusicDelay;
+
+    public int friendCount;
+    public int ignoreCount;
+    public String[] friendName = new String[100];
+    public long[] friendName37 = new long[100];
+    public int[] friendWorld = new int[100];
+    public long[] ignoreName37 = new long[100];
+
+    public int[] flameBuffer1;
+    public int[] flameBuffer2;
+    public int flameCycle1;
+    public int flameCycle2;
+    public boolean flameActive = false;
+    public int[] flameGradient;
+    public int[] flameGradientRed;
+    public int[] flameGradientGreen;
+    public int[] flameGradientViolet;
+    public int[] flameShiftX = new int[256];
+    public boolean flamesThreadActive = false;
+    public boolean startFlamesThread = false;
+    public int flameOffset;
+    public int[] flameIntensity;
+    public int[] flameIntensityBuffer;
+
+    public int loginFocusedLine;
+    public String loginMessage0 = "";
+    public String loginMessage1 = "";
+    public String username = "";
+    public String password = "";
+
+    public int overheadMessageCount = 50;
+    public int[] chatScreenX = new int[overheadMessageCount];
+    public int[] chatScreenY = new int[overheadMessageCount];
+    public int[] chatHeight = new int[overheadMessageCount];
+    public int[] chatPadding = new int[overheadMessageCount];
+    public int[] chatColors = new int[overheadMessageCount];
+    public int[] chatStyles = new int[overheadMessageCount];
+    public int[] chatTimers = new int[overheadMessageCount];
+    public String[] chatMessages = new String[overheadMessageCount];
+    public String input = "";
+    public boolean effectsEnabled = true;
+
+    public int cameraX;
+    public int cameraY;
+    public int cameraZ;
+    public int cameraPitch;
+    public int cameraOrbitYaw;
+    public int cameraAnticheatOffsetX;
+    public int cameraOffsetXModifier = 2;
+    public int cameraAnticheatOffsetZ;
+    public int cameraOffsetZModifier = 2;
+    public int cameraAnticheatAngle;
+    public int cameraOffsetYawModifier = 1;
+    public int[] cameraFrequency = new int[5];
+    public int[] unknownCameraVariable = new int[5];
+    public int[] cameraAmplitude = new int[5];
+    public boolean cameraOriented = false;
+    public int[] cameraJitter = new int[5];
+    public int cameraMaxY;
+    public int cameraOrbitX;
+    public int cameraOrbitZ;
+    public int cameraMovedWrite;
+    public int cameraOrbitPitch = 128;
+    public int cameraYaw;
+    public int cameraYawModifier;
+    public int cameraPitchModifier;
+    public int cameraOffsetCycle;
+    public boolean[] customCameraActive = new boolean[5];
+    public int cameraLocalX;
+    public int cameraLocalZ;
+    public int cameraHeightOffset;
+    public int cameraSpinSpeed;
+    public int cameraSpinMultiplier;
+    public int cutsceneLocalX;
+    public int cutsceneLocalY;
+    public int cutsceneHeightOffset;
+    public int cutsceneSpinSpeed;
+    public int cutsceneSpinMultiplier;
+
+    public int SCROLLBAR_GRIP_LOWLIGHT = 0x332d25;
+    public int SCROLLBAR_GRIP_HIGHLIGHT = 0x766654;
+    public int SCROLLBAR_TRACK = 0x23201b;
+    public int SCROLLBAR_GRIP_FOREGROUND = 0x4d4233;
+    public int scrollGripInputPadding;
+    public boolean scrollGripHeld = false;
+
+    public Font fontPlain11;
+    public Font fontPlain12;
+    public Font fontBold12;
+    public Font fontQuill8;
+    public Sprite compass;
+    public Sprite[] hitmarks = new Sprite[20];
+    public Sprite[] activeMapFunctions = new Sprite[1000];
+    public Sprite[] headicons = new Sprite[20];
+    public Sprite sprite;
+    public Sprite spriteActive;
+    public Sprite imageFlamesLeft;
+    public Sprite imageFlamesRight;
+    public Sprite mapflag;
+    public Sprite minimap;
+    public Sprite mapdot1;
+    public Sprite mapdot2;
+    public Sprite mapdot3;
+    public Sprite mapdot4;
+    public Sprite[] cross = new Sprite[8];
+    public Sprite[] mapfunction = new Sprite[50];
+    public IndexedSprite[] imageRunes;
+    public IndexedSprite[] sideicons = new IndexedSprite[13];
+    public IndexedSprite scrollbar1;
+    public IndexedSprite scrollbar2;
+    public IndexedSprite redstone1;
+    public IndexedSprite redstone2;
+    public IndexedSprite redstone3;
+    public IndexedSprite redstone1h;
+    public IndexedSprite redstone2h;
+    public IndexedSprite backbase1;
+    public IndexedSprite backbase2;
+    public IndexedSprite backhmid1;
+    public IndexedSprite inback;
+    public IndexedSprite mapback;
+    public IndexedSprite chatback;
+    public IndexedSprite[] mapscene = new IndexedSprite[50];
+    public IndexedSprite redstone1v;
+    public IndexedSprite redstone2v;
+    public IndexedSprite redstone3v;
+    public IndexedSprite redstone1hv;
+    public IndexedSprite redstone2hv;
+    public IndexedSprite imageTitlebox;
+    public IndexedSprite imageTitlebutton;
     public DrawArea backleft1;
     public DrawArea backleft2;
     public DrawArea backright1;
@@ -363,16 +525,6 @@ public class Game extends Applet {
     public DrawArea backvmid2;
     public DrawArea backvmid3;
     public DrawArea backhmid2;
-    public int waveCount;
-    public int drawX = -1;
-    public int drawY = -1;
-    public int stickyChatbackComponentId = -1;
-    public boolean rights = false;
-    public int[] unknownCameraVariable = new int[5];
-    public int selectedSpell;
-    public int spellInterface;
-    public int selectedFlags;
-    public String selectedSpellPrefix;
     public DrawArea titleTop;
     public DrawArea titleBottom;
     public DrawArea titleCenter;
@@ -382,112 +534,14 @@ public class Game extends Applet {
     public DrawArea titleBottomRight;
     public DrawArea titleLeftSpace;
     public DrawArea titleRightSpace;
-    public IndexedSprite[] mapscene = new IndexedSprite[50];
-    public IndexedSprite redstone1v;
-    public IndexedSprite redstone2v;
-    public IndexedSprite redstone3v;
-    public IndexedSprite redstone1hv;
-    public IndexedSprite redstone2hv;
-    public int[] textColors = {
-        0xffff00, 0xff0000, 0xff00, 0xffff, 0xff00ff, 0xffffff
-    };
     public DrawArea areaInvback;
     public DrawArea areaMapback;
     public DrawArea areaViewport;
     public DrawArea areaChatback;
-    public int SCROLLBAR_TRACK = 0x23201b;
-    public int flagTileX;
-    public int flagTileY;
-    public Sprite minimap;
-    public int unreadMessageCount;
-    public boolean chatbackInputType = false;
-    public LinkedList spotanims = new LinkedList();
-    public Sprite mapdot1;
-    public Sprite mapdot2;
-    public Sprite mapdot3;
-    public Sprite mapdot4;
-    public int lastLoginIP;
-    public int viewportHoveredInterfaceIndex;
-    public String midiSyncName;
-    public int lastWaveLoops = -1;
-    public String username = "";
-    public String password = "";
-    public byte[] tmpTexels = new byte[16384];
-    public boolean errorStarted = false;
-    public int energy;
-    public int optionCount;
-    public int[] defaultVariables = new int[2000];
-    public int hintPlayer;
-    public int sceneState;
-    public int[] skillExperience = new int[50];
-    public boolean sidebarRedrawIcons = false;
-    public IndexedSprite scrollbar1;
-    public IndexedSprite scrollbar2;
-    public String loginMessage0 = "";
-    public String loginMessage1 = "";
-    public int minimapAnticheatAngle;
-    public int minimapAngleModifier = 2;
-    public int hoveredSlot;
-    public int hoveredSlotParentId;
-    public int friendCount;
-    public int chatCount;
-    public int overheadMessageCount = 50;
-    public int[] chatScreenX = new int[overheadMessageCount];
-    public int[] chatScreenY = new int[overheadMessageCount];
-    public int[] chatHeight = new int[overheadMessageCount];
-    public int[] chatPadding = new int[overheadMessageCount];
-    public int[] chatColors = new int[overheadMessageCount];
-    public int[] chatStyles = new int[overheadMessageCount];
-    public int[] chatTimers = new int[overheadMessageCount];
-    public String[] chatMessages = new String[overheadMessageCount];
-    public int wildernessLevel;
-    public IndexedSprite imageTitlebox;
-    public IndexedSprite imageTitlebutton;
-    public int titleState;
-    public int midiCrc;
-    public int cameraX;
-    public int cameraY;
-    public int cameraZ;
-    public int cameraPitch;
-    public int cameraOrbitYaw;
-    public int[] compassLineWidth = new int[33];
-    public int[][] pathWaypoint = new int[104][104];
-    public String currentMidi;
-    public Sprite[] cross = new Sprite[8];
-    public boolean flamesThreadActive = false;
-    public int[] waveId = new int[50];
-    public int cameraAnticheatOffsetX;
-    public int cameraOffsetXModifier = 2;
-    public String[] friendName = new String[100];
-    public int flashingSidebarId = -1;
-    public int sidebarInterfaceId = -1;
-    public int cameraAnticheatOffsetZ;
-    public int cameraOffsetZModifier = 2;
-    public int[] minimapLeft = new int[151];
-    public int cameraAnticheatAngle;
-    public int cameraOffsetYawModifier = 1;
-    public FileArchive titleArchive;
-    public String input = "";
-    public Sprite[] mapfunction = new Sprite[50];
-    public int[] paramA = new int[500];
-    public int[] paramB = new int[500];
-    public int[] actions = new int[500];
-    public int[] paramC = new int[500];
-    public boolean scrollGripHeld = false;
-    public Sprite compass;
-    public long serverSeed;
-    public int mouseArea;
-    public int menuX;
-    public int menuY;
-    public int menuWidth;
-    public int menuHeight;
-    public boolean effectsEnabled = true;
-    public int scrollGripInputPadding;
-    public int midiSize;
-    public int flameOffset;
-    public LinkedList[][][] objects = new LinkedList[4][104][104];
-    public int SCROLLBAR_GRIP_FOREGROUND = 0x4d4233;
-    public int[] cameraFrequency = new int[5];
+    public DrawArea areaBackbase1;
+    public DrawArea areaBackbase2;
+    public DrawArea areaBackhmid1;
+
     public Game() {
     }
 
@@ -1223,7 +1277,7 @@ public class Game extends Applet {
                 if (j14 != 0) {
                     LocEntity locEntity = new LocEntity(false, j14 >> 14 & 0x7fff, currentLevel, k11,
                         SeqType.instances[j13], i5, l2);
-                    list.pushNext(locEntity);
+                    locs.pushNext(locEntity);
                 }
             }
             return;
@@ -2233,12 +2287,12 @@ public class Game extends Applet {
                         outBuffer.p1isaac(Packet.Client.MESSAGE_PRIVATE);
                         outBuffer.p1(0);
                         int k = outBuffer.offset;
-                        outBuffer.p8(aLong900);
+                        outBuffer.p8(targetPlayerName);
                         TextEncoder.write(outBuffer, socialInput);
                         outBuffer.pSize(outBuffer.offset - k);
                         socialInput = StringUtils.toSentence(socialInput);
                         socialInput = WordPack.getFiltered(socialInput);
-                        addMessage(6, socialInput, StringUtils.formatName(StringUtils.fromBase37(aLong900)));
+                        addMessage(6, socialInput, StringUtils.formatName(StringUtils.fromBase37(targetPlayerName)));
                         if (chatPrivateSetting == 2) {
                             chatPrivateSetting = 1;
                             chatRedrawSettings = true;
@@ -2291,51 +2345,50 @@ public class Game extends Applet {
                         outBuffer.p1(input.length() - 1);
                         outBuffer.pString(input.substring(2));
                     } else {
-                        int color = 0;
+                        int color = COLOR_YELLOW;
                         if (input.startsWith("yellow:")) {
-                            color = 0;
                             input = input.substring(7);
                         } else if (input.startsWith("red:")) {
-                            color = 1;
+                            color = COLOR_RED;
                             input = input.substring(4);
                         } else if (input.startsWith("green:")) {
-                            color = 2;
+                            color = COLOR_GREEN;
                             input = input.substring(6);
                         } else if (input.startsWith("cyan:")) {
-                            color = 3;
+                            color = COLOR_CYAN;
                             input = input.substring(5);
                         } else if (input.startsWith("purple:")) {
-                            color = 4;
+                            color = COLOR_PURPLE;
                             input = input.substring(7);
                         } else if (input.startsWith("white:")) {
-                            color = 5;
+                            color = COLOR_WHITE;
                             input = input.substring(6);
                         } else if (input.startsWith("flash1:")) {
-                            color = 6;
+                            color = COLOR_FLASH1;
                             input = input.substring(7);
                         } else if (input.startsWith("flash2:")) {
-                            color = 7;
+                            color = COLOR_FLASH2;
                             input = input.substring(7);
                         } else if (input.startsWith("flash3:")) {
-                            color = 8;
+                            color = COLOR_FLASH3;
                             input = input.substring(7);
                         } else if (input.startsWith("glow1:")) {
-                            color = 9;
+                            color = COLOR_GLOW1;
                             input = input.substring(6);
                         } else if (input.startsWith("glow2:")) {
-                            color = 10;
+                            color = COLOR_GLOW2;
                             input = input.substring(6);
                         } else if (input.startsWith("glow3:")) {
-                            color = 11;
+                            color = COLOR_GLOW3;
                             input = input.substring(6);
                         }
 
                         int effect = 0;
                         if (input.startsWith("wave:")) {
-                            effect = 1;
+                            effect = EFFECT_WAVE;
                             input = input.substring(5);
                         } else if (input.startsWith("scroll:")) {
-                            effect = 2;
+                            effect = EFFECT_SCROLL;
                             input = input.substring(7);
                         }
 
@@ -3739,235 +3792,235 @@ public class Game extends Applet {
         updateEntity3(entity);
     }
 
-    public void moveEntity1(PathingEntity pathingEntity) {
-        int j = pathingEntity.firstMoveCycle - clientClock;
-        int k = pathingEntity.srcTileX * 128 + pathingEntity.index * 64;
-        int l = pathingEntity.srcTileY * 128 + pathingEntity.index * 64;
-        pathingEntity.x += (k - pathingEntity.x) / j;
-        pathingEntity.z += (l - pathingEntity.z) / j;
-        pathingEntity.anInt1431 = 0;
-        if (pathingEntity.faceDirection == 0)
-            pathingEntity.dstYaw = 1024;
-        if (pathingEntity.faceDirection == 1)
-            pathingEntity.dstYaw = 1536;
-        if (pathingEntity.faceDirection == 2)
-            pathingEntity.dstYaw = 0;
-        if (pathingEntity.faceDirection == 3)
-            pathingEntity.dstYaw = 512;
+    public void moveEntity1(PathingEntity entity) {
+        int j = entity.firstMoveCycle - clientClock;
+        int k = entity.srcTileX * 128 + entity.index * 64;
+        int l = entity.srcTileY * 128 + entity.index * 64;
+        entity.x += (k - entity.x) / j;
+        entity.z += (l - entity.z) / j;
+        entity.anInt1431 = 0;
+        if (entity.faceDirection == 0)
+            entity.dstYaw = 1024;
+        if (entity.faceDirection == 1)
+            entity.dstYaw = 1536;
+        if (entity.faceDirection == 2)
+            entity.dstYaw = 0;
+        if (entity.faceDirection == 3)
+            entity.dstYaw = 512;
     }
 
-    public void moveEntity2(PathingEntity pathingEntity) {
-        if (pathingEntity.lastMoveCycle == clientClock || pathingEntity.primarySeq == -1
-            || pathingEntity.primarySeqDelay != 0 || pathingEntity.primarySeqCycle
-            + 1 > SeqType.instances[pathingEntity.primarySeq].frameDelay[pathingEntity.primarySeqFrame]) {
-            int j = pathingEntity.lastMoveCycle - pathingEntity.firstMoveCycle;
-            int k = clientClock - pathingEntity.firstMoveCycle;
-            int l = pathingEntity.srcTileX * 128 + pathingEntity.index * 64;
-            int i1 = pathingEntity.srcTileY * 128 + pathingEntity.index * 64;
-            int j1 = pathingEntity.dstTileX * 128 + pathingEntity.index * 64;
-            int k1 = pathingEntity.dstTileY * 128 + pathingEntity.index * 64;
-            pathingEntity.x = (l * (j - k) + j1 * k) / j;
-            pathingEntity.z = (i1 * (j - k) + k1 * k) / j;
+    public void moveEntity2(PathingEntity entity) {
+        if (entity.lastMoveCycle == clientClock || entity.primarySeq == -1
+            || entity.primarySeqDelay != 0 || entity.primarySeqCycle
+            + 1 > SeqType.instances[entity.primarySeq].frameDelay[entity.primarySeqFrame]) {
+            int j = entity.lastMoveCycle - entity.firstMoveCycle;
+            int k = clientClock - entity.firstMoveCycle;
+            int l = entity.srcTileX * 128 + entity.index * 64;
+            int i1 = entity.srcTileY * 128 + entity.index * 64;
+            int j1 = entity.dstTileX * 128 + entity.index * 64;
+            int k1 = entity.dstTileY * 128 + entity.index * 64;
+            entity.x = (l * (j - k) + j1 * k) / j;
+            entity.z = (i1 * (j - k) + k1 * k) / j;
         }
-        pathingEntity.anInt1431 = 0;
-        if (pathingEntity.faceDirection == 0)
-            pathingEntity.dstYaw = 1024;
-        if (pathingEntity.faceDirection == 1)
-            pathingEntity.dstYaw = 1536;
-        if (pathingEntity.faceDirection == 2)
-            pathingEntity.dstYaw = 0;
-        if (pathingEntity.faceDirection == 3)
-            pathingEntity.dstYaw = 512;
-        pathingEntity.animationDelay = pathingEntity.dstYaw;
+        entity.anInt1431 = 0;
+        if (entity.faceDirection == 0)
+            entity.dstYaw = 1024;
+        if (entity.faceDirection == 1)
+            entity.dstYaw = 1536;
+        if (entity.faceDirection == 2)
+            entity.dstYaw = 0;
+        if (entity.faceDirection == 3)
+            entity.dstYaw = 512;
+        entity.animationDelay = entity.dstYaw;
     }
 
-    public void moveEntity3(PathingEntity pathingEntity) {
-        pathingEntity.secondarySeq = pathingEntity.standSeq;
-        if (pathingEntity.pathRemaining == 0) {
-            pathingEntity.anInt1431 = 0;
+    public void moveEntity3(PathingEntity entity) {
+        entity.secondarySeq = entity.standSeq;
+        if (entity.pathRemaining == 0) {
+            entity.anInt1431 = 0;
             return;
         }
-        if (pathingEntity.primarySeq != -1 && pathingEntity.primarySeqDelay == 0) {
-            SeqType seqType = SeqType.instances[pathingEntity.primarySeq];
+        if (entity.primarySeq != -1 && entity.primarySeqDelay == 0) {
+            SeqType seqType = SeqType.instances[entity.primarySeq];
             if (seqType.labelGroups == null) {
-                pathingEntity.anInt1431++;
+                entity.anInt1431++;
                 return;
             }
         }
-        int j = pathingEntity.x;
-        int k = pathingEntity.z;
-        int l = pathingEntity.pathTileX[pathingEntity.pathRemaining - 1] * 128
-            + pathingEntity.index * 64;
-        int i1 = pathingEntity.pathTileZ[pathingEntity.pathRemaining - 1] * 128
-            + pathingEntity.index * 64;
+        int j = entity.x;
+        int k = entity.z;
+        int l = entity.pathTileX[entity.pathRemaining - 1] * 128
+            + entity.index * 64;
+        int i1 = entity.pathTileZ[entity.pathRemaining - 1] * 128
+            + entity.index * 64;
         if (l - j > 256 || l - j < -256 || i1 - k > 256 || i1 - k < -256) {
-            pathingEntity.x = l;
-            pathingEntity.z = i1;
+            entity.x = l;
+            entity.z = i1;
             return;
         }
         if (j < l) {
             if (k < i1)
-                pathingEntity.dstYaw = 1280;
+                entity.dstYaw = 1280;
             else if (k > i1)
-                pathingEntity.dstYaw = 1792;
+                entity.dstYaw = 1792;
             else
-                pathingEntity.dstYaw = 1536;
+                entity.dstYaw = 1536;
         } else if (j > l) {
             if (k < i1)
-                pathingEntity.dstYaw = 768;
+                entity.dstYaw = 768;
             else if (k > i1)
-                pathingEntity.dstYaw = 256;
+                entity.dstYaw = 256;
             else
-                pathingEntity.dstYaw = 512;
+                entity.dstYaw = 512;
         } else if (k < i1)
-            pathingEntity.dstYaw = 1024;
+            entity.dstYaw = 1024;
         else
-            pathingEntity.dstYaw = 0;
-        int j1 = pathingEntity.dstYaw - pathingEntity.animationDelay & 0x7ff;
+            entity.dstYaw = 0;
+        int j1 = entity.dstYaw - entity.animationDelay & 0x7ff;
         if (j1 > 1024)
             j1 -= 2048;
-        int k1 = pathingEntity.walkSeq;
+        int k1 = entity.walkSeq;
         if (j1 >= -256 && j1 <= 256)
-            k1 = pathingEntity.runSeq;
+            k1 = entity.runSeq;
         else if (j1 >= 256 && j1 < 768)
-            k1 = pathingEntity.turnRightSeq;
+            k1 = entity.turnRightSeq;
         else if (j1 >= -768 && j1 <= -256)
-            k1 = pathingEntity.turnAroundSeq;
+            k1 = entity.turnAroundSeq;
         if (k1 == -1)
-            k1 = pathingEntity.runSeq;
-        pathingEntity.secondarySeq = k1;
+            k1 = entity.runSeq;
+        entity.secondarySeq = k1;
         int l1 = 4;
-        if (pathingEntity.animationDelay != pathingEntity.dstYaw && pathingEntity.targetEntity == -1)
+        if (entity.animationDelay != entity.dstYaw && entity.targetEntity == -1)
             l1 = 2;
-        if (pathingEntity.pathRemaining > 2)
+        if (entity.pathRemaining > 2)
             l1 = 6;
-        if (pathingEntity.pathRemaining > 3)
+        if (entity.pathRemaining > 3)
             l1 = 8;
-        if (pathingEntity.anInt1431 > 0 && pathingEntity.pathRemaining > 1) {
+        if (entity.anInt1431 > 0 && entity.pathRemaining > 1) {
             l1 = 8;
-            pathingEntity.anInt1431--;
+            entity.anInt1431--;
         }
-        if (pathingEntity.pathRunning[pathingEntity.pathRemaining - 1])
+        if (entity.pathRunning[entity.pathRemaining - 1])
             l1 <<= 1;
-        if (l1 >= 8 && pathingEntity.secondarySeq == pathingEntity.runSeq && pathingEntity.turnLeftSeq != -1)
-            pathingEntity.secondarySeq = pathingEntity.turnLeftSeq;
+        if (l1 >= 8 && entity.secondarySeq == entity.runSeq && entity.turnLeftSeq != -1)
+            entity.secondarySeq = entity.turnLeftSeq;
         if (j < l) {
-            pathingEntity.x += l1;
-            if (pathingEntity.x > l)
-                pathingEntity.x = l;
+            entity.x += l1;
+            if (entity.x > l)
+                entity.x = l;
         } else if (j > l) {
-            pathingEntity.x -= l1;
-            if (pathingEntity.x < l)
-                pathingEntity.x = l;
+            entity.x -= l1;
+            if (entity.x < l)
+                entity.x = l;
         }
         if (k < i1) {
-            pathingEntity.z += l1;
-            if (pathingEntity.z > i1)
-                pathingEntity.z = i1;
+            entity.z += l1;
+            if (entity.z > i1)
+                entity.z = i1;
         } else if (k > i1) {
-            pathingEntity.z -= l1;
-            if (pathingEntity.z < i1)
-                pathingEntity.z = i1;
+            entity.z -= l1;
+            if (entity.z < i1)
+                entity.z = i1;
         }
-        if (pathingEntity.x == l && pathingEntity.z == i1)
-            pathingEntity.pathRemaining--;
+        if (entity.x == l && entity.z == i1)
+            entity.pathRemaining--;
     }
 
-    public void updateEntity2(PathingEntity pathingEntity) {
-        if (pathingEntity.targetEntity != -1 && pathingEntity.targetEntity < 32768) {
-            NPCEntity npcEntity = npcEntities[pathingEntity.targetEntity];
+    public void updateEntity2(PathingEntity entity) {
+        if (entity.targetEntity != -1 && entity.targetEntity < 32768) {
+            NPCEntity npcEntity = npcEntities[entity.targetEntity];
             if (npcEntity != null) {
-                int l = pathingEntity.x - npcEntity.x;
-                int j1 = pathingEntity.z - npcEntity.z;
+                int l = entity.x - npcEntity.x;
+                int j1 = entity.z - npcEntity.z;
                 if (l != 0 || j1 != 0)
-                    pathingEntity.dstYaw = (int) (Math.atan2(l, j1) * 325.949D) & 0x7ff;
+                    entity.dstYaw = (int) (Math.atan2(l, j1) * 325.949D) & 0x7ff;
             }
         }
-        if (pathingEntity.targetEntity >= 32768) {
-            int i = pathingEntity.targetEntity - 32768;
+        if (entity.targetEntity >= 32768) {
+            int i = entity.targetEntity - 32768;
             if (i == selfPlayerId)
                 i = LOCAL_PLAYER_INDEX;
             PlayerEntity playerEntity = playerEntities[i];
             if (playerEntity != null) {
-                int k1 = pathingEntity.x - playerEntity.x;
-                int l1 = pathingEntity.z - playerEntity.z;
+                int k1 = entity.x - playerEntity.x;
+                int l1 = entity.z - playerEntity.z;
                 if (k1 != 0 || l1 != 0)
-                    pathingEntity.dstYaw = (int) (Math.atan2(k1, l1) * 325.949D) & 0x7ff;
+                    entity.dstYaw = (int) (Math.atan2(k1, l1) * 325.949D) & 0x7ff;
             }
         }
-        if ((pathingEntity.focusX != 0 || pathingEntity.focusY != 0) && (pathingEntity.pathRemaining == 0 || pathingEntity.anInt1431 > 0)) {
-            int targetX = pathingEntity.x - (pathingEntity.focusX - baseTileX - baseTileX) * 64;
-            int targetZ = pathingEntity.z - (pathingEntity.focusY - baseTileZ - baseTileZ) * 64;
+        if ((entity.focusX != 0 || entity.focusY != 0) && (entity.pathRemaining == 0 || entity.anInt1431 > 0)) {
+            int targetX = entity.x - (entity.focusX - baseTileX - baseTileX) * 64;
+            int targetZ = entity.z - (entity.focusY - baseTileZ - baseTileZ) * 64;
             if (targetX != 0 || targetZ != 0) {
-                pathingEntity.dstYaw = (int) (Math.atan2(targetX, targetZ) * 325.949D) & 0x7ff;
+                entity.dstYaw = (int) (Math.atan2(targetX, targetZ) * 325.949D) & 0x7ff;
             }
-            pathingEntity.focusX = 0;
-            pathingEntity.focusY = 0;
+            entity.focusX = 0;
+            entity.focusY = 0;
         }
-        int k = pathingEntity.dstYaw - pathingEntity.animationDelay & 0x7ff;
+        int k = entity.dstYaw - entity.animationDelay & 0x7ff;
         if (k != 0) {
             if (k < 32 || k > 2016)
-                pathingEntity.animationDelay = pathingEntity.dstYaw;
+                entity.animationDelay = entity.dstYaw;
             else if (k > 1024)
-                pathingEntity.animationDelay -= 32;
+                entity.animationDelay -= 32;
             else
-                pathingEntity.animationDelay += 32;
-            pathingEntity.animationDelay &= 0x7ff;
-            if (pathingEntity.secondarySeq == pathingEntity.standSeq
-                && pathingEntity.animationDelay != pathingEntity.dstYaw) {
-                if (pathingEntity.turnSeq != -1) {
-                    pathingEntity.secondarySeq = pathingEntity.turnSeq;
+                entity.animationDelay += 32;
+            entity.animationDelay &= 0x7ff;
+            if (entity.secondarySeq == entity.standSeq
+                && entity.animationDelay != entity.dstYaw) {
+                if (entity.turnSeq != -1) {
+                    entity.secondarySeq = entity.turnSeq;
                     return;
                 }
-                pathingEntity.secondarySeq = pathingEntity.runSeq;
+                entity.secondarySeq = entity.runSeq;
             }
         }
     }
 
-    public void updateEntity3(PathingEntity pathingEntity) {
+    public void updateEntity3(PathingEntity entity) {
         try {
-            pathingEntity.animationStretches = false;
-            if (pathingEntity.secondarySeq != -1) {
-                SeqType seqType = SeqType.instances[pathingEntity.secondarySeq];
-                pathingEntity.anInt1406++;
-                if (pathingEntity.secondarySeqFrame < seqType.frameCount
-                    && pathingEntity.anInt1406 > seqType.frameDelay[pathingEntity.secondarySeqFrame]) {
-                    pathingEntity.anInt1406 = 0;
-                    pathingEntity.secondarySeqFrame++;
+            entity.animationStretches = false;
+            if (entity.secondarySeq != -1) {
+                SeqType seqType = SeqType.instances[entity.secondarySeq];
+                entity.anInt1406++;
+                if (entity.secondarySeqFrame < seqType.frameCount
+                    && entity.anInt1406 > seqType.frameDelay[entity.secondarySeqFrame]) {
+                    entity.anInt1406 = 0;
+                    entity.secondarySeqFrame++;
                 }
-                if (pathingEntity.secondarySeqFrame >= seqType.frameCount) {
-                    pathingEntity.anInt1406 = 0;
-                    pathingEntity.secondarySeqFrame = 0;
+                if (entity.secondarySeqFrame >= seqType.frameCount) {
+                    entity.anInt1406 = 0;
+                    entity.secondarySeqFrame = 0;
                 }
             }
-            if (pathingEntity.primarySeq != -1 && pathingEntity.primarySeqDelay == 0) {
-                SeqType seqType = SeqType.instances[pathingEntity.primarySeq];
-                for (pathingEntity.primarySeqCycle++; pathingEntity.primarySeqFrame < seqType.frameCount
-                    && pathingEntity.primarySeqCycle > seqType.frameDelay[pathingEntity.primarySeqFrame]; pathingEntity.primarySeqFrame++)
-                    pathingEntity.primarySeqCycle -= seqType.frameDelay[pathingEntity.primarySeqFrame];
+            if (entity.primarySeq != -1 && entity.primarySeqDelay == 0) {
+                SeqType seqType = SeqType.instances[entity.primarySeq];
+                for (entity.primarySeqCycle++; entity.primarySeqFrame < seqType.frameCount
+                    && entity.primarySeqCycle > seqType.frameDelay[entity.primarySeqFrame]; entity.primarySeqFrame++)
+                    entity.primarySeqCycle -= seqType.frameDelay[entity.primarySeqFrame];
 
-                if (pathingEntity.primarySeqFrame >= seqType.frameCount) {
-                    pathingEntity.primarySeqFrame -= seqType.delay;
-                    pathingEntity.primarySeqPlays++;
-                    if (pathingEntity.primarySeqPlays >= seqType.replays)
-                        pathingEntity.primarySeq = -1;
-                    if (pathingEntity.primarySeqFrame < 0 || pathingEntity.primarySeqFrame >= seqType.frameCount)
-                        pathingEntity.primarySeq = -1;
+                if (entity.primarySeqFrame >= seqType.frameCount) {
+                    entity.primarySeqFrame -= seqType.delay;
+                    entity.primarySeqPlays++;
+                    if (entity.primarySeqPlays >= seqType.replays)
+                        entity.primarySeq = -1;
+                    if (entity.primarySeqFrame < 0 || entity.primarySeqFrame >= seqType.frameCount)
+                        entity.primarySeq = -1;
                 }
-                pathingEntity.animationStretches = seqType.renderPadding;
+                entity.animationStretches = seqType.renderPadding;
             }
-            if (pathingEntity.primarySeqDelay > 0)
-                pathingEntity.primarySeqDelay--;
-            if (pathingEntity.spotAnimIndex != -1 && clientClock >= pathingEntity.lastSpotAnimCycle) {
-                if (pathingEntity.spotAnimFrame < 0)
-                    pathingEntity.spotAnimFrame = 0;
-                SeqType seqType = SpotAnimType.instances[pathingEntity.spotAnimIndex].seq;
-                for (pathingEntity.spotAnimCycle++; pathingEntity.spotAnimFrame < seqType.frameCount && pathingEntity.spotAnimCycle > seqType.frameDelay[pathingEntity.spotAnimFrame]; pathingEntity.spotAnimFrame++) {
-                    pathingEntity.spotAnimCycle -= seqType.frameDelay[pathingEntity.spotAnimFrame];
+            if (entity.primarySeqDelay > 0)
+                entity.primarySeqDelay--;
+            if (entity.spotAnimIndex != -1 && clientClock >= entity.lastSpotAnimCycle) {
+                if (entity.spotAnimFrame < 0)
+                    entity.spotAnimFrame = 0;
+                SeqType seqType = SpotAnimType.instances[entity.spotAnimIndex].seq;
+                for (entity.spotAnimCycle++; entity.spotAnimFrame < seqType.frameCount && entity.spotAnimCycle > seqType.frameDelay[entity.spotAnimFrame]; entity.spotAnimFrame++) {
+                    entity.spotAnimCycle -= seqType.frameDelay[entity.spotAnimFrame];
                 }
 
-                if (pathingEntity.spotAnimFrame >= seqType.frameCount && (pathingEntity.spotAnimFrame < 0 || pathingEntity.spotAnimFrame >= seqType.frameCount))
-                    pathingEntity.spotAnimIndex = -1;
+                if (entity.spotAnimFrame >= seqType.frameCount && (entity.spotAnimFrame < 0 || entity.spotAnimFrame >= seqType.frameCount))
+                    entity.spotAnimIndex = -1;
             }
         } catch (Exception ignored) {
         }
@@ -4518,7 +4571,7 @@ public class Game extends Applet {
                     showSocialInput = true;
                     socialInput = "";
                     socialAction = 3;
-                    aLong900 = friendName37[i4];
+                    targetPlayerName = friendName37[i4];
                     socialMessage = "Enter message to send to " + friendName[i4];
                 }
             }
@@ -6094,7 +6147,7 @@ public class Game extends Applet {
             stream.read(inBuffer.data, 0, 8);
             inBuffer.offset = 0;
 
-            serverSeed = inBuffer.g8();
+            long serverSeed = inBuffer.g8();
             int[] isaacSeed = new int[4];
             isaacSeed[0] = (int) (Math.random() * 99999999D);
             isaacSeed[1] = (int) (Math.random() * 99999999D);
@@ -6367,7 +6420,7 @@ public class Game extends Applet {
                 int j3 = l1;
                 if (j3 < 3 && (levelRenderFlags[1][j][k] & 2) == 2)
                     j3++;
-                SceneManager.addLoc(j, list, collisionMaps[l1], k, i, levelHeightMaps, l1, i1, j1,
+                SceneManager.addLoc(j, locs, collisionMaps[l1], k, i, levelHeightMaps, l1, i1, j1,
                     mapSquare, j3);
             }
         }
@@ -6489,7 +6542,7 @@ public class Game extends Applet {
         temporaryLocs = null;
         projectiles = null;
         spotanims = null;
-        list = null;
+        locs = null;
         paramA = null;
         paramB = null;
         actions = null;
@@ -7819,7 +7872,7 @@ public class Game extends Applet {
         try {
             lastSceneLevel = -1;
             temporaryLocs.clear();
-            list.clear();
+            locs.clear();
             spotanims.clear();
             projectiles.clear();
             Draw3D.clearPools();
@@ -7871,7 +7924,7 @@ public class Game extends Applet {
                     BZip2InputStream.read(dest, uncompressedLength, data, data.length - 4, 4);
                     int relX = (sceneMapIndex[n] >> 8) * 64 - baseTileX;
                     int relZ = (sceneMapIndex[n] & 0xff) * 64 - baseTileZ;
-                    sceneManager.readLocs(dest, mapSquare, collisionMaps, list, relZ, relX);
+                    sceneManager.readLocs(dest, mapSquare, collisionMaps, locs, relZ, relX);
                 }
             }
 
@@ -7879,7 +7932,7 @@ public class Game extends Applet {
             sceneManager.buildLandscape(mapSquare, collisionMaps);
             areaViewport.bind();
             outBuffer.p1isaac(Packet.Client.KEEPALIVE);
-            for (LocEntity locEntity = (LocEntity) list.peekLast(); locEntity != null; locEntity = (LocEntity) list.getPrevious()) {
+            for (LocEntity locEntity = (LocEntity) locs.peekLast(); locEntity != null; locEntity = (LocEntity) locs.getPrevious()) {
                 if ((levelRenderFlags[1][locEntity.tileX][locEntity.tileZ] & 2) == 2) {
                     locEntity.level--;
                     if (locEntity.level < 0) {
@@ -7961,17 +8014,17 @@ public class Game extends Applet {
                 int opcode;
                 do {
                     opcode = code[position++];
-                    if (opcode == INTERFACE_OPCODE_RETURN) {
+                    if (opcode == OPCODE_RETURN) {
                         return a;
                     }
 
-                    if (opcode == INTERFACE_OPCODE_SKILL_LEVEL_REAL) {
+                    if (opcode == OPCODE_SKILL_LEVEL_REAL) {
                         a += skillLevelReal[code[position++]];
-                    } else if (opcode == INTERFACE_OPCODE_SKILL_LEVEL) {
+                    } else if (opcode == OPCODE_SKILL_LEVEL) {
                         a += skillLevel[code[position++]];
-                    } else if (opcode == INTERFACE_OPCODE_SKILL_LEVEL_EXPERIENCE) {
+                    } else if (opcode == OPCODE_SKILL_LEVEL_EXPERIENCE) {
                         a += skillExperience[code[position++]];
-                    } else if (opcode == INTERFACE_OPCODE_INVENTORY_ITEM_AMOUNT) {
+                    } else if (opcode == OPCODE_INVENTORY_ITEM_AMOUNT) {
                         Component c = Component.instances[code[position++]];
                         int itemId = code[position++] + 1;
                         for (int n = 0; n < c.inventoryIndices.length; n++) {
@@ -7979,22 +8032,22 @@ public class Game extends Applet {
                                 a += c.inventoryAmount[n];
                             }
                         }
-                    } else if (opcode == INTERFACE_OPCODE_VARIABLE) {
+                    } else if (opcode == OPCODE_VARIABLE) {
                         a += variables[code[position++]];
-                    } else if (opcode == INTERFACE_OPCODE_SKILL_EXPERIENCE) {
+                    } else if (opcode == OPCODE_SKILL_EXPERIENCE) {
                         a += EXPERIENCE_TABLE[skillLevel[code[position++]] - 1];
-                    } else if (opcode == INTERFACE_OPCODE_VARIABLE_MUL) {
+                    } else if (opcode == OPCODE_VARIABLE_MUL) {
                         a += (variables[code[position++]] * 100) / 46875;
-                    } else if (opcode == INTERFACE_OPCODE_COMBAT_LEVEL) {
+                    } else if (opcode == OPCODE_COMBAT_LEVEL) {
                         a += self.combatLevel;
-                    } else if (opcode == INTERFACE_OPCODE_TOTAL_LEVEL) {
+                    } else if (opcode == OPCODE_TOTAL_LEVEL) {
                         for (int n = 0; n < 19; n++) {
                             if (n == 18) {
                                 n = 20;
                             }
                             a += skillLevel[n];
                         }
-                    } else if (opcode == INTERFACE_OPCODE_INVENTORY_CAPACITY) {
+                    } else if (opcode == OPCODE_INVENTORY_CAPACITY) {
                         Component c = Component.instances[code[position++]];
                         int itemId = code[position++] + 1;
                         for (int n = 0; n < c.inventoryIndices.length; n++) {
@@ -8004,9 +8057,9 @@ public class Game extends Applet {
                             a += 999999999;
                             break;
                         }
-                    } else if (opcode == INTERFACE_OPCODE_ENERGY) {
+                    } else if (opcode == OPCODE_ENERGY) {
                         a += energy;
-                    } else if (opcode == INTERFACE_OPCODE_WEIGHT) {
+                    } else if (opcode == OPCODE_WEIGHT) {
                         a += weightCarried;
                     }
                 } while (opcode != 13);
@@ -8148,8 +8201,8 @@ public class Game extends Applet {
     }
 
     public void updateSceneSeqLocs() {
-        for (LocEntity e = (LocEntity) list
-            .peekLast(); e != null; e = (LocEntity) list.getPrevious()) {
+        for (LocEntity e = (LocEntity) locs
+            .peekLast(); e != null; e = (LocEntity) locs.getPrevious()) {
             boolean append = false;
             e.seqCycle += sceneDelta;
             if (e.seqFrame == -1) {
