@@ -474,20 +474,20 @@ public class CollisionMap {
         return false;
     }
 
-    public boolean reachedObject(int y, int depth, int x, int finalX, int surroundings, int finalZ, int width) {
+    public boolean reachedObject(int z, int depth, int x, int finalX, int surroundings, int finalZ, int width) {
         int maxX = (finalX + width) - 1;
         int maxZ = (finalZ + depth) - 1;
 
-        if (x >= finalX && x <= maxX && y >= finalZ && y <= maxZ) {
+        if (x >= finalX && x <= maxX && z >= finalZ && z <= maxZ) {
             return true;
-        } else if (x == finalX - 1 && y >= finalZ && y <= maxZ && (flags[x - xOffset][y - zOffset] & WALL_EAST) == 0 && (surroundings & 8) == 0) {
+        } else if (x == finalX - 1 && z >= finalZ && z <= maxZ && (flags[x - xOffset][z - zOffset] & WALL_EAST) == 0 && (surroundings & 8) == 0) {
             return true;
-        } else if (x == maxX + 1 && y >= finalZ && y <= maxZ && (flags[x - xOffset][y - zOffset] & WALL_WEST) == 0 && (surroundings & 2) == 0) {
+        } else if (x == maxX + 1 && z >= finalZ && z <= maxZ && (flags[x - xOffset][z - zOffset] & WALL_WEST) == 0 && (surroundings & 2) == 0) {
             return true;
-        } else if (y == finalZ - 1 && x >= finalX && x <= maxX && (flags[x - xOffset][y - zOffset] & WALL_NORTH) == 0 && (surroundings & 4) == 0) {
+        } else if (z == finalZ - 1 && x >= finalX && x <= maxX && (flags[x - xOffset][z - zOffset] & WALL_NORTH) == 0 && (surroundings & 4) == 0) {
             return true;
         }
 
-        return y == maxZ + 1 && x >= finalX && x <= maxX && (flags[x - xOffset][y - zOffset] & WALL_SOUTH) == 0 && (surroundings & 1) == 0;
+        return z == maxZ + 1 && x >= finalX && x <= maxX && (flags[x - xOffset][z - zOffset] & WALL_SOUTH) == 0 && (surroundings & 1) == 0;
     }
 }

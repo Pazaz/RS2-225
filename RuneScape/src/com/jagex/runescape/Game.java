@@ -234,8 +234,8 @@ public class Game extends Applet {
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
         -1, -1, -1, -1, -1
     };
-    public int playerPositionZ;
-    public int playerPositionX;
+    public int localPosX;
+    public int localPosZ;
     public boolean errorLoading = false;
     public int hoveredInterfaceIndex;
     public boolean showSocialInput = false;
@@ -1143,8 +1143,8 @@ public class Game extends Applet {
     public void readSecondaryPacket(Buffer b, int opcode) {
         if (opcode == Packet.Server.ADD_LOCATION || opcode == Packet.Server.LOC_DEL) {
             int j = b.g1();
-            int k2 = playerPositionZ + (j >> 4 & 7);
-            int l4 = playerPositionX + (j & 7);
+            int k2 = localPosX + (j >> 4 & 7);
+            int l4 = localPosZ + (j & 7);
             int i7 = b.g1();
             int j9 = i7 >> 2;
             int j11 = i7 & 3;
@@ -1204,8 +1204,8 @@ public class Game extends Applet {
         }
         if (opcode == Packet.Server.LOC_ANIM) {
             int k = b.g1();
-            int l2 = playerPositionZ + (k >> 4 & 7);
-            int i5 = playerPositionX + (k & 7);
+            int l2 = localPosX + (k >> 4 & 7);
+            int i5 = localPosZ + (k & 7);
             int j7 = b.g1();
             int k9 = j7 >> 2;
             int k11 = objectGroups[k9];
@@ -1230,28 +1230,29 @@ public class Game extends Applet {
         }
         if (opcode == Packet.Server.ADD_OBJECT_STACK) {
             int l = b.g1();
-            int i3 = playerPositionZ + (l >> 4 & 7);
-            int j5 = playerPositionX + (l & 7);
+            int x = localPosX + (l >> 4 & 7);
+            int z = localPosZ + (l & 7);
             int k7 = b.g2();
             int l9 = b.g2();
-            if (i3 >= 0 && j5 >= 0 && i3 < 104 && j5 < 104) {
+            if (x >= 0 && z >= 0 && x < 104 && z < 104) {
                 ObjStackEntity objStackEntity = new ObjStackEntity();
                 objStackEntity.model = k7;
                 objStackEntity.amount = l9;
-                if (objects[currentLevel][i3][j5] == null)
-                    objects[currentLevel][i3][j5] = new LinkedList();
-                objects[currentLevel][i3][j5].pushNext(objStackEntity);
-                updateObjectStack(i3, j5);
+                if (objects[currentLevel][x][z] == null) {
+                    objects[currentLevel][x][z] = new LinkedList();
+                }
+                objects[currentLevel][x][z].pushNext(objStackEntity);
+                updateObjectStack(x, z);
             }
             return;
         }
         if (opcode == Packet.Server.REMOVE_OBJECT_STACK) {
             int i1 = b.g1();
-            int j3 = playerPositionZ + (i1 >> 4 & 7);
-            int k5 = playerPositionX + (i1 & 7);
+            int x = localPosX + (i1 >> 4 & 7);
+            int z = localPosZ + (i1 & 7);
             int l7 = b.g2();
-            if (j3 >= 0 && k5 >= 0 && j3 < 104 && k5 < 104) {
-                LinkedList linkedList = objects[currentLevel][j3][k5];
+            if (x >= 0 && z >= 0 && x < 104 && z < 104) {
+                LinkedList linkedList = objects[currentLevel][x][z];
                 if (linkedList != null) {
                     for (ObjStackEntity objStackEntity_1 = (ObjStackEntity) linkedList
                         .peekLast(); objStackEntity_1 != null; objStackEntity_1 = (ObjStackEntity) linkedList
@@ -1263,16 +1264,16 @@ public class Game extends Applet {
                     }
 
                     if (linkedList.peekLast() == null)
-                        objects[currentLevel][j3][k5] = null;
-                    updateObjectStack(j3, k5);
+                        objects[currentLevel][x][z] = null;
+                    updateObjectStack(x, z);
                 }
             }
             return;
         }
         if (opcode == Packet.Server.ADD_PROJECTILE) {
             int j1 = b.g1();
-            int k3 = playerPositionZ + (j1 >> 4 & 7);
-            int l5 = playerPositionX + (j1 & 7);
+            int k3 = localPosX + (j1 >> 4 & 7);
+            int l5 = localPosZ + (j1 & 7);
             int i8 = k3 + b.g1s();
             int i10 = l5 + b.g1s();
             int l11 = b.g2s();
@@ -1297,8 +1298,8 @@ public class Game extends Applet {
         }
         if (opcode == Packet.Server.SPOTANIM_SPECIFIC) {
             int k1 = b.g1();
-            int l3 = playerPositionZ + (k1 >> 4 & 7);
-            int i6 = playerPositionX + (k1 & 7);
+            int l3 = localPosX + (k1 >> 4 & 7);
+            int i6 = localPosZ + (k1 & 7);
             int j8 = b.g2();
             int j10 = b.g1();
             int i12 = b.g2();
@@ -1313,26 +1314,27 @@ public class Game extends Applet {
         }
         if (opcode == Packet.Server.ADD_PRIVATE_OBJECT_STACK) {
             int l1 = b.g1();
-            int i4 = playerPositionZ + (l1 >> 4 & 7);
-            int j6 = playerPositionX + (l1 & 7);
+            int x = localPosX + (l1 >> 4 & 7);
+            int z = localPosZ + (l1 & 7);
             int k8 = b.g2();
             int k10 = b.g2();
             int j12 = b.g2();
-            if (i4 >= 0 && j6 >= 0 && i4 < 104 && j6 < 104 && j12 != selfPlayerId) {
-                ObjStackEntity objStackEntity_2 = new ObjStackEntity();
-                objStackEntity_2.model = k8;
-                objStackEntity_2.amount = k10;
-                if (objects[currentLevel][i4][j6] == null)
-                    objects[currentLevel][i4][j6] = new LinkedList();
-                objects[currentLevel][i4][j6].pushNext(objStackEntity_2);
-                updateObjectStack(i4, j6);
+            if (x >= 0 && z >= 0 && x < 104 && z < 104 && j12 != selfPlayerId) {
+                ObjStackEntity obj = new ObjStackEntity();
+                obj.model = k8;
+                obj.amount = k10;
+                if (objects[currentLevel][x][z] == null) {
+                    objects[currentLevel][x][z] = new LinkedList();
+                }
+                objects[currentLevel][x][z].pushNext(obj);
+                updateObjectStack(x, z);
             }
             return;
         }
         if (opcode == Packet.Server.ATTACH_TEMPORARY_LOCATION_TO_PLAYER) {
             int i2 = b.g1();
-            int j4 = playerPositionZ + (i2 >> 4 & 7);
-            int k6 = playerPositionX + (i2 & 7);
+            int x = localPosX + (i2 >> 4 & 7);
+            int z = localPosZ + (i2 & 7);
             int l8 = b.g1();
             int l10 = l8 >> 2;
             int k12 = l8 & 3;
@@ -1351,14 +1353,14 @@ public class Game extends Applet {
             else
                 e = playerEntities[k16];
             if (e != null) {
-                TemporaryLoc loc1 = new TemporaryLoc(currentLevel, k12, k6, j15 + clientClock, l10, -1, j4, l13);
+                TemporaryLoc loc1 = new TemporaryLoc(currentLevel, k12, z, j15 + clientClock, l10, -1, x, l13);
                 temporaryLocs.pushNext(loc1);
-                TemporaryLoc loc2 = new TemporaryLoc(currentLevel, k12, k6, l15 + clientClock, l10, l14, j4, l13);
+                TemporaryLoc loc2 = new TemporaryLoc(currentLevel, k12, z, l15 + clientClock, l10, l14, x, l13);
                 temporaryLocs.pushNext(loc2);
-                int j18 = levelHeightMaps[currentLevel][j4][k6];
-                int k18 = levelHeightMaps[currentLevel][j4 + 1][k6];
-                int l18 = levelHeightMaps[currentLevel][j4 + 1][k6 + 1];
-                int i19 = levelHeightMaps[currentLevel][j4][k6 + 1];
+                int j18 = levelHeightMaps[currentLevel][x][z];
+                int k18 = levelHeightMaps[currentLevel][x + 1][z];
+                int l18 = levelHeightMaps[currentLevel][x + 1][z + 1];
+                int i19 = levelHeightMaps[currentLevel][x][z + 1];
                 LocType locType = LocType.get(l14);
                 e.locFirstCycle = j15 + clientClock;
                 e.locLastCycle = l15 + clientClock;
@@ -1369,8 +1371,8 @@ public class Game extends Applet {
                     j19 = locType.sizeZ;
                     k19 = locType.sizeX;
                 }
-                e.locSceneX = j4 * 128 + j19 * 64;
-                e.locSceneZ = k6 * 128 + k19 * 64;
+                e.locSceneX = x * 128 + j19 * 64;
+                e.locSceneZ = z * 128 + k19 * 64;
                 e.locSceneY = getLandY(currentLevel, e.locSceneX,
                     e.locSceneZ);
                 if (byte1 > byte3) {
@@ -1383,32 +1385,33 @@ public class Game extends Applet {
                     byte2 = byte4;
                     byte4 = byte6;
                 }
-                e.locMinTileX = j4 + byte1;
-                e.locMaxTileX = j4 + byte3;
-                e.locMinTileZ = k6 + byte2;
-                e.locMaxTileZ = k6 + byte4;
+                e.locMinTileX = x + byte1;
+                e.locMaxTileX = x + byte3;
+                e.locMinTileZ = z + byte2;
+                e.locMaxTileZ = z + byte4;
             }
         }
         if (opcode == Packet.Server.UPDATE_OBJECT_STACK) {
             int j2 = b.g1();
-            int k4 = playerPositionZ + (j2 >> 4 & 7);
-            int l6 = playerPositionX + (j2 & 7);
+            int x = localPosX + (j2 >> 4 & 7);
+            int z = localPosZ + (j2 & 7);
             int i9 = b.g2();
             int i11 = b.g2();
             int l12 = b.g2();
-            if (k4 >= 0 && l6 >= 0 && k4 < 104 && l6 < 104) {
-                LinkedList objects = this.objects[currentLevel][k4][l6];
-                if (objects != null) {
-                    for (ObjStackEntity stack = (ObjStackEntity) objects
-                        .peekLast(); stack != null; stack = (ObjStackEntity) objects
+            if (x >= 0 && z >= 0 && x < 104 && z < 104) {
+                LinkedList obj = objects[currentLevel][x][z];
+                if (obj != null) {
+                    for (ObjStackEntity objStack = (ObjStackEntity) obj
+                        .peekLast(); objStack != null; objStack = (ObjStackEntity) obj
                         .getPrevious()) {
-                        if (stack.model != (i9 & 0x7fff) || stack.amount != i11)
+                        if (objStack.model != (i9 & 0x7fff) || objStack.amount != i11) {
                             continue;
-                        stack.amount = l12;
+                        }
+                        objStack.amount = l12;
                         break;
                     }
 
-                    updateObjectStack(k4, l6);
+                    updateObjectStack(x, z);
                 }
             }
         }
@@ -2050,8 +2053,10 @@ public class Game extends Applet {
     }
 
     public void updateScenePlayers() {
-        if (self.x >> 7 == flagTileX && self.z >> 7 == flagTileY)
+        if (self.x >> 7 == flagTileX && self.z >> 7 == flagTileY) {
             flagTileX = 0;
+        }
+
         for (int j = -1; j < playerCount; j++) {
             PlayerEntity playerEntity;
             int k;
@@ -2062,20 +2067,21 @@ public class Game extends Applet {
                 playerEntity = playerEntities[playerIndices[j]];
                 k = playerIndices[j] << 14;
             }
-            if (playerEntity == null || !playerEntity.isValid(false))
+
+            if (playerEntity == null || !playerEntity.isValid(false)) {
                 continue;
-            playerEntity.lowMemory = (lowMemory && playerCount > 50 || playerCount > 200) && j != -1
-                && playerEntity.secondarySeq == playerEntity.standSeq;
-            int l = playerEntity.x >> 7;
-            int i1 = playerEntity.z >> 7;
-            if (l < 0 || l >= 104 || i1 < 0 || i1 >= 104)
+            }
+
+            playerEntity.lowMemory = (lowMemory && playerCount > 50 || playerCount > 200) && j != -1 && playerEntity.secondarySeq == playerEntity.standSeq;
+            int x = playerEntity.x >> 7;
+            int z = playerEntity.z >> 7;
+            if (x < 0 || x >= 104 || z < 0 || z >= 104) {
                 continue;
-            if (playerEntity.locModel != null && clientClock >= playerEntity.locFirstCycle
-                && clientClock < playerEntity.locLastCycle) {
+            }
+
+            if (playerEntity.locModel != null && clientClock >= playerEntity.locFirstCycle && clientClock < playerEntity.locLastCycle) {
                 playerEntity.lowMemory = false;
-                playerEntity.y = getLandY(currentLevel,
-                    playerEntity.x,
-                    playerEntity.z);
+                playerEntity.y = getLandY(currentLevel, playerEntity.x, playerEntity.z);
                 mapSquare.add(playerEntity.locMaxTileX, null,
                     playerEntity.z, playerEntity.y, k,
                     playerEntity.animationDelay, playerEntity.locMinTileZ,
@@ -2083,20 +2089,14 @@ public class Game extends Applet {
                     playerEntity.locMaxTileZ, playerEntity.x);
                 continue;
             }
-            if ((playerEntity.x & 0x7f) == 64
-                && (playerEntity.z & 0x7f) == 64) {
-                if (tileRenderCount[l][i1] == sceneCycle)
+            if ((playerEntity.x & 0x7f) == 64 && (playerEntity.z & 0x7f) == 64) {
+                if (tileRenderCount[x][z] == sceneCycle) {
                     continue;
-                tileRenderCount[l][i1] = sceneCycle;
+                }
+                tileRenderCount[x][z] = sceneCycle;
             }
-            playerEntity.y = getLandY(currentLevel,
-                playerEntity.x,
-                playerEntity.z);
-            mapSquare.add(playerEntity.z, 60,
-                playerEntity.animationDelay,
-                playerEntity.x, k,
-                playerEntity.animationStretches, null, playerEntity,
-                playerEntity.y, currentLevel);
+            playerEntity.y = getLandY(currentLevel, playerEntity.x, playerEntity.z);
+            mapSquare.add(playerEntity.z, 60, playerEntity.animationDelay, playerEntity.x, k, playerEntity.animationStretches, null, playerEntity, playerEntity.y, currentLevel);
         }
     }
 
@@ -2698,12 +2698,12 @@ public class Game extends Applet {
             drawOnMinimap(i2, activeMapFunctions[j3], k);
         }
 
-        for (int k3 = 0; k3 < 104; k3++) {
-            for (int l3 = 0; l3 < 104; l3++) {
-                LinkedList stack = objects[currentLevel][k3][l3];
+        for (int x = 0; x < 104; x++) {
+            for (int z = 0; z < 104; z++) {
+                LinkedList stack = objects[currentLevel][x][z];
                 if (stack != null) {
-                    int l = (k3 * 4 + 2) - self.x / 32;
-                    int j2 = (l3 * 4 + 2) - self.z / 32;
+                    int l = (x * 4 + 2) - self.x / 32;
+                    int j2 = (z * 4 + 2) - self.z / 32;
                     drawOnMinimap(j2, mapdot1, l);
                 }
             }
@@ -2780,19 +2780,19 @@ public class Game extends Applet {
         }
     }
 
-    public void createMinimap(int i) {
+    public void createMinimap(int p) {
         int[] ai = minimap.pixels;
         int k = ai.length;
         for (int l = 0; l < k; l++)
             ai[l] = 0;
 
-        for (int i1 = 1; i1 < 103; i1++) {
-            int j1 = 24628 + (103 - i1) * 512 * 4;
-            for (int l1 = 1; l1 < 103; l1++) {
-                if ((levelRenderFlags[i][l1][i1] & 0x18) == 0)
-                    mapSquare.drawMinimapTile(ai, j1, 512, i, l1, i1);
-                if (i < 3 && (levelRenderFlags[i + 1][l1][i1] & 8) != 0)
-                    mapSquare.drawMinimapTile(ai, j1, 512, i + 1, l1, i1);
+        for (int z = 1; z < 103; z++) {
+            int j1 = 24628 + (103 - z) * 512 * 4;
+            for (int x = 1; x < 103; x++) {
+                if ((levelRenderFlags[p][x][z] & 0x18) == 0)
+                    mapSquare.drawMinimapTile(ai, j1, 512, p, x, z);
+                if (p < 3 && (levelRenderFlags[p + 1][x][z] & 8) != 0)
+                    mapSquare.drawMinimapTile(ai, j1, 512, p + 1, x, z);
                 j1 += 4;
             }
         }
@@ -2801,47 +2801,47 @@ public class Game extends Applet {
             + ((238 + (int) (Math.random() * 20D)) - 10);
         int i2 = (238 + (int) (Math.random() * 20D)) - 10 << 16;
         minimap.prepare();
-        for (int j2 = 1; j2 < 103; j2++) {
-            for (int k2 = 1; k2 < 103; k2++) {
-                if ((levelRenderFlags[i][k2][j2] & 0x18) == 0)
-                    drawMinimapLoc(i, k1, k2, i2, j2);
-                if (i < 3 && (levelRenderFlags[i + 1][k2][j2] & 8) != 0)
-                    drawMinimapLoc(i + 1, k1, k2, i2, j2);
+        for (int z = 1; z < 103; z++) {
+            for (int x = 1; x < 103; x++) {
+                if ((levelRenderFlags[p][x][z] & 0x18) == 0)
+                    drawMinimapLoc(p, k1, x, i2, z);
+                if (p < 3 && (levelRenderFlags[p + 1][x][z] & 8) != 0)
+                    drawMinimapLoc(p + 1, k1, x, i2, z);
             }
 
         }
 
         areaViewport.bind();
         activeMapFunctionCount = 0;
-        for (int l2 = 0; l2 < 104; l2++) {
-            for (int i3 = 0; i3 < 104; i3++) {
-                int j3 = mapSquare.getGroundDecorationBitset(currentLevel, l2, i3);
+        for (int x = 0; x < 104; x++) {
+            for (int z = 0; z < 104; z++) {
+                int j3 = mapSquare.getGroundDecorationBitset(currentLevel, x, z);
                 if (j3 != 0) {
                     j3 = j3 >> 14 & 0x7fff;
                     int k3 = LocType.get(j3).mapfunction;
                     if (k3 >= 0) {
-                        int l3 = l2;
-                        int i4 = i3;
+                        int tempX = x;
+                        int tempZ = z;
                         if (k3 != 22 && k3 != 29 && k3 != 34 && k3 != 36 && k3 != 46 && k3 != 47 && k3 != 48) {
                             byte byte0 = 104;
                             byte byte1 = 104;
                             int[][] ai1 = collisionMaps[currentLevel].flags;
                             for (int j4 = 0; j4 < 10; j4++) {
                                 int k4 = (int) (Math.random() * 4D);
-                                if (k4 == 0 && l3 > 0 && l3 > l2 - 3 && (ai1[l3 - 1][i4] & 0x280108) == 0)
-                                    l3--;
-                                if (k4 == 1 && l3 < byte0 - 1 && l3 < l2 + 3 && (ai1[l3 + 1][i4] & 0x280180) == 0)
-                                    l3++;
-                                if (k4 == 2 && i4 > 0 && i4 > i3 - 3 && (ai1[l3][i4 - 1] & 0x280102) == 0)
-                                    i4--;
-                                if (k4 == 3 && i4 < byte1 - 1 && i4 < i3 + 3 && (ai1[l3][i4 + 1] & 0x280120) == 0)
-                                    i4++;
+                                if (k4 == 0 && tempX > 0 && tempX > x - 3 && (ai1[tempX - 1][tempZ] & 0x280108) == 0)
+                                    tempX--;
+                                if (k4 == 1 && tempX < byte0 - 1 && tempX < x + 3 && (ai1[tempX + 1][tempZ] & 0x280180) == 0)
+                                    tempX++;
+                                if (k4 == 2 && tempZ > 0 && tempZ > z - 3 && (ai1[tempX][tempZ - 1] & 0x280102) == 0)
+                                    tempZ--;
+                                if (k4 == 3 && tempZ < byte1 - 1 && tempZ < z + 3 && (ai1[tempX][tempZ + 1] & 0x280120) == 0)
+                                    tempZ++;
                             }
 
                         }
                         activeMapFunctions[activeMapFunctionCount] = mapfunction[k3];
-                        activeMapFunctionX[activeMapFunctionCount] = l3;
-                        activeMapFunctionZ[activeMapFunctionCount] = i4;
+                        activeMapFunctionX[activeMapFunctionCount] = tempX;
+                        activeMapFunctionZ[activeMapFunctionCount] = tempZ;
                         activeMapFunctionCount++;
                     }
                 }
@@ -3181,16 +3181,16 @@ public class Game extends Applet {
             int j = 0x20000000 + (npcIndices[i] << 14);
             if (npcEntity == null || !npcEntity.isValid(false))
                 continue;
-            int k = npcEntity.x >> 7;
-            int l = npcEntity.z >> 7;
-            if (k < 0 || k >= 104 || l < 0 || l >= 104)
+            int x = npcEntity.x >> 7;
+            int z = npcEntity.z >> 7;
+            if (x < 0 || x >= 104 || z < 0 || z >= 104)
                 continue;
             if (npcEntity.index == 1
                 && (npcEntity.x & 0x7f) == 64
                 && (npcEntity.z & 0x7f) == 64) {
-                if (tileRenderCount[k][l] == sceneCycle)
+                if (tileRenderCount[x][z] == sceneCycle)
                     continue;
-                tileRenderCount[k][l] = sceneCycle;
+                tileRenderCount[x][z] = sceneCycle;
             }
             mapSquare.add(npcEntity.z,
                 (npcEntity.index - 1) * 64 + 60,
@@ -5725,12 +5725,12 @@ public class Game extends Applet {
         int j1 = getLandY(currentLevel, cameraOrbitX, cameraOrbitZ);
         int k1 = 0;
         if (l > 3 && i1 > 3 && l < 100 && i1 < 100) {
-            for (int l1 = l - 4; l1 <= l + 4; l1++) {
-                for (int j2 = i1 - 4; j2 <= i1 + 4; j2++) {
-                    int k2 = currentLevel;
-                    if (k2 < 3 && (levelRenderFlags[1][l1][j2] & 2) == 2)
-                        k2++;
-                    int l2 = j1 - levelHeightMaps[k2][l1][j2];
+            for (int x = l - 4; x <= l + 4; x++) {
+                for (int z = i1 - 4; z <= i1 + 4; z++) {
+                    int p = currentLevel;
+                    if (p < 3 && (levelRenderFlags[1][x][z] & 2) == 2)
+                        p++;
+                    int l2 = j1 - levelHeightMaps[p][x][z];
                     if (l2 > k1)
                         k1 = l2;
                 }
@@ -6191,10 +6191,10 @@ public class Game extends Applet {
                 projectiles.clear();
                 spotanims.clear();
                 temporaryLocs.clear();
-                for (int k1 = 0; k1 < 4; k1++) {
-                    for (int l1 = 0; l1 < 104; l1++) {
-                        for (int j2 = 0; j2 < 104; j2++) {
-                            objects[k1][l1][j2] = null;
+                for (int p = 0; p < 4; p++) {
+                    for (int x = 0; x < 104; x++) {
+                        for (int z = 0; z < 104; z++) {
+                            objects[p][x][z] = null;
                         }
                     }
                 }
@@ -6961,116 +6961,115 @@ public class Game extends Applet {
         return super.getCodeBase();
     }
 
-    public boolean moveTo(int i, int j, boolean flag, int k, int l, int type,
-                          int k1, int l1, int i2, int j2, int k2) {
+    public boolean moveTo(int x, int j, boolean flag, int k, int z, int type, int k1, int l1, int i2, int j2, int k2) {
         byte byte0 = 104;
         byte byte1 = 104;
-        for (int l2 = 0; l2 < byte0; l2++) {
-            for (int i3 = 0; i3 < byte1; i3++) {
-                pathWaypoint[l2][i3] = 0;
-                pathDistance[l2][i3] = 0x5f5e0ff;
+        for (int stepX = 0; stepX < byte0; stepX++) {
+            for (int stepZ = 0; stepZ < byte1; stepZ++) {
+                pathWaypoint[stepX][stepZ] = 0;
+                pathDistance[stepX][stepZ] = 0x5f5e0ff;
             }
         }
 
-        int j3 = i;
-        int k3 = l;
-        pathWaypoint[i][l] = 99;
-        pathDistance[i][l] = 0;
+        int stepX = x;
+        int stepZ = z;
+        pathWaypoint[x][z] = 99;
+        pathDistance[x][z] = 0;
 
-        int l3 = 0;
+        int step = 0;
         int current = 0;
-        waypointX[l3] = i;
-        waypointY[l3++] = l;
+        waypointX[step] = x;
+        waypointY[step++] = z;
 
         boolean reached = false;
         int j4 = waypointX.length;
         int[][] flags = collisionMaps[currentLevel].flags;
 
-        while (current != l3) {
-            j3 = waypointX[current];
-            k3 = waypointY[current];
+        while (current != step) {
+            stepX = waypointX[current];
+            stepZ = waypointY[current];
             current = (current + 1) % j4;
-            if (j3 == k && k3 == l1) {
+            if (stepX == k && stepZ == l1) {
                 reached = true;
                 break;
             }
             if (j2 != 0) {
-                if ((j2 < 5 || j2 == 10) && collisionMaps[currentLevel].reachedWall(i2, l1, j2 - 1, k3, k, j3)) {
+                if ((j2 < 5 || j2 == 10) && collisionMaps[currentLevel].reachedWall(i2, l1, j2 - 1, stepZ, k, stepX)) {
                     reached = true;
                     break;
                 }
-                if (j2 < 10 && collisionMaps[currentLevel].reachedDecoration(i2, j2 - 1, j3, k, k3, l1)) {
+                if (j2 < 10 && collisionMaps[currentLevel].reachedDecoration(i2, j2 - 1, stepX, k, stepZ, l1)) {
                     reached = true;
                     break;
                 }
             }
-            if (j != 0 && k1 != 0 && collisionMaps[currentLevel].reachedObject(k3, k1, j3, k, k2, l1, j)) {
+            if (j != 0 && k1 != 0 && collisionMaps[currentLevel].reachedObject(stepZ, k1, stepX, k, k2, l1, j)) {
                 reached = true;
                 break;
             }
-            int l4 = pathDistance[j3][k3] + 1;
-            if (j3 > 0 && pathWaypoint[j3 - 1][k3] == 0 && (flags[j3 - 1][k3] & 0x280108) == 0) {
-                waypointX[l3] = j3 - 1;
-                waypointY[l3] = k3;
-                l3 = (l3 + 1) % j4;
-                pathWaypoint[j3 - 1][k3] = 2;
-                pathDistance[j3 - 1][k3] = l4;
+            int l4 = pathDistance[stepX][stepZ] + 1;
+            if (stepX > 0 && pathWaypoint[stepX - 1][stepZ] == 0 && (flags[stepX - 1][stepZ] & 0x280108) == 0) {
+                waypointX[step] = stepX - 1;
+                waypointY[step] = stepZ;
+                step = (step + 1) % j4;
+                pathWaypoint[stepX - 1][stepZ] = 2;
+                pathDistance[stepX - 1][stepZ] = l4;
             }
-            if (j3 < byte0 - 1 && pathWaypoint[j3 + 1][k3] == 0 && (flags[j3 + 1][k3] & 0x280180) == 0) {
-                waypointX[l3] = j3 + 1;
-                waypointY[l3] = k3;
-                l3 = (l3 + 1) % j4;
-                pathWaypoint[j3 + 1][k3] = 8;
-                pathDistance[j3 + 1][k3] = l4;
+            if (stepX < byte0 - 1 && pathWaypoint[stepX + 1][stepZ] == 0 && (flags[stepX + 1][stepZ] & 0x280180) == 0) {
+                waypointX[step] = stepX + 1;
+                waypointY[step] = stepZ;
+                step = (step + 1) % j4;
+                pathWaypoint[stepX + 1][stepZ] = 8;
+                pathDistance[stepX + 1][stepZ] = l4;
             }
-            if (k3 > 0 && pathWaypoint[j3][k3 - 1] == 0 && (flags[j3][k3 - 1] & 0x280102) == 0) {
-                waypointX[l3] = j3;
-                waypointY[l3] = k3 - 1;
-                l3 = (l3 + 1) % j4;
-                pathWaypoint[j3][k3 - 1] = 1;
-                pathDistance[j3][k3 - 1] = l4;
+            if (stepZ > 0 && pathWaypoint[stepX][stepZ - 1] == 0 && (flags[stepX][stepZ - 1] & 0x280102) == 0) {
+                waypointX[step] = stepX;
+                waypointY[step] = stepZ - 1;
+                step = (step + 1) % j4;
+                pathWaypoint[stepX][stepZ - 1] = 1;
+                pathDistance[stepX][stepZ - 1] = l4;
             }
-            if (k3 < byte1 - 1 && pathWaypoint[j3][k3 + 1] == 0 && (flags[j3][k3 + 1] & 0x280120) == 0) {
-                waypointX[l3] = j3;
-                waypointY[l3] = k3 + 1;
-                l3 = (l3 + 1) % j4;
-                pathWaypoint[j3][k3 + 1] = 4;
-                pathDistance[j3][k3 + 1] = l4;
+            if (stepZ < byte1 - 1 && pathWaypoint[stepX][stepZ + 1] == 0 && (flags[stepX][stepZ + 1] & 0x280120) == 0) {
+                waypointX[step] = stepX;
+                waypointY[step] = stepZ + 1;
+                step = (step + 1) % j4;
+                pathWaypoint[stepX][stepZ + 1] = 4;
+                pathDistance[stepX][stepZ + 1] = l4;
             }
-            if (j3 > 0 && k3 > 0 && pathWaypoint[j3 - 1][k3 - 1] == 0 && (flags[j3 - 1][k3 - 1] & 0x28010e) == 0
-                && (flags[j3 - 1][k3] & 0x280108) == 0 && (flags[j3][k3 - 1] & 0x280102) == 0) {
-                waypointX[l3] = j3 - 1;
-                waypointY[l3] = k3 - 1;
-                l3 = (l3 + 1) % j4;
-                pathWaypoint[j3 - 1][k3 - 1] = 3;
-                pathDistance[j3 - 1][k3 - 1] = l4;
+            if (stepX > 0 && stepZ > 0 && pathWaypoint[stepX - 1][stepZ - 1] == 0 && (flags[stepX - 1][stepZ - 1] & 0x28010e) == 0
+                && (flags[stepX - 1][stepZ] & 0x280108) == 0 && (flags[stepX][stepZ - 1] & 0x280102) == 0) {
+                waypointX[step] = stepX - 1;
+                waypointY[step] = stepZ - 1;
+                step = (step + 1) % j4;
+                pathWaypoint[stepX - 1][stepZ - 1] = 3;
+                pathDistance[stepX - 1][stepZ - 1] = l4;
             }
-            if (j3 < byte0 - 1 && k3 > 0 && pathWaypoint[j3 + 1][k3 - 1] == 0
-                && (flags[j3 + 1][k3 - 1] & 0x280183) == 0 && (flags[j3 + 1][k3] & 0x280180) == 0
-                && (flags[j3][k3 - 1] & 0x280102) == 0) {
-                waypointX[l3] = j3 + 1;
-                waypointY[l3] = k3 - 1;
-                l3 = (l3 + 1) % j4;
-                pathWaypoint[j3 + 1][k3 - 1] = 9;
-                pathDistance[j3 + 1][k3 - 1] = l4;
+            if (stepX < byte0 - 1 && stepZ > 0 && pathWaypoint[stepX + 1][stepZ - 1] == 0
+                && (flags[stepX + 1][stepZ - 1] & 0x280183) == 0 && (flags[stepX + 1][stepZ] & 0x280180) == 0
+                && (flags[stepX][stepZ - 1] & 0x280102) == 0) {
+                waypointX[step] = stepX + 1;
+                waypointY[step] = stepZ - 1;
+                step = (step + 1) % j4;
+                pathWaypoint[stepX + 1][stepZ - 1] = 9;
+                pathDistance[stepX + 1][stepZ - 1] = l4;
             }
-            if (j3 > 0 && k3 < byte1 - 1 && pathWaypoint[j3 - 1][k3 + 1] == 0
-                && (flags[j3 - 1][k3 + 1] & 0x280138) == 0 && (flags[j3 - 1][k3] & 0x280108) == 0
-                && (flags[j3][k3 + 1] & 0x280120) == 0) {
-                waypointX[l3] = j3 - 1;
-                waypointY[l3] = k3 + 1;
-                l3 = (l3 + 1) % j4;
-                pathWaypoint[j3 - 1][k3 + 1] = 6;
-                pathDistance[j3 - 1][k3 + 1] = l4;
+            if (stepX > 0 && stepZ < byte1 - 1 && pathWaypoint[stepX - 1][stepZ + 1] == 0
+                && (flags[stepX - 1][stepZ + 1] & 0x280138) == 0 && (flags[stepX - 1][stepZ] & 0x280108) == 0
+                && (flags[stepX][stepZ + 1] & 0x280120) == 0) {
+                waypointX[step] = stepX - 1;
+                waypointY[step] = stepZ + 1;
+                step = (step + 1) % j4;
+                pathWaypoint[stepX - 1][stepZ + 1] = 6;
+                pathDistance[stepX - 1][stepZ + 1] = l4;
             }
-            if (j3 < byte0 - 1 && k3 < byte1 - 1 && pathWaypoint[j3 + 1][k3 + 1] == 0
-                && (flags[j3 + 1][k3 + 1] & 0x2801e0) == 0 && (flags[j3 + 1][k3] & 0x280180) == 0
-                && (flags[j3][k3 + 1] & 0x280120) == 0) {
-                waypointX[l3] = j3 + 1;
-                waypointY[l3] = k3 + 1;
-                l3 = (l3 + 1) % j4;
-                pathWaypoint[j3 + 1][k3 + 1] = 12;
-                pathDistance[j3 + 1][k3 + 1] = l4;
+            if (stepX < byte0 - 1 && stepZ < byte1 - 1 && pathWaypoint[stepX + 1][stepZ + 1] == 0
+                && (flags[stepX + 1][stepZ + 1] & 0x2801e0) == 0 && (flags[stepX + 1][stepZ] & 0x280180) == 0
+                && (flags[stepX][stepZ + 1] & 0x280120) == 0) {
+                waypointX[step] = stepX + 1;
+                waypointY[step] = stepZ + 1;
+                step = (step + 1) % j4;
+                pathWaypoint[stepX + 1][stepZ + 1] = 12;
+                pathDistance[stepX + 1][stepZ + 1] = l4;
             }
         }
 
@@ -7083,8 +7082,8 @@ public class Game extends Applet {
                         for (int k6 = l1 - k5; k6 <= l1 + k5; k6++) {
                             if (i6 >= 0 && k6 >= 0 && i6 < 104 && k6 < 104 && pathDistance[i6][k6] < i5) {
                                 i5 = pathDistance[i6][k6];
-                                j3 = i6;
-                                k3 = k6;
+                                stepX = i6;
+                                stepZ = k6;
                                 clickedMinimap = 1;
                                 reached = true;
                             }
@@ -7102,24 +7101,24 @@ public class Game extends Applet {
         }
 
         current = 0;
-        waypointX[current] = j3;
-        waypointY[current++] = k3;
+        waypointX[current] = stepX;
+        waypointY[current++] = stepZ;
 
         int l5;
-        for (int j5 = l5 = pathWaypoint[j3][k3]; j3 != i || k3 != l; j5 = pathWaypoint[j3][k3]) {
+        for (int j5 = l5 = pathWaypoint[stepX][stepZ]; stepX != x || stepZ != z; j5 = pathWaypoint[stepX][stepZ]) {
             if (j5 != l5) {
                 l5 = j5;
-                waypointX[current] = j3;
-                waypointY[current++] = k3;
+                waypointX[current] = stepX;
+                waypointY[current++] = stepZ;
             }
             if ((j5 & 2) != 0)
-                j3++;
+                stepX++;
             else if ((j5 & 8) != 0)
-                j3--;
+                stepX--;
             if ((j5 & 1) != 0)
-                k3++;
+                stepZ++;
             else if ((j5 & 4) != 0)
-                k3--;
+                stepZ--;
         }
 
         if (current > 0) {
@@ -7769,10 +7768,10 @@ public class Game extends Applet {
         }
     }
 
-    public void updateObjectStack(int i, int j) {
-        LinkedList stacks = objects[currentLevel][i][j];
+    public void updateObjectStack(int x, int z) {
+        LinkedList stacks = objects[currentLevel][x][z];
         if (stacks == null) {
-            mapSquare.removeObject(currentLevel, i, j);
+            mapSquare.removeObject(currentLevel, x, z);
             return;
         }
         int k = -99999999;
@@ -7811,9 +7810,9 @@ public class Game extends Applet {
         Model m2 = null;
         if (j1 != -1)
             m2 = ObjType.get(j1).getModel(l1);
-        int i2 = i + (j << 7) + 0x60000000;
+        int i2 = x + (z << 7) + 0x60000000;
         ObjType objType = ObjType.get(obj.model);
-        mapSquare.addObject(objType.getModel(obj.amount), m1, getLandY(currentLevel, i * 128 + 64, j * 128 + 64), currentLevel, i2, j, i, m2);
+        mapSquare.addObject(objType.getModel(obj.amount), m1, getLandY(currentLevel, x * 128 + 64, z * 128 + 64), currentLevel, i2, z, x, m2);
     }
 
     public void createScene() {
@@ -8171,58 +8170,58 @@ public class Game extends Applet {
                 break;
             }
             if (append) {
-                int j = e.level;
-                int k = e.tileX;
-                int l = e.tileZ;
+                int p = e.level;
+                int x = e.tileX;
+                int z = e.tileZ;
                 int bitset = 0;
                 if (e.classType == 0)
-                    bitset = mapSquare.getWallBitset(j, k, l);
+                    bitset = mapSquare.getWallBitset(p, x, z);
                 if (e.classType == 1)
-                    bitset = mapSquare.getWallDecorationBitset(j, l, k);
+                    bitset = mapSquare.getWallDecorationBitset(p, z, x);
                 if (e.classType == 2)
-                    bitset = mapSquare.getLocationBitset(j, k, l);
+                    bitset = mapSquare.getLocationBitset(p, x, z);
                 if (e.classType == 3)
-                    bitset = mapSquare.getGroundDecorationBitset(j, k, l);
+                    bitset = mapSquare.getGroundDecorationBitset(p, x, z);
                 if (bitset == 0 || (bitset >> 14 & 0x7fff) != e.locIndex) {
                     e.unlink();
                 } else {
-                    int j1 = levelHeightMaps[j][k][l];
-                    int k1 = levelHeightMaps[j][k + 1][l];
-                    int l1 = levelHeightMaps[j][k + 1][l + 1];
-                    int i2 = levelHeightMaps[j][k][l + 1];
+                    int j1 = levelHeightMaps[p][x][z];
+                    int k1 = levelHeightMaps[p][x + 1][z];
+                    int l1 = levelHeightMaps[p][x + 1][z + 1];
+                    int i2 = levelHeightMaps[p][x][z + 1];
                     LocType locType = LocType.get(e.locIndex);
                     int j2 = -1;
                     if (e.seqFrame != -1)
                         j2 = e.seq.primaryFrames[e.seqFrame];
                     if (e.classType == 2) {
-                        int k2 = mapSquare.getInfo(j, k, l, bitset);
+                        int k2 = mapSquare.getInfo(p, x, z, bitset);
                         int j3 = k2 & 0x1f;
                         int i4 = k2 >> 6;
                         if (j3 == 11)
                             j3 = 10;
                         Model m = locType.getModel(j3, i4, j1, k1, l1, i2, j2);
-                        mapSquare.setLocModel(k, m, j, l);
+                        mapSquare.setLocModel(x, m, p, z);
                     } else if (e.classType == 1) {
                         Model m = locType.getModel(4, 0, j1, k1, l1, i2, j2);
-                        mapSquare.setWallDecorationModel(l, k, m, j);
+                        mapSquare.setWallDecorationModel(z, x, m, p);
                     } else if (e.classType == 0) {
-                        int l2 = mapSquare.getInfo(j, k, l, bitset);
+                        int l2 = mapSquare.getInfo(p, x, z, bitset);
                         int k3 = l2 & 0x1f;
                         int j4 = l2 >> 6;
                         if (k3 == 2) {
                             int k4 = j4 + 1 & 3;
                             Model m1 = locType.getModel(2, 4 + j4, j1, k1, l1, i2, j2);
                             Model m2 = locType.getModel(2, k4, j1, k1, l1, i2, j2);
-                            mapSquare.setWallModels(m1, m2, l, k, j);
+                            mapSquare.setWallModels(m1, m2, z, x, p);
                         } else {
                             Model m = locType.getModel(k3, j4, j1, k1, l1, i2, j2);
-                            mapSquare.setWallModel(m, l, k, j);
+                            mapSquare.setWallModel(m, z, x, p);
                         }
                     } else if (e.classType == 3) {
-                        int i3 = mapSquare.getInfo(j, k, l, bitset);
+                        int i3 = mapSquare.getInfo(p, x, z, bitset);
                         int l3 = i3 >> 6;
                         Model m = locType.getModel(22, l3, j1, k1, l1, i2, j2);
-                        mapSquare.setGroundDecorationModel(m, l, k, j);
+                        mapSquare.setGroundDecorationModel(m, z, x, p);
                     }
                 }
             }
@@ -8259,28 +8258,28 @@ public class Game extends Applet {
         int i = -1;
         for (int j = 0; j < Model.resourceCount; j++) {
             int k = Model.hoveredBitsets[j];
-            int l = k & 0x7f;
-            int i1 = k >> 7 & 0x7f;
+            int x = k & 0x7f;
+            int z = k >> 7 & 0x7f;
             int j1 = k >> 29 & 3;
             int k1 = k >> 14 & 0x7fff;
             if (k != i) {
                 i = k;
-                if (j1 == 2 && mapSquare.getInfo(currentLevel, l, i1, k) >= 0) {
+                if (j1 == 2 && mapSquare.getInfo(currentLevel, x, z, k) >= 0) {
                     LocType locType = LocType.get(k1);
                     if (selectedObject == 1) {
                         options[optionCount] = "Use " + selectedObjName + " with @cya@" + locType.name;
                         actions[optionCount] = 450;
                         paramC[optionCount] = k;
-                        paramA[optionCount] = l;
-                        paramB[optionCount] = i1;
+                        paramA[optionCount] = x;
+                        paramB[optionCount] = z;
                         optionCount++;
                     } else if (selectedSpell == 1) {
                         if ((selectedFlags & 4) == 4) {
                             options[optionCount] = selectedSpellPrefix + " @cya@" + locType.name;
                             actions[optionCount] = 55;
                             paramC[optionCount] = k;
-                            paramA[optionCount] = l;
-                            paramB[optionCount] = i1;
+                            paramA[optionCount] = x;
+                            paramB[optionCount] = z;
                             optionCount++;
                         }
                     } else {
@@ -8300,8 +8299,8 @@ public class Game extends Applet {
                                     if (l1 == 4)
                                         actions[optionCount] = 1501;
                                     paramC[optionCount] = k;
-                                    paramA[optionCount] = l;
-                                    paramB[optionCount] = i1;
+                                    paramA[optionCount] = x;
+                                    paramB[optionCount] = z;
                                     optionCount++;
                                 }
 
@@ -8309,8 +8308,8 @@ public class Game extends Applet {
                         options[optionCount] = "Examine @cya@" + locType.name;
                         actions[optionCount] = 1175;
                         paramC[optionCount] = k;
-                        paramA[optionCount] = l;
-                        paramB[optionCount] = i1;
+                        paramA[optionCount] = x;
+                        paramB[optionCount] = z;
                         optionCount++;
                     }
                 }
@@ -8323,14 +8322,14 @@ public class Game extends Applet {
                             try {
                                 NPCEntity npc = npcEntities[npcIndices[i2]];
                                 if (npc != null && npc != e && npc.info.size == 1 && npc.x == e.x && npc.z == e.z) {
-                                    drawTooltip(npc.info, i1, l, npcIndices[i2]);
+                                    drawTooltip(npc.info, z, x, npcIndices[i2]);
                                 }
                             } catch (Exception ignored) {
                             }
                         }
 
                     }
-                    drawTooltip(e.info, i1, l, k1);
+                    drawTooltip(e.info, z, x, k1);
                 }
                 if (j1 == 0) {
                     PlayerEntity e = playerEntities[k1];
@@ -8339,7 +8338,7 @@ public class Game extends Applet {
                             try {
                                 NPCEntity npc = npcEntities[npcIndices[j2]];
                                 if (npc != null && npc.info.size == 1 && npc.x == e.x && npc.z == e.z) {
-                                    drawTooltip(npc.info, i1, l, npcIndices[j2]);
+                                    drawTooltip(npc.info, z, x, npcIndices[j2]);
                                 }
                             } catch (Exception ignored) {
                             }
@@ -8348,15 +8347,15 @@ public class Game extends Applet {
                         for (int k2 = 0; k2 < playerCount; k2++) {
                             PlayerEntity playerEntity_1 = playerEntities[playerIndices[k2]];
                             if (playerEntity_1 != null && playerEntity_1 != e && playerEntity_1.x == e.x && playerEntity_1.z == e.z) {
-                                addPlayerOptions(i1, playerIndices[k2], playerEntity_1, l);
+                                addPlayerOptions(z, playerIndices[k2], playerEntity_1, x);
                             }
                         }
 
                     }
-                    addPlayerOptions(i1, k1, e, l);
+                    addPlayerOptions(z, k1, e, x);
                 }
                 if (j1 == 3) {
-                    LinkedList stack = objects[currentLevel][l][i1];
+                    LinkedList stack = objects[currentLevel][x][z];
                     if (stack != null) {
                         for (ObjStackEntity objStackEntity = (ObjStackEntity) stack
                             .peekFirst(); objStackEntity != null; objStackEntity = (ObjStackEntity) stack
@@ -8366,16 +8365,16 @@ public class Game extends Applet {
                                 options[optionCount] = "Use " + selectedObjName + " with @lre@" + objType.name;
                                 actions[optionCount] = 217;
                                 paramC[optionCount] = objStackEntity.model;
-                                paramA[optionCount] = l;
-                                paramB[optionCount] = i1;
+                                paramA[optionCount] = x;
+                                paramB[optionCount] = z;
                                 optionCount++;
                             } else if (selectedSpell == 1) {
                                 if ((selectedFlags & 1) == 1) {
                                     options[optionCount] = selectedSpellPrefix + " @lre@" + objType.name;
                                     actions[optionCount] = 965;
                                     paramC[optionCount] = objStackEntity.model;
-                                    paramA[optionCount] = l;
-                                    paramB[optionCount] = i1;
+                                    paramA[optionCount] = x;
+                                    paramB[optionCount] = z;
                                     optionCount++;
                                 }
                             } else {
@@ -8394,23 +8393,23 @@ public class Game extends Applet {
                                         if (l2 == 4)
                                             actions[optionCount] = 877;
                                         paramC[optionCount] = objStackEntity.model;
-                                        paramA[optionCount] = l;
-                                        paramB[optionCount] = i1;
+                                        paramA[optionCount] = x;
+                                        paramB[optionCount] = z;
                                         optionCount++;
                                     } else if (l2 == 2) {
                                         options[optionCount] = "Take @lre@" + objType.name;
                                         actions[optionCount] = 99;
                                         paramC[optionCount] = objStackEntity.model;
-                                        paramA[optionCount] = l;
-                                        paramB[optionCount] = i1;
+                                        paramA[optionCount] = x;
+                                        paramB[optionCount] = z;
                                         optionCount++;
                                     }
 
                                 options[optionCount] = "Examine @lre@" + objType.name;
                                 actions[optionCount] = 1102;
                                 paramC[optionCount] = objStackEntity.model;
-                                paramA[optionCount] = l;
-                                paramB[optionCount] = i1;
+                                paramA[optionCount] = x;
+                                paramB[optionCount] = z;
                                 optionCount++;
                             }
                         }
@@ -9216,8 +9215,8 @@ public class Game extends Applet {
                 packetOpcode = -1;
                 return true;
             } else if (packetOpcode == Packet.Server.PLAYER_POSITION) {
-                playerPositionZ = inBuffer.g1();
-                playerPositionX = inBuffer.g1();
+                localPosX = inBuffer.g1();
+                localPosZ = inBuffer.g1();
                 packetOpcode = -1;
                 return true;
             } else if (packetOpcode == Packet.Server.INTERFACE_MODEL_RECOLOR) {
@@ -9295,20 +9294,20 @@ public class Game extends Applet {
                 packetOpcode = -1;
                 return true;
             } else if (packetOpcode == Packet.Server.GROUND_ITEM_REMOVE_ALL) {
-                playerPositionZ = inBuffer.g1();
-                playerPositionX = inBuffer.g1();
+                localPosX = inBuffer.g1();
+                localPosZ = inBuffer.g1();
 
-                for (int z = playerPositionZ; z < playerPositionZ + 8; z++) {
-                    for (int x = playerPositionX; x < playerPositionX + 8; x++) {
-                        if (objects[currentLevel][z][x] != null) {
-                            objects[currentLevel][z][x] = null;
-                            updateObjectStack(z, x);
+                for (int x = localPosX; x < localPosX + 8; x++) {
+                    for (int z = localPosZ; z < localPosZ + 8; z++) {
+                        if (objects[currentLevel][x][z] != null) {
+                            objects[currentLevel][x][z] = null;
+                            updateObjectStack(x, z);
                         }
                     }
                 }
 
                 for (SpawnedLoc loc = (SpawnedLoc) spawnedLocations.peekLast(); loc != null; loc = (SpawnedLoc) spawnedLocations.getPrevious()) {
-                    if (loc.tileX >= playerPositionZ && loc.tileX < playerPositionZ + 8 && loc.tileZ >= playerPositionX && loc.tileZ < playerPositionX + 8 && loc.level == currentLevel) {
+                    if (loc.tileX >= localPosX && loc.tileX < localPosX + 8 && loc.tileZ >= localPosZ && loc.tileZ < localPosZ + 8 && loc.level == currentLevel) {
                         addLoc(loc.lastRotation, loc.tileX, loc.tileZ, loc.classType, loc.lastLocIndex, loc.lastType, loc.level);
                         loc.unlink();
                     }
@@ -9601,8 +9600,8 @@ public class Game extends Applet {
                 packetOpcode = -1;
                 return true;
             } else if (packetOpcode == Packet.Server.BATCH_PACKETS) {
-                playerPositionZ = inBuffer.g1();
-                playerPositionX = inBuffer.g1();
+                localPosX = inBuffer.g1();
+                localPosZ = inBuffer.g1();
                 while (inBuffer.offset < packetLength) {
                     int opcode = inBuffer.g1();
                     readSecondaryPacket(inBuffer, opcode);
