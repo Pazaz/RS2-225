@@ -2,31 +2,31 @@ package com.jagex.runetek3.scene;
 
 public class CollisionMap {
 
-	public static final int OPEN = 0x0;
-	public static final int CLOSED = 0xFFFFFF;
+    public static final int OPEN = 0x0;
+    public static final int CLOSED = 0xFFFFFF;
 
-	public static final int WALL_NORTHWEST = 0x1;
-	public static final int WALL_NORTH = 0x2;
-	public static final int WALL_NORTHEAST = 0x4;
-	public static final int WALL_EAST = 0x8;
-	public static final int WALL_SOUTHEAST = 0x10;
-	public static final int WALL_SOUTH = 0x20;
-	public static final int WALL_SOUTHWEST = 0x40;
-	public static final int WALL_WEST = 0x80;
+    public static final int WALL_NORTHWEST = 0x1;
+    public static final int WALL_NORTH = 0x2;
+    public static final int WALL_NORTHEAST = 0x4;
+    public static final int WALL_EAST = 0x8;
+    public static final int WALL_SOUTHEAST = 0x10;
+    public static final int WALL_SOUTH = 0x20;
+    public static final int WALL_SOUTHWEST = 0x40;
+    public static final int WALL_WEST = 0x80;
 
-	public static final int OCCUPIED_TILE = 0x100;
+    public static final int OCCUPIED_TILE = 0x100;
 
-	public static final int BLOCKED_NORTHWEST = 0x200;
-	public static final int BLOCKED_NORTH = 0x400;
-	public static final int BLOCKED_NORTHEAST = 0x800;
-	public static final int BLOCKED_EAST = 0x1000;
-	public static final int BLOCKED_SOUTHEAST = 0x2000;
-	public static final int BLOCKED_SOUTH = 0x4000;
-	public static final int BLOCKED_SOUTHWEST = 0x8000;
-	public static final int BLOCKED_WEST = 0x10000;
+    public static final int BLOCKED_NORTHWEST = 0x200;
+    public static final int BLOCKED_NORTH = 0x400;
+    public static final int BLOCKED_NORTHEAST = 0x800;
+    public static final int BLOCKED_EAST = 0x1000;
+    public static final int BLOCKED_SOUTHEAST = 0x2000;
+    public static final int BLOCKED_SOUTH = 0x4000;
+    public static final int BLOCKED_SOUTHWEST = 0x8000;
+    public static final int BLOCKED_WEST = 0x10000;
 
-	public static final int SOLID = 0x20000;
-	public static final int BLOCKED_TILE = 0x200000;
+    public static final int SOLID = 0x20000;
+    public static final int BLOCKED_TILE = 0x200000;
 
     public CollisionMap(int wide, int tall) {
         this.wide = wide;
@@ -436,19 +436,23 @@ public class CollisionMap {
             if (orientation == 0) {
                 if (initialX == finalX + 1 && initialZ == finalZ && (flags[initialX][initialZ] & WALL_WEST) == 0) {
                     return true;
-                } else return initialX == finalX && initialZ == finalZ - 1 && (flags[initialX][initialZ] & WALL_NORTH) == 0;
+                } else
+                    return initialX == finalX && initialZ == finalZ - 1 && (flags[initialX][initialZ] & WALL_NORTH) == 0;
             } else if (orientation == 1) {
                 if (initialX == finalX - 1 && initialZ == finalZ && (flags[initialX][initialZ] & WALL_EAST) == 0) {
                     return true;
-                } else return initialX == finalX && initialZ == finalZ - 1 && (flags[initialX][initialZ] & WALL_NORTH) == 0;
+                } else
+                    return initialX == finalX && initialZ == finalZ - 1 && (flags[initialX][initialZ] & WALL_NORTH) == 0;
             } else if (orientation == 2) {
                 if (initialX == finalX - 1 && initialZ == finalZ && (flags[initialX][initialZ] & WALL_EAST) == 0) {
                     return true;
-                } else return initialX == finalX && initialZ == finalZ + 1 && (flags[initialX][initialZ] & WALL_SOUTH) == 0;
+                } else
+                    return initialX == finalX && initialZ == finalZ + 1 && (flags[initialX][initialZ] & WALL_SOUTH) == 0;
             } else if (orientation == 3) {
                 if (initialX == finalX + 1 && initialZ == finalZ && (flags[initialX][initialZ] & WALL_WEST) == 0) {
                     return true;
-                } else return initialX == finalX && initialZ == finalZ + 1 && (flags[initialX][initialZ] & WALL_SOUTH) == 0;
+                } else
+                    return initialX == finalX && initialZ == finalZ + 1 && (flags[initialX][initialZ] & WALL_SOUTH) == 0;
             }
         } else if (type == 8) {
             if (initialX == finalX && initialZ == finalZ + 1 && (flags[initialX][initialZ] & WALL_SOUTH) == 0) {

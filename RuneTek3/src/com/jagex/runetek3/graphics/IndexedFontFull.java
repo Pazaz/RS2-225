@@ -24,7 +24,7 @@ public class IndexedFontFull extends Draw2D {
         if (str == null) {
             return;
         }
-        
+
         y -= height;
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
@@ -39,16 +39,16 @@ public class IndexedFontFull extends Draw2D {
         Buffer dat = new Buffer(archive.read((new StringBuilder()).append(name).append(".dat").toString(), null));
         Buffer idx = new Buffer(archive.read("index.dat", null));
         idx.offset = dat.readWord() + 4;
-        
+
         int k = idx.readByte();
         if (k > 0) {
             idx.offset += 3 * (k - 1);
         }
-        
+
         for (int c = 0; c < 256; c++) {
             charOffsetX[c] = idx.readByte();
             charOffsetY[c] = idx.readByte();
-            
+
             int w = charMaskWidth[c] = idx.readWord();
             int h = charMaskHeight[c] = idx.readWord();
             int storeOrder = idx.readByte();
@@ -154,7 +154,7 @@ public class IndexedFontFull extends Draw2D {
                                 int dstStep, int maskStep) {
         int halfW = -(w >> 2);
         w = -(w & 3);
-        
+
         for (int y = -h; y < 0; y++) {
             for (int x = halfW; x < 0; x++) {
                 if (mask[mastOff++] != 0)

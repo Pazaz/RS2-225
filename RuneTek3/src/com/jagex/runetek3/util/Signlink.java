@@ -2,7 +2,7 @@ package com.jagex.runetek3.util;
 
 import com.jagex.runetek3.cache.FileArchive;
 
-import javax.sound.midi.*;
+import javax.sound.midi.MidiSystem;
 import javax.sound.sampled.*;
 import java.applet.Applet;
 import java.io.*;
@@ -315,7 +315,7 @@ public class Signlink implements Runnable {
         if (!rawName) {
             value = String.valueOf(gethash(name));
         }
-        for (loadreq = value ; loadreq != null; ) {
+        for (loadreq = value; loadreq != null; ) {
             try {
                 Thread.sleep(1L);
             } catch (Exception _ex) {
@@ -508,9 +508,11 @@ public class Signlink implements Runnable {
     public static int wavepos;
     public static String wave = "none";
     public static int wavevol;
+
     enum Position {
         LEFT, RIGHT, NORMAL
     }
+
     private final int EXTERNAL_BUFFER_SIZE = 524288;
     private Position curPosition = Position.NORMAL;
 

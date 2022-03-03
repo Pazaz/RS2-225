@@ -250,7 +250,7 @@ public class IndexedFont extends Draw2D {
                                int dstStep, int srcStep) {
         int hw = -(w >> 2);
         w = -(w & 3);
-        
+
         for (int y = -h; y < 0; y++) {
             for (int x = hw; x < 0; x++) {
                 if (src[srcOff++] != 0)

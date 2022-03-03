@@ -2,12 +2,12 @@ package com.jagex.runescape;
 
 import com.jagex.runescape.scene.PlayerEntity;
 import com.jagex.runescape.util.Packet;
-import com.jagex.runetek3.formats.*;
+import com.jagex.runetek3.GameShell;
 import com.jagex.runetek3.cache.FileArchive;
+import com.jagex.runetek3.formats.*;
 import com.jagex.runetek3.graphics.*;
 import com.jagex.runetek3.scene.*;
 import com.jagex.runetek3.sound.SoundTrack;
-import com.jagex.runetek3.GameShell;
 import com.jagex.runetek3.util.*;
 import net.burtleburtle.bob.rand.IsaacRandom;
 
@@ -23,6 +23,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.zip.CRC32;
 
@@ -892,7 +893,7 @@ public class Game extends GameShell {
         while (aBoolean812) {
             try {
                 Thread.sleep(50L);
-            } catch (Exception _ex) {
+            } catch (Exception ignored) {
             }
 
             String name;
@@ -938,7 +939,7 @@ public class Game extends GameShell {
 
                         dis.close();
                         Signlink.cachesave(name + ".mid", src, false);
-                    } catch (Exception _ex) {
+                    } catch (Exception ignored) {
                     }
                 }
 
@@ -1439,7 +1440,6 @@ public class Game extends GameShell {
                 paramA[optionCount] = k;
                 paramB[optionCount] = j;
                 optionCount++;
-                return;
             }
         } else {
             if (npcType.options != null) {
@@ -1566,7 +1566,7 @@ public class Game extends GameShell {
                         int i1 = 0;
                         try {
                             i1 = Integer.parseInt(chatbackInput);
-                        } catch (Exception _ex) {
+                        } catch (Exception ignored) {
                         }
                         outBuffer.writeOpcode(Packet.INTERFACE_ENTERED_AMOUNT);
                         outBuffer.writeDWord(i1);
@@ -1583,12 +1583,12 @@ public class Game extends GameShell {
                     input = input.substring(0, input.length() - 1);
                     redrawChatback = true;
                 } else if ((key == GameShell.KEY_RETURN || key == GameShell.KEY_ENTER) && input.length() > 0) {
-                    if (input.equals("::clientdrop") && (super.frame != null || getHost().indexOf("192.168.1.") != -1)) {
+                    if (input.equals("::clientdrop") && (super.frame != null || getHost().contains("192.168.1."))) {
                         reconnect();
                     } else if (input.startsWith("::")) {
-                            outBuffer.writeOpcode(Packet.CHAT_COMMAND);
-                            outBuffer.writeByte(input.length() - 1);
-                            outBuffer.writeString(input.substring(2));
+                        outBuffer.writeOpcode(Packet.CHAT_COMMAND);
+                        outBuffer.writeByte(input.length() - 1);
+                        outBuffer.writeString(input.substring(2));
                     } else {
                         int color = 0;
                         if (input.startsWith("yellow:")) {
@@ -1701,7 +1701,6 @@ public class Game extends GameShell {
                 loginMessage1 = "Enter your username & password.";
                 titleState = 2;
                 loginFocusedLine = 0;
-                return;
             }
         } else {
             if (titleState == 2) {
@@ -1821,7 +1820,7 @@ public class Game extends GameShell {
                     showProgress("Error loading - Will retry in " + secs + " secs.", progress);
                     try {
                         Thread.sleep(1000L);
-                    } catch (Exception _ex2) {
+                    } catch (Exception ignored) {
                     }
                 }
 
@@ -1842,7 +1841,7 @@ public class Game extends GameShell {
             flameActive = false;
             try {
                 Thread.sleep(50L);
-            } catch (Exception _ex) {
+            } catch (Exception ignored) {
             }
         }
         imageTitlebox = null;
@@ -1908,13 +1907,13 @@ public class Game extends GameShell {
             IndexedSprite i = Draw3D.textures[17];
             int j = i.width * i.height - 1;
             int l = i.width * sceneDelta * 2;
-            byte[] abyte0 = i.pixels;
-            byte[] abyte2 = tmpTexels;
+            byte[] pixels = i.pixels;
+            byte[] texels = tmpTexels;
             for (int j1 = 0; j1 <= j; j1++)
-                abyte2[j1] = abyte0[j1 - l & j];
+                texels[j1] = pixels[j1 - l & j];
 
-            i.pixels = abyte2;
-            tmpTexels = abyte0;
+            i.pixels = texels;
+            tmpTexels = pixels;
             Draw3D.updateTexture(17);
         }
 
@@ -1922,13 +1921,13 @@ public class Game extends GameShell {
             IndexedSprite i = Draw3D.textures[24];
             int k = i.width * i.height - 1;
             int i1 = i.width * sceneDelta * 2;
-            byte[] abyte1 = i.pixels;
-            byte[] abyte3 = tmpTexels;
+            byte[] pixels = i.pixels;
+            byte[] texels = tmpTexels;
             for (int k1 = 0; k1 <= k; k1++)
-                abyte3[k1] = abyte1[k1 - i1 & k];
+                texels[k1] = pixels[k1 - i1 & k];
 
-            i.pixels = abyte3;
-            tmpTexels = abyte1;
+            i.pixels = texels;
+            tmpTexels = pixels;
             Draw3D.updateTexture(24);
         }
     }
@@ -2482,9 +2481,9 @@ public class Game extends GameShell {
         }
     }
 
-    public void midisave(byte[] abyte0, int j, boolean fade) {
+    public void midisave(byte[] src, int len, boolean fade) {
         Signlink.midifade = fade;
-        Signlink.midisave(abyte0, j);
+        Signlink.midisave(src, len);
     }
 
     public void updateSceneNpcs() {
@@ -2668,7 +2667,7 @@ public class Game extends GameShell {
         try {
             if (stream != null)
                 stream.close();
-        } catch (Exception _ex) {
+        } catch (Exception ignored) {
         }
         stream = null;
         ingame = false;
@@ -2938,13 +2937,13 @@ public class Game extends GameShell {
         int varp = variables[i];
         if (varpType == 1) {
             if (varp == 1)
-                Draw3D.setBrightness(0.90000000000000002D);
+                Draw3D.setBrightness(0.9D);
             if (varp == 2)
-                Draw3D.setBrightness(0.80000000000000004D);
+                Draw3D.setBrightness(0.8D);
             if (varp == 3)
-                Draw3D.setBrightness(0.69999999999999996D);
+                Draw3D.setBrightness(0.7D);
             if (varp == 4)
-                Draw3D.setBrightness(0.59999999999999998D);
+                Draw3D.setBrightness(0.6D);
             ObjType.iconCache.clear();
             redrawTitleBackground = true;
         }
@@ -3192,7 +3191,7 @@ public class Game extends GameShell {
                 int l = pathingEntity.x - npcEntity.x;
                 int j1 = pathingEntity.z - npcEntity.z;
                 if (l != 0 || j1 != 0)
-                    pathingEntity.dstYaw = (int) (Math.atan2(l, j1) * 325.94900000000001D) & 0x7ff;
+                    pathingEntity.dstYaw = (int) (Math.atan2(l, j1) * 325.949D) & 0x7ff;
             }
         }
         if (pathingEntity.targetEntity >= 32768) {
@@ -3204,14 +3203,14 @@ public class Game extends GameShell {
                 int k1 = pathingEntity.x - playerEntity.x;
                 int l1 = pathingEntity.z - playerEntity.z;
                 if (k1 != 0 || l1 != 0)
-                    pathingEntity.dstYaw = (int) (Math.atan2(k1, l1) * 325.94900000000001D) & 0x7ff;
+                    pathingEntity.dstYaw = (int) (Math.atan2(k1, l1) * 325.949D) & 0x7ff;
             }
         }
         if ((pathingEntity.focusX != 0 || pathingEntity.focusY != 0) && (pathingEntity.pathRemaining == 0 || pathingEntity.anInt1431 > 0)) {
             int targetX = pathingEntity.x - (pathingEntity.focusX - baseTileX - baseTileX) * 64;
             int targetZ = pathingEntity.z - (pathingEntity.focusY - baseTileZ - baseTileZ) * 64;
             if (targetX != 0 || targetZ != 0) {
-                pathingEntity.dstYaw = (int) (Math.atan2(targetX, targetZ) * 325.94900000000001D) & 0x7ff;
+                pathingEntity.dstYaw = (int) (Math.atan2(targetX, targetZ) * 325.949D) & 0x7ff;
             }
             pathingEntity.focusX = 0;
             pathingEntity.focusY = 0;
@@ -3253,36 +3252,36 @@ public class Game extends GameShell {
                 }
             }
             if (pathingEntity.primarySeq != -1 && pathingEntity.primarySeqDelay == 0) {
-                SeqType seqType_1 = SeqType.instances[pathingEntity.primarySeq];
-                for (pathingEntity.primarySeqCycle++; pathingEntity.primarySeqFrame < seqType_1.frameCount
-                    && pathingEntity.primarySeqCycle > seqType_1.frameDelay[pathingEntity.primarySeqFrame]; pathingEntity.primarySeqFrame++)
-                    pathingEntity.primarySeqCycle -= seqType_1.frameDelay[pathingEntity.primarySeqFrame];
+                SeqType seqType = SeqType.instances[pathingEntity.primarySeq];
+                for (pathingEntity.primarySeqCycle++; pathingEntity.primarySeqFrame < seqType.frameCount
+                    && pathingEntity.primarySeqCycle > seqType.frameDelay[pathingEntity.primarySeqFrame]; pathingEntity.primarySeqFrame++)
+                    pathingEntity.primarySeqCycle -= seqType.frameDelay[pathingEntity.primarySeqFrame];
 
-                if (pathingEntity.primarySeqFrame >= seqType_1.frameCount) {
-                    pathingEntity.primarySeqFrame -= seqType_1.delay;
+                if (pathingEntity.primarySeqFrame >= seqType.frameCount) {
+                    pathingEntity.primarySeqFrame -= seqType.delay;
                     pathingEntity.primarySeqPlays++;
-                    if (pathingEntity.primarySeqPlays >= seqType_1.replays)
+                    if (pathingEntity.primarySeqPlays >= seqType.replays)
                         pathingEntity.primarySeq = -1;
-                    if (pathingEntity.primarySeqFrame < 0 || pathingEntity.primarySeqFrame >= seqType_1.frameCount)
+                    if (pathingEntity.primarySeqFrame < 0 || pathingEntity.primarySeqFrame >= seqType.frameCount)
                         pathingEntity.primarySeq = -1;
                 }
-                pathingEntity.animationStretches = seqType_1.renderPadding;
+                pathingEntity.animationStretches = seqType.renderPadding;
             }
             if (pathingEntity.primarySeqDelay > 0)
                 pathingEntity.primarySeqDelay--;
             if (pathingEntity.spotAnimIndex != -1 && clientClock >= pathingEntity.lastSpotAnimCycle) {
                 if (pathingEntity.spotAnimFrame < 0)
                     pathingEntity.spotAnimFrame = 0;
-                SeqType seqType_2 = SpotAnimType.instances[pathingEntity.spotAnimIndex].seq;
-                for (pathingEntity.spotAnimCycle++; pathingEntity.spotAnimFrame < seqType_2.frameCount
-                    && pathingEntity.spotAnimCycle > seqType_2.frameDelay[pathingEntity.spotAnimFrame]; pathingEntity.spotAnimFrame++)
-                    pathingEntity.spotAnimCycle -= seqType_2.frameDelay[pathingEntity.spotAnimFrame];
+                SeqType seqType = SpotAnimType.instances[pathingEntity.spotAnimIndex].seq;
+                for (pathingEntity.spotAnimCycle++; pathingEntity.spotAnimFrame < seqType.frameCount && pathingEntity.spotAnimCycle > seqType.frameDelay[pathingEntity.spotAnimFrame]; pathingEntity.spotAnimFrame++) {
+                    pathingEntity.spotAnimCycle -= seqType.frameDelay[pathingEntity.spotAnimFrame];
+                }
 
-                if (pathingEntity.spotAnimFrame >= seqType_2.frameCount
-                    && (pathingEntity.spotAnimFrame < 0 || pathingEntity.spotAnimFrame >= seqType_2.frameCount))
+                if (pathingEntity.spotAnimFrame >= seqType.frameCount && (pathingEntity.spotAnimFrame < 0 || pathingEntity.spotAnimFrame >= seqType.frameCount))
                     pathingEntity.spotAnimIndex = -1;
             }
-        } catch (Exception ex) {}
+        } catch (Exception ignored) {
+        }
     }
 
     public void drawGame() {
@@ -3402,7 +3401,7 @@ public class Game extends GameShell {
                         sideicons[5].draw(32, 185);
                     if (tabComponentId[6] != -1 && (flashingSidebarId != 6 || clientClock % 20 < 10))
                         sideicons[6].draw(34, 212);
-                } catch (Exception ex) {
+                } catch (Exception ignored) {
                 }
             }
             areaBackhmid1.drawImage(165, super.graphics, 520);
@@ -3439,7 +3438,8 @@ public class Game extends GameShell {
                         sideicons[11].draw(2, 206);
                     if (tabComponentId[13] != -1 && (flashingSidebarId != 13 || clientClock % 20 < 10))
                         sideicons[12].draw(2, 230);
-                } catch (Exception ex) {}
+                } catch (Exception ignored) {
+                }
             }
             areaBackbase2.drawImage(492, super.graphics, 501);
             areaViewport.bind();
@@ -3487,281 +3487,291 @@ public class Game extends GameShell {
         return actionId == 406;
     }
 
-    public void useMenuOption(int j) {
-        if (j < 0)
+    public void useMenuOption(int option) {
+        if (option < 0) {
             return;
+        }
         if (chatbackInputType) {
             chatbackInputType = false;
             redrawChatback = true;
         }
-        int k = paramA[j];
-        int l = paramB[j];
-        int action = actions[j];
-        int j1 = paramC[j];
-        if (action >= 2000)
+        int a = paramA[option];
+        int b = paramB[option];
+        int c = paramC[option];
+        int action = actions[option];
+        if (action >= 2000) {
             action -= 2000;
+        }
         if (action == 903 || action == 363) {
-            String s = options[j];
+            String s = options[option];
             int l1 = s.indexOf("@whi@");
             if (l1 != -1) {
                 s = s.substring(l1 + 5).trim();
-                String s8 = StringUtils.formatName(StringUtils.fromBase37(StringUtils.toBase37(s)));
-                boolean flag4 = false;
-                for (int k3 = 0; k3 < playerCount; k3++) {
-                    PlayerEntity class38_sub7_sub3_sub2_3 = playerEntities[playerIndices[k3]];
-                    if (class38_sub7_sub3_sub2_3 == null || class38_sub7_sub3_sub2_3.name == null
-                        || !class38_sub7_sub3_sub2_3.name.equalsIgnoreCase(s8))
+                String name = StringUtils.formatName(StringUtils.fromBase37(StringUtils.toBase37(s)));
+
+                boolean foundPlayer = false;
+                for (int n = 0; n < playerCount; n++) {
+                    PlayerEntity player = playerEntities[playerIndices[n]];
+                    if (player == null || player.name == null || !player.name.equalsIgnoreCase(name)) {
                         continue;
-                    moveTo(self.pathTileX[0], 1, false,
-                        class38_sub7_sub3_sub2_3.pathTileX[0],
-                        self.pathTileZ[0], 2, 1,
-                        class38_sub7_sub3_sub2_3.pathTileZ[0], 0, 0, 0);
-                    if (action == 903)
+                    }
+                    moveTo(self.pathTileX[0], 1, false, player.pathTileX[0], self.pathTileZ[0], 2, 1, player.pathTileZ[0], 0, 0, 0);
+                    if (action == 903) {
                         outBuffer.writeOpcode(Packet.PLAYER_ACTION_4);
-                    if (action == 363)
+                    }
+                    if (action == 363) {
                         outBuffer.writeOpcode(Packet.PLAYER_ACTION_1);
-                    outBuffer.writeWord(playerIndices[k3]);
-                    flag4 = true;
+                    }
+                    outBuffer.writeWord(playerIndices[n]);
+                    foundPlayer = true;
                     break;
                 }
 
-                if (!flag4)
-                    addMessage(0, "Unable to find " + s8, "");
+                if (!foundPlayer) {
+                    addMessage(0, "Unable to find " + name, "");
+                }
             }
         }
-        if (action == 450 && interactWithLoc(Packet.ITEM_ON_OBJECT, k, l, j1)) {
+        if (action == 450 && interactWithLoc(Packet.ITEM_ON_OBJECT, a, b, c)) {
             outBuffer.writeWord(anInt1005);
             outBuffer.writeWord(selectedObjSlot);
             outBuffer.writeWord(selectedObjInterface);
         }
         if (action == 405 || action == 38 || action == 422 || action == 478 || action == 347) {
             if (action == 478) {
-                if ((k & 3) == 0)
+                if ((a & 3) == 0) {
                     itemOption4Counter++;
-                if (itemOption4Counter >= 90)
+                }
+                if (itemOption4Counter >= 90) {
                     outBuffer.writeOpcode(Packet.ANTICHEAT_ITEM_OPTION_4);
+                }
                 outBuffer.writeOpcode(Packet.ITEM_OPTION_4);
             }
-            if (action == 347)
+            if (action == 347) {
                 outBuffer.writeOpcode(Packet.ITEM_OPTION_5);
-            if (action == 422)
+            }
+            if (action == 422) {
                 outBuffer.writeOpcode(Packet.ITEM_OPTION_3);
+            }
             if (action == 405) {
-                itemOption1Counter += j1;
+                itemOption1Counter += c;
                 if (itemOption1Counter >= 97) {
                     outBuffer.writeOpcode(Packet.ANTICHEAT_ITEM_OPTION_1);
                     outBuffer.writeSWord(0xe42d58);
                 }
                 outBuffer.writeOpcode(Packet.ITEM_OPTION_1);
             }
-            if (action == 38)
+            if (action == 38) {
                 outBuffer.writeOpcode(Packet.ITEM_OPTION_2);
-            outBuffer.writeWord(j1);
-            outBuffer.writeWord(k);
-            outBuffer.writeWord(l);
+            }
+            outBuffer.writeWord(c);
+            outBuffer.writeWord(a);
+            outBuffer.writeWord(b);
             selectedCycle = 0;
-            anInt945 = l;
-            anInt946 = k;
+            anInt945 = b;
+            anInt946 = a;
             selectedArea = 2;
-            if (InterfaceComponent.instances[l].parent == viewportInterfaceIndex)
+            if (InterfaceComponent.instances[b].parent == viewportInterfaceIndex) {
                 selectedArea = 1;
-            if (InterfaceComponent.instances[l].parent == chatbackComponentId)
+            }
+            if (InterfaceComponent.instances[b].parent == chatbackComponentId) {
                 selectedArea = 3;
+            }
         }
         if (action == 728 || action == 542 || action == 6 || action == 963 || action == 245) {
-            NpcEntity npcEntity = npcEntities[j1];
-            if (npcEntity != null) {
-                moveTo(self.pathTileX[0], 1, false,
-                    npcEntity.pathTileX[0],
-                    self.pathTileZ[0], 2, 1,
-                    npcEntity.pathTileZ[0], 0, 0, 0);
+            NpcEntity npc = npcEntities[c];
+            if (npc != null) {
+                moveTo(self.pathTileX[0], 1, false, npc.pathTileX[0], self.pathTileZ[0], 2, 1, npc.pathTileZ[0], 0, 0, 0);
                 crossX = super.clickX;
                 crossY = super.clickY;
                 crossType = 2;
                 crossCycle = 0;
-                if (action == 542)
+                if (action == 542) {
                     outBuffer.writeOpcode(Packet.NPC_ACTION_2);
-                if (action == 6) {
-                    if ((j1 & 3) == 0)
+                } else if (action == 6) {
+                    if ((c & 3) == 0) {
                         npcAction3Counter++;
+                    }
                     if (npcAction3Counter >= 124) {
                         outBuffer.writeOpcode(Packet.ANTICHEAT_NPC_ACTION_3);
                         outBuffer.writeDWord(0);
                     }
                     outBuffer.writeOpcode(Packet.NPC_ACTION_3);
-                }
-                if (action == 963)
+                } else if (action == 963) {
                     outBuffer.writeOpcode(Packet.NPC_ACTION_4);
-                if (action == 728)
+                } else if (action == 728) {
                     outBuffer.writeOpcode(Packet.NPC_ACTION_1);
-                if (action == 245) {
-                    if ((j1 & 3) == 0)
+                } else if (action == 245) {
+                    if ((c & 3) == 0) {
                         npcAction5Counter++;
+                    }
                     if (npcAction5Counter >= 85) {
                         outBuffer.writeOpcode(Packet.ANTICHEAT_NPC_ACTION_5);
                         outBuffer.writeWord(39596);
                     }
                     outBuffer.writeOpcode(Packet.NPC_ACTION_5);
                 }
-                outBuffer.writeWord(j1);
+                outBuffer.writeWord(c);
             }
         }
         if (action == 217) {
-            boolean flag = moveTo(self.pathTileX[0], 0, false, k,
-                self.pathTileZ[0], 2, 0, l, 0, 0, 0);
-            if (!flag)
-                flag = moveTo(self.pathTileX[0], 1, false, k,
-                    self.pathTileZ[0], 2, 1, l, 0, 0, 0);
+            boolean flag = moveTo(self.pathTileX[0], 0, false, a, self.pathTileZ[0], 2, 0, b, 0, 0, 0);
+            if (!flag) {
+                moveTo(self.pathTileX[0], 1, false, a, self.pathTileZ[0], 2, 1, b, 0, 0, 0);
+            }
             crossX = super.clickX;
             crossY = super.clickY;
             crossType = 2;
             crossCycle = 0;
             outBuffer.writeOpcode(Packet.ITEM_ON_GROUND_ITEM);
-            outBuffer.writeWord(k + baseTileX);
-            outBuffer.writeWord(l + baseTileZ);
-            outBuffer.writeWord(j1);
+            outBuffer.writeWord(a + baseTileX);
+            outBuffer.writeWord(b + baseTileZ);
+            outBuffer.writeWord(c);
             outBuffer.writeWord(anInt1005);
             outBuffer.writeWord(selectedObjSlot);
             outBuffer.writeWord(selectedObjInterface);
         }
         if (action == 1175) {
-            int k1 = j1 >> 14 & 0x7fff;
-            LocType locType = LocType.get(k1);
-            String s9;
-            if (locType.description != null)
-                s9 = new String(locType.description);
-            else
-                s9 = "It's a " + locType.name + ".";
-            addMessage(0, s9, "");
+            int k1 = c >> 14 & 0x7fff;
+            LocType loc = LocType.get(k1);
+            String description;
+            if (loc.description != null) {
+                description = loc.description;
+            } else {
+                description = "It's a " + loc.name + ".";
+            }
+            addMessage(0, description, "");
         }
-        if (action == 285)
-            interactWithLoc(Packet.OBJECT_ACTION_1, k, l, j1);
+        if (action == 285) {
+            interactWithLoc(Packet.OBJECT_ACTION_1, a, b, c);
+        }
         if (action == 881) {
             outBuffer.writeOpcode(Packet.ITEM_ON_ITEM);
-            outBuffer.writeWord(j1);
-            outBuffer.writeWord(k);
-            outBuffer.writeWord(l);
+            outBuffer.writeWord(c);
+            outBuffer.writeWord(a);
+            outBuffer.writeWord(b);
             outBuffer.writeWord(anInt1005);
             outBuffer.writeWord(selectedObjSlot);
             outBuffer.writeWord(selectedObjInterface);
             selectedCycle = 0;
-            anInt945 = l;
-            anInt946 = k;
+            anInt945 = b;
+            anInt946 = a;
             selectedArea = 2;
-            if (InterfaceComponent.instances[l].parent == viewportInterfaceIndex)
+            if (InterfaceComponent.instances[b].parent == viewportInterfaceIndex) {
                 selectedArea = 1;
-            if (InterfaceComponent.instances[l].parent == chatbackComponentId)
+            }
+            if (InterfaceComponent.instances[b].parent == chatbackComponentId) {
                 selectedArea = 3;
+            }
         }
         if (action == 391) {
             outBuffer.writeOpcode(Packet.MAGIC_ON_ITEM);
-            outBuffer.writeWord(j1);
-            outBuffer.writeWord(k);
-            outBuffer.writeWord(l);
+            outBuffer.writeWord(c);
+            outBuffer.writeWord(a);
+            outBuffer.writeWord(b);
             outBuffer.writeWord(anInt1026);
             selectedCycle = 0;
-            anInt945 = l;
-            anInt946 = k;
+            anInt945 = b;
+            anInt946 = a;
             selectedArea = 2;
-            if (InterfaceComponent.instances[l].parent == viewportInterfaceIndex)
+            if (InterfaceComponent.instances[b].parent == viewportInterfaceIndex) {
                 selectedArea = 1;
-            if (InterfaceComponent.instances[l].parent == chatbackComponentId)
+            }
+            if (InterfaceComponent.instances[b].parent == chatbackComponentId) {
                 selectedArea = 3;
+            }
         }
-        if (action == 660)
-            if (!menuVisible)
+        if (action == 660) {
+            if (!menuVisible) {
                 scene.setClick(super.clickY - 11, super.clickX - 8);
-            else
-                scene.setClick(l - 11, k - 8);
+            } else {
+                scene.setClick(b - 11, a - 8);
+            }
+        }
         if (action == 188) {
             selectedObject = 1;
-            selectedObjSlot = k;
-            selectedObjInterface = l;
-            anInt1005 = j1;
-            selectedObjName = ObjType.get(j1).name;
+            selectedObjSlot = a;
+            selectedObjInterface = b;
+            anInt1005 = c;
+            selectedObjName = ObjType.get(c).name;
             selectedSpell = 0;
             return;
         }
         if (action == 44 && !chatContinuingDialogue) {
             outBuffer.writeOpcode(Packet.INTERFACE_CONTINUE);
-            outBuffer.writeWord(l);
+            outBuffer.writeWord(b);
             chatContinuingDialogue = true;
         }
         if (action == 1773) {
-            ObjType objType = ObjType.get(j1);
+            ObjType obj = ObjType.get(c);
             String s4;
-            if (l >= 0x186a0)
-                s4 = l + " x " + objType.name;
-            else if (objType.description != null)
-                s4 = new String(objType.description);
-            else
-                s4 = "It's a " + objType.name + ".";
+            if (b >= 0x186a0) {
+                s4 = b + " x " + obj.name;
+            } else if (obj.description != null) {
+                s4 = obj.description;
+            } else {
+                s4 = "It's a " + obj.name + ".";
+            }
             addMessage(0, s4, "");
         }
         if (action == 900) {
-            NpcEntity npcEntity_1 = npcEntities[j1];
-            if (npcEntity_1 != null) {
-                moveTo(self.pathTileX[0], 1, false,
-                    npcEntity_1.pathTileX[0],
-                    self.pathTileZ[0], 2, 1,
-                    npcEntity_1.pathTileZ[0], 0, 0, 0);
+            NpcEntity npc = npcEntities[c];
+            if (npc != null) {
+                moveTo(self.pathTileX[0], 1, false, npc.pathTileX[0], self.pathTileZ[0], 2, 1, npc.pathTileZ[0], 0, 0, 0);
                 crossX = super.clickX;
                 crossY = super.clickY;
                 crossType = 2;
                 crossCycle = 0;
                 outBuffer.writeOpcode(Packet.ITEM_ON_NPC);
-                outBuffer.writeWord(j1);
+                outBuffer.writeWord(c);
                 outBuffer.writeWord(anInt1005);
                 outBuffer.writeWord(selectedObjSlot);
                 outBuffer.writeWord(selectedObjInterface);
             }
         }
         if (action == 1373 || action == 1544 || action == 151 || action == 1101) {
-            PlayerEntity playerEntity = playerEntities[j1];
-            if (playerEntity != null) {
-                moveTo(self.pathTileX[0], 1, false,
-                    playerEntity.pathTileX[0],
-                    self.pathTileZ[0], 2, 1,
-                    playerEntity.pathTileZ[0], 0, 0, 0);
+            PlayerEntity player = playerEntities[c];
+            if (player != null) {
+                moveTo(self.pathTileX[0], 1, false, player.pathTileX[0], self.pathTileZ[0], 2, 1, player.pathTileZ[0], 0, 0, 0);
                 crossX = super.clickX;
                 crossY = super.clickY;
                 crossType = 2;
                 crossCycle = 0;
-                if (action == 1101)
+                if (action == 1101) {
                     outBuffer.writeOpcode(Packet.PLAYER_ACTION_1);
-                if (action == 151) {
+                } else if (action == 151) {
                     playerAction2Counter++;
                     if (playerAction2Counter >= 90) {
                         outBuffer.writeOpcode(Packet.ANTICHEAT_PLAYER_ACTION_2);
                         outBuffer.writeWord(31114);
                     }
                     outBuffer.writeOpcode(Packet.PLAYER_ACTION_2);
-                }
-                if (action == 1373)
+                } else if (action == 1373) {
                     outBuffer.writeOpcode(Packet.PLAYER_ACTION_4);
-                if (action == 1544)
+                } else if (action == 1544) {
                     outBuffer.writeOpcode(Packet.PLAYER_ACTION_3);
-                outBuffer.writeWord(j1);
+                }
+                outBuffer.writeWord(c);
             }
         }
         if (action == 265) {
-            NpcEntity npcEntity_2 = npcEntities[j1];
-            if (npcEntity_2 != null) {
+            NpcEntity npc = npcEntities[c];
+            if (npc != null) {
                 moveTo(self.pathTileX[0], 1, false,
-                    npcEntity_2.pathTileX[0],
+                    npc.pathTileX[0],
                     self.pathTileZ[0], 2, 1,
-                    npcEntity_2.pathTileZ[0], 0, 0, 0);
+                    npc.pathTileZ[0], 0, 0, 0);
                 crossX = super.clickX;
                 crossY = super.clickY;
                 crossType = 2;
                 crossCycle = 0;
                 outBuffer.writeOpcode(Packet.MAGIC_ON_NPC);
-                outBuffer.writeWord(j1);
+                outBuffer.writeWord(c);
                 outBuffer.writeWord(anInt1026);
             }
         }
         if (action == 679) {
-            String s1 = options[j];
+            String s1 = options[option];
             int i2 = s1.indexOf("@whi@");
             if (i2 != -1) {
                 long l3 = StringUtils.toBase37(s1.substring(i2 + 5).trim());
@@ -3784,57 +3794,65 @@ public class Game extends GameShell {
                 }
             }
         }
-        if (action == 55 && interactWithLoc(Packet.MAGIC_ON_OBJECT, k, l, j1))
+        if (action == 55 && interactWithLoc(Packet.MAGIC_ON_OBJECT, a, b, c))
             outBuffer.writeWord(anInt1026);
         if (action == 224 || action == 993 || action == 99 || action == 746 || action == 877) {
-            boolean flag1 = moveTo(self.pathTileX[0], 0, false,
-                k, self.pathTileZ[0], 2, 0, l, 0, 0, 0);
-            if (!flag1)
-                flag1 = moveTo(self.pathTileX[0], 1, false, k,
-                    self.pathTileZ[0], 2, 1, l, 0, 0, 0);
+            boolean flag1 = moveTo(self.pathTileX[0], 0, false, a, self.pathTileZ[0], 2, 0, b, 0, 0, 0);
+            if (!flag1) {
+                moveTo(self.pathTileX[0], 1, false, a, self.pathTileZ[0], 2, 1, b, 0, 0, 0);
+            }
             crossX = super.clickX;
             crossY = super.clickY;
             crossType = 2;
             crossCycle = 0;
-            if (action == 224)
+            if (action == 224) {
                 outBuffer.writeOpcode(Packet.GROUND_ITEM_1);
-            if (action == 746)
+            }
+            if (action == 746) {
                 outBuffer.writeOpcode(Packet.GROUND_ITEM_ACTION);
-            if (action == 877)
+            }
+            if (action == 877) {
                 outBuffer.writeOpcode(Packet.LIGHT_ITEM);
-            if (action == 99)
+            }
+            if (action == 99) {
                 outBuffer.writeOpcode(Packet.PICKUP_GROUND_ITEM);
-            if (action == 993)
+            }
+            if (action == 993) {
                 outBuffer.writeOpcode(Packet.GROUND_ITEM_5);
-            outBuffer.writeWord(k + baseTileX);
-            outBuffer.writeWord(l + baseTileZ);
-            outBuffer.writeWord(j1);
+            }
+            outBuffer.writeWord(a + baseTileX);
+            outBuffer.writeWord(b + baseTileZ);
+            outBuffer.writeWord(c);
         }
         if (action == 1607) {
-            NpcEntity class38_sub7_sub3_sub1_3 = npcEntities[j1];
-            if (class38_sub7_sub3_sub1_3 != null) {
-                String s5;
-                if (class38_sub7_sub3_sub1_3.info.description != null)
-                    s5 = new String(class38_sub7_sub3_sub1_3.info.description);
-                else
-                    s5 = "It's a " + class38_sub7_sub3_sub1_3.info.name + ".";
-                addMessage(0, s5, "");
+            NpcEntity npc = npcEntities[c];
+            if (npc != null) {
+                String examine;
+                if (npc.info.description != null) {
+                    examine = npc.info.description;
+                } else {
+                    examine = "It's a " + npc.info.name + ".";
+                }
+                addMessage(0, examine, "");
             }
         }
-        if (action == 504)
-            interactWithLoc(Packet.OBJECT_ACTION_2, k, l, j1);
+        if (action == 504) {
+            interactWithLoc(Packet.OBJECT_ACTION_2, a, b, c);
+        }
         if (action == 930) {
-            InterfaceComponent interfaceComponent = InterfaceComponent.instances[l];
+            InterfaceComponent interfaceComponent = InterfaceComponent.instances[b];
             selectedSpell = 1;
-            anInt1026 = l;
+            anInt1026 = b;
             selectedFlags = interfaceComponent.optionFlags;
             selectedObject = 0;
             String s6 = interfaceComponent.optionCircumfix;
-            if (s6.indexOf(" ") != -1)
+            if (s6.contains(" ")) {
                 s6 = s6.substring(0, s6.indexOf(" "));
+            }
             String s10 = interfaceComponent.optionCircumfix;
-            if (s10.indexOf(" ") != -1)
+            if (s10.contains(" ")) {
                 s10 = s10.substring(s10.indexOf(" ") + 1);
+            }
             selectedSpellPrefix = s6 + " " + interfaceComponent.optionSuffix + " " + s10;
             if (selectedFlags == 16) {
                 sidebarRedraw = true;
@@ -3844,75 +3862,81 @@ public class Game extends GameShell {
             return;
         }
         if (action == 951) {
-            InterfaceComponent interfaceComponent_1 = InterfaceComponent.instances[l];
+            InterfaceComponent inter = InterfaceComponent.instances[b];
             boolean flag3 = true;
-            if (interfaceComponent_1.contentType > 0)
-                flag3 = handleComponentAction(interfaceComponent_1);
+            if (inter.contentType > 0)
+                flag3 = handleComponentAction(inter);
             if (flag3) {
                 outBuffer.writeOpcode(Packet.INTERFACE_BUTTON);
-                outBuffer.writeWord(l);
+                outBuffer.writeWord(b);
             }
         }
         if (action == 602 || action == 596 || action == 22 || action == 892 || action == 415) {
-            if (action == 22)
+            if (action == 22) {
                 outBuffer.writeOpcode(Packet.ITEM_ACTION_3);
+            }
             if (action == 415) {
-                if ((l & 3) == 0)
+                if ((b & 3) == 0) {
                     itemAction5Counter++;
+                }
                 if (itemAction5Counter >= 55) {
                     outBuffer.writeOpcode(Packet.ANTICHEAT_ITEM_ACTION_5);
                     outBuffer.writeDWord(0);
                 }
                 outBuffer.writeOpcode(Packet.ITEM_ACTION_5);
             }
-            if (action == 602)
+            if (action == 602) {
                 outBuffer.writeOpcode(Packet.ITEM_ACTION_1);
+            }
             if (action == 892) {
-                if ((k & 3) == 0)
+                if ((a & 3) == 0) {
                     itemAction4Counter++;
+                }
                 if (itemAction4Counter >= 130) {
                     outBuffer.writeOpcode(Packet.ANTICHEAT_ITEM_ACTION_4);
                     outBuffer.writeByte(177);
                 }
                 outBuffer.writeOpcode(Packet.ITEM_ACTION_4);
             }
-            if (action == 596)
+            if (action == 596) {
                 outBuffer.writeOpcode(Packet.ITEM_ACTION_2);
-            outBuffer.writeWord(j1);
-            outBuffer.writeWord(k);
-            outBuffer.writeWord(l);
+            }
+            outBuffer.writeWord(c);
+            outBuffer.writeWord(a);
+            outBuffer.writeWord(b);
             selectedCycle = 0;
-            anInt945 = l;
-            anInt946 = k;
+            anInt945 = b;
+            anInt946 = a;
             selectedArea = 2;
-            if (InterfaceComponent.instances[l].parent == viewportInterfaceIndex)
+            if (InterfaceComponent.instances[b].parent == viewportInterfaceIndex) {
                 selectedArea = 1;
-            if (InterfaceComponent.instances[l].parent == chatbackComponentId)
+            }
+            if (InterfaceComponent.instances[b].parent == chatbackComponentId) {
                 selectedArea = 3;
+            }
         }
         if (action == 581) {
-            if ((j1 & 3) == 0)
+            if ((c & 3) == 0) {
                 objectAction4Counter++;
+            }
             if (objectAction4Counter >= 99) {
                 outBuffer.writeOpcode(Packet.ANTICHEAT_OBJECT_ACTION_4);
                 outBuffer.writeDWord(0);
             }
-            interactWithLoc(Packet.OBJECT_ACTION_4, k, l, j1);
+            interactWithLoc(Packet.OBJECT_ACTION_4, a, b, c);
         }
         if (action == 965) {
-            boolean flag2 = moveTo(self.pathTileX[0], 0, false,
-                k, self.pathTileZ[0], 2, 0, l, 0, 0, 0);
+            boolean flag2 = moveTo(self.pathTileX[0], 0, false, a, self.pathTileZ[0], 2, 0, b, 0, 0, 0);
             if (!flag2)
-                flag2 = moveTo(self.pathTileX[0], 1, false, k,
-                    self.pathTileZ[0], 2, 1, l, 0, 0, 0);
+                moveTo(self.pathTileX[0], 1, false, a, self.pathTileZ[0], 2, 1, b, 0, 0, 0);
             crossX = super.clickX;
             crossY = super.clickY;
             crossType = 2;
             crossCycle = 0;
             outBuffer.writeOpcode(Packet.MAGIC_ON_GROUND_ITEM);
-            outBuffer.writeWord(k + baseTileX);
-            outBuffer.writeWord(l + baseTileZ);
-            outBuffer.writeWord(j1);
+            outBuffer.writeWord(a + baseTileX);
+            outBuffer.writeWord(b + baseTileZ);
+            outBuffer.writeWord(c);
             outBuffer.writeWord(anInt1026);
         }
         if (action == 1501) {
@@ -3921,23 +3945,24 @@ public class Game extends GameShell {
                 outBuffer.writeOpcode(Packet.ANTICHEAT_OBJECT_ACTION_5);
                 outBuffer.writeDWord(0);
             }
-            interactWithLoc(Packet.OBJECT_ACTION_5, k, l, j1);
+            interactWithLoc(Packet.OBJECT_ACTION_5, a, b, c);
         }
         if (action == 364)
-            interactWithLoc(Packet.OBJECT_ACTION_3, k, l, j1);
+            interactWithLoc(Packet.OBJECT_ACTION_3, a, b, c);
         if (action == 1102) {
-            ObjType objType_1 = ObjType.get(j1);
-            String s7;
-            if (objType_1.description != null)
-                s7 = new String(objType_1.description);
-            else
-                s7 = "It's a " + objType_1.name + ".";
-            addMessage(0, s7, "");
+            ObjType obj = ObjType.get(c);
+            String examine;
+            if (obj.description != null) {
+                examine = obj.description;
+            } else {
+                examine = "It's a " + obj.name + ".";
+            }
+            addMessage(0, examine, "");
         }
         if (action == 960) {
             outBuffer.writeOpcode(Packet.INTERFACE_BUTTON);
-            outBuffer.writeWord(l);
-            InterfaceComponent interfaceComponent_2 = InterfaceComponent.instances[l];
+            outBuffer.writeWord(b);
+            InterfaceComponent interfaceComponent_2 = InterfaceComponent.instances[b];
             if (interfaceComponent_2.script != null && interfaceComponent_2.script[0][0] == 5) {
                 int j2 = interfaceComponent_2.script[0][1];
                 if (variables[j2] != interfaceComponent_2.scriptCompareValue[0]) {
@@ -3948,7 +3973,7 @@ public class Game extends GameShell {
             }
         }
         if (action == 34) {
-            String s2 = options[j];
+            String s2 = options[option];
             int k2 = s2.indexOf("@whi@");
             if (k2 != -1) {
                 closeInterface();
@@ -3962,21 +3987,22 @@ public class Game extends GameShell {
                 }
             }
         }
-        if (action == 947)
+        if (action == 947) {
             closeInterface();
+        }
         if (action == 367) {
-            PlayerEntity playerEntity_1 = playerEntities[j1];
-            if (playerEntity_1 != null) {
+            PlayerEntity player = playerEntities[c];
+            if (player != null) {
                 moveTo(self.pathTileX[0], 1, false,
-                    playerEntity_1.pathTileX[0],
+                    player.pathTileX[0],
                     self.pathTileZ[0], 2, 1,
-                    playerEntity_1.pathTileZ[0], 0, 0, 0);
+                    player.pathTileZ[0], 0, 0, 0);
                 crossX = super.clickX;
                 crossY = super.clickY;
                 crossType = 2;
                 crossCycle = 0;
                 outBuffer.writeOpcode(Packet.ITEM_ON_PLAYER);
-                outBuffer.writeWord(j1);
+                outBuffer.writeWord(c);
                 outBuffer.writeWord(anInt1005);
                 outBuffer.writeWord(selectedObjSlot);
                 outBuffer.writeWord(selectedObjInterface);
@@ -3984,8 +4010,8 @@ public class Game extends GameShell {
         }
         if (action == 465) {
             outBuffer.writeOpcode(Packet.INTERFACE_BUTTON);
-            outBuffer.writeWord(l);
-            InterfaceComponent interfaceComponent_3 = InterfaceComponent.instances[l];
+            outBuffer.writeWord(b);
+            InterfaceComponent interfaceComponent_3 = InterfaceComponent.instances[b];
             if (interfaceComponent_3.script != null && interfaceComponent_3.script[0][0] == 5) {
                 int l2 = interfaceComponent_3.script[0][1];
                 variables[l2] = 1 - variables[l2];
@@ -3994,7 +4020,7 @@ public class Game extends GameShell {
             }
         }
         if (action == 406 || action == 436 || action == 557 || action == 556) {
-            String s3 = options[j];
+            String s3 = options[option];
             int i3 = s3.indexOf("@whi@");
             if (i3 != -1) {
                 long l4 = StringUtils.toBase37(s3.substring(i3 + 5).trim());
@@ -4009,18 +4035,18 @@ public class Game extends GameShell {
             }
         }
         if (action == 651) {
-            PlayerEntity playerEntity = playerEntities[j1];
-            if (playerEntity != null) {
+            PlayerEntity player = playerEntities[c];
+            if (player != null) {
                 moveTo(self.pathTileX[0], 1, false,
-                    playerEntity.pathTileX[0],
+                    player.pathTileX[0],
                     self.pathTileZ[0], 2, 1,
-                    playerEntity.pathTileZ[0], 0, 0, 0);
+                    player.pathTileZ[0], 0, 0, 0);
                 crossX = super.clickX;
                 crossY = super.clickY;
                 crossType = 2;
                 crossCycle = 0;
                 outBuffer.writeOpcode(Packet.MAGIC_ON_PLAYER);
-                outBuffer.writeWord(j1);
+                outBuffer.writeWord(c);
                 outBuffer.writeWord(anInt1026);
             }
         }
@@ -4131,12 +4157,11 @@ public class Game extends GameShell {
             if (--type >= friendCount) {
                 inter.text = "";
                 inter.buttonType = 0;
-                return;
             } else {
                 inter.text = friendName[type];
                 inter.buttonType = 1;
-                return;
             }
+            return;
         }
 
         if (type >= 101 && type <= 200) {
@@ -4168,12 +4193,11 @@ public class Game extends GameShell {
             if ((type -= 401) >= ignoreCount) {
                 inter.text = "";
                 inter.buttonType = 0;
-                return;
             } else {
                 inter.text = StringUtils.formatName(StringUtils.fromBase37(ignoreName37[type]));
                 inter.buttonType = 1;
-                return;
             }
+            return;
         }
 
         if (type == 503) {
@@ -4225,11 +4249,10 @@ public class Game extends GameShell {
 
             if (characterDesignIsMale) {
                 inter.image = spriteActive;
-                return;
             } else {
                 inter.image = sprite;
-                return;
             }
+            return;
         }
 
         if (type == 325) {
@@ -4240,22 +4263,20 @@ public class Game extends GameShell {
 
             if (characterDesignIsMale) {
                 inter.image = sprite;
-                return;
             } else {
                 inter.image = spriteActive;
-                return;
             }
+            return;
         }
 
         if (type == 600) {
             inter.text = reportInput;
             if (clientClock % 20 < 10) {
                 inter.text += "|";
-                return;
             } else {
                 inter.text += " ";
-                return;
             }
+            return;
         }
 
         if (type == 613) {
@@ -4350,11 +4371,11 @@ public class Game extends GameShell {
         }
     }
 
-    public boolean wavesave(byte[] abyte0, int i) {
-        if (abyte0 == null)
+    public boolean wavesave(byte[] src, int len) {
+        if (src == null)
             return true;
         else
-            return Signlink.wavesave(abyte0, i);
+            return Signlink.wavesave(src, len);
     }
 
     public boolean wavereplay() {
@@ -4391,7 +4412,8 @@ public class Game extends GameShell {
                 npc.turnAroundSeq = npc.info.turnRightSeq;
                 npc.turnRightSeq = npc.info.turnLeftSeq;
                 npc.standSeq = npc.info.standSeq;
-            } catch (Exception ex) {}
+            } catch (Exception ignored) {
+            }
 
             int x = buffer.getBits(5);
             if (x > 15) {
@@ -4539,7 +4561,7 @@ public class Game extends GameShell {
                         showProgress("Error loading - Will retry in " + secs + " secs.", 10);
                         try {
                             Thread.sleep(1000L);
-                        } catch (Exception _ex2) {
+                        } catch (Exception ignored) {
                         }
                     }
 
@@ -4596,7 +4618,8 @@ public class Game extends GameShell {
                 for (int i1 = 0; i1 < 13; i1++) {
                     sideicons[i1] = new IndexedSprite(mediaArchive, "sideicons", i1);
                 }
-            } catch (Exception _ex) {}
+            } catch (Exception ignored) {
+            }
 
             compass = new Sprite(mediaArchive, "compass", 0);
             try {
@@ -4608,33 +4631,33 @@ public class Game extends GameShell {
 
                     mapscene[n] = new IndexedSprite(mediaArchive, "mapscene", n);
                 }
-            } catch (Exception _ex) {
+            } catch (Exception ignored) {
             }
 
             try {
                 for (int k1 = 0; k1 < 50; k1++) {
                     mapfunction[k1] = new Sprite(mediaArchive, "mapfunction", k1);
                 }
-            } catch (Exception _ex) {
+            } catch (Exception ignored) {
             }
 
             try {
                 for (int l1 = 0; l1 < 20; l1++) {
                     hitmarks[l1] = new Sprite(mediaArchive, "hitmarks", l1);
                 }
-            } catch (Exception _ex) {
+            } catch (Exception ignored) {
             }
 
             try {
                 for (int i2 = 0; i2 < 20; i2++) {
                     headicons[i2] = new Sprite(mediaArchive, "headicons", i2);
                 }
-            } catch (Exception _ex) {
+            } catch (Exception ignored) {
             }
 
             try {
                 mapflag = new Sprite(mediaArchive, "mapflag", 0);
-            } catch (Exception _ex) {
+            } catch (Exception ignored) {
             }
 
             for (int j2 = 0; j2 < 8; j2++) {
@@ -4729,7 +4752,7 @@ public class Game extends GameShell {
 
             showProgress("Unpacking textures", 80);
             Draw3D.unpackTextures(texturesArchive);
-            Draw3D.setBrightness(0.80000000000000004D);
+            Draw3D.setBrightness(0.8D);
             Draw3D.setupPools(20);
             showProgress("Unpacking models", 83);
             Model.load(modelsArchive);
@@ -4748,8 +4771,8 @@ public class Game extends GameShell {
 
             if (!lowMemory) {
                 showProgress("Unpacking sounds", 90);
-                byte[] abyte0 = soundsArchive.read("sounds.dat", null);
-                Buffer sounds = new Buffer(abyte0);
+                byte[] src = soundsArchive.read("sounds.dat", null);
+                Buffer sounds = new Buffer(src);
                 SoundTrack.load(sounds);
             }
 
@@ -4823,36 +4846,50 @@ public class Game extends GameShell {
     }
 
     public void updateInput() {
-        if (objDragArea != 0)
+        if (objDragArea != 0) {
             return;
+        }
+
         options[0] = "Cancel";
         actions[0] = 1252;
         optionCount = 1;
         handleChatInput(super.mouseY);
         hoveredInterfaceIndex = 0;
-        if (super.mouseX > 8 && super.mouseY > 11 && super.mouseX < 520 && super.mouseY < 345)
-            if (viewportInterfaceIndex != -1)
+        if (super.mouseX > 8 && super.mouseY > 11 && super.mouseX < 520 && super.mouseY < 345) {
+            if (viewportInterfaceIndex != -1) {
                 updateInterface(super.mouseY, super.mouseX, 11, InterfaceComponent.instances[viewportInterfaceIndex], 8, 0);
-            else
+            } else {
                 updateViewport();
-        if (hoveredInterfaceIndex != viewportHoveredInterfaceIndex)
+            }
+        }
+
+        if (hoveredInterfaceIndex != viewportHoveredInterfaceIndex) {
             viewportHoveredInterfaceIndex = hoveredInterfaceIndex;
+        }
+
         hoveredInterfaceIndex = 0;
-        if (super.mouseX > 562 && super.mouseY > 231 && super.mouseX < 752 && super.mouseY < 492)
-            if (sidebarInterfaceId != -1)
+        if (super.mouseX > 562 && super.mouseY > 231 && super.mouseX < 752 && super.mouseY < 492) {
+            if (sidebarInterfaceId != -1) {
                 updateInterface(super.mouseY, super.mouseX, 231, InterfaceComponent.instances[sidebarInterfaceId], 562, 0);
-            else if (tabComponentId[selectedTab] != -1)
+            } else if (tabComponentId[selectedTab] != -1) {
                 updateInterface(super.mouseY, super.mouseX, 231, InterfaceComponent.instances[tabComponentId[selectedTab]], 562, 0);
+            }
+        }
+
         if (hoveredInterfaceIndex != sidebarHoveredInterfaceIndex) {
             sidebarRedraw = true;
             sidebarHoveredInterfaceIndex = hoveredInterfaceIndex;
         }
+
         hoveredInterfaceIndex = 0;
-        if (super.mouseX > 22 && super.mouseY > 375 && super.mouseX < 431 && super.mouseY < 471)
-            if (chatbackComponentId != -1)
+        if (super.mouseX > 22 && super.mouseY > 375 && super.mouseX < 431 && super.mouseY < 471) {
+            if (chatbackComponentId != -1) {
                 updateInterface(super.mouseY, super.mouseX, 375, InterfaceComponent.instances[chatbackComponentId], 22, 0);
-            else
+            } else {
                 updatePlayerTooltip(super.mouseY - 375);
+            }
+        }
+
         if (chatbackComponentId != -1 && hoveredInterfaceIndex != chatHoveredInterfaceIndex) {
             redrawChatback = true;
             chatHoveredInterfaceIndex = hoveredInterfaceIndex;
@@ -4860,7 +4897,7 @@ public class Game extends GameShell {
 
         for (boolean flag = false; !flag; ) {
             flag = true;
-            for (int j = 0; j < optionCount - 1; j++)
+            for (int j = 0; j < optionCount - 1; j++) {
                 if (actions[j] < 1000 && actions[j + 1] > 1000) {
                     String s = options[j];
                     options[j] = options[j + 1];
@@ -4879,6 +4916,7 @@ public class Game extends GameShell {
                     paramC[j + 1] = k;
                     flag = false;
                 }
+            }
         }
     }
 
@@ -4894,33 +4932,45 @@ public class Game extends GameShell {
 
     public void drawViewport3d() {
         drawChat();
-        if (crossType == 1)
+        if (crossType == 1) {
             cross[crossCycle / 100].draw(crossY - 8 - 11, crossX - 8 - 8);
-        if (crossType == 2)
+        }
+
+        if (crossType == 2) {
             cross[4 + crossCycle / 100].draw(crossY - 8 - 11, crossX - 8 - 8);
+        }
+
         if (viewportInterfaceIndex != -1) {
             animateInterface(viewportInterfaceIndex, sceneDelta);
             drawInterface(0, 0, InterfaceComponent.instances[viewportInterfaceIndex], 0);
         }
+
         drawWildyLevel();
         if (!menuVisible) {
             updateInput();
             drawTooltip();
-        } else if (mouseArea == 0)
+        } else if (mouseArea == 0) {
             drawMenu();
-        if (inMultizone == 1)
-            if (wildernessLevel > 0 || worldLocationState == 1)
+        }
+
+        if (inMultizone == 1) {
+            if (wildernessLevel > 0 || worldLocationState == 1) {
                 headicons[1].draw(258, 472);
-            else
+            } else {
                 headicons[1].draw(296, 472);
+            }
+        }
+
         if (wildernessLevel > 0) {
             headicons[0].draw(296, 472);
             fontPlain12.drawCentered(329, 0xffff00, "Level: " + wildernessLevel, 484);
         }
+
         if (worldLocationState == 1) {
             headicons[6].draw(296, 472);
             fontPlain12.drawCentered(329, 0xffff00, "Arena", 484);
         }
+
         if (systemUpdateTimer != 0) {
             int k = systemUpdateTimer / 50;
             int l = k / 60;
@@ -4940,31 +4990,39 @@ public class Game extends GameShell {
             cameraOrbitX = j;
             cameraOrbitZ = k;
         }
-        if (cameraOrbitX != j)
+
+        if (cameraOrbitX != j) {
             cameraOrbitX += (j - cameraOrbitX) / 16;
-        if (cameraOrbitZ != k)
+        }
+        if (cameraOrbitZ != k) {
             cameraOrbitZ += (k - cameraOrbitZ) / 16;
+        }
 
-        if (super.keyDown[GameShell.KEY_LEFT] == 1)
+        if (super.keyDown[GameShell.KEY_LEFT] == 1) {
             cameraYawModifier += (-24 - cameraYawModifier) / 2;
-        else if (super.keyDown[GameShell.KEY_RIGHT] == 1)
+        } else if (super.keyDown[GameShell.KEY_RIGHT] == 1) {
             cameraYawModifier += (24 - cameraYawModifier) / 2;
-        else
+        } else {
             cameraYawModifier /= 2;
+        }
 
-        if (super.keyDown[GameShell.KEY_UP] == 1)
+        if (super.keyDown[GameShell.KEY_UP] == 1) {
             cameraPitchModifier += (12 - cameraPitchModifier) / 2;
-        else if (super.keyDown[GameShell.KEY_DOWN] == 1)
+        } else if (super.keyDown[GameShell.KEY_DOWN] == 1) {
             cameraPitchModifier += (-12 - cameraPitchModifier) / 2;
-        else
+        } else {
             cameraPitchModifier /= 2;
+        }
 
         cameraYaw = cameraYaw + cameraYawModifier / 2 & 0x7ff;
         cameraOrbitPitch += cameraPitchModifier / 2;
-        if (cameraOrbitPitch < 128)
+        if (cameraOrbitPitch < 128) {
             cameraOrbitPitch = 128;
-        if (cameraOrbitPitch > 383)
+        }
+        if (cameraOrbitPitch > 383) {
             cameraOrbitPitch = 383;
+        }
+
         int l = cameraOrbitX >> 7;
         int i1 = cameraOrbitZ >> 7;
         int j1 = getLandY(currentLevel, cameraOrbitX, cameraOrbitZ);
@@ -4981,11 +5039,14 @@ public class Game extends GameShell {
                 }
             }
         }
+
         int i2 = k1 * 192;
-        if (i2 > 0x17f00)
+        if (i2 > 0x17f00) {
             i2 = 0x17f00;
-        if (i2 < 32768)
+        }
+        if (i2 < 32768) {
             i2 = 32768;
+        }
         if (i2 > cameraMaxY) {
             cameraMaxY += (i2 - cameraMaxY) / 24;
         } else if (i2 < cameraMaxY) {
@@ -4994,46 +5055,32 @@ public class Game extends GameShell {
     }
 
     public void updateSceneProjectiles() {
-        for (ProjectileEntity entity = (ProjectileEntity) projectiles
-            .peekLast(); entity != null; entity = (ProjectileEntity) projectiles
-            .getPrevious())
-            if (entity.level != currentLevel || clientClock > entity.lastCycle)
+        for (ProjectileEntity entity = (ProjectileEntity) projectiles.peekLast(); entity != null; entity = (ProjectileEntity) projectiles.getPrevious()) {
+            if (entity.level != currentLevel || clientClock > entity.lastCycle) {
                 entity.unlink();
-            else if (clientClock >= entity.firstCycle) {
+            } else if (clientClock >= entity.firstCycle) {
                 if (entity.targetIndex > 0) {
-                    NpcEntity npcEntity = npcEntities[entity.targetIndex
-                        - 1];
-                    if (npcEntity != null)
-                        entity.setTarget(
-                            getLandY(entity.level,
-                                npcEntity.x,
-                                npcEntity.z)
-                                - entity.baseZ,
-                            npcEntity.z,
-                            npcEntity.x, clientClock);
+                    NpcEntity npc = npcEntities[entity.targetIndex - 1];
+                    if (npc != null) {
+                        entity.setTarget(getLandY(entity.level, npc.x, npc.z) - entity.baseZ, npc.z, npc.x, clientClock);
+                    }
                 }
                 if (entity.targetIndex < 0) {
                     int i = -entity.targetIndex - 1;
-                    PlayerEntity playerEntity;
-                    if (i == selfPlayerId)
-                        playerEntity = self;
-                    else
-                        playerEntity = playerEntities[i];
-                    if (playerEntity != null)
-                        entity.setTarget(
-                            getLandY(entity.level,
-                                playerEntity.x,
-                                playerEntity.z)
-                                - entity.baseZ,
-                            playerEntity.z,
-                            playerEntity.x, clientClock);
+                    PlayerEntity player;
+                    if (i == selfPlayerId) {
+                        player = self;
+                    } else {
+                        player = playerEntities[i];
+                    }
+                    if (player != null) {
+                        entity.setTarget(getLandY(entity.level, player.x, player.z) - entity.baseZ, player.z, player.x, clientClock);
+                    }
                 }
                 entity.update(sceneDelta);
-                scene.add((int) entity.y, 60, entity.yaw,
-                    (int) entity.x, -1, false, null, entity,
-                    (int) entity.z, currentLevel);
+                scene.add((int) entity.y, 60, entity.yaw, (int) entity.x, -1, false, null, entity, (int) entity.z, currentLevel);
             }
-
+        }
     }
 
     public void refresh() {
@@ -5058,13 +5105,13 @@ public class Game extends GameShell {
             } else {
                 image.draw(83 - i2 - image.cropH / 2, (94 + l1) - image.cropW / 2);
             }
-        } catch (Exception ex) {}
+        } catch (Exception ignored) {
+        }
     }
 
     public int mix(int i, int j, int k) {
         int i1 = 256 - j;
-        return ((i & 0xff00ff) * i1 + (k & 0xff00ff) * j & 0xff00ff00)
-            + ((i & 0xff00) * i1 + (k & 0xff00) * j & 0xff0000) >> 8;
+        return ((i & 0xff00ff) * i1 + (k & 0xff00ff) * j & 0xff00ff00) + ((i & 0xff00) * i1 + (k & 0xff00) * j & 0xff0000) >> 8;
     }
 
     public static String getIntString(int value) {
@@ -5287,10 +5334,10 @@ public class Game extends GameShell {
                 }
                 try {
                     Thread.sleep(k);
-                } catch (Exception _ex) {
+                } catch (Exception ignored) {
                 }
             }
-        } catch (Exception _ex) {
+        } catch (Exception ignored) {
         }
         flameThreadActive = false;
     }
@@ -5319,13 +5366,11 @@ public class Game extends GameShell {
             interfaceComponent.scrollY -= dragCycle * 4;
             if (flag) {
                 sidebarRedraw = true;
-                return;
             }
         } else if (i >= j1 && i < j1 + 16 && k >= (k1 + i1) - 16 && k < k1 + i1) {
             interfaceComponent.scrollY += dragCycle * 4;
             if (flag) {
                 sidebarRedraw = true;
-                return;
             }
         } else if (i >= j1 - scrollGripInputPadding && i < j1 + 16 + scrollGripInputPadding && k >= k1 + 16 && k < (k1 + i1) - 16
             && dragCycle > 0) {
@@ -5399,7 +5444,7 @@ public class Game extends GameShell {
             if (response == 1) {
                 try {
                     Thread.sleep(2000L);
-                } catch (Exception _ex) {
+                } catch (Exception ignored) {
                 }
                 login(username, password, reconnect);
                 return;
@@ -5487,7 +5532,6 @@ public class Game extends GameShell {
                 itemAction5Counter = 0;
                 playerAction2Counter = 0;
                 itemAction4Counter = 0;
-                anInt1017 = 0;
                 prepareGameScreen();
                 return;
             }
@@ -5574,7 +5618,6 @@ public class Game extends GameShell {
             if (response == 17) {
                 loginMessage0 = "You are standing in a members-only area.";
                 loginMessage1 = "To play on this world move to a free area first";
-                return;
             }
         } catch (IOException _ex) {
             loginMessage0 = "";
@@ -5674,7 +5717,7 @@ public class Game extends GameShell {
             if (stream != null) {
                 stream.close();
             }
-        } catch (Exception _ex) {
+        } catch (Exception ignored) {
         }
 
         stream = null;
@@ -5926,7 +5969,7 @@ public class Game extends GameShell {
                             }
                         }
                     }
-                } catch (Exception exception) {
+                } catch (Exception ignored) {
                 }
 
                 if (!failed || waveDelay[j] == -5) {
@@ -6168,7 +6211,6 @@ public class Game extends GameShell {
             }
         } catch (IOException _ex) {
             reconnect();
-            return;
         } catch (Exception exception1) {
             disconnect();
         }
@@ -6220,7 +6262,7 @@ public class Game extends GameShell {
             if (super.frame != null) {
                 return new URL("http://" + serverAddress + ":" + (serverHttpPort + portoff));
             }
-        } catch (Exception _ex) {
+        } catch (Exception ignored) {
         }
         return super.getCodeBase();
     }
@@ -6699,7 +6741,6 @@ public class Game extends GameShell {
                     sidebarRedraw = true;
                 if (mouseArea == 2) {
                     redrawChatback = true;
-                    return;
                 }
             }
         } else {
@@ -6782,8 +6823,8 @@ public class Game extends GameShell {
         int i1 = k - cameraY;
         int j1 = j - cameraZ;
         int k1 = (int) Math.sqrt(l * l + j1 * j1);
-        int l1 = (int) (Math.atan2(i1, k1) * 325.94900000000001D) & 0x7ff;
-        int i2 = (int) (Math.atan2(l, j1) * -325.94900000000001D) & 0x7ff;
+        int l1 = (int) (Math.atan2(i1, k1) * 325.949D) & 0x7ff;
+        int i2 = (int) (Math.atan2(l, j1) * -325.949D) & 0x7ff;
         if (l1 < 128)
             l1 = 128;
         if (l1 > 383)
@@ -7025,14 +7066,13 @@ public class Game extends GameShell {
             disconnect();
         try {
             bufferedStream.close();
-        } catch (Exception _ex) {
+        } catch (Exception ignored) {
         }
     }
 
     public void updateFlameDissolve(IndexedSprite indexedSprite) {
         int j = 256;
-        for (int k = 0; k < flameBuffer1.length; k++)
-            flameBuffer1[k] = 0;
+        Arrays.fill(flameBuffer1, 0);
 
         for (int l = 0; l < 5000; l++) {
             int i1 = (int) (Math.random() * 128D * (double) j);
@@ -7043,10 +7083,8 @@ public class Game extends GameShell {
             for (int k1 = 1; k1 < j - 1; k1++) {
                 for (int i2 = 1; i2 < 127; i2++) {
                     int k2 = i2 + (k1 << 7);
-                    flameBuffer2[k2] = (flameBuffer1[k2 - 1] + flameBuffer1[k2 + 1] + flameBuffer1[k2 - 128]
-                        + flameBuffer1[k2 + 128]) / 4;
+                    flameBuffer2[k2] = (flameBuffer1[k2 - 1] + flameBuffer1[k2 + 1] + flameBuffer1[k2 - 128] + flameBuffer1[k2 + 128]) / 4;
                 }
-
             }
 
             int[] ai = flameBuffer1;
@@ -7075,9 +7113,9 @@ public class Game extends GameShell {
             return;
         }
         int k = -99999999;
-        Object obj = null;
-        for (ObjStackEntity entity = (ObjStackEntity) stacks
-            .peekLast(); entity != null; entity = (ObjStackEntity) stacks.getPrevious()) {
+
+        ObjStackEntity obj = null;
+        for (ObjStackEntity entity = (ObjStackEntity) stacks.peekLast(); entity != null; entity = (ObjStackEntity) stacks.getPrevious()) {
             ObjType objType = ObjType.get(entity.model);
             int i1 = objType.value;
             if (objType.stackable)
@@ -7088,34 +7126,31 @@ public class Game extends GameShell {
             }
         }
 
-        stacks.pushLast(((Node) (obj)));
+        stacks.pushLast(obj);
         int l = -1;
         int j1 = -1;
         int k1 = 0;
         int l1 = 0;
-        for (ObjStackEntity objStackEntity_1 = (ObjStackEntity) stacks
-            .peekLast(); objStackEntity_1 != null; objStackEntity_1 = (ObjStackEntity) stacks.getPrevious()) {
-            if (objStackEntity_1.model != ((ObjStackEntity) (obj)).model && l == -1) {
-                l = objStackEntity_1.model;
-                k1 = objStackEntity_1.amount;
+        for (ObjStackEntity entity = (ObjStackEntity) stacks.peekLast(); entity != null; entity = (ObjStackEntity) stacks.getPrevious()) {
+            if (entity.model != obj.model && l == -1) {
+                l = entity.model;
+                k1 = entity.amount;
             }
-            if (objStackEntity_1.model != ((ObjStackEntity) (obj)).model && objStackEntity_1.model != l
-                && j1 == -1) {
-                j1 = objStackEntity_1.model;
-                l1 = objStackEntity_1.amount;
+            if (entity.model != obj.model && entity.model != l && j1 == -1) {
+                j1 = entity.model;
+                l1 = entity.amount;
             }
         }
 
-        Model class38_sub2_sub1 = null;
+        Model m1 = null;
         if (l != -1)
-            class38_sub2_sub1 = ObjType.get(l).getModel(k1);
-        Model class38_sub2_sub1_1 = null;
+            m1 = ObjType.get(l).getModel(k1);
+        Model m2 = null;
         if (j1 != -1)
-            class38_sub2_sub1_1 = ObjType.get(j1).getModel(l1);
+            m2 = ObjType.get(j1).getModel(l1);
         int i2 = i + (j << 7) + 0x60000000;
-        ObjType objType_1 = ObjType.get(((ObjStackEntity) (obj)).model);
-        scene.addObject(objType_1.getModel(((ObjStackEntity) (obj)).amount), class38_sub2_sub1,
-            getLandY(currentLevel, i * 128 + 64, j * 128 + 64), currentLevel, i2, j, i, class38_sub2_sub1_1);
+        ObjType objType = ObjType.get(obj.model);
+        scene.addObject(objType.getModel(obj.amount), m1, getLandY(currentLevel, i * 128 + 64, j * 128 + 64), currentLevel, i2, j, i, m2);
     }
 
     public void createScene() {
@@ -7225,15 +7260,17 @@ public class Game extends GameShell {
     public void updateEntityVoices() {
         for (int i = -1; i < playerCount; i++) {
             int j;
-            if (i == -1)
+            if (i == -1) {
                 j = LOCAL_PLAYER_INDEX;
-            else
+            } else {
                 j = playerIndices[i];
+            }
             PlayerEntity playerEntity = playerEntities[j];
             if (playerEntity != null && playerEntity.textCycle > 0) {
                 playerEntity.textCycle--;
-                if (playerEntity.textCycle == 0)
+                if (playerEntity.textCycle == 0) {
                     playerEntity.spoken = null;
+                }
             }
         }
 
@@ -7242,12 +7279,26 @@ public class Game extends GameShell {
             NpcEntity npcEntity = npcEntities[l];
             if (npcEntity != null && npcEntity.textCycle > 0) {
                 npcEntity.textCycle--;
-                if (npcEntity.textCycle == 0)
+                if (npcEntity.textCycle == 0) {
                     npcEntity.spoken = null;
+                }
             }
         }
-
     }
+
+    public static int INTERFACE_OPCODE_RETURN = 0;
+    public static int INTERFACE_OPCODE_SKILL_LEVEL_REAL = 1;
+    public static int INTERFACE_OPCODE_SKILL_LEVEL = 2;
+    public static int INTERFACE_OPCODE_SKILL_LEVEL_EXPERIENCE = 3;
+    public static int INTERFACE_OPCODE_INVENTORY_ITEM_AMOUNT = 4;
+    public static int INTERFACE_OPCODE_VARIABLE = 5;
+    public static int INTERFACE_OPCODE_SKILL_EXPERIENCE = 6;
+    public static int INTERFACE_OPCODE_VARIABLE_MUL = 7;
+    public static int INTERFACE_OPCODE_COMBAT_LEVEL = 8;
+    public static int INTERFACE_OPCODE_TOTAL_LEVEL = 9;
+    public static int INTERFACE_OPCODE_INVENTORY_CAPACITY = 10;
+    public static int INTERFACE_OPCODE_ENERGY = 11;
+    public static int INTERFACE_OPCODE_WEIGHT = 12;
 
     public int executeInterface(InterfaceComponent inter, int script) {
         if (inter.script == null || script >= inter.script.length) {
@@ -7262,50 +7313,54 @@ public class Game extends GameShell {
                 int opcode;
                 do {
                     opcode = code[position++];
-                    if (opcode == 0)
+                    if (opcode == INTERFACE_OPCODE_RETURN) {
                         return a;
-                    if (opcode == 1)
+                    }
+
+                    if (opcode == INTERFACE_OPCODE_SKILL_LEVEL_REAL) {
                         a += skillLevelReal[code[position++]];
-                    if (opcode == 2)
+                    } else if (opcode == INTERFACE_OPCODE_SKILL_LEVEL) {
                         a += skillLevel[code[position++]];
-                    if (opcode == 3)
+                    } else if (opcode == INTERFACE_OPCODE_SKILL_LEVEL_EXPERIENCE) {
                         a += skillExperience[code[position++]];
-                    if (opcode == 4) {
+                    } else if (opcode == INTERFACE_OPCODE_INVENTORY_ITEM_AMOUNT) {
                         InterfaceComponent c = InterfaceComponent.instances[code[position++]];
-                        int k1 = code[position++] + 1;
-                        for (int j2 = 0; j2 < c.inventoryIndices.length; j2++)
-                            if (c.inventoryIndices[j2] == k1)
-                                a += c.inventoryAmount[j2];
-                    }
-                    if (opcode == 5)
-                        a += variables[code[position++]];
-                    if (opcode == 6)
-                        a += EXPERIENCE_TABLE[skillLevel[code[position++]] - 1];
-                    if (opcode == 7)
-                        a += (variables[code[position++]] * 100) / 46875;
-                    if (opcode == 8)
-                        a += self.combatLevel;
-                    if (opcode == 9) {
-                        for (int i1 = 0; i1 < 19; i1++) {
-                            if (i1 == 18)
-                                i1 = 20;
-                            a += skillLevel[i1];
+                        int itemId = code[position++] + 1;
+                        for (int n = 0; n < c.inventoryIndices.length; n++) {
+                            if (c.inventoryIndices[n] == itemId) {
+                                a += c.inventoryAmount[n];
+                            }
                         }
-                    }
-                    if (opcode == 10) {
+                    } else if (opcode == INTERFACE_OPCODE_VARIABLE) {
+                        a += variables[code[position++]];
+                    } else if (opcode == INTERFACE_OPCODE_SKILL_EXPERIENCE) {
+                        a += EXPERIENCE_TABLE[skillLevel[code[position++]] - 1];
+                    } else if (opcode == INTERFACE_OPCODE_VARIABLE_MUL) {
+                        a += (variables[code[position++]] * 100) / 46875;
+                    } else if (opcode == INTERFACE_OPCODE_COMBAT_LEVEL) {
+                        a += self.combatLevel;
+                    } else if (opcode == INTERFACE_OPCODE_TOTAL_LEVEL) {
+                        for (int n = 0; n < 19; n++) {
+                            if (n == 18) {
+                                n = 20;
+                            }
+                            a += skillLevel[n];
+                        }
+                    } else if (opcode == INTERFACE_OPCODE_INVENTORY_CAPACITY) {
                         InterfaceComponent c = InterfaceComponent.instances[code[position++]];
-                        int l1 = code[position++] + 1;
-                        for (int k2 = 0; k2 < c.inventoryIndices.length; k2++) {
-                            if (c.inventoryIndices[k2] != l1)
+                        int itemId = code[position++] + 1;
+                        for (int n = 0; n < c.inventoryIndices.length; n++) {
+                            if (c.inventoryIndices[n] != itemId) {
                                 continue;
-                            a += 0x3b9ac9ff;
+                            }
+                            a += 999999999;
                             break;
                         }
-                    }
-                    if (opcode == 11)
+                    } else if (opcode == INTERFACE_OPCODE_ENERGY) {
                         a += energy;
-                    if (opcode == 12)
+                    } else if (opcode == INTERFACE_OPCODE_WEIGHT) {
                         a += weightCarried;
+                    }
                 } while (opcode != 13);
                 int j1 = variables[code[position++]];
                 int i2 = code[position++];
@@ -7373,8 +7428,8 @@ public class Game extends GameShell {
     }
 
     public void loadTitleBackground() {
-        byte[] abyte0 = titleArchive.read("title.dat", null);
-        Sprite temp = new Sprite(abyte0, this);
+        byte[] src = titleArchive.read("title.dat", null);
+        Sprite temp = new Sprite(src, this);
         titleLeft.bind();
         temp.drawOpaque(0, 0);
 
@@ -7621,7 +7676,8 @@ public class Game extends GameShell {
                                 if (npc != null && npc != e && npc.info.size == 1 && npc.x == e.x && npc.z == e.z) {
                                     drawTooltip(npc.info, i1, l, npcIndices[i2]);
                                 }
-                            } catch (Exception ex) {}
+                            } catch (Exception ignored) {
+                            }
                         }
 
                     }
@@ -7636,7 +7692,8 @@ public class Game extends GameShell {
                                 if (npc != null && npc.info.size == 1 && npc.x == e.x && npc.z == e.z) {
                                     drawTooltip(npc.info, i1, l, npcIndices[j2]);
                                 }
-                            } catch (Exception ex) {}
+                            } catch (Exception ignored) {
+                            }
                         }
 
                         for (int k2 = 0; k2 < playerCount; k2++) {
@@ -8212,7 +8269,7 @@ public class Game extends GameShell {
                 for (SpawnedLoc loc = (SpawnedLoc) spawnedLocations.peekLast(); loc != null; loc = (SpawnedLoc) spawnedLocations.getPrevious()) {
                     loc.tileX -= deltaX;
                     loc.tileZ -= deltaZ;
-                    if (loc.tileX < 0 || loc.tileZ < 0 || loc.tileX >= 104  || loc.tileZ >= 104) {
+                    if (loc.tileX < 0 || loc.tileZ < 0 || loc.tileX >= 104 || loc.tileZ >= 104) {
                         loc.unlink();
                     }
                 }
@@ -8713,8 +8770,8 @@ public class Game extends GameShell {
                     int j26 = l19 - cameraY;
                     int j28 = k14 - cameraZ;
                     int i30 = (int) Math.sqrt(k23 * k23 + j28 * j28);
-                    cameraPitch = (int) (Math.atan2(j26, i30) * 325.94900000000001D) & 0x7ff;
-                    cameraOrbitYaw = (int) (Math.atan2(k23, j28) * -325.94900000000001D) & 0x7ff;
+                    cameraPitch = (int) (Math.atan2(j26, i30) * 325.949D) & 0x7ff;
+                    cameraOrbitYaw = (int) (Math.atan2(k23, j28) * -325.949D) & 0x7ff;
                     if (cameraPitch < 128) {
                         cameraPitch = 128;
                     } else if (cameraPitch > 383) {
@@ -9638,7 +9695,6 @@ public class Game extends GameShell {
     public DrawArea backvmid2;
     public DrawArea backvmid3;
     public DrawArea backhmid2;
-    public static int anInt1017;
     public int waveCount;
     public int drawX = -1;
     public int drawY = -1;

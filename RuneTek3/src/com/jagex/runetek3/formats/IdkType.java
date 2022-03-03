@@ -1,7 +1,7 @@
 package com.jagex.runetek3.formats;
 
-import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.cache.FileArchive;
+import com.jagex.runetek3.util.Buffer;
 
 public class IdkType {
 

@@ -4,9 +4,9 @@ import com.jagex.runetek3.formats.FloType;
 import com.jagex.runetek3.formats.LocType;
 import com.jagex.runetek3.formats.Model;
 import com.jagex.runetek3.formats.SeqType;
+import com.jagex.runetek3.graphics.Draw3D;
 import com.jagex.runetek3.util.Buffer;
 import com.jagex.runetek3.util.LinkedList;
-import com.jagex.runetek3.graphics.Draw3D;
 
 public class SceneBuilder {
 

@@ -1,11 +1,11 @@
 package com.jagex.runetek3.formats;
 
 import com.jagex.runetek3.cache.FileArchive;
-import com.jagex.runetek3.util.Buffer;
-import com.jagex.runetek3.util.CacheableNode;
 import com.jagex.runetek3.graphics.Draw2D;
 import com.jagex.runetek3.graphics.Draw3D;
 import com.jagex.runetek3.scene.VertexNormal;
+import com.jagex.runetek3.util.Buffer;
+import com.jagex.runetek3.util.CacheableNode;
 
 public class Model extends CacheableNode {
 
@@ -1421,7 +1421,7 @@ public class Model extends CacheableNode {
         int cpitchcos = cos[cameraPitch];
 
         int depth = cameraY * cpitchsin + cameraZ * cpitchcos >> 16;
-        
+
         for (int v = 0; v < vertexCount; v++) {
             int x = vertexX[v];
             int y = vertexY[v];
@@ -1475,11 +1475,11 @@ public class Model extends CacheableNode {
         int b = sceneY * sinCameraPitch + a * cosCameraPitch >> 16;
         int c = lengthXZ * cosCameraPitch >> 16;
         int d = b + c;
-        
+
         if (d <= 50 || b >= 3500) {
             return;
         }
-        
+
         int e = sceneZ * sinCameraYaw + sceneX * cosCameraYaw >> 16;
 
         int minScreenX = e - lengthXZ << 9;
@@ -1491,15 +1491,15 @@ public class Model extends CacheableNode {
         if (maxScreenX / d <= -Draw2D.centerX) {
             return;
         }
-        
+
         int f = sceneY * cosCameraPitch - a * sinCameraPitch >> 16;
         int g = lengthXZ * sinCameraPitch >> 16;
-        
+
         int maxScreenY = f + g << 9;
         if (maxScreenY / d <= -Draw2D.centerY) {
             return;
         }
-        
+
         int h = g + (maxBoundY * cosCameraPitch >> 16);
 
         int minScreenY = f - h << 9;
@@ -1516,7 +1516,7 @@ public class Model extends CacheableNode {
             if (j <= 50) {
                 j = 50;
             }
-            
+
             if (e > 0) {
                 minScreenX /= d;
                 maxScreenX /= j;
@@ -1524,7 +1524,7 @@ public class Model extends CacheableNode {
                 maxScreenX /= d;
                 minScreenX /= j;
             }
-            
+
             if (f > 0) {
                 minScreenY /= d;
                 maxScreenY /= j;
@@ -1532,7 +1532,7 @@ public class Model extends CacheableNode {
                 maxScreenY /= d;
                 minScreenY /= j;
             }
-            
+
             int x = cursorX - Draw3D.centerX;
             int y = cursorY - Draw3D.centerY;
 
@@ -1547,14 +1547,14 @@ public class Model extends CacheableNode {
 
         int cx = Draw3D.centerX;
         int cy = Draw3D.centerY;
-        
+
         int yawsin = 0;
         int yawcos = 0;
         if (yaw != 0) {
             yawsin = sin[yaw];
             yawcos = cos[yaw];
         }
-        
+
         for (int v = 0; v < vertexCount; v++) {
             int x = vertexX[v];
             int y = vertexY[v];

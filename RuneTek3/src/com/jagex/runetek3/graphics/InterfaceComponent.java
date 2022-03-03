@@ -39,7 +39,7 @@ public class InterfaceComponent {
                 parent = b.readWord();
                 index = b.readWord();
             }
-            
+
             InterfaceComponent w = instances[index] = new InterfaceComponent();
             w.id = index;
             w.parent = parent;
@@ -49,12 +49,12 @@ public class InterfaceComponent {
             w.width = b.readWord();
             w.height = b.readWord();
             w.hoverParentIndex = b.readByte();
-            
+
             if (w.hoverParentIndex != 0)
                 w.hoverParentIndex = (w.hoverParentIndex - 1 << 8) + b.readByte();
             else
                 w.hoverParentIndex = -1;
-            
+
             int comparatorCount = b.readByte();
             if (comparatorCount > 0) {
                 w.scriptCompareType = new int[comparatorCount];
@@ -64,7 +64,7 @@ public class InterfaceComponent {
                     w.scriptCompareValue[n] = b.readWord();
                 }
             }
-            
+
             int scriptCount = b.readByte();
             if (scriptCount > 0) {
                 w.script = new int[scriptCount][];
