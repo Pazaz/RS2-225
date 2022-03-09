@@ -2,6 +2,15 @@
 
 Original client release: May 18, 2004
 
+## Usage
+
+1) Clone this repo.
+2) Run `mvn package`
+3) The client jar should be placed in `RuneScape/target/runescape-1.0.jar`
+
+There are some additional sub-projects in this repo that have their own jars as well.
+The engine, RuneTek3, is a depedency and does not have a jar created. Its classes get copied to each project's jar.
+
 ## Status
 
 There's 4 steps to this project:

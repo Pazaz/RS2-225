@@ -5,7 +5,8 @@ dump/
 .idea/
 *.png
 
-/target/
+*/dependency-reduced-pom.xml
+target/
 .classpath
 .settings/org.eclipse.jdt.core.prefs
 .settings/org.eclipse.m2e.core.prefs
