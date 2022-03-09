@@ -329,6 +329,7 @@ public class Playground extends Applet {
                             } else {
                                 loadId = Integer.parseInt(textInput);
                                 loc = LocType.get(loadId);
+                                loc.delayShading = false;
                                 locFrame = 0;
                                 locDelay = 0;
                                 loadSeq = 0;
