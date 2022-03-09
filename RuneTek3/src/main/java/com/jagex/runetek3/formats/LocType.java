@@ -28,7 +28,10 @@ public class LocType {
     public boolean isSolid;
     public boolean interactable;
     public boolean adjustToTerrain;
-    public boolean flatShaded;
+
+    // walls and other objects that appear connected typically want their shading delayed so it can be applied at once
+    public boolean delayShading;
+
     public boolean culls;
     public int animationIndex;
     public int thickness;
@@ -47,7 +50,7 @@ public class LocType {
     public int translateY;
     public int translateZ;
     public int interactionSideFlags;
-    public boolean aBoolean73;
+    public boolean obstructsGround;
     public LocType() {
         index = -1;
     }
@@ -97,6 +100,18 @@ public class LocType {
         locType.index = index;
         locType.reset();
         locType.read(data);
+
+        // Overrides (until data can be repacked)
+        if (index == 899 || index == 901) {
+            // Hanging Banner
+            locType.delayShading = false; // unset opcode 22
+            locType.specular = 100;
+            locType.brightness = 30;
+        } else if (index == 1779) {
+            // Sails (Windmill)
+            locType.delayShading = false;
+        }
+
         return locType;
     }
 
@@ -113,7 +128,7 @@ public class LocType {
         isSolid = true;
         interactable = false;
         adjustToTerrain = false;
-        flatShaded = false;
+        delayShading = false;
         culls = false;
         animationIndex = -1;
         thickness = 16;
@@ -132,7 +147,7 @@ public class LocType {
         translateX = 0;
         translateY = 0;
         translateZ = 0;
-        aBoolean73 = false;
+        obstructsGround = false;
     }
 
     public void read(Buffer buffer) {
@@ -145,8 +160,8 @@ public class LocType {
                 break;
             } else if (opcode == 1) {
                 int count = buffer.g1();
-                modelTypes = new int[count];
                 modelIndices = new int[count];
+                modelTypes = new int[count];
 
                 for (int n = 0; n < count; n++) {
                     modelIndices[n] = buffer.g2();
@@ -156,6 +171,16 @@ public class LocType {
                 name = buffer.gString();
             } else if (opcode == 3) {
                 description = buffer.gString();
+            } else if (opcode == 5) {
+                // new opcode
+                int count = buffer.g1();
+                modelIndices = new int[count];
+                modelTypes = new int[count];
+
+                for (int n = 0; n < count; n++) {
+                    modelIndices[n] = buffer.g2();
+                    modelTypes[n] = 10;
+                }
             } else if (opcode == 14) {
                 sizeX = buffer.g1();
             } else if (opcode == 15) {
@@ -173,7 +198,7 @@ public class LocType {
             } else if (opcode == 21) {
                 adjustToTerrain = true;
             } else if (opcode == 22) {
-                flatShaded = true;
+                delayShading = true;
             } else if (opcode == 23) {
                 culls = true;
             } else if (opcode == 24) {
@@ -230,7 +255,20 @@ public class LocType {
             } else if (opcode == 72) {
                 translateZ = buffer.g2s();
             } else if (opcode == 73) {
-                aBoolean73 = true;
+                obstructsGround = true;
+            } else if (opcode == 74) {
+                // new opcode
+            } else if (opcode == 75) {
+                // new opcode
+                buffer.g1();
+            } else if (opcode == 77) {
+                // new opcode
+                buffer.g2();
+                buffer.g2();
+                int count = buffer.g1();
+                for (int i = 0; i < count; ++i) {
+                    buffer.g2();
+                }
             }
         } while (true);
 
@@ -271,8 +309,8 @@ public class LocType {
                 return m;
             }
 
-            if (adjustToTerrain || flatShaded) {
-                m = new Model(m, adjustToTerrain, flatShaded);
+            if (adjustToTerrain || delayShading) {
+                m = new Model(m, adjustToTerrain, delayShading);
             }
 
             if (adjustToTerrain) {
@@ -343,7 +381,7 @@ public class LocType {
             m3.translate(translateY, translateX, translateZ);
         }
 
-        m3.applyLighting(64 + brightness, 768 + specular * 5, -50, -10, -50, !flatShaded);
+        m3.applyLighting(64 + brightness, 768 + specular * 5, -50, -10, -50, !delayShading);
 
         if (hasCollision) {
             m3.anInt1251 = m3.maxBoundY;
@@ -351,8 +389,8 @@ public class LocType {
 
         builtModels.put(uid, m3);
 
-        if (adjustToTerrain || flatShaded) {
-            m3 = new Model(m3, adjustToTerrain, flatShaded);
+        if (adjustToTerrain || delayShading) {
+            m3 = new Model(m3, adjustToTerrain, delayShading);
         }
 
         if (adjustToTerrain) {

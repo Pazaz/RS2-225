@@ -31,8 +31,8 @@ import java.util.zip.CRC32;
 
 public class Game extends Applet {
 
-    public static String serverAddress = "127.0.0.1";
-    public static int serverHttpPort = 80;
+    public static String serverAddress = "localhost";
+    public static int serverHttpPort = 43595;
     public static int serverGamePort = 43594;
 
     public static int skyColor = 0x000000;
@@ -167,7 +167,8 @@ public class Game extends Applet {
     public int secondMostRecentOpcode;
     public int thirdMostRecentOpcode;
 
-    public int[] archiveChecksums = new int[10];
+    public int[] archiveChecksums = new int[11];
+    public FileArchive lostcityArchive;
     public FileArchive titleArchive;
 
     public boolean errorLoading = false;
@@ -661,6 +662,8 @@ public class Game extends Applet {
                 setHighMemory();
                 members = true;
             }
+
+            System.out.println("Connecting to " + serverAddress + ":" + serverHttpPort);
 
             Signlink.startpriv(InetAddress.getLocalHost());
             instance = new Game();
@@ -5068,13 +5071,13 @@ public class Game extends Applet {
 
         try {
             int nextSecs = 5;
-            for (archiveChecksums[9] = 0; archiveChecksums[9] == 0; ) {
+            for (archiveChecksums[archiveChecksums.length - 1] = 0; archiveChecksums[archiveChecksums.length - 1] == 0; ) {
                 showProgress("Connecting to fileserver", 10);
                 try {
                     DataInputStream dis = openStream("crc" + (int) (Math.random() * 99999999D));
-                    Buffer b = new Buffer(new byte[40]);
-                    dis.readFully(b.data, 0, 40);
-                    for (int k = 0; k < 10; k++) {
+                    Buffer b = new Buffer(new byte[archiveChecksums.length * 4]);
+                    dis.readFully(b.data, 0, archiveChecksums.length * 4);
+                    for (int k = 0; k < archiveChecksums.length; k++) {
                         archiveChecksums[k] = b.g4();
                     }
                     dis.close();
@@ -5101,6 +5104,8 @@ public class Game extends Applet {
                 Signlink.setSoundfont(loadArchive("virtual instruments", archiveChecksums[9], "soundfont", 5));
                 setMidi(0xbc614e, "scape_main", 40000);
             }
+
+            this.lostcityArchive = loadArchive("lost city", archiveChecksums[10], "lostcity", 7);
 
             this.titleArchive = loadArchive("title screen", archiveChecksums[1], "title", 10);
 
@@ -7889,7 +7894,9 @@ public class Game extends Applet {
         titleRightSpace.bind();
         temp.drawOpaque(-180, -186);
 
-        temp = new Sprite(titleArchive, "logo", 0);
+        byte[] logo = lostcityArchive.read("newlogo.png", null);
+        temp = new Sprite(logo, this);
+        //temp = new Sprite(titleArchive, "logo", 0);
         titleTop.bind();
         temp.draw(18, super.gameWidth / 2 - temp.width / 2 - 128);
 

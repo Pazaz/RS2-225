@@ -777,9 +777,9 @@ public class Draw3D extends Draw2D {
                 length = rightX - leftX & 3;
                 if (length > 0) {
                     color = palette[leftColor >> 8];
-                    do
+                    do {
                         dst[dstOff++] = color;
-                    while (--length > 0);
+                    } while (--length > 0);
                     return;
                 }
             } else {
@@ -834,7 +834,8 @@ public class Draw3D extends Draw2D {
             color = palette[leftColor >> 8];
             leftColor += colorStep;
             color = ((color & 0xff00ff) * invAlpha >> 8 & 0xff00ff) + ((color & 0xff00) * invAlpha >> 8 & 0xff00);
-            dst[dstOff++] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
+            dst[dstOff] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
+            dstOff++;
         } while (--length > 0);
     }
 

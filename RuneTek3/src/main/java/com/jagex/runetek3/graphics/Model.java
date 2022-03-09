@@ -1772,7 +1772,6 @@ public class Model extends CacheableNode {
         int[] priorities = normalTrianglePriority;
 
         if (t == priorityTriangleCount) {
-            t = 0;
             priorityTriangleCount = priorityTriangleCounts[11];
             triangles = priorityTriangles[11];
             priorities = highTrianglePriority;
@@ -1788,7 +1787,6 @@ public class Model extends CacheableNode {
         for (int p = 0; p < 10; p++) {
             while (p == 0 && pri > minPriority) {
                 drawTriangle(triangles[t++]);
-
                 if (t == priorityTriangleCount && triangles != priorityTriangles[11]) {
                     t = 0;
                     priorityTriangleCount = priorityTriangleCounts[11];
@@ -1837,7 +1835,6 @@ public class Model extends CacheableNode {
 
             int n = priorityTriangleCounts[p];
             int[] tris = priorityTriangles[p];
-
             for (int m = 0; m < n; m++) {
                 drawTriangle(tris[m]);
             }

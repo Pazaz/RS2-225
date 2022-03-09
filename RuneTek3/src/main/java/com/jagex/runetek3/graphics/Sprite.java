@@ -40,7 +40,7 @@ public class Sprite extends Draw2D {
             PixelGrabber pixelgrabber = new PixelGrabber(image, 0, 0, width, height, pixels, 0, width);
             pixelgrabber.grabPixels();
         } catch (Exception _ex) {
-            System.out.println("Error converting jpg");
+            System.out.println("Error converting image");
         }
     }
 

@@ -408,7 +408,7 @@ public class SceneManager {
         }
         byte byte0 = (byte) ((orientation << 6) + objType);
         if (objType == 22) {
-            if (lowMemory && !loc.interactable && !loc.aBoolean73)
+            if (lowMemory && !loc.interactable && !loc.obstructsGround)
                 return;
             Model m = loc.getModel(22, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
             mapSquare.addGroundDecoration(m, x, flag, z, p, byte0, average);
