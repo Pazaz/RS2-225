@@ -32,7 +32,7 @@ import java.util.zip.CRC32;
 public class Game extends Applet {
 
     public static String serverAddress = "localhost";
-    public static int serverHttpPort = 43595;
+    public static int serverHttpPort = 80;
     public static int serverGamePort = 43594;
 
     public static int skyColor = 0x000000;
