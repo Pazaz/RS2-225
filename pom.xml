@@ -15,6 +15,7 @@
         <module>runescape</module>
         <module>mapviewer</module>
         <module>playground</module>
+        <module>discordbot</module>
     </modules>
     
     <properties>
