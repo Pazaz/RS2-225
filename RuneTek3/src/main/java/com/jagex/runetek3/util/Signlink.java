@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
+import java.util.Objects;
 
 public class Signlink implements Runnable {
 
@@ -50,8 +51,7 @@ public class Signlink implements Runnable {
     public static boolean reporterror = true;
     public static String errorname = "";
     private static MidiPlayer midiPlayer = null;
-    private final int EXTERNAL_BUFFER_SIZE = 524288;
-    private Position curPosition = Position.NORMAL;
+    private final Position curPosition = Position.NORMAL;
     public Signlink() {
     }
 
@@ -81,7 +81,7 @@ public class Signlink implements Runnable {
     }
 
     public static void setSoundfont(FileArchive archive) {
-        midiPlayer.setSoundfont(archive.read("soundfont", null));
+        midiPlayer.setSoundfont(archive.read("soundfont"));
     }
 
     public static void playMidi(String music) {
@@ -335,7 +335,7 @@ public class Signlink implements Runnable {
         if (!Signlink.lowMemory) {
             try {
                 midiPlayer = new MidiPlayer();
-            } catch (Exception ex) {
+            } catch (Exception ignored) {
             }
         }
 
@@ -373,20 +373,20 @@ public class Signlink implements Runnable {
                     if (file.exists()) {
                         int j = (int) file.length();
                         loadbuf = new byte[j];
-                        DataInputStream datainputstream = new DataInputStream(new FileInputStream(s + loadreq));
-                        datainputstream.readFully(loadbuf, 0, j);
-                        datainputstream.close();
+                        DataInputStream dis = new DataInputStream(new FileInputStream(s + loadreq));
+                        dis.readFully(loadbuf, 0, j);
+                        dis.close();
                     }
-                } catch (Exception _ex) {
+                } catch (Exception ignored) {
                 }
                 loadreq = null;
             } else if (savereq != null) {
                 if (savebuf != null) {
                     try {
-                        FileOutputStream fileoutputstream = new FileOutputStream(s + savereq);
-                        fileoutputstream.write(savebuf, 0, savelen);
-                        fileoutputstream.close();
-                    } catch (Exception _ex) {
+                        FileOutputStream fos = new FileOutputStream(s + savereq);
+                        fos.write(savebuf, 0, savelen);
+                        fos.close();
+                    } catch (Exception ignored) {
                     }
                 }
                 if (waveplay) {
@@ -408,7 +408,7 @@ public class Signlink implements Runnable {
             }
             try {
                 Thread.sleep(looprate);
-            } catch (Exception _ex) {
+            } catch (Exception ignored) {
             }
         }
     }
@@ -436,10 +436,10 @@ public class Signlink implements Runnable {
             }
         }
 
-        if (midi != "none") {
-            if (midi == "stop") {
+        if (!Objects.equals(midi, "none")) {
+            if (Objects.equals(midi, "stop")) {
                 midiPlayer.stop();
-            } else if (midi == "voladjust") {
+            } else if (Objects.equals(midi, "voladjust")) {
                 midiPlayer.setVolume(0, midivol);
             } else {
                 playMidi(midi);
@@ -450,7 +450,7 @@ public class Signlink implements Runnable {
             }
         }
 
-        if (wave != "none") {
+        if (!Objects.equals(wave, "none")) {
             AudioInputStream audioInputStream;
 
             try {
@@ -483,6 +483,7 @@ public class Signlink implements Runnable {
 
             auline.start();
             int nBytesRead = 0;
+            int EXTERNAL_BUFFER_SIZE = 524288;
             byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
 
             try {

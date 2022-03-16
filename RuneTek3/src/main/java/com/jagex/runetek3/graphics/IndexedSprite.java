@@ -15,8 +15,8 @@ public class IndexedSprite extends Draw2D {
     public int clipHeight;
 
     public IndexedSprite(FileArchive archive, String name, int index) {
-        Buffer data = new Buffer(archive.read(name + ".dat", null));
-        Buffer idx = new Buffer(archive.read("index.dat", null));
+        Buffer data = new Buffer(archive.read(name + ".dat"));
+        Buffer idx = new Buffer(archive.read("index.dat"));
 
         idx.offset = data.g2();
         clipWidth = idx.g2();

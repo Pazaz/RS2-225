@@ -17,10 +17,10 @@ public class SeqFrame {
     }
 
     public static void load(FileArchive fileArchive) {
-        Buffer head = new Buffer(fileArchive.read("frame_head.dat", null));
-        Buffer tran1 = new Buffer(fileArchive.read("frame_tran1.dat", null));
-        Buffer tran2 = new Buffer(fileArchive.read("frame_tran2.dat", null));
-        Buffer del = new Buffer(fileArchive.read("frame_del.dat", null));
+        Buffer head = new Buffer(fileArchive.read("frame_head.dat"));
+        Buffer tran1 = new Buffer(fileArchive.read("frame_tran1.dat"));
+        Buffer tran2 = new Buffer(fileArchive.read("frame_tran2.dat"));
+        Buffer del = new Buffer(fileArchive.read("frame_del.dat"));
 
         int frameCount = head.g2();
         int totalFrames = head.g2();

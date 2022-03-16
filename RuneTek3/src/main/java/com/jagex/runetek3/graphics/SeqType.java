@@ -29,7 +29,7 @@ public class SeqType {
     }
 
     public static void load(FileArchive fileArchive) {
-        Buffer buffer = new Buffer(fileArchive.read("seq.dat", null));
+        Buffer buffer = new Buffer(fileArchive.read("seq.dat"));
         count = buffer.g2();
         instances = new SeqType[count];
 

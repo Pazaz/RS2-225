@@ -14,10 +14,10 @@ public class WordPack {
     public static int[] tldTypes;
 
     public static void load(FileArchive fileArchive) {
-        Buffer fragments = new Buffer(fileArchive.read("fragmentsenc.txt", null));
-        Buffer bad = new Buffer(fileArchive.read("badenc.txt", null));
-        Buffer domain = new Buffer(fileArchive.read("domainenc.txt", null));
-        Buffer tld = new Buffer(fileArchive.read("tldlist.txt", null));
+        Buffer fragments = new Buffer(fileArchive.read("fragmentsenc.txt"));
+        Buffer bad = new Buffer(fileArchive.read("badenc.txt"));
+        Buffer domain = new Buffer(fileArchive.read("domainenc.txt"));
+        Buffer tld = new Buffer(fileArchive.read("tldlist.txt"));
         unpack(fragments, bad, domain, tld);
     }
 

@@ -23,7 +23,7 @@ public class FloorType {
     }
 
     public static void load(FileArchive fileArchive) {
-        Buffer buffer = new Buffer(fileArchive.read("flo.dat", null));
+        Buffer buffer = new Buffer(fileArchive.read("flo.dat"));
         count = buffer.g2();
         instances = new FloorType[count];
 

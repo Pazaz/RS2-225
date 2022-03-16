@@ -49,7 +49,7 @@ public class FileArchive {
         }
     }
 
-    public byte[] read(String name, byte[] dest) {
+    public byte[] read(String name) {
         int hash = 0;
         name = name.toUpperCase();
         for (int j = 0; j < name.length(); j++) {
@@ -58,14 +58,12 @@ public class FileArchive {
 
         for (int k = 0; k < fileCount; k++) {
             if (fileHash[k] == hash) {
-                if (dest == null) {
-                    dest = new byte[fileUnpackedSize[k]];
-                }
+                byte[] dest = new byte[fileUnpackedSize[k]];
 
                 if (!isCompressedWhole) {
                     BZip2InputStream.read(dest, fileUnpackedSize[k], data, filePackedSize[k], fileOffset[k]);
                 } else {
-                    System.arraycopy(data, fileOffset[k] + 0, dest, 0, fileUnpackedSize[k]);
+                    System.arraycopy(data, fileOffset[k], dest, 0, fileUnpackedSize[k]);
                 }
 
                 return dest;

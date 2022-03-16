@@ -643,7 +643,7 @@ public class Playground extends Applet {
         showProgress("Loading sounds", 80);
 
         FileArchive sounds = new FileArchive(Signlink.cacheload("sounds", false));
-        byte[] src = sounds.read("sounds.dat", null);
+        byte[] src = sounds.read("sounds.dat");
         Buffer buffer = new Buffer(src);
         SoundTrack.load(buffer);
     }
@@ -651,9 +651,7 @@ public class Playground extends Applet {
     private void exportImage(int[] pixels, String filename) {
         byte[] raw = new byte[pixels.length * 4];
         int offset = 0;
-        for (int n = 0; n < pixels.length; n++) {
-            int rgb = pixels[n];
-
+        for (int rgb : pixels) {
             raw[offset++] = (byte) (rgb >> 16); // red
             raw[offset++] = (byte) (rgb >> 8); // green
             raw[offset++] = (byte) (rgb); // blue

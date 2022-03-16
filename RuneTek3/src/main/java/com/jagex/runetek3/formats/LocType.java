@@ -56,8 +56,8 @@ public class LocType {
     }
 
     public static void load(FileArchive fileArchive) {
-        data = new Buffer(fileArchive.read("loc.dat", null));
-        Buffer buffer = new Buffer(fileArchive.read("loc.idx", null));
+        data = new Buffer(fileArchive.read("loc.dat"));
+        Buffer buffer = new Buffer(fileArchive.read("loc.idx"));
 
         count = buffer.g2();
         offsets = new int[count];

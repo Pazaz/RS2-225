@@ -56,8 +56,8 @@ public class NPCType {
     }
 
     public static void load(FileArchive fileArchive) {
-        data = new Buffer(fileArchive.read("npc.dat", null));
-        Buffer idx = new Buffer(fileArchive.read("npc.idx", null));
+        data = new Buffer(fileArchive.read("npc.dat"));
+        Buffer idx = new Buffer(fileArchive.read("npc.idx"));
         count = idx.g2();
         offsets = new int[count];
 

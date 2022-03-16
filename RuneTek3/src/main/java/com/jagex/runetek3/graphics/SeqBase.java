@@ -13,9 +13,9 @@ public class SeqBase {
     }
 
     public static void load(FileArchive fileArchive) {
-        Buffer head = new Buffer(fileArchive.read("base_head.dat", null));
-        Buffer type = new Buffer(fileArchive.read("base_type.dat", null));
-        Buffer label = new Buffer(fileArchive.read("base_label.dat", null));
+        Buffer head = new Buffer(fileArchive.read("base_head.dat"));
+        Buffer type = new Buffer(fileArchive.read("base_type.dat"));
+        Buffer label = new Buffer(fileArchive.read("base_label.dat"));
 
         int total = head.g2();
         instances = new SeqBase[head.g2() + 1];

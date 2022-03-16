@@ -125,7 +125,7 @@ public class Viewer extends Applet {
         FileArchive worldmap = loadData();
         showProgress("Please wait... Rendering Map", 100);
 
-        Buffer buffer = new Buffer(worldmap.read("size.dat", null));
+        Buffer buffer = new Buffer(worldmap.read("size.dat"));
         centerX = buffer.g2();
         centerY = buffer.g2();
         originX = buffer.g2();
@@ -139,7 +139,7 @@ public class Viewer extends Applet {
         overviewX = super.gameWidth - imageOverviewWidth - 5;
         overviewY = super.gameHeight - imageOverviewHeight - 20;
 
-        buffer = new Buffer(worldmap.read("labels.dat", null));
+        buffer = new Buffer(worldmap.read("labels.dat"));
         labelCount = buffer.g2();
         for (int n = 0; n < labelCount; n++) {
             labelText[n] = buffer.gString();
@@ -148,7 +148,7 @@ public class Viewer extends Applet {
             labelType[n] = buffer.g1();
         }
 
-        buffer = new Buffer(worldmap.read("floorcol.dat", null));
+        buffer = new Buffer(worldmap.read("floorcol.dat"));
         int floorcolCount = buffer.g2();
         floormapsUnderlay = new int[floorcolCount + 1];
         floormapsOverlay = new int[floorcolCount + 1];
@@ -157,16 +157,16 @@ public class Viewer extends Applet {
             floormapsOverlay[n + 1] = buffer.g4();
         }
 
-        byte[] underlay = worldmap.read("underlay.dat", null);
+        byte[] underlay = worldmap.read("underlay.dat");
         underlays = new byte[originX][originY];
         decodeUnderlay(underlay, underlays);
 
-        byte[] overlay = worldmap.read("overlay.dat", null);
+        byte[] overlay = worldmap.read("overlay.dat");
         overlayColors = new int[originX][originY];
         overlayTypes = new byte[originX][originY];
         decodeOverlay(overlay, overlayColors, overlayTypes);
 
-        byte[] loc = worldmap.read("loc.dat", null);
+        byte[] loc = worldmap.read("loc.dat");
         locWalls = new byte[originX][originY];
         locScenes = new byte[originX][originY];
         locIcons = new byte[originX][originY];

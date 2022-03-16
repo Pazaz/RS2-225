@@ -25,7 +25,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.zip.CRC32;
 
@@ -36,6 +35,8 @@ public class Game extends Applet {
     public static int serverGamePort = 43594;
 
     public static int skyColor = 0x000000;
+    public static boolean applyFxaa = false;
+    public static boolean applyGreyscale = false;
 
     public static final int[][] APPEARANCE_COLORS = {
         {
@@ -168,8 +169,8 @@ public class Game extends Applet {
     public int thirdMostRecentOpcode;
 
     public int[] archiveChecksums = new int[11];
-    public FileArchive lostcityArchive;
-    public FileArchive titleArchive;
+    public FileArchive lostcity;
+    public FileArchive title;
 
     public boolean errorLoading = false;
     public boolean errorStarted = false;
@@ -1557,16 +1558,15 @@ public class Game extends Applet {
         updateSceneSpotAnims();
         updateSceneSeqLocs();
         if (!cameraOriented) {
-            int j = cameraOrbitPitch;
-            if (cameraMaxY / 256 > j)
-                j = cameraMaxY / 256;
-            if (customCameraActive[4] && cameraAmplitude[4] + 128 > j)
-                j = cameraAmplitude[4] + 128;
+            int pitch = cameraOrbitPitch;
+            if (cameraMaxY / 256 > pitch) {
+                pitch = cameraMaxY / 256;
+            }
+            if (customCameraActive[4] && cameraAmplitude[4] + 128 > pitch) {
+                pitch = cameraAmplitude[4] + 128;
+            }
             int l = cameraYaw + cameraAnticheatAngle & 0x7ff;
-            updateCameraOrbit(
-                getLandY(currentLevel, self.x,
-                    self.z) - 50,
-                cameraOrbitX, l, j, cameraOrbitZ, 600 + j * 3);
+            updateCameraOrbit(getLandY(currentLevel, self.x, self.z) - 50, cameraOrbitX, l, pitch, cameraOrbitZ, 600 + pitch * 3);
             drawViewportCounter++;
             if (drawViewportCounter > 1802) {
                 drawViewportCounter = 0;
@@ -1580,47 +1580,56 @@ public class Game extends Applet {
                 outBuffer.p1(186);
                 outBuffer.p1(39);
                 outBuffer.p1(61);
-                if ((int) (Math.random() * 2D) == 0)
+                if ((int) (Math.random() * 2D) == 0) {
                     outBuffer.p1(13);
-                if ((int) (Math.random() * 2D) == 0)
+                }
+                if ((int) (Math.random() * 2D) == 0) {
                     outBuffer.p2(57856);
+                }
                 outBuffer.p2((int) (Math.random() * 65536D));
                 outBuffer.pSize(outBuffer.offset - j1);
             }
         }
         int k;
-        if (!cameraOriented)
+        if (!cameraOriented) {
             k = getTopLevel();
-        else
+        } else {
             k = getCameraPlaneCutscene();
+        }
         int i1 = cameraX;
         int k1 = cameraY;
         int l1 = cameraZ;
         int i2 = cameraPitch;
         int j2 = cameraOrbitYaw;
-        for (int k2 = 0; k2 < 5; k2++)
-            if (customCameraActive[k2]) {
-                int l2 = (int) ((Math.random() * (double) (cameraJitter[k2] * 2 + 1) - (double) cameraJitter[k2])
-                    + Math.sin((double) unknownCameraVariable[k2] * ((double) cameraFrequency[k2] / 100D))
-                    * (double) cameraAmplitude[k2]);
-                if (k2 == 0)
-                    cameraX += l2;
-                if (k2 == 1)
-                    cameraY += l2;
-                if (k2 == 2)
-                    cameraZ += l2;
-                if (k2 == 3)
-                    cameraOrbitYaw = cameraOrbitYaw + l2 & 0x7ff;
-                if (k2 == 4) {
-                    cameraPitch += l2;
-                    if (cameraPitch < 128)
+        for (int cameraType = 0; cameraType < 5; cameraType++)
+            if (customCameraActive[cameraType]) {
+                int angle = (int) ((Math.random() * (double) (cameraJitter[cameraType] * 2 + 1) - (double) cameraJitter[cameraType])
+                    + Math.sin((double) unknownCameraVariable[cameraType] * ((double) cameraFrequency[cameraType] / 100D))
+                    * (double) cameraAmplitude[cameraType]);
+                if (cameraType == 0) {
+                    cameraX += angle;
+                }
+                if (cameraType == 1) {
+                    cameraY += angle;
+                }
+                if (cameraType == 2) {
+                    cameraZ += angle;
+                }
+                if (cameraType == 3) {
+                    cameraOrbitYaw = cameraOrbitYaw + angle & 0x7ff;
+                }
+                if (cameraType == 4) {
+                    cameraPitch += angle;
+                    if (cameraPitch < 128) {
                         cameraPitch = 128;
-                    if (cameraPitch > 383)
+                    }
+                    if (cameraPitch > 383) {
                         cameraPitch = 383;
+                    }
                 }
             }
 
-        int i3 = Draw3D.cycle;
+        int currentCycle = Draw3D.cycle;
         Model.allowInput = true;
         Model.resourceCount = 0;
         Model.cursorX = super.mouseX - 8;
@@ -1628,9 +1637,16 @@ public class Game extends Applet {
         Draw2D.fillRect(0, 0, skyColor, super.gameWidth, super.gameHeight);
         mapSquare.draw(cameraOrbitYaw, cameraX, k, cameraPitch, cameraY, cameraZ);
         mapSquare.clearFrameLocs();
+        if (applyFxaa) {
+            areaViewport.fxaa();
+        }
+        if (applyGreyscale) {
+            areaViewport.greyscale();
+        }
+        //areaViewport.scanline();
         drawViewport2d();
         drawTileHint();
-        updateAnimatedTextures(i3);
+        updateAnimatedTextures(currentCycle);
         drawViewport3d();
         areaViewport.drawImage(11, super.graphics, 8);
         cameraX = i1;
@@ -2254,6 +2270,12 @@ public class Game extends Applet {
                 } else if ((key == Applet.KEY_RETURN || key == Applet.KEY_ENTER) && input.length() > 0) {
                     if (input.equals("::clientdrop") && (super.frame != null || getHost().contains("192.168.1."))) {
                         reconnect();
+                    } else if (input.equals("::fxaa")) {
+                        applyFxaa = !applyFxaa;
+                        addMessage(0, "fxaa: " + applyFxaa, "");
+                    } else if (input.equals("::greyscale")) {
+                        applyGreyscale = !applyGreyscale;
+                        addMessage(0, "greyscale: " + applyGreyscale, "");
                     } else if (input.startsWith("::")) {
                         outBuffer.p1isaac(Packet.Client.CLIENT_CHEAT);
                         outBuffer.p1(input.length() - 1);
@@ -2900,10 +2922,10 @@ public class Game extends Applet {
     }
 
     public void loadTitleForeground() {
-        imageTitlebox = new IndexedSprite(titleArchive, "titlebox", 0);
-        imageTitlebutton = new IndexedSprite(titleArchive, "titlebutton", 0);
+        imageTitlebox = new IndexedSprite(title, "titlebox", 0);
+        imageTitlebutton = new IndexedSprite(title, "titlebutton", 0);
 
-        flame.load(titleArchive);
+        flame.load(title);
     }
 
     public void updateOtherPlayers(Buffer buffer) {
@@ -5105,25 +5127,25 @@ public class Game extends Applet {
                 setMidi(0xbc614e, "scape_main", 40000);
             }
 
-            this.lostcityArchive = loadArchive("lost city", archiveChecksums[10], "lostcity", 7);
+            this.lostcity = loadArchive("lost city", archiveChecksums[10], "lostcity", 7);
 
-            this.titleArchive = loadArchive("title screen", archiveChecksums[1], "title", 10);
+            this.title = loadArchive("title screen", archiveChecksums[1], "title", 10);
 
-            fontPlain11 = new Font(this.titleArchive, "p11");
-            fontPlain12 = new Font(this.titleArchive, "p12");
-            fontBold12 = new Font(this.titleArchive, "b12");
-            fontQuill8 = new Font(this.titleArchive, "q8");
+            fontPlain11 = new Font(this.title, "p11");
+            fontPlain12 = new Font(this.title, "p12");
+            fontBold12 = new Font(this.title, "b12");
+            fontQuill8 = new Font(this.title, "q8");
 
             loadTitleBackground();
             loadTitleForeground();
 
-            FileArchive configArchive = loadArchive("config", archiveChecksums[2], "config", 15);
-            FileArchive interfaceArchive = loadArchive("interface", archiveChecksums[3], "interface", 20);
-            FileArchive mediaArchive = loadArchive("2d graphics", archiveChecksums[4], "media", 30);
-            FileArchive modelsArchive = loadArchive("3d graphics", archiveChecksums[5], "models", 40);
-            FileArchive texturesArchive = loadArchive("textures", archiveChecksums[6], "textures", 60);
-            FileArchive wordencArchive = loadArchive("chat system", archiveChecksums[7], "wordenc", 65);
-            FileArchive soundsArchive = loadArchive("sound effects", archiveChecksums[8], "sounds", 70);
+            FileArchive config = loadArchive("config", archiveChecksums[2], "config", 15);
+            FileArchive interfaces = loadArchive("interface", archiveChecksums[3], "interface", 20);
+            FileArchive media = loadArchive("2d graphics", archiveChecksums[4], "media", 30);
+            FileArchive models = loadArchive("3d graphics", archiveChecksums[5], "models", 40);
+            FileArchive textures = loadArchive("textures", archiveChecksums[6], "textures", 60);
+            FileArchive wordenc = loadArchive("chat system", archiveChecksums[7], "wordenc", 65);
+            FileArchive sounds = loadArchive("sound effects", archiveChecksums[8], "sounds", 70);
 
             levelRenderFlags = new byte[4][104][104];
             levelHeightMaps = new int[4][105][105];
@@ -5134,21 +5156,21 @@ public class Game extends Applet {
             minimap = new Sprite(512, 512);
 
             showProgress("Unpacking media", 75);
-            inback = new IndexedSprite(mediaArchive, "invback", 0);
-            chatback = new IndexedSprite(mediaArchive, "chatback", 0);
-            mapback = new IndexedSprite(mediaArchive, "mapback", 0);
-            backbase1 = new IndexedSprite(mediaArchive, "backbase1", 0);
-            backbase2 = new IndexedSprite(mediaArchive, "backbase2", 0);
-            backhmid1 = new IndexedSprite(mediaArchive, "backhmid1", 0);
+            inback = new IndexedSprite(media, "invback", 0);
+            chatback = new IndexedSprite(media, "chatback", 0);
+            mapback = new IndexedSprite(media, "mapback", 0);
+            backbase1 = new IndexedSprite(media, "backbase1", 0);
+            backbase2 = new IndexedSprite(media, "backbase2", 0);
+            backhmid1 = new IndexedSprite(media, "backhmid1", 0);
 
             try {
                 for (int i1 = 0; i1 < 13; i1++) {
-                    sideicons[i1] = new IndexedSprite(mediaArchive, "sideicons", i1);
+                    sideicons[i1] = new IndexedSprite(media, "sideicons", i1);
                 }
             } catch (Exception ignored) {
             }
 
-            compass = new Sprite(mediaArchive, "compass", 0);
+            compass = new Sprite(media, "compass", 0);
             try {
                 for (int n = 0; n < 50; n++) {
                     // skip weird seaweed-like sprite on rivers
@@ -5156,111 +5178,111 @@ public class Game extends Applet {
                         continue;
                     }
 
-                    mapscene[n] = new IndexedSprite(mediaArchive, "mapscene", n);
+                    mapscene[n] = new IndexedSprite(media, "mapscene", n);
                 }
             } catch (Exception ignored) {
             }
 
             try {
                 for (int k1 = 0; k1 < 50; k1++) {
-                    mapfunction[k1] = new Sprite(mediaArchive, "mapfunction", k1);
+                    mapfunction[k1] = new Sprite(media, "mapfunction", k1);
                 }
             } catch (Exception ignored) {
             }
 
             try {
                 for (int l1 = 0; l1 < 20; l1++) {
-                    hitmarks[l1] = new Sprite(mediaArchive, "hitmarks", l1);
+                    hitmarks[l1] = new Sprite(media, "hitmarks", l1);
                 }
             } catch (Exception ignored) {
             }
 
             try {
                 for (int i2 = 0; i2 < 20; i2++) {
-                    headicons[i2] = new Sprite(mediaArchive, "headicons", i2);
+                    headicons[i2] = new Sprite(media, "headicons", i2);
                 }
             } catch (Exception ignored) {
             }
 
             try {
-                mapflag = new Sprite(mediaArchive, "mapflag", 0);
+                mapflag = new Sprite(media, "mapflag", 0);
             } catch (Exception ignored) {
             }
 
             for (int j2 = 0; j2 < 8; j2++) {
-                cross[j2] = new Sprite(mediaArchive, "cross", j2);
+                cross[j2] = new Sprite(media, "cross", j2);
             }
 
-            mapdot1 = new Sprite(mediaArchive, "mapdots", 0);
-            mapdot2 = new Sprite(mediaArchive, "mapdots", 1);
-            mapdot3 = new Sprite(mediaArchive, "mapdots", 2);
-            mapdot4 = new Sprite(mediaArchive, "mapdots", 3);
-            scrollbar1 = new IndexedSprite(mediaArchive, "scrollbar", 0);
-            scrollbar2 = new IndexedSprite(mediaArchive, "scrollbar", 1);
-            redstone1 = new IndexedSprite(mediaArchive, "redstone1", 0);
-            redstone2 = new IndexedSprite(mediaArchive, "redstone2", 0);
-            redstone3 = new IndexedSprite(mediaArchive, "redstone3", 0);
+            mapdot1 = new Sprite(media, "mapdots", 0);
+            mapdot2 = new Sprite(media, "mapdots", 1);
+            mapdot3 = new Sprite(media, "mapdots", 2);
+            mapdot4 = new Sprite(media, "mapdots", 3);
+            scrollbar1 = new IndexedSprite(media, "scrollbar", 0);
+            scrollbar2 = new IndexedSprite(media, "scrollbar", 1);
+            redstone1 = new IndexedSprite(media, "redstone1", 0);
+            redstone2 = new IndexedSprite(media, "redstone2", 0);
+            redstone3 = new IndexedSprite(media, "redstone3", 0);
 
-            redstone1h = new IndexedSprite(mediaArchive, "redstone1", 0);
+            redstone1h = new IndexedSprite(media, "redstone1", 0);
             redstone1h.flipHorizontally();
 
-            redstone2h = new IndexedSprite(mediaArchive, "redstone2", 0);
+            redstone2h = new IndexedSprite(media, "redstone2", 0);
             redstone2h.flipHorizontally();
 
-            redstone1v = new IndexedSprite(mediaArchive, "redstone1", 0);
+            redstone1v = new IndexedSprite(media, "redstone1", 0);
             redstone1v.flipVertically();
 
-            redstone2v = new IndexedSprite(mediaArchive, "redstone2", 0);
+            redstone2v = new IndexedSprite(media, "redstone2", 0);
             redstone2v.flipVertically();
 
-            redstone3v = new IndexedSprite(mediaArchive, "redstone3", 0);
+            redstone3v = new IndexedSprite(media, "redstone3", 0);
             redstone3v.flipVertically();
 
-            redstone1hv = new IndexedSprite(mediaArchive, "redstone1", 0);
+            redstone1hv = new IndexedSprite(media, "redstone1", 0);
             redstone1hv.flipHorizontally();
             redstone1hv.flipVertically();
 
-            redstone2hv = new IndexedSprite(mediaArchive, "redstone2", 0);
+            redstone2hv = new IndexedSprite(media, "redstone2", 0);
             redstone2hv.flipHorizontally();
             redstone2hv.flipVertically();
 
-            Sprite temp = new Sprite(mediaArchive, "backleft1", 0);
+            Sprite temp = new Sprite(media, "backleft1", 0);
             backleft1 = new DrawArea(getBaseComponent(), temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
-            temp = new Sprite(mediaArchive, "backleft2", 0);
+            temp = new Sprite(media, "backleft2", 0);
             backleft2 = new DrawArea(getBaseComponent(), temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
-            temp = new Sprite(mediaArchive, "backright1", 0);
+            temp = new Sprite(media, "backright1", 0);
             backright1 = new DrawArea(getBaseComponent(), temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
-            temp = new Sprite(mediaArchive, "backright2", 0);
+            temp = new Sprite(media, "backright2", 0);
             backright2 = new DrawArea(getBaseComponent(), temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
-            temp = new Sprite(mediaArchive, "backtop1", 0);
+            temp = new Sprite(media, "backtop1", 0);
             backtop1 = new DrawArea(getBaseComponent(), temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
-            temp = new Sprite(mediaArchive, "backtop2", 0);
+            temp = new Sprite(media, "backtop2", 0);
             backtop2 = new DrawArea(getBaseComponent(), temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
-            temp = new Sprite(mediaArchive, "backvmid1", 0);
+            temp = new Sprite(media, "backvmid1", 0);
             backvmid1 = new DrawArea(getBaseComponent(), temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
-            temp = new Sprite(mediaArchive, "backvmid2", 0);
+            temp = new Sprite(media, "backvmid2", 0);
             backvmid2 = new DrawArea(getBaseComponent(), temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
-            temp = new Sprite(mediaArchive, "backvmid3", 0);
+            temp = new Sprite(media, "backvmid3", 0);
             backvmid3 = new DrawArea(getBaseComponent(), temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
-            temp = new Sprite(mediaArchive, "backhmid2", 0);
+            temp = new Sprite(media, "backhmid2", 0);
             backhmid2 = new DrawArea(getBaseComponent(), temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
@@ -5278,34 +5300,35 @@ public class Game extends Applet {
             }
 
             showProgress("Unpacking textures", 80);
-            Draw3D.unpackTextures(texturesArchive);
+            Draw3D.unpackTextures(textures);
             Draw3D.setBrightness(0.8D);
             Draw3D.setupPools(20);
+
             showProgress("Unpacking models", 83);
-            Model.load(modelsArchive);
-            SeqBase.load(modelsArchive);
-            SeqFrame.load(modelsArchive);
+            Model.load(models);
+            SeqBase.load(models);
+            SeqFrame.load(models);
+
             showProgress("Unpacking config", 86);
-            SeqType.load(configArchive);
-            LocType.load(configArchive);
-            FloorType.load(configArchive);
-            ObjType.load(configArchive);
-            NPCType.load(configArchive);
-            IDKType.load(configArchive);
-            SpotAnimType.load(configArchive);
-            VarType.load(configArchive);
+            SeqType.load(config);
+            LocType.load(config);
+            FloorType.load(config);
+            ObjType.load(lostcity);
+            NPCType.load(config);
+            IDKType.load(config);
+            SpotAnimType.load(config);
+            VarType.load(config);
             ObjType.isMember = members;
 
             if (!lowMemory) {
                 showProgress("Unpacking sounds", 90);
-                byte[] src = soundsArchive.read("sounds.dat", null);
-                Buffer sounds = new Buffer(src);
-                SoundTrack.load(sounds);
+                SoundTrack.load(new Buffer(sounds.read("sounds.dat")));
             }
 
             showProgress("Unpacking interfaces", 92);
             Font[] fonts = {fontPlain11, fontPlain12, fontBold12, fontQuill8};
-            Component.load(mediaArchive, fonts, interfaceArchive);
+            Component.load(media, fonts, interfaces);
+
             showProgress("Preparing game engine", 97);
             for (int l3 = 0; l3 < 33; l3++) {
                 int i4 = 999;
@@ -5365,7 +5388,7 @@ public class Game extends Applet {
             }
 
             MapSquare.init(ai, 800, 512, 334, 500);
-            WordPack.load(wordencArchive);
+            WordPack.load(wordenc);
         } catch (Exception ex) {
             ex.printStackTrace();
             errorLoading = true;
@@ -5822,7 +5845,7 @@ public class Game extends Applet {
         titleRightSpace = new DrawArea(getBaseComponent(), 87, 79);
         Draw2D.clear();
 
-        if (titleArchive != null) {
+        if (title != null) {
             loadTitleBackground();
             loadTitleForeground();
         }
@@ -7830,7 +7853,7 @@ public class Game extends Applet {
     }
 
     public void loadTitleBackground() {
-        byte[] src = titleArchive.read("title.dat", null);
+        byte[] src = title.read("title.dat");
         Sprite temp = new Sprite(src, this);
         titleLeft.bind();
         temp.drawOpaque(0, 0);
@@ -7894,7 +7917,7 @@ public class Game extends Applet {
         titleRightSpace.bind();
         temp.drawOpaque(-180, -186);
 
-        byte[] logo = lostcityArchive.read("newlogo.png", null);
+        byte[] logo = lostcity.read("newlogo.png");
         temp = new Sprite(logo, this);
         //temp = new Sprite(titleArchive, "logo", 0);
         titleTop.bind();
@@ -9618,7 +9641,7 @@ public class Game extends Applet {
         System.out.println(str);
 
         prepareTitleScreen();
-        if (titleArchive == null) {
+        if (title == null) {
             super.showProgress(str, progress);
             return;
         }

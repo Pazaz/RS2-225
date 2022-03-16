@@ -56,8 +56,8 @@ public class ObjType {
     }
 
     public static void load(FileArchive fileArchive) {
-        data = new Buffer(fileArchive.read("obj.dat", null));
-        Buffer idx = new Buffer(fileArchive.read("obj.idx", null));
+        data = new Buffer(fileArchive.read("obj.dat"));
+        Buffer idx = new Buffer(fileArchive.read("obj.idx"));
         count = idx.g2();
         offsets = new int[count];
 

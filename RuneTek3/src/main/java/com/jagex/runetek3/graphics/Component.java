@@ -89,7 +89,7 @@ public class Component {
         spriteCache = new Cache(50000);
         modelCache = new Cache(50000);
 
-        Buffer b = new Buffer(interfaces.read("data", null));
+        Buffer b = new Buffer(interfaces.read("data"));
         instances = new Component[b.g2()];
 
         int parent = -1;

@@ -741,20 +741,20 @@ public class Model extends CacheableNode {
         oneOverFixed1616 = Draw3D.reciprical16;
 
         try {
-            obhead = new Buffer(fileArchive.read("ob_head.dat", null));
-            obface1 = new Buffer(fileArchive.read("ob_face1.dat", null));
-            obface2 = new Buffer(fileArchive.read("ob_face2.dat", null));
-            obface3 = new Buffer(fileArchive.read("ob_face3.dat", null));
-            obface4 = new Buffer(fileArchive.read("ob_face4.dat", null));
-            obface5 = new Buffer(fileArchive.read("ob_face5.dat", null));
-            obpoint1 = new Buffer(fileArchive.read("ob_point1.dat", null));
-            obpoint2 = new Buffer(fileArchive.read("ob_point2.dat", null));
-            obpoint3 = new Buffer(fileArchive.read("ob_point3.dat", null));
-            obpoint4 = new Buffer(fileArchive.read("ob_point4.dat", null));
-            obpoint5 = new Buffer(fileArchive.read("ob_point5.dat", null));
-            obvertex1 = new Buffer(fileArchive.read("ob_vertex1.dat", null));
-            obvertex2 = new Buffer(fileArchive.read("ob_vertex2.dat", null));
-            obaxis = new Buffer(fileArchive.read("ob_axis.dat", null));
+            obhead = new Buffer(fileArchive.read("ob_head.dat"));
+            obface1 = new Buffer(fileArchive.read("ob_face1.dat"));
+            obface2 = new Buffer(fileArchive.read("ob_face2.dat"));
+            obface3 = new Buffer(fileArchive.read("ob_face3.dat"));
+            obface4 = new Buffer(fileArchive.read("ob_face4.dat"));
+            obface5 = new Buffer(fileArchive.read("ob_face5.dat"));
+            obpoint1 = new Buffer(fileArchive.read("ob_point1.dat"));
+            obpoint2 = new Buffer(fileArchive.read("ob_point2.dat"));
+            obpoint3 = new Buffer(fileArchive.read("ob_point3.dat"));
+            obpoint4 = new Buffer(fileArchive.read("ob_point4.dat"));
+            obpoint5 = new Buffer(fileArchive.read("ob_point5.dat"));
+            obvertex1 = new Buffer(fileArchive.read("ob_vertex1.dat"));
+            obvertex2 = new Buffer(fileArchive.read("ob_vertex2.dat"));
+            obaxis = new Buffer(fileArchive.read("ob_axis.dat"));
 
             obhead.offset = 0;
             obpoint1.offset = 0;

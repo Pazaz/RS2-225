@@ -33,7 +33,7 @@ public class SpotAnimType {
     }
 
     public static void load(FileArchive fileArchive) {
-        Buffer buffer = new Buffer(fileArchive.read("spotanim.dat", null));
+        Buffer buffer = new Buffer(fileArchive.read("spotanim.dat"));
         count = buffer.g2();
         instances = new SpotAnimType[count];
 

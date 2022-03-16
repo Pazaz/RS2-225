@@ -23,7 +23,7 @@ public class IDKType {
     }
 
     public static void load(FileArchive fileArchive) {
-        Buffer buffer = new Buffer(fileArchive.read("idk.dat", null));
+        Buffer buffer = new Buffer(fileArchive.read("idk.dat"));
         count = buffer.g2();
         instances = new IDKType[count];
 

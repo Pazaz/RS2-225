@@ -13,7 +13,7 @@ public class VarType {
     }
 
     public static void load(FileArchive fileArchive) {
-        Buffer buffer = new Buffer(fileArchive.read("varp.dat", null));
+        Buffer buffer = new Buffer(fileArchive.read("varp.dat"));
         count = buffer.g2();
         instances = new VarType[count];
 

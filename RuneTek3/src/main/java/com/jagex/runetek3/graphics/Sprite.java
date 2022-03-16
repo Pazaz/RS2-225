@@ -45,8 +45,8 @@ public class Sprite extends Draw2D {
     }
 
     public Sprite(FileArchive archive, String name, int index) {
-        Buffer data = new Buffer(archive.read(name + ".dat", null));
-        Buffer idx = new Buffer(archive.read("index.dat", null));
+        Buffer data = new Buffer(archive.read(name + ".dat"));
+        Buffer idx = new Buffer(archive.read("index.dat"));
 
         if (data.data == null) {
             return;
@@ -398,6 +398,7 @@ public class Sprite extends Draw2D {
                 int dstX = originX + cos * start;
                 int dstY = originY - sin * start;
                 for (x = -lineWidth[y]; x < 0; x++) {
+                    // apply antialiasing
                     int x1 = dstX >> 16;
                     int y1 = dstY >> 16;
                     int x2 = x1 + 1;
@@ -417,6 +418,8 @@ public class Sprite extends Draw2D {
                     int red = (sampleColor1 >> 16 & 0xff) * sampleAlpha1 + (sampleColor2 >> 16 & 0xff) * sampleAlpha2 + (sampleColor3 >> 16 & 0xff) * sampleAlpha3 + (sampleColor4 >> 16 & 0xff) * sampleAlpha4 & 0xff0000;
                     int green = (sampleColor1 >> 8 & 0xff) * sampleAlpha1 + (sampleColor2 >> 8 & 0xff) * sampleAlpha2 + (sampleColor3 >> 8 & 0xff) * sampleAlpha3 + (sampleColor4 >> 8 & 0xff) * sampleAlpha4 >> 8 & 0xff00;
                     int blue = (sampleColor1 & 0xff) * sampleAlpha1 + (sampleColor2 & 0xff) * sampleAlpha2 + (sampleColor3 & 0xff) * sampleAlpha3 + (sampleColor4 & 0xff) * sampleAlpha4 >> 16;
+
+                    // draw
                     Draw2D.dest[dstOff++] = red | green | blue;
                     dstX += cos;
                     dstY -= sin;

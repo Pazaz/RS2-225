@@ -40,8 +40,8 @@ public class Font extends Draw2D {
         charSpace = new int[95];
         drawWidth = new int[256];
         random = new Random();
-        Buffer data = new Buffer(archive.read(name + ".dat", null));
-        Buffer idx = new Buffer(archive.read("index.dat", null));
+        Buffer data = new Buffer(archive.read(name + ".dat"));
+        Buffer idx = new Buffer(archive.read("index.dat"));
         idx.offset = data.g2() + 4;
         int off = idx.g1();
         if (off > 0)

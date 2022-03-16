@@ -17,8 +17,8 @@ public class FontFull extends Draw2D {
     Random random = new Random();
     boolean strikethrough = false;
     public FontFull(FileArchive archive, String name, boolean quill) {
-        Buffer dat = new Buffer(archive.read((new StringBuilder()).append(name).append(".dat").toString(), null));
-        Buffer idx = new Buffer(archive.read("index.dat", null));
+        Buffer dat = new Buffer(archive.read((new StringBuilder()).append(name).append(".dat").toString()));
+        Buffer idx = new Buffer(archive.read("index.dat"));
         idx.offset = dat.g2() + 4;
 
         int k = idx.g1();
