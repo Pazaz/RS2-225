@@ -54,7 +54,7 @@ public class Applet extends JApplet implements Runnable, MouseListener, MouseMot
         setPreferredSize(getSize());
         frame = new Window(this, title);
         graphics = getBaseComponent().getGraphics();
-        drawArea = new DrawArea(getBaseComponent(), gameWidth, gameHeight);
+        drawArea = new DrawArea(gameWidth, gameHeight);
         startThread(this, 1);
         requestFocus();
     }
@@ -63,7 +63,7 @@ public class Applet extends JApplet implements Runnable, MouseListener, MouseMot
         gameWidth = width;
         gameHeight = height;
         graphics = getBaseComponent().getGraphics();
-        drawArea = new DrawArea(getBaseComponent(), gameWidth, gameHeight);
+        drawArea = new DrawArea(gameWidth, gameHeight);
         startThread(this, 1);
     }
 

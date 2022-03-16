@@ -3146,16 +3146,16 @@ public class Game extends Applet {
         titleBottomRight = null;
         titleLeftSpace = null;
         titleRightSpace = null;
-        areaChatback = new DrawArea(getBaseComponent(), 479, 96);
-        areaMapback = new DrawArea(getBaseComponent(), 168, 160);
+        areaChatback = new DrawArea(479, 96);
+        areaMapback = new DrawArea(168, 160);
         Draw2D.clear();
         mapback.draw(0, 0);
-        areaInvback = new DrawArea(getBaseComponent(), 190, 261);
-        areaViewport = new DrawArea(getBaseComponent(), 512, 334);
+        areaInvback = new DrawArea(190, 261);
+        areaViewport = new DrawArea(512, 334);
         Draw2D.clear();
-        areaBackbase1 = new DrawArea(getBaseComponent(), 501, 61);
-        areaBackbase2 = new DrawArea(getBaseComponent(), 288, 40);
-        areaBackhmid1 = new DrawArea(getBaseComponent(), 269, 66);
+        areaBackbase1 = new DrawArea(501, 61);
+        areaBackbase2 = new DrawArea(288, 40);
+        areaBackhmid1 = new DrawArea(269, 66);
         redrawTitleBackground = true;
     }
 
@@ -5247,43 +5247,43 @@ public class Game extends Applet {
             redstone2hv.flipVertically();
 
             Sprite temp = new Sprite(media, "backleft1", 0);
-            backleft1 = new DrawArea(getBaseComponent(), temp.width, temp.height);
+            backleft1 = new DrawArea(temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
             temp = new Sprite(media, "backleft2", 0);
-            backleft2 = new DrawArea(getBaseComponent(), temp.width, temp.height);
+            backleft2 = new DrawArea(temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
             temp = new Sprite(media, "backright1", 0);
-            backright1 = new DrawArea(getBaseComponent(), temp.width, temp.height);
+            backright1 = new DrawArea(temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
             temp = new Sprite(media, "backright2", 0);
-            backright2 = new DrawArea(getBaseComponent(), temp.width, temp.height);
+            backright2 = new DrawArea(temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
             temp = new Sprite(media, "backtop1", 0);
-            backtop1 = new DrawArea(getBaseComponent(), temp.width, temp.height);
+            backtop1 = new DrawArea(temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
             temp = new Sprite(media, "backtop2", 0);
-            backtop2 = new DrawArea(getBaseComponent(), temp.width, temp.height);
+            backtop2 = new DrawArea(temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
             temp = new Sprite(media, "backvmid1", 0);
-            backvmid1 = new DrawArea(getBaseComponent(), temp.width, temp.height);
+            backvmid1 = new DrawArea(temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
             temp = new Sprite(media, "backvmid2", 0);
-            backvmid2 = new DrawArea(getBaseComponent(), temp.width, temp.height);
+            backvmid2 = new DrawArea(temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
             temp = new Sprite(media, "backvmid3", 0);
-            backvmid3 = new DrawArea(getBaseComponent(), temp.width, temp.height);
+            backvmid3 = new DrawArea(temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
             temp = new Sprite(media, "backhmid2", 0);
-            backhmid2 = new DrawArea(getBaseComponent(), temp.width, temp.height);
+            backhmid2 = new DrawArea(temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
             int k2 = (int) (Math.random() * 21D) - 10;
@@ -5818,31 +5818,31 @@ public class Game extends Applet {
         areaBackbase2 = null;
         areaBackhmid1 = null;
 
-        titleLeft = new DrawArea(getBaseComponent(), 128, 265);
+        titleLeft = new DrawArea(128, 265);
         Draw2D.clear();
 
-        titleRight = new DrawArea(getBaseComponent(), 128, 265);
+        titleRight = new DrawArea(128, 265);
         Draw2D.clear();
 
-        titleTop = new DrawArea(getBaseComponent(), 533, 186);
+        titleTop = new DrawArea(533, 186);
         Draw2D.clear();
 
-        titleBottom = new DrawArea(getBaseComponent(), 360, 146);
+        titleBottom = new DrawArea(360, 146);
         Draw2D.clear();
 
-        titleCenter = new DrawArea(getBaseComponent(), 360, 200);
+        titleCenter = new DrawArea(360, 200);
         Draw2D.clear();
 
-        titleBottomLeft = new DrawArea(getBaseComponent(), 214, 267);
+        titleBottomLeft = new DrawArea(214, 267);
         Draw2D.clear();
 
-        titleBottomRight = new DrawArea(getBaseComponent(), 215, 267);
+        titleBottomRight = new DrawArea(215, 267);
         Draw2D.clear();
 
-        titleLeftSpace = new DrawArea(getBaseComponent(), 86, 79);
+        titleLeftSpace = new DrawArea(86, 79);
         Draw2D.clear();
 
-        titleRightSpace = new DrawArea(getBaseComponent(), 87, 79);
+        titleRightSpace = new DrawArea(87, 79);
         Draw2D.clear();
 
         if (title != null) {

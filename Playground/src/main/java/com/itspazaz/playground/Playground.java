@@ -550,6 +550,7 @@ public class Playground extends Applet {
         }
 
         // Render the frame
+        drawArea.fxaa();
         drawArea.drawImage(0, graphics, 0);
     }
 

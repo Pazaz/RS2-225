@@ -3,30 +3,20 @@ package com.jagex.runetek3.graphics;
 import java.awt.*;
 import java.awt.image.*;
 
-public class DrawArea
-    implements ImageProducer, ImageObserver {
+public class DrawArea {
 
     public int[] pixels;
     public float[] luma;
     public int width;
     public int height;
-    public ColorModel colorModel;
-    public ImageConsumer consumer;
-    public Image image;
+    public BufferedImage image;
 
-    public DrawArea(java.awt.Component component, int width, int height) {
+    public DrawArea(int width, int height) {
         this.width = width;
         this.height = height;
-        pixels = new int[width * height];
-        luma = new float[width * height];
-        colorModel = new DirectColorModel(24, 0xff0000, 0x00ff00, 0x0000ff);
-        image = component.createImage(this);
-        setPixels();
-        component.prepareImage(image, this);
-        setPixels();
-        component.prepareImage(image, this);
-        setPixels();
-        component.prepareImage(image, this);
+        this.image = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_RGB);
+        this.pixels = ((DataBufferInt) this.image.getRaster().getDataBuffer()).getData();
+        this.luma = new float[width * height];
         bind();
     }
 
@@ -35,8 +25,7 @@ public class DrawArea
     }
 
     public void drawImage(int y, Graphics g, int x) {
-        setPixels();
-        g.drawImage(image, x, y, this);
+        g.drawImage(image, x, y, null);
     }
 
     float rgb2luminance(int color) {
@@ -184,7 +173,7 @@ public class DrawArea
 
                 // contrast threshold
                 if (lumaRange < Math.max(FXAA_THRESHOLD_MAX, lumaMax * FXAA_THRESHOLD_MIN)) {
-                    pixels[pixel] = 0;
+                    // pixels[pixel] = 0;
                     continue;
                 }
 
@@ -270,40 +259,4 @@ public class DrawArea
         }
     }
 
-    public synchronized void addConsumer(ImageConsumer consumer) {
-        this.consumer = consumer;
-        consumer.setDimensions(width, height);
-        consumer.setProperties(null);
-        consumer.setColorModel(colorModel);
-        consumer.setHints(14);
-    }
-
-    public synchronized boolean isConsumer(ImageConsumer consumer) {
-        return this.consumer == consumer;
-    }
-
-    public synchronized void removeConsumer(ImageConsumer consumer) {
-        if (this.consumer == consumer) {
-            this.consumer = null;
-        }
-    }
-
-    public void startProduction(ImageConsumer consumer) {
-        addConsumer(consumer);
-    }
-
-    public void requestTopDownLeftRightResend(ImageConsumer consumer) {
-        System.out.println("TDLR");
-    }
-
-    public synchronized void setPixels() {
-        if (consumer != null) {
-            consumer.setPixels(0, 0, width, height, colorModel, pixels, 0, width);
-            consumer.imageComplete(2);
-        }
-    }
-
-    public boolean imageUpdate(Image image, int i, int j, int k, int l, int i1) {
-        return true;
-    }
 }

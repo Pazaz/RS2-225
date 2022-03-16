@@ -381,7 +381,7 @@ public class DiscordServerBot extends java.awt.Component {
                     }
 
                     // render
-                    drawArea = new DrawArea(this, 32, 32);
+                    drawArea = new DrawArea(32, 32);
                     drawArea.bind();
                     Draw3D.prepareOffsets();
                     Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
@@ -452,7 +452,7 @@ public class DiscordServerBot extends java.awt.Component {
                     camera.y = 427;
 
                     // render
-                    drawArea = new DrawArea(this, 384, 640);
+                    drawArea = new DrawArea(384, 640);
                     drawArea.bind();
                     Draw3D.prepareOffsets();
 
@@ -532,7 +532,7 @@ public class DiscordServerBot extends java.awt.Component {
                     camera.y = 195;
 
                     // render
-                    drawArea = new DrawArea(this, 384, 640);
+                    drawArea = new DrawArea(384, 640);
                     drawArea.bind();
                     Draw3D.prepareOffsets();
 
@@ -583,7 +583,7 @@ public class DiscordServerBot extends java.awt.Component {
                     Component inter = Component.instances[id];
 
                     // render
-                    drawArea = new DrawArea(this, inter.width, inter.height);
+                    drawArea = new DrawArea(inter.width, inter.height);
                     drawArea.bind();
                     Draw3D.prepareOffsets();
                     Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
@@ -607,7 +607,7 @@ public class DiscordServerBot extends java.awt.Component {
                     Component inter = Component.instances[id];
 
                     // render
-                    drawArea = new DrawArea(this, inback.width, inback.height);
+                    drawArea = new DrawArea(inback.width, inback.height);
                     drawArea.bind();
                     Draw3D.prepareOffsets();
                     Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
@@ -638,7 +638,7 @@ public class DiscordServerBot extends java.awt.Component {
                     // render
                     int xOffset = 3;
 
-                    drawArea = new DrawArea(this, 269 - xOffset, 341);
+                    drawArea = new DrawArea(269 - xOffset, 341);
                     drawArea.bind();
                     Draw3D.prepareOffsets();
                     Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
@@ -678,7 +678,7 @@ public class DiscordServerBot extends java.awt.Component {
                     Component inter = Component.instances[id];
 
                     // render
-                    drawArea = new DrawArea(this, inback.width, inback.height);
+                    drawArea = new DrawArea(inback.width, inback.height);
                     drawArea.bind();
                     Draw3D.prepareOffsets();
                     Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
@@ -713,7 +713,7 @@ public class DiscordServerBot extends java.awt.Component {
                     camera.y = 400;
 
                     // render
-                    drawArea = new DrawArea(this, 512, 384);
+                    drawArea = new DrawArea(512, 384);
                     drawArea.bind();
                     Draw3D.prepareOffsets();
                     Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
