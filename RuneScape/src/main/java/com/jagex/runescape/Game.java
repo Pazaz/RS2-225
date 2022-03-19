@@ -4184,7 +4184,7 @@ public class Game extends Applet {
                         npcAction3Counter++;
                     }
                     if (npcAction3Counter >= 124) {
-                        outBuffer.p1isaac(Packet.Client.OPNPCT1);
+                        outBuffer.p1isaac(Packet.Client.ANTICHEAT_OPNPC3);
                         outBuffer.p4(0);
                     }
                     outBuffer.p1isaac(Packet.Client.OPNPC3);
@@ -4197,7 +4197,7 @@ public class Game extends Applet {
                         npcAction5Counter++;
                     }
                     if (npcAction5Counter >= 85) {
-                        outBuffer.p1isaac(Packet.Client.OPNPCT2);
+                        outBuffer.p1isaac(Packet.Client.ANTICHEAT_OPNPC5);
                         outBuffer.p2(39596);
                     }
                     outBuffer.p1isaac(Packet.Client.OPNPC5);
@@ -4323,7 +4323,7 @@ public class Game extends Applet {
                 } else if (action == 151) {
                     playerAction2Counter++;
                     if (playerAction2Counter >= 90) {
-                        outBuffer.p1isaac(Packet.Client.OPPLAYERT);
+                        outBuffer.p1isaac(Packet.Client.ANTICHEAT_OPPLAYER2);
                         outBuffer.p2(31114);
                     }
                     outBuffer.p1isaac(Packet.Client.OPPLAYER2);
@@ -4490,7 +4490,7 @@ public class Game extends Applet {
                 objectAction4Counter++;
             }
             if (objectAction4Counter >= 99) {
-                outBuffer.p1isaac(Packet.Client.OPOBJT1);
+                outBuffer.p1isaac(Packet.Client.ANTICHEAT_OPOBJ4);
                 outBuffer.p4(0);
             }
             interactWithLoc(Packet.Client.OPOBJ4, a, b, c);
@@ -4512,7 +4512,7 @@ public class Game extends Applet {
             // OP_OBJ5 = 1501
             objectAction5Counter += baseTileZ;
             if (objectAction5Counter >= 92) {
-                outBuffer.p1isaac(Packet.Client.OPOBJT2);
+                outBuffer.p1isaac(Packet.Client.ANTICHEAT_OPOBJ5);
                 outBuffer.p4(0);
             }
             interactWithLoc(Packet.Client.OPOBJ5, a, b, c);
@@ -5314,7 +5314,7 @@ public class Game extends Applet {
             LocType.load(config);
             FloorType.load(config);
             ObjType.load(lostcity);
-            NPCType.load(config);
+            NPCType.load(lostcity);
             IDKType.load(config);
             SpotAnimType.load(config);
             VarType.load(config);

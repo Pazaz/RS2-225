@@ -2,13 +2,13 @@ package com.jagex.runescape.util;
 
 public class Packet {
     // OP* - Option <Type> <#>
-    // OP*T* - Option <Type> Timer (#)
+    // OP*T* - Option <Type> Target (#)
     public class Client {
         // Outbound Packets
-        public static final int OPPLAYERT = 2; // presumed NXT naming
+        public static final int ANTICHEAT_OPPLAYER2 = 2;
         public static final int CLIENT_CHEAT = 4; // NXT naming
         public static final int ITEM_ACTION_5 = 6;
-        public static final int OPOBJT1 = 7; // NXT naming
+        public static final int ANTICHEAT_OPOBJ4 = 7;
         public static final int OPNPC2 = 8; // NXT naming
         public static final int MAGIC_ON_OBJECT = 9;
         public static final int FRIENDLIST_DEL = 11; // NXT naming
@@ -22,14 +22,14 @@ public class Packet {
         public static final int IF_DESIGN = 52; // not NXT naming, but fits the paradigm - design screen data
         public static final int OPPLAYER2 = 53; // NXT naming
         public static final int ITEM_ACTION_2 = 59;
-        public static final int OPOBJT2 = 66; // presumed NXT naming
+        public static final int ANTICHEAT_OPOBJ5 = 66;
         public static final int IDLE_TIMER = 70;
         public static final int ITEM_OPTION_2 = 71;
         public static final int ITEM_ON_OBJECT = 75;
         public static final int IGNORELIST_ADD = 79; // NXT naming
         public static final int TRACKING_DATA = 81;
         public static final int ANTICHEAT_UPDATE_LOC = 85;
-        public static final int OPNPCT1 = 88; // presume NXT naming
+        public static final int ANTICHEAT_OPNPC3 = 88;
         public static final int MOVEMENT_WORLD_ACTION = 93;
         public static final int OPOBJ3 = 96; // NXT naming
         public static final int OPOBJ4 = 97; // NXT naming
@@ -55,7 +55,7 @@ public class Packet {
         public static final int IGNORELIST_DEL = 171; // NXT naming
         public static final int OPOBJ2 = 172; // NXT naming
         public static final int INTERFACE_FLASHING_TAB_CLICKED = 175;
-        public static final int OPNPCT2 = 176; // presumed NXT naming
+        public static final int ANTICHEAT_OPNPC5 = 176;
         public static final int MAGIC_ON_PLAYER = 177;
         public static final int GROUND_ITEM_ACTION = 178;
         public static final int MOVE_GAMECLICK = 181; // NXT naming
