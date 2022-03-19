@@ -30,6 +30,7 @@ import java.util.zip.CRC32;
 
 public class Game extends Applet {
 
+    public static final boolean useLostCity = false;
     public static String serverAddress = "localhost";
     public static int serverHttpPort = 80;
     public static int serverGamePort = 43594;
@@ -168,7 +169,7 @@ public class Game extends Applet {
     public int secondMostRecentOpcode;
     public int thirdMostRecentOpcode;
 
-    public int[] archiveChecksums = new int[11];
+    public int[] archiveChecksums;
     public FileArchive lostcity;
     public FileArchive title;
 
@@ -529,6 +530,11 @@ public class Game extends Applet {
     public boolean titleDrawn = false;
 
     public Game() {
+        if (useLostCity) {
+            archiveChecksums = new int[11];
+        } else {
+            archiveChecksums = new int[9];
+        }
     }
 
     public static void setLowMemory() {
@@ -5123,11 +5129,15 @@ public class Game extends Applet {
                 startMidiThread = true;
                 midiThreadActive = true;
                 startThread(this, 2);
-                Signlink.setSoundfont(loadArchive("virtual instruments", archiveChecksums[9], "soundfont", 5));
+                if (useLostCity) {
+                    Signlink.setSoundfont(loadArchive("virtual instruments", archiveChecksums[9], "soundfont", 5));
+                }
                 setMidi(0xbc614e, "scape_main", 40000);
             }
 
-            this.lostcity = loadArchive("lost city", archiveChecksums[10], "lostcity", 7);
+            if (useLostCity) {
+                this.lostcity = loadArchive("lost city", archiveChecksums[10], "lostcity", 7);
+            }
 
             this.title = loadArchive("title screen", archiveChecksums[1], "title", 10);
 
@@ -5313,8 +5323,13 @@ public class Game extends Applet {
             SeqType.load(config);
             LocType.load(config);
             FloorType.load(config);
-            ObjType.load(lostcity);
-            NPCType.load(lostcity);
+            if (useLostCity) {
+                ObjType.load(lostcity);
+                NPCType.load(lostcity);
+            } else {
+                ObjType.load(config);
+                NPCType.load(config);
+            }
             IDKType.load(config);
             SpotAnimType.load(config);
             VarType.load(config);
@@ -7917,9 +7932,12 @@ public class Game extends Applet {
         titleRightSpace.bind();
         temp.drawOpaque(-180, -186);
 
-        byte[] logo = lostcity.read("newlogo.png");
-        temp = new Sprite(logo, this);
-        //temp = new Sprite(titleArchive, "logo", 0);
+        if (useLostCity) {
+            byte[] logo = lostcity.read("newlogo.png");
+            temp = new Sprite(logo, this);
+        } else {
+            temp = new Sprite(title, "logo", 0);
+        }
         titleTop.bind();
         temp.draw(18, super.gameWidth / 2 - temp.width / 2 - 128);
 
