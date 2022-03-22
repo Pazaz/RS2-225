@@ -737,6 +737,10 @@ public class SceneManager {
                             && getRenderLevel(l, i7, l17) == levelBuilt)) {
                             int i19 = planeUnderlayFloorIndices[l][i7][l17] & 0xff;
                             int floType = planeOverlayFloorIndices[l][i7][l17] & 0xff;
+                            if (floType > FloorType.count - 1) {
+                                // must be loading a newer map for the flotype to not exist
+                                floType = 1;
+                            }
                             if (i19 > 0 || floType > 0) {
                                 int k19 = heightmap[l][i7][l17];
                                 int l19 = heightmap[l][i7 + 1][l17];

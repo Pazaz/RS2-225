@@ -343,11 +343,11 @@ public class Game extends Applet {
     public int MAX_PLAYER_COUNT = 2048;
     public int LOCAL_PLAYER_INDEX = 2047;
     public PlayerEntity[] playerEntities = new PlayerEntity[MAX_PLAYER_COUNT];
-    public boolean rights = false;
-    public int playerCount;
     public int[] playerIndices = new int[MAX_PLAYER_COUNT];
     public int[] entityUpdateIndices = new int[MAX_PLAYER_COUNT];
     public Buffer[] playerBuffers = new Buffer[MAX_PLAYER_COUNT];
+    public boolean rights = false;
+    public int playerCount;
     public int selfPlayerId = -1;
     public int[] characterDesignColors = new int[5];
     public int energy;
@@ -374,8 +374,9 @@ public class Game extends Applet {
     public int chatPublicSetting;
     public int weightCarried;
 
-    public NPCEntity[] npcEntities = new NPCEntity[8192];
-    public int[] npcIndices = new int[8192];
+    public int MAX_NPC_COUNT = 8192;
+    public NPCEntity[] npcEntities = new NPCEntity[MAX_NPC_COUNT];
+    public int[] npcIndices = new int[MAX_NPC_COUNT];
     public int npcCount;
 
     public boolean midiActive = true;
@@ -545,15 +546,17 @@ public class Game extends Applet {
         Signlink.lowMemory = true;
     }
 
-    public static String formatNumber(int i) {
-        String s = String.valueOf(i);
-        for (int k = s.length() - 3; k > 0; k -= 3)
+    public static String formatNumber(int value) {
+        String s = String.valueOf(value);
+        for (int k = s.length() - 3; k > 0; k -= 3) {
             s = s.substring(0, k) + "," + s.substring(k);
+        }
 
-        if (s.length() > 8)
+        if (s.length() > 8) {
             s = "@gre@" + s.substring(0, s.length() - 8) + " million @whi@(" + s + ")";
-        else if (s.length() > 4)
+        } else if (s.length() > 4) {
             s = "@cya@" + s.substring(0, s.length() - 4) + "K @whi@(" + s + ")";
+        }
         return " " + s;
     }
 
@@ -895,78 +898,77 @@ public class Game extends Applet {
             }
         }
 
-        for (int k = 0; k < chatCount; k++) {
-            int j1 = chatScreenX[k];
-            int k1 = chatScreenY[k];
-            int i2 = chatPadding[k];
-            int j2 = chatHeight[k];
+        for (int n = 0; n < chatCount; n++) {
+            int x = chatScreenX[n];
+            int y = chatScreenY[n];
+            int padding = chatPadding[n];
+            int height = chatHeight[n];
             boolean flag = true;
             while (flag) {
                 flag = false;
-                for (int k2 = 0; k2 < k; k2++)
-                    if (k1 + 2 > chatScreenY[k2] - chatHeight[k2] && k1 - j2 < chatScreenY[k2] + 2
-                        && j1 - i2 < chatScreenX[k2] + chatPadding[k2]
-                        && j1 + i2 > chatScreenX[k2] - chatPadding[k2]
-                        && chatScreenY[k2] - chatHeight[k2] < k1) {
-                        k1 = chatScreenY[k2] - chatHeight[k2];
+                for (int k2 = 0; k2 < n; k2++) {
+                    if (y + 2 > chatScreenY[k2] - chatHeight[k2] && y - height < chatScreenY[k2] + 2 && x - padding < chatScreenX[k2] + chatPadding[k2] && x + padding > chatScreenX[k2] - chatPadding[k2] && chatScreenY[k2] - chatHeight[k2] < y) {
+                        y = chatScreenY[k2] - chatHeight[k2];
                         flag = true;
                     }
-
+                }
             }
-            drawX = chatScreenX[k];
-            drawY = chatScreenY[k] = k1;
-            String s = chatMessages[k];
+
+            drawX = chatScreenX[n];
+            drawY = chatScreenY[n] = y;
+            String s = chatMessages[n];
             if (chatEffects == 0) {
                 int color = 0xffff00;
-                if (chatColors[k] < 6)
-                    color = textColors[chatColors[k]];
-                if (chatColors[k] == 6)
+
+                if (chatColors[n] < 6) {
+                    color = textColors[chatColors[n]];
+                } else if (chatColors[n] == 6) {
                     color = sceneCycle % 20 >= 10 ? 0xffff00 : 0xff0000;
-                if (chatColors[k] == 7)
+                } else if (chatColors[n] == 7) {
                     color = sceneCycle % 20 >= 10 ? 65535 : 255;
-                if (chatColors[k] == 8)
+                } else if (chatColors[n] == 8) {
                     color = sceneCycle % 20 >= 10 ? 0x80ff80 : 45056;
-                if (chatColors[k] == 9) {
-                    int i3 = 150 - chatTimers[k];
-                    if (i3 < 50)
-                        color = 0xff0000 + 1280 * i3;
-                    else if (i3 < 100)
-                        color = 0xffff00 - 0x50000 * (i3 - 50);
-                    else if (i3 < 150)
-                        color = 65280 + 5 * (i3 - 100);
+                } else if (chatColors[n] == 9) {
+                    int timer = 150 - chatTimers[n];
+                    if (timer < 50) {
+                        color = 0xff0000 + 1280 * timer;
+                    } else if (timer < 100) {
+                        color = 0xffff00 - 0x50000 * (timer - 50);
+                    } else if (timer < 150) {
+                        color = 65280 + 5 * (timer - 100);
+                    }
+                } else if (chatColors[n] == 10) {
+                    int timer = 150 - chatTimers[n];
+                    if (timer < 50) {
+                        color = 0xff0000 + 5 * timer;
+                    } else if (timer < 100) {
+                        color = 0xff00ff - 0x50000 * (timer - 50);
+                    } else if (timer < 150) {
+                        color = (255 + 0x50000 * (timer - 100)) - 5 * (timer - 100);
+                    }
+                } else if (chatColors[n] == 11) {
+                    int timer = 150 - chatTimers[n];
+                    if (timer < 50) {
+                        color = 0xffffff - 0x50005 * timer;
+                    } else if (timer < 100) {
+                        color = 65280 + 0x50005 * (timer - 50);
+                    } else if (timer < 150) {
+                        color = 0xffffff - 0x50000 * (timer - 100);
+                    }
                 }
-                if (chatColors[k] == 10) {
-                    int j3 = 150 - chatTimers[k];
-                    if (j3 < 50)
-                        color = 0xff0000 + 5 * j3;
-                    else if (j3 < 100)
-                        color = 0xff00ff - 0x50000 * (j3 - 50);
-                    else if (j3 < 150)
-                        color = (255 + 0x50000 * (j3 - 100)) - 5 * (j3 - 100);
-                }
-                if (chatColors[k] == 11) {
-                    int k3 = 150 - chatTimers[k];
-                    if (k3 < 50)
-                        color = 0xffffff - 0x50005 * k3;
-                    else if (k3 < 100)
-                        color = 65280 + 0x50005 * (k3 - 50);
-                    else if (k3 < 150)
-                        color = 0xffffff - 0x50000 * (k3 - 100);
-                }
-                if (chatStyles[k] == 0) {
+
+                if (chatStyles[n] == 0) {
                     fontBold12.drawCentered(drawY + 1, 0, s, drawX);
                     fontBold12.drawCentered(drawY, color, s, drawX);
-                }
-                if (chatStyles[k] == 1) {
+                } else if (chatStyles[n] == 1) {
                     fontBold12.drawCenteredWave(sceneCycle, drawX, drawY + 1, 0, s);
                     fontBold12.drawCenteredWave(sceneCycle, drawX, drawY, color, s);
-                }
-                if (chatStyles[k] == 2) {
-                    int l3 = fontBold12.stringWidth(s);
-                    int i4 = ((150 - chatTimers[k]) * (l3 + 100)) / 150;
+                } else if (chatStyles[n] == 2) {
+                    int width = fontBold12.stringWidth(s);
+                    int timer = ((150 - chatTimers[n]) * (width + 100)) / 150;
                     Draw2D.setBounds(334, 0, drawX + 50, drawX - 50);
-                    fontBold12.draw((drawX + 50) - i4, drawY + 1, 0, s);
-                    fontBold12.draw((drawX + 50) - i4, drawY, color, s);
+                    fontBold12.draw((drawX + 50) - timer, drawY + 1, 0, s);
+                    fontBold12.draw((drawX + 50) - timer, drawY, color, s);
                     Draw2D.resetBounds();
                 }
             } else {
@@ -998,40 +1000,54 @@ public class Game extends Applet {
     }
 
     public void drawWildyLevel() {
-        int j = (self.x >> 7) + baseTileX;
-        int k = (self.z >> 7) + baseTileZ;
-        if (j >= 2944 && j < 3392 && k >= 3520 && k < 6400)
-            wildernessLevel = 1 + (k - 3520) / 8;
-        else if (j >= 2944 && j < 3392 && k >= 9920 && k < 12800)
-            wildernessLevel = 1 + (k - 9920) / 8;
-        else
+        int x = (self.x >> 7) + baseTileX;
+        int z = (self.z >> 7) + baseTileZ;
+        if (x >= 2944 && x < 3392 && z >= 3520 && z < 6400) {
+            wildernessLevel = 1 + (z - 3520) / 8;
+        } else if (x >= 2944 && x < 3392 && z >= 9920 && z < 12800) {
+            wildernessLevel = 1 + (z - 9920) / 8;
+        } else {
             wildernessLevel = 0;
-        worldLocationState = 0;
-        if (j >= 3328 && j < 3392 && k >= 3200 && k < 3264) {
-            int l = j & 0x3f;
-            int i1 = k & 0x3f;
-            if (l >= 4 && l <= 29 && i1 >= 44 && i1 <= 58)
-                worldLocationState = 1;
-            if (l >= 36 && l <= 61 && i1 >= 44 && i1 <= 58)
-                worldLocationState = 1;
-            if (l >= 4 && l <= 29 && i1 >= 25 && i1 <= 39)
-                worldLocationState = 1;
-            if (l >= 36 && l <= 61 && i1 >= 25 && i1 <= 39)
-                worldLocationState = 1;
-            if (l >= 4 && l <= 29 && i1 >= 6 && i1 <= 20)
-                worldLocationState = 1;
-            if (l >= 36 && l <= 61 && i1 >= 6 && i1 <= 20)
-                worldLocationState = 1;
         }
-        if (worldLocationState == 0 && j >= 3328 && j <= 3393 && k >= 3203 && k <= 3325)
+
+        worldLocationState = 0;
+        if (x >= 3328 && x < 3392 && z >= 3200 && z < 3264) {
+            int l = x & 0x3f;
+            int i1 = z & 0x3f;
+            if (l >= 4 && l <= 29 && i1 >= 44 && i1 <= 58) {
+                worldLocationState = 1;
+            }
+            if (l >= 36 && l <= 61 && i1 >= 44 && i1 <= 58) {
+                worldLocationState = 1;
+            }
+            if (l >= 4 && l <= 29 && i1 >= 25 && i1 <= 39) {
+                worldLocationState = 1;
+            }
+            if (l >= 36 && l <= 61 && i1 >= 25 && i1 <= 39) {
+                worldLocationState = 1;
+            }
+            if (l >= 4 && l <= 29 && i1 >= 6 && i1 <= 20) {
+                worldLocationState = 1;
+            }
+            if (l >= 36 && l <= 61 && i1 >= 6 && i1 <= 20) {
+                worldLocationState = 1;
+            }
+        }
+
+        if (worldLocationState == 0 && x >= 3328 && x <= 3393 && z >= 3203 && z <= 3325) {
             worldLocationState = 2;
+        }
+
         tutorialIslandState = 0;
-        if (j >= 3053 && j <= 3156 && k >= 3056 && k <= 3136)
+        if (x >= 3053 && x <= 3156 && z >= 3056 && z <= 3136) {
             tutorialIslandState = 1;
-        if (j >= 3072 && j <= 3118 && k >= 9492 && k <= 9535)
+        }
+        if (x >= 3072 && x <= 3118 && z >= 9492 && z <= 9535) {
             tutorialIslandState = 1;
-        if (tutorialIslandState == 1 && j >= 3139 && j <= 3199 && k >= 3008 && k <= 3062)
+        }
+        if (tutorialIslandState == 1 && x >= 3139 && x <= 3199 && z >= 3008 && z <= 3062) {
             tutorialIslandState = 0;
+        }
     }
 
     public void drawChat() {
@@ -3476,44 +3492,43 @@ public class Game extends Applet {
         }
     }
 
-    public void updateVarp(int i) {
-        int varpType = VarType.instances[i].type;
-        if (varpType == 0)
+    public void updateVarp(int var) {
+        int varpType = VarType.instances[var].type;
+        if (varpType == 0) {
             return;
-        int varp = variables[i];
+        }
+
+        int varp = variables[var];
         if (varpType == 1) {
-            if (varp == 1)
+            if (varp == 1) {
                 Draw3D.setBrightness(0.9D);
-            if (varp == 2)
+            } else if (varp == 2) {
                 Draw3D.setBrightness(0.8D);
-            if (varp == 3)
+            } else if (varp == 3) {
                 Draw3D.setBrightness(0.7D);
-            if (varp == 4)
+            } else if (varp == 4) {
                 Draw3D.setBrightness(0.6D);
+            }
             ObjType.iconCache.clear();
             redrawTitleBackground = true;
-        }
-        if (varpType == 3) {
+        } else if (varpType == 3) {
             boolean lastActive = midiActive;
             if (varp == 0) {
                 midivol(256, midiActive);
                 midiActive = true;
-            }
-            if (varp == 1) {
+            } else if (varp == 1) {
                 midivol(192, midiActive);
                 midiActive = true;
-            }
-            if (varp == 2) {
+            } else if (varp == 2) {
                 midivol(96, midiActive);
                 midiActive = true;
-            }
-            if (varp == 3) {
+            } else if (varp == 3) {
                 midivol(32, midiActive);
                 midiActive = true;
-            }
-            if (varp == 4) {
+            } else if (varp == 4) {
                 midiActive = false;
             }
+
             if (midiActive != lastActive) {
                 if (midiActive) {
                     setMidi(midiCrc, currentMidi, midiSize);
@@ -3522,32 +3537,27 @@ public class Game extends Applet {
                 }
                 nextMusicDelay = 0;
             }
-        }
-        if (varpType == 4) {
+        } else if (varpType == 4) {
             if (varp == 0) {
                 effectsEnabled = true;
                 wavevol(0);
-            }
-            if (varp == 1) {
+            } else if (varp == 1) {
                 effectsEnabled = true;
                 wavevol(-400);
-            }
-            if (varp == 2) {
+            } else if (varp == 2) {
                 effectsEnabled = true;
                 wavevol(-800);
-            }
-            if (varp == 3) {
+            } else if (varp == 3) {
                 effectsEnabled = true;
                 wavevol(-1200);
-            }
-            if (varp == 4)
+            } else if (varp == 4) {
                 effectsEnabled = false;
-        }
-        if (varpType == 5)
+            }
+        } else if (varpType == 5) {
             button = varp;
-        if (varpType == 6)
+        } else if (varpType == 6) {
             chatEffects = varp;
-        if (varpType == 8) {
+        } else if (varpType == 8) {
             splitPrivateChat = varp;
             redrawChatback = true;
         }
@@ -3555,9 +3565,9 @@ public class Game extends Applet {
 
     public void updateNpcEntity(boolean flag) {
         ingame &= flag;
-        for (int i = 0; i < npcCount; i++) {
-            int j = npcIndices[i];
-            NPCEntity npcEntity = npcEntities[j];
+        for (int n = 0; n < npcCount; n++) {
+            int npc = npcIndices[n];
+            NPCEntity npcEntity = npcEntities[npc];
             if (npcEntity != null) {
                 updateEntity(npcEntity);
             }
@@ -3565,8 +3575,7 @@ public class Game extends Applet {
     }
 
     public void updateEntity(PathingEntity entity) {
-        if (entity.x < 128 || entity.z < 128
-            || entity.x >= 13184 || entity.z >= 13184) {
+        if (entity.x < 128 || entity.z < 128 || entity.x >= 13184 || entity.z >= 13184) {
             entity.primarySeq = -1;
             entity.spotAnimIndex = -1;
             entity.firstMoveCycle = 0;
@@ -3575,9 +3584,7 @@ public class Game extends Applet {
             entity.z = entity.pathTileZ[0] * 128 + entity.index * 64;
             entity.pathRemaining = 0;
         }
-        if (entity == self
-            && (entity.x < 1536 || entity.z < 1536
-            || entity.x >= 11776 || entity.z >= 11776)) {
+        if (entity == self && (entity.x < 1536 || entity.z < 1536 || entity.x >= 11776 || entity.z >= 11776)) {
             entity.primarySeq = -1;
             entity.spotAnimIndex = -1;
             entity.firstMoveCycle = 0;
@@ -5194,22 +5201,22 @@ public class Game extends Applet {
             }
 
             try {
-                for (int k1 = 0; k1 < 50; k1++) {
-                    mapfunction[k1] = new Sprite(media, "mapfunction", k1);
+                for (int n = 0; n < 50; n++) {
+                    mapfunction[n] = new Sprite(media, "mapfunction", n);
                 }
             } catch (Exception ignored) {
             }
 
             try {
-                for (int l1 = 0; l1 < 20; l1++) {
-                    hitmarks[l1] = new Sprite(media, "hitmarks", l1);
+                for (int n = 0; n < 20; n++) {
+                    hitmarks[n] = new Sprite(media, "hitmarks", n);
                 }
             } catch (Exception ignored) {
             }
 
             try {
-                for (int i2 = 0; i2 < 20; i2++) {
-                    headicons[i2] = new Sprite(media, "headicons", i2);
+                for (int n = 0; n < 20; n++) {
+                    headicons[n] = new Sprite(media, "headicons", n);
                 }
             } catch (Exception ignored) {
             }
@@ -5296,16 +5303,16 @@ public class Game extends Applet {
             backhmid2 = new DrawArea(temp.width, temp.height);
             temp.drawOpaque(0, 0);
 
-            int k2 = (int) (Math.random() * 21D) - 10;
-            int l2 = (int) (Math.random() * 21D) - 10;
-            int i3 = (int) (Math.random() * 21D) - 10;
-            int j3 = (int) (Math.random() * 41D) - 20;
-            for (int k3 = 0; k3 < 50; k3++) {
-                if (mapfunction[k3] != null) {
-                    mapfunction[k3].translate(k2 + j3, l2 + j3, i3 + j3);
+            int r = (int) (Math.random() * 21D) - 10;
+            int g = (int) (Math.random() * 21D) - 10;
+            int b = (int) (Math.random() * 21D) - 10;
+            int hue = (int) (Math.random() * 41D) - 20;
+            for (int n = 0; n < 50; n++) {
+                if (mapfunction[n] != null) {
+                    mapfunction[n].translate(r + hue, g + hue, b + hue);
                 }
-                if (mapscene[k3] != null) {
-                    mapscene[k3].translate(k2 + j3, l2 + j3, i3 + j3);
+                if (mapscene[n] != null) {
+                    mapscene[n].translate(r + hue, g + hue, b + hue);
                 }
             }
 
@@ -5316,17 +5323,18 @@ public class Game extends Applet {
 
             showProgress("Unpacking models", 83);
             Model.load(models);
-            SeqBase.load(models);
+            SeqSkeleton.load(models);
             SeqFrame.load(models);
 
             showProgress("Unpacking config", 86);
             SeqType.load(config);
-            LocType.load(config);
             FloorType.load(config);
             if (useLostCity) {
+                LocType.load(lostcity);
                 ObjType.load(lostcity);
                 NPCType.load(lostcity);
             } else {
+                LocType.load(config);
                 ObjType.load(config);
                 NPCType.load(config);
             }
@@ -5345,44 +5353,48 @@ public class Game extends Applet {
             Component.load(media, fonts, interfaces);
 
             showProgress("Preparing game engine", 97);
-            for (int l3 = 0; l3 < 33; l3++) {
-                int i4 = 999;
-                int k4 = 0;
-                for (int i5 = 0; i5 < 35; i5++) {
-                    if (mapback.pixels[i5
-                        + l3 * mapback.width] == 0) {
-                        if (i4 == 999)
-                            i4 = i5;
+            for (int y = 0; y < 33; y++) {
+                int left = 999;
+                int right = 0;
+                for (int x = 0; x < 35; x++) {
+                    if (mapback.pixels[x + y * mapback.width] == 0) {
+                        if (left == 999) {
+                            left = x;
+                        }
                         continue;
                     }
-                    if (i4 == 999)
+
+                    if (left == 999) {
                         continue;
-                    k4 = i5;
+                    }
+                    right = x;
                     break;
                 }
 
-                compassLeft[l3] = i4;
-                compassLineWidth[l3] = k4 - i4;
+                compassLeft[y] = left;
+                compassLineWidth[y] = right - left;
             }
 
-            for (int j4 = 9; j4 < 160; j4++) {
-                int l4 = 999;
-                int j5 = 0;
-                for (int l5 = 10; l5 < 168; l5++) {
-                    if (mapback.pixels[l5 + j4 * mapback.width] == 0
-                        && (l5 > 34 || j4 > 34)) {
-                        if (l4 == 999)
-                            l4 = l5;
+            for (int y = 9; y < 160; y++) {
+                int left = 999;
+                int right = 0;
+                for (int x = 10; x < 168; x++) {
+                    if (mapback.pixels[x + y * mapback.width] == 0 && (x > 34 || y > 34)) {
+                        if (left == 999) {
+                            left = x;
+                        }
                         continue;
                     }
-                    if (l4 == 999)
+
+                    if (left == 999) {
                         continue;
-                    j5 = l5;
+                    }
+                    right = x;
                     break;
                 }
 
-                minimapLeft[j4 - 9] = l4 - 21;
-                minimapLineWidth[j4 - 9] = j5 - l4;
+                minimapLeft[y - 9] = left - 21;
+                minimapLineWidth[y - 9] = right - left;
             }
 
             Draw3D.prepareOffsets(96, 479);
@@ -5395,11 +5407,11 @@ public class Game extends Applet {
             viewportOffsets = Draw3D.offsets;
 
             int[] ai = new int[9];
-            for (int k5 = 0; k5 < 9; k5++) {
-                int i6 = 128 + k5 * 32 + 15;
+            for (int n = 0; n < 9; n++) {
+                int i6 = 128 + n * 32 + 15;
                 int j6 = 600 + i6 * 3;
                 int k6 = Draw3D.sin[i6];
-                ai[k5] = j6 * k6 >> 16;
+                ai[n] = j6 * k6 >> 16;
             }
 
             MapSquare.init(ai, 800, 512, 334, 500);
@@ -5463,23 +5475,23 @@ public class Game extends Applet {
 
         for (boolean flag = false; !flag; ) {
             flag = true;
-            for (int j = 0; j < optionCount - 1; j++) {
-                if (actions[j] < 1000 && actions[j + 1] > 1000) {
-                    String s = options[j];
-                    options[j] = options[j + 1];
-                    options[j + 1] = s;
-                    int k = actions[j];
-                    actions[j] = actions[j + 1];
-                    actions[j + 1] = k;
-                    k = paramA[j];
-                    paramA[j] = paramA[j + 1];
-                    paramA[j + 1] = k;
-                    k = paramB[j];
-                    paramB[j] = paramB[j + 1];
-                    paramB[j + 1] = k;
-                    k = paramC[j];
-                    paramC[j] = paramC[j + 1];
-                    paramC[j + 1] = k;
+            for (int n = 0; n < optionCount - 1; n++) {
+                if (actions[n] < 1000 && actions[n + 1] > 1000) {
+                    String s = options[n];
+                    options[n] = options[n + 1];
+                    options[n + 1] = s;
+                    int k = actions[n];
+                    actions[n] = actions[n + 1];
+                    actions[n + 1] = k;
+                    k = paramA[n];
+                    paramA[n] = paramA[n + 1];
+                    paramA[n + 1] = k;
+                    k = paramB[n];
+                    paramB[n] = paramB[n + 1];
+                    paramB[n + 1] = k;
+                    k = paramC[n];
+                    paramC[n] = paramC[n + 1];
+                    paramC[n + 1] = k;
                     flag = false;
                 }
             }
@@ -5711,8 +5723,9 @@ public class Game extends Applet {
     public boolean interactWithLoc(int i, int j, int k, int l) {
         int i1 = l >> 14 & 0x7fff;
         int j1 = mapSquare.getInfo(currentLevel, j, k, l);
-        if (j1 == -1)
+        if (j1 == -1) {
             return false;
+        }
         int k1 = j1 & 0x1f;
         int l1 = j1 >> 6 & 3;
         if (k1 == 10 || k1 == 11 || k1 == 22) {
@@ -5727,14 +5740,14 @@ public class Game extends Applet {
                 j2 = locType.sizeX;
             }
             int k2 = locType.interactionSideFlags;
-            if (l1 != 0)
+            if (l1 != 0) {
                 k2 = (k2 << l1 & 0xf) + (k2 >> 4 - l1);
-            moveTo(self.pathTileX[0], i2, false, j,
-                self.pathTileZ[0], 2, j2, k, 0, 0, k2);
+            }
+            moveTo(self.pathTileX[0], i2, false, j, self.pathTileZ[0], 2, j2, k, 0, 0, k2);
         } else {
-            moveTo(self.pathTileX[0], 0, false, j,
-                self.pathTileZ[0], 2, 0, k, l1, k1 + 1, 0);
+            moveTo(self.pathTileX[0], 0, false, j, self.pathTileZ[0], 2, 0, k, l1, k1 + 1, 0);
         }
+
         crossX = super.clickX;
         crossY = super.clickY;
         crossType = 2;
@@ -5750,8 +5763,9 @@ public class Game extends Applet {
         int j = fontBold12.stringWidth("Choose Option");
         for (int k = 0; k < optionCount; k++) {
             int l = fontBold12.stringWidth(options[k]);
-            if (l > j)
+            if (l > j) {
                 j = l;
+            }
         }
 
         j += 8;
@@ -6008,12 +6022,12 @@ public class Game extends Applet {
                 flagTileY = 0;
                 playerCount = 0;
                 npcCount = 0;
-                for (int i1 = 0; i1 < MAX_PLAYER_COUNT; i1++) {
-                    playerEntities[i1] = null;
-                    playerBuffers[i1] = null;
+                for (int n = 0; n < MAX_PLAYER_COUNT; n++) {
+                    playerEntities[n] = null;
+                    playerBuffers[n] = null;
                 }
-                for (int j1 = 0; j1 < 8192; j1++) {
-                    npcEntities[j1] = null;
+                for (int n = 0; n < MAX_NPC_COUNT; n++) {
+                    npcEntities[n] = null;
                 }
                 self = playerEntities[LOCAL_PLAYER_INDEX] = new PlayerEntity();
                 projectiles.clear();
@@ -6356,7 +6370,7 @@ public class Game extends Applet {
         Draw3D.unload();
         MapSquare.unload();
         Model.unload();
-        SeqBase.instances = null;
+        SeqSkeleton.instances = null;
         SeqFrame.instances = null;
         System.gc();
     }
@@ -7597,11 +7611,13 @@ public class Game extends Applet {
         }
 
         Model m1 = null;
-        if (l != -1)
+        if (l != -1) {
             m1 = ObjType.get(l).getModel(k1);
+        }
         Model m2 = null;
-        if (j1 != -1)
+        if (j1 != -1) {
             m2 = ObjType.get(j1).getModel(l1);
+        }
         int i2 = x + (z << 7) + 0x60000000;
         ObjType objType = ObjType.get(obj.model);
         mapSquare.addObject(objType.getModel(obj.amount), m1, getLandY(currentLevel, x * 128 + 64, z * 128 + 64), currentLevel, i2, z, x, m2);
@@ -7712,14 +7728,14 @@ public class Game extends Applet {
     }
 
     public void updateEntityVoices() {
-        for (int i = -1; i < playerCount; i++) {
-            int j;
-            if (i == -1) {
-                j = LOCAL_PLAYER_INDEX;
+        for (int index = -1; index < playerCount; index++) {
+            int player;
+            if (index == -1) {
+                player = LOCAL_PLAYER_INDEX;
             } else {
-                j = playerIndices[i];
+                player = playerIndices[index];
             }
-            PlayerEntity playerEntity = playerEntities[j];
+            PlayerEntity playerEntity = playerEntities[player];
             if (playerEntity != null && playerEntity.textCycle > 0) {
                 playerEntity.textCycle--;
                 if (playerEntity.textCycle == 0) {
@@ -7728,9 +7744,9 @@ public class Game extends Applet {
             }
         }
 
-        for (int k = 0; k < npcCount; k++) {
-            int l = npcIndices[k];
-            NPCEntity npcEntity = npcEntities[l];
+        for (int index = 0; index < npcCount; index++) {
+            int npc = npcIndices[index];
+            NPCEntity npcEntity = npcEntities[npc];
             if (npcEntity != null && npcEntity.textCycle > 0) {
                 npcEntity.textCycle--;
                 if (npcEntity.textCycle == 0) {
@@ -7744,6 +7760,7 @@ public class Game extends Applet {
         if (inter.script == null || script >= inter.script.length) {
             return -2;
         }
+
         try {
             int[] code = inter.script[script];
             int a = 0;
@@ -8102,7 +8119,7 @@ public class Game extends Applet {
                                 }
 
                         }
-                        options[optionCount] = "Examine @cya@" + locType.name;
+                        options[optionCount] = "Examine @cya@" + locType.name + " (" + locType.index + ")";
                         actions[optionCount] = 1175;
                         paramC[optionCount] = k;
                         paramA[optionCount] = x;
@@ -8653,7 +8670,7 @@ public class Game extends Applet {
                 mapLastBaseX = baseTileX;
                 mapLastBaseZ = baseTileZ;
 
-                for (int n = 0; n < 8192; n++) {
+                for (int n = 0; n < MAX_PLAYER_COUNT; n++) {
                     NPCEntity e = npcEntities[n];
                     if (e != null) {
                         for (int m = 0; m < 10; m++) {
@@ -9488,23 +9505,29 @@ public class Game extends Applet {
         areaInvback.bind();
         Draw3D.offsets = sidebarOffsets;
         inback.draw(0, 0);
-        if (sidebarInterfaceId != -1)
+        if (sidebarInterfaceId != -1) {
             drawInterface(0, 0, Component.instances[sidebarInterfaceId], 0);
-        else if (tabComponentId[selectedTab] != -1)
+        } else if (tabComponentId[selectedTab] != -1) {
             drawInterface(0, 0, Component.instances[tabComponentId[selectedTab]], 0);
-        if (menuVisible && mouseArea == 1)
+        }
+        if (menuVisible && mouseArea == 1) {
             drawMenu();
+        }
         areaInvback.drawImage(231, super.graphics, 562);
         areaViewport.bind();
         Draw3D.offsets = viewportOffsets;
     }
 
     public boolean isFriend(String s) {
-        if (s == null)
+        if (s == null) {
             return false;
-        for (int j = 0; j < friendCount; j++)
-            if (s.equalsIgnoreCase(friendName[j]))
+        }
+
+        for (int j = 0; j < friendCount; j++) {
+            if (s.equalsIgnoreCase(friendName[j])) {
                 return true;
+            }
+        }
 
         return s.equalsIgnoreCase(self.name);
     }

@@ -55,14 +55,16 @@ public class DrawArea {
     // 0.0833 - upper limit (default, the start of visible unfiltered edges)
     // 0.0625 - high quality (faster)
     // 0.0312 - visible limit (slower)
-    static final float FXAA_THRESHOLD_MAX = 0.0833f;
+    static final float FXAA_THRESHOLD_MAX = 0.0312f;
 
     // 0.333 - too little (faster)
     // 0.250 - low quality
     // 0.166 - default
     // 0.125 - high quality
     // 0.063 - overkill (slower)
-    static final float FXAA_THRESHOLD_MIN = 0.166f;
+    static final float FXAA_THRESHOLD_MIN = 0.063f;
+
+    static final float SUBPIXEL_BLEND_FACTOR = 0.75f;
 
     float saturate(float x) {
         return Math.max(0, Math.min(1, x));
@@ -171,12 +173,13 @@ public class DrawArea {
                 float lumaMax = Math.max(lumaM, Math.max(Math.max(lumaN, lumaS), Math.max(lumaW, lumaE)));
                 float lumaRange = lumaMax - lumaMin;
 
-                // contrast threshold
+                // CanSkipFXAA - contrast threshold
                 if (lumaRange < Math.max(FXAA_THRESHOLD_MAX, lumaMax * FXAA_THRESHOLD_MIN)) {
-                    // pixels[pixel] = 0;
+//                    pixels[pixel] = 0;
                     continue;
                 }
 
+                // GetLumaNeighborhood
                 float lumaNW;
                 if (x > 0 && y > 0) {
                     lumaNW = luma[pixel - width - 1];
@@ -215,6 +218,8 @@ public class DrawArea {
                 int offY = 0;
                 float lumaPos;
                 float lumaNeg;
+
+                // IsHorizontalEdge
                 if (isHorizontal) {
                     offX = 1;
                     lumaPos = lumaN;
@@ -225,28 +230,80 @@ public class DrawArea {
                     lumaNeg = lumaW;
                 }
 
+                // GetFXAAEdge
                 float gradientP = Math.abs(lumaPos - lumaM);
                 float gradientN = Math.abs(lumaNeg - lumaM);
 
+//                float lumaGradient;
+//                float otherLuma;
                 if (gradientP < gradientN) {
                     offX = -offX;
                     offY = -offY;
+//                    lumaGradient = gradientN;
+//                    otherLuma = lumaNeg;
+                } else {
+//                    lumaGradient = gradientP;
+//                    otherLuma = lumaPos;
                 }
+
+                // GetEdgeBlendFactor
+//                float edgeLuma = 0.5f * (lumaM + otherLuma);
+//                float gradientThreshold = 0.25f * lumaGradient;
+//
+//                int edgeX = offX;
+//                int edgeY = offY;
+//                if (isHorizontal) {
+//                    edgeX += offX;
+//                } else {
+//                    edgeY += offY;
+//                }
+//
+//                if (x + edgeX >= 0 && x + edgeX <= width - 1 && y + edgeY >= 0 && y + edgeY <= height - 1) {
+//                    float lumaGradientP = Math.abs(luma[(x + edgeX) + (y + edgeY) * width] - edgeLuma);
+//                    boolean atEndP = lumaGradientP >= gradientThreshold;
+//
+//                    for (int i = 0; i < 99 && !atEndP; i++) {
+//                        if (isHorizontal) {
+//                            edgeX += offX;
+//                        } else {
+//                            edgeY += offY;
+//                        }
+//                        if (x + edgeX >= 0 && x + edgeX <= width - 1 && y + edgeY >= 0 && y + edgeY <= height - 1) {
+//                            lumaGradientP = Math.abs(luma[(x + edgeX) + (y + edgeY) * width] - edgeLuma);
+//                            atEndP = lumaGradientP >= gradientThreshold;
+//                        } else {
+//                            atEndP = true;
+//                        }
+//                    }
+//
+//                    float distanceToEndP;
+//                    if (isHorizontal) {
+//                        distanceToEndP = Math.abs(edgeX - offX);
+//                    } else {
+//                        distanceToEndP = Math.abs(edgeY - offY);
+//                    }
+//
+//                    int r = (int)(10 * distanceToEndP);
+//                    pixels[pixel] = (r & 0xFF) << 16 | (r & 0xFF) << 8 | (r & 0xFF);
+//                } else {
+//                    pixels[pixel] = 0;
+//                }
 
                 if (x + offX < 0 || x + offX > width - 1 || y + offY < 0 || y + offY > height - 1) {
                     continue;
                 }
 
-                // get blend factor
+                // GetSubpixelBlendFactor - get blend factor
                 float blendFactor = 2.0f * (lumaN + lumaE + lumaS + lumaW);
                 blendFactor += lumaNE + lumaNW + lumaSE + lumaSW;
                 blendFactor *= 1.0f / 12.0f;
                 blendFactor = Math.abs(blendFactor - lumaM);
                 blendFactor = saturate(blendFactor / lumaRange);
                 blendFactor = smoothstep(0, 1, blendFactor);
+                blendFactor *= SUBPIXEL_BLEND_FACTOR;
                 float invBlendFactor = 1.0f - blendFactor;
 
-                // blend
+                // FXAAPassFragment - blend
                 int color1 = pixels[pixel];
                 int color2 = pixels[(x + offX) + (y + offY) * width];
 

@@ -135,7 +135,7 @@ public class DiscordServerBot extends java.awt.Component {
 
         FileArchive models = new FileArchive(Signlink.cacheload("models", false));
         Model.load(models);
-        SeqBase.load(models);
+        SeqSkeleton.load(models);
         SeqFrame.load(models);
     }
 
@@ -311,7 +311,7 @@ public class DiscordServerBot extends java.awt.Component {
         VarType.instances = null;
         Model.unload();
         SeqType.instances = null;
-        SeqBase.instances = null;
+        SeqSkeleton.instances = null;
         SeqFrame.instances = null;
         System.gc();
     }

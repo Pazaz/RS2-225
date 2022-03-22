@@ -32,15 +32,8 @@ public class VarType {
 
             if (opcode == 0) {
                 return;
-            } else if (opcode == 1 || opcode == 2) {
-                buffer.g1();
             } else if (opcode == 5) {
                 type = buffer.g2();
-            } else if (opcode == 7) {
-                buffer.g4();
-            } else if (opcode == 10) {
-                buffer.gString();
-            } else if (opcode == 3 || opcode == 4 || opcode == 6 || opcode == 8) {
             } else {
                 System.out.println("Error unrecognised config code: " + opcode);
             }

@@ -129,7 +129,7 @@ public class Playground extends Applet {
         drawArea = null;
         Draw3D.unload();
         Model.unload();
-        SeqBase.instances = null;
+        SeqSkeleton.instances = null;
         SeqFrame.instances = null;
         System.gc();
     }
@@ -550,7 +550,7 @@ public class Playground extends Applet {
         }
 
         // Render the frame
-        drawArea.fxaa();
+        //drawArea.fxaa();
         drawArea.drawImage(0, graphics, 0);
     }
 
@@ -590,7 +590,7 @@ public class Playground extends Applet {
 
         FileArchive models = new FileArchive(Signlink.cacheload("models", false));
         Model.load(models);
-        SeqBase.load(models);
+        SeqSkeleton.load(models);
         SeqFrame.load(models);
     }
 

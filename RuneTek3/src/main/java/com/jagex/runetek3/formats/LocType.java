@@ -101,17 +101,6 @@ public class LocType {
         locType.reset();
         locType.read(data);
 
-        // Overrides (until data can be repacked)
-        if (index == 899 || index == 901) {
-            // Hanging Banner
-            locType.delayShading = false; // unset opcode 22
-            locType.specular = 100;
-            locType.brightness = 30;
-        } else if (index == 1779) {
-            // Sails (Windmill)
-            locType.delayShading = false;
-        }
-
         return locType;
     }
 
@@ -213,8 +202,6 @@ public class LocType {
                 thickness = buffer.g1();
             } else if (opcode == 29) {
                 brightness = buffer.g1s();
-            } else if (opcode == 39) {
-                specular = buffer.g1s();
             } else if (opcode >= 30 && opcode < 39) {
                 if (actions == null) {
                     actions = new String[5];
@@ -224,6 +211,8 @@ public class LocType {
                 if (actions[opcode - 30].equalsIgnoreCase("hidden")) {
                     actions[opcode - 30] = null;
                 }
+            } else if (opcode == 39) {
+                specular = buffer.g1s();
             } else if (opcode == 40) {
                 int n = buffer.g1();
                 oldColors = new int[n];

@@ -7,7 +7,7 @@ public class SeqFrame {
 
     public static SeqFrame[] instances;
     public int delay;
-    public SeqBase transform;
+    public SeqSkeleton transform;
     public int groupCount;
     public int[] groups;
     public int[] x;
@@ -36,7 +36,7 @@ public class SeqFrame {
             SeqFrame frame = instances[head.g2()] = new SeqFrame();
             frame.delay = del.g1();
 
-            SeqBase base = SeqBase.instances[head.g2()];
+            SeqSkeleton base = SeqSkeleton.instances[head.g2()];
             frame.transform = base;
 
             int groupCount = head.g1();
@@ -47,9 +47,9 @@ public class SeqFrame {
                 int flags = tran1.g1();
 
                 if (flags > 0) {
-                    if (base.types[n] != 0) {
+                    if (base.transformTypes[n] != SeqSkeleton.OP_BASE) {
                         for (int group = n - 1; group > lastGroup; group--) {
-                            if (base.types[group] != 0) {
+                            if (base.transformTypes[group] != SeqSkeleton.OP_BASE) {
                                 continue;
                             }
 
@@ -65,7 +65,7 @@ public class SeqFrame {
                     labels[count] = n;
 
                     int defaultValue = 0;
-                    if (base.types[labels[count]] == 3) {
+                    if (base.transformTypes[labels[count]] == SeqSkeleton.OP_SCALE) {
                         defaultValue = 128;
                     }
 

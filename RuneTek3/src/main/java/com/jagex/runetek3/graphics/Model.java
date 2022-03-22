@@ -1078,7 +1078,7 @@ public class Model extends CacheableNode {
         }
 
         SeqFrame f = SeqFrame.instances[frame];
-        SeqBase t = f.transform;
+        SeqSkeleton t = f.transform;
 
         transformX = 0;
         transformY = 0;
@@ -1086,7 +1086,7 @@ public class Model extends CacheableNode {
 
         for (int n = 0; n < f.groupCount; n++) {
             int group = f.groups[n];
-            transform(t.types[group], t.groupLabels[group], f.x[n], f.y[n], f.z[n]);
+            transform(t.transformTypes[group], t.groupLabels[group], f.x[n], f.y[n], f.z[n]);
         }
     }
 
@@ -1102,7 +1102,7 @@ public class Model extends CacheableNode {
 
         SeqFrame primary = SeqFrame.instances[primaryFrame];
         SeqFrame secondary = SeqFrame.instances[secondaryFrame];
-        SeqBase t = primary.transform;
+        SeqSkeleton t = primary.transform;
 
         transformX = 0;
         transformY = 0;
@@ -1116,8 +1116,8 @@ public class Model extends CacheableNode {
             for (group = primary.groups[g]; group > current; current = labelGroups[index++]) {
             }
 
-            if (group != current || t.types[group] == 0) {
-                transform(t.types[group], t.groupLabels[group], primary.x[g], primary.y[g], primary.z[g]);
+            if (group != current || t.transformTypes[group] == SeqSkeleton.OP_BASE) {
+                transform(t.transformTypes[group], t.groupLabels[group], primary.x[g], primary.y[g], primary.z[g]);
             }
         }
 
@@ -1133,8 +1133,8 @@ public class Model extends CacheableNode {
             for (group = secondary.groups[h]; group > current; current = labelGroups[index++]) {
             }
 
-            if (group == current || t.types[group] == 0) {
-                transform(t.types[group], t.groupLabels[group], secondary.x[h], secondary.y[h], secondary.z[h]);
+            if (group == current || t.transformTypes[group] == SeqSkeleton.OP_BASE) {
+                transform(t.transformTypes[group], t.groupLabels[group], secondary.x[h], secondary.y[h], secondary.z[h]);
             }
         }
     }

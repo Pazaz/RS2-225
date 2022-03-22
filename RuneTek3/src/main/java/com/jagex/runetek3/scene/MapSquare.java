@@ -5,6 +5,8 @@ import com.jagex.runetek3.graphics.Draw3D;
 import com.jagex.runetek3.graphics.Model;
 import com.jagex.runetek3.util.LinkedList;
 
+import java.util.Arrays;
+
 public class MapSquare {
 
     public static final int[] DECO_TYPE1_OFFSET_X = {53, -53, -53, 53};
@@ -89,61 +91,61 @@ public class MapSquare {
             1, 1, 1, 1,
             1, 1, 1, 1
         }, {
-        1, 0, 0, 0,
-        1, 1, 0, 0,
-        1, 1, 1, 0,
-        1, 1, 1, 1
-    }, {
-        1, 1, 0, 0,
-        1, 1, 0, 0,
-        1, 0, 0, 0,
-        1, 0, 0, 0
-    }, {
-        0, 0, 1, 1,
-        0, 0, 1, 1,
-        0, 0, 0, 1,
-        0, 0, 0, 1
-    }, {
-        0, 1, 1, 1,
-        0, 1, 1, 1,
-        1, 1, 1, 1,
-        1, 1, 1, 1
-    }, {
-        1, 1, 1, 0,
-        1, 1, 1, 0,
-        1, 1, 1, 1,
-        1, 1, 1, 1
-    }, {
-        1, 1, 0, 0,
-        1, 1, 0, 0,
-        1, 1, 0, 0,
-        1, 1, 0, 0
-    }, {
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        1, 0, 0, 0,
-        1, 1, 0, 0
-    }, {
-        1, 1, 1, 1,
-        1, 1, 1, 1,
-        0, 1, 1, 1,
-        0, 0, 1, 1
-    }, {
-        1, 1, 1, 1,
-        1, 1, 0, 0,
-        1, 0, 0, 0,
-        1, 0, 0, 0
-    }, {
-        0, 0, 0, 0,
-        0, 0, 1, 1,
-        0, 1, 1, 1,
-        0, 1, 1, 1
-    }, {
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 1, 1, 0,
-        1, 1, 1, 1
-    }
+            1, 0, 0, 0,
+            1, 1, 0, 0,
+            1, 1, 1, 0,
+            1, 1, 1, 1
+        }, {
+            1, 1, 0, 0,
+            1, 1, 0, 0,
+            1, 0, 0, 0,
+            1, 0, 0, 0
+        }, {
+            0, 0, 1, 1,
+            0, 0, 1, 1,
+            0, 0, 0, 1,
+            0, 0, 0, 1
+        }, {
+            0, 1, 1, 1,
+            0, 1, 1, 1,
+            1, 1, 1, 1,
+            1, 1, 1, 1
+        }, {
+            1, 1, 1, 0,
+            1, 1, 1, 0,
+            1, 1, 1, 1,
+            1, 1, 1, 1
+        }, {
+            1, 1, 0, 0,
+            1, 1, 0, 0,
+            1, 1, 0, 0,
+            1, 1, 0, 0
+        }, {
+            0, 0, 0, 0,
+            0, 0, 0, 0,
+            1, 0, 0, 0,
+            1, 1, 0, 0
+        }, {
+            1, 1, 1, 1,
+            1, 1, 1, 1,
+            0, 1, 1, 1,
+            0, 0, 1, 1
+        }, {
+            1, 1, 1, 1,
+            1, 1, 0, 0,
+            1, 0, 0, 0,
+            1, 0, 0, 0
+        }, {
+            0, 0, 0, 0,
+            0, 0, 1, 1,
+            0, 1, 1, 1,
+            0, 1, 1, 1
+        }, {
+            0, 0, 0, 0,
+            0, 0, 0, 0,
+            0, 1, 1, 0,
+            1, 1, 1, 1
+        }
     };
     public int[][] TILE_ROTATION_2D = {
         {
@@ -152,21 +154,21 @@ public class MapSquare {
             8, 9, 10, 11,
             12, 13, 14, 15
         }, {
-        12, 8, 4, 0,
-        13, 9, 5, 1,
-        14, 10, 6, 2,
-        15, 11, 7, 3
-    }, {
-        15, 14, 13, 12,
-        11, 10, 9, 8,
-        7, 6, 5, 4,
-        3, 2, 1, 0
-    }, {
-        3, 7, 11, 15,
-        2, 6, 10, 14,
-        1, 5, 9, 13,
-        0, 4, 8, 12
-    }
+            12, 8, 4, 0,
+            13, 9, 5, 1,
+            14, 10, 6, 2,
+            15, 11, 7, 3
+        }, {
+            15, 14, 13, 12,
+            11, 10, 9, 8,
+            7, 6, 5, 4,
+            3, 2, 1, 0
+        }, {
+            3, 7, 11, 15,
+            2, 6, 10, 14,
+            1, 5, 9, 13,
+            0, 4, 8, 12
+        }
     };
     public MapSquare(int[][][] heightmap, int tileCountZ, int maxLevel, int tileCountX) {
         locs = new Loc[5000];
@@ -320,9 +322,7 @@ public class MapSquare {
         }
 
         locCount = 0;
-        for (int n = 0; n < locBuffer.length; n++) {
-            locBuffer[n] = null;
-        }
+        Arrays.fill(locBuffer, null);
     }
 
     public void setup(int level) {
@@ -1388,10 +1388,10 @@ public class MapSquare {
                 if (t.bridge != null) {
                     Tile b = t.bridge;
                     if (b.underlay != null) {
-                        if (!isTileOccluded(0, x, z)) {
+                        if (isTileOccluded(0, x, z)) {
                             drawTileUnderlay(b.underlay, 0, pitchSin, pitchCos, yawSin, yawCos, x, z);
                         }
-                    } else if (b.overlay != null && !isTileOccluded(0, x, z)) {
+                    } else if (b.overlay != null && isTileOccluded(0, x, z)) {
                         drawTileOverlay(yawSin, z, b.overlay, x, pitchCos, pitchSin, yawCos);
                     }
 
@@ -1415,11 +1415,11 @@ public class MapSquare {
 
                 boolean visible = false;
                 if (t.underlay != null) {
-                    if (!isTileOccluded(renderLevel, x, z)) {
+                    if (isTileOccluded(renderLevel, x, z)) {
                         visible = true;
                         drawTileUnderlay(t.underlay, renderLevel, pitchSin, pitchCos, yawSin, yawCos, x, z);
                     }
-                } else if (t.overlay != null && !isTileOccluded(renderLevel, x, z)) {
+                } else if (t.overlay != null && isTileOccluded(renderLevel, x, z)) {
                     visible = true;
                     drawTileOverlay(yawSin, z, t.overlay, x, pitchCos, pitchSin, yawCos);
                 }
@@ -1469,20 +1469,20 @@ public class MapSquare {
                         t.wallCullDirection = 0b0000;
                     }
 
-                    if ((w.type0 & wallDrawFlags) != 0 && !isWallOccluded(renderLevel, x, z, w.type0)) {
+                    if ((w.type0 & wallDrawFlags) != 0 && isWallOccluded(renderLevel, x, z, w.type0)) {
                         w.entity0.draw(0, pitchSin, pitchCos, yawSin, yawCos,
                             w.x - cameraX2, w.y - cameraY2,
                             w.z - cameraZ2, w.bitset);
                     }
 
-                    if ((w.type1 & wallDrawFlags) != 0 && !isWallOccluded(renderLevel, x, z, w.type1)) {
+                    if ((w.type1 & wallDrawFlags) != 0 && isWallOccluded(renderLevel, x, z, w.type1)) {
                         w.entity1.draw(0, pitchSin, pitchCos, yawSin, yawCos,
                             w.x - cameraX2, w.y - cameraY2,
                             w.z - cameraZ2, w.bitset);
                     }
                 }
 
-                if (d != null && !isOccluded(renderLevel, x, z, d.model.maxBoundY)) {
+                if (d != null && isOccluded(renderLevel, x, z, d.model.maxBoundY)) {
                     if ((d.type & wallDrawFlags) != 0) {
                         d.model.draw(d.rotation, pitchSin, pitchCos, yawSin,
                             yawCos, d.sceneX - cameraX2, d.sceneY - cameraY2,
@@ -1595,7 +1595,7 @@ public class MapSquare {
 
                 if (visible) {
                     Wall w = t.wall;
-                    if (!isWallOccluded(renderLevel, x, z, w.type0)) {
+                    if (isWallOccluded(renderLevel, x, z, w.type0)) {
                         w.entity0.draw(0, pitchSin, pitchCos, yawSin, yawCos,
                             w.x - cameraX2, w.y - cameraY2,
                             w.z - cameraZ2, w.bitset);
@@ -1671,7 +1671,7 @@ public class MapSquare {
                     }
                 }
 
-                while (locBufferSize > 0) {
+                while (true) {
                     int maxPriority = -50;
                     int index = -1;
 
@@ -1773,7 +1773,7 @@ public class MapSquare {
 
             if (t.wallDrawFlags != 0) {
                 WallDecoration decoration = t.wallDecoration;
-                if (decoration != null && !isOccluded(renderLevel, x, z, decoration.model.maxBoundY)) {
+                if (decoration != null && isOccluded(renderLevel, x, z, decoration.model.maxBoundY)) {
                     if ((decoration.type & t.wallDrawFlags) != 0) {
                         decoration.model.draw(decoration.rotation, pitchSin, pitchCos, yawSin,
                             yawCos, decoration.sceneX - cameraX2, decoration.sceneY - cameraY2,
@@ -1816,13 +1816,13 @@ public class MapSquare {
 
                 Wall w = t.wall;
                 if (w != null) {
-                    if ((w.type1 & t.wallDrawFlags) != 0 && !isWallOccluded(renderLevel, x, z, w.type1)) {
+                    if ((w.type1 & t.wallDrawFlags) != 0 && isWallOccluded(renderLevel, x, z, w.type1)) {
                         w.entity1.draw(0, pitchSin, pitchCos, yawSin, yawCos,
                             w.x - cameraX2, w.y - cameraY2,
                             w.z - cameraZ2, w.bitset);
                     }
 
-                    if ((w.type0 & t.wallDrawFlags) != 0 && !isWallOccluded(renderLevel, x, z, w.type0)) {
+                    if ((w.type0 & t.wallDrawFlags) != 0 && isWallOccluded(renderLevel, x, z, w.type0)) {
                         w.entity0.draw(0, pitchSin, pitchCos, yawSin, yawCos,
                             w.x - cameraX2, w.y - cameraY2,
                             w.z - cameraZ2, w.bitset);
@@ -2254,11 +2254,11 @@ public class MapSquare {
     public boolean isTileOccluded(int level, int tileX, int tileZ) {
         int cycle = levelTileCycles[level][tileX][tileZ];
         if (cycle == -activeLevel) {
-            return false;
+            return true;
         }
 
         if (cycle == activeLevel) {
-            return true;
+            return false;
         }
 
         int sceneX = tileX << 7;
@@ -2269,16 +2269,16 @@ public class MapSquare {
             && isOccluded((sceneX + 128) - 1, heightmap[level][tileX + 1][tileZ + 1], (sceneZ + 128) - 1)
             && isOccluded(sceneX + 1, heightmap[level][tileX][tileZ + 1], (sceneZ + 128) - 1)) {
             levelTileCycles[level][tileX][tileZ] = activeLevel;
-            return true;
+            return false;
         } else {
             levelTileCycles[level][tileX][tileZ] = -activeLevel;
-            return false;
+            return true;
         }
     }
 
     public boolean isWallOccluded(int level, int tileX, int tileZ, int type) {
-        if (!isTileOccluded(level, tileX, tileZ)) {
-            return false;
+        if (isTileOccluded(level, tileX, tileZ)) {
+            return true;
         }
 
         int x = tileX << 7;
@@ -2293,102 +2293,104 @@ public class MapSquare {
             if (type == 1) {
                 if (x > cameraX2) {
                     if (!isOccluded(x, y, z))
-                        return false;
+                        return true;
                     if (!isOccluded(x, y, z + 128))
-                        return false;
+                        return true;
                 }
                 if (level > 0) {
                     if (!isOccluded(x, ly0, z))
-                        return false;
+                        return true;
                     if (!isOccluded(x, ly0, z + 128))
-                        return false;
+                        return true;
                 }
                 if (!isOccluded(x, ly1, z))
-                    return false;
-                return isOccluded(x, ly1, z + 128);
+                    return true;
+                return !isOccluded(x, ly1, z + 128);
             }
             if (type == 2) {
                 if (z < cameraZ2) {
                     if (!isOccluded(x, y, z + 128))
-                        return false;
+                        return true;
                     if (!isOccluded(x + 128, y, z + 128))
-                        return false;
+                        return true;
                 }
                 if (level > 0) {
                     if (!isOccluded(x, ly0, z + 128))
-                        return false;
+                        return true;
                     if (!isOccluded(x + 128, ly0, z + 128))
-                        return false;
+                        return true;
                 }
                 if (!isOccluded(x, ly1, z + 128))
-                    return false;
-                return isOccluded(x + 128, ly1, z + 128);
+                    return true;
+                return !isOccluded(x + 128, ly1, z + 128);
             }
             if (type == 4) {
                 if (x < cameraX2) {
                     if (!isOccluded(x + 128, y, z))
-                        return false;
+                        return true;
                     if (!isOccluded(x + 128, y, z + 128))
-                        return false;
+                        return true;
                 }
                 if (level > 0) {
                     if (!isOccluded(x + 128, ly0, z))
-                        return false;
+                        return true;
                     if (!isOccluded(x + 128, ly0, z + 128))
-                        return false;
+                        return true;
                 }
                 if (!isOccluded(x + 128, ly1, z))
-                    return false;
-                return isOccluded(x + 128, ly1, z + 128);
+                    return true;
+                return !isOccluded(x + 128, ly1, z + 128);
             }
             if (type == 8) {
                 if (z > cameraZ2) {
                     if (!isOccluded(x, y, z))
-                        return false;
+                        return true;
                     if (!isOccluded(x + 128, y, z))
-                        return false;
+                        return true;
                 }
                 if (level > 0) {
                     if (!isOccluded(x, ly0, z))
-                        return false;
+                        return true;
                     if (!isOccluded(x + 128, ly0, z))
-                        return false;
+                        return true;
                 }
                 if (!isOccluded(x, ly1, z))
-                    return false;
-                return isOccluded(x + 128, ly1, z);
+                    return true;
+                return !isOccluded(x + 128, ly1, z);
             }
         }
         if (!isOccluded(x + 64, ly2, z + 64))
-            return false;
+            return true;
         if (type == 16)
-            return isOccluded(x, ly1, z + 128);
+            return !isOccluded(x, ly1, z + 128);
         if (type == 32)
-            return isOccluded(x + 128, ly1, z + 128);
+            return !isOccluded(x + 128, ly1, z + 128);
         if (type == 64)
-            return isOccluded(x + 128, ly1, z);
+            return !isOccluded(x + 128, ly1, z);
         if (type == 128) {
-            return isOccluded(x, ly1, z);
+            return !isOccluded(x, ly1, z);
         } else {
             System.out.println("Warning unsupported wall type");
-            return true;
+            return false;
         }
     }
 
     public boolean isOccluded(int level, int tileX, int tileZ, int height) {
-        if (!isTileOccluded(level, tileX, tileZ))
-            return false;
+        if (isTileOccluded(level, tileX, tileZ)) {
+            return true;
+        }
+
         int sceneX = tileX << 7;
         int sceneZ = tileZ << 7;
-        return isOccluded(sceneX + 1, heightmap[level][tileX][tileZ] - height, sceneZ + 1)
-            && isOccluded((sceneX + 128) - 1, heightmap[level][tileX + 1][tileZ] - height, sceneZ + 1)
-            && isOccluded((sceneX + 128) - 1, heightmap[level][tileX + 1][tileZ + 1] - height, (sceneZ + 128) - 1)
-            && isOccluded(sceneX + 1, heightmap[level][tileX][tileZ + 1] - height, (sceneZ + 128) - 1);
+        return !isOccluded(sceneX + 1, heightmap[level][tileX][tileZ] - height, sceneZ + 1)
+            || !isOccluded((sceneX + 128) - 1, heightmap[level][tileX + 1][tileZ] - height, sceneZ + 1)
+            || !isOccluded((sceneX + 128) - 1, heightmap[level][tileX + 1][tileZ + 1] - height, (sceneZ + 128) - 1)
+            || !isOccluded(sceneX + 1, heightmap[level][tileX][tileZ + 1] - height, (sceneZ + 128) - 1);
     }
 
     public boolean isAreaOccluded(int level, int minTileX, int maxTileX, int minTileZ, int maxTileZ, int height) {
         if (minTileX == maxTileX && minTileZ == maxTileZ) {
-            if (!isTileOccluded(level, minTileX, minTileZ))
+            if (isTileOccluded(level, minTileX, minTileZ))
                 return false;
             int x = minTileX << 7;
             int z = minTileZ << 7;
