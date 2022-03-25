@@ -5962,7 +5962,11 @@ public class Game extends Applet {
             }
             loginBuffer.p1(outBuffer.offset + 36 + 1 + 1);
             loginBuffer.p1(225);
-            loginBuffer.p1(lowMemory ? 1 : 0);
+            int properties = lowMemory ? 1 : 0;
+            if (useLostCity) {
+                properties += 2; // let the server know to send extra packets etc
+            }
+            loginBuffer.p1(properties);
             for (int i = 0; i < 9; i++) {
                 loginBuffer.p4(archiveChecksums[i]);
             }
@@ -9649,10 +9653,8 @@ public class Game extends Applet {
         // play graphic
         if ((mask & 0x100) == 0x100) {
             p.spotAnimIndex = b.g2();
-            int delay = b.g2();
-            int height = b.g2();
-            p.spotAnimOffsetY = height >> 16;
-            p.lastSpotAnimCycle = clientClock + (delay & 0xffff);
+            p.spotAnimOffsetY = b.g2();
+            p.lastSpotAnimCycle = clientClock + b.g2();
             p.spotAnimFrame = 0;
             p.spotAnimCycle = 0;
             if (p.lastSpotAnimCycle > clientClock) {
