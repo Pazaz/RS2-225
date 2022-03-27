@@ -34,6 +34,7 @@ public class Game extends Applet {
     public static String serverAddress = "localhost";
     public static int serverHttpPort = 80;
     public static int serverGamePort = 43594;
+    public static int chatboxEra = 3;
 
     public static int skyColor = 0x000000;
     public static boolean applyFxaa = false;
@@ -2298,6 +2299,12 @@ public class Game extends Applet {
                     } else if (input.equals("::greyscale")) {
                         applyGreyscale = !applyGreyscale;
                         addMessage(0, "greyscale: " + applyGreyscale, "");
+                    } else if (input.equals("::chat 1")) {
+                        chatboxEra = 1;
+                    } else if (input.equals("::chat 2")) {
+                        chatboxEra = 2;
+                    } else if (input.equals("::chat 3")) {
+                        chatboxEra = 3;
                     } else if (input.startsWith("::")) {
                         outBuffer.p1isaac(Packet.Client.CLIENT_CHEAT);
                         outBuffer.p1(input.length() - 1);
@@ -8343,6 +8350,10 @@ public class Game extends Applet {
             drawInterface(0, 0, Component.instances[stickyChatbackComponentId], 0);
         } else {
             Font font = fontPlain12;
+            if (chatboxEra == 1) {
+                font = fontQuill8;
+            }
+
             int i = 0;
             Draw2D.setBounds(77, 0, 463, 0);
             for (int j = 0; j < 100; j++)
@@ -8412,12 +8423,20 @@ public class Game extends Applet {
 
             Draw2D.resetBounds();
             chatScrollY = i * 14 + 7;
-            if (chatScrollY < 78)
+            if (chatScrollY < 78) {
                 chatScrollY = 78;
+            }
             drawScrollbar(463, 0, chatScrollY - chatScrollAmount - 77, chatScrollY, 77);
-            font.draw(4, 90, 0, StringUtils.formatName(username) + ":");
-            font.draw(6 + font.stringWidth(username + ": "), 90,
-                255, input + "*");
+
+            if (chatboxEra < 3) {
+                // 186-??? draw: (no username)
+                font.draw(3, 90, 0, input + "*");
+            } else {
+                // 225 draw: (username, blue chat message)
+                font.draw(4, 90, 0, StringUtils.formatName(username) + ":");
+                font.draw(6 + font.stringWidth(username + ": "), 90, 0x0000FF, input + "*");
+            }
+
             Draw2D.drawHorizontalLine(0, 77, 479, 0);
         }
         if (menuVisible && mouseArea == 2)
