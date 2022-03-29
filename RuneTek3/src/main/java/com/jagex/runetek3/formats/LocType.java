@@ -33,7 +33,7 @@ public class LocType {
     public boolean delayShading;
 
     public boolean culls;
-    public int animationIndex;
+    public int seqIndex;
     public int thickness;
     public byte brightness;
     public byte specular;
@@ -119,7 +119,7 @@ public class LocType {
         adjustToTerrain = false;
         delayShading = false;
         culls = false;
-        animationIndex = -1;
+        seqIndex = -1;
         thickness = 16;
         brightness = 0;
         specular = 0;
@@ -191,10 +191,10 @@ public class LocType {
             } else if (opcode == 23) {
                 culls = true;
             } else if (opcode == 24) {
-                animationIndex = buffer.g2();
+                seqIndex = buffer.g2();
 
-                if (animationIndex == 65535) {
-                    animationIndex = -1;
+                if (seqIndex == 65535) {
+                    seqIndex = -1;
                 }
             } else if (opcode == 25) {
                 disposeAlpha = true;

@@ -8940,12 +8940,12 @@ public class Game extends Applet {
                 }
                 packetOpcode = -1;
                 return true;
-            } else if (packetOpcode == Packet.Server.UPDATE_INV_PARTIAL) {
+            } else if (packetOpcode == Packet.Server.UPDATE_INV_FULL) {
                 sidebarRedraw = true;
                 int id = inBuffer.g2();
                 Component inter = Component.instances[id];
-                int slot = inBuffer.g1();
-                for (int n = 0; n < slot; n++) {
+                int slots = inBuffer.g1();
+                for (int n = 0; n < slots; n++) {
                     inter.inventoryIndices[n] = inBuffer.g2();
                     int amount = inBuffer.g1();
                     if (amount == 255) {
@@ -8953,7 +8953,7 @@ public class Game extends Applet {
                     }
                     inter.inventoryAmount[n] = amount;
                 }
-                for (int n = slot; n < inter.inventoryIndices.length; n++) {
+                for (int n = slots; n < inter.inventoryIndices.length; n++) {
                     inter.inventoryIndices[n] = 0;
                     inter.inventoryAmount[n] = 0;
                 }
@@ -9464,7 +9464,7 @@ public class Game extends Applet {
                 unknownCameraVariable[cameraId] = 0;
                 packetOpcode = -1;
                 return true;
-            } else if (packetOpcode == Packet.Server.UPDATE_INV_FULL) {
+            } else if (packetOpcode == Packet.Server.UPDATE_INV_PARTIAL) {
                 sidebarRedraw = true;
                 int id = inBuffer.g2();
                 Component inter = Component.instances[id];

@@ -86,9 +86,13 @@ public class Playground extends Applet {
             Draw3D.lowMemory = false;
 
             Signlink.startpriv(InetAddress.getLocalHost());
+            if (args.length > 0) {
+                Signlink.clientversion = Integer.parseInt(args[0]);
+                Signlink.cachedir = "." + args[0] + "_store";
+            }
 
             Playground program = new Playground();
-            program.initFrame(720, 1280, "Playground");
+            program.initFrame(480, 640, "Playground");
         } catch (Exception ex) {}
     }
 
@@ -320,7 +324,7 @@ public class Playground extends Applet {
                         } else if (loadType.equals("Loc")) {
                             if (textInput.startsWith("a")) {
                                 int id = Integer.parseInt(textInput.substring(1));
-                                loc.animationIndex = id;
+                                loc.seqIndex = id;
                                 locFrame = 0;
                                 locDelay = 0;
                                 loadSeq = id;
@@ -484,8 +488,8 @@ public class Playground extends Applet {
                         p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + camera.x + "," + camera.z + "," + camera.y, gameWidth - 4, true);
                     }
                 } else if (loadType.equals("Loc")) {
-                    if (loc.animationIndex != -1 && locDelay == 0) {
-                        SeqType seq = SeqType.instances[loc.animationIndex];
+                    if (loc.seqIndex != -1 && locDelay == 0) {
+                        SeqType seq = SeqType.instances[loc.seqIndex];
                         locFrame++;
                         if (locFrame > seq.primaryFrames.length - 1) {
                             animCycle++;

@@ -102,6 +102,8 @@ public class Model extends CacheableNode {
             return;
         }
 
+        this.id = index;
+
         vertexCount = meta.vertexCount;
         triangleCount = meta.triangleCount;
         texturedCount = meta.texturedCount;

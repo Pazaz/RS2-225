@@ -428,7 +428,7 @@ public class DiscordServerBot extends java.awt.Component {
 
                     if (commandArgs.length > 2) {
                         try {
-                            loc.animationIndex = Integer.parseInt(commandArgs[2]);
+                            loc.seqIndex = Integer.parseInt(commandArgs[2]);
                         } catch (Exception ex) {}
                     }
 
@@ -458,8 +458,8 @@ public class DiscordServerBot extends java.awt.Component {
 
                     InputStream stream;
                     String type = "png";
-                    if (loc.animationIndex != -1) {
-                        SeqType seq = SeqType.instances[loc.animationIndex];
+                    if (loc.seqIndex != -1) {
+                        SeqType seq = SeqType.instances[loc.seqIndex];
                         BufferedImage[] images = new BufferedImage[seq.primaryFrames.length];
                         String[] delays = new String[seq.primaryFrames.length];
 

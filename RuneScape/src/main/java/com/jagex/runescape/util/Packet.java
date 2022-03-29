@@ -118,7 +118,7 @@ public class Packet {
         public static final int DATA_LAND_DONE = 80;
         public static final int INTERFACE_SIDEBAR_FOCUS = 84;
         public static final int IF_SETMODEL = 87; // NXT naming
-        public static final int UPDATE_INV_PARTIAL = 98; // NXT naming
+        public static final int UPDATE_INV_FULL = 98; // NXT naming
         public static final int INTERFACE_MODEL_RECOLOR = 103;
         public static final int INTERFACE_SIDEBAR_FLASH = 126;
         public static final int IF_HIDE = 129; // presumed NXT naming
@@ -150,7 +150,7 @@ public class Packet {
         public static final int IF_SETNPCHEAD = 204; // NXT naming
         public static final int IF_SETPOSITION = 209; // NXT naming
         public static final int MIDI_JINGLE = 212; // NXT naming
-        public static final int UPDATE_INV_FULL = 213; // NXT naming
+        public static final int UPDATE_INV_PARTIAL = 213; // NXT naming
         public static final int DATA_LOC = 220;
         public static final int ENABLE_TRACKING = 226;
         public static final int LOAD_AREA = 237;
