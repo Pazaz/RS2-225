@@ -28,10 +28,7 @@ public class LocType {
     public boolean isSolid;
     public boolean interactable;
     public boolean adjustToTerrain;
-
-    // walls and other objects that appear connected typically want their shading delayed so it can be applied at once
-    public boolean delayShading;
-
+    public boolean computeVertexColors;
     public boolean culls;
     public int seqIndex;
     public int thickness;
@@ -117,7 +114,7 @@ public class LocType {
         isSolid = true;
         interactable = false;
         adjustToTerrain = false;
-        delayShading = false;
+        computeVertexColors = false;
         culls = false;
         seqIndex = -1;
         thickness = 16;
@@ -187,7 +184,7 @@ public class LocType {
             } else if (opcode == 21) {
                 adjustToTerrain = true;
             } else if (opcode == 22) {
-                delayShading = true;
+                computeVertexColors = true;
             } else if (opcode == 23) {
                 culls = true;
             } else if (opcode == 24) {
@@ -298,8 +295,8 @@ public class LocType {
                 return m;
             }
 
-            if (adjustToTerrain || delayShading) {
-                m = new Model(m, adjustToTerrain, delayShading);
+            if (adjustToTerrain || computeVertexColors) {
+                m = new Model(m, adjustToTerrain, computeVertexColors);
             }
 
             if (adjustToTerrain) {
@@ -370,7 +367,7 @@ public class LocType {
             m3.translate(translateY, translateX, translateZ);
         }
 
-        m3.applyLighting(64 + brightness, 768 + specular * 5, -50, -10, -50, !delayShading);
+        m3.applyLighting(64 + brightness, 768 + specular * 5, -50, -10, -50, !computeVertexColors);
 
         if (hasCollision) {
             m3.anInt1251 = m3.maxBoundY;
@@ -378,8 +375,8 @@ public class LocType {
 
         builtModels.put(uid, m3);
 
-        if (adjustToTerrain || delayShading) {
-            m3 = new Model(m3, adjustToTerrain, delayShading);
+        if (adjustToTerrain || computeVertexColors) {
+            m3 = new Model(m3, adjustToTerrain, computeVertexColors);
         }
 
         if (adjustToTerrain) {

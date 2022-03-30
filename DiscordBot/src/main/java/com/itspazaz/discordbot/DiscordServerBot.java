@@ -424,7 +424,7 @@ public class DiscordServerBot extends java.awt.Component {
                     // load
                     int id = Integer.parseInt(commandArgs[1]);
                     LocType loc = LocType.get(id);
-                    loc.delayShading = false;
+                    loc.computeVertexColors = false;
 
                     if (commandArgs.length > 2) {
                         try {
