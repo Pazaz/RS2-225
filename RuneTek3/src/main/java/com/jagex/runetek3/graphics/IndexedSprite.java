@@ -3,6 +3,11 @@ package com.jagex.runetek3.graphics;
 import com.jagex.runetek3.cache.FileArchive;
 import com.jagex.runetek3.util.Buffer;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.awt.image.PixelGrabber;
+import java.io.ByteArrayInputStream;
+
 public class IndexedSprite extends Draw2D {
 
     public byte[] pixels;
@@ -13,6 +18,47 @@ public class IndexedSprite extends Draw2D {
     public int clipY;
     public int clipWidth;
     public int clipHeight;
+
+    public IndexedSprite(byte[] src, int width, int height) {
+        try {
+            ByteArrayInputStream bis = new ByteArrayInputStream(src);
+            BufferedImage image = ImageIO.read(bis);
+            bis.close();
+            this.width = width;
+            this.height = height;
+            clipX = 0;
+            clipY = 0;
+            clipWidth = width;
+            clipHeight = height;
+            int[] data = new int[width * height];
+            PixelGrabber pixelgrabber = new PixelGrabber(image, 0, 0, width, height, data, 0, width);
+            pixelgrabber.grabPixels();
+            this.pixels = new byte[width * height];
+            // generate palette
+            palette = new int[0xFF];
+            byte last = 1;
+            for (int i = 0; i < data.length; ++i) {
+                int color = data[i] & 0xFFFFFF;
+                int pointer = -1;
+                for (int j = 0; j < palette.length; ++j) {
+                    if (palette[j] == color) {
+                        pointer = j;
+                        break;
+                    }
+                }
+                if (pointer == -1) {
+                    pointer = last;
+                    palette[pointer] = color;
+                    last++;
+                }
+                palette[pointer] = color;
+                pixels[i] = (byte)pointer;
+            }
+        } catch (Exception _ex) {
+            _ex.printStackTrace();
+            System.out.println("Error converting image");
+        }
+    }
 
     public IndexedSprite(FileArchive archive, String name, int index) {
         Buffer data = new Buffer(archive.read(name + ".dat"));
