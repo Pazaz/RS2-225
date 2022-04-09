@@ -294,8 +294,8 @@ public class MapSquare {
             return false;
         }
 
-        int screenX = viewportCenterX + (x << 9) / z;
-        int screenY = viewportCenterY + (y << 9) / z;
+        int screenX = viewportCenterX + (x * 512) / z;
+        int screenY = viewportCenterY + (y * 512) / z;
 
         return screenX >= viewportLeft && screenX <= viewportRight && screenY >= viewportTop && screenY <= viewportBottom;
     }
@@ -425,7 +425,7 @@ public class MapSquare {
         Tile t = levelTiles[level][tileX][tileZ];
         if (t != null) {
             for (int n = 0; n < t.locationCount; n++) {
-                int y = t.locs[n].model.anInt1251;
+                int y = t.locs[n].model.collisionPoint;
                 if (y > maxY) {
                     maxY = y;
                 }
@@ -1930,14 +1930,14 @@ public class MapSquare {
             return;
         }
 
-        int x0 = Draw3D.centerX + (rx0 << 9) / rz0;
-        int y0 = Draw3D.centerY + (ry0 << 9) / rz0;
-        int x1 = Draw3D.centerX + (rx1 << 9) / rz1;
-        int y1 = Draw3D.centerY + (ry1 << 9) / rz1;
-        int x2 = Draw3D.centerX + (rx2 << 9) / rz2;
-        int y2 = Draw3D.centerY + (ry2 << 9) / rz2;
-        int x3 = Draw3D.centerX + (rx3 << 9) / rz3;
-        int y3 = Draw3D.centerY + (ry3 << 9) / rz3;
+        int x0 = Draw3D.centerX + (rx0 * 512) / rz0;
+        int y0 = Draw3D.centerY + (ry0 * 512) / rz0;
+        int x1 = Draw3D.centerX + (rx1 * 512) / rz1;
+        int y1 = Draw3D.centerY + (ry1 * 512) / rz1;
+        int x2 = Draw3D.centerX + (rx2 * 512) / rz2;
+        int y2 = Draw3D.centerY + (ry2 * 512) / rz2;
+        int x3 = Draw3D.centerX + (rx3 * 512) / rz3;
+        int y3 = Draw3D.centerY + (ry3 * 512) / rz3;
 
         Draw3D.alpha = 0;
 
@@ -2011,8 +2011,8 @@ public class MapSquare {
                 TileOverlay.vertexSceneZ[v] = sceneZ;
             }
 
-            TileOverlay.tmpScreenX[v] = Draw3D.centerX + (sceneX << 9) / sceneZ;
-            TileOverlay.tmpScreenY[v] = Draw3D.centerY + (sceneY << 9) / sceneZ;
+            TileOverlay.tmpScreenX[v] = Draw3D.centerX + (sceneX * 512) / sceneZ;
+            TileOverlay.tmpScreenY[v] = Draw3D.centerY + (sceneY * 512) / sceneZ;
         }
 
         Draw3D.alpha = 0;

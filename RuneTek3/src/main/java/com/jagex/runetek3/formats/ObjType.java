@@ -452,9 +452,9 @@ public class ObjType {
         }
 
         if (gender == 0 && maleOffsetY != 0) {
-            model.translate(maleOffsetY, 0, 0);
+            model.translate(0, maleOffsetY, 0);
         } else if (gender == 1 && femaleOffsetY != 0) {
-            model.translate(femaleOffsetY, 0, 0);
+            model.translate(0, femaleOffsetY, 0);
         }
 
         if (oldColors != null) {

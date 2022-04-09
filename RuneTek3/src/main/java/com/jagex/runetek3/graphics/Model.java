@@ -7,7 +7,13 @@ import com.jagex.runetek3.util.CacheableNode;
 
 public class Model extends CacheableNode {
 
+    private static final int TYPE_GOURAUD = 0;
+    private static final int TYPE_FLAT = 1;
+    private static final int TYPE_TEXTURED = 2;
+    private static final int TYPE_TEXTURED_VCOLOR = 3;
+
     public static Metadata[] metadata;
+
     public static Buffer obhead;
     public static Buffer obface1;
     public static Buffer obface2;
@@ -22,73 +28,95 @@ public class Model extends CacheableNode {
     public static Buffer obvertex1;
     public static Buffer obvertex2;
     public static Buffer obaxis;
+
     public static boolean[] testTriangleX = new boolean[4096];
     public static boolean[] projectTriangle = new boolean[4096];
+
     public static int[] vertexScreenX = new int[4096];
     public static int[] vertexScreenY = new int[4096];
     public static int[] vertexDepth = new int[4096];
+
     public static int[] projectSceneX = new int[4096];
     public static int[] projectSceneY = new int[4096];
     public static int[] projectSceneZ = new int[4096];
+
     public static int[] depthTriangleCount = new int[1500];
     public static int[][] depthTriangles = new int[1500][512];
+
     public static int[] priorityTriangleCounts = new int[12];
     public static int[][] priorityTriangles = new int[12][2000];
     public static int[] normalTrianglePriority = new int[2000];
     public static int[] highTrianglePriority = new int[2000];
     public static int[] lowTrianglePriority = new int[12];
+
     public static int[] tmpX = new int[10];
     public static int[] tmpY = new int[10];
-    public static int[] tmpZ = new int[10];
+    public static int[] tmpColor = new int[10];
+
     public static int transformX;
     public static int transformY;
     public static int transformZ;
+
     public static boolean allowInput;
     public static int cursorX;
     public static int cursorY;
     public static int resourceCount;
     public static int[] hoveredBitsets = new int[1000];
+
     public static int[] sin;
     public static int[] cos;
     public static int[] palette;
     public static int[] oneOverFixed1616;
+
     public int vertexCount;
     public int[] vertexX;
     public int[] vertexY;
     public int[] vertexZ;
+
     public int triangleCount;
     public int[] triangleVertexA;
     public int[] triangleVertexB;
     public int[] triangleVertexC;
+
     public int[] colorA;
     public int[] colorB;
     public int[] colorC;
+
     public int[] triangleInfo;
     public int[] trianglePriorities;
     public int[] triangleAlpha;
     public int[] unmodifiedTriangleColor;
     public int priority;
+
     public int texturedCount;
     public int[] textureVertexA;
     public int[] textureVertexB;
     public int[] textureVertexC;
+
     public int minBoundX;
     public int maxBoundX;
+
     public int maxBoundZ;
     public int minBoundZ;
+
     public int lengthXZ;
+
     public int maxBoundY;
     public int minBoundY;
+
     public int maxDepth;
     public int minDepth;
-    public int anInt1251;
+
+    public int collisionPoint;
     public int[] vertexLabel;
     public int[] triangleSkin;
     public int[][] labelVertices;
     public int[][] skinTriangle;
     public boolean pickable;
+
     public VertexNormal[] vertexNormals;
     public VertexNormal[] unmodifiedVertexNormals;
+
     public Model(int index) {
         pickable = false;
 
@@ -272,6 +300,7 @@ public class Model extends CacheableNode {
             textureVertexC[t] = obaxis.g2();
         }
     }
+
     // difference: keep skins
     public Model(Model[] models, int count) {
         pickable = false;
@@ -391,6 +420,7 @@ public class Model extends CacheableNode {
             }
         }
     }
+
     // difference: keep color
     public Model(Model[] models, byte dummy0, int count) {
         pickable = false;
@@ -528,6 +558,7 @@ public class Model extends CacheableNode {
 
         calculateYBoundaries();
     }
+
     public Model(Model from, boolean keepColors, boolean keepAlpha, boolean keepVertices) {
         pickable = false;
 
@@ -583,6 +614,7 @@ public class Model extends CacheableNode {
         textureVertexB = from.textureVertexB;
         textureVertexC = from.textureVertexC;
     }
+
     public Model(Model from, boolean keepVertices, boolean keepColors) {
         pickable = false;
 
@@ -656,6 +688,7 @@ public class Model extends CacheableNode {
         minBoundZ = from.minBoundZ;
         maxBoundX = from.maxBoundX;
     }
+
     public Model(Model from, boolean keepAlpha) {
         pickable = false;
 
@@ -873,21 +906,23 @@ public class Model extends CacheableNode {
     }
 
     public static int adjustHSLLightness(int hsl, int lightness, int type) {
-        if ((type & 2) == 2) {
-            if (lightness < 0)
+        if ((type & 2) == TYPE_TEXTURED) {
+            if (lightness < 0) {
                 lightness = 0;
-            else if (lightness > 127)
+            } else if (lightness > 127) {
                 lightness = 127;
+            }
             lightness = 127 - lightness;
             return lightness;
+        } else {
+            lightness = lightness * (hsl & 0x7f) >> 7;
+            if (lightness < 2) {
+                lightness = 2;
+            } else if (lightness > 126) {
+                lightness = 126;
+            }
+            return (hsl & 0xff80) + lightness;
         }
-
-        lightness = lightness * (hsl & 0x7f) >> 7;
-        if (lightness < 2)
-            lightness = 2;
-        else if (lightness > 126)
-            lightness = 126;
-        return (hsl & 0xff80) + lightness;
     }
 
     public int copyVertex(Model from, int index) {
@@ -1114,8 +1149,9 @@ public class Model extends CacheableNode {
         int current = labelGroups[index++];
 
         for (int g = 0; g < primary.groupCount; g++) {
-            int group;
-            for (group = primary.groups[g]; group > current; current = labelGroups[index++]) {
+            int group = primary.groups[g];
+            while (group > current) {
+                current = labelGroups[index++];
             }
 
             if (group != current || t.transformTypes[group] == SeqSkeleton.OP_BASE) {
@@ -1131,8 +1167,9 @@ public class Model extends CacheableNode {
         current = labelGroups[index++];
 
         for (int h = 0; h < secondary.groupCount; h++) {
-            int group;
-            for (group = secondary.groups[h]; group > current; current = labelGroups[index++]) {
+            int group = secondary.groups[h];
+            while (group > current) {
+                current = labelGroups[index++];
             }
 
             if (group == current || t.transformTypes[group] == SeqSkeleton.OP_BASE) {
@@ -1294,7 +1331,7 @@ public class Model extends CacheableNode {
         }
     }
 
-    public void translate(int y, int x, int z) {
+    public void translate(int x, int y, int z) {
         for (int v = 0; v < vertexCount; v++) {
             vertexX[v] += x;
             vertexY[v] += y;
@@ -1322,7 +1359,7 @@ public class Model extends CacheableNode {
         }
     }
 
-    public void scale(int z, int y, int x) {
+    public void scale(int x, int y, int z) {
         for (int v = 0; v < vertexCount; v++) {
             vertexX[v] = (vertexX[v] * x) / 128;
             vertexY[v] = (vertexY[v] * y) / 128;
@@ -1364,7 +1401,7 @@ public class Model extends CacheableNode {
             int y0 = dzAB * dxCA - dzCA * dxAB;
             int z0 = dxAB * dyCA - dxCA * dyAB;
 
-            for (; x0 > 8192 || y0 > 8192 || z0 > 8192 || x0 < -8192 || y0 < -8192 || z0 < -8192; ) {
+            while (x0 > 8192 || y0 > 8192 || z0 > 8192 || x0 < -8192 || y0 < -8192 || z0 < -8192) {
                 x0 >>= 1;
                 y0 >>= 1;
                 z0 >>= 1;
@@ -1380,7 +1417,7 @@ public class Model extends CacheableNode {
             y0 = (y0 * 256) / length;
             z0 = (z0 * 256) / length;
 
-            if (triangleInfo == null || (triangleInfo[t] & 1) == 0) {
+            if (triangleInfo == null || (triangleInfo[t] & 1) == TYPE_GOURAUD) {
                 VertexNormal n = vertexNormals[a];
                 n.x += x0;
                 n.y += y0;
@@ -1449,7 +1486,7 @@ public class Model extends CacheableNode {
                 n = vertexNormals[c];
                 lightness = minIntensity + (x * n.x + y * n.y + z * n.z) / (intensity * n.magnitude);
                 colorC[t] = adjustHSLLightness(color, lightness, 0);
-            } else if ((triangleInfo[t] & 1) == 0) {
+            } else if ((triangleInfo[t] & 1) == TYPE_GOURAUD) {
                 int color = unmodifiedTriangleColor[t];
                 int info = triangleInfo[t];
 
@@ -1473,7 +1510,7 @@ public class Model extends CacheableNode {
         triangleSkin = null;
         if (triangleInfo != null) {
             for (int t = 0; t < triangleCount; t++) {
-                if ((triangleInfo[t] & 2) == 2) {
+                if ((triangleInfo[t] & 2) == TYPE_TEXTURED) {
                     return;
                 }
             }
@@ -1546,8 +1583,7 @@ public class Model extends CacheableNode {
         }
     }
 
-    public void draw(int yaw, int sinCameraPitch, int cosCameraPitch, int sinCameraYaw, int cosCameraYaw, int sceneX, int sceneY,
-                     int sceneZ, int uid) {
+    public void draw(int yaw, int sinCameraPitch, int cosCameraPitch, int sinCameraYaw, int cosCameraYaw, int sceneX, int sceneY, int sceneZ, int uid) {
         int a = sceneZ * cosCameraYaw - sceneX * sinCameraYaw >> 16;
         int b = sceneY * sinCameraPitch + a * cosCameraPitch >> 16;
         int c = lengthXZ * cosCameraPitch >> 16;
@@ -1884,28 +1920,38 @@ public class Model extends CacheableNode {
             type = triangleInfo[index] & 3;
         }
 
-        if (type == 0) {
-            Draw3D.fillGouraudTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], colorA[index], colorB[index], colorC[index]);
-        } else if (type == 1) {
-            Draw3D.fillTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], palette[colorA[index]]);
-        } else if (type == 2) {
+        if (type == TYPE_GOURAUD) {
+            Draw3D.fillGouraudTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c],
+                vertexScreenX[a], vertexScreenX[b], vertexScreenX[c],
+                colorA[index], colorB[index], colorC[index]);
+        } else if (type == TYPE_FLAT) {
+            Draw3D.fillTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c],
+                vertexScreenX[a], vertexScreenX[b], vertexScreenX[c],
+                palette[colorA[index]]);
+        } else if (type == TYPE_TEXTURED) {
             int t = triangleInfo[index] >> 2;
             int tA = textureVertexA[t];
             int tB = textureVertexB[t];
             int tC = textureVertexC[t];
-            Draw3D.fillTexturedTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a],
-                vertexScreenX[b], vertexScreenX[c], colorA[index], colorB[index], colorC[index],
-                projectSceneX[tA], projectSceneX[tB], projectSceneX[tC], projectSceneY[tA], projectSceneY[tB],
-                projectSceneY[tC], projectSceneZ[tA], projectSceneZ[tB], projectSceneZ[tC], unmodifiedTriangleColor[index]);
-        } else if (type == 3) {
+            Draw3D.fillTexturedTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c],
+                vertexScreenX[a], vertexScreenX[b], vertexScreenX[c],
+                colorA[index], colorB[index], colorC[index],
+                projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
+                projectSceneY[tA], projectSceneY[tB], projectSceneY[tC],
+                projectSceneZ[tA], projectSceneZ[tB], projectSceneZ[tC],
+                unmodifiedTriangleColor[index]);
+        } else if (type == TYPE_TEXTURED_VCOLOR) {
             int t = triangleInfo[index] >> 2;
             int tA = textureVertexA[t];
             int tB = textureVertexB[t];
             int tC = textureVertexC[t];
-            Draw3D.fillTexturedTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a],
-                vertexScreenX[b], vertexScreenX[c], colorA[index], colorA[index], colorA[index],
-                projectSceneX[tA], projectSceneX[tB], projectSceneX[tC], projectSceneY[tA], projectSceneY[tB],
-                projectSceneY[tC], projectSceneZ[tA], projectSceneZ[tB], projectSceneZ[tC], unmodifiedTriangleColor[index]);
+            Draw3D.fillTexturedTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c],
+                vertexScreenX[a], vertexScreenX[b], vertexScreenX[c],
+                colorA[index], colorA[index], colorA[index],
+                projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
+                projectSceneY[tA], projectSceneY[tB], projectSceneY[tC],
+                projectSceneZ[tA], projectSceneZ[tB], projectSceneZ[tC],
+                unmodifiedTriangleColor[index]);
         }
     }
 
@@ -1925,7 +1971,7 @@ public class Model extends CacheableNode {
         if (zA >= 50) {
             tmpX[n] = vertexScreenX[a];
             tmpY[n] = vertexScreenY[a];
-            tmpZ[n++] = colorA[index];
+            tmpColor[n++] = colorA[index];
         } else {
             int x = projectSceneX[a];
             int y = projectSceneY[a];
@@ -1935,21 +1981,21 @@ public class Model extends CacheableNode {
                 int mul = (50 - zA) * oneOverFixed1616[zC - zA];
                 tmpX[n] = centerX + (x + ((projectSceneX[c] - x) * mul >> 16) << 9) / 50;
                 tmpY[n] = centerY + (y + ((projectSceneY[c] - y) * mul >> 16) << 9) / 50;
-                tmpZ[n++] = color + ((colorC[index] - color) * mul >> 16);
+                tmpColor[n++] = color + ((colorC[index] - color) * mul >> 16);
             }
 
             if (zB >= 50) {
                 int mul = (50 - zA) * oneOverFixed1616[zB - zA];
                 tmpX[n] = centerX + (x + ((projectSceneX[b] - x) * mul >> 16) << 9) / 50;
                 tmpY[n] = centerY + (y + ((projectSceneY[b] - y) * mul >> 16) << 9) / 50;
-                tmpZ[n++] = color + ((colorB[index] - color) * mul >> 16);
+                tmpColor[n++] = color + ((colorB[index] - color) * mul >> 16);
             }
         }
 
         if (zB >= 50) {
             tmpX[n] = vertexScreenX[b];
             tmpY[n] = vertexScreenY[b];
-            tmpZ[n++] = colorB[index];
+            tmpColor[n++] = colorB[index];
         } else {
             int x = projectSceneX[b];
             int y = projectSceneY[b];
@@ -1959,21 +2005,21 @@ public class Model extends CacheableNode {
                 int mul = (50 - zB) * oneOverFixed1616[zA - zB];
                 tmpX[n] = centerX + (x + ((projectSceneX[a] - x) * mul >> 16) << 9) / 50;
                 tmpY[n] = centerY + (y + ((projectSceneY[a] - y) * mul >> 16) << 9) / 50;
-                tmpZ[n++] = color + ((colorA[index] - color) * mul >> 16);
+                tmpColor[n++] = color + ((colorA[index] - color) * mul >> 16);
             }
 
             if (zC >= 50) {
                 int mul = (50 - zB) * oneOverFixed1616[zC - zB];
                 tmpX[n] = centerX + (x + ((projectSceneX[c] - x) * mul >> 16) << 9) / 50;
                 tmpY[n] = centerY + (y + ((projectSceneY[c] - y) * mul >> 16) << 9) / 50;
-                tmpZ[n++] = color + ((colorC[index] - color) * mul >> 16);
+                tmpColor[n++] = color + ((colorC[index] - color) * mul >> 16);
             }
         }
 
         if (zC >= 50) {
             tmpX[n] = vertexScreenX[c];
             tmpY[n] = vertexScreenY[c];
-            tmpZ[n++] = colorC[index];
+            tmpColor[n++] = colorC[index];
         } else {
             int x = projectSceneX[c];
             int y = projectSceneY[c];
@@ -1983,14 +2029,14 @@ public class Model extends CacheableNode {
                 int mul = (50 - zC) * oneOverFixed1616[zB - zC];
                 tmpX[n] = centerX + (x + ((projectSceneX[b] - x) * mul >> 16) << 9) / 50;
                 tmpY[n] = centerY + (y + ((projectSceneY[b] - y) * mul >> 16) << 9) / 50;
-                tmpZ[n++] = color + ((colorB[index] - color) * mul >> 16);
+                tmpColor[n++] = color + ((colorB[index] - color) * mul >> 16);
             }
 
             if (zA >= 50) {
                 int mul = (50 - zC) * oneOverFixed1616[zA - zC];
                 tmpX[n] = centerX + (x + ((projectSceneX[a] - x) * mul >> 16) << 9) / 50;
                 tmpY[n] = centerY + (y + ((projectSceneY[a] - y) * mul >> 16) << 9) / 50;
-                tmpZ[n++] = color + ((colorA[index] - color) * mul >> 16);
+                tmpColor[n++] = color + ((colorA[index] - color) * mul >> 16);
             }
         }
 
@@ -2017,28 +2063,38 @@ public class Model extends CacheableNode {
                     type = triangleInfo[index] & 3;
                 }
 
-                if (type == 0) {
-                    Draw3D.fillGouraudTriangle(yA, yB, yC, xA, xB, xC, tmpZ[0], tmpZ[1], tmpZ[2]);
-                } else if (type == 1) {
-                    Draw3D.fillTriangle(yA, yB, yC, xA, xB, xC, palette[colorA[index]]);
-                } else if (type == 2) {
+                if (type == TYPE_GOURAUD) {
+                    Draw3D.fillGouraudTriangle(yA, yB, yC,
+                        xA, xB, xC,
+                        tmpColor[0], tmpColor[1], tmpColor[2]);
+                } else if (type == TYPE_FLAT) {
+                    Draw3D.fillTriangle(yA, yB, yC,
+                        xA, xB, xC,
+                        palette[colorA[index]]);
+                } else if (type == TYPE_TEXTURED) {
                     int t = triangleInfo[index] >> 2;
                     int tA = textureVertexA[t];
                     int tB = textureVertexB[t];
                     int tC = textureVertexC[t];
-                    Draw3D.fillTexturedTriangle(yA, yB, yC, xA, xB, xC, tmpZ[0], tmpZ[1],
-                        tmpZ[2], projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
-                        projectSceneY[tA], projectSceneY[tB], projectSceneY[tC], projectSceneZ[tA],
-                        projectSceneZ[tB], projectSceneZ[tC], unmodifiedTriangleColor[index]);
-                } else if (type == 3) {
+                    Draw3D.fillTexturedTriangle(yA, yB, yC,
+                        xA, xB, xC,
+                        tmpColor[0], tmpColor[1], tmpColor[2],
+                        projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
+                        projectSceneY[tA], projectSceneY[tB], projectSceneY[tC],
+                        projectSceneZ[tA], projectSceneZ[tB], projectSceneZ[tC],
+                        unmodifiedTriangleColor[index]);
+                } else if (type == TYPE_TEXTURED_VCOLOR) {
                     int t = triangleInfo[index] >> 2;
                     int tA = textureVertexA[t];
                     int tB = textureVertexB[t];
                     int tC = textureVertexC[t];
-                    Draw3D.fillTexturedTriangle(yA, yB, yC, xA, xB, xC, colorA[index], colorA[index],
-                        colorA[index], projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
-                        projectSceneY[tA], projectSceneY[tB], projectSceneY[tC], projectSceneZ[tA],
-                        projectSceneZ[tB], projectSceneZ[tC], unmodifiedTriangleColor[index]);
+                    Draw3D.fillTexturedTriangle(yA, yB, yC,
+                        xA, xB, xC,
+                        colorA[index], colorA[index], colorA[index],
+                        projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
+                        projectSceneY[tA], projectSceneY[tB], projectSceneY[tC],
+                        projectSceneZ[tA], projectSceneZ[tB], projectSceneZ[tC],
+                        unmodifiedTriangleColor[index]);
                 }
             }
 
@@ -2054,40 +2110,57 @@ public class Model extends CacheableNode {
                     type = triangleInfo[index] & 3;
                 }
 
-                if (type == 0) {
-                    Draw3D.fillGouraudTriangle(yA, yB, yC, xA, xB, xC, tmpZ[0], tmpZ[1], tmpZ[2]);
-                    Draw3D.fillGouraudTriangle(yA, yC, tmpY[3], xA, xC, tmpX[3], tmpZ[0], tmpZ[2], tmpZ[3]);
-                } else if (type == 1) {
+                if (type == TYPE_GOURAUD) {
+                    Draw3D.fillGouraudTriangle(yA, yB, yC,
+                        xA, xB, xC,
+                        tmpColor[0], tmpColor[1], tmpColor[2]);
+                    Draw3D.fillGouraudTriangle(yA, yC, tmpY[3],
+                        xA, xC, tmpX[3],
+                        tmpColor[0], tmpColor[2], tmpColor[3]);
+                } else if (type == TYPE_FLAT) {
                     int rgb = palette[colorA[index]];
-                    Draw3D.fillTriangle(yA, yB, yC, xA, xB, xC, rgb);
-                    Draw3D.fillTriangle(yA, yC, tmpY[3], xA, xC, tmpX[3], rgb);
-                } else if (type == 2) {
+                    Draw3D.fillTriangle(yA, yB, yC,
+                        xA, xB, xC,
+                        rgb);
+                    Draw3D.fillTriangle(yA, yC, tmpY[3],
+                        xA, xC, tmpX[3],
+                        rgb);
+                } else if (type == TYPE_TEXTURED) {
                     int t = triangleInfo[index] >> 2;
                     int tA = textureVertexA[t];
                     int tB = textureVertexB[t];
                     int tC = textureVertexC[t];
-                    Draw3D.fillTexturedTriangle(yA, yB, yC, xA, xB, xC, tmpZ[0], tmpZ[1],
-                        tmpZ[2], projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
-                        projectSceneY[tA], projectSceneY[tB], projectSceneY[tC], projectSceneZ[tA],
-                        projectSceneZ[tB], projectSceneZ[tC], unmodifiedTriangleColor[index]);
-                    Draw3D.fillTexturedTriangle(yA, yC, tmpY[3], xA, xC, tmpX[3],
-                        tmpZ[0], tmpZ[2], tmpZ[3], projectSceneX[tA],
-                        projectSceneX[tB], projectSceneX[tC], projectSceneY[tA], projectSceneY[tB],
-                        projectSceneY[tC], projectSceneZ[tA], projectSceneZ[tB], projectSceneZ[tC],
+                    Draw3D.fillTexturedTriangle(yA, yB, yC,
+                        xA, xB, xC,
+                        tmpColor[0], tmpColor[1], tmpColor[2],
+                        projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
+                        projectSceneY[tA], projectSceneY[tB], projectSceneY[tC],
+                        projectSceneZ[tA], projectSceneZ[tB], projectSceneZ[tC],
                         unmodifiedTriangleColor[index]);
-                } else if (type == 3) {
+                    Draw3D.fillTexturedTriangle(yA, yC, tmpY[3],
+                        xA, xC, tmpX[3],
+                        tmpColor[0], tmpColor[2], tmpColor[3],
+                        projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
+                        projectSceneY[tA], projectSceneY[tB], projectSceneY[tC], projectSceneZ[tA], projectSceneZ[tB], projectSceneZ[tC],
+                        unmodifiedTriangleColor[index]);
+                } else if (type == TYPE_TEXTURED_VCOLOR) {
                     int t = triangleInfo[index] >> 2;
                     int tA = textureVertexA[t];
                     int tB = textureVertexB[t];
                     int tC = textureVertexC[t];
-                    Draw3D.fillTexturedTriangle(yA, yB, yC, xA, xB, xC, colorA[index], colorA[index],
-                        colorA[index], projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
-                        projectSceneY[tA], projectSceneY[tB], projectSceneY[tC], projectSceneZ[tA],
-                        projectSceneZ[tB], projectSceneZ[tC], unmodifiedTriangleColor[index]);
-                    Draw3D.fillTexturedTriangle(yA, yC, tmpY[3], xA, xC, tmpX[3],
-                        colorA[index], colorA[index], colorA[index], projectSceneX[tA],
-                        projectSceneX[tB], projectSceneX[tC], projectSceneY[tA], projectSceneY[tB],
-                        projectSceneY[tC], projectSceneZ[tA], projectSceneZ[tB], projectSceneZ[tC],
+                    Draw3D.fillTexturedTriangle(yA, yB, yC,
+                        xA, xB, xC,
+                        colorA[index], colorA[index], colorA[index],
+                        projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
+                        projectSceneY[tA], projectSceneY[tB], projectSceneY[tC],
+                        projectSceneZ[tA], projectSceneZ[tB], projectSceneZ[tC],
+                        unmodifiedTriangleColor[index]);
+                    Draw3D.fillTexturedTriangle(yA, yC, tmpY[3],
+                        xA, xC, tmpX[3],
+                        colorA[index], colorA[index], colorA[index],
+                        projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
+                        projectSceneY[tA], projectSceneY[tB], projectSceneY[tC],
+                        projectSceneZ[tA], projectSceneZ[tB], projectSceneZ[tC],
                         unmodifiedTriangleColor[index]);
                 }
             }
@@ -2127,6 +2200,7 @@ public class Model extends CacheableNode {
         public int triangleAlphaDataOffset;
         public int triangleSkinDataOffset;
         public int triangleTextureDataOffset;
+
         public Metadata() {
         }
     }

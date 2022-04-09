@@ -5723,8 +5723,8 @@ public class Game extends Applet {
         i = i1 * j1 + i * k1 >> 16;
         i1 = j2;
         if (i >= 50) {
-            drawX = Draw3D.centerX + (j << 9) / i;
-            drawY = Draw3D.centerY + (i1 << 9) / i;
+            drawX = Draw3D.centerX + (j * 512) / i;
+            drawY = Draw3D.centerY + (i1 * 512) / i;
         } else {
             drawX = -1;
             drawY = -1;

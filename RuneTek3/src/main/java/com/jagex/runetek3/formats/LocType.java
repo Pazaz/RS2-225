@@ -360,17 +360,17 @@ public class LocType {
         }
 
         if (rescale) {
-            m3.scale(scaleZ, scaleY, scaleX);
+            m3.scale(scaleX, scaleY, scaleZ);
         }
 
         if (move) {
-            m3.translate(translateY, translateX, translateZ);
+            m3.translate(translateX, translateY, translateZ);
         }
 
         m3.applyLighting(64 + brightness, 768 + specular * 5, -50, -10, -50, !computeVertexColors);
 
         if (hasCollision) {
-            m3.anInt1251 = m3.maxBoundY;
+            m3.collisionPoint = m3.maxBoundY;
         }
 
         builtModels.put(uid, m3);

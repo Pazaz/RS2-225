@@ -26,7 +26,7 @@ public class NPCEntity extends PathingEntity {
         SpotAnimType spotAnim = SpotAnimType.instances[super.spotAnimIndex];
 
         Model spotAnimModel = new Model(spotAnim.getModel(), true, !spotAnim.disposeAlpha, false);
-        spotAnimModel.translate(-super.spotAnimOffsetY, 0, 0);
+        spotAnimModel.translate(0, -super.spotAnimOffsetY, 0);
 
         spotAnimModel.applyGroups();
         spotAnimModel.applyFrame(spotAnim.seq.primaryFrames[super.spotAnimFrame]);

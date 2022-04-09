@@ -119,7 +119,7 @@ public class PlayerEntity extends PathingEntity {
         if (super.spotAnimIndex != -1 && super.spotAnimFrame != -1) {
             SpotAnimType s = SpotAnimType.instances[super.spotAnimIndex];
             Model m = new Model(s.getModel(), true, !s.disposeAlpha, false);
-            m.translate(-super.spotAnimOffsetY, 0, 0);
+            m.translate(0, -super.spotAnimOffsetY, 0);
             m.applyGroups();
             m.applyFrame(s.seq.primaryFrames[super.spotAnimFrame]);
             m.skinTriangle = null;
@@ -139,7 +139,7 @@ public class PlayerEntity extends PathingEntity {
 
             if (Game.clientClock >= locFirstCycle && Game.clientClock < locLastCycle) {
                 Model m = locModel;
-                m.translate(locSceneY - y, locSceneX - super.x, locSceneZ - super.z);
+                m.translate(locSceneX - super.x, locSceneY - y, locSceneZ - super.z);
 
                 if (super.dstYaw == 512) {
                     m.rotateCounterClockwise();
@@ -166,7 +166,7 @@ public class PlayerEntity extends PathingEntity {
                     m.rotateCounterClockwise();
                 }
 
-                m.translate(y - locSceneY, super.x - locSceneX, super.z - locSceneZ);
+                m.translate(super.x - locSceneX, y - locSceneY, super.z - locSceneZ);
             }
         }
 
