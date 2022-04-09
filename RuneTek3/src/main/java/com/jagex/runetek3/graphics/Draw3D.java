@@ -44,8 +44,8 @@ public class Draw3D extends Draw2D {
         }
 
         for (int k = 0; k < 2048; k++) {
-            sin[k] = (int) (65536D * Math.sin((double) k * 0.0030679614999999999D));
-            cos[k] = (int) (65536D * Math.cos((double) k * 0.0030679614999999999D));
+            sin[k] = (int) (65536D * Math.sin((double) k * 0.0030679615D));
+            cos[k] = (int) (65536D * Math.cos((double) k * 0.00306796145D));
         }
     }
 
@@ -146,7 +146,7 @@ public class Draw3D extends Draw2D {
         }
 
         int rgb = (r / length << 16) + (g / length << 8) + b / length;
-        rgb = powRGB(rgb, 1.3999999999999999D);
+        rgb = powRGB(rgb, 1.4D);
         if (rgb == 0) {
             rgb = 1;
         }
@@ -237,7 +237,7 @@ public class Draw3D extends Draw2D {
     }
 
     public static void setBrightness(double brightness) {
-        brightness += Math.random() * 0.029999999999999999D - 0.014999999999999999D;
+        brightness += Math.random() * 0.03D - 0.015D;
 
         int offset = 0;
         for (int y = 0; y < 512; y++) {

@@ -40,6 +40,9 @@ public class Game extends Applet {
     public static boolean applyFxaa = false;
     public static boolean applyGreyscale = false;
 
+    public static final int TEXTURE_FOUNTAIN = 17;
+    public static final int TEXTURE_WATER_ANIMATED = 24;
+
     public static final int[][] APPEARANCE_COLORS = {
         {
             6798, 107, 10283, 16, 4797, 7744, 5799, 4634, 33697, 22433,
@@ -2592,32 +2595,34 @@ public class Game extends Applet {
             return;
         }
 
-        if (Draw3D.textureCycles[17] >= cycle) {
-            IndexedSprite i = Draw3D.textures[17];
+        if (Draw3D.textureCycles[TEXTURE_FOUNTAIN] >= cycle) {
+            IndexedSprite i = Draw3D.textures[TEXTURE_FOUNTAIN];
             int j = i.width * i.height - 1;
             int l = i.width * sceneDelta * 2;
             byte[] pixels = i.pixels;
             byte[] texels = tmpTexels;
-            for (int j1 = 0; j1 <= j; j1++)
+            for (int j1 = 0; j1 <= j; j1++) {
                 texels[j1] = pixels[j1 - l & j];
+            }
 
             i.pixels = texels;
             tmpTexels = pixels;
-            Draw3D.updateTexture(17);
+            Draw3D.updateTexture(TEXTURE_FOUNTAIN);
         }
 
-        if (Draw3D.textureCycles[24] >= cycle) {
-            IndexedSprite i = Draw3D.textures[24];
+        if (Draw3D.textureCycles[TEXTURE_WATER_ANIMATED] >= cycle) {
+            IndexedSprite i = Draw3D.textures[TEXTURE_WATER_ANIMATED];
             int k = i.width * i.height - 1;
             int i1 = i.width * sceneDelta * 2;
             byte[] pixels = i.pixels;
             byte[] texels = tmpTexels;
-            for (int k1 = 0; k1 <= k; k1++)
+            for (int k1 = 0; k1 <= k; k1++) {
                 texels[k1] = pixels[k1 - i1 & k];
+            }
 
             i.pixels = texels;
             tmpTexels = pixels;
-            Draw3D.updateTexture(24);
+            Draw3D.updateTexture(TEXTURE_WATER_ANIMATED);
         }
     }
 
@@ -4251,7 +4256,6 @@ public class Game extends Applet {
             }
             addMessage(0, description, "");
         } else if (action == 285) {
-            // OP_OBJ1 = 285
             interactWithLoc(Packet.Client.OPOBJ1, a, b, c);
         } else if (action == 881) {
             outBuffer.p1isaac(Packet.Client.ITEM_ON_ITEM);
@@ -6172,8 +6176,7 @@ public class Game extends Applet {
         }
     }
 
-    public void addLoc(int i, int j, int k, int l, int i1, int j1,
-                       int l1) {
+    public void addLoc(int i, int j, int k, int l, int i1, int j1, int l1) {
         if (j >= 1 && k >= 1 && j <= 102 && k <= 102) {
             if (lowMemory && l1 != currentLevel)
                 return;
@@ -6220,8 +6223,7 @@ public class Game extends Applet {
                 int j3 = l1;
                 if (j3 < 3 && (levelRenderFlags[1][j][k] & 2) == 2)
                     j3++;
-                SceneManager.addLoc(j, locs, collisionMaps[l1], k, i, levelHeightMaps, l1, i1, j1,
-                    mapSquare, j3);
+                SceneManager.addLoc(j, locs, collisionMaps[l1], k, i, levelHeightMaps, l1, i1, j1, mapSquare, j3);
             }
         }
     }
@@ -7896,8 +7898,12 @@ public class Game extends Applet {
     }
 
     public void loadTitleBackground() {
-        byte[] src = title.read("title.dat");
-        Sprite temp = new Sprite(src, this);
+        Sprite temp;
+        if (useLostCity) {
+            temp = new Sprite(Signlink.cacheload("title2.png", true), this);
+        } else {
+            temp = new Sprite(title.read("title.dat"), this);
+        }
         titleLeft.bind();
         temp.drawOpaque(0, 0);
 
@@ -7961,13 +7967,17 @@ public class Game extends Applet {
         temp.drawOpaque(-180, -186);
 
         if (useLostCity) {
-            byte[] logo = lostcity.read("newlogo.png");
+            byte[] logo = lostcity.read("logo2.png");
             temp = new Sprite(logo, this);
         } else {
             temp = new Sprite(title, "logo", 0);
         }
         titleTop.bind();
-        temp.draw(18, super.gameWidth / 2 - temp.width / 2 - 128);
+        int y = 18;
+        if (useLostCity) {
+            y--;
+        }
+        temp.draw(y, super.gameWidth / 2 - temp.width / 2 - 128);
 
         System.gc();
     }
