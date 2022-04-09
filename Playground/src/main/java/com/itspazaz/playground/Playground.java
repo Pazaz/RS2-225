@@ -603,7 +603,7 @@ public class Playground extends Applet {
 
         FileArchive textures = new FileArchive(Signlink.cacheload("textures", false));
         Draw3D.unpackTextures(textures);
-        Draw3D.setBrightness(0.80000000000000004D);
+        Draw3D.setBrightness(0.8D);
         Draw3D.setupPools(20);
     }
 
