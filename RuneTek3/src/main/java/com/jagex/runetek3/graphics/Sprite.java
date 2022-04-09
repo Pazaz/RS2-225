@@ -92,7 +92,7 @@ public class Sprite extends Draw2D {
     }
 
     public void prepare() {
-        Draw2D.prepare(width, pixels, height);
+        Draw2D.prepare(width, height, pixels);
     }
 
     public void translate(int r, int g, int b) {
@@ -157,12 +157,11 @@ public class Sprite extends Draw2D {
         }
         if (w <= 0 || h <= 0)
             return;
-        copyImage(pixels, dstStep, h, srcOff, srcStep, dstOff, w, Draw2D.dest);
+        copyImage(w, h, pixels, srcOff, srcStep, Draw2D.dest, dstOff, dstStep);
     }
 
     // Used when drawing non-transparent images (title screen background)
-    public void copyImage(int[] src, int dstStep, int h, int srcOff, int srcStep, int dstOff,
-                          int w, int[] dst) {
+    public void copyImage(int w, int h, int[] src, int srcOff, int srcStep, int[] dst, int dstOff, int dstStep) {
         for (int y = 0; y < h; ++y) {
             System.arraycopy(src, srcOff + (y * w), dst, dstOff + (y * w), w);
             dstOff += dstStep;
@@ -170,7 +169,7 @@ public class Sprite extends Draw2D {
         }
     }
 
-    public void draw(int y, int x) {
+    public void draw(int x, int y) {
         x += clipX;
         y += clipY;
         int dstOff = x + y * Draw2D.width;
@@ -204,12 +203,12 @@ public class Sprite extends Draw2D {
             dstStep += cutoff;
         }
         if (w > 0 && h > 0) {
-            copyImage(Draw2D.dest, pixels, srcOff, dstOff, w, h, dstStep, srcStep);
+            copyImage(pixels, srcOff, srcStep, w, h, Draw2D.dest, dstOff, dstStep);
         }
     }
 
-    public void copyImage(int[] dst, int[] src, int srcOff, int dstOff, int w, int h,
-                          int dstStep, int srcStep) {
+    public void copyImage(int[] src, int srcOff, int srcStep, int w, int h, int[] dst, int dstOff,
+                          int dstStep) {
         int hw = -(w >> 2);
         w = -(w & 3);
         for (int x = -h; x < 0; x++) {
@@ -322,7 +321,7 @@ public class Sprite extends Draw2D {
         }
     }
 
-    public void draw(int alpha, int x, int y) {
+    public void draw(int x, int y, int alpha) {
         x += clipX;
         y += clipY;
         int dstOff = x + y * Draw2D.width;
@@ -356,12 +355,12 @@ public class Sprite extends Draw2D {
             dstStep += cutoff;
         }
         if (w > 0 && h > 0) {
-            copyPixelsAlpha(dstOff, pixels, alpha, h, Draw2D.dest, srcOff, w, dstStep, srcStep);
+            copyPixelsAlpha(w, h, alpha, pixels, srcOff, srcStep, Draw2D.dest, dstOff, dstStep);
         }
     }
 
-    public void copyPixelsAlpha(int dstOff, int[] src, int alpha, int h, int[] dst, int srcOff,
-                                int w, int dstStep, int srcStep) {
+    public void copyPixelsAlpha(int w, int h, int alpha, int[] src, int srcOff, int srcStep, int[] dst, int dstOff,
+                                int dstStep) {
         int opacity = 256 - alpha;
         for (int y = -h; y < 0; y++) {
             for (int x = -w; x < 0; x++) {
@@ -380,8 +379,7 @@ public class Sprite extends Draw2D {
         }
     }
 
-    public void drawRotatedMasked(int theta, int w, int[] lineStart, int h, int anchorY, int zoom, int anchorX,
-                                  int x, int y, int[] lineWidth) {
+    public void drawRotatedMasked(int x, int y, int w, int h, int theta, int[] lineStart, int[] lineWidth, int anchorX, int anchorY, int zoom) {
         try {
             int centerX = -w / 2;
             int centerY = -h / 2;
@@ -433,7 +431,7 @@ public class Sprite extends Draw2D {
         }
     }
 
-    public void drawMasked(IndexedSprite mask, int y, int x) {
+    public void drawMasked(IndexedSprite mask, int x, int y) {
         x += clipX;
         y += clipY;
         int dstOff = x + y * Draw2D.width;
@@ -467,12 +465,12 @@ public class Sprite extends Draw2D {
             dstStep += trim;
         }
         if (w > 0 && h > 0) {
-            copyPixelsMasked(w, srcStep, h, srcOff, Draw2D.dest, pixels, dstOff, mask.pixels, dstStep);
+            copyPixelsMasked(w, h, mask.pixels, pixels, srcOff, srcStep, Draw2D.dest, dstOff, dstStep);
         }
     }
 
-    public void copyPixelsMasked(int w, int srcStep, int h, int srcOff, int[] dst,
-                                 int[] src, int dstOff, byte[] mask, int dstStep) {
+    public void copyPixelsMasked(int w, int h, byte[] mask, int[] src, int srcOff, int srcStep, int[] dst,
+                                 int dstOff, int dstStep) {
         int quarterW = -(w >> 2);
         w = -(w & 3);
         for (int y = -h; y < 0; y++) {

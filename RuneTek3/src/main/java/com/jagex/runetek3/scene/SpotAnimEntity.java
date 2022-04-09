@@ -14,7 +14,7 @@ public class SpotAnimEntity extends Entity {
     public int seqFrame;
     public int frameCycle;
     public boolean finished;
-    public SpotAnimEntity(int x, int spotanimIndex, int z, int duration, int y, int level, int startCycle) {
+    public SpotAnimEntity(int x, int y, int z, int spotanimIndex, int duration, int level, int startCycle) {
         spotanim = SpotAnimType.instances[spotanimIndex];
         this.level = level;
         this.x = x;

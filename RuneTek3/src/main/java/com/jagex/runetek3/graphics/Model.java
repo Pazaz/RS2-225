@@ -1921,20 +1921,17 @@ public class Model extends CacheableNode {
         }
 
         if (type == TYPE_GOURAUD) {
-            Draw3D.fillGouraudTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c],
-                vertexScreenX[a], vertexScreenX[b], vertexScreenX[c],
+            Draw3D.fillGouraudTriangle(vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], vertexScreenY[a], vertexScreenY[b], vertexScreenY[c],
                 colorA[index], colorB[index], colorC[index]);
         } else if (type == TYPE_FLAT) {
-            Draw3D.fillTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c],
-                vertexScreenX[a], vertexScreenX[b], vertexScreenX[c],
+            Draw3D.fillTriangle(vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], vertexScreenY[a], vertexScreenY[b], vertexScreenY[c],
                 palette[colorA[index]]);
         } else if (type == TYPE_TEXTURED) {
             int t = triangleInfo[index] >> 2;
             int tA = textureVertexA[t];
             int tB = textureVertexB[t];
             int tC = textureVertexC[t];
-            Draw3D.fillTexturedTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c],
-                vertexScreenX[a], vertexScreenX[b], vertexScreenX[c],
+            Draw3D.fillTexturedTriangle(vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], vertexScreenY[a], vertexScreenY[b], vertexScreenY[c],
                 colorA[index], colorB[index], colorC[index],
                 projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
                 projectSceneY[tA], projectSceneY[tB], projectSceneY[tC],
@@ -1945,8 +1942,7 @@ public class Model extends CacheableNode {
             int tA = textureVertexA[t];
             int tB = textureVertexB[t];
             int tC = textureVertexC[t];
-            Draw3D.fillTexturedTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c],
-                vertexScreenX[a], vertexScreenX[b], vertexScreenX[c],
+            Draw3D.fillTexturedTriangle(vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], vertexScreenY[a], vertexScreenY[b], vertexScreenY[c],
                 colorA[index], colorA[index], colorA[index],
                 projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
                 projectSceneY[tA], projectSceneY[tB], projectSceneY[tC],
@@ -2064,20 +2060,17 @@ public class Model extends CacheableNode {
                 }
 
                 if (type == TYPE_GOURAUD) {
-                    Draw3D.fillGouraudTriangle(yA, yB, yC,
-                        xA, xB, xC,
+                    Draw3D.fillGouraudTriangle(xA, xB, xC, yA, yB, yC,
                         tmpColor[0], tmpColor[1], tmpColor[2]);
                 } else if (type == TYPE_FLAT) {
-                    Draw3D.fillTriangle(yA, yB, yC,
-                        xA, xB, xC,
+                    Draw3D.fillTriangle(xA, xB, xC, yA, yB, yC,
                         palette[colorA[index]]);
                 } else if (type == TYPE_TEXTURED) {
                     int t = triangleInfo[index] >> 2;
                     int tA = textureVertexA[t];
                     int tB = textureVertexB[t];
                     int tC = textureVertexC[t];
-                    Draw3D.fillTexturedTriangle(yA, yB, yC,
-                        xA, xB, xC,
+                    Draw3D.fillTexturedTriangle(xA, xB, xC, yA, yB, yC,
                         tmpColor[0], tmpColor[1], tmpColor[2],
                         projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
                         projectSceneY[tA], projectSceneY[tB], projectSceneY[tC],
@@ -2088,8 +2081,7 @@ public class Model extends CacheableNode {
                     int tA = textureVertexA[t];
                     int tB = textureVertexB[t];
                     int tC = textureVertexC[t];
-                    Draw3D.fillTexturedTriangle(yA, yB, yC,
-                        xA, xB, xC,
+                    Draw3D.fillTexturedTriangle(xA, xB, xC, yA, yB, yC,
                         colorA[index], colorA[index], colorA[index],
                         projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
                         projectSceneY[tA], projectSceneY[tB], projectSceneY[tC],
@@ -2111,34 +2103,28 @@ public class Model extends CacheableNode {
                 }
 
                 if (type == TYPE_GOURAUD) {
-                    Draw3D.fillGouraudTriangle(yA, yB, yC,
-                        xA, xB, xC,
+                    Draw3D.fillGouraudTriangle(xA, xB, xC, yA, yB, yC,
                         tmpColor[0], tmpColor[1], tmpColor[2]);
-                    Draw3D.fillGouraudTriangle(yA, yC, tmpY[3],
-                        xA, xC, tmpX[3],
+                    Draw3D.fillGouraudTriangle(xA, xC, tmpX[3], yA, yC, tmpY[3],
                         tmpColor[0], tmpColor[2], tmpColor[3]);
                 } else if (type == TYPE_FLAT) {
                     int rgb = palette[colorA[index]];
-                    Draw3D.fillTriangle(yA, yB, yC,
-                        xA, xB, xC,
+                    Draw3D.fillTriangle(xA, xB, xC, yA, yB, yC,
                         rgb);
-                    Draw3D.fillTriangle(yA, yC, tmpY[3],
-                        xA, xC, tmpX[3],
+                    Draw3D.fillTriangle(xA, xC, tmpX[3], yA, yC, tmpY[3],
                         rgb);
                 } else if (type == TYPE_TEXTURED) {
                     int t = triangleInfo[index] >> 2;
                     int tA = textureVertexA[t];
                     int tB = textureVertexB[t];
                     int tC = textureVertexC[t];
-                    Draw3D.fillTexturedTriangle(yA, yB, yC,
-                        xA, xB, xC,
+                    Draw3D.fillTexturedTriangle(xA, xB, xC, yA, yB, yC,
                         tmpColor[0], tmpColor[1], tmpColor[2],
                         projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
                         projectSceneY[tA], projectSceneY[tB], projectSceneY[tC],
                         projectSceneZ[tA], projectSceneZ[tB], projectSceneZ[tC],
                         unmodifiedTriangleColor[index]);
-                    Draw3D.fillTexturedTriangle(yA, yC, tmpY[3],
-                        xA, xC, tmpX[3],
+                    Draw3D.fillTexturedTriangle(xA, xC, tmpX[3], yA, yC, tmpY[3],
                         tmpColor[0], tmpColor[2], tmpColor[3],
                         projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
                         projectSceneY[tA], projectSceneY[tB], projectSceneY[tC], projectSceneZ[tA], projectSceneZ[tB], projectSceneZ[tC],
@@ -2148,15 +2134,13 @@ public class Model extends CacheableNode {
                     int tA = textureVertexA[t];
                     int tB = textureVertexB[t];
                     int tC = textureVertexC[t];
-                    Draw3D.fillTexturedTriangle(yA, yB, yC,
-                        xA, xB, xC,
+                    Draw3D.fillTexturedTriangle(xA, xB, xC, yA, yB, yC,
                         colorA[index], colorA[index], colorA[index],
                         projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
                         projectSceneY[tA], projectSceneY[tB], projectSceneY[tC],
                         projectSceneZ[tA], projectSceneZ[tB], projectSceneZ[tC],
                         unmodifiedTriangleColor[index]);
-                    Draw3D.fillTexturedTriangle(yA, yC, tmpY[3],
-                        xA, xC, tmpX[3],
+                    Draw3D.fillTexturedTriangle(xA, xC, tmpX[3], yA, yC, tmpY[3],
                         colorA[index], colorA[index], colorA[index],
                         projectSceneX[tA], projectSceneX[tB], projectSceneX[tC],
                         projectSceneY[tA], projectSceneY[tB], projectSceneY[tC],

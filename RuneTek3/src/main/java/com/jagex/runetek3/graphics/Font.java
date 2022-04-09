@@ -88,11 +88,11 @@ public class Font extends Draw2D {
             drawWidth[c] = charSpace[CHAR_LOOKUP[c]];
     }
 
-    public void drawCentered(int y, int rgb, String str, int x) {
+    public void drawCentered(String str, int x, int y, int rgb) {
         draw(x - stringWidth(str) / 2, y, rgb, str);
     }
 
-    public void drawRightAligned(int y, int rgb, String str, int x, boolean shadow) {
+    public void drawRightAligned(String str, int x, int y, int rgb, boolean shadow) {
         draw(x - stringWidth(str), y, str, shadow, rgb);
     }
 
@@ -176,7 +176,7 @@ public class Font extends Draw2D {
         }
     }
 
-    public void drawTooltip(int seed, boolean shadow, int y, int rgb, String s, int x) {
+    public void drawTooltip(String s, int x, int y, int rgb, boolean shadow, int seed) {
         if (s == null)
             return;
         random.setSeed(seed);
@@ -190,10 +190,10 @@ public class Font extends Draw2D {
                 int c = CHAR_LOOKUP[s.charAt(i)];
                 if (c != 94) {
                     if (shadow) {
-                        fillMaskedRect(pixels[c], x + charOffsetX[c] + 1, charHeight[c], 0, y + charOffsetY[c] + 1, 192, charWidth[c]);
+                        fillMaskedRect(pixels[c], x + charOffsetX[c] + 1, y + charOffsetY[c] + 1, charWidth[c], charHeight[c], 0, 192);
                     }
 
-                    fillMaskedRect(pixels[c], x + charOffsetX[c], charHeight[c], rgb, y + charOffsetY[c], alpha, charWidth[c]);
+                    fillMaskedRect(pixels[c], x + charOffsetX[c], y + charOffsetY[c], charWidth[c], charHeight[c], rgb, alpha);
                 }
                 x += charSpace[c];
                 if ((random.nextInt() & 3) == 0)
@@ -267,11 +267,11 @@ public class Font extends Draw2D {
             srcStep += cutoff;
             dstStep += cutoff;
         }
-        fillMaskedRect(dest, data, rgb, srcOff, dstOff, w, h, dstStep, srcStep);
+        fillMaskedRect(w, h, rgb, data, srcOff, srcStep, dest, dstOff, dstStep);
     }
 
-    public void fillMaskedRect(int[] dst, byte[] src, int rgb, int srcOff, int dstOff, int w, int h,
-                               int dstStep, int srcStep) {
+    public void fillMaskedRect(int w, int h, int rgb, byte[] src, int srcOff, int srcStep, int[] dst, int dstOff,
+                               int dstStep) {
         int hw = -(w >> 2);
         w = -(w & 3);
 
@@ -306,7 +306,7 @@ public class Font extends Draw2D {
         }
     }
 
-    public void fillMaskedRect(byte[] mask, int x, int h, int rgb, int y, int alpha, int w) {
+    public void fillMaskedRect(byte[] mask, int x, int y, int w, int h, int rgb, int alpha) {
         int dstOff = x + y * width;
         int dstStep = width - w;
         int maskStep = 0;
@@ -335,16 +335,16 @@ public class Font extends Draw2D {
             maskStep += trim;
             dstStep += trim;
         }
-        fillMaskedRect(h, dstOff, w, dest, mask, alpha, maskOff, dstStep, maskStep, rgb);
+        fillMaskedRect(w, h, rgb, alpha, mask, maskOff, maskStep, dest, dstOff, dstStep);
     }
 
-    public void fillMaskedRect(int h, int dstOff, int k, int[] dst, byte[] mask, int alpha, int maskOff,
-                               int dstStep, int maskStep, int rgb) {
+    public void fillMaskedRect(int w, int h, int rgb, int alpha, byte[] mask, int maskOff, int maskStep, int[] dst, int dstOff,
+                               int dstStep) {
         rgb = ((rgb & 0xff00ff) * alpha & 0xff00ff00) + ((rgb & 0xff00) * alpha & 0xff0000) >> 8;
         alpha = 256 - alpha;
 
         for (int y = -h; y < 0; y++) {
-            for (int x = -k; x < 0; x++) {
+            for (int x = -w; x < 0; x++) {
                 if (mask[maskOff++] != 0) {
                     int dstRGB = dst[dstOff];
                     dst[dstOff++] = (((dstRGB & 0xff00ff) * alpha & 0xff00ff00) + ((dstRGB & 0xff00) * alpha & 0xff0000) >> 8) + rgb;

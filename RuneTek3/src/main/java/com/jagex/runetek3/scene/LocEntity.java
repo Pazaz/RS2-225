@@ -13,7 +13,7 @@ public class LocEntity extends Node {
     public SeqType seq;
     public int seqFrame;
     public int seqCycle;
-    public LocEntity(boolean animated, int locIndex, int level, int classType, SeqType seq, int tileZ, int tileX) {
+    public LocEntity(int locIndex, int level, int classType, int tileX, int tileZ, SeqType seq, boolean animated) {
         this.level = level;
         this.classType = classType;
         this.tileX = tileX;

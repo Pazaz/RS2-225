@@ -311,7 +311,7 @@ public class Flame implements Runnable {
             j1 += j2;
         }
 
-        Game.instance.titleLeft.drawImage(0, Game.instance.graphics, 0);
+        Game.instance.titleLeft.drawImage(Game.instance.graphics, 0, 0);
         System.arraycopy(imageFlamesRight.pixels, 0, Game.instance.titleRight.pixels, 0, 33920);
 
         i1 = 0;
@@ -337,7 +337,7 @@ public class Flame implements Runnable {
             j1 += 128 - k3 - i3;
         }
 
-        Game.instance.titleRight.drawImage(0, Game.instance.graphics, 661);
+        Game.instance.titleRight.drawImage(Game.instance.graphics, 661, 0);
     }
 
     public int mix(int i, int j, int k) {

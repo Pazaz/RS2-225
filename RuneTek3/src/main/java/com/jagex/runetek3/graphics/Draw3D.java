@@ -344,7 +344,7 @@ public class Draw3D extends Draw2D {
         return (intR << 16) + (intG << 8) + intB;
     }
 
-    public static void fillGouraudTriangle(int yA, int yB, int yC, int xA, int xB, int xC, int colorA, int colorB,
+    public static void fillGouraudTriangle(int xA, int xB, int xC, int yA, int yB, int yC, int colorA, int colorB,
                                            int colorC) {
         int xStepAB = 0;
         int colorStepAB = 0;
@@ -732,7 +732,7 @@ public class Draw3D extends Draw2D {
         }
     }
 
-    public static void drawGouraudScanline(int[] dst, int dstOff, int leftX, int rightX, int leftColor, int rightColor) {
+    public static void drawGouraudScanline(int[] pixels, int offset, int leftX, int rightX, int leftColor, int rightColor) {
         int color;
         int length;
 
@@ -752,13 +752,13 @@ public class Draw3D extends Draw2D {
                 }
                 if (leftX >= rightX)
                     return;
-                dstOff += leftX;
+                offset += leftX;
                 length = rightX - leftX >> 2;
                 colorStep <<= 2;
             } else {
                 if (leftX >= rightX)
                     return;
-                dstOff += leftX;
+                offset += leftX;
                 length = rightX - leftX >> 2;
                 if (length > 0)
                     colorStep = (rightColor - leftColor) * reciprical15[length] >> 15;
@@ -769,16 +769,16 @@ public class Draw3D extends Draw2D {
                 while (--length >= 0) {
                     color = palette[leftColor >> 8];
                     leftColor += colorStep;
-                    dst[dstOff++] = color;
-                    dst[dstOff++] = color;
-                    dst[dstOff++] = color;
-                    dst[dstOff++] = color;
+                    pixels[offset++] = color;
+                    pixels[offset++] = color;
+                    pixels[offset++] = color;
+                    pixels[offset++] = color;
                 }
                 length = rightX - leftX & 3;
                 if (length > 0) {
                     color = palette[leftColor >> 8];
                     do {
-                        dst[dstOff++] = color;
+                        pixels[offset++] = color;
                     } while (--length > 0);
                     return;
                 }
@@ -790,8 +790,8 @@ public class Draw3D extends Draw2D {
                     leftColor += colorStep;
                     color = ((color & 0xff00ff) * invAlpha >> 8 & 0xff00ff) + ((color & 0xff00) * invAlpha >> 8 & 0xff00);
                     for (int i = 0; i < 4; ++i) {
-                        dst[dstOff] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
-                        dstOff++; // incrementing here instead fixes a transparency bug
+                        pixels[offset] = color + ((pixels[offset] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((pixels[offset] & 0xff00) * alpha >> 8 & 0xff00);
+                        offset++; // incrementing here instead fixes a transparency bug
                     }
                 }
                 length = rightX - leftX & 3;
@@ -799,8 +799,8 @@ public class Draw3D extends Draw2D {
                     color = palette[leftColor >> 8];
                     color = ((color & 0xff00ff) * invAlpha >> 8 & 0xff00ff) + ((color & 0xff00) * invAlpha >> 8 & 0xff00);
                     do {
-                        dst[dstOff] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
-                        dstOff++; // incrementing here instead fixes a transparency bug
+                        pixels[offset] = color + ((pixels[offset] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((pixels[offset] & 0xff00) * alpha >> 8 & 0xff00);
+                        offset++; // incrementing here instead fixes a transparency bug
                     } while (--length > 0);
                 }
             }
@@ -819,11 +819,11 @@ public class Draw3D extends Draw2D {
             if (leftX >= rightX)
                 return;
         }
-        dstOff += leftX;
+        offset += leftX;
         length = rightX - leftX;
         if (alpha == 0) {
             do {
-                dst[dstOff++] = palette[leftColor >> 8];
+                pixels[offset++] = palette[leftColor >> 8];
                 leftColor += colorStep;
             } while (--length > 0);
             return;
@@ -834,12 +834,12 @@ public class Draw3D extends Draw2D {
             color = palette[leftColor >> 8];
             leftColor += colorStep;
             color = ((color & 0xff00ff) * invAlpha >> 8 & 0xff00ff) + ((color & 0xff00) * invAlpha >> 8 & 0xff00);
-            dst[dstOff] = color + ((dst[dstOff] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((dst[dstOff] & 0xff00) * alpha >> 8 & 0xff00);
-            dstOff++;
+            pixels[offset] = color + ((pixels[offset] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((pixels[offset] & 0xff00) * alpha >> 8 & 0xff00);
+            offset++;
         } while (--length > 0);
     }
 
-    public static void fillTriangle(int yA, int yB, int yC, int xA, int xB, int xC, int color) {
+    public static void fillTriangle(int xA, int xB, int xC, int yA, int yB, int yC, int color) {
         int mAB = 0;
         if (yB != yA)
             mAB = (xB - xA << 16) / (yB - yA);
@@ -1172,11 +1172,11 @@ public class Draw3D extends Draw2D {
             pixels[offset++] = color + ((pixels[offset] & 0xff00ff) * alpha >> 8 & 0xff00ff) + ((pixels[offset] & 0xff00) * alpha >> 8 & 0xff00);
     }
 
-    public static void fillTexturedTriangle(int yA, int yB, int yC, int xA, int xB, int xC, int lightnessA, int lightnessB,
+    public static void fillTexturedTriangle(int xA, int xB, int xC, int yA, int yB, int yC, int lightnessA, int lightnessB,
                                             int lightnessC, int viewXA, int viewXB, int viewXC, int viewYA, int viewYB, int viewYC,
-                                            int viewZA, int viewZB, int viewZC, int id) {
-        int[] texels = getTexels(id);
-        opaque = !textureHasTransparency[id];
+                                            int viewZA, int viewZB, int viewZC, int textureId) {
+        int[] texels = getTexels(textureId);
+        opaque = !textureHasTransparency[textureId];
 
         viewXB = viewXA - viewXB;
         viewYB = viewYA - viewYB;

@@ -128,11 +128,11 @@ public class SceneManager {
         byte byte0 = (byte) ((k << 6) + type);
         if (type == 22) {
             Model m = locType.getModel(22, k, i2, j2, k2, l2, -1);
-            mapSquare.addGroundDecoration(m, x, j3, z, level, byte0, i3);
+            mapSquare.addGroundDecoration(m, x, i3, z, level, byte0, j3);
             if (locType.hasCollision && locType.interactable)
-                collisionMap.setBlocked(z, x);
+                collisionMap.setBlocked(x, z);
             if (locType.seqIndex != -1)
-                linkedList.pushNext(new LocEntity(true, loc, level, 3, SeqType.instances[locType.seqIndex], z, x));
+                linkedList.pushNext(new LocEntity(loc, level, 3, x, z, SeqType.instances[locType.seqIndex], true));
             return;
         }
         if (type == 10 || type == 11) {
@@ -150,109 +150,109 @@ public class SceneManager {
                     i4 = locType.sizeX;
                     k4 = locType.sizeZ;
                 }
-                mapSquare.addLocation(i3, level, null, j3, z, x, i4, byte0, m, l4, k4);
+                mapSquare.addLocation(m, null, x, z, i4, k4, i3, level, l4, j3, byte0);
             }
             if (locType.hasCollision)
-                collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, x, z, locType.isSolid);
+                collisionMap.setLoc(x, z, locType.sizeX, locType.sizeZ, k, locType.isSolid);
             if (locType.seqIndex != -1)
-                linkedList.pushNext(new LocEntity(true, loc, level, 2, SeqType.instances[locType.seqIndex], z, x));
+                linkedList.pushNext(new LocEntity(loc, level, 2, x, z, SeqType.instances[locType.seqIndex], true));
             return;
         }
         if (type >= 12) {
             Model m = locType.getModel(type, k, i2, j2, k2, l2, -1);
-            mapSquare.addLocation(i3, level, null, j3, z, x, 1, byte0, m, 0, 1);
+            mapSquare.addLocation(m, null, x, z, 1, 1, i3, level, 0, j3, byte0);
             if (locType.hasCollision)
-                collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, x, z, locType.isSolid);
+                collisionMap.setLoc(x, z, locType.sizeX, locType.sizeZ, k, locType.isSolid);
             if (locType.seqIndex != -1)
-                linkedList.pushNext(new LocEntity(true, loc, level, 2, SeqType.instances[locType.seqIndex], z, x));
+                linkedList.pushNext(new LocEntity(loc, level, 2, x, z, SeqType.instances[locType.seqIndex], true));
             return;
         }
         if (type == 0) {
             Model m = locType.getModel(0, k, i2, j2, k2, l2, -1);
-            mapSquare.addWall(0, i3, level, WALL_ROTATION_TYPE1[k], m, null, x, j3, z, byte0);
+            mapSquare.addWall(m, null, WALL_ROTATION_TYPE1[k], 0, x, z, i3, level, j3, byte0);
             if (locType.hasCollision)
-                collisionMap.setWall(k, z, x, locType.isSolid, type);
+                collisionMap.setWall(x, z, type, k, locType.isSolid);
             if (locType.seqIndex != -1)
-                linkedList.pushNext(new LocEntity(true, loc, level, 0, SeqType.instances[locType.seqIndex], z, x));
+                linkedList.pushNext(new LocEntity(loc, level, 0, x, z, SeqType.instances[locType.seqIndex], true));
             return;
         }
         if (type == 1) {
             Model m = locType.getModel(1, k, i2, j2, k2, l2, -1);
-            mapSquare.addWall(0, i3, level, WALL_ROTATION_TYPE2[k], m, null, x, j3, z, byte0);
+            mapSquare.addWall(m, null, WALL_ROTATION_TYPE2[k], 0, x, z, i3, level, j3, byte0);
             if (locType.hasCollision)
-                collisionMap.setWall(k, z, x, locType.isSolid, type);
+                collisionMap.setWall(x, z, type, k, locType.isSolid);
             if (locType.seqIndex != -1)
-                linkedList.pushNext(new LocEntity(true, loc, level, 0, SeqType.instances[locType.seqIndex], z, x));
+                linkedList.pushNext(new LocEntity(loc, level, 0, x, z, SeqType.instances[locType.seqIndex], true));
             return;
         }
         if (type == 2) {
             int k3 = k + 1 & 3;
             Model m1 = locType.getModel(2, 4 + k, i2, j2, k2, l2, -1);
             Model m2 = locType.getModel(2, k3, i2, j2, k2, l2, -1);
-            mapSquare.addWall(WALL_ROTATION_TYPE1[k3], i3, level, WALL_ROTATION_TYPE1[k], m1,
-                m2, x, j3, z, byte0);
+            mapSquare.addWall(m1, m2, WALL_ROTATION_TYPE1[k], WALL_ROTATION_TYPE1[k3], x, z, i3, level,
+                j3, byte0);
             if (locType.hasCollision)
-                collisionMap.setWall(k, z, x, locType.isSolid, type);
+                collisionMap.setWall(x, z, type, k, locType.isSolid);
             if (locType.seqIndex != -1)
-                linkedList.pushNext(new LocEntity(true, loc, level, 0, SeqType.instances[locType.seqIndex], z, x));
+                linkedList.pushNext(new LocEntity(loc, level, 0, x, z, SeqType.instances[locType.seqIndex], true));
             return;
         }
         if (type == 3) {
             Model m = locType.getModel(3, k, i2, j2, k2, l2, -1);
-            mapSquare.addWall(0, i3, level, WALL_ROTATION_TYPE2[k], m, null, x, j3, z, byte0);
+            mapSquare.addWall(m, null, WALL_ROTATION_TYPE2[k], 0, x, z, i3, level, j3, byte0);
             if (locType.hasCollision)
-                collisionMap.setWall(k, z, x, locType.isSolid, type);
+                collisionMap.setWall(x, z, type, k, locType.isSolid);
             if (locType.seqIndex != -1)
-                linkedList.pushNext(new LocEntity(true, loc, level, 0, SeqType.instances[locType.seqIndex], z, x));
+                linkedList.pushNext(new LocEntity(loc, level, 0, x, z, SeqType.instances[locType.seqIndex], true));
             return;
         }
         if (type == 9) {
             Model m = locType.getModel(type, k, i2, j2, k2, l2, -1);
-            mapSquare.addLocation(i3, level, null, j3, z, x, 1, byte0, m, 0, 1);
+            mapSquare.addLocation(m, null, x, z, 1, 1, i3, level, 0, j3, byte0);
             if (locType.hasCollision)
-                collisionMap.setLoc(k, locType.sizeZ, locType.sizeX, x, z, locType.isSolid);
+                collisionMap.setLoc(x, z, locType.sizeX, locType.sizeZ, k, locType.isSolid);
             if (locType.seqIndex != -1)
-                linkedList.pushNext(new LocEntity(true, loc, level, 2, SeqType.instances[locType.seqIndex], z, x));
+                linkedList.pushNext(new LocEntity(loc, level, 2, x, z, SeqType.instances[locType.seqIndex], true));
             return;
         }
         if (type == 4) {
             Model m = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            mapSquare.addWallDecoration(i3, z, 0, j3, k * 512, WALL_ROTATION_TYPE1[k], 0, x, m, byte0, level);
+            mapSquare.addWallDecoration(m, x, z, i3, 0, 0, j3, k * 512, WALL_ROTATION_TYPE1[k], byte0, level);
             if (locType.seqIndex != -1)
-                linkedList.pushNext(new LocEntity(true, loc, level, 1, SeqType.instances[locType.seqIndex], z, x));
+                linkedList.pushNext(new LocEntity(loc, level, 1, x, z, SeqType.instances[locType.seqIndex], true));
             return;
         }
         if (type == 5) {
             int l3 = 16;
-            int j4 = mapSquare.getWallBitset(level, x, z);
+            int j4 = mapSquare.getWallBitset(x, z, level);
             if (j4 > 0)
                 l3 = LocType.get(j4 >> 14 & 0x7fff).thickness;
             Model m = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            mapSquare.addWallDecoration(i3, z, WALL_DECO_ROT_SIZE_Y_DIR[k] * l3, j3, k * 512, WALL_ROTATION_TYPE1[k], WALL_DECO_ROT_SIZE_X_DIR[k] * l3,
-                x, m, byte0, level);
+            mapSquare.addWallDecoration(m, x, z, i3, WALL_DECO_ROT_SIZE_X_DIR[k] * l3, WALL_DECO_ROT_SIZE_Y_DIR[k] * l3, j3, k * 512, WALL_ROTATION_TYPE1[k],
+                byte0, level);
             if (locType.seqIndex != -1)
-                linkedList.pushNext(new LocEntity(true, loc, level, 1, SeqType.instances[locType.seqIndex], z, x));
+                linkedList.pushNext(new LocEntity(loc, level, 1, x, z, SeqType.instances[locType.seqIndex], true));
             return;
         }
         if (type == 6) {
             Model m = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            mapSquare.addWallDecoration(i3, z, 0, j3, k, 256, 0, x, m, byte0, level);
+            mapSquare.addWallDecoration(m, x, z, i3, 0, 0, j3, k, 256, byte0, level);
             if (locType.seqIndex != -1)
-                linkedList.pushNext(new LocEntity(true, loc, level, 1, SeqType.instances[locType.seqIndex], z, x));
+                linkedList.pushNext(new LocEntity(loc, level, 1, x, z, SeqType.instances[locType.seqIndex], true));
             return;
         }
         if (type == 7) {
             Model m = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            mapSquare.addWallDecoration(i3, z, 0, j3, k, 512, 0, x, m, byte0, level);
+            mapSquare.addWallDecoration(m, x, z, i3, 0, 0, j3, k, 512, byte0, level);
             if (locType.seqIndex != -1)
-                linkedList.pushNext(new LocEntity(true, loc, level, 1, SeqType.instances[locType.seqIndex], z, x));
+                linkedList.pushNext(new LocEntity(loc, level, 1, x, z, SeqType.instances[locType.seqIndex], true));
             return;
         }
         if (type == 8) {
             Model m = locType.getModel(4, 0, i2, j2, k2, l2, -1);
-            mapSquare.addWallDecoration(i3, z, 0, j3, k, 768, 0, x, m, byte0, level);
+            mapSquare.addWallDecoration(m, x, z, i3, 0, 0, j3, k, 768, byte0, level);
             if (locType.seqIndex != -1)
-                linkedList.pushNext(new LocEntity(true, loc, level, 1, SeqType.instances[locType.seqIndex], z, x));
+                linkedList.pushNext(new LocEntity(loc, level, 1, x, z, SeqType.instances[locType.seqIndex], true));
         }
     }
 
@@ -411,11 +411,11 @@ public class SceneManager {
             if (lowMemory && !loc.interactable && !loc.obstructsGround)
                 return;
             Model m = loc.getModel(22, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            mapSquare.addGroundDecoration(m, x, flag, z, p, uid, average);
+            mapSquare.addGroundDecoration(m, x, average, z, p, uid, flag);
             if (loc.hasCollision && loc.interactable && collisionMap != null)
-                collisionMap.setBlocked(z, x);
+                collisionMap.setBlocked(x, z);
             if (loc.seqIndex != -1)
-                locList.pushNext(new LocEntity(true, locType, p, 3, SeqType.instances[loc.seqIndex], z, x));
+                locList.pushNext(new LocEntity(locType, p, 3, x, z, SeqType.instances[loc.seqIndex], true));
             return;
         }
         if (objType == 10 || objType == 11) {
@@ -433,7 +433,7 @@ public class SceneManager {
                     k3 = loc.sizeX;
                     i4 = loc.sizeZ;
                 }
-                if (mapSquare.addLocation(average, p, null, flag, z, x, k3, uid, m, j4, i4)
+                if (mapSquare.addLocation(m, null, x, z, k3, i4, average, p, j4, flag, uid)
                     && loc.hasShadow) {
                     for (int k4 = 0; k4 <= k3; k4++) {
                         for (int l4 = 0; l4 <= i4; l4++) {
@@ -447,25 +447,25 @@ public class SceneManager {
                 }
             }
             if (loc.hasCollision && collisionMap != null)
-                collisionMap.setLoc(orientation, loc.sizeZ, loc.sizeX, x, z, loc.isSolid);
+                collisionMap.setLoc(x, z, loc.sizeX, loc.sizeZ, orientation, loc.isSolid);
             if (loc.seqIndex != -1)
-                locList.pushNext(new LocEntity(true, locType, p, 2, SeqType.instances[loc.seqIndex], z, x));
+                locList.pushNext(new LocEntity(locType, p, 2, x, z, SeqType.instances[loc.seqIndex], true));
             return;
         }
         if (objType >= 12) {
             Model m = loc.getModel(objType, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            mapSquare.addLocation(average, p, null, flag, z, x, 1, uid, m, 0, 1);
+            mapSquare.addLocation(m, null, x, z, 1, 1, average, p, 0, flag, uid);
             if (objType <= 17 && objType != 13 && p > 0)
                 occludeFlags[p][x][z] |= 0x924;
             if (loc.hasCollision && collisionMap != null)
-                collisionMap.setLoc(orientation, loc.sizeZ, loc.sizeX, x, z, loc.isSolid);
+                collisionMap.setLoc(x, z, loc.sizeX, loc.sizeZ, orientation, loc.isSolid);
             if (loc.seqIndex != -1)
-                locList.pushNext(new LocEntity(true, locType, p, 2, SeqType.instances[loc.seqIndex], z, x));
+                locList.pushNext(new LocEntity(locType, p, 2, x, z, SeqType.instances[loc.seqIndex], true));
             return;
         }
         if (objType == 0) {
             Model m = loc.getModel(0, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            mapSquare.addWall(0, average, p, WALL_ROTATION_TYPE1[orientation], m, null, x, flag, z, uid);
+            mapSquare.addWall(m, null, WALL_ROTATION_TYPE1[orientation], 0, x, z, average, p, flag, uid);
             if (orientation == 0) {
                 if (loc.hasShadow) {
                     shadowmap[p][x][z] = 50;
@@ -500,19 +500,19 @@ public class SceneManager {
                 }
             }
             if (loc.hasCollision && collisionMap != null) {
-                collisionMap.setWall(orientation, z, x, loc.isSolid, objType);
+                collisionMap.setWall(x, z, objType, orientation, loc.isSolid);
             }
             if (loc.seqIndex != -1) {
-                locList.pushNext(new LocEntity(true, locType, p, 0, SeqType.instances[loc.seqIndex], z, x));
+                locList.pushNext(new LocEntity(locType, p, 0, x, z, SeqType.instances[loc.seqIndex], true));
             }
             if (loc.thickness != 16) {
-                mapSquare.method298(p, z, x, loc.thickness);
+                mapSquare.method298(loc.thickness, x, z, p);
             }
             return;
         }
         if (objType == 1) {
             Model m = loc.getModel(1, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            mapSquare.addWall(0, average, p, WALL_ROTATION_TYPE2[orientation], m, null, x, flag, z, uid);
+            mapSquare.addWall(m, null, WALL_ROTATION_TYPE2[orientation], 0, x, z, average, p, flag, uid);
             if (loc.hasShadow)
                 if (orientation == 0)
                     shadowmap[p][x][z + 1] = 50;
@@ -523,17 +523,17 @@ public class SceneManager {
                 else if (orientation == 3)
                     shadowmap[p][x][z] = 50;
             if (loc.hasCollision && collisionMap != null)
-                collisionMap.setWall(orientation, z, x, loc.isSolid, objType);
+                collisionMap.setWall(x, z, objType, orientation, loc.isSolid);
             if (loc.seqIndex != -1)
-                locList.pushNext(new LocEntity(true, locType, p, 0, SeqType.instances[loc.seqIndex], z, x));
+                locList.pushNext(new LocEntity(locType, p, 0, x, z, SeqType.instances[loc.seqIndex], true));
             return;
         }
         if (objType == 2) {
             int i3 = orientation + 1 & 3;
             Model m1 = loc.getModel(2, 4 + orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
             Model m2 = loc.getModel(2, i3, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            mapSquare.addWall(WALL_ROTATION_TYPE1[i3], average, p, WALL_ROTATION_TYPE1[orientation], m1, m2,
-                x, flag, z, uid);
+            mapSquare.addWall(m1, m2, WALL_ROTATION_TYPE1[orientation], WALL_ROTATION_TYPE1[i3], x, z, average, p,
+                flag, uid);
             if (loc.culls)
                 if (orientation == 0) {
                     occludeFlags[p][x][z] |= 0x249;
@@ -549,16 +549,16 @@ public class SceneManager {
                     occludeFlags[p][x][z] |= 0x249;
                 }
             if (loc.hasCollision && collisionMap != null)
-                collisionMap.setWall(orientation, z, x, loc.isSolid, objType);
+                collisionMap.setWall(x, z, objType, orientation, loc.isSolid);
             if (loc.seqIndex != -1)
-                locList.pushNext(new LocEntity(true, locType, p, 0, SeqType.instances[loc.seqIndex], z, x));
+                locList.pushNext(new LocEntity(locType, p, 0, x, z, SeqType.instances[loc.seqIndex], true));
             if (loc.thickness != 16)
-                mapSquare.method298(p, z, x, loc.thickness);
+                mapSquare.method298(loc.thickness, x, z, p);
             return;
         }
         if (objType == 3) {
             Model m = loc.getModel(3, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            mapSquare.addWall(0, average, p, WALL_ROTATION_TYPE2[orientation], m, null, x, flag, z, uid);
+            mapSquare.addWall(m, null, WALL_ROTATION_TYPE2[orientation], 0, x, z, average, p, flag, uid);
             if (loc.hasShadow)
                 if (orientation == 0)
                     shadowmap[p][x][z + 1] = 50;
@@ -569,58 +569,58 @@ public class SceneManager {
                 else if (orientation == 3)
                     shadowmap[p][x][z] = 50;
             if (loc.hasCollision && collisionMap != null)
-                collisionMap.setWall(orientation, z, x, loc.isSolid, objType);
+                collisionMap.setWall(x, z, objType, orientation, loc.isSolid);
             if (loc.seqIndex != -1)
-                locList.pushNext(new LocEntity(true, locType, p, 0, SeqType.instances[loc.seqIndex], z, x));
+                locList.pushNext(new LocEntity(locType, p, 0, x, z, SeqType.instances[loc.seqIndex], true));
             return;
         }
         if (objType == 9) {
             Model m = loc.getModel(objType, orientation, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            mapSquare.addLocation(average, p, null, flag, z, x, 1, uid, m, 0, 1);
+            mapSquare.addLocation(m, null, x, z, 1, 1, average, p, 0, flag, uid);
             if (loc.hasCollision && collisionMap != null)
-                collisionMap.setLoc(orientation, loc.sizeZ, loc.sizeX, x, z, loc.isSolid);
+                collisionMap.setLoc(x, z, loc.sizeX, loc.sizeZ, orientation, loc.isSolid);
             if (loc.seqIndex != -1)
-                locList.pushNext(new LocEntity(true, locType, p, 2, SeqType.instances[loc.seqIndex], z, x));
+                locList.pushNext(new LocEntity(locType, p, 2, x, z, SeqType.instances[loc.seqIndex], true));
             return;
         }
         if (objType == 4) {
             Model m = loc.getModel(4, 0, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            mapSquare.addWallDecoration(average, z, 0, flag, orientation * 512, WALL_ROTATION_TYPE1[orientation], 0, x, m, uid, p);
+            mapSquare.addWallDecoration(m, x, z, average, 0, 0, flag, orientation * 512, WALL_ROTATION_TYPE1[orientation], uid, p);
             if (loc.seqIndex != -1)
-                locList.pushNext(new LocEntity(true, locType, p, 1, SeqType.instances[loc.seqIndex], z, x));
+                locList.pushNext(new LocEntity(locType, p, 1, x, z, SeqType.instances[loc.seqIndex], true));
             return;
         }
         if (objType == 5) {
             int j3 = 16;
-            int l3 = mapSquare.getWallBitset(p, x, z);
+            int l3 = mapSquare.getWallBitset(x, z, p);
             if (l3 > 0)
                 j3 = LocType.get(l3 >> 14 & 0x7fff).thickness;
             Model m = loc.getModel(4, 0, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            mapSquare.addWallDecoration(average, z, WALL_DECO_ROT_SIZE_Y_DIR[orientation] * j3, flag, orientation * 512, WALL_ROTATION_TYPE1[orientation], WALL_DECO_ROT_SIZE_X_DIR[orientation] * j3,
-                x, m, uid, p);
+            mapSquare.addWallDecoration(m, x, z, average, WALL_DECO_ROT_SIZE_X_DIR[orientation] * j3, WALL_DECO_ROT_SIZE_Y_DIR[orientation] * j3, flag, orientation * 512, WALL_ROTATION_TYPE1[orientation],
+                uid, p);
             if (loc.seqIndex != -1)
-                locList.pushNext(new LocEntity(true, locType, p, 1, SeqType.instances[loc.seqIndex], z, x));
+                locList.pushNext(new LocEntity(locType, p, 1, x, z, SeqType.instances[loc.seqIndex], true));
             return;
         }
         if (objType == 6) {
             Model m = loc.getModel(4, 0, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            mapSquare.addWallDecoration(average, z, 0, flag, orientation, 256, 0, x, m, uid, p);
+            mapSquare.addWallDecoration(m, x, z, average, 0, 0, flag, orientation, 256, uid, p);
             if (loc.seqIndex != -1)
-                locList.pushNext(new LocEntity(true, locType, p, 1, SeqType.instances[loc.seqIndex], z, x));
+                locList.pushNext(new LocEntity(locType, p, 1, x, z, SeqType.instances[loc.seqIndex], true));
             return;
         }
         if (objType == 7) {
             Model m = loc.getModel(4, 0, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            mapSquare.addWallDecoration(average, z, 0, flag, orientation, 512, 0, x, m, uid, p);
+            mapSquare.addWallDecoration(m, x, z, average, 0, 0, flag, orientation, 512, uid, p);
             if (loc.seqIndex != -1)
-                locList.pushNext(new LocEntity(true, locType, p, 1, SeqType.instances[loc.seqIndex], z, x));
+                locList.pushNext(new LocEntity(locType, p, 1, x, z, SeqType.instances[loc.seqIndex], true));
             return;
         }
         if (objType == 8) {
             Model m = loc.getModel(4, 0, currentRegion, northRegion, northEastRegion, southRegion, -1);
-            mapSquare.addWallDecoration(average, z, 0, flag, orientation, 768, 0, x, m, uid, p);
+            mapSquare.addWallDecoration(m, x, z, average, 0, 0, flag, orientation, 768, uid, p);
             if (loc.seqIndex != -1)
-                locList.pushNext(new LocEntity(true, locType, p, 1, SeqType.instances[loc.seqIndex], z, x));
+                locList.pushNext(new LocEntity(locType, p, 1, x, z, SeqType.instances[loc.seqIndex], true));
         }
     }
 
@@ -633,7 +633,7 @@ public class SceneManager {
                         if ((renderFlags[1][k][i1] & 2) == 2)
                             l1--;
                         if (l1 >= 0)
-                            planeCollisions[l1].setBlocked(i1, k);
+                            planeCollisions[l1].setBlocked(k, i1);
                     }
             }
         }
@@ -825,13 +825,13 @@ public class SceneManager {
         }
 
         if (!occlusionEnabled) {
-            mapSquare.applyLighting(-10, 64, -50, 768, -50);
+            mapSquare.applyLighting(-50, -10, -50, 64, 768);
         }
 
         for (int k1 = 0; k1 < tileCountX; k1++) {
             for (int i2 = 0; i2 < tileCountZ; i2++) {
                 if ((renderFlags[1][k1][i2] & 2) == 2) {
-                    mapSquare.setBridge(i2, k1);
+                    mapSquare.setBridge(k1, i2);
                 }
             }
         }
@@ -882,7 +882,7 @@ public class SceneManager {
                                 char c1 = '\360';
                                 int l14 = heightmap[l8][j4][l4] - c1;
                                 int i16 = heightmap[j7][j4][l4];
-                                MapSquare.addOcclude(i6 * 128 + 128, j4 * 128, i16, 1, j4 * 128, i3, l14, l4 * 128);
+                                MapSquare.addOcclude(j4 * 128, l14, l4 * 128, j4 * 128, i6 * 128 + 128, i16, 1, i3);
                                 for (int i17 = j7; i17 <= l8; i17++) {
                                     for (int i18 = l4; i18 <= i6; i18++)
                                         occludeFlags[i17][j4][i18] &= ~j2;
@@ -921,7 +921,7 @@ public class SceneManager {
                                 char c2 = '\360';
                                 int i15 = heightmap[i9][i5][l3] - c2;
                                 int j16 = heightmap[k7][i5][l3];
-                                MapSquare.addOcclude(l3 * 128, i5 * 128, j16, 2, j6 * 128 + 128, i3, i15, l3 * 128);
+                                MapSquare.addOcclude(i5 * 128, i15, l3 * 128, j6 * 128 + 128, l3 * 128, j16, 2, i3);
                                 for (int j17 = k7; j17 <= i9; j17++) {
                                     for (int j18 = i5; j18 <= j6; j18++)
                                         occludeFlags[j17][j18][l3] &= ~k2;
@@ -957,8 +957,8 @@ public class SceneManager {
 
                             if (((k6 - j5) + 1) * ((j9 - l7) + 1) >= 4) {
                                 int k12 = heightmap[j3][j5][l7];
-                                MapSquare.addOcclude(j9 * 128 + 128, j5 * 128, k12, 4, k6 * 128 + 128, i3, k12,
-                                    l7 * 128);
+                                MapSquare.addOcclude(j5 * 128, k12, l7 * 128, k6 * 128 + 128, j9 * 128 + 128, k12, 4, i3
+                                );
                                 for (int l13 = j5; l13 <= k6; l13++) {
                                     for (int j15 = l7; j15 <= j9; j15++)
                                         occludeFlags[j3][l13][j15] &= ~l2;

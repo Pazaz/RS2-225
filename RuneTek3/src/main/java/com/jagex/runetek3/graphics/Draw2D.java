@@ -18,11 +18,11 @@ public class Draw2D extends CacheableNode {
     public Draw2D() {
     }
 
-    public static void prepare(int width, int[] data, int height) {
+    public static void prepare(int width, int height, int[] data) {
         dest = data;
         Draw2D.width = width;
         Draw2D.height = height;
-        setBounds(height, 0, width, 0);
+        setBounds(0, 0, width, height);
     }
 
     public static void resetBounds() {
@@ -34,7 +34,7 @@ public class Draw2D extends CacheableNode {
         centerX = right / 2;
     }
 
-    public static void setBounds(int y1, int y0, int x1, int x0) {
+    public static void setBounds(int x0, int y0, int x1, int y1) {
         if (x0 < 0) {
             x0 = 0;
         }
@@ -67,7 +67,7 @@ public class Draw2D extends CacheableNode {
         }
     }
 
-    public static void fillRect(int y, int x, int rgb, int w, int h) {
+    public static void fillRect(int x, int y, int w, int h, int rgb) {
         if (x < left) {
             w -= left - x;
             x = left;
@@ -96,14 +96,14 @@ public class Draw2D extends CacheableNode {
         }
     }
 
-    public static void drawRect(int x, int rgb, int h, int y, int w) {
-        drawHorizontalLine(rgb, y, w, x);
-        drawHorizontalLine(rgb, (y + h) - 1, w, x);
-        drawVerticalLine(rgb, y, h, x);
-        drawVerticalLine(rgb, y, h, (x + w) - 1);
+    public static void drawRect(int x, int y, int w, int h, int rgb) {
+        drawHorizontalLine(x, y, w, rgb);
+        drawHorizontalLine(x, (y + h) - 1, w, rgb);
+        drawVerticalLine(x, y, h, rgb);
+        drawVerticalLine((x + w) - 1, y, h, rgb);
     }
 
-    public static void drawHorizontalLine(int rgb, int y, int len, int x) {
+    public static void drawHorizontalLine(int x, int y, int len, int rgb) {
         if (y < top || y >= bottom) {
             return;
         }
@@ -123,7 +123,7 @@ public class Draw2D extends CacheableNode {
         }
     }
 
-    public static void drawVerticalLine(int rgb, int y, int len, int x) {
+    public static void drawVerticalLine(int x, int y, int len, int rgb) {
         if (x < left || x >= right) {
             return;
         }

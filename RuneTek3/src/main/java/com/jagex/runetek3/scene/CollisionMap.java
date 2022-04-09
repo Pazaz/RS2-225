@@ -52,7 +52,7 @@ public class CollisionMap {
         }
     }
 
-    public void setWall(int orientation, int z, int x, boolean blocks, int type) {
+    public void setWall(int x, int z, int type, int orientation, boolean blocks) {
         x -= xOffset;
         z -= zOffset;
 
@@ -155,7 +155,7 @@ public class CollisionMap {
         }
     }
 
-    public void setLoc(int orientation, int sizeZ, int sizeX, int initialX, int initialZ, boolean solid) {
+    public void setLoc(int initialX, int initialZ, int sizeX, int sizeZ, int orientation, boolean solid) {
         int flag = OCCUPIED_TILE;
 
         if (solid) {
@@ -182,7 +182,7 @@ public class CollisionMap {
         }
     }
 
-    public void setBlocked(int z, int x) {
+    public void setBlocked(int x, int z) {
         x -= xOffset;
         z -= zOffset;
         flags[x][z] |= BLOCKED_TILE;
@@ -192,110 +192,110 @@ public class CollisionMap {
         flags[i][j] |= k;
     }
 
-    public void removeWall(boolean blocks, int orientation, int x, int z, int type) {
+    public void removeWall(int x, int z, int type, int orientation, boolean blocks) {
         x -= xOffset;
         z -= zOffset;
 
         if (type == 0) {
             if (orientation == 0) {
-                remove(z, x, WALL_WEST);
-                remove(z, x - 1, WALL_EAST);
+                remove(x, z, WALL_WEST);
+                remove(x - 1, z, WALL_EAST);
             } else if (orientation == 1) {
-                remove(z, x, WALL_NORTH);
-                remove(z + 1, x, WALL_SOUTH);
+                remove(x, z, WALL_NORTH);
+                remove(x, z + 1, WALL_SOUTH);
             } else if (orientation == 2) {
-                remove(z, x, WALL_EAST);
-                remove(z, x + 1, WALL_WEST);
+                remove(x, z, WALL_EAST);
+                remove(x + 1, z, WALL_WEST);
             } else if (orientation == 3) {
-                remove(z, x, WALL_SOUTH);
-                remove(z - 1, x, WALL_NORTH);
+                remove(x, z, WALL_SOUTH);
+                remove(x, z - 1, WALL_NORTH);
             }
         } else if (type == 1 || type == 3) {
             if (orientation == 0) {
-                remove(z, x, WALL_NORTHWEST);
-                remove(z + 1, x - 1, WALL_SOUTHEAST);
+                remove(x, z, WALL_NORTHWEST);
+                remove(x - 1, z + 1, WALL_SOUTHEAST);
             } else if (orientation == 1) {
-                remove(z, x, WALL_NORTHEAST);
-                remove(z + 1, x + 1, WALL_SOUTHWEST);
+                remove(x, z, WALL_NORTHEAST);
+                remove(x + 1, z + 1, WALL_SOUTHWEST);
             } else if (orientation == 2) {
-                remove(z, x, WALL_SOUTHEAST);
-                remove(z - 1, x + 1, WALL_NORTHWEST);
+                remove(x, z, WALL_SOUTHEAST);
+                remove(x + 1, z - 1, WALL_NORTHWEST);
             } else if (orientation == 3) {
-                remove(z, x, WALL_SOUTHWEST);
-                remove(z - 1, x - 1, WALL_NORTHEAST);
+                remove(x, z, WALL_SOUTHWEST);
+                remove(x - 1, z - 1, WALL_NORTHEAST);
             }
         } else if (type == 2) {
             if (orientation == 0) {
-                remove(z, x, WALL_WEST | WALL_NORTH);
-                remove(z, x - 1, WALL_EAST);
-                remove(z + 1, x, WALL_SOUTH);
+                remove(x, z, WALL_WEST | WALL_NORTH);
+                remove(x - 1, z, WALL_EAST);
+                remove(x, z + 1, WALL_SOUTH);
             } else if (orientation == 1) {
-                remove(z, x, WALL_EAST | WALL_NORTH);
-                remove(z + 1, x, WALL_SOUTH);
-                remove(z, x + 1, WALL_WEST);
+                remove(x, z, WALL_EAST | WALL_NORTH);
+                remove(x, z + 1, WALL_SOUTH);
+                remove(x + 1, z, WALL_WEST);
             } else if (orientation == 2) {
-                remove(z, x, WALL_EAST | WALL_SOUTH);
-                remove(z, x + 1, WALL_WEST);
-                remove(z - 1, x, WALL_NORTH);
+                remove(x, z, WALL_EAST | WALL_SOUTH);
+                remove(x + 1, z, WALL_WEST);
+                remove(x, z - 1, WALL_NORTH);
             } else if (orientation == 3) {
-                remove(z, x, WALL_WEST | WALL_SOUTH);
-                remove(z - 1, x, WALL_NORTH);
-                remove(z, x - 1, WALL_EAST);
+                remove(x, z, WALL_WEST | WALL_SOUTH);
+                remove(x, z - 1, WALL_NORTH);
+                remove(x - 1, z, WALL_EAST);
             }
         }
 
         if (blocks) {
             if (type == 0) {
                 if (orientation == 0) {
-                    remove(z, x, BLOCKED_WEST);
-                    remove(z, x - 1, BLOCKED_EAST);
+                    remove(x, z, BLOCKED_WEST);
+                    remove(x - 1, z, BLOCKED_EAST);
                 } else if (orientation == 1) {
-                    remove(z, x, BLOCKED_NORTH);
-                    remove(z + 1, x, BLOCKED_SOUTH);
+                    remove(x, z, BLOCKED_NORTH);
+                    remove(x, z + 1, BLOCKED_SOUTH);
                 } else if (orientation == 2) {
-                    remove(z, x, BLOCKED_EAST);
-                    remove(z, x + 1, BLOCKED_WEST);
+                    remove(x, z, BLOCKED_EAST);
+                    remove(x + 1, z, BLOCKED_WEST);
                 } else if (orientation == 3) {
-                    remove(z, x, BLOCKED_SOUTH);
-                    remove(z - 1, x, BLOCKED_NORTH);
+                    remove(x, z, BLOCKED_SOUTH);
+                    remove(x, z - 1, BLOCKED_NORTH);
                 }
             } else if (type == 1 || type == 3) {
                 if (orientation == 0) {
-                    remove(z, x, BLOCKED_NORTHWEST);
-                    remove(z + 1, x - 1, BLOCKED_SOUTHEAST);
+                    remove(x, z, BLOCKED_NORTHWEST);
+                    remove(x - 1, z + 1, BLOCKED_SOUTHEAST);
                 } else if (orientation == 1) {
-                    remove(z, x, BLOCKED_NORTHEAST);
-                    remove(z + 1, x + 1, BLOCKED_SOUTHWEST);
+                    remove(x, z, BLOCKED_NORTHEAST);
+                    remove(x + 1, z + 1, BLOCKED_SOUTHWEST);
                 } else if (orientation == 2) {
-                    remove(z, x, BLOCKED_SOUTHEAST);
-                    remove(z - 1, x + 1, BLOCKED_NORTHWEST);
+                    remove(x, z, BLOCKED_SOUTHEAST);
+                    remove(x + 1, z - 1, BLOCKED_NORTHWEST);
                 } else if (orientation == 3) {
-                    remove(z, x, BLOCKED_SOUTHWEST);
-                    remove(z - 1, x - 1, BLOCKED_NORTHEAST);
+                    remove(x, z, BLOCKED_SOUTHWEST);
+                    remove(x - 1, z - 1, BLOCKED_NORTHEAST);
                 }
             } else if (type == 2) {
                 if (orientation == 0) {
-                    remove(z, x, BLOCKED_WEST | BLOCKED_NORTH);
-                    remove(z, x - 1, BLOCKED_EAST);
-                    remove(z + 1, x, BLOCKED_SOUTH);
+                    remove(x, z, BLOCKED_WEST | BLOCKED_NORTH);
+                    remove(x - 1, z, BLOCKED_EAST);
+                    remove(x, z + 1, BLOCKED_SOUTH);
                 } else if (orientation == 1) {
-                    remove(z, x, BLOCKED_EAST | BLOCKED_NORTH);
-                    remove(z + 1, x, BLOCKED_SOUTH);
-                    remove(z, x + 1, BLOCKED_WEST);
+                    remove(x, z, BLOCKED_EAST | BLOCKED_NORTH);
+                    remove(x, z + 1, BLOCKED_SOUTH);
+                    remove(x + 1, z, BLOCKED_WEST);
                 } else if (orientation == 2) {
-                    remove(z, x, BLOCKED_EAST | BLOCKED_SOUTH);
-                    remove(z, x + 1, BLOCKED_WEST);
-                    remove(z - 1, x, BLOCKED_NORTH);
+                    remove(x, z, BLOCKED_EAST | BLOCKED_SOUTH);
+                    remove(x + 1, z, BLOCKED_WEST);
+                    remove(x, z - 1, BLOCKED_NORTH);
                 } else if (orientation == 3) {
-                    remove(z, x, BLOCKED_WEST | BLOCKED_SOUTH);
-                    remove(z - 1, x, BLOCKED_NORTH);
-                    remove(z, x - 1, BLOCKED_EAST);
+                    remove(x, z, BLOCKED_WEST | BLOCKED_SOUTH);
+                    remove(x, z - 1, BLOCKED_NORTH);
+                    remove(x - 1, z, BLOCKED_EAST);
                 }
             }
         }
     }
 
-    public void removeLoc(int startZ, int startX, int orientation, int sizeX, boolean solid, int sizeZ) {
+    public void removeLoc(int startZ, int startX, int sizeX, int sizeZ, int orientation, boolean solid) {
         int flag = OCCUPIED_TILE;
 
         if (solid) {
@@ -315,24 +315,24 @@ public class CollisionMap {
             if (x >= 0 && x < wide) {
                 for (int z = startZ; z < startZ + sizeZ; z++) {
                     if (z >= 0 && z < tall) {
-                        remove(z, x, flag);
+                        remove(x, z, flag);
                     }
                 }
             }
         }
     }
 
-    public void remove(int z, int x, int flag) {
+    public void remove(int x, int z, int flag) {
         flags[x][z] &= 0xFFFFFF - flag;
     }
 
-    public void removeBlock(int z, int x) {
+    public void removeBlock(int x, int z) {
         x -= xOffset;
         z -= zOffset;
         flags[x][z] &= 0xFFFFFF - BLOCKED_TILE;
     }
 
-    public boolean reachedWall(int direction, int finalZ, int type, int initialZ, int finalX, int initialX) {
+    public boolean reachedWall(int initialX, int initialZ, int finalX, int finalZ, int direction, int type) {
         if (initialX == finalX && initialZ == finalZ) {
             return true;
         }
@@ -423,7 +423,7 @@ public class CollisionMap {
         return false;
     }
 
-    public boolean reachedDecoration(int orientation, int type, int initialX, int finalX, int initialZ, int finalZ) {
+    public boolean reachedDecoration(int initialX, int initialZ, int finalX, int finalZ, int orientation, int type) {
         if (initialX == finalX && initialZ == finalZ) {
             return true;
         }
@@ -474,7 +474,7 @@ public class CollisionMap {
         return false;
     }
 
-    public boolean reachedObject(int z, int depth, int x, int finalX, int surroundings, int finalZ, int width) {
+    public boolean reachedObject(int x, int z, int width, int depth, int finalX, int finalZ, int surroundings) {
         int maxX = (finalX + width) - 1;
         int maxZ = (finalZ + depth) - 1;
 

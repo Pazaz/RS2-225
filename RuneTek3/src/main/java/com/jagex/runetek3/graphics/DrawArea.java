@@ -21,10 +21,10 @@ public class DrawArea {
     }
 
     public void bind() {
-        Draw2D.prepare(width, pixels, height);
+        Draw2D.prepare(width, height, pixels);
     }
 
-    public void drawImage(int y, Graphics g, int x) {
+    public void drawImage(Graphics g, int x, int y) {
         g.drawImage(image, x, y, null);
     }
 

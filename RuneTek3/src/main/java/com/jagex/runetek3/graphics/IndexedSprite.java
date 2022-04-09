@@ -191,7 +191,7 @@ public class IndexedSprite extends Draw2D {
         }
     }
 
-    public void draw(int y, int x) {
+    public void draw(int x, int y) {
         x += clipX;
         y += clipY;
 
@@ -234,12 +234,12 @@ public class IndexedSprite extends Draw2D {
         }
 
         if (w > 0 && h > 0) {
-            copyImage(Draw2D.dest, srcOff, srcStep, pixels, h, w, dstOff, dstStep, palette);
+            copyImage(w, h, palette, pixels, srcOff, srcStep, Draw2D.dest, dstOff, dstStep);
         }
     }
 
-    public void copyImage(int[] dst, int srcOff, int srcStep, byte[] src, int h, int w,
-                          int dstOff, int dstStep, int[] palette) {
+    public void copyImage(int w, int h, int[] palette, byte[] src, int srcOff, int srcStep, int[] dst,
+                          int dstOff, int dstStep) {
         int hw = -(w >> 2);
         w = -(w & 3);
 

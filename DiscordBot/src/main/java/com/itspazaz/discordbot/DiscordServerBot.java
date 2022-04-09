@@ -384,7 +384,7 @@ public class DiscordServerBot extends java.awt.Component {
                     drawArea = new DrawArea(32, 32);
                     drawArea.bind();
                     Draw3D.prepareOffsets();
-                    Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
+                    Draw2D.fillRect(0, 0, Draw2D.width, Draw2D.height, COLOR_BACKGROUND);
                     int id = Integer.parseInt(commandArgs[1]);
                     ObjType item = ObjType.get(id);
                     Sprite sprite = ObjType.getSprite(id, stack);
@@ -465,7 +465,7 @@ public class DiscordServerBot extends java.awt.Component {
 
                         int locFrame = 0;
                         for (int i = 0; i < seq.primaryFrames.length; ++i) {
-                            Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
+                            Draw2D.fillRect(0, 0, Draw2D.width, Draw2D.height, COLOR_BACKGROUND);
                             loc.getModel(loc.modelTypes[0], 0, -400, -400, -400, -400, seq.primaryFrames[locFrame])
                                 .draw(pitch, yaw, roll, camera.pitch, camera.x, camera.z, camera.y);
                             images[i] = exportImage(drawArea.pixels);
@@ -476,7 +476,7 @@ public class DiscordServerBot extends java.awt.Component {
                         type = "gif";
                         stream = new ByteArrayInputStream(saveAnimate(images, delays).toByteArray());
                     } else {
-                        Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
+                        Draw2D.fillRect(0, 0, Draw2D.width, Draw2D.height, COLOR_BACKGROUND);
                         loc.getModel(loc.modelTypes[0], 0, -400, -400, -400, -400, -1)
                             .draw(pitch, yaw, roll, camera.pitch, camera.x, camera.z, camera.y);
                         stream = getImageStream(exportImage(drawArea.pixels));
@@ -541,7 +541,7 @@ public class DiscordServerBot extends java.awt.Component {
                     String[] delays = new String[seq.primaryFrames.length];
 
                     for (int i = 0; i < seq.primaryFrames.length; ++i) {
-                        Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
+                        Draw2D.fillRect(0, 0, Draw2D.width, Draw2D.height, COLOR_BACKGROUND);
                         npc.getModel().draw(pitch, yaw, roll, camera.pitch, camera.x, camera.z, camera.y);
 
                         images[i] = exportImage(drawArea.pixels);
@@ -586,7 +586,7 @@ public class DiscordServerBot extends java.awt.Component {
                     drawArea = new DrawArea(inter.width, inter.height);
                     drawArea.bind();
                     Draw3D.prepareOffsets();
-                    Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
+                    Draw2D.fillRect(0, 0, Draw2D.width, Draw2D.height, COLOR_BACKGROUND);
 
                     resetCharacterDesign();
                     animateInterface(id, 40);
@@ -610,7 +610,7 @@ public class DiscordServerBot extends java.awt.Component {
                     drawArea = new DrawArea(inback.width, inback.height);
                     drawArea.bind();
                     Draw3D.prepareOffsets();
-                    Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
+                    Draw2D.fillRect(0, 0, Draw2D.width, Draw2D.height, COLOR_BACKGROUND);
 
                     inback.draw(0, 0);
 
@@ -641,21 +641,21 @@ public class DiscordServerBot extends java.awt.Component {
                     drawArea = new DrawArea(269 - xOffset, 341);
                     drawArea.bind();
                     Draw3D.prepareOffsets();
-                    Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
+                    Draw2D.fillRect(0, 0, Draw2D.width, Draw2D.height, COLOR_BACKGROUND);
 
-                    backhmid1.draw(-26, -xOffset);
-                    backvmid2.draw((backhmid1.height - 26), -xOffset);
-                    backhmid2.draw((backhmid1.height - 26) + backvmid2.height, -520 - xOffset);
-                    backvmid3.draw((backhmid1.height - 26) + backvmid2.height + backhmid2.height, -19 - xOffset);
-                    backbase2.draw(301, -19 - xOffset);
-                    backright2.draw(40, 232 - xOffset);
-                    redstone2.draw(4, 56);
+                    backhmid1.draw(-xOffset, -26);
+                    backvmid2.draw(-xOffset, (backhmid1.height - 26));
+                    backhmid2.draw(-520 - xOffset, (backhmid1.height - 26) + backvmid2.height);
+                    backvmid3.draw(-19 - xOffset, (backhmid1.height - 26) + backvmid2.height + backhmid2.height);
+                    backbase2.draw(-19 - xOffset, 301);
+                    backright2.draw(232 - xOffset, 40);
+                    redstone2.draw(56, 4);
                     if (Signlink.clientversion > 194) {
-                        sideicons[1].draw(6, 56);
+                        sideicons[1].draw(56, 6);
                     } else {
-                        sideicons1.draw(6, 36);
+                        sideicons1.draw(36, 6);
                     }
-                    inback.draw((backhmid1.height - 26), backvmid2.width - xOffset);
+                    inback.draw(backvmid2.width - xOffset, (backhmid1.height - 26));
                     drawInterface((backhmid1.height - 26), backvmid2.width - xOffset, inter, 0, -1);
 
                     // export
@@ -681,7 +681,7 @@ public class DiscordServerBot extends java.awt.Component {
                     drawArea = new DrawArea(inback.width, inback.height);
                     drawArea.bind();
                     Draw3D.prepareOffsets();
-                    Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
+                    Draw2D.fillRect(0, 0, Draw2D.width, Draw2D.height, COLOR_BACKGROUND);
 
                     inback.draw(0, 0);
 
@@ -716,7 +716,7 @@ public class DiscordServerBot extends java.awt.Component {
                     drawArea = new DrawArea(512, 384);
                     drawArea.bind();
                     Draw3D.prepareOffsets();
-                    Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
+                    Draw2D.fillRect(0, 0, Draw2D.width, Draw2D.height, COLOR_BACKGROUND);
 
                     model.draw(pitch, yaw, roll, camera.pitch, camera.x, camera.z, camera.y);
 
@@ -872,23 +872,23 @@ public class DiscordServerBot extends java.awt.Component {
     }
 
     public void drawScrollbar(int x, int k, int l, int i1, int j1) {
-        scrollbar1.draw(k, x);
-        scrollbar2.draw((k + j1) - 16, x);
-        Draw2D.fillRect(k + 16, x, SCROLLBAR_TRACK, 16, j1 - 32);
+        scrollbar1.draw(x, k);
+        scrollbar2.draw(x, (k + j1) - 16);
+        Draw2D.fillRect(x, k + 16, 16, j1 - 32, SCROLLBAR_TRACK);
         int xOff = ((j1 - 32) * j1) / i1;
         if (xOff < 8) {
             xOff = 8;
         }
         int yOff = ((j1 - 32 - xOff) * l) / (i1 - j1);
-        Draw2D.fillRect(k + 16 + yOff, x, SCROLLBAR_GRIP_FOREGROUND, 16, xOff);
-        Draw2D.drawVerticalLine(SCROLLBAR_GRIP_HIGHLIGHT, k + 16 + yOff, xOff, x);
-        Draw2D.drawVerticalLine(SCROLLBAR_GRIP_HIGHLIGHT, k + 16 + yOff, xOff, x + 1);
-        Draw2D.drawHorizontalLine(SCROLLBAR_GRIP_HIGHLIGHT, k + 16 + yOff, 16, x);
-        Draw2D.drawHorizontalLine(SCROLLBAR_GRIP_HIGHLIGHT, k + 17 + yOff, 16, x);
-        Draw2D.drawVerticalLine(SCROLLBAR_GRIP_LOWLIGHT, k + 16 + yOff, xOff, x + 15);
-        Draw2D.drawVerticalLine(SCROLLBAR_GRIP_LOWLIGHT, k + 17 + yOff, xOff - 1, x + 14);
-        Draw2D.drawHorizontalLine(SCROLLBAR_GRIP_LOWLIGHT, k + 15 + yOff + xOff, 16, x);
-        Draw2D.drawHorizontalLine(SCROLLBAR_GRIP_LOWLIGHT, k + 14 + yOff + xOff, 15, x + 1);
+        Draw2D.fillRect(x, k + 16 + yOff, 16, xOff, SCROLLBAR_GRIP_FOREGROUND);
+        Draw2D.drawVerticalLine(x, k + 16 + yOff, xOff, SCROLLBAR_GRIP_HIGHLIGHT);
+        Draw2D.drawVerticalLine(x + 1, k + 16 + yOff, xOff, SCROLLBAR_GRIP_HIGHLIGHT);
+        Draw2D.drawHorizontalLine(x, k + 16 + yOff, 16, SCROLLBAR_GRIP_HIGHLIGHT);
+        Draw2D.drawHorizontalLine(x, k + 17 + yOff, 16, SCROLLBAR_GRIP_HIGHLIGHT);
+        Draw2D.drawVerticalLine(x + 15, k + 16 + yOff, xOff, SCROLLBAR_GRIP_LOWLIGHT);
+        Draw2D.drawVerticalLine(x + 14, k + 17 + yOff, xOff - 1, SCROLLBAR_GRIP_LOWLIGHT);
+        Draw2D.drawHorizontalLine(x, k + 15 + yOff + xOff, 16, SCROLLBAR_GRIP_LOWLIGHT);
+        Draw2D.drawHorizontalLine(x + 1, k + 14 + yOff + xOff, 15, SCROLLBAR_GRIP_LOWLIGHT);
     }
 
 
@@ -987,7 +987,7 @@ public class DiscordServerBot extends java.awt.Component {
         int top = Draw2D.top;
         int right = Draw2D.right;
         int bottom = Draw2D.bottom;
-        Draw2D.setBounds(y + inter.height, y, x + inter.width, x);
+        Draw2D.setBounds(x, y, x + inter.width, y + inter.height);
 
         int count = inter.children.length;
         for (int n = 0; n < count; n++) {
@@ -1029,7 +1029,7 @@ public class DiscordServerBot extends java.awt.Component {
                             int i9 = child.inventoryIndices[i3] - 1;
                             if (j5 >= -32 && j5 <= 512 && i6 >= -32 && i6 <= 334) {
                                 Sprite itemIcon = ObjType.getSprite(i9, child.inventoryAmount[i3]);
-                                itemIcon.draw(i6, j5);
+                                itemIcon.draw(j5, i6);
                                 if (itemIcon.cropW == 33 || child.inventoryAmount[i3] != 1) {
                                     int k9 = child.inventoryAmount[i3];
                                     p11.draw(j5 + 1 + k6, i6 + 10 + k8, 0, Game.formatObjAmount(k9));
@@ -1039,7 +1039,7 @@ public class DiscordServerBot extends java.awt.Component {
                         } else if (child.inventorySprite != null && i3 < 20) {
                             Sprite sprite = child.inventorySprite[i3];
                             if (sprite != null) {
-                                sprite.draw(i6, j5);
+                                sprite.draw(j5, i6);
                             }
                         }
                         i3++;
@@ -1047,9 +1047,9 @@ public class DiscordServerBot extends java.awt.Component {
                 }
             } else if (child.type == 3) {
                 if (child.fill) {
-                    Draw2D.fillRect(offsetY, offsetX, child.color, child.width, child.height);
+                    Draw2D.fillRect(offsetX, offsetY, child.width, child.height, child.color);
                 } else {
-                    Draw2D.drawRect(offsetX, child.color, child.height, offsetY, child.width);
+                    Draw2D.drawRect(offsetX, offsetY, child.width, child.height, child.color);
                 }
             } else if (child.type == 4) {
                 Font font = child.font;
@@ -1122,7 +1122,7 @@ public class DiscordServerBot extends java.awt.Component {
             } else if (child.type == 5) {
                 Sprite image = child.image;
                 if (image != null) {
-                    image.draw(offsetY, offsetX);
+                    image.draw(offsetX, offsetY);
                 }
             } else if (child.type == 6) {
                 int oldX = Draw3D.centerX;
@@ -1174,7 +1174,7 @@ public class DiscordServerBot extends java.awt.Component {
             }
         }
 
-        Draw2D.setBounds(bottom, top, right, left);
+        Draw2D.setBounds(left, top, right, bottom);
     }
 
     public static void configure(IIOMetadata meta, String delayTime, int imageIndex) {

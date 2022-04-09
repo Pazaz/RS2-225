@@ -170,7 +170,7 @@ public class MapSquare {
             0, 4, 8, 12
         }
     };
-    public MapSquare(int[][][] heightmap, int tileCountZ, int maxLevel, int tileCountX) {
+    public MapSquare(int[][][] heightmap, int tileCountX, int tileCountZ, int maxLevel) {
         locs = new Loc[5000];
         vertexAMergeIndex = new int[10000];
         vertexBMergeIndex = new int[10000];
@@ -192,7 +192,7 @@ public class MapSquare {
         visibilityMap = null;
     }
 
-    public static void addOcclude(int maxZ, int minX, int maxY, int type, int maxX, int level, int minY, int minZ) {
+    public static void addOcclude(int minX, int minY, int minZ, int maxX, int maxZ, int maxY, int type, int level) {
         Occluder o = new Occluder();
         o.minTileX = minX / 128;
         o.maxTileX = maxX / 128;
@@ -208,7 +208,7 @@ public class MapSquare {
         levelOccluders[level][levelOccluderCount[level]++] = o;
     }
 
-    public static void init(int[] pitchZ, int maxZ, int width, int height, int minZ) {
+    public static void init(int[] pitchZ, int width, int height, int maxZ, int minZ) {
         viewportLeft = 0;
         viewportTop = 0;
         viewportRight = width;
@@ -335,7 +335,7 @@ public class MapSquare {
         }
     }
 
-    public void setBridge(int stz, int stx) {
+    public void setBridge(int stx, int stz) {
         Tile ground = levelTiles[0][stx][stz];
 
         for (int plane = 0; plane < 3; plane++) {
@@ -395,7 +395,7 @@ public class MapSquare {
         }
     }
 
-    public void addGroundDecoration(Model m, int tileX, int bitset, int tileZ, int level, byte info, int tileY) {
+    public void addGroundDecoration(Model m, int tileX, int tileY, int tileZ, int level, byte info, int bitset) {
         GroundDecoration l = new GroundDecoration();
         l.model = m;
         l.sceneX = tileX * 128 + 64;
@@ -411,7 +411,7 @@ public class MapSquare {
         levelTiles[level][tileX][tileZ].groundDecoration = l;
     }
 
-    public void addObject(Model m0, Model m1, int sceneY, int level, int bitset, int tileZ, int tileX, Model m2) {
+    public void addObject(Model m0, Model m1, Model m2, int tileX, int tileZ, int sceneY, int level, int bitset) {
         ObjEntity l = new ObjEntity();
         l.entity0 = m0;
         l.x = tileX * 128 + 64;
@@ -441,7 +441,7 @@ public class MapSquare {
         levelTiles[level][tileX][tileZ].objEntity = l;
     }
 
-    public void addWall(int type1, int sceneY, int level, int type0, Model m1, Model m2, int tileX, int bitset, int tileZ, byte info) {
+    public void addWall(Model m1, Model m2, int type0, int type1, int tileX, int tileZ, int sceneY, int level, int bitset, byte info) {
         if (m1 == null && m2 == null) {
             return;
         }
@@ -466,7 +466,7 @@ public class MapSquare {
         levelTiles[level][tileX][tileZ].wall = w;
     }
 
-    public void addWallDecoration(int sceneY, int tileZ, int tileSizeZ, int bitset, int rotation, int type, int tileSizeX, int tileX, Model model, byte info, int level) {
+    public void addWallDecoration(Model model, int tileX, int tileZ, int sceneY, int tileSizeX, int tileSizeZ, int bitset, int rotation, int type, byte info, int level) {
         if (model == null) {
             return;
         }
@@ -490,17 +490,17 @@ public class MapSquare {
         levelTiles[level][tileX][tileZ].wallDecoration = d;
     }
 
-    public boolean addLocation(int y, int level, Entity entity, int bitset, int minTileZ, int minTileX, int tileSizeX, byte info, Model m, int yaw, int tileSizeZ) {
+    public boolean addLocation(Model m, Entity entity, int minTileX, int minTileZ, int tileSizeX, int tileSizeZ, int sceneY, int level, int yaw, int bitset, byte info) {
         if (m == null && entity == null) {
             return true;
         }
 
         int x = minTileX * 128 + 64 * tileSizeX;
         int z = minTileZ * 128 + 64 * tileSizeZ;
-        return add(level, minTileX, minTileZ, tileSizeX, tileSizeZ, x, z, y, m, entity, yaw, false, bitset, info);
+        return add(level, minTileX, minTileZ, tileSizeX, tileSizeZ, x, z, sceneY, m, entity, yaw, false, bitset, info);
     }
 
-    public boolean add(int sceneZ, int size, int yaw, int sceneX, int bitset, boolean renderPadding, Model m, Entity e, int sceneY, int level) {
+    public boolean add(Model m, Entity e, int sceneX, int sceneY, int sceneZ, int size, int yaw, int bitset, int level, boolean renderPadding) {
         if (m == null && e == null) {
             return true;
         }
@@ -536,7 +536,7 @@ public class MapSquare {
         return add(level, minX, minZ, (maxX - minX) + 1, (maxZ - minZ) + 1, sceneX, sceneZ, sceneY, m, e, yaw, true, bitset, (byte) 0);
     }
 
-    public boolean add(int sizeX, Model m, int sceneZ, int sceneY, int bitset, int yaw, int tileZ, int tileX, Entity e, int level, int sizeZ, int sceneX) {
+    public boolean add(Model m, Entity e, int tileX, int tileZ, int level, int sceneX, int sceneY, int sceneZ, int sizeX, int sizeZ, int bitset, int yaw) {
         if (m == null && e == null) {
             return true;
         } else {
@@ -660,7 +660,7 @@ public class MapSquare {
         }
     }
 
-    public void setLocModel(int x, Model m, int level, int z) {
+    public void setLocModel(Model m, int x, int z, int level) {
         if (m == null) {
             return;
         }
@@ -679,7 +679,7 @@ public class MapSquare {
         }
     }
 
-    public void method298(int level, int z, int x, int l) {
+    public void method298(int l, int x, int z, int level) {
         Tile t = levelTiles[level][x][z];
         if (t == null) {
             return;
@@ -694,7 +694,7 @@ public class MapSquare {
         }
     }
 
-    public void setWallDecorationModel(int z, int x, Model m, int level) {
+    public void setWallDecorationModel(Model m, int x, int z, int level) {
         if (m == null) {
             return;
         }
@@ -710,7 +710,7 @@ public class MapSquare {
         }
     }
 
-    public void setGroundDecorationModel(Model m, int z, int x, int level) {
+    public void setGroundDecorationModel(Model m, int x, int z, int level) {
         if (m == null) {
             return;
         }
@@ -726,7 +726,7 @@ public class MapSquare {
         }
     }
 
-    public void setWallModel(Model m, int z, int x, int level) {
+    public void setWallModel(Model m, int x, int z, int level) {
         if (m == null) {
             return;
         }
@@ -742,7 +742,7 @@ public class MapSquare {
         }
     }
 
-    public void setWallModels(Model m1, Model m2, int z, int x, int level) {
+    public void setWallModels(Model m1, Model m2, int x, int z, int level) {
         if (m1 == null) {
             return;
         }
@@ -761,14 +761,14 @@ public class MapSquare {
         w.entity1 = m2;
     }
 
-    public void removeWall(int x, int level, int z) {
+    public void removeWall(int x, int z, int level) {
         Tile t = levelTiles[level][x][z];
         if (t != null) {
             t.wall = null;
         }
     }
 
-    public void removeWallDecoration(int level, int z, int x) {
+    public void removeWallDecoration(int x, int z, int level) {
         Tile t = levelTiles[level][x][z];
         if (t != null) {
             t.wallDecoration = null;
@@ -790,21 +790,21 @@ public class MapSquare {
         }
     }
 
-    public void removeGroundDecoration(int level, int x, int z) {
+    public void removeGroundDecoration(int x, int z, int level) {
         Tile t = levelTiles[level][x][z];
         if (t != null) {
             t.groundDecoration = null;
         }
     }
 
-    public void removeObject(int level, int x, int z) {
+    public void removeObject(int x, int z, int level) {
         Tile t = levelTiles[level][x][z];
         if (t != null) {
             t.objEntity = null;
         }
     }
 
-    public int getWallBitset(int level, int x, int z) {
+    public int getWallBitset(int x, int z, int level) {
         Tile tile = levelTiles[level][x][z];
         if (tile == null || tile.wall == null) {
             return 0;
@@ -813,7 +813,7 @@ public class MapSquare {
         }
     }
 
-    public int getWallDecorationBitset(int level, int z, int x) {
+    public int getWallDecorationBitset(int x, int z, int level) {
         Tile tile = levelTiles[level][x][z];
         if (tile == null || tile.wallDecoration == null) {
             return 0;
@@ -822,7 +822,7 @@ public class MapSquare {
         }
     }
 
-    public int getLocationBitset(int level, int x, int z) {
+    public int getLocationBitset(int x, int z, int level) {
         Tile t = levelTiles[level][x][z];
         if (t == null) {
             return 0;
@@ -838,7 +838,7 @@ public class MapSquare {
         return 0;
     }
 
-    public int getGroundDecorationBitset(int level, int x, int z) {
+    public int getGroundDecorationBitset(int x, int z, int level) {
         Tile t = levelTiles[level][x][z];
         if (t == null || t.groundDecoration == null) {
             return 0;
@@ -847,7 +847,7 @@ public class MapSquare {
         }
     }
 
-    public int getInfo(int level, int x, int z, int bitset) {
+    public int getInfo(int x, int z, int level, int bitset) {
         Tile t = levelTiles[level][x][z];
         if (t == null) {
             return -1;
@@ -874,7 +874,7 @@ public class MapSquare {
         return -1;
     }
 
-    public void applyLighting(int lightY, int lightness, int lightX, int baseIntensity, int lightZ) {
+    public void applyLighting(int lightX, int lightY, int lightZ, int lightness, int baseIntensity) {
         int length = (int) Math.sqrt(lightX * lightX + lightY * lightY + lightZ * lightZ);
         int intensity = baseIntensity * length >> 8;
 
@@ -886,10 +886,10 @@ public class MapSquare {
                     if (t != null) {
                         Wall w = t.wall;
                         if (w != null && w.entity0 != null && w.entity0.vertexNormals != null) {
-                            mergeLocNormals(tileX, 1, 1, level, w.entity0, tileZ);
+                            mergeLocNormals(tileX, tileZ, 1, 1, level, w.entity0);
 
                             if (w.entity1 != null && w.entity1.vertexNormals != null) {
-                                mergeLocNormals(tileX, 1, 1, level, w.entity1, tileZ);
+                                mergeLocNormals(tileX, tileZ, 1, 1, level, w.entity1);
                                 mergeNormals(w.entity0, w.entity1, 0, 0, 0, false);
                                 w.entity1.calculateLighting(lightness, intensity, lightX, lightY, lightZ);
                             }
@@ -900,14 +900,14 @@ public class MapSquare {
                         for (int n = 0; n < t.locationCount; n++) {
                             Loc loc = t.locs[n];
                             if (loc != null && loc.model != null && loc.model.vertexNormals != null) {
-                                mergeLocNormals(tileX, (loc.maxSceneTileX - loc.minSceneTileX) + 1, (loc.maxSceneTileZ - loc.minSceneTileZ) + 1, level, loc.model, tileZ);
+                                mergeLocNormals(tileX, tileZ, (loc.maxSceneTileX - loc.minSceneTileX) + 1, (loc.maxSceneTileZ - loc.minSceneTileZ) + 1, level, loc.model);
                                 loc.model.calculateLighting(lightness, intensity, lightX, lightY, lightZ);
                             }
                         }
 
                         GroundDecoration d = t.groundDecoration;
                         if (d != null && d.model != null && d.model.vertexNormals != null) {
-                            mergeGroundDecorationNormals(level, tileZ, d.model, tileX);
+                            mergeGroundDecorationNormals(tileX, tileZ, level, d.model);
                             d.model.calculateLighting(lightness, intensity, lightX, lightY, lightZ);
                         }
                     }
@@ -916,7 +916,7 @@ public class MapSquare {
         }
     }
 
-    public void mergeGroundDecorationNormals(int level, int z, Model m, int x) {
+    public void mergeGroundDecorationNormals(int x, int z, int level, Model m) {
         if (x < tileCountX) {
             Tile t = levelTiles[level][x + 1][z];
             if (t != null && t.groundDecoration != null && t.groundDecoration.model.vertexNormals != null) {
@@ -946,7 +946,7 @@ public class MapSquare {
         }
     }
 
-    public void mergeLocNormals(int tileX, int locTileSizeX, int locTileSizeZ, int level, Model m, int tileZ) {
+    public void mergeLocNormals(int tileX, int tileZ, int locTileSizeX, int locTileSizeZ, int level, Model m) {
         boolean hideTriangles = true;
 
         int minTileX = tileX;
@@ -1141,7 +1141,7 @@ public class MapSquare {
         }
     }
 
-    public void setClick(int clickY, int clickX) {
+    public void setClick(int clickX, int clickY) {
         checkClick = true;
         MapSquare.clickX = clickX;
         MapSquare.clickY = clickY;
@@ -1149,7 +1149,7 @@ public class MapSquare {
         clickedTileZ = -1;
     }
 
-    public void draw(int yaw, int x2, int plane, int pitch, int y2, int z2) {
+    public void draw(int x2, int y2, int z2, int plane, int yaw, int pitch) {
         if (x2 < 0) {
             x2 = 0;
         } else if (x2 >= tileCountX * 128) {
@@ -1389,10 +1389,10 @@ public class MapSquare {
                     Tile b = t.bridge;
                     if (b.underlay != null) {
                         if (isTileOccluded(0, x, z)) {
-                            drawTileUnderlay(b.underlay, 0, pitchSin, pitchCos, yawSin, yawCos, x, z);
+                            drawTileUnderlay(b.underlay, pitchSin, pitchCos, yawSin, yawCos, x, z, 0);
                         }
                     } else if (b.overlay != null && isTileOccluded(0, x, z)) {
-                        drawTileOverlay(yawSin, z, b.overlay, x, pitchCos, pitchSin, yawCos);
+                        drawTileOverlay(b.overlay, x, z, pitchSin, pitchCos, yawSin, yawCos);
                     }
 
                     Wall w = b.wall;
@@ -1417,11 +1417,11 @@ public class MapSquare {
                 if (t.underlay != null) {
                     if (isTileOccluded(renderLevel, x, z)) {
                         visible = true;
-                        drawTileUnderlay(t.underlay, renderLevel, pitchSin, pitchCos, yawSin, yawCos, x, z);
+                        drawTileUnderlay(t.underlay, pitchSin, pitchCos, yawSin, yawCos, x, z, renderLevel);
                     }
                 } else if (t.overlay != null && isTileOccluded(renderLevel, x, z)) {
                     visible = true;
-                    drawTileOverlay(yawSin, z, t.overlay, x, pitchCos, pitchSin, yawCos);
+                    drawTileOverlay(t.overlay, x, z, pitchSin, pitchCos, yawSin, yawCos);
                 }
 
                 int direction = 0;
@@ -1867,7 +1867,7 @@ public class MapSquare {
         } while (true);
     }
 
-    public void drawTileUnderlay(TileUnderlay tile, int z, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y) {
+    public void drawTileUnderlay(TileUnderlay tile, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y, int z) {
         int rx3;
         int rx0 = rx3 = (x << 7) - cameraX2;
         int rz1;
@@ -1951,17 +1951,17 @@ public class MapSquare {
 
             if (tile.textureIndex == -1) {
                 if (tile.northeastColor != 12345678) {
-                    Draw3D.fillGouraudTriangle(y2, y3, y1, x2, x3, x1, tile.northeastColor, tile.northwestColor, tile.southeastColor);
+                    Draw3D.fillGouraudTriangle(x2, x3, x1, y2, y3, y1, tile.northeastColor, tile.northwestColor, tile.southeastColor);
                 }
             } else if (!lowMemory) {
                 if (tile.isFlat) {
-                    Draw3D.fillTexturedTriangle(y2, y3, y1, x2, x3, x1, tile.northeastColor, tile.northwestColor, tile.southeastColor, rx0, rx1, rx3, ry0, ry1, ry3, rz0, rz1, rz3, tile.textureIndex);
+                    Draw3D.fillTexturedTriangle(x2, x3, x1, y2, y3, y1, tile.northeastColor, tile.northwestColor, tile.southeastColor, rx0, rx1, rx3, ry0, ry1, ry3, rz0, rz1, rz3, tile.textureIndex);
                 } else {
-                    Draw3D.fillTexturedTriangle(y2, y3, y1, x2, x3, x1, tile.northeastColor, tile.northwestColor, tile.southeastColor, rx2, rx3, rx1, ry2, ry3, ry1, rz2, rz3, rz1, tile.textureIndex);
+                    Draw3D.fillTexturedTriangle(x2, x3, x1, y2, y3, y1, tile.northeastColor, tile.northwestColor, tile.southeastColor, rx2, rx3, rx1, ry2, ry3, ry1, rz2, rz3, rz1, tile.textureIndex);
                 }
             } else {
                 int hsl = TEXTURE_HSL[tile.textureIndex];
-                Draw3D.fillGouraudTriangle(y2, y3, y1, x2, x3, x1, adjustHSLLightness(tile.northeastColor, hsl), adjustHSLLightness(tile.northwestColor, hsl), adjustHSLLightness(tile.southeastColor, hsl));
+                Draw3D.fillGouraudTriangle(x2, x3, x1, y2, y3, y1, adjustHSLLightness(tile.northeastColor, hsl), adjustHSLLightness(tile.northwestColor, hsl), adjustHSLLightness(tile.southeastColor, hsl));
             }
         }
 
@@ -1974,18 +1974,18 @@ public class MapSquare {
 
             if (tile.textureIndex == -1) {
                 if (tile.southwestColor != 12345678) {
-                    Draw3D.fillGouraudTriangle(y0, y1, y3, x0, x1, x3, tile.southwestColor, tile.southeastColor, tile.northwestColor);
+                    Draw3D.fillGouraudTriangle(x0, x1, x3, y0, y1, y3, tile.southwestColor, tile.southeastColor, tile.northwestColor);
                 }
             } else if (!lowMemory) {
-                Draw3D.fillTexturedTriangle(y0, y1, y3, x0, x1, x3, tile.southwestColor, tile.southeastColor, tile.northwestColor, rx0, rx1, rx3, ry0, ry1, ry3, rz0, rz1, rz3, tile.textureIndex);
+                Draw3D.fillTexturedTriangle(x0, x1, x3, y0, y1, y3, tile.southwestColor, tile.southeastColor, tile.northwestColor, rx0, rx1, rx3, ry0, ry1, ry3, rz0, rz1, rz3, tile.textureIndex);
             } else {
                 int hsl = TEXTURE_HSL[tile.textureIndex];
-                Draw3D.fillGouraudTriangle(y0, y1, y3, x0, x1, x3, adjustHSLLightness(tile.southwestColor, hsl), adjustHSLLightness(tile.southeastColor, hsl), adjustHSLLightness(tile.northwestColor, hsl));
+                Draw3D.fillGouraudTriangle(x0, x1, x3, y0, y1, y3, adjustHSLLightness(tile.southwestColor, hsl), adjustHSLLightness(tile.southeastColor, hsl), adjustHSLLightness(tile.northwestColor, hsl));
             }
         }
     }
 
-    public void drawTileOverlay(int yawSin, int y, TileOverlay tile, int x, int pitchCos, int pitchSin, int yawCos) {
+    public void drawTileOverlay(TileOverlay tile, int x, int y, int pitchSin, int pitchCos, int yawSin, int yawCos) {
         int count = tile.vertexX.length;
 
         for (int v = 0; v < count; v++) {
@@ -2040,17 +2040,17 @@ public class MapSquare {
 
                 if (tile.triangleTextureIndex == null || tile.triangleTextureIndex[t] == -1) {
                     if (tile.triangleColorA[t] != 12345678) {
-                        Draw3D.fillGouraudTriangle(y0, y1, y2, x0, x1, x2, tile.triangleColorA[t], tile.triangleColorB[t], tile.triangleColorC[t]);
+                        Draw3D.fillGouraudTriangle(x0, x1, x2, y0, y1, y2, tile.triangleColorA[t], tile.triangleColorB[t], tile.triangleColorC[t]);
                     }
                 } else if (!lowMemory) {
                     if (tile.isFlat) {
-                        Draw3D.fillTexturedTriangle(y0, y1, y2, x0, x1, x2, tile.triangleColorA[t],
+                        Draw3D.fillTexturedTriangle(x0, x1, x2, y0, y1, y2, tile.triangleColorA[t],
                             tile.triangleColorB[t], tile.triangleColorC[t], TileOverlay.vertexSceneX[0],
                             TileOverlay.vertexSceneX[1], TileOverlay.vertexSceneX[3], TileOverlay.vertexSceneY[0],
                             TileOverlay.vertexSceneY[1], TileOverlay.vertexSceneY[3], TileOverlay.vertexSceneZ[0],
                             TileOverlay.vertexSceneZ[1], TileOverlay.vertexSceneZ[3], tile.triangleTextureIndex[t]);
                     } else {
-                        Draw3D.fillTexturedTriangle(y0, y1, y2, x0, x1, x2, tile.triangleColorA[t],
+                        Draw3D.fillTexturedTriangle(x0, x1, x2, y0, y1, y2, tile.triangleColorA[t],
                             tile.triangleColorB[t], tile.triangleColorC[t], TileOverlay.vertexSceneX[a],
                             TileOverlay.vertexSceneX[b], TileOverlay.vertexSceneX[c], TileOverlay.vertexSceneY[a],
                             TileOverlay.vertexSceneY[b], TileOverlay.vertexSceneY[c], TileOverlay.vertexSceneZ[a],
@@ -2058,7 +2058,7 @@ public class MapSquare {
                     }
                 } else {
                     int hsl = TEXTURE_HSL[tile.triangleTextureIndex[t]];
-                    Draw3D.fillGouraudTriangle(y0, y1, y2, x0, x1, x2,
+                    Draw3D.fillGouraudTriangle(x0, x1, x2, y0, y1, y2,
                         adjustHSLLightness(tile.triangleColorA[t], hsl), adjustHSLLightness(tile.triangleColorB[t], hsl),
                         adjustHSLLightness(tile.triangleColorC[t], hsl));
                 }

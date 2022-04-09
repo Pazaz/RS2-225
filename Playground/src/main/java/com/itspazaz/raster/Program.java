@@ -271,7 +271,7 @@ public class Program extends Applet {
 
     @Override
     public void draw() {
-        Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
+        Draw2D.fillRect(0, 0, Draw2D.width, Draw2D.height, COLOR_BACKGROUND);
         Arrays.fill(depth, -1);
 
 //        double size = 110.0f;
@@ -318,7 +318,7 @@ public class Program extends Applet {
 
         int y = p12.height;
         p12.draw(3, y, COLOR_TEXT, "FPS: " + fps, true);
-        drawArea.drawImage(0, graphics, 0);
+        drawArea.drawImage(graphics, 0, 0);
     }
 
     @Override

@@ -434,7 +434,7 @@ public class Playground extends Applet {
         Draw2D.clear();
 
         // Draw the background
-        Draw2D.fillRect(0, 0, COLOR_BACKGROUND, Draw2D.width, Draw2D.height);
+        Draw2D.fillRect(0, 0, Draw2D.width, Draw2D.height, COLOR_BACKGROUND);
 
         boolean newFrame = false;
 
@@ -451,11 +451,11 @@ public class Playground extends Applet {
 
                     if (drawText) {
                         // Draw sprite
-                        sprite.draw(0, gameWidth - 33);
-                        p12.drawRightAligned(sprite.height + p12.height, COLOR_TEXT, obj.name, gameWidth, true);
+                        sprite.draw(gameWidth - 33, 0);
+                        p12.drawRightAligned(obj.name, gameWidth, sprite.height + p12.height, COLOR_TEXT, true);
 
                         // Draw model/camera data
-                        p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + (obj.iconX + camera.x) + "," + (sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z) + "," + (cosPitch + obj.iconY + camera.y), gameWidth - 4, true);
+                        p12.drawRightAligned(pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + (obj.iconX + camera.x) + "," + (sinPitch + model.maxBoundY / 2 + obj.iconY + camera.z) + "," + (cosPitch + obj.iconY + camera.y), gameWidth - 4, Draw2D.height - 6, COLOR_TEXT, true);
                     }
                 } else if (loadType.equals("Npc")) {
                     if (npc.primarySeq != -1 && npc.primarySeqDelay == 0) {
@@ -482,10 +482,10 @@ public class Playground extends Applet {
 
                     if (drawText) {
                         // Draw model name
-                        p12.drawRightAligned(p12.height + 3, COLOR_TEXT, npc.info.name, gameWidth - 3, true);
+                        p12.drawRightAligned(npc.info.name, gameWidth - 3, p12.height + 3, COLOR_TEXT, true);
 
                         // Draw model/camera data
-                        p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + camera.x + "," + camera.z + "," + camera.y, gameWidth - 4, true);
+                        p12.drawRightAligned(pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + camera.x + "," + camera.z + "," + camera.y, gameWidth - 4, Draw2D.height - 6, COLOR_TEXT, true);
                     }
                 } else if (loadType.equals("Loc")) {
                     if (loc.seqIndex != -1 && locDelay == 0) {
@@ -508,17 +508,17 @@ public class Playground extends Applet {
 
                     if (drawText) {
                         // Draw model name
-                        p12.drawRightAligned(p12.height + 3, COLOR_TEXT, loc.name, gameWidth - 3, true);
+                        p12.drawRightAligned(loc.name, gameWidth - 3, p12.height + 3, COLOR_TEXT, true);
 
                         // Draw model/camera data
-                        p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + camera.x + "," + camera.z + "," + camera.y, gameWidth - 4, true);
+                        p12.drawRightAligned(pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + camera.x + "," + camera.z + "," + camera.y, gameWidth - 4, Draw2D.height - 6, COLOR_TEXT, true);
                     }
                 } else if (loadType.equals("Model")) {
                     model.draw(pitch, yaw, roll, camera.pitch, camera.x, camera.z, camera.y);
 
                     if (drawText) {
                         // Draw model/camera data
-                        p12.drawRightAligned(Draw2D.height - 6, COLOR_TEXT, pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + camera.x + "," + camera.z + "," + camera.y, gameWidth - 4, true);
+                        p12.drawRightAligned(pitch + "," + yaw + "," + roll + "," + camera.pitch + "," + camera.x + "," + camera.z + "," + camera.y, gameWidth - 4, Draw2D.height - 6, COLOR_TEXT, true);
                     }
                 }
             }
@@ -555,7 +555,7 @@ public class Playground extends Applet {
 
         // Render the frame
         //drawArea.fxaa();
-        drawArea.drawImage(0, graphics, 0);
+        drawArea.drawImage(graphics, 0, 0);
     }
 
     @Override
