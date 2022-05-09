@@ -4712,12 +4712,12 @@ fields:
 methods:
   client!a.a ()V:
     owner: "GameShell"
-    name: "method67"
+    name: "load"
     arguments: {}
     locals: {}
   client!a.a (B)V:
     owner: "GameShell"
-    name: "method69"
+    name: "unload"
     arguments: {}
     locals: {}
   client!a.a (I)V:
@@ -4739,12 +4739,12 @@ methods:
     locals: {}
   client!a.a (IZI)V:
     owner: "GameShell"
-    name: "method63"
+    name: "initApplet"
     arguments: {}
     locals: {}
   client!a.a (Ljava/lang/Runnable;I)V:
     owner: "GameShell"
-    name: "method73"
+    name: "startThread"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -4758,7 +4758,7 @@ methods:
       1: "local1"
   client!a.a (ZLjava/lang/String;I)V:
     owner: "GameShell"
-    name: "method74"
+    name: "showProgress"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -4772,23 +4772,23 @@ methods:
       91: "local91"
   client!a.b (B)Ljava/awt/Component;:
     owner: "GameShell"
-    name: "method72"
+    name: "getBaseComponent"
     arguments:
       0: "arg0"
     locals: {}
   client!a.b (I)V:
     owner: "GameShell"
-    name: "method68"
+    name: "update"
     arguments: {}
     locals: {}
   client!a.b (Z)V:
     owner: "GameShell"
-    name: "method70"
+    name: "draw"
     arguments: {}
     locals: {}
   client!a.c (I)V:
     owner: "GameShell"
-    name: "method71"
+    name: "refresh"
     arguments: {}
     locals: {}
   client!a.destroy ()V:
@@ -5000,6 +5000,11 @@ methods:
     locals:
       3: "local3"
       19: "local19"
+  client!ac.<init> ()V:
+    owner: "LocType"
+    name: "<init>"
+    arguments: {}
+    locals: {}
   client!ac.a ()V:
     owner: "LocType"
     name: "method24"
@@ -5125,6 +5130,11 @@ methods:
     locals:
       3: "local3"
       19: "local19"
+  client!bc.<init> ()V:
+    owner: "NpcType"
+    name: "<init>"
+    arguments: {}
+    locals: {}
   client!bc.a (I)Lclient!bc;:
     owner: "NpcType"
     name: "method32"
@@ -5457,6 +5467,11 @@ methods:
       1: "arg1"
       2: "arg2"
     locals: {}
+  client!cc.<init> ()V:
+    owner: "ObjType"
+    name: "<init>"
+    arguments: {}
+    locals: {}
   client!cc.a ()V:
     owner: "ObjType"
     name: "method55"
@@ -5568,24 +5583,24 @@ methods:
       48: "local48"
   client!client.A (I)Ljava/net/Socket;:
     owner: "client"
-    name: "method162"
+    name: "opensocket"
     arguments:
       0: "arg0"
     locals: {}
   client!client.B (I)V:
     owner: "client"
-    name: "method167"
+    name: "setHighMemory"
     arguments: {}
     locals: {}
   client!client.C (I)V:
     owner: "client"
-    name: "method179"
+    name: "updateSidebarTabInput"
     arguments:
       0: "arg0"
     locals: {}
   client!client.D (I)V:
     owner: "client"
-    name: "method185"
+    name: "createScene"
     arguments: {}
     locals:
       28: "local28"
@@ -5606,7 +5621,7 @@ methods:
       390: "local390"
   client!client.E (I)V:
     owner: "client"
-    name: "method190"
+    name: "updateSceneSeqLocs"
     arguments: {}
     locals:
       10: "local10"
@@ -5632,7 +5647,7 @@ methods:
       400: "local400"
   client!client.a ()V:
     owner: "client"
-    name: "method67"
+    name: "load"
     arguments: {}
     locals:
       34: "local34"
@@ -5687,13 +5702,13 @@ methods:
       1357: "local1357"
   client!client.a (B)V:
     owner: "client"
-    name: "method69"
+    name: "unload"
     arguments: {}
     locals:
       11: "local11"
   client!client.a (BLclient!kb;I)V:
     owner: "client"
-    name: "method83"
+    name: "readLocationPacket"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -5740,7 +5755,7 @@ methods:
       1184: "local1184"
   client!client.a (IIBI)I:
     owner: "client"
-    name: "method94"
+    name: "getLandY"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5755,7 +5770,7 @@ methods:
       101: "local101"
   client!client.a (IIII)I:
     owner: "client"
-    name: "method149"
+    name: "mix"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5764,7 +5779,7 @@ methods:
       3: "local3"
   client!client.a (IIIIII)V:
     owner: "client"
-    name: "method107"
+    name: "drawMinimapLoc"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5794,7 +5809,7 @@ methods:
       647: "local647"
   client!client.a (IIIIIII)V:
     owner: "client"
-    name: "method100"
+    name: "updateCameraOrbit"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5813,7 +5828,7 @@ methods:
       37: "local37"
   client!client.a (IIIIIIII)V:
     owner: "client"
-    name: "method160"
+    name: "addLoc"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5831,7 +5846,7 @@ methods:
       107: "local107"
   client!client.a (IIIIIZIILclient!hc;)V:
     owner: "client"
-    name: "method158"
+    name: "updateInterfaceScrollbar"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -5847,7 +5862,7 @@ methods:
       143: "local143"
   client!client.a (IIIIZ)Z:
     owner: "client"
-    name: "method153"
+    name: "interactWithLoc"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5864,7 +5879,7 @@ methods:
       65: "local65"
   client!client.a (IIILclient!hc;I)V:
     owner: "client"
-    name: "method120"
+    name: "drawInterface"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5904,7 +5919,7 @@ methods:
       918: "local918"
   client!client.a (IIILclient!hc;III)V:
     owner: "client"
-    name: "method90"
+    name: "updateInterface"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5931,7 +5946,7 @@ methods:
       704: "local704"
   client!client.a (IILclient!hb;I)V:
     owner: "client"
-    name: "method148"
+    name: "drawOnMinimap"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -5947,7 +5962,7 @@ methods:
       76: "local76"
   client!client.a (IILclient!kb;)V:
     owner: "client"
-    name: "method118"
+    name: "updateNewPlayers"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -5960,14 +5975,14 @@ methods:
       127: "local127"
   client!client.a (IIZ)V:
     owner: "client"
-    name: "method115"
+    name: "midivol"
     arguments:
       1: "arg0"
       2: "arg1"
     locals: {}
   client!client.a (IIZIIIIIIIII)Z:
     owner: "client"
-    name: "method168"
+    name: "moveTo"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5998,7 +6013,7 @@ methods:
       1077: "local1077"
   client!client.a (IJ)V:
     owner: "client"
-    name: "method174"
+    name: "removeFriend"
     arguments:
       1: "arg0"
     locals:
@@ -6006,7 +6021,7 @@ methods:
       38: "local38"
   client!client.a (ILclient!hc;)V:
     owner: "client"
-    name: "method137"
+    name: "updateComponentContent"
     arguments:
       1: "arg0"
     locals:
@@ -6020,7 +6035,7 @@ methods:
       441: "local441"
   client!client.a (ILclient!ib;)V:
     owner: "client"
-    name: "method183"
+    name: "updateFlameDissolve"
     arguments:
       1: "arg0"
     locals:
@@ -6036,7 +6051,7 @@ methods:
       165: "local165"
   client!client.a (ILclient!kb;I)V:
     owner: "client"
-    name: "method110"
+    name: "updateOtherPlayers"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -6052,7 +6067,7 @@ methods:
       225: "local225"
   client!client.a (ILclient!x;)V:
     owner: "client"
-    name: "method127"
+    name: "moveEntity3"
     arguments:
       1: "arg0"
     locals:
@@ -6066,14 +6081,14 @@ methods:
       217: "local217"
   client!client.a (ILjava/lang/String;)Z:
     owner: "client"
-    name: "method199"
+    name: "isFriend"
     arguments:
       1: "arg0"
     locals:
       15: "local15"
   client!client.a (ILjava/lang/String;BLjava/lang/String;)V:
     owner: "client"
-    name: "method172"
+    name: "addMessage"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -6082,7 +6097,7 @@ methods:
       20: "local20"
   client!client.a (IZ)V:
     owner: "client"
-    name: "method102"
+    name: "updateAnimatedTextures"
     arguments:
       0: "arg0"
     locals:
@@ -6094,7 +6109,7 @@ methods:
       41: "local41"
   client!client.a (IZLclient!x;)V:
     owner: "client"
-    name: "method151"
+    name: "setDrawPos"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -6102,7 +6117,7 @@ methods:
     locals: {}
   client!client.a (JB)V:
     owner: "client"
-    name: "method82"
+    name: "addIgnore"
     arguments:
       0: "arg0"
     locals:
@@ -6111,7 +6126,7 @@ methods:
       55: "local55"
   client!client.a (JI)V:
     owner: "client"
-    name: "method161"
+    name: "addFriend"
     arguments:
       0: "arg0"
     locals:
@@ -6120,7 +6135,7 @@ methods:
       55: "local55"
   client!client.a (Lclient!bc;IIII)V:
     owner: "client"
-    name: "method95"
+    name: "drawTooltip"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -6132,14 +6147,14 @@ methods:
       279: "local279"
   client!client.a (Lclient!hc;B)Z:
     owner: "client"
-    name: "method180"
+    name: "updateInterfaceTooltip"
     arguments:
       0: "arg0"
     locals:
       2: "local2"
   client!client.a (Lclient!hc;I)Z:
     owner: "client"
-    name: "method175"
+    name: "isInterfaceEnabled"
     arguments:
       0: "arg0"
     locals:
@@ -6148,7 +6163,7 @@ methods:
       19: "local19"
   client!client.a (Lclient!hc;ZI)I:
     owner: "client"
-    name: "method187"
+    name: "executeInterface"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -6164,7 +6179,7 @@ methods:
       282: "local282"
   client!client.a (Lclient!kb;II)V:
     owner: "client"
-    name: "method81"
+    name: "updateNpcMasks"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -6178,7 +6193,7 @@ methods:
       39: "local39"
   client!client.a (Lclient!kb;IZ)V:
     owner: "client"
-    name: "method108"
+    name: "updateNpcs"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -6187,7 +6202,7 @@ methods:
       36: "local36"
   client!client.a (Lclient!x;B)V:
     owner: "client"
-    name: "method128"
+    name: "updateEntity2"
     arguments:
       0: "arg0"
     locals:
@@ -6199,14 +6214,14 @@ methods:
       87: "local87"
   client!client.a (Lclient!x;BI)V:
     owner: "client"
-    name: "method124"
+    name: "updateEntity"
     arguments:
       0: "arg0"
       2: "arg1"
     locals: {}
   client!client.a (Lclient!x;I)V:
     owner: "client"
-    name: "method125"
+    name: "moveEntity1"
     arguments:
       0: "arg0"
     locals:
@@ -6215,20 +6230,20 @@ methods:
       24: "local24"
   client!client.a (Ljava/lang/Runnable;I)V:
     owner: "client"
-    name: "method73"
+    name: "startThread"
     arguments:
       0: "arg0"
       1: "arg1"
     locals: {}
   client!client.a (Ljava/lang/String;)Ljava/io/DataInputStream;:
     owner: "client"
-    name: "method155"
+    name: "openStream"
     arguments:
       0: "arg0"
     locals: {}
   client!client.a (Ljava/lang/String;ILjava/lang/String;II)Lclient!ub;:
     owner: "client"
-    name: "method98"
+    name: "loadArchive"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -6250,7 +6265,7 @@ methods:
       178: "local178"
   client!client.a (Ljava/lang/String;Ljava/lang/String;Z)V:
     owner: "client"
-    name: "method159"
+    name: "login"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -6270,13 +6285,13 @@ methods:
       762: "local762"
   client!client.a (ZI)Ljava/lang/String;:
     owner: "client"
-    name: "method169"
+    name: "formatObjAmount"
     arguments:
       1: "arg0"
     locals: {}
   client!client.a (ZIILclient!kb;Lclient!z;)V:
     owner: "client"
-    name: "method200"
+    name: "updatePlayerMask"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -6297,7 +6312,7 @@ methods:
       285: "local285"
   client!client.a (ZIILclient!z;I)V:
     owner: "client"
-    name: "method163"
+    name: "addPlayerOptions"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -6308,7 +6323,7 @@ methods:
       392: "local392"
   client!client.a (ZILclient!kb;)V:
     owner: "client"
-    name: "method121"
+    name: "updatePlayerMasks"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -6319,7 +6334,7 @@ methods:
       16: "local16"
   client!client.a (ZILjava/lang/String;I)V:
     owner: "client"
-    name: "method75"
+    name: "setMidi"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -6328,7 +6343,7 @@ methods:
       5: "local5"
   client!client.a (ZLclient!hc;)Z:
     owner: "client"
-    name: "method142"
+    name: "handleComponentAction"
     arguments:
       1: "arg0"
     locals:
@@ -6338,7 +6353,7 @@ methods:
       121: "local121"
   client!client.a (ZLclient!kb;I)V:
     owner: "client"
-    name: "method141"
+    name: "updateLocalNpcs"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -6350,7 +6365,7 @@ methods:
       128: "local128"
   client!client.a (ZLclient!x;)V:
     owner: "client"
-    name: "method129"
+    name: "updateEntity3"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -6358,21 +6373,21 @@ methods:
       16: "local16"
   client!client.a (ZLjava/lang/String;I)V:
     owner: "client"
-    name: "method74"
+    name: "showProgress"
     arguments:
       1: "arg0"
       2: "arg1"
     locals: {}
   client!client.a ([BII)Z:
     owner: "client"
-    name: "method138"
+    name: "wavesave"
     arguments:
       0: "arg0"
       1: "arg1"
     locals: {}
   client!client.a ([BIIZ)V:
     owner: "client"
-    name: "method113"
+    name: "midisave"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -6380,18 +6395,18 @@ methods:
     locals: {}
   client!client.b (B)Ljava/awt/Component;:
     owner: "client"
-    name: "method72"
+    name: "getBaseComponent"
     arguments:
       0: "arg0"
     locals: {}
   client!client.b (I)V:
     owner: "client"
-    name: "method68"
+    name: "update"
     arguments: {}
     locals: {}
   client!client.b (II)Ljava/lang/String;:
     owner: "client"
-    name: "method101"
+    name: "formatNumber"
     arguments:
       0: "arg0"
     locals:
@@ -6399,7 +6414,7 @@ methods:
       9: "local9"
   client!client.b (III)V:
     owner: "client"
-    name: "method92"
+    name: "updatePlayerTooltip"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -6410,7 +6425,7 @@ methods:
       26: "local26"
   client!client.b (IIII)V:
     owner: "client"
-    name: "method152"
+    name: "projectToScreen"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -6429,7 +6444,7 @@ methods:
       83: "local83"
   client!client.b (IIIIII)V:
     owner: "client"
-    name: "method111"
+    name: "drawScrollbar"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -6442,7 +6457,7 @@ methods:
       52: "local52"
   client!client.b (IILclient!kb;)V:
     owner: "client"
-    name: "method195"
+    name: "updateLocalPlayer"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -6455,7 +6470,7 @@ methods:
       158: "local158"
   client!client.b (IJ)V:
     owner: "client"
-    name: "method191"
+    name: "removeIgnore"
     arguments:
       1: "arg0"
     locals:
@@ -6463,7 +6478,7 @@ methods:
       34: "local34"
   client!client.b (ILclient!kb;I)V:
     owner: "client"
-    name: "method181"
+    name: "updateNpcList"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -6479,7 +6494,7 @@ methods:
       224: "local224"
   client!client.b (IZI)Ljava/lang/String;:
     owner: "client"
-    name: "method133"
+    name: "getLevelColorTag"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -6487,7 +6502,7 @@ methods:
       9: "local9"
   client!client.b (Lclient!kb;II)V:
     owner: "client"
-    name: "method170"
+    name: "updatePlayers"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -6496,7 +6511,7 @@ methods:
       36: "local36"
   client!client.b (Lclient!x;I)V:
     owner: "client"
-    name: "method126"
+    name: "moveEntity2"
     arguments:
       0: "arg0"
     locals:
@@ -6508,22 +6523,22 @@ methods:
       80: "local80"
   client!client.b (Z)V:
     owner: "client"
-    name: "method70"
+    name: "draw"
     arguments: {}
     locals: {}
   client!client.c (B)V:
     owner: "client"
-    name: "method77"
+    name: "closeInterface"
     arguments: {}
     locals: {}
   client!client.c (I)V:
     owner: "client"
-    name: "method71"
+    name: "refresh"
     arguments: {}
     locals: {}
   client!client.c (II)V:
     owner: "client"
-    name: "method106"
+    name: "createMinimap"
     arguments:
       0: "arg0"
     locals:
@@ -6545,7 +6560,7 @@ methods:
       286: "local286"
   client!client.c (III)V:
     owner: "client"
-    name: "method136"
+    name: "handleChatInput"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -6556,7 +6571,7 @@ methods:
       54: "local54"
   client!client.c (Z)V:
     owner: "client"
-    name: "method87"
+    name: "runMidi"
     arguments: {}
     locals:
       11: "local11"
@@ -6575,7 +6590,7 @@ methods:
       167: "local167"
   client!client.d (B)I:
     owner: "client"
-    name: "method84"
+    name: "getTopLevel"
     arguments: {}
     locals:
       11: "local11"
@@ -6589,7 +6604,7 @@ methods:
       89: "local89"
   client!client.d (I)V:
     owner: "client"
-    name: "method76"
+    name: "drawViewport2d"
     arguments:
       0: "arg0"
     locals:
@@ -6609,7 +6624,7 @@ methods:
       913: "local913"
   client!client.d (II)V:
     owner: "client"
-    name: "method122"
+    name: "updateVarp"
     arguments:
       0: "arg0"
     locals:
@@ -6618,7 +6633,7 @@ methods:
       54: "local54"
   client!client.d (III)Z:
     owner: "client"
-    name: "method171"
+    name: "animateInterface"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -6632,12 +6647,12 @@ methods:
       71: "local71"
   client!client.d (Z)V:
     owner: "client"
-    name: "method88"
+    name: "setLowMemory"
     arguments: {}
     locals: {}
   client!client.e (B)V:
     owner: "client"
-    name: "method97"
+    name: "updateTitle"
     arguments: {}
     locals:
       17: "local17"
@@ -6650,19 +6665,19 @@ methods:
       418: "local418"
   client!client.e (I)V:
     owner: "client"
-    name: "method78"
+    name: "midistop"
     arguments: {}
     locals: {}
   client!client.e (II)Z:
     owner: "client"
-    name: "method131"
+    name: "isFriend"
     arguments:
       1: "arg0"
     locals:
       8: "local8"
   client!client.e (Z)V:
     owner: "client"
-    name: "method89"
+    name: "drawFlames"
     arguments: {}
     locals:
       8: "local8"
@@ -6680,7 +6695,7 @@ methods:
       373: "local373"
   client!client.f (B)V:
     owner: "client"
-    name: "method104"
+    name: "drawMinimap"
     arguments:
       0: "arg0"
     locals:
@@ -6699,7 +6714,7 @@ methods:
       281: "local281"
   client!client.f (I)V:
     owner: "client"
-    name: "method79"
+    name: "drawWildyLevel"
     arguments: {}
     locals:
       10: "local10"
@@ -6708,7 +6723,7 @@ methods:
       102: "local102"
   client!client.f (II)V:
     owner: "client"
-    name: "method132"
+    name: "useMenuOption"
     arguments:
       1: "arg0"
     locals:
@@ -6736,20 +6751,20 @@ methods:
       1957: "local1957"
   client!client.f (Z)V:
     owner: "client"
-    name: "method99"
+    name: "disposeTitleComponents"
     arguments: {}
     locals:
       13: "local13"
   client!client.g (B)V:
     owner: "client"
-    name: "method112"
+    name: "resetCharacterDesign"
     arguments: {}
     locals:
       12: "local12"
       21: "local21"
   client!client.g (I)V:
     owner: "client"
-    name: "method80"
+    name: "drawChat"
     arguments: {}
     locals:
       9: "local9"
@@ -6759,13 +6774,13 @@ methods:
       60: "local60"
   client!client.g (II)V:
     owner: "client"
-    name: "method140"
+    name: "wavevol"
     arguments:
       0: "arg0"
     locals: {}
   client!client.g (Z)V:
     owner: "client"
-    name: "method103"
+    name: "updateFlames"
     arguments: {}
     locals:
       5: "local5"
@@ -6789,25 +6804,25 @@ methods:
     locals: {}
   client!client.h (B)V:
     owner: "client"
-    name: "method144"
+    name: "clearCaches"
     arguments:
       0: "arg0"
     locals: {}
   client!client.h (I)I:
     owner: "client"
-    name: "method85"
+    name: "getCameraPlaneCutscene"
     arguments: {}
     locals:
       9: "local9"
   client!client.h (II)Ljava/lang/String;:
     owner: "client"
-    name: "method150"
+    name: "getIntString"
     arguments:
       0: "arg0"
     locals: {}
   client!client.h (Z)V:
     owner: "client"
-    name: "method114"
+    name: "updateSceneNpcs"
     arguments: {}
     locals:
       1: "local1"
@@ -6817,7 +6832,7 @@ methods:
       36: "local36"
   client!client.i (B)V:
     owner: "client"
-    name: "method147"
+    name: "updateSceneProjectiles"
     arguments: {}
     locals:
       12: "local12"
@@ -6826,7 +6841,7 @@ methods:
       80: "local80"
   client!client.i (I)V:
     owner: "client"
-    name: "method86"
+    name: "drawViewport"
     arguments: {}
     locals:
       34: "local34"
@@ -6839,7 +6854,7 @@ methods:
       264: "local264"
   client!client.i (II)V:
     owner: "client"
-    name: "method173"
+    name: "resetParentComponentSeq"
     arguments:
       1: "arg0"
     locals:
@@ -6848,7 +6863,7 @@ methods:
       20: "local20"
   client!client.i (Z)V:
     owner: "client"
-    name: "method123"
+    name: "updateNpcEntity"
     arguments: {}
     locals:
       7: "local7"
@@ -6863,18 +6878,18 @@ methods:
       31: "local31"
   client!client.j (B)V:
     owner: "client"
-    name: "method156"
+    name: "prepareTitleScreen"
     arguments: {}
     locals: {}
   client!client.j (I)V:
     owner: "client"
-    name: "method91"
+    name: "updateChatSettingInput"
     arguments: {}
     locals:
       186: "local186"
   client!client.j (II)V:
     owner: "client"
-    name: "method184"
+    name: "updateObjectStack"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -6894,7 +6909,7 @@ methods:
       148: "local148"
   client!client.j (Z)V:
     owner: "client"
-    name: "method164"
+    name: "updateGame"
     arguments: {}
     locals:
       22: "local22"
@@ -6913,13 +6928,13 @@ methods:
       1006: "local1006"
   client!client.k (B)V:
     owner: "client"
-    name: "method166"
+    name: "updateSceneSpotAnims"
     arguments: {}
     locals:
       13: "local13"
   client!client.k (I)V:
     owner: "client"
-    name: "method93"
+    name: "updateScenePlayers"
     arguments: {}
     locals:
       22: "local22"
@@ -6929,13 +6944,13 @@ methods:
       92: "local92"
   client!client.k (Z)V:
     owner: "client"
-    name: "method165"
+    name: "drawTooltip"
     arguments: {}
     locals:
       31: "local31"
   client!client.l (B)V:
     owner: "client"
-    name: "method176"
+    name: "updateMinimapInput"
     arguments: {}
     locals:
       17: "local17"
@@ -6952,7 +6967,7 @@ methods:
       129: "local129"
   client!client.l (I)V:
     owner: "client"
-    name: "method96"
+    name: "updateKeyboardInput"
     arguments: {}
     locals:
       13: "local13"
@@ -6964,14 +6979,14 @@ methods:
       693: "local693"
   client!client.l (Z)V:
     owner: "client"
-    name: "method182"
+    name: "reconnect"
     arguments: {}
     locals:
       60: "local60"
       80: "local80"
   client!client.m (B)V:
     owner: "client"
-    name: "method177"
+    name: "updateMiniMenu"
     arguments: {}
     locals:
       14: "local14"
@@ -6986,14 +7001,14 @@ methods:
       283: "local283"
   client!client.m (I)V:
     owner: "client"
-    name: "method105"
+    name: "updateTemporaryLocs"
     arguments:
       0: "arg0"
     locals:
       12: "local12"
   client!client.m (Z)V:
     owner: "client"
-    name: "method188"
+    name: "drawErrorScreen"
     arguments: {}
     locals:
       4: "local4"
@@ -7014,7 +7029,7 @@ methods:
       89: "local89"
   client!client.n (B)V:
     owner: "client"
-    name: "method178"
+    name: "calculateCameraPos"
     arguments:
       0: "arg0"
     locals:
@@ -7031,7 +7046,7 @@ methods:
       402: "local402"
   client!client.n (I)V:
     owner: "client"
-    name: "method109"
+    name: "loadTitleForeground"
     arguments: {}
     locals:
       32: "local32"
@@ -7051,7 +7066,7 @@ methods:
       302: "local302"
   client!client.n (Z)V:
     owner: "client"
-    name: "method193"
+    name: "updatePlayers"
     arguments: {}
     locals:
       9: "local9"
@@ -7059,7 +7074,7 @@ methods:
       29: "local29"
   client!client.o (B)V:
     owner: "client"
-    name: "method186"
+    name: "updateEntityVoices"
     arguments:
       0: "arg0"
     locals:
@@ -7070,14 +7085,14 @@ methods:
       64: "local64"
   client!client.o (I)V:
     owner: "client"
-    name: "method116"
+    name: "drawTitleScreen"
     arguments: {}
     locals:
       32: "local32"
       44: "local44"
   client!client.o (Z)V:
     owner: "client"
-    name: "method196"
+    name: "drawChatback"
     arguments: {}
     locals:
       135: "local135"
@@ -7087,7 +7102,7 @@ methods:
       166: "local166"
   client!client.p (B)V:
     owner: "client"
-    name: "method189"
+    name: "loadTitleBackground"
     arguments: {}
     locals:
       8: "local8"
@@ -7098,12 +7113,12 @@ methods:
       142: "local142"
   client!client.p (I)V:
     owner: "client"
-    name: "method117"
+    name: "prepareGameScreen"
     arguments: {}
     locals: {}
   client!client.p (Z)Z:
     owner: "client"
-    name: "method197"
+    name: "readPacket"
     arguments: {}
     locals:
       15: "local15"
@@ -7160,7 +7175,7 @@ methods:
       3867: "local3867"
   client!client.q (B)V:
     owner: "client"
-    name: "method192"
+    name: "updateViewport"
     arguments: {}
     locals:
       41: "local41"
@@ -7183,19 +7198,19 @@ methods:
       695: "local695"
   client!client.q (I)V:
     owner: "client"
-    name: "method119"
+    name: "disconnect"
     arguments: {}
     locals:
       9: "local9"
       41: "local41"
   client!client.r (B)V:
     owner: "client"
-    name: "method194"
+    name: "drawTileHint"
     arguments: {}
     locals: {}
   client!client.r (I)V:
     owner: "client"
-    name: "method130"
+    name: "drawGame"
     arguments: {}
     locals:
       152: "local152"
@@ -7207,17 +7222,17 @@ methods:
     locals: {}
   client!client.s (B)V:
     owner: "client"
-    name: "method198"
+    name: "drawInventory"
     arguments: {}
     locals: {}
   client!client.s (I)Ljava/lang/String;:
     owner: "client"
-    name: "method134"
+    name: "getHost"
     arguments: {}
     locals: {}
   client!client.t (I)V:
     owner: "client"
-    name: "method135"
+    name: "drawMenu"
     arguments: {}
     locals:
       2: "local2"
@@ -7231,13 +7246,13 @@ methods:
       102: "local102"
   client!client.u (I)Z:
     owner: "client"
-    name: "method139"
+    name: "wavereplay"
     arguments:
       0: "arg0"
     locals: {}
   client!client.v (I)V:
     owner: "client"
-    name: "method143"
+    name: "updateInput"
     arguments: {}
     locals:
       223: "local223"
@@ -7249,14 +7264,14 @@ methods:
       338: "local338"
   client!client.w (I)V:
     owner: "client"
-    name: "method145"
+    name: "drawViewport3d"
     arguments: {}
     locals:
       7: "local7"
       196: "local196"
   client!client.x (I)V:
     owner: "client"
-    name: "method146"
+    name: "updateOrbitCamera"
     arguments: {}
     locals:
       8: "local8"
@@ -7271,7 +7286,7 @@ methods:
       279: "local279"
   client!client.y (I)V:
     owner: "client"
-    name: "method154"
+    name: "showContextMenu"
     arguments: {}
     locals:
       7: "local7"
@@ -7281,7 +7296,7 @@ methods:
       84: "local84"
   client!client.z (I)V:
     owner: "client"
-    name: "method157"
+    name: "runFlames"
     arguments: {}
     locals:
       4: "local4"
@@ -8087,6 +8102,11 @@ methods:
       24: "local24"
       29: "local29"
       34: "local34"
+  client!f.<init> ()V:
+    owner: "SeqBase"
+    name: "<init>"
+    arguments: {}
+    locals: {}
   client!f.a (ZLclient!ub;)V:
     owner: "SeqBase"
     name: "method261"
@@ -8188,6 +8208,11 @@ methods:
     locals:
       32: "local32"
       38: "local38"
+  client!fc.<init> ()V:
+    owner: "FloType"
+    name: "<init>"
+    arguments: {}
+    locals: {}
   client!fc.a (II)V:
     owner: "FloType"
     name: "method274"
@@ -8230,6 +8255,11 @@ methods:
       1: "arg0"
     locals:
       10: "local10"
+  client!g.<init> ()V:
+    owner: "SeqFrame"
+    name: "<init>"
+    arguments: {}
+    locals: {}
   client!g.a (ZLclient!ub;)V:
     owner: "SeqFrame"
     name: "method276"
@@ -8551,6 +8581,11 @@ methods:
       79: "local79"
       83: "local83"
       106: "local106"
+  client!gc.<init> ()V:
+    owner: "IdkType"
+    name: "<init>"
+    arguments: {}
+    locals: {}
   client!gc.a ()Lclient!eb;:
     owner: "IdkType"
     name: "method306"
@@ -9217,6 +9252,11 @@ methods:
       14: "local14"
       18: "local18"
       77: "local77"
+  client!jc.<init> ()V:
+    owner: "SeqType"
+    name: "<init>"
+    arguments: {}
+    locals: {}
   client!jc.a (Lclient!ub;I)V:
     owner: "SeqType"
     name: "method374"
@@ -9437,6 +9477,11 @@ methods:
     arguments: {}
     locals:
       7: "local7"
+  client!kc.<init> ()V:
+    owner: "SpotAnimType"
+    name: "<init>"
+    arguments: {}
+    locals: {}
   client!kc.a ()Lclient!eb;:
     owner: "SpotAnimType"
     name: "method409"
@@ -9459,6 +9504,11 @@ methods:
       1: "arg0"
     locals:
       13: "local13"
+  client!lc.<init> ()V:
+    owner: "VarpType"
+    name: "<init>"
+    arguments: {}
+    locals: {}
   client!lc.a (IILclient!kb;)V:
     owner: "VarpType"
     name: "method412"
@@ -11425,6 +11475,11 @@ methods:
       14: "local14"
       16: "local16"
       71: "local71"
+  client!yb.<init> ()V:
+    owner: "SoundTrack"
+    name: "<init>"
+    arguments: {}
+    locals: {}
   client!yb.a (B)I:
     owner: "SoundTrack"
     name: "method564"

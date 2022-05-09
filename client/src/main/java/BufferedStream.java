@@ -123,7 +123,7 @@ public final class BufferedStream implements Runnable {
 			}
 			if (!this.aBoolean76) {
 				this.aBoolean76 = true;
-				this.anGameShell_2.method73(this, 2);
+				this.anGameShell_2.startThread(this, 2);
 			}
 			this.notify();
 		}
