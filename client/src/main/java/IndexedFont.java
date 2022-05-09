@@ -70,10 +70,10 @@ public final class IndexedFont extends Draw2D {
 	public IndexedFont(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) String arg1, @OriginalArg(2) int arg2) {
 		@Pc(71) Buffer local71 = new Buffer(363, arg0.read(arg1 + ".dat", null));
 		@Pc(81) Buffer local81 = new Buffer(363, arg0.read("index.dat", null));
-		local81.anInt561 = local71.g2() + 4;
+		local81.offset = local71.g2() + 4;
 		@Pc(90) int local90 = local81.g1();
 		if (local90 > 0) {
-			local81.anInt561 += (local90 - 1) * 3;
+			local81.offset += (local90 - 1) * 3;
 		}
 		@Pc(131) int local131;
 		for (@Pc(104) int local104 = 0; local104 < 94; local104++) {

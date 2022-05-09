@@ -200,7 +200,7 @@ public final class InterfaceComponent {
 		while (true) {
 			@Pc(62) InterfaceComponent local62;
 			do {
-				if (local27.anInt561 >= local27.aByteArray7.length) {
+				if (local27.offset >= local27.data.length) {
 					aCache_6 = null;
 					aCache_7 = null;
 					return;

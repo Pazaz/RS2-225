@@ -170,7 +170,7 @@ public final class LocType {
 		}
 		anInt41 = (anInt41 + 1) % 10;
 		@Pc(27) LocType local27 = aLocTypeArray1[anInt41];
-		aClass1_Sub3_Sub3_1.anInt561 = anIntArray3[arg0];
+		aClass1_Sub3_Sub3_1.offset = anIntArray3[arg0];
 		local27.anInt42 = arg0;
 		local27.reset();
 		local27.decode(aClass1_Sub3_Sub3_1);
@@ -385,8 +385,8 @@ public final class LocType {
 			if (arg6 != -1) {
 				local284.applyGroup();
 				local284.applyFrame(arg6);
-				local284.anIntArrayArray7 = null;
-				local284.anIntArrayArray6 = null;
+				local284.skinTriangle = null;
+				local284.labelVertices = null;
 			}
 			while (arg1-- > 0) {
 				local284.rotateCounterClockwise();
@@ -404,7 +404,7 @@ public final class LocType {
 			}
 			local284.applyLighting(this.aByte2 + 64, this.aByte3 * 5 + 768, -50, -10, -50, !this.aBoolean11);
 			if (this.aBoolean7) {
-				local284.anInt372 = local284.anInt368;
+				local284.anInt372 = local284.maxBoundY;
 			}
 			aCache_2.put(local47, local284);
 			if (this.aBoolean10 || this.aBoolean11) {

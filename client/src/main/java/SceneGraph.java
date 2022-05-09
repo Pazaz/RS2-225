@@ -174,7 +174,7 @@ public final class SceneGraph {
 				arg2.setBlocoked(arg3, arg0);
 			}
 			if (local60.anInt45 != -1) {
-				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 3, SeqType.aSeqTypeArray1[local60.anInt45], arg3, arg0));
+				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 3, SeqType.instances[local60.anInt45], arg3, arg0));
 			}
 			return;
 		}
@@ -200,7 +200,7 @@ public final class SceneGraph {
 				arg2.setLoc(arg4, local60.anInt44, local60.anInt43, arg0, arg3, local60.aBoolean8);
 			}
 			if (local60.anInt45 != -1) {
-				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 2, SeqType.aSeqTypeArray1[local60.anInt45], arg3, arg0));
+				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 2, SeqType.instances[local60.anInt45], arg3, arg0));
 			}
 		} else if (arg8 >= 12) {
 			local99 = local60.getModel(arg8, arg4, local15, local25, local37, local47, -1);
@@ -209,7 +209,7 @@ public final class SceneGraph {
 				arg2.setLoc(arg4, local60.anInt44, local60.anInt43, arg0, arg3, local60.aBoolean8);
 			}
 			if (local60.anInt45 != -1) {
-				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 2, SeqType.aSeqTypeArray1[local60.anInt45], arg3, arg0));
+				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 2, SeqType.instances[local60.anInt45], arg3, arg0));
 			}
 		} else if (arg8 == 0) {
 			local99 = local60.getModel(0, arg4, local15, local25, local37, local47, -1);
@@ -218,7 +218,7 @@ public final class SceneGraph {
 				arg2.setWall(arg4, arg3, arg0, local60.aBoolean8, arg8);
 			}
 			if (local60.anInt45 != -1) {
-				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.aSeqTypeArray1[local60.anInt45], arg3, arg0));
+				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.instances[local60.anInt45], arg3, arg0));
 			}
 		} else if (arg8 == 1) {
 			local99 = local60.getModel(1, arg4, local15, local25, local37, local47, -1);
@@ -227,7 +227,7 @@ public final class SceneGraph {
 				arg2.setWall(arg4, arg3, arg0, local60.aBoolean8, arg8);
 			}
 			if (local60.anInt45 != -1) {
-				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.aSeqTypeArray1[local60.anInt45], arg3, arg0));
+				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.instances[local60.anInt45], arg3, arg0));
 			}
 		} else {
 			@Pc(430) int local430;
@@ -241,7 +241,7 @@ public final class SceneGraph {
 					arg2.setWall(arg4, arg3, arg0, local60.aBoolean8, arg8);
 				}
 				if (local60.anInt45 != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.aSeqTypeArray1[local60.anInt45], arg3, arg0));
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.instances[local60.anInt45], arg3, arg0));
 				}
 			} else if (arg8 == 3) {
 				local99 = local60.getModel(3, arg4, local15, local25, local37, local47, -1);
@@ -250,7 +250,7 @@ public final class SceneGraph {
 					arg2.setWall(arg4, arg3, arg0, local60.aBoolean8, arg8);
 				}
 				if (local60.anInt45 != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.aSeqTypeArray1[local60.anInt45], arg3, arg0));
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.instances[local60.anInt45], arg3, arg0));
 				}
 			} else if (arg8 == 9) {
 				local99 = local60.getModel(arg8, arg4, local15, local25, local37, local47, -1);
@@ -259,13 +259,13 @@ public final class SceneGraph {
 					arg2.setLoc(arg4, local60.anInt44, local60.anInt43, arg0, arg3, local60.aBoolean8);
 				}
 				if (local60.anInt45 != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 2, SeqType.aSeqTypeArray1[local60.anInt45], arg3, arg0));
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 2, SeqType.instances[local60.anInt45], arg3, arg0));
 				}
 			} else if (arg8 == 4) {
 				local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
 				arg9.addWallDecoration(local57, arg3, 0, local72, arg4 * 512, anIntArray18[arg4], 0, arg0, local99, local86, arg6);
 				if (local60.anInt45 != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.aSeqTypeArray1[local60.anInt45], arg3, arg0));
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.anInt45], arg3, arg0));
 				}
 			} else if (arg8 == 5) {
 				local430 = 16;
@@ -276,25 +276,25 @@ public final class SceneGraph {
 				local452 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
 				arg9.addWallDecoration(local57, arg3, anIntArray21[arg4] * local430, local72, arg4 * 512, anIntArray18[arg4], anIntArray20[arg4] * local430, arg0, local452, local86, arg6);
 				if (local60.anInt45 != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.aSeqTypeArray1[local60.anInt45], arg3, arg0));
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.anInt45], arg3, arg0));
 				}
 			} else if (arg8 == 6) {
 				local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
 				arg9.addWallDecoration(local57, arg3, 0, local72, arg4, 256, 0, arg0, local99, local86, arg6);
 				if (local60.anInt45 != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.aSeqTypeArray1[local60.anInt45], arg3, arg0));
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.anInt45], arg3, arg0));
 				}
 			} else if (arg8 == 7) {
 				local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
 				arg9.addWallDecoration(local57, arg3, 0, local72, arg4, 512, 0, arg0, local99, local86, arg6);
 				if (local60.anInt45 != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.aSeqTypeArray1[local60.anInt45], arg3, arg0));
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.anInt45], arg3, arg0));
 				}
 			} else if (arg8 == 8) {
 				local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
 				arg9.addWallDecoration(local57, arg3, 0, local72, arg4, 768, 0, arg0, local99, local86, arg6);
 				if (local60.anInt45 != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.aSeqTypeArray1[local60.anInt45], arg3, arg0));
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.anInt45], arg3, arg0));
 				}
 			}
 		}
@@ -505,7 +505,7 @@ public final class SceneGraph {
 					arg0.setLoc(arg3, local84.anInt44, local84.anInt43, arg8, arg2, local84.aBoolean8);
 				}
 				if (local84.anInt45 != -1) {
-					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 2, SeqType.aSeqTypeArray1[local84.anInt45], arg2, arg8));
+					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 2, SeqType.instances[local84.anInt45], arg2, arg8));
 				}
 			} else if (arg4 >= 12) {
 				local132 = local84.getModel(arg4, arg3, local36, local47, local60, local71, -1);
@@ -517,7 +517,7 @@ public final class SceneGraph {
 					arg0.setLoc(arg3, local84.anInt44, local84.anInt43, arg8, arg2, local84.aBoolean8);
 				}
 				if (local84.anInt45 != -1) {
-					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 2, SeqType.aSeqTypeArray1[local84.anInt45], arg2, arg8));
+					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 2, SeqType.instances[local84.anInt45], arg2, arg8));
 				}
 			} else if (arg4 == 0) {
 				local132 = local84.getModel(0, arg3, local36, local47, local60, local71, -1);
@@ -559,7 +559,7 @@ public final class SceneGraph {
 					arg0.setWall(arg3, arg2, arg8, local84.aBoolean8, arg4);
 				}
 				if (local84.anInt45 != -1) {
-					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.aSeqTypeArray1[local84.anInt45], arg2, arg8));
+					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.instances[local84.anInt45], arg2, arg8));
 				}
 				if (local84.anInt46 != 16) {
 					arg5.setWallDecoration(arg1, arg2, arg8, local84.anInt46);
@@ -582,7 +582,7 @@ public final class SceneGraph {
 					arg0.setWall(arg3, arg2, arg8, local84.aBoolean8, arg4);
 				}
 				if (local84.anInt45 != -1) {
-					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.aSeqTypeArray1[local84.anInt45], arg2, arg8));
+					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.instances[local84.anInt45], arg2, arg8));
 				}
 			} else {
 				@Pc(810) int local810;
@@ -611,7 +611,7 @@ public final class SceneGraph {
 						arg0.setWall(arg3, arg2, arg8, local84.aBoolean8, arg4);
 					}
 					if (local84.anInt45 != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.aSeqTypeArray1[local84.anInt45], arg2, arg8));
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.instances[local84.anInt45], arg2, arg8));
 					}
 					if (local84.anInt46 != 16) {
 						arg5.setWallDecoration(arg1, arg2, arg8, local84.anInt46);
@@ -634,7 +634,7 @@ public final class SceneGraph {
 						arg0.setWall(arg3, arg2, arg8, local84.aBoolean8, arg4);
 					}
 					if (local84.anInt45 != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.aSeqTypeArray1[local84.anInt45], arg2, arg8));
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.instances[local84.anInt45], arg2, arg8));
 					}
 				} else if (arg4 == 9) {
 					local132 = local84.getModel(arg4, arg3, local36, local47, local60, local71, -1);
@@ -643,13 +643,13 @@ public final class SceneGraph {
 						arg0.setLoc(arg3, local84.anInt44, local84.anInt43, arg8, arg2, local84.aBoolean8);
 					}
 					if (local84.anInt45 != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 2, SeqType.aSeqTypeArray1[local84.anInt45], arg2, arg8));
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 2, SeqType.instances[local84.anInt45], arg2, arg8));
 					}
 				} else if (arg4 == 4) {
 					local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
 					arg5.addWallDecoration(local81, arg2, 0, local96, arg3 * 512, anIntArray18[arg3], 0, arg8, local132, local110, arg1);
 					if (local84.anInt45 != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.aSeqTypeArray1[local84.anInt45], arg2, arg8));
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.anInt45], arg2, arg8));
 					}
 				} else if (arg4 == 5) {
 					local810 = 16;
@@ -660,25 +660,25 @@ public final class SceneGraph {
 					local832 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
 					arg5.addWallDecoration(local81, arg2, anIntArray21[arg3] * local810, local96, arg3 * 512, anIntArray18[arg3], anIntArray20[arg3] * local810, arg8, local832, local110, arg1);
 					if (local84.anInt45 != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.aSeqTypeArray1[local84.anInt45], arg2, arg8));
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.anInt45], arg2, arg8));
 					}
 				} else if (arg4 == 6) {
 					local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
 					arg5.addWallDecoration(local81, arg2, 0, local96, arg3, 256, 0, arg8, local132, local110, arg1);
 					if (local84.anInt45 != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.aSeqTypeArray1[local84.anInt45], arg2, arg8));
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.anInt45], arg2, arg8));
 					}
 				} else if (arg4 == 7) {
 					local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
 					arg5.addWallDecoration(local81, arg2, 0, local96, arg3, 512, 0, arg8, local132, local110, arg1);
 					if (local84.anInt45 != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.aSeqTypeArray1[local84.anInt45], arg2, arg8));
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.anInt45], arg2, arg8));
 					}
 				} else if (arg4 == 8) {
 					local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
 					arg5.addWallDecoration(local81, arg2, 0, local96, arg3, 768, 0, arg8, local132, local110, arg1);
 					if (local84.anInt45 != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.aSeqTypeArray1[local84.anInt45], arg2, arg8));
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.anInt45], arg2, arg8));
 					}
 				}
 			}
@@ -689,7 +689,7 @@ public final class SceneGraph {
 				arg0.setBlocoked(arg2, arg8);
 			}
 			if (local84.anInt45 != -1) {
-				arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 3, SeqType.aSeqTypeArray1[local84.anInt45], arg2, arg8));
+				arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 3, SeqType.instances[local84.anInt45], arg2, arg8));
 			}
 		}
 	}

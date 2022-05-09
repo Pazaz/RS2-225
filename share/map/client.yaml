@@ -361,43 +361,43 @@ fields:
     name: "aByte2"
   client!b.a I:
     owner: "GameFrame"
-    name: "anInt56"
+    name: "flowObfuscator1"
   client!b.b Lclient!a;:
     owner: "GameFrame"
-    name: "anGameShell"
+    name: "shell"
   client!bb.e I:
     owner: "SpotAnimEntity"
-    name: "anInt58"
+    name: "flowObfuscator1"
   client!bb.f I:
     owner: "SpotAnimEntity"
     name: "anInt59"
   client!bb.g Lclient!kc;:
     owner: "SpotAnimEntity"
-    name: "aSpotAnimType_2"
+    name: "spotanim"
   client!bb.h I:
     owner: "SpotAnimEntity"
-    name: "anInt60"
+    name: "firstCycle"
   client!bb.i I:
     owner: "SpotAnimEntity"
-    name: "anInt61"
+    name: "level"
   client!bb.j I:
     owner: "SpotAnimEntity"
-    name: "anInt62"
+    name: "x"
   client!bb.k I:
     owner: "SpotAnimEntity"
-    name: "anInt63"
+    name: "z"
   client!bb.l I:
     owner: "SpotAnimEntity"
     name: "anInt64"
   client!bb.m I:
     owner: "SpotAnimEntity"
-    name: "anInt65"
+    name: "seqFrame"
   client!bb.n I:
     owner: "SpotAnimEntity"
-    name: "anInt66"
+    name: "frameCycle"
   client!bb.o Z:
     owner: "SpotAnimEntity"
-    name: "aBoolean17"
+    name: "finished"
   client!bc.A I:
     owner: "NpcType"
     name: "anInt78"
@@ -436,7 +436,7 @@ fields:
     name: "aByteArray2"
   client!bc.j B:
     owner: "NpcType"
-    name: "aByte4"
+    name: "size"
   client!bc.k [I:
     owner: "NpcType"
     name: "anIntArray9"
@@ -2089,88 +2089,88 @@ fields:
     name: "anInt334"
   client!d.a Z:
     owner: "BufferedStream"
-    name: "aBoolean74"
+    name: "flowObfuscator1"
   client!d.b Ljava/io/InputStream;:
     owner: "BufferedStream"
-    name: "anInputStream1"
+    name: "in"
   client!d.c Ljava/io/OutputStream;:
     owner: "BufferedStream"
-    name: "anOutputStream1"
+    name: "out"
   client!d.d Ljava/net/Socket;:
     owner: "BufferedStream"
-    name: "aSocket1"
+    name: "socket"
   client!d.e Z:
     owner: "BufferedStream"
-    name: "aBoolean75"
+    name: "closed"
   client!d.f Lclient!a;:
     owner: "BufferedStream"
-    name: "anGameShell_2"
+    name: "shell"
   client!d.g [B:
     owner: "BufferedStream"
-    name: "aByteArray5"
+    name: "buffer"
   client!d.h I:
     owner: "BufferedStream"
-    name: "anInt347"
+    name: "length"
   client!d.i I:
     owner: "BufferedStream"
-    name: "anInt348"
+    name: "offset"
   client!d.j Z:
     owner: "BufferedStream"
-    name: "aBoolean76"
+    name: "writing"
   client!d.k Z:
     owner: "BufferedStream"
-    name: "aBoolean77"
+    name: "exception"
   client!db.e Lclient!db;:
     owner: "CacheableNode"
-    name: "aCacheableNode_15"
+    name: "nextCacheable"
   client!db.f Lclient!db;:
     owner: "CacheableNode"
-    name: "aCacheableNode_16"
+    name: "prevCacheable"
   client!db.g I:
     owner: "CacheableNode"
     name: "anInt555"
   client!dc.a [I:
     owner: "Packet"
-    name: "anIntArray89"
+    name: "CLIENTPROT_SCRAMBLED"
   client!dc.b [I:
     owner: "Packet"
-    name: "anIntArray90"
+    name: "SERVERPROT_LENGTHS"
   client!e.a B:
     owner: "InputTracking"
-    name: "aByte18"
+    name: "flowObfuscator1"
   client!e.b I:
     owner: "InputTracking"
-    name: "anInt351"
+    name: "flowObfuscator3"
   client!e.c Z:
     owner: "InputTracking"
-    name: "aBoolean79"
+    name: "flowObfuscator2"
   client!e.d Z:
     owner: "InputTracking"
     name: "aBoolean80"
   client!e.e Z:
     owner: "InputTracking"
-    name: "aBoolean81"
+    name: "enabled"
   client!e.f Lclient!kb;:
     owner: "InputTracking"
-    name: "aBuffer_7"
+    name: "outBuffer"
   client!e.g Lclient!kb;:
     owner: "InputTracking"
-    name: "aBuffer_8"
+    name: "oldBuffer"
   client!e.h J:
     owner: "InputTracking"
-    name: "aLong11"
+    name: "lastTime"
   client!e.i I:
     owner: "InputTracking"
-    name: "anInt352"
+    name: "trackedCount"
   client!e.j J:
     owner: "InputTracking"
-    name: "aLong12"
+    name: "lastMoveTime"
   client!e.k I:
     owner: "InputTracking"
-    name: "anInt353"
+    name: "lastX"
   client!e.l I:
     owner: "InputTracking"
-    name: "anInt354"
+    name: "lastY"
   client!eb.A [I:
     owner: "Model"
     name: "anIntArray102"
@@ -2245,7 +2245,7 @@ fields:
     name: "anInt378"
   client!eb.M I:
     owner: "Model"
-    name: "anInt368"
+    name: "maxBoundY"
   client!eb.Mb [I:
     owner: "Model"
     name: "anIntArray123"
@@ -2281,13 +2281,13 @@ fields:
     name: "anIntArray108"
   client!eb.T [[I:
     owner: "Model"
-    name: "anIntArrayArray6"
+    name: "labelVertices"
   client!eb.U [[I:
     owner: "Model"
-    name: "anIntArrayArray7"
+    name: "skinTriangle"
   client!eb.V Z:
     owner: "Model"
-    name: "aBoolean84"
+    name: "pickable"
   client!eb.W [Lclient!n;:
     owner: "Model"
     name: "aVertexNormalArray1"
@@ -2467,16 +2467,16 @@ fields:
     name: "anIntArrayArray10"
   client!f.a [Lclient!f;:
     owner: "SeqBase"
-    name: "aSeqBaseArray1"
+    name: "instances"
   client!f.b I:
     owner: "SeqBase"
-    name: "anInt385"
+    name: "length"
   client!f.c [I:
     owner: "SeqBase"
-    name: "anIntArray128"
+    name: "types"
   client!f.d [[I:
     owner: "SeqBase"
-    name: "anIntArrayArray11"
+    name: "groupLabels"
   client!fb.h I:
     owner: "Draw2D"
     name: "anInt526"
@@ -2563,28 +2563,28 @@ fields:
     name: "anInt410"
   client!g.a [Lclient!g;:
     owner: "SeqFrame"
-    name: "aSeqFrameArray1"
+    name: "instances"
   client!g.b I:
     owner: "SeqFrame"
-    name: "anInt411"
+    name: "delay"
   client!g.c Lclient!f;:
     owner: "SeqFrame"
-    name: "aSeqBase_1"
+    name: "transform"
   client!g.d I:
     owner: "SeqFrame"
-    name: "anInt412"
+    name: "groupCount"
   client!g.e [I:
     owner: "SeqFrame"
-    name: "anIntArray130"
+    name: "groups"
   client!g.f [I:
     owner: "SeqFrame"
-    name: "anIntArray131"
+    name: "x"
   client!g.g [I:
     owner: "SeqFrame"
-    name: "anIntArray132"
+    name: "y"
   client!g.h [I:
     owner: "SeqFrame"
-    name: "anIntArray133"
+    name: "z"
   client!gb.A Z:
     owner: "Draw3D"
     name: "aBoolean96"
@@ -2704,28 +2704,28 @@ fields:
     name: "aBoolean101"
   client!h.a I:
     owner: "WallDecoration"
-    name: "anInt439"
+    name: "y"
   client!h.b I:
     owner: "WallDecoration"
-    name: "anInt440"
+    name: "x"
   client!h.c I:
     owner: "WallDecoration"
-    name: "anInt441"
+    name: "z"
   client!h.d I:
     owner: "WallDecoration"
-    name: "anInt442"
+    name: "type0"
   client!h.e I:
     owner: "WallDecoration"
-    name: "anInt443"
+    name: "type1"
   client!h.f Lclient!eb;:
     owner: "WallDecoration"
-    name: "aClass1_Sub3_Sub1_1"
+    name: "model"
   client!h.g I:
     owner: "WallDecoration"
-    name: "anInt444"
+    name: "bitset"
   client!h.h B:
     owner: "WallDecoration"
-    name: "aByte22"
+    name: "info"
   client!hb.A [I:
     owner: "Sprite"
     name: "anIntArray148"
@@ -3058,43 +3058,43 @@ fields:
     name: "aByteArray6"
   client!ic.a I:
     owner: "DeadClass"
-    name: "anInt519"
+    name: "flowObfuscator1"
   client!ic.b [Lclient!ic;:
     owner: "DeadClass"
-    name: "aDeadClassArray1"
+    name: "deadArray"
   client!ic.c Z:
     owner: "DeadClass"
-    name: "aBoolean118"
+    name: "deadBool1"
   client!ic.d Z:
     owner: "DeadClass"
-    name: "aBoolean119"
+    name: "deadBool2"
   client!ic.e Z:
     owner: "DeadClass"
-    name: "aBoolean120"
+    name: "deadBool3"
   client!ic.f Z:
     owner: "DeadClass"
-    name: "aBoolean121"
+    name: "deadBool4"
   client!ic.g Z:
     owner: "DeadClass"
-    name: "aBoolean122"
+    name: "deadBool5"
   client!j.a I:
     owner: "GroundDecoration"
-    name: "anInt520"
+    name: "y"
   client!j.b I:
     owner: "GroundDecoration"
-    name: "anInt521"
+    name: "x"
   client!j.c I:
     owner: "GroundDecoration"
-    name: "anInt522"
+    name: "z"
   client!j.d Lclient!eb;:
     owner: "GroundDecoration"
-    name: "aModel_4"
+    name: "model"
   client!j.e I:
     owner: "GroundDecoration"
-    name: "anInt523"
+    name: "bitset"
   client!j.f B:
     owner: "GroundDecoration"
-    name: "aByte25"
+    name: "info"
   client!jb.A I:
     owner: "IndexedFont"
     name: "anInt539"
@@ -3145,49 +3145,49 @@ fields:
     name: "anInt538"
   client!jc.a Z:
     owner: "SeqType"
-    name: "aBoolean125"
+    name: "flowObfuscator1"
   client!jc.b I:
     owner: "SeqType"
-    name: "anInt541"
+    name: "flowObfuscator2"
   client!jc.c I:
     owner: "SeqType"
-    name: "anInt542"
+    name: "count"
   client!jc.d [Lclient!jc;:
     owner: "SeqType"
-    name: "aSeqTypeArray1"
+    name: "instances"
   client!jc.e I:
     owner: "SeqType"
-    name: "anInt543"
+    name: "frameCount"
   client!jc.f [I:
     owner: "SeqType"
-    name: "anIntArray186"
+    name: "primaryFrames"
   client!jc.g [I:
     owner: "SeqType"
-    name: "anIntArray187"
+    name: "secondaryFrames"
   client!jc.h [I:
     owner: "SeqType"
-    name: "anIntArray188"
+    name: "frameDelay"
   client!jc.i I:
     owner: "SeqType"
-    name: "anInt544"
+    name: "delay"
   client!jc.j [I:
     owner: "SeqType"
-    name: "anIntArray189"
+    name: "labelGroups"
   client!jc.k Z:
     owner: "SeqType"
-    name: "aBoolean126"
+    name: "renderPadding"
   client!jc.l I:
     owner: "SeqType"
-    name: "anInt545"
+    name: "priority"
   client!jc.m I:
     owner: "SeqType"
-    name: "anInt546"
+    name: "shieldOverride"
   client!jc.n I:
     owner: "SeqType"
-    name: "anInt547"
+    name: "weaponOverride"
   client!jc.o I:
     owner: "SeqType"
-    name: "anInt548"
+    name: "replays"
   client!k.a I:
     owner: "ObjEntity"
     name: "anInt549"
@@ -3214,115 +3214,115 @@ fields:
     name: "anInt553"
   client!kb.A Lclient!ob;:
     owner: "Buffer"
-    name: "A_LINKED_LIST___7"
+    name: "queueMid"
   client!kb.B Lclient!ob;:
     owner: "Buffer"
-    name: "A_LINKED_LIST___8"
+    name: "queueMax"
   client!kb.h I:
     owner: "Buffer"
-    name: "anInt556"
+    name: "flowObfuscator5"
   client!kb.i B:
     owner: "Buffer"
-    name: "aByte29"
+    name: "flowObfuscator2"
   client!kb.j B:
     owner: "Buffer"
-    name: "aByte30"
+    name: "flowObfuscator3"
   client!kb.k I:
     owner: "Buffer"
-    name: "anInt557"
+    name: "flowObfuscator6"
   client!kb.l I:
     owner: "Buffer"
-    name: "anInt558"
+    name: "flowObfuscator7"
   client!kb.m Z:
     owner: "Buffer"
-    name: "aBoolean128"
+    name: "flowObfuscator8"
   client!kb.n I:
     owner: "Buffer"
-    name: "anInt559"
+    name: "flowObfuscator4"
   client!kb.o Z:
     owner: "Buffer"
-    name: "aBoolean129"
+    name: "flowObfuscator1"
   client!kb.p I:
     owner: "Buffer"
-    name: "anInt560"
+    name: "flowObfuscator9"
   client!kb.q [B:
     owner: "Buffer"
-    name: "aByteArray7"
+    name: "data"
   client!kb.r I:
     owner: "Buffer"
-    name: "anInt561"
+    name: "offset"
   client!kb.s I:
     owner: "Buffer"
-    name: "anInt562"
+    name: "bitOffset"
   client!kb.t [I:
     owner: "Buffer"
-    name: "anIntArray190"
+    name: "CRC32_TABLE"
   client!kb.u [I:
     owner: "Buffer"
-    name: "anIntArray191"
+    name: "BITMASK"
   client!kb.v Lclient!tb;:
     owner: "Buffer"
-    name: "aIsaacRandom_2"
+    name: "isaac"
   client!kb.w I:
     owner: "Buffer"
-    name: "anInt563"
+    name: "queueMinCount"
   client!kb.x I:
     owner: "Buffer"
-    name: "anInt564"
+    name: "queueMidCount"
   client!kb.y I:
     owner: "Buffer"
-    name: "anInt565"
+    name: "queueMaxCount"
   client!kb.z Lclient!ob;:
     owner: "Buffer"
-    name: "A_LINKED_LIST___6"
+    name: "queueMin"
   client!kc.a I:
     owner: "SpotAnimType"
-    name: "anInt566"
+    name: "flowObfuscator1"
   client!kc.b I:
     owner: "SpotAnimType"
-    name: "anInt567"
+    name: "count"
   client!kc.c [Lclient!kc;:
     owner: "SpotAnimType"
-    name: "aSpotAnimTypeArray1"
+    name: "instances"
   client!kc.d I:
     owner: "SpotAnimType"
-    name: "anInt568"
+    name: "index"
   client!kc.e I:
     owner: "SpotAnimType"
-    name: "anInt569"
+    name: "modelIndex"
   client!kc.f I:
     owner: "SpotAnimType"
-    name: "anInt570"
+    name: "seqIndex"
   client!kc.g Lclient!jc;:
     owner: "SpotAnimType"
-    name: "aSeqType_1"
+    name: "seq"
   client!kc.h Z:
     owner: "SpotAnimType"
-    name: "aBoolean131"
+    name: "disposeAlpha"
   client!kc.i [I:
     owner: "SpotAnimType"
-    name: "anIntArray192"
+    name: "oldColors"
   client!kc.j [I:
     owner: "SpotAnimType"
-    name: "anIntArray193"
+    name: "newColors"
   client!kc.k I:
     owner: "SpotAnimType"
-    name: "anInt571"
+    name: "breadthScale"
   client!kc.l I:
     owner: "SpotAnimType"
-    name: "anInt572"
+    name: "depthScale"
   client!kc.m I:
     owner: "SpotAnimType"
-    name: "anInt573"
+    name: "orientation"
   client!kc.n I:
     owner: "SpotAnimType"
-    name: "anInt574"
+    name: "ambience"
   client!kc.o I:
     owner: "SpotAnimType"
-    name: "anInt575"
+    name: "modelShadow"
   client!kc.p Lclient!s;:
     owner: "SpotAnimType"
-    name: "aCache_8"
+    name: "models"
   client!l.a I:
     owner: "ModelMetadata"
     name: "anInt576"
@@ -3373,34 +3373,34 @@ fields:
     name: "anInt591"
   client!lb.e I:
     owner: "SpawnedLoc"
-    name: "anInt593"
+    name: "level"
   client!lb.f I:
     owner: "SpawnedLoc"
-    name: "anInt594"
+    name: "classType"
   client!lb.g I:
     owner: "SpawnedLoc"
-    name: "anInt595"
+    name: "tileX"
   client!lb.h I:
     owner: "SpawnedLoc"
-    name: "anInt596"
+    name: "tileZ"
   client!lb.i I:
     owner: "SpawnedLoc"
-    name: "anInt597"
+    name: "locIndex"
   client!lb.j I:
     owner: "SpawnedLoc"
-    name: "anInt598"
+    name: "orientation"
   client!lb.k I:
     owner: "SpawnedLoc"
-    name: "anInt599"
+    name: "type"
   client!lb.l I:
     owner: "SpawnedLoc"
-    name: "anInt600"
+    name: "lastLocIndex"
   client!lb.m I:
     owner: "SpawnedLoc"
-    name: "anInt601"
+    name: "lastRotation"
   client!lb.n I:
     owner: "SpawnedLoc"
-    name: "anInt602"
+    name: "lastType"
   client!lc.a I:
     owner: "VarpType"
     name: "anInt603"
@@ -3448,58 +3448,58 @@ fields:
     name: "aBoolean135"
   client!m.a I:
     owner: "Occluder"
-    name: "anInt611"
+    name: "minTileX"
   client!m.b I:
     owner: "Occluder"
-    name: "anInt612"
+    name: "maxTileX"
   client!m.c I:
     owner: "Occluder"
-    name: "anInt613"
+    name: "minTileZ"
   client!m.d I:
     owner: "Occluder"
-    name: "anInt614"
+    name: "maxTileZ"
   client!m.e I:
     owner: "Occluder"
-    name: "anInt615"
+    name: "type"
   client!m.f I:
     owner: "Occluder"
-    name: "anInt616"
+    name: "minX"
   client!m.g I:
     owner: "Occluder"
-    name: "anInt617"
+    name: "maxX"
   client!m.h I:
     owner: "Occluder"
-    name: "anInt618"
+    name: "minZ"
   client!m.i I:
     owner: "Occluder"
-    name: "anInt619"
+    name: "maxZ"
   client!m.j I:
     owner: "Occluder"
-    name: "anInt620"
+    name: "minY"
   client!m.k I:
     owner: "Occluder"
-    name: "anInt621"
+    name: "maxY"
   client!m.l I:
     owner: "Occluder"
-    name: "anInt622"
+    name: "testDirection"
   client!m.m I:
     owner: "Occluder"
-    name: "anInt623"
+    name: "minNormalX"
   client!m.n I:
     owner: "Occluder"
-    name: "anInt624"
+    name: "maxNormalX"
   client!m.o I:
     owner: "Occluder"
-    name: "anInt625"
+    name: "minNormalZ"
   client!m.p I:
     owner: "Occluder"
-    name: "anInt626"
+    name: "maxNormalZ"
   client!m.q I:
     owner: "Occluder"
-    name: "anInt627"
+    name: "minNormalY"
   client!m.r I:
     owner: "Occluder"
-    name: "anInt628"
+    name: "maxNormalY"
   client!mb.e I:
     owner: "TemporaryLoc"
     name: "anInt630"
@@ -3634,67 +3634,67 @@ fields:
     name: "anInt663"
   client!ob.a Z:
     owner: "LinkedList"
-    name: "aBoolean139"
+    name: "flowObfuscator3"
   client!ob.b B:
     owner: "LinkedList"
-    name: "aByte32"
+    name: "flowObfuscator1"
   client!ob.c I:
     owner: "LinkedList"
-    name: "anInt664"
+    name: "flowObfuscator4"
   client!ob.d I:
     owner: "LinkedList"
-    name: "anInt665"
+    name: "flowObfuscator2"
   client!ob.e Lclient!u;:
     owner: "LinkedList"
-    name: "aNode_33"
+    name: "head"
   client!ob.f Lclient!u;:
     owner: "LinkedList"
-    name: "aNode_34"
+    name: "selected"
   client!p.a I:
     owner: "Loc"
-    name: "anInt666"
+    name: "plane"
   client!p.b I:
     owner: "Loc"
-    name: "anInt667"
+    name: "y"
   client!p.c I:
     owner: "Loc"
-    name: "anInt668"
+    name: "x"
   client!p.d I:
     owner: "Loc"
-    name: "anInt669"
+    name: "z"
   client!p.e Lclient!eb;:
     owner: "Loc"
-    name: "aModel_8"
+    name: "model"
   client!p.f Lclient!w;:
     owner: "Loc"
-    name: "aClass1_Sub1_1"
+    name: "entity"
   client!p.g I:
     owner: "Loc"
-    name: "anInt670"
+    name: "yaw"
   client!p.h I:
     owner: "Loc"
-    name: "anInt671"
+    name: "minSceneTileX"
   client!p.i I:
     owner: "Loc"
-    name: "anInt672"
+    name: "maxSceneTileX"
   client!p.j I:
     owner: "Loc"
-    name: "anInt673"
+    name: "minSceneTileZ"
   client!p.k I:
     owner: "Loc"
-    name: "anInt674"
+    name: "maxSceneTileZ"
   client!p.l I:
     owner: "Loc"
-    name: "anInt675"
+    name: "distance"
   client!p.m I:
     owner: "Loc"
-    name: "anInt676"
+    name: "cycle"
   client!p.n I:
     owner: "Loc"
-    name: "anInt677"
+    name: "bitset"
   client!p.o B:
     owner: "Loc"
-    name: "aByte33"
+    name: "info"
   client!pb.a I:
     owner: "Stack"
     name: "anInt678"
@@ -3709,52 +3709,52 @@ fields:
     name: "aCacheableNode_17"
   client!q.a I:
     owner: "Wall"
-    name: "anInt679"
+    name: "y"
   client!q.b I:
     owner: "Wall"
-    name: "anInt680"
+    name: "x"
   client!q.c I:
     owner: "Wall"
-    name: "anInt681"
+    name: "z"
   client!q.d I:
     owner: "Wall"
-    name: "anInt682"
+    name: "type0"
   client!q.e I:
     owner: "Wall"
-    name: "anInt683"
+    name: "type1"
   client!q.f Lclient!eb;:
     owner: "Wall"
-    name: "aModel_9"
+    name: "model0"
   client!q.g Lclient!eb;:
     owner: "Wall"
-    name: "aModel_10"
+    name: "model1"
   client!q.h I:
     owner: "Wall"
-    name: "anInt684"
+    name: "bitset"
   client!q.i B:
     owner: "Wall"
-    name: "aByte35"
+    name: "info"
   client!qb.a I:
     owner: "DrawArea"
-    name: "anInt685"
+    name: "flowObfuscator1"
   client!qb.b [I:
     owner: "DrawArea"
-    name: "anIntArray197"
+    name: "pixels"
   client!qb.c I:
     owner: "DrawArea"
-    name: "anInt686"
+    name: "width"
   client!qb.d I:
     owner: "DrawArea"
-    name: "anInt687"
+    name: "height"
   client!qb.e Ljava/awt/image/ColorModel;:
     owner: "DrawArea"
-    name: "aColorModel1"
+    name: "colorModel"
   client!qb.f Ljava/awt/image/ImageConsumer;:
     owner: "DrawArea"
-    name: "anImageConsumer1"
+    name: "consumer"
   client!qb.g Ljava/awt/Image;:
     owner: "DrawArea"
-    name: "anImage1"
+    name: "image"
   client!r.A I:
     owner: "MapSquare"
     name: "anInt705"
@@ -3970,22 +3970,22 @@ fields:
     name: "context"
   client!s.a Z:
     owner: "Cache"
-    name: "aBoolean145"
+    name: "flowObfuscator2"
   client!s.b I:
     owner: "Cache"
-    name: "anInt725"
+    name: "flowObfuscator1"
   client!s.c I:
     owner: "Cache"
-    name: "anInt726"
+    name: "capacity"
   client!s.d I:
     owner: "Cache"
-    name: "anInt727"
+    name: "available"
   client!s.e Lclient!t;:
     owner: "Cache"
-    name: "aHashtable_1"
+    name: "hashtable"
   client!s.f Lclient!pb;:
     owner: "Cache"
-    name: "aStack_1"
+    name: "history"
   client!sb.A I:
     owner: "BZip2Context"
     name: "anInt750"
@@ -4228,43 +4228,43 @@ fields:
     name: "wavevol"
   client!t.a I:
     owner: "Hashtable"
-    name: "anInt756"
+    name: "flowObfuscator1"
   client!t.b Z:
     owner: "Hashtable"
-    name: "aBoolean147"
+    name: "flowObfuscator2"
   client!t.c I:
     owner: "Hashtable"
-    name: "anInt757"
+    name: "size"
   client!t.d [Lclient!u;:
     owner: "Hashtable"
-    name: "aNode"
+    name: "nodes"
   client!tb.a I:
     owner: "IsaacRandom"
-    name: "anInt758"
+    name: "count"
   client!tb.b [I:
     owner: "IsaacRandom"
-    name: "anIntArray219"
+    name: "rsl"
   client!tb.c [I:
     owner: "IsaacRandom"
-    name: "anIntArray220"
+    name: "mem"
   client!tb.d I:
     owner: "IsaacRandom"
-    name: "anInt759"
+    name: "a"
   client!tb.e I:
     owner: "IsaacRandom"
-    name: "anInt760"
+    name: "b"
   client!tb.f I:
     owner: "IsaacRandom"
-    name: "anInt761"
+    name: "c"
   client!u.a J:
     owner: "Node"
-    name: "aLong26"
+    name: "key"
   client!u.b Lclient!u;:
     owner: "Node"
-    name: "aNode_41"
+    name: "prev"
   client!u.c Lclient!u;:
     owner: "Node"
-    name: "aNode_42"
+    name: "next"
   client!u.d I:
     owner: "Node"
     name: "anInt880"
@@ -4348,34 +4348,34 @@ fields:
     name: "anInt903"
   client!x.E I:
     owner: "PathingEntity"
-    name: "anInt904"
+    name: "secondarySeq"
   client!x.F I:
     owner: "PathingEntity"
-    name: "anInt905"
+    name: "secondarySeqFrame"
   client!x.G I:
     owner: "PathingEntity"
     name: "anInt906"
   client!x.H I:
     owner: "PathingEntity"
-    name: "anInt907"
+    name: "primarySeq"
   client!x.I I:
     owner: "PathingEntity"
-    name: "anInt908"
+    name: "primarySeqFrame"
   client!x.J I:
     owner: "PathingEntity"
     name: "anInt909"
   client!x.K I:
     owner: "PathingEntity"
-    name: "anInt910"
+    name: "primarySeqDelay"
   client!x.L I:
     owner: "PathingEntity"
     name: "anInt911"
   client!x.M I:
     owner: "PathingEntity"
-    name: "anInt912"
+    name: "spotAnimIndex"
   client!x.N I:
     owner: "PathingEntity"
-    name: "anInt913"
+    name: "spotAnimFrame"
   client!x.O I:
     owner: "PathingEntity"
     name: "anInt914"
@@ -4384,7 +4384,7 @@ fields:
     name: "anInt915"
   client!x.Q I:
     owner: "PathingEntity"
-    name: "anInt916"
+    name: "spotAnimOffsetY"
   client!x.R I:
     owner: "PathingEntity"
     name: "anInt917"
@@ -4411,7 +4411,7 @@ fields:
     name: "anInt924"
   client!x.Z I:
     owner: "PathingEntity"
-    name: "anInt925"
+    name: "height"
   client!x.ab I:
     owner: "PathingEntity"
     name: "anInt926"
@@ -4453,7 +4453,7 @@ fields:
     name: "anInt885"
   client!x.l I:
     owner: "PathingEntity"
-    name: "anInt886"
+    name: "standSeq"
   client!x.m I:
     owner: "PathingEntity"
     name: "anInt887"
@@ -4498,73 +4498,73 @@ fields:
     name: "anInt899"
   client!xb.a I:
     owner: "SoundEnvelope"
-    name: "anInt818"
+    name: "length"
   client!xb.b [I:
     owner: "SoundEnvelope"
-    name: "anIntArray227"
+    name: "shapeDelta"
   client!xb.c [I:
     owner: "SoundEnvelope"
-    name: "anIntArray228"
+    name: "shapePeak"
   client!xb.d I:
     owner: "SoundEnvelope"
-    name: "anInt819"
+    name: "start"
   client!xb.e I:
     owner: "SoundEnvelope"
-    name: "anInt820"
+    name: "end"
   client!xb.f I:
     owner: "SoundEnvelope"
-    name: "anInt821"
+    name: "form"
   client!xb.g I:
     owner: "SoundEnvelope"
-    name: "anInt822"
+    name: "threshold"
   client!xb.h I:
     owner: "SoundEnvelope"
-    name: "anInt823"
+    name: "position"
   client!xb.i I:
     owner: "SoundEnvelope"
-    name: "anInt824"
+    name: "delta"
   client!xb.j I:
     owner: "SoundEnvelope"
-    name: "anInt825"
+    name: "amplitude"
   client!xb.k I:
     owner: "SoundEnvelope"
-    name: "anInt826"
+    name: "ticks"
   client!y.gb I:
     owner: "NpcEntity"
-    name: "anInt876"
+    name: "flowObfuscator1"
   client!y.hb Z:
     owner: "NpcEntity"
-    name: "aBoolean157"
+    name: "flowObufscator2"
   client!y.ib Lclient!bc;:
     owner: "NpcEntity"
-    name: "aNpcType_1"
+    name: "info"
   client!yb.a Z:
     owner: "SoundTrack"
-    name: "aBoolean158"
+    name: "flowObfuscator2"
   client!yb.b I:
     owner: "SoundTrack"
-    name: "anInt877"
+    name: "flowObfuscator1"
   client!yb.c [Lclient!yb;:
     owner: "SoundTrack"
-    name: "A_SOUND_TRACK_ARRAY_1"
+    name: "tracks"
   client!yb.d [I:
     owner: "SoundTrack"
-    name: "anIntArray231"
+    name: "delays"
   client!yb.e [B:
     owner: "SoundTrack"
-    name: "aByteArray15"
+    name: "bbuf"
   client!yb.f Lclient!kb;:
     owner: "SoundTrack"
-    name: "aBuffer_23"
+    name: "buffer"
   client!yb.g [Lclient!zb;:
     owner: "SoundTrack"
-    name: "aSoundToneArray1"
+    name: "tones"
   client!yb.h I:
     owner: "SoundTrack"
-    name: "anInt878"
+    name: "loopBegin"
   client!yb.i I:
     owner: "SoundTrack"
-    name: "anInt879"
+    name: "loopEnd"
   client!z.Ab I:
     owner: "PlayerEntity"
     name: "anInt942"
@@ -4636,79 +4636,79 @@ fields:
     name: "anInt941"
   client!zb.a I:
     owner: "SoundTone"
-    name: "anInt943"
+    name: "flowObfuscator1"
   client!zb.b I:
     owner: "SoundTone"
-    name: "anInt944"
+    name: "flowObfuscator2"
   client!zb.c Lclient!xb;:
     owner: "SoundTone"
-    name: "aSoundEnvelope_1"
+    name: "frequencyBase"
   client!zb.d Lclient!xb;:
     owner: "SoundTone"
-    name: "aSoundEnvelope_2"
+    name: "amplitudeBase"
   client!zb.e Lclient!xb;:
     owner: "SoundTone"
-    name: "aSoundEnvelope_3"
+    name: "frequencyModRate"
   client!zb.f Lclient!xb;:
     owner: "SoundTone"
-    name: "aSoundEnvelope_4"
+    name: "frequencyModRange"
   client!zb.g Lclient!xb;:
     owner: "SoundTone"
-    name: "aSoundEnvelope_5"
+    name: "amplitudeModRate"
   client!zb.h Lclient!xb;:
     owner: "SoundTone"
-    name: "aSoundEnvelope_6"
+    name: "amplitudeModRange"
   client!zb.i Lclient!xb;:
     owner: "SoundTone"
-    name: "aSoundEnvelope_7"
+    name: "release"
   client!zb.j Lclient!xb;:
     owner: "SoundTone"
-    name: "aSoundEnvelope_8"
+    name: "attack"
   client!zb.k [I:
     owner: "SoundTone"
-    name: "anIntArray236"
+    name: "harmonicVolume"
   client!zb.l [I:
     owner: "SoundTone"
-    name: "anIntArray237"
+    name: "harmonicSemitone"
   client!zb.m [I:
     owner: "SoundTone"
-    name: "anIntArray238"
+    name: "harmonicDelay"
   client!zb.n I:
     owner: "SoundTone"
-    name: "anInt945"
+    name: "reverbDelay"
   client!zb.o I:
     owner: "SoundTone"
-    name: "anInt946"
+    name: "reverbVolume"
   client!zb.p I:
     owner: "SoundTone"
-    name: "anInt947"
+    name: "length"
   client!zb.q I:
     owner: "SoundTone"
-    name: "anInt948"
+    name: "start"
   client!zb.r [I:
     owner: "SoundTone"
-    name: "anIntArray239"
+    name: "buffer"
   client!zb.s [I:
     owner: "SoundTone"
-    name: "anIntArray240"
+    name: "noise"
   client!zb.t [I:
     owner: "SoundTone"
-    name: "anIntArray241"
+    name: "sin"
   client!zb.u [I:
     owner: "SoundTone"
-    name: "anIntArray242"
+    name: "tmpPhases"
   client!zb.v [I:
     owner: "SoundTone"
-    name: "anIntArray243"
+    name: "tmpDelays"
   client!zb.w [I:
     owner: "SoundTone"
-    name: "anIntArray244"
+    name: "tmpVolumes"
   client!zb.x [I:
     owner: "SoundTone"
-    name: "anIntArray245"
+    name: "tmpSemitones"
   client!zb.y [I:
     owner: "SoundTone"
-    name: "anIntArray246"
+    name: "tmpStarts"
 methods:
   client!a.a ()V:
     owner: "GameShell"
@@ -5081,55 +5081,55 @@ methods:
     owner: "GameFrame"
     name: "<init>"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      3: "arg3"
+      0: "height"
+      1: "obfuscator"
+      2: "shell"
+      3: "width"
     locals: {}
   client!b.getGraphics ()Ljava/awt/Graphics;:
     owner: "GameFrame"
     name: "getGraphics"
     arguments: {}
     locals:
-      2: "local2"
+      2: "g"
   client!b.paint (Ljava/awt/Graphics;)V:
     owner: "GameFrame"
     name: "paint"
     arguments:
-      0: "arg0"
+      0: "g"
     locals: {}
   client!b.update (Ljava/awt/Graphics;)V:
     owner: "GameFrame"
     name: "update"
     arguments:
-      0: "arg0"
+      0: "g"
     locals: {}
   client!bb.<init> (IIZIIIII)V:
     owner: "SpotAnimEntity"
     name: "<init>"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      3: "arg3"
-      4: "arg4"
+      0: "x"
+      1: "spotanimIndex"
+      2: "obfuscator"
+      3: "z"
+      4: "duration"
       5: "arg5"
-      6: "arg6"
-      7: "arg7"
+      6: "level"
+      7: "startCycle"
     locals: {}
   client!bb.a (II)V:
     owner: "SpotAnimEntity"
     name: "update"
     arguments:
-      0: "arg0"
+      0: "cycle"
     locals: {}
   client!bb.a (Z)Lclient!eb;:
     owner: "SpotAnimEntity"
     name: "getDrawMethod"
     arguments: {}
     locals:
-      3: "local3"
-      19: "local19"
+      3: "spotanimModel"
+      19: "m"
   client!bc.<init> ()V:
     owner: "NpcType"
     name: "<init>"
@@ -7310,33 +7310,33 @@ methods:
     owner: "BufferedStream"
     name: "<init>"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
+      0: "shell"
+      1: "obfuscator"
+      2: "socket"
     locals: {}
   client!d.a ()V:
     owner: "BufferedStream"
     name: "close"
     arguments: {}
     locals:
-      22: "local22"
+      22: "ignored"
   client!d.a ([BII)V:
     owner: "BufferedStream"
     name: "read"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
+      0: "dest"
+      1: "off"
+      2: "len"
     locals:
-      11: "local11"
+      11: "read"
   client!d.a ([BIZI)V:
     owner: "BufferedStream"
     name: "write"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "src"
+      1: "len"
     locals:
-      31: "local31"
+      31: "i"
   client!d.b ()I:
     owner: "BufferedStream"
     name: "read"
@@ -7352,11 +7352,11 @@ methods:
     name: "run"
     arguments: {}
     locals:
-      16: "local16"
-      27: "local27"
-      38: "local38"
-      62: "local62"
-      83: "local83"
+      16: "ignored"
+      27: "len"
+      38: "off"
+      62: "ignored"
+      83: "ignored"
   client!db.b ()V:
     owner: "CacheableNode"
     name: "uncache"
@@ -7376,93 +7376,93 @@ methods:
     owner: "InputTracking"
     name: "resize"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "obfuscator"
+      1: "size"
     locals:
-      15: "local15"
+      15: "buffer"
   client!e.a (IIIB)V:
     owner: "InputTracking"
     name: "mousePressed"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
+      0: "x"
+      1: "button"
+      2: "y"
     locals:
-      19: "local19"
-      25: "local25"
+      19: "start"
+      25: "delta"
   client!e.a (IZ)V:
     owner: "InputTracking"
     name: "keyPressed"
     arguments:
-      0: "arg0"
+      0: "key"
     locals:
-      8: "local8"
-      14: "local14"
+      8: "start"
+      14: "delta"
   client!e.a (IZI)V:
     owner: "InputTracking"
     name: "mouseMoved"
     arguments:
-      0: "arg0"
-      2: "arg1"
+      0: "y"
+      2: "x"
     locals:
-      17: "local17"
-      39: "local39"
+      17: "start"
+      39: "delta"
   client!e.a (Z)V:
     owner: "InputTracking"
     name: "mouseExited"
     arguments: {}
     locals:
-      11: "local11"
-      17: "local17"
+      11: "start"
+      17: "delta"
   client!e.b (I)Lclient!kb;:
     owner: "InputTracking"
     name: "flush"
     arguments: {}
     locals:
-      1: "local1"
+      1: "buffer"
   client!e.b (II)V:
     owner: "InputTracking"
     name: "mouseReleased"
     arguments:
-      0: "arg0"
+      0: "button"
     locals:
-      8: "local8"
-      14: "local14"
+      8: "start"
+      14: "delta"
   client!e.c (I)Lclient!kb;:
     owner: "InputTracking"
     name: "stop"
     arguments: {}
     locals:
-      9: "local9"
+      9: "buffer"
   client!e.c (II)V:
     owner: "InputTracking"
     name: "keyReleased"
     arguments:
-      0: "arg0"
+      0: "key"
     locals:
-      8: "local8"
-      14: "local14"
+      8: "start"
+      14: "delta"
   client!e.d (I)V:
     owner: "InputTracking"
     name: "focusGained"
     arguments: {}
     locals:
-      11: "local11"
-      17: "local17"
+      11: "start"
+      17: "delta"
   client!e.e (I)V:
     owner: "InputTracking"
     name: "focusLost"
     arguments: {}
     locals:
-      8: "local8"
-      14: "local14"
+      8: "start"
+      14: "delta"
   client!e.f (I)V:
     owner: "InputTracking"
     name: "mouseEntered"
     arguments: {}
     locals:
-      8: "local8"
-      14: "local14"
+      8: "start"
+      14: "delta"
   client!eb.<init> (ILclient!eb;Z)V:
     owner: "Model"
     name: "<init>"
@@ -8111,21 +8111,21 @@ methods:
     owner: "SeqBase"
     name: "decode"
     arguments:
-      1: "arg0"
+      1: "archive"
     locals:
-      11: "local11"
-      21: "local21"
-      31: "local31"
-      34: "local34"
-      37: "local37"
-      50: "local50"
-      55: "local55"
-      58: "local58"
-      61: "local61"
-      64: "local64"
-      66: "local66"
-      76: "local76"
-      83: "local83"
+      11: "head"
+      21: "type"
+      31: "label"
+      34: "total"
+      37: "count"
+      50: "i"
+      55: "index"
+      58: "length"
+      61: "transformTypes"
+      64: "groups"
+      66: "j"
+      76: "groupCount"
+      83: "k"
   client!fb.<init> ()V:
     owner: "Draw2D"
     name: "<init>"
@@ -8264,30 +8264,30 @@ methods:
     owner: "SeqFrame"
     name: "decode"
     arguments:
-      1: "arg0"
+      1: "archive"
     locals:
-      17: "local17"
-      27: "local27"
-      37: "local37"
-      47: "local47"
-      50: "local50"
-      53: "local53"
-      61: "local61"
-      64: "local64"
-      67: "local67"
-      70: "local70"
-      72: "local72"
-      77: "local77"
-      85: "local85"
-      92: "local92"
-      96: "local96"
-      102: "local102"
-      104: "local104"
-      106: "local106"
-      108: "local108"
-      113: "local113"
-      124: "local124"
-      160: "local160"
+      17: "head"
+      27: "tran1"
+      37: "tran2"
+      47: "del"
+      50: "frameCount"
+      53: "totalFrames"
+      61: "labels"
+      64: "x"
+      67: "y"
+      70: "z"
+      72: "i"
+      77: "frameId"
+      85: "frame"
+      92: "baseId"
+      96: "base"
+      102: "groupCount"
+      104: "lastGroup"
+      106: "count"
+      108: "j"
+      113: "flags"
+      124: "group"
+      160: "defaultValue"
   client!gb.a (BLclient!ub;)V:
     owner: "Draw3D"
     name: "unpackTextures"
@@ -9261,132 +9261,132 @@ methods:
     owner: "SeqType"
     name: "decode"
     arguments:
-      0: "arg0"
+      0: "archive"
     locals:
-      9: "local9"
-      27: "local27"
+      9: "buffer"
+      27: "i"
   client!jc.a (ZLclient!kb;)V:
     owner: "SeqType"
     name: "decode"
     arguments:
-      1: "arg0"
+      1: "buffer"
     locals:
-      13: "local13"
-      40: "local40"
-      127: "local127"
+      13: "opcode"
+      40: "i"
+      127: "j"
   client!kb.<init> (I)V:
     owner: "Buffer"
     name: "<init>"
     arguments:
-      0: "arg0"
+      0: "obfuscator"
     locals: {}
   client!kb.<init> (I[B)V:
     owner: "Buffer"
     name: "<init>"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "obfuscator"
+      1: "src"
     locals: {}
   client!kb.a (B)V:
     owner: "Buffer"
     name: "release"
     arguments: {}
     locals:
-      1: "local1"
+      1: "queue"
   client!kb.a (BI)V:
     owner: "Buffer"
     name: "p1isaac"
     arguments:
-      1: "arg0"
+      1: "opcode"
     locals: {}
   client!kb.a (I)V:
     owner: "Buffer"
     name: "p1"
     arguments:
-      0: "arg0"
+      0: "value"
     locals: {}
   client!kb.a (II)Lclient!kb;:
     owner: "Buffer"
     name: "reserve"
     arguments: {}
     locals:
-      3: "local3"
-      7: "local7"
-      77: "local77"
+      3: "queue"
+      7: "queueBuffer"
+      77: "buffer"
   client!kb.a (III[B)V:
     owner: "Buffer"
     name: "gBytes"
     arguments:
-      0: "arg0"
-      2: "arg1"
-      3: "arg2"
+      0: "length"
+      2: "offset"
+      3: "dest"
     locals:
-      6: "local6"
+      6: "i"
   client!kb.a (Ljava/lang/String;)V:
     owner: "Buffer"
     name: "pjstr"
     arguments:
-      0: "arg0"
+      0: "str"
     locals: {}
   client!kb.a (Ljava/math/BigInteger;Ljava/math/BigInteger;I)V:
     owner: "Buffer"
     name: "encryptRsa"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
+      0: "mod"
+      1: "exp"
+      2: "obfuscator"
     locals:
-      2: "local2"
-      8: "local8"
-      19: "local19"
-      24: "local24"
-      27: "local27"
+      2: "start"
+      8: "raw"
+      19: "bigRaw"
+      24: "bigEnc"
+      27: "enc"
   client!kb.a (ZI)V:
     owner: "Buffer"
     name: "p2le"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "obfuscator"
+      1: "value"
     locals: {}
   client!kb.a (ZJ)V:
     owner: "Buffer"
     name: "p8"
     arguments:
-      1: "arg0"
+      1: "value"
     locals: {}
   client!kb.a ([BIIB)V:
     owner: "Buffer"
     name: "pBytes"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "bytes"
+      1: "length"
     locals:
-      7: "local7"
+      7: "i"
   client!kb.b (B)[B:
     owner: "Buffer"
     name: "gjstrBytes"
     arguments: {}
     locals:
-      2: "local2"
-      29: "local29"
-      31: "local31"
+      2: "start"
+      29: "bytes"
+      31: "i"
   client!kb.b (I)V:
     owner: "Buffer"
     name: "p2"
     arguments:
-      0: "arg0"
+      0: "value"
     locals: {}
   client!kb.b (II)V:
     owner: "Buffer"
     name: "p1len"
     arguments:
-      1: "arg0"
+      1: "length"
     locals: {}
   client!kb.b (ZI)V:
     owner: "Buffer"
     name: "p4le"
     arguments:
-      1: "arg0"
+      1: "value"
     locals: {}
   client!kb.c ()I:
     owner: "Buffer"
@@ -9397,17 +9397,17 @@ methods:
     owner: "Buffer"
     name: "p3"
     arguments:
-      0: "arg0"
+      0: "value"
     locals: {}
   client!kb.c (II)I:
     owner: "Buffer"
     name: "gBit"
     arguments:
-      1: "arg0"
+      1: "n"
     locals:
-      15: "local15"
-      22: "local22"
-      24: "local24"
+      15: "byteOffset"
+      22: "msb"
+      24: "i"
   client!kb.d ()B:
     owner: "Buffer"
     name: "g1s"
@@ -9417,7 +9417,7 @@ methods:
     owner: "Buffer"
     name: "p4"
     arguments:
-      0: "arg0"
+      0: "value"
     locals: {}
   client!kb.e ()I:
     owner: "Buffer"
@@ -9429,14 +9429,14 @@ methods:
     name: "g8"
     arguments: {}
     locals:
-      5: "local5"
-      15: "local15"
+      5: "high"
+      15: "low"
   client!kb.f ()I:
     owner: "Buffer"
     name: "g2s"
     arguments: {}
     locals:
-      27: "local27"
+      27: "value"
   client!kb.f (I)V:
     owner: "Buffer"
     name: "accessBits"
@@ -9451,9 +9451,9 @@ methods:
     owner: "Buffer"
     name: "accessBytes"
     arguments:
-      0: "arg0"
+      0: "obfuscator"
     locals:
-      5: "local5"
+      5: "i"
   client!kb.h ()I:
     owner: "Buffer"
     name: "g4"
@@ -9464,19 +9464,19 @@ methods:
     name: "gjstr"
     arguments: {}
     locals:
-      2: "local2"
+      2: "start"
   client!kb.j ()I:
     owner: "Buffer"
     name: "gSmart1or2s"
     arguments: {}
     locals:
-      7: "local7"
+      7: "peek"
   client!kb.k ()I:
     owner: "Buffer"
     name: "gSmart1or2"
     arguments: {}
     locals:
-      7: "local7"
+      7: "peek"
   client!kc.<init> ()V:
     owner: "SpotAnimType"
     name: "<init>"
@@ -9487,23 +9487,23 @@ methods:
     name: "getModel"
     arguments: {}
     locals:
-      6: "local6"
-      19: "local19"
+      6: "m"
+      19: "i"
   client!kc.a (Lclient!ub;I)V:
     owner: "SpotAnimType"
     name: "decode"
     arguments:
-      0: "arg0"
+      0: "archive"
     locals:
-      13: "local13"
-      23: "local23"
+      13: "buffer"
+      23: "i"
   client!kc.a (ZLclient!kb;)V:
     owner: "SpotAnimType"
     name: "decode"
     arguments:
-      1: "arg0"
+      1: "buffer"
     locals:
-      13: "local13"
+      13: "opcode"
   client!lc.<init> ()V:
     owner: "VarpType"
     name: "<init>"
@@ -9966,56 +9966,56 @@ methods:
     owner: "LinkedList"
     name: "<init>"
     arguments:
-      0: "arg0"
+      0: "obfuscator"
     locals: {}
   client!ob.a ()Lclient!u;:
     owner: "LinkedList"
     name: "poll"
     arguments: {}
     locals:
-      3: "local3"
+      3: "node"
   client!ob.a (B)Lclient!u;:
     owner: "LinkedList"
     name: "peekNext"
     arguments: {}
     locals:
-      3: "local3"
+      3: "node"
   client!ob.a (I)Lclient!u;:
     owner: "LinkedList"
     name: "getPrevious"
     arguments: {}
     locals:
-      8: "local8"
+      8: "node"
   client!ob.a (Lclient!u;)V:
     owner: "LinkedList"
     name: "pushNext"
     arguments:
-      0: "arg0"
+      0: "node"
     locals: {}
   client!ob.a (Lclient!u;I)V:
     owner: "LinkedList"
     name: "pushPrevious"
     arguments:
-      0: "arg0"
+      0: "node"
     locals: {}
   client!ob.a (Z)Lclient!u;:
     owner: "LinkedList"
     name: "getNext"
     arguments: {}
     locals:
-      2: "local2"
+      2: "node"
   client!ob.b ()Lclient!u;:
     owner: "LinkedList"
     name: "peekPrevious"
     arguments: {}
     locals:
-      3: "local3"
+      3: "node"
   client!ob.c ()V:
     owner: "LinkedList"
     name: "clear"
     arguments: {}
     locals:
-      3: "local3"
+      3: "node"
   client!pb.<init> (I)V:
     owner: "Stack"
     name: "<init>"
@@ -10038,10 +10038,10 @@ methods:
     owner: "DrawArea"
     name: "<init>"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      3: "arg3"
+      0: "component"
+      1: "width"
+      2: "obfuscator"
+      3: "height"
     locals: {}
   client!qb.a ()V:
     owner: "DrawArea"
@@ -10057,50 +10057,50 @@ methods:
     owner: "DrawArea"
     name: "drawImage"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
+      0: "y"
+      1: "g"
+      2: "x"
     locals: {}
   client!qb.addConsumer (Ljava/awt/image/ImageConsumer;)V:
     owner: "DrawArea"
     name: "addConsumer"
     arguments:
-      0: "arg0"
+      0: "consumer"
     locals: {}
   client!qb.imageUpdate (Ljava/awt/Image;IIIII)Z:
     owner: "DrawArea"
     name: "imageUpdate"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      3: "arg3"
-      4: "arg4"
-      5: "arg5"
+      0: "image"
+      1: "infoflags"
+      2: "x"
+      3: "y"
+      4: "width"
+      5: "height"
     locals: {}
   client!qb.isConsumer (Ljava/awt/image/ImageConsumer;)Z:
     owner: "DrawArea"
     name: "isConsumer"
     arguments:
-      0: "arg0"
+      0: "consumer"
     locals: {}
   client!qb.removeConsumer (Ljava/awt/image/ImageConsumer;)V:
     owner: "DrawArea"
     name: "removeConsumer"
     arguments:
-      0: "arg0"
+      0: "consumer"
     locals: {}
   client!qb.requestTopDownLeftRightResend (Ljava/awt/image/ImageConsumer;)V:
     owner: "DrawArea"
     name: "requestTopDownLeftRightResend"
     arguments:
-      0: "arg0"
+      0: "consumer"
     locals: {}
   client!qb.startProduction (Ljava/awt/image/ImageConsumer;)V:
     owner: "DrawArea"
     name: "startProduction"
     arguments:
-      0: "arg0"
+      0: "consumer"
     locals: {}
   client!r.<init> (I[[[IIII)V:
     owner: "MapSquare"
@@ -11051,30 +11051,30 @@ methods:
     owner: "Cache"
     name: "<init>"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "obfuscator"
+      1: "length"
     locals: {}
   client!s.a ()V:
     owner: "Cache"
     name: "clear"
     arguments: {}
     locals:
-      3: "local3"
+      3: "last"
   client!s.a (IJLclient!db;)V:
     owner: "Cache"
     name: "put"
     arguments:
-      1: "arg0"
-      2: "arg1"
+      1: "key"
+      2: "node"
     locals:
-      8: "local8"
+      8: "last"
   client!s.a (J)Lclient!db;:
     owner: "Cache"
     name: "get"
     arguments:
-      0: "arg0"
+      0: "key"
     locals:
-      5: "local5"
+      5: "node"
   client!sign/signlink.<init> ()V:
     owner: "sign/signlink"
     name: "<init>"
@@ -11223,35 +11223,35 @@ methods:
     owner: "Hashtable"
     name: "<init>"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "obfuscator"
+      1: "size"
     locals:
-      30: "local30"
-      40: "local40"
+      30: "i"
+      40: "node"
   client!t.a (J)Lclient!u;:
     owner: "Hashtable"
     name: "get"
     arguments:
-      0: "arg0"
+      0: "key"
     locals:
-      11: "local11"
-      14: "local14"
+      11: "start"
+      14: "last"
   client!t.a (JILclient!u;)V:
     owner: "Hashtable"
     name: "put"
     arguments:
-      0: "arg0"
-      2: "arg1"
+      0: "key"
+      2: "node"
     locals:
-      18: "local18"
+      18: "old"
   client!tb.<init> (B[I)V:
     owner: "IsaacRandom"
     name: "<init>"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "obfuscator"
+      1: "seed"
     locals:
-      13: "local13"
+      13: "i"
   client!tb.a ()I:
     owner: "IsaacRandom"
     name: "nextInt"
@@ -11262,23 +11262,23 @@ methods:
     name: "isaac"
     arguments: {}
     locals:
-      15: "local15"
-      22: "local22"
-      101: "local101"
+      15: "i"
+      22: "x"
+      101: "y"
   client!tb.c ()V:
     owner: "IsaacRandom"
     name: "init"
     arguments: {}
     locals:
-      4: "local4"
-      6: "local6"
-      8: "local8"
-      10: "local10"
-      12: "local12"
-      14: "local14"
-      16: "local16"
-      17: "local17"
-      19: "local19"
+      4: "h"
+      6: "g"
+      8: "f"
+      10: "e"
+      12: "d"
+      14: "c"
+      16: "b"
+      17: "a"
+      19: "i"
   client!u.a ()V:
     owner: "Node"
     name: "unlink"
@@ -11437,31 +11437,31 @@ methods:
     owner: "SoundEnvelope"
     name: "reset"
     arguments:
-      0: "arg0"
+      0: "obfuscator"
     locals: {}
   client!xb.a (ZI)I:
     owner: "SoundEnvelope"
     name: "evaluate"
     arguments:
-      1: "arg0"
+      1: "delta"
     locals: {}
   client!xb.a (ZLclient!kb;)V:
     owner: "SoundEnvelope"
     name: "readShape"
     arguments:
-      1: "arg0"
+      1: "buffer"
     locals:
-      38: "local38"
+      38: "i"
   client!y.a (Z)Lclient!eb;:
     owner: "NpcEntity"
     name: "getDrawMethod"
     arguments: {}
     locals:
-      20: "local20"
-      25: "local25"
-      41: "local41"
-      115: "local115"
-      123: "local123"
+      20: "m"
+      25: "spotAnim"
+      41: "spotAnimModel"
+      115: "models"
+      123: "animated"
   client!y.b (Z)Z:
     owner: "NpcEntity"
     name: "isValid"
@@ -11472,9 +11472,9 @@ methods:
     name: "getModel"
     arguments: {}
     locals:
-      14: "local14"
-      16: "local16"
-      71: "local71"
+      14: "frame"
+      16: "frame2"
+      71: "model"
   client!yb.<init> ()V:
     owner: "SoundTrack"
     name: "<init>"
@@ -11485,58 +11485,58 @@ methods:
     name: "trim"
     arguments: {}
     locals:
-      3: "local3"
-      5: "local5"
-      67: "local67"
+      3: "start"
+      5: "j"
+      67: "tone"
   client!yb.a (BII)Lclient!kb;:
     owner: "SoundTrack"
     name: "generate"
     arguments:
-      1: "arg0"
-      2: "arg1"
+      1: "loopCouont"
+      2: "id"
     locals:
-      12: "local12"
+      12: "track"
   client!yb.a (I)I:
     owner: "SoundTrack"
     name: "generate"
     arguments:
-      0: "arg0"
+      0: "loopCount"
     locals:
-      3: "local3"
-      5: "local5"
-      51: "local51"
-      58: "local58"
-      65: "local65"
-      90: "local90"
-      92: "local92"
-      106: "local106"
-      123: "local123"
-      133: "local133"
-      145: "local145"
-      147: "local147"
+      3: "duration"
+      5: "tone"
+      51: "sampleCount"
+      58: "loopStart"
+      65: "loopStop"
+      90: "totalSampleCount"
+      92: "sample"
+      106: "tone"
+      123: "toneLength"
+      133: "toneStart"
+      145: "samples"
+      147: "toneSample"
       205: "local205"
   client!yb.a (Lclient!kb;I)V:
     owner: "SoundTrack"
     name: "load"
     arguments:
-      0: "arg0"
+      0: "buffer"
     locals:
-      16: "local16"
+      16: "id"
   client!yb.a (ZI)Lclient!kb;:
     owner: "SoundTrack"
     name: "toWav"
     arguments:
-      1: "arg0"
+      1: "loopCount"
     locals:
-      3: "local3"
+      3: "j"
   client!yb.a (ZLclient!kb;)V:
     owner: "SoundTrack"
     name: "read"
     arguments:
-      1: "arg0"
+      1: "buffer"
     locals:
-      1: "local1"
-      6: "local6"
+      1: "tone"
+      6: "included"
   client!z.a (I)Lclient!eb;:
     owner: "PlayerEntity"
     name: "getHeadModel"
@@ -11599,46 +11599,46 @@ methods:
     name: "init"
     arguments: {}
     locals:
-      6: "local6"
-      31: "local31"
+      6: "i"
+      31: "i"
   client!zb.a (II)[I:
     owner: "SoundTone"
     name: "generate"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "sampleCount"
+      1: "length"
     locals:
-      3: "local3"
-      26: "local26"
-      36: "local36"
-      38: "local38"
-      40: "local40"
-      77: "local77"
-      79: "local79"
-      81: "local81"
-      118: "local118"
-      193: "local193"
-      201: "local201"
-      207: "local207"
-      216: "local216"
-      222: "local222"
-      369: "local369"
-      379: "local379"
-      385: "local385"
+      3: "sample"
+      26: "samplesPerStep"
+      36: "frequencyStart"
+      38: "frequencyDuration"
+      40: "frequencyPhase"
+      77: "amplitudeStart"
+      79: "amplitudeDuration"
+      81: "amplitudePhase"
+      118: "harmonic"
+      193: "i"
+      201: "frequency"
+      207: "amplitude"
+      216: "rate"
+      222: "range"
+      369: "muted"
+      379: "releaseValue"
+      385: "attackValue"
   client!zb.a (IIII)I:
     owner: "SoundTone"
     name: "generate"
     arguments:
-      1: "arg0"
-      2: "arg1"
-      3: "arg2"
+      1: "amplitude"
+      2: "phase"
+      3: "form"
     locals: {}
   client!zb.a (ZLclient!kb;)V:
     owner: "SoundTone"
     name: "read"
     arguments:
-      1: "arg0"
+      1: "buffer"
     locals:
-      24: "local24"
-      122: "local122"
-      132: "local132"
+      24: "included"
+      122: "i"
+      132: "volume"

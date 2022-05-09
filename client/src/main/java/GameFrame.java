@@ -9,38 +9,38 @@ import org.openrs2.deob.annotation.Pc;
 public final class GameFrame extends Frame {
 
 	@OriginalMember(owner = "client!b", name = "a", descriptor = "I")
-	private final int anInt56 = 8;
+	private final int flowObfuscator1 = 8;
 
 	@OriginalMember(owner = "client!b", name = "b", descriptor = "Lclient!a;")
-	private final GameShell anGameShell;
+	private final GameShell shell;
 
 	@OriginalMember(owner = "client!b", name = "<init>", descriptor = "(IILclient!a;I)V")
-	public GameFrame(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) GameShell arg2, @OriginalArg(3) int arg3) {
-		this.anGameShell = arg2;
+	public GameFrame(@OriginalArg(0) int height, @OriginalArg(1) int obfuscator, @OriginalArg(2) GameShell shell, @OriginalArg(3) int width) {
+		this.shell = shell;
 		this.setTitle("Jagex");
 		this.setResizable(false);
 		this.show();
 		this.toFront();
-		this.resize(arg3 + 8, arg0 + 28);
+		this.resize(width + 8, height + 28);
 	}
 
 	@OriginalMember(owner = "client!b", name = "getGraphics", descriptor = "()Ljava/awt/Graphics;")
 	@Override
 	public final Graphics getGraphics() {
-		@Pc(2) Graphics local2 = super.getGraphics();
-		local2.translate(4, 24);
-		return local2;
+		@Pc(2) Graphics g = super.getGraphics();
+		g.translate(4, 24);
+		return g;
 	}
 
 	@OriginalMember(owner = "client!b", name = "update", descriptor = "(Ljava/awt/Graphics;)V")
 	@Override
-	public final void update(@OriginalArg(0) Graphics arg0) {
-		this.anGameShell.update(arg0);
+	public final void update(@OriginalArg(0) Graphics g) {
+		this.shell.update(g);
 	}
 
 	@OriginalMember(owner = "client!b", name = "paint", descriptor = "(Ljava/awt/Graphics;)V")
 	@Override
-	public final void paint(@OriginalArg(0) Graphics arg0) {
-		this.anGameShell.paint(arg0);
+	public final void paint(@OriginalArg(0) Graphics g) {
+		this.shell.paint(g);
 	}
 }

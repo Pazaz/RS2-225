@@ -52,7 +52,7 @@ public final class NpcType {
 	private long aLong5 = -1L;
 
 	@OriginalMember(owner = "client!bc", name = "j", descriptor = "B")
-	public byte aByte4 = 1;
+	public byte size = 1;
 
 	@OriginalMember(owner = "client!bc", name = "m", descriptor = "I")
 	public int anInt69 = -1;
@@ -127,7 +127,7 @@ public final class NpcType {
 		}
 		anInt68 = (anInt68 + 1) % 20;
 		@Pc(33) NpcType local33 = aNpcTypeArray1[anInt68] = new NpcType();
-		aBuffer_2.anInt561 = anIntArray8[arg0];
+		aBuffer_2.offset = anIntArray8[arg0];
 		local33.aLong5 = arg0;
 		local33.decode(aBuffer_2);
 		return local33;
@@ -157,7 +157,7 @@ public final class NpcType {
 			} else if (local10 == 3) {
 				this.aByteArray2 = arg0.gjstrBytes();
 			} else if (local10 == 12) {
-				this.aByte4 = arg0.g1s();
+				this.size = arg0.g1s();
 			} else if (local10 == 13) {
 				this.anInt69 = arg0.g2();
 			} else if (local10 == 14) {
@@ -241,10 +241,10 @@ public final class NpcType {
 			local107.scale(this.anInt78, this.anInt79, this.anInt78);
 		}
 		local107.calculateYBoundaries();
-		local107.anIntArrayArray7 = null;
-		local107.anIntArrayArray6 = null;
-		if (this.aByte4 == 1) {
-			local107.aBoolean84 = true;
+		local107.skinTriangle = null;
+		local107.labelVertices = null;
+		if (this.size == 1) {
+			local107.pickable = true;
 		}
 		return local107;
 	}

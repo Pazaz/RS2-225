@@ -11,119 +11,119 @@ import org.openrs2.deob.annotation.Pc;
 public final class BufferedStream implements Runnable {
 
 	@OriginalMember(owner = "client!d", name = "g", descriptor = "[B")
-	private byte[] aByteArray5;
+	private byte[] buffer;
 
 	@OriginalMember(owner = "client!d", name = "h", descriptor = "I")
-	private int anInt347;
+	private int length;
 
 	@OriginalMember(owner = "client!d", name = "i", descriptor = "I")
-	private int anInt348;
+	private int offset;
 
 	@OriginalMember(owner = "client!d", name = "a", descriptor = "Z")
-	private final boolean aBoolean74 = false;
+	private final boolean flowObfuscator1 = false;
 
 	@OriginalMember(owner = "client!d", name = "e", descriptor = "Z")
-	private boolean aBoolean75 = false;
+	private boolean closed = false;
 
 	@OriginalMember(owner = "client!d", name = "j", descriptor = "Z")
-	private boolean aBoolean76 = false;
+	private boolean writing = false;
 
 	@OriginalMember(owner = "client!d", name = "k", descriptor = "Z")
-	private boolean aBoolean77 = false;
+	private boolean exception = false;
 
 	@OriginalMember(owner = "client!d", name = "f", descriptor = "Lclient!a;")
-	private final GameShell anGameShell_2;
+	private final GameShell shell;
 
 	@OriginalMember(owner = "client!d", name = "d", descriptor = "Ljava/net/Socket;")
-	private final Socket aSocket1;
+	private final Socket socket;
 
 	@OriginalMember(owner = "client!d", name = "b", descriptor = "Ljava/io/InputStream;")
-	private final InputStream anInputStream1;
+	private final InputStream in;
 
 	@OriginalMember(owner = "client!d", name = "c", descriptor = "Ljava/io/OutputStream;")
-	private final OutputStream anOutputStream1;
+	private final OutputStream out;
 
 	@OriginalMember(owner = "client!d", name = "<init>", descriptor = "(Lclient!a;BLjava/net/Socket;)V")
-	public BufferedStream(@OriginalArg(0) GameShell arg0, @OriginalArg(1) byte arg1, @OriginalArg(2) Socket arg2) throws IOException {
-		this.anGameShell_2 = arg0;
-		this.aSocket1 = arg2;
-		this.aSocket1.setSoTimeout(30000);
-		this.aSocket1.setTcpNoDelay(true);
-		this.anInputStream1 = this.aSocket1.getInputStream();
-		this.anOutputStream1 = this.aSocket1.getOutputStream();
+	public BufferedStream(@OriginalArg(0) GameShell shell, @OriginalArg(1) byte obfuscator, @OriginalArg(2) Socket socket) throws IOException {
+		this.shell = shell;
+		this.socket = socket;
+		this.socket.setSoTimeout(30000);
+		this.socket.setTcpNoDelay(true);
+		this.in = this.socket.getInputStream();
+		this.out = this.socket.getOutputStream();
 	}
 
 	@OriginalMember(owner = "client!d", name = "a", descriptor = "()V")
 	public final void close() {
-		this.aBoolean75 = true;
+		this.closed = true;
 		try {
-			if (this.anInputStream1 != null) {
-				this.anInputStream1.close();
+			if (this.in != null) {
+				this.in.close();
 			}
-			if (this.anOutputStream1 != null) {
-				this.anOutputStream1.close();
+			if (this.out != null) {
+				this.out.close();
 			}
-			if (this.aSocket1 != null) {
-				this.aSocket1.close();
+			if (this.socket != null) {
+				this.socket.close();
 			}
-		} catch (@Pc(22) IOException local22) {
+		} catch (@Pc(22) IOException ignored) {
 			System.out.println("Error closing stream");
 		}
-		this.aBoolean76 = false;
+		this.writing = false;
 		synchronized (this) {
 			this.notify();
 		}
-		this.aByteArray5 = null;
+		this.buffer = null;
 	}
 
 	@OriginalMember(owner = "client!d", name = "b", descriptor = "()I")
 	public final int read() throws IOException {
-		return this.aBoolean75 ? 0 : this.anInputStream1.read();
+		return this.closed ? 0 : this.in.read();
 	}
 
 	@OriginalMember(owner = "client!d", name = "c", descriptor = "()I")
 	public final int available() throws IOException {
-		return this.aBoolean75 ? 0 : this.anInputStream1.available();
+		return this.closed ? 0 : this.in.available();
 	}
 
 	@OriginalMember(owner = "client!d", name = "a", descriptor = "([BII)V")
-	public final void read(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) throws IOException {
-		if (this.aBoolean75) {
+	public final void read(@OriginalArg(0) byte[] dest, @OriginalArg(1) int off, @OriginalArg(2) int len) throws IOException {
+		if (this.closed) {
 			return;
 		}
-		while (arg2 > 0) {
-			@Pc(11) int local11 = this.anInputStream1.read(arg0, arg1, arg2);
-			if (local11 <= 0) {
+		while (len > 0) {
+			@Pc(11) int read = this.in.read(dest, off, len);
+			if (read <= 0) {
 				throw new IOException("EOF");
 			}
-			arg1 += local11;
-			arg2 -= local11;
+			off += read;
+			len -= read;
 		}
 	}
 
 	@OriginalMember(owner = "client!d", name = "a", descriptor = "([BIZI)V")
-	public final void write(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1) throws IOException {
-		if (this.aBoolean75) {
+	public final void write(@OriginalArg(0) byte[] src, @OriginalArg(1) int len) throws IOException {
+		if (this.closed) {
 			return;
 		}
-		if (this.aBoolean77) {
-			this.aBoolean77 = false;
+		if (this.exception) {
+			this.exception = false;
 			throw new IOException("Error in writer thread");
 		}
-		if (this.aByteArray5 == null) {
-			this.aByteArray5 = new byte[5000];
+		if (this.buffer == null) {
+			this.buffer = new byte[5000];
 		}
 		synchronized (this) {
-			for (@Pc(31) int local31 = 0; local31 < arg1; local31++) {
-				this.aByteArray5[this.anInt348] = arg0[local31 + 0];
-				this.anInt348 = (this.anInt348 + 1) % 5000;
-				if (this.anInt348 == (this.anInt347 + 4900) % 5000) {
+			for (@Pc(31) int i = 0; i < len; i++) {
+				this.buffer[this.offset] = src[i + 0];
+				this.offset = (this.offset + 1) % 5000;
+				if (this.offset == (this.length + 4900) % 5000) {
 					throw new IOException("buffer overflow");
 				}
 			}
-			if (!this.aBoolean76) {
-				this.aBoolean76 = true;
-				this.anGameShell_2.startThread(this, 2);
+			if (!this.writing) {
+				this.writing = true;
+				this.shell.startThread(this, 2);
 			}
 			this.notify();
 		}
@@ -132,39 +132,39 @@ public final class BufferedStream implements Runnable {
 	@OriginalMember(owner = "client!d", name = "run", descriptor = "()V")
 	@Override
 	public final void run() {
-		while (this.aBoolean76) {
-			@Pc(38) int local38;
-			@Pc(27) int local27;
+		while (this.writing) {
+			@Pc(38) int off;
+			@Pc(27) int len;
 			synchronized (this) {
-				if (this.anInt348 == this.anInt347) {
+				if (this.offset == this.length) {
 					try {
 						this.wait();
-					} catch (@Pc(16) InterruptedException local16) {
+					} catch (@Pc(16) InterruptedException ignored) {
 					}
 				}
-				if (!this.aBoolean76) {
+				if (!this.writing) {
 					return;
 				}
-				local27 = this.anInt347;
-				if (this.anInt348 >= this.anInt347) {
-					local38 = this.anInt348 - this.anInt347;
+				len = this.length;
+				if (this.offset >= this.length) {
+					off = this.offset - this.length;
 				} else {
-					local38 = 5000 - this.anInt347;
+					off = 5000 - this.length;
 				}
 			}
-			if (local38 > 0) {
+			if (off > 0) {
 				try {
-					this.anOutputStream1.write(this.aByteArray5, local27, local38);
-				} catch (@Pc(62) IOException local62) {
-					this.aBoolean77 = true;
+					this.out.write(this.buffer, len, off);
+				} catch (@Pc(62) IOException ignored) {
+					this.exception = true;
 				}
-				this.anInt347 = (this.anInt347 + local38) % 5000;
+				this.length = (this.length + off) % 5000;
 				try {
-					if (this.anInt348 == this.anInt347) {
-						this.anOutputStream1.flush();
+					if (this.offset == this.length) {
+						this.out.flush();
 					}
-				} catch (@Pc(83) IOException local83) {
-					this.aBoolean77 = true;
+				} catch (@Pc(83) IOException ignored) {
+					this.exception = true;
 				}
 			}
 		}

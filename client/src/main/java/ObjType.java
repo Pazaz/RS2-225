@@ -182,7 +182,7 @@ public final class ObjType {
 		}
 		anInt102 = (anInt102 + 1) % 10;
 		@Pc(27) ObjType local27 = aObjTypeArray1[anInt102];
-		aClass1_Sub3_Sub3_3.anInt561 = anIntArray23[arg0];
+		aClass1_Sub3_Sub3_3.offset = anIntArray23[arg0];
 		local27.anInt103 = arg0;
 		local27.reset();
 		local27.decode(aClass1_Sub3_Sub3_3);
@@ -243,7 +243,7 @@ public final class ObjType {
 		@Pc(115) Model local115 = local28.getModel(1);
 		@Pc(125) int local125 = Draw3D.anIntArray137[local28.anInt106] * local28.anInt105 >> 16;
 		@Pc(135) int local135 = Draw3D.anIntArray138[local28.anInt106] * local28.anInt105 >> 16;
-		local115.draw(local28.anInt107, local28.anInt108, local28.anInt106, local28.anInt109, local125 + local115.anInt368 / 2 + local28.anInt110, local135 + local28.anInt110);
+		local115.draw(local28.anInt107, local28.anInt108, local28.anInt106, local28.anInt109, local125 + local115.maxBoundY / 2 + local28.anInt110, local135 + local28.anInt110);
 		for (@Pc(168) int local168 = 31; local168 >= 0; local168--) {
 			for (local135 = 31; local135 >= 0; local135--) {
 				if (local7.anIntArray148[local168 + local135 * 32] == 0) {
@@ -483,7 +483,7 @@ public final class ObjType {
 			}
 		}
 		local48.applyLighting(64, 768, -50, -10, -50, true);
-		local48.aBoolean84 = true;
+		local48.pickable = true;
 		aCache_4.put((long) this.anInt103, local48);
 		return local48;
 	}

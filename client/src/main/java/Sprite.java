@@ -80,7 +80,7 @@ public final class Sprite extends Draw2D {
 	public Sprite(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) String arg1, @OriginalArg(2) int arg2) {
 		@Pc(32) Buffer local32 = new Buffer(363, arg0.read(arg1 + ".dat", null));
 		@Pc(42) Buffer local42 = new Buffer(363, arg0.read("index.dat", null));
-		local42.anInt561 = local32.g2();
+		local42.offset = local32.g2();
 		this.anInt465 = local42.g2();
 		this.anInt466 = local42.g2();
 		@Pc(57) int local57 = local42.g1();
@@ -92,9 +92,9 @@ public final class Sprite extends Draw2D {
 			}
 		}
 		for (@Pc(91) int local91 = 0; local91 < arg2; local91++) {
-			local42.anInt561 += 2;
-			local32.anInt561 += local42.g2() * local42.g2();
-			local42.anInt561++;
+			local42.offset += 2;
+			local32.offset += local42.g2() * local42.g2();
+			local42.offset++;
 		}
 		this.anInt463 = local42.g1();
 		this.anInt464 = local42.g1();

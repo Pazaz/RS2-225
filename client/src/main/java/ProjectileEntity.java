@@ -86,7 +86,7 @@ public final class ProjectileEntity extends Entity {
 
 	@OriginalMember(owner = "client!ab", name = "<init>", descriptor = "(IIIIIIIIIIII)V")
 	public ProjectileEntity(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9, @OriginalArg(10) int arg10, @OriginalArg(11) int arg11) {
-		this.aSpotAnimType_1 = SpotAnimType.aSpotAnimTypeArray1[arg10];
+		this.aSpotAnimType_1 = SpotAnimType.instances[arg10];
 		this.anInt24 = arg4;
 		this.anInt25 = arg11;
 		this.anInt26 = arg2;
@@ -130,14 +130,14 @@ public final class ProjectileEntity extends Entity {
 		this.aDouble7 += this.aDouble8 * (double) arg0;
 		this.anInt34 = (int) (Math.atan2(this.aDouble4, this.aDouble5) * 325.949D) + 1024 & 0x7FF;
 		this.anInt35 = (int) (Math.atan2(this.aDouble7, this.aDouble6) * 325.949D) & 0x7FF;
-		if (this.aSpotAnimType_1.aSeqType_1 == null) {
+		if (this.aSpotAnimType_1.seq == null) {
 			return;
 		}
 		this.anInt37 += arg0;
-		while (this.anInt37 > this.aSpotAnimType_1.aSeqType_1.anIntArray188[this.anInt36]) {
-			this.anInt37 -= this.aSpotAnimType_1.aSeqType_1.anIntArray188[this.anInt36] + 1;
+		while (this.anInt37 > this.aSpotAnimType_1.seq.frameDelay[this.anInt36]) {
+			this.anInt37 -= this.aSpotAnimType_1.seq.frameDelay[this.anInt36] + 1;
 			this.anInt36++;
-			if (this.anInt36 >= this.aSpotAnimType_1.aSeqType_1.anInt543) {
+			if (this.anInt36 >= this.aSpotAnimType_1.seq.frameCount) {
 				this.anInt36 = 0;
 			}
 		}
@@ -147,18 +147,18 @@ public final class ProjectileEntity extends Entity {
 	@Override
 	public final Model getDrawMethod() {
 		@Pc(3) Model local3 = this.aSpotAnimType_1.getModel();
-		@Pc(19) Model local19 = new Model(local3, true, !this.aSpotAnimType_1.aBoolean131, this.anInt22, false);
-		if (this.aSpotAnimType_1.aSeqType_1 != null) {
+		@Pc(19) Model local19 = new Model(local3, true, !this.aSpotAnimType_1.disposeAlpha, this.anInt22, false);
+		if (this.aSpotAnimType_1.seq != null) {
 			local19.applyGroup();
-			local19.applyFrame(this.aSpotAnimType_1.aSeqType_1.anIntArray186[this.anInt36]);
-			local19.anIntArrayArray7 = null;
-			local19.anIntArrayArray6 = null;
+			local19.applyFrame(this.aSpotAnimType_1.seq.primaryFrames[this.anInt36]);
+			local19.skinTriangle = null;
+			local19.labelVertices = null;
 		}
-		if (this.aSpotAnimType_1.anInt571 != 128 || this.aSpotAnimType_1.anInt572 != 128) {
-			local19.scale(this.aSpotAnimType_1.anInt571, this.aSpotAnimType_1.anInt572, this.aSpotAnimType_1.anInt571);
+		if (this.aSpotAnimType_1.breadthScale != 128 || this.aSpotAnimType_1.depthScale != 128) {
+			local19.scale(this.aSpotAnimType_1.breadthScale, this.aSpotAnimType_1.depthScale, this.aSpotAnimType_1.breadthScale);
 		}
 		local19.rotatePitch(this.anInt35);
-		local19.applyLighting(this.aSpotAnimType_1.anInt574 + 64, this.aSpotAnimType_1.anInt575 + 850, -30, -50, -30, true);
+		local19.applyLighting(this.aSpotAnimType_1.ambience + 64, this.aSpotAnimType_1.modelShadow + 850, -30, -50, -30, true);
 		return local19;
 	}
 }

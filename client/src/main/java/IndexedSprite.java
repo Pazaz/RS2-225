@@ -46,7 +46,7 @@ public final class IndexedSprite extends Draw2D {
 	public IndexedSprite(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) String arg1, @OriginalArg(2) int arg2) {
 		@Pc(32) Buffer local32 = new Buffer(363, arg0.read(arg1 + ".dat", null));
 		@Pc(42) Buffer local42 = new Buffer(363, arg0.read("index.dat", null));
-		local42.anInt561 = local32.g2();
+		local42.offset = local32.g2();
 		this.anInt517 = local42.g2();
 		this.anInt518 = local42.g2();
 		@Pc(57) int local57 = local42.g1();
@@ -55,9 +55,9 @@ public final class IndexedSprite extends Draw2D {
 			this.anIntArray177[local63 + 1] = local42.g3();
 		}
 		for (@Pc(81) int local81 = 0; local81 < arg2; local81++) {
-			local42.anInt561 += 2;
-			local32.anInt561 += local42.g2() * local42.g2();
-			local42.anInt561++;
+			local42.offset += 2;
+			local32.offset += local42.g2() * local42.g2();
+			local42.offset++;
 		}
 		this.anInt515 = local42.g1();
 		this.anInt516 = local42.g1();

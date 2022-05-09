@@ -5,23 +5,23 @@ import org.openrs2.deob.annotation.OriginalMember;
 public final class DeadClass {
 
 	@OriginalMember(owner = "client!ic", name = "b", descriptor = "[Lclient!ic;")
-	public static DeadClass[] aDeadClassArray1;
+	public static DeadClass[] deadArray;
 
 	@OriginalMember(owner = "client!ic", name = "a", descriptor = "I")
-	private static final int anInt519 = 473;
+	private static final int flowObfuscator1 = 473;
 
 	@OriginalMember(owner = "client!ic", name = "c", descriptor = "Z")
-	private boolean aBoolean118;
+	private boolean deadBool1;
 
 	@OriginalMember(owner = "client!ic", name = "d", descriptor = "Z")
-	private boolean aBoolean119;
+	private boolean deadBool2;
 
 	@OriginalMember(owner = "client!ic", name = "e", descriptor = "Z")
-	private boolean aBoolean120;
+	private boolean deadBool3;
 
 	@OriginalMember(owner = "client!ic", name = "f", descriptor = "Z")
-	private boolean aBoolean121;
+	private boolean deadBool4;
 
 	@OriginalMember(owner = "client!ic", name = "g", descriptor = "Z")
-	private boolean aBoolean122;
+	private boolean deadBool5;
 }

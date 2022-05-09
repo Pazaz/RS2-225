@@ -20,27 +20,27 @@ public final class Stack {
 
 	@OriginalMember(owner = "client!pb", name = "<init>", descriptor = "(I)V")
 	public Stack(@OriginalArg(0) int arg0) {
-		this.aCacheableNode_17.aCacheableNode_15 = this.aCacheableNode_17;
+		this.aCacheableNode_17.nextCacheable = this.aCacheableNode_17;
 		if (arg0 < 5 || arg0 > 5) {
 			this.anInt678 = -426;
 		}
-		this.aCacheableNode_17.aCacheableNode_16 = this.aCacheableNode_17;
+		this.aCacheableNode_17.prevCacheable = this.aCacheableNode_17;
 	}
 
 	@OriginalMember(owner = "client!pb", name = "a", descriptor = "(Lclient!db;)V")
 	public final void push(@OriginalArg(0) CacheableNode arg0) {
-		if (arg0.aCacheableNode_16 != null) {
+		if (arg0.prevCacheable != null) {
 			arg0.uncache();
 		}
-		arg0.aCacheableNode_16 = this.aCacheableNode_17.aCacheableNode_16;
-		arg0.aCacheableNode_15 = this.aCacheableNode_17;
-		arg0.aCacheableNode_16.aCacheableNode_15 = arg0;
-		arg0.aCacheableNode_15.aCacheableNode_16 = arg0;
+		arg0.prevCacheable = this.aCacheableNode_17.prevCacheable;
+		arg0.nextCacheable = this.aCacheableNode_17;
+		arg0.prevCacheable.nextCacheable = arg0;
+		arg0.nextCacheable.prevCacheable = arg0;
 	}
 
 	@OriginalMember(owner = "client!pb", name = "a", descriptor = "()Lclient!db;")
 	public final CacheableNode pop() {
-		@Pc(3) CacheableNode local3 = this.aCacheableNode_17.aCacheableNode_15;
+		@Pc(3) CacheableNode local3 = this.aCacheableNode_17.nextCacheable;
 		if (local3 == this.aCacheableNode_17) {
 			return null;
 		} else {

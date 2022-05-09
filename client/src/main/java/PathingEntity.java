@@ -43,25 +43,25 @@ public class PathingEntity extends Entity {
 	public int anInt903;
 
 	@OriginalMember(owner = "client!x", name = "F", descriptor = "I")
-	public int anInt905;
+	public int secondarySeqFrame;
 
 	@OriginalMember(owner = "client!x", name = "G", descriptor = "I")
 	public int anInt906;
 
 	@OriginalMember(owner = "client!x", name = "I", descriptor = "I")
-	public int anInt908;
+	public int primarySeqFrame;
 
 	@OriginalMember(owner = "client!x", name = "J", descriptor = "I")
 	public int anInt909;
 
 	@OriginalMember(owner = "client!x", name = "K", descriptor = "I")
-	public int anInt910;
+	public int primarySeqDelay;
 
 	@OriginalMember(owner = "client!x", name = "L", descriptor = "I")
 	public int anInt911;
 
 	@OriginalMember(owner = "client!x", name = "N", descriptor = "I")
-	public int anInt913;
+	public int spotAnimFrame;
 
 	@OriginalMember(owner = "client!x", name = "O", descriptor = "I")
 	public int anInt914;
@@ -70,7 +70,7 @@ public class PathingEntity extends Entity {
 	public int anInt915;
 
 	@OriginalMember(owner = "client!x", name = "Q", descriptor = "I")
-	public int anInt916;
+	public int spotAnimOffsetY;
 
 	@OriginalMember(owner = "client!x", name = "R", descriptor = "I")
 	public int anInt917;
@@ -97,7 +97,7 @@ public class PathingEntity extends Entity {
 	public int anInt924;
 
 	@OriginalMember(owner = "client!x", name = "Z", descriptor = "I")
-	public int anInt925;
+	public int height;
 
 	@OriginalMember(owner = "client!x", name = "ab", descriptor = "I")
 	public int anInt926;
@@ -121,7 +121,7 @@ public class PathingEntity extends Entity {
 	public int anInt885 = 1;
 
 	@OriginalMember(owner = "client!x", name = "l", descriptor = "I")
-	public int anInt886 = -1;
+	public int standSeq = -1;
 
 	@OriginalMember(owner = "client!x", name = "m", descriptor = "I")
 	public int anInt887 = -1;
@@ -151,13 +151,13 @@ public class PathingEntity extends Entity {
 	public int anInt901 = -1;
 
 	@OriginalMember(owner = "client!x", name = "E", descriptor = "I")
-	public int anInt904 = -1;
+	public int secondarySeq = -1;
 
 	@OriginalMember(owner = "client!x", name = "H", descriptor = "I")
-	public int anInt907 = -1;
+	public int primarySeq = -1;
 
 	@OriginalMember(owner = "client!x", name = "M", descriptor = "I")
-	public int anInt912 = -1;
+	public int spotAnimIndex = -1;
 
 	@OriginalMember(owner = "client!x", name = "cb", descriptor = "[I")
 	public final int[] anIntArray232 = new int[10];
@@ -170,8 +170,8 @@ public class PathingEntity extends Entity {
 
 	@OriginalMember(owner = "client!x", name = "a", descriptor = "(ZZII)V")
 	public final void move(@OriginalArg(1) boolean arg0, @OriginalArg(2) int arg1, @OriginalArg(3) int arg2) {
-		if (this.anInt907 != -1 && SeqType.aSeqTypeArray1[this.anInt907].anInt545 <= 1) {
-			this.anInt907 = -1;
+		if (this.primarySeq != -1 && SeqType.instances[this.primarySeq].priority <= 1) {
+			this.primarySeq = -1;
 		}
 		if (!arg0) {
 			@Pc(22) int local22 = arg1 - this.anIntArray232[0];
@@ -231,8 +231,8 @@ public class PathingEntity extends Entity {
 			local6++;
 			local11--;
 		}
-		if (this.anInt907 != -1 && SeqType.aSeqTypeArray1[this.anInt907].anInt545 <= 1) {
-			this.anInt907 = -1;
+		if (this.primarySeq != -1 && SeqType.instances[this.primarySeq].priority <= 1) {
+			this.primarySeq = -1;
 		}
 		if (this.anInt927 < 9) {
 			this.anInt927++;

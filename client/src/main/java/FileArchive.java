@@ -68,7 +68,7 @@ public final class FileArchive {
 		this.anIntArray222 = new int[this.anInt763];
 		this.anIntArray223 = new int[this.anInt763];
 		this.anIntArray224 = new int[this.anInt763];
-		@Pc(82) int local82 = local7.anInt561 + this.anInt763 * 10;
+		@Pc(82) int local82 = local7.offset + this.anInt763 * 10;
 		for (@Pc(84) int local84 = 0; local84 < this.anInt763; local84++) {
 			this.anIntArray221[local84] = local7.g4();
 			this.anIntArray222[local84] = local7.g3();

@@ -1480,7 +1480,7 @@ public final class client extends GameShell {
 					local63 = 30;
 					@Pc(66) PlayerEntity local66 = (PlayerEntity) local23;
 					if (local66.anInt931 != 0) {
-						this.setDrawPos(local23.anInt925 + 15, this.aBoolean45, local23);
+						this.setDrawPos(local23.height + 15, this.aBoolean45, local23);
 						if (this.anInt287 > -1) {
 							for (local84 = 0; local84 < 8; local84++) {
 								if ((local66.anInt931 & 0x1 << local84) != 0) {
@@ -1491,19 +1491,19 @@ public final class client extends GameShell {
 						}
 					}
 					if (local15 >= 0 && this.anInt241 == 10 && this.anInt305 == this.anIntArray39[local15]) {
-						this.setDrawPos(local23.anInt925 + 15, this.aBoolean45, local23);
+						this.setDrawPos(local23.height + 15, this.aBoolean45, local23);
 						if (this.anInt287 > -1) {
 							this.aSpriteArray5[7].draw(this.anInt288 - local63, this.anInt287 - 12);
 						}
 					}
 				} else if (this.anInt241 == 1 && this.anInt190 == this.anIntArray58[local15 - this.anInt205] && anInt266 % 20 < 10) {
-					this.setDrawPos(local23.anInt925 + 15, this.aBoolean45, local23);
+					this.setDrawPos(local23.height + 15, this.aBoolean45, local23);
 					if (this.anInt287 > -1) {
 						this.aSpriteArray5[2].draw(this.anInt288 - 28, this.anInt287 - 12);
 					}
 				}
 				if (local23.aString28 != null && (local15 >= this.anInt205 || this.anInt273 == 0 || this.anInt273 == 3 || this.anInt273 == 1 && this.isFriend(((PlayerEntity) local23).aString29))) {
-					this.setDrawPos(local23.anInt925, this.aBoolean45, local23);
+					this.setDrawPos(local23.height, this.aBoolean45, local23);
 					if (this.anInt287 > -1 && this.anInt314 < this.anInt315) {
 						this.anIntArray76[this.anInt314] = this.aClass1_Sub3_Sub2_Sub4_3.stringWidth(local23.aString28) / 2;
 						this.anIntArray75[this.anInt314] = this.aClass1_Sub3_Sub2_Sub4_3.anInt540;
@@ -1523,7 +1523,7 @@ public final class client extends GameShell {
 					}
 				}
 				if (local23.anInt898 > anInt266 + 100) {
-					this.setDrawPos(local23.anInt925 + 15, this.aBoolean45, local23);
+					this.setDrawPos(local23.height + 15, this.aBoolean45, local23);
 					if (this.anInt287 > -1) {
 						local63 = local23.anInt899 * 30 / local23.anInt900;
 						if (local63 > 30) {
@@ -1534,7 +1534,7 @@ public final class client extends GameShell {
 					}
 				}
 				if (local23.anInt898 > anInt266 + 330) {
-					this.setDrawPos(local23.anInt925 / 2, this.aBoolean45, local23);
+					this.setDrawPos(local23.height / 2, this.aBoolean45, local23);
 					if (this.anInt287 > -1) {
 						this.aClass1_Sub3_Sub2_Sub2Array3[local23.anInt897].draw(this.anInt288 - 12, this.anInt287 - 12);
 						this.aClass1_Sub3_Sub2_Sub4_1.drawCentered(this.anInt288 + 4, 0, String.valueOf(local23.anInt896), this.anInt287);
@@ -1758,15 +1758,15 @@ public final class client extends GameShell {
 				if (local24 == 65535) {
 					local24 = -1;
 				}
-				if (local24 == local13.anInt907) {
+				if (local24 == local13.primarySeq) {
 					local13.anInt911 = 0;
 				}
 				@Pc(39) int local39 = arg0.g1();
-				if (local24 == -1 || local13.anInt907 == -1 || SeqType.aSeqTypeArray1[local24].anInt545 > SeqType.aSeqTypeArray1[local13.anInt907].anInt545 || SeqType.aSeqTypeArray1[local13.anInt907].anInt545 == 0) {
-					local13.anInt907 = local24;
-					local13.anInt908 = 0;
+				if (local24 == -1 || local13.primarySeq == -1 || SeqType.instances[local24].priority > SeqType.instances[local13.primarySeq].priority || SeqType.instances[local13.primarySeq].priority == 0) {
+					local13.primarySeq = local24;
+					local13.primarySeqFrame = 0;
 					local13.anInt909 = 0;
-					local13.anInt910 = local39;
+					local13.primarySeqDelay = local39;
 					local13.anInt911 = 0;
 				}
 			}
@@ -1788,25 +1788,25 @@ public final class client extends GameShell {
 				local13.anInt900 = arg0.g1();
 			}
 			if ((local16 & 0x20) == 32) {
-				local13.aNpcType_1 = NpcType.get(arg0.g2());
-				local13.anInt888 = local13.aNpcType_1.anInt70;
-				local13.anInt889 = local13.aNpcType_1.anInt71;
-				local13.anInt890 = local13.aNpcType_1.anInt72;
-				local13.anInt891 = local13.aNpcType_1.anInt73;
-				local13.anInt886 = local13.aNpcType_1.anInt69;
+				local13.info = NpcType.get(arg0.g2());
+				local13.anInt888 = local13.info.anInt70;
+				local13.anInt889 = local13.info.anInt71;
+				local13.anInt890 = local13.info.anInt72;
+				local13.anInt891 = local13.info.anInt73;
+				local13.standSeq = local13.info.anInt69;
 			}
 			if ((local16 & 0x40) == 64) {
-				local13.anInt912 = arg0.g2();
+				local13.spotAnimIndex = arg0.g2();
 				local24 = arg0.g4();
-				local13.anInt916 = local24 >> 16;
+				local13.spotAnimOffsetY = local24 >> 16;
 				local13.anInt915 = anInt266 + (local24 & 0xFFFF);
-				local13.anInt913 = 0;
+				local13.spotAnimFrame = 0;
 				local13.anInt914 = 0;
 				if (local13.anInt915 > anInt266) {
-					local13.anInt913 = -1;
+					local13.spotAnimFrame = -1;
 				}
-				if (local13.anInt912 == 65535) {
-					local13.anInt912 = -1;
+				if (local13.spotAnimIndex == 65535) {
+					local13.spotAnimIndex = -1;
 				}
 			}
 			if ((local16 & 0x80) == 128) {
@@ -1876,7 +1876,7 @@ public final class client extends GameShell {
 			if (local24 >= 0 && local31 >= 0 && local24 < 104 && local31 < 104) {
 				@Pc(69) SpawnedLoc local69 = null;
 				for (@Pc(74) SpawnedLoc local74 = (SpawnedLoc) this.aLinkedList_4.peekPrevious(); local74 != null; local74 = (SpawnedLoc) this.aLinkedList_4.getPrevious()) {
-					if (local74.anInt593 == this.anInt231 && local74.anInt595 == local24 && local74.anInt596 == local31 && local74.anInt594 == local47) {
+					if (local74.level == this.anInt231 && local74.tileX == local24 && local74.tileZ == local31 && local74.classType == local47) {
 						local69 = local74;
 						break;
 					}
@@ -1905,18 +1905,18 @@ public final class client extends GameShell {
 						local114 = local169 >> 6;
 					}
 					local69 = new SpawnedLoc();
-					local69.anInt593 = this.anInt231;
-					local69.anInt594 = local47;
-					local69.anInt595 = local24;
-					local69.anInt596 = local31;
-					local69.anInt600 = local110;
-					local69.anInt602 = local112;
-					local69.anInt601 = local114;
+					local69.level = this.anInt231;
+					local69.classType = local47;
+					local69.tileX = local24;
+					local69.tileZ = local31;
+					local69.lastLocIndex = local110;
+					local69.lastType = local112;
+					local69.lastRotation = local114;
 					this.aLinkedList_4.pushNext(local69);
 				}
-				local69.anInt597 = local52;
-				local69.anInt599 = local38;
-				local69.anInt598 = local42;
+				local69.locIndex = local52;
+				local69.type = local38;
+				local69.orientation = local42;
 				this.addLoc(local42, local24, local31, local47, local52, local38, this.anInt231);
 			}
 		} else if (arg1 == 42) {
@@ -1942,7 +1942,7 @@ public final class client extends GameShell {
 					local52 = this.aMapSquare_1.getGroundDecorationBitset(this.anInt231, local24, local31);
 				}
 				if (local52 != 0) {
-					@Pc(348) LocEntity local348 = new LocEntity(false, local52 >> 14 & 0x7FFF, this.anInt231, 0, local42, SeqType.aSeqTypeArray1[local47], local31, local24);
+					@Pc(348) LocEntity local348 = new LocEntity(false, local52 >> 14 & 0x7FFF, this.anInt231, 0, local42, SeqType.instances[local47], local31, local24);
 					this.aLinkedList_1.pushNext(local348);
 				}
 			}
@@ -2244,7 +2244,7 @@ public final class client extends GameShell {
 				anInt193 = 0;
 				this.aBuffer_6.p1isaac(146);
 				this.aBuffer_6.p1(0);
-				local122 = this.aBuffer_6.anInt561;
+				local122 = this.aBuffer_6.offset;
 				this.aBuffer_6.p2(29711);
 				this.aBuffer_6.p1(70);
 				this.aBuffer_6.p1((int) (Math.random() * 256.0D));
@@ -2259,7 +2259,7 @@ public final class client extends GameShell {
 					this.aBuffer_6.p2(57856);
 				}
 				this.aBuffer_6.p2((int) (Math.random() * 65536.0D));
-				this.aBuffer_6.p1len(this.aBuffer_6.anInt561 - local122);
+				this.aBuffer_6.p1len(this.aBuffer_6.offset - local122);
 			}
 		}
 		if (this.aBoolean61) {
@@ -2412,7 +2412,7 @@ public final class client extends GameShell {
 			}
 		}
 		for (local8 = 0; local8 < 33920; local8++) {
-			this.aDrawArea_19.anIntArray197[local8] = this.aClass1_Sub3_Sub2_Sub2_3.anIntArray148[local8];
+			this.aDrawArea_19.pixels[local8] = this.aClass1_Sub3_Sub2_Sub2_3.anIntArray148[local8];
 		}
 		@Pc(181) int local181 = 0;
 		@Pc(183) int local183 = 1152;
@@ -2438,15 +2438,15 @@ public final class client extends GameShell {
 					local224 = local220;
 					local228 = 256 - local220;
 					local220 = this.anIntArray50[local220];
-					local239 = this.aDrawArea_19.anIntArray197[local183];
-					this.aDrawArea_19.anIntArray197[local183++] = ((local220 & 0xFF00FF) * local224 + (local239 & 0xFF00FF) * local228 & 0xFF00FF00) + ((local220 & 0xFF00) * local224 + (local239 & 0xFF00) * local228 & 0xFF0000) >> 8;
+					local239 = this.aDrawArea_19.pixels[local183];
+					this.aDrawArea_19.pixels[local183++] = ((local220 & 0xFF00FF) * local224 + (local239 & 0xFF00FF) * local228 & 0xFF00FF00) + ((local220 & 0xFF00) * local224 + (local239 & 0xFF00) * local228 & 0xFF0000) >> 8;
 				}
 			}
 			local183 += local202;
 		}
 		this.aDrawArea_19.drawImage(0, super.aGraphics2, 0);
 		for (local198 = 0; local198 < 33920; local198++) {
-			this.aDrawArea_20.anIntArray197[local198] = this.aSprite_4.anIntArray148[local198];
+			this.aDrawArea_20.pixels[local198] = this.aSprite_4.anIntArray148[local198];
 		}
 		local181 = 0;
 		local183 = 1176;
@@ -2462,8 +2462,8 @@ public final class client extends GameShell {
 					local239 = local228;
 					@Pc(362) int local362 = 256 - local228;
 					local228 = this.anIntArray50[local228];
-					@Pc(373) int local373 = this.aDrawArea_20.anIntArray197[local183];
-					this.aDrawArea_20.anIntArray197[local183++] = ((local228 & 0xFF00FF) * local239 + (local373 & 0xFF00FF) * local362 & 0xFF00FF00) + ((local228 & 0xFF00) * local239 + (local373 & 0xFF00) * local362 & 0xFF0000) >> 8;
+					@Pc(373) int local373 = this.aDrawArea_20.pixels[local183];
+					this.aDrawArea_20.pixels[local183++] = ((local228 & 0xFF00FF) * local239 + (local373 & 0xFF00FF) * local362 & 0xFF00FF00) + ((local228 & 0xFF00) * local239 + (local373 & 0xFF00) * local362 & 0xFF0000) >> 8;
 				}
 			}
 			local181 += 128 - local220;
@@ -2804,7 +2804,7 @@ public final class client extends GameShell {
 			}
 			if (local30 != null && local30.isValid()) {
 				local30.aBoolean163 = false;
-				if ((aBoolean53 && this.anInt205 > 50 || this.anInt205 > 200) && local22 != -1 && local30.anInt904 == local30.anInt886) {
+				if ((aBoolean53 && this.anInt205 > 50 || this.anInt205 > 200) && local22 != -1 && local30.secondarySeq == local30.standSeq) {
 					local30.aBoolean163 = true;
 				}
 				@Pc(87) int local87 = local30.anInt882 >> 7;
@@ -2975,10 +2975,10 @@ public final class client extends GameShell {
 						if (this.anInt168 == 3 && this.aString5.length() > 0) {
 							this.aBuffer_6.p1isaac(148);
 							this.aBuffer_6.p1(0);
-							local193 = this.aBuffer_6.anInt561;
+							local193 = this.aBuffer_6.offset;
 							this.aBuffer_6.p8(this.aLong8);
 							TextEncoder.write(this.aBuffer_6, this.aString5);
-							this.aBuffer_6.p1len(this.aBuffer_6.anInt561 - local193);
+							this.aBuffer_6.p1len(this.aBuffer_6.offset - local193);
 							this.aString5 = StringUtils.toSentenceCase(this.aString5);
 							this.aString5 = WordPack.getFiltered(this.aString5);
 							this.addMessage(6, this.aString5, StringUtils.formatName(StringUtils.fromBase37(this.aLong8)));
@@ -3099,11 +3099,11 @@ public final class client extends GameShell {
 							}
 							this.aBuffer_6.p1isaac(158);
 							this.aBuffer_6.p1(0);
-							@Pc(693) int local693 = this.aBuffer_6.anInt561;
+							@Pc(693) int local693 = this.aBuffer_6.offset;
 							this.aBuffer_6.p1(local496);
 							this.aBuffer_6.p1(local654);
 							TextEncoder.write(this.aBuffer_6, this.aString18);
-							this.aBuffer_6.p1len(this.aBuffer_6.anInt561 - local693);
+							this.aBuffer_6.p1len(this.aBuffer_6.offset - local693);
 							this.aString18 = StringUtils.toSentenceCase(this.aString18);
 							this.aString18 = WordPack.getFiltered(this.aString18);
 							this.aClass1_Sub1_Sub3_Sub2_1.aString28 = this.aString18;
@@ -3263,7 +3263,7 @@ public final class client extends GameShell {
 				@Pc(63) byte[] local63 = new byte[6];
 				local60.readFully(local63, 0, 6);
 				@Pc(74) Buffer local74 = new Buffer(363, local63);
-				local74.anInt561 = 3;
+				local74.offset = 3;
 				@Pc(82) int local82 = local74.g3() + 6;
 				@Pc(84) int local84 = 6;
 				local6 = new byte[local82];
@@ -3492,7 +3492,7 @@ public final class client extends GameShell {
 		}
 		for (local124 = 0; local124 < this.anInt248; local124++) {
 			@Pc(189) NpcEntity local189 = this.aClass1_Sub1_Sub3_Sub1Array1[this.anIntArray58[local124]];
-			if (local189 != null && local189.isValid() && local189.aNpcType_1.aBoolean20) {
+			if (local189 != null && local189.isValid() && local189.info.aBoolean20) {
 				local26 = local189.anInt882 / 32 - this.aClass1_Sub1_Sub3_Sub2_1.anInt882 / 32;
 				local34 = local189.anInt883 / 32 - this.aClass1_Sub1_Sub3_Sub2_1.anInt883 / 32;
 				this.drawOnMinimap(local34, this.aSprite_8, local26);
@@ -3788,12 +3788,12 @@ public final class client extends GameShell {
 		for (@Pc(29) int local29 = 0; local29 < this.anInt255; local29++) {
 			local36 = this.anIntArray60[local29];
 			if (this.aClass1_Sub1_Sub3_Sub1Array1[local36].anInt924 != anInt266) {
-				this.aClass1_Sub1_Sub3_Sub1Array1[local36].aNpcType_1 = null;
+				this.aClass1_Sub1_Sub3_Sub1Array1[local36].info = null;
 				this.aClass1_Sub1_Sub3_Sub1Array1[local36] = null;
 			}
 		}
-		if (arg0.anInt561 != arg1) {
-			signlink.reporterror(this.aString13 + " size mismatch in getnpcpos - pos:" + arg0.anInt561 + " psize:" + arg1);
+		if (arg0.offset != arg1) {
+			signlink.reporterror(this.aString13 + " size mismatch in getnpcpos - pos:" + arg0.offset + " psize:" + arg1);
 			throw new RuntimeException("eek");
 		}
 		for (local36 = 0; local36 < this.anInt248; local36++) {
@@ -3825,10 +3825,10 @@ public final class client extends GameShell {
 		this.aClass1_Sub3_Sub2_Sub2_3 = new Sprite(128, 265);
 		this.aSprite_4 = new Sprite(128, 265);
 		for (@Pc(65) int local65 = 0; local65 < 33920; local65++) {
-			this.aClass1_Sub3_Sub2_Sub2_3.anIntArray148[local65] = this.aDrawArea_19.anIntArray197[local65];
+			this.aClass1_Sub3_Sub2_Sub2_3.anIntArray148[local65] = this.aDrawArea_19.pixels[local65];
 		}
 		for (@Pc(83) int local83 = 0; local83 < 33920; local83++) {
-			this.aSprite_4.anIntArray148[local83] = this.aDrawArea_20.anIntArray197[local83];
+			this.aSprite_4.anIntArray148[local83] = this.aDrawArea_20.pixels[local83];
 		}
 		this.anIntArray51 = new int[256];
 		for (@Pc(105) int local105 = 0; local105 < 64; local105++) {
@@ -4109,7 +4109,7 @@ public final class client extends GameShell {
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(IILclient!kb;)V")
 	private void updateNewPlayers(@OriginalArg(1) int arg0, @OriginalArg(2) Buffer arg1) {
 		while (true) {
-			if (arg1.anInt562 + 10 < arg0 * 8) {
+			if (arg1.bitOffset + 10 < arg0 * 8) {
 				@Pc(27) int local27 = arg1.gBit(11);
 				if (local27 != 2047) {
 					if (this.aClass1_Sub1_Sub3_Sub2Array1[local27] == null) {
@@ -4355,8 +4355,8 @@ public final class client extends GameShell {
 						if (local215 == -1) {
 							local846 = local84.getModel(-1, -1, local827);
 						} else {
-							@Pc(852) SeqType local852 = SeqType.aSeqTypeArray1[local215];
-							local846 = local84.getModel(local852.anIntArray186[local84.anInt468], local852.anIntArray187[local84.anInt468], local827);
+							@Pc(852) SeqType local852 = SeqType.instances[local215];
+							local846 = local84.getModel(local852.primaryFrames[local84.anInt468], local852.secondaryFrames[local84.anInt468], local827);
 						}
 						if (local846 != null) {
 							local846.draw(local84.anInt492, 0, local84.anInt491, 0, local171, local182);
@@ -4503,7 +4503,7 @@ public final class client extends GameShell {
 			@Pc(14) int local14 = this.anIntArray58[local7];
 			@Pc(19) NpcEntity local19 = this.aClass1_Sub1_Sub3_Sub1Array1[local14];
 			if (local19 != null) {
-				this.updateEntity(local19, local19.aNpcType_1.aByte4);
+				this.updateEntity(local19, local19.info.size);
 			}
 		}
 	}
@@ -4511,8 +4511,8 @@ public final class client extends GameShell {
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(Lclient!x;BI)V")
 	private void updateEntity(@OriginalArg(0) PathingEntity arg0, @OriginalArg(2) int arg1) {
 		if (arg0.anInt882 < 128 || arg0.anInt883 < 128 || arg0.anInt882 >= 13184 || arg0.anInt883 >= 13184) {
-			arg0.anInt907 = -1;
-			arg0.anInt912 = -1;
+			arg0.primarySeq = -1;
+			arg0.spotAnimIndex = -1;
 			arg0.anInt921 = 0;
 			arg0.anInt922 = 0;
 			arg0.anInt882 = arg0.anIntArray232[0] * 128 + arg0.anInt885 * 64;
@@ -4520,8 +4520,8 @@ public final class client extends GameShell {
 			arg0.anInt927 = 0;
 		}
 		if (arg0 == this.aClass1_Sub1_Sub3_Sub2_1 && (arg0.anInt882 < 1536 || arg0.anInt883 < 1536 || arg0.anInt882 >= 11776 || arg0.anInt883 >= 11776)) {
-			arg0.anInt907 = -1;
-			arg0.anInt912 = -1;
+			arg0.primarySeq = -1;
+			arg0.spotAnimIndex = -1;
 			arg0.anInt921 = 0;
 			arg0.anInt922 = 0;
 			arg0.anInt882 = arg0.anIntArray232[0] * 128 + arg0.anInt885 * 64;
@@ -4564,7 +4564,7 @@ public final class client extends GameShell {
 	@OriginalMember(owner = "client!client", name = "b", descriptor = "(Lclient!x;I)V")
 	private void moveEntity2(@OriginalArg(0) PathingEntity arg0) {
 		this.anInt178 += 0;
-		if (arg0.anInt922 == anInt266 || arg0.anInt907 == -1 || arg0.anInt910 != 0 || arg0.anInt909 + 1 > SeqType.aSeqTypeArray1[arg0.anInt907].anIntArray188[arg0.anInt908]) {
+		if (arg0.anInt922 == anInt266 || arg0.primarySeq == -1 || arg0.primarySeqDelay != 0 || arg0.anInt909 + 1 > SeqType.instances[arg0.primarySeq].frameDelay[arg0.primarySeqFrame]) {
 			@Pc(35) int local35 = arg0.anInt922 - arg0.anInt921;
 			@Pc(40) int local40 = anInt266 - arg0.anInt921;
 			@Pc(50) int local50 = arg0.anInt917 * 128 + arg0.anInt885 * 64;
@@ -4592,14 +4592,14 @@ public final class client extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ILclient!x;)V")
 	private void moveEntity3(@OriginalArg(1) PathingEntity arg0) {
-		arg0.anInt904 = arg0.anInt886;
+		arg0.secondarySeq = arg0.standSeq;
 		if (arg0.anInt927 == 0) {
 			arg0.anInt928 = 0;
 			return;
 		}
-		if (arg0.anInt907 != -1 && arg0.anInt910 == 0) {
-			@Pc(28) SeqType local28 = SeqType.aSeqTypeArray1[arg0.anInt907];
-			if (local28.anIntArray189 == null) {
+		if (arg0.primarySeq != -1 && arg0.primarySeqDelay == 0) {
+			@Pc(28) SeqType local28 = SeqType.instances[arg0.primarySeq];
+			if (local28.labelGroups == null) {
 				arg0.anInt928++;
 				return;
 			}
@@ -4649,7 +4649,7 @@ public final class client extends GameShell {
 		if (local175 == -1) {
 			local175 = arg0.anInt888;
 		}
-		arg0.anInt904 = local175;
+		arg0.secondarySeq = local175;
 		@Pc(217) int local217 = 4;
 		if (arg0.anInt884 != arg0.anInt926 && arg0.anInt901 == -1) {
 			local217 = 2;
@@ -4667,8 +4667,8 @@ public final class client extends GameShell {
 		if (arg0.aBooleanArray9[arg0.anInt927 - 1]) {
 			local217 <<= 0x1;
 		}
-		if (local217 >= 8 && arg0.anInt904 == arg0.anInt888 && arg0.anInt892 != -1) {
-			arg0.anInt904 = arg0.anInt892;
+		if (local217 >= 8 && arg0.secondarySeq == arg0.anInt888 && arg0.anInt892 != -1) {
+			arg0.secondarySeq = arg0.anInt892;
 		}
 		if (local41 < local59) {
 			arg0.anInt882 += local217;
@@ -4747,14 +4747,14 @@ public final class client extends GameShell {
 			arg0.anInt884 += 32;
 		}
 		arg0.anInt884 &= 0x7FF;
-		if (arg0.anInt904 != arg0.anInt886 || arg0.anInt884 == arg0.anInt926) {
+		if (arg0.secondarySeq != arg0.standSeq || arg0.anInt884 == arg0.anInt926) {
 			return;
 		}
 		if (arg0.anInt887 != -1) {
-			arg0.anInt904 = arg0.anInt887;
+			arg0.secondarySeq = arg0.anInt887;
 			return;
 		}
-		arg0.anInt904 = arg0.anInt888;
+		arg0.secondarySeq = arg0.anInt888;
 		return;
 	}
 
@@ -4765,55 +4765,55 @@ public final class client extends GameShell {
 		}
 		arg1.aBoolean160 = false;
 		@Pc(16) SeqType local16;
-		if (arg1.anInt904 != -1) {
-			local16 = SeqType.aSeqTypeArray1[arg1.anInt904];
+		if (arg1.secondarySeq != -1) {
+			local16 = SeqType.instances[arg1.secondarySeq];
 			arg1.anInt906++;
-			if (arg1.anInt905 < local16.anInt543 && arg1.anInt906 > local16.anIntArray188[arg1.anInt905]) {
+			if (arg1.secondarySeqFrame < local16.frameCount && arg1.anInt906 > local16.frameDelay[arg1.secondarySeqFrame]) {
 				arg1.anInt906 = 0;
-				arg1.anInt905++;
+				arg1.secondarySeqFrame++;
 			}
-			if (arg1.anInt905 >= local16.anInt543) {
+			if (arg1.secondarySeqFrame >= local16.frameCount) {
 				arg1.anInt906 = 0;
-				arg1.anInt905 = 0;
+				arg1.secondarySeqFrame = 0;
 			}
 		}
-		if (arg1.anInt907 != -1 && arg1.anInt910 == 0) {
-			local16 = SeqType.aSeqTypeArray1[arg1.anInt907];
+		if (arg1.primarySeq != -1 && arg1.primarySeqDelay == 0) {
+			local16 = SeqType.instances[arg1.primarySeq];
 			arg1.anInt909++;
-			while (arg1.anInt908 < local16.anInt543 && arg1.anInt909 > local16.anIntArray188[arg1.anInt908]) {
-				arg1.anInt909 -= local16.anIntArray188[arg1.anInt908];
-				arg1.anInt908++;
+			while (arg1.primarySeqFrame < local16.frameCount && arg1.anInt909 > local16.frameDelay[arg1.primarySeqFrame]) {
+				arg1.anInt909 -= local16.frameDelay[arg1.primarySeqFrame];
+				arg1.primarySeqFrame++;
 			}
-			if (arg1.anInt908 >= local16.anInt543) {
-				arg1.anInt908 -= local16.anInt544;
+			if (arg1.primarySeqFrame >= local16.frameCount) {
+				arg1.primarySeqFrame -= local16.delay;
 				arg1.anInt911++;
-				if (arg1.anInt911 >= local16.anInt548) {
-					arg1.anInt907 = -1;
+				if (arg1.anInt911 >= local16.replays) {
+					arg1.primarySeq = -1;
 				}
-				if (arg1.anInt908 < 0 || arg1.anInt908 >= local16.anInt543) {
-					arg1.anInt907 = -1;
+				if (arg1.primarySeqFrame < 0 || arg1.primarySeqFrame >= local16.frameCount) {
+					arg1.primarySeq = -1;
 				}
 			}
-			arg1.aBoolean160 = local16.aBoolean126;
+			arg1.aBoolean160 = local16.renderPadding;
 		}
-		if (arg1.anInt910 > 0) {
-			arg1.anInt910--;
+		if (arg1.primarySeqDelay > 0) {
+			arg1.primarySeqDelay--;
 		}
-		if (arg1.anInt912 == -1 || anInt266 < arg1.anInt915) {
+		if (arg1.spotAnimIndex == -1 || anInt266 < arg1.anInt915) {
 			return;
 		}
-		if (arg1.anInt913 < 0) {
-			arg1.anInt913 = 0;
+		if (arg1.spotAnimFrame < 0) {
+			arg1.spotAnimFrame = 0;
 		}
-		local16 = SpotAnimType.aSpotAnimTypeArray1[arg1.anInt912].aSeqType_1;
+		local16 = SpotAnimType.instances[arg1.spotAnimIndex].seq;
 		arg1.anInt914++;
-		while (arg1.anInt913 < local16.anInt543 && arg1.anInt914 > local16.anIntArray188[arg1.anInt913]) {
-			arg1.anInt914 -= local16.anIntArray188[arg1.anInt913];
-			arg1.anInt913++;
+		while (arg1.spotAnimFrame < local16.frameCount && arg1.anInt914 > local16.frameDelay[arg1.spotAnimFrame]) {
+			arg1.anInt914 -= local16.frameDelay[arg1.spotAnimFrame];
+			arg1.spotAnimFrame++;
 		}
-		if (arg1.anInt913 >= local16.anInt543) {
-			if (arg1.anInt913 < 0 || arg1.anInt913 >= local16.anInt543) {
-				arg1.anInt912 = -1;
+		if (arg1.spotAnimFrame >= local16.frameCount) {
+			if (arg1.spotAnimFrame < 0 || arg1.spotAnimFrame >= local16.frameCount) {
+				arg1.spotAnimIndex = -1;
 			}
 			return;
 		}
@@ -5421,10 +5421,10 @@ public final class client extends GameShell {
 		if (local28 == 1607) {
 			local345 = this.aClass1_Sub1_Sub3_Sub1Array1[local33];
 			if (local345 != null) {
-				if (local345.aNpcType_1.aByteArray2 == null) {
-					local845 = "It's a " + local345.aNpcType_1.aString2 + ".";
+				if (local345.info.aByteArray2 == null) {
+					local845 = "It's a " + local345.info.aString2 + ".";
 				} else {
-					local845 = new String(local345.aNpcType_1.aByteArray2);
+					local845 = new String(local345.info.aByteArray2);
 				}
 				this.addMessage(0, local845, "");
 			}
@@ -5802,7 +5802,7 @@ public final class client extends GameShell {
 					}
 				}
 				local241.applyGroup();
-				local241.applyFrame(SeqType.aSeqTypeArray1[this.aClass1_Sub1_Sub3_Sub2_1.anInt886].anIntArray186[0]);
+				local241.applyFrame(SeqType.instances[this.aClass1_Sub1_Sub3_Sub2_1.standSeq].primaryFrames[0]);
 				local241.applyLighting(64, 850, -30, -50, -30, true);
 				arg0.aModel_2 = local241;
 			}
@@ -5932,7 +5932,7 @@ public final class client extends GameShell {
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ZLclient!kb;I)V")
 	private void updateLocalNpcs(@OriginalArg(1) Buffer arg0, @OriginalArg(2) int arg1) {
 		while (true) {
-			if (arg0.anInt562 + 21 < arg1 * 8) {
+			if (arg0.bitOffset + 21 < arg1 * 8) {
 				@Pc(16) int local16 = arg0.gBit(13);
 				if (local16 != 8191) {
 					if (this.aClass1_Sub1_Sub3_Sub1Array1[local16] == null) {
@@ -5941,13 +5941,13 @@ public final class client extends GameShell {
 					@Pc(36) NpcEntity local36 = this.aClass1_Sub1_Sub3_Sub1Array1[local16];
 					this.anIntArray58[this.anInt248++] = local16;
 					local36.anInt924 = anInt266;
-					local36.aNpcType_1 = NpcType.get(arg0.gBit(11));
-					local36.anInt885 = local36.aNpcType_1.aByte4;
-					local36.anInt888 = local36.aNpcType_1.anInt70;
-					local36.anInt889 = local36.aNpcType_1.anInt71;
-					local36.anInt890 = local36.aNpcType_1.anInt72;
-					local36.anInt891 = local36.aNpcType_1.anInt73;
-					local36.anInt886 = local36.aNpcType_1.anInt69;
+					local36.info = NpcType.get(arg0.gBit(11));
+					local36.anInt885 = local36.info.size;
+					local36.anInt888 = local36.info.anInt70;
+					local36.anInt889 = local36.info.anInt71;
+					local36.anInt890 = local36.info.anInt72;
+					local36.anInt891 = local36.info.anInt73;
+					local36.standSeq = local36.info.anInt69;
 					@Pc(92) int local92 = arg0.gBit(5);
 					if (local92 > 15) {
 						local92 -= 32;
@@ -6145,7 +6145,7 @@ public final class client extends GameShell {
 				try {
 					@Pc(119) DataInputStream local119 = this.openStream("crc" + (int) (Math.random() * 9.9999999E7D));
 					@Pc(126) Buffer local126 = new Buffer(363, new byte[36]);
-					local119.readFully(local126.aByteArray7, 0, 36);
+					local119.readFully(local126.data, 0, 36);
 					for (@Pc(134) int local134 = 0; local134 < 9; local134++) {
 						this.anIntArray38[local134] = local126.g4();
 					}
@@ -6454,7 +6454,7 @@ public final class client extends GameShell {
 		ObjType.aCache_4.clear();
 		ObjType.aCache_5.clear();
 		PlayerEntity.aCache_9.clear();
-		SpotAnimType.aCache_8.clear();
+		SpotAnimType.models.clear();
 		if (arg0 != this.aByte10) {
 			this.aBoolean72 = !this.aBoolean72;
 		}
@@ -6946,11 +6946,11 @@ public final class client extends GameShell {
 				this.drawTitleScreen();
 			}
 			this.aBufferedStream_1 = new BufferedStream(this, (byte) 2, this.opensocket(anInt236 + 43594));
-			this.aBufferedStream_1.read(this.aBuffer_5.aByteArray7, 0, 8);
-			this.aBuffer_5.anInt561 = 0;
+			this.aBufferedStream_1.read(this.aBuffer_5.data, 0, 8);
+			this.aBuffer_5.offset = 0;
 			this.aLong9 = this.aBuffer_5.g8();
 			@Pc(47) int[] local47 = new int[] { (int) (Math.random() * 9.9999999E7D), (int) (Math.random() * 9.9999999E7D), (int) (this.aLong9 >> 32), (int) this.aLong9 };
-			this.aBuffer_6.anInt561 = 0;
+			this.aBuffer_6.offset = 0;
 			this.aBuffer_6.p1(10);
 			this.aBuffer_6.p4(local47[0]);
 			this.aBuffer_6.p4(local47[1]);
@@ -6960,25 +6960,25 @@ public final class client extends GameShell {
 			this.aBuffer_6.pjstr(arg0);
 			this.aBuffer_6.pjstr(arg1);
 			this.aBuffer_6.encryptRsa(aBigInteger2, aBigInteger1, this.anInt151);
-			this.aBuffer_4.anInt561 = 0;
+			this.aBuffer_4.offset = 0;
 			if (arg2) {
 				this.aBuffer_4.p1(18);
 			} else {
 				this.aBuffer_4.p1(16);
 			}
-			this.aBuffer_4.p1(this.aBuffer_6.anInt561 + 36 + 1 + 1);
+			this.aBuffer_4.p1(this.aBuffer_6.offset + 36 + 1 + 1);
 			this.aBuffer_4.p1(225);
 			this.aBuffer_4.p1(aBoolean53 ? 1 : 0);
 			for (@Pc(168) int local168 = 0; local168 < 9; local168++) {
 				this.aBuffer_4.p4(this.anIntArray38[local168]);
 			}
-			this.aBuffer_4.pBytes(this.aBuffer_6.aByteArray7, this.aBuffer_6.anInt561);
-			this.aBuffer_6.aIsaacRandom_2 = new IsaacRandom((byte) 1, local47);
+			this.aBuffer_4.pBytes(this.aBuffer_6.data, this.aBuffer_6.offset);
+			this.aBuffer_6.isaac = new IsaacRandom((byte) 1, local47);
 			for (@Pc(202) int local202 = 0; local202 < 4; local202++) {
 				local47[local202] += 50;
 			}
 			this.aIsaacRandom_1 = new IsaacRandom((byte) 1, local47);
-			this.aBufferedStream_1.write(this.aBuffer_4.aByteArray7, this.aBuffer_4.anInt561);
+			this.aBufferedStream_1.write(this.aBuffer_4.data, this.aBuffer_4.offset);
 			@Pc(237) int local237 = this.aBufferedStream_1.read();
 			if (local237 == 1) {
 				try {
@@ -6996,8 +6996,8 @@ public final class client extends GameShell {
 				}
 				InputTracking.setDisabled();
 				this.aBoolean62 = true;
-				this.aBuffer_6.anInt561 = 0;
-				this.aBuffer_5.anInt561 = 0;
+				this.aBuffer_6.offset = 0;
+				this.aBuffer_5.offset = 0;
 				this.anInt179 = -1;
 				this.anInt207 = -1;
 				this.anInt208 = -1;
@@ -7140,8 +7140,8 @@ public final class client extends GameShell {
 			}
 			if (local237 == 15) {
 				this.aBoolean62 = true;
-				this.aBuffer_6.anInt561 = 0;
-				this.aBuffer_5.anInt561 = 0;
+				this.aBuffer_6.offset = 0;
+				this.aBuffer_5.offset = 0;
 				this.anInt179 = -1;
 				this.anInt207 = -1;
 				this.anInt208 = -1;
@@ -7385,18 +7385,18 @@ public final class client extends GameShell {
 		FloType.aFloTypeArray1 = null;
 		IdkType.aIdkTypeArray1 = null;
 		InterfaceComponent.aInterfaceComponentArray1 = null;
-		DeadClass.aDeadClassArray1 = null;
-		SeqType.aSeqTypeArray1 = null;
-		SpotAnimType.aSpotAnimTypeArray1 = null;
-		SpotAnimType.aCache_8 = null;
+		DeadClass.deadArray = null;
+		SeqType.instances = null;
+		SpotAnimType.instances = null;
+		SpotAnimType.models = null;
 		VarpType.aVarpTypeArray1 = null;
 		super.aDrawArea_2 = null;
 		PlayerEntity.aCache_9 = null;
 		Draw3D.unload();
 		MapSquare.unload();
 		Model.unload();
-		SeqBase.aSeqBaseArray1 = null;
-		SeqFrame.aSeqFrameArray1 = null;
+		SeqBase.instances = null;
+		SeqFrame.instances = null;
 		System.gc();
 	}
 
@@ -7498,10 +7498,10 @@ public final class client extends GameShell {
 				try {
 					if (this.anIntArray82[local46] != this.anInt184 || this.anIntArray37[local46] != this.anInt301) {
 						@Pc(89) Buffer local89 = SoundTrack.generate(this.anIntArray37[local46], this.anIntArray82[local46]);
-						if (System.currentTimeMillis() + (long) (local89.anInt561 / 22) > this.aLong7 + (long) (this.anInt198 / 22)) {
-							this.anInt198 = local89.anInt561;
+						if (System.currentTimeMillis() + (long) (local89.offset / 22) > this.aLong7 + (long) (this.anInt198 / 22)) {
+							this.anInt198 = local89.offset;
 							this.aLong7 = System.currentTimeMillis();
-							if (this.wavesave(local89.aByteArray7, local89.anInt561)) {
+							if (this.wavesave(local89.data, local89.offset)) {
 								this.anInt184 = this.anIntArray82[local46];
 								this.anInt301 = this.anIntArray37[local46];
 							} else {
@@ -7540,8 +7540,8 @@ public final class client extends GameShell {
 		@Pc(250) Buffer local250 = InputTracking.flush();
 		if (local250 != null) {
 			this.aBuffer_6.p1isaac(81);
-			this.aBuffer_6.p2(local250.anInt561);
-			this.aBuffer_6.pBytes(local250.aByteArray7, local250.anInt561);
+			this.aBuffer_6.p2(local250.offset);
+			this.aBuffer_6.pBytes(local250.data, local250.offset);
 			local250.release();
 		}
 		this.anInt180++;
@@ -7730,9 +7730,9 @@ public final class client extends GameShell {
 			this.aBuffer_6.p1isaac(108);
 		}
 		try {
-			if (this.aBufferedStream_1 != null && this.aBuffer_6.anInt561 > 0) {
-				this.aBufferedStream_1.write(this.aBuffer_6.aByteArray7, this.aBuffer_6.anInt561);
-				this.aBuffer_6.anInt561 = 0;
+			if (this.aBufferedStream_1 != null && this.aBuffer_6.offset > 0) {
+				this.aBufferedStream_1.write(this.aBuffer_6.data, this.aBuffer_6.offset);
+				this.aBuffer_6.offset = 0;
 				this.anInt181 = 0;
 			}
 		} catch (@Pc(1001) IOException local1001) {
@@ -7767,14 +7767,14 @@ public final class client extends GameShell {
 			this.anInt194 = -357;
 		}
 		for (@Pc(13) SpotAnimEntity local13 = (SpotAnimEntity) this.aLinkedList_5.peekPrevious(); local13 != null; local13 = (SpotAnimEntity) this.aLinkedList_5.getPrevious()) {
-			if (local13.anInt61 != this.anInt231 || local13.aBoolean17) {
+			if (local13.level != this.anInt231 || local13.finished) {
 				local13.unlink();
-			} else if (anInt266 >= local13.anInt60) {
+			} else if (anInt266 >= local13.firstCycle) {
 				local13.update(this.anInt270);
-				if (local13.aBoolean17) {
+				if (local13.finished) {
 					local13.unlink();
 				} else {
-					this.aMapSquare_1.add(local13.anInt63, 60, 0, local13.anInt62, -1, false, null, local13, local13.anInt64, local13.anInt61);
+					this.aMapSquare_1.add(local13.z, 60, 0, local13.x, -1, false, null, local13, local13.anInt64, local13.level);
 				}
 			}
 		}
@@ -8005,8 +8005,8 @@ public final class client extends GameShell {
 				this.aClass1_Sub1_Sub3_Sub2Array1[local36] = null;
 			}
 		}
-		if (arg0.anInt561 != arg1) {
-			signlink.reporterror("Error packet size mismatch in getplayer pos:" + arg0.anInt561 + " psize:" + arg1);
+		if (arg0.offset != arg1) {
+			signlink.reporterror("Error packet size mismatch in getplayer pos:" + arg0.offset + " psize:" + arg1);
 			throw new RuntimeException("eek");
 		}
 		for (local36 = 0; local36 < this.anInt205; local36++) {
@@ -8035,14 +8035,14 @@ public final class client extends GameShell {
 					local59 = local24.anInt488;
 				}
 				if (local59 != -1) {
-					@Pc(71) SeqType local71 = SeqType.aSeqTypeArray1[local59];
+					@Pc(71) SeqType local71 = SeqType.instances[local59];
 					local24.anInt469 += arg1;
-					while (local24.anInt469 > local71.anIntArray188[local24.anInt468]) {
-						local24.anInt469 -= local71.anIntArray188[local24.anInt468] + 1;
+					while (local24.anInt469 > local71.frameDelay[local24.anInt468]) {
+						local24.anInt469 -= local71.frameDelay[local24.anInt468] + 1;
 						local24.anInt468++;
-						if (local24.anInt468 >= local71.anInt543) {
-							local24.anInt468 -= local71.anInt544;
-							if (local24.anInt468 < 0 || local24.anInt468 >= local71.anInt543) {
+						if (local24.anInt468 >= local71.frameCount) {
+							local24.anInt468 -= local71.delay;
+							if (local24.anInt468 < 0 || local24.anInt468 >= local71.frameCount) {
 								local24.anInt468 = 0;
 							}
 						}
@@ -8761,7 +8761,7 @@ public final class client extends GameShell {
 				}
 			}
 			for (@Pc(361) SpawnedLoc local361 = (SpawnedLoc) this.aLinkedList_4.peekPrevious(); local361 != null; local361 = (SpawnedLoc) this.aLinkedList_4.getPrevious()) {
-				this.addLoc(local361.anInt598, local361.anInt595, local361.anInt596, local361.anInt594, local361.anInt597, local361.anInt599, local361.anInt593);
+				this.addLoc(local361.orientation, local361.tileX, local361.tileZ, local361.classType, local361.locIndex, local361.type, local361.level);
 			}
 		} catch (@Pc(390) Exception local390) {
 		}
@@ -9023,15 +9023,15 @@ public final class client extends GameShell {
 			label67: {
 				do {
 					do {
-						if (local10.anInt657 <= local10.aSeqType_2.anIntArray188[local10.anInt656]) {
+						if (local10.anInt657 <= local10.aSeqType_2.frameDelay[local10.anInt656]) {
 							break label67;
 						}
-						local10.anInt657 -= local10.aSeqType_2.anIntArray188[local10.anInt656] + 1;
+						local10.anInt657 -= local10.aSeqType_2.frameDelay[local10.anInt656] + 1;
 						local10.anInt656++;
 						local14 = true;
-					} while (local10.anInt656 < local10.aSeqType_2.anInt543);
-					local10.anInt656 -= local10.aSeqType_2.anInt544;
-				} while (local10.anInt656 >= 0 && local10.anInt656 < local10.aSeqType_2.anInt543);
+					} while (local10.anInt656 < local10.aSeqType_2.frameCount);
+					local10.anInt656 -= local10.aSeqType_2.delay;
+				} while (local10.anInt656 >= 0 && local10.anInt656 < local10.aSeqType_2.frameCount);
 				local10.unlink();
 				local14 = false;
 			}
@@ -9060,7 +9060,7 @@ public final class client extends GameShell {
 					@Pc(210) LocType local210 = LocType.get(local10.anInt655);
 					@Pc(212) int local212 = -1;
 					if (local10.anInt656 != -1) {
-						local212 = local10.aSeqType_2.anIntArray186[local10.anInt656];
+						local212 = local10.aSeqType_2.primaryFrames[local10.anInt656];
 					}
 					@Pc(235) int local235;
 					@Pc(239) int local239;
@@ -9196,23 +9196,23 @@ public final class client extends GameShell {
 				@Pc(395) NpcEntity local395;
 				if (local74 == 1) {
 					@Pc(366) NpcEntity local366 = this.aClass1_Sub1_Sub3_Sub1Array1[local80];
-					if (local366.aNpcType_1.aByte4 == 1 && (local366.anInt882 & 0x7F) == 64 && (local366.anInt883 & 0x7F) == 64) {
+					if (local366.info.size == 1 && (local366.anInt882 & 0x7F) == 64 && (local366.anInt883 & 0x7F) == 64) {
 						for (local218 = 0; local218 < this.anInt248; local218++) {
 							local395 = this.aClass1_Sub1_Sub3_Sub1Array1[this.anIntArray58[local218]];
-							if (local395 != null && local395 != local366 && local395.aNpcType_1.aByte4 == 1 && local395.anInt882 == local366.anInt882 && local395.anInt883 == local366.anInt883) {
-								this.drawTooltip(local395.aNpcType_1, local68, local62, this.anIntArray58[local218]);
+							if (local395 != null && local395 != local366 && local395.info.size == 1 && local395.anInt882 == local366.anInt882 && local395.anInt883 == local366.anInt883) {
+								this.drawTooltip(local395.info, local68, local62, this.anIntArray58[local218]);
 							}
 						}
 					}
-					this.drawTooltip(local366.aNpcType_1, local68, local62, local80);
+					this.drawTooltip(local366.info, local68, local62, local80);
 				}
 				if (local74 == 0) {
 					@Pc(446) PlayerEntity local446 = this.aClass1_Sub1_Sub3_Sub2Array1[local80];
 					if ((local446.anInt882 & 0x7F) == 64 && (local446.anInt883 & 0x7F) == 64) {
 						for (local218 = 0; local218 < this.anInt248; local218++) {
 							local395 = this.aClass1_Sub1_Sub3_Sub1Array1[this.anIntArray58[local218]];
-							if (local395 != null && local395.aNpcType_1.aByte4 == 1 && local395.anInt882 == local446.anInt882 && local395.anInt883 == local446.anInt883) {
-								this.drawTooltip(local395.aNpcType_1, local68, local62, this.anIntArray58[local218]);
+							if (local395 != null && local395.info.size == 1 && local395.anInt882 == local446.anInt882 && local395.anInt883 == local446.anInt883) {
+								this.drawTooltip(local395.info, local68, local62, this.anIntArray58[local218]);
 							}
 						}
 						for (@Pc(505) int local505 = 0; local505 < this.anInt205; local505++) {
@@ -9311,7 +9311,7 @@ public final class client extends GameShell {
 		anInt242 = 0;
 		this.aBuffer_6.p1isaac(219);
 		this.aBuffer_6.p1(0);
-		local17 = this.aBuffer_6.anInt561;
+		local17 = this.aBuffer_6.offset;
 		this.aBuffer_6.p1(162);
 		this.aBuffer_6.p1(22);
 		if ((int) (Math.random() * 2.0D) == 0) {
@@ -9328,7 +9328,7 @@ public final class client extends GameShell {
 		this.aBuffer_6.p1(100);
 		this.aBuffer_6.p1(94);
 		this.aBuffer_6.p2(35521);
-		this.aBuffer_6.p1len(this.aBuffer_6.anInt561 - local17);
+		this.aBuffer_6.p1len(this.aBuffer_6.offset - local17);
 	}
 
 	@OriginalMember(owner = "client!client", name = "r", descriptor = "(B)V")
@@ -9498,36 +9498,36 @@ public final class client extends GameShell {
 				return false;
 			}
 			if (this.anInt179 == -1) {
-				this.aBufferedStream_1.read(this.aBuffer_5.aByteArray7, 0, 1);
-				this.anInt179 = this.aBuffer_5.aByteArray7[0] & 0xFF;
+				this.aBufferedStream_1.read(this.aBuffer_5.data, 0, 1);
+				this.anInt179 = this.aBuffer_5.data[0] & 0xFF;
 				if (this.aIsaacRandom_1 != null) {
 					this.anInt179 = this.anInt179 - this.aIsaacRandom_1.nextInt() & 0xFF;
 				}
-				this.anInt178 = Packet.anIntArray90[this.anInt179];
+				this.anInt178 = Packet.SERVERPROT_LENGTHS[this.anInt179];
 				local15--;
 			}
 			if (this.anInt178 == -1) {
 				if (local15 <= 0) {
 					return false;
 				}
-				this.aBufferedStream_1.read(this.aBuffer_5.aByteArray7, 0, 1);
-				this.anInt178 = this.aBuffer_5.aByteArray7[0] & 0xFF;
+				this.aBufferedStream_1.read(this.aBuffer_5.data, 0, 1);
+				this.anInt178 = this.aBuffer_5.data[0] & 0xFF;
 				local15--;
 			}
 			if (this.anInt178 == -2) {
 				if (local15 <= 1) {
 					return false;
 				}
-				this.aBufferedStream_1.read(this.aBuffer_5.aByteArray7, 0, 2);
-				this.aBuffer_5.anInt561 = 0;
+				this.aBufferedStream_1.read(this.aBuffer_5.data, 0, 2);
+				this.aBuffer_5.offset = 0;
 				this.anInt178 = this.aBuffer_5.g2();
 				local15 -= 2;
 			}
 			if (local15 < this.anInt178) {
 				return false;
 			}
-			this.aBuffer_5.anInt561 = 0;
-			this.aBufferedStream_1.read(this.aBuffer_5.aByteArray7, 0, this.anInt178);
+			this.aBuffer_5.offset = 0;
+			this.aBufferedStream_1.read(this.aBuffer_5.data, 0, this.anInt178);
 			this.anInt180 = 0;
 			this.anInt209 = this.anInt208;
 			this.anInt208 = this.anInt207;
@@ -9765,9 +9765,9 @@ public final class client extends GameShell {
 					}
 				}
 				for (@Pc(1066) SpawnedLoc local1066 = (SpawnedLoc) this.aLinkedList_4.peekPrevious(); local1066 != null; local1066 = (SpawnedLoc) this.aLinkedList_4.getPrevious()) {
-					local1066.anInt595 -= local650;
-					local1066.anInt596 -= local321;
-					if (local1066.anInt595 < 0 || local1066.anInt596 < 0 || local1066.anInt595 >= 104 || local1066.anInt596 >= 104) {
+					local1066.tileX -= local650;
+					local1066.tileZ -= local321;
+					if (local1066.tileX < 0 || local1066.tileZ < 0 || local1066.tileX >= 104 || local1066.tileZ >= 104) {
 						local1066.unlink();
 					}
 				}
@@ -9949,8 +9949,8 @@ public final class client extends GameShell {
 				@Pc(1701) Buffer local1701 = InputTracking.stop();
 				if (local1701 != null) {
 					this.aBuffer_6.p1isaac(81);
-					this.aBuffer_6.p2(local1701.anInt561);
-					this.aBuffer_6.pBytes(local1701.aByteArray7, local1701.anInt561);
+					this.aBuffer_6.p2(local1701.offset);
+					this.aBuffer_6.pBytes(local1701.data, local1701.offset);
 					local1701.release();
 				}
 				this.anInt179 = -1;
@@ -10043,7 +10043,7 @@ public final class client extends GameShell {
 					local462 = this.aBuffer_5.g4();
 					local211 = this.anInt178 - 6;
 					@Pc(2018) byte[] local2018 = new byte[local462];
-					BZip2InputStream.read(local2018, local462, this.aBuffer_5.aByteArray7, local211, this.aBuffer_5.anInt561);
+					BZip2InputStream.read(local2018, local462, this.aBuffer_5.data, local211, this.aBuffer_5.offset);
 					this.midisave(local2018, local462, false);
 					this.anInt157 = local159;
 				}
@@ -10062,7 +10062,7 @@ public final class client extends GameShell {
 				if (this.aBoolean73 && !aBoolean53 && this.anInt286 < 50) {
 					this.anIntArray82[this.anInt286] = local159;
 					this.anIntArray37[this.anInt286] = local462;
-					this.anIntArray45[this.anInt286] = local211 + SoundTrack.anIntArray231[local159];
+					this.anIntArray45[this.anInt286] = local211 + SoundTrack.delays[local159];
 					this.anInt286++;
 				}
 				this.anInt179 = -1;
@@ -10175,8 +10175,8 @@ public final class client extends GameShell {
 					}
 				}
 				for (@Pc(2487) SpawnedLoc local2487 = (SpawnedLoc) this.aLinkedList_4.peekPrevious(); local2487 != null; local2487 = (SpawnedLoc) this.aLinkedList_4.getPrevious()) {
-					if (local2487.anInt595 >= this.anInt222 && local2487.anInt595 < this.anInt222 + 8 && local2487.anInt596 >= this.anInt223 && local2487.anInt596 < this.anInt223 + 8 && local2487.anInt593 == this.anInt231) {
-						this.addLoc(local2487.anInt601, local2487.anInt595, local2487.anInt596, local2487.anInt594, local2487.anInt600, local2487.anInt602, local2487.anInt593);
+					if (local2487.tileX >= this.anInt222 && local2487.tileX < this.anInt222 + 8 && local2487.tileZ >= this.anInt223 && local2487.tileZ < this.anInt223 + 8 && local2487.level == this.anInt231) {
+						this.addLoc(local2487.lastRotation, local2487.tileX, local2487.tileZ, local2487.classType, local2487.lastLocIndex, local2487.lastType, local2487.level);
 						local2487.unlink();
 					}
 				}
@@ -10390,12 +10390,12 @@ public final class client extends GameShell {
 			if (this.anInt179 == 136) {
 				for (local159 = 0; local159 < this.aClass1_Sub1_Sub3_Sub2Array1.length; local159++) {
 					if (this.aClass1_Sub1_Sub3_Sub2Array1[local159] != null) {
-						this.aClass1_Sub1_Sub3_Sub2Array1[local159].anInt907 = -1;
+						this.aClass1_Sub1_Sub3_Sub2Array1[local159].primarySeq = -1;
 					}
 				}
 				for (local462 = 0; local462 < this.aClass1_Sub1_Sub3_Sub1Array1.length; local462++) {
 					if (this.aClass1_Sub1_Sub3_Sub1Array1[local462] != null) {
-						this.aClass1_Sub1_Sub3_Sub1Array1[local462].anInt907 = -1;
+						this.aClass1_Sub1_Sub3_Sub1Array1[local462].primarySeq = -1;
 					}
 				}
 				this.anInt179 = -1;
@@ -10472,7 +10472,7 @@ public final class client extends GameShell {
 			if (this.anInt179 == 162) {
 				this.anInt222 = this.aBuffer_5.g1();
 				this.anInt223 = this.aBuffer_5.g1();
-				while (this.aBuffer_5.anInt561 < this.anInt178) {
+				while (this.aBuffer_5.offset < this.anInt178) {
 					local159 = this.aBuffer_5.g1();
 					this.readLocationPacket(this.aBuffer_5, local159);
 				}
@@ -10504,7 +10504,7 @@ public final class client extends GameShell {
 				this.aBoolean59 = true;
 				local159 = this.aBuffer_5.g2();
 				local1745 = InterfaceComponent.aInterfaceComponentArray1[local159];
-				while (this.aBuffer_5.anInt561 < this.anInt178) {
+				while (this.aBuffer_5.offset < this.anInt178) {
 					local211 = this.aBuffer_5.g1();
 					local466 = this.aBuffer_5.g2();
 					local219 = this.aBuffer_5.g1();
@@ -10548,7 +10548,7 @@ public final class client extends GameShell {
 		} catch (@Pc(3867) Exception local3867) {
 			local1264 = "T2 - " + this.anInt179 + "," + this.anInt208 + "," + this.anInt209 + " - " + this.anInt178 + "," + (this.anInt169 + this.aClass1_Sub1_Sub3_Sub2_1.anIntArray232[0]) + "," + (this.anInt170 + this.aClass1_Sub1_Sub3_Sub2_1.anIntArray233[0]) + " - ";
 			for (local462 = 0; local462 < this.anInt178 && local462 < 50; local462++) {
-				local1264 = local1264 + this.aBuffer_5.aByteArray7[local462] + ",";
+				local1264 = local1264 + this.aBuffer_5.data[local462] + ",";
 			}
 			signlink.reporterror(local1264);
 			this.disconnect();
@@ -10624,15 +10624,15 @@ public final class client extends GameShell {
 			if (local19 == 65535) {
 				local19 = -1;
 			}
-			if (local19 == arg3.anInt907) {
+			if (local19 == arg3.primarySeq) {
 				arg3.anInt911 = 0;
 			}
 			local66 = arg2.g1();
-			if (local19 == -1 || arg3.anInt907 == -1 || SeqType.aSeqTypeArray1[local19].anInt545 > SeqType.aSeqTypeArray1[arg3.anInt907].anInt545 || SeqType.aSeqTypeArray1[arg3.anInt907].anInt545 == 0) {
-				arg3.anInt907 = local19;
-				arg3.anInt908 = 0;
+			if (local19 == -1 || arg3.primarySeq == -1 || SeqType.instances[local19].priority > SeqType.instances[arg3.primarySeq].priority || SeqType.instances[arg3.primarySeq].priority == 0) {
+				arg3.primarySeq = local19;
+				arg3.primarySeqFrame = 0;
 				arg3.anInt909 = 0;
-				arg3.anInt910 = local66;
+				arg3.primarySeqDelay = local66;
 				arg3.anInt911 = 0;
 			}
 		}
@@ -10664,7 +10664,7 @@ public final class client extends GameShell {
 			local19 = arg2.g2();
 			local66 = arg2.g1();
 			@Pc(199) int local199 = arg2.g1();
-			@Pc(202) int local202 = arg2.anInt561;
+			@Pc(202) int local202 = arg2.offset;
 			if (arg3.aString29 != null) {
 				@Pc(209) long local209 = StringUtils.toBase37(arg3.aString29);
 				@Pc(211) boolean local211 = false;
@@ -10694,20 +10694,20 @@ public final class client extends GameShell {
 					}
 				}
 			}
-			arg2.anInt561 = local202 + local199;
+			arg2.offset = local202 + local199;
 		}
 		if ((arg1 & 0x100) == 256) {
-			arg3.anInt912 = arg2.g2();
+			arg3.spotAnimIndex = arg2.g2();
 			local19 = arg2.g4();
-			arg3.anInt916 = local19 >> 16;
+			arg3.spotAnimOffsetY = local19 >> 16;
 			arg3.anInt915 = anInt266 + (local19 & 0xFFFF);
-			arg3.anInt913 = 0;
+			arg3.spotAnimFrame = 0;
 			arg3.anInt914 = 0;
 			if (arg3.anInt915 > anInt266) {
-				arg3.anInt913 = -1;
+				arg3.spotAnimFrame = -1;
 			}
-			if (arg3.anInt912 == 65535) {
-				arg3.anInt912 = -1;
+			if (arg3.spotAnimIndex == 65535) {
+				arg3.spotAnimIndex = -1;
 			}
 		}
 		if ((arg1 & 0x200) != 512) {

@@ -14,100 +14,100 @@ import org.openrs2.deob.annotation.OriginalMember;
 public final class DrawArea implements ImageProducer, ImageObserver {
 
 	@OriginalMember(owner = "client!qb", name = "f", descriptor = "Ljava/awt/image/ImageConsumer;")
-	private ImageConsumer anImageConsumer1;
+	private ImageConsumer consumer;
 
 	@OriginalMember(owner = "client!qb", name = "a", descriptor = "I")
-	private final int anInt685 = 299;
+	private final int flowObfuscator1 = 299;
 
 	@OriginalMember(owner = "client!qb", name = "c", descriptor = "I")
-	private final int anInt686;
+	private final int width;
 
 	@OriginalMember(owner = "client!qb", name = "d", descriptor = "I")
-	private final int anInt687;
+	private final int height;
 
 	@OriginalMember(owner = "client!qb", name = "b", descriptor = "[I")
-	public final int[] anIntArray197;
+	public final int[] pixels;
 
 	@OriginalMember(owner = "client!qb", name = "e", descriptor = "Ljava/awt/image/ColorModel;")
-	private final ColorModel aColorModel1;
+	private final ColorModel colorModel;
 
 	@OriginalMember(owner = "client!qb", name = "g", descriptor = "Ljava/awt/Image;")
-	private final Image anImage1;
+	private final Image image;
 
 	@OriginalMember(owner = "client!qb", name = "<init>", descriptor = "(Ljava/awt/Component;III)V")
-	public DrawArea(@OriginalArg(0) Component arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
-		this.anInt686 = arg1;
-		this.anInt687 = arg3;
-		this.anIntArray197 = new int[arg1 * arg3];
-		this.aColorModel1 = new DirectColorModel(32, 16711680, 65280, 255);
-		this.anImage1 = arg0.createImage(this);
+	public DrawArea(@OriginalArg(0) Component component, @OriginalArg(1) int width, @OriginalArg(2) int obfuscator, @OriginalArg(3) int height) {
+		this.width = width;
+		this.height = height;
+		this.pixels = new int[width * height];
+		this.colorModel = new DirectColorModel(32, 16711680, 65280, 255);
+		this.image = component.createImage(this);
 		this.setPixels();
-		arg0.prepareImage(this.anImage1, this);
+		component.prepareImage(this.image, this);
 		this.setPixels();
-		arg0.prepareImage(this.anImage1, this);
+		component.prepareImage(this.image, this);
 		this.setPixels();
-		arg0.prepareImage(this.anImage1, this);
+		component.prepareImage(this.image, this);
 		this.bind();
 	}
 
 	@OriginalMember(owner = "client!qb", name = "a", descriptor = "(B)V")
 	public final void bind() {
-		Draw2D.prepare(this.anInt686, this.anIntArray197, this.anInt687);
+		Draw2D.prepare(this.width, this.pixels, this.height);
 	}
 
 	@OriginalMember(owner = "client!qb", name = "a", descriptor = "(ILjava/awt/Graphics;II)V")
-	public final void drawImage(@OriginalArg(0) int arg0, @OriginalArg(1) Graphics arg1, @OriginalArg(2) int arg2) {
+	public final void drawImage(@OriginalArg(0) int y, @OriginalArg(1) Graphics g, @OriginalArg(2) int x) {
 		this.setPixels();
-		arg1.drawImage(this.anImage1, arg2, arg0, this);
+		g.drawImage(this.image, x, y, this);
 	}
 
 	@OriginalMember(owner = "client!qb", name = "addConsumer", descriptor = "(Ljava/awt/image/ImageConsumer;)V")
 	@Override
-	public final synchronized void addConsumer(@OriginalArg(0) ImageConsumer arg0) {
-		this.anImageConsumer1 = arg0;
-		arg0.setDimensions(this.anInt686, this.anInt687);
-		arg0.setProperties(null);
-		arg0.setColorModel(this.aColorModel1);
-		arg0.setHints(14);
+	public final synchronized void addConsumer(@OriginalArg(0) ImageConsumer consumer) {
+		this.consumer = consumer;
+		consumer.setDimensions(this.width, this.height);
+		consumer.setProperties(null);
+		consumer.setColorModel(this.colorModel);
+		consumer.setHints(14);
 	}
 
 	@OriginalMember(owner = "client!qb", name = "isConsumer", descriptor = "(Ljava/awt/image/ImageConsumer;)Z")
 	@Override
-	public final synchronized boolean isConsumer(@OriginalArg(0) ImageConsumer arg0) {
-		return this.anImageConsumer1 == arg0;
+	public final synchronized boolean isConsumer(@OriginalArg(0) ImageConsumer consumer) {
+		return this.consumer == consumer;
 	}
 
 	@OriginalMember(owner = "client!qb", name = "removeConsumer", descriptor = "(Ljava/awt/image/ImageConsumer;)V")
 	@Override
-	public final synchronized void removeConsumer(@OriginalArg(0) ImageConsumer arg0) {
-		if (this.anImageConsumer1 == arg0) {
-			this.anImageConsumer1 = null;
+	public final synchronized void removeConsumer(@OriginalArg(0) ImageConsumer consumer) {
+		if (this.consumer == consumer) {
+			this.consumer = null;
 		}
 	}
 
 	@OriginalMember(owner = "client!qb", name = "startProduction", descriptor = "(Ljava/awt/image/ImageConsumer;)V")
 	@Override
-	public final void startProduction(@OriginalArg(0) ImageConsumer arg0) {
-		this.addConsumer(arg0);
+	public final void startProduction(@OriginalArg(0) ImageConsumer consumer) {
+		this.addConsumer(consumer);
 	}
 
 	@OriginalMember(owner = "client!qb", name = "requestTopDownLeftRightResend", descriptor = "(Ljava/awt/image/ImageConsumer;)V")
 	@Override
-	public final void requestTopDownLeftRightResend(@OriginalArg(0) ImageConsumer arg0) {
+	public final void requestTopDownLeftRightResend(@OriginalArg(0) ImageConsumer consumer) {
 		System.out.println("TDLR");
 	}
 
 	@OriginalMember(owner = "client!qb", name = "a", descriptor = "()V")
 	private synchronized void setPixels() {
-		if (this.anImageConsumer1 != null) {
-			this.anImageConsumer1.setPixels(0, 0, this.anInt686, this.anInt687, this.aColorModel1, this.anIntArray197, 0, this.anInt686);
-			this.anImageConsumer1.imageComplete(2);
+		if (this.consumer != null) {
+			this.consumer.setPixels(0, 0, this.width, this.height, this.colorModel, this.pixels, 0, this.width);
+			this.consumer.imageComplete(2);
 		}
 	}
 
 	@OriginalMember(owner = "client!qb", name = "imageUpdate", descriptor = "(Ljava/awt/Image;IIIII)Z")
 	@Override
-	public final boolean imageUpdate(@OriginalArg(0) Image arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
+	public final boolean imageUpdate(@OriginalArg(0) Image image, @OriginalArg(1) int infoflags, @OriginalArg(2) int x, @OriginalArg(3) int y, @OriginalArg(4) int width, @OriginalArg(5) int height) {
 		return true;
 	}
 }

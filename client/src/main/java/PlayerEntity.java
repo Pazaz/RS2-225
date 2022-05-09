@@ -77,7 +77,7 @@ public final class PlayerEntity extends PathingEntity {
 
 	@OriginalMember(owner = "client!z", name = "a", descriptor = "(ZLclient!kb;)V")
 	public final void decode(@OriginalArg(1) Buffer arg0) {
-		arg0.anInt561 = 0;
+		arg0.offset = 0;
 		this.anInt930 = arg0.g1();
 		this.anInt931 = arg0.g1();
 		@Pc(19) int local19;
@@ -98,9 +98,9 @@ public final class PlayerEntity extends PathingEntity {
 			}
 			this.anIntArray235[local19] = local31;
 		}
-		super.anInt886 = arg0.g2();
-		if (super.anInt886 == 65535) {
-			super.anInt886 = -1;
+		super.standSeq = arg0.g2();
+		if (super.standSeq == 65535) {
+			super.standSeq = -1;
 		}
 		super.anInt887 = arg0.g2();
 		if (super.anInt887 == 65535) {
@@ -157,23 +157,23 @@ public final class PlayerEntity extends PathingEntity {
 			return null;
 		}
 		@Pc(10) Model local10 = this.getModel();
-		super.anInt925 = local10.anInt368;
-		local10.aBoolean84 = true;
+		super.height = local10.maxBoundY;
+		local10.pickable = true;
 		if (this.aBoolean163) {
 			return local10;
 		}
-		if (super.anInt912 != -1 && super.anInt913 != -1) {
-			@Pc(35) SpotAnimType local35 = SpotAnimType.aSpotAnimTypeArray1[super.anInt912];
-			@Pc(51) Model local51 = new Model(local35.getModel(), true, !local35.aBoolean131, this.anInt929, false);
-			local51.translate(-super.anInt916, 0, 0);
+		if (super.spotAnimIndex != -1 && super.spotAnimFrame != -1) {
+			@Pc(35) SpotAnimType local35 = SpotAnimType.instances[super.spotAnimIndex];
+			@Pc(51) Model local51 = new Model(local35.getModel(), true, !local35.disposeAlpha, this.anInt929, false);
+			local51.translate(-super.spotAnimOffsetY, 0, 0);
 			local51.applyGroup();
-			local51.applyFrame(local35.aSeqType_1.anIntArray186[super.anInt913]);
-			local51.anIntArrayArray7 = null;
-			local51.anIntArrayArray6 = null;
-			if (local35.anInt571 != 128 || local35.anInt572 != 128) {
-				local51.scale(local35.anInt571, local35.anInt572, local35.anInt571);
+			local51.applyFrame(local35.seq.primaryFrames[super.spotAnimFrame]);
+			local51.skinTriangle = null;
+			local51.labelVertices = null;
+			if (local35.breadthScale != 128 || local35.depthScale != 128) {
+				local51.scale(local35.breadthScale, local35.depthScale, local35.breadthScale);
 			}
-			local51.applyLighting(local35.anInt574 + 64, local35.anInt575 + 850, -30, -50, -30, true);
+			local51.applyLighting(local35.ambience + 64, local35.modelShadow + 850, -30, -50, -30, true);
 			@Pc(119) Model[] local119 = new Model[] { local10, local51 };
 			local10 = new Model(local119, (byte) -31, 2, true);
 		}
@@ -209,7 +209,7 @@ public final class PlayerEntity extends PathingEntity {
 				local148.translate(this.anInt933 - this.anInt937, super.anInt882 - this.anInt936, super.anInt883 - this.anInt938);
 			}
 		}
-		local10.aBoolean84 = true;
+		local10.pickable = true;
 		return local10;
 	}
 
@@ -220,22 +220,22 @@ public final class PlayerEntity extends PathingEntity {
 		@Pc(8) int local8 = -1;
 		@Pc(10) int local10 = -1;
 		@Pc(12) int local12 = -1;
-		if (super.anInt907 >= 0 && super.anInt910 == 0) {
-			@Pc(23) SeqType local23 = SeqType.aSeqTypeArray1[super.anInt907];
-			local6 = local23.anIntArray186[super.anInt908];
-			if (super.anInt904 >= 0 && super.anInt904 != super.anInt886) {
-				local8 = SeqType.aSeqTypeArray1[super.anInt904].anIntArray186[super.anInt905];
+		if (super.primarySeq >= 0 && super.primarySeqDelay == 0) {
+			@Pc(23) SeqType local23 = SeqType.instances[super.primarySeq];
+			local6 = local23.primaryFrames[super.primarySeqFrame];
+			if (super.secondarySeq >= 0 && super.secondarySeq != super.standSeq) {
+				local8 = SeqType.instances[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
 			}
-			if (local23.anInt546 >= 0) {
-				local10 = local23.anInt546;
+			if (local23.shieldOverride >= 0) {
+				local10 = local23.shieldOverride;
 				local4 += local10 - this.anIntArray234[5] << 8;
 			}
-			if (local23.anInt547 >= 0) {
-				local12 = local23.anInt547;
+			if (local23.weaponOverride >= 0) {
+				local12 = local23.weaponOverride;
 				local4 += local12 - this.anIntArray234[3] << 16;
 			}
-		} else if (super.anInt904 >= 0) {
-			local6 = SeqType.aSeqTypeArray1[super.anInt904].anIntArray186[super.anInt905];
+		} else if (super.secondarySeq >= 0) {
+			local6 = SeqType.instances[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
 		}
 		@Pc(101) Model local101 = (Model) aCache_9.get(local4);
 		if (local101 == null) {
@@ -279,13 +279,13 @@ public final class PlayerEntity extends PathingEntity {
 		}
 		@Pc(249) Model local249 = new Model(0, local101, true);
 		if (local6 != -1 && local8 != -1) {
-			local249.applyFrames(local8, local6, SeqType.aSeqTypeArray1[super.anInt907].anIntArray189);
+			local249.applyFrames(local8, local6, SeqType.instances[super.primarySeq].labelGroups);
 		} else if (local6 != -1) {
 			local249.applyFrame(local6);
 		}
 		local249.calculateYBoundaries();
-		local249.anIntArrayArray7 = null;
-		local249.anIntArrayArray6 = null;
+		local249.skinTriangle = null;
+		local249.labelVertices = null;
 		return local249;
 	}
 

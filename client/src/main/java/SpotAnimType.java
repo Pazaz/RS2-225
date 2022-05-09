@@ -7,66 +7,66 @@ import org.openrs2.deob.annotation.Pc;
 public final class SpotAnimType {
 
 	@OriginalMember(owner = "client!kc", name = "b", descriptor = "I")
-	private static int anInt567;
+	private static int count;
 
 	@OriginalMember(owner = "client!kc", name = "c", descriptor = "[Lclient!kc;")
-	public static SpotAnimType[] aSpotAnimTypeArray1;
+	public static SpotAnimType[] instances;
 
 	@OriginalMember(owner = "client!kc", name = "a", descriptor = "I")
-	private static final int anInt566 = 473;
+	private static final int flowObfuscator1 = 473;
 
 	@OriginalMember(owner = "client!kc", name = "p", descriptor = "Lclient!s;")
-	public static Cache aCache_8 = new Cache((byte) 0, 30);
+	public static Cache models = new Cache((byte) 0, 30);
 
 	@OriginalMember(owner = "client!kc", name = "d", descriptor = "I")
-	private int anInt568;
+	private int index;
 
 	@OriginalMember(owner = "client!kc", name = "e", descriptor = "I")
-	private int anInt569;
+	private int modelIndex;
 
 	@OriginalMember(owner = "client!kc", name = "g", descriptor = "Lclient!jc;")
-	public SeqType aSeqType_1;
+	public SeqType seq;
 
 	@OriginalMember(owner = "client!kc", name = "m", descriptor = "I")
-	public int anInt573;
+	public int orientation;
 
 	@OriginalMember(owner = "client!kc", name = "n", descriptor = "I")
-	public int anInt574;
+	public int ambience;
 
 	@OriginalMember(owner = "client!kc", name = "o", descriptor = "I")
-	public int anInt575;
+	public int modelShadow;
 
 	@OriginalMember(owner = "client!kc", name = "f", descriptor = "I")
-	private int anInt570 = -1;
+	private int seqIndex = -1;
 
 	@OriginalMember(owner = "client!kc", name = "h", descriptor = "Z")
-	public boolean aBoolean131 = false;
+	public boolean disposeAlpha = false;
 
 	@OriginalMember(owner = "client!kc", name = "i", descriptor = "[I")
-	private final int[] anIntArray192 = new int[6];
+	private final int[] oldColors = new int[6];
 
 	@OriginalMember(owner = "client!kc", name = "j", descriptor = "[I")
-	private final int[] anIntArray193 = new int[6];
+	private final int[] newColors = new int[6];
 
 	@OriginalMember(owner = "client!kc", name = "k", descriptor = "I")
-	public int anInt571 = 128;
+	public int breadthScale = 128;
 
 	@OriginalMember(owner = "client!kc", name = "l", descriptor = "I")
-	public int anInt572 = 128;
+	public int depthScale = 128;
 
 	@OriginalMember(owner = "client!kc", name = "a", descriptor = "(Lclient!ub;I)V")
-	public static void decode(@OriginalArg(0) FileArchive arg0) {
-		@Pc(13) Buffer local13 = new Buffer(363, arg0.read("spotanim.dat", null));
-		anInt567 = local13.g2();
-		if (aSpotAnimTypeArray1 == null) {
-			aSpotAnimTypeArray1 = new SpotAnimType[anInt567];
+	public static void decode(@OriginalArg(0) FileArchive archive) {
+		@Pc(13) Buffer buffer = new Buffer(363, archive.read("spotanim.dat", null));
+		count = buffer.g2();
+		if (instances == null) {
+			instances = new SpotAnimType[count];
 		}
-		for (@Pc(23) int local23 = 0; local23 < anInt567; local23++) {
-			if (aSpotAnimTypeArray1[local23] == null) {
-				aSpotAnimTypeArray1[local23] = new SpotAnimType();
+		for (@Pc(23) int i = 0; i < count; i++) {
+			if (instances[i] == null) {
+				instances[i] = new SpotAnimType();
 			}
-			aSpotAnimTypeArray1[local23].anInt568 = local23;
-			aSpotAnimTypeArray1[local23].decode(local13);
+			instances[i].index = i;
+			instances[i].decode(buffer);
 		}
 	}
 
@@ -75,54 +75,54 @@ public final class SpotAnimType {
 	}
 
 	@OriginalMember(owner = "client!kc", name = "a", descriptor = "(ZLclient!kb;)V")
-	private void decode(@OriginalArg(1) Buffer arg0) {
+	private void decode(@OriginalArg(1) Buffer buffer) {
 		while (true) {
-			@Pc(13) int local13 = arg0.g1();
-			if (local13 == 0) {
+			@Pc(13) int opcode = buffer.g1();
+			if (opcode == 0) {
 				return;
 			}
-			if (local13 == 1) {
-				this.anInt569 = arg0.g2();
-			} else if (local13 == 2) {
-				this.anInt570 = arg0.g2();
-				if (SeqType.aSeqTypeArray1 != null) {
-					this.aSeqType_1 = SeqType.aSeqTypeArray1[this.anInt570];
+			if (opcode == 1) {
+				this.modelIndex = buffer.g2();
+			} else if (opcode == 2) {
+				this.seqIndex = buffer.g2();
+				if (SeqType.instances != null) {
+					this.seq = SeqType.instances[this.seqIndex];
 				}
-			} else if (local13 == 3) {
-				this.aBoolean131 = true;
-			} else if (local13 == 4) {
-				this.anInt571 = arg0.g2();
-			} else if (local13 == 5) {
-				this.anInt572 = arg0.g2();
-			} else if (local13 == 6) {
-				this.anInt573 = arg0.g2();
-			} else if (local13 == 7) {
-				this.anInt574 = arg0.g1();
-			} else if (local13 == 8) {
-				this.anInt575 = arg0.g1();
-			} else if (local13 >= 40 && local13 < 50) {
-				this.anIntArray192[local13 - 40] = arg0.g2();
-			} else if (local13 >= 50 && local13 < 60) {
-				this.anIntArray193[local13 - 50] = arg0.g2();
+			} else if (opcode == 3) {
+				this.disposeAlpha = true;
+			} else if (opcode == 4) {
+				this.breadthScale = buffer.g2();
+			} else if (opcode == 5) {
+				this.depthScale = buffer.g2();
+			} else if (opcode == 6) {
+				this.orientation = buffer.g2();
+			} else if (opcode == 7) {
+				this.ambience = buffer.g1();
+			} else if (opcode == 8) {
+				this.modelShadow = buffer.g1();
+			} else if (opcode >= 40 && opcode < 50) {
+				this.oldColors[opcode - 40] = buffer.g2();
+			} else if (opcode >= 50 && opcode < 60) {
+				this.newColors[opcode - 50] = buffer.g2();
 			} else {
-				System.out.println("Error unrecognised spotanim config code: " + local13);
+				System.out.println("Error unrecognised spotanim config code: " + opcode);
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!kc", name = "a", descriptor = "()Lclient!eb;")
 	public final Model getModel() {
-		@Pc(6) Model local6 = (Model) aCache_8.get((long) this.anInt568);
-		if (local6 != null) {
-			return local6;
+		@Pc(6) Model m = (Model) models.get((long) this.index);
+		if (m != null) {
+			return m;
 		}
-		local6 = new Model(false, this.anInt569);
-		for (@Pc(19) int local19 = 0; local19 < 6; local19++) {
-			if (this.anIntArray192[0] != 0) {
-				local6.recolor(this.anIntArray192[local19], this.anIntArray193[local19]);
+		m = new Model(false, this.modelIndex);
+		for (@Pc(19) int i = 0; i < 6; i++) {
+			if (this.oldColors[0] != 0) {
+				m.recolor(this.oldColors[i], this.newColors[i]);
 			}
 		}
-		aCache_8.put((long) this.anInt568, local6);
-		return local6;
+		models.put((long) this.index, m);
+		return m;
 	}
 }

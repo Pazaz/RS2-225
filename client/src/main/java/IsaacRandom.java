@@ -7,187 +7,187 @@ import org.openrs2.deob.annotation.Pc;
 public final class IsaacRandom {
 
 	@OriginalMember(owner = "client!tb", name = "a", descriptor = "I")
-	private int anInt758;
+	private int count;
 
 	@OriginalMember(owner = "client!tb", name = "d", descriptor = "I")
-	private int anInt759;
+	private int a;
 
 	@OriginalMember(owner = "client!tb", name = "e", descriptor = "I")
-	private int anInt760;
+	private int b;
 
 	@OriginalMember(owner = "client!tb", name = "f", descriptor = "I")
-	private int anInt761;
+	private int c;
 
 	@OriginalMember(owner = "client!tb", name = "c", descriptor = "[I")
-	private final int[] anIntArray220 = new int[256];
+	private final int[] mem = new int[256];
 
 	@OriginalMember(owner = "client!tb", name = "b", descriptor = "[I")
-	private final int[] anIntArray219 = new int[256];
+	private final int[] rsl = new int[256];
 
 	@OriginalMember(owner = "client!tb", name = "<init>", descriptor = "(B[I)V")
-	public IsaacRandom(@OriginalArg(0) byte arg0, @OriginalArg(1) int[] arg1) {
-		for (@Pc(13) int local13 = 0; local13 < arg1.length; local13++) {
-			this.anIntArray219[local13] = arg1[local13];
+	public IsaacRandom(@OriginalArg(0) byte obfuscator, @OriginalArg(1) int[] seed) {
+		for (@Pc(13) int i = 0; i < seed.length; i++) {
+			this.rsl[i] = seed[i];
 		}
 		this.init();
 	}
 
 	@OriginalMember(owner = "client!tb", name = "a", descriptor = "()I")
 	public final int nextInt() {
-		if (this.anInt758-- == 0) {
+		if (this.count-- == 0) {
 			this.isaac();
-			this.anInt758 = 255;
+			this.count = 255;
 		}
-		return this.anIntArray219[this.anInt758];
+		return this.rsl[this.count];
 	}
 
 	@OriginalMember(owner = "client!tb", name = "b", descriptor = "()V")
 	private void isaac() {
-		this.anInt760 += ++this.anInt761;
-		for (@Pc(15) int local15 = 0; local15 < 256; local15++) {
-			@Pc(22) int local22 = this.anIntArray220[local15];
-			switch(local15 & 0x3) {
+		this.b += ++this.c;
+		for (@Pc(15) int i = 0; i < 256; i++) {
+			@Pc(22) int x = this.mem[i];
+			switch(i & 0x3) {
 				case 0:
-					this.anInt759 ^= this.anInt759 << 13;
+					this.a ^= this.a << 13;
 					break;
 				case 1:
-					this.anInt759 ^= this.anInt759 >>> 6;
+					this.a ^= this.a >>> 6;
 					break;
 				case 2:
-					this.anInt759 ^= this.anInt759 << 2;
+					this.a ^= this.a << 2;
 					break;
 				case 3:
-					this.anInt759 ^= this.anInt759 >>> 16;
+					this.a ^= this.a >>> 16;
 			}
-			this.anInt759 += this.anIntArray220[local15 + 128 & 0xFF];
-			@Pc(101) int local101;
-			this.anIntArray220[local15] = local101 = this.anIntArray220[local22 >> 2 & 0xFF] + this.anInt759 + this.anInt760;
-			this.anIntArray219[local15] = this.anInt760 = this.anIntArray220[local101 >> 8 >> 2 & 0xFF] + local22;
+			this.a += this.mem[i + 128 & 0xFF];
+			@Pc(101) int y;
+			this.mem[i] = y = this.mem[x >> 2 & 0xFF] + this.a + this.b;
+			this.rsl[i] = this.b = this.mem[y >> 8 >> 2 & 0xFF] + x;
 		}
 	}
 
 	@OriginalMember(owner = "client!tb", name = "c", descriptor = "()V")
 	private void init() {
-		@Pc(4) int local4 = -1640531527;
-		@Pc(6) int local6 = -1640531527;
-		@Pc(8) int local8 = -1640531527;
-		@Pc(10) int local10 = -1640531527;
-		@Pc(12) int local12 = -1640531527;
-		@Pc(14) int local14 = -1640531527;
-		@Pc(16) int local16 = -1640531527;
-		@Pc(17) int local17 = -1640531527;
-		@Pc(19) int local19;
-		for (local19 = 0; local19 < 4; local19++) {
-			local17 ^= local16 << 11;
-			local12 += local17;
-			local16 += local14;
-			local16 ^= local14 >>> 2;
-			local10 += local16;
-			local14 += local12;
-			local14 ^= local12 << 8;
-			local8 += local14;
-			local12 += local10;
-			local12 ^= local10 >>> 16;
-			local6 += local12;
-			local10 += local8;
-			local10 ^= local8 << 10;
-			local4 += local10;
-			local8 += local6;
-			local8 ^= local6 >>> 4;
-			local17 += local8;
-			local6 += local4;
-			local6 ^= local4 << 8;
-			local16 += local6;
-			local4 += local17;
-			local4 ^= local17 >>> 9;
-			local14 += local4;
-			local17 += local16;
+		@Pc(4) int h = -1640531527;
+		@Pc(6) int g = -1640531527;
+		@Pc(8) int f = -1640531527;
+		@Pc(10) int e = -1640531527;
+		@Pc(12) int d = -1640531527;
+		@Pc(14) int c = -1640531527;
+		@Pc(16) int b = -1640531527;
+		@Pc(17) int a = -1640531527;
+		@Pc(19) int i;
+		for (i = 0; i < 4; i++) {
+			a ^= b << 11;
+			d += a;
+			b += c;
+			b ^= c >>> 2;
+			e += b;
+			c += d;
+			c ^= d << 8;
+			f += c;
+			d += e;
+			d ^= e >>> 16;
+			g += d;
+			e += f;
+			e ^= f << 10;
+			h += e;
+			f += g;
+			f ^= g >>> 4;
+			a += f;
+			g += h;
+			g ^= h << 8;
+			b += g;
+			h += a;
+			h ^= a >>> 9;
+			c += h;
+			a += b;
 		}
-		for (local19 = 0; local19 < 256; local19 += 8) {
-			local17 += this.anIntArray219[local19];
-			local16 += this.anIntArray219[local19 + 1];
-			local14 += this.anIntArray219[local19 + 2];
-			local12 += this.anIntArray219[local19 + 3];
-			local10 += this.anIntArray219[local19 + 4];
-			local8 += this.anIntArray219[local19 + 5];
-			local6 += this.anIntArray219[local19 + 6];
-			local4 += this.anIntArray219[local19 + 7];
-			local17 ^= local16 << 11;
-			local12 += local17;
-			local16 += local14;
-			local16 ^= local14 >>> 2;
-			local10 += local16;
-			local14 += local12;
-			local14 ^= local12 << 8;
-			local8 += local14;
-			local12 += local10;
-			local12 ^= local10 >>> 16;
-			local6 += local12;
-			local10 += local8;
-			local10 ^= local8 << 10;
-			local4 += local10;
-			local8 += local6;
-			local8 ^= local6 >>> 4;
-			local17 += local8;
-			local6 += local4;
-			local6 ^= local4 << 8;
-			local16 += local6;
-			local4 += local17;
-			local4 ^= local17 >>> 9;
-			local14 += local4;
-			local17 += local16;
-			this.anIntArray220[local19] = local17;
-			this.anIntArray220[local19 + 1] = local16;
-			this.anIntArray220[local19 + 2] = local14;
-			this.anIntArray220[local19 + 3] = local12;
-			this.anIntArray220[local19 + 4] = local10;
-			this.anIntArray220[local19 + 5] = local8;
-			this.anIntArray220[local19 + 6] = local6;
-			this.anIntArray220[local19 + 7] = local4;
+		for (i = 0; i < 256; i += 8) {
+			a += this.rsl[i];
+			b += this.rsl[i + 1];
+			c += this.rsl[i + 2];
+			d += this.rsl[i + 3];
+			e += this.rsl[i + 4];
+			f += this.rsl[i + 5];
+			g += this.rsl[i + 6];
+			h += this.rsl[i + 7];
+			a ^= b << 11;
+			d += a;
+			b += c;
+			b ^= c >>> 2;
+			e += b;
+			c += d;
+			c ^= d << 8;
+			f += c;
+			d += e;
+			d ^= e >>> 16;
+			g += d;
+			e += f;
+			e ^= f << 10;
+			h += e;
+			f += g;
+			f ^= g >>> 4;
+			a += f;
+			g += h;
+			g ^= h << 8;
+			b += g;
+			h += a;
+			h ^= a >>> 9;
+			c += h;
+			a += b;
+			this.mem[i] = a;
+			this.mem[i + 1] = b;
+			this.mem[i + 2] = c;
+			this.mem[i + 3] = d;
+			this.mem[i + 4] = e;
+			this.mem[i + 5] = f;
+			this.mem[i + 6] = g;
+			this.mem[i + 7] = h;
 		}
-		for (local19 = 0; local19 < 256; local19 += 8) {
-			local17 += this.anIntArray220[local19];
-			local16 += this.anIntArray220[local19 + 1];
-			local14 += this.anIntArray220[local19 + 2];
-			local12 += this.anIntArray220[local19 + 3];
-			local10 += this.anIntArray220[local19 + 4];
-			local8 += this.anIntArray220[local19 + 5];
-			local6 += this.anIntArray220[local19 + 6];
-			local4 += this.anIntArray220[local19 + 7];
-			local17 ^= local16 << 11;
-			local12 += local17;
-			local16 += local14;
-			local16 ^= local14 >>> 2;
-			local10 += local16;
-			local14 += local12;
-			local14 ^= local12 << 8;
-			local8 += local14;
-			local12 += local10;
-			local12 ^= local10 >>> 16;
-			local6 += local12;
-			local10 += local8;
-			local10 ^= local8 << 10;
-			local4 += local10;
-			local8 += local6;
-			local8 ^= local6 >>> 4;
-			local17 += local8;
-			local6 += local4;
-			local6 ^= local4 << 8;
-			local16 += local6;
-			local4 += local17;
-			local4 ^= local17 >>> 9;
-			local14 += local4;
-			local17 += local16;
-			this.anIntArray220[local19] = local17;
-			this.anIntArray220[local19 + 1] = local16;
-			this.anIntArray220[local19 + 2] = local14;
-			this.anIntArray220[local19 + 3] = local12;
-			this.anIntArray220[local19 + 4] = local10;
-			this.anIntArray220[local19 + 5] = local8;
-			this.anIntArray220[local19 + 6] = local6;
-			this.anIntArray220[local19 + 7] = local4;
+		for (i = 0; i < 256; i += 8) {
+			a += this.mem[i];
+			b += this.mem[i + 1];
+			c += this.mem[i + 2];
+			d += this.mem[i + 3];
+			e += this.mem[i + 4];
+			f += this.mem[i + 5];
+			g += this.mem[i + 6];
+			h += this.mem[i + 7];
+			a ^= b << 11;
+			d += a;
+			b += c;
+			b ^= c >>> 2;
+			e += b;
+			c += d;
+			c ^= d << 8;
+			f += c;
+			d += e;
+			d ^= e >>> 16;
+			g += d;
+			e += f;
+			e ^= f << 10;
+			h += e;
+			f += g;
+			f ^= g >>> 4;
+			a += f;
+			g += h;
+			g ^= h << 8;
+			b += g;
+			h += a;
+			h ^= a >>> 9;
+			c += h;
+			a += b;
+			this.mem[i] = a;
+			this.mem[i + 1] = b;
+			this.mem[i + 2] = c;
+			this.mem[i + 3] = d;
+			this.mem[i + 4] = e;
+			this.mem[i + 5] = f;
+			this.mem[i + 6] = g;
+			this.mem[i + 7] = h;
 		}
 		this.isaac();
-		this.anInt758 = 256;
+		this.count = 256;
 	}
 }

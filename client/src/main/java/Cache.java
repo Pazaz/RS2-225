@@ -7,61 +7,61 @@ import org.openrs2.deob.annotation.Pc;
 public final class Cache {
 
 	@OriginalMember(owner = "client!s", name = "b", descriptor = "I")
-	private static final int anInt725 = 5;
+	private static final int flowObfuscator1 = 5;
 
 	@OriginalMember(owner = "client!s", name = "a", descriptor = "Z")
-	private final boolean aBoolean145 = false;
+	private final boolean flowObfuscator2 = false;
 
 	@OriginalMember(owner = "client!s", name = "e", descriptor = "Lclient!t;")
-	private final Hashtable aHashtable_1 = new Hashtable(9, 1024);
+	private final Hashtable hashtable = new Hashtable(9, 1024);
 
 	@OriginalMember(owner = "client!s", name = "f", descriptor = "Lclient!pb;")
-	private final Stack aStack_1 = new Stack(anInt725);
+	private final Stack history = new Stack(flowObfuscator1);
 
 	@OriginalMember(owner = "client!s", name = "c", descriptor = "I")
-	private final int anInt726;
+	private final int capacity;
 
 	@OriginalMember(owner = "client!s", name = "d", descriptor = "I")
-	private int anInt727;
+	private int available;
 
 	@OriginalMember(owner = "client!s", name = "<init>", descriptor = "(BI)V")
-	public Cache(@OriginalArg(0) byte arg0, @OriginalArg(1) int arg1) {
-		this.anInt726 = arg1;
-		this.anInt727 = arg1;
+	public Cache(@OriginalArg(0) byte obfuscator, @OriginalArg(1) int length) {
+		this.capacity = length;
+		this.available = length;
 	}
 
 	@OriginalMember(owner = "client!s", name = "a", descriptor = "(J)Lclient!db;")
-	public final CacheableNode get(@OriginalArg(0) long arg0) {
-		@Pc(5) CacheableNode local5 = (CacheableNode) this.aHashtable_1.get(arg0);
-		if (local5 != null) {
-			this.aStack_1.push(local5);
+	public final CacheableNode get(@OriginalArg(0) long key) {
+		@Pc(5) CacheableNode node = (CacheableNode) this.hashtable.get(key);
+		if (node != null) {
+			this.history.push(node);
 		}
-		return local5;
+		return node;
 	}
 
 	@OriginalMember(owner = "client!s", name = "a", descriptor = "(IJLclient!db;)V")
-	public final void put(@OriginalArg(1) long arg0, @OriginalArg(2) CacheableNode arg1) {
-		if (this.anInt727 == 0) {
-			@Pc(8) CacheableNode local8 = this.aStack_1.pop();
-			local8.unlink();
-			local8.uncache();
+	public final void put(@OriginalArg(1) long key, @OriginalArg(2) CacheableNode node) {
+		if (this.available == 0) {
+			@Pc(8) CacheableNode last = this.history.pop();
+			last.unlink();
+			last.uncache();
 		} else {
-			this.anInt727--;
+			this.available--;
 		}
-		this.aHashtable_1.put(arg0, arg1);
-		this.aStack_1.push(arg1);
+		this.hashtable.put(key, node);
+		this.history.push(node);
 	}
 
 	@OriginalMember(owner = "client!s", name = "a", descriptor = "()V")
 	public final void clear() {
 		while (true) {
-			@Pc(3) CacheableNode local3 = this.aStack_1.pop();
-			if (local3 == null) {
-				this.anInt727 = this.anInt726;
+			@Pc(3) CacheableNode last = this.history.pop();
+			if (last == null) {
+				this.available = this.capacity;
 				return;
 			}
-			local3.unlink();
-			local3.uncache();
+			last.unlink();
+			last.uncache();
 		}
 	}
 }

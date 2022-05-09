@@ -7,96 +7,96 @@ import org.openrs2.deob.annotation.Pc;
 public final class SpotAnimEntity extends Entity {
 
 	@OriginalMember(owner = "client!bb", name = "e", descriptor = "I")
-	private int anInt58;
+	private int flowObfuscator1;
 
 	@OriginalMember(owner = "client!bb", name = "m", descriptor = "I")
-	private int anInt65;
+	private int seqFrame;
 
 	@OriginalMember(owner = "client!bb", name = "n", descriptor = "I")
-	private int anInt66;
+	private int frameCycle;
 
 	@OriginalMember(owner = "client!bb", name = "o", descriptor = "Z")
-	public boolean aBoolean17 = false;
+	public boolean finished = false;
 
 	@OriginalMember(owner = "client!bb", name = "g", descriptor = "Lclient!kc;")
-	private final SpotAnimType aSpotAnimType_2;
+	private final SpotAnimType spotanim;
 
 	@OriginalMember(owner = "client!bb", name = "i", descriptor = "I")
-	public final int anInt61;
+	public final int level;
 
 	@OriginalMember(owner = "client!bb", name = "f", descriptor = "I")
 	private int anInt59;
 
 	@OriginalMember(owner = "client!bb", name = "j", descriptor = "I")
-	public final int anInt62;
+	public final int x;
 
 	@OriginalMember(owner = "client!bb", name = "k", descriptor = "I")
-	public final int anInt63;
+	public final int z;
 
 	@OriginalMember(owner = "client!bb", name = "l", descriptor = "I")
 	public final int anInt64;
 
 	@OriginalMember(owner = "client!bb", name = "h", descriptor = "I")
-	public final int anInt60;
+	public final int firstCycle;
 
 	@OriginalMember(owner = "client!bb", name = "<init>", descriptor = "(IIZIIIII)V")
-	public SpotAnimEntity(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) boolean arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7) {
-		this.aSpotAnimType_2 = SpotAnimType.aSpotAnimTypeArray1[arg1];
-		this.anInt61 = arg6;
-		this.anInt62 = arg0;
-		this.anInt63 = arg3;
+	public SpotAnimEntity(@OriginalArg(0) int x, @OriginalArg(1) int spotanimIndex, @OriginalArg(2) boolean obfuscator, @OriginalArg(3) int z, @OriginalArg(4) int duration, @OriginalArg(5) int arg5, @OriginalArg(6) int level, @OriginalArg(7) int startCycle) {
+		this.spotanim = SpotAnimType.instances[spotanimIndex];
+		this.level = level;
+		this.x = x;
+		this.z = z;
 		this.anInt64 = arg5;
-		this.anInt60 = arg7 + arg4;
-		this.aBoolean17 = false;
+		this.firstCycle = startCycle + duration;
+		this.finished = false;
 	}
 
 	@OriginalMember(owner = "client!bb", name = "a", descriptor = "(II)V")
-	public final void update(@OriginalArg(0) int arg0) {
-		this.anInt66 += arg0;
+	public final void update(@OriginalArg(0) int cycle) {
+		this.frameCycle += cycle;
 		while (true) {
 			do {
 				do {
-					if (this.anInt66 <= this.aSpotAnimType_2.aSeqType_1.anIntArray188[this.anInt65]) {
+					if (this.frameCycle <= this.spotanim.seq.frameDelay[this.seqFrame]) {
 						return;
 					}
-					this.anInt66 -= this.aSpotAnimType_2.aSeqType_1.anIntArray188[this.anInt65] + 1;
-					this.anInt65++;
-				} while (this.anInt65 < this.aSpotAnimType_2.aSeqType_1.anInt543);
-			} while (this.anInt65 >= 0 && this.anInt65 < this.aSpotAnimType_2.aSeqType_1.anInt543);
-			this.anInt65 = 0;
-			this.aBoolean17 = true;
+					this.frameCycle -= this.spotanim.seq.frameDelay[this.seqFrame] + 1;
+					this.seqFrame++;
+				} while (this.seqFrame < this.spotanim.seq.frameCount);
+			} while (this.seqFrame >= 0 && this.seqFrame < this.spotanim.seq.frameCount);
+			this.seqFrame = 0;
+			this.finished = true;
 		}
 	}
 
 	@OriginalMember(owner = "client!bb", name = "a", descriptor = "(Z)Lclient!eb;")
 	@Override
 	public final Model getDrawMethod() {
-		@Pc(3) Model local3 = this.aSpotAnimType_2.getModel();
-		@Pc(19) Model local19 = new Model(local3, true, !this.aSpotAnimType_2.aBoolean131, this.anInt58, false);
-		if (!this.aBoolean17) {
-			local19.applyGroup();
-			local19.applyFrame(this.aSpotAnimType_2.aSeqType_1.anIntArray186[this.anInt65]);
-			local19.anIntArrayArray7 = null;
-			local19.anIntArrayArray6 = null;
+		@Pc(3) Model spotanimModel = this.spotanim.getModel();
+		@Pc(19) Model m = new Model(spotanimModel, true, !this.spotanim.disposeAlpha, this.flowObfuscator1, false);
+		if (!this.finished) {
+			m.applyGroup();
+			m.applyFrame(this.spotanim.seq.primaryFrames[this.seqFrame]);
+			m.skinTriangle = null;
+			m.labelVertices = null;
 		}
-		if (this.aSpotAnimType_2.anInt571 != 128 || this.aSpotAnimType_2.anInt572 != 128) {
-			local19.scale(this.aSpotAnimType_2.anInt571, this.aSpotAnimType_2.anInt572, this.aSpotAnimType_2.anInt571);
+		if (this.spotanim.breadthScale != 128 || this.spotanim.depthScale != 128) {
+			m.scale(this.spotanim.breadthScale, this.spotanim.depthScale, this.spotanim.breadthScale);
 		}
-		if (this.aSpotAnimType_2.anInt573 != 0) {
-			if (this.aSpotAnimType_2.anInt573 == 90) {
-				local19.rotateCounterClockwise();
+		if (this.spotanim.orientation != 0) {
+			if (this.spotanim.orientation == 90) {
+				m.rotateCounterClockwise();
 			}
-			if (this.aSpotAnimType_2.anInt573 == 180) {
-				local19.rotateCounterClockwise();
-				local19.rotateCounterClockwise();
+			if (this.spotanim.orientation == 180) {
+				m.rotateCounterClockwise();
+				m.rotateCounterClockwise();
 			}
-			if (this.aSpotAnimType_2.anInt573 == 270) {
-				local19.rotateCounterClockwise();
-				local19.rotateCounterClockwise();
-				local19.rotateCounterClockwise();
+			if (this.spotanim.orientation == 270) {
+				m.rotateCounterClockwise();
+				m.rotateCounterClockwise();
+				m.rotateCounterClockwise();
 			}
 		}
-		local19.applyLighting(this.aSpotAnimType_2.anInt574 + 64, this.aSpotAnimType_2.anInt575 + 850, -30, -50, -30, true);
-		return local19;
+		m.applyLighting(this.spotanim.ambience + 64, this.spotanim.modelShadow + 850, -30, -50, -30, true);
+		return m;
 	}
 }

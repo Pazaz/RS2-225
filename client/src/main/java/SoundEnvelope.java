@@ -7,77 +7,77 @@ import org.openrs2.deob.annotation.Pc;
 public final class SoundEnvelope {
 
 	@OriginalMember(owner = "client!xb", name = "a", descriptor = "I")
-	private int anInt818;
+	private int length;
 
 	@OriginalMember(owner = "client!xb", name = "b", descriptor = "[I")
-	private int[] anIntArray227;
+	private int[] shapeDelta;
 
 	@OriginalMember(owner = "client!xb", name = "c", descriptor = "[I")
-	private int[] anIntArray228;
+	private int[] shapePeak;
 
 	@OriginalMember(owner = "client!xb", name = "d", descriptor = "I")
-	public int anInt819;
+	public int start;
 
 	@OriginalMember(owner = "client!xb", name = "e", descriptor = "I")
-	public int anInt820;
+	public int end;
 
 	@OriginalMember(owner = "client!xb", name = "f", descriptor = "I")
-	public int anInt821;
+	public int form;
 
 	@OriginalMember(owner = "client!xb", name = "g", descriptor = "I")
-	private int anInt822;
+	private int threshold;
 
 	@OriginalMember(owner = "client!xb", name = "h", descriptor = "I")
-	private int anInt823;
+	private int position;
 
 	@OriginalMember(owner = "client!xb", name = "i", descriptor = "I")
-	private int anInt824;
+	private int delta;
 
 	@OriginalMember(owner = "client!xb", name = "j", descriptor = "I")
-	private int anInt825;
+	private int amplitude;
 
 	@OriginalMember(owner = "client!xb", name = "k", descriptor = "I")
-	private int anInt826;
+	private int ticks;
 
 	@OriginalMember(owner = "client!xb", name = "a", descriptor = "(ZLclient!kb;)V")
-	public final void readShape(@OriginalArg(1) Buffer arg0) {
-		this.anInt821 = arg0.g1();
-		this.anInt819 = arg0.g4();
-		this.anInt820 = arg0.g4();
-		this.anInt818 = arg0.g1();
-		this.anIntArray227 = new int[this.anInt818];
-		this.anIntArray228 = new int[this.anInt818];
-		for (@Pc(38) int local38 = 0; local38 < this.anInt818; local38++) {
-			this.anIntArray227[local38] = arg0.g2();
-			this.anIntArray228[local38] = arg0.g2();
+	public final void readShape(@OriginalArg(1) Buffer buffer) {
+		this.form = buffer.g1();
+		this.start = buffer.g4();
+		this.end = buffer.g4();
+		this.length = buffer.g1();
+		this.shapeDelta = new int[this.length];
+		this.shapePeak = new int[this.length];
+		for (@Pc(38) int i = 0; i < this.length; i++) {
+			this.shapeDelta[i] = buffer.g2();
+			this.shapePeak[i] = buffer.g2();
 		}
 	}
 
 	@OriginalMember(owner = "client!xb", name = "a", descriptor = "(I)V")
-	public final void reset(@OriginalArg(0) int arg0) {
-		this.anInt822 = 0;
-		this.anInt823 = 0;
-		this.anInt824 = 0;
-		this.anInt825 = 0;
-		if (arg0 >= 8 && arg0 <= 8) {
-			this.anInt826 = 0;
+	public final void reset(@OriginalArg(0) int obfuscator) {
+		this.threshold = 0;
+		this.position = 0;
+		this.delta = 0;
+		this.amplitude = 0;
+		if (obfuscator >= 8 && obfuscator <= 8) {
+			this.ticks = 0;
 		}
 	}
 
 	@OriginalMember(owner = "client!xb", name = "a", descriptor = "(ZI)I")
-	public final int evaluate(@OriginalArg(1) int arg0) {
-		if (this.anInt826 >= this.anInt822) {
-			this.anInt825 = this.anIntArray228[this.anInt823++] << 15;
-			if (this.anInt823 >= this.anInt818) {
-				this.anInt823 = this.anInt818 - 1;
+	public final int evaluate(@OriginalArg(1) int delta) {
+		if (this.ticks >= this.threshold) {
+			this.amplitude = this.shapePeak[this.position++] << 15;
+			if (this.position >= this.length) {
+				this.position = this.length - 1;
 			}
-			this.anInt822 = (int) ((double) this.anIntArray227[this.anInt823] / 65536.0D * (double) arg0);
-			if (this.anInt822 > this.anInt826) {
-				this.anInt824 = ((this.anIntArray228[this.anInt823] << 15) - this.anInt825) / (this.anInt822 - this.anInt826);
+			this.threshold = (int) ((double) this.shapeDelta[this.position] / 65536.0D * (double) delta);
+			if (this.threshold > this.ticks) {
+				this.delta = ((this.shapePeak[this.position] << 15) - this.amplitude) / (this.threshold - this.ticks);
 			}
 		}
-		this.anInt825 += this.anInt824;
-		this.anInt826++;
-		return this.anInt825 - this.anInt824 >> 15;
+		this.amplitude += this.delta;
+		this.ticks++;
+		return this.amplitude - this.delta >> 15;
 	}
 }

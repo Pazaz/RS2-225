@@ -5,18 +5,18 @@ import org.openrs2.deob.annotation.OriginalMember;
 public class CacheableNode extends Node {
 
 	@OriginalMember(owner = "client!db", name = "e", descriptor = "Lclient!db;")
-	public CacheableNode aCacheableNode_15;
+	public CacheableNode nextCacheable;
 
 	@OriginalMember(owner = "client!db", name = "f", descriptor = "Lclient!db;")
-	public CacheableNode aCacheableNode_16;
+	public CacheableNode prevCacheable;
 
 	@OriginalMember(owner = "client!db", name = "b", descriptor = "()V")
 	public final void uncache() {
-		if (this.aCacheableNode_16 != null) {
-			this.aCacheableNode_16.aCacheableNode_15 = this.aCacheableNode_15;
-			this.aCacheableNode_15.aCacheableNode_16 = this.aCacheableNode_16;
-			this.aCacheableNode_15 = null;
-			this.aCacheableNode_16 = null;
+		if (this.prevCacheable != null) {
+			this.prevCacheable.nextCacheable = this.nextCacheable;
+			this.nextCacheable.prevCacheable = this.prevCacheable;
+			this.nextCacheable = null;
+			this.prevCacheable = null;
 		}
 	}
 }
