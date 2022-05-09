@@ -41,3 +41,7 @@ A: 2004 is an unexplored time period. Coincidentally this is the last revision b
 
 * ConstantArgTransformer simplifies some unused branches and can reduce functionality if the client code is expanded on
 * In order to use the deob map in openrs2, the gl/loader/signlink code has to be commented out there, and client must use the jar loader instead of pack200
+* DeadClass is only around because the current openrs2 transformers don't remove it. It's unused.
+* InterfaceComponent should just be "Component" but it interferes with java.awt.Component in the client class. This would be fine to remove, but the deob map brings it back when decompiling each time.
+* IndexedFont should just be "Font," but like before, it interferes with java.awt.Font. IndexedFont is an okay name for it though.
+* There are still some flow obstructors that need to be removed manually (for now). I'll keep them in the source renamed until a transformer can pick up on them.
