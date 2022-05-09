@@ -5,7 +5,7 @@ import org.openrs2.deob.annotation.OriginalMember;
 public class Entity extends Node {
 
 	@OriginalMember(owner = "client!w", name = "a", descriptor = "(Z)Lclient!eb;")
-	public Model method568() {
+	public Model getDrawMethod() {
 		return null;
 	}
 }

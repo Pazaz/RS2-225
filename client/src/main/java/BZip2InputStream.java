@@ -8,7 +8,7 @@ public final class BZip2InputStream {
 	private static final BZip2Context context = new BZip2Context();
 
 	@OriginalMember(owner = "client!rb", name = "a", descriptor = "([BI[BII)I")
-	public static int method519(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) byte[] arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
+	public static int read(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) byte[] arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
 		@Pc(3) BZip2Context local3 = context;
 		synchronized (context) {
 			context.aByteArray8 = arg2;

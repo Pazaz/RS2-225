@@ -78,52 +78,52 @@ public final class Sprite extends Draw2D {
 
 	@OriginalMember(owner = "client!hb", name = "<init>", descriptor = "(Lclient!ub;Ljava/lang/String;I)V")
 	public Sprite(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) String arg1, @OriginalArg(2) int arg2) {
-		@Pc(32) Buffer local32 = new Buffer(363, arg0.method536(arg1 + ".dat", null));
-		@Pc(42) Buffer local42 = new Buffer(363, arg0.method536("index.dat", null));
-		local42.anInt561 = local32.method393();
-		this.anInt465 = local42.method393();
-		this.anInt466 = local42.method393();
-		@Pc(57) int local57 = local42.method391();
+		@Pc(32) Buffer local32 = new Buffer(363, arg0.read(arg1 + ".dat", null));
+		@Pc(42) Buffer local42 = new Buffer(363, arg0.read("index.dat", null));
+		local42.anInt561 = local32.g2();
+		this.anInt465 = local42.g2();
+		this.anInt466 = local42.g2();
+		@Pc(57) int local57 = local42.g1();
 		@Pc(60) int[] local60 = new int[local57];
 		for (@Pc(62) int local62 = 0; local62 < local57 - 1; local62++) {
-			local60[local62 + 1] = local42.method395();
+			local60[local62 + 1] = local42.g3();
 			if (local60[local62 + 1] == 0) {
 				local60[local62 + 1] = 1;
 			}
 		}
 		for (@Pc(91) int local91 = 0; local91 < arg2; local91++) {
 			local42.anInt561 += 2;
-			local32.anInt561 += local42.method393() * local42.method393();
+			local32.anInt561 += local42.g2() * local42.g2();
 			local42.anInt561++;
 		}
-		this.anInt463 = local42.method391();
-		this.anInt464 = local42.method391();
-		this.anInt461 = local42.method393();
-		this.anInt462 = local42.method393();
-		@Pc(138) int local138 = local42.method391();
+		this.anInt463 = local42.g1();
+		this.anInt464 = local42.g1();
+		this.anInt461 = local42.g2();
+		this.anInt462 = local42.g2();
+		@Pc(138) int local138 = local42.g1();
 		@Pc(144) int local144 = this.anInt461 * this.anInt462;
 		this.anIntArray148 = new int[local144];
 		@Pc(152) int local152;
 		if (local138 == 0) {
 			for (local152 = 0; local152 < local144; local152++) {
-				this.anIntArray148[local152] = local60[local32.method391()];
+				this.anIntArray148[local152] = local60[local32.g1()];
 			}
 		} else if (local138 == 1) {
 			for (local152 = 0; local152 < this.anInt461; local152++) {
 				for (@Pc(176) int local176 = 0; local176 < this.anInt462; local176++) {
-					this.anIntArray148[local152 + local176 * this.anInt461] = local60[local32.method391()];
+					this.anIntArray148[local152 + local176 * this.anInt461] = local60[local32.g1()];
 				}
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(B)V")
-	public final void method318() {
-		Draw2D.method354(this.anInt461, this.anIntArray148, this.anInt462);
+	public final void prepare() {
+		Draw2D.prepare(this.anInt461, this.anIntArray148, this.anInt462);
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(IIIZ)V")
-	public final void method319(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
+	public final void translate(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		for (@Pc(3) int local3 = 0; local3 < this.anIntArray148.length; local3++) {
 			@Pc(10) int local10 = this.anIntArray148[local3];
 			if (local10 != 0) {
@@ -154,7 +154,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(III)V")
-	public final void method320(@OriginalArg(1) int arg0, @OriginalArg(2) int arg1) {
+	public final void drawOpaque(@OriginalArg(1) int arg0, @OriginalArg(2) int arg1) {
 		arg0 += this.anInt463;
 		arg1 += this.anInt464;
 		@Pc(15) int local15 = arg0 + arg1 * Draw2D.anInt528;
@@ -190,12 +190,12 @@ public final class Sprite extends Draw2D {
 			local27 += local36;
 		}
 		if (local23 > 0 && local20 > 0) {
-			this.method321(this.anIntArray148, local27, local20, local17, local29, local15, local23, Draw2D.anIntArray178);
+			this.copyImage(this.anIntArray148, local27, local20, local17, local29, local15, local23, Draw2D.anIntArray178);
 		}
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(I[IIIIIII[I)V")
-	private void method321(@OriginalArg(1) int[] arg0, @OriginalArg(2) int arg1, @OriginalArg(3) int arg2, @OriginalArg(4) int arg3, @OriginalArg(5) int arg4, @OriginalArg(6) int arg5, @OriginalArg(7) int arg6, @OriginalArg(8) int[] arg7) {
+	private void copyImage(@OriginalArg(1) int[] arg0, @OriginalArg(2) int arg1, @OriginalArg(3) int arg2, @OriginalArg(4) int arg3, @OriginalArg(5) int arg4, @OriginalArg(6) int arg5, @OriginalArg(7) int arg6, @OriginalArg(8) int[] arg7) {
 		@Pc(6) int local6 = -(arg6 >> 2);
 		@Pc(11) int local11 = -(arg6 & 0x3);
 		@Pc(18) int local18;
@@ -219,7 +219,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(IIZ)V")
-	public final void method322(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+	public final void draw(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		arg1 += this.anInt463;
 		arg0 += this.anInt464;
 		@Pc(20) int local20 = arg1 + arg0 * Draw2D.anInt528;
@@ -255,12 +255,12 @@ public final class Sprite extends Draw2D {
 			local32 += local41;
 		}
 		if (local28 > 0 && local25 > 0) {
-			this.method323(Draw2D.anIntArray178, this.anIntArray148, local22, local20, local28, local25, local32, local34);
+			this.copyImage(Draw2D.anIntArray178, this.anIntArray148, local22, local20, local28, local25, local32, local34);
 		}
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "([I[IIIIIIII)V")
-	private void method323(@OriginalArg(0) int[] arg0, @OriginalArg(1) int[] arg1, @OriginalArg(3) int arg2, @OriginalArg(4) int arg3, @OriginalArg(5) int arg4, @OriginalArg(6) int arg5, @OriginalArg(7) int arg6, @OriginalArg(8) int arg7) {
+	private void copyImage(@OriginalArg(0) int[] arg0, @OriginalArg(1) int[] arg1, @OriginalArg(3) int arg2, @OriginalArg(4) int arg3, @OriginalArg(5) int arg4, @OriginalArg(6) int arg5, @OriginalArg(7) int arg6, @OriginalArg(8) int arg7) {
 		@Pc(6) int local6 = -(arg4 >> 2);
 		@Pc(11) int local11 = -(arg4 & 0x3);
 		for (@Pc(14) int local14 = -arg5; local14 < 0; local14++) {
@@ -305,7 +305,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "d", descriptor = "(IIIII)V")
-	public final void method324() {
+	public final void draw() {
 		try {
 			@Pc(6) int local6 = this.anInt461;
 			@Pc(9) int local9 = this.anInt462;
@@ -351,14 +351,14 @@ public final class Sprite extends Draw2D {
 				local120 -= local148;
 				local141 += local148;
 			}
-			this.method325(local11, local37, Draw2D.anIntArray178, local43, local13, this.anIntArray148, local141, local137, local131, local6, local120);
+			this.copyImage(local11, local37, Draw2D.anIntArray178, local43, local13, this.anIntArray148, local141, local137, local131, local6, local120);
 		} catch (@Pc(243) Exception local243) {
 			System.out.println("error in sprite clipping routine");
 		}
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(II[IIIII[IIIIII)V")
-	private void method325(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int[] arg2, @OriginalArg(4) int arg3, @OriginalArg(5) int arg4, @OriginalArg(7) int[] arg5, @OriginalArg(8) int arg6, @OriginalArg(9) int arg7, @OriginalArg(10) int arg8, @OriginalArg(11) int arg9, @OriginalArg(12) int arg10) {
+	private void copyImage(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int[] arg2, @OriginalArg(4) int arg3, @OriginalArg(5) int arg4, @OriginalArg(7) int[] arg5, @OriginalArg(8) int arg6, @OriginalArg(9) int arg7, @OriginalArg(10) int arg8, @OriginalArg(11) int arg9, @OriginalArg(12) int arg10) {
 		try {
 			@Pc(12) int local12 = arg0;
 			for (@Pc(15) int local15 = -arg8; local15 < 0; local15++) {
@@ -382,7 +382,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(IIIB)V")
-	public final void method326(@OriginalArg(1) int arg0, @OriginalArg(2) int arg1) {
+	public final void drawAlpha(@OriginalArg(1) int arg0, @OriginalArg(2) int arg1) {
 		arg0 += this.anInt463;
 		arg1 += this.anInt464;
 		@Pc(25) int local25 = arg0 + arg1 * Draw2D.anInt528;
@@ -418,12 +418,12 @@ public final class Sprite extends Draw2D {
 			local37 += local46;
 		}
 		if (local33 > 0 && local30 > 0) {
-			this.method327(local25, this.anIntArray148, local30, Draw2D.anIntArray178, local27, local33, local37, local39);
+			this.copyImageAlpha(local25, this.anIntArray148, local30, Draw2D.anIntArray178, local27, local33, local37, local39);
 		}
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(II[III[IIBIII)V")
-	private void method327(@OriginalArg(0) int arg0, @OriginalArg(2) int[] arg1, @OriginalArg(4) int arg2, @OriginalArg(5) int[] arg3, @OriginalArg(6) int arg4, @OriginalArg(8) int arg5, @OriginalArg(9) int arg6, @OriginalArg(10) int arg7) {
+	private void copyImageAlpha(@OriginalArg(0) int arg0, @OriginalArg(2) int[] arg1, @OriginalArg(4) int arg2, @OriginalArg(5) int[] arg3, @OriginalArg(6) int arg4, @OriginalArg(8) int arg5, @OriginalArg(9) int arg6, @OriginalArg(10) int arg7) {
 		for (@Pc(19) int local19 = -arg2; local19 < 0; local19++) {
 			for (@Pc(24) int local24 = -arg5; local24 < 0; local24++) {
 				@Pc(31) int local31 = arg1[arg4++];
@@ -440,7 +440,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(II[IIIIIIIZ[I)V")
-	public final void method328(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int[] arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(10) int[] arg9) {
+	public final void drawRotatedMasked(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int[] arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(10) int[] arg9) {
 		try {
 			@Pc(16) int local16 = -arg1 / 2;
 			@Pc(21) int local21 = -arg3 / 2;
@@ -470,7 +470,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(Lclient!ib;IIB)V")
-	public final void method329(@OriginalArg(0) IndexedSprite arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
+	public final void drawMasked(@OriginalArg(0) IndexedSprite arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		arg2 += this.anInt463;
 		arg1 += this.anInt464;
 		@Pc(15) int local15 = arg2 + arg1 * Draw2D.anInt528;
@@ -506,12 +506,12 @@ public final class Sprite extends Draw2D {
 			local31 += local40;
 		}
 		if (local27 > 0 && local24 > 0) {
-			this.method330(local27, local33, local24, local17, Draw2D.anIntArray178, this.anIntArray148, local15, arg0.aByteArray6, local31);
+			this.copyImageMasked(local27, local33, local24, local17, Draw2D.anIntArray178, this.anIntArray148, local15, arg0.aByteArray6, local31);
 		}
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(IIIIII[I[II[BI)V")
-	private void method330(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(4) int arg2, @OriginalArg(5) int arg3, @OriginalArg(6) int[] arg4, @OriginalArg(7) int[] arg5, @OriginalArg(8) int arg6, @OriginalArg(9) byte[] arg7, @OriginalArg(10) int arg8) {
+	private void copyImageMasked(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(4) int arg2, @OriginalArg(5) int arg3, @OriginalArg(6) int[] arg4, @OriginalArg(7) int[] arg5, @OriginalArg(8) int arg6, @OriginalArg(9) byte[] arg7, @OriginalArg(10) int arg8) {
 		@Pc(9) int local9 = -(arg0 >> 2);
 		@Pc(14) int local14 = -(arg0 & 0x3);
 		for (@Pc(17) int local17 = -arg2; local17 < 0; local17++) {

@@ -54,7 +54,7 @@ public final class BufferedStream implements Runnable {
 	}
 
 	@OriginalMember(owner = "client!d", name = "a", descriptor = "()V")
-	public final void method201() {
+	public final void close() {
 		this.aBoolean75 = true;
 		try {
 			if (this.anInputStream1 != null) {
@@ -77,17 +77,17 @@ public final class BufferedStream implements Runnable {
 	}
 
 	@OriginalMember(owner = "client!d", name = "b", descriptor = "()I")
-	public final int method202() throws IOException {
+	public final int read() throws IOException {
 		return this.aBoolean75 ? 0 : this.anInputStream1.read();
 	}
 
 	@OriginalMember(owner = "client!d", name = "c", descriptor = "()I")
-	public final int method203() throws IOException {
+	public final int available() throws IOException {
 		return this.aBoolean75 ? 0 : this.anInputStream1.available();
 	}
 
 	@OriginalMember(owner = "client!d", name = "a", descriptor = "([BII)V")
-	public final void method204(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) throws IOException {
+	public final void read(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) throws IOException {
 		if (this.aBoolean75) {
 			return;
 		}
@@ -102,7 +102,7 @@ public final class BufferedStream implements Runnable {
 	}
 
 	@OriginalMember(owner = "client!d", name = "a", descriptor = "([BIZI)V")
-	public final void method205(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1) throws IOException {
+	public final void write(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1) throws IOException {
 		if (this.aBoolean75) {
 			return;
 		}

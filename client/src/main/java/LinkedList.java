@@ -31,9 +31,9 @@ public final class LinkedList {
 	}
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "(Lclient!u;)V")
-	public final void method453(@OriginalArg(0) Node arg0) {
+	public final void pushNext(@OriginalArg(0) Node arg0) {
 		if (arg0.aNode_42 != null) {
-			arg0.method567();
+			arg0.unlink();
 		}
 		arg0.aNode_42 = this.aNode_33.aNode_42;
 		arg0.aNode_41 = this.aNode_33;
@@ -42,9 +42,9 @@ public final class LinkedList {
 	}
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "(Lclient!u;I)V")
-	public final void method454(@OriginalArg(0) Node arg0) {
+	public final void pushPrevious(@OriginalArg(0) Node arg0) {
 		if (arg0.aNode_42 != null) {
-			arg0.method567();
+			arg0.unlink();
 		}
 		arg0.aNode_42 = this.aNode_33;
 		arg0.aNode_41 = this.aNode_33.aNode_41;
@@ -53,18 +53,18 @@ public final class LinkedList {
 	}
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "()Lclient!u;")
-	public final Node method455() {
+	public final Node poll() {
 		@Pc(3) Node local3 = this.aNode_33.aNode_41;
 		if (local3 == this.aNode_33) {
 			return null;
 		} else {
-			local3.method567();
+			local3.unlink();
 			return local3;
 		}
 	}
 
 	@OriginalMember(owner = "client!ob", name = "b", descriptor = "()Lclient!u;")
-	public final Node method456() {
+	public final Node peekPrevious() {
 		@Pc(3) Node local3 = this.aNode_33.aNode_41;
 		if (local3 == this.aNode_33) {
 			this.aNode_34 = null;
@@ -76,7 +76,7 @@ public final class LinkedList {
 	}
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "(B)Lclient!u;")
-	public final Node method457() {
+	public final Node peekNext() {
 		@Pc(3) Node local3 = this.aNode_33.aNode_42;
 		if (local3 == this.aNode_33) {
 			this.aNode_34 = null;
@@ -90,7 +90,7 @@ public final class LinkedList {
 	}
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "(I)Lclient!u;")
-	public final Node method458() {
+	public final Node getPrevious() {
 		@Pc(8) Node local8 = this.aNode_34;
 		if (local8 == this.aNode_33) {
 			this.aNode_34 = null;
@@ -102,7 +102,7 @@ public final class LinkedList {
 	}
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "(Z)Lclient!u;")
-	public final Node method459() {
+	public final Node getNext() {
 		@Pc(2) Node local2 = this.aNode_34;
 		if (local2 == this.aNode_33) {
 			this.aNode_34 = null;
@@ -114,13 +114,13 @@ public final class LinkedList {
 	}
 
 	@OriginalMember(owner = "client!ob", name = "c", descriptor = "()V")
-	public final void method460() {
+	public final void clear() {
 		while (true) {
 			@Pc(3) Node local3 = this.aNode_33.aNode_41;
 			if (local3 == this.aNode_33) {
 				return;
 			}
-			local3.method567();
+			local3.unlink();
 		}
 	}
 }

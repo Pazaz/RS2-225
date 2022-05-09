@@ -4722,19 +4722,19 @@ methods:
     locals: {}
   client!a.a (I)V:
     owner: "GameShell"
-    name: "method64"
+    name: "shutdown"
     arguments: {}
     locals:
       21: "local21"
       25: "local25"
   client!a.a (II)V:
     owner: "GameShell"
-    name: "method65"
+    name: "setLoopRate"
     arguments: {}
     locals: {}
   client!a.a (III)V:
     owner: "GameShell"
-    name: "method62"
+    name: "initApplication"
     arguments: {}
     locals: {}
   client!a.a (IZI)V:
@@ -4752,7 +4752,7 @@ methods:
       4: "local4"
   client!a.a (Z)I:
     owner: "GameShell"
-    name: "method66"
+    name: "pollKey"
     arguments: {}
     locals:
       1: "local1"
@@ -4977,13 +4977,13 @@ methods:
     locals: {}
   client!ab.a (BI)V:
     owner: "ProjectileEntity"
-    name: "method20"
+    name: "update"
     arguments:
       1: "arg0"
     locals: {}
   client!ab.a (IIIII)V:
     owner: "ProjectileEntity"
-    name: "method19"
+    name: "setTarget"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -4995,7 +4995,7 @@ methods:
       23: "local23"
   client!ab.a (Z)Lclient!eb;:
     owner: "ProjectileEntity"
-    name: "method568"
+    name: "getDrawMethod"
     arguments: {}
     locals:
       3: "local3"
@@ -5007,12 +5007,12 @@ methods:
     locals: {}
   client!ac.a ()V:
     owner: "LocType"
-    name: "method24"
+    name: "reset"
     arguments: {}
     locals: {}
   client!ac.a (I)Lclient!ac;:
     owner: "LocType"
-    name: "method23"
+    name: "get"
     arguments:
       0: "arg0"
     locals:
@@ -5020,7 +5020,7 @@ methods:
       27: "local27"
   client!ac.a (IIIIIII)Lclient!eb;:
     owner: "LocType"
-    name: "method26"
+    name: "getModel"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5054,7 +5054,7 @@ methods:
       465: "local465"
   client!ac.a (Lclient!ub;)V:
     owner: "LocType"
-    name: "method21"
+    name: "decode"
     arguments:
       0: "arg0"
     locals:
@@ -5064,12 +5064,12 @@ methods:
       51: "local51"
   client!ac.a (Z)V:
     owner: "LocType"
-    name: "method22"
+    name: "unload"
     arguments: {}
     locals: {}
   client!ac.a (ZLclient!kb;)V:
     owner: "LocType"
-    name: "method25"
+    name: "decode"
     arguments:
       1: "arg0"
     locals:
@@ -5119,13 +5119,13 @@ methods:
     locals: {}
   client!bb.a (II)V:
     owner: "SpotAnimEntity"
-    name: "method29"
+    name: "update"
     arguments:
       0: "arg0"
     locals: {}
   client!bb.a (Z)Lclient!eb;:
     owner: "SpotAnimEntity"
-    name: "method568"
+    name: "getDrawMethod"
     arguments: {}
     locals:
       3: "local3"
@@ -5137,7 +5137,7 @@ methods:
     locals: {}
   client!bc.a (I)Lclient!bc;:
     owner: "NpcType"
-    name: "method32"
+    name: "get"
     arguments:
       0: "arg0"
     locals:
@@ -5145,7 +5145,7 @@ methods:
       33: "local33"
   client!bc.a (II[I)Lclient!eb;:
     owner: "NpcType"
-    name: "method34"
+    name: "getModel"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5158,7 +5158,7 @@ methods:
       107: "local107"
   client!bc.a (Lclient!ub;)V:
     owner: "NpcType"
-    name: "method30"
+    name: "decode"
     arguments:
       0: "arg0"
     locals:
@@ -5168,12 +5168,12 @@ methods:
       51: "local51"
   client!bc.a (Z)V:
     owner: "NpcType"
-    name: "method31"
+    name: "unload"
     arguments: {}
     locals: {}
   client!bc.a (ZLclient!kb;)V:
     owner: "NpcType"
-    name: "method33"
+    name: "decode"
     arguments:
       1: "arg0"
     locals:
@@ -5182,7 +5182,7 @@ methods:
       25: "local25"
   client!bc.b (Z)Lclient!eb;:
     owner: "NpcType"
-    name: "method35"
+    name: "getHeadModel"
     arguments: {}
     locals:
       17: "local17"
@@ -5201,7 +5201,7 @@ methods:
     locals: {}
   client!c.a (IBII)I:
     owner: "SceneGraph"
-    name: "method41"
+    name: "getRenderLevel"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -5209,7 +5209,7 @@ methods:
     locals: {}
   client!c.a (II)I:
     owner: "SceneGraph"
-    name: "method42"
+    name: "getPerlinNoise"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5217,7 +5217,7 @@ methods:
       32: "local32"
   client!c.a (III)I:
     owner: "SceneGraph"
-    name: "method43"
+    name: "getSmoothNoise"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5235,7 +5235,7 @@ methods:
       55: "local55"
   client!c.a (IIII)I:
     owner: "SceneGraph"
-    name: "method44"
+    name: "getCosineLerp"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5245,7 +5245,7 @@ methods:
       11: "local11"
   client!c.a (IIIII)V:
     owner: "SceneGraph"
-    name: "method36"
+    name: "clearLandscape"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5257,7 +5257,7 @@ methods:
       62: "local62"
   client!c.a (ILclient!ob;Lclient!ec;II[[[IIIIILclient!r;I)V:
     owner: "SceneGraph"
-    name: "method50"
+    name: "addLoc"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5288,7 +5288,7 @@ methods:
       452: "local452"
   client!c.a (Lclient!ec;ZIIIILclient!r;Lclient!ob;II)V:
     owner: "SceneGraph"
-    name: "method39"
+    name: "addLoc"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -5320,7 +5320,7 @@ methods:
       832: "local832"
   client!c.a (Lclient!r;I[Lclient!ec;)V:
     owner: "SceneGraph"
-    name: "method40"
+    name: "buildLandscape"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -5375,7 +5375,7 @@ methods:
       1145: "local1145"
   client!c.a ([BIIIII)V:
     owner: "SceneGraph"
-    name: "method37"
+    name: "readLandscape"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5393,7 +5393,7 @@ methods:
       116: "local116"
   client!c.a ([BLclient!r;[Lclient!ec;Lclient!ob;ZII)V:
     owner: "SceneGraph"
-    name: "method38"
+    name: "readLocs"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5419,7 +5419,7 @@ methods:
       101: "local101"
   client!c.b (II)I:
     owner: "SceneGraph"
-    name: "method45"
+    name: "getSmoothNoise2D"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5429,7 +5429,7 @@ methods:
       59: "local59"
   client!c.b (III)I:
     owner: "SceneGraph"
-    name: "method49"
+    name: "hsl24To16"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5437,7 +5437,7 @@ methods:
     locals: {}
   client!c.c (II)I:
     owner: "SceneGraph"
-    name: "method46"
+    name: "getNoise"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5447,14 +5447,14 @@ methods:
       25: "local25"
   client!c.d (II)I:
     owner: "SceneGraph"
-    name: "method47"
+    name: "adjustHslLightness1"
     arguments:
       0: "arg0"
       1: "arg1"
     locals: {}
   client!c.e (II)I:
     owner: "SceneGraph"
-    name: "method48"
+    name: "adjustHslLightness0"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -5474,12 +5474,12 @@ methods:
     locals: {}
   client!cc.a ()V:
     owner: "ObjType"
-    name: "method55"
+    name: "reset"
     arguments: {}
     locals: {}
   client!cc.a (BI)Lclient!eb;:
     owner: "ObjType"
-    name: "method60"
+    name: "getWornModel"
     arguments:
       1: "arg0"
     locals:
@@ -5494,7 +5494,7 @@ methods:
       139: "local139"
   client!cc.a (I)Lclient!cc;:
     owner: "ObjType"
-    name: "method54"
+    name: "get"
     arguments:
       0: "arg0"
     locals:
@@ -5502,7 +5502,7 @@ methods:
       27: "local27"
   client!cc.a (II)Lclient!eb;:
     owner: "ObjType"
-    name: "method61"
+    name: "getHeadModel"
     arguments:
       1: "arg0"
     locals:
@@ -5514,7 +5514,7 @@ methods:
       66: "local66"
   client!cc.a (III)Lclient!hb;:
     owner: "ObjType"
-    name: "method59"
+    name: "getSprite"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -5541,7 +5541,7 @@ methods:
       354: "local354"
   client!cc.a (Lclient!ub;)V:
     owner: "ObjType"
-    name: "method52"
+    name: "decode"
     arguments:
       0: "arg0"
     locals:
@@ -5551,12 +5551,12 @@ methods:
       51: "local51"
   client!cc.a (Z)V:
     owner: "ObjType"
-    name: "method53"
+    name: "unload"
     arguments: {}
     locals: {}
   client!cc.a (ZLclient!kb;)V:
     owner: "ObjType"
-    name: "method56"
+    name: "decode"
     arguments:
       1: "arg0"
     locals:
@@ -5565,7 +5565,7 @@ methods:
       270: "local270"
   client!cc.b (I)V:
     owner: "ObjType"
-    name: "method57"
+    name: "toCertificate"
     arguments: {}
     locals:
       3: "local3"
@@ -5574,7 +5574,7 @@ methods:
       74: "local74"
   client!cc.c (I)Lclient!eb;:
     owner: "ObjType"
-    name: "method58"
+    name: "getModel"
     arguments:
       0: "arg0"
     locals:
@@ -7316,13 +7316,13 @@ methods:
     locals: {}
   client!d.a ()V:
     owner: "BufferedStream"
-    name: "method201"
+    name: "close"
     arguments: {}
     locals:
       22: "local22"
   client!d.a ([BII)V:
     owner: "BufferedStream"
-    name: "method204"
+    name: "read"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7331,7 +7331,7 @@ methods:
       11: "local11"
   client!d.a ([BIZI)V:
     owner: "BufferedStream"
-    name: "method205"
+    name: "write"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7339,12 +7339,12 @@ methods:
       31: "local31"
   client!d.b ()I:
     owner: "BufferedStream"
-    name: "method202"
+    name: "read"
     arguments: {}
     locals: {}
   client!d.c ()I:
     owner: "BufferedStream"
-    name: "method203"
+    name: "available"
     arguments: {}
     locals: {}
   client!d.run ()V:
@@ -7359,22 +7359,22 @@ methods:
       83: "local83"
   client!db.b ()V:
     owner: "CacheableNode"
-    name: "method377"
+    name: "uncache"
     arguments: {}
     locals: {}
   client!e.a (B)V:
     owner: "InputTracking"
-    name: "method209"
+    name: "setDisabled"
     arguments: {}
     locals: {}
   client!e.a (I)V:
     owner: "InputTracking"
-    name: "method208"
+    name: "setEnabled"
     arguments: {}
     locals: {}
   client!e.a (II)V:
     owner: "InputTracking"
-    name: "method212"
+    name: "resize"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7382,7 +7382,7 @@ methods:
       15: "local15"
   client!e.a (IIIB)V:
     owner: "InputTracking"
-    name: "method213"
+    name: "mousePressed"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7392,7 +7392,7 @@ methods:
       25: "local25"
   client!e.a (IZ)V:
     owner: "InputTracking"
-    name: "method216"
+    name: "keyPressed"
     arguments:
       0: "arg0"
     locals:
@@ -7400,7 +7400,7 @@ methods:
       14: "local14"
   client!e.a (IZI)V:
     owner: "InputTracking"
-    name: "method215"
+    name: "mouseMoved"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -7409,20 +7409,20 @@ methods:
       39: "local39"
   client!e.a (Z)V:
     owner: "InputTracking"
-    name: "method221"
+    name: "mouseExited"
     arguments: {}
     locals:
       11: "local11"
       17: "local17"
   client!e.b (I)Lclient!kb;:
     owner: "InputTracking"
-    name: "method210"
+    name: "flush"
     arguments: {}
     locals:
       1: "local1"
   client!e.b (II)V:
     owner: "InputTracking"
-    name: "method214"
+    name: "mouseReleased"
     arguments:
       0: "arg0"
     locals:
@@ -7430,13 +7430,13 @@ methods:
       14: "local14"
   client!e.c (I)Lclient!kb;:
     owner: "InputTracking"
-    name: "method211"
+    name: "stop"
     arguments: {}
     locals:
       9: "local9"
   client!e.c (II)V:
     owner: "InputTracking"
-    name: "method217"
+    name: "keyReleased"
     arguments:
       0: "arg0"
     locals:
@@ -7444,21 +7444,21 @@ methods:
       14: "local14"
   client!e.d (I)V:
     owner: "InputTracking"
-    name: "method218"
+    name: "focusGained"
     arguments: {}
     locals:
       11: "local11"
       17: "local17"
   client!e.e (I)V:
     owner: "InputTracking"
-    name: "method219"
+    name: "focusLost"
     arguments: {}
     locals:
       8: "local8"
       14: "local14"
   client!e.f (I)V:
     owner: "InputTracking"
-    name: "method220"
+    name: "mouseEntered"
     arguments: {}
     locals:
       8: "local8"
@@ -7558,7 +7558,7 @@ methods:
       445: "local445"
   client!eb.a (B)V:
     owner: "Model"
-    name: "method229"
+    name: "calculateBoundaries"
     arguments:
       0: "arg0"
     locals:
@@ -7569,7 +7569,7 @@ methods:
       96: "local96"
   client!eb.a (BI)V:
     owner: "Model"
-    name: "method235"
+    name: "rotatePitch"
     arguments:
       1: "arg0"
     locals:
@@ -7579,7 +7579,7 @@ methods:
       27: "local27"
   client!eb.a (I)V:
     owner: "Model"
-    name: "method227"
+    name: "calculateYBoundaries"
     arguments: {}
     locals:
       14: "local14"
@@ -7589,7 +7589,7 @@ methods:
       55: "local55"
   client!eb.a (II)V:
     owner: "Model"
-    name: "method231"
+    name: "applyFrame"
     arguments:
       1: "arg0"
     locals:
@@ -7599,7 +7599,7 @@ methods:
       29: "local29"
   client!eb.a (III)I:
     owner: "Model"
-    name: "method242"
+    name: "adjustHslLightness"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7607,7 +7607,7 @@ methods:
     locals: {}
   client!eb.a (IIII)V:
     owner: "Model"
-    name: "method236"
+    name: "translate"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7616,7 +7616,7 @@ methods:
       11: "local11"
   client!eb.a (IIIII)V:
     owner: "Model"
-    name: "method241"
+    name: "calculateLighting"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7638,7 +7638,7 @@ methods:
       152: "local152"
   client!eb.a (IIIIIII)V:
     owner: "Model"
-    name: "method243"
+    name: "draw"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -7666,7 +7666,7 @@ methods:
       223: "local223"
   client!eb.a (IIIIIIII)Z:
     owner: "Model"
-    name: "method248"
+    name: "pointWithinTriangle"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7679,7 +7679,7 @@ methods:
     locals: {}
   client!eb.a (IIIIIIIII)V:
     owner: "Model"
-    name: "method244"
+    name: "draw"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7718,7 +7718,7 @@ methods:
       418: "local418"
   client!eb.a (IIIIIZ)V:
     owner: "Model"
-    name: "method240"
+    name: "applyLighting"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7751,7 +7751,7 @@ methods:
       408: "local408"
   client!eb.a (III[I)V:
     owner: "Model"
-    name: "method232"
+    name: "applyFrames"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -7768,7 +7768,7 @@ methods:
       124: "local124"
   client!eb.a (ILclient!ub;)V:
     owner: "Model"
-    name: "method225"
+    name: "decode"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7795,7 +7795,7 @@ methods:
       421: "local421"
   client!eb.a (I[IIII)V:
     owner: "Model"
-    name: "method233"
+    name: "transform"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7819,7 +7819,7 @@ methods:
       259: "local259"
   client!eb.a (Lclient!eb;I)I:
     owner: "Model"
-    name: "method226"
+    name: "copyVertex"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7831,12 +7831,12 @@ methods:
       20: "local20"
   client!eb.a (Z)V:
     owner: "Model"
-    name: "method224"
+    name: "unload"
     arguments: {}
     locals: {}
   client!eb.a (ZZI)V:
     owner: "Model"
-    name: "method245"
+    name: "draw"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7862,7 +7862,7 @@ methods:
       610: "local610"
   client!eb.b (I)V:
     owner: "Model"
-    name: "method228"
+    name: "calculateYBoundaries2"
     arguments:
       0: "arg0"
     locals:
@@ -7870,7 +7870,7 @@ methods:
       25: "local25"
   client!eb.b (II)V:
     owner: "Model"
-    name: "method237"
+    name: "recolor"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7878,7 +7878,7 @@ methods:
       1: "local1"
   client!eb.b (IIII)V:
     owner: "Model"
-    name: "method239"
+    name: "scale"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -7887,7 +7887,7 @@ methods:
       1: "local1"
   client!eb.c (I)V:
     owner: "Model"
-    name: "method230"
+    name: "applyGroup"
     arguments: {}
     locals:
       11: "local11"
@@ -7899,14 +7899,14 @@ methods:
       74: "local74"
   client!eb.d (I)V:
     owner: "Model"
-    name: "method234"
+    name: "rotateCounterClockwise"
     arguments: {}
     locals:
       6: "local6"
       13: "local13"
   client!eb.e (I)V:
     owner: "Model"
-    name: "method238"
+    name: "flipBackwards"
     arguments: {}
     locals:
       3: "local3"
@@ -7914,7 +7914,7 @@ methods:
       28: "local28"
   client!eb.f (I)V:
     owner: "Model"
-    name: "method246"
+    name: "drawTriangle"
     arguments:
       0: "arg0"
     locals:
@@ -7928,7 +7928,7 @@ methods:
       142: "local142"
   client!eb.g (I)V:
     owner: "Model"
-    name: "method247"
+    name: "drawProjectedTriangle"
     arguments:
       0: "arg0"
     locals:
@@ -7962,14 +7962,14 @@ methods:
     locals: {}
   client!ec.a (B)V:
     owner: "CollisionMap"
-    name: "method249"
+    name: "reset"
     arguments: {}
     locals:
       3: "local3"
       7: "local7"
   client!ec.a (BII)V:
     owner: "CollisionMap"
-    name: "method252"
+    name: "setBlocoked"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -7978,7 +7978,7 @@ methods:
       14: "local14"
   client!ec.a (IBII)V:
     owner: "CollisionMap"
-    name: "method256"
+    name: "remove"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -7986,7 +7986,7 @@ methods:
     locals: {}
   client!ec.a (III)V:
     owner: "CollisionMap"
-    name: "method253"
+    name: "add"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -7994,7 +7994,7 @@ methods:
     locals: {}
   client!ec.a (IIIIIII)Z:
     owner: "CollisionMap"
-    name: "method258"
+    name: "reachedWall"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -8009,7 +8009,7 @@ methods:
       34: "local34"
   client!ec.a (IIIIIIII)Z:
     owner: "CollisionMap"
-    name: "method260"
+    name: "reachedObject"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8023,7 +8023,7 @@ methods:
       11: "local11"
   client!ec.a (IIIIIIZ)V:
     owner: "CollisionMap"
-    name: "method251"
+    name: "setLoc"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8039,7 +8039,7 @@ methods:
       43: "local43"
   client!ec.a (IIIIZZI)V:
     owner: "CollisionMap"
-    name: "method255"
+    name: "removeLoc"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8055,7 +8055,7 @@ methods:
       48: "local48"
   client!ec.a (ZIIIII)V:
     owner: "CollisionMap"
-    name: "method254"
+    name: "removeWall"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8067,7 +8067,7 @@ methods:
       13: "local13"
   client!ec.a (ZIIIZI)V:
     owner: "CollisionMap"
-    name: "method250"
+    name: "setWall"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -8079,7 +8079,7 @@ methods:
       19: "local19"
   client!ec.b (III)V:
     owner: "CollisionMap"
-    name: "method257"
+    name: "removeBlock"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8088,7 +8088,7 @@ methods:
       12: "local12"
   client!ec.b (IIIIIII)Z:
     owner: "CollisionMap"
-    name: "method259"
+    name: "reachedDecoration"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8109,7 +8109,7 @@ methods:
     locals: {}
   client!f.a (ZLclient!ub;)V:
     owner: "SeqBase"
-    name: "method261"
+    name: "decode"
     arguments:
       1: "arg0"
     locals:
@@ -8133,12 +8133,12 @@ methods:
     locals: {}
   client!fb.a (I)V:
     owner: "Draw2D"
-    name: "method355"
+    name: "resetBounds"
     arguments: {}
     locals: {}
   client!fb.a (IIIBII)V:
     owner: "Draw2D"
-    name: "method358"
+    name: "fillRect"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8152,7 +8152,7 @@ methods:
       64: "local64"
   client!fb.a (IIIII)V:
     owner: "Draw2D"
-    name: "method356"
+    name: "setBounds"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8161,7 +8161,7 @@ methods:
     locals: {}
   client!fb.a (IIIIII)V:
     owner: "Draw2D"
-    name: "method359"
+    name: "drawRect"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -8171,7 +8171,7 @@ methods:
     locals: {}
   client!fb.a (I[III)V:
     owner: "Draw2D"
-    name: "method354"
+    name: "prepare"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8179,7 +8179,7 @@ methods:
     locals: {}
   client!fb.b (I)V:
     owner: "Draw2D"
-    name: "method357"
+    name: "clear"
     arguments:
       0: "arg0"
     locals:
@@ -8187,7 +8187,7 @@ methods:
       9: "local9"
   client!fb.b (IIIII)V:
     owner: "Draw2D"
-    name: "method360"
+    name: "drawHorizontalLine"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -8198,7 +8198,7 @@ methods:
       37: "local37"
   client!fb.c (IIIII)V:
     owner: "Draw2D"
-    name: "method361"
+    name: "drawVerticalLine"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8215,7 +8215,7 @@ methods:
     locals: {}
   client!fc.a (II)V:
     owner: "FloType"
-    name: "method274"
+    name: "setColor"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8234,7 +8234,7 @@ methods:
       290: "local290"
   client!fc.a (III)I:
     owner: "FloType"
-    name: "method275"
+    name: "setHsl16"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8242,7 +8242,7 @@ methods:
     locals: {}
   client!fc.a (Lclient!ub;I)V:
     owner: "FloType"
-    name: "method272"
+    name: "decode"
     arguments:
       0: "arg0"
     locals:
@@ -8250,7 +8250,7 @@ methods:
       23: "local23"
   client!fc.a (ZLclient!kb;)V:
     owner: "FloType"
-    name: "method273"
+    name: "decode"
     arguments:
       1: "arg0"
     locals:
@@ -8262,7 +8262,7 @@ methods:
     locals: {}
   client!g.a (ZLclient!ub;)V:
     owner: "SeqFrame"
-    name: "method276"
+    name: "decode"
     arguments:
       1: "arg0"
     locals:
@@ -8290,7 +8290,7 @@ methods:
       160: "local160"
   client!gb.a (BLclient!ub;)V:
     owner: "Draw3D"
-    name: "method292"
+    name: "unpackTextures"
     arguments:
       1: "arg0"
     locals:
@@ -8298,7 +8298,7 @@ methods:
       47: "local47"
   client!gb.a (ID)I:
     owner: "Draw3D"
-    name: "method297"
+    name: "powRgb"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8314,13 +8314,13 @@ methods:
       49: "local49"
   client!gb.a (II)V:
     owner: "Draw3D"
-    name: "method291"
+    name: "setupPools"
     arguments: {}
     locals:
       30: "local30"
   client!gb.a (III)V:
     owner: "Draw3D"
-    name: "method289"
+    name: "prepareOffsets"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8328,7 +8328,7 @@ methods:
       12: "local12"
   client!gb.a (IIIIIII)V:
     owner: "Draw3D"
-    name: "method300"
+    name: "fillTriangle"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8343,7 +8343,7 @@ methods:
       33: "local33"
   client!gb.a (IIIIIIIII)V:
     owner: "Draw3D"
-    name: "method298"
+    name: "fillGouraudTriangle"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8363,7 +8363,7 @@ methods:
       59: "local59"
   client!gb.a (IIIIIIIIIIIIIIIIIII)V:
     owner: "Draw3D"
-    name: "method302"
+    name: "fillTexturedTriangle"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8410,12 +8410,12 @@ methods:
       298: "local298"
   client!gb.a (Z)V:
     owner: "Draw3D"
-    name: "method287"
+    name: "unload"
     arguments: {}
     locals: {}
   client!gb.a (ZD)V:
     owner: "Draw3D"
-    name: "method296"
+    name: "setBrightness"
     arguments:
       1: "arg0"
     locals:
@@ -8444,7 +8444,7 @@ methods:
       344: "local344"
   client!gb.a ([IIIIII)V:
     owner: "Draw3D"
-    name: "method301"
+    name: "drawScanline"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8461,7 +8461,7 @@ methods:
       159: "local159"
   client!gb.a ([IIIIIIII)V:
     owner: "Draw3D"
-    name: "method299"
+    name: "drawGouraudScanline"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8482,7 +8482,7 @@ methods:
       467: "local467"
   client!gb.a ([I[IIIIIIIIIIIIII)V:
     owner: "Draw3D"
-    name: "method303"
+    name: "drawTexturedScanline"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8539,7 +8539,7 @@ methods:
       1517: "local1517"
   client!gb.b (II)I:
     owner: "Draw3D"
-    name: "method293"
+    name: "getAverageTextureRgb"
     arguments:
       1: "arg0"
     locals:
@@ -8551,26 +8551,26 @@ methods:
       80: "local80"
   client!gb.b (Z)V:
     owner: "Draw3D"
-    name: "method290"
+    name: "clearPools"
     arguments: {}
     locals:
       6: "local6"
   client!gb.c (I)V:
     owner: "Draw3D"
-    name: "method288"
+    name: "prepareOffsets"
     arguments:
       0: "arg0"
     locals:
       5: "local5"
   client!gb.c (II)V:
     owner: "Draw3D"
-    name: "method294"
+    name: "updateTexture"
     arguments:
       0: "arg0"
     locals: {}
   client!gb.d (I)[I:
     owner: "Draw3D"
-    name: "method295"
+    name: "getTexels"
     arguments:
       0: "arg0"
     locals:
@@ -8588,7 +8588,7 @@ methods:
     locals: {}
   client!gc.a ()Lclient!eb;:
     owner: "IdkType"
-    name: "method306"
+    name: "getModel"
     arguments: {}
     locals:
       11: "local11"
@@ -8597,7 +8597,7 @@ methods:
       52: "local52"
   client!gc.a (Lclient!ub;I)V:
     owner: "IdkType"
-    name: "method304"
+    name: "decode"
     arguments:
       0: "arg0"
     locals:
@@ -8605,7 +8605,7 @@ methods:
       19: "local19"
   client!gc.a (Z)Lclient!eb;:
     owner: "IdkType"
-    name: "method307"
+    name: "getHeadModel"
     arguments: {}
     locals:
       4: "local4"
@@ -8615,7 +8615,7 @@ methods:
       41: "local41"
   client!gc.a (ZLclient!kb;)V:
     owner: "IdkType"
-    name: "method305"
+    name: "decode"
     arguments:
       1: "arg0"
     locals:
@@ -8660,12 +8660,12 @@ methods:
       81: "local81"
   client!hb.a (B)V:
     owner: "Sprite"
-    name: "method318"
+    name: "prepare"
     arguments: {}
     locals: {}
   client!hb.a (III)V:
     owner: "Sprite"
-    name: "method320"
+    name: "drawOpaque"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -8679,7 +8679,7 @@ methods:
       36: "local36"
   client!hb.a (IIIB)V:
     owner: "Sprite"
-    name: "method326"
+    name: "drawAlpha"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -8693,7 +8693,7 @@ methods:
       46: "local46"
   client!hb.a (IIIIII[I[II[BI)V:
     owner: "Sprite"
-    name: "method330"
+    name: "copyImageMasked"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8713,7 +8713,7 @@ methods:
       104: "local104"
   client!hb.a (IIIZ)V:
     owner: "Sprite"
-    name: "method319"
+    name: "translate"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8726,7 +8726,7 @@ methods:
       60: "local60"
   client!hb.a (IIZ)V:
     owner: "Sprite"
-    name: "method322"
+    name: "draw"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8740,7 +8740,7 @@ methods:
       41: "local41"
   client!hb.a (II[IIIIIIIZ[I)V:
     owner: "Sprite"
-    name: "method328"
+    name: "drawRotatedMasked"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8771,7 +8771,7 @@ methods:
       158: "local158"
   client!hb.a (II[IIIII[IIIIII)V:
     owner: "Sprite"
-    name: "method325"
+    name: "copyImage"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8793,7 +8793,7 @@ methods:
       68: "local68"
   client!hb.a (II[III[IIBIII)V:
     owner: "Sprite"
-    name: "method327"
+    name: "copyImageAlpha"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -8810,7 +8810,7 @@ methods:
       37: "local37"
   client!hb.a (I[IIIIIII[I)V:
     owner: "Sprite"
-    name: "method321"
+    name: "copyImage"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -8828,7 +8828,7 @@ methods:
       57: "local57"
   client!hb.a (Lclient!ib;IIB)V:
     owner: "Sprite"
-    name: "method329"
+    name: "drawMasked"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8843,7 +8843,7 @@ methods:
       40: "local40"
   client!hb.a ([I[IIIIIIII)V:
     owner: "Sprite"
-    name: "method323"
+    name: "copyImage"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8862,7 +8862,7 @@ methods:
       85: "local85"
   client!hb.d (IIIII)V:
     owner: "Sprite"
-    name: "method324"
+    name: "draw"
     arguments: {}
     locals:
       6: "local6"
@@ -8883,14 +8883,14 @@ methods:
       243: "local243"
   client!hc.a (II)Lclient!eb;:
     owner: "InterfaceComponent"
-    name: "method334"
+    name: "getModel"
     arguments:
       1: "arg0"
     locals:
       5: "local5"
   client!hc.a (IIZ)Lclient!eb;:
     owner: "InterfaceComponent"
-    name: "method332"
+    name: "getModel"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8900,7 +8900,7 @@ methods:
       31: "local31"
   client!hc.a (Lclient!ub;ILjava/lang/String;I)Lclient!hb;:
     owner: "InterfaceComponent"
-    name: "method333"
+    name: "getSprite"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8911,7 +8911,7 @@ methods:
       38: "local38"
   client!hc.a (Lclient!ub;[Lclient!jb;ILclient!ub;)V:
     owner: "InterfaceComponent"
-    name: "method331"
+    name: "decode"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -8994,7 +8994,7 @@ methods:
       164: "local164"
   client!ib.a (B)V:
     owner: "IndexedSprite"
-    name: "method348"
+    name: "flipVertically"
     arguments: {}
     locals:
       8: "local8"
@@ -9003,7 +9003,7 @@ methods:
       29: "local29"
   client!ib.a (IIIZ)V:
     owner: "IndexedSprite"
-    name: "method349"
+    name: "translate"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9015,7 +9015,7 @@ methods:
       60: "local60"
   client!ib.a (IIZ)V:
     owner: "IndexedSprite"
-    name: "method350"
+    name: "draw"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9029,7 +9029,7 @@ methods:
       36: "local36"
   client!ib.a (Z)V:
     owner: "IndexedSprite"
-    name: "method345"
+    name: "shrink"
     arguments:
       0: "arg0"
     locals:
@@ -9039,7 +9039,7 @@ methods:
       28: "local28"
   client!ib.a ([III[BIIIII[I)V:
     owner: "IndexedSprite"
-    name: "method351"
+    name: "copyImage"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9060,7 +9060,7 @@ methods:
       111: "local111"
   client!ib.c (I)V:
     owner: "IndexedSprite"
-    name: "method346"
+    name: "crop"
     arguments: {}
     locals:
       19: "local19"
@@ -9069,7 +9069,7 @@ methods:
       37: "local37"
   client!ib.d (I)V:
     owner: "IndexedSprite"
-    name: "method347"
+    name: "flipHorizontally"
     arguments: {}
     locals:
       8: "local8"
@@ -9098,7 +9098,7 @@ methods:
       269: "local269"
   client!jb.a (IBIIILjava/lang/String;)V:
     owner: "IndexedFont"
-    name: "method366"
+    name: "drawCenteredWave"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -9111,7 +9111,7 @@ methods:
       39: "local39"
   client!jb.a (IBILjava/lang/String;I)V:
     owner: "IndexedFont"
-    name: "method362"
+    name: "drawCentered"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -9120,7 +9120,7 @@ methods:
     locals: {}
   client!jb.a (IIILjava/lang/String;ZI)V:
     owner: "IndexedFont"
-    name: "method367"
+    name: "draw"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -9133,7 +9133,7 @@ methods:
       52: "local52"
   client!jb.a (III[I[BIIIIBI)V:
     owner: "IndexedFont"
-    name: "method373"
+    name: "fillMaskedRect"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9153,7 +9153,7 @@ methods:
       57: "local57"
   client!jb.a (IIZILjava/lang/String;)V:
     owner: "IndexedFont"
-    name: "method365"
+    name: "draw"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9165,7 +9165,7 @@ methods:
       27: "local27"
   client!jb.a (IIZILjava/lang/String;I)V:
     owner: "IndexedFont"
-    name: "method363"
+    name: "drawCentered"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9175,13 +9175,13 @@ methods:
     locals: {}
   client!jb.a (ILjava/lang/String;)I:
     owner: "IndexedFont"
-    name: "method369"
+    name: "evaluateTag"
     arguments:
       1: "arg0"
     locals: {}
   client!jb.a (IZBIILjava/lang/String;I)V:
     owner: "IndexedFont"
-    name: "method368"
+    name: "drawTooltip"
     arguments:
       0: "arg0"
       4: "arg1"
@@ -9194,7 +9194,7 @@ methods:
       71: "local71"
   client!jb.a (ZLjava/lang/String;)I:
     owner: "IndexedFont"
-    name: "method364"
+    name: "stringWidth"
     arguments:
       1: "arg0"
     locals:
@@ -9202,7 +9202,7 @@ methods:
       14: "local14"
   client!jb.a ([BBIIIIII)V:
     owner: "IndexedFont"
-    name: "method372"
+    name: "fillMaskedRect"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -9219,7 +9219,7 @@ methods:
       25: "local25"
   client!jb.a ([BIIIII)V:
     owner: "IndexedFont"
-    name: "method370"
+    name: "fillMaskedRect"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9235,7 +9235,7 @@ methods:
       20: "local20"
   client!jb.a ([I[BIIIIIII)V:
     owner: "IndexedFont"
-    name: "method371"
+    name: "fillMaskedRect"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9259,7 +9259,7 @@ methods:
     locals: {}
   client!jc.a (Lclient!ub;I)V:
     owner: "SeqType"
-    name: "method374"
+    name: "decode"
     arguments:
       0: "arg0"
     locals:
@@ -9267,7 +9267,7 @@ methods:
       27: "local27"
   client!jc.a (ZLclient!kb;)V:
     owner: "SeqType"
-    name: "method375"
+    name: "decode"
     arguments:
       1: "arg0"
     locals:
@@ -9289,25 +9289,25 @@ methods:
     locals: {}
   client!kb.a (B)V:
     owner: "Buffer"
-    name: "method379"
+    name: "release"
     arguments: {}
     locals:
       1: "local1"
   client!kb.a (BI)V:
     owner: "Buffer"
-    name: "method380"
+    name: "p1isaac"
     arguments:
       1: "arg0"
     locals: {}
   client!kb.a (I)V:
     owner: "Buffer"
-    name: "method381"
+    name: "p1"
     arguments:
       0: "arg0"
     locals: {}
   client!kb.a (II)Lclient!kb;:
     owner: "Buffer"
-    name: "method378"
+    name: "reserve"
     arguments: {}
     locals:
       3: "local3"
@@ -9315,7 +9315,7 @@ methods:
       77: "local77"
   client!kb.a (III[B)V:
     owner: "Buffer"
-    name: "method400"
+    name: "gBytes"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -9324,13 +9324,13 @@ methods:
       6: "local6"
   client!kb.a (Ljava/lang/String;)V:
     owner: "Buffer"
-    name: "method388"
+    name: "pjstr"
     arguments:
       0: "arg0"
     locals: {}
   client!kb.a (Ljava/math/BigInteger;Ljava/math/BigInteger;I)V:
     owner: "Buffer"
-    name: "method406"
+    name: "encryptRsa"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9343,20 +9343,20 @@ methods:
       27: "local27"
   client!kb.a (ZI)V:
     owner: "Buffer"
-    name: "method383"
+    name: "p2le"
     arguments:
       0: "arg0"
       1: "arg1"
     locals: {}
   client!kb.a (ZJ)V:
     owner: "Buffer"
-    name: "method387"
+    name: "p8"
     arguments:
       1: "arg0"
     locals: {}
   client!kb.a ([BIIB)V:
     owner: "Buffer"
-    name: "method389"
+    name: "pBytes"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9364,7 +9364,7 @@ methods:
       7: "local7"
   client!kb.b (B)[B:
     owner: "Buffer"
-    name: "method399"
+    name: "gjstrBytes"
     arguments: {}
     locals:
       2: "local2"
@@ -9372,36 +9372,36 @@ methods:
       31: "local31"
   client!kb.b (I)V:
     owner: "Buffer"
-    name: "method382"
+    name: "p2"
     arguments:
       0: "arg0"
     locals: {}
   client!kb.b (II)V:
     owner: "Buffer"
-    name: "method390"
+    name: "p1len"
     arguments:
       1: "arg0"
     locals: {}
   client!kb.b (ZI)V:
     owner: "Buffer"
-    name: "method386"
+    name: "p4le"
     arguments:
       1: "arg0"
     locals: {}
   client!kb.c ()I:
     owner: "Buffer"
-    name: "method391"
+    name: "g1"
     arguments: {}
     locals: {}
   client!kb.c (I)V:
     owner: "Buffer"
-    name: "method384"
+    name: "p3"
     arguments:
       0: "arg0"
     locals: {}
   client!kb.c (II)I:
     owner: "Buffer"
-    name: "method402"
+    name: "gBit"
     arguments:
       1: "arg0"
     locals:
@@ -9410,70 +9410,70 @@ methods:
       24: "local24"
   client!kb.d ()B:
     owner: "Buffer"
-    name: "method392"
+    name: "g1s"
     arguments: {}
     locals: {}
   client!kb.d (I)V:
     owner: "Buffer"
-    name: "method385"
+    name: "p4"
     arguments:
       0: "arg0"
     locals: {}
   client!kb.e ()I:
     owner: "Buffer"
-    name: "method393"
+    name: "g2"
     arguments: {}
     locals: {}
   client!kb.e (I)J:
     owner: "Buffer"
-    name: "method397"
+    name: "g8"
     arguments: {}
     locals:
       5: "local5"
       15: "local15"
   client!kb.f ()I:
     owner: "Buffer"
-    name: "method394"
+    name: "g2s"
     arguments: {}
     locals:
       27: "local27"
   client!kb.f (I)V:
     owner: "Buffer"
-    name: "method401"
+    name: "accessBits"
     arguments: {}
     locals: {}
   client!kb.g ()I:
     owner: "Buffer"
-    name: "method395"
+    name: "g3"
     arguments: {}
     locals: {}
   client!kb.g (I)V:
     owner: "Buffer"
-    name: "method403"
+    name: "accessBytes"
     arguments:
       0: "arg0"
     locals:
       5: "local5"
   client!kb.h ()I:
     owner: "Buffer"
-    name: "method396"
+    name: "g4"
     arguments: {}
     locals: {}
   client!kb.i ()Ljava/lang/String;:
     owner: "Buffer"
-    name: "method398"
+    name: "gjstr"
     arguments: {}
     locals:
       2: "local2"
   client!kb.j ()I:
     owner: "Buffer"
-    name: "method404"
+    name: "gSmart1or2s"
     arguments: {}
     locals:
       7: "local7"
   client!kb.k ()I:
     owner: "Buffer"
-    name: "method405"
+    name: "gSmart1or2"
     arguments: {}
     locals:
       7: "local7"
@@ -9484,14 +9484,14 @@ methods:
     locals: {}
   client!kc.a ()Lclient!eb;:
     owner: "SpotAnimType"
-    name: "method409"
+    name: "getModel"
     arguments: {}
     locals:
       6: "local6"
       19: "local19"
   client!kc.a (Lclient!ub;I)V:
     owner: "SpotAnimType"
-    name: "method407"
+    name: "decode"
     arguments:
       0: "arg0"
     locals:
@@ -9499,7 +9499,7 @@ methods:
       23: "local23"
   client!kc.a (ZLclient!kb;)V:
     owner: "SpotAnimType"
-    name: "method408"
+    name: "decode"
     arguments:
       1: "arg0"
     locals:
@@ -9511,7 +9511,7 @@ methods:
     locals: {}
   client!lc.a (IILclient!kb;)V:
     owner: "VarpType"
-    name: "method412"
+    name: "decode"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9520,7 +9520,7 @@ methods:
       8: "local8"
   client!lc.a (Lclient!ub;I)V:
     owner: "VarpType"
-    name: "method411"
+    name: "decode"
     arguments:
       0: "arg0"
     locals:
@@ -9542,13 +9542,13 @@ methods:
     locals: {}
   client!mc.a (BC)Z:
     owner: "WordPack"
-    name: "method448"
+    name: "isLowercaseAlpha"
     arguments:
       1: "arg0"
     locals: {}
   client!mc.a (B[C)V:
     owner: "WordPack"
-    name: "method426"
+    name: "formatUppercases"
     arguments:
       1: "arg0"
     locals:
@@ -9557,7 +9557,7 @@ methods:
       19: "local19"
   client!mc.a (B[[B[C[C)V:
     owner: "WordPack"
-    name: "method436"
+    name: "filterBad"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -9590,13 +9590,13 @@ methods:
       387: "local387"
   client!mc.a (CB)Z:
     owner: "WordPack"
-    name: "method445"
+    name: "isNotLowercaseAlpha"
     arguments:
       0: "arg0"
     locals: {}
   client!mc.a (CCCI)I:
     owner: "WordPack"
-    name: "method439"
+    name: "getEmulatedBadCharLen"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9604,13 +9604,13 @@ methods:
     locals: {}
   client!mc.a (CI)Z:
     owner: "WordPack"
-    name: "method444"
+    name: "isSymbol"
     arguments:
       0: "arg0"
     locals: {}
   client!mc.a (IB[[BB)Z:
     owner: "WordPack"
-    name: "method437"
+    name: "comboMatches"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -9621,13 +9621,13 @@ methods:
       52: "local52"
   client!mc.a (IC)Z:
     owner: "WordPack"
-    name: "method423"
+    name: "isValid"
     arguments:
       1: "arg0"
     locals: {}
   client!mc.a (ICCC)I:
     owner: "WordPack"
-    name: "method438"
+    name: "getEmulatedDomainCharLen"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -9635,7 +9635,7 @@ methods:
     locals: {}
   client!mc.a (II[C)I:
     owner: "WordPack"
-    name: "method443"
+    name: "indexOfNonNumber"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -9643,14 +9643,14 @@ methods:
       6: "local6"
   client!mc.a (ILclient!kb;)V:
     owner: "WordPack"
-    name: "method417"
+    name: "readBad"
     arguments:
       1: "arg0"
     locals:
       2: "local2"
   client!mc.a (ILclient!kb;[[C)V:
     owner: "WordPack"
-    name: "method421"
+    name: "readDomain"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -9660,7 +9660,7 @@ methods:
       22: "local22"
   client!mc.a (I[C)V:
     owner: "WordPack"
-    name: "method441"
+    name: "filterNumFragments"
     arguments:
       1: "arg0"
     locals:
@@ -9675,7 +9675,7 @@ methods:
       112: "local112"
   client!mc.a (I[CB[C)I:
     owner: "WordPack"
-    name: "method430"
+    name: "getDomainAtFilterStatus"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9686,7 +9686,7 @@ methods:
       42: "local42"
   client!mc.a (I[CI)I:
     owner: "WordPack"
-    name: "method442"
+    name: "indexOfNumber"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -9694,14 +9694,14 @@ methods:
       5: "local5"
   client!mc.a (Lclient!kb;I)V:
     owner: "WordPack"
-    name: "method418"
+    name: "readDomain"
     arguments:
       0: "arg0"
     locals:
       2: "local2"
   client!mc.a (Lclient!kb;Lclient!kb;Lclient!kb;Lclient!kb;)V:
     owner: "WordPack"
-    name: "method415"
+    name: "decode"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9710,7 +9710,7 @@ methods:
     locals: {}
   client!mc.a (Lclient!ub;)V:
     owner: "WordPack"
-    name: "method414"
+    name: "decode"
     arguments:
       0: "arg0"
     locals:
@@ -9720,7 +9720,7 @@ methods:
       41: "local41"
   client!mc.a (Ljava/lang/String;I)Ljava/lang/String;:
     owner: "WordPack"
-    name: "method424"
+    name: "getFiltered"
     arguments:
       0: "arg0"
     locals:
@@ -9736,7 +9736,7 @@ methods:
       105: "local105"
   client!mc.a (ZLclient!kb;)V:
     owner: "WordPack"
-    name: "method416"
+    name: "readTld"
     arguments:
       1: "arg0"
     locals:
@@ -9746,7 +9746,7 @@ methods:
       28: "local28"
   client!mc.a (Z[C)V:
     owner: "WordPack"
-    name: "method427"
+    name: "filterBad"
     arguments:
       1: "arg0"
     locals:
@@ -9754,7 +9754,7 @@ methods:
       10: "local10"
   client!mc.a ([CI)V:
     owner: "WordPack"
-    name: "method422"
+    name: "trimWhitespaces"
     arguments:
       0: "arg0"
     locals:
@@ -9763,7 +9763,7 @@ methods:
       55: "local55"
   client!mc.a ([CII[C)I:
     owner: "WordPack"
-    name: "method435"
+    name: "getTldSlashFilterStatus"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -9774,7 +9774,7 @@ methods:
       44: "local44"
   client!mc.a ([CIZ[C[C[C)V:
     owner: "WordPack"
-    name: "method433"
+    name: "filterTld"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9801,7 +9801,7 @@ methods:
       329: "local329"
   client!mc.a ([CI[C)V:
     owner: "WordPack"
-    name: "method425"
+    name: "replaceUppercases"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -9809,7 +9809,7 @@ methods:
       1: "local1"
   client!mc.a ([CI[C[C[C)V:
     owner: "WordPack"
-    name: "method429"
+    name: "filterDomain"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -9830,7 +9830,7 @@ methods:
       136: "local136"
   client!mc.a ([CZ[CI)I:
     owner: "WordPack"
-    name: "method434"
+    name: "getTldDotFilterStatus"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -9841,7 +9841,7 @@ methods:
       47: "local47"
   client!mc.a ([C[CII)I:
     owner: "WordPack"
-    name: "method431"
+    name: "getDomainDotFilterStatus"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9852,7 +9852,7 @@ methods:
       48: "local48"
   client!mc.a ([[[B[[CLclient!kb;B)V:
     owner: "WordPack"
-    name: "method420"
+    name: "readBad"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -9865,7 +9865,7 @@ methods:
       43: "local43"
   client!mc.b (B[C)V:
     owner: "WordPack"
-    name: "method428"
+    name: "filterDomains"
     arguments:
       1: "arg0"
     locals:
@@ -9876,26 +9876,26 @@ methods:
       56: "local56"
   client!mc.b (CI)Z:
     owner: "WordPack"
-    name: "method447"
+    name: "isNumeral"
     arguments:
       0: "arg0"
     locals: {}
   client!mc.b (IC)B:
     owner: "WordPack"
-    name: "method440"
+    name: "getIndex"
     arguments:
       1: "arg0"
     locals: {}
   client!mc.b (ILclient!kb;)V:
     owner: "WordPack"
-    name: "method419"
+    name: "readFragments"
     arguments:
       1: "arg0"
     locals:
       5: "local5"
   client!mc.b (I[C)I:
     owner: "WordPack"
-    name: "method451"
+    name: "getInteger"
     arguments:
       1: "arg0"
     locals:
@@ -9904,7 +9904,7 @@ methods:
       22: "local22"
   client!mc.b ([CI)V:
     owner: "WordPack"
-    name: "method432"
+    name: "filterTlds"
     arguments:
       0: "arg0"
     locals:
@@ -9915,13 +9915,13 @@ methods:
       65: "local65"
   client!mc.c (IC)Z:
     owner: "WordPack"
-    name: "method446"
+    name: "isAlpha"
     arguments:
       1: "arg0"
     locals: {}
   client!mc.c ([CI)Z:
     owner: "WordPack"
-    name: "method450"
+    name: "isBadFragment"
     arguments:
       0: "arg0"
     locals:
@@ -9933,7 +9933,7 @@ methods:
       67: "local67"
   client!mc.d (IC)Z:
     owner: "WordPack"
-    name: "method449"
+    name: "isUppercaseAlpha"
     arguments:
       1: "arg0"
     locals: {}
@@ -9970,49 +9970,49 @@ methods:
     locals: {}
   client!ob.a ()Lclient!u;:
     owner: "LinkedList"
-    name: "method455"
+    name: "poll"
     arguments: {}
     locals:
       3: "local3"
   client!ob.a (B)Lclient!u;:
     owner: "LinkedList"
-    name: "method457"
+    name: "peekNext"
     arguments: {}
     locals:
       3: "local3"
   client!ob.a (I)Lclient!u;:
     owner: "LinkedList"
-    name: "method458"
+    name: "getPrevious"
     arguments: {}
     locals:
       8: "local8"
   client!ob.a (Lclient!u;)V:
     owner: "LinkedList"
-    name: "method453"
+    name: "pushNext"
     arguments:
       0: "arg0"
     locals: {}
   client!ob.a (Lclient!u;I)V:
     owner: "LinkedList"
-    name: "method454"
+    name: "pushPrevious"
     arguments:
       0: "arg0"
     locals: {}
   client!ob.a (Z)Lclient!u;:
     owner: "LinkedList"
-    name: "method459"
+    name: "getNext"
     arguments: {}
     locals:
       2: "local2"
   client!ob.b ()Lclient!u;:
     owner: "LinkedList"
-    name: "method456"
+    name: "peekPrevious"
     arguments: {}
     locals:
       3: "local3"
   client!ob.c ()V:
     owner: "LinkedList"
-    name: "method460"
+    name: "clear"
     arguments: {}
     locals:
       3: "local3"
@@ -10024,13 +10024,13 @@ methods:
     locals: {}
   client!pb.a ()Lclient!db;:
     owner: "Stack"
-    name: "method462"
+    name: "pop"
     arguments: {}
     locals:
       3: "local3"
   client!pb.a (Lclient!db;)V:
     owner: "Stack"
-    name: "method461"
+    name: "push"
     arguments:
       0: "arg0"
     locals: {}
@@ -10045,17 +10045,17 @@ methods:
     locals: {}
   client!qb.a ()V:
     owner: "DrawArea"
-    name: "method465"
+    name: "setPixels"
     arguments: {}
     locals: {}
   client!qb.a (B)V:
     owner: "DrawArea"
-    name: "method463"
+    name: "bind"
     arguments: {}
     locals: {}
   client!qb.a (ILjava/awt/Graphics;II)V:
     owner: "DrawArea"
-    name: "method464"
+    name: "drawImage"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10114,7 +10114,7 @@ methods:
     locals: {}
   client!r.a (BIILclient!eb;I)V:
     owner: "MapSquare"
-    name: "method500"
+    name: "mergeGroundDecorationNormals"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -10124,7 +10124,7 @@ methods:
       19: "local19"
   client!r.a (I)V:
     owner: "MapSquare"
-    name: "method467"
+    name: "reset"
     arguments: {}
     locals:
       3: "local3"
@@ -10133,7 +10133,7 @@ methods:
       88: "local88"
   client!r.a (II)V:
     owner: "MapSquare"
-    name: "method468"
+    name: "setup"
     arguments:
       1: "arg0"
     locals:
@@ -10141,7 +10141,7 @@ methods:
       10: "local10"
   client!r.a (IIB)V:
     owner: "MapSquare"
-    name: "method469"
+    name: "setBridge"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10150,7 +10150,7 @@ methods:
       12: "local12"
   client!r.a (III)V:
     owner: "MapSquare"
-    name: "method493"
+    name: "removeObject"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10159,7 +10159,7 @@ methods:
       8: "local8"
   client!r.a (IIII)V:
     owner: "MapSquare"
-    name: "method471"
+    name: "setPhysicalLevel"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10169,7 +10169,7 @@ methods:
       8: "local8"
   client!r.a (IIIIB)V:
     owner: "MapSquare"
-    name: "method484"
+    name: "setWallDecoration"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10182,7 +10182,7 @@ methods:
       39: "local39"
   client!r.a (IIIIII)Z:
     owner: "MapSquare"
-    name: "method517"
+    name: "isAreaOccluded"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10199,7 +10199,7 @@ methods:
       199: "local199"
   client!r.a (IIIIIII)V:
     owner: "MapSquare"
-    name: "method507"
+    name: "draw"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10226,7 +10226,7 @@ methods:
       422: "local422"
   client!r.a (IIIIIIII)Z:
     owner: "MapSquare"
-    name: "method512"
+    name: "withinTriangle"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10242,7 +10242,7 @@ methods:
       91: "local91"
   client!r.a (IIIIIIIII)V:
     owner: "MapSquare"
-    name: "method470"
+    name: "addOclude"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10256,7 +10256,7 @@ methods:
       3: "local3"
   client!r.a (IIIIIIIIIIIIIIIIIIII)V:
     owner: "MapSquare"
-    name: "method472"
+    name: "addTile"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10284,7 +10284,7 @@ methods:
       145: "local145"
   client!r.a (IIIIIIIIILclient!eb;BI)V:
     owner: "MapSquare"
-    name: "method476"
+    name: "addWallDecoration"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10302,7 +10302,7 @@ methods:
       48: "local48"
   client!r.a (IIIIIIIILclient!eb;Lclient!w;IZIB)Z:
     owner: "MapSquare"
-    name: "method480"
+    name: "add"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10330,7 +10330,7 @@ methods:
       182: "local182"
   client!r.a (IIIIIIZLclient!eb;Lclient!w;II)Z:
     owner: "MapSquare"
-    name: "method478"
+    name: "add"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -10349,7 +10349,7 @@ methods:
       21: "local21"
   client!r.a (IIIIILclient!eb;I)V:
     owner: "MapSquare"
-    name: "method501"
+    name: "mergeLocNormals"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10375,7 +10375,7 @@ methods:
       282: "local282"
   client!r.a (IIIIILclient!eb;Lclient!eb;IIIB)V:
     owner: "MapSquare"
-    name: "method475"
+    name: "addWall"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10392,7 +10392,7 @@ methods:
       54: "local54"
   client!r.a (IIIIIZ)V:
     owner: "MapSquare"
-    name: "method499"
+    name: "applyLighting"
     arguments: {}
     locals:
       16: "local16"
@@ -10407,7 +10407,7 @@ methods:
       170: "local170"
   client!r.a (IIILclient!eb;I)V:
     owner: "MapSquare"
-    name: "method485"
+    name: "setWallDecorationModel"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -10418,7 +10418,7 @@ methods:
       21: "local21"
   client!r.a (IIILclient!w;IIIIBLclient!eb;II)Z:
     owner: "MapSquare"
-    name: "method477"
+    name: "addLocation"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -10436,7 +10436,7 @@ methods:
       25: "local25"
   client!r.a (IILclient!eb;IIIIIILclient!w;ZIII)Z:
     owner: "MapSquare"
-    name: "method479"
+    name: "add"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -10453,7 +10453,7 @@ methods:
     locals: {}
   client!r.a (IILclient!i;IIIIZ)V:
     owner: "MapSquare"
-    name: "method510"
+    name: "drawTileOverlay"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10481,7 +10481,7 @@ methods:
       373: "local373"
   client!r.a (ILclient!eb;III)V:
     owner: "MapSquare"
-    name: "method483"
+    name: "setLocModel"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10493,7 +10493,7 @@ methods:
       38: "local38"
   client!r.a (Lclient!cb;Z)V:
     owner: "MapSquare"
-    name: "method508"
+    name: "draw"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10536,7 +10536,7 @@ methods:
       1735: "local1735"
   client!r.a (Lclient!eb;BIIIIBI)V:
     owner: "MapSquare"
-    name: "method473"
+    name: "addGroundDecoration"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -10549,7 +10549,7 @@ methods:
       3: "local3"
   client!r.a (Lclient!eb;IIII)V:
     owner: "MapSquare"
-    name: "method486"
+    name: "setGroundDecorationModel"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10560,7 +10560,7 @@ methods:
       21: "local21"
   client!r.a (Lclient!eb;Lclient!eb;IIIIILclient!eb;I)V:
     owner: "MapSquare"
-    name: "method474"
+    name: "addObject"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10578,7 +10578,7 @@ methods:
       60: "local60"
   client!r.a (Lclient!eb;Lclient!eb;IIIZ)V:
     owner: "MapSquare"
-    name: "method502"
+    name: "mergeNormals"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10603,7 +10603,7 @@ methods:
       239: "local239"
   client!r.a (Lclient!eb;Lclient!eb;IZII)V:
     owner: "MapSquare"
-    name: "method488"
+    name: "setWallModels"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10616,7 +10616,7 @@ methods:
       17: "local17"
   client!r.a (Lclient!o;IIIIIII)V:
     owner: "MapSquare"
-    name: "method509"
+    name: "drawTileUnderlay"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10662,7 +10662,7 @@ methods:
       476: "local476"
   client!r.a (Lclient!p;B)V:
     owner: "MapSquare"
-    name: "method482"
+    name: "removeLocation"
     arguments:
       0: "arg0"
     locals:
@@ -10673,12 +10673,12 @@ methods:
       41: "local41"
   client!r.a (Z)V:
     owner: "MapSquare"
-    name: "method466"
+    name: "unload"
     arguments: {}
     locals: {}
   client!r.a ([IIIBII)V:
     owner: "MapSquare"
-    name: "method504"
+    name: "init"
     arguments:
       0: "arg0"
       3: "arg1"
@@ -10697,7 +10697,7 @@ methods:
       155: "local155"
   client!r.a ([IIIIII)V:
     owner: "MapSquare"
-    name: "method503"
+    name: "drawMinimapTile"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10719,14 +10719,14 @@ methods:
       93: "local93"
   client!r.b (I)V:
     owner: "MapSquare"
-    name: "method481"
+    name: "clearFrameLocs"
     arguments: {}
     locals:
       1: "local1"
       8: "local8"
   client!r.b (III)I:
     owner: "MapSquare"
-    name: "method494"
+    name: "getWallBitset"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10735,7 +10735,7 @@ methods:
       8: "local8"
   client!r.b (IIII)V:
     owner: "MapSquare"
-    name: "method489"
+    name: "removeWall"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10744,7 +10744,7 @@ methods:
       8: "local8"
   client!r.b (ILclient!eb;III)V:
     owner: "MapSquare"
-    name: "method487"
+    name: "setWallModel"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -10755,7 +10755,7 @@ methods:
       27: "local27"
   client!r.b (Z)V:
     owner: "MapSquare"
-    name: "method513"
+    name: "updateOccluders"
     arguments: {}
     locals:
       5: "local5"
@@ -10773,7 +10773,7 @@ methods:
       354: "local354"
   client!r.c (III)I:
     owner: "MapSquare"
-    name: "method496"
+    name: "getLocationBitset"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10784,7 +10784,7 @@ methods:
       21: "local21"
   client!r.c (IIII)V:
     owner: "MapSquare"
-    name: "method490"
+    name: "removeWallDecoration"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10794,7 +10794,7 @@ methods:
       8: "local8"
   client!r.d (III)I:
     owner: "MapSquare"
-    name: "method497"
+    name: "getGroundDecorationBitset"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10803,7 +10803,7 @@ methods:
       8: "local8"
   client!r.d (IIII)V:
     owner: "MapSquare"
-    name: "method491"
+    name: "removeLocations"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10814,14 +10814,14 @@ methods:
       22: "local22"
   client!r.e (III)V:
     owner: "MapSquare"
-    name: "method506"
+    name: "setClick"
     arguments:
       1: "arg0"
       2: "arg1"
     locals: {}
   client!r.e (IIII)V:
     owner: "MapSquare"
-    name: "method492"
+    name: "removeGroundDecoration"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10831,7 +10831,7 @@ methods:
       16: "local16"
   client!r.f (III)I:
     owner: "MapSquare"
-    name: "method511"
+    name: "adjustHslLightness"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10839,7 +10839,7 @@ methods:
       3: "local3"
   client!r.f (IIII)I:
     owner: "MapSquare"
-    name: "method495"
+    name: "getWallDecorationBitset"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10848,7 +10848,7 @@ methods:
       19: "local19"
   client!r.g (III)Z:
     owner: "MapSquare"
-    name: "method514"
+    name: "isTileOccluded"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10859,7 +10859,7 @@ methods:
       27: "local27"
   client!r.g (IIII)I:
     owner: "MapSquare"
-    name: "method498"
+    name: "getInfo"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10870,7 +10870,7 @@ methods:
       56: "local56"
   client!r.h (III)Z:
     owner: "MapSquare"
-    name: "method518"
+    name: "isOccluded"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10885,7 +10885,7 @@ methods:
       58: "local58"
   client!r.h (IIII)Z:
     owner: "MapSquare"
-    name: "method505"
+    name: "isPointVisible"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10899,7 +10899,7 @@ methods:
       76: "local76"
   client!r.i (IIII)Z:
     owner: "MapSquare"
-    name: "method515"
+    name: "isWallOccluded"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10914,7 +10914,7 @@ methods:
       38: "local38"
   client!r.j (IIII)Z:
     owner: "MapSquare"
-    name: "method516"
+    name: "isOccluded"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10953,7 +10953,7 @@ methods:
       224: "local224"
   client!rb.a ([BI[BII)I:
     owner: "BZip2InputStream"
-    name: "method519"
+    name: "read"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -11056,13 +11056,13 @@ methods:
     locals: {}
   client!s.a ()V:
     owner: "Cache"
-    name: "method529"
+    name: "clear"
     arguments: {}
     locals:
       3: "local3"
   client!s.a (IJLclient!db;)V:
     owner: "Cache"
-    name: "method528"
+    name: "put"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -11070,7 +11070,7 @@ methods:
       8: "local8"
   client!s.a (J)Lclient!db;:
     owner: "Cache"
-    name: "method527"
+    name: "get"
     arguments:
       0: "arg0"
     locals:
@@ -11230,7 +11230,7 @@ methods:
       40: "local40"
   client!t.a (J)Lclient!u;:
     owner: "Hashtable"
-    name: "method530"
+    name: "get"
     arguments:
       0: "arg0"
     locals:
@@ -11238,7 +11238,7 @@ methods:
       14: "local14"
   client!t.a (JILclient!u;)V:
     owner: "Hashtable"
-    name: "method531"
+    name: "put"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -11254,12 +11254,12 @@ methods:
       13: "local13"
   client!tb.a ()I:
     owner: "IsaacRandom"
-    name: "method532"
+    name: "nextInt"
     arguments: {}
     locals: {}
   client!tb.b ()V:
     owner: "IsaacRandom"
-    name: "method533"
+    name: "isaac"
     arguments: {}
     locals:
       15: "local15"
@@ -11267,7 +11267,7 @@ methods:
       101: "local101"
   client!tb.c ()V:
     owner: "IsaacRandom"
-    name: "method534"
+    name: "init"
     arguments: {}
     locals:
       4: "local4"
@@ -11281,7 +11281,7 @@ methods:
       19: "local19"
   client!u.a ()V:
     owner: "Node"
-    name: "method567"
+    name: "unlink"
     arguments: {}
     locals: {}
   client!ub.<init> ([BZ)V:
@@ -11294,7 +11294,7 @@ methods:
       17: "local17"
   client!ub.a (Ljava/lang/String;[BB)[B:
     owner: "FileArchive"
-    name: "method536"
+    name: "read"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -11306,7 +11306,7 @@ methods:
       67: "local67"
   client!ub.a (Z[B)V:
     owner: "FileArchive"
-    name: "method535"
+    name: "parse"
     arguments:
       1: "arg0"
     locals:
@@ -11318,13 +11318,13 @@ methods:
       84: "local84"
   client!vb.a (II)Ljava/lang/String;:
     owner: "StringUtils"
-    name: "method541"
+    name: "fromIPv4"
     arguments:
       1: "arg0"
     locals: {}
   client!vb.a (ILjava/lang/String;)J:
     owner: "StringUtils"
-    name: "method540"
+    name: "genHash"
     arguments:
       1: "arg0"
     locals:
@@ -11333,7 +11333,7 @@ methods:
       12: "local12"
   client!vb.a (JZ)Ljava/lang/String;:
     owner: "StringUtils"
-    name: "method539"
+    name: "fromBase37"
     arguments:
       0: "arg0"
     locals:
@@ -11341,7 +11341,7 @@ methods:
       27: "local27"
   client!vb.a (Ljava/lang/String;)J:
     owner: "StringUtils"
-    name: "method538"
+    name: "toBase37"
     arguments:
       0: "arg0"
     locals:
@@ -11350,7 +11350,7 @@ methods:
       11: "local11"
   client!vb.a (Ljava/lang/String;I)Ljava/lang/String;:
     owner: "StringUtils"
-    name: "method543"
+    name: "toSentenceCase"
     arguments:
       0: "arg0"
     locals:
@@ -11362,7 +11362,7 @@ methods:
       22: "local22"
   client!vb.b (ILjava/lang/String;)Ljava/lang/String;:
     owner: "StringUtils"
-    name: "method542"
+    name: "formatName"
     arguments:
       1: "arg0"
     locals:
@@ -11370,7 +11370,7 @@ methods:
       13: "local13"
   client!vb.c (ILjava/lang/String;)Ljava/lang/String;:
     owner: "StringUtils"
-    name: "method544"
+    name: "censor"
     arguments:
       1: "arg0"
     locals:
@@ -11378,12 +11378,12 @@ methods:
       10: "local10"
   client!w.a (Z)Lclient!eb;:
     owner: "Entity"
-    name: "method568"
+    name: "getDrawMethod"
     arguments: {}
     locals: {}
   client!wb.a (Lclient!kb;II)Ljava/lang/String;:
     owner: "TextEncoder"
-    name: "method545"
+    name: "read"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -11397,7 +11397,7 @@ methods:
       108: "local108"
   client!wb.a (Lclient!kb;ZLjava/lang/String;)V:
     owner: "TextEncoder"
-    name: "method546"
+    name: "write"
     arguments:
       0: "arg0"
       2: "arg1"
@@ -11409,7 +11409,7 @@ methods:
       27: "local27"
   client!x.a (ZIB)V:
     owner: "PathingEntity"
-    name: "method570"
+    name: "walk"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -11419,7 +11419,7 @@ methods:
       83: "local83"
   client!x.a (ZZII)V:
     owner: "PathingEntity"
-    name: "method569"
+    name: "move"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -11430,31 +11430,31 @@ methods:
       54: "local54"
   client!x.b (Z)Z:
     owner: "PathingEntity"
-    name: "method571"
+    name: "isValid"
     arguments: {}
     locals: {}
   client!xb.a (I)V:
     owner: "SoundEnvelope"
-    name: "method553"
+    name: "reset"
     arguments:
       0: "arg0"
     locals: {}
   client!xb.a (ZI)I:
     owner: "SoundEnvelope"
-    name: "method554"
+    name: "evaluate"
     arguments:
       1: "arg0"
     locals: {}
   client!xb.a (ZLclient!kb;)V:
     owner: "SoundEnvelope"
-    name: "method552"
+    name: "readShape"
     arguments:
       1: "arg0"
     locals:
       38: "local38"
   client!y.a (Z)Lclient!eb;:
     owner: "NpcEntity"
-    name: "method568"
+    name: "getDrawMethod"
     arguments: {}
     locals:
       20: "local20"
@@ -11464,12 +11464,12 @@ methods:
       123: "local123"
   client!y.b (Z)Z:
     owner: "NpcEntity"
-    name: "method571"
+    name: "isValid"
     arguments: {}
     locals: {}
   client!y.c (Z)Lclient!eb;:
     owner: "NpcEntity"
-    name: "method560"
+    name: "getModel"
     arguments: {}
     locals:
       14: "local14"
@@ -11482,7 +11482,7 @@ methods:
     locals: {}
   client!yb.a (B)I:
     owner: "SoundTrack"
-    name: "method564"
+    name: "trim"
     arguments: {}
     locals:
       3: "local3"
@@ -11490,7 +11490,7 @@ methods:
       67: "local67"
   client!yb.a (BII)Lclient!kb;:
     owner: "SoundTrack"
-    name: "method562"
+    name: "generate"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -11498,7 +11498,7 @@ methods:
       12: "local12"
   client!yb.a (I)I:
     owner: "SoundTrack"
-    name: "method566"
+    name: "generate"
     arguments:
       0: "arg0"
     locals:
@@ -11517,21 +11517,21 @@ methods:
       205: "local205"
   client!yb.a (Lclient!kb;I)V:
     owner: "SoundTrack"
-    name: "method561"
+    name: "load"
     arguments:
       0: "arg0"
     locals:
       16: "local16"
   client!yb.a (ZI)Lclient!kb;:
     owner: "SoundTrack"
-    name: "method565"
+    name: "toWav"
     arguments:
       1: "arg0"
     locals:
       3: "local3"
   client!yb.a (ZLclient!kb;)V:
     owner: "SoundTrack"
-    name: "method563"
+    name: "read"
     arguments:
       1: "arg0"
     locals:
@@ -11539,7 +11539,7 @@ methods:
       6: "local6"
   client!z.a (I)Lclient!eb;:
     owner: "PlayerEntity"
-    name: "method574"
+    name: "getHeadModel"
     arguments: {}
     locals:
       9: "local9"
@@ -11551,7 +11551,7 @@ methods:
       69: "local69"
   client!z.a (Z)Lclient!eb;:
     owner: "PlayerEntity"
-    name: "method568"
+    name: "getDrawMethod"
     arguments: {}
     locals:
       10: "local10"
@@ -11562,7 +11562,7 @@ methods:
       211: "local211"
   client!z.a (ZLclient!kb;)V:
     owner: "PlayerEntity"
-    name: "method572"
+    name: "decode"
     arguments:
       1: "arg0"
     locals:
@@ -11572,12 +11572,12 @@ methods:
       243: "local243"
   client!z.b (Z)Z:
     owner: "PlayerEntity"
-    name: "method571"
+    name: "isValid"
     arguments: {}
     locals: {}
   client!z.c (Z)Lclient!eb;:
     owner: "PlayerEntity"
-    name: "method573"
+    name: "getModel"
     arguments: {}
     locals:
       4: "local4"
@@ -11596,14 +11596,14 @@ methods:
       249: "local249"
   client!zb.a ()V:
     owner: "SoundTone"
-    name: "method575"
+    name: "init"
     arguments: {}
     locals:
       6: "local6"
       31: "local31"
   client!zb.a (II)[I:
     owner: "SoundTone"
-    name: "method576"
+    name: "generate"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -11627,7 +11627,7 @@ methods:
       385: "local385"
   client!zb.a (IIII)I:
     owner: "SoundTone"
-    name: "method577"
+    name: "generate"
     arguments:
       1: "arg0"
       2: "arg1"
@@ -11635,7 +11635,7 @@ methods:
     locals: {}
   client!zb.a (ZLclient!kb;)V:
     owner: "SoundTone"
-    name: "method578"
+    name: "read"
     arguments:
       1: "arg0"
     locals:

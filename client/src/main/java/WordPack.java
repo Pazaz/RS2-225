@@ -53,57 +53,57 @@ public final class WordPack {
 	private static final String[] aStringArray11 = new String[] { "cook", "cook's", "cooks", "seeks", "sheet" };
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(Lclient!ub;)V")
-	public static void method414(@OriginalArg(0) FileArchive arg0) {
-		@Pc(11) Buffer local11 = new Buffer(363, arg0.method536("fragmentsenc.txt", null));
-		@Pc(21) Buffer local21 = new Buffer(363, arg0.method536("badenc.txt", null));
-		@Pc(31) Buffer local31 = new Buffer(363, arg0.method536("domainenc.txt", null));
-		@Pc(41) Buffer local41 = new Buffer(363, arg0.method536("tldlist.txt", null));
-		method415(local11, local21, local31, local41);
+	public static void decode(@OriginalArg(0) FileArchive arg0) {
+		@Pc(11) Buffer local11 = new Buffer(363, arg0.read("fragmentsenc.txt", null));
+		@Pc(21) Buffer local21 = new Buffer(363, arg0.read("badenc.txt", null));
+		@Pc(31) Buffer local31 = new Buffer(363, arg0.read("domainenc.txt", null));
+		@Pc(41) Buffer local41 = new Buffer(363, arg0.read("tldlist.txt", null));
+		decode(local11, local21, local31, local41);
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(Lclient!kb;Lclient!kb;Lclient!kb;Lclient!kb;)V")
-	private static void method415(@OriginalArg(0) Buffer arg0, @OriginalArg(1) Buffer arg1, @OriginalArg(2) Buffer arg2, @OriginalArg(3) Buffer arg3) {
-		method417(arg1);
-		method418(arg2);
-		method419(arg0);
-		method416(arg3);
+	private static void decode(@OriginalArg(0) Buffer arg0, @OriginalArg(1) Buffer arg1, @OriginalArg(2) Buffer arg2, @OriginalArg(3) Buffer arg3) {
+		readBad(arg1);
+		readDomain(arg2);
+		readFragments(arg0);
+		readTld(arg3);
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(ZLclient!kb;)V")
-	private static void method416(@OriginalArg(1) Buffer arg0) {
-		@Pc(4) int local4 = arg0.method396();
+	private static void readTld(@OriginalArg(1) Buffer arg0) {
+		@Pc(4) int local4 = arg0.g4();
 		aCharArrayArray3 = new char[local4][];
 		anIntArray196 = new int[local4];
 		for (@Pc(15) int local15 = 0; local15 < local4; local15++) {
-			anIntArray196[local15] = arg0.method391();
-			@Pc(26) char[] local26 = new char[arg0.method391()];
+			anIntArray196[local15] = arg0.g1();
+			@Pc(26) char[] local26 = new char[arg0.g1()];
 			for (@Pc(28) int local28 = 0; local28 < local26.length; local28++) {
-				local26[local28] = (char) arg0.method391();
+				local26[local28] = (char) arg0.g1();
 			}
 			aCharArrayArray3[local15] = local26;
 		}
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(ILclient!kb;)V")
-	private static void method417(@OriginalArg(1) Buffer arg0) {
-		@Pc(2) int local2 = arg0.method396();
+	private static void readBad(@OriginalArg(1) Buffer arg0) {
+		@Pc(2) int local2 = arg0.g4();
 		aCharArrayArray1 = new char[local2][];
 		aByteArrayArrayArray8 = new byte[local2][][];
-		method420(aByteArrayArrayArray8, aCharArrayArray1, arg0);
+		readBad(aByteArrayArrayArray8, aCharArrayArray1, arg0);
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(Lclient!kb;I)V")
-	private static void method418(@OriginalArg(0) Buffer arg0) {
-		@Pc(2) int local2 = arg0.method396();
+	private static void readDomain(@OriginalArg(0) Buffer arg0) {
+		@Pc(2) int local2 = arg0.g4();
 		aCharArrayArray2 = new char[local2][];
-		method421(arg0, aCharArrayArray2);
+		readDomain(arg0, aCharArrayArray2);
 	}
 
 	@OriginalMember(owner = "client!mc", name = "b", descriptor = "(ILclient!kb;)V")
-	private static void method419(@OriginalArg(1) Buffer arg0) {
-		anIntArray195 = new int[arg0.method396()];
+	private static void readFragments(@OriginalArg(1) Buffer arg0) {
+		anIntArray195 = new int[arg0.g4()];
 		for (@Pc(5) int local5 = 0; local5 < anIntArray195.length; local5++) {
-			anIntArray195[local5] = arg0.method393();
+			anIntArray195[local5] = arg0.g2();
 		}
 		if (anInt639 != 24882) {
 			aBoolean136 = !aBoolean136;
@@ -111,17 +111,17 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "([[[B[[CLclient!kb;B)V")
-	private static void method420(@OriginalArg(0) byte[][][] arg0, @OriginalArg(1) char[][] arg1, @OriginalArg(2) Buffer arg2) {
+	private static void readBad(@OriginalArg(0) byte[][][] arg0, @OriginalArg(1) char[][] arg1, @OriginalArg(2) Buffer arg2) {
 		for (@Pc(11) int local11 = 0; local11 < arg1.length; local11++) {
-			@Pc(17) char[] local17 = new char[arg2.method391()];
+			@Pc(17) char[] local17 = new char[arg2.g1()];
 			for (@Pc(19) int local19 = 0; local19 < local17.length; local19++) {
-				local17[local19] = (char) arg2.method391();
+				local17[local19] = (char) arg2.g1();
 			}
 			arg1[local11] = local17;
-			@Pc(41) byte[][] local41 = new byte[arg2.method391()][2];
+			@Pc(41) byte[][] local41 = new byte[arg2.g1()][2];
 			for (@Pc(43) int local43 = 0; local43 < local41.length; local43++) {
-				local41[local43][0] = (byte) arg2.method391();
-				local41[local43][1] = (byte) arg2.method391();
+				local41[local43][0] = (byte) arg2.g1();
+				local41[local43][1] = (byte) arg2.g1();
 			}
 			if (local41.length > 0) {
 				arg0[local11] = local41;
@@ -130,21 +130,21 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(ILclient!kb;[[C)V")
-	private static void method421(@OriginalArg(1) Buffer arg0, @OriginalArg(2) char[][] arg1) {
+	private static void readDomain(@OriginalArg(1) Buffer arg0, @OriginalArg(2) char[][] arg1) {
 		for (@Pc(14) int local14 = 0; local14 < arg1.length; local14++) {
-			@Pc(20) char[] local20 = new char[arg0.method391()];
+			@Pc(20) char[] local20 = new char[arg0.g1()];
 			for (@Pc(22) int local22 = 0; local22 < local20.length; local22++) {
-				local20[local22] = (char) arg0.method391();
+				local20[local22] = (char) arg0.g1();
 			}
 			arg1[local14] = local20;
 		}
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "([CI)V")
-	private static void method422(@OriginalArg(0) char[] arg0) {
+	private static void trimWhitespaces(@OriginalArg(0) char[] arg0) {
 		@Pc(3) int local3 = 0;
 		for (@Pc(5) int local5 = 0; local5 < arg0.length; local5++) {
-			if (method423(arg0[local5])) {
+			if (isValid(arg0[local5])) {
 				arg0[local3] = arg0[local5];
 			} else {
 				arg0[local3] = ' ';
@@ -159,7 +159,7 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(IC)Z")
-	private static boolean method423(@OriginalArg(1) char arg0) {
+	private static boolean isValid(@OriginalArg(1) char arg0) {
 		if (anInt642 != 16180) {
 			throw new NullPointerException();
 		}
@@ -167,17 +167,17 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(Ljava/lang/String;I)Ljava/lang/String;")
-	public static String method424(@OriginalArg(0) String arg0) {
+	public static String getFiltered(@OriginalArg(0) String arg0) {
 		@Pc(3) long local3 = System.currentTimeMillis();
 		@Pc(6) char[] local6 = arg0.toCharArray();
-		method422(local6);
+		trimWhitespaces(local6);
 		@Pc(15) String local15 = (new String(local6)).trim();
 		@Pc(19) char[] local19 = local15.toLowerCase().toCharArray();
 		@Pc(22) String local22 = local15.toLowerCase();
-		method432(local19);
-		method427(local19);
-		method428(local19);
-		method441(local19);
+		filterTlds(local19);
+		filterBad(local19);
+		filterDomains(local19);
+		filterNumFragments(local19);
 		for (@Pc(36) int local36 = 0; local36 < aStringArray11.length; local36++) {
 			@Pc(45) int local45 = -1;
 			while ((local45 = local22.indexOf(aStringArray11[local36], local45 + 1)) != -1) {
@@ -187,62 +187,62 @@ public final class WordPack {
 				}
 			}
 		}
-		method425(local19, local15.toCharArray());
-		method426(local19);
+		replaceUppercases(local19, local15.toCharArray());
+		formatUppercases(local19);
 		@Pc(105) long local105 = System.currentTimeMillis();
 		return (new String(local19)).trim();
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "([CI[C)V")
-	private static void method425(@OriginalArg(0) char[] arg0, @OriginalArg(2) char[] arg1) {
+	private static void replaceUppercases(@OriginalArg(0) char[] arg0, @OriginalArg(2) char[] arg1) {
 		for (@Pc(1) int local1 = 0; local1 < arg1.length; local1++) {
-			if (arg0[local1] != '*' && method449(arg1[local1])) {
+			if (arg0[local1] != '*' && isUppercaseAlpha(arg1[local1])) {
 				arg0[local1] = arg1[local1];
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(B[C)V")
-	private static void method426(@OriginalArg(1) char[] arg0) {
+	private static void formatUppercases(@OriginalArg(1) char[] arg0) {
 		@Pc(3) boolean local3 = true;
 		for (@Pc(13) int local13 = 0; local13 < arg0.length; local13++) {
 			@Pc(19) char local19 = arg0[local13];
-			if (!method446(local19)) {
+			if (!isAlpha(local19)) {
 				local3 = true;
 			} else if (local3) {
-				if (method448(local19)) {
+				if (isLowercaseAlpha(local19)) {
 					local3 = false;
 				}
-			} else if (method449(local19)) {
+			} else if (isUppercaseAlpha(local19)) {
 				arg0[local13] = (char) (local19 + 'a' - 65);
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(Z[C)V")
-	private static void method427(@OriginalArg(1) char[] arg0) {
+	private static void filterBad(@OriginalArg(1) char[] arg0) {
 		for (@Pc(3) int local3 = 0; local3 < 2; local3++) {
 			for (@Pc(10) int local10 = aCharArrayArray1.length - 1; local10 >= 0; local10--) {
-				method436(aByteArrayArrayArray8[local10], arg0, aCharArrayArray1[local10]);
+				filterBad(aByteArrayArrayArray8[local10], arg0, aCharArrayArray1[local10]);
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!mc", name = "b", descriptor = "(B[C)V")
-	private static void method428(@OriginalArg(1) char[] arg0) {
+	private static void filterDomains(@OriginalArg(1) char[] arg0) {
 		@Pc(3) char[] local3 = (char[]) arg0.clone();
 		@Pc(18) char[] local18 = new char[] { '(', 'a', ')' };
-		method436(null, local3, local18);
+		filterBad(null, local3, local18);
 		@Pc(27) char[] local27 = (char[]) arg0.clone();
 		@Pc(42) char[] local42 = new char[] { 'd', 'o', 't' };
-		method436(null, local27, local42);
+		filterBad(null, local27, local42);
 		for (@Pc(56) int local56 = aCharArrayArray2.length - 1; local56 >= 0; local56--) {
-			method429(local27, local3, aCharArrayArray2[local56], arg0);
+			filterDomain(local27, local3, aCharArrayArray2[local56], arg0);
 		}
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "([CI[C[C[C)V")
-	private static void method429(@OriginalArg(0) char[] arg0, @OriginalArg(2) char[] arg1, @OriginalArg(3) char[] arg2, @OriginalArg(4) char[] arg3) {
+	private static void filterDomain(@OriginalArg(0) char[] arg0, @OriginalArg(2) char[] arg1, @OriginalArg(3) char[] arg2, @OriginalArg(4) char[] arg3) {
 		if (arg2.length > arg3.length) {
 			return;
 		}
@@ -262,7 +262,7 @@ public final class WordPack {
 						local33 = arg3[local19 + 1];
 					}
 					@Pc(58) int local58;
-					if (local21 < arg2.length && (local58 = method438(local33, arg2[local21], local31)) > 0) {
+					if (local21 < arg2.length && (local58 = getEmulatedDomainCharLen(local33, arg2[local21], local31)) > 0) {
 						local19 += local58;
 						local21++;
 					} else {
@@ -270,13 +270,13 @@ public final class WordPack {
 							break label55;
 						}
 						@Pc(79) int local79;
-						if ((local79 = method438(local33, arg2[local21 - 1], local31)) > 0) {
+						if ((local79 = getEmulatedDomainCharLen(local33, arg2[local21 - 1], local31)) > 0) {
 							local19 += local79;
 							if (local21 == 1) {
 								local23++;
 							}
 						} else {
-							if (local21 >= arg2.length || !method444(local31)) {
+							if (local21 >= arg2.length || !isSymbol(local31)) {
 								break label55;
 							}
 							local19++;
@@ -286,8 +286,8 @@ public final class WordPack {
 			}
 			if (local21 >= arg2.length) {
 				@Pc(110) boolean local110 = false;
-				@Pc(116) int local116 = method430(local15, arg3, arg1);
-				@Pc(124) int local124 = method431(arg0, arg3, local19 - 1);
+				@Pc(116) int local116 = getDomainAtFilterStatus(local15, arg3, arg1);
+				@Pc(124) int local124 = getDomainDotFilterStatus(arg0, arg3, local19 - 1);
 				if (local116 > 2 || local124 > 2) {
 					local110 = true;
 				}
@@ -301,11 +301,11 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(I[CB[C)I")
-	private static int method430(@OriginalArg(0) int arg0, @OriginalArg(1) char[] arg1, @OriginalArg(3) char[] arg2) {
+	private static int getDomainAtFilterStatus(@OriginalArg(0) int arg0, @OriginalArg(1) char[] arg1, @OriginalArg(3) char[] arg2) {
 		if (arg0 == 0) {
 			return 2;
 		}
-		for (@Pc(9) int local9 = arg0 - 1; local9 >= 0 && method444(arg1[local9]); local9--) {
+		for (@Pc(9) int local9 = arg0 - 1; local9 >= 0 && isSymbol(arg1[local9]); local9--) {
 			if (arg1[local9] == '@') {
 				return 3;
 			}
@@ -314,14 +314,14 @@ public final class WordPack {
 			return anInt640;
 		}
 		@Pc(38) int local38 = 0;
-		for (@Pc(42) int local42 = arg0 - 1; local42 >= 0 && method444(arg2[local42]); local42--) {
+		for (@Pc(42) int local42 = arg0 - 1; local42 >= 0 && isSymbol(arg2[local42]); local42--) {
 			if (arg2[local42] == '*') {
 				local38++;
 			}
 		}
 		if (local38 >= 3) {
 			return 4;
-		} else if (method444(arg1[arg0 - 1])) {
+		} else if (isSymbol(arg1[arg0 - 1])) {
 			return 1;
 		} else {
 			return 0;
@@ -329,13 +329,13 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "([C[CII)I")
-	private static int method431(@OriginalArg(0) char[] arg0, @OriginalArg(1) char[] arg1, @OriginalArg(2) int arg2) {
+	private static int getDomainDotFilterStatus(@OriginalArg(0) char[] arg0, @OriginalArg(1) char[] arg1, @OriginalArg(2) int arg2) {
 		if (arg2 + 1 == arg1.length) {
 			return 2;
 		}
 		@Pc(17) int local17 = arg2 + 1;
 		while (true) {
-			if (local17 < arg1.length && method444(arg1[local17])) {
+			if (local17 < arg1.length && isSymbol(arg1[local17])) {
 				if (arg1[local17] != '.' && arg1[local17] != ',') {
 					local17++;
 					continue;
@@ -343,7 +343,7 @@ public final class WordPack {
 				return 3;
 			}
 			@Pc(44) int local44 = 0;
-			for (@Pc(48) int local48 = arg2 + 1; local48 < arg1.length && method444(arg0[local48]); local48++) {
+			for (@Pc(48) int local48 = arg2 + 1; local48 < arg1.length && isSymbol(arg0[local48]); local48++) {
 				if (arg0[local48] == '*') {
 					local44++;
 				}
@@ -351,7 +351,7 @@ public final class WordPack {
 			if (local44 >= 3) {
 				return 4;
 			}
-			if (method444(arg1[arg2 + 1])) {
+			if (isSymbol(arg1[arg2 + 1])) {
 				return 1;
 			}
 			return 0;
@@ -359,20 +359,20 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "b", descriptor = "([CI)V")
-	private static void method432(@OriginalArg(0) char[] arg0) {
+	private static void filterTlds(@OriginalArg(0) char[] arg0) {
 		@Pc(3) char[] local3 = (char[]) arg0.clone();
 		@Pc(18) char[] local18 = new char[] { 'd', 'o', 't' };
-		method436(null, local3, local18);
+		filterBad(null, local3, local18);
 		@Pc(27) char[] local27 = (char[]) arg0.clone();
 		@Pc(50) char[] local50 = new char[] { 's', 'l', 'a', 's', 'h' };
-		method436(null, local27, local50);
+		filterBad(null, local27, local50);
 		for (@Pc(65) int local65 = 0; local65 < aCharArrayArray3.length; local65++) {
-			method433(local27, anIntArray196[local65], arg0, aCharArrayArray3[local65], local3);
+			filterTld(local27, anIntArray196[local65], arg0, aCharArrayArray3[local65], local3);
 		}
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "([CIZ[C[C[C)V")
-	private static void method433(@OriginalArg(0) char[] arg0, @OriginalArg(1) int arg1, @OriginalArg(3) char[] arg2, @OriginalArg(4) char[] arg3, @OriginalArg(5) char[] arg4) {
+	private static void filterTld(@OriginalArg(0) char[] arg0, @OriginalArg(1) int arg1, @OriginalArg(3) char[] arg2, @OriginalArg(4) char[] arg3, @OriginalArg(5) char[] arg4) {
 		if (arg3.length > arg2.length) {
 			return;
 		}
@@ -392,7 +392,7 @@ public final class WordPack {
 						local38 = arg2[local24 + 1];
 					}
 					@Pc(63) int local63;
-					if (local26 < arg3.length && (local63 = method438(local38, arg3[local26], local36)) > 0) {
+					if (local26 < arg3.length && (local63 = getEmulatedDomainCharLen(local38, arg3[local26], local36)) > 0) {
 						local24 += local63;
 						local26++;
 					} else {
@@ -400,13 +400,13 @@ public final class WordPack {
 							break label117;
 						}
 						@Pc(84) int local84;
-						if ((local84 = method438(local38, arg3[local26 - 1], local36)) > 0) {
+						if ((local84 = getEmulatedDomainCharLen(local38, arg3[local26 - 1], local36)) > 0) {
 							local24 += local84;
 							if (local26 == 1) {
 								local28++;
 							}
 						} else {
-							if (local26 >= arg3.length || !method444(local36)) {
+							if (local26 >= arg3.length || !isSymbol(local36)) {
 								break label117;
 							}
 							local24++;
@@ -416,8 +416,8 @@ public final class WordPack {
 			}
 			if (local26 >= arg3.length) {
 				@Pc(115) boolean local115 = false;
-				@Pc(121) int local121 = method434(arg2, arg4, local20);
-				@Pc(129) int local129 = method435(arg0, local24 - 1, arg2);
+				@Pc(121) int local121 = getTldDotFilterStatus(arg2, arg4, local20);
+				@Pc(129) int local129 = getTldSlashFilterStatus(arg0, local24 - 1, arg2);
 				if (arg1 == 1 && local121 > 0 && local129 > 0) {
 					local115 = true;
 				}
@@ -456,11 +456,11 @@ public final class WordPack {
 						local191 = false;
 						for (local195 = local179 - 1; local195 >= 0; local195--) {
 							if (local191) {
-								if (method444(arg2[local195])) {
+								if (isSymbol(arg2[local195])) {
 									break;
 								}
 								local179 = local195;
-							} else if (!method444(arg2[local195])) {
+							} else if (!isSymbol(arg2[local195])) {
 								local191 = true;
 								local179 = local195;
 							}
@@ -484,11 +484,11 @@ public final class WordPack {
 						local191 = false;
 						for (local195 = local183 + 1; local195 < arg2.length; local195++) {
 							if (local191) {
-								if (method444(arg2[local195])) {
+								if (isSymbol(arg2[local195])) {
 									break;
 								}
 								local183 = local195;
-							} else if (!method444(arg2[local195])) {
+							} else if (!isSymbol(arg2[local195])) {
 								local191 = true;
 								local183 = local195;
 							}
@@ -503,13 +503,13 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "([CZ[CI)I")
-	private static int method434(@OriginalArg(0) char[] arg0, @OriginalArg(2) char[] arg1, @OriginalArg(3) int arg2) {
+	private static int getTldDotFilterStatus(@OriginalArg(0) char[] arg0, @OriginalArg(2) char[] arg1, @OriginalArg(3) int arg2) {
 		if (arg2 == 0) {
 			return 2;
 		}
 		@Pc(9) int local9 = arg2 - 1;
 		while (true) {
-			if (local9 >= 0 && method444(arg0[local9])) {
+			if (local9 >= 0 && isSymbol(arg0[local9])) {
 				if (arg0[local9] != ',' && arg0[local9] != '.') {
 					local9--;
 					continue;
@@ -517,7 +517,7 @@ public final class WordPack {
 				return 3;
 			}
 			@Pc(34) int local34 = 0;
-			for (@Pc(47) int local47 = arg2 - 1; local47 >= 0 && method444(arg1[local47]); local47--) {
+			for (@Pc(47) int local47 = arg2 - 1; local47 >= 0 && isSymbol(arg1[local47]); local47--) {
 				if (arg1[local47] == '*') {
 					local34++;
 				}
@@ -525,7 +525,7 @@ public final class WordPack {
 			if (local34 >= 3) {
 				return 4;
 			}
-			if (method444(arg0[arg2 - 1])) {
+			if (isSymbol(arg0[arg2 - 1])) {
 				return 1;
 			}
 			return 0;
@@ -533,13 +533,13 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "([CII[C)I")
-	private static int method435(@OriginalArg(0) char[] arg0, @OriginalArg(2) int arg1, @OriginalArg(3) char[] arg2) {
+	private static int getTldSlashFilterStatus(@OriginalArg(0) char[] arg0, @OriginalArg(2) int arg1, @OriginalArg(3) char[] arg2) {
 		if (arg1 + 1 == arg2.length) {
 			return 2;
 		}
 		@Pc(13) int local13 = arg1 + 1;
 		while (true) {
-			if (local13 < arg2.length && method444(arg2[local13])) {
+			if (local13 < arg2.length && isSymbol(arg2[local13])) {
 				if (arg2[local13] != '\\' && arg2[local13] != '/') {
 					local13++;
 					continue;
@@ -547,7 +547,7 @@ public final class WordPack {
 				return 3;
 			}
 			@Pc(40) int local40 = 0;
-			for (@Pc(44) int local44 = arg1 + 1; local44 < arg2.length && method444(arg0[local44]); local44++) {
+			for (@Pc(44) int local44 = arg1 + 1; local44 < arg2.length && isSymbol(arg0[local44]); local44++) {
 				if (arg0[local44] == '*') {
 					local40++;
 				}
@@ -555,7 +555,7 @@ public final class WordPack {
 			if (local40 >= 5) {
 				return 4;
 			}
-			if (method444(arg2[arg1 + 1])) {
+			if (isSymbol(arg2[arg1 + 1])) {
 				return 1;
 			}
 			return 0;
@@ -563,7 +563,7 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(B[[B[C[C)V")
-	private static void method436(@OriginalArg(1) byte[][] arg0, @OriginalArg(2) char[] arg1, @OriginalArg(3) char[] arg2) {
+	private static void filterBad(@OriginalArg(1) byte[][] arg0, @OriginalArg(2) char[] arg1, @OriginalArg(3) char[] arg2) {
 		if (arg2.length > arg1.length) {
 			return;
 		}
@@ -589,11 +589,11 @@ public final class WordPack {
 						var13 = arg1[local20 + 1];
 					}
 					@Pc(67) int local67;
-					if (local22 < arg2.length && (local67 = method439(var13, arg2[local22], var12)) > 0) {
-						if (local67 == 1 && method447(var12)) {
+					if (local22 < arg2.length && (local67 = getEmulatedBadCharLen(var13, arg2[local22], var12)) > 0) {
+						if (local67 == 1 && isNumeral(var12)) {
 							local30 = true;
 						}
-						if (local67 == 2 && (method447(var12) || method447(var13))) {
+						if (local67 == 2 && (isNumeral(var12) || isNumeral(var13))) {
 							local30 = true;
 						}
 						local20 += local67;
@@ -603,19 +603,19 @@ public final class WordPack {
 							break label156;
 						}
 						@Pc(110) int local110;
-						if ((local110 = method439(var13, arg2[local22 - 1], var12)) > 0) {
+						if ((local110 = getEmulatedBadCharLen(var13, arg2[local22 - 1], var12)) > 0) {
 							local20 += local110;
 							if (local22 == 1) {
 								local26++;
 							}
 						} else {
-							if (local22 >= arg2.length || !method445(var12)) {
+							if (local22 >= arg2.length || !isNotLowercaseAlpha(var12)) {
 								break label156;
 							}
-							if (method444(var12) && var12 != '\'') {
+							if (isSymbol(var12) && var12 != '\'') {
 								local28 = true;
 							}
-							if (method447(var12)) {
+							if (isNumeral(var12)) {
 								local32 = true;
 							}
 							local20++;
@@ -633,10 +633,10 @@ public final class WordPack {
 				if (local28) {
 					@Pc(221) boolean local221 = false;
 					@Pc(223) boolean local223 = false;
-					if (local16 - 1 < 0 || method444(arg1[local16 - 1]) && arg1[local16 - 1] != '\'') {
+					if (local16 - 1 < 0 || isSymbol(arg1[local16 - 1]) && arg1[local16 - 1] != '\'') {
 						local221 = true;
 					}
-					if (local20 >= arg1.length || method444(arg1[local20]) && arg1[local20] != '\'') {
+					if (local20 >= arg1.length || isSymbol(arg1[local20]) && arg1[local20] != '\'') {
 						local223 = true;
 					}
 					if (!local221 || !local223) {
@@ -646,20 +646,20 @@ public final class WordPack {
 							local271 = local16;
 						}
 						while (!local267 && local271 < local20) {
-							if (local271 >= 0 && (!method444(arg1[local271]) || arg1[local271] == '\'')) {
+							if (local271 >= 0 && (!isSymbol(arg1[local271]) || arg1[local271] == '\'')) {
 								@Pc(293) char[] local293 = new char[3];
 								@Pc(295) int local295;
-								for (local295 = 0; local295 < 3 && local271 + local295 < arg1.length && (!method444(arg1[local271 + local295]) || arg1[local271 + local295] == '\''); local295++) {
+								for (local295 = 0; local295 < 3 && local271 + local295 < arg1.length && (!isSymbol(arg1[local271 + local295]) || arg1[local271 + local295] == '\''); local295++) {
 									local293[local295] = arg1[local271 + local295];
 								}
 								@Pc(333) boolean local333 = true;
 								if (local295 == 0) {
 									local333 = false;
 								}
-								if (local295 < 3 && local271 - 1 >= 0 && (!method444(arg1[local271 - 1]) || arg1[local271 - 1] == '\'')) {
+								if (local295 < 3 && local271 - 1 >= 0 && (!isSymbol(arg1[local271 - 1]) || arg1[local271 - 1] == '\'')) {
 									local333 = false;
 								}
-								if (local333 && !method450(local293)) {
+								if (local333 && !isBadFragment(local293)) {
 									local267 = true;
 								}
 							}
@@ -678,9 +678,9 @@ public final class WordPack {
 					if (local20 < arg1.length) {
 						var13 = arg1[local20];
 					}
-					@Pc(203) byte local203 = method440(var12);
-					@Pc(207) byte local207 = method440(var13);
-					if (arg0 != null && method437(local203, arg0, local207)) {
+					@Pc(203) byte local203 = getIndex(var12);
+					@Pc(207) byte local207 = getIndex(var13);
+					if (arg0 != null && comboMatches(local203, arg0, local207)) {
 						local175 = false;
 					}
 				}
@@ -688,9 +688,9 @@ public final class WordPack {
 					@Pc(383) int local383 = 0;
 					@Pc(385) int local385 = 0;
 					for (@Pc(387) int local387 = local16; local387 < local20; local387++) {
-						if (method447(arg1[local387])) {
+						if (isNumeral(arg1[local387])) {
 							local383++;
-						} else if (method446(arg1[local387])) {
+						} else if (isAlpha(arg1[local387])) {
 							local385++;
 						}
 					}
@@ -705,7 +705,7 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(IB[[BB)Z")
-	private static boolean method437(@OriginalArg(1) byte arg0, @OriginalArg(2) byte[][] arg1, @OriginalArg(3) byte arg2) {
+	private static boolean comboMatches(@OriginalArg(1) byte arg0, @OriginalArg(2) byte[][] arg1, @OriginalArg(3) byte arg2) {
 		@Pc(9) int local9 = 0;
 		if (arg1[0][0] == arg0 && arg1[0][1] == arg2) {
 			return true;
@@ -729,7 +729,7 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(ICCC)I")
-	private static int method438(@OriginalArg(1) char arg0, @OriginalArg(2) char arg1, @OriginalArg(3) char arg2) {
+	private static int getEmulatedDomainCharLen(@OriginalArg(1) char arg0, @OriginalArg(2) char arg1, @OriginalArg(3) char arg2) {
 		if (arg1 == arg2) {
 			return 1;
 		} else if (arg1 == 'o' && arg2 == '0') {
@@ -750,7 +750,7 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(CCCI)I")
-	private static int method439(@OriginalArg(0) char arg0, @OriginalArg(1) char arg1, @OriginalArg(2) char arg2) {
+	private static int getEmulatedBadCharLen(@OriginalArg(0) char arg0, @OriginalArg(1) char arg1, @OriginalArg(2) char arg2) {
 		if (arg1 == arg2) {
 			return 1;
 		}
@@ -928,7 +928,7 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "b", descriptor = "(IC)B")
-	private static byte method440(@OriginalArg(1) char arg0) {
+	private static byte getIndex(@OriginalArg(1) char arg0) {
 		if (arg0 >= 'a' && arg0 <= 'z') {
 			return (byte) (arg0 + 1 - 'a');
 		} else if (arg0 == '\'') {
@@ -941,19 +941,19 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(I[C)V")
-	private static void method441(@OriginalArg(1) char[] arg0) {
+	private static void filterNumFragments(@OriginalArg(1) char[] arg0) {
 		@Pc(5) int local5 = 0;
 		@Pc(11) int local11 = 0;
 		@Pc(13) int local13 = 0;
 		while (true) {
 			do {
 				@Pc(112) int local112;
-				if ((local112 = method442(arg0, local5)) == -1) {
+				if ((local112 = indexOfNumber(arg0, local5)) == -1) {
 					return;
 				}
 				@Pc(17) boolean local17 = false;
 				for (@Pc(19) int local19 = local5; local19 >= 0 && local19 < local112 && !local17; local19++) {
-					if (!method444(arg0[local19]) && !method445(arg0[local19])) {
+					if (!isSymbol(arg0[local19]) && !isNotLowercaseAlpha(arg0[local19])) {
 						local17 = true;
 					}
 				}
@@ -963,7 +963,7 @@ public final class WordPack {
 				if (local11 == 0) {
 					local13 = local112;
 				}
-				local5 = method443(local112, arg0);
+				local5 = indexOfNonNumber(local112, arg0);
 				@Pc(58) int local58 = 0;
 				for (@Pc(60) int local60 = local112; local60 < local5; local60++) {
 					local58 = local58 * 10 + arg0[local60] - 48;
@@ -982,7 +982,7 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(I[CI)I")
-	private static int method442(@OriginalArg(1) char[] arg0, @OriginalArg(2) int arg1) {
+	private static int indexOfNumber(@OriginalArg(1) char[] arg0, @OriginalArg(2) int arg1) {
 		for (@Pc(5) int local5 = arg1; local5 < arg0.length && local5 >= 0; local5++) {
 			if (arg0[local5] >= '0' && arg0[local5] <= '9') {
 				return local5;
@@ -992,7 +992,7 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(II[C)I")
-	private static int method443(@OriginalArg(1) int arg0, @OriginalArg(2) char[] arg1) {
+	private static int indexOfNonNumber(@OriginalArg(1) int arg0, @OriginalArg(2) char[] arg1) {
 		@Pc(6) int local6 = arg0;
 		while (true) {
 			if (local6 < arg1.length && local6 >= 0) {
@@ -1007,12 +1007,12 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(CI)Z")
-	private static boolean method444(@OriginalArg(0) char arg0) {
-		return !method446(arg0) && !method447(arg0);
+	private static boolean isSymbol(@OriginalArg(0) char arg0) {
+		return !isAlpha(arg0) && !isNumeral(arg0);
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(CB)Z")
-	private static boolean method445(@OriginalArg(0) char arg0) {
+	private static boolean isNotLowercaseAlpha(@OriginalArg(0) char arg0) {
 		if (arg0 >= 'a' && arg0 <= 'z') {
 			return arg0 == 'v' || arg0 == 'x' || arg0 == 'j' || arg0 == 'q' || arg0 == 'z';
 		} else {
@@ -1021,37 +1021,37 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "c", descriptor = "(IC)Z")
-	private static boolean method446(@OriginalArg(1) char arg0) {
+	private static boolean isAlpha(@OriginalArg(1) char arg0) {
 		return arg0 >= 'a' && arg0 <= 'z' || arg0 >= 'A' && arg0 <= 'Z';
 	}
 
 	@OriginalMember(owner = "client!mc", name = "b", descriptor = "(CI)Z")
-	private static boolean method447(@OriginalArg(0) char arg0) {
+	private static boolean isNumeral(@OriginalArg(0) char arg0) {
 		return arg0 >= '0' && arg0 <= '9';
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(BC)Z")
-	private static boolean method448(@OriginalArg(1) char arg0) {
+	private static boolean isLowercaseAlpha(@OriginalArg(1) char arg0) {
 		return arg0 >= 'a' && arg0 <= 'z';
 	}
 
 	@OriginalMember(owner = "client!mc", name = "d", descriptor = "(IC)Z")
-	private static boolean method449(@OriginalArg(1) char arg0) {
+	private static boolean isUppercaseAlpha(@OriginalArg(1) char arg0) {
 		return arg0 >= 'A' && arg0 <= 'Z';
 	}
 
 	@OriginalMember(owner = "client!mc", name = "c", descriptor = "([CI)Z")
-	private static boolean method450(@OriginalArg(0) char[] arg0) {
+	private static boolean isBadFragment(@OriginalArg(0) char[] arg0) {
 		@Pc(3) boolean local3 = true;
 		for (@Pc(5) int local5 = 0; local5 < arg0.length; local5++) {
-			if (!method447(arg0[local5]) && arg0[local5] != '\u0000') {
+			if (!isNumeral(arg0[local5]) && arg0[local5] != '\u0000') {
 				local3 = false;
 			}
 		}
 		if (local3) {
 			return true;
 		}
-		@Pc(32) int local32 = method451(arg0);
+		@Pc(32) int local32 = getInteger(arg0);
 		@Pc(34) int local34 = 0;
 		@Pc(49) int local49 = anIntArray195.length - 1;
 		if (local32 == anIntArray195[0] || local32 == anIntArray195[local49]) {
@@ -1072,7 +1072,7 @@ public final class WordPack {
 	}
 
 	@OriginalMember(owner = "client!mc", name = "b", descriptor = "(I[C)I")
-	private static int method451(@OriginalArg(1) char[] arg0) {
+	private static int getInteger(@OriginalArg(1) char[] arg0) {
 		if (arg0.length > 6) {
 			return 0;
 		}

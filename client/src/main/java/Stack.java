@@ -28,9 +28,9 @@ public final class Stack {
 	}
 
 	@OriginalMember(owner = "client!pb", name = "a", descriptor = "(Lclient!db;)V")
-	public final void method461(@OriginalArg(0) CacheableNode arg0) {
+	public final void push(@OriginalArg(0) CacheableNode arg0) {
 		if (arg0.aCacheableNode_16 != null) {
-			arg0.method377();
+			arg0.uncache();
 		}
 		arg0.aCacheableNode_16 = this.aCacheableNode_17.aCacheableNode_16;
 		arg0.aCacheableNode_15 = this.aCacheableNode_17;
@@ -39,12 +39,12 @@ public final class Stack {
 	}
 
 	@OriginalMember(owner = "client!pb", name = "a", descriptor = "()Lclient!db;")
-	public final CacheableNode method462() {
+	public final CacheableNode pop() {
 		@Pc(3) CacheableNode local3 = this.aCacheableNode_17.aCacheableNode_15;
 		if (local3 == this.aCacheableNode_17) {
 			return null;
 		} else {
-			local3.method377();
+			local3.uncache();
 			return local3;
 		}
 	}

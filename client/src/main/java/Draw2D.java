@@ -46,15 +46,15 @@ public class Draw2D extends CacheableNode {
 	private static final boolean aBoolean123 = true;
 
 	@OriginalMember(owner = "client!fb", name = "a", descriptor = "(I[III)V")
-	public static void method354(@OriginalArg(0) int arg0, @OriginalArg(1) int[] arg1, @OriginalArg(3) int arg2) {
+	public static void prepare(@OriginalArg(0) int arg0, @OriginalArg(1) int[] arg1, @OriginalArg(3) int arg2) {
 		anIntArray178 = arg1;
 		anInt528 = arg0;
 		anInt529 = arg2;
-		method356(arg2, 0, arg0, 0);
+		setBounds(arg2, 0, arg0, 0);
 	}
 
 	@OriginalMember(owner = "client!fb", name = "a", descriptor = "(I)V")
-	public static void method355() {
+	public static void resetBounds() {
 		anInt532 = 0;
 		anInt530 = 0;
 		anInt533 = anInt528;
@@ -64,7 +64,7 @@ public class Draw2D extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!fb", name = "a", descriptor = "(IIIII)V")
-	public static void method356(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(4) int arg3) {
+	public static void setBounds(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(4) int arg3) {
 		if (arg3 < 0) {
 			arg3 = 0;
 		}
@@ -87,7 +87,7 @@ public class Draw2D extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!fb", name = "b", descriptor = "(I)V")
-	public static void method357(@OriginalArg(0) int arg0) {
+	public static void clear(@OriginalArg(0) int arg0) {
 		@Pc(7) int local7 = anInt528 * anInt529;
 		for (@Pc(9) int local9 = 0; local9 < local7; local9++) {
 			anIntArray178[local9] = 0;
@@ -95,7 +95,7 @@ public class Draw2D extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!fb", name = "a", descriptor = "(IIIBII)V")
-	public static void method358(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(4) int arg3, @OriginalArg(5) int arg4) {
+	public static void fillRect(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(4) int arg3, @OriginalArg(5) int arg4) {
 		if (arg1 < anInt532) {
 			arg3 -= anInt532 - arg1;
 			arg1 = anInt532;
@@ -121,15 +121,15 @@ public class Draw2D extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!fb", name = "a", descriptor = "(IIIIII)V")
-	public static void method359(@OriginalArg(1) int arg0, @OriginalArg(2) int arg1, @OriginalArg(3) int arg2, @OriginalArg(4) int arg3, @OriginalArg(5) int arg4) {
-		method360(arg1, arg3, arg4, arg0);
-		method360(arg1, arg3 + arg2 - 1, arg4, arg0);
-		method361(arg1, anInt527, arg3, arg2, arg0);
-		method361(arg1, anInt527, arg3, arg2, arg0 + arg4 - 1);
+	public static void drawRect(@OriginalArg(1) int arg0, @OriginalArg(2) int arg1, @OriginalArg(3) int arg2, @OriginalArg(4) int arg3, @OriginalArg(5) int arg4) {
+		drawHorizontalLine(arg1, arg3, arg4, arg0);
+		drawHorizontalLine(arg1, arg3 + arg2 - 1, arg4, arg0);
+		drawVerticalLine(arg1, anInt527, arg3, arg2, arg0);
+		drawVerticalLine(arg1, anInt527, arg3, arg2, arg0 + arg4 - 1);
 	}
 
 	@OriginalMember(owner = "client!fb", name = "b", descriptor = "(IIIII)V")
-	public static void method360(@OriginalArg(0) int arg0, @OriginalArg(2) int arg1, @OriginalArg(3) int arg2, @OriginalArg(4) int arg3) {
+	public static void drawHorizontalLine(@OriginalArg(0) int arg0, @OriginalArg(2) int arg1, @OriginalArg(3) int arg2, @OriginalArg(4) int arg3) {
 		if (arg1 < anInt530 || arg1 >= anInt531) {
 			return;
 		}
@@ -147,7 +147,7 @@ public class Draw2D extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!fb", name = "c", descriptor = "(IIIII)V")
-	public static void method361(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
+	public static void drawVerticalLine(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
 		if (arg4 < anInt532 || arg4 >= anInt533) {
 			return;
 		}

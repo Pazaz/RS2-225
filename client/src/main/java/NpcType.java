@@ -94,15 +94,15 @@ public final class NpcType {
 	private int anInt79 = 128;
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(Lclient!ub;)V")
-	public static void method30(@OriginalArg(0) FileArchive arg0) {
-		aBuffer_2 = new Buffer(363, arg0.method536("npc.dat", null));
-		@Pc(21) Buffer local21 = new Buffer(363, arg0.method536("npc.idx", null));
-		anInt67 = local21.method393();
+	public static void decode(@OriginalArg(0) FileArchive arg0) {
+		aBuffer_2 = new Buffer(363, arg0.read("npc.dat", null));
+		@Pc(21) Buffer local21 = new Buffer(363, arg0.read("npc.idx", null));
+		anInt67 = local21.g2();
 		anIntArray8 = new int[anInt67];
 		@Pc(29) int local29 = 2;
 		for (@Pc(31) int local31 = 0; local31 < anInt67; local31++) {
 			anIntArray8[local31] = local29;
-			local29 += local21.method393();
+			local29 += local21.g2();
 		}
 		aNpcTypeArray1 = new NpcType[20];
 		for (@Pc(51) int local51 = 0; local51 < 20; local51++) {
@@ -111,7 +111,7 @@ public final class NpcType {
 	}
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(Z)V")
-	public static void method31() {
+	public static void unload() {
 		aCache_3 = null;
 		anIntArray8 = null;
 		aNpcTypeArray1 = null;
@@ -119,7 +119,7 @@ public final class NpcType {
 	}
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(I)Lclient!bc;")
-	public static NpcType method32(@OriginalArg(0) int arg0) {
+	public static NpcType get(@OriginalArg(0) int arg0) {
 		for (@Pc(1) int local1 = 0; local1 < 20; local1++) {
 			if (aNpcTypeArray1[local1].aLong5 == (long) arg0) {
 				return aNpcTypeArray1[local1];
@@ -129,7 +129,7 @@ public final class NpcType {
 		@Pc(33) NpcType local33 = aNpcTypeArray1[anInt68] = new NpcType();
 		aBuffer_2.anInt561 = anIntArray8[arg0];
 		local33.aLong5 = arg0;
-		local33.method33(aBuffer_2);
+		local33.decode(aBuffer_2);
 		return local33;
 	}
 
@@ -138,80 +138,80 @@ public final class NpcType {
 	}
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(ZLclient!kb;)V")
-	private void method33(@OriginalArg(1) Buffer arg0) {
+	private void decode(@OriginalArg(1) Buffer arg0) {
 		while (true) {
-			@Pc(10) int local10 = arg0.method391();
+			@Pc(10) int local10 = arg0.g1();
 			if (local10 == 0) {
 				return;
 			}
 			@Pc(19) int local19;
 			@Pc(25) int local25;
 			if (local10 == 1) {
-				local19 = arg0.method391();
+				local19 = arg0.g1();
 				this.anIntArray9 = new int[local19];
 				for (local25 = 0; local25 < local19; local25++) {
-					this.anIntArray9[local25] = arg0.method393();
+					this.anIntArray9[local25] = arg0.g2();
 				}
 			} else if (local10 == 2) {
-				this.aString2 = arg0.method398();
+				this.aString2 = arg0.gjstr();
 			} else if (local10 == 3) {
-				this.aByteArray2 = arg0.method399();
+				this.aByteArray2 = arg0.gjstrBytes();
 			} else if (local10 == 12) {
-				this.aByte4 = arg0.method392();
+				this.aByte4 = arg0.g1s();
 			} else if (local10 == 13) {
-				this.anInt69 = arg0.method393();
+				this.anInt69 = arg0.g2();
 			} else if (local10 == 14) {
-				this.anInt70 = arg0.method393();
+				this.anInt70 = arg0.g2();
 			} else if (local10 == 16) {
 				this.aBoolean19 = true;
 			} else if (local10 == 17) {
-				this.anInt70 = arg0.method393();
-				this.anInt71 = arg0.method393();
-				this.anInt72 = arg0.method393();
-				this.anInt73 = arg0.method393();
+				this.anInt70 = arg0.g2();
+				this.anInt71 = arg0.g2();
+				this.anInt72 = arg0.g2();
+				this.anInt73 = arg0.g2();
 			} else if (local10 >= 30 && local10 < 40) {
 				if (this.aStringArray2 == null) {
 					this.aStringArray2 = new String[5];
 				}
-				this.aStringArray2[local10 - 30] = arg0.method398();
+				this.aStringArray2[local10 - 30] = arg0.gjstr();
 				if (this.aStringArray2[local10 - 30].equalsIgnoreCase("hidden")) {
 					this.aStringArray2[local10 - 30] = null;
 				}
 			} else if (local10 == 40) {
-				local19 = arg0.method391();
+				local19 = arg0.g1();
 				this.anIntArray11 = new int[local19];
 				this.anIntArray12 = new int[local19];
 				for (local25 = 0; local25 < local19; local25++) {
-					this.anIntArray11[local25] = arg0.method393();
-					this.anIntArray12[local25] = arg0.method393();
+					this.anIntArray11[local25] = arg0.g2();
+					this.anIntArray12[local25] = arg0.g2();
 				}
 			} else if (local10 == 60) {
-				local19 = arg0.method391();
+				local19 = arg0.g1();
 				this.anIntArray10 = new int[local19];
 				for (local25 = 0; local25 < local19; local25++) {
-					this.anIntArray10[local25] = arg0.method393();
+					this.anIntArray10[local25] = arg0.g2();
 				}
 			} else if (local10 == 90) {
-				this.anInt74 = arg0.method393();
+				this.anInt74 = arg0.g2();
 			} else if (local10 == 91) {
-				this.anInt75 = arg0.method393();
+				this.anInt75 = arg0.g2();
 			} else if (local10 == 92) {
-				this.anInt76 = arg0.method393();
+				this.anInt76 = arg0.g2();
 			} else if (local10 == 93) {
 				this.aBoolean20 = false;
 			} else if (local10 == 95) {
-				this.anInt77 = arg0.method393();
+				this.anInt77 = arg0.g2();
 			} else if (local10 == 97) {
-				this.anInt78 = arg0.method393();
+				this.anInt78 = arg0.g2();
 			} else if (local10 == 98) {
-				this.anInt79 = arg0.method393();
+				this.anInt79 = arg0.g2();
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(II[I)Lclient!eb;")
-	public final Model method34(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int[] arg2) {
-		@Pc(9) Model local9 = (Model) aCache_3.method527(this.aLong5);
+	public final Model getModel(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int[] arg2) {
+		@Pc(9) Model local9 = (Model) aCache_3.get(this.aLong5);
 		if (local9 == null) {
 			@Pc(16) Model[] local16 = new Model[this.anIntArray9.length];
 			for (@Pc(18) int local18 = 0; local18 < this.anIntArray9.length; local18++) {
@@ -224,23 +224,23 @@ public final class NpcType {
 			}
 			if (this.anIntArray11 != null) {
 				for (@Pc(60) int local60 = 0; local60 < this.anIntArray11.length; local60++) {
-					local9.method237(this.anIntArray11[local60], this.anIntArray12[local60]);
+					local9.recolor(this.anIntArray11[local60], this.anIntArray12[local60]);
 				}
 			}
-			local9.method230();
-			local9.method240(64, 850, -30, -50, -30, true);
-			aCache_3.method528(this.aLong5, local9);
+			local9.applyGroup();
+			local9.applyLighting(64, 850, -30, -50, -30, true);
+			aCache_3.put(this.aLong5, local9);
 		}
 		@Pc(107) Model local107 = new Model(0, local9, !this.aBoolean19);
 		if (arg0 != -1 && arg1 != -1) {
-			local107.method232(arg1, arg0, arg2);
+			local107.applyFrames(arg1, arg0, arg2);
 		} else if (arg0 != -1) {
-			local107.method231(arg0);
+			local107.applyFrame(arg0);
 		}
 		if (this.anInt78 != 128 || this.anInt79 != 128) {
-			local107.method239(this.anInt78, this.anInt79, this.anInt78);
+			local107.scale(this.anInt78, this.anInt79, this.anInt78);
 		}
-		local107.method227();
+		local107.calculateYBoundaries();
 		local107.anIntArrayArray7 = null;
 		local107.anIntArrayArray6 = null;
 		if (this.aByte4 == 1) {
@@ -250,7 +250,7 @@ public final class NpcType {
 	}
 
 	@OriginalMember(owner = "client!bc", name = "b", descriptor = "(Z)Lclient!eb;")
-	public final Model method35() {
+	public final Model getHeadModel() {
 		if (this.anIntArray10 == null) {
 			return null;
 		}
@@ -266,7 +266,7 @@ public final class NpcType {
 		}
 		if (this.anIntArray11 != null) {
 			for (@Pc(61) int local61 = 0; local61 < this.anIntArray11.length; local61++) {
-				local46.method237(this.anIntArray11[local61], this.anIntArray12[local61]);
+				local46.recolor(this.anIntArray11[local61], this.anIntArray12[local61]);
 			}
 		}
 		return local46;

@@ -148,15 +148,15 @@ public final class ObjType {
 	public int anInt103 = -1;
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(Lclient!ub;)V")
-	public static void method52(@OriginalArg(0) FileArchive arg0) {
-		aClass1_Sub3_Sub3_3 = new Buffer(363, arg0.method536("obj.dat", null));
-		@Pc(21) Buffer local21 = new Buffer(363, arg0.method536("obj.idx", null));
-		anInt101 = local21.method393();
+	public static void decode(@OriginalArg(0) FileArchive arg0) {
+		aClass1_Sub3_Sub3_3 = new Buffer(363, arg0.read("obj.dat", null));
+		@Pc(21) Buffer local21 = new Buffer(363, arg0.read("obj.idx", null));
+		anInt101 = local21.g2();
 		anIntArray23 = new int[anInt101];
 		@Pc(29) int local29 = 2;
 		for (@Pc(31) int local31 = 0; local31 < anInt101; local31++) {
 			anIntArray23[local31] = local29;
-			local29 += local21.method393();
+			local29 += local21.g2();
 		}
 		aObjTypeArray1 = new ObjType[10];
 		for (@Pc(51) int local51 = 0; local51 < 10; local51++) {
@@ -165,7 +165,7 @@ public final class ObjType {
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(Z)V")
-	public static void method53() {
+	public static void unload() {
 		aCache_4 = null;
 		aCache_5 = null;
 		anIntArray23 = null;
@@ -174,7 +174,7 @@ public final class ObjType {
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(I)Lclient!cc;")
-	public static ObjType method54(@OriginalArg(0) int arg0) {
+	public static ObjType get(@OriginalArg(0) int arg0) {
 		for (@Pc(1) int local1 = 0; local1 < 10; local1++) {
 			if (aObjTypeArray1[local1].anInt103 == arg0) {
 				return aObjTypeArray1[local1];
@@ -184,10 +184,10 @@ public final class ObjType {
 		@Pc(27) ObjType local27 = aObjTypeArray1[anInt102];
 		aClass1_Sub3_Sub3_3.anInt561 = anIntArray23[arg0];
 		local27.anInt103 = arg0;
-		local27.method55();
-		local27.method56(aClass1_Sub3_Sub3_3);
+		local27.reset();
+		local27.decode(aClass1_Sub3_Sub3_3);
 		if (local27.anInt124 != -1) {
-			local27.method57();
+			local27.toCertificate();
 		}
 		if (!aBoolean29 && local27.aBoolean32) {
 			local27.aString3 = "Members Object";
@@ -199,16 +199,16 @@ public final class ObjType {
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(III)Lclient!hb;")
-	public static Sprite method59(@OriginalArg(0) int arg0, @OriginalArg(2) int arg1) {
-		@Pc(7) Sprite local7 = (Sprite) aCache_5.method527((long) arg0);
+	public static Sprite getSprite(@OriginalArg(0) int arg0, @OriginalArg(2) int arg1) {
+		@Pc(7) Sprite local7 = (Sprite) aCache_5.get((long) arg0);
 		if (local7 != null && local7.anInt466 != arg1 && local7.anInt466 != -1) {
-			local7.method567();
+			local7.unlink();
 			local7 = null;
 		}
 		if (local7 != null) {
 			return local7;
 		}
-		@Pc(28) ObjType local28 = method54(arg0);
+		@Pc(28) ObjType local28 = get(arg0);
 		if (local28.anIntArray26 == null) {
 			arg1 = -1;
 		}
@@ -222,7 +222,7 @@ public final class ObjType {
 				}
 			}
 			if (local38 != -1) {
-				local28 = method54(local38);
+				local28 = get(local38);
 			}
 		}
 		local7 = new Sprite(32, 32);
@@ -237,13 +237,13 @@ public final class ObjType {
 		@Pc(92) int local92 = Draw2D.anInt530;
 		@Pc(94) int local94 = Draw2D.anInt531;
 		Draw3D.aBoolean99 = false;
-		Draw2D.method354(32, local7.anIntArray148, 32);
-		Draw2D.method358(0, 0, 0, 32, 32);
-		Draw3D.method288(anInt99);
-		@Pc(115) Model local115 = local28.method58(1);
+		Draw2D.prepare(32, local7.anIntArray148, 32);
+		Draw2D.fillRect(0, 0, 0, 32, 32);
+		Draw3D.prepareOffsets(anInt99);
+		@Pc(115) Model local115 = local28.getModel(1);
 		@Pc(125) int local125 = Draw3D.anIntArray137[local28.anInt106] * local28.anInt105 >> 16;
 		@Pc(135) int local135 = Draw3D.anIntArray138[local28.anInt106] * local28.anInt105 >> 16;
-		local115.method243(local28.anInt107, local28.anInt108, local28.anInt106, local28.anInt109, local125 + local115.anInt368 / 2 + local28.anInt110, local135 + local28.anInt110);
+		local115.draw(local28.anInt107, local28.anInt108, local28.anInt106, local28.anInt109, local125 + local115.anInt368 / 2 + local28.anInt110, local135 + local28.anInt110);
 		for (@Pc(168) int local168 = 31; local168 >= 0; local168--) {
 			for (local135 = 31; local135 >= 0; local135--) {
 				if (local7.anIntArray148[local168 + local135 * 32] == 0) {
@@ -267,18 +267,18 @@ public final class ObjType {
 			}
 		}
 		if (local28.anInt124 != -1) {
-			@Pc(348) Sprite local348 = method59(local28.anInt123, 10);
+			@Pc(348) Sprite local348 = getSprite(local28.anInt123, 10);
 			@Pc(351) int local351 = local348.anInt465;
 			@Pc(354) int local354 = local348.anInt466;
 			local348.anInt465 = 32;
 			local348.anInt466 = 32;
-			local348.method324();
+			local348.draw();
 			local348.anInt465 = local351;
 			local348.anInt466 = local354;
 		}
-		aCache_5.method528((long) arg0, local7);
-		Draw2D.method354(local84, local82, local86);
-		Draw2D.method356(local94, local92, local90, local88);
+		aCache_5.put((long) arg0, local7);
+		Draw2D.prepare(local84, local82, local86);
+		Draw2D.setBounds(local94, local92, local90, local88);
 		Draw3D.anInt430 = local38;
 		Draw3D.anInt431 = local40;
 		Draw3D.anIntArray139 = local80;
@@ -297,7 +297,7 @@ public final class ObjType {
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "()V")
-	private void method55() {
+	private void reset() {
 		this.anInt104 = 0;
 		this.aString3 = null;
 		this.aByteArray3 = null;
@@ -335,59 +335,59 @@ public final class ObjType {
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(ZLclient!kb;)V")
-	private void method56(@OriginalArg(1) Buffer arg0) {
+	private void decode(@OriginalArg(1) Buffer arg0) {
 		while (true) {
-			@Pc(10) int local10 = arg0.method391();
+			@Pc(10) int local10 = arg0.g1();
 			if (local10 == 0) {
 				return;
 			}
 			if (local10 == 1) {
-				this.anInt104 = arg0.method393();
+				this.anInt104 = arg0.g2();
 			} else if (local10 == 2) {
-				this.aString3 = arg0.method398();
+				this.aString3 = arg0.gjstr();
 			} else if (local10 == 3) {
-				this.aByteArray3 = arg0.method399();
+				this.aByteArray3 = arg0.gjstrBytes();
 			} else if (local10 == 4) {
-				this.anInt105 = arg0.method393();
+				this.anInt105 = arg0.g2();
 			} else if (local10 == 5) {
-				this.anInt106 = arg0.method393();
+				this.anInt106 = arg0.g2();
 			} else if (local10 == 6) {
-				this.anInt107 = arg0.method393();
+				this.anInt107 = arg0.g2();
 			} else if (local10 == 7) {
-				this.anInt109 = arg0.method393();
+				this.anInt109 = arg0.g2();
 				if (this.anInt109 > 32767) {
 					this.anInt109 -= 65536;
 				}
 			} else if (local10 == 8) {
-				this.anInt110 = arg0.method393();
+				this.anInt110 = arg0.g2();
 				if (this.anInt110 > 32767) {
 					this.anInt110 -= 65536;
 				}
 			} else if (local10 == 9) {
 				this.aBoolean30 = true;
 			} else if (local10 == 10) {
-				this.anInt111 = arg0.method393();
+				this.anInt111 = arg0.g2();
 			} else if (local10 == 11) {
 				this.aBoolean31 = true;
 			} else if (local10 == 12) {
-				this.anInt112 = arg0.method396();
+				this.anInt112 = arg0.g4();
 			} else if (local10 == 16) {
 				this.aBoolean32 = true;
 			} else if (local10 == 23) {
-				this.anInt113 = arg0.method393();
-				this.aByte5 = arg0.method392();
+				this.anInt113 = arg0.g2();
+				this.aByte5 = arg0.g1s();
 			} else if (local10 == 24) {
-				this.anInt114 = arg0.method393();
+				this.anInt114 = arg0.g2();
 			} else if (local10 == 25) {
-				this.anInt115 = arg0.method393();
-				this.aByte6 = arg0.method392();
+				this.anInt115 = arg0.g2();
+				this.aByte6 = arg0.g1s();
 			} else if (local10 == 26) {
-				this.anInt116 = arg0.method393();
+				this.anInt116 = arg0.g2();
 			} else if (local10 >= 30 && local10 < 35) {
 				if (this.aStringArray3 == null) {
 					this.aStringArray3 = new String[5];
 				}
-				this.aStringArray3[local10 - 30] = arg0.method398();
+				this.aStringArray3[local10 - 30] = arg0.gjstr();
 				if (this.aStringArray3[local10 - 30].equalsIgnoreCase("hidden")) {
 					this.aStringArray3[local10 - 30] = null;
 				}
@@ -395,47 +395,47 @@ public final class ObjType {
 				if (this.aStringArray4 == null) {
 					this.aStringArray4 = new String[5];
 				}
-				this.aStringArray4[local10 - 35] = arg0.method398();
+				this.aStringArray4[local10 - 35] = arg0.gjstr();
 			} else if (local10 == 40) {
-				@Pc(260) int local260 = arg0.method391();
+				@Pc(260) int local260 = arg0.g1();
 				this.anIntArray24 = new int[local260];
 				this.anIntArray25 = new int[local260];
 				for (@Pc(270) int local270 = 0; local270 < local260; local270++) {
-					this.anIntArray24[local270] = arg0.method393();
-					this.anIntArray25[local270] = arg0.method393();
+					this.anIntArray24[local270] = arg0.g2();
+					this.anIntArray25[local270] = arg0.g2();
 				}
 			} else if (local10 == 78) {
-				this.anInt117 = arg0.method393();
+				this.anInt117 = arg0.g2();
 			} else if (local10 == 79) {
-				this.anInt118 = arg0.method393();
+				this.anInt118 = arg0.g2();
 			} else if (local10 == 90) {
-				this.anInt119 = arg0.method393();
+				this.anInt119 = arg0.g2();
 			} else if (local10 == 91) {
-				this.anInt121 = arg0.method393();
+				this.anInt121 = arg0.g2();
 			} else if (local10 == 92) {
-				this.anInt120 = arg0.method393();
+				this.anInt120 = arg0.g2();
 			} else if (local10 == 93) {
-				this.anInt122 = arg0.method393();
+				this.anInt122 = arg0.g2();
 			} else if (local10 == 95) {
-				this.anInt108 = arg0.method393();
+				this.anInt108 = arg0.g2();
 			} else if (local10 == 97) {
-				this.anInt123 = arg0.method393();
+				this.anInt123 = arg0.g2();
 			} else if (local10 == 98) {
-				this.anInt124 = arg0.method393();
+				this.anInt124 = arg0.g2();
 			} else if (local10 >= 100 && local10 < 110) {
 				if (this.anIntArray26 == null) {
 					this.anIntArray26 = new int[10];
 					this.anIntArray27 = new int[10];
 				}
-				this.anIntArray26[local10 - 100] = arg0.method393();
-				this.anIntArray27[local10 - 100] = arg0.method393();
+				this.anIntArray26[local10 - 100] = arg0.g2();
+				this.anIntArray27[local10 - 100] = arg0.g2();
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!cc", name = "b", descriptor = "(I)V")
-	private void method57() {
-		@Pc(3) ObjType local3 = method54(this.anInt124);
+	private void toCertificate() {
+		@Pc(3) ObjType local3 = get(this.anInt124);
 		this.anInt104 = local3.anInt104;
 		this.anInt105 = local3.anInt105;
 		this.anInt106 = local3.anInt106;
@@ -445,7 +445,7 @@ public final class ObjType {
 		this.anInt110 = local3.anInt110;
 		this.anIntArray24 = local3.anIntArray24;
 		this.anIntArray25 = local3.anIntArray25;
-		@Pc(55) ObjType local55 = method54(this.anInt123);
+		@Pc(55) ObjType local55 = get(this.anInt123);
 		this.aString3 = local55.aString3;
 		this.aBoolean32 = local55.aBoolean32;
 		this.anInt112 = local55.anInt112;
@@ -459,7 +459,7 @@ public final class ObjType {
 	}
 
 	@OriginalMember(owner = "client!cc", name = "c", descriptor = "(I)Lclient!eb;")
-	public final Model method58(@OriginalArg(0) int arg0) {
+	public final Model getModel(@OriginalArg(0) int arg0) {
 		@Pc(11) int local11;
 		if (this.anIntArray26 != null && arg0 > 1) {
 			@Pc(9) int local9 = -1;
@@ -469,27 +469,27 @@ public final class ObjType {
 				}
 			}
 			if (local9 != -1) {
-				return method54(local9).method58(1);
+				return get(local9).getModel(1);
 			}
 		}
-		@Pc(48) Model local48 = (Model) aCache_4.method527((long) this.anInt103);
+		@Pc(48) Model local48 = (Model) aCache_4.get((long) this.anInt103);
 		if (local48 != null) {
 			return local48;
 		}
 		local48 = new Model(false, this.anInt104);
 		if (this.anIntArray24 != null) {
 			for (local11 = 0; local11 < this.anIntArray24.length; local11++) {
-				local48.method237(this.anIntArray24[local11], this.anIntArray25[local11]);
+				local48.recolor(this.anIntArray24[local11], this.anIntArray25[local11]);
 			}
 		}
-		local48.method240(64, 768, -50, -10, -50, true);
+		local48.applyLighting(64, 768, -50, -10, -50, true);
 		local48.aBoolean84 = true;
-		aCache_4.method528((long) this.anInt103, local48);
+		aCache_4.put((long) this.anInt103, local48);
 		return local48;
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(BI)Lclient!eb;")
-	public final Model method60(@OriginalArg(1) int arg0) {
+	public final Model getWornModel(@OriginalArg(1) int arg0) {
 		@Pc(4) int local4 = this.anInt113;
 		if (arg0 == 1) {
 			local4 = this.anInt115;
@@ -518,21 +518,21 @@ public final class ObjType {
 			}
 		}
 		if (arg0 == 0 && this.aByte5 != 0) {
-			local43.method236(this.aByte5, 0, 0);
+			local43.translate(this.aByte5, 0, 0);
 		}
 		if (arg0 == 1 && this.aByte6 != 0) {
-			local43.method236(this.aByte6, 0, 0);
+			local43.translate(this.aByte6, 0, 0);
 		}
 		if (this.anIntArray24 != null) {
 			for (@Pc(139) int local139 = 0; local139 < this.anIntArray24.length; local139++) {
-				local43.method237(this.anIntArray24[local139], this.anIntArray25[local139]);
+				local43.recolor(this.anIntArray24[local139], this.anIntArray25[local139]);
 			}
 		}
 		return local43;
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(II)Lclient!eb;")
-	public final Model method61(@OriginalArg(1) int arg0) {
+	public final Model getHeadModel(@OriginalArg(1) int arg0) {
 		@Pc(2) int local2 = this.anInt119;
 		if (this.anInt100 != -22246) {
 			anInt99 = 205;
@@ -555,7 +555,7 @@ public final class ObjType {
 		}
 		if (this.anIntArray24 != null) {
 			for (@Pc(66) int local66 = 0; local66 < this.anIntArray24.length; local66++) {
-				local34.method237(this.anIntArray24[local66], this.anIntArray25[local66]);
+				local34.recolor(this.anIntArray24[local66], this.anIntArray25[local66]);
 			}
 		}
 		return local34;

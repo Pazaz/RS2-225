@@ -14,7 +14,7 @@ public class Node {
 	public Node aNode_42;
 
 	@OriginalMember(owner = "client!u", name = "a", descriptor = "()V")
-	public final void method567() {
+	public final void unlink() {
 		if (this.aNode_42 != null) {
 			this.aNode_42.aNode_41 = this.aNode_41;
 			this.aNode_41.aNode_42 = this.aNode_42;

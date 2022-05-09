@@ -169,7 +169,7 @@ public class PathingEntity extends Entity {
 	public final boolean[] aBooleanArray9 = new boolean[10];
 
 	@OriginalMember(owner = "client!x", name = "a", descriptor = "(ZZII)V")
-	public final void method569(@OriginalArg(1) boolean arg0, @OriginalArg(2) int arg1, @OriginalArg(3) int arg2) {
+	public final void move(@OriginalArg(1) boolean arg0, @OriginalArg(2) int arg1, @OriginalArg(3) int arg2) {
 		if (this.anInt907 != -1 && SeqType.aSeqTypeArray1[this.anInt907].anInt545 <= 1) {
 			this.anInt907 = -1;
 		}
@@ -200,7 +200,7 @@ public class PathingEntity extends Entity {
 	}
 
 	@OriginalMember(owner = "client!x", name = "a", descriptor = "(ZIB)V")
-	public final void method570(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1) {
+	public final void walk(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1) {
 		@Pc(6) int local6 = this.anIntArray232[0];
 		@Pc(11) int local11 = this.anIntArray233[0];
 		if (arg1 == 0) {
@@ -248,7 +248,7 @@ public class PathingEntity extends Entity {
 	}
 
 	@OriginalMember(owner = "client!x", name = "b", descriptor = "(Z)Z")
-	public boolean method571() {
+	public boolean isValid() {
 		return false;
 	}
 }

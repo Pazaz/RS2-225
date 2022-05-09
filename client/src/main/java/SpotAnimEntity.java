@@ -51,7 +51,7 @@ public final class SpotAnimEntity extends Entity {
 	}
 
 	@OriginalMember(owner = "client!bb", name = "a", descriptor = "(II)V")
-	public final void method29(@OriginalArg(0) int arg0) {
+	public final void update(@OriginalArg(0) int arg0) {
 		this.anInt66 += arg0;
 		while (true) {
 			do {
@@ -70,33 +70,33 @@ public final class SpotAnimEntity extends Entity {
 
 	@OriginalMember(owner = "client!bb", name = "a", descriptor = "(Z)Lclient!eb;")
 	@Override
-	public final Model method568() {
-		@Pc(3) Model local3 = this.aSpotAnimType_2.method409();
+	public final Model getDrawMethod() {
+		@Pc(3) Model local3 = this.aSpotAnimType_2.getModel();
 		@Pc(19) Model local19 = new Model(local3, true, !this.aSpotAnimType_2.aBoolean131, this.anInt58, false);
 		if (!this.aBoolean17) {
-			local19.method230();
-			local19.method231(this.aSpotAnimType_2.aSeqType_1.anIntArray186[this.anInt65]);
+			local19.applyGroup();
+			local19.applyFrame(this.aSpotAnimType_2.aSeqType_1.anIntArray186[this.anInt65]);
 			local19.anIntArrayArray7 = null;
 			local19.anIntArrayArray6 = null;
 		}
 		if (this.aSpotAnimType_2.anInt571 != 128 || this.aSpotAnimType_2.anInt572 != 128) {
-			local19.method239(this.aSpotAnimType_2.anInt571, this.aSpotAnimType_2.anInt572, this.aSpotAnimType_2.anInt571);
+			local19.scale(this.aSpotAnimType_2.anInt571, this.aSpotAnimType_2.anInt572, this.aSpotAnimType_2.anInt571);
 		}
 		if (this.aSpotAnimType_2.anInt573 != 0) {
 			if (this.aSpotAnimType_2.anInt573 == 90) {
-				local19.method234();
+				local19.rotateCounterClockwise();
 			}
 			if (this.aSpotAnimType_2.anInt573 == 180) {
-				local19.method234();
-				local19.method234();
+				local19.rotateCounterClockwise();
+				local19.rotateCounterClockwise();
 			}
 			if (this.aSpotAnimType_2.anInt573 == 270) {
-				local19.method234();
-				local19.method234();
-				local19.method234();
+				local19.rotateCounterClockwise();
+				local19.rotateCounterClockwise();
+				local19.rotateCounterClockwise();
 			}
 		}
-		local19.method240(this.aSpotAnimType_2.anInt574 + 64, this.aSpotAnimType_2.anInt575 + 850, -30, -50, -30, true);
+		local19.applyLighting(this.aSpotAnimType_2.anInt574 + 64, this.aSpotAnimType_2.anInt575 + 850, -30, -50, -30, true);
 		return local19;
 	}
 }

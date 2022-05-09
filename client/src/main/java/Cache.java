@@ -31,37 +31,37 @@ public final class Cache {
 	}
 
 	@OriginalMember(owner = "client!s", name = "a", descriptor = "(J)Lclient!db;")
-	public final CacheableNode method527(@OriginalArg(0) long arg0) {
-		@Pc(5) CacheableNode local5 = (CacheableNode) this.aHashtable_1.method530(arg0);
+	public final CacheableNode get(@OriginalArg(0) long arg0) {
+		@Pc(5) CacheableNode local5 = (CacheableNode) this.aHashtable_1.get(arg0);
 		if (local5 != null) {
-			this.aStack_1.method461(local5);
+			this.aStack_1.push(local5);
 		}
 		return local5;
 	}
 
 	@OriginalMember(owner = "client!s", name = "a", descriptor = "(IJLclient!db;)V")
-	public final void method528(@OriginalArg(1) long arg0, @OriginalArg(2) CacheableNode arg1) {
+	public final void put(@OriginalArg(1) long arg0, @OriginalArg(2) CacheableNode arg1) {
 		if (this.anInt727 == 0) {
-			@Pc(8) CacheableNode local8 = this.aStack_1.method462();
-			local8.method567();
-			local8.method377();
+			@Pc(8) CacheableNode local8 = this.aStack_1.pop();
+			local8.unlink();
+			local8.uncache();
 		} else {
 			this.anInt727--;
 		}
-		this.aHashtable_1.method531(arg0, arg1);
-		this.aStack_1.method461(arg1);
+		this.aHashtable_1.put(arg0, arg1);
+		this.aStack_1.push(arg1);
 	}
 
 	@OriginalMember(owner = "client!s", name = "a", descriptor = "()V")
-	public final void method529() {
+	public final void clear() {
 		while (true) {
-			@Pc(3) CacheableNode local3 = this.aStack_1.method462();
+			@Pc(3) CacheableNode local3 = this.aStack_1.pop();
 			if (local3 == null) {
 				this.anInt727 = this.anInt726;
 				return;
 			}
-			local3.method567();
-			local3.method377();
+			local3.unlink();
+			local3.uncache();
 		}
 	}
 }

@@ -101,7 +101,7 @@ public final class ProjectileEntity extends Entity {
 	}
 
 	@OriginalMember(owner = "client!ab", name = "a", descriptor = "(IIIII)V")
-	public final void method19(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(4) int arg3) {
+	public final void setTarget(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(4) int arg3) {
 		@Pc(8) double local8;
 		if (!this.aBoolean5) {
 			local8 = arg2 - this.anInt25;
@@ -122,7 +122,7 @@ public final class ProjectileEntity extends Entity {
 	}
 
 	@OriginalMember(owner = "client!ab", name = "a", descriptor = "(BI)V")
-	public final void method20(@OriginalArg(1) int arg0) {
+	public final void update(@OriginalArg(1) int arg0) {
 		this.aBoolean5 = true;
 		this.aDouble1 += this.aDouble4 * (double) arg0;
 		this.aDouble2 += this.aDouble5 * (double) arg0;
@@ -145,20 +145,20 @@ public final class ProjectileEntity extends Entity {
 
 	@OriginalMember(owner = "client!ab", name = "a", descriptor = "(Z)Lclient!eb;")
 	@Override
-	public final Model method568() {
-		@Pc(3) Model local3 = this.aSpotAnimType_1.method409();
+	public final Model getDrawMethod() {
+		@Pc(3) Model local3 = this.aSpotAnimType_1.getModel();
 		@Pc(19) Model local19 = new Model(local3, true, !this.aSpotAnimType_1.aBoolean131, this.anInt22, false);
 		if (this.aSpotAnimType_1.aSeqType_1 != null) {
-			local19.method230();
-			local19.method231(this.aSpotAnimType_1.aSeqType_1.anIntArray186[this.anInt36]);
+			local19.applyGroup();
+			local19.applyFrame(this.aSpotAnimType_1.aSeqType_1.anIntArray186[this.anInt36]);
 			local19.anIntArrayArray7 = null;
 			local19.anIntArrayArray6 = null;
 		}
 		if (this.aSpotAnimType_1.anInt571 != 128 || this.aSpotAnimType_1.anInt572 != 128) {
-			local19.method239(this.aSpotAnimType_1.anInt571, this.aSpotAnimType_1.anInt572, this.aSpotAnimType_1.anInt571);
+			local19.scale(this.aSpotAnimType_1.anInt571, this.aSpotAnimType_1.anInt572, this.aSpotAnimType_1.anInt571);
 		}
-		local19.method235(this.anInt35);
-		local19.method240(this.aSpotAnimType_1.anInt574 + 64, this.aSpotAnimType_1.anInt575 + 850, -30, -50, -30, true);
+		local19.rotatePitch(this.anInt35);
+		local19.applyLighting(this.aSpotAnimType_1.anInt574 + 64, this.aSpotAnimType_1.anInt575 + 850, -30, -50, -30, true);
 		return local19;
 	}
 }

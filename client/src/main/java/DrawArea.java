@@ -41,23 +41,23 @@ public final class DrawArea implements ImageProducer, ImageObserver {
 		this.anIntArray197 = new int[arg1 * arg3];
 		this.aColorModel1 = new DirectColorModel(32, 16711680, 65280, 255);
 		this.anImage1 = arg0.createImage(this);
-		this.method465();
+		this.setPixels();
 		arg0.prepareImage(this.anImage1, this);
-		this.method465();
+		this.setPixels();
 		arg0.prepareImage(this.anImage1, this);
-		this.method465();
+		this.setPixels();
 		arg0.prepareImage(this.anImage1, this);
-		this.method463();
+		this.bind();
 	}
 
 	@OriginalMember(owner = "client!qb", name = "a", descriptor = "(B)V")
-	public final void method463() {
-		Draw2D.method354(this.anInt686, this.anIntArray197, this.anInt687);
+	public final void bind() {
+		Draw2D.prepare(this.anInt686, this.anIntArray197, this.anInt687);
 	}
 
 	@OriginalMember(owner = "client!qb", name = "a", descriptor = "(ILjava/awt/Graphics;II)V")
-	public final void method464(@OriginalArg(0) int arg0, @OriginalArg(1) Graphics arg1, @OriginalArg(2) int arg2) {
-		this.method465();
+	public final void drawImage(@OriginalArg(0) int arg0, @OriginalArg(1) Graphics arg1, @OriginalArg(2) int arg2) {
+		this.setPixels();
 		arg1.drawImage(this.anImage1, arg2, arg0, this);
 	}
 
@@ -98,7 +98,7 @@ public final class DrawArea implements ImageProducer, ImageObserver {
 	}
 
 	@OriginalMember(owner = "client!qb", name = "a", descriptor = "()V")
-	private synchronized void method465() {
+	private synchronized void setPixels() {
 		if (this.anImageConsumer1 != null) {
 			this.anImageConsumer1.setPixels(0, 0, this.anInt686, this.anInt687, this.aColorModel1, this.anIntArray197, 0, this.anInt686);
 			this.anImageConsumer1.imageComplete(2);

@@ -11,7 +11,7 @@ public class CacheableNode extends Node {
 	public CacheableNode aCacheableNode_16;
 
 	@OriginalMember(owner = "client!db", name = "b", descriptor = "()V")
-	public final void method377() {
+	public final void uncache() {
 		if (this.aCacheableNode_16 != null) {
 			this.aCacheableNode_16.aCacheableNode_15 = this.aCacheableNode_15;
 			this.aCacheableNode_15.aCacheableNode_16 = this.aCacheableNode_16;

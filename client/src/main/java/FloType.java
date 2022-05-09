@@ -52,9 +52,9 @@ public final class FloType {
 	public boolean aBoolean91 = true;
 
 	@OriginalMember(owner = "client!fc", name = "a", descriptor = "(Lclient!ub;I)V")
-	public static void method272(@OriginalArg(0) FileArchive arg0) {
-		@Pc(9) Buffer local9 = new Buffer(363, arg0.method536("flo.dat", null));
-		anInt402 = local9.method393();
+	public static void decode(@OriginalArg(0) FileArchive arg0) {
+		@Pc(9) Buffer local9 = new Buffer(363, arg0.read("flo.dat", null));
+		anInt402 = local9.g2();
 		if (aFloTypeArray1 == null) {
 			aFloTypeArray1 = new FloType[anInt402];
 		}
@@ -62,7 +62,7 @@ public final class FloType {
 			if (aFloTypeArray1[local23] == null) {
 				aFloTypeArray1[local23] = new FloType();
 			}
-			aFloTypeArray1[local23].method273(local9);
+			aFloTypeArray1[local23].decode(local9);
 		}
 	}
 
@@ -71,23 +71,23 @@ public final class FloType {
 	}
 
 	@OriginalMember(owner = "client!fc", name = "a", descriptor = "(ZLclient!kb;)V")
-	private void method273(@OriginalArg(1) Buffer arg0) {
+	private void decode(@OriginalArg(1) Buffer arg0) {
 		while (true) {
-			@Pc(10) int local10 = arg0.method391();
+			@Pc(10) int local10 = arg0.g1();
 			if (local10 == 0) {
 				return;
 			}
 			if (local10 == 1) {
-				this.anInt403 = arg0.method395();
-				this.method274(anInt401, this.anInt403);
+				this.anInt403 = arg0.g3();
+				this.setColor(anInt401, this.anInt403);
 			} else if (local10 == 2) {
-				this.anInt404 = arg0.method391();
+				this.anInt404 = arg0.g1();
 			} else if (local10 == 3) {
 				this.aBoolean90 = true;
 			} else if (local10 == 5) {
 				this.aBoolean91 = false;
 			} else if (local10 == 6) {
-				this.aString19 = arg0.method398();
+				this.aString19 = arg0.gjstr();
 			} else {
 				System.out.println("Error unrecognised config code: " + local10);
 			}
@@ -95,7 +95,7 @@ public final class FloType {
 	}
 
 	@OriginalMember(owner = "client!fc", name = "a", descriptor = "(II)V")
-	private void method274(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+	private void setColor(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		@Pc(10) double local10 = (double) (arg1 >> 16 & 0xFF) / 256.0D;
 		if (arg0 >= 0) {
 			for (@Pc(14) int local14 = 1; local14 > 0; local14++) {
@@ -176,11 +176,11 @@ public final class FloType {
 		} else if (local290 > 255) {
 			local290 = 255;
 		}
-		this.anInt410 = this.method275(local248, local269, local290);
+		this.anInt410 = this.setHsl16(local248, local269, local290);
 	}
 
 	@OriginalMember(owner = "client!fc", name = "a", descriptor = "(III)I")
-	private int method275(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
+	private int setHsl16(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		if (arg2 > 179) {
 			arg1 /= 2;
 		}

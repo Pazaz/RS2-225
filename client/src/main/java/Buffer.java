@@ -89,13 +89,13 @@ public final class Buffer extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!kb", name = "a", descriptor = "(II)Lclient!kb;")
-	public static Buffer method378() {
+	public static Buffer reserve() {
 		@Pc(3) LinkedList local3 = A_LINKED_LIST___7;
 		synchronized (A_LINKED_LIST___7) {
 			@Pc(7) Buffer local7 = null;
 			if (anInt564 > 0) {
 				anInt564--;
-				local7 = (Buffer) A_LINKED_LIST___7.method455();
+				local7 = (Buffer) A_LINKED_LIST___7.poll();
 			}
 			if (local7 != null) {
 				local7.anInt561 = 0;
@@ -122,44 +122,44 @@ public final class Buffer extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!kb", name = "a", descriptor = "(B)V")
-	public final void method379() {
+	public final void release() {
 		@Pc(1) LinkedList local1 = A_LINKED_LIST___7;
 		synchronized (A_LINKED_LIST___7) {
 			this.anInt561 = 0;
 			if (this.aByteArray7.length == 100 && anInt563 < 1000) {
-				A_LINKED_LIST___6.method453(this);
+				A_LINKED_LIST___6.pushNext(this);
 				anInt563++;
 			} else if (this.aByteArray7.length == 5000 && anInt564 < 250) {
-				A_LINKED_LIST___7.method453(this);
+				A_LINKED_LIST___7.pushNext(this);
 				anInt564++;
 			} else if (this.aByteArray7.length == 30000 && anInt565 < 50) {
-				A_LINKED_LIST___8.method453(this);
+				A_LINKED_LIST___8.pushNext(this);
 				anInt565++;
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!kb", name = "a", descriptor = "(BI)V")
-	public final void method380(@OriginalArg(1) int arg0) {
-		this.aByteArray7[this.anInt561++] = (byte) (arg0 + this.aIsaacRandom_2.method532());
+	public final void p1isaac(@OriginalArg(1) int arg0) {
+		this.aByteArray7[this.anInt561++] = (byte) (arg0 + this.aIsaacRandom_2.nextInt());
 		if (this.aByte29 != -34) {
 			aBoolean129 = !aBoolean129;
 		}
 	}
 
 	@OriginalMember(owner = "client!kb", name = "a", descriptor = "(I)V")
-	public final void method381(@OriginalArg(0) int arg0) {
+	public final void p1(@OriginalArg(0) int arg0) {
 		this.aByteArray7[this.anInt561++] = (byte) arg0;
 	}
 
 	@OriginalMember(owner = "client!kb", name = "b", descriptor = "(I)V")
-	public final void method382(@OriginalArg(0) int arg0) {
+	public final void p2(@OriginalArg(0) int arg0) {
 		this.aByteArray7[this.anInt561++] = (byte) (arg0 >> 8);
 		this.aByteArray7[this.anInt561++] = (byte) arg0;
 	}
 
 	@OriginalMember(owner = "client!kb", name = "a", descriptor = "(ZI)V")
-	public final void method383(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1) {
+	public final void p2le(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1) {
 		if (!arg0) {
 			aBoolean129 = !aBoolean129;
 		}
@@ -168,14 +168,14 @@ public final class Buffer extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!kb", name = "c", descriptor = "(I)V")
-	public final void method384(@OriginalArg(0) int arg0) {
+	public final void p3(@OriginalArg(0) int arg0) {
 		this.aByteArray7[this.anInt561++] = (byte) (arg0 >> 16);
 		this.aByteArray7[this.anInt561++] = (byte) (arg0 >> 8);
 		this.aByteArray7[this.anInt561++] = (byte) arg0;
 	}
 
 	@OriginalMember(owner = "client!kb", name = "d", descriptor = "(I)V")
-	public final void method385(@OriginalArg(0) int arg0) {
+	public final void p4(@OriginalArg(0) int arg0) {
 		this.aByteArray7[this.anInt561++] = (byte) (arg0 >> 24);
 		this.aByteArray7[this.anInt561++] = (byte) (arg0 >> 16);
 		this.aByteArray7[this.anInt561++] = (byte) (arg0 >> 8);
@@ -183,7 +183,7 @@ public final class Buffer extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!kb", name = "b", descriptor = "(ZI)V")
-	public final void method386(@OriginalArg(1) int arg0) {
+	public final void p4le(@OriginalArg(1) int arg0) {
 		this.aByteArray7[this.anInt561++] = (byte) arg0;
 		this.aByteArray7[this.anInt561++] = (byte) (arg0 >> 8);
 		this.aByteArray7[this.anInt561++] = (byte) (arg0 >> 16);
@@ -191,7 +191,7 @@ public final class Buffer extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!kb", name = "a", descriptor = "(ZJ)V")
-	public final void method387(@OriginalArg(1) long arg0) {
+	public final void p8(@OriginalArg(1) long arg0) {
 		this.aByteArray7[this.anInt561++] = (byte) (arg0 >> 56);
 		this.aByteArray7[this.anInt561++] = (byte) (arg0 >> 48);
 		this.aByteArray7[this.anInt561++] = (byte) (arg0 >> 40);
@@ -203,14 +203,14 @@ public final class Buffer extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!kb", name = "a", descriptor = "(Ljava/lang/String;)V")
-	public final void method388(@OriginalArg(0) String arg0) {
+	public final void pjstr(@OriginalArg(0) String arg0) {
 		arg0.getBytes(0, arg0.length(), this.aByteArray7, this.anInt561);
 		this.anInt561 += arg0.length();
 		this.aByteArray7[this.anInt561++] = 10;
 	}
 
 	@OriginalMember(owner = "client!kb", name = "a", descriptor = "([BIIB)V")
-	public final void method389(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1) {
+	public final void pBytes(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1) {
 		@Pc(7) int local7;
 		if (this.aByte30 != -106) {
 			for (local7 = 1; local7 > 0; local7++) {
@@ -222,28 +222,28 @@ public final class Buffer extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!kb", name = "b", descriptor = "(II)V")
-	public final void method390(@OriginalArg(1) int arg0) {
+	public final void p1len(@OriginalArg(1) int arg0) {
 		this.aByteArray7[this.anInt561 - arg0 - 1] = (byte) arg0;
 	}
 
 	@OriginalMember(owner = "client!kb", name = "c", descriptor = "()I")
-	public final int method391() {
+	public final int g1() {
 		return this.aByteArray7[this.anInt561++] & 0xFF;
 	}
 
 	@OriginalMember(owner = "client!kb", name = "d", descriptor = "()B")
-	public final byte method392() {
+	public final byte g1s() {
 		return this.aByteArray7[this.anInt561++];
 	}
 
 	@OriginalMember(owner = "client!kb", name = "e", descriptor = "()I")
-	public final int method393() {
+	public final int g2() {
 		this.anInt561 += 2;
 		return ((this.aByteArray7[this.anInt561 - 2] & 0xFF) << 8) + (this.aByteArray7[this.anInt561 - 1] & 0xFF);
 	}
 
 	@OriginalMember(owner = "client!kb", name = "f", descriptor = "()I")
-	public final int method394() {
+	public final int g2s() {
 		this.anInt561 += 2;
 		@Pc(27) int local27 = ((this.aByteArray7[this.anInt561 - 2] & 0xFF) << 8) + (this.aByteArray7[this.anInt561 - 1] & 0xFF);
 		if (local27 > 32767) {
@@ -253,26 +253,26 @@ public final class Buffer extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!kb", name = "g", descriptor = "()I")
-	public final int method395() {
+	public final int g3() {
 		this.anInt561 += 3;
 		return ((this.aByteArray7[this.anInt561 - 3] & 0xFF) << 16) + ((this.aByteArray7[this.anInt561 - 2] & 0xFF) << 8) + (this.aByteArray7[this.anInt561 - 1] & 0xFF);
 	}
 
 	@OriginalMember(owner = "client!kb", name = "h", descriptor = "()I")
-	public final int method396() {
+	public final int g4() {
 		this.anInt561 += 4;
 		return ((this.aByteArray7[this.anInt561 - 4] & 0xFF) << 24) + ((this.aByteArray7[this.anInt561 - 3] & 0xFF) << 16) + ((this.aByteArray7[this.anInt561 - 2] & 0xFF) << 8) + (this.aByteArray7[this.anInt561 - 1] & 0xFF);
 	}
 
 	@OriginalMember(owner = "client!kb", name = "e", descriptor = "(I)J")
-	public final long method397() {
-		@Pc(5) long local5 = (long) this.method396() & 0xFFFFFFFFL;
-		@Pc(15) long local15 = (long) this.method396() & 0xFFFFFFFFL;
+	public final long g8() {
+		@Pc(5) long local5 = (long) this.g4() & 0xFFFFFFFFL;
+		@Pc(15) long local15 = (long) this.g4() & 0xFFFFFFFFL;
 		return (local5 << 32) + local15;
 	}
 
 	@OriginalMember(owner = "client!kb", name = "i", descriptor = "()Ljava/lang/String;")
-	public final String method398() {
+	public final String gjstr() {
 		@Pc(2) int local2 = this.anInt561;
 		while (this.aByteArray7[this.anInt561++] != 10) {
 		}
@@ -280,7 +280,7 @@ public final class Buffer extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!kb", name = "b", descriptor = "(B)[B")
-	public final byte[] method399() {
+	public final byte[] gjstrBytes() {
 		@Pc(2) int local2 = this.anInt561;
 		while (this.aByteArray7[this.anInt561++] != 10) {
 		}
@@ -292,19 +292,19 @@ public final class Buffer extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!kb", name = "a", descriptor = "(III[B)V")
-	public final void method400(@OriginalArg(0) int arg0, @OriginalArg(2) int arg1, @OriginalArg(3) byte[] arg2) {
+	public final void gBytes(@OriginalArg(0) int arg0, @OriginalArg(2) int arg1, @OriginalArg(3) byte[] arg2) {
 		for (@Pc(6) int local6 = arg1; local6 < arg1 + arg0; local6++) {
 			arg2[local6] = this.aByteArray7[this.anInt561++];
 		}
 	}
 
 	@OriginalMember(owner = "client!kb", name = "f", descriptor = "(I)V")
-	public final void method401() {
+	public final void accessBits() {
 		this.anInt562 = this.anInt561 * 8;
 	}
 
 	@OriginalMember(owner = "client!kb", name = "c", descriptor = "(II)I")
-	public final int method402(@OriginalArg(1) int arg0) {
+	public final int gBit(@OriginalArg(1) int arg0) {
 		@Pc(15) int local15 = this.anInt562 >> 3;
 		@Pc(22) int local22 = 8 - (this.anInt562 & 0x7);
 		@Pc(24) int local24 = 0;
@@ -323,7 +323,7 @@ public final class Buffer extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!kb", name = "g", descriptor = "(I)V")
-	public final void method403(@OriginalArg(0) int arg0) {
+	public final void accessBytes(@OriginalArg(0) int arg0) {
 		if (arg0 != this.anInt559) {
 			for (@Pc(5) int local5 = 1; local5 > 0; local5++) {
 			}
@@ -332,30 +332,30 @@ public final class Buffer extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!kb", name = "j", descriptor = "()I")
-	public final int method404() {
+	public final int gSmart1or2s() {
 		@Pc(7) int local7 = this.aByteArray7[this.anInt561] & 0xFF;
-		return local7 < 128 ? this.method391() - 64 : this.method393() - 49152;
+		return local7 < 128 ? this.g1() - 64 : this.g2() - 49152;
 	}
 
 	@OriginalMember(owner = "client!kb", name = "k", descriptor = "()I")
-	public final int method405() {
+	public final int gSmart1or2() {
 		@Pc(7) int local7 = this.aByteArray7[this.anInt561] & 0xFF;
-		return local7 < 128 ? this.method391() : this.method393() - 32768;
+		return local7 < 128 ? this.g1() : this.g2() - 32768;
 	}
 
 	@OriginalMember(owner = "client!kb", name = "a", descriptor = "(Ljava/math/BigInteger;Ljava/math/BigInteger;I)V")
-	public final void method406(@OriginalArg(0) BigInteger arg0, @OriginalArg(1) BigInteger arg1, @OriginalArg(2) int arg2) {
+	public final void encryptRsa(@OriginalArg(0) BigInteger arg0, @OriginalArg(1) BigInteger arg1, @OriginalArg(2) int arg2) {
 		@Pc(2) int local2 = this.anInt561;
 		this.anInt561 = 0;
 		@Pc(8) byte[] local8 = new byte[local2];
-		this.method400(local2, 0, local8);
+		this.gBytes(local2, 0, local8);
 		@Pc(19) BigInteger local19 = new BigInteger(local8);
 		@Pc(24) BigInteger local24 = local19.modPow(arg1, arg0);
 		@Pc(27) byte[] local27 = local24.toByteArray();
 		this.anInt561 = 0;
 		if (arg2 == 24676) {
-			this.method381(local27.length);
-			this.method389(local27, local27.length);
+			this.p1(local27.length);
+			this.pBytes(local27, local27.length);
 		}
 	}
 }

@@ -11,12 +11,12 @@ public final class TextEncoder {
 	private static final char[] aCharArray4 = new char[] { ' ', 'e', 't', 'a', 'o', 'i', 'h', 'n', 's', 'r', 'd', 'l', 'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b', 'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '!', '?', '.', ',', ':', ';', '(', ')', '-', '&', '*', '\\', '\'', '@', '#', '+', '=', '£', '$', '%', '"', '[', ']' };
 
 	@OriginalMember(owner = "client!wb", name = "a", descriptor = "(Lclient!kb;II)Ljava/lang/String;")
-	public static String method545(@OriginalArg(0) Buffer arg0, @OriginalArg(2) int arg1) {
+	public static String read(@OriginalArg(0) Buffer arg0, @OriginalArg(2) int arg1) {
 		@Pc(3) int local3 = 0;
 		@Pc(5) int local5 = -1;
 		@Pc(22) int local22;
 		for (@Pc(11) int local11 = 0; local11 < arg1; local11++) {
-			@Pc(16) int local16 = arg0.method391();
+			@Pc(16) int local16 = arg0.g1();
 			local22 = local16 >> 4 & 0xF;
 			if (local5 != -1) {
 				aCharArray3[local3++] = aCharArray4[(local5 << 4) + local22 - 195];
@@ -51,7 +51,7 @@ public final class TextEncoder {
 	}
 
 	@OriginalMember(owner = "client!wb", name = "a", descriptor = "(Lclient!kb;ZLjava/lang/String;)V")
-	public static void method546(@OriginalArg(0) Buffer arg0, @OriginalArg(2) String arg1) {
+	public static void write(@OriginalArg(0) Buffer arg0, @OriginalArg(2) String arg1) {
 		if (arg1.length() > 80) {
 			arg1 = arg1.substring(0, 80);
 		}
@@ -73,18 +73,18 @@ public final class TextEncoder {
 				if (local25 < 13) {
 					local15 = local25;
 				} else {
-					arg0.method381(local25);
+					arg0.p1(local25);
 				}
 			} else if (local25 < 13) {
-				arg0.method381((local15 << 4) + local25);
+				arg0.p1((local15 << 4) + local25);
 				local15 = -1;
 			} else {
-				arg0.method381((local15 << 4) + (local25 >> 4));
+				arg0.p1((local15 << 4) + (local25 >> 4));
 				local15 = local25 & 0xF;
 			}
 		}
 		if (local15 != -1) {
-			arg0.method381(local15 << 4);
+			arg0.p1(local15 << 4);
 		}
 	}
 }

@@ -26,7 +26,7 @@ public final class StringUtils {
 	private static final char[] aCharArray2 = new char[] { '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
 	@OriginalMember(owner = "client!vb", name = "a", descriptor = "(Ljava/lang/String;)J")
-	public static long method538(@OriginalArg(0) String arg0) {
+	public static long toBase37(@OriginalArg(0) String arg0) {
 		@Pc(3) long local3 = 0L;
 		for (@Pc(5) int local5 = 0; local5 < arg0.length() && local5 < 12; local5++) {
 			@Pc(11) char local11 = arg0.charAt(local5);
@@ -46,7 +46,7 @@ public final class StringUtils {
 	}
 
 	@OriginalMember(owner = "client!vb", name = "a", descriptor = "(JZ)Ljava/lang/String;")
-	public static String method539(@OriginalArg(0) long arg0) {
+	public static String fromBase37(@OriginalArg(0) long arg0) {
 		if (arg0 <= 0L || arg0 >= 6582952005840035281L) {
 			return "invalid_name";
 		} else if (arg0 % 37L == 0L) {
@@ -63,7 +63,7 @@ public final class StringUtils {
 	}
 
 	@OriginalMember(owner = "client!vb", name = "a", descriptor = "(ILjava/lang/String;)J")
-	public static long method540(@OriginalArg(1) String arg0) {
+	public static long genHash(@OriginalArg(1) String arg0) {
 		@Pc(8) String local8 = arg0.toUpperCase();
 		@Pc(10) long local10 = 0L;
 		for (@Pc(12) int local12 = 0; local12 < local8.length(); local12++) {
@@ -74,12 +74,12 @@ public final class StringUtils {
 	}
 
 	@OriginalMember(owner = "client!vb", name = "a", descriptor = "(II)Ljava/lang/String;")
-	public static String method541(@OriginalArg(1) int arg0) {
+	public static String fromIPv4(@OriginalArg(1) int arg0) {
 		return (arg0 >> 24 & 0xFF) + "." + (arg0 >> 16 & 0xFF) + "." + (arg0 >> 8 & 0xFF) + "." + (arg0 & 0xFF);
 	}
 
 	@OriginalMember(owner = "client!vb", name = "b", descriptor = "(ILjava/lang/String;)Ljava/lang/String;")
-	public static String method542(@OriginalArg(1) String arg0) {
+	public static String formatName(@OriginalArg(1) String arg0) {
 		if (arg0.length() <= 0) {
 			return arg0;
 		}
@@ -99,7 +99,7 @@ public final class StringUtils {
 	}
 
 	@OriginalMember(owner = "client!vb", name = "a", descriptor = "(Ljava/lang/String;I)Ljava/lang/String;")
-	public static String method543(@OriginalArg(0) String arg0) {
+	public static String toSentenceCase(@OriginalArg(0) String arg0) {
 		@Pc(2) String local2 = arg0.toLowerCase();
 		@Pc(9) char[] local9 = local2.toCharArray();
 		@Pc(12) int local12 = local9.length;
@@ -118,7 +118,7 @@ public final class StringUtils {
 	}
 
 	@OriginalMember(owner = "client!vb", name = "c", descriptor = "(ILjava/lang/String;)Ljava/lang/String;")
-	public static String method544(@OriginalArg(1) String arg0) {
+	public static String censor(@OriginalArg(1) String arg0) {
 		@Pc(1) String local1 = "";
 		for (@Pc(10) int local10 = 0; local10 < arg0.length(); local10++) {
 			local1 = local1 + "*";
