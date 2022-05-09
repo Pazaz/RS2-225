@@ -1,0 +1,490 @@
+{
+  "major": 45,
+  "minor": 3,
+  "constant_pool": [
+    {
+      "tag": 0,
+      "info": null
+    },
+    {
+      "tag": 7,
+      "info": 42
+    },
+    {
+      "tag": 7,
+      "info": 43
+    },
+    {
+      "tag": 7,
+      "info": 44
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 3,
+        "type": 11
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 2,
+        "type": 12
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 2,
+        "type": 13
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 2,
+        "type": 14
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 2,
+        "type": 15
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 2,
+        "type": 16
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 2,
+        "type": 17
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 20,
+        "type": 18
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 40,
+        "type": 24
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 46,
+        "type": 24
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 42,
+        "type": 36
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 57,
+        "type": 35
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 59,
+        "type": 24
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 60,
+        "type": 24
+      }
+    },
+    {
+      "tag": 1,
+      "info": "()V"
+    },
+    {
+      "tag": 1,
+      "info": "(III)V"
+    },
+    {
+      "tag": 1,
+      "info": "<init>"
+    },
+    {
+      "tag": 1,
+      "info": "Code"
+    },
+    {
+      "tag": 1,
+      "info": "ConstantValue"
+    },
+    {
+      "tag": 1,
+      "info": "Exceptions"
+    },
+    {
+      "tag": 1,
+      "info": "I"
+    },
+    {
+      "tag": 1,
+      "info": "ZKM4.2.0"
+    },
+    {
+      "tag": 1,
+      "info": "Lh;"
+    },
+    {
+      "tag": 1,
+      "info": "Li;"
+    },
+    {
+      "tag": 1,
+      "info": "Lj;"
+    },
+    {
+      "tag": 1,
+      "info": "Lk;"
+    },
+    {
+      "tag": 1,
+      "info": "Lo;"
+    },
+    {
+      "tag": 1,
+      "info": "Lcb;"
+    },
+    {
+      "tag": 1,
+      "info": "Lq;"
+    },
+    {
+      "tag": 1,
+      "info": "LocalVariables"
+    },
+    {
+      "tag": 1,
+      "info": "Z"
+    },
+    {
+      "tag": 1,
+      "info": "[I"
+    },
+    {
+      "tag": 1,
+      "info": "[Lp;"
+    },
+    {
+      "tag": 1,
+      "info": "A"
+    },
+    {
+      "tag": 1,
+      "info": "l"
+    },
+    {
+      "tag": 1,
+      "info": "m"
+    },
+    {
+      "tag": 1,
+      "info": "h"
+    },
+    {
+      "tag": 1,
+      "info": "j"
+    },
+    {
+      "tag": 1,
+      "info": "p"
+    },
+    {
+      "tag": 1,
+      "info": "cb"
+    },
+    {
+      "tag": 1,
+      "info": "u"
+    },
+    {
+      "tag": 1,
+      "info": "s"
+    },
+    {
+      "tag": 1,
+      "info": "e"
+    },
+    {
+      "tag": 1,
+      "info": "y"
+    },
+    {
+      "tag": 1,
+      "info": "x"
+    },
+    {
+      "tag": 1,
+      "info": "w"
+    },
+    {
+      "tag": 1,
+      "info": "t"
+    },
+    {
+      "tag": 1,
+      "info": "v"
+    },
+    {
+      "tag": 1,
+      "info": "n"
+    },
+    {
+      "tag": 1,
+      "info": "z"
+    },
+    {
+      "tag": 1,
+      "info": "i"
+    },
+    {
+      "tag": 1,
+      "info": "r"
+    },
+    {
+      "tag": 1,
+      "info": "o"
+    },
+    {
+      "tag": 1,
+      "info": "q"
+    },
+    {
+      "tag": 1,
+      "info": "k"
+    },
+    {
+      "tag": 1,
+      "info": "f"
+    },
+    {
+      "tag": 1,
+      "info": "g"
+    }
+  ],
+  "access_flags": "final super",
+  "this_class": "cb",
+  "class_name": "cb",
+  "package_name": "",
+  "super_class": "u",
+  "interfaces": [],
+  "fields": [
+    {
+      "access_flags": "",
+      "name": "e",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "f",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "g",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "h",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "i",
+      "descriptor": "o",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "j",
+      "descriptor": "i",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "k",
+      "descriptor": "q",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "l",
+      "descriptor": "h",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "m",
+      "descriptor": "j",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "n",
+      "descriptor": "k",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "o",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "p",
+      "descriptor": "p[]",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "q",
+      "descriptor": "int[]",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "r",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "s",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "t",
+      "descriptor": "boolean",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "u",
+      "descriptor": "boolean",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "v",
+      "descriptor": "boolean",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "w",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "x",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "y",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "z",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "A",
+      "descriptor": "cb",
+      "attributes": []
+    }
+  ],
+  "methods": [
+    {
+      "access_flags": "public",
+      "name": "<init>",
+      "description": "(III)V",
+      "descriptor": {
+        "arg_types": [
+          "int",
+          "int",
+          "int"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 4,
+          "max_locals": 4,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "aload_0.",
+            "invokespecial.4",
+            "aload_0.",
+            "iconst_5.",
+            "anewarray.1",
+            "putfield.7",
+            "aload_0.",
+            "iconst_5.",
+            "newarray.",
+            "lconst_1.",
+            "putfield.8",
+            "aload_0.",
+            "aload_0.",
+            "iload_1.",
+            "dup_x1.",
+            "putfield.6",
+            "putfield.5",
+            "aload_0.",
+            "iload_2.",
+            "putfield.9",
+            "aload_0.",
+            "iload_3.",
+            "putfield.10",
+            "return."
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": [],
+  "output": []
+}

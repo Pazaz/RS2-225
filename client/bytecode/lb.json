@@ -1,0 +1,208 @@
+{
+  "major": 45,
+  "minor": 3,
+  "constant_pool": [
+    {
+      "tag": 0,
+      "info": null
+    },
+    {
+      "tag": 7,
+      "info": 14
+    },
+    {
+      "tag": 7,
+      "info": 17
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 1,
+        "type": 4
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 6,
+        "type": 5
+      }
+    },
+    {
+      "tag": 1,
+      "info": "()V"
+    },
+    {
+      "tag": 1,
+      "info": "<init>"
+    },
+    {
+      "tag": 1,
+      "info": "Code"
+    },
+    {
+      "tag": 1,
+      "info": "ConstantValue"
+    },
+    {
+      "tag": 1,
+      "info": "Exceptions"
+    },
+    {
+      "tag": 1,
+      "info": "I"
+    },
+    {
+      "tag": 1,
+      "info": "ZKM4.2.0"
+    },
+    {
+      "tag": 1,
+      "info": "LocalVariables"
+    },
+    {
+      "tag": 1,
+      "info": "i"
+    },
+    {
+      "tag": 1,
+      "info": "u"
+    },
+    {
+      "tag": 1,
+      "info": "f"
+    },
+    {
+      "tag": 1,
+      "info": "e"
+    },
+    {
+      "tag": 1,
+      "info": "lb"
+    },
+    {
+      "tag": 1,
+      "info": "l"
+    },
+    {
+      "tag": 1,
+      "info": "m"
+    },
+    {
+      "tag": 1,
+      "info": "n"
+    },
+    {
+      "tag": 1,
+      "info": "j"
+    },
+    {
+      "tag": 1,
+      "info": "k"
+    },
+    {
+      "tag": 1,
+      "info": "g"
+    },
+    {
+      "tag": 1,
+      "info": "h"
+    }
+  ],
+  "access_flags": "final super",
+  "this_class": "lb",
+  "class_name": "lb",
+  "package_name": "",
+  "super_class": "u",
+  "interfaces": [],
+  "fields": [
+    {
+      "access_flags": "public",
+      "name": "e",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "f",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "g",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "h",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "i",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "j",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "k",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "l",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "m",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "n",
+      "descriptor": "int",
+      "attributes": []
+    }
+  ],
+  "methods": [
+    {
+      "access_flags": "",
+      "name": "<init>",
+      "description": "()V",
+      "descriptor": {
+        "arg_types": [],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "aligned": true,
+          "max_stack": 1,
+          "max_locals": 1,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "aload_0.",
+            "invokespecial.3",
+            "return."
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": [],
+  "output": []
+}

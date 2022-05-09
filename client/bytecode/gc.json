@@ -1,0 +1,1455 @@
+{
+  "major": 45,
+  "minor": 3,
+  "constant_pool": [
+    {
+      "tag": 0,
+      "info": null
+    },
+    {
+      "tag": 8,
+      "info": 96
+    },
+    {
+      "tag": 8,
+      "info": 97
+    },
+    {
+      "tag": 8,
+      "info": 98
+    },
+    {
+      "tag": 8,
+      "info": 99
+    },
+    {
+      "tag": 8,
+      "info": 104
+    },
+    {
+      "tag": 8,
+      "info": 120
+    },
+    {
+      "tag": 7,
+      "info": 121
+    },
+    {
+      "tag": 7,
+      "info": 122
+    },
+    {
+      "tag": 7,
+      "info": 123
+    },
+    {
+      "tag": 7,
+      "info": 124
+    },
+    {
+      "tag": 7,
+      "info": 125
+    },
+    {
+      "tag": 7,
+      "info": 126
+    },
+    {
+      "tag": 7,
+      "info": 127
+    },
+    {
+      "tag": 7,
+      "info": 128
+    },
+    {
+      "tag": 7,
+      "info": 129
+    },
+    {
+      "tag": 7,
+      "info": 137
+    },
+    {
+      "tag": 7,
+      "info": 138
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 11,
+        "type": 50
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 12,
+        "type": 50
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 16,
+        "type": 50
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 9,
+        "type": 51
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 7,
+        "type": 52
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 13,
+        "type": 53
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 7,
+        "type": 54
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 13,
+        "type": 55
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 13,
+        "type": 56
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 13,
+        "type": 57
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 13,
+        "type": 58
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 16,
+        "type": 59
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 16,
+        "type": 60
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 16,
+        "type": 61
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 9,
+        "type": 62
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 9,
+        "type": 63
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 8,
+        "type": 64
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 16,
+        "type": 65
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 16,
+        "type": 66
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 16,
+        "type": 67
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 16,
+        "type": 68
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 16,
+        "type": 69
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 16,
+        "type": 70
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 14,
+        "type": 71
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 10,
+        "type": 72
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 7,
+        "type": 73
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 16,
+        "type": 74
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 16,
+        "type": 75
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 17,
+        "type": 76
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 13,
+        "type": 77
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 15,
+        "type": 77
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 16,
+        "type": 78
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 101,
+        "type": 82
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 101,
+        "type": 85
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 101,
+        "type": 86
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 101,
+        "type": 90
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 101,
+        "type": 94
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 113,
+        "type": 83
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 113,
+        "type": 88
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 113,
+        "type": 89
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 113,
+        "type": 93
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 114,
+        "type": 106
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 115,
+        "type": 110
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 116,
+        "type": 106
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 117,
+        "type": 79
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 118,
+        "type": 79
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 114,
+        "type": 91
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 119,
+        "type": 111
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 117,
+        "type": 110
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 118,
+        "type": 112
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 114,
+        "type": 95
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 130,
+        "type": 111
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 131,
+        "type": 106
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 132,
+        "type": 108
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 133,
+        "type": 90
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 116,
+        "type": 84
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 134,
+        "type": 111
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 135,
+        "type": 111
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 136,
+        "type": 90
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 139,
+        "type": 81
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 140,
+        "type": 106
+      }
+    },
+    {
+      "tag": 1,
+      "info": "()I"
+    },
+    {
+      "tag": 1,
+      "info": "()Leb;"
+    },
+    {
+      "tag": 1,
+      "info": "()Ljava/lang/String;"
+    },
+    {
+      "tag": 1,
+      "info": "()V"
+    },
+    {
+      "tag": 1,
+      "info": "(I)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(II)V"
+    },
+    {
+      "tag": 1,
+      "info": "(I[B)V"
+    },
+    {
+      "tag": 1,
+      "info": "(I[Leb;I)V"
+    },
+    {
+      "tag": 1,
+      "info": "(Lub;I)V"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/lang/Object;)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/lang/String;)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/lang/String;)V"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/lang/String;[BB)[B"
+    },
+    {
+      "tag": 1,
+      "info": "(Z)Leb;"
+    },
+    {
+      "tag": 1,
+      "info": "(Z)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(ZI)V"
+    },
+    {
+      "tag": 1,
+      "info": "(ZLkb;)V"
+    },
+    {
+      "tag": 1,
+      "info": ", "
+    },
+    {
+      "tag": 1,
+      "info": "19364, "
+    },
+    {
+      "tag": 1,
+      "info": "61151, "
+    },
+    {
+      "tag": 1,
+      "info": "89502, "
+    },
+    {
+      "tag": 1,
+      "info": "<clinit>"
+    },
+    {
+      "tag": 1,
+      "info": "<init>"
+    },
+    {
+      "tag": 1,
+      "info": "Code"
+    },
+    {
+      "tag": 1,
+      "info": "ConstantValue"
+    },
+    {
+      "tag": 1,
+      "info": "Error unrecognised config code: "
+    },
+    {
+      "tag": 1,
+      "info": "Exceptions"
+    },
+    {
+      "tag": 1,
+      "info": "I"
+    },
+    {
+      "tag": 1,
+      "info": "ZKM4.2.0"
+    },
+    {
+      "tag": 1,
+      "info": "Ljava/io/PrintStream;"
+    },
+    {
+      "tag": 1,
+      "info": "LocalVariables"
+    },
+    {
+      "tag": 1,
+      "info": "Z"
+    },
+    {
+      "tag": 1,
+      "info": "[I"
+    },
+    {
+      "tag": 1,
+      "info": "[Lgc;"
+    },
+    {
+      "tag": 1,
+      "info": "append"
+    },
+    {
+      "tag": 1,
+      "info": "a"
+    },
+    {
+      "tag": 1,
+      "info": "k"
+    },
+    {
+      "tag": 1,
+      "info": "b"
+    },
+    {
+      "tag": 1,
+      "info": "c"
+    },
+    {
+      "tag": 1,
+      "info": "e"
+    },
+    {
+      "tag": 1,
+      "info": "j"
+    },
+    {
+      "tag": 1,
+      "info": "idk.dat"
+    },
+    {
+      "tag": 1,
+      "info": "eb"
+    },
+    {
+      "tag": 1,
+      "info": "ub"
+    },
+    {
+      "tag": 1,
+      "info": "kb"
+    },
+    {
+      "tag": 1,
+      "info": "java/io/PrintStream"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/Object"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/RuntimeException"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/StringBuffer"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/System"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/Throwable"
+    },
+    {
+      "tag": 1,
+      "info": "g"
+    },
+    {
+      "tag": 1,
+      "info": "d"
+    },
+    {
+      "tag": 1,
+      "info": "out"
+    },
+    {
+      "tag": 1,
+      "info": "println"
+    },
+    {
+      "tag": 1,
+      "info": "i"
+    },
+    {
+      "tag": 1,
+      "info": "h"
+    },
+    {
+      "tag": 1,
+      "info": "reporterror"
+    },
+    {
+      "tag": 1,
+      "info": "gc"
+    },
+    {
+      "tag": 1,
+      "info": "sign/signlink"
+    },
+    {
+      "tag": 1,
+      "info": "toString"
+    },
+    {
+      "tag": 1,
+      "info": "f"
+    },
+    {
+      "tag": 7,
+      "info": 142
+    },
+    {
+      "tag": 1,
+      "info": "jc"
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 144,
+        "type": 110
+      }
+    },
+    {
+      "tag": 1,
+      "info": "p"
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 141,
+        "type": 143
+      }
+    },
+    {
+      "tag": 7,
+      "info": 147
+    },
+    {
+      "tag": 1,
+      "info": "u"
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 146,
+        "type": 70
+      }
+    }
+  ],
+  "access_flags": "public super",
+  "this_class": "gc",
+  "class_name": "gc",
+  "package_name": "",
+  "super_class": "java.lang.Object",
+  "interfaces": [],
+  "fields": [
+    {
+      "access_flags": "",
+      "name": "a",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "b",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "c",
+      "descriptor": "boolean",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "d",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "e",
+      "descriptor": "gc[]",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "f",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "g",
+      "descriptor": "int[]",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "h",
+      "descriptor": "int[]",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "i",
+      "descriptor": "int[]",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "j",
+      "descriptor": "int[]",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "k",
+      "descriptor": "boolean",
+      "attributes": []
+    }
+  ],
+  "methods": [
+    {
+      "access_flags": "public static",
+      "name": "a",
+      "description": "(Lub;I)V",
+      "descriptor": {
+        "arg_types": [
+          "ub",
+          "int"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 8,
+          "max_locals": 4,
+          "exceptions": [
+            {
+              "start_pc": 0,
+              "end_pc": 94,
+              "handler_pc": 95,
+              "catch_type": "java.lang.RuntimeException"
+            }
+          ],
+          "attributes": [],
+          "code": [
+            "new.9",
+            "dup.",
+            "sipush.363",
+            "aload_0.",
+            "ldc.6",
+            "aconst_null.",
+            "iconst_2.",
+            "invokevirtual.34",
+            "invokespecial.21",
+            "astore_2.",
+            "aload_2.",
+            "invokevirtual.33",
+            "putstatic.40",
+            "getstatic.37",
+            "ifnonnull.12",
+            "getstatic.40",
+            "anewarray.16",
+            "putstatic.37",
+            "iconst_0.",
+            "istore_3.",
+            "getstatic.145",
+            "ifeq.36",
+            "getstatic.37",
+            "iload_3.",
+            "aaload.",
+            "ifnonnull.15",
+            "getstatic.37",
+            "iload_3.",
+            "new.16",
+            "dup.",
+            "invokespecial.20",
+            "aastore.",
+            "getstatic.37",
+            "iload_3.",
+            "aaload.",
+            "iconst_0.",
+            "aload_2.",
+            "invokevirtual.38",
+            "iinc.3.1",
+            "iload_3.",
+            "getstatic.40",
+            "if_icmplt.65499",
+            "bipush.87",
+            "iload_1.",
+            "idiv.",
+            "istore_1.",
+            "return.",
+            "astore_2.",
+            "new.13",
+            "dup.",
+            "ldc.4",
+            "invokespecial.23",
+            "aload_0.",
+            "invokevirtual.26",
+            "ldc.1",
+            "invokevirtual.27",
+            "iload_1.",
+            "invokevirtual.25",
+            "ldc.1",
+            "invokevirtual.27",
+            "aload_2.",
+            "invokevirtual.48",
+            "invokevirtual.27",
+            "invokevirtual.47",
+            "invokestatic.46",
+            "new.12",
+            "dup.",
+            "invokespecial.19",
+            "athrow."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public",
+      "name": "a",
+      "description": "(ZLkb;)V",
+      "descriptor": {
+        "arg_types": [
+          "boolean",
+          "kb"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 5,
+          "max_locals": 7,
+          "exceptions": [
+            {
+              "start_pc": 5,
+              "end_pc": 225,
+              "handler_pc": 225,
+              "catch_type": "java.lang.RuntimeException"
+            }
+          ],
+          "attributes": [],
+          "code": [
+            "getstatic.145",
+            "istore.6",
+            "iload_1.",
+            "ifeq.8",
+            "bipush.65",
+            "putstatic.29",
+            "aload_2.",
+            "invokevirtual.32",
+            "istore_3.",
+            "iload_3.",
+            "ifne.4",
+            "return.",
+            "iload_3.",
+            "iconst_1.",
+            "if_icmpne.16",
+            "aload_0.",
+            "aload_2.",
+            "invokevirtual.32",
+            "putfield.49",
+            "iload.6",
+            "ifeq.65511",
+            "iload_3.",
+            "iconst_2.",
+            "if_icmpne.51",
+            "aload_2.",
+            "invokevirtual.32",
+            "istore.4",
+            "aload_0.",
+            "iload.4",
+            "newarray.",
+            "lconst_1.",
+            "putfield.39",
+            "iconst_0.",
+            "istore.5",
+            "iload.6",
+            "ifeq.17",
+            "aload_0.",
+            "getfield.39",
+            "iload.5",
+            "aload_2.",
+            "invokevirtual.33",
+            "iastore.",
+            "iinc.5.1",
+            "iload.5",
+            "iload.4",
+            "if_icmplt.65518",
+            "iload.6",
+            "ifeq.65458",
+            "iload_3.",
+            "iconst_3.",
+            "if_icmpne.13",
+            "aload_0.",
+            "iconst_1.",
+            "putfield.30",
+            "iload.6",
+            "ifeq.65443",
+            "iload_3.",
+            "bipush.40",
+            "if_icmplt.27",
+            "iload_3.",
+            "bipush.50",
+            "if_icmpge.21",
+            "aload_0.",
+            "getfield.45",
+            "iload_3.",
+            "bipush.40",
+            "isub.",
+            "aload_2.",
+            "invokevirtual.33",
+            "iastore.",
+            "iload.6",
+            "ifeq.65413",
+            "iload_3.",
+            "bipush.50",
+            "if_icmplt.27",
+            "iload_3.",
+            "bipush.60",
+            "if_icmpge.21",
+            "aload_0.",
+            "getfield.44",
+            "iload_3.",
+            "bipush.50",
+            "isub.",
+            "aload_2.",
+            "invokevirtual.33",
+            "iastore.",
+            "iload.6",
+            "ifeq.65383",
+            "iload_3.",
+            "bipush.60",
+            "if_icmplt.27",
+            "iload_3.",
+            "bipush.70",
+            "if_icmpge.21",
+            "aload_0.",
+            "getfield.35",
+            "iload_3.",
+            "bipush.60",
+            "isub.",
+            "aload_2.",
+            "invokevirtual.33",
+            "iastore.",
+            "iload.6",
+            "ifeq.65353",
+            "getstatic.41",
+            "new.13",
+            "dup.",
+            "ldc.5",
+            "invokespecial.23",
+            "iload_3.",
+            "invokevirtual.25",
+            "invokevirtual.47",
+            "invokevirtual.42",
+            "goto.65328",
+            "astore_3.",
+            "new.13",
+            "dup.",
+            "ldc.3",
+            "invokespecial.23",
+            "iload_1.",
+            "invokevirtual.28",
+            "ldc.1",
+            "invokevirtual.27",
+            "aload_2.",
+            "invokevirtual.26",
+            "ldc.1",
+            "invokevirtual.27",
+            "aload_3.",
+            "invokevirtual.48",
+            "invokevirtual.27",
+            "invokevirtual.47",
+            "invokestatic.46",
+            "new.12",
+            "dup.",
+            "invokespecial.19",
+            "athrow."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public",
+      "name": "a",
+      "description": "()Leb;",
+      "descriptor": {
+        "arg_types": [],
+        "return_type": "eb"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 8,
+          "max_locals": 6,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "getstatic.145",
+            "istore.5",
+            "aload_0.",
+            "getfield.39",
+            "ifnonnull.5",
+            "aconst_null.",
+            "areturn.",
+            "aload_0.",
+            "getfield.39",
+            "arraylength.",
+            "anewarray.7",
+            "astore_1.",
+            "iconst_0.",
+            "istore_2.",
+            "iload.5",
+            "ifeq.23",
+            "aload_1.",
+            "iload_2.",
+            "new.7",
+            "dup.",
+            "iconst_0.",
+            "aload_0.",
+            "getfield.39",
+            "iload_2.",
+            "iaload.",
+            "invokespecial.24",
+            "aastore.",
+            "iinc.2.1",
+            "iload_2.",
+            "aload_0.",
+            "getfield.39",
+            "arraylength.",
+            "if_icmplt.65510",
+            "aload_1.",
+            "arraylength.",
+            "iconst_1.",
+            "if_icmpne.12",
+            "aload_1.",
+            "iconst_0.",
+            "aaload.",
+            "astore_3.",
+            "iload.5",
+            "ifeq.15",
+            "new.7",
+            "dup.",
+            "iconst_0.",
+            "aload_1.",
+            "aload_1.",
+            "arraylength.",
+            "invokespecial.22",
+            "astore_3.",
+            "iconst_0.",
+            "istore.4",
+            "iload.5",
+            "ifeq.34",
+            "aload_0.",
+            "getfield.45",
+            "iload.4",
+            "iaload.",
+            "ifeq.31",
+            "aload_3.",
+            "aload_0.",
+            "getfield.45",
+            "iload.4",
+            "iaload.",
+            "aload_0.",
+            "getfield.44",
+            "iload.4",
+            "iaload.",
+            "invokevirtual.43",
+            "iinc.4.1",
+            "iload.4",
+            "bipush.6",
+            "if_icmplt.65501",
+            "aload_3.",
+            "areturn."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public",
+      "name": "a",
+      "description": "(Z)Leb;",
+      "descriptor": {
+        "arg_types": [
+          "boolean"
+        ],
+        "return_type": "eb"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 8,
+          "max_locals": 9,
+          "exceptions": [
+            {
+              "start_pc": 5,
+              "end_pc": 143,
+              "handler_pc": 143,
+              "catch_type": "java.lang.RuntimeException"
+            }
+          ],
+          "attributes": [],
+          "code": [
+            "getstatic.145",
+            "istore.8",
+            "iconst_5.",
+            "anewarray.7",
+            "astore_2.",
+            "iconst_0.",
+            "istore_3.",
+            "iconst_0.",
+            "istore.4",
+            "iload.8",
+            "ifeq.38",
+            "aload_0.",
+            "getfield.35",
+            "iload.4",
+            "iaload.",
+            "iconst_m1.",
+            "if_icmpeq.24",
+            "aload_2.",
+            "iload_3.",
+            "iinc.3.1",
+            "new.7",
+            "dup.",
+            "iconst_0.",
+            "aload_0.",
+            "getfield.35",
+            "iload.4",
+            "iaload.",
+            "invokespecial.24",
+            "aastore.",
+            "iinc.4.1",
+            "iload.4",
+            "iconst_5.",
+            "if_icmplt.65498",
+            "new.7",
+            "dup.",
+            "iconst_0.",
+            "aload_2.",
+            "iload_3.",
+            "invokespecial.22",
+            "astore.5",
+            "iconst_0.",
+            "istore.6",
+            "iload.8",
+            "ifeq.35",
+            "aload_0.",
+            "getfield.45",
+            "iload.6",
+            "iaload.",
+            "ifeq.32",
+            "aload.5",
+            "aload_0.",
+            "getfield.45",
+            "iload.6",
+            "iaload.",
+            "aload_0.",
+            "getfield.44",
+            "iload.6",
+            "iaload.",
+            "invokevirtual.43",
+            "iinc.6.1",
+            "iload.6",
+            "bipush.6",
+            "if_icmplt.65500",
+            "iload_1.",
+            "ifeq.19",
+            "iconst_1.",
+            "istore.7",
+            "iload.8",
+            "ifeq.6",
+            "iinc.7.1",
+            "iload.7",
+            "ifgt.65531",
+            "aload.5",
+            "areturn.",
+            "astore_2.",
+            "new.13",
+            "dup.",
+            "ldc.2",
+            "invokespecial.23",
+            "iload_1.",
+            "invokevirtual.28",
+            "ldc.1",
+            "invokevirtual.27",
+            "aload_2.",
+            "invokevirtual.48",
+            "invokevirtual.27",
+            "invokevirtual.47",
+            "invokestatic.46",
+            "new.12",
+            "dup.",
+            "invokespecial.19",
+            "athrow."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public",
+      "name": "<init>",
+      "description": "()V",
+      "descriptor": {
+        "arg_types": [],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "aligned": true,
+          "max_stack": 6,
+          "max_locals": 2,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "getstatic.145",
+            "istore_1.",
+            "aload_0.",
+            "invokespecial.18",
+            "aload_0.",
+            "iconst_0.",
+            "putfield.36",
+            "aload_0.",
+            "iconst_m1.",
+            "putfield.49",
+            "aload_0.",
+            "bipush.6",
+            "newarray.",
+            "lconst_1.",
+            "putfield.45",
+            "aload_0.",
+            "bipush.6",
+            "newarray.",
+            "lconst_1.",
+            "putfield.44",
+            "aload_0.",
+            "iconst_5.",
+            "newarray.",
+            "lconst_1.",
+            "dup.",
+            "iconst_0.",
+            "iconst_m1.",
+            "iastore.",
+            "dup.",
+            "iconst_1.",
+            "iconst_m1.",
+            "iastore.",
+            "dup.",
+            "iconst_2.",
+            "iconst_m1.",
+            "iastore.",
+            "dup.",
+            "iconst_3.",
+            "iconst_m1.",
+            "iastore.",
+            "dup.",
+            "iconst_4.",
+            "iconst_m1.",
+            "iastore.",
+            "putfield.35",
+            "aload_0.",
+            "iconst_0.",
+            "putfield.30",
+            "getstatic.148",
+            "ifeq.15",
+            "iload_1.",
+            "ifeq.7",
+            "iconst_0.",
+            "goto.4",
+            "iconst_1.",
+            "putstatic.145",
+            "return."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "static",
+      "name": "<clinit>",
+      "description": "()V",
+      "descriptor": {
+        "arg_types": [],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 1,
+          "max_locals": 0,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "sipush.473",
+            "putstatic.31",
+            "return."
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": [],
+  "output": []
+}

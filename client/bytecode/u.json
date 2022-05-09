@@ -1,0 +1,241 @@
+{
+  "major": 45,
+  "minor": 3,
+  "constant_pool": [
+    {
+      "tag": 0,
+      "info": null
+    },
+    {
+      "tag": 7,
+      "info": 17
+    },
+    {
+      "tag": 7,
+      "info": 18
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 2,
+        "type": 6
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 1,
+        "type": 7
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 1,
+        "type": 8
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 10,
+        "type": 9
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 22,
+        "type": 15
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 23,
+        "type": 15
+      }
+    },
+    {
+      "tag": 1,
+      "info": "()V"
+    },
+    {
+      "tag": 1,
+      "info": "<init>"
+    },
+    {
+      "tag": 1,
+      "info": "Code"
+    },
+    {
+      "tag": 1,
+      "info": "ConstantValue"
+    },
+    {
+      "tag": 1,
+      "info": "Exceptions"
+    },
+    {
+      "tag": 1,
+      "info": "ZKM4.2.0"
+    },
+    {
+      "tag": 1,
+      "info": "Lu;"
+    },
+    {
+      "tag": 1,
+      "info": "LocalVariables"
+    },
+    {
+      "tag": 1,
+      "info": "u"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/Object"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/RuntimeException"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/StringBuffer"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/Throwable"
+    },
+    {
+      "tag": 1,
+      "info": "b"
+    },
+    {
+      "tag": 1,
+      "info": "c"
+    },
+    {
+      "tag": 1,
+      "info": "sign/signlink"
+    },
+    {
+      "tag": 1,
+      "info": "a"
+    },
+    {
+      "tag": 1,
+      "info": "J"
+    },
+    {
+      "tag": 1,
+      "info": "d"
+    },
+    {
+      "tag": 1,
+      "info": "I"
+    }
+  ],
+  "access_flags": "public super",
+  "this_class": "u",
+  "class_name": "u",
+  "package_name": "",
+  "super_class": "java.lang.Object",
+  "interfaces": [],
+  "fields": [
+    {
+      "access_flags": "",
+      "name": "a",
+      "descriptor": "long",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "b",
+      "descriptor": "u",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "c",
+      "descriptor": "u",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "d",
+      "descriptor": "int",
+      "attributes": []
+    }
+  ],
+  "methods": [
+    {
+      "access_flags": "public",
+      "name": "a",
+      "description": "()V",
+      "descriptor": {
+        "arg_types": [],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "aligned": true,
+          "max_stack": 2,
+          "max_locals": 1,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "aload_0.",
+            "getfield.5",
+            "ifnonnull.4",
+            "return.",
+            "aload_0.",
+            "getfield.5",
+            "aload_0.",
+            "getfield.4",
+            "putfield.4",
+            "aload_0.",
+            "getfield.4",
+            "aload_0.",
+            "getfield.5",
+            "putfield.5",
+            "aload_0.",
+            "aconst_null.",
+            "putfield.4",
+            "aload_0.",
+            "aconst_null.",
+            "putfield.5",
+            "return."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public",
+      "name": "<init>",
+      "description": "()V",
+      "descriptor": {
+        "arg_types": [],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 1,
+          "max_locals": 1,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "aload_0.",
+            "invokespecial.3",
+            "return."
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": [],
+  "output": []
+}

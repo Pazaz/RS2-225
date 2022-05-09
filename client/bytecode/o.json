@@ -1,0 +1,315 @@
+{
+  "major": 45,
+  "minor": 3,
+  "constant_pool": [
+    {
+      "tag": 0,
+      "info": null
+    },
+    {
+      "tag": 7,
+      "info": 34
+    },
+    {
+      "tag": 7,
+      "info": 35
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 2,
+        "type": 11
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 1,
+        "type": 12
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 1,
+        "type": 13
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 1,
+        "type": 14
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 1,
+        "type": 15
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 1,
+        "type": 16
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 1,
+        "type": 17
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 1,
+        "type": 18
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 21,
+        "type": 19
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 29,
+        "type": 25
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 30,
+        "type": 25
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 31,
+        "type": 25
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 32,
+        "type": 25
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 33,
+        "type": 28
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 36,
+        "type": 25
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 37,
+        "type": 25
+      }
+    },
+    {
+      "tag": 1,
+      "info": "()V"
+    },
+    {
+      "tag": 1,
+      "info": "(IIIIIIZ)V"
+    },
+    {
+      "tag": 1,
+      "info": "<init>"
+    },
+    {
+      "tag": 1,
+      "info": "Code"
+    },
+    {
+      "tag": 1,
+      "info": "ConstantValue"
+    },
+    {
+      "tag": 1,
+      "info": "Exceptions"
+    },
+    {
+      "tag": 1,
+      "info": "I"
+    },
+    {
+      "tag": 1,
+      "info": "ZKM4.2.0"
+    },
+    {
+      "tag": 1,
+      "info": "LocalVariables"
+    },
+    {
+      "tag": 1,
+      "info": "Z"
+    },
+    {
+      "tag": 1,
+      "info": "a"
+    },
+    {
+      "tag": 1,
+      "info": "b"
+    },
+    {
+      "tag": 1,
+      "info": "c"
+    },
+    {
+      "tag": 1,
+      "info": "d"
+    },
+    {
+      "tag": 1,
+      "info": "f"
+    },
+    {
+      "tag": 1,
+      "info": "o"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/Object"
+    },
+    {
+      "tag": 1,
+      "info": "g"
+    },
+    {
+      "tag": 1,
+      "info": "e"
+    }
+  ],
+  "access_flags": "final super",
+  "this_class": "o",
+  "class_name": "o",
+  "package_name": "",
+  "super_class": "java.lang.Object",
+  "interfaces": [],
+  "fields": [
+    {
+      "access_flags": "",
+      "name": "a",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "b",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "c",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "d",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "e",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "f",
+      "descriptor": "boolean",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "g",
+      "descriptor": "int",
+      "attributes": []
+    }
+  ],
+  "methods": [
+    {
+      "access_flags": "public",
+      "name": "<init>",
+      "description": "(IIIIIIZ)V",
+      "descriptor": {
+        "arg_types": [
+          "int",
+          "int",
+          "int",
+          "int",
+          "int",
+          "int",
+          "boolean"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 2,
+          "max_locals": 8,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "aload_0.",
+            "invokespecial.3",
+            "aload_0.",
+            "iconst_1.",
+            "putfield.8",
+            "aload_0.",
+            "iload_1.",
+            "putfield.4",
+            "aload_0.",
+            "iload_2.",
+            "putfield.5",
+            "aload_0.",
+            "iload_3.",
+            "putfield.6",
+            "aload_0.",
+            "iload.4",
+            "putfield.7",
+            "aload_0.",
+            "iload.5",
+            "putfield.10",
+            "aload_0.",
+            "iload.6",
+            "putfield.9",
+            "aload_0.",
+            "iload.7",
+            "putfield.8",
+            "return."
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": [],
+  "output": []
+}

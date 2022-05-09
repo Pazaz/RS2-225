@@ -1,0 +1,600 @@
+{
+  "major": 45,
+  "minor": 3,
+  "constant_pool": [
+    {
+      "tag": 0,
+      "info": null
+    },
+    {
+      "tag": 8,
+      "info": 47
+    },
+    {
+      "tag": 8,
+      "info": 48
+    },
+    {
+      "tag": 7,
+      "info": 63
+    },
+    {
+      "tag": 7,
+      "info": 64
+    },
+    {
+      "tag": 7,
+      "info": 66
+    },
+    {
+      "tag": 7,
+      "info": 67
+    },
+    {
+      "tag": 7,
+      "info": 68
+    },
+    {
+      "tag": 7,
+      "info": 69
+    },
+    {
+      "tag": 7,
+      "info": 74
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 3,
+        "type": 26
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 5,
+        "type": 26
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 6,
+        "type": 26
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 7,
+        "type": 27
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 7,
+        "type": 28
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 7,
+        "type": 29
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 4,
+        "type": 30
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 4,
+        "type": 31
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 3,
+        "type": 32
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 4,
+        "type": 33
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 3,
+        "type": 34
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 9,
+        "type": 35
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 7,
+        "type": 36
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 8,
+        "type": 36
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 3,
+        "type": 37
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 4,
+        "type": 38
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 49,
+        "type": 41
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 49,
+        "type": 46
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 60,
+        "type": 42
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 60,
+        "type": 45
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 61,
+        "type": 56
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 59,
+        "type": 54
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 70,
+        "type": 56
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 71,
+        "type": 50
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 72,
+        "type": 56
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 73,
+        "type": 46
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 75,
+        "type": 40
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 71,
+        "type": 41
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 76,
+        "type": 58
+      }
+    },
+    {
+      "tag": 1,
+      "info": "()Ldb;"
+    },
+    {
+      "tag": 1,
+      "info": "()Ljava/lang/String;"
+    },
+    {
+      "tag": 1,
+      "info": "()V"
+    },
+    {
+      "tag": 1,
+      "info": "(I)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(I)V"
+    },
+    {
+      "tag": 1,
+      "info": "(Ldb;)V"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/lang/String;)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/lang/String;)V"
+    },
+    {
+      "tag": 1,
+      "info": ", "
+    },
+    {
+      "tag": 1,
+      "info": "27606, "
+    },
+    {
+      "tag": 1,
+      "info": "<init>"
+    },
+    {
+      "tag": 1,
+      "info": "B"
+    },
+    {
+      "tag": 1,
+      "info": "Code"
+    },
+    {
+      "tag": 1,
+      "info": "ConstantValue"
+    },
+    {
+      "tag": 1,
+      "info": "Exceptions"
+    },
+    {
+      "tag": 1,
+      "info": "I"
+    },
+    {
+      "tag": 1,
+      "info": "ZKM4.2.0"
+    },
+    {
+      "tag": 1,
+      "info": "Ldb;"
+    },
+    {
+      "tag": 1,
+      "info": "LocalVariables"
+    },
+    {
+      "tag": 1,
+      "info": "Z"
+    },
+    {
+      "tag": 1,
+      "info": "a"
+    },
+    {
+      "tag": 1,
+      "info": "append"
+    },
+    {
+      "tag": 1,
+      "info": "d"
+    },
+    {
+      "tag": 1,
+      "info": "jagex2/datastruct/linkable"
+    },
+    {
+      "tag": 1,
+      "info": "db"
+    },
+    {
+      "tag": 1,
+      "info": "pb"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/NullPointerException"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/Object"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/RuntimeException"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/StringBuffer"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/Throwable"
+    },
+    {
+      "tag": 1,
+      "info": "e"
+    },
+    {
+      "tag": 1,
+      "info": "b"
+    },
+    {
+      "tag": 1,
+      "info": "f"
+    },
+    {
+      "tag": 1,
+      "info": "reporterror"
+    },
+    {
+      "tag": 1,
+      "info": "sign/signlink"
+    },
+    {
+      "tag": 1,
+      "info": "toString"
+    },
+    {
+      "tag": 1,
+      "info": "c"
+    }
+  ],
+  "access_flags": "public final super",
+  "this_class": "pb",
+  "class_name": "pb",
+  "package_name": "",
+  "super_class": "java.lang.Object",
+  "interfaces": [],
+  "fields": [
+    {
+      "access_flags": "",
+      "name": "a",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "b",
+      "descriptor": "byte",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "c",
+      "descriptor": "boolean",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "d",
+      "descriptor": "db",
+      "attributes": []
+    }
+  ],
+  "methods": [
+    {
+      "access_flags": "public",
+      "name": "<init>",
+      "description": "(I)V",
+      "descriptor": {
+        "arg_types": [
+          "int"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "aligned": true,
+          "max_stack": 3,
+          "max_locals": 3,
+          "exceptions": [
+            {
+              "start_pc": 32,
+              "end_pc": 71,
+              "handler_pc": 72,
+              "catch_type": "java.lang.RuntimeException"
+            }
+          ],
+          "attributes": [],
+          "code": [
+            "aload_0.",
+            "invokespecial.11",
+            "aload_0.",
+            "sipush.679",
+            "putfield.17",
+            "aload_0.",
+            "iconst_2.",
+            "putfield.19",
+            "aload_0.",
+            "iconst_1.",
+            "putfield.25",
+            "aload_0.",
+            "new.3",
+            "dup.",
+            "invokespecial.10",
+            "putfield.16",
+            "aload_0.",
+            "getfield.16",
+            "aload_0.",
+            "getfield.16",
+            "putfield.18",
+            "iload_1.",
+            "iconst_5.",
+            "if_icmplt.8",
+            "iload_1.",
+            "iconst_5.",
+            "if_icmple.10",
+            "aload_0.",
+            "sipush.65110",
+            "putfield.17",
+            "aload_0.",
+            "getfield.16",
+            "aload_0.",
+            "getfield.16",
+            "putfield.20",
+            "return.",
+            "astore_2.",
+            "new.7",
+            "dup.",
+            "ldc.2",
+            "invokespecial.13",
+            "iload_1.",
+            "invokevirtual.14",
+            "ldc.1",
+            "invokevirtual.15",
+            "aload_2.",
+            "invokevirtual.23",
+            "invokevirtual.15",
+            "invokevirtual.22",
+            "invokestatic.21",
+            "new.6",
+            "dup.",
+            "invokespecial.12",
+            "athrow."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public",
+      "name": "a",
+      "description": "(Ldb;)V",
+      "descriptor": {
+        "arg_types": [
+          "db"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 2,
+          "max_locals": 2,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "aload_1.",
+            "getfield.20",
+            "ifnull.7",
+            "aload_1.",
+            "invokevirtual.24",
+            "aload_1.",
+            "aload_0.",
+            "getfield.16",
+            "getfield.20",
+            "putfield.20",
+            "aload_1.",
+            "aload_0.",
+            "getfield.16",
+            "putfield.18",
+            "aload_1.",
+            "getfield.20",
+            "aload_1.",
+            "putfield.18",
+            "aload_1.",
+            "getfield.18",
+            "aload_1.",
+            "putfield.20",
+            "return."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public",
+      "name": "a",
+      "description": "()Ldb;",
+      "descriptor": {
+        "arg_types": [],
+        "return_type": "db"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 2,
+          "max_locals": 2,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "aload_0.",
+            "getfield.16",
+            "getfield.18",
+            "astore_1.",
+            "aload_1.",
+            "aload_0.",
+            "getfield.16",
+            "if_acmpne.5",
+            "aconst_null.",
+            "areturn.",
+            "aload_1.",
+            "invokevirtual.24",
+            "aload_1.",
+            "areturn."
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": [],
+  "output": []
+}

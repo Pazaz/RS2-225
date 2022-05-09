@@ -1,0 +1,18 @@
+---
+excluded_classes:
+  - "*!client"
+  - "*!sign/**"
+excluded_methods:
+  - "*!**.<clinit> *"
+  - "*!**.<init> *"
+  - "*!**.main *"
+  - "*!sign/**.* *"
+excluded_fields:
+  - "*!sign/**.* *"
+entry_points:
+  - "*!**.<clinit> *"
+  - "*!**.main *"
+  - "*!client.<init> *"
+scrambled_libraries:
+  - client
+max_obfuscated_name_len: 2

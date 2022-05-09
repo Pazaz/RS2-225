@@ -1,0 +1,1636 @@
+{
+  "major": 45,
+  "minor": 3,
+  "constant_pool": [
+    {
+      "tag": 0,
+      "info": null
+    },
+    {
+      "tag": 8,
+      "info": 74
+    },
+    {
+      "tag": 8,
+      "info": 75
+    },
+    {
+      "tag": 8,
+      "info": 76
+    },
+    {
+      "tag": 8,
+      "info": 77
+    },
+    {
+      "tag": 8,
+      "info": 78
+    },
+    {
+      "tag": 8,
+      "info": 79
+    },
+    {
+      "tag": 8,
+      "info": 80
+    },
+    {
+      "tag": 8,
+      "info": 81
+    },
+    {
+      "tag": 8,
+      "info": 82
+    },
+    {
+      "tag": 7,
+      "info": 100
+    },
+    {
+      "tag": 7,
+      "info": 101
+    },
+    {
+      "tag": 7,
+      "info": 103
+    },
+    {
+      "tag": 7,
+      "info": 104
+    },
+    {
+      "tag": 7,
+      "info": 105
+    },
+    {
+      "tag": 7,
+      "info": 108
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 10,
+        "type": 41
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 12,
+        "type": 41
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 13,
+        "type": 42
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 13,
+        "type": 43
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 13,
+        "type": 44
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 13,
+        "type": 45
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 11,
+        "type": 46
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 11,
+        "type": 47
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 11,
+        "type": 48
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 11,
+        "type": 49
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 11,
+        "type": 50
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 11,
+        "type": 51
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 15,
+        "type": 52
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 11,
+        "type": 53
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 13,
+        "type": 54
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 14,
+        "type": 54
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 11,
+        "type": 55
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 11,
+        "type": 56
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 11,
+        "type": 57
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 11,
+        "type": 58
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 11,
+        "type": 59
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 11,
+        "type": 60
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 11,
+        "type": 61
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 11,
+        "type": 62
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 11,
+        "type": 63
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 84,
+        "type": 65
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 84,
+        "type": 73
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 93,
+        "type": 66
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 93,
+        "type": 71
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 93,
+        "type": 72
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 94,
+        "type": 88
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 97,
+        "type": 88
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 95,
+        "type": 69
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 98,
+        "type": 88
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 99,
+        "type": 88
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 106,
+        "type": 92
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 107,
+        "type": 73
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 96,
+        "type": 69
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 109,
+        "type": 64
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 110,
+        "type": 69
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 111,
+        "type": 88
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 112,
+        "type": 91
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 113,
+        "type": 88
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 114,
+        "type": 88
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 115,
+        "type": 88
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 116,
+        "type": 88
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 117,
+        "type": 88
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 118,
+        "type": 88
+      }
+    },
+    {
+      "tag": 1,
+      "info": "()Ljava/lang/String;"
+    },
+    {
+      "tag": 1,
+      "info": "()V"
+    },
+    {
+      "tag": 1,
+      "info": "(I)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(I)V"
+    },
+    {
+      "tag": 1,
+      "info": "(IIIBII)V"
+    },
+    {
+      "tag": 1,
+      "info": "(IIIII)V"
+    },
+    {
+      "tag": 1,
+      "info": "(I[III)V"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/lang/Object;)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/lang/String;)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/lang/String;)V"
+    },
+    {
+      "tag": 1,
+      "info": ", "
+    },
+    {
+      "tag": 1,
+      "info": "10678, "
+    },
+    {
+      "tag": 1,
+      "info": "17925, "
+    },
+    {
+      "tag": 1,
+      "info": "39631, "
+    },
+    {
+      "tag": 1,
+      "info": "40773, "
+    },
+    {
+      "tag": 1,
+      "info": "45949, "
+    },
+    {
+      "tag": 1,
+      "info": "56986, "
+    },
+    {
+      "tag": 1,
+      "info": "74170, "
+    },
+    {
+      "tag": 1,
+      "info": "74265, "
+    },
+    {
+      "tag": 1,
+      "info": "<clinit>"
+    },
+    {
+      "tag": 1,
+      "info": "<init>"
+    },
+    {
+      "tag": 1,
+      "info": "Code"
+    },
+    {
+      "tag": 1,
+      "info": "ConstantValue"
+    },
+    {
+      "tag": 1,
+      "info": "Exceptions"
+    },
+    {
+      "tag": 1,
+      "info": "I"
+    },
+    {
+      "tag": 1,
+      "info": "ZKM4.2.0"
+    },
+    {
+      "tag": 1,
+      "info": "LocalVariables"
+    },
+    {
+      "tag": 1,
+      "info": "Z"
+    },
+    {
+      "tag": 1,
+      "info": "[I"
+    },
+    {
+      "tag": 1,
+      "info": "append"
+    },
+    {
+      "tag": 1,
+      "info": "i"
+    },
+    {
+      "tag": 1,
+      "info": "b"
+    },
+    {
+      "tag": 1,
+      "info": "a"
+    },
+    {
+      "tag": 1,
+      "info": "m"
+    },
+    {
+      "tag": 1,
+      "info": "s"
+    },
+    {
+      "tag": 1,
+      "info": "t"
+    },
+    {
+      "tag": 1,
+      "info": "db"
+    },
+    {
+      "tag": 1,
+      "info": "fb"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/Math"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/RuntimeException"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/StringBuffer"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/Throwable"
+    },
+    {
+      "tag": 1,
+      "info": "k"
+    },
+    {
+      "tag": 1,
+      "info": "reporterror"
+    },
+    {
+      "tag": 1,
+      "info": "sign/signlink"
+    },
+    {
+      "tag": 1,
+      "info": "toString"
+    },
+    {
+      "tag": 1,
+      "info": "c"
+    },
+    {
+      "tag": 1,
+      "info": "l"
+    },
+    {
+      "tag": 1,
+      "info": "j"
+    },
+    {
+      "tag": 1,
+      "info": "h"
+    },
+    {
+      "tag": 1,
+      "info": "p"
+    },
+    {
+      "tag": 1,
+      "info": "q"
+    },
+    {
+      "tag": 1,
+      "info": "r"
+    },
+    {
+      "tag": 1,
+      "info": "n"
+    },
+    {
+      "tag": 1,
+      "info": "o"
+    },
+    {
+      "tag": 1,
+      "info": "(IIIIII)V"
+    },
+    {
+      "tag": 1,
+      "info": "u"
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 120,
+        "type": 88
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 11,
+        "type": 121
+      }
+    }
+  ],
+  "access_flags": "public super",
+  "this_class": "fb",
+  "class_name": "fb",
+  "package_name": "",
+  "super_class": "db",
+  "interfaces": [],
+  "fields": [
+    {
+      "access_flags": "",
+      "name": "h",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "i",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "j",
+      "descriptor": "boolean",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "k",
+      "descriptor": "int[]",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "l",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "m",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "n",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "o",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "p",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "q",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "r",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "s",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "t",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "public",
+      "name": "u",
+      "descriptor": "int",
+      "attributes": []
+    }
+  ],
+  "methods": [
+    {
+      "access_flags": "public static",
+      "name": "a",
+      "description": "(I[III)V",
+      "descriptor": {
+        "arg_types": [
+          "int",
+          "int[]",
+          "int",
+          "int"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "aligned": true,
+          "max_stack": 6,
+          "max_locals": 5,
+          "exceptions": [
+            {
+              "start_pc": 0,
+              "end_pc": 38,
+              "handler_pc": 39,
+              "catch_type": "java.lang.RuntimeException"
+            }
+          ],
+          "attributes": [],
+          "code": [
+            "aload_1.",
+            "putstatic.27",
+            "iload_0.",
+            "putstatic.33",
+            "getstatic.122",
+            "ifeq.9",
+            "sipush.65385",
+            "putstatic.35",
+            "iload_2.",
+            "ifge.65529",
+            "iload_3.",
+            "putstatic.23",
+            "iload_3.",
+            "iconst_0.",
+            "iload_0.",
+            "sipush.789",
+            "iconst_0.",
+            "invokestatic.29",
+            "return.",
+            "astore.4",
+            "new.13",
+            "dup.",
+            "ldc.4",
+            "invokespecial.18",
+            "iload_0.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "aload_1.",
+            "invokevirtual.20",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_2.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_3.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "aload.4",
+            "invokevirtual.31",
+            "invokevirtual.21",
+            "invokevirtual.30",
+            "invokestatic.28",
+            "new.12",
+            "dup.",
+            "invokespecial.17",
+            "athrow."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public static",
+      "name": "a",
+      "description": "(I)V",
+      "descriptor": {
+        "arg_types": [
+          "int"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 4,
+          "max_locals": 2,
+          "exceptions": [
+            {
+              "start_pc": 0,
+              "end_pc": 55,
+              "handler_pc": 56,
+              "catch_type": "java.lang.RuntimeException"
+            }
+          ],
+          "attributes": [],
+          "code": [
+            "iconst_0.",
+            "putstatic.36",
+            "iconst_0.",
+            "putstatic.39",
+            "getstatic.33",
+            "putstatic.37",
+            "iload_0.",
+            "ifeq.18",
+            "iconst_1.",
+            "istore_1.",
+            "getstatic.122",
+            "ifeq.6",
+            "iinc.1.1",
+            "iload_1.",
+            "ifgt.65532",
+            "getstatic.23",
+            "putstatic.40",
+            "getstatic.37",
+            "iconst_1.",
+            "isub.",
+            "putstatic.38",
+            "getstatic.37",
+            "iconst_2.",
+            "idiv.",
+            "putstatic.25",
+            "return.",
+            "astore_1.",
+            "new.13",
+            "dup.",
+            "ldc.9",
+            "invokespecial.18",
+            "iload_0.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "aload_1.",
+            "invokevirtual.31",
+            "invokevirtual.21",
+            "invokevirtual.30",
+            "invokestatic.28",
+            "new.12",
+            "dup.",
+            "invokespecial.17",
+            "athrow."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public static",
+      "name": "a",
+      "description": "(IIIII)V",
+      "descriptor": {
+        "arg_types": [
+          "int",
+          "int",
+          "int",
+          "int",
+          "int"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "aligned": true,
+          "max_stack": 4,
+          "max_locals": 6,
+          "exceptions": [
+            {
+              "start_pc": 0,
+              "end_pc": 98,
+              "handler_pc": 99,
+              "catch_type": "java.lang.RuntimeException"
+            }
+          ],
+          "attributes": [],
+          "code": [
+            "iload.4",
+            "ifge.6",
+            "iconst_0.",
+            "istore.4",
+            "iload_1.",
+            "ifge.5",
+            "iconst_0.",
+            "istore_1.",
+            "iload_2.",
+            "getstatic.33",
+            "if_icmple.7",
+            "getstatic.33",
+            "istore_2.",
+            "iload_0.",
+            "getstatic.23",
+            "if_icmple.7",
+            "getstatic.23",
+            "istore_0.",
+            "iload.4",
+            "putstatic.36",
+            "iload_1.",
+            "putstatic.39",
+            "iload_2.",
+            "putstatic.37",
+            "iload_0.",
+            "putstatic.40",
+            "getstatic.37",
+            "iconst_1.",
+            "isub.",
+            "putstatic.38",
+            "getstatic.37",
+            "iconst_2.",
+            "idiv.",
+            "putstatic.25",
+            "iload_3.",
+            "ifgt.20",
+            "iconst_1.",
+            "istore.5",
+            "getstatic.122",
+            "ifeq.6",
+            "iinc.5.1",
+            "iload.5",
+            "ifgt.65531",
+            "getstatic.40",
+            "iconst_2.",
+            "idiv.",
+            "putstatic.26",
+            "return.",
+            "astore.5",
+            "new.13",
+            "dup.",
+            "ldc.7",
+            "invokespecial.18",
+            "iload_0.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_1.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_2.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_3.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload.4",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "aload.5",
+            "invokevirtual.31",
+            "invokevirtual.21",
+            "invokevirtual.30",
+            "invokestatic.28",
+            "new.12",
+            "dup.",
+            "invokespecial.17",
+            "athrow."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public static",
+      "name": "b",
+      "description": "(I)V",
+      "descriptor": {
+        "arg_types": [
+          "int"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "aligned": true,
+          "max_stack": 4,
+          "max_locals": 3,
+          "exceptions": [
+            {
+              "start_pc": 0,
+              "end_pc": 35,
+              "handler_pc": 36,
+              "catch_type": "java.lang.RuntimeException"
+            }
+          ],
+          "attributes": [],
+          "code": [
+            "bipush.87",
+            "iload_0.",
+            "idiv.",
+            "istore_0.",
+            "getstatic.33",
+            "getstatic.23",
+            "imul.",
+            "istore_1.",
+            "iconst_0.",
+            "istore_2.",
+            "getstatic.122",
+            "ifeq.12",
+            "getstatic.27",
+            "iload_2.",
+            "iconst_0.",
+            "iastore.",
+            "iinc.2.1",
+            "iload_2.",
+            "iload_1.",
+            "if_icmplt.65525",
+            "return.",
+            "astore_1.",
+            "new.13",
+            "dup.",
+            "ldc.6",
+            "invokespecial.18",
+            "iload_0.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "aload_1.",
+            "invokevirtual.31",
+            "invokevirtual.21",
+            "invokevirtual.30",
+            "invokestatic.28",
+            "new.12",
+            "dup.",
+            "invokespecial.17",
+            "athrow."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public static",
+      "name": "a",
+      "description": "(IIIBII)V",
+      "descriptor": {
+        "arg_types": [
+          "int",
+          "int",
+          "int",
+          "byte",
+          "int",
+          "int"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 4,
+          "max_locals": 11,
+          "exceptions": [
+            {
+              "start_pc": 5,
+              "end_pc": 163,
+              "handler_pc": 164,
+              "catch_type": "java.lang.RuntimeException"
+            }
+          ],
+          "attributes": [],
+          "code": [
+            "getstatic.122",
+            "istore.10",
+            "iload_3.",
+            "bipush.93",
+            "if_icmpeq.9",
+            "sipush.289",
+            "putstatic.35",
+            "iload_1.",
+            "getstatic.36",
+            "if_icmpge.17",
+            "iload.4",
+            "getstatic.36",
+            "iload_1.",
+            "isub.",
+            "isub.",
+            "istore.4",
+            "getstatic.36",
+            "istore_1.",
+            "iload_0.",
+            "getstatic.39",
+            "if_icmpge.17",
+            "iload.5",
+            "getstatic.39",
+            "iload_0.",
+            "isub.",
+            "isub.",
+            "istore.5",
+            "getstatic.39",
+            "istore_0.",
+            "iload_1.",
+            "iload.4",
+            "iadd.",
+            "getstatic.37",
+            "if_icmple.10",
+            "getstatic.37",
+            "iload_1.",
+            "isub.",
+            "istore.4",
+            "iload_0.",
+            "iload.5",
+            "iadd.",
+            "getstatic.40",
+            "if_icmple.10",
+            "getstatic.40",
+            "iload_0.",
+            "isub.",
+            "istore.5",
+            "getstatic.33",
+            "iload.4",
+            "isub.",
+            "istore.6",
+            "iload_1.",
+            "iload_0.",
+            "getstatic.33",
+            "imul.",
+            "iadd.",
+            "istore.7",
+            "iload.5",
+            "ineg.",
+            "istore.8",
+            "iload.10",
+            "ifeq.41",
+            "iload.4",
+            "ineg.",
+            "istore.9",
+            "iload.10",
+            "ifeq.16",
+            "getstatic.27",
+            "iload.7",
+            "iinc.7.1",
+            "iload_2.",
+            "iastore.",
+            "iinc.9.1",
+            "iload.9",
+            "iflt.65521",
+            "iload.7",
+            "iload.6",
+            "iadd.",
+            "istore.7",
+            "iinc.8.1",
+            "iload.8",
+            "iflt.65496",
+            "return.",
+            "astore.6",
+            "new.13",
+            "dup.",
+            "ldc.2",
+            "invokespecial.18",
+            "iload_0.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_1.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_2.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_3.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload.4",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload.5",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "aload.6",
+            "invokevirtual.31",
+            "invokevirtual.21",
+            "invokevirtual.30",
+            "invokestatic.28",
+            "new.12",
+            "dup.",
+            "invokespecial.17",
+            "athrow."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public static",
+      "name": "a",
+      "description": "(IIIIII)V",
+      "descriptor": {
+        "arg_types": [
+          "int",
+          "int",
+          "int",
+          "int",
+          "int",
+          "int"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 6,
+          "max_locals": 7,
+          "exceptions": [
+            {
+              "start_pc": 0,
+              "end_pc": 62,
+              "handler_pc": 63,
+              "catch_type": "java.lang.RuntimeException"
+            }
+          ],
+          "attributes": [],
+          "code": [
+            "iload_0.",
+            "iconst_3.",
+            "if_icmplt.8",
+            "iload_0.",
+            "iconst_3.",
+            "if_icmple.4",
+            "return.",
+            "iload_2.",
+            "iconst_0.",
+            "iload.4",
+            "iload.5",
+            "iload_1.",
+            "invokestatic.24",
+            "iload_2.",
+            "iconst_0.",
+            "iload.4",
+            "iload_3.",
+            "iadd.",
+            "iconst_1.",
+            "isub.",
+            "iload.5",
+            "iload_1.",
+            "invokestatic.24",
+            "iload_2.",
+            "getstatic.22",
+            "iload.4",
+            "iload_3.",
+            "iload_1.",
+            "invokestatic.32",
+            "iload_2.",
+            "getstatic.22",
+            "iload.4",
+            "iload_3.",
+            "iload_1.",
+            "iload.5",
+            "iadd.",
+            "iconst_1.",
+            "isub.",
+            "invokestatic.32",
+            "return.",
+            "astore.6",
+            "new.13",
+            "dup.",
+            "ldc.8",
+            "invokespecial.18",
+            "iload_0.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_1.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_2.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_3.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload.4",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload.5",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "aload.6",
+            "invokevirtual.31",
+            "invokevirtual.21",
+            "invokevirtual.30",
+            "invokestatic.28",
+            "new.12",
+            "dup.",
+            "invokespecial.17",
+            "athrow."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public static",
+      "name": "b",
+      "description": "(IIIII)V",
+      "descriptor": {
+        "arg_types": [
+          "int",
+          "int",
+          "int",
+          "int",
+          "int"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 4,
+          "max_locals": 7,
+          "exceptions": [
+            {
+              "start_pc": 0,
+              "end_pc": 97,
+              "handler_pc": 98,
+              "catch_type": "java.lang.RuntimeException"
+            }
+          ],
+          "attributes": [],
+          "code": [
+            "iload_2.",
+            "getstatic.39",
+            "if_icmplt.10",
+            "iload_2.",
+            "getstatic.40",
+            "if_icmplt.4",
+            "return.",
+            "iload.4",
+            "getstatic.36",
+            "if_icmpge.17",
+            "iload_3.",
+            "getstatic.36",
+            "iload.4",
+            "isub.",
+            "isub.",
+            "istore_3.",
+            "getstatic.36",
+            "istore.4",
+            "iload.4",
+            "iload_3.",
+            "iadd.",
+            "getstatic.37",
+            "if_icmple.10",
+            "getstatic.37",
+            "iload.4",
+            "isub.",
+            "istore_3.",
+            "iload.4",
+            "iload_2.",
+            "getstatic.33",
+            "imul.",
+            "iadd.",
+            "istore.5",
+            "iload_1.",
+            "ifeq.4",
+            "return.",
+            "iconst_0.",
+            "istore.6",
+            "getstatic.122",
+            "ifeq.16",
+            "getstatic.27",
+            "iload.5",
+            "iload.6",
+            "iadd.",
+            "iload_0.",
+            "iastore.",
+            "iinc.6.1",
+            "iload.6",
+            "iload_3.",
+            "if_icmplt.65520",
+            "return.",
+            "astore.5",
+            "new.13",
+            "dup.",
+            "ldc.3",
+            "invokespecial.18",
+            "iload_0.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_1.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_2.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_3.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload.4",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "aload.5",
+            "invokevirtual.31",
+            "invokevirtual.21",
+            "invokevirtual.30",
+            "invokestatic.28",
+            "new.12",
+            "dup.",
+            "invokespecial.17",
+            "athrow."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public static",
+      "name": "c",
+      "description": "(IIIII)V",
+      "descriptor": {
+        "arg_types": [
+          "int",
+          "int",
+          "int",
+          "int",
+          "int"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 5,
+          "max_locals": 7,
+          "exceptions": [
+            {
+              "start_pc": 0,
+              "end_pc": 102,
+              "handler_pc": 103,
+              "catch_type": "java.lang.RuntimeException"
+            }
+          ],
+          "attributes": [],
+          "code": [
+            "iload.4",
+            "getstatic.36",
+            "if_icmplt.11",
+            "iload.4",
+            "getstatic.37",
+            "if_icmplt.4",
+            "return.",
+            "iload_2.",
+            "getstatic.39",
+            "if_icmpge.15",
+            "iload_3.",
+            "getstatic.39",
+            "iload_2.",
+            "isub.",
+            "isub.",
+            "istore_3.",
+            "getstatic.39",
+            "istore_2.",
+            "iload_2.",
+            "iload_3.",
+            "iadd.",
+            "getstatic.40",
+            "if_icmple.9",
+            "getstatic.40",
+            "iload_2.",
+            "isub.",
+            "istore_3.",
+            "iload.4",
+            "iload_2.",
+            "getstatic.33",
+            "imul.",
+            "iadd.",
+            "istore.5",
+            "iload_1.",
+            "ifeq.8",
+            "bipush.71",
+            "putstatic.22",
+            "iconst_0.",
+            "istore.6",
+            "getstatic.122",
+            "ifeq.20",
+            "getstatic.27",
+            "iload.5",
+            "iload.6",
+            "getstatic.33",
+            "imul.",
+            "iadd.",
+            "iload_0.",
+            "iastore.",
+            "iinc.6.1",
+            "iload.6",
+            "iload_3.",
+            "if_icmplt.65516",
+            "return.",
+            "astore.5",
+            "new.13",
+            "dup.",
+            "ldc.5",
+            "invokespecial.18",
+            "iload_0.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_1.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_2.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload_3.",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "iload.4",
+            "invokevirtual.19",
+            "ldc.1",
+            "invokevirtual.21",
+            "aload.5",
+            "invokevirtual.31",
+            "invokevirtual.21",
+            "invokevirtual.30",
+            "invokestatic.28",
+            "new.12",
+            "dup.",
+            "invokespecial.17",
+            "athrow."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public",
+      "name": "<init>",
+      "description": "()V",
+      "descriptor": {
+        "arg_types": [],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 1,
+          "max_locals": 1,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "aload_0.",
+            "invokespecial.16",
+            "return."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "static",
+      "name": "<clinit>",
+      "description": "()V",
+      "descriptor": {
+        "arg_types": [],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 1,
+          "max_locals": 0,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "iconst_1.",
+            "putstatic.34",
+            "return."
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": [],
+  "output": []
+}

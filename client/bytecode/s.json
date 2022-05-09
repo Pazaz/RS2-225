@@ -1,0 +1,951 @@
+{
+  "major": 45,
+  "minor": 3,
+  "constant_pool": [
+    {
+      "tag": 0,
+      "info": null
+    },
+    {
+      "tag": 8,
+      "info": 74
+    },
+    {
+      "tag": 8,
+      "info": 75
+    },
+    {
+      "tag": 8,
+      "info": 76
+    },
+    {
+      "tag": 7,
+      "info": 91
+    },
+    {
+      "tag": 7,
+      "info": 92
+    },
+    {
+      "tag": 7,
+      "info": 93
+    },
+    {
+      "tag": 7,
+      "info": 94
+    },
+    {
+      "tag": 7,
+      "info": 95
+    },
+    {
+      "tag": 7,
+      "info": 97
+    },
+    {
+      "tag": 7,
+      "info": 98
+    },
+    {
+      "tag": 7,
+      "info": 100
+    },
+    {
+      "tag": 7,
+      "info": 101
+    },
+    {
+      "tag": 7,
+      "info": 105
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 9,
+        "type": 108
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 10,
+        "type": 108
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 8,
+        "type": 38
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 5,
+        "type": 39
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 11,
+        "type": 40
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 5,
+        "type": 41
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 8,
+        "type": 42
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 11,
+        "type": 43
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 11,
+        "type": 44
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 11,
+        "type": 45
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 11,
+        "type": 46
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 4,
+        "type": 47
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 4,
+        "type": 48
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 5,
+        "type": 49
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 4,
+        "type": 50
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 4,
+        "type": 51
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 13,
+        "type": 52
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 8,
+        "type": 53
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 4,
+        "type": 54
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 11,
+        "type": 55
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 12,
+        "type": 55
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 6,
+        "type": 56
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 7,
+        "type": 57
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 4,
+        "type": 58
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 110,
+        "type": 63
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 110,
+        "type": 64
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 110,
+        "type": 73
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 87,
+        "type": 69
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 87,
+        "type": 70
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 88,
+        "type": 62
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 88,
+        "type": 68
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 88,
+        "type": 71
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 88,
+        "type": 72
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 89,
+        "type": 81
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 90,
+        "type": 83
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 87,
+        "type": 67
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 102,
+        "type": 84
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 103,
+        "type": 81
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 104,
+        "type": 73
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 87,
+        "type": 59
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 106,
+        "type": 81
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 107,
+        "type": 60
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 87,
+        "type": 109
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 106,
+        "type": 109
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 87,
+        "type": 86
+      }
+    },
+    {
+      "tag": 1,
+      "info": "()Ldb;"
+    },
+    {
+      "tag": 1,
+      "info": "()Ljava/lang/String;"
+    },
+    {
+      "tag": 1,
+      "info": "(BI)V"
+    },
+    {
+      "tag": 1,
+      "info": "(I)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(I)V"
+    },
+    {
+      "tag": 1,
+      "info": "(II)V"
+    },
+    {
+      "tag": 1,
+      "info": "(IJLdb;)V"
+    },
+    {
+      "tag": 1,
+      "info": "(J)Ldb;"
+    },
+    {
+      "tag": 1,
+      "info": "(J)Lu;"
+    },
+    {
+      "tag": 1,
+      "info": "(J)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(JILu;)V"
+    },
+    {
+      "tag": 1,
+      "info": "(Ldb;)V"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/lang/Object;)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/lang/String;)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/lang/String;)V"
+    },
+    {
+      "tag": 1,
+      "info": ", "
+    },
+    {
+      "tag": 1,
+      "info": "10260, "
+    },
+    {
+      "tag": 1,
+      "info": "73592, "
+    },
+    {
+      "tag": 1,
+      "info": "<clinit>"
+    },
+    {
+      "tag": 1,
+      "info": "Code"
+    },
+    {
+      "tag": 1,
+      "info": "ConstantValue"
+    },
+    {
+      "tag": 1,
+      "info": "Exceptions"
+    },
+    {
+      "tag": 1,
+      "info": "I"
+    },
+    {
+      "tag": 1,
+      "info": "ZKM4.2.0"
+    },
+    {
+      "tag": 1,
+      "info": "Lt;"
+    },
+    {
+      "tag": 1,
+      "info": "Lpb;"
+    },
+    {
+      "tag": 1,
+      "info": "LocalVariables"
+    },
+    {
+      "tag": 1,
+      "info": "Z"
+    },
+    {
+      "tag": 1,
+      "info": "a"
+    },
+    {
+      "tag": 1,
+      "info": "append"
+    },
+    {
+      "tag": 1,
+      "info": "c"
+    },
+    {
+      "tag": 1,
+      "info": "e"
+    },
+    {
+      "tag": 1,
+      "info": "s"
+    },
+    {
+      "tag": 1,
+      "info": "t"
+    },
+    {
+      "tag": 1,
+      "info": "u"
+    },
+    {
+      "tag": 1,
+      "info": "db"
+    },
+    {
+      "tag": 1,
+      "info": "pb"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/NullPointerException"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/Object"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/RuntimeException"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/String"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/StringBuffer"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/Throwable"
+    },
+    {
+      "tag": 1,
+      "info": "f"
+    },
+    {
+      "tag": 1,
+      "info": "d"
+    },
+    {
+      "tag": 1,
+      "info": "reporterror"
+    },
+    {
+      "tag": 1,
+      "info": "sign/signlink"
+    },
+    {
+      "tag": 1,
+      "info": "b"
+    },
+    {
+      "tag": 1,
+      "info": "toString"
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 110,
+        "type": 109
+      }
+    },
+    {
+      "tag": 1,
+      "info": "()V"
+    },
+    {
+      "tag": 1,
+      "info": "<init>"
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 112,
+        "type": 81
+      }
+    },
+    {
+      "tag": 1,
+      "info": "g"
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 7,
+        "type": 111
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 6,
+        "type": 51
+      }
+    }
+  ],
+  "access_flags": "public final super",
+  "this_class": "s",
+  "class_name": "s",
+  "package_name": "",
+  "super_class": "java.lang.Object",
+  "interfaces": [],
+  "fields": [
+    {
+      "access_flags": "",
+      "name": "a",
+      "descriptor": "boolean",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "b",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "c",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "d",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "e",
+      "descriptor": "t",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "f",
+      "descriptor": "pb",
+      "attributes": []
+    }
+  ],
+  "methods": [
+    {
+      "access_flags": "public",
+      "name": "<init>",
+      "description": "(BI)V",
+      "descriptor": {
+        "arg_types": [
+          "byte",
+          "int"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "aligned": true,
+          "max_stack": 5,
+          "max_locals": 4,
+          "exceptions": [
+            {
+              "start_pc": 39,
+              "end_pc": 65,
+              "handler_pc": 66,
+              "catch_type": "java.lang.RuntimeException"
+            }
+          ],
+          "attributes": [],
+          "code": [
+            "aload_0.",
+            "invokespecial.14",
+            "aload_0.",
+            "iconst_0.",
+            "putfield.37",
+            "aload_0.",
+            "new.5",
+            "dup.",
+            "bipush.9",
+            "sipush.1024",
+            "invokespecial.17",
+            "putfield.26",
+            "aload_0.",
+            "new.8",
+            "dup.",
+            "getstatic.32",
+            "invokespecial.16",
+            "putfield.28",
+            "aload_0.",
+            "iload_2.",
+            "putfield.25",
+            "iload_1.",
+            "ifeq.15",
+            "iconst_1.",
+            "istore_3.",
+            "goto.6",
+            "iinc.3.1",
+            "iload_3.",
+            "ifgt.65532",
+            "aload_0.",
+            "iload_2.",
+            "putfield.29",
+            "return.",
+            "astore_3.",
+            "new.11",
+            "dup.",
+            "ldc.3",
+            "invokespecial.18",
+            "iload_1.",
+            "invokevirtual.21",
+            "ldc.1",
+            "invokevirtual.24",
+            "iload_2.",
+            "invokevirtual.21",
+            "ldc.1",
+            "invokevirtual.24",
+            "aload_3.",
+            "invokevirtual.34",
+            "invokevirtual.24",
+            "invokevirtual.33",
+            "invokestatic.30",
+            "new.10",
+            "dup.",
+            "invokespecial.15",
+            "athrow."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public",
+      "name": "a",
+      "description": "(J)Ldb;",
+      "descriptor": {
+        "arg_types": [
+          "long"
+        ],
+        "return_type": "db"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 3,
+          "max_locals": 4,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "aload_0.",
+            "getfield.26",
+            "lload_1.",
+            "invokevirtual.27",
+            "checkcast.7",
+            "astore_3.",
+            "aload_3.",
+            "ifnull.11",
+            "aload_0.",
+            "getfield.28",
+            "aload_3.",
+            "invokevirtual.20",
+            "aload_3.",
+            "areturn."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public",
+      "name": "a",
+      "description": "(IJLdb;)V",
+      "descriptor": {
+        "arg_types": [
+          "int",
+          "long",
+          "db"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 6,
+          "max_locals": 8,
+          "exceptions": [
+            {
+              "start_pc": 5,
+              "end_pc": 109,
+              "handler_pc": 110,
+              "catch_type": "java.lang.RuntimeException"
+            }
+          ],
+          "attributes": [],
+          "code": [
+            "getstatic.113",
+            "istore.6",
+            "aload_0.",
+            "getfield.29",
+            "ifne.40",
+            "aload_0.",
+            "getfield.28",
+            "invokevirtual.31",
+            "astore.5",
+            "aload.5",
+            "invokevirtual.35",
+            "aload.5",
+            "invokevirtual.36",
+            "iload.6",
+            "ifeq.26",
+            "getstatic.114",
+            "istore.7",
+            "iinc.7.1",
+            "iload.7",
+            "putstatic.114",
+            "aload_0.",
+            "dup.",
+            "getfield.29",
+            "iconst_1.",
+            "isub.",
+            "putfield.29",
+            "aload_0.",
+            "getfield.26",
+            "lload_2.",
+            "sipush.64970",
+            "aload.4",
+            "invokevirtual.19",
+            "iload_1.",
+            "bipush.6",
+            "if_icmplt.9",
+            "iload_1.",
+            "bipush.6",
+            "if_icmple.19",
+            "aload_0.",
+            "aload_0.",
+            "getfield.37",
+            "ifeq.7",
+            "iconst_0.",
+            "goto.4",
+            "iconst_1.",
+            "putfield.37",
+            "aload_0.",
+            "getfield.28",
+            "aload.4",
+            "invokevirtual.20",
+            "return.",
+            "astore.5",
+            "new.11",
+            "dup.",
+            "ldc.2",
+            "invokespecial.18",
+            "iload_1.",
+            "invokevirtual.21",
+            "ldc.1",
+            "invokevirtual.24",
+            "lload_2.",
+            "invokevirtual.22",
+            "ldc.1",
+            "invokevirtual.24",
+            "aload.4",
+            "invokevirtual.23",
+            "ldc.1",
+            "invokevirtual.24",
+            "aload.5",
+            "invokevirtual.34",
+            "invokevirtual.24",
+            "invokevirtual.33",
+            "invokestatic.30",
+            "new.10",
+            "dup.",
+            "invokespecial.15",
+            "athrow."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public",
+      "name": "a",
+      "description": "()V",
+      "descriptor": {
+        "arg_types": [],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 3,
+          "max_locals": 2,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "aload_0.",
+            "getfield.28",
+            "invokevirtual.31",
+            "astore_1.",
+            "aload_1.",
+            "ifnull.17",
+            "aload_1.",
+            "invokevirtual.35",
+            "aload_1.",
+            "invokevirtual.36",
+            "getstatic.113",
+            "ifeq.65513",
+            "aload_0.",
+            "aload_0.",
+            "getfield.25",
+            "putfield.29",
+            "return."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "static",
+      "name": "<clinit>",
+      "description": "()V",
+      "descriptor": {
+        "arg_types": [],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 1,
+          "max_locals": 0,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "iconst_5.",
+            "putstatic.32",
+            "return."
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": [],
+  "output": []
+}

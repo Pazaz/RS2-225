@@ -1,0 +1,710 @@
+{
+  "major": 45,
+  "minor": 3,
+  "constant_pool": [
+    {
+      "tag": 0,
+      "info": null
+    },
+    {
+      "tag": 3,
+      "info": 35731
+    },
+    {
+      "tag": 8,
+      "info": 64
+    },
+    {
+      "tag": 8,
+      "info": 65
+    },
+    {
+      "tag": 8,
+      "info": 71
+    },
+    {
+      "tag": 7,
+      "info": 78
+    },
+    {
+      "tag": 7,
+      "info": 75
+    },
+    {
+      "tag": 7,
+      "info": 79
+    },
+    {
+      "tag": 7,
+      "info": 80
+    },
+    {
+      "tag": 7,
+      "info": 81
+    },
+    {
+      "tag": 7,
+      "info": 82
+    },
+    {
+      "tag": 7,
+      "info": 83
+    },
+    {
+      "tag": 7,
+      "info": 84
+    },
+    {
+      "tag": 7,
+      "info": 85
+    },
+    {
+      "tag": 7,
+      "info": 92
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 8,
+        "type": 35
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 11,
+        "type": 35
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 12,
+        "type": 36
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 6,
+        "type": 37
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 12,
+        "type": 38
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 12,
+        "type": 39
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 12,
+        "type": 40
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 7,
+        "type": 41
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 5,
+        "type": 42
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 14,
+        "type": 43
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 7,
+        "type": 44
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 8,
+        "type": 45
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 8,
+        "type": 46
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 10,
+        "type": 47
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 10,
+        "type": 48
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 12,
+        "type": 49
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 13,
+        "type": 49
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 9,
+        "type": 50
+      }
+    },
+    {
+      "tag": 10,
+      "info": {
+        "method": 5,
+        "type": 51
+      }
+    },
+    {
+      "tag": 9,
+      "info": {
+        "field": 6,
+        "type": 52
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 66,
+        "type": 55
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 66,
+        "type": 62
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 75,
+        "type": 73
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 76,
+        "type": 56
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 76,
+        "type": 60
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 76,
+        "type": 61
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 77,
+        "type": 53
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 86,
+        "type": 59
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 87,
+        "type": 62
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 88,
+        "type": 57
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 89,
+        "type": 63
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 90,
+        "type": 62
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 91,
+        "type": 55
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 93,
+        "type": 55
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 94,
+        "type": 54
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 95,
+        "type": 57
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 96,
+        "type": 59
+      }
+    },
+    {
+      "tag": 12,
+      "info": {
+        "name": 78,
+        "type": 70
+      }
+    },
+    {
+      "tag": 1,
+      "info": "()Ljava/awt/Graphics;"
+    },
+    {
+      "tag": 1,
+      "info": "()Ljava/lang/String;"
+    },
+    {
+      "tag": 1,
+      "info": "()V"
+    },
+    {
+      "tag": 1,
+      "info": "(I)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(II)V"
+    },
+    {
+      "tag": 1,
+      "info": "(IILa;I)V"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/awt/Graphics;)V"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/lang/Object;)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/lang/String;)Ljava/lang/StringBuffer;"
+    },
+    {
+      "tag": 1,
+      "info": "(Ljava/lang/String;)V"
+    },
+    {
+      "tag": 1,
+      "info": "(Z)V"
+    },
+    {
+      "tag": 1,
+      "info": ", "
+    },
+    {
+      "tag": 1,
+      "info": "51818, "
+    },
+    {
+      "tag": 1,
+      "info": "<init>"
+    },
+    {
+      "tag": 1,
+      "info": "Code"
+    },
+    {
+      "tag": 1,
+      "info": "ConstantValue"
+    },
+    {
+      "tag": 1,
+      "info": "Exceptions"
+    },
+    {
+      "tag": 1,
+      "info": "I"
+    },
+    {
+      "tag": 1,
+      "info": "Jagex"
+    },
+    {
+      "tag": 1,
+      "info": "ZKM4.2.0"
+    },
+    {
+      "tag": 1,
+      "info": "La;"
+    },
+    {
+      "tag": 1,
+      "info": "LocalVariables"
+    },
+    {
+      "tag": 1,
+      "info": "b"
+    },
+    {
+      "tag": 1,
+      "info": "append"
+    },
+    {
+      "tag": 1,
+      "info": "getGraphics"
+    },
+    {
+      "tag": 1,
+      "info": "a"
+    },
+    {
+      "tag": 1,
+      "info": "java/awt/Component"
+    },
+    {
+      "tag": 1,
+      "info": "java/awt/Frame"
+    },
+    {
+      "tag": 1,
+      "info": "java/awt/Graphics"
+    },
+    {
+      "tag": 1,
+      "info": "java/awt/Window"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/RuntimeException"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/StringBuffer"
+    },
+    {
+      "tag": 1,
+      "info": "java/lang/Throwable"
+    },
+    {
+      "tag": 1,
+      "info": "paint"
+    },
+    {
+      "tag": 1,
+      "info": "reporterror"
+    },
+    {
+      "tag": 1,
+      "info": "resize"
+    },
+    {
+      "tag": 1,
+      "info": "setResizable"
+    },
+    {
+      "tag": 1,
+      "info": "setTitle"
+    },
+    {
+      "tag": 1,
+      "info": "show"
+    },
+    {
+      "tag": 1,
+      "info": "sign/signlink"
+    },
+    {
+      "tag": 1,
+      "info": "toFront"
+    },
+    {
+      "tag": 1,
+      "info": "toString"
+    },
+    {
+      "tag": 1,
+      "info": "translate"
+    },
+    {
+      "tag": 1,
+      "info": "update"
+    }
+  ],
+  "access_flags": "public final super",
+  "this_class": "b",
+  "class_name": "b",
+  "package_name": "",
+  "super_class": "java.awt.Frame",
+  "interfaces": [],
+  "fields": [
+    {
+      "access_flags": "",
+      "name": "a",
+      "descriptor": "int",
+      "attributes": []
+    },
+    {
+      "access_flags": "",
+      "name": "b",
+      "descriptor": "a",
+      "attributes": []
+    }
+  ],
+  "methods": [
+    {
+      "access_flags": "public",
+      "name": "<init>",
+      "description": "(IILa;I)V",
+      "descriptor": {
+        "arg_types": [
+          "int",
+          "int",
+          "a",
+          "int"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 4,
+          "max_locals": 6,
+          "exceptions": [
+            {
+              "start_pc": 10,
+              "end_pc": 60,
+              "handler_pc": 61,
+              "catch_type": "java.lang.RuntimeException"
+            }
+          ],
+          "attributes": [],
+          "code": [
+            "aload_0.",
+            "invokespecial.15",
+            "aload_0.",
+            "bipush.8",
+            "putfield.34",
+            "iload_2.",
+            "ldc.1",
+            "if_icmpeq.10",
+            "aload_0.",
+            "sipush.65061",
+            "putfield.34",
+            "aload_0.",
+            "aload_3.",
+            "putfield.18",
+            "aload_0.",
+            "ldc.4",
+            "invokevirtual.27",
+            "aload_0.",
+            "iconst_0.",
+            "invokevirtual.26",
+            "aload_0.",
+            "invokevirtual.28",
+            "aload_0.",
+            "invokevirtual.29",
+            "aload_0.",
+            "iload.4",
+            "bipush.8",
+            "iadd.",
+            "iload_1.",
+            "bipush.28",
+            "iadd.",
+            "invokevirtual.25",
+            "return.",
+            "astore.5",
+            "new.12",
+            "dup.",
+            "ldc.3",
+            "invokespecial.17",
+            "iload_1.",
+            "invokevirtual.19",
+            "ldc.2",
+            "invokevirtual.21",
+            "iload_2.",
+            "invokevirtual.19",
+            "ldc.2",
+            "invokevirtual.21",
+            "aload_3.",
+            "invokevirtual.20",
+            "ldc.2",
+            "invokevirtual.21",
+            "iload.4",
+            "invokevirtual.19",
+            "ldc.2",
+            "invokevirtual.21",
+            "aload.5",
+            "invokevirtual.31",
+            "invokevirtual.21",
+            "invokevirtual.30",
+            "invokestatic.24",
+            "new.11",
+            "dup.",
+            "invokespecial.16",
+            "athrow."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public",
+      "name": "getGraphics",
+      "description": "()Ljava/awt/Graphics;",
+      "descriptor": {
+        "arg_types": [],
+        "return_type": "java.awt.Graphics"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 3,
+          "max_locals": 2,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "aload_0.",
+            "invokespecial.22",
+            "astore_1.",
+            "aload_1.",
+            "iconst_4.",
+            "bipush.24",
+            "invokevirtual.32",
+            "aload_1.",
+            "areturn."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public final",
+      "name": "update",
+      "description": "(Ljava/awt/Graphics;)V",
+      "descriptor": {
+        "arg_types": [
+          "java.awt.Graphics"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 2,
+          "max_locals": 2,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "aload_0.",
+            "getfield.18",
+            "aload_1.",
+            "invokevirtual.33",
+            "return."
+          ]
+        }
+      ]
+    },
+    {
+      "access_flags": "public final",
+      "name": "paint",
+      "description": "(Ljava/awt/Graphics;)V",
+      "descriptor": {
+        "arg_types": [
+          "java.awt.Graphics"
+        ],
+        "return_type": "void"
+      },
+      "attributes": [
+        {
+          "name": "Code",
+          "max_stack": 2,
+          "max_locals": 2,
+          "exceptions": [],
+          "attributes": [],
+          "code": [
+            "aload_0.",
+            "getfield.18",
+            "aload_1.",
+            "invokevirtual.23",
+            "return."
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": [],
+  "output": []
+}
