@@ -1402,31 +1402,31 @@ public final class Static15 {
 				arg1 = local33 + 1;
 				arg0[local33] = arg2;
 			}
-			return;
-		}
-		@Pc(72) int local72 = anInt429;
-		@Pc(76) int local76 = 256 - anInt429;
-		@Pc(96) int local96 = ((arg2 & 0xFF00FF) * local76 >> 8 & 0xFF00FF) + ((arg2 & 0xFF00) * local76 >> 8 & 0xFF00);
-		while (true) {
-			local26--;
-			if (local26 < 0) {
-				local26 = arg4 - arg3 & 0x3;
-				while (true) {
-					local26--;
-					if (local26 < 0) {
-						return;
+		} else {
+			@Pc(72) int local72 = anInt429;
+			@Pc(76) int local76 = 256 - anInt429;
+			@Pc(96) int local96 = ((arg2 & 0xFF00FF) * local76 >> 8 & 0xFF00FF) + ((arg2 & 0xFF00) * local76 >> 8 & 0xFF00);
+			while (true) {
+				local26--;
+				if (local26 < 0) {
+					local26 = arg4 - arg3 & 0x3;
+					while (true) {
+						local26--;
+						if (local26 < 0) {
+							return;
+						}
+						arg0[arg1++] = local96 + ((arg0[arg1] & 0xFF00FF) * local72 >> 8 & 0xFF00FF) + ((arg0[arg1] & 0xFF00) * local72 >> 8 & 0xFF00);
 					}
-					arg0[arg1++] = local96 + ((arg0[arg1] & 0xFF00FF) * local72 >> 8 & 0xFF00FF) + ((arg0[arg1] & 0xFF00) * local72 >> 8 & 0xFF00);
 				}
+				local33 = arg1 + 1;
+				arg0[arg1] = local96 + ((arg0[local33] & 0xFF00FF) * local72 >> 8 & 0xFF00FF) + ((arg0[local33] & 0xFF00) * local72 >> 8 & 0xFF00);
+				@Pc(130) int local130 = local33 + 1;
+				arg0[local33] = local96 + ((arg0[local130] & 0xFF00FF) * local72 >> 8 & 0xFF00FF) + ((arg0[local130] & 0xFF00) * local72 >> 8 & 0xFF00);
+				@Pc(159) int local159 = local130 + 1;
+				arg0[local130] = local96 + ((arg0[local159] & 0xFF00FF) * local72 >> 8 & 0xFF00FF) + ((arg0[local159] & 0xFF00) * local72 >> 8 & 0xFF00);
+				arg1 = local159 + 1;
+				arg0[local159] = local96 + ((arg0[arg1] & 0xFF00FF) * local72 >> 8 & 0xFF00FF) + ((arg0[arg1] & 0xFF00) * local72 >> 8 & 0xFF00);
 			}
-			local33 = arg1 + 1;
-			arg0[arg1] = local96 + ((arg0[local33] & 0xFF00FF) * local72 >> 8 & 0xFF00FF) + ((arg0[local33] & 0xFF00) * local72 >> 8 & 0xFF00);
-			@Pc(130) int local130 = local33 + 1;
-			arg0[local33] = local96 + ((arg0[local130] & 0xFF00FF) * local72 >> 8 & 0xFF00FF) + ((arg0[local130] & 0xFF00) * local72 >> 8 & 0xFF00);
-			@Pc(159) int local159 = local130 + 1;
-			arg0[local130] = local96 + ((arg0[local159] & 0xFF00FF) * local72 >> 8 & 0xFF00FF) + ((arg0[local159] & 0xFF00) * local72 >> 8 & 0xFF00);
-			arg1 = local159 + 1;
-			arg0[local159] = local96 + ((arg0[arg1] & 0xFF00FF) * local72 >> 8 & 0xFF00FF) + ((arg0[arg1] & 0xFF00) * local72 >> 8 & 0xFF00);
 		}
 	}
 
