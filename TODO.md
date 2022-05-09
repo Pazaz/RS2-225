@@ -11,7 +11,7 @@
 
 ## Method Names
 
-Only done in the client class so far (the largest one).
+99.9% Done! Only BZip2InputStream has some unnamed methods (private only).
 
 ## Field Names
 

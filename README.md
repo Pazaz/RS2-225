@@ -13,7 +13,7 @@ Both of these upgrades brought other internal changes along with them that I don
 ## Questions/Answers
 
 Q: [Don't you already have a 225 client](https://github.com/Pazaz/RS2-225)? What's different about this vs. RS2-225?  
-A: This will not expand on the client, renaming everything to create a deob map for it is the main goal.
+A: Yes, and that is the basis for this. This will not expand on the client, renaming everything to create a deob map for it is the main goal. It might also be useful to improve the current deobfuscator transformers.
 
 Q: Is there any use for this?  
 A: Mainly educational. I hope we see later revisions adopt a similar approach. There is zero risk for any refactoring regressions this way.
