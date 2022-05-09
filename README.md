@@ -21,11 +21,14 @@ A: Mainly for legality and educational purposes. I hope we see later revisions a
 Q: Why 225?  
 A: 2004 is an unexplored time period. Coincidentally this is the last revision before June 2004, when the cache format as you know it was introduced. It's an interesting peek into a simpler time.
 
-Q: You mentioned legality, what does that mean? Isn't this all Jagex's original property?
+Q: You mentioned legality, what does that mean? Isn't this all Jagex's original property?  
 A: Yes, and it still is, but a deob mapping can be distributed to undo the original client obfuscation without giving any source code out. Original client jar + deob map = deobfuscated output!
 
 Q: Okay... but why do you have the deobfuscated output in the repo now?  
 A: While this mapping is underway I felt it necessary to include it, because the bytecode transformers aren't perfect for this era yet, and Fernflower has some issues generating quality output. At some point this repo will just have the map with clear instructions on how to use it.
+
+Q: Where do you go from here?  
+A: Well, I had an idea to create deob maps for every revision (over time). This would give a clean and consistent output for each one, and we can document when features were added or bugs were fixed. Before I can do that I'll need to find a way to diff bytecode accurately (after deobfuscation), or else this would take years to find the time for... I would have to go through each revision manually line by line.
 
 ## Running the client
 
