@@ -24,12 +24,14 @@ A: 2004 is an unexplored time period. Coincidentally this is the last revision b
 Q: You mentioned legality, what does that mean? Isn't this all Jagex's original property?
 A: Yes, and it still is, but a deob mapping can be distributed to undo the original client obfuscation without giving any source code out. Original client jar + deob map = deobfuscated output!
 
-Q: Okay... but why do you have the deobfuscated output in the repo now?
+Q: Okay... but why do you have the deobfuscated output in the repo now?  
 A: While this mapping is underway I felt it necessary to include it, because the bytecode transformers aren't perfect for this era yet, and Fernflower has some issues generating quality output. At some point this repo will just have the map with clear instructions on how to use it.
 
 ## Running the client
 
 `./gradlew run --args='10 0 highmem members'`
+
+This connects to localhost and expects a compatible server that uses Jagex's original 512-bit RSA key, and supports ISAAC. Delivering the cache over HTTP is also required.
 
 ## Directory Structure
 
