@@ -5,18 +5,21 @@
 3) Rename fields
 4) Rename local variables
 
+A second pass would be beneficial after everything is named.
+
 ## Class Names
 
-100% Done! A second pass may need to be done to ensure proper naming.
+100% done!
 
 ## Method Names
 
-99.9% Done! Only BZip2InputStream has some unnamed methods (private only).
+100% done!
 
 ## Field Names
 
-Not done at all.
+99.9% done: 3 fields left.  
+Check Draw2D.anInt526, Model.anInt372, and PathingEntity.anIint928.
 
 ## Local Variable Names
 
-Not done at all.
+In progress, probably 10% done.
