@@ -8,40 +8,40 @@ public final class BZip2InputStream {
 	private static final BZip2Context context = new BZip2Context();
 
 	@OriginalMember(owner = "client!rb", name = "a", descriptor = "([BI[BII)I")
-	public static int read(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) byte[] arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
+	public static int read(@OriginalArg(0) byte[] output, @OriginalArg(1) int length, @OriginalArg(2) byte[] compressed, @OriginalArg(3) int decompressedLength, @OriginalArg(4) int minLen) {
 		@Pc(3) BZip2Context local3 = context;
 		synchronized (context) {
-			context.aByteArray8 = arg2;
-			context.anInt737 = arg4;
-			context.aByteArray9 = arg0;
-			context.anInt741 = 0;
-			context.anInt738 = arg3;
-			context.anInt742 = arg1;
-			context.anInt747 = 0;
-			context.anInt746 = 0;
-			context.anInt739 = 0;
-			context.anInt740 = 0;
-			context.anInt743 = 0;
-			context.anInt744 = 0;
-			context.anInt749 = 0;
-			method521(context);
-			return arg1 - context.anInt742;
+			context.compressed = compressed;
+			context.nextIn = minLen;
+			context.decompressed = output;
+			context.nextOut = 0;
+			context.decompressedLength = decompressedLength;
+			context.length = length;
+			context.bsLive = 0;
+			context.bsBuff = 0;
+			context.totalInLo32 = 0;
+			context.totalInHi32 = 0;
+			context.totalOutLo32 = 0;
+			context.totalOutHigh32 = 0;
+			context.currentBlock = 0;
+			decompress(context);
+			return length - context.length;
 		}
 	}
 
 	@OriginalMember(owner = "client!rb", name = "a", descriptor = "(Lclient!sb;)V")
-	private static void method520(@OriginalArg(0) BZip2Context arg0) {
-		@Pc(4) byte local4 = arg0.aByte38;
-		@Pc(7) int local7 = arg0.anInt745;
-		@Pc(10) int local10 = arg0.anInt753;
-		@Pc(13) int local13 = arg0.anInt752;
-		@Pc(15) int[] local15 = BZip2Context.anIntArray216;
-		@Pc(18) int local18 = arg0.anInt751;
-		@Pc(21) byte[] local21 = arg0.aByteArray9;
-		@Pc(24) int local24 = arg0.anInt741;
-		@Pc(27) int local27 = arg0.anInt742;
+	private static void finish(@OriginalArg(0) BZip2Context arg0) {
+		@Pc(4) byte local4 = arg0.stateOutCh;
+		@Pc(7) int local7 = arg0.stateOutLen;
+		@Pc(10) int local10 = arg0.usedBlocks;
+		@Pc(13) int local13 = arg0.k0;
+		@Pc(15) int[] local15 = BZip2Context.tt;
+		@Pc(18) int local18 = arg0.tPos;
+		@Pc(21) byte[] local21 = arg0.decompressed;
+		@Pc(24) int local24 = arg0.nextOut;
+		@Pc(27) int local27 = arg0.length;
 		@Pc(29) int local29 = local27;
-		@Pc(34) int local34 = arg0.anInt755 + 1;
+		@Pc(34) int local34 = arg0.count + 1;
 		label67: while (true) {
 			if (local7 > 0) {
 				while (true) {
@@ -130,176 +130,176 @@ public final class BZip2InputStream {
 				}
 			}
 		}
-		@Pc(224) int local224 = arg0.anInt743;
-		arg0.anInt743 += local29 - local27;
-		if (arg0.anInt743 < local224) {
-			arg0.anInt744++;
+		@Pc(224) int local224 = arg0.totalOutLo32;
+		arg0.totalOutLo32 += local29 - local27;
+		if (arg0.totalOutLo32 < local224) {
+			arg0.totalOutHigh32++;
 		}
-		arg0.aByte38 = local4;
-		arg0.anInt745 = local7;
-		arg0.anInt753 = local10;
-		arg0.anInt752 = local13;
-		BZip2Context.anIntArray216 = local15;
-		arg0.anInt751 = local18;
-		arg0.aByteArray9 = local21;
-		arg0.anInt741 = local24;
-		arg0.anInt742 = local27;
+		arg0.stateOutCh = local4;
+		arg0.stateOutLen = local7;
+		arg0.usedBlocks = local10;
+		arg0.k0 = local13;
+		BZip2Context.tt = local15;
+		arg0.tPos = local18;
+		arg0.decompressed = local21;
+		arg0.nextOut = local24;
+		arg0.length = local27;
 	}
 
 	@OriginalMember(owner = "client!rb", name = "b", descriptor = "(Lclient!sb;)V")
-	private static void method521(@OriginalArg(0) BZip2Context arg0) {
-		arg0.anInt748 = 1;
-		if (BZip2Context.anIntArray216 == null) {
-			BZip2Context.anIntArray216 = new int[arg0.anInt748 * 100000];
+	private static void decompress(@OriginalArg(0) BZip2Context context) {
+		context.unusedMultiplier = 1;
+		if (BZip2Context.tt == null) {
+			BZip2Context.tt = new int[context.unusedMultiplier * 100000];
 		}
 		@Pc(60) boolean local60 = true;
 		while (true) {
 			while (local60) {
-				@Pc(64) byte local64 = method522(arg0);
-				if (local64 == 23) {
+				@Pc(64) byte uc = getUnsignedChar(context);
+				if (uc == 23) {
 					return;
 				}
-				local64 = method522(arg0);
-				local64 = method522(arg0);
-				local64 = method522(arg0);
-				local64 = method522(arg0);
-				local64 = method522(arg0);
-				arg0.anInt749++;
-				local64 = method522(arg0);
-				local64 = method522(arg0);
-				local64 = method522(arg0);
-				local64 = method522(arg0);
-				local64 = method523(arg0);
-				if (local64 == 0) {
-					arg0.aBoolean146 = false;
+				uc = getUnsignedChar(context);
+				uc = getUnsignedChar(context);
+				uc = getUnsignedChar(context);
+				uc = getUnsignedChar(context);
+				uc = getUnsignedChar(context);
+				context.currentBlock++;
+				uc = getUnsignedChar(context);
+				uc = getUnsignedChar(context);
+				uc = getUnsignedChar(context);
+				uc = getUnsignedChar(context);
+				uc = getBit(context);
+				if (uc == 0) {
+					context.randomized = false;
 				} else {
-					arg0.aBoolean146 = true;
+					context.randomized = true;
 				}
-				if (arg0.aBoolean146) {
+				if (context.randomized) {
 					System.out.println("PANIC! RANDOMISED BLOCK!");
 				}
-				arg0.anInt750 = 0;
-				local64 = method522(arg0);
-				arg0.anInt750 = arg0.anInt750 << 8 | local64 & 0xFF;
-				local64 = method522(arg0);
-				arg0.anInt750 = arg0.anInt750 << 8 | local64 & 0xFF;
-				local64 = method522(arg0);
-				arg0.anInt750 = arg0.anInt750 << 8 | local64 & 0xFF;
-				@Pc(164) int local164;
-				for (local164 = 0; local164 < 16; local164++) {
-					local64 = method523(arg0);
-					if (local64 == 1) {
-						arg0.aBooleanArray6[local164] = true;
+				context.origPtr = 0;
+				uc = getUnsignedChar(context);
+				context.origPtr = context.origPtr << 8 | uc & 0xFF;
+				uc = getUnsignedChar(context);
+				context.origPtr = context.origPtr << 8 | uc & 0xFF;
+				uc = getUnsignedChar(context);
+				context.origPtr = context.origPtr << 8 | uc & 0xFF;
+				@Pc(164) int i;
+				for (i = 0; i < 16; i++) {
+					uc = getBit(context);
+					if (uc == 1) {
+						context.inUse16[i] = true;
 					} else {
-						arg0.aBooleanArray6[local164] = false;
+						context.inUse16[i] = false;
 					}
 				}
-				for (local164 = 0; local164 < 256; local164++) {
-					arg0.aBooleanArray5[local164] = false;
+				for (i = 0; i < 256; i++) {
+					context.inUse[i] = false;
 				}
-				@Pc(212) int local212;
-				for (local164 = 0; local164 < 16; local164++) {
-					if (arg0.aBooleanArray6[local164]) {
-						for (local212 = 0; local212 < 16; local212++) {
-							local64 = method523(arg0);
-							if (local64 == 1) {
-								arg0.aBooleanArray5[local164 * 16 + local212] = true;
+				@Pc(212) int count;
+				for (i = 0; i < 16; i++) {
+					if (context.inUse16[i]) {
+						for (count = 0; count < 16; count++) {
+							uc = getBit(context);
+							if (uc == 1) {
+								context.inUse[i * 16 + count] = true;
 							}
 						}
 					}
 				}
-				method525(arg0);
-				@Pc(244) int local244 = arg0.anInt754 + 2;
-				@Pc(248) int local248 = method524(3, arg0);
-				@Pc(252) int local252 = method524(15, arg0);
-				for (local164 = 0; local164 < local252; local164++) {
-					local212 = 0;
+				makeMaps(context);
+				@Pc(244) int alphabetSize = context.nInUse + 2;
+				@Pc(248) int huffmanTableCount = getBits(3, context);
+				@Pc(252) int swapCount = getBits(15, context);
+				for (i = 0; i < swapCount; i++) {
+					count = 0;
 					while (true) {
-						local64 = method523(arg0);
-						if (local64 == 0) {
-							arg0.aByteArray13[local164] = (byte) local212;
+						uc = getBit(context);
+						if (uc == 0) {
+							context.selectorMtf[i] = (byte) count;
 							break;
 						}
-						local212++;
+						count++;
 					}
 				}
-				@Pc(279) byte[] local279 = new byte[6];
-				@Pc(281) byte local281 = 0;
-				while (local281 < local248) {
-					local279[local281] = local281++;
+				@Pc(279) byte[] pos = new byte[6];
+				@Pc(281) byte v = 0;
+				while (v < huffmanTableCount) {
+					pos[v] = v++;
 				}
-				for (local164 = 0; local164 < local252; local164++) {
-					local281 = arg0.aByteArray13[local164];
-					@Pc(308) byte local308 = local279[local281];
-					while (local281 > 0) {
-						local279[local281] = local279[local281 - 1];
-						local281--;
+				for (i = 0; i < swapCount; i++) {
+					v = context.selectorMtf[i];
+					@Pc(308) byte local308 = pos[v];
+					while (v > 0) {
+						pos[v] = pos[v - 1];
+						v--;
 					}
-					local279[0] = local308;
-					arg0.aByteArray12[local164] = local308;
+					pos[0] = local308;
+					context.selector[i] = local308;
 				}
-				@Pc(340) int local340;
-				for (local340 = 0; local340 < local248; local340++) {
-					@Pc(346) int local346 = method524(5, arg0);
-					for (local164 = 0; local164 < local244; local164++) {
+				@Pc(340) int t;
+				for (t = 0; t < huffmanTableCount; t++) {
+					@Pc(346) int read = getBits(5, context);
+					for (i = 0; i < alphabetSize; i++) {
 						while (true) {
-							local64 = method523(arg0);
-							if (local64 == 0) {
-								arg0.aByteArrayArray4[local340][local164] = (byte) local346;
+							uc = getBit(context);
+							if (uc == 0) {
+								context.len[t][i] = (byte) read;
 								break;
 							}
-							local64 = method523(arg0);
-							if (local64 == 0) {
-								local346++;
+							uc = getBit(context);
+							if (uc == 0) {
+								read++;
 							} else {
-								local346--;
+								read--;
 							}
 						}
 					}
 				}
-				for (local340 = 0; local340 < local248; local340++) {
-					@Pc(388) byte local388 = 32;
-					@Pc(390) byte local390 = 0;
-					for (local164 = 0; local164 < local244; local164++) {
-						if (arg0.aByteArrayArray4[local340][local164] > local390) {
-							local390 = arg0.aByteArrayArray4[local340][local164];
+				for (t = 0; t < huffmanTableCount; t++) {
+					@Pc(388) byte minLen = 32;
+					@Pc(390) byte maxLen = 0;
+					for (i = 0; i < alphabetSize; i++) {
+						if (context.len[t][i] > maxLen) {
+							maxLen = context.len[t][i];
 						}
-						if (arg0.aByteArrayArray4[local340][local164] < local388) {
-							local388 = arg0.aByteArrayArray4[local340][local164];
+						if (context.len[t][i] < minLen) {
+							minLen = context.len[t][i];
 						}
 					}
-					method526(arg0.anIntArrayArray20[local340], arg0.anIntArrayArray21[local340], arg0.anIntArrayArray22[local340], arg0.aByteArrayArray4[local340], local388, local390, local244);
-					arg0.anIntArray218[local340] = local388;
+					createDecodeTables(context.limit[t], context.base[t], context.perm[t], context.len[t], minLen, maxLen, alphabetSize);
+					context.minLens[t] = minLen;
 				}
-				@Pc(462) int local462 = arg0.anInt754 + 1;
-				@Pc(467) int local467 = arg0.anInt748 * 100000;
+				@Pc(462) int local462 = context.nInUse + 1;
+				@Pc(467) int local467 = context.unusedMultiplier * 100000;
 				@Pc(469) byte local469 = -1;
-				for (local164 = 0; local164 <= 255; local164++) {
-					arg0.anIntArray213[local164] = 0;
+				for (i = 0; i <= 255; i++) {
+					context.unzftab[i] = 0;
 				}
-				@Pc(486) int local486 = 4095;
-				for (@Pc(488) int local488 = 15; local488 >= 0; local488--) {
-					for (@Pc(492) int local492 = 15; local492 >= 0; local492--) {
-						arg0.aByteArray11[local486] = (byte) (local488 * 16 + local492);
-						local486--;
+				@Pc(486) int kk = 4095;
+				for (@Pc(488) int ii = 15; ii >= 0; ii--) {
+					for (@Pc(492) int jj = 15; jj >= 0; jj--) {
+						context.mtfa[kk] = (byte) (ii * 16 + jj);
+						kk--;
 					}
-					arg0.anIntArray217[local488] = local486 + 1;
+					context.mtfbase[ii] = kk + 1;
 				}
-				@Pc(520) int local520 = 0;
+				@Pc(520) int nblock = 0;
 				@Pc(523) int local523 = local469 + 1;
 				@Pc(525) byte local525 = 50;
-				@Pc(530) byte local530 = arg0.aByteArray12[0];
-				@Pc(535) int local535 = arg0.anIntArray218[local530];
-				@Pc(540) int[] local540 = arg0.anIntArrayArray20[local530];
-				@Pc(545) int[] local545 = arg0.anIntArrayArray22[local530];
-				@Pc(550) int[] local550 = arg0.anIntArrayArray21[local530];
+				@Pc(530) byte local530 = context.selector[0];
+				@Pc(535) int local535 = context.minLens[local530];
+				@Pc(540) int[] local540 = context.limit[local530];
+				@Pc(545) int[] local545 = context.perm[local530];
+				@Pc(550) int[] local550 = context.base[local530];
 				@Pc(551) int local551 = local525 - 1;
 				@Pc(553) int local553 = local535;
 				@Pc(557) int local557;
 				@Pc(566) byte local566;
-				for (local557 = method524(local535, arg0); local557 > local540[local553]; local557 = local557 << 1 | local566) {
+				for (local557 = getBits(local535, context); local557 > local540[local553]; local557 = local557 << 1 | local566) {
 					local553++;
-					local566 = method523(arg0);
+					local566 = getBit(context);
 				}
 				@Pc(582) int local582 = local545[local557 - local550[local553]];
 				while (true) {
@@ -317,119 +317,119 @@ public final class BZip2InputStream {
 								if (local551 == 0) {
 									local523++;
 									local551 = 50;
-									local530 = arg0.aByteArray12[local523];
-									local535 = arg0.anIntArray218[local530];
-									local540 = arg0.anIntArrayArray20[local530];
-									local545 = arg0.anIntArrayArray22[local530];
-									local550 = arg0.anIntArrayArray21[local530];
+									local530 = context.selector[local523];
+									local535 = context.minLens[local530];
+									local540 = context.limit[local530];
+									local545 = context.perm[local530];
+									local550 = context.base[local530];
 								}
 								local551--;
 								local553 = local535;
-								for (local557 = method524(local535, arg0); local557 > local540[local553]; local557 = local557 << 1 | local566) {
+								for (local557 = getBits(local535, context); local557 > local540[local553]; local557 = local557 << 1 | local566) {
 									local553++;
-									local566 = method523(arg0);
+									local566 = getBit(context);
 								}
 								local582 = local545[local557 - local550[local553]];
 							} while (local582 == 0 || local582 == 1);
 							local592++;
-							local64 = arg0.aByteArray10[arg0.aByteArray11[arg0.anIntArray217[0]] & 0xFF];
-							arg0.anIntArray213[local64 & 0xFF] += local592;
+							uc = context.seqToUnseq[context.mtfa[context.mtfbase[0]] & 0xFF];
+							context.unzftab[uc & 0xFF] += local592;
 							while (local592 > 0) {
-								BZip2Context.anIntArray216[local520] = local64 & 0xFF;
-								local520++;
+								BZip2Context.tt[nblock] = uc & 0xFF;
+								nblock++;
 								local592--;
 							}
 						} else {
 							@Pc(724) int local724 = local582 - 1;
 							@Pc(732) int local732;
 							if (local724 < 16) {
-								local732 = arg0.anIntArray217[0];
-								local64 = arg0.aByteArray11[local732 + local724];
+								local732 = context.mtfbase[0];
+								uc = context.mtfa[local732 + local724];
 								while (local724 > 3) {
 									@Pc(745) int local745 = local732 + local724;
-									arg0.aByteArray11[local745] = arg0.aByteArray11[local745 - 1];
-									arg0.aByteArray11[local745 - 1] = arg0.aByteArray11[local745 - 2];
-									arg0.aByteArray11[local745 - 2] = arg0.aByteArray11[local745 - 3];
-									arg0.aByteArray11[local745 - 3] = arg0.aByteArray11[local745 - 4];
+									context.mtfa[local745] = context.mtfa[local745 - 1];
+									context.mtfa[local745 - 1] = context.mtfa[local745 - 2];
+									context.mtfa[local745 - 2] = context.mtfa[local745 - 3];
+									context.mtfa[local745 - 3] = context.mtfa[local745 - 4];
 									local724 -= 4;
 								}
 								while (local724 > 0) {
-									arg0.aByteArray11[local732 + local724] = arg0.aByteArray11[local732 + local724 - 1];
+									context.mtfa[local732 + local724] = context.mtfa[local732 + local724 - 1];
 									local724--;
 								}
-								arg0.aByteArray11[local732] = local64;
+								context.mtfa[local732] = uc;
 							} else {
 								@Pc(825) int local825 = local724 / 16;
 								@Pc(829) int local829 = local724 % 16;
-								local732 = arg0.anIntArray217[local825] + local829;
-								local64 = arg0.aByteArray11[local732];
-								while (local732 > arg0.anIntArray217[local825]) {
-									arg0.aByteArray11[local732] = arg0.aByteArray11[local732 - 1];
+								local732 = context.mtfbase[local825] + local829;
+								uc = context.mtfa[local732];
+								while (local732 > context.mtfbase[local825]) {
+									context.mtfa[local732] = context.mtfa[local732 - 1];
 									local732--;
 								}
-								@Pc(865) int local865 = arg0.anIntArray217[local825]++;
+								@Pc(865) int local865 = context.mtfbase[local825]++;
 								while (local825 > 0) {
-									local865 = arg0.anIntArray217[local825]--;
-									arg0.aByteArray11[arg0.anIntArray217[local825]] = arg0.aByteArray11[arg0.anIntArray217[local825 - 1] + 16 - 1];
+									local865 = context.mtfbase[local825]--;
+									context.mtfa[context.mtfbase[local825]] = context.mtfa[context.mtfbase[local825 - 1] + 16 - 1];
 									local825--;
 								}
-								local865 = arg0.anIntArray217[0]--;
-								arg0.aByteArray11[arg0.anIntArray217[0]] = local64;
-								if (arg0.anIntArray217[0] == 0) {
+								local865 = context.mtfbase[0]--;
+								context.mtfa[context.mtfbase[0]] = uc;
+								if (context.mtfbase[0] == 0) {
 									@Pc(924) int local924 = 4095;
 									for (@Pc(926) int local926 = 15; local926 >= 0; local926--) {
 										for (@Pc(930) int local930 = 15; local930 >= 0; local930--) {
-											arg0.aByteArray11[local924] = arg0.aByteArray11[arg0.anIntArray217[local926] + local930];
+											context.mtfa[local924] = context.mtfa[context.mtfbase[local926] + local930];
 											local924--;
 										}
-										arg0.anIntArray217[local926] = local924 + 1;
+										context.mtfbase[local926] = local924 + 1;
 									}
 								}
 							}
-							arg0.anIntArray213[arg0.aByteArray10[local64 & 0xFF] & 0xFF]++;
-							BZip2Context.anIntArray216[local520] = arg0.aByteArray10[local64 & 0xFF] & 0xFF;
-							local520++;
+							context.unzftab[context.seqToUnseq[uc & 0xFF] & 0xFF]++;
+							BZip2Context.tt[nblock] = context.seqToUnseq[uc & 0xFF] & 0xFF;
+							nblock++;
 							if (local551 == 0) {
 								local523++;
 								local551 = 50;
-								local530 = arg0.aByteArray12[local523];
-								local535 = arg0.anIntArray218[local530];
-								local540 = arg0.anIntArrayArray20[local530];
-								local545 = arg0.anIntArrayArray22[local530];
-								local550 = arg0.anIntArrayArray21[local530];
+								local530 = context.selector[local523];
+								local535 = context.minLens[local530];
+								local540 = context.limit[local530];
+								local545 = context.perm[local530];
+								local550 = context.base[local530];
 							}
 							local551--;
 							local553 = local535;
-							for (local557 = method524(local535, arg0); local557 > local540[local553]; local557 = local557 << 1 | local566) {
+							for (local557 = getBits(local535, context); local557 > local540[local553]; local557 = local557 << 1 | local566) {
 								local553++;
-								local566 = method523(arg0);
+								local566 = getBit(context);
 							}
 							local582 = local545[local557 - local550[local553]];
 						}
 					}
-					arg0.anInt745 = 0;
-					arg0.aByte38 = 0;
-					arg0.anIntArray214[0] = 0;
-					for (local164 = 1; local164 <= 256; local164++) {
-						arg0.anIntArray214[local164] = arg0.anIntArray213[local164 - 1];
+					context.stateOutLen = 0;
+					context.stateOutCh = 0;
+					context.cftab[0] = 0;
+					for (i = 1; i <= 256; i++) {
+						context.cftab[i] = context.unzftab[i - 1];
 					}
-					for (local164 = 1; local164 <= 256; local164++) {
-						arg0.anIntArray214[local164] += arg0.anIntArray214[local164 - 1];
+					for (i = 1; i <= 256; i++) {
+						context.cftab[i] += context.cftab[i - 1];
 					}
-					for (local164 = 0; local164 < local520; local164++) {
-						local64 = (byte) (BZip2Context.anIntArray216[local164] & 0xFF);
-						BZip2Context.anIntArray216[arg0.anIntArray214[local64 & 0xFF]] |= local164 << 8;
-						arg0.anIntArray214[local64 & 0xFF]++;
+					for (i = 0; i < nblock; i++) {
+						uc = (byte) (BZip2Context.tt[i] & 0xFF);
+						BZip2Context.tt[context.cftab[uc & 0xFF]] |= i << 8;
+						context.cftab[uc & 0xFF]++;
 					}
-					arg0.anInt751 = BZip2Context.anIntArray216[arg0.anInt750] >> 8;
-					arg0.anInt753 = 0;
-					arg0.anInt751 = BZip2Context.anIntArray216[arg0.anInt751];
-					arg0.anInt752 = (byte) (arg0.anInt751 & 0xFF);
-					arg0.anInt751 >>= 0x8;
-					arg0.anInt753++;
-					arg0.anInt755 = local520;
-					method520(arg0);
-					if (arg0.anInt753 == arg0.anInt755 + 1 && arg0.anInt745 == 0) {
+					context.tPos = BZip2Context.tt[context.origPtr] >> 8;
+					context.usedBlocks = 0;
+					context.tPos = BZip2Context.tt[context.tPos];
+					context.k0 = (byte) (context.tPos & 0xFF);
+					context.tPos >>= 0x8;
+					context.usedBlocks++;
+					context.count = nblock;
+					finish(context);
+					if (context.usedBlocks == context.count + 1 && context.stateOutLen == 0) {
 						local60 = true;
 						break;
 					}
@@ -442,45 +442,45 @@ public final class BZip2InputStream {
 	}
 
 	@OriginalMember(owner = "client!rb", name = "c", descriptor = "(Lclient!sb;)B")
-	private static byte method522(@OriginalArg(0) BZip2Context arg0) {
-		return (byte) method524(8, arg0);
+	private static byte getUnsignedChar(@OriginalArg(0) BZip2Context arg0) {
+		return (byte) getBits(8, arg0);
 	}
 
 	@OriginalMember(owner = "client!rb", name = "d", descriptor = "(Lclient!sb;)B")
-	private static byte method523(@OriginalArg(0) BZip2Context arg0) {
-		return (byte) method524(1, arg0);
+	private static byte getBit(@OriginalArg(0) BZip2Context arg0) {
+		return (byte) getBits(1, arg0);
 	}
 
 	@OriginalMember(owner = "client!rb", name = "a", descriptor = "(ILclient!sb;)I")
-	private static int method524(@OriginalArg(0) int arg0, @OriginalArg(1) BZip2Context arg1) {
-		while (arg1.anInt747 < arg0) {
-			arg1.anInt746 = arg1.anInt746 << 8 | arg1.aByteArray8[arg1.anInt737] & 0xFF;
-			arg1.anInt747 += 8;
-			arg1.anInt737++;
-			arg1.anInt738--;
-			arg1.anInt739++;
-			if (arg1.anInt739 == 0) {
-				arg1.anInt740++;
+	private static int getBits(@OriginalArg(0) int arg0, @OriginalArg(1) BZip2Context arg1) {
+		while (arg1.bsLive < arg0) {
+			arg1.bsBuff = arg1.bsBuff << 8 | arg1.compressed[arg1.nextIn] & 0xFF;
+			arg1.bsLive += 8;
+			arg1.nextIn++;
+			arg1.decompressedLength--;
+			arg1.totalInLo32++;
+			if (arg1.totalInLo32 == 0) {
+				arg1.totalInHi32++;
 			}
 		}
-		@Pc(17) int local17 = arg1.anInt746 >> arg1.anInt747 - arg0 & (0x1 << arg0) - 1;
-		arg1.anInt747 -= arg0;
+		@Pc(17) int local17 = arg1.bsBuff >> arg1.bsLive - arg0 & (0x1 << arg0) - 1;
+		arg1.bsLive -= arg0;
 		return local17;
 	}
 
 	@OriginalMember(owner = "client!rb", name = "e", descriptor = "(Lclient!sb;)V")
-	private static void method525(@OriginalArg(0) BZip2Context arg0) {
-		arg0.anInt754 = 0;
+	private static void makeMaps(@OriginalArg(0) BZip2Context arg0) {
+		arg0.nInUse = 0;
 		for (@Pc(4) int local4 = 0; local4 < 256; local4++) {
-			if (arg0.aBooleanArray5[local4]) {
-				arg0.aByteArray10[arg0.anInt754] = (byte) local4;
-				arg0.anInt754++;
+			if (arg0.inUse[local4]) {
+				arg0.seqToUnseq[arg0.nInUse] = (byte) local4;
+				arg0.nInUse++;
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!rb", name = "a", descriptor = "([I[I[I[BIII)V")
-	private static void method526(@OriginalArg(0) int[] arg0, @OriginalArg(1) int[] arg1, @OriginalArg(2) int[] arg2, @OriginalArg(3) byte[] arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
+	private static void createDecodeTables(@OriginalArg(0) int[] arg0, @OriginalArg(1) int[] arg1, @OriginalArg(2) int[] arg2, @OriginalArg(3) byte[] arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
 		@Pc(3) int local3 = 0;
 		@Pc(5) int local5;
 		for (local5 = arg4; local5 <= arg5; local5++) {

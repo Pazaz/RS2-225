@@ -3982,148 +3982,148 @@ fields:
     name: "history"
   client!sb.A I:
     owner: "BZip2Context"
-    name: "anInt750"
+    name: "origPtr"
   client!sb.B I:
     owner: "BZip2Context"
-    name: "anInt751"
+    name: "tPos"
   client!sb.C I:
     owner: "BZip2Context"
-    name: "anInt752"
+    name: "k0"
   client!sb.D [I:
     owner: "BZip2Context"
-    name: "anIntArray213"
+    name: "unzftab"
   client!sb.E I:
     owner: "BZip2Context"
-    name: "anInt753"
+    name: "usedBlocks"
   client!sb.F [I:
     owner: "BZip2Context"
-    name: "anIntArray214"
+    name: "cftab"
   client!sb.G [I:
     owner: "BZip2Context"
-    name: "anIntArray215"
+    name: "unusedArray"
   client!sb.H [I:
     owner: "BZip2Context"
-    name: "anIntArray216"
+    name: "tt"
   client!sb.I I:
     owner: "BZip2Context"
-    name: "anInt754"
+    name: "nInUse"
   client!sb.J [Z:
     owner: "BZip2Context"
-    name: "aBooleanArray5"
+    name: "inUse"
   client!sb.K [Z:
     owner: "BZip2Context"
-    name: "aBooleanArray6"
+    name: "inUse16"
   client!sb.L [B:
     owner: "BZip2Context"
-    name: "aByteArray10"
+    name: "seqToUnseq"
   client!sb.M [B:
     owner: "BZip2Context"
-    name: "aByteArray11"
+    name: "mtfa"
   client!sb.N [I:
     owner: "BZip2Context"
-    name: "anIntArray217"
+    name: "mtfbase"
   client!sb.O [B:
     owner: "BZip2Context"
-    name: "aByteArray12"
+    name: "selector"
   client!sb.P [B:
     owner: "BZip2Context"
-    name: "aByteArray13"
+    name: "selectorMtf"
   client!sb.Q [[B:
     owner: "BZip2Context"
-    name: "aByteArrayArray4"
+    name: "len"
   client!sb.R [[I:
     owner: "BZip2Context"
-    name: "anIntArrayArray20"
+    name: "limit"
   client!sb.S [[I:
     owner: "BZip2Context"
-    name: "anIntArrayArray21"
+    name: "base"
   client!sb.T [[I:
     owner: "BZip2Context"
-    name: "anIntArrayArray22"
+    name: "perm"
   client!sb.U [I:
     owner: "BZip2Context"
-    name: "anIntArray218"
+    name: "minLens"
   client!sb.V I:
     owner: "BZip2Context"
-    name: "anInt755"
+    name: "count"
   client!sb.a I:
     owner: "BZip2Context"
-    name: "anInt728"
+    name: "flowObfuscator1"
   client!sb.b I:
     owner: "BZip2Context"
-    name: "anInt729"
+    name: "flowObfuscator2"
   client!sb.c I:
     owner: "BZip2Context"
-    name: "anInt730"
+    name: "flowObfuscator3"
   client!sb.d I:
     owner: "BZip2Context"
-    name: "anInt731"
+    name: "flowObfuscator4"
   client!sb.e I:
     owner: "BZip2Context"
-    name: "anInt732"
+    name: "flowObfuscator5"
   client!sb.f I:
     owner: "BZip2Context"
-    name: "anInt733"
+    name: "flowObfuscator6"
   client!sb.g I:
     owner: "BZip2Context"
-    name: "anInt734"
+    name: "flowObfuscator7"
   client!sb.h I:
     owner: "BZip2Context"
-    name: "anInt735"
+    name: "flowObfuscator8"
   client!sb.i I:
     owner: "BZip2Context"
-    name: "anInt736"
+    name: "flowObfuscator9"
   client!sb.j [B:
     owner: "BZip2Context"
-    name: "aByteArray8"
+    name: "compressed"
   client!sb.k I:
     owner: "BZip2Context"
-    name: "anInt737"
+    name: "nextIn"
   client!sb.l I:
     owner: "BZip2Context"
-    name: "anInt738"
+    name: "decompressedLength"
   client!sb.m I:
     owner: "BZip2Context"
-    name: "anInt739"
+    name: "totalInLo32"
   client!sb.n I:
     owner: "BZip2Context"
-    name: "anInt740"
+    name: "totalInHi32"
   client!sb.o [B:
     owner: "BZip2Context"
-    name: "aByteArray9"
+    name: "decompressed"
   client!sb.p I:
     owner: "BZip2Context"
-    name: "anInt741"
+    name: "nextOut"
   client!sb.q I:
     owner: "BZip2Context"
-    name: "anInt742"
+    name: "length"
   client!sb.r I:
     owner: "BZip2Context"
-    name: "anInt743"
+    name: "totalOutLo32"
   client!sb.s I:
     owner: "BZip2Context"
-    name: "anInt744"
+    name: "totalOutHigh32"
   client!sb.t B:
     owner: "BZip2Context"
-    name: "aByte38"
+    name: "stateOutCh"
   client!sb.u I:
     owner: "BZip2Context"
-    name: "anInt745"
+    name: "stateOutLen"
   client!sb.v Z:
     owner: "BZip2Context"
-    name: "aBoolean146"
+    name: "randomized"
   client!sb.w I:
     owner: "BZip2Context"
-    name: "anInt746"
+    name: "bsBuff"
   client!sb.x I:
     owner: "BZip2Context"
-    name: "anInt747"
+    name: "bsLive"
   client!sb.y I:
     owner: "BZip2Context"
-    name: "anInt748"
+    name: "unusedMultiplier"
   client!sb.z I:
     owner: "BZip2Context"
-    name: "anInt749"
+    name: "currentBlock"
   client!sign/signlink.active Z:
     owner: "sign/signlink"
     name: "active"
@@ -10916,7 +10916,7 @@ methods:
       15: "local15"
   client!rb.a (ILclient!sb;)I:
     owner: "BZip2InputStream"
-    name: "method524"
+    name: "getBits"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10924,7 +10924,7 @@ methods:
       17: "local17"
   client!rb.a (Lclient!sb;)V:
     owner: "BZip2InputStream"
-    name: "method520"
+    name: "finish"
     arguments:
       0: "arg0"
     locals:
@@ -10946,16 +10946,16 @@ methods:
     owner: "BZip2InputStream"
     name: "read"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      3: "arg3"
-      4: "arg4"
+      0: "output"
+      1: "length"
+      2: "compressed"
+      3: "decompressedLength"
+      4: "minLen"
     locals:
       3: "local3"
   client!rb.a ([I[I[I[BIII)V:
     owner: "BZip2InputStream"
-    name: "method526"
+    name: "createDecodeTables"
     arguments:
       0: "arg0"
       1: "arg1"
@@ -10971,31 +10971,31 @@ methods:
       93: "local93"
   client!rb.b (Lclient!sb;)V:
     owner: "BZip2InputStream"
-    name: "method521"
+    name: "decompress"
     arguments:
-      0: "arg0"
+      0: "context"
     locals:
       60: "local60"
-      64: "local64"
-      164: "local164"
-      212: "local212"
-      244: "local244"
-      248: "local248"
-      252: "local252"
-      279: "local279"
-      281: "local281"
+      64: "uc"
+      164: "i"
+      212: "count"
+      244: "alphabetSize"
+      248: "huffmanTableCount"
+      252: "swapCount"
+      279: "pos"
+      281: "v"
       308: "local308"
-      340: "local340"
-      346: "local346"
-      388: "local388"
-      390: "local390"
+      340: "t"
+      346: "read"
+      388: "minLen"
+      390: "maxLen"
       462: "local462"
       467: "local467"
       469: "local469"
-      486: "local486"
-      488: "local488"
-      492: "local492"
-      520: "local520"
+      486: "kk"
+      488: "ii"
+      492: "jj"
+      520: "nblock"
       523: "local523"
       525: "local525"
       530: "local530"
@@ -11021,19 +11021,19 @@ methods:
       930: "local930"
   client!rb.c (Lclient!sb;)B:
     owner: "BZip2InputStream"
-    name: "method522"
+    name: "getUnsignedChar"
     arguments:
       0: "arg0"
     locals: {}
   client!rb.d (Lclient!sb;)B:
     owner: "BZip2InputStream"
-    name: "method523"
+    name: "getBit"
     arguments:
       0: "arg0"
     locals: {}
   client!rb.e (Lclient!sb;)V:
     owner: "BZip2InputStream"
-    name: "method525"
+    name: "makeMaps"
     arguments:
       0: "arg0"
     locals:
