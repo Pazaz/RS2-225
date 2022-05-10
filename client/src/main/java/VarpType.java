@@ -7,66 +7,66 @@ import org.openrs2.deob.annotation.Pc;
 public final class VarpType {
 
 	@OriginalMember(owner = "client!lc", name = "c", descriptor = "I")
-	private static int anInt605;
+	private static int count;
 
 	@OriginalMember(owner = "client!lc", name = "d", descriptor = "[Lclient!lc;")
-	public static VarpType[] aVarpTypeArray1;
+	public static VarpType[] instances;
 
 	@OriginalMember(owner = "client!lc", name = "e", descriptor = "I")
-	private static int anInt606;
+	private static int opcode3Count;
 
 	@OriginalMember(owner = "client!lc", name = "f", descriptor = "[I")
-	private static int[] anIntArray194;
+	private static int[] opcode3Array;
 
 	@OriginalMember(owner = "client!lc", name = "a", descriptor = "I")
-	private static final int anInt603 = 473;
+	private static final int flowObfuscator2 = 473;
 
 	@OriginalMember(owner = "client!lc", name = "b", descriptor = "I")
-	private static final int anInt604 = 13703;
+	private static final int flowObfuscator1 = 13703;
 
 	@OriginalMember(owner = "client!lc", name = "g", descriptor = "Ljava/lang/String;")
-	private String aString25;
+	private String opcode9;
 
 	@OriginalMember(owner = "client!lc", name = "h", descriptor = "I")
-	private int anInt607;
+	private int opcode1;
 
 	@OriginalMember(owner = "client!lc", name = "i", descriptor = "I")
-	private int anInt608;
+	private int type;
 
 	@OriginalMember(owner = "client!lc", name = "l", descriptor = "I")
-	public int anInt609;
+	public int opcode5;
 
 	@OriginalMember(owner = "client!lc", name = "n", descriptor = "I")
-	private int anInt610;
+	private int opcode7;
 
 	@OriginalMember(owner = "client!lc", name = "j", descriptor = "Z")
-	private boolean aBoolean132 = false;
+	private boolean opcode3 = false;
 
 	@OriginalMember(owner = "client!lc", name = "k", descriptor = "Z")
-	private boolean aBoolean133 = true;
+	private boolean opcode4 = true;
 
 	@OriginalMember(owner = "client!lc", name = "m", descriptor = "Z")
-	private boolean aBoolean134 = false;
+	private boolean opcode6 = false;
 
 	@OriginalMember(owner = "client!lc", name = "o", descriptor = "Z")
-	private boolean aBoolean135 = false;
+	private boolean opcode8 = false;
 
 	@OriginalMember(owner = "client!lc", name = "a", descriptor = "(Lclient!ub;I)V")
-	public static void decode(@OriginalArg(0) FileArchive arg0) {
-		@Pc(9) Buffer local9 = new Buffer(363, arg0.read("varp.dat", null));
-		anInt606 = 0;
-		anInt605 = local9.g2();
-		if (aVarpTypeArray1 == null) {
-			aVarpTypeArray1 = new VarpType[anInt605];
+	public static void decode(@OriginalArg(0) FileArchive archive) {
+		@Pc(9) Buffer buffer = new Buffer(363, archive.read("varp.dat", null));
+		opcode3Count = 0;
+		count = buffer.g2();
+		if (instances == null) {
+			instances = new VarpType[count];
 		}
-		if (anIntArray194 == null) {
-			anIntArray194 = new int[anInt605];
+		if (opcode3Array == null) {
+			opcode3Array = new int[count];
 		}
-		for (@Pc(30) int local30 = 0; local30 < anInt605; local30++) {
-			if (aVarpTypeArray1[local30] == null) {
-				aVarpTypeArray1[local30] = new VarpType();
+		for (@Pc(30) int i = 0; i < count; i++) {
+			if (instances[i] == null) {
+				instances[i] = new VarpType();
 			}
-			aVarpTypeArray1[local30].decode(anInt604, local30, local9);
+			instances[i].decode(flowObfuscator1, i, buffer);
 		}
 	}
 
@@ -75,36 +75,36 @@ public final class VarpType {
 	}
 
 	@OriginalMember(owner = "client!lc", name = "a", descriptor = "(IILclient!kb;)V")
-	private void decode(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) Buffer arg2) {
-		if (arg0 != 13703) {
+	private void decode(@OriginalArg(0) int obfuscator, @OriginalArg(1) int id, @OriginalArg(2) Buffer buffer) {
+		if (obfuscator != 13703) {
 			return;
 		}
 		while (true) {
-			@Pc(8) int local8 = arg2.g1();
-			if (local8 == 0) {
+			@Pc(8) int opcode = buffer.g1();
+			if (opcode == 0) {
 				return;
 			}
-			if (local8 == 1) {
-				this.anInt607 = arg2.g1();
-			} else if (local8 == 2) {
-				this.anInt608 = arg2.g1();
-			} else if (local8 == 3) {
-				this.aBoolean132 = true;
-				anIntArray194[anInt606++] = arg1;
-			} else if (local8 == 4) {
-				this.aBoolean133 = false;
-			} else if (local8 == 5) {
-				this.anInt609 = arg2.g2();
-			} else if (local8 == 6) {
-				this.aBoolean134 = true;
-			} else if (local8 == 7) {
-				this.anInt610 = arg2.g4();
-			} else if (local8 == 8) {
-				this.aBoolean135 = true;
-			} else if (local8 == 10) {
-				this.aString25 = arg2.gjstr();
+			if (opcode == 1) {
+				this.opcode1 = buffer.g1();
+			} else if (opcode == 2) {
+				this.type = buffer.g1();
+			} else if (opcode == 3) {
+				this.opcode3 = true;
+				opcode3Array[opcode3Count++] = id;
+			} else if (opcode == 4) {
+				this.opcode4 = false;
+			} else if (opcode == 5) {
+				this.opcode5 = buffer.g2();
+			} else if (opcode == 6) {
+				this.opcode6 = true;
+			} else if (opcode == 7) {
+				this.opcode7 = buffer.g4();
+			} else if (opcode == 8) {
+				this.opcode8 = true;
+			} else if (opcode == 10) {
+				this.opcode9 = buffer.gjstr();
 			} else {
-				System.out.println("Error unrecognised config code: " + local8);
+				System.out.println("Error unrecognised config code: " + opcode);
 			}
 		}
 	}

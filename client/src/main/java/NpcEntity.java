@@ -12,7 +12,7 @@ public final class NpcEntity extends PathingEntity {
 	public NpcType info;
 
 	@OriginalMember(owner = "client!y", name = "hb", descriptor = "Z")
-	private final boolean flowObufscator2 = false;
+	private final boolean flowObfuscator2 = false;
 
 	@OriginalMember(owner = "client!y", name = "a", descriptor = "(Z)Lclient!eb;")
 	@Override

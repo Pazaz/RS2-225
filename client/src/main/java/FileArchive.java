@@ -7,100 +7,100 @@ import org.openrs2.deob.annotation.Pc;
 public final class FileArchive {
 
 	@OriginalMember(owner = "client!ub", name = "e", descriptor = "[B")
-	private byte[] aByteArray14;
+	private byte[] data;
 
 	@OriginalMember(owner = "client!ub", name = "f", descriptor = "I")
-	private int anInt763;
+	private int fileCount;
 
 	@OriginalMember(owner = "client!ub", name = "g", descriptor = "[I")
-	private int[] anIntArray221;
+	private int[] fileHash;
 
 	@OriginalMember(owner = "client!ub", name = "h", descriptor = "[I")
-	private int[] anIntArray222;
+	private int[] fileUnpackedSize;
 
 	@OriginalMember(owner = "client!ub", name = "i", descriptor = "[I")
-	private int[] anIntArray223;
+	private int[] filePackedSize;
 
 	@OriginalMember(owner = "client!ub", name = "j", descriptor = "[I")
-	private int[] anIntArray224;
+	private int[] fileOffset;
 
 	@OriginalMember(owner = "client!ub", name = "k", descriptor = "Z")
-	private boolean aBoolean150;
+	private boolean isCompressedWhole;
 
 	@OriginalMember(owner = "client!ub", name = "a", descriptor = "Z")
-	private final boolean aBoolean148 = false;
+	private final boolean flowObfuscator2 = false;
 
 	@OriginalMember(owner = "client!ub", name = "b", descriptor = "B")
-	private final byte aByte39 = 2;
+	private final byte flowObfuscator1 = 2;
 
 	@OriginalMember(owner = "client!ub", name = "c", descriptor = "I")
-	private final int anInt762 = 40267;
+	private final int flowObfuscator3 = 40267;
 
 	@OriginalMember(owner = "client!ub", name = "d", descriptor = "Z")
-	private final boolean aBoolean149 = false;
+	private final boolean flowObfuscator4 = false;
 
 	@OriginalMember(owner = "client!ub", name = "<init>", descriptor = "([BZ)V")
-	public FileArchive(@OriginalArg(0) byte[] arg0, @OriginalArg(1) boolean arg1) {
-		if (arg1) {
-			for (@Pc(17) int local17 = 1; local17 > 0; local17++) {
+	public FileArchive(@OriginalArg(0) byte[] src, @OriginalArg(1) boolean obfuscator) {
+		if (obfuscator) {
+			for (@Pc(17) int i = 1; i > 0; i++) {
 			}
 		}
-		this.parse(arg0);
+		this.parse(src);
 	}
 
 	@OriginalMember(owner = "client!ub", name = "a", descriptor = "(Z[B)V")
-	private void parse(@OriginalArg(1) byte[] arg0) {
-		@Pc(7) Buffer local7 = new Buffer(363, arg0);
-		@Pc(10) int local10 = local7.g3();
-		@Pc(13) int local13 = local7.g3();
-		if (local13 == local10) {
-			this.aByteArray14 = arg0;
-			this.aBoolean150 = false;
+	private void parse(@OriginalArg(1) byte[] src) {
+		@Pc(7) Buffer buffer = new Buffer(363, src);
+		@Pc(10) int unpackedSize = buffer.g3();
+		@Pc(13) int packedSize = buffer.g3();
+		if (packedSize == unpackedSize) {
+			this.data = src;
+			this.isCompressedWhole = false;
 		} else {
-			@Pc(19) byte[] local19 = new byte[local10];
-			BZip2InputStream.read(local19, local10, arg0, local13, 6);
-			this.aByteArray14 = local19;
-			local7 = new Buffer(363, this.aByteArray14);
-			this.aBoolean150 = true;
+			@Pc(19) byte[] data = new byte[unpackedSize];
+			BZip2InputStream.read(data, unpackedSize, src, packedSize, 6);
+			this.data = data;
+			buffer = new Buffer(363, this.data);
+			this.isCompressedWhole = true;
 		}
-		this.anInt763 = local7.g2();
-		this.anIntArray221 = new int[this.anInt763];
-		this.anIntArray222 = new int[this.anInt763];
-		this.anIntArray223 = new int[this.anInt763];
-		this.anIntArray224 = new int[this.anInt763];
-		@Pc(82) int local82 = local7.offset + this.anInt763 * 10;
-		for (@Pc(84) int local84 = 0; local84 < this.anInt763; local84++) {
-			this.anIntArray221[local84] = local7.g4();
-			this.anIntArray222[local84] = local7.g3();
-			this.anIntArray223[local84] = local7.g3();
-			this.anIntArray224[local84] = local82;
-			local82 += this.anIntArray223[local84];
+		this.fileCount = buffer.g2();
+		this.fileHash = new int[this.fileCount];
+		this.fileUnpackedSize = new int[this.fileCount];
+		this.filePackedSize = new int[this.fileCount];
+		this.fileOffset = new int[this.fileCount];
+		@Pc(82) int offset = buffer.offset + this.fileCount * 10;
+		for (@Pc(84) int i = 0; i < this.fileCount; i++) {
+			this.fileHash[i] = buffer.g4();
+			this.fileUnpackedSize[i] = buffer.g3();
+			this.filePackedSize[i] = buffer.g3();
+			this.fileOffset[i] = offset;
+			offset += this.filePackedSize[i];
 		}
 	}
 
 	@OriginalMember(owner = "client!ub", name = "a", descriptor = "(Ljava/lang/String;[BB)[B")
-	public final byte[] read(@OriginalArg(0) String arg0, @OriginalArg(1) byte[] arg1) {
-		@Pc(3) int local3 = 0;
-		@Pc(6) String local6 = arg0.toUpperCase();
-		for (@Pc(8) int local8 = 0; local8 < local6.length(); local8++) {
-			local3 = local3 * 61 + local6.charAt(local8) - 32;
+	public final byte[] read(@OriginalArg(0) String name, @OriginalArg(1) byte[] dest) {
+		@Pc(3) int hash = 0;
+		@Pc(6) String upperName = name.toUpperCase();
+		for (@Pc(8) int i = 0; i < upperName.length(); i++) {
+			hash = hash * 61 + upperName.charAt(i) - 32;
 		}
-		for (@Pc(27) int local27 = 0; local27 < this.anInt763; local27++) {
-			if (this.anIntArray221[local27] == local3) {
-				if (arg1 == null) {
-					arg1 = new byte[this.anIntArray222[local27]];
+		for (@Pc(27) int i = 0; i < this.fileCount; i++) {
+			if (this.fileHash[i] == hash) {
+				if (dest == null) {
+					dest = new byte[this.fileUnpackedSize[i]];
 				}
-				if (this.aBoolean150) {
-					for (@Pc(67) int local67 = 0; local67 < this.anIntArray222[local27]; local67++) {
-						arg1[local67] = this.aByteArray14[this.anIntArray224[local27] + local67];
+				if (this.isCompressedWhole) {
+					for (@Pc(67) int j = 0; j < this.fileUnpackedSize[i]; j++) {
+						dest[j] = this.data[this.fileOffset[i] + j];
 					}
 				} else {
-					BZip2InputStream.read(arg1, this.anIntArray222[local27], this.aByteArray14, this.anIntArray223[local27], this.anIntArray224[local27]);
+					BZip2InputStream.read(dest, this.fileUnpackedSize[i], this.data, this.filePackedSize[i], this.fileOffset[i]);
 				}
-				return arg1;
+				return dest;
 			}
 		}
-		if (this.aByte39 != 2) {
+		if (this.flowObfuscator1 != 2) {
 			throw new NullPointerException();
 		}
 		return null;

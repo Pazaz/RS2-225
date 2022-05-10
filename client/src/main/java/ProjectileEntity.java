@@ -7,138 +7,138 @@ import org.openrs2.deob.annotation.Pc;
 public final class ProjectileEntity extends Entity {
 
 	@OriginalMember(owner = "client!ab", name = "e", descriptor = "I")
-	private int anInt22;
+	private int flowObfuscator2;
 
 	@OriginalMember(owner = "client!ab", name = "s", descriptor = "D")
-	public double aDouble1;
+	public double x;
 
 	@OriginalMember(owner = "client!ab", name = "t", descriptor = "D")
-	public double aDouble2;
+	public double y;
 
 	@OriginalMember(owner = "client!ab", name = "u", descriptor = "D")
-	public double aDouble3;
+	public double z;
 
 	@OriginalMember(owner = "client!ab", name = "v", descriptor = "D")
-	private double aDouble4;
+	private double velocityX;
 
 	@OriginalMember(owner = "client!ab", name = "w", descriptor = "D")
-	private double aDouble5;
+	private double velocityY;
 
 	@OriginalMember(owner = "client!ab", name = "x", descriptor = "D")
-	private double aDouble6;
+	private double velocity;
 
 	@OriginalMember(owner = "client!ab", name = "y", descriptor = "D")
-	private double aDouble7;
+	private double velocityZ;
 
 	@OriginalMember(owner = "client!ab", name = "z", descriptor = "D")
-	private double aDouble8;
+	private double accelerationZ;
 
 	@OriginalMember(owner = "client!ab", name = "A", descriptor = "I")
-	public int anInt34;
+	public int yaw;
 
 	@OriginalMember(owner = "client!ab", name = "B", descriptor = "I")
-	private int anInt35;
+	private int pitch;
 
 	@OriginalMember(owner = "client!ab", name = "C", descriptor = "I")
-	private int anInt36;
+	private int seqFrame;
 
 	@OriginalMember(owner = "client!ab", name = "D", descriptor = "I")
-	private int anInt37;
+	private int frameCycle;
 
 	@OriginalMember(owner = "client!ab", name = "f", descriptor = "I")
-	private final int anInt23 = -159;
+	private final int flowObfuscator1 = -159;
 
 	@OriginalMember(owner = "client!ab", name = "r", descriptor = "Z")
-	private boolean aBoolean5 = false;
+	private boolean isMobile = false;
 
 	@OriginalMember(owner = "client!ab", name = "g", descriptor = "Lclient!kc;")
-	private final SpotAnimType aSpotAnimType_1;
+	private final SpotAnimType spotAnim;
 
 	@OriginalMember(owner = "client!ab", name = "h", descriptor = "I")
-	public final int anInt24;
+	public final int level;
 
 	@OriginalMember(owner = "client!ab", name = "i", descriptor = "I")
-	private final int anInt25;
+	private final int sourceX;
 
 	@OriginalMember(owner = "client!ab", name = "j", descriptor = "I")
-	private final int anInt26;
+	private final int sourceY;
 
 	@OriginalMember(owner = "client!ab", name = "k", descriptor = "I")
-	private final int anInt27;
+	private final int sourceZ;
 
 	@OriginalMember(owner = "client!ab", name = "m", descriptor = "I")
-	public final int anInt29;
+	public final int firstCycle;
 
 	@OriginalMember(owner = "client!ab", name = "n", descriptor = "I")
-	public final int anInt30;
+	public final int lastCycle;
 
 	@OriginalMember(owner = "client!ab", name = "o", descriptor = "I")
-	private final int anInt31;
+	private final int elevationPitch;
 
 	@OriginalMember(owner = "client!ab", name = "p", descriptor = "I")
-	private final int anInt32;
+	private final int arcScale;
 
 	@OriginalMember(owner = "client!ab", name = "q", descriptor = "I")
-	public final int anInt33;
+	public final int targetIndex;
 
 	@OriginalMember(owner = "client!ab", name = "l", descriptor = "I")
-	public final int anInt28;
+	public final int baseZ;
 
 	@OriginalMember(owner = "client!ab", name = "<init>", descriptor = "(IIIIIIIIIIII)V")
 	public ProjectileEntity(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9, @OriginalArg(10) int arg10, @OriginalArg(11) int arg11) {
-		this.aSpotAnimType_1 = SpotAnimType.instances[arg10];
-		this.anInt24 = arg4;
-		this.anInt25 = arg11;
-		this.anInt26 = arg2;
-		this.anInt27 = arg9;
-		this.anInt29 = arg6;
-		this.anInt30 = arg3;
-		this.anInt31 = arg1;
-		this.anInt32 = arg7;
-		this.anInt33 = arg5;
-		this.anInt28 = arg0;
-		this.aBoolean5 = false;
+		this.spotAnim = SpotAnimType.instances[arg10];
+		this.level = arg4;
+		this.sourceX = arg11;
+		this.sourceY = arg2;
+		this.sourceZ = arg9;
+		this.firstCycle = arg6;
+		this.lastCycle = arg3;
+		this.elevationPitch = arg1;
+		this.arcScale = arg7;
+		this.targetIndex = arg5;
+		this.baseZ = arg0;
+		this.isMobile = false;
 	}
 
 	@OriginalMember(owner = "client!ab", name = "a", descriptor = "(IIIII)V")
 	public final void setTarget(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(4) int arg3) {
 		@Pc(8) double local8;
-		if (!this.aBoolean5) {
-			local8 = arg2 - this.anInt25;
-			@Pc(14) double local14 = (double) (arg1 - this.anInt26);
+		if (!this.isMobile) {
+			local8 = arg2 - this.sourceX;
+			@Pc(14) double local14 = (double) (arg1 - this.sourceY);
 			@Pc(23) double local23 = Math.sqrt(local8 * local8 + local14 * local14);
-			this.aDouble1 = (double) this.anInt25 + local8 * (double) this.anInt32 / local23;
-			this.aDouble2 = (double) this.anInt26 + local14 * (double) this.anInt32 / local23;
-			this.aDouble3 = this.anInt27;
+			this.x = (double) this.sourceX + local8 * (double) this.arcScale / local23;
+			this.y = (double) this.sourceY + local14 * (double) this.arcScale / local23;
+			this.z = this.sourceZ;
 		}
-		local8 = this.anInt30 + 1 - arg3;
-		this.aDouble4 = ((double) arg2 - this.aDouble1) / local8;
-		this.aDouble5 = ((double) arg1 - this.aDouble2) / local8;
-		this.aDouble6 = Math.sqrt(this.aDouble4 * this.aDouble4 + this.aDouble5 * this.aDouble5);
-		if (!this.aBoolean5) {
-			this.aDouble7 = -this.aDouble6 * Math.tan((double) this.anInt31 * 0.02454369D);
+		local8 = this.lastCycle + 1 - arg3;
+		this.velocityX = ((double) arg2 - this.x) / local8;
+		this.velocityY = ((double) arg1 - this.y) / local8;
+		this.velocity = Math.sqrt(this.velocityX * this.velocityX + this.velocityY * this.velocityY);
+		if (!this.isMobile) {
+			this.velocityZ = -this.velocity * Math.tan((double) this.elevationPitch * 0.02454369D);
 		}
-		this.aDouble8 = ((double) arg0 - this.aDouble3 - this.aDouble7 * local8) * 2.0D / (local8 * local8);
+		this.accelerationZ = ((double) arg0 - this.z - this.velocityZ * local8) * 2.0D / (local8 * local8);
 	}
 
 	@OriginalMember(owner = "client!ab", name = "a", descriptor = "(BI)V")
 	public final void update(@OriginalArg(1) int arg0) {
-		this.aBoolean5 = true;
-		this.aDouble1 += this.aDouble4 * (double) arg0;
-		this.aDouble2 += this.aDouble5 * (double) arg0;
-		this.aDouble3 += this.aDouble7 * (double) arg0 + this.aDouble8 * 0.5D * (double) arg0 * (double) arg0;
-		this.aDouble7 += this.aDouble8 * (double) arg0;
-		this.anInt34 = (int) (Math.atan2(this.aDouble4, this.aDouble5) * 325.949D) + 1024 & 0x7FF;
-		this.anInt35 = (int) (Math.atan2(this.aDouble7, this.aDouble6) * 325.949D) & 0x7FF;
-		if (this.aSpotAnimType_1.seq == null) {
+		this.isMobile = true;
+		this.x += this.velocityX * (double) arg0;
+		this.y += this.velocityY * (double) arg0;
+		this.z += this.velocityZ * (double) arg0 + this.accelerationZ * 0.5D * (double) arg0 * (double) arg0;
+		this.velocityZ += this.accelerationZ * (double) arg0;
+		this.yaw = (int) (Math.atan2(this.velocityX, this.velocityY) * 325.949D) + 1024 & 0x7FF;
+		this.pitch = (int) (Math.atan2(this.velocityZ, this.velocity) * 325.949D) & 0x7FF;
+		if (this.spotAnim.seq == null) {
 			return;
 		}
-		this.anInt37 += arg0;
-		while (this.anInt37 > this.aSpotAnimType_1.seq.frameDelay[this.anInt36]) {
-			this.anInt37 -= this.aSpotAnimType_1.seq.frameDelay[this.anInt36] + 1;
-			this.anInt36++;
-			if (this.anInt36 >= this.aSpotAnimType_1.seq.frameCount) {
-				this.anInt36 = 0;
+		this.frameCycle += arg0;
+		while (this.frameCycle > this.spotAnim.seq.frameDelay[this.seqFrame]) {
+			this.frameCycle -= this.spotAnim.seq.frameDelay[this.seqFrame] + 1;
+			this.seqFrame++;
+			if (this.seqFrame >= this.spotAnim.seq.frameCount) {
+				this.seqFrame = 0;
 			}
 		}
 	}
@@ -146,19 +146,19 @@ public final class ProjectileEntity extends Entity {
 	@OriginalMember(owner = "client!ab", name = "a", descriptor = "(Z)Lclient!eb;")
 	@Override
 	public final Model getDrawMethod() {
-		@Pc(3) Model local3 = this.aSpotAnimType_1.getModel();
-		@Pc(19) Model local19 = new Model(local3, true, !this.aSpotAnimType_1.disposeAlpha, this.anInt22, false);
-		if (this.aSpotAnimType_1.seq != null) {
+		@Pc(3) Model local3 = this.spotAnim.getModel();
+		@Pc(19) Model local19 = new Model(local3, true, !this.spotAnim.disposeAlpha, this.flowObfuscator2, false);
+		if (this.spotAnim.seq != null) {
 			local19.applyGroup();
-			local19.applyFrame(this.aSpotAnimType_1.seq.primaryFrames[this.anInt36]);
+			local19.applyFrame(this.spotAnim.seq.primaryFrames[this.seqFrame]);
 			local19.skinTriangle = null;
 			local19.labelVertices = null;
 		}
-		if (this.aSpotAnimType_1.breadthScale != 128 || this.aSpotAnimType_1.depthScale != 128) {
-			local19.scale(this.aSpotAnimType_1.breadthScale, this.aSpotAnimType_1.depthScale, this.aSpotAnimType_1.breadthScale);
+		if (this.spotAnim.breadthScale != 128 || this.spotAnim.depthScale != 128) {
+			local19.scale(this.spotAnim.breadthScale, this.spotAnim.depthScale, this.spotAnim.breadthScale);
 		}
-		local19.rotatePitch(this.anInt35);
-		local19.applyLighting(this.aSpotAnimType_1.ambience + 64, this.aSpotAnimType_1.modelShadow + 850, -30, -50, -30, true);
+		local19.rotatePitch(this.pitch);
+		local19.applyLighting(this.spotAnim.ambience + 64, this.spotAnim.modelShadow + 850, -30, -50, -30, true);
 		return local19;
 	}
 }

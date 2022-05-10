@@ -64,301 +64,301 @@ classes:
 fields:
   client!a.A [I:
     owner: "GameShell"
-    name: "anIntArray29"
+    name: "pressedKeys"
   client!a.B I:
     owner: "GameShell"
-    name: "anInt140"
+    name: "lastProcessedKey"
   client!a.C I:
     owner: "GameShell"
-    name: "anInt141"
+    name: "unprocessedKeyCount"
   client!a.D I:
     owner: "GameShell"
     name: "anInt142"
   client!a.a Z:
     owner: "GameShell"
-    name: "aBoolean33"
+    name: "flowObfuscator3"
   client!a.b Z:
     owner: "GameShell"
-    name: "aBoolean34"
+    name: "flowObfuscator4"
   client!a.c I:
     owner: "GameShell"
-    name: "anInt125"
+    name: "flowObfuscator2"
   client!a.d Z:
     owner: "GameShell"
-    name: "aBoolean35"
+    name: "flowObfuscator5"
   client!a.e B:
     owner: "GameShell"
-    name: "aByte7"
+    name: "flowObfuscator1"
   client!a.f I:
     owner: "GameShell"
-    name: "anInt126"
+    name: "flowObfuscator6"
   client!a.g I:
     owner: "GameShell"
-    name: "anInt127"
+    name: "state"
   client!a.h I:
     owner: "GameShell"
-    name: "anInt128"
+    name: "deltime"
   client!a.i I:
     owner: "GameShell"
-    name: "anInt129"
+    name: "mindel"
   client!a.j [J:
     owner: "GameShell"
-    name: "aLongArray2"
+    name: "otim"
   client!a.k I:
     owner: "GameShell"
-    name: "anInt130"
+    name: "fps"
   client!a.l I:
     owner: "GameShell"
-    name: "anInt131"
+    name: "gameWidth"
   client!a.m I:
     owner: "GameShell"
-    name: "anInt132"
+    name: "gameHeight"
   client!a.n Ljava/awt/Graphics;:
     owner: "GameShell"
-    name: "aGraphics2"
+    name: "graphic"
   client!a.o Lclient!qb;:
     owner: "GameShell"
-    name: "aDrawArea_2"
+    name: "drawArea"
   client!a.p [Lclient!hb;:
     owner: "GameShell"
-    name: "aClass1_Sub3_Sub2_Sub2Array2"
+    name: "spriteCache"
   client!a.q Lclient!b;:
     owner: "GameShell"
-    name: "aGameFrame__2"
+    name: "frame"
   client!a.r Z:
     owner: "GameShell"
-    name: "aBoolean36"
+    name: "refresh"
   client!a.s I:
     owner: "GameShell"
-    name: "anInt133"
+    name: "idleCycles"
   client!a.t I:
     owner: "GameShell"
-    name: "anInt134"
+    name: "dragButton"
   client!a.u I:
     owner: "GameShell"
-    name: "anInt135"
+    name: "mouseX"
   client!a.v I:
     owner: "GameShell"
-    name: "anInt136"
+    name: "mouseY"
   client!a.w I:
     owner: "GameShell"
-    name: "anInt137"
+    name: "mouseButton"
   client!a.x I:
     owner: "GameShell"
-    name: "anInt138"
+    name: "clickX"
   client!a.y I:
     owner: "GameShell"
-    name: "anInt139"
+    name: "clickY"
   client!a.z [I:
     owner: "GameShell"
-    name: "anIntArray28"
+    name: "keyDown"
   client!ab.A I:
     owner: "ProjectileEntity"
-    name: "anInt34"
+    name: "yaw"
   client!ab.B I:
     owner: "ProjectileEntity"
-    name: "anInt35"
+    name: "pitch"
   client!ab.C I:
     owner: "ProjectileEntity"
-    name: "anInt36"
+    name: "seqFrame"
   client!ab.D I:
     owner: "ProjectileEntity"
-    name: "anInt37"
+    name: "frameCycle"
   client!ab.e I:
     owner: "ProjectileEntity"
-    name: "anInt22"
+    name: "flowObfuscator2"
   client!ab.f I:
     owner: "ProjectileEntity"
-    name: "anInt23"
+    name: "flowObfuscator1"
   client!ab.g Lclient!kc;:
     owner: "ProjectileEntity"
-    name: "aSpotAnimType_1"
+    name: "spotAnim"
   client!ab.h I:
     owner: "ProjectileEntity"
-    name: "anInt24"
+    name: "level"
   client!ab.i I:
     owner: "ProjectileEntity"
-    name: "anInt25"
+    name: "sourceX"
   client!ab.j I:
     owner: "ProjectileEntity"
-    name: "anInt26"
+    name: "sourceY"
   client!ab.k I:
     owner: "ProjectileEntity"
-    name: "anInt27"
+    name: "sourceZ"
   client!ab.l I:
     owner: "ProjectileEntity"
-    name: "anInt28"
+    name: "baseZ"
   client!ab.m I:
     owner: "ProjectileEntity"
-    name: "anInt29"
+    name: "firstCycle"
   client!ab.n I:
     owner: "ProjectileEntity"
-    name: "anInt30"
+    name: "lastCycle"
   client!ab.o I:
     owner: "ProjectileEntity"
-    name: "anInt31"
+    name: "elevationPitch"
   client!ab.p I:
     owner: "ProjectileEntity"
-    name: "anInt32"
+    name: "arcScale"
   client!ab.q I:
     owner: "ProjectileEntity"
-    name: "anInt33"
+    name: "targetIndex"
   client!ab.r Z:
     owner: "ProjectileEntity"
-    name: "aBoolean5"
+    name: "isMobile"
   client!ab.s D:
     owner: "ProjectileEntity"
-    name: "aDouble1"
+    name: "x"
   client!ab.t D:
     owner: "ProjectileEntity"
-    name: "aDouble2"
+    name: "y"
   client!ab.u D:
     owner: "ProjectileEntity"
-    name: "aDouble3"
+    name: "z"
   client!ab.v D:
     owner: "ProjectileEntity"
-    name: "aDouble4"
+    name: "velocityX"
   client!ab.w D:
     owner: "ProjectileEntity"
-    name: "aDouble5"
+    name: "velocityY"
   client!ab.x D:
     owner: "ProjectileEntity"
-    name: "aDouble6"
+    name: "velocity"
   client!ab.y D:
     owner: "ProjectileEntity"
-    name: "aDouble7"
+    name: "velocityZ"
   client!ab.z D:
     owner: "ProjectileEntity"
-    name: "aDouble8"
+    name: "accelerationZ"
   client!ac.A B:
     owner: "LocType"
-    name: "aByte3"
+    name: "specular"
   client!ac.B [Ljava/lang/String;:
     owner: "LocType"
-    name: "aStringArray1"
+    name: "actions"
   client!ac.C Z:
     owner: "LocType"
-    name: "aBoolean13"
+    name: "disposeAlpha"
   client!ac.D I:
     owner: "LocType"
-    name: "anInt47"
+    name: "mapfunction"
   client!ac.E I:
     owner: "LocType"
-    name: "anInt48"
+    name: "mapscene"
   client!ac.F Z:
     owner: "LocType"
-    name: "aBoolean14"
+    name: "rotateCounterClockwise"
   client!ac.G Z:
     owner: "LocType"
-    name: "aBoolean15"
+    name: "hasShadow"
   client!ac.H I:
     owner: "LocType"
-    name: "anInt49"
+    name: "scaleX"
   client!ac.I I:
     owner: "LocType"
-    name: "anInt50"
+    name: "scaleY"
   client!ac.J I:
     owner: "LocType"
-    name: "anInt51"
+    name: "scaleZ"
   client!ac.K I:
     owner: "LocType"
-    name: "anInt52"
+    name: "translateX"
   client!ac.L I:
     owner: "LocType"
-    name: "anInt53"
+    name: "translateY"
   client!ac.M I:
     owner: "LocType"
-    name: "anInt54"
+    name: "translateZ"
   client!ac.N I:
     owner: "LocType"
-    name: "anInt55"
+    name: "interactionSideFlags"
   client!ac.O Z:
     owner: "LocType"
     name: "aBoolean16"
   client!ac.P Lclient!s;:
     owner: "LocType"
-    name: "aCache_1"
+    name: "models"
   client!ac.Q Lclient!s;:
     owner: "LocType"
-    name: "aCache_2"
+    name: "builtModels"
   client!ac.a I:
     owner: "LocType"
-    name: "anInt38"
+    name: "flowObfuscator3"
   client!ac.b I:
     owner: "LocType"
-    name: "anInt39"
+    name: "flowObfuscator1"
   client!ac.c Z:
     owner: "LocType"
-    name: "aBoolean6"
+    name: "flowObfuscator2"
   client!ac.d I:
     owner: "LocType"
-    name: "anInt40"
+    name: "count"
   client!ac.e [I:
     owner: "LocType"
-    name: "anIntArray3"
+    name: "offsets"
   client!ac.f Lclient!kb;:
     owner: "LocType"
-    name: "aClass1_Sub3_Sub3_1"
+    name: "dat"
   client!ac.g [Lclient!ac;:
     owner: "LocType"
-    name: "aLocTypeArray1"
+    name: "cache"
   client!ac.h I:
     owner: "LocType"
-    name: "anInt41"
+    name: "offset"
   client!ac.i I:
     owner: "LocType"
-    name: "anInt42"
+    name: "id"
   client!ac.j [I:
     owner: "LocType"
-    name: "anIntArray4"
+    name: "modelIndices"
   client!ac.k [I:
     owner: "LocType"
-    name: "anIntArray5"
+    name: "modelTypes"
   client!ac.l Ljava/lang/String;:
     owner: "LocType"
-    name: "aString1"
+    name: "name"
   client!ac.m [B:
     owner: "LocType"
-    name: "aByteArray1"
+    name: "description"
   client!ac.n [I:
     owner: "LocType"
-    name: "anIntArray6"
+    name: "oldColors"
   client!ac.o [I:
     owner: "LocType"
-    name: "anIntArray7"
+    name: "newColors"
   client!ac.p I:
     owner: "LocType"
-    name: "anInt43"
+    name: "sizeX"
   client!ac.q I:
     owner: "LocType"
-    name: "anInt44"
+    name: "sizeZ"
   client!ac.r Z:
     owner: "LocType"
-    name: "aBoolean7"
+    name: "hasCollision"
   client!ac.s Z:
     owner: "LocType"
-    name: "aBoolean8"
+    name: "isSolid"
   client!ac.t Z:
     owner: "LocType"
-    name: "aBoolean9"
+    name: "interactable"
   client!ac.u Z:
     owner: "LocType"
-    name: "aBoolean10"
+    name: "adjustToTerrain"
   client!ac.v Z:
     owner: "LocType"
-    name: "aBoolean11"
+    name: "flatShaded"
   client!ac.w Z:
     owner: "LocType"
-    name: "aBoolean12"
+    name: "culls"
   client!ac.x I:
     owner: "LocType"
-    name: "anInt45"
+    name: "animationIndex"
   client!ac.y I:
     owner: "LocType"
-    name: "anInt46"
+    name: "thickness"
   client!ac.z B:
     owner: "LocType"
-    name: "aByte2"
+    name: "brightness"
   client!b.a I:
     owner: "GameFrame"
     name: "flowObfuscator1"
@@ -370,7 +370,7 @@ fields:
     name: "flowObfuscator1"
   client!bb.f I:
     owner: "SpotAnimEntity"
-    name: "anInt59"
+    name: "flowObfuscator2"
   client!bb.g Lclient!kc;:
     owner: "SpotAnimEntity"
     name: "spotanim"
@@ -388,7 +388,7 @@ fields:
     name: "z"
   client!bb.l I:
     owner: "SpotAnimEntity"
-    name: "anInt64"
+    name: "y"
   client!bb.m I:
     owner: "SpotAnimEntity"
     name: "seqFrame"
@@ -400,385 +400,385 @@ fields:
     name: "finished"
   client!bc.A I:
     owner: "NpcType"
-    name: "anInt78"
+    name: "scaleX"
   client!bc.B I:
     owner: "NpcType"
-    name: "anInt79"
+    name: "scaleZ"
   client!bc.C Lclient!s;:
     owner: "NpcType"
-    name: "aCache_3"
+    name: "models"
   client!bc.a Z:
     owner: "NpcType"
-    name: "aBoolean18"
+    name: "flowObfuscator1"
   client!bc.b I:
     owner: "NpcType"
-    name: "anInt67"
+    name: "count"
   client!bc.c [I:
     owner: "NpcType"
-    name: "anIntArray8"
+    name: "offsets"
   client!bc.d Lclient!kb;:
     owner: "NpcType"
-    name: "aBuffer_2"
+    name: "dat"
   client!bc.e [Lclient!bc;:
     owner: "NpcType"
-    name: "aNpcTypeArray1"
+    name: "cache"
   client!bc.f I:
     owner: "NpcType"
-    name: "anInt68"
+    name: "offset"
   client!bc.g J:
     owner: "NpcType"
-    name: "aLong5"
+    name: "id"
   client!bc.h Ljava/lang/String;:
     owner: "NpcType"
-    name: "aString2"
+    name: "name"
   client!bc.i [B:
     owner: "NpcType"
-    name: "aByteArray2"
+    name: "description"
   client!bc.j B:
     owner: "NpcType"
     name: "size"
   client!bc.k [I:
     owner: "NpcType"
-    name: "anIntArray9"
+    name: "modelIndices"
   client!bc.l [I:
     owner: "NpcType"
-    name: "anIntArray10"
+    name: "headModelIndices"
   client!bc.m I:
     owner: "NpcType"
-    name: "anInt69"
+    name: "standSeq"
   client!bc.n I:
     owner: "NpcType"
-    name: "anInt70"
+    name: "walkSeq"
   client!bc.o I:
     owner: "NpcType"
-    name: "anInt71"
+    name: "turnAroundSeq"
   client!bc.p I:
     owner: "NpcType"
-    name: "anInt72"
+    name: "turnRightSeq"
   client!bc.q I:
     owner: "NpcType"
-    name: "anInt73"
+    name: "turnLeftSeq"
   client!bc.r Z:
     owner: "NpcType"
-    name: "aBoolean19"
+    name: "disposeAlpha"
   client!bc.s [I:
     owner: "NpcType"
-    name: "anIntArray11"
+    name: "oldColors"
   client!bc.t [I:
     owner: "NpcType"
-    name: "anIntArray12"
+    name: "newColors"
   client!bc.u [Ljava/lang/String;:
     owner: "NpcType"
-    name: "aStringArray2"
+    name: "options"
   client!bc.v I:
     owner: "NpcType"
-    name: "anInt74"
+    name: "opcode90"
   client!bc.w I:
     owner: "NpcType"
-    name: "anInt75"
+    name: "opcode91"
   client!bc.x I:
     owner: "NpcType"
-    name: "anInt76"
+    name: "opcode92"
   client!bc.y Z:
     owner: "NpcType"
-    name: "aBoolean20"
+    name: "showOnMinimap"
   client!bc.z I:
     owner: "NpcType"
-    name: "anInt77"
+    name: "level"
   client!c.A I:
     owner: "SceneGraph"
-    name: "anInt84"
+    name: "rand1"
   client!c.B I:
     owner: "SceneGraph"
-    name: "anInt85"
+    name: "rand2"
   client!c.a Z:
     owner: "SceneGraph"
-    name: "aBoolean21"
+    name: "flowObfuscator3"
   client!c.b Z:
     owner: "SceneGraph"
-    name: "aBoolean22"
+    name: "flowObfuscator2"
   client!c.c I:
     owner: "SceneGraph"
-    name: "anInt80"
+    name: "flowObfuscator1"
   client!c.d Z:
     owner: "SceneGraph"
-    name: "aBoolean23"
+    name: "lowMemory"
   client!c.e I:
     owner: "SceneGraph"
-    name: "anInt81"
+    name: "levelBuilt"
   client!c.f Z:
     owner: "SceneGraph"
-    name: "aBoolean24"
+    name: "occlusionEnabled"
   client!c.g I:
     owner: "SceneGraph"
-    name: "anInt82"
+    name: "tileCountX"
   client!c.h I:
     owner: "SceneGraph"
-    name: "anInt83"
+    name: "tileCountZ"
   client!c.i [[[I:
     owner: "SceneGraph"
-    name: "anIntArrayArrayArray1"
+    name: "heightmap"
   client!c.j [[[B:
     owner: "SceneGraph"
-    name: "aByteArrayArrayArray1"
+    name: "renderFlags"
   client!c.k [[[B:
     owner: "SceneGraph"
-    name: "aByteArrayArrayArray2"
+    name: "planeUnderlayFloorIndices"
   client!c.l [[[B:
     owner: "SceneGraph"
-    name: "aByteArrayArrayArray3"
+    name: "planeOverlayFloorIndices"
   client!c.m [[[B:
     owner: "SceneGraph"
-    name: "aByteArrayArrayArray4"
+    name: "planeOverlayTypes"
   client!c.n [[[B:
     owner: "SceneGraph"
-    name: "aByteArrayArrayArray5"
+    name: "planeOverlayRotations"
   client!c.o [[[B:
     owner: "SceneGraph"
-    name: "aByteArrayArrayArray6"
+    name: "shadowmap"
   client!c.p [[I:
     owner: "SceneGraph"
-    name: "anIntArrayArray1"
+    name: "lightmap"
   client!c.q [I:
     owner: "SceneGraph"
-    name: "anIntArray13"
+    name: "blendedHue"
   client!c.r [I:
     owner: "SceneGraph"
-    name: "anIntArray14"
+    name: "blendedSaturation"
   client!c.s [I:
     owner: "SceneGraph"
-    name: "anIntArray15"
+    name: "blendedLightness"
   client!c.t [I:
     owner: "SceneGraph"
-    name: "anIntArray16"
+    name: "blendedHueMultiplier"
   client!c.u [I:
     owner: "SceneGraph"
-    name: "anIntArray17"
+    name: "blendDirectionTracker"
   client!c.v [[[I:
     owner: "SceneGraph"
-    name: "anIntArrayArrayArray2"
+    name: "occludeFlags"
   client!c.w [I:
     owner: "SceneGraph"
-    name: "anIntArray18"
+    name: "WALL_ROTATION_TYPE1"
   client!c.x [I:
     owner: "SceneGraph"
-    name: "anIntArray19"
+    name: "WALL_ROTATION_TYPE2"
   client!c.y [I:
     owner: "SceneGraph"
-    name: "anIntArray20"
+    name: "WALL_DECO_ROT_SIZE_X_DIR"
   client!c.z [I:
     owner: "SceneGraph"
-    name: "anIntArray21"
+    name: "WALL_DECO_ROT_SIZE_Y_DIR"
   client!cb.A Lclient!cb;:
     owner: "Tile"
-    name: "aClass1_Sub2_1"
+    name: "bridge"
   client!cb.e I:
     owner: "Tile"
-    name: "anInt87"
+    name: "level"
   client!cb.f I:
     owner: "Tile"
-    name: "anInt88"
+    name: "x"
   client!cb.g I:
     owner: "Tile"
-    name: "anInt89"
+    name: "z"
   client!cb.h I:
     owner: "Tile"
-    name: "anInt90"
+    name: "renderLevel"
   client!cb.i Lclient!o;:
     owner: "Tile"
-    name: "aTileUnderlay_1"
+    name: "underlay"
   client!cb.j Lclient!i;:
     owner: "Tile"
-    name: "aTileOverlay_1"
+    name: "overlay"
   client!cb.k Lclient!q;:
     owner: "Tile"
-    name: "aWall_1"
+    name: "wall"
   client!cb.l Lclient!h;:
     owner: "Tile"
-    name: "aWallDecoration_1"
+    name: "wallDecoration"
   client!cb.m Lclient!j;:
     owner: "Tile"
-    name: "aGroundDecoration_1"
+    name: "groundDecoration"
   client!cb.n Lclient!k;:
     owner: "Tile"
-    name: "aObjEntity_1"
+    name: "objEntity"
   client!cb.o I:
     owner: "Tile"
-    name: "anInt91"
+    name: "locationCount"
   client!cb.p [Lclient!p;:
     owner: "Tile"
-    name: "aLocArray1"
+    name: "locs"
   client!cb.q [I:
     owner: "Tile"
-    name: "anIntArray22"
+    name: "locFlags"
   client!cb.r I:
     owner: "Tile"
-    name: "anInt92"
+    name: "flags"
   client!cb.s I:
     owner: "Tile"
-    name: "anInt93"
+    name: "physicalLevel"
   client!cb.t Z:
     owner: "Tile"
-    name: "aBoolean25"
+    name: "draw"
   client!cb.u Z:
     owner: "Tile"
-    name: "aBoolean26"
+    name: "isVisible"
   client!cb.v Z:
     owner: "Tile"
-    name: "aBoolean27"
+    name: "drawLocs"
   client!cb.w I:
     owner: "Tile"
-    name: "anInt94"
+    name: "wallCullDirection"
   client!cb.x I:
     owner: "Tile"
-    name: "anInt95"
+    name: "wallUncullDirection"
   client!cb.y I:
     owner: "Tile"
-    name: "anInt96"
+    name: "wallCullOppositeDirection"
   client!cb.z I:
     owner: "Tile"
-    name: "anInt97"
+    name: "wallDrawFlags"
   client!cc.A Z:
     owner: "ObjType"
-    name: "aBoolean32"
+    name: "members"
   client!cc.B [Ljava/lang/String;:
     owner: "ObjType"
-    name: "aStringArray3"
+    name: "groundOptions"
   client!cc.C [Ljava/lang/String;:
     owner: "ObjType"
-    name: "aStringArray4"
+    name: "options"
   client!cc.D I:
     owner: "ObjType"
-    name: "anInt113"
+    name: "maleModel0"
   client!cc.E I:
     owner: "ObjType"
-    name: "anInt114"
+    name: "maleModel1"
   client!cc.F B:
     owner: "ObjType"
-    name: "aByte5"
+    name: "maleOffsetY"
   client!cc.G I:
     owner: "ObjType"
-    name: "anInt115"
+    name: "femaleModel0"
   client!cc.H I:
     owner: "ObjType"
-    name: "anInt116"
+    name: "femaleModel1"
   client!cc.I B:
     owner: "ObjType"
-    name: "aByte6"
+    name: "femaleOffsetY"
   client!cc.J I:
     owner: "ObjType"
-    name: "anInt117"
+    name: "maleModel2"
   client!cc.K I:
     owner: "ObjType"
-    name: "anInt118"
+    name: "femaleModel2"
   client!cc.L I:
     owner: "ObjType"
-    name: "anInt119"
+    name: "maleHeadModel0"
   client!cc.M I:
     owner: "ObjType"
-    name: "anInt120"
+    name: "maleHeadModel1"
   client!cc.N I:
     owner: "ObjType"
-    name: "anInt121"
+    name: "femaleHeadModel0"
   client!cc.O I:
     owner: "ObjType"
-    name: "anInt122"
+    name: "femaleHeadModel1"
   client!cc.P [I:
     owner: "ObjType"
-    name: "anIntArray26"
+    name: "stackId"
   client!cc.Q [I:
     owner: "ObjType"
-    name: "anIntArray27"
+    name: "stackAmount"
   client!cc.R I:
     owner: "ObjType"
-    name: "anInt123"
+    name: "linkedId"
   client!cc.S I:
     owner: "ObjType"
-    name: "anInt124"
+    name: "certificateId"
   client!cc.T Lclient!s;:
     owner: "ObjType"
-    name: "aCache_4"
+    name: "models"
   client!cc.U Lclient!s;:
     owner: "ObjType"
-    name: "aCache_5"
+    name: "icons"
   client!cc.a I:
     owner: "ObjType"
-    name: "anInt98"
+    name: "flowObfuscator3"
   client!cc.b Z:
     owner: "ObjType"
-    name: "aBoolean28"
+    name: "flowObfuscator4"
   client!cc.c I:
     owner: "ObjType"
-    name: "anInt99"
+    name: "flowObfuscator2"
   client!cc.d I:
     owner: "ObjType"
-    name: "anInt100"
+    name: "flowObfuscator1"
   client!cc.e I:
     owner: "ObjType"
-    name: "anInt101"
+    name: "count"
   client!cc.f [I:
     owner: "ObjType"
-    name: "anIntArray23"
+    name: "offsets"
   client!cc.g Lclient!kb;:
     owner: "ObjType"
-    name: "aClass1_Sub3_Sub3_3"
+    name: "dat"
   client!cc.h [Lclient!cc;:
     owner: "ObjType"
-    name: "aObjTypeArray1"
+    name: "types"
   client!cc.i I:
     owner: "ObjType"
-    name: "anInt102"
+    name: "offset"
   client!cc.j Z:
     owner: "ObjType"
-    name: "aBoolean29"
+    name: "isMember"
   client!cc.k I:
     owner: "ObjType"
-    name: "anInt103"
+    name: "id"
   client!cc.l I:
     owner: "ObjType"
-    name: "anInt104"
+    name: "modelIndex"
   client!cc.m Ljava/lang/String;:
     owner: "ObjType"
-    name: "aString3"
+    name: "name"
   client!cc.n [B:
     owner: "ObjType"
-    name: "aByteArray3"
+    name: "description"
   client!cc.o [I:
     owner: "ObjType"
-    name: "anIntArray24"
+    name: "oldColors"
   client!cc.p [I:
     owner: "ObjType"
-    name: "anIntArray25"
+    name: "newColors"
   client!cc.q I:
     owner: "ObjType"
-    name: "anInt105"
+    name: "iconZoom"
   client!cc.r I:
     owner: "ObjType"
-    name: "anInt106"
+    name: "iconPitch"
   client!cc.s I:
     owner: "ObjType"
-    name: "anInt107"
+    name: "iconYaw"
   client!cc.t I:
     owner: "ObjType"
-    name: "anInt108"
+    name: "iconRoll"
   client!cc.u I:
     owner: "ObjType"
-    name: "anInt109"
+    name: "iconX"
   client!cc.v I:
     owner: "ObjType"
-    name: "anInt110"
+    name: "iconY"
   client!cc.w Z:
     owner: "ObjType"
-    name: "aBoolean30"
+    name: "opcode9"
   client!cc.x I:
     owner: "ObjType"
-    name: "anInt111"
+    name: "opcode10"
   client!cc.y Z:
     owner: "ObjType"
-    name: "aBoolean31"
+    name: "stackable"
   client!cc.z I:
     owner: "ObjType"
-    name: "anInt112"
+    name: "value"
   client!client.Ab I:
     owner: "client"
     name: "anInt175"
@@ -880,7 +880,7 @@ fields:
     name: "anInt143"
   client!client.Eb [Lclient!hb;:
     owner: "client"
-    name: "aClass1_Sub3_Sub2_Sub2Array3"
+    name: "hitmarks"
   client!client.Ec I:
     owner: "client"
     name: "anInt207"
@@ -946,7 +946,7 @@ fields:
     name: "anInt253"
   client!client.Gf Lclient!jb;:
     owner: "client"
-    name: "aClass1_Sub3_Sub2_Sub4_1"
+    name: "plain11"
   client!client.Gg Lclient!qb;:
     owner: "client"
     name: "aDrawArea_24"
@@ -964,7 +964,7 @@ fields:
     name: "anInt178"
   client!client.Hc Lclient!r;:
     owner: "client"
-    name: "aMapSquare_1"
+    name: "mapSquare"
   client!client.Hd I:
     owner: "client"
     name: "anInt233"
@@ -1000,13 +1000,13 @@ fields:
     name: "aString8"
   client!client.If Lclient!jb;:
     owner: "client"
-    name: "aClass1_Sub3_Sub2_Sub4_3"
+    name: "bold12"
   client!client.Ig I:
     owner: "client"
     name: "anInt294"
   client!client.Ih I:
     owner: "client"
-    name: "anInt314"
+    name: "chatCount"
   client!client.Ii I:
     owner: "client"
     name: "anInt336"
@@ -1033,7 +1033,7 @@ fields:
     name: "aIndexedSprite_12"
   client!client.Jh I:
     owner: "client"
-    name: "anInt315"
+    name: "overheadMessageCount"
   client!client.Ji Z:
     owner: "client"
     name: "aBoolean71"
@@ -1060,7 +1060,7 @@ fields:
     name: "aIndexedSprite_13"
   client!client.Kh [I:
     owner: "client"
-    name: "anIntArray73"
+    name: "chatScreenX"
   client!client.Ki Lclient!hb;:
     owner: "client"
     name: "aSprite_11"
@@ -1087,7 +1087,7 @@ fields:
     name: "aIndexedSprite_14"
   client!client.Lh [I:
     owner: "client"
-    name: "anIntArray74"
+    name: "chatScreenY"
   client!client.Li J:
     owner: "client"
     name: "aLong9"
@@ -1105,7 +1105,7 @@ fields:
     name: "aBoolean52"
   client!client.Me [I:
     owner: "client"
-    name: "anIntArray60"
+    name: "deadEntityIndices"
   client!client.Mf [I:
     owner: "client"
     name: "anIntArray64"
@@ -1114,7 +1114,7 @@ fields:
     name: "aIndexedSprite_15"
   client!client.Mh [I:
     owner: "client"
-    name: "anIntArray75"
+    name: "chatHeight"
   client!client.Mi Z:
     owner: "client"
     name: "aBoolean72"
@@ -1129,7 +1129,7 @@ fields:
     name: "anInt211"
   client!client.Nd Z:
     owner: "client"
-    name: "aBoolean53"
+    name: "lowMemory"
   client!client.Ne I:
     owner: "client"
     name: "anInt256"
@@ -1141,7 +1141,7 @@ fields:
     name: "aIndexedSprite_16"
   client!client.Nh [I:
     owner: "client"
-    name: "anIntArray76"
+    name: "chatPadding"
   client!client.Ni I:
     owner: "client"
     name: "anInt337"
@@ -1159,7 +1159,7 @@ fields:
     name: "anInt237"
   client!client.Oe [[I:
     owner: "client"
-    name: "anIntArrayArray4"
+    name: "APPEARANCE_COLORS"
   client!client.Of I:
     owner: "client"
     name: "anInt278"
@@ -1507,7 +1507,7 @@ fields:
     name: "anIntArray50"
   client!client.bf I:
     owner: "client"
-    name: "anInt266"
+    name: "clientClock"
   client!client.bg Ljava/lang/String;:
     owner: "client"
     name: "aString10"
@@ -1522,7 +1522,7 @@ fields:
     name: "anInt161"
   client!client.cc I:
     owner: "client"
-    name: "anInt189"
+    name: "chatEffects"
   client!client.cd Lclient!qb;:
     owner: "client"
     name: "aDrawArea_3"
@@ -1816,7 +1816,7 @@ fields:
     name: "aClass1_Sub1_Sub3_Sub2_1"
   client!client.og I:
     owner: "client"
-    name: "anInt287"
+    name: "drawX"
   client!client.oh I:
     owner: "client"
     name: "anInt302"
@@ -1840,7 +1840,7 @@ fields:
     name: "aBoolean61"
   client!client.pg I:
     owner: "client"
-    name: "anInt288"
+    name: "drawY"
   client!client.ph I:
     owner: "client"
     name: "anInt303"
@@ -2074,7 +2074,7 @@ fields:
     name: "anInt228"
   client!client.ze [Lclient!y;:
     owner: "client"
-    name: "aClass1_Sub1_Sub3_Sub1Array1"
+    name: "npcEntities"
   client!client.zf Lclient!hb;:
     owner: "client"
     name: "aClass1_Sub3_Sub2_Sub2_3"
@@ -2146,7 +2146,7 @@ fields:
     name: "flowObfuscator2"
   client!e.d Z:
     owner: "InputTracking"
-    name: "aBoolean80"
+    name: "flowObfuscator4"
   client!e.e Z:
     owner: "InputTracking"
     name: "enabled"
@@ -2173,112 +2173,112 @@ fields:
     name: "lastY"
   client!eb.A [I:
     owner: "Model"
-    name: "anIntArray102"
+    name: "triangleAlpha"
   client!eb.Ab [I:
     owner: "Model"
-    name: "anIntArray118"
+    name: "highTrianglePriority"
   client!eb.B [I:
     owner: "Model"
-    name: "anIntArray103"
+    name: "unmodifiedTriangleColor"
   client!eb.Bb [I:
     owner: "Model"
-    name: "anIntArray119"
+    name: "lowTrianglePriority"
   client!eb.C I:
     owner: "Model"
-    name: "anInt361"
+    name: "priority"
   client!eb.Cb [I:
     owner: "Model"
-    name: "anIntArray120"
+    name: "tmpX"
   client!eb.D I:
     owner: "Model"
-    name: "anInt362"
+    name: "texturedCount"
   client!eb.Db [I:
     owner: "Model"
-    name: "anIntArray121"
+    name: "tmpY"
   client!eb.E [I:
     owner: "Model"
-    name: "anIntArray104"
+    name: "textureVertexA"
   client!eb.Eb [I:
     owner: "Model"
-    name: "anIntArray122"
+    name: "tmpZ"
   client!eb.F [I:
     owner: "Model"
-    name: "anIntArray105"
+    name: "textureVertexB"
   client!eb.Fb I:
     owner: "Model"
-    name: "anInt373"
+    name: "transformX"
   client!eb.G [I:
     owner: "Model"
-    name: "anIntArray106"
+    name: "textureVertexC"
   client!eb.Gb I:
     owner: "Model"
-    name: "anInt374"
+    name: "transformY"
   client!eb.H I:
     owner: "Model"
-    name: "anInt363"
+    name: "minBoundX"
   client!eb.Hb I:
     owner: "Model"
-    name: "anInt375"
+    name: "transformZ"
   client!eb.I I:
     owner: "Model"
-    name: "anInt364"
+    name: "maxBoundX"
   client!eb.Ib Z:
     owner: "Model"
-    name: "aBoolean85"
+    name: "allowInput"
   client!eb.J I:
     owner: "Model"
-    name: "anInt365"
+    name: "maxBoundZ"
   client!eb.Jb I:
     owner: "Model"
-    name: "anInt376"
+    name: "cursorX"
   client!eb.K I:
     owner: "Model"
-    name: "anInt366"
+    name: "minBoundZ"
   client!eb.Kb I:
     owner: "Model"
-    name: "anInt377"
+    name: "cursorY"
   client!eb.L I:
     owner: "Model"
-    name: "anInt367"
+    name: "lengthXZ"
   client!eb.Lb I:
     owner: "Model"
-    name: "anInt378"
+    name: "resourceCount"
   client!eb.M I:
     owner: "Model"
     name: "maxBoundY"
   client!eb.Mb [I:
     owner: "Model"
-    name: "anIntArray123"
+    name: "hoveredBitsets"
   client!eb.N I:
     owner: "Model"
-    name: "anInt369"
+    name: "minBoundY"
   client!eb.Nb [I:
     owner: "Model"
-    name: "anIntArray124"
+    name: "sin"
   client!eb.O I:
     owner: "Model"
-    name: "anInt370"
+    name: "maxDepth"
   client!eb.Ob [I:
     owner: "Model"
-    name: "anIntArray125"
+    name: "cos"
   client!eb.P I:
     owner: "Model"
-    name: "anInt371"
+    name: "minDepth"
   client!eb.Pb [I:
     owner: "Model"
-    name: "anIntArray126"
+    name: "palette"
   client!eb.Q I:
     owner: "Model"
     name: "anInt372"
   client!eb.Qb [I:
     owner: "Model"
-    name: "anIntArray127"
+    name: "oneOverFixed1616"
   client!eb.R [I:
     owner: "Model"
-    name: "anIntArray107"
+    name: "vertexLabel"
   client!eb.S [I:
     owner: "Model"
-    name: "anIntArray108"
+    name: "triangleSkin"
   client!eb.T [[I:
     owner: "Model"
     name: "labelVertices"
@@ -2290,181 +2290,181 @@ fields:
     name: "pickable"
   client!eb.W [Lclient!n;:
     owner: "Model"
-    name: "aVertexNormalArray1"
+    name: "vertexNormals"
   client!eb.X [Lclient!n;:
     owner: "Model"
     name: "aVertexNormalArray2"
   client!eb.Y [Lclient!l;:
     owner: "Model"
-    name: "aModelMetadataArray1"
+    name: "metadata"
   client!eb.Z Lclient!kb;:
     owner: "Model"
-    name: "aBuffer_9"
+    name: "head"
   client!eb.ab Lclient!kb;:
     owner: "Model"
-    name: "aBuffer_10"
+    name: "face1"
   client!eb.bb Lclient!kb;:
     owner: "Model"
-    name: "aBuffer_11"
+    name: "face2"
   client!eb.cb Lclient!kb;:
     owner: "Model"
-    name: "aBuffer_12"
+    name: "face3"
   client!eb.db Lclient!kb;:
     owner: "Model"
-    name: "aBuffer_13"
+    name: "face4"
   client!eb.eb Lclient!kb;:
     owner: "Model"
-    name: "aBuffer_14"
+    name: "face5"
   client!eb.fb Lclient!kb;:
     owner: "Model"
-    name: "aBuffer_15"
+    name: "point1"
   client!eb.gb Lclient!kb;:
     owner: "Model"
-    name: "aBuffer_16"
+    name: "point2"
   client!eb.h Z:
     owner: "Model"
-    name: "aBoolean82"
+    name: "flowObfuscator2"
   client!eb.hb Lclient!kb;:
     owner: "Model"
-    name: "aBuffer_17"
+    name: "point3"
   client!eb.i I:
     owner: "Model"
-    name: "anInt357"
+    name: "flowObfuscator1"
   client!eb.ib Lclient!kb;:
     owner: "Model"
-    name: "aBuffer_18"
+    name: "point4"
   client!eb.j B:
     owner: "Model"
-    name: "aByte19"
+    name: "flowObfuscator4"
   client!eb.jb Lclient!kb;:
     owner: "Model"
-    name: "aBuffer_19"
+    name: "point5"
   client!eb.k B:
     owner: "Model"
-    name: "aByte20"
+    name: "flowObfuscator3"
   client!eb.kb Lclient!kb;:
     owner: "Model"
-    name: "aBuffer_20"
+    name: "vertex1"
   client!eb.l I:
     owner: "Model"
-    name: "anInt358"
+    name: "flowObfuscator5"
   client!eb.lb Lclient!kb;:
     owner: "Model"
-    name: "aBuffer_21"
+    name: "vertex2"
   client!eb.m Z:
     owner: "Model"
-    name: "aBoolean83"
+    name: "flowObfuscator6"
   client!eb.mb Lclient!kb;:
     owner: "Model"
-    name: "aBuffer_22"
+    name: "axis"
   client!eb.n I:
     owner: "Model"
-    name: "anInt359"
+    name: "vertexCount"
   client!eb.nb [Z:
     owner: "Model"
-    name: "aBooleanArray2"
+    name: "testTriangleX"
   client!eb.o [I:
     owner: "Model"
-    name: "anIntArray91"
+    name: "vertexX"
   client!eb.ob [Z:
     owner: "Model"
-    name: "aBooleanArray3"
+    name: "projectTriangle"
   client!eb.p [I:
     owner: "Model"
-    name: "anIntArray92"
+    name: "vertexY"
   client!eb.pb [I:
     owner: "Model"
-    name: "anIntArray109"
+    name: "vertexScreenX"
   client!eb.q [I:
     owner: "Model"
-    name: "anIntArray93"
+    name: "vertexZ"
   client!eb.qb [I:
     owner: "Model"
-    name: "anIntArray110"
+    name: "vertexScreenY"
   client!eb.r I:
     owner: "Model"
-    name: "anInt360"
+    name: "triangleCount"
   client!eb.rb [I:
     owner: "Model"
-    name: "anIntArray111"
+    name: "vertexDepth"
   client!eb.s [I:
     owner: "Model"
-    name: "anIntArray94"
+    name: "triangleVertexA"
   client!eb.sb [I:
     owner: "Model"
-    name: "anIntArray112"
+    name: "projectSceneX"
   client!eb.t [I:
     owner: "Model"
-    name: "anIntArray95"
+    name: "triangleVertexB"
   client!eb.tb [I:
     owner: "Model"
-    name: "anIntArray113"
+    name: "projectSceneY"
   client!eb.u [I:
     owner: "Model"
-    name: "anIntArray96"
+    name: "triangleVertexC"
   client!eb.ub [I:
     owner: "Model"
-    name: "anIntArray114"
+    name: "projectSceneZ"
   client!eb.v [I:
     owner: "Model"
-    name: "anIntArray97"
+    name: "colorA"
   client!eb.vb [I:
     owner: "Model"
-    name: "anIntArray115"
+    name: "depthTriangleCount"
   client!eb.w [I:
     owner: "Model"
-    name: "anIntArray98"
+    name: "colorB"
   client!eb.wb [[I:
     owner: "Model"
-    name: "anIntArrayArray8"
+    name: "depthTriangles"
   client!eb.x [I:
     owner: "Model"
-    name: "anIntArray99"
+    name: "colorC"
   client!eb.xb [I:
     owner: "Model"
-    name: "anIntArray116"
+    name: "priorityTriangleCounts"
   client!eb.y [I:
     owner: "Model"
-    name: "anIntArray100"
+    name: "triangleInfo"
   client!eb.yb [[I:
     owner: "Model"
-    name: "anIntArrayArray9"
+    name: "priorityTriangles"
   client!eb.z [I:
     owner: "Model"
-    name: "anIntArray101"
+    name: "trianglePriorities"
   client!eb.zb [I:
     owner: "Model"
-    name: "anIntArray117"
+    name: "normalTrianglePriority"
   client!ec.a Z:
     owner: "CollisionMap"
-    name: "aBoolean87"
+    name: "flowObfuscator2"
   client!ec.b I:
     owner: "CollisionMap"
-    name: "anInt379"
+    name: "flowObfuscator1"
   client!ec.c B:
     owner: "CollisionMap"
-    name: "aByte21"
+    name: "flowObfuscator3"
   client!ec.d I:
     owner: "CollisionMap"
-    name: "anInt380"
+    name: "flowObfuscator4"
   client!ec.e Z:
     owner: "CollisionMap"
-    name: "aBoolean88"
+    name: "flowObfuscator5"
   client!ec.f I:
     owner: "CollisionMap"
-    name: "anInt381"
+    name: "flowObfuscator6"
   client!ec.g I:
     owner: "CollisionMap"
-    name: "anInt382"
+    name: "flowObfuscator7"
   client!ec.h I:
     owner: "CollisionMap"
-    name: "anInt383"
+    name: "x"
   client!ec.i I:
     owner: "CollisionMap"
-    name: "anInt384"
+    name: "z"
   client!ec.j [[I:
     owner: "CollisionMap"
-    name: "anIntArrayArray10"
+    name: "flags"
   client!f.a [Lclient!f;:
     owner: "SeqBase"
     name: "instances"
@@ -2482,85 +2482,85 @@ fields:
     name: "anInt526"
   client!fb.i I:
     owner: "Draw2D"
-    name: "anInt527"
+    name: "flowObfuscator1"
   client!fb.j Z:
     owner: "Draw2D"
     name: "aBoolean123"
   client!fb.k [I:
     owner: "Draw2D"
-    name: "anIntArray178"
+    name: "data"
   client!fb.l I:
     owner: "Draw2D"
-    name: "anInt528"
+    name: "width"
   client!fb.m I:
     owner: "Draw2D"
-    name: "anInt529"
+    name: "height"
   client!fb.n I:
     owner: "Draw2D"
-    name: "anInt530"
+    name: "top"
   client!fb.o I:
     owner: "Draw2D"
-    name: "anInt531"
+    name: "bottom"
   client!fb.p I:
     owner: "Draw2D"
-    name: "anInt532"
+    name: "left"
   client!fb.q I:
     owner: "Draw2D"
-    name: "anInt533"
+    name: "right"
   client!fb.r I:
     owner: "Draw2D"
-    name: "anInt534"
+    name: "safeX"
   client!fb.s I:
     owner: "Draw2D"
-    name: "anInt535"
+    name: "centerX"
   client!fb.t I:
     owner: "Draw2D"
-    name: "anInt536"
+    name: "centerY"
   client!fc.a I:
     owner: "FloType"
-    name: "anInt400"
+    name: "flowObfuscator2"
   client!fc.b I:
     owner: "FloType"
-    name: "anInt401"
+    name: "flowObfuscator1"
   client!fc.c I:
     owner: "FloType"
-    name: "anInt402"
+    name: "count"
   client!fc.d [Lclient!fc;:
     owner: "FloType"
-    name: "aFloTypeArray1"
+    name: "instances"
   client!fc.e I:
     owner: "FloType"
-    name: "anInt403"
+    name: "rgb"
   client!fc.f I:
     owner: "FloType"
-    name: "anInt404"
+    name: "textureIndex"
   client!fc.g Z:
     owner: "FloType"
-    name: "aBoolean90"
+    name: "opcode3"
   client!fc.h Z:
     owner: "FloType"
-    name: "aBoolean91"
+    name: "occlude"
   client!fc.i Ljava/lang/String;:
     owner: "FloType"
-    name: "aString19"
+    name: "name"
   client!fc.j I:
     owner: "FloType"
-    name: "anInt405"
+    name: "hue"
   client!fc.k I:
     owner: "FloType"
-    name: "anInt406"
+    name: "saturation"
   client!fc.l I:
     owner: "FloType"
-    name: "anInt407"
+    name: "lightness"
   client!fc.m I:
     owner: "FloType"
-    name: "anInt408"
+    name: "blendHue"
   client!fc.n I:
     owner: "FloType"
-    name: "anInt409"
+    name: "hsl16"
   client!fc.o I:
     owner: "FloType"
-    name: "anInt410"
+    name: "blendHueMultiplier"
   client!g.a [Lclient!g;:
     owner: "SeqFrame"
     name: "instances"
@@ -2587,121 +2587,121 @@ fields:
     name: "z"
   client!gb.A Z:
     owner: "Draw3D"
-    name: "aBoolean96"
+    name: "lowMemory"
   client!gb.B Z:
     owner: "Draw3D"
-    name: "aBoolean97"
+    name: "testX"
   client!gb.C Z:
     owner: "Draw3D"
-    name: "aBoolean98"
+    name: "opaque"
   client!gb.D Z:
     owner: "Draw3D"
-    name: "aBoolean99"
+    name: "jagged"
   client!gb.E I:
     owner: "Draw3D"
-    name: "anInt429"
+    name: "alpha"
   client!gb.F I:
     owner: "Draw3D"
-    name: "anInt430"
+    name: "centerX3D"
   client!gb.G I:
     owner: "Draw3D"
-    name: "anInt431"
+    name: "centerY3D"
   client!gb.H [I:
     owner: "Draw3D"
-    name: "anIntArray135"
+    name: "reciprical15"
   client!gb.I [I:
     owner: "Draw3D"
-    name: "anIntArray136"
+    name: "reciprical16"
   client!gb.J [I:
     owner: "Draw3D"
-    name: "anIntArray137"
+    name: "sin"
   client!gb.K [I:
     owner: "Draw3D"
-    name: "anIntArray138"
+    name: "cos"
   client!gb.L [I:
     owner: "Draw3D"
-    name: "anIntArray139"
+    name: "offsets"
   client!gb.M I:
     owner: "Draw3D"
-    name: "anInt432"
+    name: "textureCount"
   client!gb.N [Lclient!ib;:
     owner: "Draw3D"
-    name: "aIndexedSpriteArray4"
+    name: "textures"
   client!gb.O [Z:
     owner: "Draw3D"
-    name: "aBooleanArray4"
+    name: "textureHasTransparency"
   client!gb.P [I:
     owner: "Draw3D"
-    name: "anIntArray140"
+    name: "textureColors"
   client!gb.Q I:
     owner: "Draw3D"
-    name: "anInt433"
+    name: "poolSize"
   client!gb.R [[I:
     owner: "Draw3D"
-    name: "anIntArrayArray12"
+    name: "texelPool"
   client!gb.S [[I:
     owner: "Draw3D"
-    name: "anIntArrayArray13"
+    name: "activeTexels"
   client!gb.T [I:
     owner: "Draw3D"
-    name: "anIntArray141"
+    name: "textureCycles"
   client!gb.U I:
     owner: "Draw3D"
     name: "anInt434"
   client!gb.V [I:
     owner: "Draw3D"
-    name: "anIntArray142"
+    name: "palette"
   client!gb.W [[I:
     owner: "Draw3D"
-    name: "anIntArrayArray14"
+    name: "texturePalettes"
   client!gb.v Z:
     owner: "Draw3D"
-    name: "aBoolean93"
+    name: "flowObfuscator1"
   client!gb.w I:
     owner: "Draw3D"
-    name: "anInt427"
+    name: "flowObfuscator3"
   client!gb.x Z:
     owner: "Draw3D"
-    name: "aBoolean94"
+    name: "flowObfuscator2"
   client!gb.y I:
     owner: "Draw3D"
-    name: "anInt428"
+    name: "flowObfuscator4"
   client!gb.z Z:
     owner: "Draw3D"
-    name: "aBoolean95"
+    name: "flowObfuscator5"
   client!gc.a I:
     owner: "IdkType"
-    name: "anInt435"
+    name: "flowObfuscator1"
   client!gc.b I:
     owner: "IdkType"
-    name: "anInt436"
+    name: "flowObfuscator2"
   client!gc.c Z:
     owner: "IdkType"
-    name: "aBoolean100"
+    name: "flowObfuscator3"
   client!gc.d I:
     owner: "IdkType"
-    name: "anInt437"
+    name: "count"
   client!gc.e [Lclient!gc;:
     owner: "IdkType"
-    name: "aIdkTypeArray1"
+    name: "instances"
   client!gc.f I:
     owner: "IdkType"
-    name: "anInt438"
+    name: "type"
   client!gc.g [I:
     owner: "IdkType"
-    name: "anIntArray143"
+    name: "modelIndices"
   client!gc.h [I:
     owner: "IdkType"
-    name: "anIntArray144"
+    name: "oldColors"
   client!gc.i [I:
     owner: "IdkType"
-    name: "anIntArray145"
+    name: "newColors"
   client!gc.j [I:
     owner: "IdkType"
-    name: "anIntArray146"
+    name: "headModelIndices"
   client!gc.k Z:
     owner: "IdkType"
-    name: "aBoolean101"
+    name: "validStyle"
   client!h.a I:
     owner: "WallDecoration"
     name: "y"
@@ -2728,334 +2728,334 @@ fields:
     name: "info"
   client!hb.A [I:
     owner: "Sprite"
-    name: "anIntArray148"
+    name: "pixels"
   client!hb.B I:
     owner: "Sprite"
-    name: "anInt461"
+    name: "spriteWidth"
   client!hb.C I:
     owner: "Sprite"
-    name: "anInt462"
+    name: "spriteHeight"
   client!hb.D I:
     owner: "Sprite"
-    name: "anInt463"
+    name: "clipX"
   client!hb.E I:
     owner: "Sprite"
-    name: "anInt464"
+    name: "clipY"
   client!hb.F I:
     owner: "Sprite"
-    name: "anInt465"
+    name: "cropW"
   client!hb.G I:
     owner: "Sprite"
-    name: "anInt466"
+    name: "cropH"
   client!hb.v Z:
     owner: "Sprite"
-    name: "aBoolean103"
+    name: "flowObfuscator2"
   client!hb.w I:
     owner: "Sprite"
-    name: "anInt459"
+    name: "flowObfuscator1"
   client!hb.x Z:
     owner: "Sprite"
-    name: "aBoolean104"
+    name: "flowObfuscator3"
   client!hb.y I:
     owner: "Sprite"
-    name: "anInt460"
+    name: "flowObfuscator4"
   client!hb.z B:
     owner: "Sprite"
-    name: "aByte23"
+    name: "flowObfuscator5"
   client!hc.A I:
     owner: "InterfaceComponent"
-    name: "anInt482"
+    name: "unusedInt"
   client!hc.B Z:
     owner: "InterfaceComponent"
-    name: "aBoolean107"
+    name: "unusedBoolean"
   client!hc.C Z:
     owner: "InterfaceComponent"
-    name: "aBoolean108"
+    name: "inventoryDummy"
   client!hc.D Z:
     owner: "InterfaceComponent"
-    name: "aBoolean109"
+    name: "inventoryHasOptions"
   client!hc.E Z:
     owner: "InterfaceComponent"
-    name: "aBoolean110"
+    name: "inventoryIsUsable"
   client!hc.F I:
     owner: "InterfaceComponent"
-    name: "anInt483"
+    name: "inventoryMarginX"
   client!hc.G I:
     owner: "InterfaceComponent"
-    name: "anInt484"
+    name: "inventoryMarginY"
   client!hc.H [Lclient!hb;:
     owner: "InterfaceComponent"
-    name: "aSpriteArray8"
+    name: "inventorySprite"
   client!hc.I [I:
     owner: "InterfaceComponent"
-    name: "anIntArray156"
+    name: "inventoryOffsetX"
   client!hc.J [I:
     owner: "InterfaceComponent"
-    name: "anIntArray157"
+    name: "inventoryOffsetY"
   client!hc.K [Ljava/lang/String;:
     owner: "InterfaceComponent"
-    name: "aStringArray10"
+    name: "inventoryOptions"
   client!hc.L Z:
     owner: "InterfaceComponent"
-    name: "aBoolean111"
+    name: "fill"
   client!hc.M Z:
     owner: "InterfaceComponent"
-    name: "aBoolean112"
+    name: "center"
   client!hc.N Z:
     owner: "InterfaceComponent"
-    name: "aBoolean113"
+    name: "shadow"
   client!hc.O Lclient!jb;:
     owner: "InterfaceComponent"
-    name: "aIndexedFont_5"
+    name: "font"
   client!hc.P Ljava/lang/String;:
     owner: "InterfaceComponent"
-    name: "aString20"
+    name: "text"
   client!hc.Q Ljava/lang/String;:
     owner: "InterfaceComponent"
-    name: "aString21"
+    name: "activeText"
   client!hc.R I:
     owner: "InterfaceComponent"
-    name: "anInt485"
+    name: "color"
   client!hc.S I:
     owner: "InterfaceComponent"
-    name: "anInt486"
+    name: "colorEnabled"
   client!hc.T I:
     owner: "InterfaceComponent"
-    name: "anInt487"
+    name: "hoverColor"
   client!hc.U Lclient!hb;:
     owner: "InterfaceComponent"
-    name: "aSprite_12"
+    name: "sprite"
   client!hc.V Lclient!hb;:
     owner: "InterfaceComponent"
-    name: "aSprite_13"
+    name: "activeSprite"
   client!hc.W Lclient!eb;:
     owner: "InterfaceComponent"
-    name: "aModel_2"
+    name: "modelDisabled"
   client!hc.X Lclient!eb;:
     owner: "InterfaceComponent"
-    name: "aClass1_Sub3_Sub1_3"
+    name: "modelEnabled"
   client!hc.Y I:
     owner: "InterfaceComponent"
-    name: "anInt488"
+    name: "seqId"
   client!hc.Z I:
     owner: "InterfaceComponent"
-    name: "anInt489"
+    name: "activeSeqId"
   client!hc.a I:
     owner: "InterfaceComponent"
-    name: "anInt467"
+    name: "flowObfuscator1"
   client!hc.ab I:
     owner: "InterfaceComponent"
-    name: "anInt490"
+    name: "modelZoom"
   client!hc.b Z:
     owner: "InterfaceComponent"
-    name: "aBoolean105"
+    name: "flowObfuscator2"
   client!hc.bb I:
     owner: "InterfaceComponent"
-    name: "anInt491"
+    name: "modelEyePitch"
   client!hc.c [Lclient!hc;:
     owner: "InterfaceComponent"
-    name: "aInterfaceComponentArray1"
+    name: "instances"
   client!hc.cb I:
     owner: "InterfaceComponent"
-    name: "anInt492"
+    name: "modelYaw"
   client!hc.d [I:
     owner: "InterfaceComponent"
-    name: "anIntArray149"
+    name: "inventoryIndices"
   client!hc.db Ljava/lang/String;:
     owner: "InterfaceComponent"
-    name: "aString22"
+    name: "optionCircumfix"
   client!hc.e [I:
     owner: "InterfaceComponent"
-    name: "anIntArray150"
+    name: "inventoryAmount"
   client!hc.eb Ljava/lang/String;:
     owner: "InterfaceComponent"
-    name: "aString23"
+    name: "optionSuffix"
   client!hc.f I:
     owner: "InterfaceComponent"
-    name: "anInt468"
+    name: "seqFrame"
   client!hc.fb I:
     owner: "InterfaceComponent"
-    name: "anInt493"
+    name: "optionFlags"
   client!hc.g I:
     owner: "InterfaceComponent"
-    name: "anInt469"
+    name: "seqCycle"
   client!hc.gb Ljava/lang/String;:
     owner: "InterfaceComponent"
-    name: "aString24"
+    name: "option"
   client!hc.h I:
     owner: "InterfaceComponent"
-    name: "anInt470"
+    name: "id"
   client!hc.hb Lclient!s;:
     owner: "InterfaceComponent"
-    name: "aCache_6"
+    name: "spriteCache"
   client!hc.i I:
     owner: "InterfaceComponent"
-    name: "anInt471"
+    name: "parent"
   client!hc.ib Lclient!s;:
     owner: "InterfaceComponent"
-    name: "aCache_7"
+    name: "modelCache"
   client!hc.j I:
     owner: "InterfaceComponent"
-    name: "anInt472"
+    name: "type"
   client!hc.k I:
     owner: "InterfaceComponent"
-    name: "anInt473"
+    name: "buttonType"
   client!hc.l I:
     owner: "InterfaceComponent"
-    name: "anInt474"
+    name: "contentType"
   client!hc.m I:
     owner: "InterfaceComponent"
-    name: "anInt475"
+    name: "width"
   client!hc.n I:
     owner: "InterfaceComponent"
-    name: "anInt476"
+    name: "height"
   client!hc.o I:
     owner: "InterfaceComponent"
-    name: "anInt477"
+    name: "x"
   client!hc.p I:
     owner: "InterfaceComponent"
-    name: "anInt478"
+    name: "y"
   client!hc.q [[I:
     owner: "InterfaceComponent"
-    name: "anIntArrayArray15"
+    name: "script"
   client!hc.r [I:
     owner: "InterfaceComponent"
-    name: "anIntArray151"
+    name: "scriptCompareType"
   client!hc.s [I:
     owner: "InterfaceComponent"
-    name: "anIntArray152"
+    name: "scriptCompareValue"
   client!hc.t I:
     owner: "InterfaceComponent"
-    name: "anInt479"
+    name: "hoverParentIndex"
   client!hc.u I:
     owner: "InterfaceComponent"
-    name: "anInt480"
+    name: "scrollHeight"
   client!hc.v I:
     owner: "InterfaceComponent"
-    name: "anInt481"
+    name: "scrollY"
   client!hc.w Z:
     owner: "InterfaceComponent"
-    name: "aBoolean106"
+    name: "hidden"
   client!hc.x [I:
     owner: "InterfaceComponent"
-    name: "anIntArray153"
+    name: "children"
   client!hc.y [I:
     owner: "InterfaceComponent"
-    name: "anIntArray154"
+    name: "childX"
   client!hc.z [I:
     owner: "InterfaceComponent"
-    name: "anIntArray155"
+    name: "childY"
   client!i.a [I:
     owner: "TileOverlay"
-    name: "anIntArray158"
+    name: "vertexX"
   client!i.b [I:
     owner: "TileOverlay"
-    name: "anIntArray159"
+    name: "vertexY"
   client!i.c [I:
     owner: "TileOverlay"
-    name: "anIntArray160"
+    name: "vertexZ"
   client!i.d [I:
     owner: "TileOverlay"
-    name: "anIntArray161"
+    name: "triangleVertexA"
   client!i.e [I:
     owner: "TileOverlay"
-    name: "anIntArray162"
+    name: "triangleVertexB"
   client!i.f [I:
     owner: "TileOverlay"
-    name: "anIntArray163"
+    name: "triangleVertexC"
   client!i.g [I:
     owner: "TileOverlay"
-    name: "anIntArray164"
+    name: "triangleColorA"
   client!i.h [I:
     owner: "TileOverlay"
-    name: "anIntArray165"
+    name: "triangleColorB"
   client!i.i [I:
     owner: "TileOverlay"
-    name: "anIntArray166"
+    name: "triangleColorC"
   client!i.j [I:
     owner: "TileOverlay"
-    name: "anIntArray167"
+    name: "triangleTextureIndex"
   client!i.k Z:
     owner: "TileOverlay"
-    name: "aBoolean114"
+    name: "isFlat"
   client!i.l I:
     owner: "TileOverlay"
-    name: "anInt494"
+    name: "shape"
   client!i.m I:
     owner: "TileOverlay"
-    name: "anInt495"
+    name: "orientation"
   client!i.n I:
     owner: "TileOverlay"
-    name: "anInt496"
+    name: "underlayRgb"
   client!i.o I:
     owner: "TileOverlay"
-    name: "anInt497"
+    name: "overlayRgb"
   client!i.p [I:
     owner: "TileOverlay"
-    name: "anIntArray168"
+    name: "tmpScreenX"
   client!i.q [I:
     owner: "TileOverlay"
-    name: "anIntArray169"
+    name: "tmpScreenY"
   client!i.r [I:
     owner: "TileOverlay"
-    name: "anIntArray170"
+    name: "vertexSceneX"
   client!i.s [I:
     owner: "TileOverlay"
-    name: "anIntArray171"
+    name: "vertexSceneY"
   client!i.t [I:
     owner: "TileOverlay"
-    name: "anIntArray172"
+    name: "vertexSceneZ"
   client!i.u [I:
     owner: "TileOverlay"
-    name: "anIntArray173"
+    name: "unused1"
   client!i.v [I:
     owner: "TileOverlay"
-    name: "anIntArray174"
+    name: "unused2"
   client!i.w [I:
     owner: "TileOverlay"
-    name: "anIntArray175"
+    name: "unused3"
   client!i.x [[I:
     owner: "TileOverlay"
-    name: "anIntArrayArray16"
+    name: "SHAPE_VERTICES"
   client!i.y [[I:
     owner: "TileOverlay"
-    name: "anIntArrayArray17"
+    name: "SHAPE_PATHS"
   client!ib.A [I:
     owner: "IndexedSprite"
-    name: "anIntArray177"
+    name: "palette"
   client!ib.B I:
     owner: "IndexedSprite"
-    name: "anInt513"
+    name: "spriteWidth"
   client!ib.C I:
     owner: "IndexedSprite"
-    name: "anInt514"
+    name: "spriteHeight"
   client!ib.D I:
     owner: "IndexedSprite"
-    name: "anInt515"
+    name: "clipX"
   client!ib.E I:
     owner: "IndexedSprite"
-    name: "anInt516"
+    name: "clipY"
   client!ib.F I:
     owner: "IndexedSprite"
-    name: "anInt517"
+    name: "clipWidth"
   client!ib.G I:
     owner: "IndexedSprite"
-    name: "anInt518"
+    name: "clipHeight"
   client!ib.v Z:
     owner: "IndexedSprite"
-    name: "aBoolean116"
+    name: "flowObfuscator1"
   client!ib.w I:
     owner: "IndexedSprite"
-    name: "anInt512"
+    name: "flowObfuscator2"
   client!ib.x B:
     owner: "IndexedSprite"
-    name: "aByte24"
+    name: "flowObfuscator3"
   client!ib.y Z:
     owner: "IndexedSprite"
-    name: "aBoolean117"
+    name: "flowObfuscator4"
   client!ib.z [B:
     owner: "IndexedSprite"
-    name: "aByteArray6"
+    name: "pixels"
   client!ic.a I:
     owner: "DeadClass"
     name: "flowObfuscator1"
@@ -3097,52 +3097,52 @@ fields:
     name: "info"
   client!jb.A I:
     owner: "IndexedFont"
-    name: "anInt539"
+    name: "flowObfuscator2"
   client!jb.B [[B:
     owner: "IndexedFont"
-    name: "aByteArrayArray3"
+    name: "pixels"
   client!jb.C [I:
     owner: "IndexedFont"
-    name: "anIntArray179"
+    name: "charWidth"
   client!jb.D [I:
     owner: "IndexedFont"
-    name: "anIntArray180"
+    name: "charHeight"
   client!jb.E [I:
     owner: "IndexedFont"
-    name: "anIntArray181"
+    name: "charOffsetX"
   client!jb.F [I:
     owner: "IndexedFont"
-    name: "anIntArray182"
+    name: "charOffsetY"
   client!jb.G [I:
     owner: "IndexedFont"
-    name: "anIntArray183"
+    name: "charSpace"
   client!jb.H [I:
     owner: "IndexedFont"
-    name: "anIntArray184"
+    name: "drawWidth"
   client!jb.I I:
     owner: "IndexedFont"
-    name: "anInt540"
+    name: "fontHeight"
   client!jb.J Ljava/util/Random;:
     owner: "IndexedFont"
-    name: "aRandom1"
+    name: "random"
   client!jb.K [I:
     owner: "IndexedFont"
-    name: "anIntArray185"
+    name: "CHAR_TABLE"
   client!jb.v Z:
     owner: "IndexedFont"
-    name: "aBoolean124"
+    name: "flowObfuscator7"
   client!jb.w B:
     owner: "IndexedFont"
-    name: "aByte26"
+    name: "flowObfuscator3"
   client!jb.x B:
     owner: "IndexedFont"
-    name: "aByte27"
+    name: "flowObfuscator4"
   client!jb.y B:
     owner: "IndexedFont"
-    name: "aByte28"
+    name: "flowObfuscator5"
   client!jb.z I:
     owner: "IndexedFont"
-    name: "anInt538"
+    name: "flowObfuscator1"
   client!jc.a Z:
     owner: "SeqType"
     name: "flowObfuscator1"
@@ -3190,28 +3190,28 @@ fields:
     name: "replays"
   client!k.a I:
     owner: "ObjEntity"
-    name: "anInt549"
+    name: "y"
   client!k.b I:
     owner: "ObjEntity"
-    name: "anInt550"
+    name: "x"
   client!k.c I:
     owner: "ObjEntity"
-    name: "anInt551"
+    name: "z"
   client!k.d Lclient!eb;:
     owner: "ObjEntity"
-    name: "aModel_5"
+    name: "model0"
   client!k.e Lclient!eb;:
     owner: "ObjEntity"
-    name: "aModel_6"
+    name: "model1"
   client!k.f Lclient!eb;:
     owner: "ObjEntity"
-    name: "aModel_7"
+    name: "model2"
   client!k.g I:
     owner: "ObjEntity"
-    name: "anInt552"
+    name: "bitset"
   client!k.h I:
     owner: "ObjEntity"
-    name: "anInt553"
+    name: "offsetY"
   client!kb.A Lclient!ob;:
     owner: "Buffer"
     name: "queueMid"
@@ -3325,52 +3325,52 @@ fields:
     name: "models"
   client!l.a I:
     owner: "ModelMetadata"
-    name: "anInt576"
+    name: "vertexCount"
   client!l.b I:
     owner: "ModelMetadata"
-    name: "anInt577"
+    name: "triangleCount"
   client!l.c I:
     owner: "ModelMetadata"
-    name: "anInt578"
+    name: "texturedCount"
   client!l.d I:
     owner: "ModelMetadata"
-    name: "anInt579"
+    name: "vertexFlagDataOffset"
   client!l.e I:
     owner: "ModelMetadata"
-    name: "anInt580"
+    name: "vertexXDataOffset"
   client!l.f I:
     owner: "ModelMetadata"
-    name: "anInt581"
+    name: "vertexYDataOffset"
   client!l.g I:
     owner: "ModelMetadata"
-    name: "anInt582"
+    name: "vertexZDataOffset"
   client!l.h I:
     owner: "ModelMetadata"
-    name: "anInt583"
+    name: "vertexLabelDataOffset"
   client!l.i I:
     owner: "ModelMetadata"
-    name: "anInt584"
+    name: "vertexIndexDataOffset"
   client!l.j I:
     owner: "ModelMetadata"
-    name: "anInt585"
+    name: "triangleTypeDataOffset"
   client!l.k I:
     owner: "ModelMetadata"
-    name: "anInt586"
+    name: "triangleColorDataOffset"
   client!l.l I:
     owner: "ModelMetadata"
-    name: "anInt587"
+    name: "triangleInfoDataOffset"
   client!l.m I:
     owner: "ModelMetadata"
-    name: "anInt588"
+    name: "trianglePriorityDataOffset"
   client!l.n I:
     owner: "ModelMetadata"
-    name: "anInt589"
+    name: "triangleAlphaDataOffset"
   client!l.o I:
     owner: "ModelMetadata"
-    name: "anInt590"
+    name: "triangleSkinDataOffset"
   client!l.p I:
     owner: "ModelMetadata"
-    name: "anInt591"
+    name: "triangleTextureDataOffset"
   client!lb.e I:
     owner: "SpawnedLoc"
     name: "level"
@@ -3403,49 +3403,49 @@ fields:
     name: "lastType"
   client!lc.a I:
     owner: "VarpType"
-    name: "anInt603"
+    name: "flowObfuscator2"
   client!lc.b I:
     owner: "VarpType"
-    name: "anInt604"
+    name: "flowObfuscator1"
   client!lc.c I:
     owner: "VarpType"
-    name: "anInt605"
+    name: "count"
   client!lc.d [Lclient!lc;:
     owner: "VarpType"
-    name: "aVarpTypeArray1"
+    name: "instances"
   client!lc.e I:
     owner: "VarpType"
-    name: "anInt606"
+    name: "opcode3Count"
   client!lc.f [I:
     owner: "VarpType"
-    name: "anIntArray194"
+    name: "opcode3Array"
   client!lc.g Ljava/lang/String;:
     owner: "VarpType"
-    name: "aString25"
+    name: "opcode9"
   client!lc.h I:
     owner: "VarpType"
-    name: "anInt607"
+    name: "opcode1"
   client!lc.i I:
     owner: "VarpType"
-    name: "anInt608"
+    name: "type"
   client!lc.j Z:
     owner: "VarpType"
-    name: "aBoolean132"
+    name: "opcode3"
   client!lc.k Z:
     owner: "VarpType"
-    name: "aBoolean133"
+    name: "opcode4"
   client!lc.l I:
     owner: "VarpType"
-    name: "anInt609"
+    name: "opcode5"
   client!lc.m Z:
     owner: "VarpType"
-    name: "aBoolean134"
+    name: "opcode6"
   client!lc.n I:
     owner: "VarpType"
-    name: "anInt610"
+    name: "opcode7"
   client!lc.o Z:
     owner: "VarpType"
-    name: "aBoolean135"
+    name: "opcode8"
   client!m.a I:
     owner: "Occluder"
     name: "minTileX"
@@ -3502,136 +3502,136 @@ fields:
     name: "maxNormalY"
   client!mb.e I:
     owner: "TemporaryLoc"
-    name: "anInt630"
+    name: "flowObfuscator1"
   client!mb.f I:
     owner: "TemporaryLoc"
-    name: "anInt631"
+    name: "level"
   client!mb.g I:
     owner: "TemporaryLoc"
-    name: "anInt632"
+    name: "classType"
   client!mb.h I:
     owner: "TemporaryLoc"
-    name: "anInt633"
+    name: "tileX"
   client!mb.i I:
     owner: "TemporaryLoc"
-    name: "anInt634"
+    name: "tileZ"
   client!mb.j I:
     owner: "TemporaryLoc"
-    name: "anInt635"
+    name: "locIndex"
   client!mb.k I:
     owner: "TemporaryLoc"
-    name: "anInt636"
+    name: "orientation"
   client!mb.l I:
     owner: "TemporaryLoc"
-    name: "anInt637"
+    name: "type"
   client!mb.m I:
     owner: "TemporaryLoc"
-    name: "anInt638"
+    name: "lastCycle"
   client!mc.a Z:
     owner: "WordPack"
-    name: "aBoolean136"
+    name: "flowObfuscator7"
   client!mc.b I:
     owner: "WordPack"
-    name: "anInt639"
+    name: "flowObfuscator1"
   client!mc.c I:
     owner: "WordPack"
-    name: "anInt640"
+    name: "flowObfuscator2"
   client!mc.d I:
     owner: "WordPack"
-    name: "anInt641"
+    name: "flowObfuscator8"
   client!mc.e I:
     owner: "WordPack"
-    name: "anInt642"
+    name: "flowObfuscator3"
   client!mc.f I:
     owner: "WordPack"
-    name: "anInt643"
+    name: "flowObfuscator4"
   client!mc.g B:
     owner: "WordPack"
-    name: "aByte31"
+    name: "flowObfuscator5"
   client!mc.h I:
     owner: "WordPack"
-    name: "anInt644"
+    name: "flowObfuscator6"
   client!mc.i Z:
     owner: "WordPack"
-    name: "aBoolean137"
+    name: "flowObfuscator9"
   client!mc.j [I:
     owner: "WordPack"
-    name: "anIntArray195"
+    name: "fragments"
   client!mc.k [[C:
     owner: "WordPack"
-    name: "aCharArrayArray1"
+    name: "bads"
   client!mc.l [[[B:
     owner: "WordPack"
-    name: "aByteArrayArrayArray8"
+    name: "badCombinations"
   client!mc.m [[C:
     owner: "WordPack"
-    name: "aCharArrayArray2"
+    name: "domains"
   client!mc.n [[C:
     owner: "WordPack"
-    name: "aCharArrayArray3"
+    name: "tlds"
   client!mc.o [I:
     owner: "WordPack"
-    name: "anIntArray196"
+    name: "tldTypes"
   client!mc.p [Ljava/lang/String;:
     owner: "WordPack"
-    name: "aStringArray11"
+    name: "whitelist"
   client!n.a I:
     owner: "VertexNormal"
-    name: "anInt646"
+    name: "x"
   client!n.b I:
     owner: "VertexNormal"
-    name: "anInt647"
+    name: "y"
   client!n.c I:
     owner: "VertexNormal"
-    name: "anInt648"
+    name: "z"
   client!n.d I:
     owner: "VertexNormal"
-    name: "anInt649"
+    name: "magnitude"
   client!nb.e I:
     owner: "LocEntity"
-    name: "anInt651"
+    name: "level"
   client!nb.f I:
     owner: "LocEntity"
-    name: "anInt652"
+    name: "classType"
   client!nb.g I:
     owner: "LocEntity"
-    name: "anInt653"
+    name: "x"
   client!nb.h I:
     owner: "LocEntity"
-    name: "anInt654"
+    name: "z"
   client!nb.i I:
     owner: "LocEntity"
-    name: "anInt655"
+    name: "locIndex"
   client!nb.j Lclient!jc;:
     owner: "LocEntity"
-    name: "aSeqType_2"
+    name: "seq"
   client!nb.k I:
     owner: "LocEntity"
-    name: "anInt656"
+    name: "seqFrame"
   client!nb.l I:
     owner: "LocEntity"
-    name: "anInt657"
+    name: "seqDelay"
   client!o.a I:
     owner: "TileUnderlay"
-    name: "anInt658"
+    name: "southwestColor"
   client!o.b I:
     owner: "TileUnderlay"
-    name: "anInt659"
+    name: "southeastColor"
   client!o.c I:
     owner: "TileUnderlay"
-    name: "anInt660"
+    name: "northeastColor"
   client!o.d I:
     owner: "TileUnderlay"
-    name: "anInt661"
+    name: "northwestColor"
   client!o.e I:
     owner: "TileUnderlay"
-    name: "anInt662"
+    name: "textureIndex"
   client!o.f Z:
     owner: "TileUnderlay"
-    name: "aBoolean138"
+    name: "isFlat"
   client!o.g I:
     owner: "TileUnderlay"
-    name: "anInt663"
+    name: "rgb"
   client!ob.a Z:
     owner: "LinkedList"
     name: "flowObfuscator3"
@@ -3697,16 +3697,16 @@ fields:
     name: "info"
   client!pb.a I:
     owner: "Stack"
-    name: "anInt678"
+    name: "flowObfuscator1"
   client!pb.b B:
     owner: "Stack"
-    name: "aByte34"
+    name: "flowObfuscator2"
   client!pb.c Z:
     owner: "Stack"
-    name: "aBoolean140"
+    name: "flowObfuscator3"
   client!pb.d Lclient!db;:
     owner: "Stack"
-    name: "aCacheableNode_17"
+    name: "head"
   client!q.a I:
     owner: "Wall"
     name: "y"
@@ -3757,214 +3757,214 @@ fields:
     name: "image"
   client!r.A I:
     owner: "MapSquare"
-    name: "anInt705"
+    name: "cameraX2"
   client!r.B I:
     owner: "MapSquare"
-    name: "anInt706"
+    name: "cameraY2"
   client!r.C I:
     owner: "MapSquare"
-    name: "anInt707"
+    name: "cameraZ2"
   client!r.D I:
     owner: "MapSquare"
-    name: "anInt708"
+    name: "pitchsin"
   client!r.E I:
     owner: "MapSquare"
-    name: "anInt709"
+    name: "pitchcos"
   client!r.F I:
     owner: "MapSquare"
-    name: "anInt710"
+    name: "yawsin"
   client!r.G I:
     owner: "MapSquare"
-    name: "anInt711"
+    name: "yawcos"
   client!r.H [Lclient!p;:
     owner: "MapSquare"
-    name: "aLocArray3"
+    name: "locBuffer"
   client!r.I [I:
     owner: "MapSquare"
-    name: "anIntArray198"
+    name: "DECO_TYPE1_OFFSET_X"
   client!r.J [I:
     owner: "MapSquare"
-    name: "anIntArray199"
+    name: "DECO_TYPE1_OFFSET_Z"
   client!r.K [I:
     owner: "MapSquare"
-    name: "anIntArray200"
+    name: "DECO_TYPE2_OFFSET_X"
   client!r.L [I:
     owner: "MapSquare"
-    name: "anIntArray201"
+    name: "DECO_TYPE2_OFFSET_Z"
   client!r.M Z:
     owner: "MapSquare"
-    name: "aBoolean144"
+    name: "checkClick"
   client!r.N I:
     owner: "MapSquare"
-    name: "anInt712"
+    name: "clickX"
   client!r.O I:
     owner: "MapSquare"
-    name: "anInt713"
+    name: "clickZ"
   client!r.P I:
     owner: "MapSquare"
-    name: "anInt714"
+    name: "clickedTileX"
   client!r.Q I:
     owner: "MapSquare"
-    name: "anInt715"
+    name: "clickedTileZ"
   client!r.R I:
     owner: "MapSquare"
-    name: "anInt716"
+    name: "MAX_OCCLUDER_LEVELS"
   client!r.S [I:
     owner: "MapSquare"
-    name: "anIntArray202"
+    name: "levelOccluderCount"
   client!r.T [[Lclient!m;:
     owner: "MapSquare"
-    name: "aOccluderArrayArray1"
+    name: "levelOccluders"
   client!r.U I:
     owner: "MapSquare"
-    name: "anInt717"
+    name: "activeOccluderCount"
   client!r.V [Lclient!m;:
     owner: "MapSquare"
-    name: "A_OCCLUDER_ARRAY_1"
+    name: "activeOccluders"
   client!r.W Lclient!ob;:
     owner: "MapSquare"
-    name: "aLinkedList_9"
+    name: "tileQueue"
   client!r.X [I:
     owner: "MapSquare"
-    name: "anIntArray203"
+    name: "TILE_WALL_DRAW_FLAGS_0"
   client!r.Y [I:
     owner: "MapSquare"
-    name: "anIntArray204"
+    name: "WALL_DRAW_FLAGS"
   client!r.Z [I:
     owner: "MapSquare"
-    name: "anIntArray205"
+    name: "TILE_WALL_DRAW_FLAGS_1"
   client!r.a Z:
     owner: "MapSquare"
-    name: "aBoolean141"
+    name: "flowObfuscator9"
   client!r.ab [I:
     owner: "MapSquare"
-    name: "anIntArray206"
+    name: "WALL_UNCULL_FLAGS_0"
   client!r.b B:
     owner: "MapSquare"
-    name: "aByte36"
+    name: "flowObfuscator3"
   client!r.bb [I:
     owner: "MapSquare"
-    name: "anIntArray207"
+    name: "WALL_UNCULL_FLAGS_1"
   client!r.c I:
     owner: "MapSquare"
-    name: "anInt688"
+    name: "flowObfuscator8"
   client!r.cb [I:
     owner: "MapSquare"
-    name: "anIntArray208"
+    name: "WALL_UNCULL_FLAGS_2"
   client!r.d B:
     owner: "MapSquare"
-    name: "aByte37"
+    name: "flowObfuscator4"
   client!r.db [I:
     owner: "MapSquare"
-    name: "anIntArray209"
+    name: "WALL_UNCULL_FLAGS_3"
   client!r.e I:
     owner: "MapSquare"
-    name: "anInt689"
+    name: "flowObfuscator2"
   client!r.eb [I:
     owner: "MapSquare"
-    name: "anIntArray210"
+    name: "TEXTURE_HSL"
   client!r.f I:
     owner: "MapSquare"
-    name: "anInt690"
+    name: "flowObfuscator1"
   client!r.fb [I:
     owner: "MapSquare"
-    name: "anIntArray211"
+    name: "vertexAMergeIndex"
   client!r.g Z:
     owner: "MapSquare"
-    name: "aBoolean142"
+    name: "flowObfuscator7"
   client!r.gb [I:
     owner: "MapSquare"
-    name: "anIntArray212"
+    name: "vertexBMergeIndex"
   client!r.h Z:
     owner: "MapSquare"
-    name: "aBoolean143"
+    name: "lowMemory"
   client!r.hb I:
     owner: "MapSquare"
-    name: "anInt718"
+    name: "normalMergeIndex"
   client!r.i I:
     owner: "MapSquare"
-    name: "anInt691"
+    name: "maxLevel"
   client!r.ib [[I:
     owner: "MapSquare"
-    name: "anIntArrayArray18"
+    name: "TILE_MASK_2D"
   client!r.j I:
     owner: "MapSquare"
-    name: "anInt692"
+    name: "tileCountX"
   client!r.jb [[I:
     owner: "MapSquare"
-    name: "anIntArrayArray19"
+    name: "TILE_ROTATION_2D"
   client!r.k I:
     owner: "MapSquare"
-    name: "anInt693"
+    name: "tileCountZ"
   client!r.kb [[[[Z:
     owner: "MapSquare"
-    name: "aBooleanArrayArrayArrayArray1"
+    name: "visibilityMaps"
   client!r.l [[[I:
     owner: "MapSquare"
-    name: "anIntArrayArrayArray4"
+    name: "heightmap"
   client!r.lb [[Z:
     owner: "MapSquare"
-    name: "aBooleanArrayArray1"
+    name: "visibilityMap"
   client!r.m [[[Lclient!cb;:
     owner: "MapSquare"
-    name: "aClass1_Sub2ArrayArrayArray1"
+    name: "levelTiles"
   client!r.mb I:
     owner: "MapSquare"
-    name: "anInt719"
+    name: "viewportCenterX"
   client!r.n I:
     owner: "MapSquare"
-    name: "anInt694"
+    name: "minLevel"
   client!r.nb I:
     owner: "MapSquare"
-    name: "anInt720"
+    name: "viewportCenterY"
   client!r.o I:
     owner: "MapSquare"
-    name: "anInt695"
+    name: "locCount"
   client!r.ob I:
     owner: "MapSquare"
-    name: "anInt721"
+    name: "viewportLeft"
   client!r.p [Lclient!p;:
     owner: "MapSquare"
-    name: "aLocArray2"
+    name: "locs"
   client!r.pb I:
     owner: "MapSquare"
-    name: "anInt722"
+    name: "viewportTop"
   client!r.q [[[I:
     owner: "MapSquare"
-    name: "anIntArrayArrayArray5"
+    name: "levelTileCycles"
   client!r.qb I:
     owner: "MapSquare"
-    name: "anInt723"
+    name: "viewportRight"
   client!r.r I:
     owner: "MapSquare"
-    name: "anInt696"
+    name: "lastTileUpdateCount"
   client!r.rb I:
     owner: "MapSquare"
-    name: "anInt724"
+    name: "viewportBottom"
   client!r.s I:
     owner: "MapSquare"
-    name: "anInt697"
+    name: "tileUpdateCount"
   client!r.t I:
     owner: "MapSquare"
-    name: "anInt698"
+    name: "activeLevel"
   client!r.u I:
     owner: "MapSquare"
-    name: "anInt699"
+    name: "minTileX"
   client!r.v I:
     owner: "MapSquare"
-    name: "anInt700"
+    name: "maxTileX"
   client!r.w I:
     owner: "MapSquare"
-    name: "anInt701"
+    name: "minTileY"
   client!r.x I:
     owner: "MapSquare"
-    name: "anInt702"
+    name: "maxTileZ"
   client!r.y I:
     owner: "MapSquare"
-    name: "anInt703"
+    name: "screenCenterX"
   client!r.z I:
     owner: "MapSquare"
-    name: "anInt704"
+    name: "screenCenterY"
   client!rb.a Lclient!sb;:
     owner: "BZip2InputStream"
     name: "context"
@@ -4270,82 +4270,82 @@ fields:
     name: "anInt880"
   client!ub.a Z:
     owner: "FileArchive"
-    name: "aBoolean148"
+    name: "flowObfuscator2"
   client!ub.b B:
     owner: "FileArchive"
-    name: "aByte39"
+    name: "flowObfuscator1"
   client!ub.c I:
     owner: "FileArchive"
-    name: "anInt762"
+    name: "flowObfuscator3"
   client!ub.d Z:
     owner: "FileArchive"
-    name: "aBoolean149"
+    name: "flowObfuscator4"
   client!ub.e [B:
     owner: "FileArchive"
-    name: "aByteArray14"
+    name: "data"
   client!ub.f I:
     owner: "FileArchive"
-    name: "anInt763"
+    name: "fileCount"
   client!ub.g [I:
     owner: "FileArchive"
-    name: "anIntArray221"
+    name: "fileHash"
   client!ub.h [I:
     owner: "FileArchive"
-    name: "anIntArray222"
+    name: "fileUnpackedSize"
   client!ub.i [I:
     owner: "FileArchive"
-    name: "anIntArray223"
+    name: "filePackedSize"
   client!ub.j [I:
     owner: "FileArchive"
-    name: "anIntArray224"
+    name: "fileOffset"
   client!ub.k Z:
     owner: "FileArchive"
-    name: "aBoolean150"
+    name: "isCompressedWhole"
   client!v.e I:
     owner: "ObjStackEntity"
-    name: "anInt765"
+    name: "id"
   client!v.f I:
     owner: "ObjStackEntity"
-    name: "anInt766"
+    name: "amount"
   client!vb.a Z:
     owner: "StringUtils"
-    name: "aBoolean151"
+    name: "flowObfuscator1"
   client!vb.b B:
     owner: "StringUtils"
-    name: "aByte40"
+    name: "flowObfuscator2"
   client!vb.c I:
     owner: "StringUtils"
-    name: "anInt767"
+    name: "flowObfuscator3"
   client!vb.d Z:
     owner: "StringUtils"
-    name: "aBoolean152"
+    name: "flowObfuscator4"
   client!vb.e I:
     owner: "StringUtils"
-    name: "anInt768"
+    name: "flowObfuscator5"
   client!vb.f [C:
     owner: "StringUtils"
-    name: "aCharArray1"
+    name: "builder"
   client!vb.g [C:
     owner: "StringUtils"
-    name: "aCharArray2"
+    name: "BASE37_LOOKUP"
   client!wb.a [C:
     owner: "TextEncoder"
-    name: "aCharArray3"
+    name: "builder"
   client!wb.b [C:
     owner: "TextEncoder"
-    name: "aCharArray4"
+    name: "CHAR_LOOKUP"
   client!x.A I:
     owner: "PathingEntity"
-    name: "anInt900"
+    name: "maxHealth"
   client!x.B I:
     owner: "PathingEntity"
-    name: "anInt901"
+    name: "targetEntity"
   client!x.C I:
     owner: "PathingEntity"
-    name: "anInt902"
+    name: "focusX"
   client!x.D I:
     owner: "PathingEntity"
-    name: "anInt903"
+    name: "focusZ"
   client!x.E I:
     owner: "PathingEntity"
     name: "secondarySeq"
@@ -4354,7 +4354,7 @@ fields:
     name: "secondarySeqFrame"
   client!x.G I:
     owner: "PathingEntity"
-    name: "anInt906"
+    name: "secondarySeqCycle"
   client!x.H I:
     owner: "PathingEntity"
     name: "primarySeq"
@@ -4363,13 +4363,13 @@ fields:
     name: "primarySeqFrame"
   client!x.J I:
     owner: "PathingEntity"
-    name: "anInt909"
+    name: "primarySeqCycle"
   client!x.K I:
     owner: "PathingEntity"
     name: "primarySeqDelay"
   client!x.L I:
     owner: "PathingEntity"
-    name: "anInt911"
+    name: "primarySeqPlays"
   client!x.M I:
     owner: "PathingEntity"
     name: "spotAnimIndex"
@@ -4378,124 +4378,124 @@ fields:
     name: "spotAnimFrame"
   client!x.O I:
     owner: "PathingEntity"
-    name: "anInt914"
+    name: "spotAnimCycle"
   client!x.P I:
     owner: "PathingEntity"
-    name: "anInt915"
+    name: "lastSpotAnimCycle"
   client!x.Q I:
     owner: "PathingEntity"
     name: "spotAnimOffsetY"
   client!x.R I:
     owner: "PathingEntity"
-    name: "anInt917"
+    name: "srcTileX"
   client!x.S I:
     owner: "PathingEntity"
-    name: "anInt918"
+    name: "dstTileX"
   client!x.T I:
     owner: "PathingEntity"
-    name: "anInt919"
+    name: "srcTileZ"
   client!x.U I:
     owner: "PathingEntity"
-    name: "anInt920"
+    name: "dstTileZ"
   client!x.V I:
     owner: "PathingEntity"
-    name: "anInt921"
+    name: "firstMoveCycle"
   client!x.W I:
     owner: "PathingEntity"
-    name: "anInt922"
+    name: "lastMoveCycle"
   client!x.X I:
     owner: "PathingEntity"
-    name: "anInt923"
+    name: "faceDirection"
   client!x.Y I:
     owner: "PathingEntity"
-    name: "anInt924"
+    name: "removeTimer"
   client!x.Z I:
     owner: "PathingEntity"
     name: "height"
   client!x.ab I:
     owner: "PathingEntity"
-    name: "anInt926"
+    name: "dstYaw"
   client!x.bb I:
     owner: "PathingEntity"
-    name: "anInt927"
+    name: "pathRemaining"
   client!x.cb [I:
     owner: "PathingEntity"
-    name: "anIntArray232"
+    name: "pathTileX"
   client!x.db [I:
     owner: "PathingEntity"
-    name: "anIntArray233"
+    name: "pathTileZ"
   client!x.e I:
     owner: "PathingEntity"
-    name: "anInt881"
+    name: "flowObfuscator1"
   client!x.eb [Z:
     owner: "PathingEntity"
-    name: "aBooleanArray9"
+    name: "pathRunning"
   client!x.f Z:
     owner: "PathingEntity"
-    name: "aBoolean159"
+    name: "flowObfuscator2"
   client!x.fb I:
     owner: "PathingEntity"
     name: "anInt928"
   client!x.g I:
     owner: "PathingEntity"
-    name: "anInt882"
+    name: "x"
   client!x.h I:
     owner: "PathingEntity"
-    name: "anInt883"
+    name: "z"
   client!x.i I:
     owner: "PathingEntity"
-    name: "anInt884"
+    name: "animationDelay"
   client!x.j Z:
     owner: "PathingEntity"
-    name: "aBoolean160"
+    name: "animationStretches"
   client!x.k I:
     owner: "PathingEntity"
-    name: "anInt885"
+    name: "index"
   client!x.l I:
     owner: "PathingEntity"
     name: "standSeq"
   client!x.m I:
     owner: "PathingEntity"
-    name: "anInt887"
+    name: "turnSeq"
   client!x.n I:
     owner: "PathingEntity"
-    name: "anInt888"
+    name: "runSeq"
   client!x.o I:
     owner: "PathingEntity"
-    name: "anInt889"
+    name: "walkSeq"
   client!x.p I:
     owner: "PathingEntity"
-    name: "anInt890"
+    name: "turnAroundSeq"
   client!x.q I:
     owner: "PathingEntity"
-    name: "anInt891"
+    name: "turnRightSeq"
   client!x.r I:
     owner: "PathingEntity"
-    name: "anInt892"
+    name: "turnLeftSeq"
   client!x.s Ljava/lang/String;:
     owner: "PathingEntity"
-    name: "aString28"
+    name: "spoken"
   client!x.t I:
     owner: "PathingEntity"
-    name: "anInt893"
+    name: "textCycle"
   client!x.u I:
     owner: "PathingEntity"
-    name: "anInt894"
+    name: "spokenColor"
   client!x.v I:
     owner: "PathingEntity"
-    name: "anInt895"
+    name: "spokenEffect"
   client!x.w I:
     owner: "PathingEntity"
-    name: "anInt896"
+    name: "damageTaken"
   client!x.x I:
     owner: "PathingEntity"
-    name: "anInt897"
+    name: "damageType"
   client!x.y I:
     owner: "PathingEntity"
-    name: "anInt898"
+    name: "lastCombatCycle"
   client!x.z I:
     owner: "PathingEntity"
-    name: "anInt899"
+    name: "currentHealth"
   client!xb.a I:
     owner: "SoundEnvelope"
     name: "length"
@@ -4534,7 +4534,7 @@ fields:
     name: "flowObfuscator1"
   client!y.hb Z:
     owner: "NpcEntity"
-    name: "flowObufscator2"
+    name: "flowObfuscator2"
   client!y.ib Lclient!bc;:
     owner: "NpcEntity"
     name: "info"
@@ -4567,73 +4567,73 @@ fields:
     name: "loopEnd"
   client!z.Ab I:
     owner: "PlayerEntity"
-    name: "anInt942"
+    name: "maxTileZ"
   client!z.Bb Z:
     owner: "PlayerEntity"
-    name: "aBoolean163"
+    name: "lowMemory"
   client!z.Cb Lclient!s;:
     owner: "PlayerEntity"
-    name: "aCache_9"
+    name: "models"
   client!z.gb I:
     owner: "PlayerEntity"
-    name: "anInt929"
+    name: "flowObfuscator1"
   client!z.hb Z:
     owner: "PlayerEntity"
-    name: "aBoolean161"
+    name: "flowObfuscator2"
   client!z.ib Ljava/lang/String;:
     owner: "PlayerEntity"
-    name: "aString29"
+    name: "name"
   client!z.jb Z:
     owner: "PlayerEntity"
-    name: "aBoolean162"
+    name: "visible"
   client!z.kb I:
     owner: "PlayerEntity"
-    name: "anInt930"
+    name: "gender"
   client!z.lb I:
     owner: "PlayerEntity"
-    name: "anInt931"
+    name: "headicons"
   client!z.mb [I:
     owner: "PlayerEntity"
-    name: "anIntArray234"
+    name: "appearanceIndices"
   client!z.nb [I:
     owner: "PlayerEntity"
-    name: "anIntArray235"
+    name: "appearanceColors"
   client!z.ob I:
     owner: "PlayerEntity"
-    name: "anInt932"
+    name: "combatLevel"
   client!z.pb J:
     owner: "PlayerEntity"
-    name: "aLong27"
+    name: "uid"
   client!z.qb I:
     owner: "PlayerEntity"
-    name: "anInt933"
+    name: "plane"
   client!z.rb I:
     owner: "PlayerEntity"
-    name: "anInt934"
+    name: "firstCycle"
   client!z.sb I:
     owner: "PlayerEntity"
-    name: "anInt935"
+    name: "lastCycle"
   client!z.tb I:
     owner: "PlayerEntity"
-    name: "anInt936"
+    name: "sceneX"
   client!z.ub I:
     owner: "PlayerEntity"
-    name: "anInt937"
+    name: "sceneY"
   client!z.vb I:
     owner: "PlayerEntity"
-    name: "anInt938"
+    name: "sceneZ"
   client!z.wb Lclient!eb;:
     owner: "PlayerEntity"
-    name: "aModel_11"
+    name: "model"
   client!z.xb I:
     owner: "PlayerEntity"
-    name: "anInt939"
+    name: "minTileX"
   client!z.yb I:
     owner: "PlayerEntity"
-    name: "anInt940"
+    name: "minTileZ"
   client!z.zb I:
     owner: "PlayerEntity"
-    name: "anInt941"
+    name: "maxTileX"
   client!zb.a I:
     owner: "SoundTone"
     name: "flowObfuscator1"
@@ -4725,8 +4725,8 @@ methods:
     name: "shutdown"
     arguments: {}
     locals:
-      21: "local21"
-      25: "local25"
+      21: "ignored"
+      25: "ignored"
   client!a.a (II)V:
     owner: "GameShell"
     name: "setLoopRate"
@@ -4746,35 +4746,35 @@ methods:
     owner: "GameShell"
     name: "startThread"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "runnable"
+      1: "priority"
     locals:
-      4: "local4"
+      4: "thread"
   client!a.a (Z)I:
     owner: "GameShell"
     name: "pollKey"
     arguments: {}
     locals:
-      1: "local1"
+      1: "key"
   client!a.a (ZLjava/lang/String;I)V:
     owner: "GameShell"
     name: "showProgress"
     arguments:
-      1: "arg0"
-      2: "arg1"
+      1: "str"
+      2: "progress"
     locals:
-      22: "local22"
-      26: "local26"
-      37: "local37"
-      44: "local44"
-      51: "local51"
-      84: "local84"
-      91: "local91"
+      22: "ignored"
+      26: "ignored"
+      37: "bold"
+      44: "boldMetrics"
+      51: "plain"
+      84: "color"
+      91: "y"
   client!a.b (B)Ljava/awt/Component;:
     owner: "GameShell"
     name: "getBaseComponent"
     arguments:
-      0: "arg0"
+      0: "obfuscator"
     locals: {}
   client!a.b (I)V:
     owner: "GameShell"
@@ -4801,83 +4801,83 @@ methods:
     owner: "GameShell"
     name: "focusGained"
     arguments:
-      0: "arg0"
+      0: "e"
     locals: {}
   client!a.focusLost (Ljava/awt/event/FocusEvent;)V:
     owner: "GameShell"
     name: "focusLost"
     arguments:
-      0: "arg0"
+      0: "e"
     locals: {}
   client!a.keyPressed (Ljava/awt/event/KeyEvent;)V:
     owner: "GameShell"
     name: "keyPressed"
     arguments:
-      0: "arg0"
+      0: "e"
     locals:
-      7: "local7"
-      10: "local10"
+      7: "key"
+      10: "c"
   client!a.keyReleased (Ljava/awt/event/KeyEvent;)V:
     owner: "GameShell"
     name: "keyReleased"
     arguments:
-      0: "arg0"
+      0: "e"
     locals:
-      5: "local5"
-      8: "local8"
+      5: "key"
+      8: "c"
   client!a.keyTyped (Ljava/awt/event/KeyEvent;)V:
     owner: "GameShell"
     name: "keyTyped"
     arguments:
-      0: "arg0"
+      0: "e"
     locals: {}
   client!a.mouseClicked (Ljava/awt/event/MouseEvent;)V:
     owner: "GameShell"
     name: "mouseClicked"
     arguments:
-      0: "arg0"
+      0: "e"
     locals: {}
   client!a.mouseDragged (Ljava/awt/event/MouseEvent;)V:
     owner: "GameShell"
     name: "mouseDragged"
     arguments:
-      0: "arg0"
+      0: "e"
     locals:
-      2: "local2"
-      5: "local5"
+      2: "x"
+      5: "y"
   client!a.mouseEntered (Ljava/awt/event/MouseEvent;)V:
     owner: "GameShell"
     name: "mouseEntered"
     arguments:
-      0: "arg0"
+      0: "e"
     locals: {}
   client!a.mouseExited (Ljava/awt/event/MouseEvent;)V:
     owner: "GameShell"
     name: "mouseExited"
     arguments:
-      0: "arg0"
+      0: "e"
     locals: {}
   client!a.mouseMoved (Ljava/awt/event/MouseEvent;)V:
     owner: "GameShell"
     name: "mouseMoved"
     arguments:
-      0: "arg0"
+      0: "e"
     locals:
-      2: "local2"
-      5: "local5"
+      2: "x"
+      5: "y"
   client!a.mousePressed (Ljava/awt/event/MouseEvent;)V:
     owner: "GameShell"
     name: "mousePressed"
     arguments:
-      0: "arg0"
+      0: "e"
     locals:
-      2: "local2"
-      5: "local5"
+      2: "x"
+      5: "y"
   client!a.mouseReleased (Ljava/awt/event/MouseEvent;)V:
     owner: "GameShell"
     name: "mouseReleased"
     arguments:
-      0: "arg0"
+      0: "e"
     locals: {}
   client!a.paint (Ljava/awt/Graphics;)V:
     owner: "GameShell"
@@ -4890,16 +4890,16 @@ methods:
     name: "run"
     arguments: {}
     locals:
-      41: "local41"
-      43: "local43"
-      45: "local45"
-      47: "local47"
-      49: "local49"
-      62: "local62"
-      82: "local82"
-      84: "local84"
-      164: "local164"
-      198: "local198"
+      41: "opos"
+      43: "ratio"
+      45: "delta"
+      47: "count"
+      49: "i"
+      62: "ntime"
+      82: "lastRatio"
+      84: "lastDelta"
+      164: "i"
+      198: "ignored"
   client!a.start ()V:
     owner: "GameShell"
     name: "start"
@@ -4914,49 +4914,49 @@ methods:
     owner: "GameShell"
     name: "update"
     arguments:
-      0: "arg0"
+      0: "g"
     locals: {}
   client!a.windowActivated (Ljava/awt/event/WindowEvent;)V:
     owner: "GameShell"
     name: "windowActivated"
     arguments:
-      0: "arg0"
+      0: "e"
     locals: {}
   client!a.windowClosed (Ljava/awt/event/WindowEvent;)V:
     owner: "GameShell"
     name: "windowClosed"
     arguments:
-      0: "arg0"
+      0: "e"
     locals: {}
   client!a.windowClosing (Ljava/awt/event/WindowEvent;)V:
     owner: "GameShell"
     name: "windowClosing"
     arguments:
-      0: "arg0"
+      0: "e"
     locals: {}
   client!a.windowDeactivated (Ljava/awt/event/WindowEvent;)V:
     owner: "GameShell"
     name: "windowDeactivated"
     arguments:
-      0: "arg0"
+      0: "e"
     locals: {}
   client!a.windowDeiconified (Ljava/awt/event/WindowEvent;)V:
     owner: "GameShell"
     name: "windowDeiconified"
     arguments:
-      0: "arg0"
+      0: "e"
     locals: {}
   client!a.windowIconified (Ljava/awt/event/WindowEvent;)V:
     owner: "GameShell"
     name: "windowIconified"
     arguments:
-      0: "arg0"
+      0: "e"
     locals: {}
   client!a.windowOpened (Ljava/awt/event/WindowEvent;)V:
     owner: "GameShell"
     name: "windowOpened"
     arguments:
-      0: "arg0"
+      0: "e"
     locals: {}
   client!ab.<init> (IIIIIIIIIIII)V:
     owner: "ProjectileEntity"
@@ -5014,54 +5014,54 @@ methods:
     owner: "LocType"
     name: "get"
     arguments:
-      0: "arg0"
+      0: "id"
     locals:
-      1: "local1"
-      27: "local27"
+      1: "i"
+      27: "type"
   client!ac.a (IIIIIII)Lclient!eb;:
     owner: "LocType"
     name: "getModel"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      3: "arg3"
-      4: "arg4"
-      5: "arg5"
-      6: "arg6"
+      0: "type"
+      1: "orientation"
+      2: "southwestY"
+      3: "southeastY"
+      4: "northwestY"
+      5: "northeastY"
+      6: "seqFrame"
     locals:
-      3: "local3"
-      5: "local5"
-      47: "local47"
-      56: "local56"
-      91: "local91"
-      93: "local93"
-      100: "local100"
-      105: "local105"
-      117: "local117"
-      129: "local129"
-      141: "local141"
-      188: "local188"
-      200: "local200"
-      235: "local235"
-      250: "local250"
-      284: "local284"
-      417: "local417"
-      424: "local424"
-      429: "local429"
-      441: "local441"
-      453: "local453"
-      465: "local465"
+      3: "modelType"
+      5: "i"
+      47: "key"
+      56: "m"
+      91: "modelIndex"
+      93: "v"
+      100: "x"
+      105: "z"
+      117: "averageY1"
+      129: "averageY2"
+      141: "n"
+      188: "flipBackwards"
+      200: "m2"
+      235: "rescale"
+      250: "move"
+      284: "m3"
+      417: "v"
+      424: "x"
+      429: "z"
+      441: "averageY1"
+      453: "averageY2"
+      465: "average"
   client!ac.a (Lclient!ub;)V:
     owner: "LocType"
     name: "decode"
     arguments:
-      0: "arg0"
+      0: "archive"
     locals:
-      21: "local21"
-      29: "local29"
-      31: "local31"
-      51: "local51"
+      21: "idx"
+      29: "offset"
+      31: "i"
+      51: "i"
   client!ac.a (Z)V:
     owner: "LocType"
     name: "unload"
@@ -5071,12 +5071,12 @@ methods:
     owner: "LocType"
     name: "decode"
     arguments:
-      1: "arg0"
+      1: "buffer"
     locals:
-      12: "local12"
-      15: "local15"
-      23: "local23"
-      33: "local33"
+      12: "interactive"
+      15: "opcode"
+      23: "count"
+      33: "i"
   client!b.<init> (IILclient!a;I)V:
     owner: "GameFrame"
     name: "<init>"
@@ -5113,7 +5113,7 @@ methods:
       2: "obfuscator"
       3: "z"
       4: "duration"
-      5: "arg5"
+      5: "y"
       6: "level"
       7: "startCycle"
     locals: {}
@@ -5139,10 +5139,10 @@ methods:
     owner: "NpcType"
     name: "get"
     arguments:
-      0: "arg0"
+      0: "id"
     locals:
-      1: "local1"
-      33: "local33"
+      1: "i"
+      33: "type"
   client!bc.a (II[I)Lclient!eb;:
     owner: "NpcType"
     name: "getModel"
@@ -5162,10 +5162,10 @@ methods:
     arguments:
       0: "arg0"
     locals:
-      21: "local21"
-      29: "local29"
-      31: "local31"
-      51: "local51"
+      21: "idx"
+      29: "offset"
+      31: "i"
+      51: "i"
   client!bc.a (Z)V:
     owner: "NpcType"
     name: "unload"
@@ -5175,11 +5175,11 @@ methods:
     owner: "NpcType"
     name: "decode"
     arguments:
-      1: "arg0"
+      1: "buffer"
     locals:
-      10: "local10"
-      19: "local19"
-      25: "local25"
+      10: "opcode"
+      19: "count"
+      25: "i"
   client!bc.b (Z)Lclient!eb;:
     owner: "NpcType"
     name: "getHeadModel"
@@ -5197,7 +5197,7 @@ methods:
       1: "arg1"
       2: "arg2"
       3: "arg3"
-      4: "arg4"
+      4: "obfuscator"
     locals: {}
   client!c.a (IBII)I:
     owner: "SceneGraph"
@@ -5543,12 +5543,12 @@ methods:
     owner: "ObjType"
     name: "decode"
     arguments:
-      0: "arg0"
+      0: "archive"
     locals:
-      21: "local21"
-      29: "local29"
-      31: "local31"
-      51: "local51"
+      21: "idx"
+      29: "offset"
+      31: "i"
+      51: "i"
   client!cc.a (Z)V:
     owner: "ObjType"
     name: "unload"
@@ -5558,11 +5558,11 @@ methods:
     owner: "ObjType"
     name: "decode"
     arguments:
-      1: "arg0"
+      1: "buffer"
     locals:
-      10: "local10"
-      260: "local260"
-      270: "local270"
+      10: "opcode"
+      260: "count"
+      270: "i"
   client!cc.b (I)V:
     owner: "ObjType"
     name: "toCertificate"
@@ -6232,8 +6232,8 @@ methods:
     owner: "client"
     name: "startThread"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "runnable"
+      1: "priority"
     locals: {}
   client!client.a (Ljava/lang/String;)Ljava/io/DataInputStream;:
     owner: "client"
@@ -6375,8 +6375,8 @@ methods:
     owner: "client"
     name: "showProgress"
     arguments:
-      1: "arg0"
-      2: "arg1"
+      1: "str"
+      2: "progress"
     locals: {}
   client!client.a ([BII)Z:
     owner: "client"
@@ -6397,7 +6397,7 @@ methods:
     owner: "client"
     name: "getBaseComponent"
     arguments:
-      0: "arg0"
+      0: "obfuscator"
     locals: {}
   client!client.b (I)V:
     owner: "client"
@@ -7467,7 +7467,7 @@ methods:
     owner: "Model"
     name: "<init>"
     arguments:
-      0: "arg0"
+      0: "obfuscator"
       1: "arg1"
       2: "arg2"
     locals:
@@ -7477,7 +7477,7 @@ methods:
     owner: "Model"
     name: "<init>"
     arguments:
-      0: "arg0"
+      0: "obfuscator"
       1: "arg1"
       2: "arg2"
     locals:
@@ -7496,7 +7496,7 @@ methods:
     name: "<init>"
     arguments:
       0: "arg0"
-      1: "arg1"
+      1: "obfuscator"
       2: "arg2"
       3: "arg3"
     locals:
@@ -7511,7 +7511,7 @@ methods:
       0: "arg0"
       1: "arg1"
       2: "arg2"
-      3: "arg3"
+      3: "obfuscator"
       4: "arg4"
     locals:
       66: "local66"
@@ -7519,10 +7519,10 @@ methods:
     owner: "Model"
     name: "<init>"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "obfuscator"
+      1: "id"
     locals:
-      28: "local28"
+      28: "meta"
       175: "local175"
       177: "local177"
       179: "local179"
@@ -7540,9 +7540,9 @@ methods:
     name: "<init>"
     arguments:
       0: "arg0"
-      1: "arg1"
+      1: "obfuscator1"
       2: "arg2"
-      3: "arg3"
+      3: "obfuscator2"
     locals:
       23: "local23"
       25: "local25"
@@ -7560,7 +7560,7 @@ methods:
     owner: "Model"
     name: "calculateBoundaries"
     arguments:
-      0: "arg0"
+      0: "obfuscator"
     locals:
       27: "local27"
       34: "local34"
@@ -7601,9 +7601,9 @@ methods:
     owner: "Model"
     name: "adjustHslLightness"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
+      0: "hsl"
+      1: "lightness"
+      2: "type"
     locals: {}
   client!eb.a (IIII)V:
     owner: "Model"
@@ -7640,82 +7640,82 @@ methods:
     owner: "Model"
     name: "draw"
     arguments:
-      1: "arg0"
-      2: "arg1"
-      3: "arg2"
-      4: "arg3"
-      5: "arg4"
-      6: "arg5"
+      1: "yaw"
+      2: "roll"
+      3: "cameraPitch"
+      4: "cameraX"
+      5: "cameraY"
+      6: "cameraZ"
     locals:
-      1: "local1"
-      3: "local3"
-      7: "local7"
-      11: "local11"
-      15: "local15"
-      19: "local19"
-      23: "local23"
-      27: "local27"
-      31: "local31"
-      35: "local35"
-      45: "local45"
-      47: "local47"
-      54: "local54"
-      59: "local59"
-      64: "local64"
-      76: "local76"
-      223: "local223"
+      1: "centerX"
+      3: "centerY"
+      7: "pitchsin"
+      11: "pitchcos"
+      15: "yawsin"
+      19: "yawcos"
+      23: "rollsin"
+      27: "rollcos"
+      31: "cpitchsin"
+      35: "cpitchcos"
+      45: "depth"
+      47: "v"
+      54: "x"
+      59: "y"
+      64: "z"
+      76: "z0"
+      223: "ignored"
   client!eb.a (IIIIIIII)Z:
     owner: "Model"
     name: "pointWithinTriangle"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      3: "arg3"
-      4: "arg4"
-      5: "arg5"
-      6: "arg6"
-      7: "arg7"
+      0: "x"
+      1: "y"
+      2: "yA"
+      3: "yB"
+      4: "yC"
+      5: "xA"
+      6: "xB"
+      7: "xC"
     locals: {}
   client!eb.a (IIIIIIIII)V:
     owner: "Model"
     name: "draw"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      3: "arg3"
-      4: "arg4"
-      5: "arg5"
-      6: "arg6"
-      7: "arg7"
-      8: "arg8"
+      0: "yaw"
+      1: "sinCameraPitch"
+      2: "cosCameraPitch"
+      3: "sinCameraYaw"
+      4: "cosCameraYaw"
+      5: "sceneX"
+      6: "sceneY"
+      7: "sceneZ"
+      8: "key"
     locals:
-      11: "local11"
-      21: "local21"
-      28: "local28"
-      32: "local32"
-      49: "local49"
-      56: "local56"
-      69: "local69"
-      86: "local86"
-      93: "local93"
-      99: "local99"
-      115: "local115"
-      121: "local121"
-      136: "local136"
-      138: "local138"
-      147: "local147"
-      155: "local155"
-      204: "local204"
-      208: "local208"
-      243: "local243"
-      255: "local255"
-      262: "local262"
-      267: "local267"
-      272: "local272"
-      284: "local284"
-      418: "local418"
+      11: "a"
+      21: "b"
+      28: "c"
+      32: "d"
+      49: "e"
+      56: "minScreenX"
+      69: "maxScreenX"
+      86: "f"
+      93: "g"
+      99: "maxScreenY"
+      115: "h"
+      121: "minScreenY"
+      136: "i"
+      138: "project"
+      147: "hasInput"
+      155: "cx"
+      204: "cy"
+      208: "yawsin"
+      243: "yawcos"
+      255: "v"
+      262: "x"
+      267: "y"
+      272: "z"
+      284: "w"
+      418: "ignored"
   client!eb.a (IIIIIZ)V:
     owner: "Model"
     name: "applyLighting"
@@ -7770,10 +7770,10 @@ methods:
     owner: "Model"
     name: "decode"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "obfuscator"
+      1: "archive"
     locals:
-      172: "local172"
+      172: "count"
       179: "local179"
       181: "local181"
       183: "local183"
@@ -7781,9 +7781,9 @@ methods:
       187: "local187"
       189: "local189"
       191: "local191"
-      193: "local193"
-      198: "local198"
-      206: "local206"
+      193: "n"
+      198: "index"
+      206: "meta"
       245: "local245"
       248: "local248"
       251: "local251"
@@ -7792,7 +7792,7 @@ methods:
       259: "local259"
       264: "local264"
       297: "local297"
-      421: "local421"
+      421: "ex"
   client!eb.a (I[IIII)V:
     owner: "Model"
     name: "transform"
@@ -7838,33 +7838,33 @@ methods:
     owner: "Model"
     name: "draw"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
+      0: "projected"
+      1: "hasInput"
+      2: "bitset"
     locals:
-      3: "local3"
-      16: "local16"
-      32: "local32"
-      37: "local37"
-      42: "local42"
-      46: "local46"
-      50: "local50"
-      54: "local54"
-      86: "local86"
-      238: "local238"
-      288: "local288"
-      310: "local310"
-      436: "local436"
-      438: "local438"
-      466: "local466"
-      604: "local604"
-      608: "local608"
-      610: "local610"
+      3: "i"
+      16: "j"
+      32: "i"
+      37: "d"
+      42: "minPriority"
+      46: "halfPriority"
+      50: "maxPriority"
+      54: "pri"
+      86: "t"
+      238: "triangles"
+      288: "triangles"
+      310: "priorityTriangleCount"
+      436: "triangles"
+      438: "priorities"
+      466: "p"
+      604: "n"
+      608: "tris"
+      610: "m"
   client!eb.b (I)V:
     owner: "Model"
     name: "calculateYBoundaries2"
     arguments:
-      0: "arg0"
+      0: "obfuscator"
     locals:
       8: "local8"
       25: "local25"
@@ -7916,192 +7916,192 @@ methods:
     owner: "Model"
     name: "drawTriangle"
     arguments:
-      0: "arg0"
+      0: "index"
     locals:
-      14: "local14"
-      19: "local19"
-      24: "local24"
-      45: "local45"
-      127: "local127"
-      132: "local132"
-      137: "local137"
-      142: "local142"
+      14: "a"
+      19: "b"
+      24: "c"
+      45: "type"
+      127: "t"
+      132: "tA"
+      137: "tB"
+      142: "tC"
   client!eb.g (I)V:
     owner: "Model"
     name: "drawProjectedTriangle"
     arguments:
-      0: "arg0"
+      0: "index"
     locals:
-      3: "local3"
-      5: "local5"
-      7: "local7"
-      12: "local12"
-      17: "local17"
-      22: "local22"
-      26: "local26"
-      30: "local30"
-      34: "local34"
-      63: "local63"
-      67: "local67"
-      72: "local72"
-      85: "local85"
-      582: "local582"
-      586: "local586"
-      629: "local629"
-      686: "local686"
-      691: "local691"
-      696: "local696"
-      701: "local701"
+      3: "centerX"
+      5: "centerY"
+      7: "n"
+      12: "a"
+      17: "b"
+      22: "c"
+      26: "zA"
+      30: "zB"
+      34: "zC"
+      63: "xA"
+      67: "xB"
+      72: "xC"
+      85: "yA"
+      582: "yB"
+      586: "yC"
+      629: "type"
+      686: "t"
+      691: "tA"
+      696: "tB"
+      701: "tC"
   client!ec.<init> (III)V:
     owner: "CollisionMap"
     name: "<init>"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
+      0: "x"
+      1: "obfuscator"
+      2: "z"
     locals: {}
   client!ec.a (B)V:
     owner: "CollisionMap"
     name: "reset"
     arguments: {}
     locals:
-      3: "local3"
-      7: "local7"
+      3: "x"
+      7: "z"
   client!ec.a (BII)V:
     owner: "CollisionMap"
     name: "setBlocoked"
     arguments:
-      1: "arg0"
-      2: "arg1"
+      1: "zOffset"
+      2: "xOffset"
     locals:
-      9: "local9"
-      14: "local14"
+      9: "x"
+      14: "z"
   client!ec.a (IBII)V:
     owner: "CollisionMap"
     name: "remove"
     arguments:
-      0: "arg0"
-      2: "arg1"
-      3: "arg2"
+      0: "z"
+      2: "x"
+      3: "flag"
     locals: {}
   client!ec.a (III)V:
     owner: "CollisionMap"
     name: "add"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
+      0: "x"
+      1: "z"
+      2: "flag"
     locals: {}
   client!ec.a (IIIIIII)Z:
     owner: "CollisionMap"
     name: "reachedWall"
     arguments:
-      1: "arg0"
-      2: "arg1"
-      3: "arg2"
-      4: "arg3"
-      5: "arg4"
-      6: "arg5"
+      1: "orientation"
+      2: "finalZOffset"
+      3: "type"
+      4: "initialZOffset"
+      5: "finalXOffset"
+      6: "initialXOffset"
     locals:
-      12: "local12"
-      17: "local17"
-      29: "local29"
-      34: "local34"
+      12: "initialX"
+      17: "initialZ"
+      29: "finalX"
+      34: "finalZ"
   client!ec.a (IIIIIIII)Z:
     owner: "CollisionMap"
     name: "reachedObject"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      3: "arg3"
-      4: "arg4"
-      5: "arg5"
-      6: "arg6"
+      0: "z"
+      1: "height"
+      2: "x"
+      3: "finalX"
+      4: "surroundings"
+      5: "finalZ"
+      6: "width"
     locals:
-      5: "local5"
-      11: "local11"
+      5: "maxX"
+      11: "maxZ"
   client!ec.a (IIIIIIZ)V:
     owner: "CollisionMap"
     name: "setLoc"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      3: "arg3"
-      5: "arg4"
-      6: "arg5"
+      0: "orientation"
+      1: "sizeZ"
+      2: "sizeX"
+      3: "xOffset"
+      5: "zOffset"
+      6: "solid"
     locals:
-      3: "local3"
-      14: "local14"
-      19: "local19"
-      27: "local27"
-      43: "local43"
+      3: "flag"
+      14: "initialX"
+      19: "initialZ"
+      27: "temp"
+      43: "y"
   client!ec.a (IIIIZZI)V:
     owner: "CollisionMap"
     name: "removeLoc"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      3: "arg3"
-      5: "arg4"
-      6: "arg5"
+      0: "zOffset"
+      1: "xOffset"
+      2: "orientation"
+      3: "sizeX"
+      5: "solid"
+      6: "sizeZ"
     locals:
-      3: "local3"
-      14: "local14"
-      19: "local19"
-      32: "local32"
-      48: "local48"
+      3: "flag"
+      14: "startX"
+      19: "startZ"
+      32: "temp"
+      48: "z"
   client!ec.a (ZIIIII)V:
     owner: "CollisionMap"
     name: "removeWall"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      3: "arg3"
-      5: "arg4"
+      0: "blocks"
+      1: "orientation"
+      2: "xOffset"
+      3: "zOffset"
+      5: "type"
     locals:
-      8: "local8"
-      13: "local13"
+      8: "x"
+      13: "z"
   client!ec.a (ZIIIZI)V:
     owner: "CollisionMap"
     name: "setWall"
     arguments:
-      1: "arg0"
-      2: "arg1"
-      3: "arg2"
-      4: "arg3"
-      5: "arg4"
+      1: "orientation"
+      2: "zOffset"
+      3: "xOffset"
+      4: "blocks"
+      5: "type"
     locals:
-      4: "local4"
-      19: "local19"
+      4: "x"
+      19: "z"
   client!ec.b (III)V:
     owner: "CollisionMap"
     name: "removeBlock"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "zOffset"
+      1: "xOffset"
     locals:
-      7: "local7"
-      12: "local12"
+      7: "x"
+      12: "z"
   client!ec.b (IIIIIII)Z:
     owner: "CollisionMap"
     name: "reachedDecoration"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      3: "arg3"
-      4: "arg4"
-      5: "arg5"
-      6: "arg6"
+      0: "orientation"
+      1: "type"
+      2: "obfuscator"
+      3: "initialXOffset"
+      4: "finalXOffset"
+      5: "initialZOffset"
+      6: "finalZOffset"
     locals:
-      19: "local19"
-      24: "local24"
-      29: "local29"
-      34: "local34"
+      19: "initialX"
+      24: "initialZ"
+      29: "finalX"
+      34: "finalZ"
   client!f.<init> ()V:
     owner: "SeqBase"
     name: "<init>"
@@ -8140,74 +8140,74 @@ methods:
     owner: "Draw2D"
     name: "fillRect"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      4: "arg3"
-      5: "arg4"
+      0: "y"
+      1: "x"
+      2: "rgb"
+      4: "w"
+      5: "h"
     locals:
-      50: "local50"
-      56: "local56"
-      59: "local59"
-      64: "local64"
+      50: "off"
+      56: "pixel"
+      59: "col"
+      64: "row"
   client!fb.a (IIIII)V:
     owner: "Draw2D"
     name: "setBounds"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      4: "arg3"
+      0: "y1"
+      1: "y0"
+      2: "x1"
+      4: "x0"
     locals: {}
   client!fb.a (IIIIII)V:
     owner: "Draw2D"
     name: "drawRect"
     arguments:
-      1: "arg0"
-      2: "arg1"
-      3: "arg2"
-      4: "arg3"
-      5: "arg4"
+      1: "x"
+      2: "rgb"
+      3: "h"
+      4: "y"
+      5: "w"
     locals: {}
   client!fb.a (I[III)V:
     owner: "Draw2D"
     name: "prepare"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      3: "arg2"
+      0: "width"
+      1: "data"
+      3: "height"
     locals: {}
   client!fb.b (I)V:
     owner: "Draw2D"
     name: "clear"
     arguments:
-      0: "arg0"
+      0: "obfuscator"
     locals:
-      7: "local7"
-      9: "local9"
+      7: "length"
+      9: "i"
   client!fb.b (IIIII)V:
     owner: "Draw2D"
     name: "drawHorizontalLine"
     arguments:
-      0: "arg0"
-      2: "arg1"
-      3: "arg2"
-      4: "arg3"
+      0: "rgb"
+      2: "y"
+      3: "len"
+      4: "x"
     locals:
-      32: "local32"
-      37: "local37"
+      32: "off"
+      37: "w"
   client!fb.c (IIIII)V:
     owner: "Draw2D"
     name: "drawVerticalLine"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      3: "arg3"
-      4: "arg4"
+      0: "rgb"
+      1: "obfuscator"
+      2: "y"
+      3: "len"
+      4: "x"
     locals:
-      32: "local32"
-      38: "local38"
+      32: "off"
+      38: "v"
   client!fc.<init> ()V:
     owner: "FloType"
     name: "<init>"
@@ -8244,17 +8244,17 @@ methods:
     owner: "FloType"
     name: "decode"
     arguments:
-      0: "arg0"
+      0: "archive"
     locals:
-      9: "local9"
-      23: "local23"
+      9: "buffer"
+      23: "i"
   client!fc.a (ZLclient!kb;)V:
     owner: "FloType"
     name: "decode"
     arguments:
-      1: "arg0"
+      1: "buffer"
     locals:
-      10: "local10"
+      10: "opcode"
   client!g.<init> ()V:
     owner: "SeqFrame"
     name: "<init>"
@@ -8295,7 +8295,7 @@ methods:
       1: "arg0"
     locals:
       9: "local9"
-      47: "local47"
+      47: "ignored"
   client!gb.a (ID)I:
     owner: "Draw3D"
     name: "powRgb"
@@ -8591,37 +8591,37 @@ methods:
     name: "getModel"
     arguments: {}
     locals:
-      11: "local11"
-      13: "local13"
-      40: "local40"
-      52: "local52"
+      11: "models"
+      13: "i"
+      40: "body"
+      52: "i"
   client!gc.a (Lclient!ub;I)V:
     owner: "IdkType"
     name: "decode"
     arguments:
-      0: "arg0"
+      0: "archive"
     locals:
-      9: "local9"
-      19: "local19"
+      9: "buffer"
+      19: "i"
   client!gc.a (Z)Lclient!eb;:
     owner: "IdkType"
     name: "getHeadModel"
     arguments: {}
     locals:
-      4: "local4"
-      6: "local6"
-      8: "local8"
-      39: "local39"
-      41: "local41"
+      4: "models"
+      6: "count"
+      8: "i"
+      39: "head"
+      41: "i"
   client!gc.a (ZLclient!kb;)V:
     owner: "IdkType"
     name: "decode"
     arguments:
-      1: "arg0"
+      1: "buffer"
     locals:
-      8: "local8"
-      26: "local26"
-      32: "local32"
+      8: "opcode"
+      26: "count"
+      32: "i"
   client!hb.<init> (II)V:
     owner: "Sprite"
     name: "<init>"
@@ -8913,15 +8913,15 @@ methods:
     owner: "InterfaceComponent"
     name: "decode"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      3: "arg2"
+      0: "media"
+      1: "fonts"
+      3: "interfaces"
     locals:
-      27: "local27"
+      27: "buffer"
       29: "local29"
       32: "local32"
       45: "local45"
-      62: "local62"
+      62: "c"
       114: "local114"
       126: "local126"
       155: "local155"
@@ -8944,7 +8944,7 @@ methods:
       7: "arg7"
       8: "arg8"
       9: "arg9"
-      10: "arg10"
+      10: "obfuscator"
       11: "arg11"
       12: "arg12"
       13: "arg13"
@@ -8983,8 +8983,8 @@ methods:
       1: "arg1"
       2: "arg2"
     locals:
-      32: "local32"
-      42: "local42"
+      32: "dat"
+      42: "idx"
       57: "local57"
       63: "local63"
       81: "local81"
@@ -9031,7 +9031,7 @@ methods:
     owner: "IndexedSprite"
     name: "shrink"
     arguments:
-      0: "arg0"
+      0: "obfuscator"
     locals:
       20: "local20"
       22: "local22"
@@ -9080,13 +9080,13 @@ methods:
     owner: "IndexedFont"
     name: "<init>"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
+      0: "archive"
+      1: "name"
+      2: "obfuscator"
     locals:
-      71: "local71"
-      81: "local81"
-      90: "local90"
+      71: "dat"
+      81: "idx"
+      90: "off"
       104: "local104"
       131: "local131"
       139: "local139"
@@ -9513,19 +9513,19 @@ methods:
     owner: "VarpType"
     name: "decode"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
+      0: "obfuscator"
+      1: "id"
+      2: "buffer"
     locals:
-      8: "local8"
+      8: "opcode"
   client!lc.a (Lclient!ub;I)V:
     owner: "VarpType"
     name: "decode"
     arguments:
-      0: "arg0"
+      0: "archive"
     locals:
-      9: "local9"
-      30: "local30"
+      9: "buffer"
+      30: "i"
   client!mb.<init> (IIIIIIIII)V:
     owner: "TemporaryLoc"
     name: "<init>"
@@ -9703,10 +9703,10 @@ methods:
     owner: "WordPack"
     name: "decode"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
-      3: "arg3"
+      0: "fragments"
+      1: "bad"
+      2: "domain"
+      3: "tld"
     locals: {}
   client!mc.a (Lclient!ub;)V:
     owner: "WordPack"
@@ -9714,10 +9714,10 @@ methods:
     arguments:
       0: "arg0"
     locals:
-      11: "local11"
-      21: "local21"
-      31: "local31"
-      41: "local41"
+      11: "fragments"
+      21: "bad"
+      31: "domain"
+      41: "tld"
   client!mc.a (Ljava/lang/String;I)Ljava/lang/String;:
     owner: "WordPack"
     name: "getFiltered"
@@ -9941,14 +9941,14 @@ methods:
     owner: "LocEntity"
     name: "<init>"
     arguments:
-      0: "arg0"
-      1: "arg1"
-      2: "arg2"
+      0: "animated"
+      1: "locIndex"
+      2: "level"
       3: "arg3"
-      4: "arg4"
-      5: "arg5"
-      6: "arg6"
-      7: "arg7"
+      4: "classType"
+      5: "seq"
+      6: "z"
+      7: "x"
     locals: {}
   client!o.<init> (IIIIIIZ)V:
     owner: "TileUnderlay"
@@ -10020,7 +10020,7 @@ methods:
     owner: "Stack"
     name: "<init>"
     arguments:
-      0: "arg0"
+      0: "obfuscator"
     locals: {}
   client!pb.a ()Lclient!db;:
     owner: "Stack"
@@ -10106,7 +10106,7 @@ methods:
     owner: "MapSquare"
     name: "<init>"
     arguments:
-      0: "arg0"
+      0: "obfuscator"
       1: "arg1"
       2: "arg2"
       3: "arg3"
@@ -10681,7 +10681,7 @@ methods:
     name: "init"
     arguments:
       0: "arg0"
-      3: "arg1"
+      3: "obfuscator"
     locals:
       28: "local28"
       30: "local30"
@@ -11288,34 +11288,34 @@ methods:
     owner: "FileArchive"
     name: "<init>"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "src"
+      1: "obfuscator"
     locals:
-      17: "local17"
+      17: "i"
   client!ub.a (Ljava/lang/String;[BB)[B:
     owner: "FileArchive"
     name: "read"
     arguments:
-      0: "arg0"
-      1: "arg1"
+      0: "name"
+      1: "dest"
     locals:
-      3: "local3"
-      6: "local6"
-      8: "local8"
-      27: "local27"
-      67: "local67"
+      3: "hash"
+      6: "upperName"
+      8: "i"
+      27: "i"
+      67: "j"
   client!ub.a (Z[B)V:
     owner: "FileArchive"
     name: "parse"
     arguments:
-      1: "arg0"
+      1: "src"
     locals:
-      7: "local7"
-      10: "local10"
-      13: "local13"
-      19: "local19"
-      82: "local82"
-      84: "local84"
+      7: "buffer"
+      10: "unpackedSize"
+      13: "packedSize"
+      19: "data"
+      82: "offset"
+      84: "i"
   client!vb.a (II)Ljava/lang/String;:
     owner: "StringUtils"
     name: "fromIPv4"

@@ -5,108 +5,108 @@ import org.openrs2.deob.annotation.Pc;
 public final class WordPack {
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "Z")
-	private static boolean aBoolean136;
+	private static boolean flowObfuscator7;
 
 	@OriginalMember(owner = "client!mc", name = "d", descriptor = "I")
-	private static int anInt641;
+	private static int flowObfuscator8;
 
 	@OriginalMember(owner = "client!mc", name = "i", descriptor = "Z")
-	private static boolean aBoolean137;
+	private static boolean flowObfuscator9;
 
 	@OriginalMember(owner = "client!mc", name = "j", descriptor = "[I")
-	private static int[] anIntArray195;
+	private static int[] fragments;
 
 	@OriginalMember(owner = "client!mc", name = "k", descriptor = "[[C")
-	private static char[][] aCharArrayArray1;
+	private static char[][] bads;
 
 	@OriginalMember(owner = "client!mc", name = "l", descriptor = "[[[B")
-	private static byte[][][] aByteArrayArrayArray8;
+	private static byte[][][] badCombinations;
 
 	@OriginalMember(owner = "client!mc", name = "m", descriptor = "[[C")
-	private static char[][] aCharArrayArray2;
+	private static char[][] domains;
 
 	@OriginalMember(owner = "client!mc", name = "n", descriptor = "[[C")
-	private static char[][] aCharArrayArray3;
+	private static char[][] tlds;
 
 	@OriginalMember(owner = "client!mc", name = "o", descriptor = "[I")
-	private static int[] anIntArray196;
+	private static int[] tldTypes;
 
 	@OriginalMember(owner = "client!mc", name = "b", descriptor = "I")
-	private static final int anInt639 = 24882;
+	private static final int flowObfuscator1 = 24882;
 
 	@OriginalMember(owner = "client!mc", name = "c", descriptor = "I")
-	private static final int anInt640 = -178;
+	private static final int flowObfuscator2 = -178;
 
 	@OriginalMember(owner = "client!mc", name = "e", descriptor = "I")
-	private static final int anInt642 = 16180;
+	private static final int flowObfuscator3 = 16180;
 
 	@OriginalMember(owner = "client!mc", name = "f", descriptor = "I")
-	private static final int anInt643 = 383;
+	private static final int flowObfuscator4 = 383;
 
 	@OriginalMember(owner = "client!mc", name = "g", descriptor = "B")
-	private static final byte aByte31 = 6;
+	private static final byte flowObfuscator5 = 6;
 
 	@OriginalMember(owner = "client!mc", name = "h", descriptor = "I")
-	private static final int anInt644 = -81;
+	private static final int flowObfuscator6 = -81;
 
 	@OriginalMember(owner = "client!mc", name = "p", descriptor = "[Ljava/lang/String;")
-	private static final String[] aStringArray11 = new String[] { "cook", "cook's", "cooks", "seeks", "sheet" };
+	private static final String[] whitelist = new String[] { "cook", "cook's", "cooks", "seeks", "sheet" };
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(Lclient!ub;)V")
 	public static void decode(@OriginalArg(0) FileArchive arg0) {
-		@Pc(11) Buffer local11 = new Buffer(363, arg0.read("fragmentsenc.txt", null));
-		@Pc(21) Buffer local21 = new Buffer(363, arg0.read("badenc.txt", null));
-		@Pc(31) Buffer local31 = new Buffer(363, arg0.read("domainenc.txt", null));
-		@Pc(41) Buffer local41 = new Buffer(363, arg0.read("tldlist.txt", null));
-		decode(local11, local21, local31, local41);
+		@Pc(11) Buffer fragments = new Buffer(363, arg0.read("fragmentsenc.txt", null));
+		@Pc(21) Buffer bad = new Buffer(363, arg0.read("badenc.txt", null));
+		@Pc(31) Buffer domain = new Buffer(363, arg0.read("domainenc.txt", null));
+		@Pc(41) Buffer tld = new Buffer(363, arg0.read("tldlist.txt", null));
+		decode(fragments, bad, domain, tld);
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(Lclient!kb;Lclient!kb;Lclient!kb;Lclient!kb;)V")
-	private static void decode(@OriginalArg(0) Buffer arg0, @OriginalArg(1) Buffer arg1, @OriginalArg(2) Buffer arg2, @OriginalArg(3) Buffer arg3) {
-		readBad(arg1);
-		readDomain(arg2);
-		readFragments(arg0);
-		readTld(arg3);
+	private static void decode(@OriginalArg(0) Buffer fragments, @OriginalArg(1) Buffer bad, @OriginalArg(2) Buffer domain, @OriginalArg(3) Buffer tld) {
+		readBad(bad);
+		readDomain(domain);
+		readFragments(fragments);
+		readTld(tld);
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(ZLclient!kb;)V")
 	private static void readTld(@OriginalArg(1) Buffer arg0) {
 		@Pc(4) int local4 = arg0.g4();
-		aCharArrayArray3 = new char[local4][];
-		anIntArray196 = new int[local4];
+		tlds = new char[local4][];
+		tldTypes = new int[local4];
 		for (@Pc(15) int local15 = 0; local15 < local4; local15++) {
-			anIntArray196[local15] = arg0.g1();
+			tldTypes[local15] = arg0.g1();
 			@Pc(26) char[] local26 = new char[arg0.g1()];
 			for (@Pc(28) int local28 = 0; local28 < local26.length; local28++) {
 				local26[local28] = (char) arg0.g1();
 			}
-			aCharArrayArray3[local15] = local26;
+			tlds[local15] = local26;
 		}
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(ILclient!kb;)V")
 	private static void readBad(@OriginalArg(1) Buffer arg0) {
 		@Pc(2) int local2 = arg0.g4();
-		aCharArrayArray1 = new char[local2][];
-		aByteArrayArrayArray8 = new byte[local2][][];
-		readBad(aByteArrayArrayArray8, aCharArrayArray1, arg0);
+		bads = new char[local2][];
+		badCombinations = new byte[local2][][];
+		readBad(badCombinations, bads, arg0);
 	}
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(Lclient!kb;I)V")
 	private static void readDomain(@OriginalArg(0) Buffer arg0) {
 		@Pc(2) int local2 = arg0.g4();
-		aCharArrayArray2 = new char[local2][];
-		readDomain(arg0, aCharArrayArray2);
+		domains = new char[local2][];
+		readDomain(arg0, domains);
 	}
 
 	@OriginalMember(owner = "client!mc", name = "b", descriptor = "(ILclient!kb;)V")
 	private static void readFragments(@OriginalArg(1) Buffer arg0) {
-		anIntArray195 = new int[arg0.g4()];
-		for (@Pc(5) int local5 = 0; local5 < anIntArray195.length; local5++) {
-			anIntArray195[local5] = arg0.g2();
+		fragments = new int[arg0.g4()];
+		for (@Pc(5) int local5 = 0; local5 < fragments.length; local5++) {
+			fragments[local5] = arg0.g2();
 		}
-		if (anInt639 != 24882) {
-			aBoolean136 = !aBoolean136;
+		if (flowObfuscator1 != 24882) {
+			flowObfuscator7 = !flowObfuscator7;
 		}
 	}
 
@@ -160,7 +160,7 @@ public final class WordPack {
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(IC)Z")
 	private static boolean isValid(@OriginalArg(1) char arg0) {
-		if (anInt642 != 16180) {
+		if (flowObfuscator3 != 16180) {
 			throw new NullPointerException();
 		}
 		return arg0 >= ' ' && arg0 <= '\u007f' || arg0 == ' ' || arg0 == '\n' || arg0 == '\t' || arg0 == '£' || arg0 == '€';
@@ -178,10 +178,10 @@ public final class WordPack {
 		filterBad(local19);
 		filterDomains(local19);
 		filterNumFragments(local19);
-		for (@Pc(36) int local36 = 0; local36 < aStringArray11.length; local36++) {
+		for (@Pc(36) int local36 = 0; local36 < whitelist.length; local36++) {
 			@Pc(45) int local45 = -1;
-			while ((local45 = local22.indexOf(aStringArray11[local36], local45 + 1)) != -1) {
-				@Pc(52) char[] local52 = aStringArray11[local36].toCharArray();
+			while ((local45 = local22.indexOf(whitelist[local36], local45 + 1)) != -1) {
+				@Pc(52) char[] local52 = whitelist[local36].toCharArray();
 				for (@Pc(54) int local54 = 0; local54 < local52.length; local54++) {
 					local19[local54 + local45] = local52[local54];
 				}
@@ -222,8 +222,8 @@ public final class WordPack {
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(Z[C)V")
 	private static void filterBad(@OriginalArg(1) char[] arg0) {
 		for (@Pc(3) int local3 = 0; local3 < 2; local3++) {
-			for (@Pc(10) int local10 = aCharArrayArray1.length - 1; local10 >= 0; local10--) {
-				filterBad(aByteArrayArrayArray8[local10], arg0, aCharArrayArray1[local10]);
+			for (@Pc(10) int local10 = bads.length - 1; local10 >= 0; local10--) {
+				filterBad(badCombinations[local10], arg0, bads[local10]);
 			}
 		}
 	}
@@ -236,8 +236,8 @@ public final class WordPack {
 		@Pc(27) char[] local27 = (char[]) arg0.clone();
 		@Pc(42) char[] local42 = new char[] { 'd', 'o', 't' };
 		filterBad(null, local27, local42);
-		for (@Pc(56) int local56 = aCharArrayArray2.length - 1; local56 >= 0; local56--) {
-			filterDomain(local27, local3, aCharArrayArray2[local56], arg0);
+		for (@Pc(56) int local56 = domains.length - 1; local56 >= 0; local56--) {
+			filterDomain(local27, local3, domains[local56], arg0);
 		}
 	}
 
@@ -310,8 +310,8 @@ public final class WordPack {
 				return 3;
 			}
 		}
-		if (aByte31 != 6) {
-			return anInt640;
+		if (flowObfuscator5 != 6) {
+			return flowObfuscator2;
 		}
 		@Pc(38) int local38 = 0;
 		for (@Pc(42) int local42 = arg0 - 1; local42 >= 0 && isSymbol(arg2[local42]); local42--) {
@@ -366,8 +366,8 @@ public final class WordPack {
 		@Pc(27) char[] local27 = (char[]) arg0.clone();
 		@Pc(50) char[] local50 = new char[] { 's', 'l', 'a', 's', 'h' };
 		filterBad(null, local27, local50);
-		for (@Pc(65) int local65 = 0; local65 < aCharArrayArray3.length; local65++) {
-			filterTld(local27, anIntArray196[local65], arg0, aCharArrayArray3[local65], local3);
+		for (@Pc(65) int local65 = 0; local65 < tlds.length; local65++) {
+			filterTld(local27, tldTypes[local65], arg0, tlds[local65], local3);
 		}
 	}
 
@@ -1053,16 +1053,16 @@ public final class WordPack {
 		}
 		@Pc(32) int local32 = getInteger(arg0);
 		@Pc(34) int local34 = 0;
-		@Pc(49) int local49 = anIntArray195.length - 1;
-		if (local32 == anIntArray195[0] || local32 == anIntArray195[local49]) {
+		@Pc(49) int local49 = fragments.length - 1;
+		if (local32 == fragments[0] || local32 == fragments[local49]) {
 			return true;
 		}
 		do {
 			@Pc(67) int local67 = (local34 + local49) / 2;
-			if (local32 == anIntArray195[local67]) {
+			if (local32 == fragments[local67]) {
 				return true;
 			}
-			if (local32 < anIntArray195[local67]) {
+			if (local32 < fragments[local67]) {
 				local49 = local67;
 			} else {
 				local34 = local67;

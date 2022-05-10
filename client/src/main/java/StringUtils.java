@@ -5,25 +5,25 @@ import org.openrs2.deob.annotation.Pc;
 public final class StringUtils {
 
 	@OriginalMember(owner = "client!vb", name = "a", descriptor = "Z")
-	private static boolean aBoolean151;
+	private static boolean flowObfuscator1;
 
 	@OriginalMember(owner = "client!vb", name = "b", descriptor = "B")
-	private static final byte aByte40 = 25;
+	private static final byte flowObfuscator2 = 25;
 
 	@OriginalMember(owner = "client!vb", name = "c", descriptor = "I")
-	private static final int anInt767 = 3;
+	private static final int flowObfuscator3 = 3;
 
 	@OriginalMember(owner = "client!vb", name = "d", descriptor = "Z")
-	private static final boolean aBoolean152 = true;
+	private static final boolean flowObfuscator4 = true;
 
 	@OriginalMember(owner = "client!vb", name = "e", descriptor = "I")
-	private static final int anInt768 = 629;
+	private static final int flowObfuscator5 = 629;
 
 	@OriginalMember(owner = "client!vb", name = "f", descriptor = "[C")
-	private static final char[] aCharArray1 = new char[12];
+	private static final char[] builder = new char[12];
 
 	@OriginalMember(owner = "client!vb", name = "g", descriptor = "[C")
-	private static final char[] aCharArray2 = new char[] { '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+	private static final char[] BASE37_LOOKUP = new char[] { '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
 	@OriginalMember(owner = "client!vb", name = "a", descriptor = "(Ljava/lang/String;)J")
 	public static long toBase37(@OriginalArg(0) String arg0) {
@@ -56,9 +56,9 @@ public final class StringUtils {
 			while (arg0 != 0L) {
 				@Pc(27) long local27 = arg0;
 				arg0 /= 37L;
-				aCharArray1[11 - local19++] = aCharArray2[(int) (local27 - arg0 * 37L)];
+				builder[11 - local19++] = BASE37_LOOKUP[(int) (local27 - arg0 * 37L)];
 			}
-			return new String(aCharArray1, 12 - local19, local19);
+			return new String(builder, 12 - local19, local19);
 		}
 	}
 

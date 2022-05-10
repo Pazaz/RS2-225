@@ -8,7 +8,7 @@ public final class InputTracking {
 	private static boolean flowObfuscator2;
 
 	@OriginalMember(owner = "client!e", name = "d", descriptor = "Z")
-	private static boolean aBoolean80;
+	private static boolean flowObfuscator4;
 
 	@OriginalMember(owner = "client!e", name = "e", descriptor = "Z")
 	public static boolean enabled;

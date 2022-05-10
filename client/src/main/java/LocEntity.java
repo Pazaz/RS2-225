@@ -6,43 +6,43 @@ import org.openrs2.deob.annotation.OriginalMember;
 public final class LocEntity extends Node {
 
 	@OriginalMember(owner = "client!nb", name = "e", descriptor = "I")
-	public int anInt651;
+	public int level;
 
 	@OriginalMember(owner = "client!nb", name = "f", descriptor = "I")
-	public final int anInt652;
+	public final int classType;
 
 	@OriginalMember(owner = "client!nb", name = "g", descriptor = "I")
-	public final int anInt653;
+	public final int x;
 
 	@OriginalMember(owner = "client!nb", name = "h", descriptor = "I")
-	public final int anInt654;
+	public final int z;
 
 	@OriginalMember(owner = "client!nb", name = "i", descriptor = "I")
-	public final int anInt655;
+	public final int locIndex;
 
 	@OriginalMember(owner = "client!nb", name = "j", descriptor = "Lclient!jc;")
-	public final SeqType aSeqType_2;
+	public final SeqType seq;
 
 	@OriginalMember(owner = "client!nb", name = "k", descriptor = "I")
-	public int anInt656;
+	public int seqFrame;
 
 	@OriginalMember(owner = "client!nb", name = "l", descriptor = "I")
-	public int anInt657;
+	public int seqDelay;
 
 	@OriginalMember(owner = "client!nb", name = "<init>", descriptor = "(ZIIIILclient!jc;II)V")
-	public LocEntity(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) SeqType arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7) {
-		this.anInt651 = arg2;
-		this.anInt652 = arg4;
-		this.anInt653 = arg7;
-		this.anInt654 = arg6;
-		this.anInt655 = arg1;
-		this.aSeqType_2 = arg5;
-		if (arg0 && arg5.delay != -1) {
-			this.anInt656 = (int) (Math.random() * (double) this.aSeqType_2.frameCount);
-			this.anInt657 = (int) (Math.random() * (double) this.aSeqType_2.frameDelay[this.anInt656]);
+	public LocEntity(@OriginalArg(0) boolean animated, @OriginalArg(1) int locIndex, @OriginalArg(2) int level, @OriginalArg(3) int arg3, @OriginalArg(4) int classType, @OriginalArg(5) SeqType seq, @OriginalArg(6) int z, @OriginalArg(7) int x) {
+		this.level = level;
+		this.classType = classType;
+		this.x = x;
+		this.z = z;
+		this.locIndex = locIndex;
+		this.seq = seq;
+		if (animated && seq.delay != -1) {
+			this.seqFrame = (int) (Math.random() * (double) this.seq.frameCount);
+			this.seqDelay = (int) (Math.random() * (double) this.seq.frameDelay[this.seqFrame]);
 		} else {
-			this.anInt656 = -1;
-			this.anInt657 = 0;
+			this.seqFrame = -1;
+			this.seqDelay = 0;
 		}
 	}
 }

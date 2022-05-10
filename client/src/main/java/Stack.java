@@ -7,24 +7,24 @@ import org.openrs2.deob.annotation.Pc;
 public final class Stack {
 
 	@OriginalMember(owner = "client!pb", name = "a", descriptor = "I")
-	private int anInt678 = 679;
+	private int flowObfuscator1 = 679;
 
 	@OriginalMember(owner = "client!pb", name = "b", descriptor = "B")
-	private final byte aByte34 = 2;
+	private final byte flowObfuscator2 = 2;
 
 	@OriginalMember(owner = "client!pb", name = "c", descriptor = "Z")
-	private final boolean aBoolean140 = true;
+	private final boolean flowObfuscator3 = true;
 
 	@OriginalMember(owner = "client!pb", name = "d", descriptor = "Lclient!db;")
-	private final CacheableNode aCacheableNode_17 = new CacheableNode();
+	private final CacheableNode head = new CacheableNode();
 
 	@OriginalMember(owner = "client!pb", name = "<init>", descriptor = "(I)V")
-	public Stack(@OriginalArg(0) int arg0) {
-		this.aCacheableNode_17.nextCacheable = this.aCacheableNode_17;
-		if (arg0 < 5 || arg0 > 5) {
-			this.anInt678 = -426;
+	public Stack(@OriginalArg(0) int obfuscator) {
+		this.head.nextCacheable = this.head;
+		if (obfuscator < 5 || obfuscator > 5) {
+			this.flowObfuscator1 = -426;
 		}
-		this.aCacheableNode_17.prevCacheable = this.aCacheableNode_17;
+		this.head.prevCacheable = this.head;
 	}
 
 	@OriginalMember(owner = "client!pb", name = "a", descriptor = "(Lclient!db;)V")
@@ -32,16 +32,16 @@ public final class Stack {
 		if (arg0.prevCacheable != null) {
 			arg0.uncache();
 		}
-		arg0.prevCacheable = this.aCacheableNode_17.prevCacheable;
-		arg0.nextCacheable = this.aCacheableNode_17;
+		arg0.prevCacheable = this.head.prevCacheable;
+		arg0.nextCacheable = this.head;
 		arg0.prevCacheable.nextCacheable = arg0;
 		arg0.nextCacheable.prevCacheable = arg0;
 	}
 
 	@OriginalMember(owner = "client!pb", name = "a", descriptor = "()Lclient!db;")
 	public final CacheableNode pop() {
-		@Pc(3) CacheableNode local3 = this.aCacheableNode_17.nextCacheable;
-		if (local3 == this.aCacheableNode_17) {
+		@Pc(3) CacheableNode local3 = this.head.nextCacheable;
+		if (local3 == this.head) {
 			return null;
 		} else {
 			local3.uncache();

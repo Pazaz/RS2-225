@@ -25,7 +25,7 @@ public final class SpotAnimEntity extends Entity {
 	public final int level;
 
 	@OriginalMember(owner = "client!bb", name = "f", descriptor = "I")
-	private int anInt59;
+	private int flowObfuscator2;
 
 	@OriginalMember(owner = "client!bb", name = "j", descriptor = "I")
 	public final int x;
@@ -34,18 +34,18 @@ public final class SpotAnimEntity extends Entity {
 	public final int z;
 
 	@OriginalMember(owner = "client!bb", name = "l", descriptor = "I")
-	public final int anInt64;
+	public final int y;
 
 	@OriginalMember(owner = "client!bb", name = "h", descriptor = "I")
 	public final int firstCycle;
 
 	@OriginalMember(owner = "client!bb", name = "<init>", descriptor = "(IIZIIIII)V")
-	public SpotAnimEntity(@OriginalArg(0) int x, @OriginalArg(1) int spotanimIndex, @OriginalArg(2) boolean obfuscator, @OriginalArg(3) int z, @OriginalArg(4) int duration, @OriginalArg(5) int arg5, @OriginalArg(6) int level, @OriginalArg(7) int startCycle) {
+	public SpotAnimEntity(@OriginalArg(0) int x, @OriginalArg(1) int spotanimIndex, @OriginalArg(2) boolean obfuscator, @OriginalArg(3) int z, @OriginalArg(4) int duration, @OriginalArg(5) int y, @OriginalArg(6) int level, @OriginalArg(7) int startCycle) {
 		this.spotanim = SpotAnimType.instances[spotanimIndex];
 		this.level = level;
 		this.x = x;
 		this.z = z;
-		this.anInt64 = arg5;
+		this.y = y;
 		this.firstCycle = startCycle + duration;
 		this.finished = false;
 	}

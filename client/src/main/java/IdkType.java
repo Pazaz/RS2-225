@@ -7,50 +7,50 @@ import org.openrs2.deob.annotation.Pc;
 public final class IdkType {
 
 	@OriginalMember(owner = "client!gc", name = "a", descriptor = "I")
-	private static int anInt435;
+	private static int flowObfuscator1;
 
 	@OriginalMember(owner = "client!gc", name = "d", descriptor = "I")
-	public static int anInt437;
+	public static int count;
 
 	@OriginalMember(owner = "client!gc", name = "e", descriptor = "[Lclient!gc;")
-	public static IdkType[] aIdkTypeArray1;
+	public static IdkType[] instances;
 
 	@OriginalMember(owner = "client!gc", name = "b", descriptor = "I")
-	private static final int anInt436 = 473;
+	private static final int flowObfuscator2 = 473;
 
 	@OriginalMember(owner = "client!gc", name = "g", descriptor = "[I")
-	private int[] anIntArray143;
+	private int[] modelIndices;
 
 	@OriginalMember(owner = "client!gc", name = "c", descriptor = "Z")
-	private final boolean aBoolean100 = false;
+	private final boolean flowObfuscator3 = false;
 
 	@OriginalMember(owner = "client!gc", name = "f", descriptor = "I")
-	public int anInt438 = -1;
+	public int type = -1;
 
 	@OriginalMember(owner = "client!gc", name = "h", descriptor = "[I")
-	private final int[] anIntArray144 = new int[6];
+	private final int[] oldColors = new int[6];
 
 	@OriginalMember(owner = "client!gc", name = "i", descriptor = "[I")
-	private final int[] anIntArray145 = new int[6];
+	private final int[] newColors = new int[6];
 
 	@OriginalMember(owner = "client!gc", name = "j", descriptor = "[I")
-	private final int[] anIntArray146 = new int[] { -1, -1, -1, -1, -1 };
+	private final int[] headModelIndices = new int[] { -1, -1, -1, -1, -1 };
 
 	@OriginalMember(owner = "client!gc", name = "k", descriptor = "Z")
-	public boolean aBoolean101 = false;
+	public boolean validStyle = false;
 
 	@OriginalMember(owner = "client!gc", name = "a", descriptor = "(Lclient!ub;I)V")
-	public static void decode(@OriginalArg(0) FileArchive arg0) {
-		@Pc(9) Buffer local9 = new Buffer(363, arg0.read("idk.dat", null));
-		anInt437 = local9.g2();
-		if (aIdkTypeArray1 == null) {
-			aIdkTypeArray1 = new IdkType[anInt437];
+	public static void decode(@OriginalArg(0) FileArchive archive) {
+		@Pc(9) Buffer buffer = new Buffer(363, archive.read("idk.dat", null));
+		count = buffer.g2();
+		if (instances == null) {
+			instances = new IdkType[count];
 		}
-		for (@Pc(19) int local19 = 0; local19 < anInt437; local19++) {
-			if (aIdkTypeArray1[local19] == null) {
-				aIdkTypeArray1[local19] = new IdkType();
+		for (@Pc(19) int i = 0; i < count; i++) {
+			if (instances[i] == null) {
+				instances[i] = new IdkType();
 			}
-			aIdkTypeArray1[local19].decode(local9);
+			instances[i].decode(buffer);
 		}
 	}
 
@@ -59,68 +59,68 @@ public final class IdkType {
 	}
 
 	@OriginalMember(owner = "client!gc", name = "a", descriptor = "(ZLclient!kb;)V")
-	private void decode(@OriginalArg(1) Buffer arg0) {
+	private void decode(@OriginalArg(1) Buffer buffer) {
 		while (true) {
-			@Pc(8) int local8 = arg0.g1();
-			if (local8 == 0) {
+			@Pc(8) int opcode = buffer.g1();
+			if (opcode == 0) {
 				return;
 			}
-			if (local8 == 1) {
-				this.anInt438 = arg0.g1();
-			} else if (local8 == 2) {
-				@Pc(26) int local26 = arg0.g1();
-				this.anIntArray143 = new int[local26];
-				for (@Pc(32) int local32 = 0; local32 < local26; local32++) {
-					this.anIntArray143[local32] = arg0.g2();
+			if (opcode == 1) {
+				this.type = buffer.g1();
+			} else if (opcode == 2) {
+				@Pc(26) int count = buffer.g1();
+				this.modelIndices = new int[count];
+				for (@Pc(32) int i = 0; i < count; i++) {
+					this.modelIndices[i] = buffer.g2();
 				}
-			} else if (local8 == 3) {
-				this.aBoolean101 = true;
-			} else if (local8 >= 40 && local8 < 50) {
-				this.anIntArray144[local8 - 40] = arg0.g2();
-			} else if (local8 >= 50 && local8 < 60) {
-				this.anIntArray145[local8 - 50] = arg0.g2();
-			} else if (local8 >= 60 && local8 < 70) {
-				this.anIntArray146[local8 - 60] = arg0.g2();
+			} else if (opcode == 3) {
+				this.validStyle = true;
+			} else if (opcode >= 40 && opcode < 50) {
+				this.oldColors[opcode - 40] = buffer.g2();
+			} else if (opcode >= 50 && opcode < 60) {
+				this.newColors[opcode - 50] = buffer.g2();
+			} else if (opcode >= 60 && opcode < 70) {
+				this.headModelIndices[opcode - 60] = buffer.g2();
 			} else {
-				System.out.println("Error unrecognised config code: " + local8);
+				System.out.println("Error unrecognised config code: " + opcode);
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!gc", name = "a", descriptor = "()Lclient!eb;")
 	public final Model getModel() {
-		if (this.anIntArray143 == null) {
+		if (this.modelIndices == null) {
 			return null;
 		}
-		@Pc(11) Model[] local11 = new Model[this.anIntArray143.length];
-		for (@Pc(13) int local13 = 0; local13 < this.anIntArray143.length; local13++) {
-			local11[local13] = new Model(false, this.anIntArray143[local13]);
+		@Pc(11) Model[] models = new Model[this.modelIndices.length];
+		for (@Pc(13) int i = 0; i < this.modelIndices.length; i++) {
+			models[i] = new Model(false, this.modelIndices[i]);
 		}
-		@Pc(40) Model local40;
-		if (local11.length == 1) {
-			local40 = local11[0];
+		@Pc(40) Model body;
+		if (models.length == 1) {
+			body = models[0];
 		} else {
-			local40 = new Model(0, local11, local11.length);
+			body = new Model(0, models, models.length);
 		}
-		for (@Pc(52) int local52 = 0; local52 < 6 && this.anIntArray144[local52] != 0; local52++) {
-			local40.recolor(this.anIntArray144[local52], this.anIntArray145[local52]);
+		for (@Pc(52) int i = 0; i < 6 && this.oldColors[i] != 0; i++) {
+			body.recolor(this.oldColors[i], this.newColors[i]);
 		}
-		return local40;
+		return body;
 	}
 
 	@OriginalMember(owner = "client!gc", name = "a", descriptor = "(Z)Lclient!eb;")
 	public final Model getHeadModel() {
-		@Pc(4) Model[] local4 = new Model[5];
-		@Pc(6) int local6 = 0;
-		for (@Pc(8) int local8 = 0; local8 < 5; local8++) {
-			if (this.anIntArray146[local8] != -1) {
-				local4[local6++] = new Model(false, this.anIntArray146[local8]);
+		@Pc(4) Model[] models = new Model[5];
+		@Pc(6) int count = 0;
+		for (@Pc(8) int i = 0; i < 5; i++) {
+			if (this.headModelIndices[i] != -1) {
+				models[count++] = new Model(false, this.headModelIndices[i]);
 			}
 		}
-		@Pc(39) Model local39 = new Model(0, local4, local6);
-		for (@Pc(41) int local41 = 0; local41 < 6 && this.anIntArray144[local41] != 0; local41++) {
-			local39.recolor(this.anIntArray144[local41], this.anIntArray145[local41]);
+		@Pc(39) Model head = new Model(0, models, count);
+		for (@Pc(41) int i = 0; i < 6 && this.oldColors[i] != 0; i++) {
+			head.recolor(this.oldColors[i], this.newColors[i]);
 		}
-		return local39;
+		return head;
 	}
 }

@@ -5,8 +5,8 @@ import org.openrs2.deob.annotation.OriginalMember;
 public final class ObjStackEntity extends Node {
 
 	@OriginalMember(owner = "client!v", name = "e", descriptor = "I")
-	public int anInt765;
+	public int id;
 
 	@OriginalMember(owner = "client!v", name = "f", descriptor = "I")
-	public int anInt766;
+	public int amount;
 }
