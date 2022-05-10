@@ -40,7 +40,7 @@ public final class Draw3D extends Draw2D {
 	private static int[][] texelPool;
 
 	@OriginalMember(owner = "client!gb", name = "U", descriptor = "I")
-	public static int anInt434;
+	public static int cycle;
 
 	@OriginalMember(owner = "client!gb", name = "w", descriptor = "I")
 	private static final int flowObfuscator3 = 787;
@@ -234,7 +234,7 @@ public final class Draw3D extends Draw2D {
 
 	@OriginalMember(owner = "client!gb", name = "d", descriptor = "(I)[I")
 	private static int[] getTexels(@OriginalArg(0) int arg0) {
-		textureCycles[arg0] = anInt434++;
+		textureCycles[arg0] = cycle++;
 		if (activeTexels[arg0] != null) {
 			return activeTexels[arg0];
 		}

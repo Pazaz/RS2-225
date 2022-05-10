@@ -266,7 +266,7 @@ public final class PlayerEntity extends PathingEntity {
 				if (this.appearanceColors[local117] != 0) {
 					local101.recolor(client.APPEARANCE_COLORS[local117][0], client.APPEARANCE_COLORS[local117][this.appearanceColors[local117]]);
 					if (local117 == 1) {
-						local101.recolor(client.anIntArray70[0], client.anIntArray70[this.appearanceColors[local117]]);
+						local101.recolor(client.BEARD_COLORS[0], client.BEARD_COLORS[this.appearanceColors[local117]]);
 					}
 				}
 			}
@@ -313,7 +313,7 @@ public final class PlayerEntity extends PathingEntity {
 			if (this.appearanceColors[local69] != 0) {
 				local67.recolor(client.APPEARANCE_COLORS[local69][0], client.APPEARANCE_COLORS[local69][this.appearanceColors[local69]]);
 				if (local69 == 1) {
-					local67.recolor(client.anIntArray70[0], client.anIntArray70[this.appearanceColors[local69]]);
+					local67.recolor(client.BEARD_COLORS[0], client.BEARD_COLORS[this.appearanceColors[local69]]);
 				}
 			}
 		}

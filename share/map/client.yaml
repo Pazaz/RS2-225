@@ -71,9 +71,6 @@ fields:
   client!a.C I:
     owner: "GameShell"
     name: "unprocessedKeyCount"
-  client!a.D I:
-    owner: "GameShell"
-    name: "anInt142"
   client!a.a Z:
     owner: "GameShell"
     name: "flowObfuscator3"
@@ -781,1312 +778,1312 @@ fields:
     name: "value"
   client!client.Ab I:
     owner: "client"
-    name: "anInt175"
+    name: "objectAction4Counter"
   client!client.Ac [I:
     owner: "client"
-    name: "anIntArray39"
+    name: "playerIndices"
   client!client.Ad I:
     owner: "client"
-    name: "anInt229"
+    name: "itemAction4Counter"
   client!client.Ae I:
     owner: "client"
-    name: "anInt248"
+    name: "npcCount"
   client!client.Af Lclient!hb;:
     owner: "client"
-    name: "aSprite_4"
+    name: "imageFlamesRight"
   client!client.Ag Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_18"
+    name: "titleCenter"
   client!client.Ah Ljava/lang/String;:
     owner: "client"
-    name: "aString15"
+    name: "loginMessage0"
   client!client.Ai I:
     owner: "client"
-    name: "anInt335"
+    name: "cameraOffsetYawModifier"
   client!client.Bb [I:
     owner: "client"
-    name: "anIntArray34"
+    name: "friendWorld"
   client!client.Bc I:
     owner: "client"
-    name: "anInt206"
+    name: "updateCount"
   client!client.Bd I:
     owner: "client"
-    name: "anInt230"
+    name: "flowObfuscator31"
   client!client.Be [I:
     owner: "client"
-    name: "anIntArray58"
+    name: "npcIndices"
   client!client.Bf I:
     owner: "client"
-    name: "anInt275"
+    name: "SCROLLBAR_GRIP_LOWLIGHT"
   client!client.Bg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_19"
+    name: "titleLeft"
   client!client.Bh Ljava/lang/String;:
     owner: "client"
-    name: "aString16"
+    name: "loginMessage1"
   client!client.Bi Lclient!ub;:
     owner: "client"
-    name: "aFileArchive_1"
+    name: "title"
   client!client.Cb I:
     owner: "client"
-    name: "anInt176"
+    name: "lastSceneLevel"
   client!client.Cc [I:
     owner: "client"
-    name: "anIntArray40"
+    name: "entityUpdateIndices"
   client!client.Cd [I:
     owner: "client"
-    name: "anIntArray48"
+    name: "privateMessageIndex"
   client!client.Ce I:
     owner: "client"
-    name: "anInt249"
+    name: "minimapZoom"
   client!client.Cf Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_9"
+    name: "invback"
   client!client.Cg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_20"
+    name: "titleRight"
   client!client.Ch I:
     owner: "client"
-    name: "anInt308"
+    name: "minimapAnticheatAngle"
   client!client.Ci Ljava/lang/String;:
     owner: "client"
-    name: "aString18"
+    name: "input"
   client!client.Db Ljava/lang/String;:
     owner: "client"
-    name: "aString6"
+    name: "socialMessage"
   client!client.Dc [Lclient!kb;:
     owner: "client"
-    name: "aClass1_Sub3_Sub3Array1"
+    name: "playerBuffers"
   client!client.Dd Z:
     owner: "client"
-    name: "aBoolean50"
+    name: "menuVisible"
   client!client.De I:
     owner: "client"
-    name: "anInt250"
+    name: "minimapZoomModifier"
   client!client.Df Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_10"
+    name: "mapback"
   client!client.Dg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_21"
+    name: "titleBottomLeft"
   client!client.Dh I:
     owner: "client"
-    name: "anInt309"
+    name: "minimapAngleModifier"
   client!client.Di [Lclient!hb;:
     owner: "client"
-    name: "aSpriteArray7"
+    name: "mapfunction"
   client!client.E I:
     owner: "client"
-    name: "anInt143"
+    name: "itemOption4Counter"
   client!client.Eb [Lclient!hb;:
     owner: "client"
     name: "hitmarks"
   client!client.Ec I:
     owner: "client"
-    name: "anInt207"
+    name: "lastPacketOpcode"
   client!client.Ed I:
     owner: "client"
-    name: "anInt231"
+    name: "currentLevel"
   client!client.Ee I:
     owner: "client"
-    name: "anInt251"
+    name: "cameraMaxY"
   client!client.Ef Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_11"
+    name: "chatback"
   client!client.Eg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_22"
+    name: "titleBottomRight"
   client!client.Eh I:
     owner: "client"
-    name: "anInt310"
+    name: "hoveredSlot"
   client!client.Ei [I:
     owner: "client"
-    name: "anIntArray84"
+    name: "paramA"
   client!client.F Ljava/lang/String;:
     owner: "client"
-    name: "aString4"
+    name: "ASCII_CHARSET"
   client!client.Fb J:
     owner: "client"
-    name: "aLong7"
+    name: "lastWaveStartTime"
   client!client.Fc I:
     owner: "client"
-    name: "anInt208"
+    name: "secondMostRecentOpcode"
   client!client.Fd Z:
     owner: "client"
-    name: "aBoolean51"
+    name: "reportAbuseMuteToggle"
   client!client.Fe I:
     owner: "client"
-    name: "anInt252"
+    name: "worldLocationState"
   client!client.Ff I:
     owner: "client"
-    name: "anInt276"
+    name: "inMultizone"
   client!client.Fg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_23"
+    name: "titleLeftSpace"
   client!client.Fh I:
     owner: "client"
-    name: "anInt311"
+    name: "hoveredSlotParentId"
   client!client.Fi [I:
     owner: "client"
-    name: "anIntArray85"
+    name: "paramB"
   client!client.G I:
     owner: "client"
-    name: "anInt144"
+    name: "midiSyncLen"
   client!client.Gb I:
     owner: "client"
-    name: "anInt177"
+    name: "flowObfuscator43"
   client!client.Gc I:
     owner: "client"
-    name: "anInt209"
+    name: "thirdMostRecentOpcode"
   client!client.Gd I:
     owner: "client"
-    name: "anInt232"
+    name: "sidebarClickedCounter"
   client!client.Ge I:
     owner: "client"
-    name: "anInt253"
+    name: "dragCycle"
   client!client.Gf Lclient!jb;:
     owner: "client"
     name: "plain11"
   client!client.Gg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_24"
+    name: "titleRightSpace"
   client!client.Gh I:
     owner: "client"
-    name: "anInt312"
+    name: "friendCount"
   client!client.Gi [I:
     owner: "client"
-    name: "anIntArray86"
+    name: "actions"
   client!client.H I:
     owner: "client"
-    name: "anInt145"
+    name: "flowObfuscator35"
   client!client.Hb I:
     owner: "client"
-    name: "anInt178"
+    name: "packetLength"
   client!client.Hc Lclient!r;:
     owner: "client"
     name: "mapSquare"
   client!client.Hd I:
     owner: "client"
-    name: "anInt233"
+    name: "flowObfuscator32"
   client!client.He B:
     owner: "client"
-    name: "aByte14"
+    name: "flowObfuscator34"
   client!client.Hf Lclient!jb;:
     owner: "client"
-    name: "aClass1_Sub3_Sub2_Sub4_2"
+    name: "plain12"
   client!client.Hg [Lclient!ib;:
     owner: "client"
-    name: "aClass1_Sub3_Sub2_Sub3Array3"
+    name: "mapscene"
   client!client.Hh I:
     owner: "client"
-    name: "anInt313"
+    name: "updateGameCounter2"
   client!client.Hi [I:
     owner: "client"
-    name: "anIntArray87"
+    name: "paramC"
   client!client.I I:
     owner: "client"
-    name: "anInt146"
+    name: "cameraLocalX"
   client!client.Ib I:
     owner: "client"
-    name: "anInt179"
+    name: "packetOpcode"
   client!client.Ic Lclient!ob;:
     owner: "client"
-    name: "aLinkedList_3"
+    name: "projectiles"
   client!client.Id Lclient!ob;:
     owner: "client"
-    name: "aLinkedList_4"
+    name: "spawnedLocations"
   client!client.Ie Ljava/lang/String;:
     owner: "client"
-    name: "aString8"
+    name: "chatbackMessage"
   client!client.If Lclient!jb;:
     owner: "client"
     name: "bold12"
   client!client.Ig I:
     owner: "client"
-    name: "anInt294"
+    name: "flowObfuscator23"
   client!client.Ih I:
     owner: "client"
     name: "chatCount"
   client!client.Ii I:
     owner: "client"
-    name: "anInt336"
+    name: "flowObfuscator14"
   client!client.J I:
     owner: "client"
-    name: "anInt147"
+    name: "cameraLocalZ"
   client!client.Jb I:
     owner: "client"
-    name: "anInt180"
+    name: "netIdleCycles"
   client!client.Jc I:
     owner: "client"
-    name: "anInt210"
+    name: "splitPrivateChat"
   client!client.Jd I:
     owner: "client"
-    name: "anInt234"
+    name: "chatTradeDuelSetting"
   client!client.Je I:
     owner: "client"
-    name: "anInt254"
+    name: "itemAction5Counter"
   client!client.Jf Lclient!jb;:
     owner: "client"
-    name: "aIndexedFont"
+    name: "quill8"
   client!client.Jg Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_12"
+    name: "redstone1v"
   client!client.Jh I:
     owner: "client"
     name: "overheadMessageCount"
   client!client.Ji Z:
     owner: "client"
-    name: "aBoolean71"
+    name: "scrollGripHeld"
   client!client.K I:
     owner: "client"
-    name: "anInt148"
+    name: "cameraHeightOffset"
   client!client.Kb I:
     owner: "client"
-    name: "anInt181"
+    name: "keepaliveCounter"
   client!client.Kc [Ljava/lang/String;:
     owner: "client"
-    name: "aStringArray5"
+    name: "options"
   client!client.Kd I:
     owner: "client"
-    name: "anInt235"
+    name: "nodeId"
   client!client.Ke [I:
     owner: "client"
-    name: "anIntArray59"
+    name: "variables"
   client!client.Kf I:
     owner: "client"
-    name: "anInt277"
+    name: "clickedMinimap"
   client!client.Kg Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_13"
+    name: "redstone2v"
   client!client.Kh [I:
     owner: "client"
     name: "chatScreenX"
   client!client.Ki Lclient!hb;:
     owner: "client"
-    name: "aSprite_11"
+    name: "compass"
   client!client.L I:
     owner: "client"
-    name: "anInt149"
+    name: "cameraSpinSpeed"
   client!client.Lb I:
     owner: "client"
-    name: "anInt182"
+    name: "idleTimeout"
   client!client.Lc Z:
     owner: "client"
-    name: "aBoolean42"
+    name: "midiActive"
   client!client.Ld I:
     owner: "client"
-    name: "anInt236"
+    name: "portOffset"
   client!client.Le I:
     owner: "client"
-    name: "anInt255"
+    name: "deadEntityCount"
   client!client.Lf Z:
     owner: "client"
-    name: "aBoolean64"
+    name: "flowObfuscator46"
   client!client.Lg Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_14"
+    name: "redstone3v"
   client!client.Lh [I:
     owner: "client"
     name: "chatScreenY"
   client!client.Li J:
     owner: "client"
-    name: "aLong9"
+    name: "serverSeed"
   client!client.M I:
     owner: "client"
-    name: "anInt150"
+    name: "cameraSpinMultiplier"
   client!client.Mb Ljava/lang/String;:
     owner: "client"
-    name: "aString7"
+    name: "chatbackInput"
   client!client.Mc Z:
     owner: "client"
-    name: "aBoolean43"
+    name: "characterDesignIsMale"
   client!client.Md Z:
     owner: "client"
-    name: "aBoolean52"
+    name: "members"
   client!client.Me [I:
     owner: "client"
     name: "deadEntityIndices"
   client!client.Mf [I:
     owner: "client"
-    name: "anIntArray64"
+    name: "flameIntensity"
   client!client.Mg Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_15"
+    name: "redstone1vh"
   client!client.Mh [I:
     owner: "client"
     name: "chatHeight"
   client!client.Mi Z:
     owner: "client"
-    name: "aBoolean72"
+    name: "flowObfuscator8"
   client!client.N I:
     owner: "client"
-    name: "anInt151"
+    name: "flowObfuscator3"
   client!client.Nb I:
     owner: "client"
-    name: "anInt183"
+    name: "cameraOffsetCycle"
   client!client.Nc I:
     owner: "client"
-    name: "anInt211"
+    name: "sceneCycle"
   client!client.Nd Z:
     owner: "client"
     name: "lowMemory"
   client!client.Ne I:
     owner: "client"
-    name: "anInt256"
+    name: "sidebarHoveredInterfaceIndex"
   client!client.Nf [I:
     owner: "client"
-    name: "anIntArray65"
+    name: "flameIntensityBuffer"
   client!client.Ng Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_16"
+    name: "redstone2vh"
   client!client.Nh [I:
     owner: "client"
     name: "chatPadding"
   client!client.Ni I:
     owner: "client"
-    name: "anInt337"
+    name: "mouseArea"
   client!client.O I:
     owner: "client"
-    name: "anInt152"
+    name: "selfPlayerId"
   client!client.Ob I:
     owner: "client"
-    name: "anInt184"
+    name: "lastWaveId"
   client!client.Oc I:
     owner: "client"
-    name: "anInt212"
+    name: "centerSectorX"
   client!client.Od I:
     owner: "client"
-    name: "anInt237"
+    name: "playerAction2Counter"
   client!client.Oe [[I:
     owner: "client"
     name: "APPEARANCE_COLORS"
   client!client.Of I:
     owner: "client"
-    name: "anInt278"
+    name: "SCROLLBAR_GRIP_HIGHLIGHT"
   client!client.Og [I:
     owner: "client"
-    name: "anIntArray69"
+    name: "textColors"
   client!client.Oh [I:
     owner: "client"
-    name: "anIntArray77"
+    name: "chatColors"
   client!client.Oi I:
     owner: "client"
-    name: "anInt338"
+    name: "menuX"
   client!client.P [I:
     owner: "client"
-    name: "anIntArray30"
+    name: "chatOffsets"
   client!client.Pb Z:
     owner: "client"
-    name: "aBoolean38"
+    name: "flowObfuscator44"
   client!client.Pc I:
     owner: "client"
-    name: "anInt213"
+    name: "centerSectorZ"
   client!client.Pd Lclient!ib;:
     owner: "client"
-    name: "aClass1_Sub3_Sub2_Sub3_1"
+    name: "redstone1"
   client!client.Pe [J:
     owner: "client"
-    name: "aLongArray4"
+    name: "friendName37"
   client!client.Pf [I:
     owner: "client"
-    name: "anIntArray66"
+    name: "waypointX"
   client!client.Pg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_25"
+    name: "areaInvback"
   client!client.Ph [I:
     owner: "client"
-    name: "anIntArray78"
+    name: "chatStyles"
   client!client.Pi I:
     owner: "client"
-    name: "anInt339"
+    name: "menuY"
   client!client.Q [I:
     owner: "client"
-    name: "anIntArray31"
+    name: "sidebarOffsets"
   client!client.Qb Z:
     owner: "client"
-    name: "aBoolean39"
+    name: "characterDesignUpdate"
   client!client.Qc [[[B:
     owner: "client"
-    name: "aByteArrayArrayArray7"
+    name: "levelRenderFlags"
   client!client.Qd Lclient!ib;:
     owner: "client"
-    name: "aClass1_Sub3_Sub2_Sub3_2"
+    name: "redstone2"
   client!client.Qe I:
     owner: "client"
-    name: "anInt257"
+    name: "selectedCycle"
   client!client.Qf [I:
     owner: "client"
-    name: "anIntArray67"
+    name: "waypointY"
   client!client.Qg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_26"
+    name: "areaMapback"
   client!client.Qh [I:
     owner: "client"
-    name: "anIntArray79"
+    name: "chatTimers"
   client!client.Qi I:
     owner: "client"
-    name: "anInt340"
+    name: "menuWidth"
   client!client.R [I:
     owner: "client"
-    name: "anIntArray32"
+    name: "viewportOffsets"
   client!client.Rb [I:
     owner: "client"
-    name: "anIntArray35"
+    name: "characterDesigns"
   client!client.Rc [I:
     owner: "client"
-    name: "anIntArray41"
+    name: "flameBuffer1"
   client!client.Rd Lclient!ib;:
     owner: "client"
-    name: "aClass1_Sub3_Sub2_Sub3_3"
+    name: "redstone3"
   client!client.Re I:
     owner: "client"
-    name: "anInt258"
+    name: "selectedInterface"
   client!client.Rf Ljava/util/zip/CRC32;:
     owner: "client"
-    name: "aCRC32_1"
+    name: "crc32"
   client!client.Rg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_27"
+    name: "areaViewport"
   client!client.Rh [Ljava/lang/String;:
     owner: "client"
-    name: "aStringArray8"
+    name: "chatMessages"
   client!client.Ri I:
     owner: "client"
-    name: "anInt341"
+    name: "menuHeight"
   client!client.S I:
     owner: "client"
-    name: "anInt153"
+    name: "crossX"
   client!client.Sb B:
     owner: "client"
-    name: "aByte9"
+    name: "flowObfuscator22"
   client!client.Sc [I:
     owner: "client"
-    name: "anIntArray42"
+    name: "flameBuffer2"
   client!client.Sd Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_4"
+    name: "redstone1h"
   client!client.Se I:
     owner: "client"
-    name: "anInt259"
+    name: "selectedItem"
   client!client.Sf Lclient!hb;:
     owner: "client"
-    name: "aSprite_5"
+    name: "mapflags"
   client!client.Sg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_28"
+    name: "areaChatback"
   client!client.Sh I:
     owner: "client"
-    name: "anInt316"
+    name: "wildernessLevel"
   client!client.Si Z:
     owner: "client"
-    name: "aBoolean73"
+    name: "effectsEnabled"
   client!client.T I:
     owner: "client"
-    name: "anInt154"
+    name: "crossY"
   client!client.Tb [Lclient!hb;:
     owner: "client"
-    name: "aSpriteArray4"
+    name: "activeMapFunctions"
   client!client.Tc B:
     owner: "client"
-    name: "aByte10"
+    name: "flowObfuscator7"
   client!client.Td Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_5"
+    name: "redstone2h"
   client!client.Te I:
     owner: "client"
-    name: "anInt260"
+    name: "selectedArea"
   client!client.Tf I:
     owner: "client"
-    name: "anInt279"
+    name: "updateGameCounter"
   client!client.Tg I:
     owner: "client"
-    name: "anInt295"
+    name: "SCROLLBAR_TRACK"
   client!client.Th Z:
     owner: "client"
-    name: "aBoolean69"
+    name: "alreadyStarted"
   client!client.Ti I:
     owner: "client"
-    name: "anInt342"
+    name: "scrollGripInputPadding"
   client!client.U I:
     owner: "client"
-    name: "anInt155"
+    name: "crossCycle"
   client!client.Ub I:
     owner: "client"
-    name: "anInt185"
+    name: "chatScrollY"
   client!client.Uc I:
     owner: "client"
-    name: "anInt214"
+    name: "objDragComponentId"
   client!client.Ud [I:
     owner: "client"
-    name: "anIntArray49"
+    name: "chatMessageType"
   client!client.Ue I:
     owner: "client"
-    name: "anInt261"
+    name: "cutsceneLocalX"
   client!client.Uf Lclient!d;:
     owner: "client"
-    name: "aBufferedStream_1"
+    name: "stream"
   client!client.Ug I:
     owner: "client"
-    name: "anInt296"
+    name: "flagTileX"
   client!client.Uh Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_19"
+    name: "titlebox"
   client!client.Ui I:
     owner: "client"
-    name: "anInt343"
+    name: "midiSize"
   client!client.V I:
     owner: "client"
-    name: "anInt156"
+    name: "crossType"
   client!client.Vb I:
     owner: "client"
-    name: "anInt186"
+    name: "ignoreCount"
   client!client.Vc I:
     owner: "client"
-    name: "anInt215"
+    name: "objDragSlot"
   client!client.Vd [Ljava/lang/String;:
     owner: "client"
-    name: "aStringArray6"
+    name: "chatMessagePrefix"
   client!client.Ve I:
     owner: "client"
-    name: "anInt262"
+    name: "cutsceneLocalY"
   client!client.Vf [[B:
     owner: "client"
-    name: "aByteArrayArray2"
+    name: "sceneMapLocData"
   client!client.Vg I:
     owner: "client"
-    name: "anInt297"
+    name: "flagTileY"
   client!client.Vh Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_20"
+    name: "titlebutton"
   client!client.Vi I:
     owner: "client"
-    name: "anInt344"
+    name: "flameOffset"
   client!client.W [I:
     owner: "client"
-    name: "anIntArray33"
+    name: "characterDesignColors"
   client!client.Wb [[[I:
     owner: "client"
-    name: "anIntArrayArrayArray3"
+    name: "levelHeightMaps"
   client!client.Wc I:
     owner: "client"
-    name: "anInt216"
+    name: "objDragArea"
   client!client.Wd [Ljava/lang/String;:
     owner: "client"
-    name: "aStringArray7"
+    name: "chatMessage"
   client!client.We I:
     owner: "client"
-    name: "anInt263"
+    name: "cutsceneHeightOffset"
   client!client.Wf I:
     owner: "client"
-    name: "anInt280"
+    name: "chatbackComponentId"
   client!client.Wg Lclient!hb;:
     owner: "client"
-    name: "aSprite_6"
+    name: "minimap"
   client!client.Wh I:
     owner: "client"
-    name: "anInt317"
+    name: "flowObfuscator12"
   client!client.Wi [[[Lclient!ob;:
     owner: "client"
-    name: "aLinkedListArrayArrayArray1"
+    name: "objects"
   client!client.X Lclient!kb;:
     owner: "client"
-    name: "aBuffer_4"
+    name: "loginBuffer"
   client!client.Xb Lclient!kb;:
     owner: "client"
-    name: "aBuffer_5"
+    name: "inBuffer"
   client!client.Xc I:
     owner: "client"
-    name: "anInt217"
+    name: "objGrabX"
   client!client.Xd I:
     owner: "client"
-    name: "anInt238"
+    name: "flowObfuscator39"
   client!client.Xe I:
     owner: "client"
-    name: "anInt264"
+    name: "cutsceneSpinSpeed"
   client!client.Xf I:
     owner: "client"
-    name: "anInt281"
+    name: "selectedObject"
   client!client.Xg I:
     owner: "client"
-    name: "anInt298"
+    name: "unreadMessageCount"
   client!client.Xh I:
     owner: "client"
-    name: "anInt318"
+    name: "flowObfuscator36"
   client!client.Xi I:
     owner: "client"
-    name: "anInt345"
+    name: "SCROLLBAR_GRIP_FOREGROUND"
   client!client.Y I:
     owner: "client"
-    name: "anInt157"
+    name: "nextMusicDelay"
   client!client.Yb I:
     owner: "client"
-    name: "anInt187"
+    name: "flowObfuscator40"
   client!client.Yc I:
     owner: "client"
-    name: "anInt218"
+    name: "objGrabY"
   client!client.Yd J:
     owner: "client"
-    name: "aLong8"
+    name: "socialName37"
   client!client.Ye I:
     owner: "client"
-    name: "anInt265"
+    name: "cutsceneSpinMultiplier"
   client!client.Yf I:
     owner: "client"
-    name: "anInt282"
+    name: "selectedObjSlot"
   client!client.Yg Z:
     owner: "client"
-    name: "aBoolean66"
+    name: "chatbackInputType"
   client!client.Yh [I:
     owner: "client"
-    name: "anIntArray80"
+    name: "objectGroups"
   client!client.Yi [I:
     owner: "client"
-    name: "anIntArray88"
+    name: "cameraFrequency"
   client!client.Z I:
     owner: "client"
-    name: "anInt158"
+    name: "hintTileX"
   client!client.Zb I:
     owner: "client"
-    name: "anInt188"
+    name: "npcAction5Counter"
   client!client.Zc Z:
     owner: "client"
-    name: "aBoolean44"
+    name: "flowObfuscator29"
   client!client.Zd I:
     owner: "client"
-    name: "anInt239"
+    name: "daysSinceRecoveryChange"
   client!client.Ze [I:
     owner: "client"
-    name: "anIntArray61"
+    name: "minimapLineWidth"
   client!client.Zf I:
     owner: "client"
-    name: "anInt283"
+    name: "selectedObjInterface"
   client!client.Zg Lclient!ob;:
     owner: "client"
-    name: "aLinkedList_5"
+    name: "spotanims"
   client!client.Zh I:
     owner: "client"
-    name: "anInt319"
+    name: "updateLocCounter"
   client!client.Zi I:
     owner: "client"
-    name: "anInt346"
+    name: "flowObfuscator37"
   client!client.ab I:
     owner: "client"
-    name: "anInt159"
+    name: "hintTileZ"
   client!client.ac Lclient!kb;:
     owner: "client"
-    name: "aBuffer_6"
+    name: "outBuffer"
   client!client.ad [I:
     owner: "client"
-    name: "anIntArray43"
+    name: "flameShiftX"
   client!client.ae Z:
     owner: "client"
-    name: "aBoolean54"
+    name: "flameActive"
   client!client.af [Lclient!ec;:
     owner: "client"
-    name: "aCollisionMapArray1"
+    name: "collisionMaps"
   client!client.ag I:
     owner: "client"
-    name: "anInt284"
+    name: "objInterface"
   client!client.ah Lclient!hb;:
     owner: "client"
-    name: "aSprite_7"
+    name: "mapdot0"
   client!client.ai I:
     owner: "client"
-    name: "anInt320"
+    name: "titleState"
   client!client.bb I:
     owner: "client"
-    name: "anInt160"
+    name: "hintHeight"
   client!client.bc Z:
     owner: "client"
-    name: "aBoolean40"
+    name: "startMidiThread"
   client!client.bd B:
     owner: "client"
-    name: "aByte11"
+    name: "flowObfuscator19"
   client!client.be [I:
     owner: "client"
-    name: "anIntArray50"
+    name: "flameGradient"
   client!client.bf I:
     owner: "client"
     name: "clientClock"
   client!client.bg Ljava/lang/String;:
     owner: "client"
-    name: "aString10"
+    name: "selectedObjName"
   client!client.bh Lclient!hb;:
     owner: "client"
-    name: "aSprite_8"
+    name: "mapdot1"
   client!client.bi I:
     owner: "client"
-    name: "anInt321"
+    name: "midiCrc"
   client!client.cb I:
     owner: "client"
-    name: "anInt161"
+    name: "hintOffsetX"
   client!client.cc I:
     owner: "client"
     name: "chatEffects"
   client!client.cd Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_3"
+    name: "areaBackbase1"
   client!client.ce [I:
     owner: "client"
-    name: "anIntArray51"
+    name: "flameGradientRed"
   client!client.cf [Lclient!hb;:
     owner: "client"
-    name: "aSpriteArray5"
+    name: "headicons"
   client!client.cg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_6"
+    name: "backleft1"
   client!client.ch Lclient!hb;:
     owner: "client"
-    name: "aSprite_9"
+    name: "mapdot2"
   client!client.ci I:
     owner: "client"
-    name: "anInt322"
+    name: "cameraX"
   client!client.db I:
     owner: "client"
-    name: "anInt162"
+    name: "hintOffsetZ"
   client!client.dc I:
     owner: "client"
-    name: "anInt190"
+    name: "hintNpc"
   client!client.dd Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_4"
+    name: "areaBackbase2"
   client!client.de [I:
     owner: "client"
-    name: "anIntArray52"
+    name: "flameGradientGreen"
   client!client.df I:
     owner: "client"
-    name: "anInt267"
+    name: "systemUpdateTimer"
   client!client.dg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_7"
+    name: "backleft2"
   client!client.dh Lclient!hb;:
     owner: "client"
-    name: "aSprite_10"
+    name: "mapdot3"
   client!client.di I:
     owner: "client"
-    name: "anInt323"
+    name: "cameraY"
   client!client.eb I:
     owner: "client"
-    name: "anInt163"
+    name: "minimapOffsetCycle"
   client!client.ec I:
     owner: "client"
-    name: "anInt191"
+    name: "tutorialIslandState"
   client!client.ed Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_5"
+    name: "areaBackhmid1"
   client!client.ee [I:
     owner: "client"
-    name: "anIntArray53"
+    name: "flameGradientBlue"
   client!client.ef I:
     owner: "client"
-    name: "anInt268"
+    name: "flowObfuscator5"
   client!client.eg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_8"
+    name: "backright1"
   client!client.eh I:
     owner: "client"
-    name: "anInt299"
+    name: "lastLoginIp"
   client!client.ei I:
     owner: "client"
-    name: "anInt324"
+    name: "cameraZ"
   client!client.fb Z:
     owner: "client"
-    name: "aBoolean37"
+    name: "redrawTitleBackground"
   client!client.fc I:
     owner: "client"
-    name: "anInt192"
+    name: "flowObfuscator21"
   client!client.fd I:
     owner: "client"
-    name: "anInt219"
+    name: "privateMessageCount"
   client!client.fe I:
     owner: "client"
-    name: "anInt240"
+    name: "openInterfaceId"
   client!client.ff [I:
     owner: "client"
-    name: "anIntArray62"
+    name: "cameraJitter"
   client!client.fg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_9"
+    name: "backright2"
   client!client.fh Ljava/math/BigInteger;:
     owner: "client"
-    name: "aBigInteger2"
+    name: "RSA_MODULUS"
   client!client.fi I:
     owner: "client"
-    name: "anInt325"
+    name: "cameraPitch"
   client!client.gb Lclient!ob;:
     owner: "client"
-    name: "aLinkedList_1"
+    name: "locList"
   client!client.gc I:
     owner: "client"
-    name: "anInt193"
+    name: "drawViewportCounter"
   client!client.gd [I:
     owner: "client"
-    name: "anIntArray44"
+    name: "compassLeft"
   client!client.ge Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_6"
+    name: "backbase1"
   client!client.gf Z:
     owner: "client"
-    name: "aBoolean58"
+    name: "objGrabThreshold"
   client!client.gg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_10"
+    name: "backtop1"
   client!client.gh I:
     owner: "client"
-    name: "anInt300"
+    name: "viewportHoveredInterfaceIndex"
   client!client.gi I:
     owner: "client"
-    name: "anInt326"
+    name: "cameraOrbitYaw"
   client!client.hb Lclient!tb;:
     owner: "client"
-    name: "aIsaacRandom_1"
+    name: "isaac"
   client!client.hc I:
     owner: "client"
-    name: "anInt194"
+    name: "flowObfuscator20"
   client!client.hd I:
     owner: "client"
-    name: "anInt220"
+    name: "objectAction5Counter"
   client!client.he Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_7"
+    name: "backbase2"
   client!client.hf Lclient!hb;:
     owner: "client"
-    name: "aClass1_Sub3_Sub2_Sub2_1"
+    name: "sprite"
   client!client.hg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_11"
+    name: "backtop2"
   client!client.hh Ljava/lang/String;:
     owner: "client"
-    name: "aString12"
+    name: "midiSyncName"
   client!client.hi B:
     owner: "client"
-    name: "aByte16"
+    name: "flowObfuscator4"
   client!client.ib [Z:
     owner: "client"
-    name: "aBooleanArray1"
+    name: "customCameraActive"
   client!client.ic I:
     owner: "client"
-    name: "anInt195"
+    name: "itemOption1Counter"
   client!client.id [I:
     owner: "client"
-    name: "anIntArray45"
+    name: "waveDelay"
   client!client.ie Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_8"
+    name: "backhmid1"
   client!client.ig Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_12"
+    name: "backvmid1"
   client!client.ih I:
     owner: "client"
-    name: "anInt301"
+    name: "lastWaveLoops"
   client!client.ii [I:
     owner: "client"
-    name: "anIntArray81"
+    name: "compassLineWidth"
   client!client.jb I:
     owner: "client"
-    name: "anInt164"
+    name: "chatPrivateSetting"
   client!client.jc [I:
     owner: "client"
-    name: "anIntArray36"
+    name: "skillLevelReal"
   client!client.jd I:
     owner: "client"
-    name: "anInt221"
+    name: "chatHoveredInterfaceIndex"
   client!client.je I:
     owner: "client"
-    name: "anInt241"
+    name: "hintType"
   client!client.jf Lclient!hb;:
     owner: "client"
-    name: "aClass1_Sub3_Sub2_Sub2_2"
+    name: "spriteActive"
   client!client.jg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_13"
+    name: "backvmid2"
   client!client.jh Ljava/lang/String;:
     owner: "client"
-    name: "aString13"
+    name: "username"
   client!client.ji [[I:
     owner: "client"
-    name: "anIntArrayArray5"
+    name: "pathWaypoint"
   client!client.kb I:
     owner: "client"
-    name: "anInt165"
+    name: "flowObfuscator10"
   client!client.kc Lclient!hc;:
     owner: "client"
-    name: "aInterfaceComponent_1"
+    name: "component"
   client!client.kd Z:
     owner: "client"
-    name: "aBoolean45"
+    name: "flowObfuscator30"
   client!client.ke Z:
     owner: "client"
-    name: "aBoolean55"
+    name: "flowObfuscator33"
   client!client.kf I:
     owner: "client"
-    name: "anInt269"
+    name: "midiSyncCrc"
   client!client.kg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_14"
+    name: "backvmid3"
   client!client.kh Ljava/lang/String;:
     owner: "client"
-    name: "aString14"
+    name: "password"
   client!client.ki Ljava/lang/String;:
     owner: "client"
-    name: "aString17"
+    name: "currentMidi"
   client!client.lb I:
     owner: "client"
-    name: "anInt166"
+    name: "selectedTab"
   client!client.lc [I:
     owner: "client"
-    name: "anIntArray37"
+    name: "waveLoops"
   client!client.ld [I:
     owner: "client"
-    name: "anIntArray46"
+    name: "tabComponentId"
   client!client.le I:
     owner: "client"
-    name: "anInt242"
+    name: "updatePlayersCounter"
   client!client.lf Z:
     owner: "client"
-    name: "aBoolean59"
+    name: "sidebarRedraw"
   client!client.lg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_15"
+    name: "backhmid2"
   client!client.lh B:
     owner: "client"
-    name: "aByte15"
+    name: "flowObufscator24"
   client!client.li [Lclient!hb;:
     owner: "client"
-    name: "aSpriteArray6"
+    name: "cross"
   client!client.mb [[I:
     owner: "client"
-    name: "anIntArrayArray2"
+    name: "pathDistance"
   client!client.mc I:
     owner: "client"
-    name: "anInt196"
+    name: "button"
   client!client.md I:
     owner: "client"
-    name: "anInt222"
+    name: "localPosX"
   client!client.me I:
     owner: "client"
-    name: "anInt243"
+    name: "cameraOrbitX"
   client!client.mf Z:
     owner: "client"
-    name: "aBoolean60"
+    name: "redrawChatback"
   client!client.mh [B:
     owner: "client"
-    name: "aByteArray4"
+    name: "tmpTexels"
   client!client.mi Z:
     owner: "client"
-    name: "aBoolean70"
+    name: "flamesThreadActive"
   client!client.nb I:
     owner: "client"
-    name: "anInt167"
+    name: "flowObfuscator1"
   client!client.nc [I:
     owner: "client"
-    name: "anIntArray38"
+    name: "archiveChecksums"
   client!client.nd I:
     owner: "client"
-    name: "anInt223"
+    name: "localPosZ"
   client!client.ne I:
     owner: "client"
-    name: "anInt244"
+    name: "cameraOrbitZ"
   client!client.nf [I:
     owner: "client"
-    name: "anIntArray63"
+    name: "cameraAmplitude"
   client!client.ng I:
     owner: "client"
-    name: "anInt286"
+    name: "waveCount"
   client!client.nh Z:
     owner: "client"
-    name: "aBoolean67"
+    name: "errorStarted"
   client!client.ni B:
     owner: "client"
-    name: "aByte17"
+    name: "flowObfuscator16"
   client!client.ob I:
     owner: "client"
-    name: "anInt168"
+    name: "socialAction"
   client!client.oc Z:
     owner: "client"
-    name: "aBoolean41"
+    name: "midiThreadActive"
   client!client.od [I:
     owner: "client"
-    name: "anIntArray47"
+    name: "EXPERIENCE_TABLE"
   client!client.oe I:
     owner: "client"
-    name: "anInt245"
+    name: "cameraMovedWrite"
   client!client.of Lclient!z;:
     owner: "client"
-    name: "aClass1_Sub1_Sub3_Sub2_1"
+    name: "self"
   client!client.og I:
     owner: "client"
     name: "drawX"
   client!client.oh I:
     owner: "client"
-    name: "anInt302"
+    name: "flowObfuscator25"
   client!client.oi Ljava/lang/Object;:
     owner: "client"
-    name: "anObject1"
+    name: "midiSync"
   client!client.pb I:
     owner: "client"
-    name: "anInt169"
+    name: "baseTileX"
   client!client.pc I:
     owner: "client"
-    name: "anInt197"
+    name: "flowObfuscator27"
   client!client.pd Z:
     owner: "client"
-    name: "aBoolean46"
+    name: "errorLoading"
   client!client.pe I:
     owner: "client"
-    name: "anInt246"
+    name: "activeMapFunctionCount"
   client!client.pf Z:
     owner: "client"
-    name: "aBoolean61"
+    name: "cameraOriented"
   client!client.pg I:
     owner: "client"
     name: "drawY"
   client!client.ph I:
     owner: "client"
-    name: "anInt303"
+    name: "energy"
   client!client.pi [I:
     owner: "client"
-    name: "anIntArray82"
+    name: "waveId"
   client!client.qb I:
     owner: "client"
-    name: "anInt170"
+    name: "baseTileZ"
   client!client.qc [Lclient!ib;:
     owner: "client"
-    name: "aClass1_Sub3_Sub2_Sub3Array1"
+    name: "sideicons"
   client!client.qd B:
     owner: "client"
-    name: "aByte12"
+    name: "flowObfuscator15"
   client!client.qe [I:
     owner: "client"
-    name: "anIntArray54"
+    name: "activeMapFunctionX"
   client!client.qf I:
     owner: "client"
-    name: "anInt270"
+    name: "sceneDelta"
   client!client.qg I:
     owner: "client"
-    name: "anInt289"
+    name: "stickyChatbackComponentId"
   client!client.qh [I:
     owner: "client"
-    name: "anIntArray70"
+    name: "BEARD_COLORS"
   client!client.qi I:
     owner: "client"
-    name: "anInt327"
+    name: "cameraAnticheatOffsetX"
   client!client.rb I:
     owner: "client"
-    name: "anInt171"
+    name: "mapLastBaseX"
   client!client.rc I:
     owner: "client"
-    name: "anInt198"
+    name: "lastWaveLength"
   client!client.rd I:
     owner: "client"
-    name: "anInt224"
+    name: "npcAction3Counter"
   client!client.re [I:
     owner: "client"
-    name: "anIntArray55"
+    name: "activeMapFunctionZ"
   client!client.rf Ljava/lang/String;:
     owner: "client"
-    name: "aString9"
+    name: "reportInput"
   client!client.rg I:
     owner: "client"
-    name: "anInt290"
+    name: "flowObfuscator42"
   client!client.rh I:
     owner: "client"
-    name: "anInt304"
+    name: "optionCount"
   client!client.ri I:
     owner: "client"
-    name: "anInt328"
+    name: "cameraOffsetXModifier"
   client!client.sb I:
     owner: "client"
-    name: "anInt172"
+    name: "mapLastBaseZ"
   client!client.sc I:
     owner: "client"
-    name: "anInt199"
+    name: "cameraOrbitPitch"
   client!client.sd I:
     owner: "client"
-    name: "anInt225"
+    name: "hoveredInterfaceIndex"
   client!client.se [[I:
     owner: "client"
-    name: "anIntArrayArray3"
+    name: "tileRenderCount"
   client!client.sf I:
     owner: "client"
-    name: "anInt271"
+    name: "viewportInterfaceIndex"
   client!client.sg Z:
     owner: "client"
-    name: "aBoolean65"
+    name: "rights"
   client!client.sh [I:
     owner: "client"
-    name: "anIntArray71"
+    name: "defaultVariables"
   client!client.si [Ljava/lang/String;:
     owner: "client"
-    name: "aStringArray9"
+    name: "friendName"
   client!client.tb Ljava/lang/String;:
     owner: "client"
-    name: "aString5"
+    name: "socialInput"
   client!client.tc I:
     owner: "client"
-    name: "anInt200"
+    name: "cameraYaw"
   client!client.td Z:
     owner: "client"
-    name: "aBoolean47"
+    name: "showSocialInput"
   client!client.te Z:
     owner: "client"
-    name: "aBoolean56"
+    name: "chatRedrawSettings"
   client!client.tf I:
     owner: "client"
-    name: "anInt272"
+    name: "loginFocusedLine"
   client!client.tg [I:
     owner: "client"
-    name: "anIntArray68"
+    name: "unknownCameraVariable"
   client!client.th I:
     owner: "client"
-    name: "anInt305"
+    name: "hintPlayer"
   client!client.ti I:
     owner: "client"
-    name: "anInt329"
+    name: "flashingSidebarId"
   client!client.ub B:
     owner: "client"
-    name: "aByte8"
+    name: "flowObfuscator2"
   client!client.uc I:
     owner: "client"
-    name: "anInt201"
+    name: "cameraYawModifier"
   client!client.ud Z:
     owner: "client"
-    name: "aBoolean48"
+    name: "flowObfuscator38"
   client!client.ue Ljava/math/BigInteger;:
     owner: "client"
-    name: "aBigInteger1"
+    name: "RSA_EXPONENT"
   client!client.uf [Lclient!ib;:
     owner: "client"
-    name: "aClass1_Sub3_Sub2_Sub3Array2"
+    name: "runes"
   client!client.ug I:
     owner: "client"
-    name: "anInt291"
+    name: "selectedSpell"
   client!client.uh I:
     owner: "client"
-    name: "anInt306"
+    name: "flowObfuscator41"
   client!client.ui I:
     owner: "client"
-    name: "anInt330"
+    name: "sidebarInterfaceId"
   client!client.vb Lclient!ob;:
     owner: "client"
-    name: "aLinkedList_2"
+    name: "temporaryLocs"
   client!client.vc I:
     owner: "client"
-    name: "anInt202"
+    name: "cameraPitchModifier"
   client!client.vd B:
     owner: "client"
-    name: "aByte13"
+    name: "flowObfuscator6"
   client!client.ve Z:
     owner: "client"
-    name: "aBoolean57"
+    name: "errorHost"
   client!client.vf Z:
     owner: "client"
-    name: "aBoolean62"
+    name: "ingame"
   client!client.vg I:
     owner: "client"
-    name: "anInt292"
+    name: "spellInterface"
   client!client.vh I:
     owner: "client"
-    name: "anInt307"
+    name: "sceneState"
   client!client.vi I:
     owner: "client"
-    name: "anInt331"
+    name: "cameraAnticheatOffsetZ"
   client!client.wb [J:
     owner: "client"
-    name: "aLongArray3"
+    name: "ignoreName37"
   client!client.wc I:
     owner: "client"
-    name: "anInt203"
+    name: "MAX_PLAYER_COUNT"
   client!client.wd Z:
     owner: "client"
-    name: "aBoolean49"
+    name: "chatContinuingDialogue"
   client!client.we I:
     owner: "client"
-    name: "anInt247"
+    name: "objDragCycles"
   client!client.wf Z:
     owner: "client"
-    name: "aBoolean63"
+    name: "startFlamesThread"
   client!client.wg I:
     owner: "client"
-    name: "anInt293"
+    name: "selectedFlags"
   client!client.wh [I:
     owner: "client"
-    name: "anIntArray72"
+    name: "skillExperience"
   client!client.wi I:
     owner: "client"
-    name: "anInt332"
+    name: "cameraOffsetZModifier"
   client!client.xb I:
     owner: "client"
-    name: "anInt173"
+    name: "weightCarried"
   client!client.xc I:
     owner: "client"
-    name: "anInt204"
+    name: "LOCAL_PLAYER_INDEX"
   client!client.xd I:
     owner: "client"
-    name: "anInt226"
+    name: "daysSinceLogin"
   client!client.xe [I:
     owner: "client"
-    name: "anIntArray56"
+    name: "sceneMapIndex"
   client!client.xf I:
     owner: "client"
-    name: "anInt273"
+    name: "chatPublicSetting"
   client!client.xg Ljava/lang/String;:
     owner: "client"
-    name: "aString11"
+    name: "selectedSpellPrefix"
   client!client.xh Z:
     owner: "client"
-    name: "aBoolean68"
+    name: "sidebarRedrawIcons"
   client!client.xi I:
     owner: "client"
-    name: "anInt333"
+    name: "flowObfuscator18"
   client!client.yb [[B:
     owner: "client"
-    name: "aByteArrayArray1"
+    name: "sceneMapLandData"
   client!client.yc [Lclient!z;:
     owner: "client"
-    name: "aClass1_Sub1_Sub3_Sub2Array1"
+    name: "playerEntities"
   client!client.yd I:
     owner: "client"
-    name: "anInt227"
+    name: "flameCycle1"
   client!client.ye [I:
     owner: "client"
-    name: "anIntArray57"
+    name: "skillLevel"
   client!client.yf I:
     owner: "client"
-    name: "anInt274"
+    name: "chatScrollAmount"
   client!client.yg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_16"
+    name: "titleTop"
   client!client.yh Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_17"
+    name: "scrollbar1"
   client!client.yi [I:
     owner: "client"
-    name: "anIntArray83"
+    name: "minimapLeft"
   client!client.zb I:
     owner: "client"
-    name: "anInt174"
+    name: "flowObfuscator17"
   client!client.zc I:
     owner: "client"
-    name: "anInt205"
+    name: "playerCount"
   client!client.zd I:
     owner: "client"
-    name: "anInt228"
+    name: "flameCycle2"
   client!client.ze [Lclient!y;:
     owner: "client"
     name: "npcEntities"
   client!client.zf Lclient!hb;:
     owner: "client"
-    name: "aClass1_Sub3_Sub2_Sub2_3"
+    name: "imageFlamesLeft"
   client!client.zg Lclient!qb;:
     owner: "client"
-    name: "aDrawArea_17"
+    name: "titleBottom"
   client!client.zh Lclient!ib;:
     owner: "client"
-    name: "aIndexedSprite_18"
+    name: "scrollbar2"
   client!client.zi I:
     owner: "client"
-    name: "anInt334"
+    name: "cameraAnticheatAngle"
   client!d.a Z:
     owner: "BufferedStream"
     name: "flowObfuscator1"
@@ -2126,9 +2123,6 @@ fields:
   client!db.f Lclient!db;:
     owner: "CacheableNode"
     name: "prevCacheable"
-  client!db.g I:
-    owner: "CacheableNode"
-    name: "anInt555"
   client!dc.a [I:
     owner: "Packet"
     name: "CLIENTPROT_SCRAMBLED"
@@ -2647,7 +2641,7 @@ fields:
     name: "textureCycles"
   client!gb.U I:
     owner: "Draw3D"
-    name: "anInt434"
+    name: "cycle"
   client!gb.V [I:
     owner: "Draw3D"
     name: "palette"
@@ -4265,9 +4259,6 @@ fields:
   client!u.c Lclient!u;:
     owner: "Node"
     name: "next"
-  client!u.d I:
-    owner: "Node"
-    name: "anInt880"
   client!ub.a Z:
     owner: "FileArchive"
     name: "flowObfuscator2"
@@ -5699,13 +5690,13 @@ methods:
       1312: "local1312"
       1330: "local1330"
       1334: "local1334"
-      1357: "local1357"
+      1357: "ignored"
   client!client.a (B)V:
     owner: "client"
     name: "unload"
     arguments: {}
     locals:
-      11: "local11"
+      11: "ignored"
   client!client.a (BLclient!kb;I)V:
     owner: "client"
     name: "readLocationPacket"
@@ -6112,7 +6103,7 @@ methods:
     name: "setDrawPos"
     arguments:
       0: "arg0"
-      1: "arg1"
+      1: "obfuscator"
       2: "arg2"
     locals: {}
   client!client.a (JB)V:
@@ -6795,7 +6786,7 @@ methods:
     name: "getCodeBase"
     arguments: {}
     locals:
-      21: "local21"
+      21: "ignored"
   client!client.getParameter (Ljava/lang/String;)Ljava/lang/String;:
     owner: "client"
     name: "getParameter"
@@ -6806,7 +6797,7 @@ methods:
     owner: "client"
     name: "clearCaches"
     arguments:
-      0: "arg0"
+      0: "obfuscator"
     locals: {}
   client!client.h (I)I:
     owner: "client"
@@ -6924,8 +6915,8 @@ methods:
       508: "local508"
       530: "local530"
       653: "local653"
-      1001: "local1001"
-      1006: "local1006"
+      1001: "ignored"
+      1006: "ignored"
   client!client.k (B)V:
     owner: "client"
     name: "updateSceneSpotAnims"
@@ -7171,8 +7162,8 @@ methods:
       3043: "local3043"
       3157: "local3157"
       3362: "local3362"
-      3862: "local3862"
-      3867: "local3867"
+      3862: "ignored"
+      3867: "ignored"
   client!client.q (B)V:
     owner: "client"
     name: "updateViewport"
