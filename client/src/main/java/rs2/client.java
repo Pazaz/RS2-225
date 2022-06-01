@@ -47,6 +47,8 @@ public class client extends GameShell {
 
 	public static int httpPortOffset = 0;
 
+	public static boolean drawDebug = true;
+
 	/// ----
 
 	@OriginalMember(owner = "client!client", name = "E", descriptor = "I")
@@ -6546,23 +6548,27 @@ public class client extends GameShell {
 	private void drawViewport3d() {
 		@Pc(7) int local7;
 		this.drawChat();
+
 		if (this.crossType == 1) {
 			this.cross[this.crossCycle / 100].draw(this.crossX - 8 - 8, this.crossY - 8 - 11);
-		}
-		if (this.crossType == 2) {
+		} else if (this.crossType == 2) {
 			this.cross[this.crossCycle / 100 + 4].draw(this.crossX - 8 - 8, this.crossY - 8 - 11);
 		}
+
 		if (this.viewportInterfaceIndex != -1) {
 			this.animateInterface(this.viewportInterfaceIndex, this.sceneDelta);
 			this.drawInterface(0, 0, Component.instances[this.viewportInterfaceIndex], 0);
 		}
+
 		this.drawWildyLevel();
+
 		if (!this.menuVisible) {
 			this.updateInput();
 			this.drawTooltip();
 		} else if (this.mouseArea == 0) {
 			this.drawMenu();
 		}
+
 		if (this.inMultizone == 1) {
 			if (this.wildernessLevel > 0 || this.worldLocationState == 1) {
 				this.headicons[1].draw(472, 258);
@@ -6570,24 +6576,33 @@ public class client extends GameShell {
 				this.headicons[1].draw(472, 296);
 			}
 		}
+
+		if (drawDebug) {
+			this.plain12.draw(4, 329 - (plain12.fontHeight * 3), 0xFFFF00, "Region: " + ((baseTileX + self.x / 128) >> 6) + " " + ((baseTileZ + self.z / 128) >> 6));
+			this.plain12.draw(4, 329 - (plain12.fontHeight * 2), 0xFFFF00, "Relative: " + (self.x / 128) + " " + (self.z / 128));
+			this.plain12.draw(4, 329 - (plain12.fontHeight), 0xFFFF00, "Coord: " + (baseTileX + self.x / 128) + " " + (baseTileZ + self.z / 128) + " " + currentPlane);
+			this.plain12.draw(4, 329, 0xFFFF00, "FPS: " + super.fps);
+		}
+
 		if (this.wildernessLevel > 0) {
 			this.headicons[0].draw(472, 296);
 			this.plain12.drawCentered("Level: " + this.wildernessLevel, 484, 329, 0xffff00);
 		}
+
 		if (this.worldLocationState == 1) {
 			this.headicons[6].draw(472, 296);
 			this.plain12.drawCentered("Arena", 484, 329, 0xffff00);
 		}
-		if (this.systemUpdateTimer == 0) {
-			return;
-		}
-		local7 = this.systemUpdateTimer / 50;
-		@Pc(196) int local196 = local7 / 60;
-		local7 %= 60;
-		if (local7 < 10) {
-			this.plain12.draw(4, 329, 0xffff00, "System update in: " + local196 + ":0" + local7);
-		} else {
-			this.plain12.draw(4, 329, 0xffff00, "System update in: " + local196 + ":" + local7);
+
+		if (this.systemUpdateTimer > 0) {
+			local7 = this.systemUpdateTimer / 50;
+			@Pc(196) int local196 = local7 / 60;
+			local7 %= 60;
+			if (local7 < 10) {
+				this.plain12.draw(4, 329, 0xffff00, "System update in: " + local196 + ":0" + local7);
+			} else {
+				this.plain12.draw(4, 329, 0xffff00, "System update in: " + local196 + ":" + local7);
+			}
 		}
 	}
 

@@ -26,7 +26,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	private int state;
 
 	@OriginalMember(owner = "client!a", name = "k", descriptor = "I")
-	private int fps;
+	public int fps;
 
 	@OriginalMember(owner = "client!a", name = "l", descriptor = "I")
 	protected int gameWidth;
