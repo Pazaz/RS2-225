@@ -1756,21 +1756,21 @@ public class client extends GameShell {
 		}
 
 		if (this.ignoreCount >= 100) {
-			this.addMessage(0, "Your ignore list is full. Max of 100 hit", "");
+			this.addMessage(0, "", "Your ignore list is full. Max of 100 hit");
 			return;
 		}
 
 		@Pc(23) String name = StringUtils.formatName(StringUtils.fromBase37(name37));
 		for (@Pc(25) int i = 0; i < this.ignoreCount; i++) {
 			if (this.ignoreName37[i] == name37) {
-				this.addMessage(0, name + " is already on your ignore list", "");
+				this.addMessage(0, "", name + " is already on your ignore list");
 				return;
 			}
 		}
 
 		for (@Pc(55) int i = 0; i < this.friendCount; i++) {
 			if (this.friendName37[i] == name37) {
-				this.addMessage(0, "Please remove " + name + " from your friend list first", "");
+				this.addMessage(0, "", "Please remove " + name + " from your friend list first");
 				return;
 			}
 		}
@@ -2959,7 +2959,7 @@ public class client extends GameShell {
 							this.outBuffer.psize1(this.outBuffer.pos - start);
 							this.socialInput = StringUtils.toSentenceCase(this.socialInput);
 							this.socialInput = WordPack.getFiltered(this.socialInput);
-							this.addMessage(6, this.socialInput, StringUtils.formatName(StringUtils.fromBase37(this.socialName37)));
+							this.addMessage(6, StringUtils.formatName(StringUtils.fromBase37(this.socialName37)), this.socialInput);
 							if (this.chatPrivateSetting == 2) {
 								this.chatPrivateSetting = 1;
 								this.chatRedrawSettings = true;
@@ -3013,6 +3013,20 @@ public class client extends GameShell {
 						if (this.input.equals("::clientdrop") && (super.frame != null || this.getHost().contains("192.168.1."))) {
 							this.reconnect();
 						} else if (this.input.startsWith("::")) {
+							String[] args = this.input.split("\\s+");
+							if (this.input.startsWith("::tileh")) {
+								if (args.length > 2) {
+									this.levelHeightMaps[Integer.parseInt(args[1])][(self.x / 128)][(self.z / 128)] = Integer.parseInt(args[2]);
+									this.addMessage(0, "", "tileh: " + (self.x / 128) + " " + (self.z / 128) + " " + Integer.parseInt(args[1]) + " is now " + this.levelHeightMaps[Integer.parseInt(args[1])][(self.x / 128)][(self.z / 128)]);
+								}
+							} else if (this.input.startsWith("::gtileh")) {
+								if (args.length > 1) {
+									this.addMessage(0, "", "gtileh: " + (self.x / 128) + " " + (self.z / 128) + " " + Integer.parseInt(args[1]) + " is " + this.levelHeightMaps[Integer.parseInt(args[1])][(self.x / 128)][(self.z / 128)]);
+								}
+							} else if (this.input.startsWith("::reloc")) {
+								createScene(true);
+							}
+
 							this.outBuffer.p1isaac(ClientProt.CLIENT_CHEAT);
 							this.outBuffer.p1(this.input.length() - 1);
 							this.outBuffer.pjstr(this.input.substring(2));
@@ -3088,7 +3102,7 @@ public class client extends GameShell {
 							this.self.spokenColor = color;
 							this.self.spokenEffect = effect;
 							this.self.textCycle = 150;
-							this.addMessage(2, this.self.spoken, this.self.name);
+							this.addMessage(2, this.self.name, this.self.spoken);
 							if (this.chatPublicSetting == 2) {
 								this.chatPublicSetting = 3;
 								this.chatRedrawSettings = true;
@@ -3217,64 +3231,66 @@ public class client extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(Ljava/lang/String;ILjava/lang/String;II)Lclient!ub;")
-	private FileArchive loadArchive(@OriginalArg(0) String arg0, @OriginalArg(1) int arg1, @OriginalArg(2) String arg2, @OriginalArg(3) int arg3) {
-		@Pc(3) int local3 = 5;
-		@Pc(6) byte[] local6 = signlink.cacheload(arg2);
-		@Pc(20) int local20;
-		if (local6 != null) {
+	private FileArchive loadArchive(@OriginalArg(0) String displayName, @OriginalArg(1) int expectedCrc, @OriginalArg(2) String archiveName, @OriginalArg(3) int progress) {
+		@Pc(3) int nextSecs = 5;
+		@Pc(6) byte[] data = signlink.cacheload(archiveName);
+
+		@Pc(20) int temp;
+		if (data != null) {
 			this.crc32.reset();
-			this.crc32.update(local6);
-			local20 = (int) this.crc32.getValue();
-			if (local20 != arg1) {
-				local6 = null;
+			this.crc32.update(data);
+			temp = (int) this.crc32.getValue();
+			if (temp != expectedCrc) {
+				data = null;
 			}
 		}
-		if (local6 != null) {
-			return new FileArchive(local6);
+		if (data != null) {
+			return new FileArchive(data);
 		}
-		while (local6 == null) {
-			this.showProgress("Requesting " + arg0, arg3);
+
+		while (data == null) {
+			this.showProgress("Requesting " + displayName, progress);
 			try {
-				local20 = 0;
-				@Pc(60) DataInputStream local60 = this.openStream(arg2 + arg1);
+				temp = 0;
+				@Pc(60) DataInputStream local60 = this.openStream(archiveName + expectedCrc);
 				@Pc(63) byte[] local63 = new byte[6];
 				local60.readFully(local63, 0, 6);
 				@Pc(74) Buffer local74 = new Buffer(local63);
 				local74.pos = 3;
 				@Pc(82) int local82 = local74.g3() + 6;
 				@Pc(84) int local84 = 6;
-				local6 = new byte[local82];
-				System.arraycopy(local63, 0, local6, 0, 6);
+				data = new byte[local82];
+				System.arraycopy(local63, 0, data, 0, 6);
 				while (local84 < local82) {
 					@Pc(107) int local107 = local82 - local84;
 					if (local107 > 1000) {
 						local107 = 1000;
 					}
-					local84 += local60.read(local6, local84, local107);
+					local84 += local60.read(data, local84, local107);
 					@Pc(126) int local126 = local84 * 100 / local82;
-					if (local126 != local20) {
-						this.showProgress("Loading " + arg0 + " - " + local126 + "%", arg3);
+					if (local126 != temp) {
+						this.showProgress("Loading " + displayName + " - " + local126 + "%", progress);
 					}
-					local20 = local126;
+					temp = local126;
 				}
 				local60.close();
 			} catch (@Pc(155) IOException local155) {
-				local6 = null;
-				for (local20 = local3; local20 > 0; local20--) {
-					this.showProgress("Error loading - Will retry in " + local20 + " secs.", arg3);
+				data = null;
+				for (temp = nextSecs; temp > 0; temp--) {
+					this.showProgress("Error loading - Will retry in " + temp + " secs.", progress);
 					try {
 						Thread.sleep(1000L);
 					} catch (@Pc(178) Exception local178) {
 					}
 				}
-				local3 *= 2;
-				if (local3 > 60) {
-					local3 = 60;
+				nextSecs *= 2;
+				if (nextSecs > 60) {
+					nextSecs = 60;
 				}
 			}
 		}
-		signlink.cachesave(arg2, local6);
-		return new FileArchive(local6);
+		signlink.cachesave(archiveName, data);
+		return new FileArchive(data);
 	}
 
 	@OriginalMember(owner = "client!client", name = "f", descriptor = "(Z)V")
@@ -5097,7 +5113,7 @@ public class client extends GameShell {
 				}
 
 				if (!local71) {
-					this.addMessage(0, "Unable to find " + local69, "");
+					this.addMessage(0, "", "Unable to find " + local69);
 				}
 			}
 		}
@@ -5216,7 +5232,7 @@ public class client extends GameShell {
 			} else {
 				local69 = new String(local589.description);
 			}
-			this.addMessage(0, local69, "");
+			this.addMessage(0, "", local69);
 		}
 
 		if (action == Cs1Actions.OPLOC1) {
@@ -5300,7 +5316,7 @@ public class client extends GameShell {
 			} else {
 				local845 = new String(local830.description);
 			}
-			this.addMessage(0, local845, "");
+			this.addMessage(0, "", local845);
 		}
 
 		if (action == Cs1Actions.OPNPCU) {
@@ -5433,7 +5449,7 @@ public class client extends GameShell {
 				} else {
 					local845 = new String(local345.info.description);
 				}
-				this.addMessage(0, local845, "");
+				this.addMessage(0, "", local845);
 			}
 		}
 
@@ -5575,7 +5591,7 @@ public class client extends GameShell {
 			} else {
 				local845 = new String(local830.description);
 			}
-			this.addMessage(0, local845, "");
+			this.addMessage(0, "", local845);
 		}
 
 		if (action == Cs1Actions.IF_SELECTBUTTON) {
@@ -7294,7 +7310,7 @@ public class client extends GameShell {
 				this.mapSquare.removeWallDecoration(plane, arg2, arg1);
 			}
 			if (arg3 == 2) {
-				this.mapSquare.removeLocations(arg1, arg2, plane);
+				this.mapSquare.removeLocation(arg1, arg2, plane);
 				local107 = LocType.get(local87);
 				if (arg1 + local107.sizeX > 103 || arg2 + local107.sizeX > 103 || arg1 + local107.sizeZ > 103 || arg2 + local107.sizeZ > 103) {
 					return;
@@ -7327,19 +7343,19 @@ public class client extends GameShell {
 			return;
 		}
 		if (this.friendCount >= 100) {
-			this.addMessage(0, "Your friends list is full. Max of 100 hit", "");
+			this.addMessage(0, "", "Your friends list is full. Max of 100 hit");
 			return;
 		}
 		@Pc(23) String local23 = StringUtils.formatName(StringUtils.fromBase37(arg0));
 		for (@Pc(25) int local25 = 0; local25 < this.friendCount; local25++) {
 			if (this.friendName37[local25] == arg0) {
-				this.addMessage(0, local23 + " is already on your friend list", "");
+				this.addMessage(0, "", local23 + " is already on your friend list");
 				return;
 			}
 		}
 		for (@Pc(55) int local55 = 0; local55 < this.ignoreCount; local55++) {
 			if (this.ignoreName37[local55] == arg0) {
-				this.addMessage(0, "Please remove " + local23 + " from your ignore list first", "");
+				this.addMessage(0, "", "Please remove " + local23 + " from your ignore list first");
 				return;
 			}
 		}
@@ -8190,7 +8206,7 @@ public class client extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ILjava/lang/String;BLjava/lang/String;)V")
-	private void addMessage(@OriginalArg(0) int arg0, @OriginalArg(1) String arg1, @OriginalArg(3) String arg2) {
+	private void addMessage(@OriginalArg(0) int arg0, @OriginalArg(3) String arg2, @OriginalArg(1) String arg1) {
 		if (arg0 == 0 && this.stickyChatbackComponentId != -1) {
 			this.chatbackMessage = arg1;
 			super.mouseButton = 0;
@@ -8758,17 +8774,18 @@ public class client extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "j", descriptor = "(II)V")
-	private void updateObjectStack(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		@Pc(9) LinkedList local9 = this.objects[this.currentPlane][arg0][arg1];
-		if (local9 == null) {
-			this.mapSquare.removeObject(this.currentPlane, arg0, arg1);
+	private void updateObjectStack(@OriginalArg(0) int x, @OriginalArg(1) int z) {
+		@Pc(9) LinkedList objstacks = this.objects[this.currentPlane][x][z];
+		if (objstacks == null) {
+			this.mapSquare.removeObject(this.currentPlane, x, z);
 			return;
 		}
+
 		@Pc(21) int local21 = -99999999;
 		@Pc(23) ObjStackEntity local23 = null;
 		@Pc(27) ObjStackEntity local27;
 		@Pc(35) int local35;
-		for (local27 = (ObjStackEntity) local9.peekPrevious(); local27 != null; local27 = (ObjStackEntity) local9.getPrevious()) {
+		for (local27 = (ObjStackEntity) objstacks.peekPrevious(); local27 != null; local27 = (ObjStackEntity) objstacks.getPrevious()) {
 			@Pc(32) ObjType local32 = ObjType.get(local27.id);
 			local35 = local32.cost;
 			if (local32.stackable) {
@@ -8779,12 +8796,12 @@ public class client extends GameShell {
 				local23 = local27;
 			}
 		}
-		local9.pushPrevious(local23);
+		objstacks.pushPrevious(local23);
 		@Pc(65) int local65 = -1;
 		local35 = -1;
 		@Pc(69) int local69 = 0;
 		@Pc(71) int local71 = 0;
-		for (local27 = (ObjStackEntity) local9.peekPrevious(); local27 != null; local27 = (ObjStackEntity) local9.getPrevious()) {
+		for (local27 = (ObjStackEntity) objstacks.peekPrevious(); local27 != null; local27 = (ObjStackEntity) objstacks.getPrevious()) {
 			if (local27.id != local23.id && local65 == -1) {
 				local65 = local27.id;
 				local69 = local27.amount;
@@ -8802,13 +8819,13 @@ public class client extends GameShell {
 		if (local35 != -1) {
 			local128 = ObjType.get(local35).getModel(local71);
 		}
-		@Pc(144) int local144 = arg0 + (arg1 << 7) + 1610612736;
+		@Pc(144) int local144 = x + (z << 7) + 1610612736;
 		@Pc(148) ObjType local148 = ObjType.get(local23.id);
-		this.mapSquare.addObject(local148.getModel(local23.amount), local118, this.getLandY(this.currentPlane, arg0 * 128 + 64, arg1 * 128 + 64), this.currentPlane, local144, arg1, arg0, local128);
+		this.mapSquare.addObject(local148.getModel(local23.amount), local118, this.getLandY(this.currentPlane, x * 128 + 64, z * 128 + 64), this.currentPlane, local144, z, x, local128);
 	}
 
 	@OriginalMember(owner = "client!client", name = "D", descriptor = "(I)V")
-	private void createScene() {
+	private void createScene(boolean reuseHeightmap) {
 		try {
 			this.lastSceneLevel = -1;
 			this.temporaryLocs.clear();
@@ -8822,7 +8839,8 @@ public class client extends GameShell {
 				this.collisionMaps[plane].reset();
 			}
 			System.gc();
-			@Pc(53) Scene local53 = new Scene(104, this.levelRenderFlags, 104, this.levelHeightMaps);
+
+			@Pc(53) Scene scene = new Scene(104, this.levelRenderFlags, 104, this.levelHeightMaps);
 			@Pc(56) byte[] local56 = new byte[100000];
 			@Pc(60) int local60 = this.sceneMapLandData.length;
 			Scene.lowMemory = MapSquare.lowMemory;
@@ -8835,11 +8853,13 @@ public class client extends GameShell {
 					Scene.lowMemory = false;
 				}
 			}
+
 			if (Scene.lowMemory) {
 				this.mapSquare.setup(this.currentPlane);
 			} else {
 				this.mapSquare.setup(0);
 			}
+
 			this.outBuffer.p1isaac(ClientProt.NO_TIMEOUT);
 			@Pc(157) int local157;
 			for (local73 = 0; local73 < local60; local73++) {
@@ -8849,11 +8869,12 @@ public class client extends GameShell {
 				if (local148 != null) {
 					local157 = (new Buffer(local148)).g4();
 					BZip2InputStream.read(local56, local157, local148, local148.length - 4, 4);
-					local53.readLandscape(local56, (this.centerSectorX - 6) * 8, local143, local80, (this.centerSectorZ - 6) * 8);
+					scene.readLandscape(local56, (this.centerSectorX - 6) * 8, local143, local80, (this.centerSectorZ - 6) * 8, reuseHeightmap);
 				} else if (this.centerSectorZ < 800) {
-					local53.clearLandscape(local80, local143);
+					scene.clearLandscape(local80, local143);
 				}
 			}
+
 			this.outBuffer.p1isaac(ClientProt.NO_TIMEOUT);
 			@Pc(225) int local225;
 			for (local80 = 0; local80 < local60; local80++) {
@@ -8863,12 +8884,14 @@ public class client extends GameShell {
 					BZip2InputStream.read(local56, local225, local216, local216.length - 4, 4);
 					local157 = (this.sceneMapIndex[local80] >> 8) * 64 - this.baseTileX;
 					@Pc(259) int local259 = (this.sceneMapIndex[local80] & 0xFF) * 64 - this.baseTileZ;
-					local53.readLocs(local56, this.mapSquare, this.collisionMaps, this.locList, local259, local157);
+					scene.readLocs(local56, this.mapSquare, this.collisionMaps, this.locList, local259, local157);
 				}
 			}
+
 			this.outBuffer.p1isaac(ClientProt.NO_TIMEOUT);
-			local53.buildLandscape(this.mapSquare, this.collisionMaps);
+			scene.buildLandscape(this.mapSquare, this.collisionMaps);
 			this.areaViewport.makeTarget();
+
 			this.outBuffer.p1isaac(ClientProt.NO_TIMEOUT);
 			for (@Pc(301) LocEntity local301 = (LocEntity) this.locList.peekPrevious(); local301 != null; local301 = (LocEntity) this.locList.getPrevious()) {
 				if ((this.levelRenderFlags[1][local301.x][local301.z] & 0x2) == 2) {
@@ -8886,7 +8909,7 @@ public class client extends GameShell {
 			for (@Pc(361) SpawnedLoc local361 = (SpawnedLoc) this.spawnedLocations.peekPrevious(); local361 != null; local361 = (SpawnedLoc) this.spawnedLocations.getPrevious()) {
 				this.addLoc(local361.orientation, local361.tileX, local361.tileZ, local361.classType, local361.locIndex, local361.type, local361.level);
 			}
-		} catch (@Pc(390) Exception local390) {
+		} catch (@Pc(390) Exception ignored) {
 		}
 		LocType.models.clear();
 		System.gc();
@@ -9153,92 +9176,92 @@ public class client extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "E", descriptor = "(I)V")
 	private void updateSceneSeqLocs() {
-		for (@Pc(10) LocEntity local10 = (LocEntity) this.locList.peekPrevious(); local10 != null; local10 = (LocEntity) this.locList.getPrevious()) {
+		for (@Pc(10) LocEntity e = (LocEntity) this.locList.peekPrevious(); e != null; e = (LocEntity) this.locList.getPrevious()) {
 			@Pc(14) boolean local14 = false;
-			local10.seqDelay += this.sceneDelta;
-			if (local10.seqFrame == -1) {
-				local10.seqFrame = 0;
+			e.seqDelay += this.sceneDelta;
+			if (e.seqFrame == -1) {
+				e.seqFrame = 0;
 				local14 = true;
 			}
 			label67: {
 				do {
 					do {
-						if (local10.seqDelay <= local10.seq.frameDelay[local10.seqFrame]) {
+						if (e.seqDelay <= e.seq.frameDelay[e.seqFrame]) {
 							break label67;
 						}
-						local10.seqDelay -= local10.seq.frameDelay[local10.seqFrame] + 1;
-						local10.seqFrame++;
+						e.seqDelay -= e.seq.frameDelay[e.seqFrame] + 1;
+						e.seqFrame++;
 						local14 = true;
-					} while (local10.seqFrame < local10.seq.frameCount);
-					local10.seqFrame -= local10.seq.delay;
-				} while (local10.seqFrame >= 0 && local10.seqFrame < local10.seq.frameCount);
-				local10.unlink();
+					} while (e.seqFrame < e.seq.frameCount);
+					e.seqFrame -= e.seq.delay;
+				} while (e.seqFrame >= 0 && e.seqFrame < e.seq.frameCount);
+				e.unlink();
 				local14 = false;
 			}
 			if (local14) {
-				@Pc(96) int local96 = local10.level;
-				@Pc(99) int local99 = local10.x;
-				@Pc(102) int local102 = local10.z;
+				@Pc(96) int plane = e.level;
+				@Pc(99) int x = e.x;
+				@Pc(102) int z = e.z;
 				@Pc(104) int local104 = 0;
-				if (local10.classType == 0) {
-					local104 = this.mapSquare.getWallBitset(local96, local99, local102);
+				if (e.classType == 0) {
+					local104 = this.mapSquare.getWallBitset(plane, x, z);
 				}
-				if (local10.classType == 1) {
-					local104 = this.mapSquare.getWallDecorationBitset(local96, local102, local99);
+				if (e.classType == 1) {
+					local104 = this.mapSquare.getWallDecorationBitset(plane, z, x);
 				}
-				if (local10.classType == 2) {
-					local104 = this.mapSquare.getLocationBitset(local96, local99, local102);
+				if (e.classType == 2) {
+					local104 = this.mapSquare.getLocationBitset(plane, x, z);
 				}
-				if (local10.classType == 3) {
-					local104 = this.mapSquare.getGroundDecorationBitset(local96, local99, local102);
+				if (e.classType == 3) {
+					local104 = this.mapSquare.getGroundDecorationBitset(plane, x, z);
 				}
-				if (local104 != 0 && (local104 >> 14 & 0x7FFF) == local10.locIndex) {
-					@Pc(171) int local171 = this.levelHeightMaps[local96][local99][local102];
-					@Pc(182) int local182 = this.levelHeightMaps[local96][local99 + 1][local102];
-					@Pc(195) int local195 = this.levelHeightMaps[local96][local99 + 1][local102 + 1];
-					@Pc(206) int local206 = this.levelHeightMaps[local96][local99][local102 + 1];
-					@Pc(210) LocType local210 = LocType.get(local10.locIndex);
-					@Pc(212) int local212 = -1;
-					if (local10.seqFrame != -1) {
-						local212 = local10.seq.primaryFrames[local10.seqFrame];
+				if (local104 != 0 && (local104 >> 14 & 0x7FFF) == e.locIndex) {
+					@Pc(171) int local171 = this.levelHeightMaps[plane][x][z];
+					@Pc(182) int local182 = this.levelHeightMaps[plane][x + 1][z];
+					@Pc(195) int local195 = this.levelHeightMaps[plane][x + 1][z + 1];
+					@Pc(206) int local206 = this.levelHeightMaps[plane][x][z + 1];
+					@Pc(210) LocType locType = LocType.get(e.locIndex);
+					@Pc(212) int seq = -1;
+					if (e.seqFrame != -1) {
+						seq = e.seq.primaryFrames[e.seqFrame];
 					}
 					@Pc(235) int local235;
 					@Pc(239) int local239;
 					@Pc(243) int local243;
 					@Pc(258) Model local258;
-					if (local10.classType == 2) {
-						local235 = this.mapSquare.getInfo(local96, local99, local102, local104);
+					if (e.classType == 2) {
+						local235 = this.mapSquare.getInfo(plane, x, z, local104);
 						local239 = local235 & 0x1F;
 						local243 = local235 >> 6;
 						if (local239 == 11) {
 							local239 = 10;
 						}
-						local258 = local210.getModel(local239, local243, local171, local182, local195, local206, local212);
-						this.mapSquare.setLocModel(local99, local258, local96, local102);
-					} else if (local10.classType == 1) {
-						@Pc(282) Model local282 = local210.getModel(4, 0, local171, local182, local195, local206, local212);
-						this.mapSquare.setWallDecorationModel(local102, local99, local282, local96);
-					} else if (local10.classType == 0) {
-						local235 = this.mapSquare.getInfo(local96, local99, local102, local104);
+						local258 = locType.getModel(local239, local243, local171, local182, local195, local206, seq);
+						this.mapSquare.setLocModel(x, local258, plane, z);
+					} else if (e.classType == 1) {
+						@Pc(282) Model local282 = locType.getModel(4, 0, local171, local182, local195, local206, seq);
+						this.mapSquare.setWallDecorationModel(z, x, local282, plane);
+					} else if (e.classType == 0) {
+						local235 = this.mapSquare.getInfo(plane, x, z, local104);
 						local239 = local235 & 0x1F;
 						local243 = local235 >> 6;
 						if (local239 == 2) {
 							@Pc(320) int local320 = local243 + 1 & 0x3;
-							@Pc(332) Model local332 = local210.getModel(2, local243 + 4, local171, local182, local195, local206, local212);
-							@Pc(342) Model local342 = local210.getModel(2, local320, local171, local182, local195, local206, local212);
-							this.mapSquare.setWallModels(local332, local342, local102, local99, local96);
+							@Pc(332) Model local332 = locType.getModel(2, local243 + 4, local171, local182, local195, local206, seq);
+							@Pc(342) Model local342 = locType.getModel(2, local320, local171, local182, local195, local206, seq);
+							this.mapSquare.setWallModels(local332, local342, z, x, plane);
 						} else {
-							local258 = local210.getModel(local239, local243, local171, local182, local195, local206, local212);
-							this.mapSquare.setWallModel(local258, local102, local99, local96);
+							local258 = locType.getModel(local239, local243, local171, local182, local195, local206, seq);
+							this.mapSquare.setWallModel(local258, z, x, plane);
 						}
-					} else if (local10.classType == 3) {
-						local235 = this.mapSquare.getInfo(local96, local99, local102, local104);
+					} else if (e.classType == 3) {
+						local235 = this.mapSquare.getInfo(plane, x, z, local104);
 						local239 = local235 >> 6;
-						@Pc(400) Model local400 = local210.getModel(22, local239, local171, local182, local195, local206, local212);
-						this.mapSquare.setGroundDecorationModel(local400, local102, local99, local96);
+						@Pc(400) Model local400 = locType.getModel(22, local239, local171, local182, local195, local206, seq);
+						this.mapSquare.setGroundDecorationModel(local400, z, x, plane);
 					}
 				} else {
-					local10.unlink();
+					e.unlink();
 				}
 			}
 		}
@@ -9710,10 +9733,10 @@ public class client extends GameShell {
 							this.friendWorld[i] = world;
 							this.sidebarRedraw = true;
 							if (world > 0) {
-								this.addMessage(5, name + " has logged in.", "");
+								this.addMessage(5, "", name + " has logged in.");
 							}
 							if (world == 0) {
-								this.addMessage(5, name + " has logged out.", "");
+								this.addMessage(5, "", name + " has logged out.");
 							}
 						}
 						name = null;
@@ -10382,9 +10405,9 @@ public class client extends GameShell {
 						@Pc(2721) String encoded = TextEncoder.read(this.inBuffer, this.packetLength - 13);
 						@Pc(2725) String filtered = WordPack.getFiltered(encoded);
 						if (otherPlayerRights > 1) {
-							this.addMessage(7, filtered, StringUtils.formatName(StringUtils.fromBase37(name37)));
+							this.addMessage(7, StringUtils.formatName(StringUtils.fromBase37(name37)), filtered);
 						} else {
-							this.addMessage(3, filtered, StringUtils.formatName(StringUtils.fromBase37(name37)));
+							this.addMessage(3, StringUtils.formatName(StringUtils.fromBase37(name37)), filtered);
 						}
 					} catch (@Pc(2752) Exception ex) {
 						signlink.reporterror("cde1");
@@ -10473,7 +10496,7 @@ public class client extends GameShell {
 						}
 					}
 					if (!ignored && this.tutorialIslandState == 0) {
-						this.addMessage(4, "wishes to trade with you.", otherPlayer);
+						this.addMessage(4, otherPlayer, "wishes to trade with you.");
 					}
 				} else if (message.endsWith(":duelreq:")) {
 					String otherPlayer = message.substring(0, message.indexOf(":"));
@@ -10486,10 +10509,10 @@ public class client extends GameShell {
 						}
 					}
 					if (!ignored && this.tutorialIslandState == 0) {
-						this.addMessage(8, "wishes to duel with you.", otherPlayer);
+						this.addMessage(8, otherPlayer, "wishes to duel with you.");
 					}
 				} else {
-					this.addMessage(0, message, "");
+					this.addMessage(0, "", message);
 				}
 				this.packetOpcode = -1;
 				return true;
@@ -10674,7 +10697,7 @@ public class client extends GameShell {
 				if (this.sceneState == 1) {
 					this.sceneState = 2;
 					Scene.levelBuilt = this.currentPlane;
-					this.createScene();
+					this.createScene(false);
 				}
 				if (lowMemory && this.sceneState == 2 && Scene.levelBuilt != this.currentPlane) {
 					this.areaViewport.makeTarget();
@@ -10682,7 +10705,7 @@ public class client extends GameShell {
 					this.plain12.drawCentered("Loading - please wait.", 256, 150, 0xffffff);
 					this.areaViewport.drawAt(8, 11, 512, 334, super.graphic);
 					Scene.levelBuilt = this.currentPlane;
-					this.createScene();
+					this.createScene(false);
 				}
 				if (this.currentPlane != this.lastSceneLevel && this.sceneState == 2) {
 					this.lastSceneLevel = this.currentPlane;
@@ -10798,7 +10821,7 @@ public class client extends GameShell {
 			player.spokenColor = 0;
 			player.spokenEffect = 0;
 			player.textCycle = 150;
-			this.addMessage(2, player.spoken, player.name);
+			this.addMessage(2, player.name, player.spoken);
 		}
 		if ((mask & 0x10) == 16) {
 			player.damageTaken = b.g1();
@@ -10836,9 +10859,9 @@ public class client extends GameShell {
 						player.spokenEffect = local19 & 0xFF;
 						player.textCycle = 150;
 						if (local66 > 1) {
-							this.addMessage(1, local248, player.name);
+							this.addMessage(1, player.name, local248);
 						} else {
-							this.addMessage(2, local248, player.name);
+							this.addMessage(2, player.name, local248);
 						}
 					} catch (@Pc(285) Exception local285) {
 						signlink.reporterror("cde2");

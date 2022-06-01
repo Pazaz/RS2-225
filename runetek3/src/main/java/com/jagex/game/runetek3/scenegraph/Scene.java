@@ -308,11 +308,11 @@ public class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "<init>", descriptor = "(I[[[BI[[[II)V")
-	public Scene(@OriginalArg(0) int arg0, @OriginalArg(1) byte[][][] arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int[][][] arg3) {
-		this.tileCountX = arg2;
-		this.tileCountZ = arg0;
-		this.heightmap = arg3;
-		this.renderFlags = arg1;
+	public Scene(@OriginalArg(0) int z, @OriginalArg(1) byte[][][] flags, @OriginalArg(2) int x, @OriginalArg(3) int[][][] heightmap) {
+		this.tileCountX = x;
+		this.tileCountZ = z;
+		this.heightmap = heightmap;
+		this.renderFlags = flags;
 		this.planeUnderlayFloorIndices = new byte[4][this.tileCountX][this.tileCountZ];
 		this.planeOverlayFloorIndices = new byte[4][this.tileCountX][this.tileCountZ];
 		this.planeOverlayTypes = new byte[4][this.tileCountX][this.tileCountZ];
@@ -350,60 +350,64 @@ public class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "([BIIIII)V")
-	public void readLandscape(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(3) int arg2, @OriginalArg(4) int arg3, @OriginalArg(5) int arg4) {
-		@Pc(7) Buffer local7 = new Buffer(arg0);
-		for (@Pc(20) int local20 = 0; local20 < 4; local20++) {
-			for (@Pc(24) int local24 = 0; local24 < 64; local24++) {
-				for (@Pc(28) int local28 = 0; local28 < 64; local28++) {
-					@Pc(34) int local34 = local24 + arg3;
-					@Pc(38) int local38 = local28 + arg2;
-					@Pc(60) int local60;
-					if (local34 >= 0 && local34 < 104 && local38 >= 0 && local38 < 104) {
-						this.renderFlags[local20][local34][local38] = 0;
+	public void readLandscape(@OriginalArg(0) byte[] src, @OriginalArg(1) int arg1, @OriginalArg(3) int srcZ, @OriginalArg(4) int srcX, @OriginalArg(5) int arg4, boolean reuseHeightmap) {
+		@Pc(7) Buffer b = new Buffer(src);
+		for (@Pc(20) int plane = 0; plane < 4; plane++) {
+			for (@Pc(24) int x = 0; x < 64; x++) {
+				for (@Pc(28) int z = 0; z < 64; z++) {
+					@Pc(34) int tileX = x + srcX;
+					@Pc(38) int tileZ = z + srcZ;
+					@Pc(60) int opcode;
+					if (tileX >= 0 && tileX < 104 && tileZ >= 0 && tileZ < 104) {
+						this.renderFlags[plane][tileX][tileZ] = 0;
 						while (true) {
-							local60 = local7.g1();
-							if (local60 == 0) {
-								if (local20 == 0) {
-									this.heightmap[0][local34][local38] = -getPerlinNoise(local34 + arg1 + 932731, local38 + 556238 + arg4) * 8;
+							opcode = b.g1();
+							if (opcode == 0) {
+								if (plane == 0) {
+									this.heightmap[0][tileX][tileZ] = -getPerlinNoise(tileX + arg1 + 932731, tileZ + 556238 + arg4) * 8;
 								} else {
-									this.heightmap[local20][local34][local38] = this.heightmap[local20 - 1][local34][local38] - 240;
+									this.heightmap[plane][tileX][tileZ] = this.heightmap[plane - 1][tileX][tileZ] - 240;
 								}
 								break;
 							}
-							if (local60 == 1) {
-								@Pc(116) int local116 = local7.g1();
-								if (local116 == 1) {
-									local116 = 0;
-								}
-								if (local20 == 0) {
-									this.heightmap[0][local34][local38] = -local116 * 8;
+							if (opcode == 1) {
+								@Pc(116) int height = b.g1();
+								if (reuseHeightmap) {
+									this.heightmap[plane][tileX][tileZ] = this.heightmap[plane][tileX][tileZ];
 								} else {
-									this.heightmap[local20][local34][local38] = this.heightmap[local20 - 1][local34][local38] - local116 * 8;
+									if (height == 1) {
+										height = 0;
+									}
+									if (plane == 0) {
+										this.heightmap[0][tileX][tileZ] = -height * 8;
+									} else {
+										this.heightmap[plane][tileX][tileZ] = this.heightmap[plane - 1][tileX][tileZ] - height * 8;
+									}
 								}
 								break;
 							}
-							if (local60 <= 49) {
-								this.planeOverlayFloorIndices[local20][local34][local38] = local7.g1b();
-								this.planeOverlayTypes[local20][local34][local38] = (byte) ((local60 - 2) / 4);
-								this.planeOverlayRotations[local20][local34][local38] = (byte) (local60 - 2 & 0x3);
-							} else if (local60 <= 81) {
-								this.renderFlags[local20][local34][local38] = (byte) (local60 - 49);
+							if (opcode <= 49) {
+								this.planeOverlayFloorIndices[plane][tileX][tileZ] = b.g1b();
+								this.planeOverlayTypes[plane][tileX][tileZ] = (byte) ((opcode - 2) / 4);
+								this.planeOverlayRotations[plane][tileX][tileZ] = (byte) (opcode - 2 & 0x3);
+							} else if (opcode <= 81) {
+								this.renderFlags[plane][tileX][tileZ] = (byte) (opcode - 49);
 							} else {
-								this.planeUnderlayFloorIndices[local20][local34][local38] = (byte) (local60 - 81);
+								this.planeUnderlayFloorIndices[plane][tileX][tileZ] = (byte) (opcode - 81);
 							}
 						}
 					} else {
 						while (true) {
-							local60 = local7.g1();
-							if (local60 == 0) {
+							opcode = b.g1();
+							if (opcode == 0) {
 								break;
 							}
-							if (local60 == 1) {
-								local7.g1();
+							if (opcode == 1) {
+								b.g1();
 								break;
 							}
-							if (local60 <= 49) {
-								local7.g1();
+							if (opcode <= 49) {
+								b.g1();
 							}
 						}
 					}

@@ -12,6 +12,8 @@ import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
 
+import java.util.Arrays;
+
 @OriginalClass("client!r")
 public class MapSquare {
 
@@ -328,13 +330,13 @@ public class MapSquare {
 	}
 
 	@OriginalMember(owner = "client!r", name = "<init>", descriptor = "(I[[[IIII)V")
-	public MapSquare(@OriginalArg(1) int[][][] arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
-		this.maxLevel = arg3;
-		this.tileCountX = arg4;
-		this.tileCountZ = arg2;
-		this.levelTiles = new Tile[arg3][arg4][arg2];
-		this.levelTileCycles = new int[arg3][arg4 + 1][arg2 + 1];
-		this.heightmap = arg1;
+	public MapSquare(@OriginalArg(1) int[][][] heightmap, @OriginalArg(2) int z, @OriginalArg(3) int plane, @OriginalArg(4) int x) {
+		this.maxLevel = plane;
+		this.tileCountX = x;
+		this.tileCountZ = z;
+		this.levelTiles = new Tile[plane][x][z];
+		this.levelTileCycles = new int[plane][x + 1][z + 1];
+		this.heightmap = heightmap;
 		this.reset();
 	}
 
@@ -359,17 +361,15 @@ public class MapSquare {
 			this.locs[local11] = null;
 		}
 		this.locCount = 0;
-		for (@Pc(88) int local88 = 0; local88 < locBuffer.length; local88++) {
-			locBuffer[local88] = null;
-		}
+		Arrays.fill(locBuffer, null);
 	}
 
 	@OriginalMember(owner = "client!r", name = "a", descriptor = "(II)V")
-	public void setup(@OriginalArg(1) int arg0) {
-		this.minLevel = arg0;
-		for (@Pc(6) int local6 = 0; local6 < this.tileCountX; local6++) {
-			for (@Pc(10) int local10 = 0; local10 < this.tileCountZ; local10++) {
-				this.levelTiles[arg0][local6][local10] = new Tile(arg0, local6, local10);
+	public void setup(@OriginalArg(1) int plane) {
+		this.minLevel = plane;
+		for (@Pc(6) int x = 0; x < this.tileCountX; x++) {
+			for (@Pc(10) int z = 0; z < this.tileCountZ; z++) {
+				this.levelTiles[plane][x][z] = new Tile(plane, x, z);
 			}
 		}
 	}
@@ -763,24 +763,40 @@ public class MapSquare {
 	}
 
 	@OriginalMember(owner = "client!r", name = "c", descriptor = "(IIII)V")
-	public void removeWallDecoration(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(3) int arg3) {
-		@Pc(8) Tile local8 = this.levelTiles[arg0][arg3][arg1];
+	public void removeWallDecoration(@OriginalArg(0) int plane, @OriginalArg(1) int z, @OriginalArg(3) int x) {
+		@Pc(8) Tile local8 = this.levelTiles[plane][x][z];
 		if (local8 != null) {
 			local8.wallDecoration = null;
 		}
 	}
 
 	@OriginalMember(owner = "client!r", name = "d", descriptor = "(IIII)V")
-	public void removeLocations(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(3) int arg2) {
-		@Pc(10) Tile local10 = this.levelTiles[arg2][arg0][arg1];
-		if (local10 == null) {
+	public void removeLocation(@OriginalArg(0) int x, @OriginalArg(1) int z, @OriginalArg(3) int plane) {
+		@Pc(10) Tile tile = this.levelTiles[plane][x][z];
+		if (tile == null) {
 			return;
 		}
-		for (@Pc(15) int local15 = 0; local15 < local10.locationCount; local15++) {
-			@Pc(22) Loc local22 = local10.locs[local15];
-			if ((local22.bitset >> 29 & 0x3) == 2 && local22.minSceneTileX == arg0 && local22.minSceneTileZ == arg1) {
-				this.removeLocation(local22);
+
+		for (@Pc(15) int i = 0; i < tile.locationCount; i++) {
+			@Pc(22) Loc loc = tile.locs[i];
+			if ((loc.bitset >> 29 & 0x3) == 2 && loc.minSceneTileX == x && loc.minSceneTileZ == z) {
+				this.removeLocation(loc);
 				return;
+			}
+		}
+	}
+
+	public void changeLocationsHeight(int x, int z, int plane, int height) {
+		@Pc(10) Tile tile = this.levelTiles[plane][x][z];
+		if (tile == null) {
+			return;
+		}
+
+		System.out.println(tile.locationCount);
+		for (@Pc(15) int i = 0; i < tile.locationCount; i++) {
+			@Pc(22) Loc loc = tile.locs[i];
+			if (loc.minSceneTileX == x && loc.minSceneTileZ == z) {
+				loc.y = height;
 			}
 		}
 	}
