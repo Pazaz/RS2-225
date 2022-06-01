@@ -1,0 +1,7 @@
+.idea/
+.gradle/
+.vscode/
+
+build/
+bin/
+data/players/

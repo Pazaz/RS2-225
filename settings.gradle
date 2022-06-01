@@ -1,0 +1,18 @@
+rootProject.name = "lostcity"
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        flatDir {
+            dirs 'lib'
+        }
+    }
+}
+
+include(
+    "deob-annotations",
+    "runetek3",
+    "client",
+    "jlhttp",
+    "server"
+)
