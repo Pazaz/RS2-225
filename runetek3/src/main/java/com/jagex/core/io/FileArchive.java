@@ -78,9 +78,7 @@ public class FileArchive {
 					dest = new byte[this.fileUnpackedSize[i]];
 				}
 				if (this.isCompressedWhole) {
-					for (@Pc(67) int j = 0; j < this.fileUnpackedSize[i]; j++) {
-						dest[j] = this.data[this.fileOffset[i] + j];
-					}
+					System.arraycopy(this.data, this.fileOffset[i], dest, 0, this.fileUnpackedSize[i]);
 				} else {
 					BZip2InputStream.read(dest, this.fileUnpackedSize[i], this.data, this.filePackedSize[i], this.fileOffset[i]);
 				}

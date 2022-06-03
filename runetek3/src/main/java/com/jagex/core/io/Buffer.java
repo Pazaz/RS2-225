@@ -228,10 +228,9 @@ public class Buffer extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!kb", name = "a", descriptor = "([BIIB)V")
-	public void pdata(@OriginalArg(0) byte[] bytes, int offset, @OriginalArg(1) int length) {
-		for (@Pc(7) int i = offset; i < offset + length; i++) {
-			this.data[this.pos++] = bytes[i];
-		}
+	public void pdata(@OriginalArg(0) byte[] src, int offset, @OriginalArg(1) int length) {
+		System.arraycopy(src, offset, data, pos, length);
+		pos += length;
 	}
 
 	@OriginalMember(owner = "client!kb", name = "b", descriptor = "(II)V")
@@ -329,9 +328,8 @@ public class Buffer extends CacheableNode {
 
 	@OriginalMember(owner = "client!kb", name = "a", descriptor = "(III[B)V")
 	public void gdata(@OriginalArg(3) byte[] dest, @OriginalArg(2) int offset, @OriginalArg(0) int length) {
-		for (@Pc(6) int i = offset; i < offset + length && i < dest.length; i++) {
-			dest[i] = this.data[this.pos++];
-		}
+		System.arraycopy(data, pos, dest, offset, length);
+		pos += length;
 	}
 
 	@OriginalMember(owner = "client!kb", name = "f", descriptor = "(I)V")

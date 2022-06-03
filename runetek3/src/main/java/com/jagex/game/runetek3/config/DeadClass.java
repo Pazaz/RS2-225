@@ -3,6 +3,9 @@ package com.jagex.game.runetek3.config;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 
+// This class is unused, either a remnant of a deleted feature, part of obfuscation, or something that existed in the server code.
+// I only kept it for the annotations.
+
 @OriginalClass("client!ic")
 public class DeadClass {
 

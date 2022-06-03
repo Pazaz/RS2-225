@@ -1,8 +1,11 @@
 package com.jagex.game.runetek3.graphics;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.File;
+import java.io.IOException;
 
 public class BufferedImageFrameBuffer extends FrameBuffer {
 
@@ -29,5 +32,9 @@ public class BufferedImageFrameBuffer extends FrameBuffer {
     @Override
     public void drawAt(int x, int y, int w, int h, Graphics g) {
         g.drawImage(this.image, x, y, w, h, null);
+    }
+
+    public void save(String path) throws IOException {
+        ImageIO.write(image, "png", new File(path));
     }
 }

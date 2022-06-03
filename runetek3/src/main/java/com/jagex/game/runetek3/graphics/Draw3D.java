@@ -49,7 +49,7 @@ public class Draw3D extends Draw2D {
 	private static int[] reciprical15 = new int[512];
 
 	@OriginalMember(owner = "client!gb", name = "I", descriptor = "[I")
-	public static final int[] reciprical16 = new int[2048];
+	public static int[] reciprical16 = new int[2048];
 
 	@OriginalMember(owner = "client!gb", name = "J", descriptor = "[I")
 	public static int[] sin = new int[2048];
@@ -82,15 +82,15 @@ public class Draw3D extends Draw2D {
 	public static int renderHeight = 334;
 
 	static {
-		for (@Pc(23) int local23 = 1; local23 < 512; local23++) {
-			reciprical15[local23] = 32768 / local23;
+		for (@Pc(23) int i = 1; i < 512; i++) {
+			reciprical15[i] = 32768 / i;
 		}
-		for (@Pc(36) int local36 = 1; local36 < 2048; local36++) {
-			reciprical16[local36] = 65536 / local36;
+		for (@Pc(36) int i = 1; i < 2048; i++) {
+			reciprical16[i] = 65536 / i;
 		}
-		for (@Pc(49) int local49 = 0; local49 < 2048; local49++) {
-			sin[local49] = (int) (Math.sin((double) local49 * 0.0030679615D) * 65536.0D);
-			cos[local49] = (int) (Math.cos((double) local49 * 0.0030679615D) * 65536.0D);
+		for (@Pc(49) int i = 0; i < 2048; i++) {
+			sin[i] = (int) (Math.sin((double) i * 0.0030679615D) * 65536.0D);
+			cos[i] = (int) (Math.cos((double) i * 0.0030679615D) * 65536.0D);
 		}
 		textures = new IndexedSprite[50];
 		textureHasTransparency = new boolean[50];
@@ -104,7 +104,7 @@ public class Draw3D extends Draw2D {
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(Z)V")
 	public static void unload() {
 		reciprical15 = null;
-		reciprical15 = null;
+		reciprical16 = null;
 		sin = null;
 		cos = null;
 		offsets = null;

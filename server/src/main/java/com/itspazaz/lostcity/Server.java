@@ -12,7 +12,6 @@ import com.jagex.game.runetek3.graphics.seq.SeqBase;
 import com.jagex.game.runetek3.graphics.seq.SeqFrame;
 import com.jagex.game.runetek3.graphics.ui.Component;
 import com.jagex.game.runetek3.graphics.ui.Font;
-import org.openrs2.deob.annotation.Pc;
 
 import java.math.BigInteger;
 import java.nio.file.Files;

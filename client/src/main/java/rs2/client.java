@@ -8,6 +8,8 @@ import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
+import java.time.Instant;
+import java.util.Arrays;
 import java.util.zip.CRC32;
 
 import com.jagex.core.bzip2.BZip2InputStream;
@@ -48,6 +50,15 @@ public class client extends GameShell {
 	public static int httpPortOffset = 0;
 
 	public static boolean drawDebug = true;
+
+	// these mapfunction sprites are defined here because they aren't randomly offsetted on the minimap
+	public static final int MAPFUNC_GEM_SHOP = 22;
+	public static final int MAPFUNC_SILK_TRADER = 29;
+	public static final int MAPFUNC_RARE_TREES = 34;
+	public static final int MAPFUNC_FOOD_SHOP = 36;
+	public static final int MAPFUNC_SILVER_SHOP = 46;
+	public static final int MAPFUNC_FUR_TRADER = 47;
+	public static final int MAPFUNC_SPICE_SHOP = 48;
 
 	/// ----
 
@@ -2177,7 +2188,7 @@ public class client extends GameShell {
 			}
 			int yaw = this.cameraYaw + this.cameraAnticheatAngle & 0x7FF;
 
-			this.updateCameraOrbit(this.getLandY(this.currentPlane, this.self.x, this.self.z) - 50, this.cameraOrbitX, yaw, pitch, this.cameraOrbitZ, pitch * 3 + 600);
+			this.updateCameraOrbit(this.cameraOrbitX, this.getLandY(this.currentPlane, this.self.x, this.self.z) - 50, this.cameraOrbitZ, pitch, yaw, pitch * 3 + 600);
 
 			drawCounter++;
 			if (drawCounter > 1802) {
@@ -2286,10 +2297,7 @@ public class client extends GameShell {
 				@Pc(52) byte[] data = signlink.cacheload(name + ".mid");
 				@Pc(69) int realCrc;
 				if (data != null && crc != 12345678) {
-					this.crc32.reset();
-					this.crc32.update(data);
-					realCrc = (int) this.crc32.getValue();
-					if (realCrc != crc) {
+					if (Buffer.crc32(data) != crc) {
 						data = null;
 					}
 				}
@@ -2354,7 +2362,7 @@ public class client extends GameShell {
 			System.arraycopy(this.flameGradientRed, 0,this. flameGradient, 0, 256);
 		}
 
-		System.arraycopy(this.imageFlamesLeft.pixels, 0, this.titleLeft.pixels, 0, 33920);
+		System.arraycopy(this.imageFlamesLeft.pixels, 0, this.titleLeft.pixels, 0, 128 * 265);
 
 		@Pc(181) int srcOffset = 0;
 		@Pc(183) int dstOffset = 1152;
@@ -2386,7 +2394,7 @@ public class client extends GameShell {
 		}
 
 		this.titleLeft.drawAt(0, 0, super.graphic);
-		System.arraycopy(this.imageFlamesRight.pixels, 0, this.titleRight.pixels, 0, 33920);
+		System.arraycopy(this.imageFlamesRight.pixels, 0, this.titleRight.pixels, 0, 128 * 265);
 
 		srcOffset = 0;
 		dstOffset = 1176;
@@ -2419,26 +2427,26 @@ public class client extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(IIILclient!hc;III)V")
-	private void updateInterface(@OriginalArg(3) Component parent, @OriginalArg(1) int mouseX, @OriginalArg(0) int mouseY, @OriginalArg(5) int x, @OriginalArg(2) int y, @OriginalArg(6) int scrollY) {
+	private void updateInterface(@OriginalArg(3) Component parent, @OriginalArg(1) int mx, @OriginalArg(0) int my, @OriginalArg(5) int px, @OriginalArg(2) int py, @OriginalArg(6) int scrollY) {
 		if (parent.type != 0 || parent.children == null || parent.hidden) {
 			return;
 		}
 
-		if (mouseX < x || mouseY < y || mouseX > x + parent.width || mouseY > y + parent.height) {
+		if (mx < px || my < py || mx > px + parent.width || my > py + parent.height) {
 			return;
 		}
 
 		@Pc(34) int childCount = parent.children.length;
 
 		for (@Pc(44) int childIndex = 0; childIndex < childCount; childIndex++) {
-			@Pc(53) int cx = parent.childX[childIndex] + x;
-			@Pc(62) int cy = parent.childY[childIndex] + y - scrollY;
+			@Pc(53) int cx = parent.childX[childIndex] + px;
+			@Pc(62) int cy = parent.childY[childIndex] + py - scrollY;
 			@Pc(69) Component child = Component.instances[parent.children[childIndex]];
 
 			cx += child.x;
 			cy += child.y;
 
-			if ((child.hoverParentIndex >= 0 || child.hoverColor != 0) && mouseX >= cx && mouseY >= cy && mouseX < cx + child.width && mouseY < cy + child.height) {
+			if ((child.hoverParentIndex >= 0 || child.hoverColor != 0) && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
 				if (child.hoverParentIndex >= 0) {
 					this.hoveredInterfaceIndex = child.hoverParentIndex;
 				} else {
@@ -2447,12 +2455,12 @@ public class client extends GameShell {
 			}
 
 			if (child.type == Component.TYPE_PARENT) {
-				this.updateInterface(child, mouseX, mouseY, cx, cy, child.scrollY);
+				this.updateInterface(child, mx, my, cx, cy, child.scrollY);
 				if (child.scrollHeight > child.height) {
-					this.updateInterfaceScrollbar(mouseX, mouseY, child.scrollHeight, child.height, true, cx + child.width, cy, child);
+					this.updateInterfaceScrollbar(mx, my, child.scrollHeight, child.height, true, cx + child.width, cy, child);
 				}
 			} else {
-				if (child.buttonType == Component.BUTTON && mouseX >= cx && mouseY >= cy && mouseX < cx + child.width && mouseY < cy + child.height) {
+				if (child.buttonType == Component.BUTTON && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
 					@Pc(176) boolean flag = false;
 					if (child.clientCode != 0) {
 						flag = this.updateInterfaceTooltip(child);
@@ -2465,39 +2473,39 @@ public class client extends GameShell {
 					}
 				}
 
-				if (child.buttonType == Component.TARGET_BUTTON && this.selectedSpell == 0 && mouseX >= cx && mouseY >= cy && mouseX < cx + child.width && mouseY < cy + child.height) {
-					@Pc(240) String local240 = child.optionCircumfix;
-					if (local240.contains(" ")) {
-						local240 = local240.substring(0, local240.indexOf(" "));
+				if (child.buttonType == Component.TARGET_BUTTON && this.selectedSpell == 0 && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
+					@Pc(240) String circumfix = child.optionCircumfix;
+					if (circumfix.contains(" ")) {
+						circumfix = circumfix.substring(0, circumfix.indexOf(" "));
 					}
-					this.options[this.optionCount] = local240 + " @gre@" + child.optionSuffix;
+					this.options[this.optionCount] = circumfix + " @gre@" + child.optionSuffix;
 					this.optionType[this.optionCount] = Cs1Actions.IF_TARGETBUTTON;
 					this.optionParamC[this.optionCount] = child.id;
 					this.optionCount++;
 				}
 
-				if (child.buttonType == Component.CLOSE_BUTTON && mouseX >= cx && mouseY >= cy && mouseX < cx + child.width && mouseY < cy + child.height) {
+				if (child.buttonType == Component.CLOSE_BUTTON && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
 					this.options[this.optionCount] = "Close";
 					this.optionType[this.optionCount] = Cs1Actions.IF_CLOSEBUTTON;
 					this.optionParamC[this.optionCount] = child.id;
 					this.optionCount++;
 				}
 
-				if (child.buttonType == Component.TOGGLE_BUTTON && mouseX >= cx && mouseY >= cy && mouseX < cx + child.width && mouseY < cy + child.height) {
+				if (child.buttonType == Component.TOGGLE_BUTTON && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
 					this.options[this.optionCount] = child.option;
 					this.optionType[this.optionCount] = Cs1Actions.IF_TOGGLEBUTTON;
 					this.optionParamC[this.optionCount] = child.id;
 					this.optionCount++;
 				}
 
-				if (child.buttonType == Component.SELECT_BUTTON && mouseX >= cx && mouseY >= cy && mouseX < cx + child.width && mouseY < cy + child.height) {
+				if (child.buttonType == Component.SELECT_BUTTON && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
 					this.options[this.optionCount] = child.option;
 					this.optionType[this.optionCount] = Cs1Actions.IF_SELECTBUTTON;
 					this.optionParamC[this.optionCount] = child.id;
 					this.optionCount++;
 				}
 
-				if (child.buttonType == Component.PAUSE_BUTTON && !this.chatContinuingDialogue && mouseX >= cx && mouseY >= cy && mouseX < cx + child.width && mouseY < cy + child.height) {
+				if (child.buttonType == Component.PAUSE_BUTTON && !this.chatContinuingDialogue && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
 					this.options[this.optionCount] = child.option;
 					this.optionType[this.optionCount] = Cs1Actions.IF_PAUSEBUTTON;
 					this.optionParamC[this.optionCount] = child.id;
@@ -2506,15 +2514,15 @@ public class client extends GameShell {
 
 				if (child.type == Component.TYPE_INVENTORY) {
 					@Pc(488) int slot = 0;
-					for (@Pc(490) int local490 = 0; local490 < child.height; local490++) {
-						for (@Pc(494) int local494 = 0; local494 < child.width; local494++) {
-							@Pc(505) int local505 = cx + local494 * (child.inventoryMarginX + 32);
-							@Pc(514) int local514 = cy + local490 * (child.inventoryMarginY + 32);
+					for (@Pc(490) int slotY = 0; slotY < child.height; slotY++) {
+						for (@Pc(494) int slotX = 0; slotX < child.width; slotX++) {
+							@Pc(505) int x0 = cx + slotX * (child.inventoryMarginX + 32);
+							@Pc(514) int y0 = cy + slotY * (child.inventoryMarginY + 32);
 							if (slot < 20) {
-								local505 += child.inventoryOffsetX[slot];
-								local514 += child.inventoryOffsetY[slot];
+								x0 += child.inventoryOffsetX[slot];
+								y0 += child.inventoryOffsetY[slot];
 							}
-							if (mouseX >= local505 && mouseY >= local514 && mouseX < local505 + 32 && mouseY < local514 + 32) {
+							if (mx >= x0 && my >= y0 && mx < x0 + 32 && my < y0 + 32) {
 								this.hoveredSlot = slot;
 								this.hoveredSlotParentId = child.id;
 
@@ -2689,64 +2697,65 @@ public class client extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "b", descriptor = "(III)V")
-	private void updatePlayerTooltip(@OriginalArg(0) int arg0, @OriginalArg(2) int arg1) {
+	private void updatePlayerTooltip(@OriginalArg(0) int y, @OriginalArg(2) int x) {
 		@Pc(1) int menuSize = 0;
-		for (@Pc(3) int local3 = 0; local3 < 100; local3++) {
-			if (this.chatMessage[local3] != null) {
-				@Pc(15) int local15 = this.chatMessageType[local3];
-				@Pc(26) int local26 = this.chatScrollAmount + 70 + 4 - menuSize * 14;
-				if (local26 < -20) {
+
+		for (@Pc(3) int i = 0; i < 100; i++) {
+			if (this.chatMessage[i] != null) {
+				@Pc(15) int type = this.chatMessageType[i];
+				@Pc(26) int scroll = this.chatScrollAmount + 70 + 4 - menuSize * 14;
+				if (scroll < -20) {
 					break;
 				}
-				if (local15 == 0) {
+				if (type == 0) {
 					menuSize++;
 				}
-				if ((local15 == 1 || local15 == 2) && (local15 == 1 || this.chatPublicSetting == 0 || this.chatPublicSetting == 1 && this.isFriend(this.chatMessagePrefix[local3]))) {
-					if (arg0 > local26 - 14 && arg0 <= local26 && !this.chatMessagePrefix[local3].equals(this.self.name)) {
+				if ((type == 1 || type == 2) && (type == 1 || this.chatPublicSetting == 0 || this.chatPublicSetting == 1 && this.isFriend(this.chatMessagePrefix[i]))) {
+					if (y > scroll - 14 && y <= scroll && !this.chatMessagePrefix[i].equals(this.self.name)) {
 						if (this.rights) {
-							this.options[this.optionCount] = "Report abuse @whi@" + this.chatMessagePrefix[local3];
+							this.options[this.optionCount] = "Report abuse @whi@" + this.chatMessagePrefix[i];
 							this.optionType[this.optionCount] = Cs1Actions.REPORT_ABUSE;
 							this.optionCount++;
 						}
-						this.options[this.optionCount] = "Add ignore @whi@" + this.chatMessagePrefix[local3];
+						this.options[this.optionCount] = "Add ignore @whi@" + this.chatMessagePrefix[i];
 						this.optionType[this.optionCount] = Cs1Actions.ADD_IGNORE;
 						this.optionCount++;
-						this.options[this.optionCount] = "Add friend @whi@" + this.chatMessagePrefix[local3];
+						this.options[this.optionCount] = "Add friend @whi@" + this.chatMessagePrefix[i];
 						this.optionType[this.optionCount] = Cs1Actions.ADD_FRIEND;
 						this.optionCount++;
 					}
 					menuSize++;
 				}
-				if ((local15 == 3 || local15 == 7) && this.splitPrivateChat == 0 && (local15 == 7 || this.chatPrivateSetting == 0 || this.chatPrivateSetting == 1 && this.isFriend(this.chatMessagePrefix[local3]))) {
-					if (arg0 > local26 - 14 && arg0 <= local26) {
+				if ((type == 3 || type == 7) && this.splitPrivateChat == 0 && (type == 7 || this.chatPrivateSetting == 0 || this.chatPrivateSetting == 1 && this.isFriend(this.chatMessagePrefix[i]))) {
+					if (y > scroll - 14 && y <= scroll) {
 						if (this.rights) {
-							this.options[this.optionCount] = "Report abuse @whi@" + this.chatMessagePrefix[local3];
+							this.options[this.optionCount] = "Report abuse @whi@" + this.chatMessagePrefix[i];
 							this.optionType[this.optionCount] = Cs1Actions.REPORT_ABUSE;
 							this.optionCount++;
 						}
-						this.options[this.optionCount] = "Add ignore @whi@" + this.chatMessagePrefix[local3];
+						this.options[this.optionCount] = "Add ignore @whi@" + this.chatMessagePrefix[i];
 						this.optionType[this.optionCount] = Cs1Actions.ADD_IGNORE;
 						this.optionCount++;
-						this.options[this.optionCount] = "Add friend @whi@" + this.chatMessagePrefix[local3];
+						this.options[this.optionCount] = "Add friend @whi@" + this.chatMessagePrefix[i];
 						this.optionType[this.optionCount] = Cs1Actions.ADD_FRIEND;
 						this.optionCount++;
 					}
 					menuSize++;
 				}
-				if (local15 == 4 && (this.chatTradeDuelSetting == 0 || this.chatTradeDuelSetting == 1 && this.isFriend(this.chatMessagePrefix[local3]))) {
-					if (arg0 > local26 - 14 && arg0 <= local26) {
-						this.options[this.optionCount] = "Accept trade @whi@" + this.chatMessagePrefix[local3];
+				if (type == 4 && (this.chatTradeDuelSetting == 0 || this.chatTradeDuelSetting == 1 && this.isFriend(this.chatMessagePrefix[i]))) {
+					if (y > scroll - 14 && y <= scroll) {
+						this.options[this.optionCount] = "Accept trade @whi@" + this.chatMessagePrefix[i];
 						this.optionType[this.optionCount] = Cs1Actions.TRADE_PLAYER;
 						this.optionCount++;
 					}
 					menuSize++;
 				}
-				if ((local15 == 5 || local15 == 6) && this.splitPrivateChat == 0 && this.chatPrivateSetting < 2) {
+				if ((type == 5 || type == 6) && this.splitPrivateChat == 0 && this.chatPrivateSetting < 2) {
 					menuSize++;
 				}
-				if (local15 == 8 && (this.chatTradeDuelSetting == 0 || this.chatTradeDuelSetting == 1 && this.isFriend(this.chatMessagePrefix[local3]))) {
-					if (arg0 > local26 - 14 && arg0 <= local26) {
-						this.options[this.optionCount] = "Accept duel @whi@" + this.chatMessagePrefix[local3];
+				if (type == 8 && (this.chatTradeDuelSetting == 0 || this.chatTradeDuelSetting == 1 && this.isFriend(this.chatMessagePrefix[i]))) {
+					if (y > scroll - 14 && y <= scroll) {
+						this.options[this.optionCount] = "Accept duel @whi@" + this.chatMessagePrefix[i];
 						this.optionType[this.optionCount] = Cs1Actions.DUEL_PLAYER;
 						this.optionCount++;
 					}
@@ -3017,16 +3026,27 @@ public class client extends GameShell {
 						} else if (this.input.startsWith("::")) {
 							String[] args = this.input.split("\\s+");
 							if (this.input.startsWith("::tileh")) {
-								if (args.length > 2) {
-									this.levelHeightMaps[Integer.parseInt(args[1])][(self.x / 128)][(self.z / 128)] = Integer.parseInt(args[2]);
+								if (args.length > 4) {
+									for (int x = 0; x < Integer.parseInt(args[3]); ++x) {
+										for (int z = 0; z < Integer.parseInt(args[4]); ++z) {
+											this.levelHeightMaps[Integer.parseInt(args[1])][(self.x / 128) + x][(self.z / 128) + z] = Integer.parseInt(args[2]);
+										}
+									}
+								} else if (args.length > 2) {
 									this.addMessage(0, "", "tileh: " + (self.x / 128) + " " + (self.z / 128) + " " + Integer.parseInt(args[1]) + " is now " + this.levelHeightMaps[Integer.parseInt(args[1])][(self.x / 128)][(self.z / 128)]);
 								}
 							} else if (this.input.startsWith("::gtileh")) {
 								if (args.length > 1) {
 									this.addMessage(0, "", "gtileh: " + (self.x / 128) + " " + (self.z / 128) + " " + Integer.parseInt(args[1]) + " is " + this.levelHeightMaps[Integer.parseInt(args[1])][(self.x / 128)][(self.z / 128)]);
 								}
-							} else if (this.input.startsWith("::reloc")) {
+							} else if (this.input.equalsIgnoreCase("::reloc")) {
 								createScene(true);
+							} else if (this.input.equalsIgnoreCase("::save")) {
+								try {
+									this.areaViewport.save("screenshots/viewport" + Instant.now().toEpochMilli() + ".png");
+								} catch (Exception ex) {}
+							} else if (this.input.equalsIgnoreCase("::debug")) {
+								drawDebug = !drawDebug;
 							}
 
 							this.outBuffer.p1isaac(ClientProt.CLIENT_CHEAT);
@@ -3139,94 +3159,97 @@ public class client extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "e", descriptor = "(B)V")
 	private void updateTitle() {
-		@Pc(17) int local17;
-		@Pc(24) int local24;
+		@Pc(17) int x;
+		@Pc(24) int y;
+
 		if (this.titleState == 0) {
-			local17 = super.gameWidth / 2 - 80;
-			local24 = super.gameHeight / 2 + 20;
-			local24 += 20;
-			if (super.mouseButton == 1 && super.clickX >= local17 - 75 && super.clickX <= local17 + 75 && super.clickY >= local24 - 20 && super.clickY <= local24 + 20) {
+			x = super.gameWidth / 2 - 80;
+			y = super.gameHeight / 2 + 20;
+
+			y += 20;
+			if (super.mouseButton == 1 && super.clickX >= x - 75 && super.clickX <= x + 75 && super.clickY >= y - 20 && super.clickY <= y + 20) {
 				this.titleState = 3;
 				this.loginFocusedLine = 0;
 			}
-			local17 = super.gameWidth / 2 + 80;
-			if (super.mouseButton == 1 && super.clickX >= local17 - 75 && super.clickX <= local17 + 75 && super.clickY >= local24 - 20 && super.clickY <= local24 + 20) {
+
+			x = super.gameWidth / 2 + 80;
+			if (super.mouseButton == 1 && super.clickX >= x - 75 && super.clickX <= x + 75 && super.clickY >= y - 20 && super.clickY <= y + 20) {
 				this.loginMessage0 = "";
 				this.loginMessage1 = "Enter your username & password.";
 				this.titleState = 2;
 				this.loginFocusedLine = 0;
 			}
 		} else if (this.titleState == 2) {
-			local17 = super.gameHeight / 2 - 40;
-			local17 += 30;
-			local17 += 25;
-			if (super.mouseButton == 1 && super.clickY >= local17 - 15 && super.clickY < local17) {
+			x = super.gameHeight / 2 - 40;
+
+			x += 55;
+			if (super.mouseButton == 1 && super.clickY >= x - 15 && super.clickY < x) {
 				this.loginFocusedLine = 0;
 			}
-			local17 += 15;
-			if (super.mouseButton == 1 && super.clickY >= local17 - 15 && super.clickY < local17) {
+
+			x += 15;
+			if (super.mouseButton == 1 && super.clickY >= x - 15 && super.clickY < x) {
 				this.loginFocusedLine = 1;
 			}
-			local17 += 15;
-			local24 = super.gameWidth / 2 - 80;
-			@Pc(170) int local170 = super.gameHeight / 2 + 50;
-			@Pc(171) int local171 = local170 + 20;
-			if (super.mouseButton == 1 && super.clickX >= local24 - 75 && super.clickX <= local24 + 75 && super.clickY >= local171 - 20 && super.clickY <= local171 + 20) {
+
+			y = super.gameWidth / 2 - 80;
+			@Pc(170) int bottomY = super.gameHeight / 2 + 50 + 20;
+			if (super.mouseButton == 1 && super.clickX >= y - 75 && super.clickX <= y + 75 && super.clickY >= bottomY - 20 && super.clickY <= bottomY + 20) {
 				this.login(this.username, this.password, false);
 			}
-			local24 = super.gameWidth / 2 + 80;
-			if (super.mouseButton == 1 && super.clickX >= local24 - 75 && super.clickX <= local24 + 75 && super.clickY >= local171 - 20 && super.clickY <= local171 + 20) {
+
+			y = super.gameWidth / 2 + 80;
+			if (super.mouseButton == 1 && super.clickX >= y - 75 && super.clickX <= y + 75 && super.clickY >= bottomY - 20 && super.clickY <= bottomY + 20) {
 				this.titleState = 0;
 				this.username = "";
 				this.password = "";
 			}
+
 			while (true) {
-				while (true) {
-					@Pc(254) int local254 = this.pollKey();
-					if (local254 == -1) {
-						return;
+				@Pc(254) int c = this.pollKey();
+				if (c == -1) {
+					return;
+				}
+
+				@Pc(259) boolean isAscii = false;
+				for (@Pc(261) int i = 0; i < ASCII_CHARSET.length(); i++) {
+					if (c == ASCII_CHARSET.charAt(i)) {
+						isAscii = true;
+						break;
 					}
-					@Pc(259) boolean local259 = false;
-					for (@Pc(261) int local261 = 0; local261 < ASCII_CHARSET.length(); local261++) {
-						if (local254 == ASCII_CHARSET.charAt(local261)) {
-							local259 = true;
-							break;
-						}
+				}
+				if (this.loginFocusedLine == 0) {
+					if (c == 8 && this.username.length() > 0) {
+						this.username = this.username.substring(0, this.username.length() - 1);
 					}
-					if (this.loginFocusedLine == 0) {
-						if (local254 == 8 && this.username.length() > 0) {
-							this.username = this.username.substring(0, this.username.length() - 1);
-						}
-						if (local254 == 9 || local254 == 10 || local254 == 13) {
-							this.loginFocusedLine = 1;
-						}
-						if (local259) {
-							this.username = this.username + (char) local254;
-						}
-						if (this.username.length() > 12) {
-							this.username = this.username.substring(0, 12);
-						}
-					} else if (this.loginFocusedLine == 1) {
-						if (local254 == 8 && this.password.length() > 0) {
-							this.password = this.password.substring(0, this.password.length() - 1);
-						}
-						if (local254 == 9 || local254 == 10 || local254 == 13) {
-							this.loginFocusedLine = 0;
-						}
-						if (local259) {
-							this.password = this.password + (char) local254;
-						}
-						if (this.password.length() > 20) {
-							this.password = this.password.substring(0, 20);
-						}
+					if (c == 9 || c == 10 || c == 13) {
+						this.loginFocusedLine = 1;
+					}
+					if (isAscii) {
+						this.username = this.username + (char) c;
+					}
+					if (this.username.length() > 12) {
+						this.username = this.username.substring(0, 12);
+					}
+				} else if (this.loginFocusedLine == 1) {
+					if (c == 8 && this.password.length() > 0) {
+						this.password = this.password.substring(0, this.password.length() - 1);
+					}
+					if (c == 9 || c == 10 || c == 13) {
+						this.loginFocusedLine = 0;
+					}
+					if (isAscii) {
+						this.password = this.password + (char) c;
+					}
+					if (this.password.length() > 20) {
+						this.password = this.password.substring(0, 20);
 					}
 				}
 			}
 		} else if (this.titleState == 3) {
-			local17 = super.gameWidth / 2;
-			local24 = super.gameHeight / 2 + 50;
-			@Pc(418) int local418 = local24 + 20;
-			if (super.mouseButton == 1 && super.clickX >= local17 - 75 && super.clickX <= local17 + 75 && super.clickY >= local418 - 20 && super.clickY <= local418 + 20) {
+			x = super.gameWidth / 2;
+			y = super.gameHeight / 2 + 50 + 20;
+			if (super.mouseButton == 1 && super.clickX >= x - 75 && super.clickX <= x + 75 && super.clickY >= y - 20 && super.clickY <= y + 20) {
 				this.titleState = 0;
 			}
 		}
@@ -3239,10 +3262,7 @@ public class client extends GameShell {
 
 		@Pc(20) int temp;
 		if (data != null) {
-			this.crc32.reset();
-			this.crc32.update(data);
-			temp = (int) this.crc32.getValue();
-			if (temp != expectedCrc) {
+			if (Buffer.crc32(data) != expectedCrc) {
 				data = null;
 			}
 		}
@@ -3321,34 +3341,38 @@ public class client extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(IIIIIII)V")
-	private void updateCameraOrbit(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(5) int arg4, @OriginalArg(6) int arg5) {
-		@Pc(5) int local5 = 2048 - arg3 & 0x7FF;
-		@Pc(11) int local11 = 2048 - arg2 & 0x7FF;
-		@Pc(13) int local13 = 0;
-		@Pc(15) int local15 = 0;
-		@Pc(17) int local17 = arg5;
-		@Pc(23) int local23;
-		@Pc(27) int local27;
-		@Pc(37) int local37;
-		if (local5 != 0) {
-			local23 = Model.sin[local5];
-			local27 = Model.cos[local5];
-			local37 = local27 * 0 - arg5 * local23 >> 16;
-			local17 = local23 * 0 + arg5 * local27 >> 16;
-			local15 = local37;
+	private void updateCameraOrbit(@OriginalArg(1) int x, @OriginalArg(0) int y, @OriginalArg(5) int z, @OriginalArg(3) int cameraPitch, @OriginalArg(2) int cameraYaw, @OriginalArg(6) int distance) {
+		@Pc(5) int pitch = 2048 - cameraPitch & 0x7FF;
+		@Pc(11) int yaw = 2048 - cameraYaw & 0x7FF;
+
+		@Pc(13) int offsetX = 0;
+		@Pc(15) int offsetY = 0;
+		@Pc(17) int offsetZ = distance;
+
+		@Pc(23) int sin;
+		@Pc(27) int cos;
+
+		if (pitch != 0) {
+			sin = Model.sin[pitch];
+			cos = Model.cos[pitch];
+			int temp = offsetY * cos - offsetZ * sin >> 16;
+			offsetZ = offsetY * sin + offsetZ * cos >> 16;
+			offsetY = temp;
 		}
-		if (local11 != 0) {
-			local23 = Model.sin[local11];
-			local27 = Model.cos[local11];
-			local37 = local17 * local23 + local27 * 0 >> 16;
-			local17 = local17 * local27 - local23 * 0 >> 16;
-			local13 = local37;
+
+		if (yaw != 0) {
+			sin = Model.sin[yaw];
+			cos = Model.cos[yaw];
+			int temp = offsetZ * sin + offsetX * cos >> 16;
+			offsetZ = offsetZ * cos - offsetX * sin >> 16;
+			offsetX = temp;
 		}
-		this.cameraX = arg1 - local13;
-		this.cameraY = arg0 - local15;
-		this.cameraZ = arg4 - local17;
-		this.cameraPitch = arg3;
-		this.cameraOrbitYaw = arg2;
+
+		this.cameraX = x - offsetX;
+		this.cameraY = y - offsetY;
+		this.cameraZ = z - offsetZ;
+		this.cameraPitch = cameraPitch;
+		this.cameraOrbitYaw = cameraYaw;
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(IZ)V")
@@ -3546,72 +3570,70 @@ public class client extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "c", descriptor = "(II)V")
-	private void createMinimap(@OriginalArg(0) int arg0) {
-		@Pc(5) int[] local5 = this.minimap.pixels;
-		@Pc(11) int local11 = local5.length;
-		for (@Pc(13) int local13 = 0; local13 < local11; local13++) {
-			local5[local13] = 0;
-		}
-		@Pc(37) int local37;
-		@Pc(39) int local39;
-		for (@Pc(25) int local25 = 1; local25 < 103; local25++) {
-			local37 = (103 - local25) * 512 * 4 + 24628;
-			for (local39 = 1; local39 < 103; local39++) {
-				if ((this.levelRenderFlags[arg0][local39][local25] & 0x18) == 0) {
-					this.mapSquare.drawMinimapTile(local5, local37, arg0, local39, local25);
+	private void createMinimap(@OriginalArg(0) int plane) {
+		@Pc(5) int[] pixels = this.minimap.pixels;
+		Arrays.fill(pixels, 0);
+
+		@Pc(37) int offset;
+		for (@Pc(25) int z = 1; z < 103; z++) {
+			offset = (103 - z) * 512 * 4 + (52 + (48 * 512));
+
+			for (int x = 1; x < 103; x++) {
+				if ((this.levelRenderFlags[plane][x][z] & 0x18) == 0) {
+					this.mapSquare.drawMinimapTile(pixels, offset, plane, x, z);
 				}
-				if (arg0 < 3 && (this.levelRenderFlags[arg0 + 1][local39][local25] & 0x8) != 0) {
-					this.mapSquare.drawMinimapTile(local5, local37, arg0 + 1, local39, local25);
+				if (plane < 3 && (this.levelRenderFlags[plane + 1][x][z] & 0x8) != 0) {
+					this.mapSquare.drawMinimapTile(pixels, offset, plane + 1, x, z);
 				}
-				local37 += 4;
+				offset += 4;
 			}
 		}
-		local37 = ((int) (Math.random() * 20.0D) + 238 - 10 << 16) + ((int) (Math.random() * 20.0D) + 238 - 10 << 8) + (int) (Math.random() * 20.0D) + 238 - 10;
-		local39 = (int) (Math.random() * 20.0D) + 238 - 10 << 16;
+
+		int rand1 = ((int) (Math.random() * 20.0D) + 238 - 10 << 16) + ((int) (Math.random() * 20.0D) + 238 - 10 << 8) + (int) (Math.random() * 20.0D) + 238 - 10;
+		int rand2 = (int) (Math.random() * 20.0D) + 238 - 10 << 16;
 		this.minimap.prepare();
-		@Pc(149) int local149;
-		for (@Pc(145) int local145 = 1; local145 < 103; local145++) {
-			for (local149 = 1; local149 < 103; local149++) {
-				if ((this.levelRenderFlags[arg0][local149][local145] & 0x18) == 0) {
-					this.drawMinimapLoc(arg0, local37, local149, local39, local145);
+		for (@Pc(145) int z = 1; z < 103; z++) {
+			for (int x = 1; x < 103; x++) {
+				if ((this.levelRenderFlags[plane][x][z] & 0x18) == 0) {
+					this.drawMinimapLoc(plane, rand1, x, rand2, z);
 				}
-				if (arg0 < 3 && (this.levelRenderFlags[arg0 + 1][local149][local145] & 0x8) != 0) {
-					this.drawMinimapLoc(arg0 + 1, local37, local149, local39, local145);
+				if (plane < 3 && (this.levelRenderFlags[plane + 1][x][z] & 0x8) != 0) {
+					this.drawMinimapLoc(plane + 1, rand1, x, rand2, z);
 				}
 			}
 		}
 		this.areaViewport.makeTarget();
 		this.activeMapFunctionCount = 0;
-		for (local149 = 0; local149 < 104; local149++) {
-			for (@Pc(217) int local217 = 0; local217 < 104; local217++) {
-				@Pc(227) int local227 = this.mapSquare.getGroundDecorationBitset(this.currentPlane, local149, local217);
-				if (local227 != 0) {
-					local227 = local227 >> 14 & 0x7FFF;
-					@Pc(239) int local239 = LocType.get(local227).mapfunction;
-					if (local239 >= 0) {
-						@Pc(243) int x = local149;
-						@Pc(245) int z = local217;
-						if (local239 != 22 && local239 != 29 && local239 != 34 && local239 != 36 && local239 != 46 && local239 != 47 && local239 != 48) {
+		for (int z = 0; z < 104; z++) {
+			for (@Pc(217) int x = 0; x < 104; x++) {
+				@Pc(227) int bitset = this.mapSquare.getGroundDecorationBitset(this.currentPlane, z, x);
+				if (bitset != 0) {
+					bitset = bitset >> 14 & 0x7FFF;
+					@Pc(239) int mapfunction = LocType.get(bitset).mapfunction;
+					if (mapfunction >= 0) {
+						@Pc(243) int stx = z;
+						@Pc(245) int stz = x;
+						if (mapfunction != MAPFUNC_GEM_SHOP && mapfunction != MAPFUNC_SILK_TRADER && mapfunction != MAPFUNC_RARE_TREES && mapfunction != MAPFUNC_FOOD_SHOP && mapfunction != MAPFUNC_SILVER_SHOP && mapfunction != MAPFUNC_FUR_TRADER && mapfunction != MAPFUNC_SPICE_SHOP) {
 							@Pc(277) int[][] collision = this.collisionMaps[this.currentPlane].flags;
 							for (@Pc(279) int local279 = 0; local279 < 10; local279++) {
 								@Pc(286) int rand = (int) (Math.random() * 4.0D);
-								if (rand == 0 && x > 0 && x > local149 - 3 && (collision[x - 1][z] & (CollisionMap.BLOCKED_TILE | CollisionMap.FLAG_UNUSED1 | CollisionMap.OCCUPIED_TILE | CollisionMap.WALL_EAST)) == 0) {
-									x--;
+								if (rand == 0 && stx > 0 && stx > z - 3 && (collision[stx - 1][stz] & (CollisionMap.BLOCKED_TILE | CollisionMap.FLAG_UNUSED1 | CollisionMap.OCCUPIED_TILE | CollisionMap.WALL_EAST)) == 0) {
+									stx--;
 								}
-								if (rand == 1 && x < 103 && x < local149 + 3 && (collision[x + 1][z] & (CollisionMap.BLOCKED_TILE | CollisionMap.FLAG_UNUSED1 | CollisionMap.OCCUPIED_TILE | CollisionMap.WALL_WEST)) == 0) {
-									x++;
+								if (rand == 1 && stx < 103 && stx < z + 3 && (collision[stx + 1][stz] & (CollisionMap.BLOCKED_TILE | CollisionMap.FLAG_UNUSED1 | CollisionMap.OCCUPIED_TILE | CollisionMap.WALL_WEST)) == 0) {
+									stx++;
 								}
-								if (rand == 2 && z > 0 && z > local217 - 3 && (collision[x][z - 1] & (CollisionMap.BLOCKED_TILE | CollisionMap.FLAG_UNUSED1 | CollisionMap.OCCUPIED_TILE | CollisionMap.WALL_NORTH)) == 0) {
-									z--;
+								if (rand == 2 && stz > 0 && stz > x - 3 && (collision[stx][stz - 1] & (CollisionMap.BLOCKED_TILE | CollisionMap.FLAG_UNUSED1 | CollisionMap.OCCUPIED_TILE | CollisionMap.WALL_NORTH)) == 0) {
+									stz--;
 								}
-								if (rand == 3 && z < 103 && z < local217 + 3 && (collision[x][z + 1] & (CollisionMap.BLOCKED_TILE | CollisionMap.FLAG_UNUSED1 | CollisionMap.OCCUPIED_TILE | CollisionMap.WALL_SOUTH)) == 0) {
-									z++;
+								if (rand == 3 && stz < 103 && stz < x + 3 && (collision[stx][stz + 1] & (CollisionMap.BLOCKED_TILE | CollisionMap.FLAG_UNUSED1 | CollisionMap.OCCUPIED_TILE | CollisionMap.WALL_SOUTH)) == 0) {
+									stz++;
 								}
 							}
 						}
-						this.activeMapFunctions[this.activeMapFunctionCount] = this.mapfunction[local239];
-						this.activeMapFunctionX[this.activeMapFunctionCount] = x;
-						this.activeMapFunctionZ[this.activeMapFunctionCount] = z;
+						this.activeMapFunctions[this.activeMapFunctionCount] = this.mapfunction[mapfunction];
+						this.activeMapFunctionX[this.activeMapFunctionCount] = stx;
+						this.activeMapFunctionZ[this.activeMapFunctionCount] = stz;
 						this.activeMapFunctionCount++;
 					}
 				}
@@ -3620,82 +3642,82 @@ public class client extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(IIIIII)V")
-	private void drawMinimapLoc(@OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
-		@Pc(8) int local8 = this.mapSquare.getWallBitset(arg1, arg3, arg5);
-		@Pc(18) int local18;
-		@Pc(24) int local24;
-		@Pc(28) int local28;
-		@Pc(30) int local30;
-		@Pc(52) int local52;
-		@Pc(58) int local58;
-		if (local8 != 0) {
-			local18 = this.mapSquare.getInfo(arg1, arg3, arg5, local8);
-			local24 = local18 >> 6 & 0x3;
-			local28 = local18 & 0x1F;
-			local30 = arg2;
-			if (local8 > 0) {
-				local30 = arg4;
+	private void drawMinimapLoc(@OriginalArg(1) int arg1, @OriginalArg(2) int wallColor, @OriginalArg(3) int x, @OriginalArg(4) int interactableColor, @OriginalArg(5) int y) {
+		@Pc(8) int bitset = this.mapSquare.getWallBitset(arg1, x, y);
+		@Pc(18) int info;
+		@Pc(24) int rotation;
+		@Pc(28) int type;
+		@Pc(30) int rgb;
+		@Pc(52) int off;
+		@Pc(58) int locIndex;
+		if (bitset != 0) {
+			info = this.mapSquare.getInfo(arg1, x, y, bitset);
+			rotation = info >> 6 & 0x3;
+			type = info & 0x1F;
+			rgb = wallColor;
+			if (bitset > 0) {
+				rgb = interactableColor;
 			}
-			@Pc(38) int[] local38 = this.minimap.pixels;
-			local52 = arg3 * 4 + (103 - arg5) * 512 * 4 + 24624;
-			local58 = local8 >> 14 & 0x7FFF;
-			@Pc(61) LocType local61 = LocType.get(local58);
+			@Pc(38) int[] dst = this.minimap.pixels;
+			off = x * 4 + (103 - y) * 512 * 4 + (48 + (48 * 512));
+			locIndex = bitset >> 14 & 0x7FFF;
+			@Pc(61) LocType local61 = LocType.get(locIndex);
 			if (local61.mapscene == -1) {
-				if (local28 == 0 || local28 == 2) {
-					if (local24 == 0) {
-						local38[local52] = local30;
-						local38[local52 + 512] = local30;
-						local38[local52 + 1024] = local30;
-						local38[local52 + 1536] = local30;
-					} else if (local24 == 1) {
-						local38[local52] = local30;
-						local38[local52 + 1] = local30;
-						local38[local52 + 2] = local30;
-						local38[local52 + 3] = local30;
-					} else if (local24 == 2) {
-						local38[local52 + 3] = local30;
-						local38[local52 + 3 + 512] = local30;
-						local38[local52 + 3 + 1024] = local30;
-						local38[local52 + 3 + 1536] = local30;
-					} else if (local24 == 3) {
-						local38[local52 + 1536] = local30;
-						local38[local52 + 1536 + 1] = local30;
-						local38[local52 + 1536 + 2] = local30;
-						local38[local52 + 1536 + 3] = local30;
+				if (type == 0 || type == 2) {
+					if (rotation == 0) {
+						dst[off] = rgb;
+						dst[off + 512] = rgb;
+						dst[off + 1024] = rgb;
+						dst[off + 1536] = rgb;
+					} else if (rotation == 1) {
+						dst[off] = rgb;
+						dst[off + 1] = rgb;
+						dst[off + 2] = rgb;
+						dst[off + 3] = rgb;
+					} else if (rotation == 2) {
+						dst[off + 3] = rgb;
+						dst[off + 3 + 512] = rgb;
+						dst[off + 3 + 1024] = rgb;
+						dst[off + 3 + 1536] = rgb;
+					} else if (rotation == 3) {
+						dst[off + 1536] = rgb;
+						dst[off + 1536 + 1] = rgb;
+						dst[off + 1536 + 2] = rgb;
+						dst[off + 1536 + 3] = rgb;
 					}
 				}
-				if (local28 == 3) {
-					if (local24 == 0) {
-						local38[local52] = local30;
-					} else if (local24 == 1) {
-						local38[local52 + 3] = local30;
-					} else if (local24 == 2) {
-						local38[local52 + 3 + 1536] = local30;
-					} else if (local24 == 3) {
-						local38[local52 + 1536] = local30;
+				if (type == 3) {
+					if (rotation == 0) {
+						dst[off] = rgb;
+					} else if (rotation == 1) {
+						dst[off + 3] = rgb;
+					} else if (rotation == 2) {
+						dst[off + 3 + 1536] = rgb;
+					} else if (rotation == 3) {
+						dst[off + 1536] = rgb;
 					}
 				}
-				if (local28 == 2) {
-					if (local24 == 3) {
-						local38[local52] = local30;
-						local38[local52 + 512] = local30;
-						local38[local52 + 1024] = local30;
-						local38[local52 + 1536] = local30;
-					} else if (local24 == 0) {
-						local38[local52] = local30;
-						local38[local52 + 1] = local30;
-						local38[local52 + 2] = local30;
-						local38[local52 + 3] = local30;
-					} else if (local24 == 1) {
-						local38[local52 + 3] = local30;
-						local38[local52 + 3 + 512] = local30;
-						local38[local52 + 3 + 1024] = local30;
-						local38[local52 + 3 + 1536] = local30;
-					} else if (local24 == 2) {
-						local38[local52 + 1536] = local30;
-						local38[local52 + 1536 + 1] = local30;
-						local38[local52 + 1536 + 2] = local30;
-						local38[local52 + 1536 + 3] = local30;
+				if (type == 2) {
+					if (rotation == 3) {
+						dst[off] = rgb;
+						dst[off + 512] = rgb;
+						dst[off + 1024] = rgb;
+						dst[off + 1536] = rgb;
+					} else if (rotation == 0) {
+						dst[off] = rgb;
+						dst[off + 1] = rgb;
+						dst[off + 2] = rgb;
+						dst[off + 3] = rgb;
+					} else if (rotation == 1) {
+						dst[off + 3] = rgb;
+						dst[off + 3 + 512] = rgb;
+						dst[off + 3 + 1024] = rgb;
+						dst[off + 3 + 1536] = rgb;
+					} else if (rotation == 2) {
+						dst[off + 1536] = rgb;
+						dst[off + 1536 + 1] = rgb;
+						dst[off + 1536 + 2] = rgb;
+						dst[off + 1536 + 3] = rgb;
 					}
 				}
 			} else {
@@ -3703,61 +3725,61 @@ public class client extends GameShell {
 				if (local71 != null) {
 					@Pc(83) int local83 = (local61.sizeX * 4 - local71.spriteWidth) / 2;
 					@Pc(93) int local93 = (local61.sizeZ * 4 - local71.spriteHeight) / 2;
-					local71.draw((104 - arg5 - local61.sizeZ) * 4 + local93 + 48, arg3 * 4 + 48 + local83);
+					local71.draw((104 - y - local61.sizeZ) * 4 + local93 + 48, x * 4 + 48 + local83);
 				}
 			}
 		}
-		local8 = this.mapSquare.getLocationBitset(arg1, arg3, arg5);
-		if (local8 != 0) {
-			local18 = this.mapSquare.getInfo(arg1, arg3, arg5, local8);
-			local24 = local18 >> 6 & 0x3;
-			local28 = local18 & 0x1F;
-			local30 = local8 >> 14 & 0x7FFF;
-			@Pc(451) LocType local451 = LocType.get(local30);
+		bitset = this.mapSquare.getLocationBitset(arg1, x, y);
+		if (bitset != 0) {
+			info = this.mapSquare.getInfo(arg1, x, y, bitset);
+			rotation = info >> 6 & 0x3;
+			type = info & 0x1F;
+			rgb = bitset >> 14 & 0x7FFF;
+			@Pc(451) LocType local451 = LocType.get(rgb);
 			@Pc(483) int local483;
 			if (local451.mapscene != -1) {
 				@Pc(461) IndexedSprite local461 = this.mapscene[local451.mapscene];
 				if (local461 != null) {
-					local58 = (local451.sizeX * 4 - local461.spriteWidth) / 2;
+					locIndex = (local451.sizeX * 4 - local461.spriteWidth) / 2;
 					local483 = (local451.sizeZ * 4 - local461.spriteHeight) / 2;
-					local461.draw((104 - arg5 - local451.sizeZ) * 4 + local483 + 48, arg3 * 4 + 48 + local58);
+					local461.draw((104 - y - local451.sizeZ) * 4 + local483 + 48, x * 4 + 48 + locIndex);
 				}
-			} else if (local28 == 9) {
-				local52 = 15658734;
-				if (local8 > 0) {
-					local52 = 15597568;
+			} else if (type == 9) {
+				off = 15658734;
+				if (bitset > 0) {
+					off = 15597568;
 				}
 				@Pc(520) int[] local520 = this.minimap.pixels;
-				local483 = arg3 * 4 + (103 - arg5) * 512 * 4 + 24624;
-				if (local24 == 0 || local24 == 2) {
-					local520[local483 + 1536] = local52;
-					local520[local483 + 1024 + 1] = local52;
-					local520[local483 + 512 + 2] = local52;
-					local520[local483 + 3] = local52;
+				local483 = x * 4 + (103 - y) * 512 * 4 + (48 + (48 * 512));
+				if (rotation == 0 || rotation == 2) {
+					local520[local483 + 1536] = off;
+					local520[local483 + 1024 + 1] = off;
+					local520[local483 + 512 + 2] = off;
+					local520[local483 + 3] = off;
 				} else {
-					local520[local483] = local52;
-					local520[local483 + 512 + 1] = local52;
-					local520[local483 + 1024 + 2] = local52;
-					local520[local483 + 1536 + 3] = local52;
+					local520[local483] = off;
+					local520[local483 + 512 + 1] = off;
+					local520[local483 + 1024 + 2] = off;
+					local520[local483 + 1536 + 3] = off;
 				}
 			}
 		}
-		local8 = this.mapSquare.getGroundDecorationBitset(arg1, arg3, arg5);
-		if (local8 == 0) {
+		bitset = this.mapSquare.getGroundDecorationBitset(arg1, x, y);
+		if (bitset == 0) {
 			return;
 		}
-		local18 = local8 >> 14 & 0x7FFF;
+		info = bitset >> 14 & 0x7FFF;
 
-		@Pc(615) LocType locType = LocType.get(local18);
+		@Pc(615) LocType locType = LocType.get(info);
 		if (locType.mapscene == -1) {
 			return;
 		}
 
 		@Pc(625) IndexedSprite mapscene = this.mapscene[locType.mapscene];
 		if (mapscene != null) {
-			local30 = (locType.sizeX * 4 - mapscene.spriteWidth) / 2;
+			rgb = (locType.sizeX * 4 - mapscene.spriteWidth) / 2;
 			@Pc(647) int local647 = (locType.sizeZ * 4 - mapscene.spriteHeight) / 2;
-			mapscene.draw((104 - arg5 - locType.sizeZ) * 4 + local647 + 48, arg3 * 4 + 48 + local30);
+			mapscene.draw((104 - y - locType.sizeZ) * 4 + local647 + 48, x * 4 + 48 + rgb);
 		}
 	}
 
@@ -3806,13 +3828,13 @@ public class client extends GameShell {
 		this.titlebox = new IndexedSprite(this.title, "titlebox", 0);
 		this.titlebutton = new IndexedSprite(this.title, "titlebutton", 0);
 		this.runes = new IndexedSprite[12];
-		for (@Pc(32) int local32 = 0; local32 < 12; local32++) {
-			this.runes[local32] = new IndexedSprite(this.title, "runes", local32);
+		for (@Pc(32) int i = 0; i < 12; i++) {
+			this.runes[i] = new IndexedSprite(this.title, "runes", i);
 		}
 		this.imageFlamesLeft = new Sprite(128, 265);
 		this.imageFlamesRight = new Sprite(128, 265);
-		System.arraycopy(this.titleLeft.pixels, 0, this.imageFlamesLeft.pixels, 0, 33920);
-		System.arraycopy(this.titleRight.pixels, 0, this.imageFlamesRight.pixels, 0, 33920);
+		System.arraycopy(this.titleLeft.pixels, 0, this.imageFlamesLeft.pixels, 0, 128 * 265);
+		System.arraycopy(this.titleRight.pixels, 0, this.imageFlamesRight.pixels, 0, 128 * 265);
 		this.flameGradientRed = new int[256];
 		for (@Pc(105) int local105 = 0; local105 < 64; local105++) {
 			this.flameGradientRed[local105] = local105 * 262144;
@@ -6455,7 +6477,8 @@ public class client extends GameShell {
 			if (startServer) {
 				Server.ready = true;
 			}
-		} catch (@Pc(1357) Exception ignored) {
+		} catch (@Pc(1357) Exception ex) {
+			ex.printStackTrace();
 			this.errorLoading = true;
 		}
 	}
@@ -7501,7 +7524,6 @@ public class client extends GameShell {
 		FloType.instances = null;
 		IdkType.instances = null;
 		Component.instances = null;
-		DeadClass.deadArray = null;
 		SeqType.instances = null;
 		SpotAnimType.instances = null;
 		SpotAnimType.models = null;
@@ -8749,40 +8771,43 @@ public class client extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ILclient!ib;)V")
-	private void updateFlameDissolve(@OriginalArg(1) IndexedSprite arg0) {
-		for (@Pc(5) int local5 = 0; local5 < this.flameBuffer1.length; local5++) {
-			this.flameBuffer1[local5] = 0;
-		}
-		@Pc(30) int local30;
+	private void updateFlameDissolve(@OriginalArg(1) IndexedSprite image) {
+		Arrays.fill(this.flameBuffer1, 0);
+
+		@Pc(30) int i;
 		for (@Pc(20) int local20 = 0; local20 < 5000; local20++) {
-			local30 = (int) (Math.random() * 128.0D * (double) 256);
-			this.flameBuffer1[local30] = (int) (Math.random() * 256.0D);
+			i = (int) (Math.random() * 128.0D * (double) 256);
+			this.flameBuffer1[i] = (int) (Math.random() * 256.0D);
 		}
-		@Pc(48) int local48;
-		@Pc(52) int local52;
-		@Pc(60) int local60;
-		for (local30 = 0; local30 < 20; local30++) {
-			for (local48 = 1; local48 < 255; local48++) {
-				for (local52 = 1; local52 < 127; local52++) {
-					local60 = local52 + (local48 << 7);
-					this.flameBuffer2[local60] = (this.flameBuffer1[local60 - 1] + this.flameBuffer1[local60 + 1] + this.flameBuffer1[local60 - 128] + this.flameBuffer1[local60 + 128]) / 4;
+
+		@Pc(48) int offset;
+		@Pc(52) int y;
+		@Pc(60) int x;
+		for (i = 0; i < 20; i++) {
+			for (offset = 1; offset < 255; offset++) {
+				for (y = 1; y < 127; y++) {
+					x = y + (offset << 7);
+					this.flameBuffer2[x] = (this.flameBuffer1[x - 1] + this.flameBuffer1[x + 1] + this.flameBuffer1[x - 128] + this.flameBuffer1[x + 128]) / 4;
 				}
 			}
-			@Pc(106) int[] local106 = this.flameBuffer1;
+
+			@Pc(106) int[] tmp = this.flameBuffer1;
 			this.flameBuffer1 = this.flameBuffer2;
-			this.flameBuffer2 = local106;
+			this.flameBuffer2 = tmp;
 		}
-		if (arg0 == null) {
+
+		if (image == null) {
 			return;
 		}
-		local48 = 0;
-		for (local52 = 0; local52 < arg0.spriteHeight; local52++) {
-			for (local60 = 0; local60 < arg0.spriteWidth; local60++) {
-				if (arg0.pixels[local48++] != 0) {
-					@Pc(152) int local152 = local60 + arg0.clipX + 16;
-					@Pc(159) int local159 = local52 + arg0.clipY + 16;
-					@Pc(165) int local165 = local152 + (local159 << 7);
-					this.flameBuffer1[local165] = 0;
+
+		offset = 0;
+		for (y = 0; y < image.spriteHeight; y++) {
+			for (x = 0; x < image.spriteWidth; x++) {
+				if (image.pixels[offset++] != 0) {
+					@Pc(152) int dstX = x + image.clipX + 16;
+					@Pc(159) int dstY = y + image.clipY + 16;
+					@Pc(165) int dst = dstX + (dstY << 7);
+					this.flameBuffer1[dst] = 0;
 				}
 			}
 		}
@@ -9151,9 +9176,7 @@ public class client extends GameShell {
 			for (@Pc(116) int x = 0; x < sprite.spriteWidth; x++) {
 				flipped[x] = sprite.pixels[sprite.spriteWidth + sprite.spriteWidth * y - x - 1];
 			}
-			for (@Pc(142) int x = 0; x < sprite.spriteWidth; x++) {
-				sprite.pixels[x + sprite.spriteWidth * y] = flipped[x];
-			}
+			System.arraycopy(flipped, 0, sprite.pixels, sprite.spriteWidth * y, sprite.spriteWidth);
 		}
 
 		this.titleLeft.makeTarget();
@@ -9198,11 +9221,11 @@ public class client extends GameShell {
 				e.seqFrame = 0;
 				local14 = true;
 			}
-			label67: {
+			loop: {
 				do {
 					do {
 						if (e.seqDelay <= e.seq.frameDelay[e.seqFrame]) {
-							break label67;
+							break loop;
 						}
 						e.seqDelay -= e.seq.frameDelay[e.seqFrame] + 1;
 						e.seqFrame++;
@@ -9217,20 +9240,20 @@ public class client extends GameShell {
 				@Pc(96) int plane = e.level;
 				@Pc(99) int x = e.x;
 				@Pc(102) int z = e.z;
-				@Pc(104) int local104 = 0;
+				@Pc(104) int bitset = 0;
 				if (e.classType == 0) {
-					local104 = this.mapSquare.getWallBitset(plane, x, z);
+					bitset = this.mapSquare.getWallBitset(plane, x, z);
 				}
 				if (e.classType == 1) {
-					local104 = this.mapSquare.getWallDecorationBitset(plane, z, x);
+					bitset = this.mapSquare.getWallDecorationBitset(plane, z, x);
 				}
 				if (e.classType == 2) {
-					local104 = this.mapSquare.getLocationBitset(plane, x, z);
+					bitset = this.mapSquare.getLocationBitset(plane, x, z);
 				}
 				if (e.classType == 3) {
-					local104 = this.mapSquare.getGroundDecorationBitset(plane, x, z);
+					bitset = this.mapSquare.getGroundDecorationBitset(plane, x, z);
 				}
-				if (local104 != 0 && (local104 >> 14 & 0x7FFF) == e.locIndex) {
+				if (bitset != 0 && (bitset >> 14 & 0x7FFF) == e.locIndex) {
 					@Pc(171) int local171 = this.levelHeightMaps[plane][x][z];
 					@Pc(182) int local182 = this.levelHeightMaps[plane][x + 1][z];
 					@Pc(195) int local195 = this.levelHeightMaps[plane][x + 1][z + 1];
@@ -9240,14 +9263,14 @@ public class client extends GameShell {
 					if (e.seqFrame != -1) {
 						seq = e.seq.primaryFrames[e.seqFrame];
 					}
-					@Pc(235) int local235;
+					@Pc(235) int info;
 					@Pc(239) int local239;
 					@Pc(243) int local243;
 					@Pc(258) Model local258;
 					if (e.classType == 2) {
-						local235 = this.mapSquare.getInfo(plane, x, z, local104);
-						local239 = local235 & 0x1F;
-						local243 = local235 >> 6;
+						info = this.mapSquare.getInfo(plane, x, z, bitset);
+						local239 = info & 0x1F;
+						local243 = info >> 6;
 						if (local239 == 11) {
 							local239 = 10;
 						}
@@ -9257,9 +9280,9 @@ public class client extends GameShell {
 						@Pc(282) Model local282 = locType.getModel(4, 0, local171, local182, local195, local206, seq);
 						this.mapSquare.setWallDecorationModel(z, x, local282, plane);
 					} else if (e.classType == 0) {
-						local235 = this.mapSquare.getInfo(plane, x, z, local104);
-						local239 = local235 & 0x1F;
-						local243 = local235 >> 6;
+						info = this.mapSquare.getInfo(plane, x, z, bitset);
+						local239 = info & 0x1F;
+						local243 = info >> 6;
 						if (local239 == 2) {
 							@Pc(320) int local320 = local243 + 1 & 0x3;
 							@Pc(332) Model local332 = locType.getModel(2, local243 + 4, local171, local182, local195, local206, seq);
@@ -9270,8 +9293,8 @@ public class client extends GameShell {
 							this.mapSquare.setWallModel(local258, z, x, plane);
 						}
 					} else if (e.classType == 3) {
-						local235 = this.mapSquare.getInfo(plane, x, z, local104);
-						local239 = local235 >> 6;
+						info = this.mapSquare.getInfo(plane, x, z, bitset);
+						local239 = info >> 6;
 						@Pc(400) Model local400 = locType.getModel(22, local239, local171, local182, local195, local206, seq);
 						this.mapSquare.setGroundDecorationModel(local400, z, x, plane);
 					}
@@ -9852,9 +9875,7 @@ public class client extends GameShell {
 					if (landCrc != 0) {
 						data = signlink.cacheload("m" + x + "_" + z);
 						if (data != null) {
-							this.crc32.reset();
-							this.crc32.update(data);
-							if ((int) this.crc32.getValue() != landCrc) {
+							if (Buffer.crc32(data) != landCrc) {
 								data = null;
 							}
 						}
@@ -9871,9 +9892,7 @@ public class client extends GameShell {
 					if (locCrc != 0) {
 						data = signlink.cacheload("l" + x + "_" + z);
 						if (data != null) {
-							this.crc32.reset();
-							this.crc32.update(data);
-							if ((int) this.crc32.getValue() != locCrc) {
+							if (Buffer.crc32(data) != locCrc) {
 								data = null;
 							}
 						}
