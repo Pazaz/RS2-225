@@ -12,6 +12,32 @@ import org.openrs2.deob.annotation.Pc;
 @OriginalClass("client!ac")
 public class LocType {
 
+	public static final int WALL_STRAIGHT = 0;
+	public static final int WALL_DIAGONALCORNER = 1;
+	public static final int WALL_L = 2;
+	public static final int WALL_SQUARECORNER = 3;
+	public static final int WALLDECOR_STRAIGHT_NOOFFSET = 4;
+	public static final int WALLDECOR_STRAIGHT_OFFSET = 5;
+	public static final int WALLDECOR_DIAGONAL_OFFSET = 6;
+	public static final int WALLDECOR_DIAGONAL_NOOFFSET = 7;
+	public static final int WALLDECOR_DIAGONAL_BOTH = 8;
+	public static final int WALL_DIAGONAL = 9;
+	public static final int CENTREPIECE_STRAIGHT = 10;
+	public static final int CENTREPIECE_DIAGONAL = 11;
+	public static final int ROOF_STRAIGHT = 12;
+	public static final int ROOF_DIAGONAL_WITH_ROOFEDGE = 13;
+	public static final int ROOF_DIAGONAL = 14;
+	public static final int ROOF_L_CONCAVE = 15;
+	public static final int ROOF_L_CONVEX = 16;
+	public static final int ROOF_FLAT = 17;
+	public static final int ROOFEDGE_STRAIGHT = 18;
+	public static final int ROOFEDGE_DIAGONALCORNER = 19;
+	public static final int ROOFEDGE_L = 20;
+	public static final int ROOFEDGE_SQUARECORNER = 21;
+	public static final int GROUNDDECOR = 22;
+	public static final int WALL_L_ALT = 23;
+	public static final int WALLDECOR_DIAGONAL_BOTH_ALT = 24;
+
 	@OriginalMember(owner = "client!ac", name = "c", descriptor = "Z")
 	private static boolean reset;
 
@@ -46,7 +72,7 @@ public class LocType {
 	public String name;
 
 	@OriginalMember(owner = "client!ac", name = "m", descriptor = "[B")
-	public String examine;
+	public String description;
 
 	@OriginalMember(owner = "client!ac", name = "n", descriptor = "[I")
 	private int[] recol_s;
@@ -186,7 +212,7 @@ public class LocType {
 		this.models = null;
 		this.shapes = null;
 		this.name = null;
-		this.examine = null;
+		this.description = null;
 		this.recol_s = null;
 		this.recol_d = null;
 		this.width = 1;
@@ -220,7 +246,7 @@ public class LocType {
 	public static class Opcodes {
 		public static final int model = 1;
 		public static final int name = 2;
-		public static final int examine = 3;
+		public static final int description = 3;
 		public static final int width = 14;
 		public static final int length = 15;
 		public static final int blockwalk_no = 17;
@@ -261,7 +287,7 @@ public class LocType {
 
 			@Pc(23) int count;
 			@Pc(33) int i;
-			if (opcode == Opcodes.model) {
+			if (opcode == Opcodes.model) { // 1
 				count = buffer.g1();
 				this.shapes = new int[count];
 				this.models = new int[count];
@@ -269,41 +295,41 @@ public class LocType {
 					this.models[i] = buffer.g2();
 					this.shapes[i] = buffer.g1();
 				}
-			} else if (opcode == Opcodes.name) {
+			} else if (opcode == Opcodes.name) { // 2
 				this.name = buffer.gstr();
-			} else if (opcode == Opcodes.examine) {
-				this.examine = buffer.gstr();
-			} else if (opcode == Opcodes.width) {
+			} else if (opcode == Opcodes.description) { // 3
+				this.description = buffer.gstr();
+			} else if (opcode == Opcodes.width) { // 14
 				this.width = buffer.g1();
-			} else if (opcode == Opcodes.length) {
+			} else if (opcode == Opcodes.length) { // 15
 				this.length = buffer.g1();
-			} else if (opcode == Opcodes.blockwalk_no) {
+			} else if (opcode == Opcodes.blockwalk_no) { // 17
 				this.blockwalk = false;
-			} else if (opcode == Opcodes.blockrange_no) {
+			} else if (opcode == Opcodes.blockrange_no) { // 18
 				this.blockrange = false;
 			} else if (opcode == 19) {
 				interactive = buffer.g1();
 				if (interactive == 1) {
 					this.interactable = true;
 				}
-			} else if (opcode == Opcodes.hillskew) {
+			} else if (opcode == Opcodes.hillskew) { // 21
 				this.hillskew = true;
 			} else if (opcode == 22) {
 				this.computeVertexColors = true;
-			} else if (opcode == Opcodes.occlude) {
+			} else if (opcode == Opcodes.occlude) { // 23
 				this.occlude = true;
-			} else if (opcode == Opcodes.anim) {
+			} else if (opcode == Opcodes.anim) { // 24
 				this.anim = buffer.g2();
 				if (this.anim == 65535) {
 					this.anim = -1;
 				}
 			} else if (opcode == 25) {
 				this.disposeAlpha = true;
-			} else if (opcode == Opcodes.walloff) {
+			} else if (opcode == Opcodes.walloff) { // 28
 				this.walloff = buffer.g1();
-			} else if (opcode == Opcodes.ambient_brightness) {
+			} else if (opcode == Opcodes.ambient_brightness) { // 29
 				this.brightness = buffer.g1b();
-			} else if (opcode >= Opcodes.op1 && opcode <= Opcodes.op5) {
+			} else if (opcode >= Opcodes.op1 && opcode <= Opcodes.op5) { // >= 30 && <= 34
 				if (this.ops == null) {
 					this.ops = new String[5];
 				}
@@ -312,9 +338,9 @@ public class LocType {
 				if (this.ops[opcode - Opcodes.op1].equalsIgnoreCase("hidden")) {
 					this.ops[opcode - Opcodes.op1] = null;
 				}
-			} else if (opcode == Opcodes.ambient_specular) {
+			} else if (opcode == Opcodes.ambient_specular) { // 39
 				this.specular = buffer.g1b();
-			} else if (opcode == Opcodes.recol) {
+			} else if (opcode == Opcodes.recol) { // 40
 				count = buffer.g1();
 				this.recol_s = new int[count];
 				this.recol_d = new int[count];
@@ -322,29 +348,29 @@ public class LocType {
 					this.recol_s[i] = buffer.g2();
 					this.recol_d[i] = buffer.g2();
 				}
-			} else if (opcode == Opcodes.mapfunction) {
+			} else if (opcode == Opcodes.mapfunction) { // 60
 				this.mapfunction = buffer.g2();
-			} else if (opcode == Opcodes.mirror) {
+			} else if (opcode == Opcodes.mirror) { // 62
 				this.mirror = true;
-			} else if (opcode == Opcodes.active) {
+			} else if (opcode == Opcodes.active) { // 64
 				this.active = false;
-			} else if (opcode == Opcodes.resizex) {
+			} else if (opcode == Opcodes.resizex) { // 65
 				this.resizex = buffer.g2();
-			} else if (opcode == Opcodes.resizey) {
+			} else if (opcode == Opcodes.resizey) { // 66
 				this.resizey = buffer.g2();
-			} else if (opcode == Opcodes.resizez) {
+			} else if (opcode == Opcodes.resizez) { // 67
 				this.resizez = buffer.g2();
-			} else if (opcode == Opcodes.mapscene) {
+			} else if (opcode == Opcodes.mapscene) { // 68
 				this.mapscene = buffer.g2();
-			} else if (opcode == Opcodes.blocksides) {
+			} else if (opcode == Opcodes.blocksides) { // 69
 				this.blocksides = buffer.g1();
-			} else if (opcode == Opcodes.xoff) {
+			} else if (opcode == Opcodes.xoff) { // 70
 				this.xoff = buffer.g2b();
-			} else if (opcode == Opcodes.yoff) {
+			} else if (opcode == Opcodes.yoff) { // 71
 				this.yoff = buffer.g2b();
-			} else if (opcode == Opcodes.zoff) {
+			} else if (opcode == Opcodes.zoff) { // 72
 				this.zoff = buffer.g2b();
-			} else if (opcode == Opcodes.forcedecor) {
+			} else if (opcode == Opcodes.forcedecor) { // 73
 				this.forcedecor = true;
 			}
 		}
@@ -355,7 +381,7 @@ public class LocType {
 
 		if (interactive == -1) {
 			this.interactable = false;
-			if (this.shapes.length > 0 && this.shapes[0] == 10) {
+			if (this.shapes.length > 0 && this.shapes[0] == CENTREPIECE_STRAIGHT) {
 				this.interactable = true;
 			}
 
@@ -489,8 +515,8 @@ public class LocType {
 			builder.append("name=").append(this.name).append("\n");
 		}
 
-		if (this.examine != null) {
-			builder.append("examine=").append(this.examine).append("\n");
+		if (this.description != null) {
+			builder.append("description=").append(this.description).append("\n");
 		}
 
 		if (this.models != null) {

@@ -5251,10 +5251,10 @@ public class client extends GameShell {
 		if (action == Cs1Actions.EXAMINE_LOC) {
 			@Pc(586) int local586 = c >> 14 & 0x7FFF;
 			@Pc(589) LocType local589 = LocType.get(local586);
-			if (local589.examine == null) {
+			if (local589.description == null) {
 				local69 = "It's a " + local589.name + ".";
 			} else {
-				local69 = local589.examine;
+				local69 = local589.description;
 			}
 			this.addMessage(0, "", local69);
 		}
@@ -7310,7 +7310,7 @@ public class client extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(IIIIIIII)V")
-	private void addLoc(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(7) int plane) {
+	private void addLoc(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int locShape, @OriginalArg(7) int plane) {
 		if (arg1 < 1 || arg2 < 1 || arg1 > 102 || arg2 > 102) {
 			return;
 		}
@@ -7372,7 +7372,7 @@ public class client extends GameShell {
 		if (plane < 3 && (this.levelRenderFlags[1][arg1][arg2] & 0x2) == 2) {
 			local81 = plane + 1;
 		}
-		Scene.addLoc(arg1, this.locList, this.collisionMaps[plane], arg2, arg0, this.levelHeightMaps, plane, arg4, arg5, this.mapSquare, local81);
+		Scene.addLoc(arg1, this.locList, this.collisionMaps[plane], arg2, arg0, this.levelHeightMaps, plane, arg4, locShape, this.mapSquare, local81);
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(JI)V")
@@ -9277,7 +9277,7 @@ public class client extends GameShell {
 						local258 = locType.getModel(local239, local243, local171, local182, local195, local206, seq);
 						this.mapSquare.setLocModel(x, local258, plane, z);
 					} else if (e.classType == 1) {
-						@Pc(282) Model local282 = locType.getModel(4, 0, local171, local182, local195, local206, seq);
+						@Pc(282) Model local282 = locType.getModel(LocType.WALLDECOR_STRAIGHT_NOOFFSET, 0, local171, local182, local195, local206, seq);
 						this.mapSquare.setWallDecorationModel(z, x, local282, plane);
 					} else if (e.classType == 0) {
 						info = this.mapSquare.getInfo(plane, x, z, bitset);
@@ -9285,8 +9285,8 @@ public class client extends GameShell {
 						local243 = info >> 6;
 						if (local239 == 2) {
 							@Pc(320) int local320 = local243 + 1 & 0x3;
-							@Pc(332) Model local332 = locType.getModel(2, local243 + 4, local171, local182, local195, local206, seq);
-							@Pc(342) Model local342 = locType.getModel(2, local320, local171, local182, local195, local206, seq);
+							@Pc(332) Model local332 = locType.getModel(LocType.WALL_L, local243 + 4, local171, local182, local195, local206, seq);
+							@Pc(342) Model local342 = locType.getModel(LocType.WALL_L, local320, local171, local182, local195, local206, seq);
 							this.mapSquare.setWallModels(local332, local342, z, x, plane);
 						} else {
 							local258 = locType.getModel(local239, local243, local171, local182, local195, local206, seq);
@@ -9295,7 +9295,7 @@ public class client extends GameShell {
 					} else if (e.classType == 3) {
 						info = this.mapSquare.getInfo(plane, x, z, bitset);
 						local239 = info >> 6;
-						@Pc(400) Model local400 = locType.getModel(22, local239, local171, local182, local195, local206, seq);
+						@Pc(400) Model local400 = locType.getModel(LocType.GROUNDDECOR, local239, local171, local182, local195, local206, seq);
 						this.mapSquare.setGroundDecorationModel(local400, z, x, plane);
 					}
 				} else {
