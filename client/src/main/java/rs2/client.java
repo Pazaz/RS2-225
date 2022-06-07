@@ -5251,10 +5251,10 @@ public class client extends GameShell {
 		if (action == Cs1Actions.EXAMINE_LOC) {
 			@Pc(586) int local586 = c >> 14 & 0x7FFF;
 			@Pc(589) LocType local589 = LocType.get(local586);
-			if (local589.description == null) {
+			if (local589.examine == null) {
 				local69 = "It's a " + local589.name + ".";
 			} else {
-				local69 = local589.description;
+				local69 = local589.examine;
 			}
 			this.addMessage(0, "", local69);
 		}

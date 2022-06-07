@@ -46,7 +46,7 @@ public class LocType {
 	public String name;
 
 	@OriginalMember(owner = "client!ac", name = "m", descriptor = "[B")
-	public String description;
+	public String examine;
 
 	@OriginalMember(owner = "client!ac", name = "n", descriptor = "[I")
 	private int[] recol_s;
@@ -186,7 +186,7 @@ public class LocType {
 		this.models = null;
 		this.shapes = null;
 		this.name = null;
-		this.description = null;
+		this.examine = null;
 		this.recol_s = null;
 		this.recol_d = null;
 		this.width = 1;
@@ -220,7 +220,7 @@ public class LocType {
 	public static class Opcodes {
 		public static final int model = 1;
 		public static final int name = 2;
-		public static final int description = 3;
+		public static final int examine = 3;
 		public static final int width = 14;
 		public static final int length = 15;
 		public static final int blockwalk_no = 17;
@@ -271,8 +271,8 @@ public class LocType {
 				}
 			} else if (opcode == Opcodes.name) {
 				this.name = buffer.gstr();
-			} else if (opcode == Opcodes.description) {
-				this.description = buffer.gstr();
+			} else if (opcode == Opcodes.examine) {
+				this.examine = buffer.gstr();
 			} else if (opcode == Opcodes.width) {
 				this.width = buffer.g1();
 			} else if (opcode == Opcodes.length) {
@@ -478,6 +478,129 @@ public class LocType {
 			}
 			return m;
 		}
+	}
+
+	public String toJagConfig() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("[loc_").append(id).append("]\n");
+
+		if (this.name != null) {
+			builder.append("name=").append(this.name).append("\n");
+		}
+
+		if (this.examine != null) {
+			builder.append("examine=").append(this.examine).append("\n");
+		}
+
+		if (this.models != null) {
+			for (int i = 0; i < this.models.length; ++i) {
+				builder.append("model").append(i + 1).append("=^loc_shape_").append(this.shapes[i]).append(",model_").append(this.models[i]).append("\n");
+			}
+		}
+
+		if (this.width != 1) {
+			builder.append("width=").append(this.width).append("\n");
+		}
+
+		if (this.length != 1) {
+			builder.append("length=").append(this.length).append("\n");
+		}
+
+		if (!this.blockwalk) {
+			builder.append("blockwalk=no\n");
+		}
+
+		if (!this.blockrange) {
+			builder.append("blockrange=no\n");
+		}
+
+		if (this.hillskew) {
+			builder.append("hillskew=yes\n");
+		}
+
+		if (this.occlude) {
+			builder.append("occlude=yes\n");
+		}
+
+		if (this.anim != -1) {
+			builder.append("anim=anim_").append(this.anim).append("\n");
+		}
+
+		// "brightness" could be called just ambient, but then what's specular?
+		if (this.brightness != 0) {
+			builder.append("ambient_brightness=").append(this.brightness).append("\n");
+		}
+		if (this.specular != 0) {
+			builder.append("ambient_specular=").append(this.specular).append("\n");
+		}
+
+		if (this.mapfunction != -1) {
+			builder.append("mapfunction=").append(this.mapfunction).append("\n");
+		}
+
+		if (this.mapscene != -1) {
+			builder.append("mapscene=").append(this.mapscene).append("\n");
+		}
+
+		if (this.mirror) {
+			builder.append("mirror=yes\n");
+		}
+
+		if (!this.active) {
+			builder.append("active=no\n");
+		}
+
+		if (this.resizex != 128) {
+			builder.append("resizex=").append(this.resizex).append("\n");
+		}
+
+		if (this.resizey != 128) {
+			builder.append("resizey=").append(this.resizey).append("\n");
+		}
+
+		if (this.resizez != 128) {
+			builder.append("resizez=").append(this.resizez).append("\n");
+		}
+
+		if (this.blocksides != 0) {
+			builder.append("blocksides=").append(this.blocksides).append("\n");
+		}
+
+		if (this.xoff != 0) {
+			builder.append("xoff=").append(this.xoff).append("\n");
+		}
+
+		if (this.yoff != 0) {
+			builder.append("yoff=").append(this.yoff).append("\n");
+		}
+
+		if (this.zoff != 0) {
+			builder.append("zoff=").append(this.zoff).append("\n");
+		}
+
+		if (this.forcedecor) {
+			builder.append("forcedecor=yes\n");
+		}
+
+		if (this.recol_s != null) {
+			for (int i = 0; i < this.recol_s.length; ++i) {
+				builder.append("recol").append(i + 1).append("s=").append(this.recol_s[i]).append("\n");
+				builder.append("recol").append(i + 1).append("d=").append(this.recol_d[i]).append("\n");
+			}
+		}
+
+		if (this.ops != null) {
+			for (int i = 0; i < this.ops.length; ++i) {
+				if (this.ops[i] == null) {
+					continue;
+				}
+
+				builder.append("op").append(i + 1).append("=").append(this.ops[i]).append("\n");
+			}
+		}
+
+		return builder.toString();
 	}
 
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "I")
