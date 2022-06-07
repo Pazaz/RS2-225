@@ -1795,7 +1795,7 @@ public class client extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(BLclient!kb;I)V")
-	private void readLocationPacket(@OriginalArg(1) Buffer buffer, @OriginalArg(2) int opcode) {
+	private void readZonePacket(@OriginalArg(1) Buffer buffer, @OriginalArg(2) int opcode) {
 		int tile = buffer.g1();
 		int x = this.localPosX + (tile >> 4 & 0x7);
 		int z = this.localPosZ + (tile & 0x7);
@@ -1896,7 +1896,7 @@ public class client extends GameShell {
 					this.locList.pushNext(loc);
 				}
 			}
-		} else if (opcode == ServerProt.OBJSTACK_ADD) {
+		} else if (opcode == ServerProt.OBJ_REVEAL) {
 			int objId = buffer.g2();
 			int objAmount = buffer.g2();
 
@@ -1910,7 +1910,7 @@ public class client extends GameShell {
 				this.objects[this.currentPlane][x][z].pushNext(objStack);
 				this.updateObjectStack(x, z);
 			}
-		} else if (opcode == ServerProt.OBJSTACK_DEL) {
+		} else if (opcode == ServerProt.OBJ_DEL) {
 			int objId = buffer.g2();
 
 			if (x >= 0 && z >= 0 && x < 104 && z < 104) {
@@ -1930,7 +1930,7 @@ public class client extends GameShell {
 					this.updateObjectStack(x, z);
 				}
 			}
-		} else if (opcode == ServerProt.PROJ_ADD) {
+		} else if (opcode == ServerProt.MAP_PROJANIM) {
 			int dstX = x + buffer.g1b();
 			int dstZ = z + buffer.g1b();
 			int targetIndex = buffer.g2b();
@@ -1962,7 +1962,7 @@ public class client extends GameShell {
 				@Pc(753) SpotAnimEntity spotAnim = new SpotAnimEntity(x, spotanimIndex, z, duration, this.getLandY(this.currentPlane, x, z) - height, this.currentPlane, clientClock);
 				this.spotanims.pushNext(spotAnim);
 			}
-		} else if (opcode == ServerProt.OBJSTACK_PRIV_ADD) {
+		} else if (opcode == ServerProt.OBJ_ADD) {
 			int objId = buffer.g2();
 			int objAmount = buffer.g2();
 			int playerId = buffer.g2();
@@ -1977,7 +1977,7 @@ public class client extends GameShell {
 				this.objects[this.currentPlane][x][z].pushNext(objStack);
 				this.updateObjectStack(x, z);
 			}
-		} else if (opcode == ServerProt.LOC_TEMP_ADD) {
+		} else if (opcode == ServerProt.LOC_ADD_CHANGE) {
 			int locInfo = buffer.g1();
 			int locType = locInfo >> 2;
 			int locRotation = locInfo & 0x3;
@@ -2043,7 +2043,7 @@ public class client extends GameShell {
 				playerEntity.minTileZ = z + minZ;
 				playerEntity.maxTileZ = z + maxZ;
 			}
-		} else if (opcode == ServerProt.OBJSTACK_UPDATE) {
+		} else if (opcode == ServerProt.OBJ_COUNT) {
 			int objId = buffer.g2();
 			int oldAmount = buffer.g2();
 			int newAmount = buffer.g2();
@@ -7169,22 +7169,22 @@ public class client extends GameShell {
 				this.flagTileY = 0;
 				this.playerCount = 0;
 				this.npcCount = 0;
-				for (@Pc(408) int local408 = 0; local408 < this.MAX_PLAYER_COUNT; local408++) {
-					this.playerEntities[local408] = null;
-					this.playerBuffers[local408] = null;
+				for (@Pc(408) int pid = 0; pid < this.MAX_PLAYER_COUNT; pid++) {
+					this.playerEntities[pid] = null;
+					this.playerBuffers[pid] = null;
 				}
-				for (@Pc(427) int local427 = 0; local427 < 8192; local427++) {
-					this.npcEntities[local427] = null;
+				for (@Pc(427) int nid = 0; nid < 8192; nid++) {
+					this.npcEntities[nid] = null;
 				}
 				this.self = this.playerEntities[this.LOCAL_PLAYER_INDEX] = new PlayerEntity();
 				this.projectiles.clear();
 				this.spotanims.clear();
 				this.temporaryLocs.clear();
-				@Pc(464) int local464;
-				for (@Pc(460) int local460 = 0; local460 < 4; local460++) {
-					for (local464 = 0; local464 < 104; local464++) {
-						for (@Pc(468) int local468 = 0; local468 < 104; local468++) {
-							this.objects[local460][local464][local468] = null;
+				@Pc(464) int x;
+				for (@Pc(460) int plane = 0; plane < 4; plane++) {
+					for (x = 0; x < 104; x++) {
+						for (@Pc(468) int z = 0; z < 104; z++) {
+							this.objects[plane][x][z] = null;
 						}
 					}
 				}
@@ -7204,8 +7204,8 @@ public class client extends GameShell {
 				this.flashingSidebarId = -1;
 				this.characterDesignIsMale = true;
 				this.resetCharacterDesign();
-				for (local464 = 0; local464 < 5; local464++) {
-					this.characterDesignColors[local464] = 0;
+				for (x = 0; x < 5; x++) {
+					this.characterDesignColors[x] = 0;
 				}
 				opLoc4Counter = 0;
 				opNpc3Counter = 0;
@@ -10080,8 +10080,8 @@ public class client extends GameShell {
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.OBJSTACK_UPDATE || this.packetOpcode == ServerProt.LOC_TEMP_ADD || this.packetOpcode == ServerProt.OBJSTACK_PRIV_ADD || this.packetOpcode == ServerProt.SPOTANIM_SPECIFIC || this.packetOpcode == ServerProt.PROJ_ADD || this.packetOpcode == ServerProt.OBJSTACK_DEL || this.packetOpcode == ServerProt.OBJSTACK_ADD || this.packetOpcode == ServerProt.LOC_ANIM || this.packetOpcode == ServerProt.LOC_DEL || this.packetOpcode == ServerProt.LOC_ADD) {
-				this.readLocationPacket(this.inBuffer, this.packetOpcode);
+			if (this.packetOpcode == ServerProt.OBJ_COUNT || this.packetOpcode == ServerProt.LOC_ADD_CHANGE || this.packetOpcode == ServerProt.OBJ_ADD || this.packetOpcode == ServerProt.SPOTANIM_SPECIFIC || this.packetOpcode == ServerProt.MAP_PROJANIM || this.packetOpcode == ServerProt.OBJ_DEL || this.packetOpcode == ServerProt.OBJ_REVEAL || this.packetOpcode == ServerProt.LOC_ANIM || this.packetOpcode == ServerProt.LOC_DEL || this.packetOpcode == ServerProt.LOC_ADD) {
+				this.readZonePacket(this.inBuffer, this.packetOpcode);
 				this.packetOpcode = -1;
 				return true;
 			}
@@ -10125,7 +10125,7 @@ public class client extends GameShell {
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.IF_OPENSIDE) {
+			if (this.packetOpcode == ServerProt.IF_SETTAB) {
 				int component = this.inBuffer.g2();
 				int sidebar = this.inBuffer.g1();
 				if (component == 0xffff) {
@@ -10168,7 +10168,7 @@ public class client extends GameShell {
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.UPDATE_INV_PARTIAL) {
+			if (this.packetOpcode == ServerProt.UPDATE_INV_FULL) {
 				this.sidebarRedraw = true;
 				int componentId = this.inBuffer.g2();
 				Component component = Component.instances[componentId];
@@ -10201,7 +10201,7 @@ public class client extends GameShell {
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.INTERFACE_ITEMS_CLEAR) {
+			if (this.packetOpcode == ServerProt.UPDATE_INV_CLEAR) {
 				int componentId = this.inBuffer.g2();
 				Component compnent = Component.instances[componentId];
 				for (int i = 0; i < compnent.inventoryIndices.length; i++) {
@@ -10235,7 +10235,7 @@ public class client extends GameShell {
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.INTERFACE_SIDEBAR_FLASH) {
+			if (this.packetOpcode == ServerProt.IF_SETTAB_FLASH) {
 				this.flashingSidebarId = this.inBuffer.g1();
 				if (this.flashingSidebarId == this.selectedTab) {
 					if (this.flashingSidebarId == 3) {
@@ -10287,20 +10287,20 @@ public class client extends GameShell {
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.PLAYER_POSITION) {
+			if (this.packetOpcode == ServerProt.UPDATE_ZONE_PARTIAL_FOLLOWS) {
 				this.localPosX = this.inBuffer.g1();
 				this.localPosZ = this.inBuffer.g1();
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.INTERFACE_MODEL_RECOLOR) {
+			if (this.packetOpcode == ServerProt.IF_SETMODEL_COLOUR) {
 				int componentId = this.inBuffer.g2();
-				int from = this.inBuffer.g2();
-				int to = this.inBuffer.g2();
+				int recol_s = this.inBuffer.g2();
+				int recol_d = this.inBuffer.g2();
 				Component component = Component.instances[componentId];
 				@Pc(2184) Model m = component.modelDisabled;
 				if (m != null) {
-					m.recolor(from, to);
+					m.recolor(recol_s, recol_d);
 				}
 				this.packetOpcode = -1;
 				return true;
@@ -10314,7 +10314,7 @@ public class client extends GameShell {
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.INTERFACE_INVENTORY) {
+			if (this.packetOpcode == ServerProt.IF_OPENSIDEBAR) {
 				int componentId = this.inBuffer.g2();
 				this.resetParentComponentSeq(componentId);
 				if (this.chatbackComponentId != -1) {
@@ -10373,7 +10373,7 @@ public class client extends GameShell {
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.GROUND_ITEM_REMOVE_ALL) {
+			if (this.packetOpcode == ServerProt.UPDATE_ZONE_FULL_FOLLOWS) {
 				this.localPosX = this.inBuffer.g1();
 				this.localPosZ = this.inBuffer.g1();
 				for (int x = this.localPosX; x < this.localPosX + 8; x++) {
@@ -10468,7 +10468,7 @@ public class client extends GameShell {
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.INTERFACE_DIALOGUE) {
+			if (this.packetOpcode == ServerProt.IF_OPENSTICKY) {
 				this.stickyChatbackComponentId = this.inBuffer.g2b();
 				this.redrawChatback = true;
 				this.packetOpcode = -1;
@@ -10509,7 +10509,7 @@ public class client extends GameShell {
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.INTERFACE_SIDEBAR_FOCUS) {
+			if (this.packetOpcode == ServerProt.IF_SETTAB_ACTIVE) {
 				this.selectedTab = this.inBuffer.g1();
 				this.sidebarRedraw = true;
 				this.sidebarRedrawIcons = true;
@@ -10551,7 +10551,7 @@ public class client extends GameShell {
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.INTERFACE_ITEM_MODEL) {
+			if (this.packetOpcode == ServerProt.IF_SETOBJECT) {
 				int componentId = this.inBuffer.g2();
 				int objId = this.inBuffer.g2();
 				int zoom = this.inBuffer.g2();
@@ -10608,7 +10608,7 @@ public class client extends GameShell {
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.INTERFACE_HOVER) {
+			if (this.packetOpcode == ServerProt.IF_SETHIDE) {
 				int componentId = this.inBuffer.g2();
 				@Pc(3362) boolean hidden = this.inBuffer.g1() == 1;
 				Component.instances[componentId].hidden = hidden;
@@ -10631,7 +10631,7 @@ public class client extends GameShell {
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.IF_HIDE) {
+			if (this.packetOpcode == ServerProt.IF_CLOSESUB) {
 				if (this.sidebarInterfaceId != -1) {
 					this.sidebarInterfaceId = -1;
 					this.sidebarRedraw = true;
@@ -10676,12 +10676,12 @@ public class client extends GameShell {
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.BATCH_PACKETS) {
+			if (this.packetOpcode == ServerProt.UPDATE_ZONE_PARTIAL_ENCLOSED) {
 				this.localPosX = this.inBuffer.g1();
 				this.localPosZ = this.inBuffer.g1();
 				while (this.inBuffer.pos < this.packetLength) {
 					int opcode = this.inBuffer.g1();
-					this.readLocationPacket(this.inBuffer, opcode);
+					this.readZonePacket(this.inBuffer, opcode);
 				}
 				this.packetOpcode = -1;
 				return true;
@@ -10707,7 +10707,7 @@ public class client extends GameShell {
 				this.packetOpcode = -1;
 				return true;
 			}
-			if (this.packetOpcode == ServerProt.UPDATE_INV_FULL) {
+			if (this.packetOpcode == ServerProt.UPDATE_INV_PARTIAL) {
 				this.sidebarRedraw = true;
 				int componentId = this.inBuffer.g2();
 				Component component = Component.instances[componentId];

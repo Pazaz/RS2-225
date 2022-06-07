@@ -230,7 +230,7 @@ public class Player {
     public void setSidebar(int tab, int id) {
         con.out.pos = 0;
 
-        con.out.p1isaac(ServerProt.IF_OPENSIDE);
+        con.out.p1isaac(ServerProt.IF_SETTAB);
         con.out.p2(id);
         con.out.p1(tab);
 
