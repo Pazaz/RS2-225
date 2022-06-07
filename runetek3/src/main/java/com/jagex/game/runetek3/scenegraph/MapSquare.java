@@ -989,7 +989,7 @@ public class MapSquare {
 		@Pc(15) int local15 = arg1.vertexCount;
 		for (@Pc(17) int local17 = 0; local17 < arg0.vertexCount; local17++) {
 			@Pc(24) VertexNormal local24 = arg0.vertexNormals[local17];
-			@Pc(29) VertexNormal local29 = arg0.aVertexNormalArray2[local17];
+			@Pc(29) VertexNormal local29 = arg0.vertexNormalOriginal[local17];
 			if (local29.magnitude != 0) {
 				@Pc(39) int local39 = arg0.vertexY[local17] - arg3;
 				if (local39 <= arg1.minBoundY) {
@@ -999,7 +999,7 @@ public class MapSquare {
 						if (local66 >= arg1.minBoundZ && local66 <= arg1.maxBoundZ) {
 							for (@Pc(77) int local77 = 0; local77 < local15; local77++) {
 								@Pc(84) VertexNormal local84 = arg1.vertexNormals[local77];
-								@Pc(89) VertexNormal local89 = arg1.aVertexNormalArray2[local77];
+								@Pc(89) VertexNormal local89 = arg1.vertexNormalOriginal[local77];
 								if (local50 == local12[local77] && local66 == arg1.vertexZ[local77] && local39 == arg1.vertexY[local77] && local89.magnitude != 0) {
 									local24.x += local89.x;
 									local24.y += local89.y;

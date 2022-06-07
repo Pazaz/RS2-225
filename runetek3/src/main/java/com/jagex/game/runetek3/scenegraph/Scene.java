@@ -177,11 +177,11 @@ public class Scene {
 		if (arg8 == 22) {
 			local99 = local60.getModel(22, arg4, local15, local25, local37, local47, -1);
 			arg9.addGroundDecoration(local99, arg0, local72, arg3, arg6, local86, local57);
-			if (local60.hasCollision && local60.interactable) {
+			if (local60.blockwalk && local60.interactable) {
 				arg2.setBlocked(arg3, arg0);
 			}
-			if (local60.animationIndex != -1) {
-				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 3, SeqType.instances[local60.animationIndex], arg3, arg0));
+			if (local60.anim != -1) {
+				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 3, SeqType.instances[local60.anim], arg3, arg0));
 			}
 			return;
 		}
@@ -195,46 +195,46 @@ public class Scene {
 				}
 				@Pc(177) int local177;
 				if (arg4 == 1 || arg4 == 3) {
-					local174 = local60.sizeZ;
-					local177 = local60.sizeX;
+					local174 = local60.length;
+					local177 = local60.width;
 				} else {
-					local174 = local60.sizeX;
-					local177 = local60.sizeZ;
+					local174 = local60.width;
+					local177 = local60.length;
 				}
 				arg9.addLocation(local57, arg6, null, local72, arg3, arg0, local174, local86, local99, local161, local177);
 			}
-			if (local60.hasCollision) {
-				arg2.setLoc(arg4, local60.sizeZ, local60.sizeX, arg0, arg3, local60.isSolid);
+			if (local60.blockwalk) {
+				arg2.setLoc(arg4, local60.length, local60.width, arg0, arg3, local60.blockrange);
 			}
-			if (local60.animationIndex != -1) {
-				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 2, SeqType.instances[local60.animationIndex], arg3, arg0));
+			if (local60.anim != -1) {
+				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 2, SeqType.instances[local60.anim], arg3, arg0));
 			}
 		} else if (arg8 >= 12) {
 			local99 = local60.getModel(arg8, arg4, local15, local25, local37, local47, -1);
 			arg9.addLocation(local57, arg6, null, local72, arg3, arg0, 1, local86, local99, 0, 1);
-			if (local60.hasCollision) {
-				arg2.setLoc(arg4, local60.sizeZ, local60.sizeX, arg0, arg3, local60.isSolid);
+			if (local60.blockwalk) {
+				arg2.setLoc(arg4, local60.length, local60.width, arg0, arg3, local60.blockrange);
 			}
-			if (local60.animationIndex != -1) {
-				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 2, SeqType.instances[local60.animationIndex], arg3, arg0));
+			if (local60.anim != -1) {
+				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 2, SeqType.instances[local60.anim], arg3, arg0));
 			}
 		} else if (arg8 == 0) {
 			local99 = local60.getModel(0, arg4, local15, local25, local37, local47, -1);
 			arg9.addWall(0, local57, arg6, WALL_ROTATION_TYPE1[arg4], local99, null, arg0, local72, arg3, local86);
-			if (local60.hasCollision) {
-				arg2.setWall(arg4, arg3, arg0, local60.isSolid, arg8);
+			if (local60.blockwalk) {
+				arg2.setWall(arg4, arg3, arg0, local60.blockrange, arg8);
 			}
-			if (local60.animationIndex != -1) {
-				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.instances[local60.animationIndex], arg3, arg0));
+			if (local60.anim != -1) {
+				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.instances[local60.anim], arg3, arg0));
 			}
 		} else if (arg8 == 1) {
 			local99 = local60.getModel(1, arg4, local15, local25, local37, local47, -1);
 			arg9.addWall(0, local57, arg6, WALL_ROTATION_TYPE2[arg4], local99, null, arg0, local72, arg3, local86);
-			if (local60.hasCollision) {
-				arg2.setWall(arg4, arg3, arg0, local60.isSolid, arg8);
+			if (local60.blockwalk) {
+				arg2.setWall(arg4, arg3, arg0, local60.blockrange, arg8);
 			}
-			if (local60.animationIndex != -1) {
-				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.instances[local60.animationIndex], arg3, arg0));
+			if (local60.anim != -1) {
+				arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.instances[local60.anim], arg3, arg0));
 			}
 		} else {
 			@Pc(430) int local430;
@@ -244,64 +244,64 @@ public class Scene {
 				@Pc(442) Model local442 = local60.getModel(2, arg4 + 4, local15, local25, local37, local47, -1);
 				local452 = local60.getModel(2, local430, local15, local25, local37, local47, -1);
 				arg9.addWall(WALL_ROTATION_TYPE1[local430], local57, arg6, WALL_ROTATION_TYPE1[arg4], local442, local452, arg0, local72, arg3, local86);
-				if (local60.hasCollision) {
-					arg2.setWall(arg4, arg3, arg0, local60.isSolid, arg8);
+				if (local60.blockwalk) {
+					arg2.setWall(arg4, arg3, arg0, local60.blockrange, arg8);
 				}
-				if (local60.animationIndex != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.instances[local60.animationIndex], arg3, arg0));
+				if (local60.anim != -1) {
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.instances[local60.anim], arg3, arg0));
 				}
 			} else if (arg8 == 3) {
 				local99 = local60.getModel(3, arg4, local15, local25, local37, local47, -1);
 				arg9.addWall(0, local57, arg6, WALL_ROTATION_TYPE2[arg4], local99, null, arg0, local72, arg3, local86);
-				if (local60.hasCollision) {
-					arg2.setWall(arg4, arg3, arg0, local60.isSolid, arg8);
+				if (local60.blockwalk) {
+					arg2.setWall(arg4, arg3, arg0, local60.blockrange, arg8);
 				}
-				if (local60.animationIndex != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.instances[local60.animationIndex], arg3, arg0));
+				if (local60.anim != -1) {
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 0, SeqType.instances[local60.anim], arg3, arg0));
 				}
 			} else if (arg8 == 9) {
 				local99 = local60.getModel(arg8, arg4, local15, local25, local37, local47, -1);
 				arg9.addLocation(local57, arg6, null, local72, arg3, arg0, 1, local86, local99, 0, 1);
-				if (local60.hasCollision) {
-					arg2.setLoc(arg4, local60.sizeZ, local60.sizeX, arg0, arg3, local60.isSolid);
+				if (local60.blockwalk) {
+					arg2.setLoc(arg4, local60.length, local60.width, arg0, arg3, local60.blockrange);
 				}
-				if (local60.animationIndex != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 2, SeqType.instances[local60.animationIndex], arg3, arg0));
+				if (local60.anim != -1) {
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 2, SeqType.instances[local60.anim], arg3, arg0));
 				}
 			} else if (arg8 == 4) {
 				local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
 				arg9.addWallDecoration(local57, arg3, 0, local72, arg4 * 512, WALL_ROTATION_TYPE1[arg4], 0, arg0, local99, local86, arg6);
-				if (local60.animationIndex != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.animationIndex], arg3, arg0));
+				if (local60.anim != -1) {
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.anim], arg3, arg0));
 				}
 			} else if (arg8 == 5) {
 				local430 = 16;
 				local174 = arg9.getWallBitset(arg6, arg0, arg3);
 				if (local174 > 0) {
-					local430 = LocType.get(local174 >> 14 & 0x7FFF).thickness;
+					local430 = LocType.get(local174 >> 14 & 0x7FFF).walloff;
 				}
 				local452 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
 				arg9.addWallDecoration(local57, arg3, WALL_DECO_ROT_SIZE_Y_DIR[arg4] * local430, local72, arg4 * 512, WALL_ROTATION_TYPE1[arg4], WALL_DECO_ROT_SIZE_X_DIR[arg4] * local430, arg0, local452, local86, arg6);
-				if (local60.animationIndex != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.animationIndex], arg3, arg0));
+				if (local60.anim != -1) {
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.anim], arg3, arg0));
 				}
 			} else if (arg8 == 6) {
 				local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
 				arg9.addWallDecoration(local57, arg3, 0, local72, arg4, 256, 0, arg0, local99, local86, arg6);
-				if (local60.animationIndex != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.animationIndex], arg3, arg0));
+				if (local60.anim != -1) {
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.anim], arg3, arg0));
 				}
 			} else if (arg8 == 7) {
 				local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
 				arg9.addWallDecoration(local57, arg3, 0, local72, arg4, 512, 0, arg0, local99, local86, arg6);
-				if (local60.animationIndex != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.animationIndex], arg3, arg0));
+				if (local60.anim != -1) {
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.anim], arg3, arg0));
 				}
 			} else if (arg8 == 8) {
 				local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
 				arg9.addWallDecoration(local57, arg3, 0, local72, arg4, 768, 0, arg0, local99, local86, arg6);
-				if (local60.animationIndex != -1) {
-					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.animationIndex], arg3, arg0));
+				if (local60.anim != -1) {
+					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.anim], arg3, arg0));
 				}
 			}
 		}
@@ -489,13 +489,13 @@ public class Scene {
 					}
 					@Pc(212) int local212;
 					if (arg3 == 1 || arg3 == 3) {
-						local209 = local84.sizeZ;
-						local212 = local84.sizeX;
+						local209 = local84.length;
+						local212 = local84.width;
 					} else {
-						local209 = local84.sizeX;
-						local212 = local84.sizeZ;
+						local209 = local84.width;
+						local212 = local84.length;
 					}
-					if (arg5.addLocation(local81, arg1, null, local96, arg2, arg8, local209, local110, local132, local196, local212) && local84.hasShadow) {
+					if (arg5.addLocation(local81, arg1, null, local96, arg2, arg8, local209, local110, local132, local196, local212) && local84.active) {
 						for (@Pc(240) int local240 = 0; local240 <= local209; local240++) {
 							for (@Pc(244) int local244 = 0; local244 <= local212; local244++) {
 								@Pc(251) int local251 = local132.lengthXZ / 4;
@@ -509,11 +509,11 @@ public class Scene {
 						}
 					}
 				}
-				if (local84.hasCollision && arg0 != null) {
-					arg0.setLoc(arg3, local84.sizeZ, local84.sizeX, arg8, arg2, local84.isSolid);
+				if (local84.blockwalk && arg0 != null) {
+					arg0.setLoc(arg3, local84.length, local84.width, arg8, arg2, local84.blockrange);
 				}
-				if (local84.animationIndex != -1) {
-					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 2, SeqType.instances[local84.animationIndex], arg2, arg8));
+				if (local84.anim != -1) {
+					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 2, SeqType.instances[local84.anim], arg2, arg8));
 				}
 			} else if (arg4 >= 12) {
 				local132 = local84.getModel(arg4, arg3, local36, local47, local60, local71, -1);
@@ -521,61 +521,61 @@ public class Scene {
 				if (arg4 >= 12 && arg4 <= 17 && arg4 != 13 && arg1 > 0) {
 					this.occludeFlags[arg1][arg8][arg2] |= 0x924;
 				}
-				if (local84.hasCollision && arg0 != null) {
-					arg0.setLoc(arg3, local84.sizeZ, local84.sizeX, arg8, arg2, local84.isSolid);
+				if (local84.blockwalk && arg0 != null) {
+					arg0.setLoc(arg3, local84.length, local84.width, arg8, arg2, local84.blockrange);
 				}
-				if (local84.animationIndex != -1) {
-					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 2, SeqType.instances[local84.animationIndex], arg2, arg8));
+				if (local84.anim != -1) {
+					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 2, SeqType.instances[local84.anim], arg2, arg8));
 				}
 			} else if (arg4 == 0) {
 				local132 = local84.getModel(0, arg3, local36, local47, local60, local71, -1);
 				arg5.addWall(0, local81, arg1, WALL_ROTATION_TYPE1[arg3], local132, null, arg8, local96, arg2, local110);
 				if (arg3 == 0) {
-					if (local84.hasShadow) {
+					if (local84.active) {
 						this.shadowmap[arg1][arg8][arg2] = 50;
 						this.shadowmap[arg1][arg8][arg2 + 1] = 50;
 					}
-					if (local84.culls) {
+					if (local84.occlude) {
 						this.occludeFlags[arg1][arg8][arg2] |= 0x249;
 					}
 				} else if (arg3 == 1) {
-					if (local84.hasShadow) {
+					if (local84.active) {
 						this.shadowmap[arg1][arg8][arg2 + 1] = 50;
 						this.shadowmap[arg1][arg8 + 1][arg2 + 1] = 50;
 					}
-					if (local84.culls) {
+					if (local84.occlude) {
 						this.occludeFlags[arg1][arg8][arg2 + 1] |= 0x492;
 					}
 				} else if (arg3 == 2) {
-					if (local84.hasShadow) {
+					if (local84.active) {
 						this.shadowmap[arg1][arg8 + 1][arg2] = 50;
 						this.shadowmap[arg1][arg8 + 1][arg2 + 1] = 50;
 					}
-					if (local84.culls) {
+					if (local84.occlude) {
 						this.occludeFlags[arg1][arg8 + 1][arg2] |= 0x249;
 					}
 				} else if (arg3 == 3) {
-					if (local84.hasShadow) {
+					if (local84.active) {
 						this.shadowmap[arg1][arg8][arg2] = 50;
 						this.shadowmap[arg1][arg8 + 1][arg2] = 50;
 					}
-					if (local84.culls) {
+					if (local84.occlude) {
 						this.occludeFlags[arg1][arg8][arg2] |= 0x492;
 					}
 				}
-				if (local84.hasCollision && arg0 != null) {
-					arg0.setWall(arg3, arg2, arg8, local84.isSolid, arg4);
+				if (local84.blockwalk && arg0 != null) {
+					arg0.setWall(arg3, arg2, arg8, local84.blockrange, arg4);
 				}
-				if (local84.animationIndex != -1) {
-					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.instances[local84.animationIndex], arg2, arg8));
+				if (local84.anim != -1) {
+					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.instances[local84.anim], arg2, arg8));
 				}
-				if (local84.thickness != 16) {
-					arg5.setWallDecoration(arg1, arg2, arg8, local84.thickness);
+				if (local84.walloff != 16) {
+					arg5.setWallDecoration(arg1, arg2, arg8, local84.walloff);
 				}
 			} else if (arg4 == 1) {
 				local132 = local84.getModel(1, arg3, local36, local47, local60, local71, -1);
 				arg5.addWall(0, local81, arg1, WALL_ROTATION_TYPE2[arg3], local132, null, arg8, local96, arg2, local110);
-				if (local84.hasShadow) {
+				if (local84.active) {
 					if (arg3 == 0) {
 						this.shadowmap[arg1][arg8][arg2 + 1] = 50;
 					} else if (arg3 == 1) {
@@ -586,11 +586,11 @@ public class Scene {
 						this.shadowmap[arg1][arg8][arg2] = 50;
 					}
 				}
-				if (local84.hasCollision && arg0 != null) {
-					arg0.setWall(arg3, arg2, arg8, local84.isSolid, arg4);
+				if (local84.blockwalk && arg0 != null) {
+					arg0.setWall(arg3, arg2, arg8, local84.blockrange, arg4);
 				}
-				if (local84.animationIndex != -1) {
-					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.instances[local84.animationIndex], arg2, arg8));
+				if (local84.anim != -1) {
+					arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.instances[local84.anim], arg2, arg8));
 				}
 			} else {
 				@Pc(810) int local810;
@@ -600,7 +600,7 @@ public class Scene {
 					@Pc(822) Model local822 = local84.getModel(2, arg3 + 4, local36, local47, local60, local71, -1);
 					local832 = local84.getModel(2, local810, local36, local47, local60, local71, -1);
 					arg5.addWall(WALL_ROTATION_TYPE1[local810], local81, arg1, WALL_ROTATION_TYPE1[arg3], local822, local832, arg8, local96, arg2, local110);
-					if (local84.culls) {
+					if (local84.occlude) {
 						if (arg3 == 0) {
 							this.occludeFlags[arg1][arg8][arg2] |= 0x249;
 							this.occludeFlags[arg1][arg8][arg2 + 1] |= 0x492;
@@ -615,19 +615,19 @@ public class Scene {
 							this.occludeFlags[arg1][arg8][arg2] |= 0x249;
 						}
 					}
-					if (local84.hasCollision && arg0 != null) {
-						arg0.setWall(arg3, arg2, arg8, local84.isSolid, arg4);
+					if (local84.blockwalk && arg0 != null) {
+						arg0.setWall(arg3, arg2, arg8, local84.blockrange, arg4);
 					}
-					if (local84.animationIndex != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.instances[local84.animationIndex], arg2, arg8));
+					if (local84.anim != -1) {
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.instances[local84.anim], arg2, arg8));
 					}
-					if (local84.thickness != 16) {
-						arg5.setWallDecoration(arg1, arg2, arg8, local84.thickness);
+					if (local84.walloff != 16) {
+						arg5.setWallDecoration(arg1, arg2, arg8, local84.walloff);
 					}
 				} else if (arg4 == 3) {
 					local132 = local84.getModel(3, arg3, local36, local47, local60, local71, -1);
 					arg5.addWall(0, local81, arg1, WALL_ROTATION_TYPE2[arg3], local132, null, arg8, local96, arg2, local110);
-					if (local84.hasShadow) {
+					if (local84.active) {
 						if (arg3 == 0) {
 							this.shadowmap[arg1][arg8][arg2 + 1] = 50;
 						} else if (arg3 == 1) {
@@ -638,66 +638,66 @@ public class Scene {
 							this.shadowmap[arg1][arg8][arg2] = 50;
 						}
 					}
-					if (local84.hasCollision && arg0 != null) {
-						arg0.setWall(arg3, arg2, arg8, local84.isSolid, arg4);
+					if (local84.blockwalk && arg0 != null) {
+						arg0.setWall(arg3, arg2, arg8, local84.blockrange, arg4);
 					}
-					if (local84.animationIndex != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.instances[local84.animationIndex], arg2, arg8));
+					if (local84.anim != -1) {
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 0, SeqType.instances[local84.anim], arg2, arg8));
 					}
 				} else if (arg4 == 9) {
 					local132 = local84.getModel(arg4, arg3, local36, local47, local60, local71, -1);
 					arg5.addLocation(local81, arg1, null, local96, arg2, arg8, 1, local110, local132, 0, 1);
-					if (local84.hasCollision && arg0 != null) {
-						arg0.setLoc(arg3, local84.sizeZ, local84.sizeX, arg8, arg2, local84.isSolid);
+					if (local84.blockwalk && arg0 != null) {
+						arg0.setLoc(arg3, local84.length, local84.width, arg8, arg2, local84.blockrange);
 					}
-					if (local84.animationIndex != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 2, SeqType.instances[local84.animationIndex], arg2, arg8));
+					if (local84.anim != -1) {
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 2, SeqType.instances[local84.anim], arg2, arg8));
 					}
 				} else if (arg4 == 4) {
 					local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
 					arg5.addWallDecoration(local81, arg2, 0, local96, arg3 * 512, WALL_ROTATION_TYPE1[arg3], 0, arg8, local132, local110, arg1);
-					if (local84.animationIndex != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.animationIndex], arg2, arg8));
+					if (local84.anim != -1) {
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.anim], arg2, arg8));
 					}
 				} else if (arg4 == 5) {
 					local810 = 16;
 					local209 = arg5.getWallBitset(arg1, arg8, arg2);
 					if (local209 > 0) {
-						local810 = LocType.get(local209 >> 14 & 0x7FFF).thickness;
+						local810 = LocType.get(local209 >> 14 & 0x7FFF).walloff;
 					}
 					local832 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
 					arg5.addWallDecoration(local81, arg2, WALL_DECO_ROT_SIZE_Y_DIR[arg3] * local810, local96, arg3 * 512, WALL_ROTATION_TYPE1[arg3], WALL_DECO_ROT_SIZE_X_DIR[arg3] * local810, arg8, local832, local110, arg1);
-					if (local84.animationIndex != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.animationIndex], arg2, arg8));
+					if (local84.anim != -1) {
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.anim], arg2, arg8));
 					}
 				} else if (arg4 == 6) {
 					local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
 					arg5.addWallDecoration(local81, arg2, 0, local96, arg3, 256, 0, arg8, local132, local110, arg1);
-					if (local84.animationIndex != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.animationIndex], arg2, arg8));
+					if (local84.anim != -1) {
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.anim], arg2, arg8));
 					}
 				} else if (arg4 == 7) {
 					local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
 					arg5.addWallDecoration(local81, arg2, 0, local96, arg3, 512, 0, arg8, local132, local110, arg1);
-					if (local84.animationIndex != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.animationIndex], arg2, arg8));
+					if (local84.anim != -1) {
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.anim], arg2, arg8));
 					}
 				} else if (arg4 == 8) {
 					local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
 					arg5.addWallDecoration(local81, arg2, 0, local96, arg3, 768, 0, arg8, local132, local110, arg1);
-					if (local84.animationIndex != -1) {
-						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.animationIndex], arg2, arg8));
+					if (local84.anim != -1) {
+						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.anim], arg2, arg8));
 					}
 				}
 			}
-		} else if (!lowMemory || local84.interactable || local84.opcode73) {
+		} else if (!lowMemory || local84.interactable || local84.forcedecor) {
 			local132 = local84.getModel(22, arg3, local36, local47, local60, local71, -1);
 			arg5.addGroundDecoration(local132, arg8, local96, arg2, arg1, local110, local81);
-			if (local84.hasCollision && local84.interactable && arg0 != null) {
+			if (local84.blockwalk && local84.interactable && arg0 != null) {
 				arg0.setBlocked(arg2, arg8);
 			}
-			if (local84.animationIndex != -1) {
-				arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 3, SeqType.instances[local84.animationIndex], arg2, arg8));
+			if (local84.anim != -1) {
+				arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 3, SeqType.instances[local84.anim], arg2, arg8));
 			}
 		}
 	}

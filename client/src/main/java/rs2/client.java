@@ -2015,11 +2015,11 @@ public class client extends GameShell {
 				playerEntity.lastCycle = lastCycle + clientClock;
 				playerEntity.model = loc.getModel(locType, locRotation, region, regionEast, regionNorthEast, regionNorth, -1);
 
-				@Pc(1045) int width = loc.sizeX;
-				@Pc(1048) int depth = loc.sizeZ;
+				@Pc(1045) int width = loc.width;
+				@Pc(1048) int depth = loc.length;
 				if (locRotation == 1 || locRotation == 3) {
-					width = loc.sizeZ;
-					depth = loc.sizeX;
+					width = loc.length;
+					depth = loc.width;
 				}
 
 				playerEntity.sceneX = x * 128 + width * 64;
@@ -3723,9 +3723,9 @@ public class client extends GameShell {
 			} else {
 				@Pc(71) IndexedSprite local71 = this.mapscene[local61.mapscene];
 				if (local71 != null) {
-					@Pc(83) int local83 = (local61.sizeX * 4 - local71.spriteWidth) / 2;
-					@Pc(93) int local93 = (local61.sizeZ * 4 - local71.spriteHeight) / 2;
-					local71.draw((104 - y - local61.sizeZ) * 4 + local93 + 48, x * 4 + 48 + local83);
+					@Pc(83) int local83 = (local61.width * 4 - local71.spriteWidth) / 2;
+					@Pc(93) int local93 = (local61.length * 4 - local71.spriteHeight) / 2;
+					local71.draw((104 - y - local61.length) * 4 + local93 + 48, x * 4 + 48 + local83);
 				}
 			}
 		}
@@ -3740,9 +3740,9 @@ public class client extends GameShell {
 			if (local451.mapscene != -1) {
 				@Pc(461) IndexedSprite local461 = this.mapscene[local451.mapscene];
 				if (local461 != null) {
-					locIndex = (local451.sizeX * 4 - local461.spriteWidth) / 2;
-					local483 = (local451.sizeZ * 4 - local461.spriteHeight) / 2;
-					local461.draw((104 - y - local451.sizeZ) * 4 + local483 + 48, x * 4 + 48 + locIndex);
+					locIndex = (local451.width * 4 - local461.spriteWidth) / 2;
+					local483 = (local451.length * 4 - local461.spriteHeight) / 2;
+					local461.draw((104 - y - local451.length) * 4 + local483 + 48, x * 4 + 48 + locIndex);
 				}
 			} else if (type == 9) {
 				off = 15658734;
@@ -3777,9 +3777,9 @@ public class client extends GameShell {
 
 		@Pc(625) IndexedSprite mapscene = this.mapscene[locType.mapscene];
 		if (mapscene != null) {
-			rgb = (locType.sizeX * 4 - mapscene.spriteWidth) / 2;
-			@Pc(647) int local647 = (locType.sizeZ * 4 - mapscene.spriteHeight) / 2;
-			mapscene.draw((104 - y - locType.sizeZ) * 4 + local647 + 48, x * 4 + 48 + rgb);
+			rgb = (locType.width * 4 - mapscene.spriteWidth) / 2;
+			@Pc(647) int local647 = (locType.length * 4 - mapscene.spriteHeight) / 2;
+			mapscene.draw((104 - y - locType.length) * 4 + local647 + 48, x * 4 + 48 + rgb);
 		}
 	}
 
@@ -5254,7 +5254,7 @@ public class client extends GameShell {
 			if (local589.description == null) {
 				local69 = "It's a " + local589.name + ".";
 			} else {
-				local69 = new String(local589.description);
+				local69 = local589.description;
 			}
 			this.addMessage(0, "", local69);
 		}
@@ -6558,8 +6558,8 @@ public class client extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "h", descriptor = "(B)V")
 	private void clearCaches() {
-		LocType.models.clear();
-		LocType.builtModels.clear();
+		LocType.modelCache.clear();
+		LocType.modelCacheBuilt.clear();
 		NpcType.models.clear();
 		ObjType.models.clear();
 		ObjType.icons.clear();
@@ -6841,14 +6841,14 @@ public class client extends GameShell {
 			@Pc(51) int width;
 			@Pc(54) int depth;
 			if (angle == 0 || angle == 2) {
-				width = loc.sizeX;
-				depth = loc.sizeZ;
+				width = loc.width;
+				depth = loc.length;
 			} else {
-				width = loc.sizeZ;
-				depth = loc.sizeX;
+				width = loc.length;
+				depth = loc.width;
 			}
 
-			@Pc(65) int interactionFlags = loc.interactionSideFlags;
+			@Pc(65) int interactionFlags = loc.blocksides;
 			if (angle != 0) {
 				interactionFlags = (interactionFlags << angle & 0xF) + (interactionFlags >> 4 - angle);
 			}
@@ -7340,8 +7340,8 @@ public class client extends GameShell {
 			if (arg3 == 0) {
 				this.mapSquare.removeWall(arg1, plane, arg2);
 				local107 = LocType.get(local87);
-				if (local107.hasCollision) {
-					this.collisionMaps[plane].removeWall(local107.isSolid, local95, arg1, arg2, local91);
+				if (local107.blockwalk) {
+					this.collisionMaps[plane].removeWall(local107.blockrange, local95, arg1, arg2, local91);
 				}
 			}
 			if (arg3 == 1) {
@@ -7350,17 +7350,17 @@ public class client extends GameShell {
 			if (arg3 == 2) {
 				this.mapSquare.removeLocation(arg1, arg2, plane);
 				local107 = LocType.get(local87);
-				if (arg1 + local107.sizeX > 103 || arg2 + local107.sizeX > 103 || arg1 + local107.sizeZ > 103 || arg2 + local107.sizeZ > 103) {
+				if (arg1 + local107.width > 103 || arg2 + local107.width > 103 || arg1 + local107.length > 103 || arg2 + local107.length > 103) {
 					return;
 				}
-				if (local107.hasCollision) {
-					this.collisionMaps[plane].removeLoc(arg2, arg1, local95, local107.sizeX, local107.isSolid, local107.sizeZ);
+				if (local107.blockwalk) {
+					this.collisionMaps[plane].removeLoc(arg2, arg1, local95, local107.width, local107.blockrange, local107.length);
 				}
 			}
 			if (arg3 == 3) {
 				this.mapSquare.removeGroundDecoration(plane, arg1, arg2);
 				local107 = LocType.get(local87);
-				if (local107.hasCollision && local107.interactable) {
+				if (local107.blockwalk && local107.interactable) {
 					this.collisionMaps[plane].removeBlock(arg2, arg1);
 				}
 			}
@@ -8951,7 +8951,7 @@ public class client extends GameShell {
 			}
 		} catch (@Pc(390) Exception ignored) {
 		}
-		LocType.models.clear();
+		LocType.modelCache.clear();
 		System.gc();
 		Draw3D.setupPools();
 	}
@@ -9357,10 +9357,10 @@ public class client extends GameShell {
 						this.optionParamA[this.optionCount] = bitset;
 						this.optionCount++;
 					} else if (this.selectedSpell != 1) {
-						if (loc.actions != null) {
+						if (loc.ops != null) {
 							for (option = 4; option >= 0; option--) {
-								if (loc.actions[option] != null) {
-									this.options[this.optionCount] = loc.actions[option] + " @cya@" + loc.name;
+								if (loc.ops[option] != null) {
+									this.options[this.optionCount] = loc.ops[option] + " @cya@" + loc.name;
 									if (option == 0) {
 										this.optionType[this.optionCount] = Cs1Actions.OPLOC1;
 									}

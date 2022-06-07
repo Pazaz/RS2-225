@@ -199,7 +199,7 @@ public class Model extends CacheableNode {
 	public VertexNormal[] vertexNormals;
 
 	@OriginalMember(owner = "client!eb", name = "X", descriptor = "[Lclient!n;")
-	public VertexNormal[] aVertexNormalArray2;
+	public VertexNormal[] vertexNormalOriginal;
 
 	@OriginalMember(owner = "client!eb", name = "V", descriptor = "Z")
 	public boolean pickable = false;
@@ -891,7 +891,7 @@ public class Model extends CacheableNode {
 				local170.z = local175.z;
 				local170.magnitude = local175.magnitude;
 			}
-			this.aVertexNormalArray2 = arg0.aVertexNormalArray2;
+			this.vertexNormalOriginal = arg0.vertexNormalOriginal;
 		} else {
 			this.colorA = arg0.colorA;
 			this.colorB = arg0.colorB;
@@ -1384,32 +1384,36 @@ public class Model extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!eb", name = "a", descriptor = "(IIIIIZ)V")
-	public void applyLighting(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) boolean arg5) {
-		@Pc(16) int local16 = (int) Math.sqrt((double) (arg2 * arg2 + arg3 * arg3 + arg4 * arg4));
-		@Pc(22) int local22 = arg1 * local16 >> 8;
+	public void applyLighting(@OriginalArg(0) int lightAmbient, @OriginalArg(1) int lightAttenuation, @OriginalArg(2) int lightSrcX, @OriginalArg(3) int lightSrcY, @OriginalArg(4) int lightSrcZ, @OriginalArg(5) boolean computeVertexColors) {
+		@Pc(16) int lightMagnitude = (int) Math.sqrt(lightSrcX * lightSrcX + lightSrcY * lightSrcY + lightSrcZ * lightSrcZ);
+		@Pc(22) int attenuation = lightAttenuation * lightMagnitude >> 8;
+
 		if (this.colorA == null) {
 			this.colorA = new int[this.triangleCount];
 			this.colorB = new int[this.triangleCount];
 			this.colorC = new int[this.triangleCount];
 		}
-		@Pc(50) int local50;
+
+		@Pc(50) int t;
 		if (this.vertexNormals == null) {
 			this.vertexNormals = new VertexNormal[this.vertexCount];
-			for (local50 = 0; local50 < this.vertexCount; local50++) {
-				this.vertexNormals[local50] = new VertexNormal();
+			for (t = 0; t < this.vertexCount; t++) {
+				this.vertexNormals[t] = new VertexNormal();
 			}
 		}
-		@Pc(73) int local73;
-		for (local50 = 0; local50 < this.triangleCount; local50++) {
-			local73 = this.triangleVertexA[local50];
-			@Pc(78) int local78 = this.triangleVertexB[local50];
-			@Pc(83) int local83 = this.triangleVertexC[local50];
-			@Pc(93) int local93 = this.vertexX[local78] - this.vertexX[local73];
-			@Pc(103) int local103 = this.vertexY[local78] - this.vertexY[local73];
-			@Pc(113) int local113 = this.vertexZ[local78] - this.vertexZ[local73];
-			@Pc(123) int local123 = this.vertexX[local83] - this.vertexX[local73];
-			@Pc(133) int local133 = this.vertexY[local83] - this.vertexY[local73];
-			@Pc(143) int local143 = this.vertexZ[local83] - this.vertexZ[local73];
+
+		@Pc(73) int a;
+		for (t = 0; t < this.triangleCount; t++) {
+			a = this.triangleVertexA[t];
+			@Pc(78) int b = this.triangleVertexB[t];
+			@Pc(83) int c = this.triangleVertexC[t];
+
+			@Pc(93) int local93 = this.vertexX[b] - this.vertexX[a];
+			@Pc(103) int local103 = this.vertexY[b] - this.vertexY[a];
+			@Pc(113) int local113 = this.vertexZ[b] - this.vertexZ[a];
+			@Pc(123) int local123 = this.vertexX[c] - this.vertexX[a];
+			@Pc(133) int local133 = this.vertexY[c] - this.vertexY[a];
+			@Pc(143) int local143 = this.vertexZ[c] - this.vertexZ[a];
 			@Pc(151) int local151 = local103 * local143 - local133 * local113;
 			@Pc(159) int local159 = local113 * local123 - local143 * local93;
 			@Pc(167) int local167;
@@ -1424,41 +1428,41 @@ public class Model extends CacheableNode {
 			local151 = local151 * 256 / local214;
 			local159 = local159 * 256 / local214;
 			local167 = local167 * 256 / local214;
-			if (this.triangleInfo == null || (this.triangleInfo[local50] & 0x1) == 0) {
-				@Pc(251) VertexNormal local251 = this.vertexNormals[local73];
+			if (this.triangleInfo == null || (this.triangleInfo[t] & 0x1) == 0) {
+				@Pc(251) VertexNormal local251 = this.vertexNormals[a];
 				local251.x += local151;
 				local251.y += local159;
 				local251.z += local167;
 				local251.magnitude++;
-				@Pc(280) VertexNormal local280 = this.vertexNormals[local78];
+				@Pc(280) VertexNormal local280 = this.vertexNormals[b];
 				local280.x += local151;
 				local280.y += local159;
 				local280.z += local167;
 				local280.magnitude++;
-				@Pc(309) VertexNormal local309 = this.vertexNormals[local83];
+				@Pc(309) VertexNormal local309 = this.vertexNormals[c];
 				local309.x += local151;
 				local309.y += local159;
 				local309.z += local167;
 				local309.magnitude++;
 			} else {
-				@Pc(355) int local355 = arg0 + (arg2 * local151 + arg3 * local159 + arg4 * local167) / (local22 + local22 / 2);
-				this.colorA[local50] = adjustHslLightness(this.unmodifiedTriangleColor[local50], local355, this.triangleInfo[local50]);
+				@Pc(355) int local355 = lightAmbient + (lightSrcX * local151 + lightSrcY * local159 + lightSrcZ * local167) / (attenuation + attenuation / 2);
+				this.colorA[t] = adjustHslLightness(this.unmodifiedTriangleColor[t], local355, this.triangleInfo[t]);
 			}
 		}
-		if (arg5) {
-			this.calculateLighting(arg0, local22, arg2, arg3, arg4);
+		if (computeVertexColors) {
+			this.calculateLighting(lightAmbient, attenuation, lightSrcX, lightSrcY, lightSrcZ);
 		} else {
-			this.aVertexNormalArray2 = new VertexNormal[this.vertexCount];
-			for (local73 = 0; local73 < this.vertexCount; local73++) {
-				@Pc(399) VertexNormal local399 = this.vertexNormals[local73];
-				@Pc(408) VertexNormal local408 = this.aVertexNormalArray2[local73] = new VertexNormal();
+			this.vertexNormalOriginal = new VertexNormal[this.vertexCount];
+			for (a = 0; a < this.vertexCount; a++) {
+				@Pc(399) VertexNormal local399 = this.vertexNormals[a];
+				@Pc(408) VertexNormal local408 = this.vertexNormalOriginal[a] = new VertexNormal();
 				local408.x = local399.x;
 				local408.y = local399.y;
 				local408.z = local399.z;
 				local408.magnitude = local399.magnitude;
 			}
 		}
-		if (arg5) {
+		if (computeVertexColors) {
 			this.calculateYBoundaries();
 		} else {
 			this.calculateBoundaries();
@@ -1501,7 +1505,7 @@ public class Model extends CacheableNode {
 			}
 		}
 		this.vertexNormals = null;
-		this.aVertexNormalArray2 = null;
+		this.vertexNormalOriginal = null;
 		this.vertexLabel = null;
 		this.triangleSkin = null;
 		if (this.triangleInfo != null) {

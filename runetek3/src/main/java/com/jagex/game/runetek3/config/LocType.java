@@ -16,7 +16,7 @@ public class LocType {
 	private static boolean reset;
 
 	@OriginalMember(owner = "client!ac", name = "d", descriptor = "I")
-	private static int count;
+	public static int count;
 
 	@OriginalMember(owner = "client!ac", name = "e", descriptor = "[I")
 	private static int[] offsets;
@@ -31,22 +31,22 @@ public class LocType {
 	private static int offset;
 
 	@OriginalMember(owner = "client!ac", name = "P", descriptor = "Lclient!s;")
-	public static Cache models = new Cache(500);
+	public static Cache modelCache = new Cache(500);
 
 	@OriginalMember(owner = "client!ac", name = "Q", descriptor = "Lclient!s;")
-	public static Cache builtModels = new Cache(30);
+	public static Cache modelCacheBuilt = new Cache(30);
 
 	@OriginalMember(owner = "client!ac", name = "j", descriptor = "[I")
-	private int[] modelIndices;
+	private int[] models;
 
 	@OriginalMember(owner = "client!ac", name = "k", descriptor = "[I")
-	private int[] modelTypes;
+	private int[] shapes;
 
 	@OriginalMember(owner = "client!ac", name = "l", descriptor = "Ljava/lang/String;")
 	public String name;
 
 	@OriginalMember(owner = "client!ac", name = "m", descriptor = "[B")
-	public byte[] description;
+	public String description;
 
 	@OriginalMember(owner = "client!ac", name = "n", descriptor = "[I")
 	private int[] recol_s;
@@ -55,46 +55,46 @@ public class LocType {
 	private int[] recol_d;
 
 	@OriginalMember(owner = "client!ac", name = "p", descriptor = "I")
-	public int sizeX;
+	public int width;
 
 	@OriginalMember(owner = "client!ac", name = "q", descriptor = "I")
-	public int sizeZ;
+	public int length;
 
 	@OriginalMember(owner = "client!ac", name = "r", descriptor = "Z")
-	public boolean hasCollision;
+	public boolean blockwalk;
 
 	@OriginalMember(owner = "client!ac", name = "s", descriptor = "Z")
-	public boolean isSolid;
+	public boolean blockrange;
 
 	@OriginalMember(owner = "client!ac", name = "t", descriptor = "Z")
 	public boolean interactable;
 
 	@OriginalMember(owner = "client!ac", name = "u", descriptor = "Z")
-	private boolean adjustToTerrain;
+	public boolean hillskew;
 
 	@OriginalMember(owner = "client!ac", name = "v", descriptor = "Z")
-	private boolean flatShaded;
+	public boolean computeVertexColors;
 
 	@OriginalMember(owner = "client!ac", name = "w", descriptor = "Z")
-	public boolean culls;
+	public boolean occlude;
 
 	@OriginalMember(owner = "client!ac", name = "x", descriptor = "I")
-	public int animationIndex;
+	public int anim;
 
 	@OriginalMember(owner = "client!ac", name = "y", descriptor = "I")
-	public int thickness;
+	public int walloff;
 
 	@OriginalMember(owner = "client!ac", name = "z", descriptor = "B")
-	private byte brightness;
+	public byte brightness;
 
 	@OriginalMember(owner = "client!ac", name = "A", descriptor = "B")
-	private byte specular;
+	public byte specular;
 
 	@OriginalMember(owner = "client!ac", name = "B", descriptor = "[Ljava/lang/String;")
-	public String[] actions;
+	public String[] ops;
 
 	@OriginalMember(owner = "client!ac", name = "C", descriptor = "Z")
-	private boolean disposeAlpha;
+	public boolean disposeAlpha;
 
 	@OriginalMember(owner = "client!ac", name = "D", descriptor = "I")
 	public int mapfunction;
@@ -103,10 +103,10 @@ public class LocType {
 	public int mapscene;
 
 	@OriginalMember(owner = "client!ac", name = "F", descriptor = "Z")
-	private boolean rotateCounterClockwise;
+	public boolean mirror;
 
 	@OriginalMember(owner = "client!ac", name = "G", descriptor = "Z")
-	public boolean hasShadow;
+	public boolean active;
 
 	@OriginalMember(owner = "client!ac", name = "H", descriptor = "I")
 	private int resizex;
@@ -127,10 +127,10 @@ public class LocType {
 	private int zoff;
 
 	@OriginalMember(owner = "client!ac", name = "N", descriptor = "I")
-	public int interactionSideFlags;
+	public int blocksides;
 
 	@OriginalMember(owner = "client!ac", name = "O", descriptor = "Z")
-	public boolean opcode73;
+	public boolean forcedecor;
 
 	@OriginalMember(owner = "client!ac", name = "i", descriptor = "I")
 	private int id = -1;
@@ -154,8 +154,8 @@ public class LocType {
 
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "(Z)V")
 	public static void unload() {
-		models = null;
-		builtModels = null;
+		modelCache = null;
+		modelCacheBuilt = null;
 		offsets = null;
 		cache = null;
 		dat = null;
@@ -183,149 +183,184 @@ public class LocType {
 
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "()V")
 	private void reset() {
-		this.modelIndices = null;
-		this.modelTypes = null;
+		this.models = null;
+		this.shapes = null;
 		this.name = null;
 		this.description = null;
 		this.recol_s = null;
 		this.recol_d = null;
-		this.sizeX = 1;
-		this.sizeZ = 1;
-		this.hasCollision = true;
-		this.isSolid = true;
+		this.width = 1;
+		this.length = 1;
+		this.blockwalk = true;
+		this.blockrange = true;
 		this.interactable = false;
-		this.adjustToTerrain = false;
-		this.flatShaded = false;
-		this.culls = false;
-		this.animationIndex = -1;
-		this.thickness = 16;
+		this.hillskew = false;
+		this.computeVertexColors = false;
+		this.occlude = false;
+		this.anim = -1;
+		this.walloff = 16;
 		this.brightness = 0;
 		this.specular = 0;
-		this.actions = null;
+		this.ops = null;
 		this.disposeAlpha = false;
 		this.mapfunction = -1;
 		this.mapscene = -1;
-		this.rotateCounterClockwise = false;
-		this.hasShadow = true;
+		this.mirror = false;
+		this.active = true;
 		this.resizex = 128;
 		this.resizey = 128;
 		this.resizez = 128;
-		this.interactionSideFlags = 0;
+		this.blocksides = 0;
 		this.xoff = 0;
 		this.yoff = 0;
 		this.zoff = 0;
-		this.opcode73 = false;
+		this.forcedecor = false;
+	}
+
+	public static class Opcodes {
+		public static final int model = 1;
+		public static final int name = 2;
+		public static final int description = 3;
+		public static final int width = 14;
+		public static final int length = 15;
+		public static final int blockwalk_no = 17;
+		public static final int blockrange_no = 18;
+		public static final int hillskew = 21;
+		public static final int occlude = 23;
+		public static final int anim = 24;
+		public static final int walloff = 28;
+		public static final int ambient_brightness = 29;
+		public static final int op1 = 30;
+		public static final int op5 = 34;
+		public static final int ambient_specular = 39;
+		public static final int recol = 40;
+		public static final int mapfunction = 60;
+		public static final int mirror = 62;
+		public static final int active = 64;
+		public static final int resizex = 65;
+		public static final int resizey = 66;
+		public static final int resizez = 67;
+		public static final int mapscene = 68;
+		public static final int blocksides = 69;
+		public static final int xoff = 70;
+		public static final int yoff = 71;
+		public static final int zoff = 72;
+		public static final int forcedecor = 73;
 	}
 
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "(ZLclient!kb;)V")
 	private void decode(@OriginalArg(1) Buffer buffer) {
 		@Pc(12) int interactive = -1;
+
 		while (true) {
-			while (true) {
-				@Pc(15) int opcode = buffer.g1();
-				if (opcode == 0) {
-					if (this.modelTypes == null) {
-						this.modelTypes = new int[0];
-					}
-					if (interactive == -1) {
-						this.interactable = false;
-						if (this.modelTypes.length > 0 && this.modelTypes[0] == 10) {
-							this.interactable = true;
-						}
-						if (this.actions != null) {
-							this.interactable = true;
-							return;
-						}
-					}
-					return;
+			@Pc(15) int opcode = buffer.g1();
+
+			if (opcode == 0) {
+				break;
+			}
+
+			@Pc(23) int count;
+			@Pc(33) int i;
+			if (opcode == Opcodes.model) {
+				count = buffer.g1();
+				this.shapes = new int[count];
+				this.models = new int[count];
+				for (i = 0; i < count; i++) {
+					this.models[i] = buffer.g2();
+					this.shapes[i] = buffer.g1();
 				}
-				@Pc(23) int count;
-				@Pc(33) int i;
-				if (opcode == 1) {
-					count = buffer.g1();
-					this.modelTypes = new int[count];
-					this.modelIndices = new int[count];
-					for (i = 0; i < count; i++) {
-						this.modelIndices[i] = buffer.g2();
-						this.modelTypes[i] = buffer.g1();
-					}
-				} else if (opcode == 2) {
-					this.name = buffer.gstr();
-				} else if (opcode == 3) {
-					this.description = buffer.gstrbyte();
-				} else if (opcode == 14) {
-					this.sizeX = buffer.g1();
-				} else if (opcode == 15) {
-					this.sizeZ = buffer.g1();
-				} else if (opcode == 17) {
-					this.hasCollision = false;
-				} else if (opcode == 18) {
-					this.isSolid = false;
-				} else if (opcode == 19) {
-					interactive = buffer.g1();
-					if (interactive == 1) {
-						this.interactable = true;
-					}
-				} else if (opcode == 21) {
-					this.adjustToTerrain = true;
-				} else if (opcode == 22) {
-					this.flatShaded = true;
-				} else if (opcode == 23) {
-					this.culls = true;
-				} else if (opcode == 24) {
-					this.animationIndex = buffer.g2();
-					if (this.animationIndex == 65535) {
-						this.animationIndex = -1;
-					}
-				} else if (opcode == 25) {
-					this.disposeAlpha = true;
-				} else if (opcode == 28) {
-					this.thickness = buffer.g1();
-				} else if (opcode == 29) {
-					this.brightness = buffer.g1b();
-				} else if (opcode == 39) {
-					this.specular = buffer.g1b();
-				} else if (opcode >= 30 && opcode < 39) {
-					if (this.actions == null) {
-						this.actions = new String[5];
-					}
-					this.actions[opcode - 30] = buffer.gstr();
-					if (this.actions[opcode - 30].equalsIgnoreCase("hidden")) {
-						this.actions[opcode - 30] = null;
-					}
-				} else if (opcode == 40) {
-					count = buffer.g1();
-					this.recol_s = new int[count];
-					this.recol_d = new int[count];
-					for (i = 0; i < count; i++) {
-						this.recol_s[i] = buffer.g2();
-						this.recol_d[i] = buffer.g2();
-					}
-				} else if (opcode == 60) {
-					this.mapfunction = buffer.g2();
-				} else if (opcode == 62) {
-					this.rotateCounterClockwise = true;
-				} else if (opcode == 64) {
-					this.hasShadow = false;
-				} else if (opcode == 65) {
-					this.resizex = buffer.g2();
-				} else if (opcode == 66) {
-					this.resizey = buffer.g2();
-				} else if (opcode == 67) {
-					this.resizez = buffer.g2();
-				} else if (opcode == 68) {
-					this.mapscene = buffer.g2();
-				} else if (opcode == 69) {
-					this.interactionSideFlags = buffer.g1();
-				} else if (opcode == 70) {
-					this.xoff = buffer.g2b();
-				} else if (opcode == 71) {
-					this.yoff = buffer.g2b();
-				} else if (opcode == 72) {
-					this.zoff = buffer.g2b();
-				} else if (opcode == 73) {
-					this.opcode73 = true;
+			} else if (opcode == Opcodes.name) {
+				this.name = buffer.gstr();
+			} else if (opcode == Opcodes.description) {
+				this.description = buffer.gstr();
+			} else if (opcode == Opcodes.width) {
+				this.width = buffer.g1();
+			} else if (opcode == Opcodes.length) {
+				this.length = buffer.g1();
+			} else if (opcode == Opcodes.blockwalk_no) {
+				this.blockwalk = false;
+			} else if (opcode == Opcodes.blockrange_no) {
+				this.blockrange = false;
+			} else if (opcode == 19) {
+				interactive = buffer.g1();
+				if (interactive == 1) {
+					this.interactable = true;
 				}
+			} else if (opcode == Opcodes.hillskew) {
+				this.hillskew = true;
+			} else if (opcode == 22) {
+				this.computeVertexColors = true;
+			} else if (opcode == Opcodes.occlude) {
+				this.occlude = true;
+			} else if (opcode == Opcodes.anim) {
+				this.anim = buffer.g2();
+				if (this.anim == 65535) {
+					this.anim = -1;
+				}
+			} else if (opcode == 25) {
+				this.disposeAlpha = true;
+			} else if (opcode == Opcodes.walloff) {
+				this.walloff = buffer.g1();
+			} else if (opcode == Opcodes.ambient_brightness) {
+				this.brightness = buffer.g1b();
+			} else if (opcode >= Opcodes.op1 && opcode <= Opcodes.op5) {
+				if (this.ops == null) {
+					this.ops = new String[5];
+				}
+
+				this.ops[opcode - Opcodes.op1] = buffer.gstr();
+				if (this.ops[opcode - Opcodes.op1].equalsIgnoreCase("hidden")) {
+					this.ops[opcode - Opcodes.op1] = null;
+				}
+			} else if (opcode == Opcodes.ambient_specular) {
+				this.specular = buffer.g1b();
+			} else if (opcode == Opcodes.recol) {
+				count = buffer.g1();
+				this.recol_s = new int[count];
+				this.recol_d = new int[count];
+				for (i = 0; i < count; i++) {
+					this.recol_s[i] = buffer.g2();
+					this.recol_d[i] = buffer.g2();
+				}
+			} else if (opcode == Opcodes.mapfunction) {
+				this.mapfunction = buffer.g2();
+			} else if (opcode == Opcodes.mirror) {
+				this.mirror = true;
+			} else if (opcode == Opcodes.active) {
+				this.active = false;
+			} else if (opcode == Opcodes.resizex) {
+				this.resizex = buffer.g2();
+			} else if (opcode == Opcodes.resizey) {
+				this.resizey = buffer.g2();
+			} else if (opcode == Opcodes.resizez) {
+				this.resizez = buffer.g2();
+			} else if (opcode == Opcodes.mapscene) {
+				this.mapscene = buffer.g2();
+			} else if (opcode == Opcodes.blocksides) {
+				this.blocksides = buffer.g1();
+			} else if (opcode == Opcodes.xoff) {
+				this.xoff = buffer.g2b();
+			} else if (opcode == Opcodes.yoff) {
+				this.yoff = buffer.g2b();
+			} else if (opcode == Opcodes.zoff) {
+				this.zoff = buffer.g2b();
+			} else if (opcode == Opcodes.forcedecor) {
+				this.forcedecor = true;
+			}
+		}
+
+		if (this.shapes == null) {
+			this.shapes = new int[0];
+		}
+
+		if (interactive == -1) {
+			this.interactable = false;
+			if (this.shapes.length > 0 && this.shapes[0] == 10) {
+				this.interactable = true;
+			}
+
+			if (this.ops != null) {
+				this.interactable = true;
 			}
 		}
 	}
@@ -333,8 +368,8 @@ public class LocType {
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "(IIIIIII)Lclient!eb;")
 	public Model getModel(@OriginalArg(0) int type, @OriginalArg(1) int orientation, @OriginalArg(2) int southwestY, @OriginalArg(3) int southeastY, @OriginalArg(4) int northwestY, @OriginalArg(5) int northeastY, @OriginalArg(6) int seqFrame) {
 		@Pc(3) int modelType = -1;
-		for (@Pc(5) int i = 0; i < this.modelTypes.length; i++) {
-			if (this.modelTypes[i] == type) {
+		for (@Pc(5) int i = 0; i < this.shapes.length; i++) {
+			if (this.shapes[i] == type) {
 				modelType = i;
 				break;
 			}
@@ -346,28 +381,28 @@ public class LocType {
 		if (reset) {
 			key = 0L;
 		}
-		@Pc(56) Model m = (Model) builtModels.get(key);
+		@Pc(56) Model m = (Model) modelCacheBuilt.get(key);
 		@Pc(91) int modelIndex;
 		@Pc(141) int n;
 		if (m == null) {
-			if (modelType >= this.modelIndices.length) {
+			if (modelType >= this.models.length) {
 				return null;
 			}
-			modelIndex = this.modelIndices[modelType];
+			modelIndex = this.models[modelType];
 			if (modelIndex == -1) {
 				return null;
 			}
-			@Pc(188) boolean flipBackwards = this.rotateCounterClockwise ^ orientation > 3;
+			@Pc(188) boolean flipBackwards = this.mirror ^ orientation > 3;
 			if (flipBackwards) {
 				modelIndex += 65536;
 			}
-			@Pc(200) Model m2 = (Model) models.get((long) modelIndex);
+			@Pc(200) Model m2 = (Model) modelCache.get((long) modelIndex);
 			if (m2 == null) {
 				m2 = new Model(modelIndex & 0xFFFF);
 				if (flipBackwards) {
 					m2.flipBackwards();
 				}
-				models.put((long) modelIndex, m2);
+				modelCache.put((long) modelIndex, m2);
 			}
 			@Pc(235) boolean rescale;
 			if (this.resizex == 128 && this.resizey == 128 && this.resizez == 128) {
@@ -402,15 +437,15 @@ public class LocType {
 			if (move) {
 				m3.translate(this.yoff, this.xoff, this.zoff);
 			}
-			m3.applyLighting(this.brightness + 64, this.specular * 5 + 768, -50, -10, -50, !this.flatShaded);
-			if (this.hasCollision) {
+			m3.applyLighting(this.brightness + 64, this.specular * 5 + 768, -50, -10, -50, !this.computeVertexColors);
+			if (this.blockwalk) {
 				m3.anInt372 = m3.maxBoundY;
 			}
-			builtModels.put(key, m3);
-			if (this.adjustToTerrain || this.flatShaded) {
-				m3 = new Model(m3, this.adjustToTerrain, this.flatShaded);
+			modelCacheBuilt.put(key, m3);
+			if (this.hillskew || this.computeVertexColors) {
+				m3 = new Model(m3, this.hillskew, this.computeVertexColors);
 			}
-			if (this.adjustToTerrain) {
+			if (this.hillskew) {
 				n = (southwestY + southeastY + northwestY + northeastY) / 4;
 				for (@Pc(417) int v = 0; v < m3.vertexCount; v++) {
 					@Pc(424) int x = m3.vertexX[v];
@@ -426,10 +461,10 @@ public class LocType {
 		} else if (reset) {
 			return m;
 		} else {
-			if (this.adjustToTerrain || this.flatShaded) {
-				m = new Model(m, this.adjustToTerrain, this.flatShaded);
+			if (this.hillskew || this.computeVertexColors) {
+				m = new Model(m, this.hillskew, this.computeVertexColors);
 			}
-			if (this.adjustToTerrain) {
+			if (this.hillskew) {
 				modelIndex = (southwestY + southeastY + northwestY + northeastY) / 4;
 				for (@Pc(93) int v = 0; v < m.vertexCount; v++) {
 					@Pc(100) int x = m.vertexX[v];

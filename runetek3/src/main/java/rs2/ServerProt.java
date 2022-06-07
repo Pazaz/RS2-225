@@ -29,7 +29,7 @@ public class ServerProt {
     public static final int IF_IAMOUNT = 243; // not an original name
     public static final int IF_MULTIZONE = 254; // not an original name
 
-    public static final int UPDATE_INV_CLEAR = 15;
+    public static final int UPDATE_INV_CLEAR = 15; // not an original name
     public static final int UPDATE_INV_FULL = 98;
     public static final int UPDATE_INV_PARTIAL = 213;
 
