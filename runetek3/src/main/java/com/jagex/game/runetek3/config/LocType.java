@@ -99,7 +99,7 @@ public class LocType {
 	public boolean hillskew;
 
 	@OriginalMember(owner = "client!ac", name = "v", descriptor = "Z")
-	public boolean computeVertexColors;
+	public boolean sharelight;
 
 	@OriginalMember(owner = "client!ac", name = "w", descriptor = "Z")
 	public boolean occlude;
@@ -120,7 +120,7 @@ public class LocType {
 	public String[] ops;
 
 	@OriginalMember(owner = "client!ac", name = "C", descriptor = "Z")
-	public boolean reuseAlpha;
+	public boolean disposeAlpha;
 
 	@OriginalMember(owner = "client!ac", name = "D", descriptor = "I")
 	public int mapfunction;
@@ -226,14 +226,14 @@ public class LocType {
 		this.blockrange = true;
 		this.interactable = false;
 		this.hillskew = false;
-		this.computeVertexColors = false;
+		this.sharelight = false;
 		this.occlude = false;
 		this.anim = -1;
 		this.walloff = 16;
 		this.ambient = 0;
 		this.contrast = 0;
 		this.ops = null;
-		this.reuseAlpha = false;
+		this.disposeAlpha = false;
 		this.mapfunction = -1;
 		this.mapscene = -1;
 		this.mirror = false;
@@ -321,7 +321,7 @@ public class LocType {
 			} else if (opcode == Opcodes.hillskew) { // 21
 				this.hillskew = true;
 			} else if (opcode == 22) {
-				this.computeVertexColors = true;
+				this.sharelight = true;
 			} else if (opcode == Opcodes.occlude) { // 23
 				this.occlude = true;
 			} else if (opcode == Opcodes.anim) { // 24
@@ -330,7 +330,7 @@ public class LocType {
 					this.anim = -1;
 				}
 			} else if (opcode == 25) {
-				this.reuseAlpha = true;
+				this.disposeAlpha = true;
 			} else if (opcode == Opcodes.walloff) { // 28
 				this.walloff = buffer.g1();
 			} else if (opcode == Opcodes.ambient) { // 29
@@ -442,22 +442,27 @@ public class LocType {
 			} else {
 				rescale = true;
 			}
+
 			@Pc(250) boolean move;
 			if (this.xoff == 0 && this.yoff == 0 && this.zoff == 0) {
 				move = false;
 			} else {
 				move = true;
 			}
-			@Pc(284) Model m3 = new Model(m2, this.recol_s == null, !this.reuseAlpha, orientation == 0 && seqFrame == -1 && !rescale && !move);
+
+			// disposeAlpha could become seqFrame != -1 to simplify this and remove an opcode
+			@Pc(284) Model m3 = new Model(m2, this.recol_s == null, !disposeAlpha, orientation == 0 && seqFrame == -1 && !rescale && !move);
 			if (seqFrame != -1) {
 				m3.applyGroup();
 				m3.applyFrame(seqFrame);
 				m3.skinTriangle = null;
 				m3.labelVertices = null;
 			}
+
 			while (orientation-- > 0) {
 				m3.rotateCounterClockwise();
 			}
+
 			if (this.recol_s != null) {
 				for (n = 0; n < this.recol_s.length; n++) {
 					m3.recolor(this.recol_s[n], this.recol_d[n]);
@@ -469,13 +474,13 @@ public class LocType {
 			if (move) {
 				m3.translate(this.yoff, this.xoff, this.zoff);
 			}
-			m3.applyLighting(this.ambient + 64, this.contrast * 5 + 768, -50, -10, -50, !this.computeVertexColors);
+			m3.applyLighting(this.ambient + 64, this.contrast * 5 + 768, -50, -10, -50, !this.sharelight);
 			if (this.blockwalk) {
 				m3.anInt372 = m3.maxBoundY;
 			}
 			modelCacheBuilt.put(key, m3);
-			if (this.hillskew || this.computeVertexColors) {
-				m3 = new Model(m3, this.hillskew, this.computeVertexColors);
+			if (this.hillskew || this.sharelight) {
+				m3 = new Model(m3, this.hillskew, this.sharelight);
 			}
 			if (this.hillskew) {
 				n = (southwestY + southeastY + northwestY + northeastY) / 4;
@@ -493,8 +498,8 @@ public class LocType {
 		} else if (reset) {
 			return m;
 		} else {
-			if (this.hillskew || this.computeVertexColors) {
-				m = new Model(m, this.hillskew, this.computeVertexColors);
+			if (this.hillskew || this.sharelight) {
+				m = new Model(m, this.hillskew, this.sharelight);
 			}
 			if (this.hillskew) {
 				modelIndex = (southwestY + southeastY + northwestY + northeastY) / 4;
@@ -648,25 +653,19 @@ public class LocType {
 
 		if (this.anim != -1) {
 			builder.append("anim=seq_").append(this.anim).append("\n");
+			// when anim gets serialized, opcode 22 (disposeAlpha) should follow it, so alpha data isn't shared between frames.
+			// we don't need to write it here because it's implied from anim=
 		}
 
-		if (this.computeVertexColors) {
-			// compute vertex colors in addition to normals while applying lighting
-			builder.append("applylighting=yes\n");
-		}
-
-		if (this.reuseAlpha) {
-			// saves a memory allocation
-			builder.append("reusealpha=yes\n");
+		if (this.sharelight) {
+			builder.append("sharelight=yes\n");
 		}
 
 		if (this.ambient != 0) {
-			// brightness
 			builder.append("ambient=").append(this.ambient).append("\n");
 		}
 
 		if (this.contrast != 0) {
-			// intensity
 			builder.append("contrast=").append(this.contrast).append("\n");
 		}
 

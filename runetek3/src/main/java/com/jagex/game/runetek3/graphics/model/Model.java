@@ -794,184 +794,188 @@ public class Model extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!eb", name = "<init>", descriptor = "(Lclient!eb;ZZIZ)V")
-	public Model(@OriginalArg(0) Model arg0, @OriginalArg(1) boolean arg1, @OriginalArg(2) boolean arg2, @OriginalArg(4) boolean arg4) {
-		this.vertexCount = arg0.vertexCount;
-		this.triangleCount = arg0.triangleCount;
-		this.texturedCount = arg0.texturedCount;
-		@Pc(66) int local66;
-		if (arg4) {
-			this.vertexX = arg0.vertexX;
-			this.vertexY = arg0.vertexY;
-			this.vertexZ = arg0.vertexZ;
+	public Model(@OriginalArg(0) Model from, @OriginalArg(1) boolean shareColors, @OriginalArg(2) boolean shareAlpha, @OriginalArg(4) boolean shareVertices) {
+		this.vertexCount = from.vertexCount;
+		this.triangleCount = from.triangleCount;
+		this.texturedCount = from.texturedCount;
+
+		@Pc(66) int i;
+		if (shareVertices) {
+			this.vertexX = from.vertexX;
+			this.vertexY = from.vertexY;
+			this.vertexZ = from.vertexZ;
 		} else {
 			this.vertexX = new int[this.vertexCount];
 			this.vertexY = new int[this.vertexCount];
 			this.vertexZ = new int[this.vertexCount];
-			for (local66 = 0; local66 < this.vertexCount; local66++) {
-				this.vertexX[local66] = arg0.vertexX[local66];
-				this.vertexY[local66] = arg0.vertexY[local66];
-				this.vertexZ[local66] = arg0.vertexZ[local66];
+			for (i = 0; i < this.vertexCount; i++) {
+				this.vertexX[i] = from.vertexX[i];
+				this.vertexY[i] = from.vertexY[i];
+				this.vertexZ[i] = from.vertexZ[i];
 			}
 		}
-		if (arg1) {
-			this.unmodifiedTriangleColor = arg0.unmodifiedTriangleColor;
+
+		if (shareColors) {
+			this.unmodifiedTriangleColor = from.unmodifiedTriangleColor;
 		} else {
 			this.unmodifiedTriangleColor = new int[this.triangleCount];
-			for (local66 = 0; local66 < this.triangleCount; local66++) {
-				this.unmodifiedTriangleColor[local66] = arg0.unmodifiedTriangleColor[local66];
+			for (i = 0; i < this.triangleCount; i++) {
+				this.unmodifiedTriangleColor[i] = from.unmodifiedTriangleColor[i];
 			}
 		}
-		if (arg2) {
-			this.triangleAlpha = arg0.triangleAlpha;
+
+		if (shareAlpha) {
+			this.triangleAlpha = from.triangleAlpha;
 		} else {
 			this.triangleAlpha = new int[this.triangleCount];
-			if (arg0.triangleAlpha == null) {
-				for (local66 = 0; local66 < this.triangleCount; local66++) {
-					this.triangleAlpha[local66] = 0;
+			if (from.triangleAlpha == null) {
+				for (i = 0; i < this.triangleCount; i++) {
+					this.triangleAlpha[i] = 0;
 				}
 			} else {
-				for (local66 = 0; local66 < this.triangleCount; local66++) {
-					this.triangleAlpha[local66] = arg0.triangleAlpha[local66];
+				for (i = 0; i < this.triangleCount; i++) {
+					this.triangleAlpha[i] = from.triangleAlpha[i];
 				}
 			}
 		}
-		this.vertexLabel = arg0.vertexLabel;
-		this.triangleSkin = arg0.triangleSkin;
-		this.triangleInfo = arg0.triangleInfo;
-		this.triangleVertexA = arg0.triangleVertexA;
-		this.triangleVertexB = arg0.triangleVertexB;
-		this.triangleVertexC = arg0.triangleVertexC;
-		this.trianglePriorities = arg0.trianglePriorities;
-		this.priority = arg0.priority;
-		this.textureVertexA = arg0.textureVertexA;
-		this.textureVertexB = arg0.textureVertexB;
-		this.textureVertexC = arg0.textureVertexC;
+
+		this.vertexLabel = from.vertexLabel;
+		this.triangleSkin = from.triangleSkin;
+		this.triangleInfo = from.triangleInfo;
+		this.triangleVertexA = from.triangleVertexA;
+		this.triangleVertexB = from.triangleVertexB;
+		this.triangleVertexC = from.triangleVertexC;
+		this.trianglePriorities = from.trianglePriorities;
+		this.priority = from.priority;
+		this.textureVertexA = from.textureVertexA;
+		this.textureVertexB = from.textureVertexB;
+		this.textureVertexC = from.textureVertexC;
 	}
 
 	@OriginalMember(owner = "client!eb", name = "<init>", descriptor = "(Lclient!eb;BZZ)V")
-	public Model(@OriginalArg(0) Model arg0, @OriginalArg(2) boolean arg2, @OriginalArg(3) boolean arg3) {
-		this.vertexCount = arg0.vertexCount;
-		this.triangleCount = arg0.triangleCount;
-		this.texturedCount = arg0.texturedCount;
+	public Model(@OriginalArg(0) Model from, @OriginalArg(2) boolean arg2, @OriginalArg(3) boolean arg3) {
+		this.vertexCount = from.vertexCount;
+		this.triangleCount = from.triangleCount;
+		this.texturedCount = from.texturedCount;
 		@Pc(42) int local42;
 		if (arg2) {
 			this.vertexY = new int[this.vertexCount];
 			for (local42 = 0; local42 < this.vertexCount; local42++) {
-				this.vertexY[local42] = arg0.vertexY[local42];
+				this.vertexY[local42] = from.vertexY[local42];
 			}
 		} else {
-			this.vertexY = arg0.vertexY;
+			this.vertexY = from.vertexY;
 		}
 		if (arg3) {
 			this.colorA = new int[this.triangleCount];
 			this.colorB = new int[this.triangleCount];
 			this.colorC = new int[this.triangleCount];
 			for (local42 = 0; local42 < this.triangleCount; local42++) {
-				this.colorA[local42] = arg0.colorA[local42];
-				this.colorB[local42] = arg0.colorB[local42];
-				this.colorC[local42] = arg0.colorC[local42];
+				this.colorA[local42] = from.colorA[local42];
+				this.colorB[local42] = from.colorB[local42];
+				this.colorC[local42] = from.colorC[local42];
 			}
 			this.triangleInfo = new int[this.triangleCount];
 			@Pc(122) int local122;
-			if (arg0.triangleInfo == null) {
+			if (from.triangleInfo == null) {
 				for (local122 = 0; local122 < this.triangleCount; local122++) {
 					this.triangleInfo[local122] = 0;
 				}
 			} else {
 				for (local122 = 0; local122 < this.triangleCount; local122++) {
-					this.triangleInfo[local122] = arg0.triangleInfo[local122];
+					this.triangleInfo[local122] = from.triangleInfo[local122];
 				}
 			}
 			this.vertexNormals = new VertexNormal[this.vertexCount];
 			for (local122 = 0; local122 < this.vertexCount; local122++) {
 				@Pc(170) VertexNormal local170 = this.vertexNormals[local122] = new VertexNormal();
-				@Pc(175) VertexNormal local175 = arg0.vertexNormals[local122];
+				@Pc(175) VertexNormal local175 = from.vertexNormals[local122];
 				local170.x = local175.x;
 				local170.y = local175.y;
 				local170.z = local175.z;
 				local170.magnitude = local175.magnitude;
 			}
-			this.vertexNormalOriginal = arg0.vertexNormalOriginal;
+			this.vertexNormalOriginal = from.vertexNormalOriginal;
 		} else {
-			this.colorA = arg0.colorA;
-			this.colorB = arg0.colorB;
-			this.colorC = arg0.colorC;
-			this.triangleInfo = arg0.triangleInfo;
+			this.colorA = from.colorA;
+			this.colorB = from.colorB;
+			this.colorC = from.colorC;
+			this.triangleInfo = from.triangleInfo;
 		}
-		this.vertexX = arg0.vertexX;
-		this.vertexZ = arg0.vertexZ;
-		this.unmodifiedTriangleColor = arg0.unmodifiedTriangleColor;
-		this.triangleAlpha = arg0.triangleAlpha;
-		this.trianglePriorities = arg0.trianglePriorities;
-		this.priority = arg0.priority;
-		this.triangleVertexA = arg0.triangleVertexA;
-		this.triangleVertexB = arg0.triangleVertexB;
-		this.triangleVertexC = arg0.triangleVertexC;
-		this.textureVertexA = arg0.textureVertexA;
-		this.textureVertexB = arg0.textureVertexB;
-		this.textureVertexC = arg0.textureVertexC;
-		this.maxBoundY = arg0.maxBoundY;
-		this.minBoundY = arg0.minBoundY;
-		this.lengthXZ = arg0.lengthXZ;
-		this.minDepth = arg0.minDepth;
-		this.maxDepth = arg0.maxDepth;
-		this.minBoundX = arg0.minBoundX;
-		this.maxBoundZ = arg0.maxBoundZ;
-		this.minBoundZ = arg0.minBoundZ;
-		this.maxBoundX = arg0.maxBoundX;
+		this.vertexX = from.vertexX;
+		this.vertexZ = from.vertexZ;
+		this.unmodifiedTriangleColor = from.unmodifiedTriangleColor;
+		this.triangleAlpha = from.triangleAlpha;
+		this.trianglePriorities = from.trianglePriorities;
+		this.priority = from.priority;
+		this.triangleVertexA = from.triangleVertexA;
+		this.triangleVertexB = from.triangleVertexB;
+		this.triangleVertexC = from.triangleVertexC;
+		this.textureVertexA = from.textureVertexA;
+		this.textureVertexB = from.textureVertexB;
+		this.textureVertexC = from.textureVertexC;
+		this.maxBoundY = from.maxBoundY;
+		this.minBoundY = from.minBoundY;
+		this.lengthXZ = from.lengthXZ;
+		this.minDepth = from.minDepth;
+		this.maxDepth = from.maxDepth;
+		this.minBoundX = from.minBoundX;
+		this.maxBoundZ = from.maxBoundZ;
+		this.minBoundZ = from.minBoundZ;
+		this.maxBoundX = from.maxBoundX;
 	}
 
 	@OriginalMember(owner = "client!eb", name = "<init>", descriptor = "(ILclient!eb;Z)V")
-	public Model(@OriginalArg(1) Model arg1, @OriginalArg(2) boolean arg2) {
-		this.vertexCount = arg1.vertexCount;
-		this.triangleCount = arg1.triangleCount;
-		this.texturedCount = arg1.texturedCount;
+	public Model(@OriginalArg(1) Model from, @OriginalArg(2) boolean shareAlpha) {
+		this.vertexCount = from.vertexCount;
+		this.triangleCount = from.triangleCount;
+		this.texturedCount = from.texturedCount;
 		this.vertexX = new int[this.vertexCount];
 		this.vertexY = new int[this.vertexCount];
 		this.vertexZ = new int[this.vertexCount];
 		for (@Pc(50) int local50 = 0; local50 < this.vertexCount; local50++) {
-			this.vertexX[local50] = arg1.vertexX[local50];
-			this.vertexY[local50] = arg1.vertexY[local50];
-			this.vertexZ[local50] = arg1.vertexZ[local50];
+			this.vertexX[local50] = from.vertexX[local50];
+			this.vertexY[local50] = from.vertexY[local50];
+			this.vertexZ[local50] = from.vertexZ[local50];
 		}
-		if (arg2) {
-			this.triangleAlpha = arg1.triangleAlpha;
+		if (shareAlpha) {
+			this.triangleAlpha = from.triangleAlpha;
 		} else {
 			this.triangleAlpha = new int[this.triangleCount];
 			@Pc(99) int local99;
-			if (arg1.triangleAlpha == null) {
+			if (from.triangleAlpha == null) {
 				for (local99 = 0; local99 < this.triangleCount; local99++) {
 					this.triangleAlpha[local99] = 0;
 				}
 			} else {
 				for (local99 = 0; local99 < this.triangleCount; local99++) {
-					this.triangleAlpha[local99] = arg1.triangleAlpha[local99];
+					this.triangleAlpha[local99] = from.triangleAlpha[local99];
 				}
 			}
 		}
-		this.triangleInfo = arg1.triangleInfo;
-		this.unmodifiedTriangleColor = arg1.unmodifiedTriangleColor;
-		this.trianglePriorities = arg1.trianglePriorities;
-		this.priority = arg1.priority;
-		this.skinTriangle = arg1.skinTriangle;
-		this.labelVertices = arg1.labelVertices;
-		this.triangleVertexA = arg1.triangleVertexA;
-		this.triangleVertexB = arg1.triangleVertexB;
-		this.triangleVertexC = arg1.triangleVertexC;
-		this.colorA = arg1.colorA;
-		this.colorB = arg1.colorB;
-		this.colorC = arg1.colorC;
-		this.textureVertexA = arg1.textureVertexA;
-		this.textureVertexB = arg1.textureVertexB;
-		this.textureVertexC = arg1.textureVertexC;
+		this.triangleInfo = from.triangleInfo;
+		this.unmodifiedTriangleColor = from.unmodifiedTriangleColor;
+		this.trianglePriorities = from.trianglePriorities;
+		this.priority = from.priority;
+		this.skinTriangle = from.skinTriangle;
+		this.labelVertices = from.labelVertices;
+		this.triangleVertexA = from.triangleVertexA;
+		this.triangleVertexB = from.triangleVertexB;
+		this.triangleVertexC = from.triangleVertexC;
+		this.colorA = from.colorA;
+		this.colorB = from.colorB;
+		this.colorC = from.colorC;
+		this.textureVertexA = from.textureVertexA;
+		this.textureVertexB = from.textureVertexB;
+		this.textureVertexC = from.textureVertexC;
 	}
 
 	@OriginalMember(owner = "client!eb", name = "a", descriptor = "(Lclient!eb;I)I")
-	private int copyVertex(@OriginalArg(0) Model arg0, @OriginalArg(1) int arg1) {
+	private int copyVertex(@OriginalArg(0) Model from, @OriginalArg(1) int arg1) {
 		@Pc(3) int local3 = -1;
-		@Pc(8) int local8 = arg0.vertexX[arg1];
-		@Pc(13) int local13 = arg0.vertexY[arg1];
-		@Pc(18) int local18 = arg0.vertexZ[arg1];
+		@Pc(8) int local8 = from.vertexX[arg1];
+		@Pc(13) int local13 = from.vertexY[arg1];
+		@Pc(18) int local18 = from.vertexZ[arg1];
 		for (@Pc(20) int local20 = 0; local20 < this.vertexCount; local20++) {
 			if (local8 == this.vertexX[local20] && local13 == this.vertexY[local20] && local18 == this.vertexZ[local20]) {
 				local3 = local20;
@@ -982,8 +986,8 @@ public class Model extends CacheableNode {
 			this.vertexX[this.vertexCount] = local8;
 			this.vertexY[this.vertexCount] = local13;
 			this.vertexZ[this.vertexCount] = local18;
-			if (arg0.vertexLabel != null) {
-				this.vertexLabel[this.vertexCount] = arg0.vertexLabel[arg1];
+			if (from.vertexLabel != null) {
+				this.vertexLabel[this.vertexCount] = from.vertexLabel[arg1];
 			}
 			local3 = this.vertexCount++;
 		}
