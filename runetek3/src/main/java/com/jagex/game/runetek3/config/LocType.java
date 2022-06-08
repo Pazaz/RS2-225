@@ -66,7 +66,7 @@ public class LocType {
 	private int[] models;
 
 	@OriginalMember(owner = "client!ac", name = "k", descriptor = "[I")
-	private int[] shapes;
+	public int[] shapes;
 
 	@OriginalMember(owner = "client!ac", name = "l", descriptor = "Ljava/lang/String;")
 	public String name;
@@ -161,9 +161,12 @@ public class LocType {
 	@OriginalMember(owner = "client!ac", name = "i", descriptor = "I")
 	private int id = -1;
 
+	public String identifier;
+
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "(Lclient!ub;)V")
 	public static void decode(@OriginalArg(0) FileArchive archive) {
 		dat = new Buffer(archive.read("loc.dat", null));
+
 		@Pc(21) Buffer idx = new Buffer(archive.read("loc.idx", null));
 		count = idx.g2();
 		offsets = new int[count];
@@ -172,8 +175,9 @@ public class LocType {
 			offsets[i] = offset;
 			offset += idx.g2();
 		}
-		cache = new LocType[10];
-		for (@Pc(51) int i = 0; i < 10; i++) {
+
+		cache = new LocType[count];
+		for (@Pc(51) int i = 0; i < cache.length; i++) {
 			cache[i] = new LocType();
 		}
 	}
@@ -189,12 +193,13 @@ public class LocType {
 
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "(I)Lclient!ac;")
 	public static LocType get(@OriginalArg(0) int id) {
-		for (@Pc(1) int i = 0; i < 10; i++) {
+		for (@Pc(1) int i = 0; i < cache.length; i++) {
 			if (cache[i].id == id) {
 				return cache[i];
 			}
 		}
-		offset = (offset + 1) % 10;
+
+		offset = (offset + 1) % cache.length;
 		@Pc(27) LocType type = cache[offset];
 		dat.pos = offsets[id];
 		type.id = id;
@@ -241,6 +246,7 @@ public class LocType {
 		this.yoff = 0;
 		this.zoff = 0;
 		this.forcedecor = false;
+		this.identifier = null;
 	}
 
 	public static class Opcodes {
@@ -509,7 +515,11 @@ public class LocType {
 	public String toJagConfig() {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append("[loc_").append(id).append("]\n");
+		if (this.identifier != null) {
+			builder.append("[").append(this.identifier).append("]\n");
+		} else {
+			builder.append("[loc_").append(this.id).append("]\n");
+		}
 
 		if (this.name != null) {
 			builder.append("name=").append(this.name).append("\n");
@@ -521,7 +531,93 @@ public class LocType {
 
 		if (this.models != null) {
 			for (int i = 0; i < this.models.length; ++i) {
-				builder.append("model").append(i + 1).append("=^loc_shape_").append(this.shapes[i]).append(",model_").append(this.models[i]).append("\n");
+				String name;
+
+				// wish there was a nicer way to do this
+				switch (this.shapes[i]) {
+				case WALL_STRAIGHT:
+					name = "WALL_STRAIGHT";
+					break;
+				case WALL_DIAGONALCORNER:
+					name = "WALL_DIAGONALCORNER";
+					break;
+				case WALL_L:
+					name = "WALL_L";
+					break;
+				case WALL_SQUARECORNER:
+					name = "WALL_SQUARECORNER";
+					break;
+				case WALLDECOR_STRAIGHT_NOOFFSET:
+					name = "WALLDECOR_STRAIGHT_NOOFFSET";
+					break;
+				case WALLDECOR_STRAIGHT_OFFSET:
+					name = "WALLDECOR_STRAIGHT_OFFSET";
+					break;
+				case WALLDECOR_DIAGONAL_OFFSET:
+					name = "WALLDECOR_DIAGONAL_OFFSET";
+					break;
+				case WALLDECOR_DIAGONAL_NOOFFSET:
+					name = "WALLDECOR_DIAGONAL_NOOFFSET";
+					break;
+				case WALLDECOR_DIAGONAL_BOTH:
+					name = "WALLDECOR_DIAGONAL_BOTH";
+					break;
+				case WALL_DIAGONAL:
+					name = "WALL_DIAGONAL";
+					break;
+				default:
+				case CENTREPIECE_STRAIGHT:
+					name = "CENTREPIECE_STRAIGHT";
+					break;
+				case CENTREPIECE_DIAGONAL:
+					name = "CENTREPIECE_DIAGONAL";
+					break;
+				case ROOF_STRAIGHT:
+					name = "ROOF_STRAIGHT";
+					break;
+				case ROOF_DIAGONAL_WITH_ROOFEDGE:
+					name = "ROOF_DIAGONAL_WITH_ROOFEDGE";
+					break;
+				case ROOF_DIAGONAL:
+					name = "ROOF_DIAGONAL";
+					break;
+				case ROOF_L_CONCAVE:
+					name = "ROOF_L_CONCAVE";
+					break;
+				case ROOF_L_CONVEX:
+					name = "ROOF_L_CONVEX";
+					break;
+				case ROOF_FLAT:
+					name = "ROOF_FLAT";
+					break;
+				case ROOFEDGE_STRAIGHT:
+					name = "ROOFEDGE_STRAIGHT";
+					break;
+				case ROOFEDGE_DIAGONALCORNER:
+					name = "ROOFEDGE_DIAGONALCORNER";
+					break;
+				case ROOFEDGE_L:
+					name = "ROOFEDGE_L";
+					break;
+				case ROOFEDGE_SQUARECORNER:
+					name = "ROOFEDGE_SQUARECORNER";
+					break;
+				case GROUNDDECOR:
+					name = "GROUNDDECOR";
+					break;
+				case WALL_L_ALT:
+					name = "WALL_L_ALT";
+					break;
+				case WALLDECOR_DIAGONAL_BOTH_ALT:
+					name = "WALLDECOR_DIAGONAL_BOTH_ALT";
+					break;
+				}
+
+				if (this.shapes[i] == CENTREPIECE_STRAIGHT) {
+					builder.append("model").append(i + 1).append("=model_").append(this.models[i]).append("\n");
+				} else {
+					builder.append("model").append(i + 1).append("=model_").append(this.models[i]).append(",^").append(name).append("\n");
+				}
 			}
 		}
 
@@ -550,7 +646,15 @@ public class LocType {
 		}
 
 		if (this.anim != -1) {
-			builder.append("anim=anim_").append(this.anim).append("\n");
+			builder.append("anim=seq_").append(this.anim).append("\n");
+		}
+
+		if (this.computeVertexColors) {
+			builder.append("computevertex=yes\n");
+		}
+
+		if (this.disposeAlpha) {
+			builder.append("disposealpha=yes\n");
 		}
 
 		// "brightness" could be called just ambient, but then what's specular?
