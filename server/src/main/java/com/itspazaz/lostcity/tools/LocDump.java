@@ -40,6 +40,8 @@ public class LocDump {
             for (int i = 0; i < LocType.count; ++i) {
                 loc225[i] = LocType.get(i);
             }
+
+            int count = 0;
             for (int i = 0; i < names.length; ++i) {
                 int conv = get(i);
 //                if (conv != -1 && loc225[conv].name == null) {
@@ -47,14 +49,16 @@ public class LocDump {
 //                }
                 if (conv != -1 && names[i].toLowerCase().equals(names[i])) {
                     loc225[conv].identifier = names[i];
+                    count++;
                 }
                 else if (conv == -1) {
-                    System.out.println(i + " " + names[i] + " " + shapes[i]);
+//                    System.out.println(i + " " + names[i] + " " + shapes[i]);
                 }
             }
+            System.out.println(count);
 
             try {
-                PrintWriter out = new PrintWriter("dump/dump.loc");
+                PrintWriter out = new PrintWriter("dump/loc.def");
                 for (int i = 0; i < loc225.length; ++i) {
                     if (loc225[i].name == null) {
 //                        System.out.println(i + " " + loc225[i].shapes[0]);

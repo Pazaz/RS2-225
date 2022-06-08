@@ -16,7 +16,7 @@ import org.openrs2.deob.annotation.Pc;
 public class ObjType {
 
 	@OriginalMember(owner = "client!cc", name = "e", descriptor = "I")
-	private static int count;
+	public static int count;
 
 	@OriginalMember(owner = "client!cc", name = "f", descriptor = "[I")
 	private static int[] offsets;
@@ -25,7 +25,7 @@ public class ObjType {
 	private static Buffer dat;
 
 	@OriginalMember(owner = "client!cc", name = "h", descriptor = "[Lclient!cc;")
-	private static ObjType[] types;
+	private static ObjType[] cache;
 
 	@OriginalMember(owner = "client!cc", name = "i", descriptor = "I")
 	private static int offset;
@@ -40,13 +40,13 @@ public class ObjType {
 	public static Cache icons = new Cache(200);
 
 	@OriginalMember(owner = "client!cc", name = "l", descriptor = "I")
-	private int modelIndex;
+	private int model;
 
 	@OriginalMember(owner = "client!cc", name = "m", descriptor = "Ljava/lang/String;")
 	public String name;
 
 	@OriginalMember(owner = "client!cc", name = "n", descriptor = "[B")
-	public byte[] description;
+	public String desc;
 
 	@OriginalMember(owner = "client!cc", name = "o", descriptor = "[I")
 	private int[] recol_s;
@@ -88,34 +88,34 @@ public class ObjType {
 	private boolean members;
 
 	@OriginalMember(owner = "client!cc", name = "B", descriptor = "[Ljava/lang/String;")
-	public String[] op;
+	public String[] ops;
 
 	@OriginalMember(owner = "client!cc", name = "C", descriptor = "[Ljava/lang/String;")
-	public String[] iop;
+	public String[] iops;
 
 	@OriginalMember(owner = "client!cc", name = "D", descriptor = "I")
-	private int maleModel0;
+	private int manwear;
 
 	@OriginalMember(owner = "client!cc", name = "E", descriptor = "I")
-	private int maleModel1;
+	private int manwear2;
 
 	@OriginalMember(owner = "client!cc", name = "F", descriptor = "B")
-	private byte maleOffsetY;
+	private byte manwearOffsetY;
 
 	@OriginalMember(owner = "client!cc", name = "G", descriptor = "I")
-	private int femaleModel0;
+	private int womanwear;
 
 	@OriginalMember(owner = "client!cc", name = "H", descriptor = "I")
-	private int femaleModel1;
+	private int womanwear2;
 
 	@OriginalMember(owner = "client!cc", name = "I", descriptor = "B")
-	private byte femaleOffsetY;
+	private byte womanwearOffsetY;
 
 	@OriginalMember(owner = "client!cc", name = "J", descriptor = "I")
-	private int maleModel2;
+	private int manwear3;
 
 	@OriginalMember(owner = "client!cc", name = "K", descriptor = "I")
-	private int femaleModel2;
+	private int womanwear3;
 
 	@OriginalMember(owner = "client!cc", name = "L", descriptor = "I")
 	private int manhead;
@@ -136,13 +136,15 @@ public class ObjType {
 	private int[] countco;
 
 	@OriginalMember(owner = "client!cc", name = "R", descriptor = "I")
-	private int certlink;
+	public int certlink;
 
 	@OriginalMember(owner = "client!cc", name = "S", descriptor = "I")
-	private int certtemplate;
+	public int certtemplate;
 
 	@OriginalMember(owner = "client!cc", name = "k", descriptor = "I")
 	public int id = -1;
+
+	public String identifier;
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(Lclient!ub;)V")
 	public static void decode(@OriginalArg(0) FileArchive archive) {
@@ -155,9 +157,10 @@ public class ObjType {
 			offsets[i] = offset;
 			offset += idx.g2();
 		}
-		types = new ObjType[10];
+
+		cache = new ObjType[10];
 		for (@Pc(51) int i = 0; i < 10; i++) {
-			types[i] = new ObjType();
+			cache[i] = new ObjType();
 		}
 	}
 
@@ -166,33 +169,34 @@ public class ObjType {
 		models = null;
 		icons = null;
 		offsets = null;
-		types = null;
+		cache = null;
 		dat = null;
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(I)Lclient!cc;")
-	public static ObjType get(@OriginalArg(0) int arg0) {
-		for (@Pc(1) int local1 = 0; local1 < 10; local1++) {
-			if (types[local1].id == arg0) {
-				return types[local1];
+	public static ObjType get(@OriginalArg(0) int id) {
+		for (@Pc(1) int i = 0; i < 10; i++) {
+			if (cache[i].id == id) {
+				return cache[i];
 			}
 		}
-		offset = (offset + 1) % 10;
-		@Pc(27) ObjType local27 = types[offset];
-		dat.pos = offsets[arg0];
-		local27.id = arg0;
-		local27.reset();
-		local27.decode(dat);
-		if (local27.certtemplate != -1) {
-			local27.toCertificate();
+
+		offset = (offset + 1) % cache.length;
+		@Pc(27) ObjType obj = cache[offset];
+		dat.pos = offsets[id];
+		obj.id = id;
+		obj.reset();
+		obj.decode(dat);
+		if (obj.certtemplate != -1) {
+			obj.toCertificate();
 		}
-		if (!isMember && local27.members) {
-			local27.name = "Members Object";
-			local27.description = "Login to a members' server to use this object.".getBytes();
-			local27.op = null;
-			local27.iop = null;
+		if (!isMember && obj.members) {
+			obj.name = "Members Object";
+			obj.desc = "Login to a members' server to use this object.";
+			obj.ops = null;
+			obj.iops = null;
 		}
-		return local27;
+		return obj;
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(III)Lclient!hb;")
@@ -295,9 +299,9 @@ public class ObjType {
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "()V")
 	private void reset() {
-		this.modelIndex = 0;
+		this.model = 0;
 		this.name = null;
-		this.description = null;
+		this.desc = null;
 		this.recol_s = null;
 		this.recol_d = null;
 		this.zoom2d = 2000;
@@ -311,16 +315,16 @@ public class ObjType {
 		this.stackable = false;
 		this.cost = 1;
 		this.members = false;
-		this.op = null;
-		this.iop = null;
-		this.maleModel0 = -1;
-		this.maleModel1 = -1;
-		this.maleOffsetY = 0;
-		this.femaleModel0 = -1;
-		this.femaleModel1 = -1;
-		this.femaleOffsetY = 0;
-		this.maleModel2 = -1;
-		this.femaleModel2 = -1;
+		this.ops = null;
+		this.iops = null;
+		this.manwear = -1;
+		this.manwear2 = -1;
+		this.manwearOffsetY = 0;
+		this.womanwear = -1;
+		this.womanwear2 = -1;
+		this.womanwearOffsetY = 0;
+		this.manwear3 = -1;
+		this.womanwear3 = -1;
 		this.manhead = -1;
 		this.manhead2 = -1;
 		this.womanhead = -1;
@@ -329,21 +333,24 @@ public class ObjType {
 		this.countco = null;
 		this.certlink = -1;
 		this.certtemplate = -1;
+		this.identifier = null;
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(ZLclient!kb;)V")
 	private void decode(@OriginalArg(1) Buffer buffer) {
 		while (true) {
 			@Pc(10) int opcode = buffer.g1();
+
 			if (opcode == 0) {
 				return;
 			}
+
 			if (opcode == 1) {
-				this.modelIndex = buffer.g2();
+				this.model = buffer.g2();
 			} else if (opcode == 2) {
 				this.name = buffer.gstr();
 			} else if (opcode == 3) {
-				this.description = buffer.gstrbyte();
+				this.desc = buffer.gstr();
 			} else if (opcode == 4) {
 				this.zoom2d = buffer.g2();
 			} else if (opcode == 5) {
@@ -371,28 +378,28 @@ public class ObjType {
 			} else if (opcode == 16) {
 				this.members = true;
 			} else if (opcode == 23) {
-				this.maleModel0 = buffer.g2();
-				this.maleOffsetY = buffer.g1b();
+				this.manwear = buffer.g2();
+				this.manwearOffsetY = buffer.g1b();
 			} else if (opcode == 24) {
-				this.maleModel1 = buffer.g2();
+				this.manwear2 = buffer.g2();
 			} else if (opcode == 25) {
-				this.femaleModel0 = buffer.g2();
-				this.femaleOffsetY = buffer.g1b();
+				this.womanwear = buffer.g2();
+				this.womanwearOffsetY = buffer.g1b();
 			} else if (opcode == 26) {
-				this.femaleModel1 = buffer.g2();
+				this.womanwear2 = buffer.g2();
 			} else if (opcode >= 30 && opcode < 35) {
-				if (this.op == null) {
-					this.op = new String[5];
+				if (this.ops == null) {
+					this.ops = new String[5];
 				}
-				this.op[opcode - 30] = buffer.gstr();
-				if (this.op[opcode - 30].equalsIgnoreCase("hidden")) {
-					this.op[opcode - 30] = null;
+				this.ops[opcode - 30] = buffer.gstr();
+				if (this.ops[opcode - 30].equalsIgnoreCase("hidden")) {
+					this.ops[opcode - 30] = null;
 				}
 			} else if (opcode >= 35 && opcode < 40) {
-				if (this.iop == null) {
-					this.iop = new String[5];
+				if (this.iops == null) {
+					this.iops = new String[5];
 				}
-				this.iop[opcode - 35] = buffer.gstr();
+				this.iops[opcode - 35] = buffer.gstr();
 			} else if (opcode == 40) {
 				@Pc(260) int count = buffer.g1();
 				this.recol_s = new int[count];
@@ -402,9 +409,9 @@ public class ObjType {
 					this.recol_d[i] = buffer.g2();
 				}
 			} else if (opcode == 78) {
-				this.maleModel2 = buffer.g2();
+				this.manwear3 = buffer.g2();
 			} else if (opcode == 79) {
-				this.femaleModel2 = buffer.g2();
+				this.womanwear3 = buffer.g2();
 			} else if (opcode == 90) {
 				this.manhead = buffer.g2();
 			} else if (opcode == 91) {
@@ -424,6 +431,7 @@ public class ObjType {
 					this.countobj = new int[10];
 					this.countco = new int[10];
 				}
+
 				this.countobj[opcode - 100] = buffer.g2();
 				this.countco[opcode - 100] = buffer.g2();
 			}
@@ -432,26 +440,26 @@ public class ObjType {
 
 	@OriginalMember(owner = "client!cc", name = "b", descriptor = "(I)V")
 	private void toCertificate() {
-		@Pc(3) ObjType local3 = get(this.certtemplate);
-		this.modelIndex = local3.modelIndex;
-		this.zoom2d = local3.zoom2d;
-		this.xan2d = local3.xan2d;
-		this.yan2d = local3.yan2d;
-		this.zan2d = local3.zan2d;
-		this.xof2d = local3.xof2d;
-		this.yof2d = local3.yof2d;
-		this.recol_s = local3.recol_s;
-		this.recol_d = local3.recol_d;
-		@Pc(55) ObjType local55 = get(this.certlink);
-		this.name = local55.name;
-		this.members = local55.members;
-		this.cost = local55.cost;
-		@Pc(69) String local69 = "a";
-		@Pc(74) char local74 = local55.name.charAt(0);
-		if (local74 == 'A' || local74 == 'E' || local74 == 'I' || local74 == 'O' || local74 == 'U') {
-			local69 = "an";
+		@Pc(3) ObjType template = get(this.certtemplate);
+		this.model = template.model;
+		this.zoom2d = template.zoom2d;
+		this.xan2d = template.xan2d;
+		this.yan2d = template.yan2d;
+		this.zan2d = template.zan2d;
+		this.xof2d = template.xof2d;
+		this.yof2d = template.yof2d;
+		this.recol_s = template.recol_s;
+		this.recol_d = template.recol_d;
+		@Pc(55) ObjType link = get(this.certlink);
+		this.name = link.name;
+		this.members = link.members;
+		this.cost = link.cost;
+		@Pc(69) String article = "a";
+		@Pc(74) char firstChar = link.name.charAt(0);
+		if (firstChar == 'A' || firstChar == 'E' || firstChar == 'I' || firstChar == 'O' || firstChar == 'U') {
+			article = "an";
 		}
-		this.description = ("Swap this note at any bank for " + local69 + " " + local55.name + ".").getBytes();
+		this.desc = "Swap this note at any bank for " + article + " " + link.name + ".";
 		this.stackable = true;
 	}
 
@@ -473,7 +481,7 @@ public class ObjType {
 		if (local48 != null) {
 			return local48;
 		}
-		local48 = new Model(this.modelIndex);
+		local48 = new Model(this.model);
 		if (this.recol_s != null) {
 			for (local11 = 0; local11 < this.recol_s.length; local11++) {
 				local48.recolor(this.recol_s[local11], this.recol_d[local11]);
@@ -487,18 +495,18 @@ public class ObjType {
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(BI)Lclient!eb;")
 	public Model getWornModel(@OriginalArg(1) int arg0) {
-		@Pc(4) int local4 = this.maleModel0;
+		@Pc(4) int local4 = this.manwear;
 		if (arg0 == 1) {
-			local4 = this.femaleModel0;
+			local4 = this.womanwear;
 		}
 		if (local4 == -1) {
 			return null;
 		}
-		@Pc(25) int local25 = this.maleModel1;
-		@Pc(28) int local28 = this.maleModel2;
+		@Pc(25) int local25 = this.manwear2;
+		@Pc(28) int local28 = this.manwear3;
 		if (arg0 == 1) {
-			local25 = this.femaleModel1;
-			local28 = this.femaleModel2;
+			local25 = this.womanwear2;
+			local28 = this.womanwear3;
 		}
 		@Pc(43) Model local43 = new Model(local4);
 		if (local25 != -1) {
@@ -514,11 +522,11 @@ public class ObjType {
 				local43 = new Model(local76, 3);
 			}
 		}
-		if (arg0 == 0 && this.maleOffsetY != 0) {
-			local43.translate(this.maleOffsetY, 0, 0);
+		if (arg0 == 0 && this.manwearOffsetY != 0) {
+			local43.translate(this.manwearOffsetY, 0, 0);
 		}
-		if (arg0 == 1 && this.femaleOffsetY != 0) {
-			local43.translate(this.femaleOffsetY, 0, 0);
+		if (arg0 == 1 && this.womanwearOffsetY != 0) {
+			local43.translate(this.womanwearOffsetY, 0, 0);
 		}
 		if (this.recol_s != null) {
 			for (@Pc(139) int local139 = 0; local139 < this.recol_s.length; local139++) {
@@ -529,30 +537,200 @@ public class ObjType {
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(II)Lclient!eb;")
-	public Model getHeadModel(@OriginalArg(1) int arg0) {
-		@Pc(2) int local2 = this.manhead;
-		if (arg0 == 1) {
-			local2 = this.womanhead;
+	public Model getHeadModel(@OriginalArg(1) int gender) {
+		@Pc(2) int head = this.manhead;
+		if (gender == 1) {
+			head = this.womanhead;
 		}
-		if (local2 == -1) {
+		if (head == -1) {
 			return null;
 		}
-		@Pc(22) int local22 = this.manhead2;
-		if (arg0 == 1) {
-			local22 = this.womanhead2;
+
+		@Pc(22) int head2 = this.manhead2;
+		if (gender == 1) {
+			head2 = this.womanhead2;
 		}
-		@Pc(34) Model local34 = new Model(local2);
-		if (local22 != -1) {
-			@Pc(43) Model local43 = new Model(local22);
-			@Pc(54) Model[] local54 = new Model[] { local34, local43 };
-			local34 = new Model(local54, 2);
+
+		@Pc(34) Model m = new Model(head);
+		if (head2 != -1) {
+			@Pc(43) Model other = new Model(head2);
+			@Pc(54) Model[] both = new Model[] { m, other };
+			m = new Model(both, 2);
 		}
+
 		if (this.recol_s != null) {
-			for (@Pc(66) int local66 = 0; local66 < this.recol_s.length; local66++) {
-				local34.recolor(this.recol_s[local66], this.recol_d[local66]);
+			for (@Pc(66) int i = 0; i < this.recol_s.length; i++) {
+				m.recolor(this.recol_s[i], this.recol_d[i]);
 			}
 		}
-		return local34;
+		return m;
+	}
+
+	public String toJagConfig() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("[");
+		if (this.certlink != -1) {
+			builder.append("cert_");
+		}
+		if (this.identifier != null) {
+			builder.append(this.identifier).append("]\n");
+		} else {
+			builder.append("obj_").append(this.id).append("]\n");
+		}
+
+		if (this.certlink != -1) {
+			builder.append("certlink=obj_").append(this.certlink).append("\n");
+			builder.append("certtemplate=obj_").append(this.certtemplate).append("\n");
+			return builder.toString();
+		}
+
+		if (this.name != null) {
+			builder.append("name=").append(this.name).append("\n");
+		}
+
+		if (this.desc != null) {
+			builder.append("desc=").append(this.desc).append("\n");
+		}
+
+		if (this.model != 0) {
+			builder.append("model=model_").append(this.model).append("\n");
+		}
+
+		if (this.manwear != -1) {
+			builder.append("manwear=model_").append(this.manwear);
+
+			if (this.manwearOffsetY != 0) {
+				builder.append(",").append(this.manwearOffsetY);
+			}
+
+			builder.append("\n");
+		}
+
+		if (this.manwear2 != -1) {
+			builder.append("manwear2=model_").append(this.manwear2).append("\n");
+		}
+
+		if (this.manwear3 != -1) {
+			builder.append("manwear3=model_").append(this.manwear3).append("\n");
+		}
+
+		if (this.womanwear != -1) {
+			builder.append("womanwear=model_").append(this.womanwear);
+
+			if (this.womanwearOffsetY != 0) {
+				builder.append(",").append(this.womanwearOffsetY);
+			}
+
+			builder.append("\n");
+		}
+
+		if (this.womanwear2 != -1) {
+			builder.append("womanwear2=model_").append(this.womanwear2).append("\n");
+		}
+
+		if (this.womanwear3 != -1) {
+			builder.append("womanwear3=model_").append(this.womanwear3).append("\n");
+		}
+
+		if (this.manhead != -1) {
+			builder.append("manhead=").append(this.manhead).append("\n");
+		}
+
+		if (this.manhead2 != -1) {
+			builder.append("manhead2=").append(this.manhead2).append("\n");
+		}
+
+		if (this.womanhead != -1) {
+			builder.append("womanhead=").append(this.womanhead).append("\n");
+		}
+
+		if (this.womanhead2 != -1) {
+			builder.append("womanhead2=").append(this.womanhead2).append("\n");
+		}
+
+		if (this.cost != 1) {
+			builder.append("cost=").append(this.cost).append("\n");
+		}
+
+		if (this.zoom2d != 2000) {
+			builder.append("2dzoom=").append(this.zoom2d).append("\n");
+		}
+
+		if (this.xof2d != 0) {
+			builder.append("2dxof=").append(this.xof2d).append("\n");
+		}
+
+		if (this.yof2d != 0) {
+			builder.append("2dyof=").append(this.yof2d).append("\n");
+		}
+
+		if (this.xan2d != 0) {
+			builder.append("2dxan=").append(this.xan2d).append("\n");
+		}
+
+		if (this.yan2d != 0) {
+			builder.append("2dyan=").append(this.yan2d).append("\n");
+		}
+
+		if (this.zan2d != 0) {
+			builder.append("2dzan=").append(this.zan2d).append("\n");
+		}
+
+//		if (this.opcode9) {
+//			builder.append("opcode9=yes").append("\n");
+//		}
+//
+//		if (this.opcode10 != -1) {
+//			builder.append("opcode10=").append(this.opcode10).append("\n");
+//		}
+
+		if (this.stackable) {
+			builder.append("stackable=yes").append("\n");
+		}
+
+		if (this.members) {
+			builder.append("members=yes").append("\n");
+		}
+
+		if (this.countobj != null) {
+			for (int i = 0; i < this.countobj.length; ++i) {
+				if (this.countobj[i] == 0) {
+					continue;
+				}
+
+				builder.append("count").append(i + 1).append("=obj_").append(this.countobj[i]).append(",").append(this.countco[i]).append("\n");
+			}
+		}
+
+		if (this.ops != null) {
+			for (int i = 0; i < this.ops.length; ++i) {
+				if (this.ops[i] == null) {
+					continue;
+				}
+
+				builder.append("op").append(i + 1).append("=").append(this.ops[i]).append("\n");
+			}
+		}
+
+		if (this.iops != null) {
+			for (int i = 0; i < this.iops.length; ++i) {
+				if (this.iops[i] == null) {
+					continue;
+				}
+
+				builder.append("iop").append(i + 1).append("=").append(this.iops[i]).append("\n");
+			}
+		}
+
+		if (this.recol_s != null) {
+			for (int i = 0; i < this.recol_s.length; ++i) {
+				builder.append("recol").append(i + 1).append("s=").append(this.recol_s[i]).append("\n");
+				builder.append("recol").append(i + 1).append("d=").append(this.recol_d[i]).append("\n");
+			}
+		}
+
+		return builder.toString();
 	}
 
 	@OriginalMember(owner = "client!cc", name = "c", descriptor = "I")

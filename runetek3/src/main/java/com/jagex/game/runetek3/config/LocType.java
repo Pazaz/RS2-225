@@ -101,7 +101,7 @@ public class LocType {
 	public boolean hillskew;
 
 	@OriginalMember(owner = "client!ac", name = "v", descriptor = "Z")
-	public boolean sharelight;
+	public boolean computeVertexColors;
 
 	@OriginalMember(owner = "client!ac", name = "w", descriptor = "Z")
 	public boolean occlude;
@@ -228,7 +228,7 @@ public class LocType {
 		this.blockrange = true;
 		this.interactable = false;
 		this.hillskew = false;
-		this.sharelight = false;
+		this.computeVertexColors = false;
 		this.occlude = false;
 		this.anim = -1;
 		this.walloff = 16;
@@ -260,6 +260,7 @@ public class LocType {
 		public static final int blockwalk_no = 17;
 		public static final int blockrange_no = 18;
 		public static final int hillskew = 21;
+		public static final int sharelight = 22;
 		public static final int occlude = 23;
 		public static final int anim = 24;
 		public static final int walloff = 28;
@@ -322,8 +323,8 @@ public class LocType {
 				}
 			} else if (opcode == Opcodes.hillskew) { // 21
 				this.hillskew = true;
-			} else if (opcode == 22) {
-				this.sharelight = true;
+			} else if (opcode == Opcodes.sharelight) { // 22
+				this.computeVertexColors = true;
 			} else if (opcode == Opcodes.occlude) { // 23
 				this.occlude = true;
 			} else if (opcode == Opcodes.anim) { // 24
@@ -476,13 +477,13 @@ public class LocType {
 			if (move) {
 				m3.translate(this.yoff, this.xoff, this.zoff);
 			}
-			m3.applyLighting(this.ambient + 64, this.contrast * 5 + 768, -50, -10, -50, !this.sharelight);
+			m3.applyLighting(this.ambient + 64, this.contrast * 5 + 768, -50, -10, -50, !this.computeVertexColors);
 			if (this.blockwalk) {
 				m3.anInt372 = m3.maxBoundY;
 			}
 			modelCacheBuilt.put(key, m3);
-			if (this.hillskew || this.sharelight) {
-				m3 = new Model(m3, this.hillskew, this.sharelight);
+			if (this.hillskew || this.computeVertexColors) {
+				m3 = new Model(m3, this.hillskew, this.computeVertexColors);
 			}
 			if (this.hillskew) {
 				n = (southwestY + southeastY + northwestY + northeastY) / 4;
@@ -500,8 +501,8 @@ public class LocType {
 		} else if (reset) {
 			return m;
 		} else {
-			if (this.hillskew || this.sharelight) {
-				m = new Model(m, this.hillskew, this.sharelight);
+			if (this.hillskew || this.computeVertexColors) {
+				m = new Model(m, this.hillskew, this.computeVertexColors);
 			}
 			if (this.hillskew) {
 				modelIndex = (southwestY + southeastY + northwestY + northeastY) / 4;
@@ -615,6 +616,7 @@ public class LocType {
 				}
 
 				if (this.shapes[i] == CENTREPIECE_STRAIGHT) {
+					// this is the default when no shape is in the definition
 					builder.append("model").append(i + 1).append("=model_").append(this.models[i]).append("\n");
 				} else {
 					builder.append("model").append(i + 1).append("=model_").append(this.models[i]).append(",^").append(name).append("\n");
@@ -653,7 +655,7 @@ public class LocType {
 			// we don't need to write it here because it's implied from anim=
 		}
 
-		if (this.sharelight) {
+		if (this.computeVertexColors) {
 			builder.append("sharelight=yes\n");
 		}
 

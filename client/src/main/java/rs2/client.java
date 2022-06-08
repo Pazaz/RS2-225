@@ -2541,8 +2541,8 @@ public class client extends GameShell {
 										@Pc(704) int option;
 										if (child.inventoryHasOptions) {
 											for (option = 4; option >= 3; option--) {
-												if (objType.iop != null && objType.iop[option] != null) {
-													this.options[this.optionCount] = objType.iop[option] + " @lre@" + objType.name;
+												if (objType.iops != null && objType.iops[option] != null) {
+													this.options[this.optionCount] = objType.iops[option] + " @lre@" + objType.name;
 													if (option == 3) {
 														this.optionType[this.optionCount] = Cs1Actions.OPHELD4;
 													}
@@ -2573,10 +2573,10 @@ public class client extends GameShell {
 											this.optionCount++;
 										}
 
-										if (child.inventoryHasOptions && objType.iop != null) {
+										if (child.inventoryHasOptions && objType.iops != null) {
 											for (option = 2; option >= 0; option--) {
-												if (objType.iop[option] != null) {
-													this.options[this.optionCount] = objType.iop[option] + " @lre@" + objType.name;
+												if (objType.iops[option] != null) {
+													this.options[this.optionCount] = objType.iops[option] + " @lre@" + objType.name;
 													if (option == 0) {
 														this.optionType[this.optionCount] = Cs1Actions.OPHELD1;
 													}
@@ -5335,10 +5335,10 @@ public class client extends GameShell {
 			local830 = ObjType.get(c);
 			if (b >= 100000) {
 				local845 = b + " x " + local830.name;
-			} else if (local830.description == null) {
+			} else if (local830.desc == null) {
 				local845 = "It's a " + local830.name + ".";
 			} else {
-				local845 = new String(local830.description);
+				local845 = new String(local830.desc);
 			}
 			this.addMessage(0, "", local845);
 		}
@@ -5610,10 +5610,10 @@ public class client extends GameShell {
 
 		if (action == Cs1Actions.EXAMINE_OBJSTACK) {
 			local830 = ObjType.get(c);
-			if (local830.description == null) {
+			if (local830.desc == null) {
 				local845 = "It's a " + local830.name + ".";
 			} else {
-				local845 = new String(local830.description);
+				local845 = new String(local830.desc);
 			}
 			this.addMessage(0, "", local845);
 		}
@@ -9449,8 +9449,8 @@ public class client extends GameShell {
 								this.optionCount++;
 							} else if (this.selectedSpell != 1) {
 								for (option = 4; option >= 0; option--) {
-									if (obj.op != null && obj.op[option] != null) {
-										this.options[this.optionCount] = obj.op[option] + " @lre@" + obj.name;
+									if (obj.ops != null && obj.ops[option] != null) {
+										this.options[this.optionCount] = obj.ops[option] + " @lre@" + obj.name;
 										if (option == 0) {
 											this.optionType[this.optionCount] = Cs1Actions.OPOBJ1;
 										}
