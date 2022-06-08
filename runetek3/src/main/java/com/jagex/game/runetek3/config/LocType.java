@@ -16,27 +16,29 @@ public class LocType {
 	public static final int WALL_DIAGONALCORNER = 1;
 	public static final int WALL_L = 2;
 	public static final int WALL_SQUARECORNER = 3;
-	public static final int WALLDECOR_STRAIGHT_NOOFFSET = 4;
-	public static final int WALLDECOR_STRAIGHT_OFFSET = 5;
-	public static final int WALLDECOR_DIAGONAL_OFFSET = 6;
-	public static final int WALLDECOR_DIAGONAL_NOOFFSET = 7;
-	public static final int WALLDECOR_DIAGONAL_BOTH = 8;
 	public static final int WALL_DIAGONAL = 9;
-	public static final int CENTREPIECE_STRAIGHT = 10;
-	public static final int CENTREPIECE_DIAGONAL = 11;
+
+	public static final int WALLDECOR_STRAIGHT_XOFFSET = 4;
+	public static final int WALLDECOR_STRAIGHT_ZOFFSET = 5;
+	public static final int WALLDECOR_DIAGONAL_XOFFSET = 6;
+	public static final int WALLDECOR_DIAGONAL_ZOFFSET = 7;
+	public static final int WALLDECOR_DIAGONAL_BOTH = 8;
+
 	public static final int ROOF_STRAIGHT = 12;
 	public static final int ROOF_DIAGONAL_WITH_ROOFEDGE = 13;
 	public static final int ROOF_DIAGONAL = 14;
 	public static final int ROOF_L_CONCAVE = 15;
 	public static final int ROOF_L_CONVEX = 16;
 	public static final int ROOF_FLAT = 17;
+
 	public static final int ROOFEDGE_STRAIGHT = 18;
 	public static final int ROOFEDGE_DIAGONALCORNER = 19;
 	public static final int ROOFEDGE_L = 20;
 	public static final int ROOFEDGE_SQUARECORNER = 21;
+
+	public static final int CENTREPIECE_STRAIGHT = 10;
+	public static final int CENTREPIECE_DIAGONAL = 11;
 	public static final int GROUNDDECOR = 22;
-	public static final int WALL_L_ALT = 23;
-	public static final int WALLDECOR_DIAGONAL_BOTH_ALT = 24;
 
 	@OriginalMember(owner = "client!ac", name = "c", descriptor = "Z")
 	private static boolean reset;
@@ -72,7 +74,7 @@ public class LocType {
 	public String name;
 
 	@OriginalMember(owner = "client!ac", name = "m", descriptor = "[B")
-	public String description;
+	public String desc;
 
 	@OriginalMember(owner = "client!ac", name = "n", descriptor = "[I")
 	private int[] recol_s;
@@ -217,7 +219,7 @@ public class LocType {
 		this.models = null;
 		this.shapes = null;
 		this.name = null;
-		this.description = null;
+		this.desc = null;
 		this.recol_s = null;
 		this.recol_d = null;
 		this.width = 1;
@@ -304,7 +306,7 @@ public class LocType {
 			} else if (opcode == Opcodes.name) { // 2
 				this.name = buffer.gstr();
 			} else if (opcode == Opcodes.description) { // 3
-				this.description = buffer.gstr();
+				this.desc = buffer.gstr();
 			} else if (opcode == Opcodes.width) { // 14
 				this.width = buffer.g1();
 			} else if (opcode == Opcodes.length) { // 15
@@ -530,8 +532,8 @@ public class LocType {
 			builder.append("name=").append(this.name).append("\n");
 		}
 
-		if (this.description != null) {
-			builder.append("description=").append(this.description).append("\n");
+		if (this.desc != null) {
+			builder.append("desc=").append(this.desc).append("\n");
 		}
 
 		if (this.models != null) {
@@ -552,17 +554,17 @@ public class LocType {
 				case WALL_SQUARECORNER:
 					name = "WALL_SQUARECORNER";
 					break;
-				case WALLDECOR_STRAIGHT_NOOFFSET:
-					name = "WALLDECOR_STRAIGHT_NOOFFSET";
+				case WALLDECOR_STRAIGHT_XOFFSET:
+					name = "WALLDECOR_STRAIGHT_XOFFSET";
 					break;
-				case WALLDECOR_STRAIGHT_OFFSET:
-					name = "WALLDECOR_STRAIGHT_OFFSET";
+				case WALLDECOR_STRAIGHT_ZOFFSET:
+					name = "WALLDECOR_STRAIGHT_ZOFFSET";
 					break;
-				case WALLDECOR_DIAGONAL_OFFSET:
-					name = "WALLDECOR_DIAGONAL_OFFSET";
+				case WALLDECOR_DIAGONAL_XOFFSET:
+					name = "WALLDECOR_DIAGONAL_XOFFSET";
 					break;
-				case WALLDECOR_DIAGONAL_NOOFFSET:
-					name = "WALLDECOR_DIAGONAL_NOOFFSET";
+				case WALLDECOR_DIAGONAL_ZOFFSET:
+					name = "WALLDECOR_DIAGONAL_ZOFFSET";
 					break;
 				case WALLDECOR_DIAGONAL_BOTH:
 					name = "WALLDECOR_DIAGONAL_BOTH";
@@ -609,12 +611,6 @@ public class LocType {
 					break;
 				case GROUNDDECOR:
 					name = "GROUNDDECOR";
-					break;
-				case WALL_L_ALT:
-					name = "WALL_L_ALT";
-					break;
-				case WALLDECOR_DIAGONAL_BOTH_ALT:
-					name = "WALLDECOR_DIAGONAL_BOTH_ALT";
 					break;
 				}
 

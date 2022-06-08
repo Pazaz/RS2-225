@@ -5251,10 +5251,10 @@ public class client extends GameShell {
 		if (action == Cs1Actions.EXAMINE_LOC) {
 			@Pc(586) int local586 = c >> 14 & 0x7FFF;
 			@Pc(589) LocType local589 = LocType.get(local586);
-			if (local589.description == null) {
+			if (local589.desc == null) {
 				local69 = "It's a " + local589.name + ".";
 			} else {
-				local69 = local589.description;
+				local69 = local589.desc;
 			}
 			this.addMessage(0, "", local69);
 		}
@@ -9277,7 +9277,7 @@ public class client extends GameShell {
 						local258 = locType.getModel(local239, local243, local171, local182, local195, local206, seq);
 						this.mapSquare.setLocModel(x, local258, plane, z);
 					} else if (e.classType == 1) {
-						@Pc(282) Model local282 = locType.getModel(LocType.WALLDECOR_STRAIGHT_NOOFFSET, 0, local171, local182, local195, local206, seq);
+						@Pc(282) Model local282 = locType.getModel(LocType.WALLDECOR_STRAIGHT_XOFFSET, 0, local171, local182, local195, local206, seq);
 						this.mapSquare.setWallDecorationModel(z, x, local282, plane);
 					} else if (e.classType == 0) {
 						info = this.mapSquare.getInfo(plane, x, z, bitset);

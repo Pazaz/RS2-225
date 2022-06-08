@@ -268,37 +268,37 @@ public class Scene {
 				if (local60.anim != -1) {
 					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 2, SeqType.instances[local60.anim], arg3, arg0));
 				}
-			} else if (locShape == LocType.WALLDECOR_STRAIGHT_NOOFFSET) {
-				local99 = local60.getModel(LocType.WALLDECOR_STRAIGHT_NOOFFSET, 0, local15, local25, local37, local47, -1);
+			} else if (locShape == LocType.WALLDECOR_STRAIGHT_XOFFSET) {
+				local99 = local60.getModel(LocType.WALLDECOR_STRAIGHT_XOFFSET, 0, local15, local25, local37, local47, -1);
 				arg9.addWallDecoration(local57, arg3, 0, local72, arg4 * 512, WALL_ROTATION_TYPE1[arg4], 0, arg0, local99, local86, arg6);
 				if (local60.anim != -1) {
 					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.anim], arg3, arg0));
 				}
-			} else if (locShape == LocType.WALLDECOR_STRAIGHT_OFFSET) {
+			} else if (locShape == LocType.WALLDECOR_STRAIGHT_ZOFFSET) {
 				local430 = 16;
 				local174 = arg9.getWallBitset(arg6, arg0, arg3);
 				if (local174 > 0) {
 					local430 = LocType.get(local174 >> 14 & 0x7FFF).walloff;
 				}
-				local452 = local60.getModel(LocType.WALLDECOR_STRAIGHT_NOOFFSET, 0, local15, local25, local37, local47, -1);
+				local452 = local60.getModel(LocType.WALLDECOR_STRAIGHT_XOFFSET, 0, local15, local25, local37, local47, -1);
 				arg9.addWallDecoration(local57, arg3, WALL_DECO_ROT_SIZE_Y_DIR[arg4] * local430, local72, arg4 * 512, WALL_ROTATION_TYPE1[arg4], WALL_DECO_ROT_SIZE_X_DIR[arg4] * local430, arg0, local452, local86, arg6);
 				if (local60.anim != -1) {
 					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.anim], arg3, arg0));
 				}
-			} else if (locShape == LocType.WALLDECOR_DIAGONAL_OFFSET) {
-				local99 = local60.getModel(LocType.WALLDECOR_STRAIGHT_NOOFFSET, 0, local15, local25, local37, local47, -1);
+			} else if (locShape == LocType.WALLDECOR_DIAGONAL_XOFFSET) {
+				local99 = local60.getModel(LocType.WALLDECOR_STRAIGHT_XOFFSET, 0, local15, local25, local37, local47, -1);
 				arg9.addWallDecoration(local57, arg3, 0, local72, arg4, 256, 0, arg0, local99, local86, arg6);
 				if (local60.anim != -1) {
 					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.anim], arg3, arg0));
 				}
-			} else if (locShape == LocType.WALLDECOR_DIAGONAL_NOOFFSET) {
-				local99 = local60.getModel(LocType.WALLDECOR_STRAIGHT_NOOFFSET, 0, local15, local25, local37, local47, -1);
+			} else if (locShape == LocType.WALLDECOR_DIAGONAL_ZOFFSET) {
+				local99 = local60.getModel(LocType.WALLDECOR_STRAIGHT_XOFFSET, 0, local15, local25, local37, local47, -1);
 				arg9.addWallDecoration(local57, arg3, 0, local72, arg4, 512, 0, arg0, local99, local86, arg6);
 				if (local60.anim != -1) {
 					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.anim], arg3, arg0));
 				}
 			} else if (locShape == LocType.WALLDECOR_DIAGONAL_BOTH) {
-				local99 = local60.getModel(LocType.WALLDECOR_STRAIGHT_NOOFFSET, 0, local15, local25, local37, local47, -1);
+				local99 = local60.getModel(LocType.WALLDECOR_STRAIGHT_XOFFSET, 0, local15, local25, local37, local47, -1);
 				arg9.addWallDecoration(local57, arg3, 0, local72, arg4, 768, 0, arg0, local99, local86, arg6);
 				if (local60.anim != -1) {
 					arg1.pushNext(new LocEntity(true, arg7, arg6, 0, 1, SeqType.instances[local60.anim], arg3, arg0));
@@ -653,37 +653,37 @@ public class Scene {
 					if (local84.anim != -1) {
 						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 2, SeqType.instances[local84.anim], arg2, arg8));
 					}
-				} else if (locShape == LocType.WALLDECOR_STRAIGHT_NOOFFSET) {
-					local132 = local84.getModel(LocType.WALLDECOR_STRAIGHT_NOOFFSET, 0, local36, local47, local60, local71, -1);
+				} else if (locShape == LocType.WALLDECOR_STRAIGHT_XOFFSET) {
+					local132 = local84.getModel(LocType.WALLDECOR_STRAIGHT_XOFFSET, 0, local36, local47, local60, local71, -1);
 					arg5.addWallDecoration(local81, arg2, 0, local96, orientation * 512, WALL_ROTATION_TYPE1[orientation], 0, arg8, local132, local110, arg1);
 					if (local84.anim != -1) {
 						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.anim], arg2, arg8));
 					}
-				} else if (locShape == LocType.WALLDECOR_STRAIGHT_OFFSET) {
+				} else if (locShape == LocType.WALLDECOR_STRAIGHT_ZOFFSET) {
 					local810 = 16;
 					local209 = arg5.getWallBitset(arg1, arg8, arg2);
 					if (local209 > 0) {
 						local810 = LocType.get(local209 >> 14 & 0x7FFF).walloff;
 					}
-					local832 = local84.getModel(LocType.WALLDECOR_STRAIGHT_NOOFFSET, 0, local36, local47, local60, local71, -1);
+					local832 = local84.getModel(LocType.WALLDECOR_STRAIGHT_XOFFSET, 0, local36, local47, local60, local71, -1);
 					arg5.addWallDecoration(local81, arg2, WALL_DECO_ROT_SIZE_Y_DIR[orientation] * local810, local96, orientation * 512, WALL_ROTATION_TYPE1[orientation], WALL_DECO_ROT_SIZE_X_DIR[orientation] * local810, arg8, local832, local110, arg1);
 					if (local84.anim != -1) {
 						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.anim], arg2, arg8));
 					}
-				} else if (locShape == LocType.WALLDECOR_DIAGONAL_OFFSET) {
-					local132 = local84.getModel(LocType.WALLDECOR_STRAIGHT_NOOFFSET, 0, local36, local47, local60, local71, -1);
+				} else if (locShape == LocType.WALLDECOR_DIAGONAL_XOFFSET) {
+					local132 = local84.getModel(LocType.WALLDECOR_STRAIGHT_XOFFSET, 0, local36, local47, local60, local71, -1);
 					arg5.addWallDecoration(local81, arg2, 0, local96, orientation, 256, 0, arg8, local132, local110, arg1);
 					if (local84.anim != -1) {
 						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.anim], arg2, arg8));
 					}
-				} else if (locShape == LocType.WALLDECOR_DIAGONAL_NOOFFSET) {
-					local132 = local84.getModel(LocType.WALLDECOR_STRAIGHT_NOOFFSET, 0, local36, local47, local60, local71, -1);
+				} else if (locShape == LocType.WALLDECOR_DIAGONAL_ZOFFSET) {
+					local132 = local84.getModel(LocType.WALLDECOR_STRAIGHT_XOFFSET, 0, local36, local47, local60, local71, -1);
 					arg5.addWallDecoration(local81, arg2, 0, local96, orientation, 512, 0, arg8, local132, local110, arg1);
 					if (local84.anim != -1) {
 						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.anim], arg2, arg8));
 					}
 				} else if (locShape == LocType.WALLDECOR_DIAGONAL_BOTH) {
-					local132 = local84.getModel(LocType.WALLDECOR_STRAIGHT_NOOFFSET, 0, local36, local47, local60, local71, -1);
+					local132 = local84.getModel(LocType.WALLDECOR_STRAIGHT_XOFFSET, 0, local36, local47, local60, local71, -1);
 					arg5.addWallDecoration(local81, arg2, 0, local96, orientation, 768, 0, arg8, local132, local110, arg1);
 					if (local84.anim != -1) {
 						arg6.pushNext(new LocEntity(true, arg7, arg1, 0, 1, SeqType.instances[local84.anim], arg2, arg8));
