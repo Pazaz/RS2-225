@@ -111,16 +111,16 @@ public class LocType {
 	public int walloff;
 
 	@OriginalMember(owner = "client!ac", name = "z", descriptor = "B")
-	public byte brightness;
+	public byte ambient;
 
 	@OriginalMember(owner = "client!ac", name = "A", descriptor = "B")
-	public byte specular;
+	public byte contrast;
 
 	@OriginalMember(owner = "client!ac", name = "B", descriptor = "[Ljava/lang/String;")
 	public String[] ops;
 
 	@OriginalMember(owner = "client!ac", name = "C", descriptor = "Z")
-	public boolean disposeAlpha;
+	public boolean reuseAlpha;
 
 	@OriginalMember(owner = "client!ac", name = "D", descriptor = "I")
 	public int mapfunction;
@@ -230,10 +230,10 @@ public class LocType {
 		this.occlude = false;
 		this.anim = -1;
 		this.walloff = 16;
-		this.brightness = 0;
-		this.specular = 0;
+		this.ambient = 0;
+		this.contrast = 0;
 		this.ops = null;
-		this.disposeAlpha = false;
+		this.reuseAlpha = false;
 		this.mapfunction = -1;
 		this.mapscene = -1;
 		this.mirror = false;
@@ -261,10 +261,10 @@ public class LocType {
 		public static final int occlude = 23;
 		public static final int anim = 24;
 		public static final int walloff = 28;
-		public static final int ambient_brightness = 29;
+		public static final int ambient = 29;
 		public static final int op1 = 30;
 		public static final int op5 = 34;
-		public static final int ambient_specular = 39;
+		public static final int contrast = 39;
 		public static final int recol = 40;
 		public static final int mapfunction = 60;
 		public static final int mirror = 62;
@@ -330,11 +330,13 @@ public class LocType {
 					this.anim = -1;
 				}
 			} else if (opcode == 25) {
-				this.disposeAlpha = true;
+				this.reuseAlpha = true;
 			} else if (opcode == Opcodes.walloff) { // 28
 				this.walloff = buffer.g1();
-			} else if (opcode == Opcodes.ambient_brightness) { // 29
-				this.brightness = buffer.g1b();
+			} else if (opcode == Opcodes.ambient) { // 29
+				this.ambient = buffer.g1b();
+			} else if (opcode == Opcodes.contrast) { // 39
+				this.contrast = buffer.g1b();
 			} else if (opcode >= Opcodes.op1 && opcode <= Opcodes.op5) { // >= 30 && <= 34
 				if (this.ops == null) {
 					this.ops = new String[5];
@@ -344,8 +346,6 @@ public class LocType {
 				if (this.ops[opcode - Opcodes.op1].equalsIgnoreCase("hidden")) {
 					this.ops[opcode - Opcodes.op1] = null;
 				}
-			} else if (opcode == Opcodes.ambient_specular) { // 39
-				this.specular = buffer.g1b();
 			} else if (opcode == Opcodes.recol) { // 40
 				count = buffer.g1();
 				this.recol_s = new int[count];
@@ -448,7 +448,7 @@ public class LocType {
 			} else {
 				move = true;
 			}
-			@Pc(284) Model m3 = new Model(m2, this.recol_s == null, !this.disposeAlpha, orientation == 0 && seqFrame == -1 && !rescale && !move);
+			@Pc(284) Model m3 = new Model(m2, this.recol_s == null, !this.reuseAlpha, orientation == 0 && seqFrame == -1 && !rescale && !move);
 			if (seqFrame != -1) {
 				m3.applyGroup();
 				m3.applyFrame(seqFrame);
@@ -469,7 +469,7 @@ public class LocType {
 			if (move) {
 				m3.translate(this.yoff, this.xoff, this.zoff);
 			}
-			m3.applyLighting(this.brightness + 64, this.specular * 5 + 768, -50, -10, -50, !this.computeVertexColors);
+			m3.applyLighting(this.ambient + 64, this.contrast * 5 + 768, -50, -10, -50, !this.computeVertexColors);
 			if (this.blockwalk) {
 				m3.anInt372 = m3.maxBoundY;
 			}
@@ -638,6 +638,7 @@ public class LocType {
 		}
 
 		if (this.hillskew) {
+			// align to terrain heightmap
 			builder.append("hillskew=yes\n");
 		}
 
@@ -650,19 +651,23 @@ public class LocType {
 		}
 
 		if (this.computeVertexColors) {
-			builder.append("computevertex=yes\n");
+			// compute vertex colors in addition to normals while applying lighting
+			builder.append("applylighting=yes\n");
 		}
 
-		if (this.disposeAlpha) {
-			builder.append("disposealpha=yes\n");
+		if (this.reuseAlpha) {
+			// saves a memory allocation
+			builder.append("reusealpha=yes\n");
 		}
 
-		// "brightness" could be called just ambient, but then what's specular?
-		if (this.brightness != 0) {
-			builder.append("ambient_brightness=").append(this.brightness).append("\n");
+		if (this.ambient != 0) {
+			// brightness
+			builder.append("ambient=").append(this.ambient).append("\n");
 		}
-		if (this.specular != 0) {
-			builder.append("ambient_specular=").append(this.specular).append("\n");
+
+		if (this.contrast != 0) {
+			// intensity
+			builder.append("contrast=").append(this.contrast).append("\n");
 		}
 
 		if (this.mapfunction != -1) {
