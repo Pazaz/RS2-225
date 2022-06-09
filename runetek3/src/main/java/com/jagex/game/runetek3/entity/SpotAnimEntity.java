@@ -77,24 +77,24 @@ public class SpotAnimEntity extends Entity {
 			m.skinTriangle = null;
 			m.labelVertices = null;
 		}
-		if (this.spotanim.breadthScale != 128 || this.spotanim.depthScale != 128) {
-			m.scale(this.spotanim.breadthScale, this.spotanim.depthScale, this.spotanim.breadthScale);
+		if (this.spotanim.resizeh != 128 || this.spotanim.resizev != 128) {
+			m.scale(this.spotanim.resizeh, this.spotanim.resizev, this.spotanim.resizeh);
 		}
-		if (this.spotanim.orientation != 0) {
-			if (this.spotanim.orientation == 90) {
+		if (this.spotanim.rotation != 0) {
+			if (this.spotanim.rotation == 90) {
 				m.rotateCounterClockwise();
 			}
-			if (this.spotanim.orientation == 180) {
+			if (this.spotanim.rotation == 180) {
 				m.rotateCounterClockwise();
 				m.rotateCounterClockwise();
 			}
-			if (this.spotanim.orientation == 270) {
+			if (this.spotanim.rotation == 270) {
 				m.rotateCounterClockwise();
 				m.rotateCounterClockwise();
 				m.rotateCounterClockwise();
 			}
 		}
-		m.applyLighting(this.spotanim.ambience + 64, this.spotanim.modelShadow + 850, -30, -50, -30, true);
+		m.applyLighting(this.spotanim.ambient + 64, this.spotanim.contrast + 850, -30, -50, -30, true);
 		return m;
 	}
 

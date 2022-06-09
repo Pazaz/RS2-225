@@ -180,10 +180,10 @@ public class PlayerEntity extends PathingEntity {
 			local51.applyFrame(local35.seq.primaryFrames[super.spotAnimFrame]);
 			local51.skinTriangle = null;
 			local51.labelVertices = null;
-			if (local35.breadthScale != 128 || local35.depthScale != 128) {
-				local51.scale(local35.breadthScale, local35.depthScale, local35.breadthScale);
+			if (local35.resizeh != 128 || local35.resizev != 128) {
+				local51.scale(local35.resizeh, local35.resizev, local35.resizeh);
 			}
-			local51.applyLighting(local35.ambience + 64, local35.modelShadow + 850, -30, -50, -30, true);
+			local51.applyLighting(local35.ambient + 64, local35.contrast + 850, -30, -50, -30, true);
 			@Pc(119) Model[] local119 = new Model[] { local10, local51 };
 			local10 = new Model(local119, 2, true);
 		}

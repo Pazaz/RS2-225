@@ -30,10 +30,10 @@ public class NpcEntity extends PathingEntity {
 			spotAnimModel.applyFrame(spotAnim.seq.primaryFrames[super.spotAnimFrame]);
 			spotAnimModel.skinTriangle = null;
 			spotAnimModel.labelVertices = null;
-			if (spotAnim.breadthScale != 128 || spotAnim.depthScale != 128) {
-				spotAnimModel.scale(spotAnim.breadthScale, spotAnim.depthScale, spotAnim.breadthScale);
+			if (spotAnim.resizeh != 128 || spotAnim.resizev != 128) {
+				spotAnimModel.scale(spotAnim.resizeh, spotAnim.resizev, spotAnim.resizeh);
 			}
-			spotAnimModel.applyLighting(spotAnim.ambience + 64, spotAnim.modelShadow + 850, -30, -50, -30, true);
+			spotAnimModel.applyLighting(spotAnim.ambient + 64, spotAnim.contrast + 850, -30, -50, -30, true);
 			@Pc(115) Model[] models = new Model[] { m, spotAnimModel };
 			@Pc(123) Model animated = new Model(models, 2, true);
 			if (this.info.size == 1) {

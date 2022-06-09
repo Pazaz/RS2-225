@@ -13,7 +13,7 @@ import org.openrs2.deob.annotation.Pc;
 public class SpotAnimType {
 
 	@OriginalMember(owner = "client!kc", name = "b", descriptor = "I")
-	private static int count;
+	public static int count;
 
 	@OriginalMember(owner = "client!kc", name = "c", descriptor = "[Lclient!kc;")
 	public static SpotAnimType[] instances;
@@ -22,25 +22,25 @@ public class SpotAnimType {
 	public static Cache models = new Cache(30);
 
 	@OriginalMember(owner = "client!kc", name = "d", descriptor = "I")
-	private int index;
+	private int id;
 
 	@OriginalMember(owner = "client!kc", name = "e", descriptor = "I")
-	private int modelIndex;
+	private int model;
 
 	@OriginalMember(owner = "client!kc", name = "g", descriptor = "Lclient!jc;")
 	public SeqType seq;
 
 	@OriginalMember(owner = "client!kc", name = "m", descriptor = "I")
-	public int orientation;
+	public int rotation;
 
 	@OriginalMember(owner = "client!kc", name = "n", descriptor = "I")
-	public int ambience;
+	public int ambient;
 
 	@OriginalMember(owner = "client!kc", name = "o", descriptor = "I")
-	public int modelShadow;
+	public int contrast;
 
 	@OriginalMember(owner = "client!kc", name = "f", descriptor = "I")
-	private int seqIndex = -1;
+	private int anim = -1;
 
 	@OriginalMember(owner = "client!kc", name = "h", descriptor = "Z")
 	public boolean disposeAlpha = false;
@@ -52,10 +52,10 @@ public class SpotAnimType {
 	private final int[] recol_d = new int[6];
 
 	@OriginalMember(owner = "client!kc", name = "k", descriptor = "I")
-	public int breadthScale = 128;
+	public int resizeh = 128;
 
 	@OriginalMember(owner = "client!kc", name = "l", descriptor = "I")
-	public int depthScale = 128;
+	public int resizev = 128;
 
 	@OriginalMember(owner = "client!kc", name = "a", descriptor = "(Lclient!ub;I)V")
 	public static void decode(@OriginalArg(0) FileArchive archive) {
@@ -68,7 +68,7 @@ public class SpotAnimType {
 			if (instances[i] == null) {
 				instances[i] = new SpotAnimType();
 			}
-			instances[i].index = i;
+			instances[i].id = i;
 			instances[i].decode(buffer);
 		}
 	}
@@ -84,25 +84,26 @@ public class SpotAnimType {
 			if (opcode == 0) {
 				return;
 			}
+
 			if (opcode == 1) {
-				this.modelIndex = buffer.g2();
+				this.model = buffer.g2();
 			} else if (opcode == 2) {
-				this.seqIndex = buffer.g2();
+				this.anim = buffer.g2();
 				if (SeqType.instances != null) {
-					this.seq = SeqType.instances[this.seqIndex];
+					this.seq = SeqType.instances[this.anim];
 				}
 			} else if (opcode == 3) {
 				this.disposeAlpha = true;
 			} else if (opcode == 4) {
-				this.breadthScale = buffer.g2();
+				this.resizeh = buffer.g2();
 			} else if (opcode == 5) {
-				this.depthScale = buffer.g2();
+				this.resizev = buffer.g2();
 			} else if (opcode == 6) {
-				this.orientation = buffer.g2();
+				this.rotation = buffer.g2();
 			} else if (opcode == 7) {
-				this.ambience = buffer.g1();
+				this.ambient = buffer.g1();
 			} else if (opcode == 8) {
-				this.modelShadow = buffer.g1();
+				this.contrast = buffer.g1();
 			} else if (opcode >= 40 && opcode < 50) {
 				this.recol_s[opcode - 40] = buffer.g2();
 			} else if (opcode >= 50 && opcode < 60) {
@@ -115,18 +116,69 @@ public class SpotAnimType {
 
 	@OriginalMember(owner = "client!kc", name = "a", descriptor = "()Lclient!eb;")
 	public final Model getModel() {
-		@Pc(6) Model m = (Model) models.get((long) this.index);
+		@Pc(6) Model m = (Model) models.get((long) this.id);
 		if (m != null) {
 			return m;
 		}
-		m = new Model(this.modelIndex);
+		m = new Model(this.model);
 		for (@Pc(19) int i = 0; i < 6; i++) {
 			if (this.recol_s[0] != 0) {
 				m.recolor(this.recol_s[i], this.recol_d[i]);
 			}
 		}
-		models.put((long) this.index, m);
+		models.put((long) this.id, m);
 		return m;
+	}
+
+
+	public String toJagConfig() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("[spotanim_").append(this.id).append("]\n");
+
+		if (this.model != 0) {
+			builder.append("model=model_").append(this.model).append("\n");
+		}
+
+		if (this.anim != -1) {
+			builder.append("anim=anim_").append(this.anim).append("\n");
+		}
+
+		// most are gonna require disposeAlpha, but there may be a way to automatically determine this
+//		if (this.disposeAlpha) {
+//			builder.append("disposeAlpha=yes\n");
+//		}
+
+		if (this.resizeh != 128) {
+			builder.append("resizeh=").append(this.resizeh).append("\n");
+		}
+
+		if (this.resizev != 128) {
+			builder.append("resizev=").append(this.resizev).append("\n");
+		}
+
+		if (this.rotation != 0) {
+			builder.append("rotation=").append(this.rotation).append("\n");
+		}
+
+		if (this.ambient != 0) {
+			builder.append("ambient=").append(this.ambient).append("\n");
+		}
+
+		if (this.contrast != 0) {
+			builder.append("contrast=").append(this.contrast).append("\n");
+		}
+
+		for (int i = 0; i < this.recol_s.length; ++i) {
+			if (this.recol_s[i] == 0) {
+				continue;
+			}
+
+			builder.append("recol").append(i + 1).append("s=").append(this.recol_s[i]).append("\n");
+			builder.append("recol").append(i + 1).append("d=").append(this.recol_d[i]).append("\n");
+		}
+
+		return builder.toString();
 	}
 
 	@OriginalMember(owner = "client!kc", name = "a", descriptor = "I")

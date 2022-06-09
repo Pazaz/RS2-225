@@ -152,11 +152,11 @@ public class ProjectileEntity extends Entity {
 			local19.skinTriangle = null;
 			local19.labelVertices = null;
 		}
-		if (this.spotAnim.breadthScale != 128 || this.spotAnim.depthScale != 128) {
-			local19.scale(this.spotAnim.breadthScale, this.spotAnim.depthScale, this.spotAnim.breadthScale);
+		if (this.spotAnim.resizeh != 128 || this.spotAnim.resizev != 128) {
+			local19.scale(this.spotAnim.resizeh, this.spotAnim.resizev, this.spotAnim.resizeh);
 		}
 		local19.rotatePitch(this.pitch);
-		local19.applyLighting(this.spotAnim.ambience + 64, this.spotAnim.modelShadow + 850, -30, -50, -30, true);
+		local19.applyLighting(this.spotAnim.ambient + 64, this.spotAnim.contrast + 850, -30, -50, -30, true);
 		return local19;
 	}
 
