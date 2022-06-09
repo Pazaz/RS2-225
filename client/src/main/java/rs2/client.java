@@ -4451,13 +4451,13 @@ public class client extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "d", descriptor = "(II)V")
 	private void updateVarp(@OriginalArg(0) int varp) {
-		@Pc(8) int type = VarpType.instances[varp].type;
-		if (type == 0) {
+		@Pc(8) int clientcode = VarpType.instances[varp].clientcode;
+		if (clientcode == 0) {
 			return;
 		}
 
 		@Pc(16) int v = this.variables[varp];
-		if (type == 1) {
+		if (clientcode == 1) {
 			if (v == 1) {
 				Draw3D.setBrightness(0.9D);
 			} else if (v == 2) {
@@ -4469,7 +4469,7 @@ public class client extends GameShell {
 			}
 			ObjType.icons.clear();
 			this.redrawTitleBackground = true;
-		} else if (type == 3) {
+		} else if (clientcode == 3) {
 			@Pc(54) boolean currentlyActive = this.midiActive;
 
 			if (v == 0) {
@@ -4496,7 +4496,7 @@ public class client extends GameShell {
 				}
 				this.nextMusicDelay = 0;
 			}
-		} else if (type == 4) {
+		} else if (clientcode == 4) {
 			if (v == 0) {
 				this.effectsEnabled = true;
 				this.wavevol(0);
@@ -4512,11 +4512,11 @@ public class client extends GameShell {
 			} else if (v == 4) {
 				this.effectsEnabled = false;
 			}
-		} else if (type == 5) {
+		} else if (clientcode == 5) {
 			this.button = v;
-		} else if (type == 6) {
+		} else if (clientcode == 6) {
 			this.chatEffects = v;
-		} else if (type == 8) {
+		} else if (clientcode == 8) {
 			this.splitPrivateChat = v;
 			this.redrawChatback = true;
 		}

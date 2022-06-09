@@ -11,7 +11,7 @@ import org.openrs2.deob.annotation.Pc;
 public class VarpType {
 
 	@OriginalMember(owner = "client!lc", name = "c", descriptor = "I")
-	private static int count;
+	public static int count;
 
 	@OriginalMember(owner = "client!lc", name = "d", descriptor = "[Lclient!lc;")
 	public static VarpType[] instances;
@@ -32,7 +32,7 @@ public class VarpType {
 	private int opcode2;
 
 	@OriginalMember(owner = "client!lc", name = "l", descriptor = "I")
-	public int type;
+	public int clientcode;
 
 	@OriginalMember(owner = "client!lc", name = "n", descriptor = "I")
 	private int opcode7;
@@ -49,6 +49,8 @@ public class VarpType {
 	@OriginalMember(owner = "client!lc", name = "o", descriptor = "Z")
 	private boolean opcode8 = false;
 
+	public int id;
+
 	@OriginalMember(owner = "client!lc", name = "a", descriptor = "(Lclient!ub;I)V")
 	public static void decode(@OriginalArg(0) FileArchive archive) {
 		@Pc(9) Buffer buffer = new Buffer(archive.read("varp.dat", null));
@@ -60,10 +62,13 @@ public class VarpType {
 		if (opcode3Array == null) {
 			opcode3Array = new int[count];
 		}
+
 		for (@Pc(30) int i = 0; i < count; i++) {
 			if (instances[i] == null) {
 				instances[i] = new VarpType();
 			}
+
+			instances[i].id = i;
 			instances[i].decode(i, buffer);
 		}
 	}
@@ -89,7 +94,7 @@ public class VarpType {
 			} else if (opcode == 4) {
 				this.opcode4 = false;
 			} else if (opcode == 5) {
-				this.type = buffer.g2();
+				this.clientcode = buffer.g2();
 			} else if (opcode == 6) {
 				this.opcode6 = true;
 			} else if (opcode == 7) {
@@ -102,6 +107,55 @@ public class VarpType {
 				System.out.println("Error unrecognised config code: " + opcode);
 			}
 		}
+	}
+
+
+	public String toJagConfig() {
+		StringBuilder builder = new StringBuilder();
+
+		if (clientcode == 0) {
+			return builder.toString();
+		}
+
+		builder.append("[varp_").append(this.id).append("]\n");
+
+//		if (opcode1 != 0) {
+//			builder.append("opcode1=").append(this.opcode1).append("\n");
+//		}
+//
+//		if (opcode2 != 0) {
+//			builder.append("opcode2=").append(this.opcode2).append("\n");
+//		}
+
+//		if (opcode3) {
+//			builder.append("opcode3=yes\n");
+//		}
+//
+//		if (!opcode4) {
+//			builder.append("opcode4=no\n");
+//		}
+
+		if (clientcode != 0) {
+			builder.append("clientcode=").append(this.clientcode).append("\n");
+		}
+
+//		if (opcode6) {
+//			builder.append("opcode6=yes\n");
+//		}
+//
+//		if (opcode7 != 0) {
+//			builder.append("opcode7=").append(this.opcode7).append("\n");
+//		}
+//
+//		if (opcode8) {
+//			builder.append("opcode8=yes\n");
+//		}
+//
+//		if (opcode9 != null) {
+//			builder.append("opcode9=").append(this.opcode9).append("\n");
+//		}
+
+		return builder.toString();
 	}
 
 	@OriginalMember(owner = "client!lc", name = "a", descriptor = "I")

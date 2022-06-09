@@ -130,7 +130,6 @@ public class SpotAnimType {
 		return m;
 	}
 
-
 	public String toJagConfig() {
 		StringBuilder builder = new StringBuilder();
 
