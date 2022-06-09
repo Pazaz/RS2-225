@@ -12,13 +12,13 @@ import org.openrs2.deob.annotation.Pc;
 public class SeqType {
 
 	@OriginalMember(owner = "client!jc", name = "c", descriptor = "I")
-	private static int count;
+	public static int count;
 
 	@OriginalMember(owner = "client!jc", name = "d", descriptor = "[Lclient!jc;")
 	public static SeqType[] instances;
 
 	@OriginalMember(owner = "client!jc", name = "e", descriptor = "I")
-	public int frameCount;
+	public int framecount;
 
 	@OriginalMember(owner = "client!jc", name = "f", descriptor = "[I")
 	public int[] primaryFrames;
@@ -33,22 +33,24 @@ public class SeqType {
 	public int[] labelGroups;
 
 	@OriginalMember(owner = "client!jc", name = "i", descriptor = "I")
-	public int delay = -1;
+	public int replayoff = -1;
 
 	@OriginalMember(owner = "client!jc", name = "k", descriptor = "Z")
-	public boolean renderPadding = false;
+	public boolean stretches = false;
 
 	@OriginalMember(owner = "client!jc", name = "l", descriptor = "I")
 	public int priority = 5;
 
 	@OriginalMember(owner = "client!jc", name = "m", descriptor = "I")
-	public int shieldOverride = -1;
+	public int mainhand = -1;
 
 	@OriginalMember(owner = "client!jc", name = "n", descriptor = "I")
-	public int weaponOverride = -1;
+	public int offhand = -1;
 
 	@OriginalMember(owner = "client!jc", name = "o", descriptor = "I")
-	public int replays = 99;
+	public int replaycount = 99;
+
+	public int id;
 
 	@OriginalMember(owner = "client!jc", name = "a", descriptor = "(Lclient!ub;I)V")
 	public static void decode(@OriginalArg(0) FileArchive archive) {
@@ -57,10 +59,13 @@ public class SeqType {
 		if (instances == null) {
 			instances = new SeqType[count];
 		}
+
 		for (@Pc(27) int i = 0; i < count; i++) {
 			if (instances[i] == null) {
 				instances[i] = new SeqType();
 			}
+
+			instances[i].id = i;
 			instances[i].decode(buffer);
 		}
 	}
@@ -74,25 +79,16 @@ public class SeqType {
 		while (true) {
 			@Pc(13) int opcode = buffer.g1();
 			if (opcode == 0) {
-				if (this.frameCount == 0) {
-					this.frameCount = 1;
-					this.primaryFrames = new int[1];
-					this.primaryFrames[0] = -1;
-					this.secondaryFrames = new int[1];
-					this.secondaryFrames[0] = -1;
-					this.frameDelay = new int[1];
-					this.frameDelay[0] = -1;
-					return;
-				}
-				return;
+				break;
 			}
+
 			@Pc(40) int i;
 			if (opcode == 1) {
-				this.frameCount = buffer.g1();
-				this.primaryFrames = new int[this.frameCount];
-				this.secondaryFrames = new int[this.frameCount];
-				this.frameDelay = new int[this.frameCount];
-				for (i = 0; i < this.frameCount; i++) {
+				this.framecount = buffer.g1();
+				this.primaryFrames = new int[this.framecount];
+				this.secondaryFrames = new int[this.framecount];
+				this.frameDelay = new int[this.framecount];
+				for (i = 0; i < this.framecount; i++) {
 					this.primaryFrames[i] = buffer.g2();
 					this.secondaryFrames[i] = buffer.g2();
 					if (this.secondaryFrames[i] == 65535) {
@@ -107,7 +103,7 @@ public class SeqType {
 					}
 				}
 			} else if (opcode == 2) {
-				this.delay = buffer.g2();
+				this.replayoff = buffer.g2();
 			} else if (opcode == 3) {
 				i = buffer.g1();
 				this.labelGroups = new int[i + 1];
@@ -116,19 +112,102 @@ public class SeqType {
 				}
 				this.labelGroups[i] = 9999999;
 			} else if (opcode == 4) {
-				this.renderPadding = true;
+				this.stretches = true;
 			} else if (opcode == 5) {
 				this.priority = buffer.g1();
 			} else if (opcode == 6) {
-				this.shieldOverride = buffer.g2();
+				this.mainhand = buffer.g2();
 			} else if (opcode == 7) {
-				this.weaponOverride = buffer.g2();
+				this.offhand = buffer.g2();
 			} else if (opcode == 8) {
-				this.replays = buffer.g1();
+				this.replaycount = buffer.g1();
 			} else {
 				System.out.println("Error unrecognised seq config code: " + opcode);
 			}
 		}
+
+		if (this.framecount == 0) {
+			this.framecount = 1;
+			this.primaryFrames = new int[1];
+			this.primaryFrames[0] = -1;
+			this.secondaryFrames = new int[1];
+			this.secondaryFrames[0] = -1;
+			this.frameDelay = new int[1];
+			this.frameDelay[0] = -1;
+		}
+	}
+
+	public String toJagConfig() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("[seq_").append(this.id).append("]\n");
+
+		if (this.framecount != 0) {
+			builder.append("framecount=").append(this.framecount).append("\n");
+		}
+
+		if (this.priority != 5) {
+			builder.append("priority=").append(this.priority).append("\n");
+		}
+
+		if (this.replayoff != -1) {
+			builder.append("replayoff=").append(this.replayoff).append("\n");
+		}
+
+		if (this.stretches) {
+			builder.append("stretches=yes\n");
+		}
+
+		if (this.replaycount != 99) {
+			builder.append("replaycount=").append(this.replaycount).append("\n");
+		}
+
+		if (this.mainhand != -1) {
+			builder.append("mainhand=").append(this.mainhand).append("\n");
+		}
+
+		if (this.offhand != -1) {
+			builder.append("offhand=").append(this.offhand).append("\n");
+		}
+
+		// not real names, these might be able to go into a "framegroup" definition
+		if (this.framecount != 0) {
+			for (int i = 0; i < this.primaryFrames.length; ++i) {
+				if (this.primaryFrames[i] == -1) {
+					continue;
+				}
+
+				builder.append("frame").append(i + 1).append("=").append(this.primaryFrames[i]).append("\n");
+			}
+
+			for (int i = 0; i < this.secondaryFrames.length; ++i) {
+				if (this.secondaryFrames[i] == -1) {
+					continue;
+				}
+
+				builder.append("frame_b").append(i + 1).append("=").append(this.secondaryFrames[i]).append("\n");
+			}
+
+			for (int i = 0; i < this.frameDelay.length; ++i) {
+				if (this.frameDelay[i] == -1) {
+					continue;
+				}
+
+				builder.append("framedel").append(i + 1).append("=").append(this.frameDelay[i]).append("\n");
+			}
+		}
+
+		if (this.labelGroups != null) {
+			for (int i = 0; i < this.labelGroups.length; ++i) {
+				if (this.labelGroups[i] == 9999999) {
+					continue;
+				}
+
+				builder.append("label").append(i + 1).append("=").append(this.labelGroups[i]).append("\n");
+			}
+		}
+
+		return builder.toString();
 	}
 
 	@OriginalMember(owner = "client!jc", name = "a", descriptor = "Z")

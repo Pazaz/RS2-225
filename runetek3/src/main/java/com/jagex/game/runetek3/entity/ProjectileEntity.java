@@ -135,7 +135,7 @@ public class ProjectileEntity extends Entity {
 		while (this.frameCycle > this.spotAnim.seq.frameDelay[this.seqFrame]) {
 			this.frameCycle -= this.spotAnim.seq.frameDelay[this.seqFrame] + 1;
 			this.seqFrame++;
-			if (this.seqFrame >= this.spotAnim.seq.frameCount) {
+			if (this.seqFrame >= this.spotAnim.seq.framecount) {
 				this.seqFrame = 0;
 			}
 		}

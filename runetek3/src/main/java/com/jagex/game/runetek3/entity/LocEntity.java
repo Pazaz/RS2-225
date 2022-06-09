@@ -41,8 +41,8 @@ public class LocEntity extends Node {
 		this.z = z;
 		this.locIndex = locIndex;
 		this.seq = seq;
-		if (animated && seq.delay != -1) {
-			this.seqFrame = (int) (Math.random() * (double) this.seq.frameCount);
+		if (animated && seq.replayoff != -1) {
+			this.seqFrame = (int) (Math.random() * (double) this.seq.framecount);
 			this.seqDelay = (int) (Math.random() * (double) this.seq.frameDelay[this.seqFrame]);
 		} else {
 			this.seqFrame = -1;

@@ -4785,11 +4785,11 @@ public class client extends GameShell {
 		if (arg1.secondarySeq != -1) {
 			local16 = SeqType.instances[arg1.secondarySeq];
 			arg1.secondarySeqCycle++;
-			if (arg1.secondarySeqFrame < local16.frameCount && arg1.secondarySeqCycle > local16.frameDelay[arg1.secondarySeqFrame]) {
+			if (arg1.secondarySeqFrame < local16.framecount && arg1.secondarySeqCycle > local16.frameDelay[arg1.secondarySeqFrame]) {
 				arg1.secondarySeqCycle = 0;
 				arg1.secondarySeqFrame++;
 			}
-			if (arg1.secondarySeqFrame >= local16.frameCount) {
+			if (arg1.secondarySeqFrame >= local16.framecount) {
 				arg1.secondarySeqCycle = 0;
 				arg1.secondarySeqFrame = 0;
 			}
@@ -4797,21 +4797,21 @@ public class client extends GameShell {
 		if (arg1.primarySeq != -1 && arg1.primarySeqDelay == 0) {
 			local16 = SeqType.instances[arg1.primarySeq];
 			arg1.primarySeqCycle++;
-			while (arg1.primarySeqFrame < local16.frameCount && arg1.primarySeqCycle > local16.frameDelay[arg1.primarySeqFrame]) {
+			while (arg1.primarySeqFrame < local16.framecount && arg1.primarySeqCycle > local16.frameDelay[arg1.primarySeqFrame]) {
 				arg1.primarySeqCycle -= local16.frameDelay[arg1.primarySeqFrame];
 				arg1.primarySeqFrame++;
 			}
-			if (arg1.primarySeqFrame >= local16.frameCount) {
-				arg1.primarySeqFrame -= local16.delay;
+			if (arg1.primarySeqFrame >= local16.framecount) {
+				arg1.primarySeqFrame -= local16.replayoff;
 				arg1.primarySeqPlays++;
-				if (arg1.primarySeqPlays >= local16.replays) {
+				if (arg1.primarySeqPlays >= local16.replaycount) {
 					arg1.primarySeq = -1;
 				}
-				if (arg1.primarySeqFrame < 0 || arg1.primarySeqFrame >= local16.frameCount) {
+				if (arg1.primarySeqFrame < 0 || arg1.primarySeqFrame >= local16.framecount) {
 					arg1.primarySeq = -1;
 				}
 			}
-			arg1.animationStretches = local16.renderPadding;
+			arg1.animationStretches = local16.stretches;
 		}
 		if (arg1.primarySeqDelay > 0) {
 			arg1.primarySeqDelay--;
@@ -4824,12 +4824,12 @@ public class client extends GameShell {
 		}
 		local16 = SpotAnimType.instances[arg1.spotAnimIndex].seq;
 		arg1.spotAnimCycle++;
-		while (arg1.spotAnimFrame < local16.frameCount && arg1.spotAnimCycle > local16.frameDelay[arg1.spotAnimFrame]) {
+		while (arg1.spotAnimFrame < local16.framecount && arg1.spotAnimCycle > local16.frameDelay[arg1.spotAnimFrame]) {
 			arg1.spotAnimCycle -= local16.frameDelay[arg1.spotAnimFrame];
 			arg1.spotAnimFrame++;
 		}
-		if (arg1.spotAnimFrame >= local16.frameCount) {
-			if (arg1.spotAnimFrame < 0 || arg1.spotAnimFrame >= local16.frameCount) {
+		if (arg1.spotAnimFrame >= local16.framecount) {
+			if (arg1.spotAnimFrame < 0 || arg1.spotAnimFrame >= local16.framecount) {
 				arg1.spotAnimIndex = -1;
 			}
 		}
@@ -8228,9 +8228,9 @@ public class client extends GameShell {
 					while (child.seqCycle > local71.frameDelay[child.seqFrame]) {
 						child.seqCycle -= local71.frameDelay[child.seqFrame] + 1;
 						child.seqFrame++;
-						if (child.seqFrame >= local71.frameCount) {
-							child.seqFrame -= local71.delay;
-							if (child.seqFrame < 0 || child.seqFrame >= local71.frameCount) {
+						if (child.seqFrame >= local71.framecount) {
+							child.seqFrame -= local71.replayoff;
+							if (child.seqFrame < 0 || child.seqFrame >= local71.framecount) {
 								child.seqFrame = 0;
 							}
 						}
@@ -9230,9 +9230,9 @@ public class client extends GameShell {
 						e.seqDelay -= e.seq.frameDelay[e.seqFrame] + 1;
 						e.seqFrame++;
 						local14 = true;
-					} while (e.seqFrame < e.seq.frameCount);
-					e.seqFrame -= e.seq.delay;
-				} while (e.seqFrame >= 0 && e.seqFrame < e.seq.frameCount);
+					} while (e.seqFrame < e.seq.framecount);
+					e.seqFrame -= e.seq.replayoff;
+				} while (e.seqFrame >= 0 && e.seqFrame < e.seq.framecount);
 				e.unlink();
 				local14 = false;
 			}

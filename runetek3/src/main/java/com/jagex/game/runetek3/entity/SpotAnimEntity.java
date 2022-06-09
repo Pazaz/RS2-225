@@ -59,8 +59,8 @@ public class SpotAnimEntity extends Entity {
 					}
 					this.frameCycle -= this.spotanim.seq.frameDelay[this.seqFrame] + 1;
 					this.seqFrame++;
-				} while (this.seqFrame < this.spotanim.seq.frameCount);
-			} while (this.seqFrame >= 0 && this.seqFrame < this.spotanim.seq.frameCount);
+				} while (this.seqFrame < this.spotanim.seq.framecount);
+			} while (this.seqFrame >= 0 && this.seqFrame < this.spotanim.seq.framecount);
 			this.seqFrame = 0;
 			this.finished = true;
 		}

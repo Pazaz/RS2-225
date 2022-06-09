@@ -236,12 +236,12 @@ public class PlayerEntity extends PathingEntity {
 			if (super.secondarySeq >= 0 && super.secondarySeq != super.standSeq) {
 				local8 = SeqType.instances[super.secondarySeq].primaryFrames[super.secondarySeqFrame];
 			}
-			if (local23.shieldOverride >= 0) {
-				local10 = local23.shieldOverride;
+			if (local23.mainhand >= 0) {
+				local10 = local23.mainhand;
 				local4 += local10 - this.body[5] << 8;
 			}
-			if (local23.weaponOverride >= 0) {
-				local12 = local23.weaponOverride;
+			if (local23.offhand >= 0) {
+				local12 = local23.offhand;
 				local4 += local12 - this.body[3] << 16;
 			}
 		} else if (super.secondarySeq >= 0) {
