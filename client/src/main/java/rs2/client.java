@@ -2428,7 +2428,7 @@ public class client extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(IIILclient!hc;III)V")
 	private void updateInterface(@OriginalArg(3) Component parent, @OriginalArg(1) int mx, @OriginalArg(0) int my, @OriginalArg(5) int px, @OriginalArg(2) int py, @OriginalArg(6) int scrollY) {
-		if (parent.type != 0 || parent.children == null || parent.hidden) {
+		if (parent.type != 0 || parent.children == null || parent.hide) {
 			return;
 		}
 
@@ -2446,23 +2446,23 @@ public class client extends GameShell {
 			cx += child.x;
 			cy += child.y;
 
-			if ((child.hoverParentIndex >= 0 || child.hoverColor != 0) && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
-				if (child.hoverParentIndex >= 0) {
-					this.hoveredInterfaceIndex = child.hoverParentIndex;
+			if ((child.overlayer >= 0 || child.overcolour != 0) && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
+				if (child.overlayer >= 0) {
+					this.hoveredInterfaceIndex = child.overlayer;
 				} else {
 					this.hoveredInterfaceIndex = child.id;
 				}
 			}
 
-			if (child.type == Component.TYPE_PARENT) {
+			if (child.type == Component.IFTYPE_LAYER) {
 				this.updateInterface(child, mx, my, cx, cy, child.scrollY);
 				if (child.scrollHeight > child.height) {
 					this.updateInterfaceScrollbar(mx, my, child.scrollHeight, child.height, true, cx + child.width, cy, child);
 				}
 			} else {
-				if (child.buttonType == Component.BUTTON && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
+				if (child.buttontype == Component.BUTTON && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
 					@Pc(176) boolean flag = false;
-					if (child.clientCode != 0) {
+					if (child.clientcode != 0) {
 						flag = this.updateInterfaceTooltip(child);
 					}
 					if (!flag) {
@@ -2473,7 +2473,7 @@ public class client extends GameShell {
 					}
 				}
 
-				if (child.buttonType == Component.TARGET_BUTTON && this.selectedSpell == 0 && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
+				if (child.buttontype == Component.TARGET_BUTTON && this.selectedSpell == 0 && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
 					@Pc(240) String circumfix = child.optionCircumfix;
 					if (circumfix.contains(" ")) {
 						circumfix = circumfix.substring(0, circumfix.indexOf(" "));
@@ -2484,35 +2484,35 @@ public class client extends GameShell {
 					this.optionCount++;
 				}
 
-				if (child.buttonType == Component.CLOSE_BUTTON && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
+				if (child.buttontype == Component.CLOSE_BUTTON && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
 					this.options[this.optionCount] = "Close";
 					this.optionType[this.optionCount] = Cs1Actions.IF_CLOSEBUTTON;
 					this.optionParamC[this.optionCount] = child.id;
 					this.optionCount++;
 				}
 
-				if (child.buttonType == Component.TOGGLE_BUTTON && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
+				if (child.buttontype == Component.TOGGLE_BUTTON && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
 					this.options[this.optionCount] = child.option;
 					this.optionType[this.optionCount] = Cs1Actions.IF_TOGGLEBUTTON;
 					this.optionParamC[this.optionCount] = child.id;
 					this.optionCount++;
 				}
 
-				if (child.buttonType == Component.SELECT_BUTTON && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
+				if (child.buttontype == Component.SELECT_BUTTON && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
 					this.options[this.optionCount] = child.option;
 					this.optionType[this.optionCount] = Cs1Actions.IF_SELECTBUTTON;
 					this.optionParamC[this.optionCount] = child.id;
 					this.optionCount++;
 				}
 
-				if (child.buttonType == Component.PAUSE_BUTTON && !this.chatContinuingDialogue && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
+				if (child.buttontype == Component.PAUSE_BUTTON && !this.chatContinuingDialogue && mx >= cx && my >= cy && mx < cx + child.width && my < cy + child.height) {
 					this.options[this.optionCount] = child.option;
 					this.optionType[this.optionCount] = Cs1Actions.IF_PAUSEBUTTON;
 					this.optionParamC[this.optionCount] = child.id;
 					this.optionCount++;
 				}
 
-				if (child.type == Component.TYPE_INVENTORY) {
+				if (child.type == Component.IFTYPE_INVENTORY) {
 					@Pc(488) int slot = 0;
 					for (@Pc(490) int slotY = 0; slotY < child.height; slotY++) {
 						for (@Pc(494) int slotX = 0; slotX < child.width; slotX++) {
@@ -2689,7 +2689,7 @@ public class client extends GameShell {
 		this.reportAbuseMuteToggle = false;
 
 		for (@Pc(186) int opened = 0; opened < Component.instances.length; opened++) {
-			if (Component.instances[opened] != null && Component.instances[opened].clientCode == 600) {
+			if (Component.instances[opened] != null && Component.instances[opened].clientcode == 600) {
 				this.openInterfaceId = this.viewportInterfaceIndex = Component.instances[opened].parent;
 				return;
 			}
@@ -4185,11 +4185,11 @@ public class client extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(IIILclient!hc;I)V")
 	private void drawInterface(@OriginalArg(0) int parentY, @OriginalArg(1) int parentX, @OriginalArg(3) Component parent, @OriginalArg(4) int offsetY) {
-		if (parent.type != Component.TYPE_PARENT || parent.children == null) {
+		if (parent.type != Component.IFTYPE_LAYER || parent.children == null) {
 			return;
 		}
 
-		if (parent.hidden && this.viewportHoveredInterfaceIndex != parent.id && this.sidebarHoveredInterfaceIndex != parent.id && this.chatHoveredInterfaceIndex != parent.id) {
+		if (parent.hide && this.viewportHoveredInterfaceIndex != parent.id && this.sidebarHoveredInterfaceIndex != parent.id && this.chatHoveredInterfaceIndex != parent.id) {
 			return;
 		}
 
@@ -4207,11 +4207,11 @@ public class client extends GameShell {
 			@Pc(84) Component child = Component.instances[parent.children[i]];
 			@Pc(89) int childX = x + child.x;
 			@Pc(94) int childY = y + child.y;
-			if (child.clientCode > 0) {
+			if (child.clientcode > 0) {
 				this.updateComponentContent(child);
 			}
 
-			if (child.type == Component.TYPE_PARENT) {
+			if (child.type == Component.IFTYPE_LAYER) {
 				if (child.scrollY > child.scrollHeight - child.height) {
 					child.scrollY = child.scrollHeight - child.height;
 				}
@@ -4225,7 +4225,7 @@ public class client extends GameShell {
 				if (child.scrollHeight > child.height) {
 					this.drawScrollbar(childX + child.width, childY, child.scrollY, child.scrollHeight, child.height);
 				}
-			} else if (child.type == Component.TYPE_INVENTORY) {
+			} else if (child.type == Component.IFTYPE_INVENTORY) {
 				int slot = 0;
 				for (int row = 0; row < child.height; row++) {
 					for (int column = 0; column < child.width; column++) {
@@ -4281,31 +4281,31 @@ public class client extends GameShell {
 						slot++;
 					}
 				}
-			} else if (child.type == Component.TYPE_RECT) {
+			} else if (child.type == Component.IFTYPE_RECTANGLE) {
 				if (child.fill) {
-					Draw2D.fillRect(childX, childY, child.width, child.height, child.color);
+					Draw2D.fillRect(childX, childY, child.width, child.height, child.colour);
 				} else {
-					Draw2D.drawRect(childX, childY, child.width, child.height, child.color);
+					Draw2D.drawRect(childX, childY, child.width, child.height, child.colour);
 				}
-			} else if (child.type == Component.TYPE_TEXT) {
+			} else if (child.type == Component.IFTYPE_TEXT) {
 				Font font = child.font;
-				int color = child.color;
+				int color = child.colour;
 
 				@Pc(462) String text = child.text;
-				if ((this.chatHoveredInterfaceIndex == child.id || this.sidebarHoveredInterfaceIndex == child.id || this.viewportHoveredInterfaceIndex == child.id) && child.hoverColor != 0) {
-					color = child.hoverColor;
+				if ((this.chatHoveredInterfaceIndex == child.id || this.sidebarHoveredInterfaceIndex == child.id || this.viewportHoveredInterfaceIndex == child.id) && child.overcolour != 0) {
+					color = child.overcolour;
 				}
 
 				if (this.isInterfaceEnabled(child)) {
-					color = child.colorEnabled;
-					if (child.activeText.length() > 0) {
-						text = child.activeText;
+					color = child.activecolour;
+					if (child.activetext.length() > 0) {
+						text = child.activetext;
 					}
 				}
 
-				if (child.buttonType == Component.PAUSE_BUTTON && this.chatContinuingDialogue) {
+				if (child.buttontype == Component.PAUSE_BUTTON && this.chatContinuingDialogue) {
 					text = "Please wait...";
-					color = child.color;
+					color = child.colour;
 				}
 
 				drawY = childY + font.fontHeight;
@@ -4350,42 +4350,42 @@ public class client extends GameShell {
 						text = text.substring(newline + 2);
 					}
 
-					if (child.center) {
-						font.drawCentered(str, childX + child.width / 2, drawY, color, child.shadow);
+					if (child.halign) {
+						font.drawCentered(str, childX + child.width / 2, drawY, color, child.shadowed);
 					} else {
-						font.draw(str, childX, drawY, color, child.shadow);
+						font.draw(str, childX, drawY, color, child.shadowed);
 					}
 
 					drawY += font.fontHeight;
 				}
-			} else if (child.type == Component.TYPE_SPRITE) {
+			} else if (child.type == Component.IFTYPE_GRAPHIC) {
 				@Pc(766) Sprite sprite;
 
 				if (this.isInterfaceEnabled(child)) {
-					sprite = child.activeSprite;
+					sprite = child.activegraphic;
 				} else {
-					sprite = child.sprite;
+					sprite = child.graphic;
 				}
 
 				if (sprite != null) {
 					sprite.draw(childX, childY);
 				}
-			} else if (child.type == Component.TYPE_MODEL) {
+			} else if (child.type == Component.IFTYPE_MODEL) {
 				int centerX = Draw3D.centerX3D;
 				int centerY = Draw3D.centerY3D;
 
 				Draw3D.centerX3D = childX + child.width / 2;
 				Draw3D.centerY3D = childY + child.height / 2;
 
-				int camY = Draw3D.sin[child.modelEyePitch] * child.modelZoom >> 16;
-				int camZ = Draw3D.cos[child.modelEyePitch] * child.modelZoom >> 16;
+				int camY = Draw3D.sin[child.xan] * child.zoom >> 16;
+				int camZ = Draw3D.cos[child.xan] * child.zoom >> 16;
 
 				@Pc(827) boolean useActiveSeq = this.isInterfaceEnabled(child);
 				int seqId;
 				if (useActiveSeq) {
-					seqId = child.activeSeqId;
+					seqId = child.activeanim;
 				} else {
-					seqId = child.seqId;
+					seqId = child.anim;
 				}
 
 				@Pc(846) Model m;
@@ -4397,12 +4397,12 @@ public class client extends GameShell {
 				}
 
 				if (m != null) {
-					m.draw(child.modelYaw, 0, child.modelEyePitch, 0, camY, camZ);
+					m.draw(child.yan, 0, child.xan, 0, camY, camZ);
 				}
 
 				Draw3D.centerX3D = centerX;
 				Draw3D.centerY3D = centerY;
-			} else if (child.type == Component.TYPE_INVENTORY_TEXT) {
+			} else if (child.type == Component.IFTYPE_INVENTORY_TEXT) {
 				Font font = child.font;
 
 				int slot = 0;
@@ -4418,10 +4418,10 @@ public class client extends GameShell {
 							int dx = childX + column * (child.inventoryMarginX + 115);
 							int dy = childY + row * (child.inventoryMarginY + 12);
 
-							if (child.center) {
-								font.drawCentered(name, dx + child.width / 2, dy, child.color, child.shadow);
+							if (child.halign) {
+								font.drawCentered(name, dx + child.width / 2, dy, child.colour, child.shadowed);
 							} else {
-								font.draw(name, dx, dy, child.color, child.shadow);
+								font.draw(name, dx, dy, child.colour, child.shadowed);
 							}
 						}
 
@@ -5513,7 +5513,7 @@ public class client extends GameShell {
 			local1429 = Component.instances[b];
 
 			@Pc(1513) boolean local1513 = true;
-			if (local1429.clientCode > 0) {
+			if (local1429.clientcode > 0) {
 				local1513 = this.handleComponentAction(local1429);
 			}
 
@@ -5640,7 +5640,7 @@ public class client extends GameShell {
 				this.reportInput = local48.substring(local52 + 5).trim();
 				this.reportAbuseMuteToggle = false;
 				for (@Pc(1957) int local1957 = 0; local1957 < Component.instances.length; local1957++) {
-					if (Component.instances[local1957] != null && Component.instances[local1957].clientCode == 600) {
+					if (Component.instances[local1957] != null && Component.instances[local1957].clientcode == 600) {
 						this.openInterfaceId = this.viewportInterfaceIndex = Component.instances[local1957].parent;
 						break;
 					}
@@ -5809,21 +5809,21 @@ public class client extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ILclient!hc;)V")
 	private void updateComponentContent(@OriginalArg(1) Component parent) {
-		@Pc(4) int type = parent.clientCode;
+		@Pc(4) int type = parent.clientcode;
 		if (type >= 1 && type <= 100) {
 			type--;
 			if (type >= this.friendCount) {
 				parent.text = "";
-				parent.buttonType = Component.NO_BUTTON;
+				parent.buttontype = Component.NO_BUTTON;
 			} else {
 				parent.text = this.friendName[type];
-				parent.buttonType = Component.BUTTON;
+				parent.buttontype = Component.BUTTON;
 			}
 		} else if (type >= 101 && type <= 200) {
 			type -= 101;
 			if (type >= this.friendCount) {
 				parent.text = "";
-				parent.buttonType = Component.NO_BUTTON;
+				parent.buttontype = Component.NO_BUTTON;
 			} else {
 				if (this.friendWorld[type] == 0) {
 					parent.text = "@red@Offline";
@@ -5832,7 +5832,7 @@ public class client extends GameShell {
 				} else {
 					parent.text = "@yel@World-" + (this.friendWorld[type] - 9);
 				}
-				parent.buttonType = Component.BUTTON;
+				parent.buttontype = Component.BUTTON;
 			}
 		} else if (type == 203) {
 			parent.scrollHeight = this.friendCount * 15 + 20;
@@ -5843,10 +5843,10 @@ public class client extends GameShell {
 			type -= 401;
 			if (type >= this.ignoreCount) {
 				parent.text = "";
-				parent.buttonType = Component.NO_BUTTON;
+				parent.buttontype = Component.NO_BUTTON;
 			} else {
 				parent.text = StringUtils.formatName(StringUtils.fromBase37(this.ignoreName37[type]));
-				parent.buttonType = Component.BUTTON;
+				parent.buttontype = Component.BUTTON;
 			}
 		} else if (type == 503) {
 			parent.scrollHeight = this.ignoreCount * 15 + 20;
@@ -5854,8 +5854,8 @@ public class client extends GameShell {
 				parent.scrollHeight = parent.height + 1;
 			}
 		} else if (type == 327) {
-			parent.modelEyePitch = 150;
-			parent.modelYaw = (int) (Math.sin((double) clientClock / 40.0D) * 256.0D) & 0x7FF;
+			parent.xan = 150;
+			parent.yan = (int) (Math.sin((double) clientClock / 40.0D) * 256.0D) & 0x7FF;
 			if (this.characterDesignUpdate) {
 				this.characterDesignUpdate = false;
 				@Pc(209) Model[] local209 = new Model[7];
@@ -5878,27 +5878,27 @@ public class client extends GameShell {
 				local241.applyGroup();
 				local241.applyFrame(SeqType.instances[this.self.standSeq].primaryFrames[0]);
 				local241.applyLighting(64, 850, -30, -50, -30, true);
-				parent.modelDisabled = local241;
+				parent.model = local241;
 			}
 		} else if (type == 324) {
 			if (this.sprite == null) {
-				this.sprite = parent.sprite;
-				this.spriteActive = parent.activeSprite;
+				this.sprite = parent.graphic;
+				this.spriteActive = parent.activegraphic;
 			}
 			if (this.characterDesignIsMale) {
-				parent.sprite = this.spriteActive;
+				parent.graphic = this.spriteActive;
 			} else {
-				parent.sprite = this.sprite;
+				parent.graphic = this.sprite;
 			}
 		} else if (type == 325) {
 			if (this.sprite == null) {
-				this.sprite = parent.sprite;
-				this.spriteActive = parent.activeSprite;
+				this.sprite = parent.graphic;
+				this.spriteActive = parent.activegraphic;
 			}
 			if (this.characterDesignIsMale) {
-				parent.sprite = this.sprite;
+				parent.graphic = this.sprite;
 			} else {
-				parent.sprite = this.spriteActive;
+				parent.graphic = this.spriteActive;
 			}
 		} else if (type == 600) {
 			parent.text = this.reportInput;
@@ -5912,10 +5912,10 @@ public class client extends GameShell {
 				if (!this.rights) {
 					parent.text = "";
 				} else if (this.reportAbuseMuteToggle) {
-					parent.color = 0xff0000;
+					parent.colour = 0xff0000;
 					parent.text = "Moderator option: Mute player for 48 hours: <ON>";
 				} else {
-					parent.color = 0xffffff;
+					parent.colour = 0xffffff;
 					parent.text = "Moderator option: Mute player for 48 hours: <OFF>";
 				}
 			}
@@ -5937,15 +5937,15 @@ public class client extends GameShell {
 			if (type == 651) {
 				if (this.unreadMessageCount == 0) {
 					parent.text = "0 unread messages";
-					parent.color = 0xffff00;
+					parent.colour = 0xffff00;
 				}
 				if (this.unreadMessageCount == 1) {
 					parent.text = "1 unread message";
-					parent.color = 0xff00;
+					parent.colour = 0xff00;
 				}
 				if (this.unreadMessageCount > 1) {
 					parent.text = this.unreadMessageCount + " unread messages";
-					parent.color = 0xff00;
+					parent.colour = 0xff00;
 				}
 			}
 			if (type == 652) {
@@ -6050,7 +6050,7 @@ public class client extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ZLclient!hc;)Z")
 	private boolean handleComponentAction(@OriginalArg(1) Component parent) {
-		@Pc(4) int type = parent.clientCode;
+		@Pc(4) int type = parent.clientcode;
 		if (type == 201) {
 			this.redrawChatback = true;
 			this.chatbackInputType = false;
@@ -8211,16 +8211,16 @@ public class client extends GameShell {
 		@Pc(7) Component parent = Component.instances[arg0];
 		for (@Pc(9) int local9 = 0; local9 < parent.children.length && parent.children[local9] != -1; local9++) {
 			@Pc(24) Component child = Component.instances[parent.children[local9]];
-			if (child.type == Component.TYPE_UNUSED) {
+			if (child.type == Component.IFTYPE_UNUSED) {
 				local3 |= this.animateInterface(child.id, arg1);
 			}
-			if (child.type == Component.TYPE_MODEL && (child.seqId != -1 || child.activeSeqId != -1)) {
+			if (child.type == Component.IFTYPE_MODEL && (child.anim != -1 || child.activeanim != -1)) {
 				@Pc(54) boolean local54 = this.isInterfaceEnabled(child);
 				@Pc(59) int local59;
 				if (local54) {
-					local59 = child.activeSeqId;
+					local59 = child.activeanim;
 				} else {
-					local59 = child.seqId;
+					local59 = child.anim;
 				}
 				if (local59 != -1) {
 					@Pc(71) SeqType local71 = SeqType.instances[local59];
@@ -8266,7 +8266,7 @@ public class client extends GameShell {
 		@Pc(3) Component parent = Component.instances[arg0];
 		for (@Pc(5) int local5 = 0; local5 < parent.children.length && parent.children[local5] != -1; local5++) {
 			@Pc(20) Component child = Component.instances[parent.children[local5]];
-			if (child.type == Component.TYPE_UNUSED) {
+			if (child.type == Component.IFTYPE_UNUSED) {
 				this.resetParentComponentSeq(child.id);
 			}
 			child.seqFrame = 0;
@@ -8654,7 +8654,7 @@ public class client extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(Lclient!hc;B)Z")
 	private boolean updateInterfaceTooltip(@OriginalArg(0) Component parent) {
-		@Pc(2) int type = parent.clientCode;
+		@Pc(2) int type = parent.clientcode;
 		if (type >= 1 && type <= 200) {
 			if (type >= 101) {
 				type -= 101;
@@ -9994,7 +9994,7 @@ public class client extends GameShell {
 			}
 			if (this.packetOpcode == ServerProt.IF_SETPLAYERHEAD) {
 				int component = this.inBuffer.g2();
-				Component.instances[component].modelDisabled = this.self.getHeadModel();
+				Component.instances[component].model = this.self.getHeadModel();
 				this.packetOpcode = -1;
 				return true;
 			}
@@ -10121,7 +10121,7 @@ public class client extends GameShell {
 			}
 			if (this.packetOpcode == ServerProt.IF_SETANIM) {
 				int component = this.inBuffer.g2();
-				Component.instances[component].seqId = this.inBuffer.g2();
+				Component.instances[component].anim = this.inBuffer.g2();
 				this.packetOpcode = -1;
 				return true;
 			}
@@ -10226,7 +10226,7 @@ public class client extends GameShell {
 					this.reportInput = "";
 					this.reportAbuseMuteToggle = false;
 					for (int i = 0; i < Component.instances.length; i++) {
-						if (Component.instances[i] != null && Component.instances[i].clientCode == clientCode) {
+						if (Component.instances[i] != null && Component.instances[i].clientcode == clientCode) {
 							this.viewportInterfaceIndex = Component.instances[i].parent;
 							break;
 						}
@@ -10283,7 +10283,7 @@ public class client extends GameShell {
 				int componentId = this.inBuffer.g2();
 				int npcId = this.inBuffer.g2();
 				@Pc(2130) NpcType npcType = NpcType.get(npcId);
-				Component.instances[componentId].modelDisabled = npcType.getHeadModel();
+				Component.instances[componentId].model = npcType.getHeadModel();
 				this.packetOpcode = -1;
 				return true;
 			}
@@ -10298,7 +10298,7 @@ public class client extends GameShell {
 				int recol_s = this.inBuffer.g2();
 				int recol_d = this.inBuffer.g2();
 				Component component = Component.instances[componentId];
-				@Pc(2184) Model m = component.modelDisabled;
+				@Pc(2184) Model m = component.model;
 				if (m != null) {
 					m.recolor(recol_s, recol_d);
 				}
@@ -10464,7 +10464,7 @@ public class client extends GameShell {
 			if (this.packetOpcode == ServerProt.IF_SETMODEL) {
 				int componentId = this.inBuffer.g2();
 				int modelId = this.inBuffer.g2();
-				Component.instances[componentId].modelDisabled = new Model(modelId);
+				Component.instances[componentId].model = new Model(modelId);
 				this.packetOpcode = -1;
 				return true;
 			}
@@ -10556,10 +10556,10 @@ public class client extends GameShell {
 				int objId = this.inBuffer.g2();
 				int zoom = this.inBuffer.g2();
 				@Pc(3157) ObjType objType = ObjType.get(objId);
-				Component.instances[componentId].modelDisabled = objType.getModel(50);
-				Component.instances[componentId].modelEyePitch = objType.xan2d;
-				Component.instances[componentId].modelYaw = objType.yan2d;
-				Component.instances[componentId].modelZoom = objType.zoom2d * 100 / zoom;
+				Component.instances[componentId].model = objType.getModel(50);
+				Component.instances[componentId].xan = objType.xan2d;
+				Component.instances[componentId].yan = objType.yan2d;
+				Component.instances[componentId].zoom = objType.zoom2d * 100 / zoom;
 				this.packetOpcode = -1;
 				return true;
 			}
@@ -10590,7 +10590,7 @@ public class client extends GameShell {
 				int r = color >> 10 & 0x1F;
 				int g = color >> 5 & 0x1F;
 				int b = color & 0x1F;
-				Component.instances[componentId].color = (r << 19) + (g << 11) + (b << 3);
+				Component.instances[componentId].colour = (r << 19) + (g << 11) + (b << 3);
 				this.packetOpcode = -1;
 				return true;
 			}
@@ -10611,7 +10611,7 @@ public class client extends GameShell {
 			if (this.packetOpcode == ServerProt.IF_SETHIDE) {
 				int componentId = this.inBuffer.g2();
 				@Pc(3362) boolean hidden = this.inBuffer.g1() == 1;
-				Component.instances[componentId].hidden = hidden;
+				Component.instances[componentId].hide = hidden;
 				this.packetOpcode = -1;
 				return true;
 			}

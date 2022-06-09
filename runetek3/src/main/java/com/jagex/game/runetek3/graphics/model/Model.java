@@ -261,6 +261,8 @@ public class Model extends CacheableNode {
 	@OriginalMember(owner = "client!eb", name = "B", descriptor = "[I")
 	public int[] unmodifiedTriangleColor;
 
+	public int id;
+
 	@OriginalMember(owner = "client!eb", name = "a", descriptor = "(Z)V")
 	public static void unload() {
 		metadata = null;
@@ -432,6 +434,8 @@ public class Model extends CacheableNode {
 
 	@OriginalMember(owner = "client!eb", name = "<init>", descriptor = "(ZI)V")
 	public Model(@OriginalArg(1) int id) {
+		this.id = id;
+
 		if (metadata != null) {
 			@Pc(28) Metadata meta = metadata[id];
 			if (meta == null) {
