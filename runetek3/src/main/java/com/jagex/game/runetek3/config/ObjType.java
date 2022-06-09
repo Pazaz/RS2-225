@@ -573,11 +573,7 @@ public class ObjType {
 		if (this.certlink != -1) {
 			builder.append("cert_");
 		}
-		if (this.identifier != null) {
-			builder.append(this.identifier).append("]\n");
-		} else {
-			builder.append("obj_").append(this.id).append("]\n");
-		}
+		builder.append("obj_").append(this.id).append("]\n");
 
 		if (this.certlink != -1) {
 			builder.append("certlink=obj_").append(this.certlink).append("\n");

@@ -119,6 +119,8 @@ public class VarpType {
 
 		builder.append("[varp_").append(this.id).append("]\n");
 
+		builder.append("clientcode=").append(this.clientcode).append("\n");
+
 //		if (opcode1 != 0) {
 //			builder.append("opcode1=").append(this.opcode1).append("\n");
 //		}
@@ -134,10 +136,6 @@ public class VarpType {
 //		if (!opcode4) {
 //			builder.append("opcode4=no\n");
 //		}
-
-		if (clientcode != 0) {
-			builder.append("clientcode=").append(this.clientcode).append("\n");
-		}
 
 //		if (opcode6) {
 //			builder.append("opcode6=yes\n");

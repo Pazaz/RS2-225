@@ -96,8 +96,6 @@ public class NpcType {
 	@OriginalMember(owner = "client!bc", name = "B", descriptor = "I")
 	private int resizez = 128;
 
-	public String identifier;
-
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(Lclient!ub;)V")
 	public static void decode(@OriginalArg(0) FileArchive arg0) {
 		dat = new Buffer(arg0.read("npc.dat", null));
@@ -280,11 +278,7 @@ public class NpcType {
 	public String toJagConfig() {
 		StringBuilder builder = new StringBuilder();
 
-		if (this.identifier != null) {
-			builder.append("[").append(this.identifier).append("]\n");
-		} else {
-			builder.append("[npc_").append(this.id).append("]\n");
-		}
+		builder.append("[npc_").append(this.id).append("]\n");
 
 		if (this.name != null) {
 			builder.append("name=").append(this.name).append("\n");
@@ -379,7 +373,7 @@ public class NpcType {
 		}
 
 		if (!this.visonmap) {
-			builder.append("visonmap=no").append("\n");
+			builder.append("visonmap=no\n");
 		}
 
 		return builder.toString();
