@@ -3975,7 +3975,7 @@ public class client extends GameShell {
 			this.characterDesigns[i] = -1;
 
 			for (@Pc(21) int j = 0; j < IdkType.count; j++) {
-				if (!IdkType.instances[j].validStyle && IdkType.instances[j].type == i + (this.characterDesignIsMale ? 0 : 7)) {
+				if (!IdkType.instances[j].disable && IdkType.instances[j].type == i + (this.characterDesignIsMale ? 0 : 7)) {
 					this.characterDesigns[i] = j;
 					break;
 				}
@@ -6108,7 +6108,7 @@ public class client extends GameShell {
 							local121 = 0;
 						}
 					}
-					if (!IdkType.instances[local121].validStyle && IdkType.instances[local121].type == local112 + (this.characterDesignIsMale ? 0 : 7)) {
+					if (!IdkType.instances[local121].disable && IdkType.instances[local121].type == local112 + (this.characterDesignIsMale ? 0 : 7)) {
 						this.characterDesigns[local112] = local121;
 						this.characterDesignUpdate = true;
 						break;

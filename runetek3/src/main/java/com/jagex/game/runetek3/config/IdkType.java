@@ -18,7 +18,7 @@ public class IdkType {
 	public static IdkType[] instances;
 
 	@OriginalMember(owner = "client!gc", name = "g", descriptor = "[I")
-	private int[] modelIndices;
+	private int[] models;
 
 	@OriginalMember(owner = "client!gc", name = "f", descriptor = "I")
 	public int type = -1;
@@ -30,10 +30,12 @@ public class IdkType {
 	private final int[] recol_d = new int[6];
 
 	@OriginalMember(owner = "client!gc", name = "j", descriptor = "[I")
-	private final int[] headModelIndices = new int[] { -1, -1, -1, -1, -1 };
+	private final int[] headModels = new int[] { -1, -1, -1, -1, -1 };
 
 	@OriginalMember(owner = "client!gc", name = "k", descriptor = "Z")
-	public boolean validStyle = false;
+	public boolean disable = false;
+
+	public int id;
 
 	@OriginalMember(owner = "client!gc", name = "a", descriptor = "(Lclient!ub;I)V")
 	public static void decode(@OriginalArg(0) FileArchive archive) {
@@ -42,10 +44,13 @@ public class IdkType {
 		if (instances == null) {
 			instances = new IdkType[count];
 		}
+
 		for (@Pc(19) int i = 0; i < count; i++) {
 			if (instances[i] == null) {
 				instances[i] = new IdkType();
 			}
+
+			instances[i].id = i;
 			instances[i].decode(buffer);
 		}
 	}
@@ -74,22 +79,23 @@ public class IdkType {
 			if (opcode == 0) {
 				return;
 			}
+
 			if (opcode == 1) {
 				this.type = buffer.g1();
 			} else if (opcode == 2) {
 				@Pc(26) int count = buffer.g1();
-				this.modelIndices = new int[count];
+				this.models = new int[count];
 				for (@Pc(32) int i = 0; i < count; i++) {
-					this.modelIndices[i] = buffer.g2();
+					this.models[i] = buffer.g2();
 				}
 			} else if (opcode == 3) {
-				this.validStyle = true;
+				this.disable = true;
 			} else if (opcode >= 40 && opcode < 50) {
 				this.recol_s[opcode - 40] = buffer.g2();
 			} else if (opcode >= 50 && opcode < 60) {
 				this.recol_d[opcode - 50] = buffer.g2();
 			} else if (opcode >= 60 && opcode < 70) {
-				this.headModelIndices[opcode - 60] = buffer.g2();
+				this.headModels[opcode - 60] = buffer.g2();
 			} else {
 				System.out.println("Error unrecognised config code: " + opcode);
 			}
@@ -98,12 +104,12 @@ public class IdkType {
 
 	@OriginalMember(owner = "client!gc", name = "a", descriptor = "()Lclient!eb;")
 	public final Model getModel() {
-		if (this.modelIndices == null) {
+		if (this.models == null) {
 			return null;
 		}
-		@Pc(11) Model[] models = new Model[this.modelIndices.length];
-		for (@Pc(13) int i = 0; i < this.modelIndices.length; i++) {
-			models[i] = new Model(this.modelIndices[i]);
+		@Pc(11) Model[] models = new Model[this.models.length];
+		for (@Pc(13) int i = 0; i < this.models.length; i++) {
+			models[i] = new Model(this.models[i]);
 		}
 		@Pc(40) Model body;
 		if (models.length == 1) {
@@ -122,8 +128,8 @@ public class IdkType {
 		@Pc(4) Model[] models = new Model[5];
 		@Pc(6) int count = 0;
 		for (@Pc(8) int i = 0; i < 5; i++) {
-			if (this.headModelIndices[i] != -1) {
-				models[count++] = new Model(this.headModelIndices[i]);
+			if (this.headModels[i] != -1) {
+				models[count++] = new Model(this.headModels[i]);
 			}
 		}
 		@Pc(39) Model head = new Model(models, count);
@@ -131,6 +137,89 @@ public class IdkType {
 			head.recolor(this.recol_s[i], this.recol_d[i]);
 		}
 		return head;
+	}
+
+
+	public String toJagConfig() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("[idk_").append(this.id).append("]\n");
+
+		if (this.type != -1) {
+			String typeName = Integer.toString(this.type);
+			switch (this.type) {
+				case 0:
+					typeName = "BODYPART_MALE_HAIR";
+					break;
+				case 1:
+					typeName = "BODYPART_MALE_JAW";
+					break;
+				case 2:
+					typeName = "BODYPART_MALE_TORSO";
+					break;
+				case 3:
+					typeName = "BODYPART_MALE_ARMS";
+					break;
+				case 4:
+					typeName = "BODYPART_MALE_HANDS";
+					break;
+				case 5:
+					typeName = "BODYPART_MALE_LEGS";
+					break;
+				case 6:
+					typeName = "BODYPART_MALE_FEET";
+					break;
+				case 7:
+					typeName = "BODYPART_FEMALE_HAIR";
+					break;
+				// 8 is probably FEMALE_JAW but it isn't used
+				case 9:
+					typeName = "BODYPART_FEMALE_TORSO";
+					break;
+				case 10:
+					typeName = "BODYPART_FEMALE_ARMS";
+					break;
+				case 11:
+					typeName = "BODYPART_FEMALE_HANDS";
+					break;
+				case 12:
+					typeName = "BODYPART_FEMALE_LEGS";
+					break;
+				case 13:
+					typeName = "BODYPART_FEMALE_FEET";
+					break;
+			}
+			builder.append("bodypart=^").append(typeName).append("\n");
+		}
+
+		if (this.disable) {
+			builder.append("disable=yes\n");
+		}
+
+		if (this.models != null) {
+			for (int i = 0; i < this.models.length; ++i) {
+				builder.append("model").append(i + 1).append("=model_").append(this.models[i]).append("\n");
+			}
+		}
+
+		for (int i = 0; i < this.headModels.length; ++i) {
+			if (this.headModels[i] == -1) {
+				continue;
+			}
+
+			builder.append("head").append(i + 1).append("=model_").append(this.headModels[i]).append("\n");
+		}
+
+		for (int i = 0; i < this.recol_s.length; ++i) {
+			if (this.recol_s[i] == 0) {
+				continue;
+			}
+
+			builder.append("recol").append(i + 1).append("s=").append(this.recol_s[i]).append("\n");
+			builder.append("recol").append(i + 1).append("d=").append(this.recol_d[i]).append("\n");
+		}
+
+		return builder.toString();
 	}
 
 	@OriginalMember(owner = "client!gc", name = "a", descriptor = "I")
