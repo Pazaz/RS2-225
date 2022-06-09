@@ -26,19 +26,19 @@ public class ComponentDump {
             Component.decode(media, fonts, interfaces);
 
             // read ahead to generate a localized ID range
-            try {
-                int widget = 0;
-                for (int i = 0; i < Component.count; ++i) {
-                    Component parent = Component.instances[i];
-                    if (parent == null || parent.id != parent.parent) {
-                        continue;
-                    }
-                    parent.isWidget = true;
-                    parent.generateNewIds(widget++);
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+//            try {
+//                int widget = 0;
+//                for (int i = 0; i < Component.count; ++i) {
+//                    Component parent = Component.instances[i];
+//                    if (parent == null || parent.id != parent.parent) {
+//                        continue;
+//                    }
+//                    parent.isWidget = true;
+//                    parent.generateNewIds(widget++);
+//                }
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//            }
 
             // now dump using the new ID range
             try {
@@ -47,11 +47,11 @@ public class ComponentDump {
                 for (int i = 0; i < Component.count; ++i) {
                     Component parent = Component.instances[i];
                     // get top-level widgets
-                    if (parent == null || !parent.isWidget) {
+                    if (parent == null || parent.id != parent.parent) { // || !parent.isWidget) {
                         continue;
                     }
 
-                    PrintWriter out = new PrintWriter("dump/ifs/" + widget + ".if");
+                    PrintWriter out = new PrintWriter("dump/ifs/" + i + ".if");
                     out.print(parent.toJagConfig(widget));
                     out.close();
 

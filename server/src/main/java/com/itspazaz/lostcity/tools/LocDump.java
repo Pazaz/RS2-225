@@ -47,7 +47,7 @@ public class LocDump {
 //                if (conv != -1 && loc225[conv].name == null) {
 //                    loc225[conv].identifier = names[i];
 //                }
-                if (conv != -1 && names[i].toLowerCase().equals(names[i])) {
+                if (conv != -1 && conv < loc225.length && names[i].toLowerCase().equals(names[i])) {
                     loc225[conv].identifier = names[i];
                     count++;
                 }

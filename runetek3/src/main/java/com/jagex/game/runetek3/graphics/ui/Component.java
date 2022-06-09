@@ -225,8 +225,8 @@ public class Component {
 		@Pc(27) Buffer buffer = new Buffer(interfaces.read("data", null));
 		count = buffer.g2();
 		instances = new Component[count];
-		newIds = new int[count];
-		Arrays.fill(newIds, -1);
+		// newIds = new int[count];
+		// Arrays.fill(newIds, -1);
 
 		@Pc(29) int parent = -1;
 		while (true) {
@@ -506,30 +506,30 @@ public class Component {
 		}
 	}
 
-	public static int[] newIds;
-	public boolean isWidget = false;
+	// public static int[] newIds;
+	// public boolean isWidget = false;
 
 	public void generateNewIdsInner(int widgetId) {
 		if (this.type == IFTYPE_LAYER) {
 			for (int i = 0; i < this.children.length; ++i) {
 				Component child = instances[this.children[i]];
-				newIds[child.id] = lastChildId;
-				child.id = lastChildId;
-				lastChildId++;
+				// newIds[child.id] = lastChildId;
+				// child.id = lastChildId;
+				// lastChildId++;
 				child.generateNewIdsInner(widgetId);
 			}
 		}
 	}
 
 	public void generateNewIds(int id) {
-		newIds[this.id] = this.id;
-		this.id = id;
-		lastChildId = 0;
+		// newIds[this.id] = this.id;
+		// this.id = id;
+		// lastChildId = 0;
 		generateNewIdsInner(id);
 	}
 
 	public void componentToJagConfig(int widgetId, int layerId, StringBuilder builder) {
-		if (this.id != widgetId) {
+//		if (this.id != widgetId) {
 			String typeName = "";
 			switch (this.type) {
 				case 0:
@@ -610,13 +610,13 @@ public class Component {
 				builder.append("height=").append(this.height).append("\n");
 			}
 
-			if (widgetId != layerId) {
-				builder.append("layer=interface_").append(widgetId).append(":").append(layerId).append("\n");
+			if (layerId != parent && parent != this.id) {
+				builder.append("layer=interface_").append(layerId).append(":").append(this.parent).append("\n");
 			}
 
 			if (this.overlayer != -1) {
 				// todo: generate new ID -before- iterating through everything, links to another layer
-				builder.append("overlayer=interface_").append(widgetId).append(":").append(newIds[overlayer]).append("\n");
+				builder.append("overlayer=interface_").append(widgetId).append(":").append(overlayer).append("\n");
 			}
 
 			if (this.scriptCompareType != null) {
@@ -843,7 +843,7 @@ public class Component {
 					builder.append("invoption").append(i + 1).append("=").append(inventoryOptions[i]).append("\n");
 				}
 			}
-		}
+//		}
 
 		if (this.type == IFTYPE_LAYER) {
 			if (this.scrollHeight > 0) {
@@ -860,17 +860,17 @@ public class Component {
 			}
 
 			for (int i = 0; i < this.children.length; ++i) {
-				builder.append("[interface_").append(widgetId).append(":").append(lastChildId).append("]\n");
+				builder.append("[interface_").append(id).append(":").append(this.children[i]).append("]\n");
 				Component child = instances[this.children[i]];
-				newIds[child.id] = lastChildId;
-				child.id = lastChildId;
+//				newIds[child.id] = lastChildId;
+//				child.id = lastChildId;
 				if (this.childX[i] > 0) {
 					builder.append("x=").append(this.childX[i]).append("\n");
 				}
 				if (this.childY[i] > 0) {
 					builder.append("y=").append(this.childY[i]).append("\n");
 				}
-				lastChildId++;
+				// lastChildId++;
 				child.componentToJagConfig(widgetId, this.id, builder);
 			}
 		} else {
@@ -878,14 +878,15 @@ public class Component {
 		}
 	}
 
-	public static int lastChildId = 0;
+	// public static int lastChildId = 0;
 
 	public String toJagConfig(int id) {
 		StringBuilder builder = new StringBuilder();
 
-		newIds[this.id] = id;
-		this.id = id;
-		lastChildId = 0;
+		// newIds[this.id] = id;
+		// this.id = id;
+		// lastChildId = 0;
+		builder.append("[interface_").append(this.id).append("]\n");
 		componentToJagConfig(id, id, builder);
 
 		return builder.toString();
