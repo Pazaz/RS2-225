@@ -159,7 +159,7 @@ public class ObjType {
 		}
 
 		cache = new ObjType[10];
-		for (@Pc(51) int i = 0; i < 10; i++) {
+		for (@Pc(51) int i = 0; i < cache.length; i++) {
 			cache[i] = new ObjType();
 		}
 	}
@@ -175,7 +175,7 @@ public class ObjType {
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(I)Lclient!cc;")
 	public static ObjType get(@OriginalArg(0) int id) {
-		for (@Pc(1) int i = 0; i < 10; i++) {
+		for (@Pc(1) int i = 0; i < cache.length; i++) {
 			if (cache[i].id == id) {
 				return cache[i];
 			}

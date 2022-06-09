@@ -178,7 +178,7 @@ public class LocType {
 			offset += idx.g2();
 		}
 
-		cache = new LocType[count];
+		cache = new LocType[10]; // count];
 		for (@Pc(51) int i = 0; i < cache.length; i++) {
 			cache[i] = new LocType();
 		}

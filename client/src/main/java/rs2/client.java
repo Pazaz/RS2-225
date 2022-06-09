@@ -1735,11 +1735,11 @@ public class client extends GameShell {
 			}
 			if ((mask & 0x20) == 32) {
 				npc.info = NpcType.get(b.g2());
-				npc.runSeq = npc.info.walkSeq;
-				npc.walkSeq = npc.info.turnAroundSeq;
-				npc.turnAroundSeq = npc.info.turnRightSeq;
-				npc.turnRightSeq = npc.info.turnLeftSeq;
-				npc.standSeq = npc.info.standSeq;
+				npc.runSeq = npc.info.walkanim;
+				npc.walkSeq = npc.info.walkanim_b;
+				npc.turnAroundSeq = npc.info.walkanim_r;
+				npc.turnRightSeq = npc.info.walkanim_l;
+				npc.standSeq = npc.info.readyanim;
 			}
 			if ((mask & 0x40) == 64) {
 				npc.spotAnimIndex = b.g2();
@@ -2837,8 +2837,8 @@ public class client extends GameShell {
 		}
 
 		@Pc(16) String name = npc.name;
-		if (npc.level != 0) {
-			name = name + getLevelColorTag(this.self.combatLevel, npc.level) + " (level-" + npc.level + ")";
+		if (npc.vislevel != 0) {
+			name = name + getLevelColorTag(this.self.combatLevel, npc.vislevel) + " (level-" + npc.vislevel + ")";
 		}
 
 		if (this.selectedObject == 1) {
@@ -2850,10 +2850,10 @@ public class client extends GameShell {
 			this.optionCount++;
 		} else if (this.selectedSpell != 1) {
 			@Pc(155) int option;
-			if (npc.op != null) {
+			if (npc.ops != null) {
 				for (option = 4; option >= 0; option--) {
-					if (npc.op[option] != null && !npc.op[option].equalsIgnoreCase("attack")) {
-						this.options[this.optionCount] = npc.op[option] + " @yel@" + name;
+					if (npc.ops[option] != null && !npc.ops[option].equalsIgnoreCase("attack")) {
+						this.options[this.optionCount] = npc.ops[option] + " @yel@" + name;
 						if (option == 0) {
 							this.optionType[this.optionCount] = Cs1Actions.OPNPC1;
 						}
@@ -2877,14 +2877,14 @@ public class client extends GameShell {
 				}
 			}
 
-			if (npc.op != null) {
+			if (npc.ops != null) {
 				for (option = 4; option >= 0; option--) {
-					if (npc.op[option] != null && npc.op[option].equalsIgnoreCase("attack")) {
+					if (npc.ops[option] != null && npc.ops[option].equalsIgnoreCase("attack")) {
 						@Pc(279) short local279 = 0;
-						if (npc.level > this.self.combatLevel) {
+						if (npc.vislevel > this.self.combatLevel) {
 							local279 = 2000;
 						}
-						this.options[this.optionCount] = npc.op[option] + " @yel@" + name;
+						this.options[this.optionCount] = npc.ops[option] + " @yel@" + name;
 						if (option == 0) {
 							this.optionType[this.optionCount] = local279 + Cs1Actions.OPNPC1;
 						}
@@ -3505,7 +3505,7 @@ public class client extends GameShell {
 		}
 		for (local124 = 0; local124 < this.npcCount; local124++) {
 			@Pc(189) NpcEntity local189 = this.npcEntities[this.npcIndices[local124]];
-			if (local189 != null && local189.isValid() && local189.info.showOnMinimap) {
+			if (local189 != null && local189.isValid() && local189.info.visonmap) {
 				local26 = local189.x / 32 - this.self.x / 32;
 				local34 = local189.z / 32 - this.self.z / 32;
 				this.drawOnMinimap(local34, this.mapdot1, local26);
@@ -5468,10 +5468,10 @@ public class client extends GameShell {
 		if (action == Cs1Actions.EXAMINE_NPC) {
 			local345 = this.npcEntities[c];
 			if (local345 != null) {
-				if (local345.info.description == null) {
+				if (local345.info.desc == null) {
 					local845 = "It's a " + local345.info.name + ".";
 				} else {
-					local845 = new String(local345.info.description);
+					local845 = local345.info.desc;
 				}
 				this.addMessage(0, "", local845);
 			}
@@ -6021,11 +6021,11 @@ public class client extends GameShell {
 			npc.removeTimer = clientClock;
 			npc.info = NpcType.get(b.gBit(11));
 			npc.index = npc.info.size;
-			npc.runSeq = npc.info.walkSeq;
-			npc.walkSeq = npc.info.turnAroundSeq;
-			npc.turnAroundSeq = npc.info.turnRightSeq;
-			npc.turnRightSeq = npc.info.turnLeftSeq;
-			npc.standSeq = npc.info.standSeq;
+			npc.runSeq = npc.info.walkanim;
+			npc.walkSeq = npc.info.walkanim_b;
+			npc.turnAroundSeq = npc.info.walkanim_r;
+			npc.turnRightSeq = npc.info.walkanim_l;
+			npc.standSeq = npc.info.readyanim;
 
 			@Pc(92) int x = b.gBit(5);
 			if (x > 15) {
@@ -6560,7 +6560,7 @@ public class client extends GameShell {
 	private void clearCaches() {
 		LocType.modelCache.clear();
 		LocType.modelCacheBuilt.clear();
-		NpcType.models.clear();
+		NpcType.builtModels.clear();
 		ObjType.models.clear();
 		ObjType.icons.clear();
 		PlayerEntity.models.clear();

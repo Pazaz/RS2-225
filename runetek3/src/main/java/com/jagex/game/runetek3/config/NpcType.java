@@ -13,7 +13,7 @@ import org.openrs2.deob.annotation.Pc;
 public class NpcType {
 
 	@OriginalMember(owner = "client!bc", name = "b", descriptor = "I")
-	private static int count;
+	public static int count;
 
 	@OriginalMember(owner = "client!bc", name = "c", descriptor = "[I")
 	private static int[] offsets;
@@ -28,19 +28,19 @@ public class NpcType {
 	private static int offset;
 
 	@OriginalMember(owner = "client!bc", name = "C", descriptor = "Lclient!s;")
-	public static Cache models = new Cache(30);
+	public static Cache builtModels = new Cache(30);
 
 	@OriginalMember(owner = "client!bc", name = "h", descriptor = "Ljava/lang/String;")
 	public String name;
 
 	@OriginalMember(owner = "client!bc", name = "i", descriptor = "[B")
-	public byte[] description;
+	public String desc;
 
 	@OriginalMember(owner = "client!bc", name = "k", descriptor = "[I")
-	private int[] modelIndices;
+	private int[] models;
 
 	@OriginalMember(owner = "client!bc", name = "l", descriptor = "[I")
-	private int[] headModelIndices;
+	private int[] headModels;
 
 	@OriginalMember(owner = "client!bc", name = "s", descriptor = "[I")
 	private int[] recol_s;
@@ -49,7 +49,7 @@ public class NpcType {
 	private int[] recol_d;
 
 	@OriginalMember(owner = "client!bc", name = "u", descriptor = "[Ljava/lang/String;")
-	public String[] op;
+	public String[] ops;
 
 	@OriginalMember(owner = "client!bc", name = "g", descriptor = "J")
 	private long id = -1L;
@@ -58,19 +58,19 @@ public class NpcType {
 	public byte size = 1;
 
 	@OriginalMember(owner = "client!bc", name = "m", descriptor = "I")
-	public int standSeq = -1;
+	public int readyanim = -1;
 
 	@OriginalMember(owner = "client!bc", name = "n", descriptor = "I")
-	public int walkSeq = -1;
+	public int walkanim = -1;
 
 	@OriginalMember(owner = "client!bc", name = "o", descriptor = "I")
-	public int turnAroundSeq = -1;
+	public int walkanim_b = -1;
 
 	@OriginalMember(owner = "client!bc", name = "p", descriptor = "I")
-	public int turnRightSeq = -1;
+	public int walkanim_r = -1;
 
 	@OriginalMember(owner = "client!bc", name = "q", descriptor = "I")
-	public int turnLeftSeq = -1;
+	public int walkanim_l = -1;
 
 	@OriginalMember(owner = "client!bc", name = "r", descriptor = "Z")
 	private boolean disposeAlpha = false;
@@ -85,16 +85,18 @@ public class NpcType {
 	private int opcode92 = -1;
 
 	@OriginalMember(owner = "client!bc", name = "y", descriptor = "Z")
-	public boolean showOnMinimap = true;
+	public boolean visonmap = true;
 
 	@OriginalMember(owner = "client!bc", name = "z", descriptor = "I")
-	public int level = -1;
+	public int vislevel = -1;
 
 	@OriginalMember(owner = "client!bc", name = "A", descriptor = "I")
 	private int resizex = 128;
 
 	@OriginalMember(owner = "client!bc", name = "B", descriptor = "I")
 	private int resizez = 128;
+
+	public String identifier;
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(Lclient!ub;)V")
 	public static void decode(@OriginalArg(0) FileArchive arg0) {
@@ -108,14 +110,14 @@ public class NpcType {
 			offset += idx.g2();
 		}
 		cache = new NpcType[20];
-		for (@Pc(51) int i = 0; i < 20; i++) {
+		for (@Pc(51) int i = 0; i < cache.length; i++) {
 			cache[i] = new NpcType();
 		}
 	}
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(Z)V")
 	public static void unload() {
-		models = null;
+		builtModels = null;
 		offsets = null;
 		cache = null;
 		dat = null;
@@ -123,12 +125,12 @@ public class NpcType {
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(I)Lclient!bc;")
 	public static NpcType get(@OriginalArg(0) int id) {
-		for (@Pc(1) int i = 0; i < 20; i++) {
+		for (@Pc(1) int i = 0; i < cache.length; i++) {
 			if (cache[i].id == (long) id) {
 				return cache[i];
 			}
 		}
-		offset = (offset + 1) % 20;
+		offset = (offset + 1) % cache.length;
 		@Pc(33) NpcType type = cache[offset] = new NpcType();
 		dat.pos = offsets[id];
 		type.id = id;
@@ -151,34 +153,34 @@ public class NpcType {
 			@Pc(25) int i;
 			if (opcode == 1) {
 				count = buffer.g1();
-				this.modelIndices = new int[count];
+				this.models = new int[count];
 				for (i = 0; i < count; i++) {
-					this.modelIndices[i] = buffer.g2();
+					this.models[i] = buffer.g2();
 				}
 			} else if (opcode == 2) {
 				this.name = buffer.gstr();
 			} else if (opcode == 3) {
-				this.description = buffer.gstrbyte();
+				this.desc = buffer.gstr();
 			} else if (opcode == 12) {
 				this.size = buffer.g1b();
 			} else if (opcode == 13) {
-				this.standSeq = buffer.g2();
+				this.readyanim = buffer.g2();
 			} else if (opcode == 14) {
-				this.walkSeq = buffer.g2();
+				this.walkanim = buffer.g2();
 			} else if (opcode == 16) {
 				this.disposeAlpha = true;
 			} else if (opcode == 17) {
-				this.walkSeq = buffer.g2();
-				this.turnAroundSeq = buffer.g2();
-				this.turnRightSeq = buffer.g2();
-				this.turnLeftSeq = buffer.g2();
+				this.walkanim = buffer.g2();
+				this.walkanim_b = buffer.g2();
+				this.walkanim_r = buffer.g2();
+				this.walkanim_l = buffer.g2();
 			} else if (opcode >= 30 && opcode < 40) {
-				if (this.op == null) {
-					this.op = new String[5];
+				if (this.ops == null) {
+					this.ops = new String[5];
 				}
-				this.op[opcode - 30] = buffer.gstr();
-				if (this.op[opcode - 30].equalsIgnoreCase("hidden")) {
-					this.op[opcode - 30] = null;
+				this.ops[opcode - 30] = buffer.gstr();
+				if (this.ops[opcode - 30].equalsIgnoreCase("hidden")) {
+					this.ops[opcode - 30] = null;
 				}
 			} else if (opcode == 40) {
 				count = buffer.g1();
@@ -190,9 +192,9 @@ public class NpcType {
 				}
 			} else if (opcode == 60) {
 				count = buffer.g1();
-				this.headModelIndices = new int[count];
+				this.headModels = new int[count];
 				for (i = 0; i < count; i++) {
-					this.headModelIndices[i] = buffer.g2();
+					this.headModels[i] = buffer.g2();
 				}
 			} else if (opcode == 90) {
 				this.opcode90 = buffer.g2();
@@ -201,9 +203,9 @@ public class NpcType {
 			} else if (opcode == 92) {
 				this.opcode92 = buffer.g2();
 			} else if (opcode == 93) {
-				this.showOnMinimap = false;
+				this.visonmap = false;
 			} else if (opcode == 95) {
-				this.level = buffer.g2();
+				this.vislevel = buffer.g2();
 			} else if (opcode == 97) {
 				this.resizex = buffer.g2();
 			} else if (opcode == 98) {
@@ -214,52 +216,52 @@ public class NpcType {
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(II[I)Lclient!eb;")
 	public Model getModel(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int[] arg2) {
-		@Pc(9) Model local9 = (Model) models.get(this.id);
-		if (local9 == null) {
-			@Pc(16) Model[] local16 = new Model[this.modelIndices.length];
-			for (@Pc(18) int local18 = 0; local18 < this.modelIndices.length; local18++) {
-				local16[local18] = new Model(this.modelIndices[local18]);
+		@Pc(9) Model m = (Model) builtModels.get(this.id);
+		if (m == null) {
+			@Pc(16) Model[] local16 = new Model[this.models.length];
+			for (@Pc(18) int local18 = 0; local18 < this.models.length; local18++) {
+				local16[local18] = new Model(this.models[local18]);
 			}
 			if (local16.length == 1) {
-				local9 = local16[0];
+				m = local16[0];
 			} else {
-				local9 = new Model(local16, local16.length);
+				m = new Model(local16, local16.length);
 			}
 			if (this.recol_s != null) {
 				for (@Pc(60) int local60 = 0; local60 < this.recol_s.length; local60++) {
-					local9.recolor(this.recol_s[local60], this.recol_d[local60]);
+					m.recolor(this.recol_s[local60], this.recol_d[local60]);
 				}
 			}
-			local9.applyGroup();
-			local9.applyLighting(64, 850, -30, -50, -30, true);
-			models.put(this.id, local9);
+			m.applyGroup();
+			m.applyLighting(64, 850, -30, -50, -30, true);
+			builtModels.put(this.id, m);
 		}
-		@Pc(107) Model local107 = new Model(local9, !this.disposeAlpha);
+		@Pc(107) Model m2 = new Model(m, !this.disposeAlpha);
 		if (arg0 != -1 && arg1 != -1) {
-			local107.applyFrames(arg1, arg0, arg2);
+			m2.applyFrames(arg1, arg0, arg2);
 		} else if (arg0 != -1) {
-			local107.applyFrame(arg0);
+			m2.applyFrame(arg0);
 		}
 		if (this.resizex != 128 || this.resizez != 128) {
-			local107.scale(this.resizex, this.resizez, this.resizex);
+			m2.scale(this.resizex, this.resizez, this.resizex);
 		}
-		local107.calculateYBoundaries();
-		local107.skinTriangle = null;
-		local107.labelVertices = null;
+		m2.calculateYBoundaries();
+		m2.skinTriangle = null;
+		m2.labelVertices = null;
 		if (this.size == 1) {
-			local107.pickable = true;
+			m2.pickable = true;
 		}
-		return local107;
+		return m2;
 	}
 
 	@OriginalMember(owner = "client!bc", name = "b", descriptor = "(Z)Lclient!eb;")
 	public final Model getHeadModel() {
-		if (this.headModelIndices == null) {
+		if (this.headModels == null) {
 			return null;
 		}
-		@Pc(17) Model[] local17 = new Model[this.headModelIndices.length];
-		for (@Pc(19) int local19 = 0; local19 < this.headModelIndices.length; local19++) {
-			local17[local19] = new Model(this.headModelIndices[local19]);
+		@Pc(17) Model[] local17 = new Model[this.headModels.length];
+		for (@Pc(19) int local19 = 0; local19 < this.headModels.length; local19++) {
+			local17[local19] = new Model(this.headModels[local19]);
 		}
 		@Pc(46) Model local46;
 		if (local17.length == 1) {
@@ -273,6 +275,115 @@ public class NpcType {
 			}
 		}
 		return local46;
+	}
+
+
+	public String toJagConfig() {
+		StringBuilder builder = new StringBuilder();
+
+		if (this.identifier != null) {
+			builder.append("[").append(this.identifier).append("]\n");
+		} else {
+			builder.append("[npc_").append(this.id).append("]\n");
+		}
+
+		if (this.name != null) {
+			builder.append("name=").append(this.name).append("\n");
+		}
+
+		if (this.desc != null) {
+			builder.append("desc=").append(this.desc).append("\n");
+		}
+
+		if (this.models != null) {
+			for (int i = 0; i < this.models.length; ++i) {
+				builder.append("model").append(i + 1).append("=model_").append(this.models[i]).append("\n");
+			}
+		}
+
+		if (this.headModels != null) {
+			for (int i = 0; i < this.headModels.length; ++i) {
+				builder.append("head").append(i + 1).append("=model_").append(this.headModels[i]).append("\n");
+			}
+		}
+
+		if (this.readyanim != -1) {
+			builder.append("readyanim=anim_").append(this.readyanim).append("\n");
+		}
+
+		if (this.walkanim != -1) {
+			builder.append("walkanim=anim_").append(this.walkanim).append("\n");
+		}
+
+		if (this.walkanim_b != -1) {
+			builder.append("walkanim_b=anim_").append(this.walkanim_b).append("\n");
+		}
+
+		if (this.walkanim_r != -1) {
+			builder.append("walkanim_r=anim_").append(this.walkanim_r).append("\n");
+		}
+
+		if (this.walkanim_l != -1) {
+			builder.append("walkanim_l=anim_").append(this.walkanim_l).append("\n");
+		}
+
+		if (this.size != 1) {
+			builder.append("size=").append(this.size).append("\n");
+		}
+
+		// this might be able to be automatically determined if the models have readable metadata
+		// about alpha properties during the cache packing process
+//		if (this.disposeAlpha) {
+//			builder.append("disposeAlpha=yes").append("\n");
+//		}
+
+		// none of these are used
+//		if (this.opcode90 != -1) {
+//			builder.append("opcode90=").append(this.opcode90).append("\n");
+//		}
+//
+//		if (this.opcode91 != -1) {
+//			builder.append("opcode91=").append(this.opcode91).append("\n");
+//		}
+//
+//		if (this.opcode92 != -1) {
+//			builder.append("opcode92=").append(this.opcode92).append("\n");
+//		}
+
+		if (this.resizex != 128) {
+			builder.append("resizex=").append(this.resizex).append("\n");
+		}
+
+		if (this.resizez != 128) {
+			builder.append("resizez=").append(this.resizez).append("\n");
+		}
+
+		if (this.recol_s != null) {
+			for (int i = 0; i < this.recol_s.length; ++i) {
+				builder.append("recol").append(i + 1).append("s=").append(this.recol_s[i]).append("\n");
+				builder.append("recol").append(i + 1).append("d=").append(this.recol_d[i]).append("\n");
+			}
+		}
+
+		if (this.ops != null) {
+			for (int i = 0; i < this.ops.length; ++i) {
+				if (this.ops[i] == null) {
+					continue;
+				}
+
+				builder.append("op").append(i + 1).append("=").append(this.ops[i]).append("\n");
+			}
+		}
+
+		if (this.vislevel != -1) {
+			builder.append("vislevel=").append(this.vislevel).append("\n");
+		}
+
+		if (!this.visonmap) {
+			builder.append("visonmap=no").append("\n");
+		}
+
+		return builder.toString();
 	}
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "Z")
