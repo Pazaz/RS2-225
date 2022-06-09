@@ -20,7 +20,7 @@ public class LocDump {
 
         try {
             FileArchive config194 = new FileArchive(Files.readAllBytes(Paths.get(cacheDir.toString(), "config194")));
-            LocType.decode(config194);
+            LocType.decode(config194, -1);
             String[] names = new String[LocType.count];
             int[] shapes = new int[LocType.count];
             Arrays.fill(shapes, -1);
@@ -34,7 +34,7 @@ public class LocDump {
 
             LocType.unload();
             FileArchive config225 = new FileArchive(Files.readAllBytes(Paths.get(cacheDir.toString(), "config")));
-            LocType.decode(config225);
+            LocType.decode(config225, -1);
 
             LocType[] loc225 = new LocType[LocType.count];
             for (int i = 0; i < LocType.count; ++i) {

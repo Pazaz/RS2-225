@@ -875,7 +875,7 @@ public class Scene {
 									local766 = this.planeOverlayTypes[local7][local169][local284] + 1;
 									@Pc(919) byte local919 = this.planeOverlayRotations[local7][local169][local284];
 									@Pc(925) FloType local925 = FloType.instances[local666 - 1];
-									@Pc(928) int local928 = local925.textureIndex;
+									@Pc(928) int local928 = local925.texture;
 									@Pc(936) int local936;
 									@Pc(934) int local934;
 									if (local928 >= 0) {

@@ -277,7 +277,6 @@ public class NpcType {
 		return local46;
 	}
 
-
 	public String toJagConfig() {
 		StringBuilder builder = new StringBuilder();
 

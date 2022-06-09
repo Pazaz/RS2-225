@@ -41,7 +41,7 @@ public class FloType {
 	public int blendHueMultiplier;
 
 	@OriginalMember(owner = "client!fc", name = "f", descriptor = "I")
-	public int textureIndex = -1;
+	public int texture = -1;
 
 	@OriginalMember(owner = "client!fc", name = "g", descriptor = "Z")
 	private boolean opcode3 = false;
@@ -56,10 +56,12 @@ public class FloType {
 		if (instances == null) {
 			instances = new FloType[count];
 		}
+
 		for (@Pc(23) int i = 0; i < count; i++) {
 			if (instances[i] == null) {
 				instances[i] = new FloType();
 			}
+
 			instances[i].decode(buffer);
 		}
 	}
@@ -79,7 +81,7 @@ public class FloType {
 				this.rgb = buffer.g3();
 				this.setColor(this.rgb);
 			} else if (opcode == 2) {
-				this.textureIndex = buffer.g1();
+				this.texture = buffer.g1();
 			} else if (opcode == 3) {
 				this.opcode3 = true;
 			} else if (opcode == 5) {
@@ -188,6 +190,38 @@ public class FloType {
 			arg1 /= 2;
 		}
 		return (arg0 / 4 << 10) + (arg1 / 32 << 7) + arg2 / 2;
+	}
+
+	public String toJagConfig() {
+		StringBuilder builder = new StringBuilder();
+
+		// this data is encoded in this revision - not in later revisions
+		// in the other toJagConfig functions this would be a field, but that's redundant here
+		builder.append("[").append(this.name).append("]\n");
+
+		// if there's a texture, colour is implicitly black anyways
+		if (this.texture == -1) {
+			if (this.rgb == 0) {
+				builder.append("colour=^BLACK\n");
+			} else {
+				builder.append("colour=0x").append(String.format("%06X", this.rgb)).append("\n");
+			}
+		}
+
+		if (this.texture != -1) {
+			builder.append("texture=texture_").append(this.texture).append("\n");
+		}
+
+		// seemingly unused
+//		if (this.opcode3) {
+//			builder.append("opcode3=yes\n");
+//		}
+
+		if (!this.occlude) {
+			builder.append("occlude=no\n");
+		}
+
+		return builder.toString();
 	}
 
 	@OriginalMember(owner = "client!fc", name = "a", descriptor = "I")

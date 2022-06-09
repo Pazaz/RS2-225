@@ -4,7 +4,6 @@ import com.itspazaz.lostcity.cachedelivery.FileServer;
 import com.itspazaz.lostcity.network.NioServer;
 import com.itspazaz.lostcity.world.World;
 import com.jagex.core.io.FileArchive;
-import com.jagex.core.stringutils.StringUtils;
 import com.jagex.core.stringutils.WordPack;
 import com.jagex.game.runetek3.config.*;
 import com.jagex.game.runetek3.graphics.model.Model;
@@ -56,7 +55,7 @@ public class Server implements Runnable {
 
                 FileArchive config = new FileArchive(Files.readAllBytes(Paths.get(cacheDir.toString(), "config")));
                 SeqType.decode(config);
-                LocType.decode(config);
+                LocType.decode(config, 10);
                 FloType.decode(config);
                 ObjType.decode(config);
                 NpcType.decode(config);

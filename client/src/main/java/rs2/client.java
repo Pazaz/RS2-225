@@ -6406,7 +6406,7 @@ public class client extends GameShell {
 
 			this.showProgress("Unpacking config", 86);
 			SeqType.decode(config);
-			LocType.decode(config);
+			LocType.decode(config, 10);
 			FloType.decode(config);
 			ObjType.decode(config);
 			NpcType.decode(config);

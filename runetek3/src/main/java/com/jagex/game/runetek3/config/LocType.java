@@ -166,7 +166,7 @@ public class LocType {
 	public String identifier;
 
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "(Lclient!ub;)V")
-	public static void decode(@OriginalArg(0) FileArchive archive) {
+	public static void decode(@OriginalArg(0) FileArchive archive, int cacheSize) {
 		dat = new Buffer(archive.read("loc.dat", null));
 
 		@Pc(21) Buffer idx = new Buffer(archive.read("loc.idx", null));
@@ -178,7 +178,12 @@ public class LocType {
 			offset += idx.g2();
 		}
 
-		cache = new LocType[10]; // count];
+		if (cacheSize > 0) {
+			cache = new LocType[cacheSize];
+		} else {
+			cache = new LocType[count];
+		}
+
 		for (@Pc(51) int i = 0; i < cache.length; i++) {
 			cache[i] = new LocType();
 		}
