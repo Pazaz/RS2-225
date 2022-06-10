@@ -29,6 +29,7 @@ import com.jagex.game.runetek3.graphics.*;
 import com.jagex.game.runetek3.graphics.model.Model;
 import com.jagex.game.runetek3.graphics.seq.SeqBase;
 import com.jagex.game.runetek3.graphics.seq.SeqFrame;
+import com.jagex.game.runetek3.graphics.ui.CsOpcodes;
 import com.jagex.game.runetek3.graphics.ui.Font;
 import com.jagex.game.runetek3.graphics.ui.Component;
 import com.jagex.game.runetek3.scenegraph.CollisionMap;
@@ -9013,19 +9014,19 @@ public class client extends GameShell {
 				if (local35 == 0) {
 					return local28;
 				}
-				if (local35 == 1) {
+				if (local35 == CsOpcodes.STAT) {
 					local28 += this.skillLevelReal[local26[local30++]];
 				}
-				if (local35 == 2) {
+				if (local35 == CsOpcodes.STAT_BASE) {
 					local28 += this.skillLevel[local26[local30++]];
 				}
-				if (local35 == 3) {
+				if (local35 == CsOpcodes.STAT_XP) {
 					local28 += this.skillExperience[local26[local30++]];
 				}
 				@Pc(88) Component local88;
 				@Pc(95) int local95;
 				@Pc(97) int local97;
-				if (local35 == 4) {
+				if (local35 == CsOpcodes.INVCOUNT) {
 					local88 = Component.instances[local26[local30++]];
 					local95 = local26[local30++] + 1;
 					for (local97 = 0; local97 < local88.inventoryIndices.length; local97++) {
@@ -9034,20 +9035,20 @@ public class client extends GameShell {
 						}
 					}
 				}
-				if (local35 == 5) {
+				if (local35 == CsOpcodes.VARP) {
 					local28 += this.variables[local26[local30++]];
 				}
-				if (local35 == 6) {
+				if (local35 == CsOpcodes.XP_FOR_LVL) {
 					local28 += EXPERIENCE_TABLE[this.skillLevel[local26[local30++]] - 1];
 				}
-				if (local35 == 7) {
+				if (local35 == CsOpcodes.SCALE_VARP) {
 					local28 += this.variables[local26[local30++]] * 100 / 46875;
 				}
-				if (local35 == 8) {
+				if (local35 == CsOpcodes.COMBAT_LEVEL) {
 					local28 += this.self.combatLevel;
 				}
 				@Pc(179) int local179;
-				if (local35 == 9) {
+				if (local35 == CsOpcodes.TOTAL_LEVEL) {
 					for (local179 = 0; local179 < 19; local179++) {
 						if (local179 == 18) {
 							local179 = 20;
@@ -9055,7 +9056,7 @@ public class client extends GameShell {
 						local28 += this.skillLevel[local179];
 					}
 				}
-				if (local35 == 10) {
+				if (local35 == CsOpcodes.INVCONTAINS) {
 					local88 = Component.instances[local26[local30++]];
 					local95 = local26[local30++] + 1;
 					for (local97 = 0; local97 < local88.inventoryIndices.length; local97++) {
@@ -9065,13 +9066,13 @@ public class client extends GameShell {
 						}
 					}
 				}
-				if (local35 == 11) {
+				if (local35 == CsOpcodes.RUNENERGY_VISIBLE) {
 					local28 += this.energy;
 				}
-				if (local35 == 12) {
+				if (local35 == CsOpcodes.RUNWEIGHT_VISIBLE) {
 					local28 += this.weightCarried;
 				}
-				if (local35 == 13) {
+				if (local35 == CsOpcodes.TESTBIT_VARP) {
 					local179 = this.variables[local26[local30++]];
 					local95 = local26[local30++];
 					local28 += (local179 & 0x1 << local95) == 0 ? 0 : 1;
@@ -10918,19 +10919,18 @@ public class client extends GameShell {
 				player.spotAnimIndex = -1;
 			}
 		}
-		if ((mask & 0x200) != 512) {
-			return;
+		if ((mask & 0x200) == 512) {
+			player.srcTileX = b.g1();
+			player.srcTileZ = b.g1();
+			player.dstTileX = b.g1();
+			player.dstTileZ = b.g1();
+			player.firstMoveCycle = b.g2() + clientClock;
+			player.lastMoveCycle = b.g2() + clientClock;
+			player.faceDirection = b.g1();
+			player.pathRemaining = 0;
+			player.pathTileX[0] = player.dstTileX;
+			player.pathTileZ[0] = player.dstTileZ;
 		}
-		player.srcTileX = b.g1();
-		player.srcTileZ = b.g1();
-		player.dstTileX = b.g1();
-		player.dstTileZ = b.g1();
-		player.firstMoveCycle = b.g2() + clientClock;
-		player.lastMoveCycle = b.g2() + clientClock;
-		player.faceDirection = b.g1();
-		player.pathRemaining = 0;
-		player.pathTileX[0] = player.dstTileX;
-		player.pathTileZ[0] = player.dstTileZ;
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ZLjava/lang/String;I)V")

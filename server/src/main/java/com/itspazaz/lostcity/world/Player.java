@@ -87,6 +87,19 @@ public class Player {
         sendGameMessage("Welcome to RuneScape.");
     }
 
+    public void openInterface(int id) {
+        con.out.pos = 0;
+
+        con.out.p1isaac(ServerProt.IF_OPENTOP);
+        con.out.p2(id);
+
+        try {
+            NioServer.write(con.key, con.out);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void logout() {
         con.out.pos = 0;
 
@@ -175,6 +188,12 @@ public class Player {
             if (entity.plane > 0) {
                 teleport(entity.x, entity.z, entity.plane - 1);
             }
+        } else if (cmd.equalsIgnoreCase("inter")) {
+            if (args.length < 2) {
+                return;
+            }
+
+            openInterface(Integer.parseInt(args[1]));
         }
     }
 
