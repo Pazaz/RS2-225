@@ -18,7 +18,9 @@ public class Connection {
 
     public Buffer out = Buffer.reserve(2);
 
-    public int lowMemory;
+    public boolean lowMemory = false;
+
+    public boolean webclient = false;
 
     public int uid;
 

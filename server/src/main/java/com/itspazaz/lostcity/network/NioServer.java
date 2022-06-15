@@ -290,7 +290,7 @@ public class NioServer implements Runnable {
                     return;
                 }
 
-                int lowMemory = in.g1();
+                int info = in.g1();
 
                 int[] checksums = new int[9];
                 for (int i = 0; i < 9; ++i) {
@@ -307,7 +307,8 @@ public class NioServer implements Runnable {
                 con = new Connection();
                 con.channel = channel;
                 con.key = key;
-                con.lowMemory = lowMemory;
+                con.lowMemory = (info & 0x1) == 0x1;
+                con.webclient = (info & 0x2) == 0x2;
 
                 int[] seed = new int[4];
                 for (int i = 0; i < 4; ++i) {

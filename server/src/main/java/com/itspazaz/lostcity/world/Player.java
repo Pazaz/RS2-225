@@ -12,6 +12,8 @@ import com.jagex.core.io.Buffer;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     Connection con;
@@ -351,36 +353,114 @@ public class Player {
         lastLoadedX = entity.x;
         lastLoadedZ = entity.z;
 
-        // for region ...
-        // TODO: simplify this so it doesn't need to send 3x3 every time
-        for (int z = -1; z <= 1; ++z) {
-            for (int x = -1; x <= 1; ++x) {
-                int fileX = Position.file(entity.x) + x;
-                int fileZ = Position.file(entity.z) + z;
-                boolean landExists = Files.isReadable(Paths.get(Server.dataDir.toString(), "maps", "m" + fileX + "_" + fileZ));
-                boolean locExists = Files.isReadable(Paths.get(Server.dataDir.toString(), "maps", "l" + fileX + "_" + fileZ));
-                if (!landExists && !locExists) {
-                    continue;
-                }
+        List<Integer> regions = new ArrayList<Integer>();
 
-                con.out.p1(fileX);
-                con.out.p1(fileZ);
-                try {
-                    int landCrc = Buffer.crc32(Files.readAllBytes(Paths.get(Server.dataDir.toString(), "maps", "m" + fileX + "_" + fileZ)));
-                    con.out.p4(landCrc);
-                } catch (Exception ex) {
-                    con.out.p4(0);
+        // center
+        int regionX = Position.file(entity.x);
+        int regionZ = Position.file(entity.z);
+        int region = regionX | (regionZ << 8);
+        regions.add(region);
+
+        // check S
+        regionZ = Position.file(entity.z - 52);
+        region = regionX | (regionZ << 8);
+        if (!regions.contains(region)) {
+            regions.add(region);
+        }
+
+        // check N
+        regionZ = Position.file(entity.z + 52);
+        region = regionX | (regionZ << 8);
+        if (!regions.contains(region)) {
+            regions.add(region);
+        }
+
+        // check NW
+        regionX = Position.file(entity.x - 52);
+        region = regionX | (regionZ << 8);
+        if (!regions.contains(region)) {
+            regions.add(region);
+        }
+
+        // check W
+        regionZ = Position.file(entity.z);
+        region = regionX | (regionZ << 8);
+        if (!regions.contains(region)) {
+            regions.add(region);
+        }
+
+        // check SW
+        regionZ = Position.file(entity.z - 52);
+        region = regionX | (regionZ << 8);
+        if (!regions.contains(region)) {
+            regions.add(region);
+        }
+
+        // check NE
+        regionX = Position.file(entity.x + 52);
+        regionZ = Position.file(entity.z + 52);
+        region = regionX | (regionZ << 8);
+        if (!regions.contains(region)) {
+            regions.add(region);
+        }
+
+        // check E
+        regionZ = Position.file(entity.z);
+        region = regionX | (regionZ << 8);
+        if (!regions.contains(region)) {
+            regions.add(region);
+        }
+
+        // check SE
+        regionZ = Position.file(entity.z - 52);
+        region = regionX | (regionZ << 8);
+        if (!regions.contains(region)) {
+            regions.add(region);
+        }
+
+        for (int i = 0; i < regions.size(); ++i) {
+            int reg = regions.get(i);
+            int fileX = reg & 0xFF;
+            int fileZ = (reg >> 8) & 0xFF;
+
+            boolean landExists = Files.isReadable(Paths.get(Server.dataDir.toString(), "maps", "m" + fileX + "_" + fileZ));
+            boolean locExists = Files.isReadable(Paths.get(Server.dataDir.toString(), "maps", "l" + fileX + "_" + fileZ));
+            if (!landExists && !locExists) {
+                continue;
+            }
+
+            con.out.p1(fileX);
+            con.out.p1(fileZ);
+
+            try {
+                int landCrc = Buffer.crc32(Files.readAllBytes(Paths.get(Server.dataDir.toString(), "maps", "m" + fileX + "_" + fileZ)));
+                con.out.p4(landCrc);
+
+                if (con.webclient) {
+                    con.out.p2((int)Files.size(Paths.get(Server.dataDir.toString(), "maps", "m" + fileX + "_" + fileZ)));
                 }
-                try {
-                    int locCrc = Buffer.crc32(Files.readAllBytes(Paths.get(Server.dataDir.toString(), "maps", "l" + fileX + "_" + fileZ)));
-                    con.out.p4(locCrc);
-                } catch (Exception ex) {
-                    con.out.p4(0);
+            } catch (Exception ex) {
+                con.out.p4(0);
+            }
+
+            try {
+                int locCrc = Buffer.crc32(Files.readAllBytes(Paths.get(Server.dataDir.toString(), "maps", "l" + fileX + "_" + fileZ)));
+                con.out.p4(locCrc);
+
+                if (con.webclient) {
+                    con.out.p2((int)Files.size(Paths.get(Server.dataDir.toString(), "maps", "l" + fileX + "_" + fileZ)));
                 }
+            } catch (Exception ex) {
+                con.out.p4(0);
             }
         }
         con.out.psize2(con.out.pos - start);
-        // end
+
+        if (con.webclient) {
+            // webclient downloads over HTTP
+            con.player.loading = false;
+            con.player.loaded = true;
+        }
 
         try {
             NioServer.write(con.key, con.out);
