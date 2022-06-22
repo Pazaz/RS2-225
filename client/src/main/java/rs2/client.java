@@ -5126,10 +5126,10 @@ public class client extends GameShell {
 					if (local83 != null && local83.name != null && local83.name.equalsIgnoreCase(local69)) {
 						this.tryMove(2, this.self.pathTileX[0], this.self.pathTileZ[0], local83.pathTileZ[0], local83.pathTileX[0], false, 1, 1, 0, 0, 0);
 						if (action == Cs1Actions.TRADE_PLAYER) {
-							this.outBuffer.p1isaac(ClientProt.OPPLAYER2);
+							this.outBuffer.p1isaac(ClientProt.OPPLAYER4);
 						}
 						if (action == Cs1Actions.DUEL_PLAYER) {
-							this.outBuffer.p1isaac(ClientProt.OPPLAYER4);
+							this.outBuffer.p1isaac(ClientProt.OPPLAYER1);
 						}
 						this.outBuffer.p2(this.playerIndices[local73]);
 						local71 = true;
@@ -5361,7 +5361,7 @@ public class client extends GameShell {
 		}
 
 		@Pc(969) PlayerEntity local969;
-		if (action == Cs1Actions.OPPLAYER2 || action == Cs1Actions.OPPLAYER1 || action == Cs1Actions.OPPLAYER3 || action == Cs1Actions.OPPLAYER4) {
+		if (action == Cs1Actions.OPPLAYER4 || action == Cs1Actions.OPPLAYER3 || action == Cs1Actions.OPPLAYER2 || action == Cs1Actions.OPPLAYER1) {
 			local969 = this.playerEntities[c];
 			if (local969 != null) {
 				this.tryMove(2, this.self.pathTileX[0], this.self.pathTileZ[0], local969.pathTileZ[0], local969.pathTileX[0], false, 1, 1, 0, 0, 0);
@@ -5369,22 +5369,22 @@ public class client extends GameShell {
 				this.crossY = super.clickY;
 				this.crossType = 2;
 				this.crossCycle = 0;
+				if (action == Cs1Actions.OPPLAYER1) {
+					this.outBuffer.p1isaac(ClientProt.OPPLAYER1);
+				}
+				if (action == Cs1Actions.OPPLAYER2) {
+					opPlayer2Counter++;
+					if (opPlayer2Counter >= 90) {
+						this.outBuffer.p1isaac(ClientProt.ANTICHEAT_OPPLAYER2);
+						this.outBuffer.p2(31114);
+					}
+					this.outBuffer.p1isaac(ClientProt.OPPLAYER2);
+				}
 				if (action == Cs1Actions.OPPLAYER4) {
 					this.outBuffer.p1isaac(ClientProt.OPPLAYER4);
 				}
 				if (action == Cs1Actions.OPPLAYER3) {
-					opPlayer2Counter++;
-					if (opPlayer2Counter >= 90) {
-						this.outBuffer.p1isaac(ClientProt.ANTICHEAT_OPPLAYER3);
-						this.outBuffer.p2(31114);
-					}
 					this.outBuffer.p1isaac(ClientProt.OPPLAYER3);
-				}
-				if (action == Cs1Actions.OPPLAYER2) {
-					this.outBuffer.p1isaac(ClientProt.OPPLAYER2);
-				}
-				if (action == Cs1Actions.OPPLAYER1) {
-					this.outBuffer.p1isaac(ClientProt.OPPLAYER1);
 				}
 				this.outBuffer.p2(c);
 			}
@@ -7559,7 +7559,7 @@ public class client extends GameShell {
 			this.optionCount++;
 		} else if (this.selectedSpell != 1) {
 			this.options[this.optionCount] = "Follow @whi@" + otherName;
-			this.optionType[this.optionCount] = Cs1Actions.OPPLAYER1;
+			this.optionType[this.optionCount] = Cs1Actions.OPPLAYER3;
 			this.optionParamB[this.optionCount] = a;
 			this.optionParamC[this.optionCount] = b;
 			this.optionParamA[this.optionCount] = c;
@@ -7567,7 +7567,7 @@ public class client extends GameShell {
 
 			if (this.tutorialIslandState == 0) {
 				this.options[this.optionCount] = "Trade with @whi@" + otherName;
-				this.optionType[this.optionCount] = Cs1Actions.OPPLAYER2;
+				this.optionType[this.optionCount] = Cs1Actions.OPPLAYER4;
 				this.optionParamB[this.optionCount] = a;
 				this.optionParamC[this.optionCount] = b;
 				this.optionParamA[this.optionCount] = c;
@@ -7577,9 +7577,9 @@ public class client extends GameShell {
 			if (this.wildernessLevel > 0) {
 				this.options[this.optionCount] = "Attack @whi@" + otherName;
 				if (this.self.combatLevel >= other.combatLevel) {
-					this.optionType[this.optionCount] = Cs1Actions.OPPLAYER3;
+					this.optionType[this.optionCount] = Cs1Actions.OPPLAYER2;
 				} else {
-					this.optionType[this.optionCount] = 2000 + Cs1Actions.OPPLAYER3;
+					this.optionType[this.optionCount] = 2000 + Cs1Actions.OPPLAYER2;
 				}
 				this.optionParamB[this.optionCount] = a;
 				this.optionParamC[this.optionCount] = b;
@@ -7589,7 +7589,7 @@ public class client extends GameShell {
 
 			if (this.worldLocationState == 1) {
 				this.options[this.optionCount] = "Fight @whi@" + otherName;
-				this.optionType[this.optionCount] = Cs1Actions.OPPLAYER3;
+				this.optionType[this.optionCount] = Cs1Actions.OPPLAYER2;
 				this.optionParamB[this.optionCount] = a;
 				this.optionParamC[this.optionCount] = b;
 				this.optionParamA[this.optionCount] = c;
@@ -7598,7 +7598,7 @@ public class client extends GameShell {
 
 			if (this.worldLocationState == 2) {
 				this.options[this.optionCount] = "Duel-with @whi@" + otherName;
-				this.optionType[this.optionCount] = Cs1Actions.OPPLAYER4;
+				this.optionType[this.optionCount] = Cs1Actions.OPPLAYER1;
 				this.optionParamB[this.optionCount] = a;
 				this.optionParamC[this.optionCount] = b;
 				this.optionParamA[this.optionCount] = c;

@@ -70,7 +70,7 @@ public class NioServer implements Runnable {
 
         // These packets intentionally ignored
         decoders[ClientProt.NO_TIMEOUT] = new NopDecoder();
-        decoders[ClientProt.ANTICHEAT_OPPLAYER3] = new NopDecoder();
+        decoders[ClientProt.ANTICHEAT_OPPLAYER2] = new NopDecoder();
         decoders[ClientProt.ANTICHEAT_OPLOC4] = new NopDecoder();
         decoders[ClientProt.ANTICHEAT_IF_BUTTON5] = new NopDecoder();
         decoders[ClientProt.ANTICHEAT_OPHELD1] = new NopDecoder();

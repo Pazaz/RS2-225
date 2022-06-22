@@ -28,10 +28,10 @@ public class Cs1Actions {
     public static final int DEL_IGNORE = 556;
 
     // player
-    public static final int OPPLAYER1 = 1544;
-    public static final int OPPLAYER2 = 1373;
-    public static final int OPPLAYER3 = 151;
-    public static final int OPPLAYER4 = 1101;
+    public static final int OPPLAYER1 = 1101;
+    public static final int OPPLAYER2 = 151;
+    public static final int OPPLAYER3 = 1544;
+    public static final int OPPLAYER4 = 1373;
     public static final int OPPLAYERU = 367;
     public static final int OPPLAYERT = 651;
     public static final int TRADE_PLAYER = 903;

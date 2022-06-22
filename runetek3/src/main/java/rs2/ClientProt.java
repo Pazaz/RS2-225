@@ -71,11 +71,11 @@ public class ClientProt {
     public static final int OPHELDU = 130; // using an item on an inv obj
     public static final int OPHELDT = 48; // targeting a spell on an inv obj
 
-    public static final int OPPLAYER1 = 185; // player options 1-5
-    public static final int OPPLAYER2 = 206;
-    public static final int OPPLAYER3 = 53;
-    public static final int ANTICHEAT_OPPLAYER3 = 2;
-    public static final int OPPLAYER4 = 164;
+    public static final int OPPLAYER1 = 164; // player options 1-5
+    public static final int OPPLAYER2 = 53;
+    public static final int ANTICHEAT_OPPLAYER2 = 2;
+    public static final int OPPLAYER3 = 185;
+    public static final int OPPLAYER4 = 206;
     public static final int OPPLAYERU = 248; // using an item on a player
     public static final int OPPLAYERT = 177; // targeting a spell on a player
 
@@ -160,11 +160,11 @@ public class ClientProt {
         PACKET_LENGTHS[OPHELDU] = 12;
         PACKET_LENGTHS[OPHELDT] = 8;
 
-        PACKET_LENGTHS[OPPLAYER1] = 2;
-        PACKET_LENGTHS[OPPLAYER2] = 2;
         PACKET_LENGTHS[OPPLAYER3] = 2;
-        PACKET_LENGTHS[ANTICHEAT_OPPLAYER3] = 2;
         PACKET_LENGTHS[OPPLAYER4] = 2;
+        PACKET_LENGTHS[OPPLAYER2] = 2;
+        PACKET_LENGTHS[ANTICHEAT_OPPLAYER2] = 2;
+        PACKET_LENGTHS[OPPLAYER1] = 2;
         PACKET_LENGTHS[OPPLAYERU] = 8;
         PACKET_LENGTHS[OPPLAYERT] = 4;
 
