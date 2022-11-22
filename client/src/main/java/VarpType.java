@@ -53,12 +53,12 @@ public final class VarpType {
 	private boolean aBoolean135 = false;
 
 	@OriginalMember(owner = "client!lc", name = "a", descriptor = "(Lclient!ub;I)V")
-	public static void method411(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) int arg1) {
+	public static void unpack(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) int arg1) {
 		try {
-			@Pc(9) Buffer local9 = new Buffer(363, arg0.method536("varp.dat", null, (byte) 2));
+			@Pc(9) Buffer local9 = new Buffer(363, arg0.read("varp.dat", null, (byte) 2));
 			anInt606 = 0;
 			@Pc(15) int local15 = 28 / arg1;
-			anInt605 = local9.method393();
+			anInt605 = local9.g2();
 			if (aClass23Array1 == null) {
 				aClass23Array1 = new VarpType[anInt605];
 			}
@@ -69,7 +69,7 @@ public final class VarpType {
 				if (aClass23Array1[local30] == null) {
 					aClass23Array1[local30] = new VarpType();
 				}
-				aClass23Array1[local30].method412(anInt604, local30, local9);
+				aClass23Array1[local30].decode(anInt604, local30, local9);
 			}
 		} catch (@Pc(55) RuntimeException local55) {
 			signlink.reporterror("45283, " + arg0 + ", " + arg1 + ", " + local55.toString());
@@ -78,33 +78,33 @@ public final class VarpType {
 	}
 
 	@OriginalMember(owner = "client!lc", name = "a", descriptor = "(IILclient!kb;)V")
-	public void method412(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) Buffer arg2) {
+	public void decode(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) Buffer arg2) {
 		try {
 			if (arg0 == 13703) {
 				while (true) {
-					@Pc(8) int local8 = arg2.method391();
+					@Pc(8) int local8 = arg2.g1();
 					if (local8 == 0) {
 						return;
 					}
 					if (local8 == 1) {
-						this.anInt607 = arg2.method391();
+						this.anInt607 = arg2.g1();
 					} else if (local8 == 2) {
-						this.anInt608 = arg2.method391();
+						this.anInt608 = arg2.g1();
 					} else if (local8 == 3) {
 						this.aBoolean132 = true;
 						anIntArray194[anInt606++] = arg1;
 					} else if (local8 == 4) {
 						this.aBoolean133 = false;
 					} else if (local8 == 5) {
-						this.anInt609 = arg2.method393();
+						this.anInt609 = arg2.g2();
 					} else if (local8 == 6) {
 						this.aBoolean134 = true;
 					} else if (local8 == 7) {
-						this.anInt610 = arg2.method396();
+						this.anInt610 = arg2.g4();
 					} else if (local8 == 8) {
 						this.aBoolean135 = true;
 					} else if (local8 == 10) {
-						this.aString25 = arg2.method398();
+						this.aString25 = arg2.gstr();
 					} else {
 						System.out.println("Error unrecognised config code: " + local8);
 					}

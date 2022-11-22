@@ -83,7 +83,7 @@ public final class SoundTone {
 	public int anInt947 = 500;
 
 	@OriginalMember(owner = "client!zb", name = "a", descriptor = "()V")
-	public static void method575() {
+	public static void init() {
 		anIntArray240 = new int[32768];
 		for (@Pc(6) int local6 = 0; local6 < 32768; local6++) {
 			if (Math.random() > 0.5D) {
@@ -100,7 +100,7 @@ public final class SoundTone {
 	}
 
 	@OriginalMember(owner = "client!zb", name = "a", descriptor = "(II)[I")
-	public int[] method576(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+	public int[] generate(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		for (@Pc(3) int local3 = 0; local3 < arg0; local3++) {
 			anIntArray239[local3] = 0;
 		}
@@ -108,14 +108,14 @@ public final class SoundTone {
 			return anIntArray239;
 		}
 		@Pc(26) double local26 = (double) arg0 / ((double) arg1 + 0.0D);
-		this.aClass42_1.method553(anInt943);
-		this.aClass42_2.method553(anInt943);
+		this.aClass42_1.reset(anInt943);
+		this.aClass42_2.reset(anInt943);
 		@Pc(36) int local36 = 0;
 		@Pc(38) int local38 = 0;
 		@Pc(40) int local40 = 0;
 		if (this.aClass42_3 != null) {
-			this.aClass42_3.method553(anInt943);
-			this.aClass42_4.method553(anInt943);
+			this.aClass42_3.reset(anInt943);
+			this.aClass42_4.reset(anInt943);
 			local36 = (int) ((double) (this.aClass42_3.anInt820 - this.aClass42_3.anInt819) * 32.768D / local26);
 			local38 = (int) ((double) this.aClass42_3.anInt819 * 32.768D / local26);
 		}
@@ -123,8 +123,8 @@ public final class SoundTone {
 		@Pc(79) int local79 = 0;
 		@Pc(81) int local81 = 0;
 		if (this.aClass42_5 != null) {
-			this.aClass42_5.method553(anInt943);
-			this.aClass42_6.method553(anInt943);
+			this.aClass42_5.reset(anInt943);
+			this.aClass42_6.reset(anInt943);
 			local77 = (int) ((double) (this.aClass42_5.anInt820 - this.aClass42_5.anInt819) * 32.768D / local26);
 			local79 = (int) ((double) this.aClass42_5.anInt819 * 32.768D / local26);
 		}
@@ -141,40 +141,40 @@ public final class SoundTone {
 		@Pc(207) int local207;
 		@Pc(222) int local222;
 		for (@Pc(193) int local193 = 0; local193 < arg0; local193++) {
-			local201 = this.aClass42_1.method554(true, arg0);
-			local207 = this.aClass42_2.method554(true, arg0);
+			local201 = this.aClass42_1.evaluate(true, arg0);
+			local207 = this.aClass42_2.evaluate(true, arg0);
 			@Pc(216) int local216;
 			if (this.aClass42_3 != null) {
-				local216 = this.aClass42_3.method554(true, arg0);
-				local222 = this.aClass42_4.method554(true, arg0);
-				local201 += this.method577(-15143, local222, local40, this.aClass42_3.anInt821) >> 1;
+				local216 = this.aClass42_3.evaluate(true, arg0);
+				local222 = this.aClass42_4.evaluate(true, arg0);
+				local201 += this.generate(-15143, local222, local40, this.aClass42_3.anInt821) >> 1;
 				local40 += (local216 * local36 >> 16) + local38;
 			}
 			if (this.aClass42_5 != null) {
-				local216 = this.aClass42_5.method554(true, arg0);
-				local222 = this.aClass42_6.method554(true, arg0);
-				local207 = local207 * ((this.method577(-15143, local222, local81, this.aClass42_5.anInt821) >> 1) + 32768) >> 15;
+				local216 = this.aClass42_5.evaluate(true, arg0);
+				local222 = this.aClass42_6.evaluate(true, arg0);
+				local207 = local207 * ((this.generate(-15143, local222, local81, this.aClass42_5.anInt821) >> 1) + 32768) >> 15;
 				local81 += (local216 * local77 >> 16) + local79;
 			}
 			for (local216 = 0; local216 < 5; local216++) {
 				if (this.anIntArray236[local216] != 0) {
 					local222 = local193 + anIntArray243[local216];
 					if (local222 < arg0) {
-						anIntArray239[local222] += this.method577(-15143, local207 * anIntArray244[local216] >> 15, anIntArray242[local216], this.aClass42_1.anInt821);
+						anIntArray239[local222] += this.generate(-15143, local207 * anIntArray244[local216] >> 15, anIntArray242[local216], this.aClass42_1.anInt821);
 						anIntArray242[local216] += (local201 * anIntArray245[local216] >> 16) + anIntArray246[local216];
 					}
 				}
 			}
 		}
 		if (this.aClass42_7 != null) {
-			this.aClass42_7.method553(anInt943);
-			this.aClass42_8.method553(anInt943);
+			this.aClass42_7.reset(anInt943);
+			this.aClass42_8.reset(anInt943);
 			local201 = 0;
 			@Pc(367) boolean local367 = false;
 			@Pc(369) boolean local369 = true;
 			for (local222 = 0; local222 < arg0; local222++) {
-				@Pc(379) int local379 = this.aClass42_7.method554(true, arg0);
-				@Pc(385) int local385 = this.aClass42_8.method554(true, arg0);
+				@Pc(379) int local379 = this.aClass42_7.evaluate(true, arg0);
+				@Pc(385) int local385 = this.aClass42_8.evaluate(true, arg0);
 				if (local369) {
 					local207 = this.aClass42_7.anInt819 + ((this.aClass42_7.anInt820 - this.aClass42_7.anInt819) * local379 >> 8);
 				} else {
@@ -208,7 +208,7 @@ public final class SoundTone {
 	}
 
 	@OriginalMember(owner = "client!zb", name = "a", descriptor = "(IIII)I")
-	private int method577(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
+	private int generate(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
 		try {
 			if (arg0 != this.anInt944) {
 				return 2;
@@ -230,52 +230,52 @@ public final class SoundTone {
 	}
 
 	@OriginalMember(owner = "client!zb", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void method578(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
+	public void read(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
 		try {
 			this.aClass42_1 = new SoundEnvelope();
-			this.aClass42_1.method552(false, arg1);
+			this.aClass42_1.readShape(false, arg1);
 			this.aClass42_2 = new SoundEnvelope();
-			this.aClass42_2.method552(false, arg1);
-			@Pc(24) int local24 = arg1.method391();
+			this.aClass42_2.readShape(false, arg1);
+			@Pc(24) int local24 = arg1.g1();
 			if (arg0) {
 				throw new NullPointerException();
 			}
 			if (local24 != 0) {
 				arg1.anInt561--;
 				this.aClass42_3 = new SoundEnvelope();
-				this.aClass42_3.method552(false, arg1);
+				this.aClass42_3.readShape(false, arg1);
 				this.aClass42_4 = new SoundEnvelope();
-				this.aClass42_4.method552(false, arg1);
+				this.aClass42_4.readShape(false, arg1);
 			}
-			local24 = arg1.method391();
+			local24 = arg1.g1();
 			if (local24 != 0) {
 				arg1.anInt561--;
 				this.aClass42_5 = new SoundEnvelope();
-				this.aClass42_5.method552(false, arg1);
+				this.aClass42_5.readShape(false, arg1);
 				this.aClass42_6 = new SoundEnvelope();
-				this.aClass42_6.method552(false, arg1);
+				this.aClass42_6.readShape(false, arg1);
 			}
-			local24 = arg1.method391();
+			local24 = arg1.g1();
 			if (local24 != 0) {
 				arg1.anInt561--;
 				this.aClass42_7 = new SoundEnvelope();
-				this.aClass42_7.method552(false, arg1);
+				this.aClass42_7.readShape(false, arg1);
 				this.aClass42_8 = new SoundEnvelope();
-				this.aClass42_8.method552(false, arg1);
+				this.aClass42_8.readShape(false, arg1);
 			}
 			for (@Pc(122) int local122 = 0; local122 < 10; local122++) {
-				@Pc(132) int local132 = arg1.method405();
+				@Pc(132) int local132 = arg1.gsmarts();
 				if (local132 == 0) {
 					break;
 				}
 				this.anIntArray236[local122] = local132;
-				this.anIntArray237[local122] = arg1.method404();
-				this.anIntArray238[local122] = arg1.method405();
+				this.anIntArray237[local122] = arg1.gsmart();
+				this.anIntArray238[local122] = arg1.gsmarts();
 			}
-			this.anInt945 = arg1.method405();
-			this.anInt946 = arg1.method405();
-			this.anInt947 = arg1.method393();
-			this.anInt948 = arg1.method393();
+			this.anInt945 = arg1.gsmarts();
+			this.anInt946 = arg1.gsmarts();
+			this.anInt947 = arg1.g2();
+			this.anInt948 = arg1.g2();
 		} catch (@Pc(173) RuntimeException local173) {
 			signlink.reporterror("36876, " + arg0 + ", " + arg1 + ", " + local173.toString());
 			throw new RuntimeException();

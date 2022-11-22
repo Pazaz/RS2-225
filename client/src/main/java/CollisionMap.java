@@ -48,7 +48,7 @@ public final class CollisionMap {
 			this.anInt383 = arg0;
 			this.anInt384 = arg2;
 			this.anIntArrayArray10 = new int[this.anInt383][this.anInt384];
-			this.method249((byte) 74);
+			this.reset((byte) 74);
 		} catch (@Pc(49) RuntimeException local49) {
 			signlink.reporterror("56319, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + local49.toString());
 			throw new RuntimeException();
@@ -56,7 +56,7 @@ public final class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(B)V")
-	public void method249(@OriginalArg(0) byte arg0) {
+	public void reset(@OriginalArg(0) byte arg0) {
 		try {
 			@Pc(7) int local7;
 			for (@Pc(3) int local3 = 0; local3 < this.anInt383; local3++) {
@@ -79,7 +79,7 @@ public final class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(ZIIIZI)V")
-	public void method250(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) boolean arg4, @OriginalArg(5) int arg5) {
+	public void setWall(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) boolean arg4, @OriginalArg(5) int arg5) {
 		try {
 			@Pc(4) int local4 = arg3 - this.anInt381;
 			if (!arg0) {
@@ -88,119 +88,119 @@ public final class CollisionMap {
 			@Pc(19) int local19 = arg2 - this.anInt382;
 			if (arg5 == 0) {
 				if (arg1 == 0) {
-					this.method253(local4, local19, 128);
-					this.method253(local4 - 1, local19, 8);
+					this.add(local4, local19, 128);
+					this.add(local4 - 1, local19, 8);
 				}
 				if (arg1 == 1) {
-					this.method253(local4, local19, 2);
-					this.method253(local4, local19 + 1, 32);
+					this.add(local4, local19, 2);
+					this.add(local4, local19 + 1, 32);
 				}
 				if (arg1 == 2) {
-					this.method253(local4, local19, 8);
-					this.method253(local4 + 1, local19, 128);
+					this.add(local4, local19, 8);
+					this.add(local4 + 1, local19, 128);
 				}
 				if (arg1 == 3) {
-					this.method253(local4, local19, 32);
-					this.method253(local4, local19 - 1, 2);
+					this.add(local4, local19, 32);
+					this.add(local4, local19 - 1, 2);
 				}
 			}
 			if (arg5 == 1 || arg5 == 3) {
 				if (arg1 == 0) {
-					this.method253(local4, local19, 1);
-					this.method253(local4 - 1, local19 + 1, 16);
+					this.add(local4, local19, 1);
+					this.add(local4 - 1, local19 + 1, 16);
 				}
 				if (arg1 == 1) {
-					this.method253(local4, local19, 4);
-					this.method253(local4 + 1, local19 + 1, 64);
+					this.add(local4, local19, 4);
+					this.add(local4 + 1, local19 + 1, 64);
 				}
 				if (arg1 == 2) {
-					this.method253(local4, local19, 16);
-					this.method253(local4 + 1, local19 - 1, 1);
+					this.add(local4, local19, 16);
+					this.add(local4 + 1, local19 - 1, 1);
 				}
 				if (arg1 == 3) {
-					this.method253(local4, local19, 64);
-					this.method253(local4 - 1, local19 - 1, 4);
+					this.add(local4, local19, 64);
+					this.add(local4 - 1, local19 - 1, 4);
 				}
 			}
 			if (arg5 == 2) {
 				if (arg1 == 0) {
-					this.method253(local4, local19, 130);
-					this.method253(local4 - 1, local19, 8);
-					this.method253(local4, local19 + 1, 32);
+					this.add(local4, local19, 130);
+					this.add(local4 - 1, local19, 8);
+					this.add(local4, local19 + 1, 32);
 				}
 				if (arg1 == 1) {
-					this.method253(local4, local19, 10);
-					this.method253(local4, local19 + 1, 32);
-					this.method253(local4 + 1, local19, 128);
+					this.add(local4, local19, 10);
+					this.add(local4, local19 + 1, 32);
+					this.add(local4 + 1, local19, 128);
 				}
 				if (arg1 == 2) {
-					this.method253(local4, local19, 40);
-					this.method253(local4 + 1, local19, 128);
-					this.method253(local4, local19 - 1, 2);
+					this.add(local4, local19, 40);
+					this.add(local4 + 1, local19, 128);
+					this.add(local4, local19 - 1, 2);
 				}
 				if (arg1 == 3) {
-					this.method253(local4, local19, 160);
-					this.method253(local4, local19 - 1, 2);
-					this.method253(local4 - 1, local19, 8);
+					this.add(local4, local19, 160);
+					this.add(local4, local19 - 1, 2);
+					this.add(local4 - 1, local19, 8);
 				}
 			}
 			if (arg4) {
 				if (arg5 == 0) {
 					if (arg1 == 0) {
-						this.method253(local4, local19, 65536);
-						this.method253(local4 - 1, local19, 4096);
+						this.add(local4, local19, 65536);
+						this.add(local4 - 1, local19, 4096);
 					}
 					if (arg1 == 1) {
-						this.method253(local4, local19, 1024);
-						this.method253(local4, local19 + 1, 16384);
+						this.add(local4, local19, 1024);
+						this.add(local4, local19 + 1, 16384);
 					}
 					if (arg1 == 2) {
-						this.method253(local4, local19, 4096);
-						this.method253(local4 + 1, local19, 65536);
+						this.add(local4, local19, 4096);
+						this.add(local4 + 1, local19, 65536);
 					}
 					if (arg1 == 3) {
-						this.method253(local4, local19, 16384);
-						this.method253(local4, local19 - 1, 1024);
+						this.add(local4, local19, 16384);
+						this.add(local4, local19 - 1, 1024);
 					}
 				}
 				if (arg5 == 1 || arg5 == 3) {
 					if (arg1 == 0) {
-						this.method253(local4, local19, 512);
-						this.method253(local4 - 1, local19 + 1, 8192);
+						this.add(local4, local19, 512);
+						this.add(local4 - 1, local19 + 1, 8192);
 					}
 					if (arg1 == 1) {
-						this.method253(local4, local19, 2048);
-						this.method253(local4 + 1, local19 + 1, 32768);
+						this.add(local4, local19, 2048);
+						this.add(local4 + 1, local19 + 1, 32768);
 					}
 					if (arg1 == 2) {
-						this.method253(local4, local19, 8192);
-						this.method253(local4 + 1, local19 - 1, 512);
+						this.add(local4, local19, 8192);
+						this.add(local4 + 1, local19 - 1, 512);
 					}
 					if (arg1 == 3) {
-						this.method253(local4, local19, 32768);
-						this.method253(local4 - 1, local19 - 1, 2048);
+						this.add(local4, local19, 32768);
+						this.add(local4 - 1, local19 - 1, 2048);
 					}
 				}
 				if (arg5 == 2) {
 					if (arg1 == 0) {
-						this.method253(local4, local19, 66560);
-						this.method253(local4 - 1, local19, 4096);
-						this.method253(local4, local19 + 1, 16384);
+						this.add(local4, local19, 66560);
+						this.add(local4 - 1, local19, 4096);
+						this.add(local4, local19 + 1, 16384);
 					}
 					if (arg1 == 1) {
-						this.method253(local4, local19, 5120);
-						this.method253(local4, local19 + 1, 16384);
-						this.method253(local4 + 1, local19, 65536);
+						this.add(local4, local19, 5120);
+						this.add(local4, local19 + 1, 16384);
+						this.add(local4 + 1, local19, 65536);
 					}
 					if (arg1 == 2) {
-						this.method253(local4, local19, 20480);
-						this.method253(local4 + 1, local19, 65536);
-						this.method253(local4, local19 - 1, 1024);
+						this.add(local4, local19, 20480);
+						this.add(local4 + 1, local19, 65536);
+						this.add(local4, local19 - 1, 1024);
 					}
 					if (arg1 == 3) {
-						this.method253(local4, local19, 81920);
-						this.method253(local4, local19 - 1, 1024);
-						this.method253(local4 - 1, local19, 4096);
+						this.add(local4, local19, 81920);
+						this.add(local4, local19 - 1, 1024);
+						this.add(local4 - 1, local19, 4096);
 						return;
 					}
 				}
@@ -212,7 +212,7 @@ public final class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(IIIIIIZ)V")
-	public void method251(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) boolean arg6) {
+	public void setLoc(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) boolean arg6) {
 		try {
 			@Pc(3) int local3 = 256;
 			if (arg6) {
@@ -231,7 +231,7 @@ public final class CollisionMap {
 				if (local27 >= 0 && local27 < this.anInt383) {
 					for (local43 = local19; local43 < local19 + arg1; local43++) {
 						if (local43 >= 0 && local43 < this.anInt384) {
-							this.method253(local27, local43, local3);
+							this.add(local27, local43, local3);
 						}
 					}
 				}
@@ -247,7 +247,7 @@ public final class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(BII)V")
-	public void method252(@OriginalArg(0) byte arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
+	public void setBlocked(@OriginalArg(0) byte arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		try {
 			if (arg0 == this.aByte21) {
 				@Pc(9) int local9 = arg2 - this.anInt381;
@@ -261,131 +261,131 @@ public final class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(III)V")
-	private void method253(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
+	private void add(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		this.anIntArrayArray10[arg0][arg1] |= arg2;
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(ZIIIII)V")
-	public void method254(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
+	public void removeWall(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
 		try {
 			@Pc(3) int local3 = 9 / arg4;
 			@Pc(8) int local8 = arg2 - this.anInt381;
 			@Pc(13) int local13 = arg3 - this.anInt382;
 			if (arg5 == 0) {
 				if (arg1 == 0) {
-					this.method256(local13, (byte) -9, local8, 128);
-					this.method256(local13, (byte) -9, local8 - 1, 8);
+					this.remove(local13, (byte) -9, local8, 128);
+					this.remove(local13, (byte) -9, local8 - 1, 8);
 				}
 				if (arg1 == 1) {
-					this.method256(local13, (byte) -9, local8, 2);
-					this.method256(local13 + 1, (byte) -9, local8, 32);
+					this.remove(local13, (byte) -9, local8, 2);
+					this.remove(local13 + 1, (byte) -9, local8, 32);
 				}
 				if (arg1 == 2) {
-					this.method256(local13, (byte) -9, local8, 8);
-					this.method256(local13, (byte) -9, local8 + 1, 128);
+					this.remove(local13, (byte) -9, local8, 8);
+					this.remove(local13, (byte) -9, local8 + 1, 128);
 				}
 				if (arg1 == 3) {
-					this.method256(local13, (byte) -9, local8, 32);
-					this.method256(local13 - 1, (byte) -9, local8, 2);
+					this.remove(local13, (byte) -9, local8, 32);
+					this.remove(local13 - 1, (byte) -9, local8, 2);
 				}
 			}
 			if (arg5 == 1 || arg5 == 3) {
 				if (arg1 == 0) {
-					this.method256(local13, (byte) -9, local8, 1);
-					this.method256(local13 + 1, (byte) -9, local8 - 1, 16);
+					this.remove(local13, (byte) -9, local8, 1);
+					this.remove(local13 + 1, (byte) -9, local8 - 1, 16);
 				}
 				if (arg1 == 1) {
-					this.method256(local13, (byte) -9, local8, 4);
-					this.method256(local13 + 1, (byte) -9, local8 + 1, 64);
+					this.remove(local13, (byte) -9, local8, 4);
+					this.remove(local13 + 1, (byte) -9, local8 + 1, 64);
 				}
 				if (arg1 == 2) {
-					this.method256(local13, (byte) -9, local8, 16);
-					this.method256(local13 - 1, (byte) -9, local8 + 1, 1);
+					this.remove(local13, (byte) -9, local8, 16);
+					this.remove(local13 - 1, (byte) -9, local8 + 1, 1);
 				}
 				if (arg1 == 3) {
-					this.method256(local13, (byte) -9, local8, 64);
-					this.method256(local13 - 1, (byte) -9, local8 - 1, 4);
+					this.remove(local13, (byte) -9, local8, 64);
+					this.remove(local13 - 1, (byte) -9, local8 - 1, 4);
 				}
 			}
 			if (arg5 == 2) {
 				if (arg1 == 0) {
-					this.method256(local13, (byte) -9, local8, 130);
-					this.method256(local13, (byte) -9, local8 - 1, 8);
-					this.method256(local13 + 1, (byte) -9, local8, 32);
+					this.remove(local13, (byte) -9, local8, 130);
+					this.remove(local13, (byte) -9, local8 - 1, 8);
+					this.remove(local13 + 1, (byte) -9, local8, 32);
 				}
 				if (arg1 == 1) {
-					this.method256(local13, (byte) -9, local8, 10);
-					this.method256(local13 + 1, (byte) -9, local8, 32);
-					this.method256(local13, (byte) -9, local8 + 1, 128);
+					this.remove(local13, (byte) -9, local8, 10);
+					this.remove(local13 + 1, (byte) -9, local8, 32);
+					this.remove(local13, (byte) -9, local8 + 1, 128);
 				}
 				if (arg1 == 2) {
-					this.method256(local13, (byte) -9, local8, 40);
-					this.method256(local13, (byte) -9, local8 + 1, 128);
-					this.method256(local13 - 1, (byte) -9, local8, 2);
+					this.remove(local13, (byte) -9, local8, 40);
+					this.remove(local13, (byte) -9, local8 + 1, 128);
+					this.remove(local13 - 1, (byte) -9, local8, 2);
 				}
 				if (arg1 == 3) {
-					this.method256(local13, (byte) -9, local8, 160);
-					this.method256(local13 - 1, (byte) -9, local8, 2);
-					this.method256(local13, (byte) -9, local8 - 1, 8);
+					this.remove(local13, (byte) -9, local8, 160);
+					this.remove(local13 - 1, (byte) -9, local8, 2);
+					this.remove(local13, (byte) -9, local8 - 1, 8);
 				}
 			}
 			if (arg0) {
 				if (arg5 == 0) {
 					if (arg1 == 0) {
-						this.method256(local13, (byte) -9, local8, 65536);
-						this.method256(local13, (byte) -9, local8 - 1, 4096);
+						this.remove(local13, (byte) -9, local8, 65536);
+						this.remove(local13, (byte) -9, local8 - 1, 4096);
 					}
 					if (arg1 == 1) {
-						this.method256(local13, (byte) -9, local8, 1024);
-						this.method256(local13 + 1, (byte) -9, local8, 16384);
+						this.remove(local13, (byte) -9, local8, 1024);
+						this.remove(local13 + 1, (byte) -9, local8, 16384);
 					}
 					if (arg1 == 2) {
-						this.method256(local13, (byte) -9, local8, 4096);
-						this.method256(local13, (byte) -9, local8 + 1, 65536);
+						this.remove(local13, (byte) -9, local8, 4096);
+						this.remove(local13, (byte) -9, local8 + 1, 65536);
 					}
 					if (arg1 == 3) {
-						this.method256(local13, (byte) -9, local8, 16384);
-						this.method256(local13 - 1, (byte) -9, local8, 1024);
+						this.remove(local13, (byte) -9, local8, 16384);
+						this.remove(local13 - 1, (byte) -9, local8, 1024);
 					}
 				}
 				if (arg5 == 1 || arg5 == 3) {
 					if (arg1 == 0) {
-						this.method256(local13, (byte) -9, local8, 512);
-						this.method256(local13 + 1, (byte) -9, local8 - 1, 8192);
+						this.remove(local13, (byte) -9, local8, 512);
+						this.remove(local13 + 1, (byte) -9, local8 - 1, 8192);
 					}
 					if (arg1 == 1) {
-						this.method256(local13, (byte) -9, local8, 2048);
-						this.method256(local13 + 1, (byte) -9, local8 + 1, 32768);
+						this.remove(local13, (byte) -9, local8, 2048);
+						this.remove(local13 + 1, (byte) -9, local8 + 1, 32768);
 					}
 					if (arg1 == 2) {
-						this.method256(local13, (byte) -9, local8, 8192);
-						this.method256(local13 - 1, (byte) -9, local8 + 1, 512);
+						this.remove(local13, (byte) -9, local8, 8192);
+						this.remove(local13 - 1, (byte) -9, local8 + 1, 512);
 					}
 					if (arg1 == 3) {
-						this.method256(local13, (byte) -9, local8, 32768);
-						this.method256(local13 - 1, (byte) -9, local8 - 1, 2048);
+						this.remove(local13, (byte) -9, local8, 32768);
+						this.remove(local13 - 1, (byte) -9, local8 - 1, 2048);
 					}
 				}
 				if (arg5 == 2) {
 					if (arg1 == 0) {
-						this.method256(local13, (byte) -9, local8, 66560);
-						this.method256(local13, (byte) -9, local8 - 1, 4096);
-						this.method256(local13 + 1, (byte) -9, local8, 16384);
+						this.remove(local13, (byte) -9, local8, 66560);
+						this.remove(local13, (byte) -9, local8 - 1, 4096);
+						this.remove(local13 + 1, (byte) -9, local8, 16384);
 					}
 					if (arg1 == 1) {
-						this.method256(local13, (byte) -9, local8, 5120);
-						this.method256(local13 + 1, (byte) -9, local8, 16384);
-						this.method256(local13, (byte) -9, local8 + 1, 65536);
+						this.remove(local13, (byte) -9, local8, 5120);
+						this.remove(local13 + 1, (byte) -9, local8, 16384);
+						this.remove(local13, (byte) -9, local8 + 1, 65536);
 					}
 					if (arg1 == 2) {
-						this.method256(local13, (byte) -9, local8, 20480);
-						this.method256(local13, (byte) -9, local8 + 1, 65536);
-						this.method256(local13 - 1, (byte) -9, local8, 1024);
+						this.remove(local13, (byte) -9, local8, 20480);
+						this.remove(local13, (byte) -9, local8 + 1, 65536);
+						this.remove(local13 - 1, (byte) -9, local8, 1024);
 					}
 					if (arg1 == 3) {
-						this.method256(local13, (byte) -9, local8, 81920);
-						this.method256(local13 - 1, (byte) -9, local8, 1024);
-						this.method256(local13, (byte) -9, local8 - 1, 4096);
+						this.remove(local13, (byte) -9, local8, 81920);
+						this.remove(local13 - 1, (byte) -9, local8, 1024);
+						this.remove(local13, (byte) -9, local8 - 1, 4096);
 						return;
 					}
 				}
@@ -397,7 +397,7 @@ public final class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(IIIIZZI)V")
-	public void method255(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) boolean arg4, @OriginalArg(5) boolean arg5, @OriginalArg(6) int arg6) {
+	public void removeLoc(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) boolean arg4, @OriginalArg(5) boolean arg5, @OriginalArg(6) int arg6) {
 		try {
 			@Pc(3) int local3 = 256;
 			if (arg5) {
@@ -418,7 +418,7 @@ public final class CollisionMap {
 				if (local32 >= 0 && local32 < this.anInt383) {
 					for (@Pc(48) int local48 = local19; local48 < local19 + arg6; local48++) {
 						if (local48 >= 0 && local48 < this.anInt384) {
-							this.method256(local48, (byte) -9, local32, local3);
+							this.remove(local48, (byte) -9, local32, local3);
 						}
 					}
 				}
@@ -430,7 +430,7 @@ public final class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(IBII)V")
-	private void method256(@OriginalArg(0) int arg0, @OriginalArg(1) byte arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
+	private void remove(@OriginalArg(0) int arg0, @OriginalArg(1) byte arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
 		try {
 			this.anIntArrayArray10[arg2][arg0] &= 16777215 - arg3;
 			if (arg1 == -9) {
@@ -443,7 +443,7 @@ public final class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "b", descriptor = "(III)V")
-	public void method257(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
+	public void removeBlock(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		try {
 			if (arg2 == 0) {
 				@Pc(7) int local7 = arg1 - this.anInt381;
@@ -457,7 +457,7 @@ public final class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(IIIIIII)Z")
-	public boolean method258(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
+	public boolean reachedWall(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
 		try {
 			if (arg6 == arg5 && arg4 == arg2) {
 				return true;
@@ -589,7 +589,7 @@ public final class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "b", descriptor = "(IIIIIII)Z")
-	public boolean method259(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
+	public boolean reachedDecoration(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
 		try {
 			if (arg2 != this.anInt380) {
 				this.anInt379 = -218;
@@ -657,7 +657,7 @@ public final class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(IIIIIIII)Z")
-	public boolean method260(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7) {
+	public boolean reachedObject(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7) {
 		try {
 			@Pc(5) int local5 = arg3 + arg6 - 1;
 			@Pc(11) int local11 = arg5 + arg1 - 1;

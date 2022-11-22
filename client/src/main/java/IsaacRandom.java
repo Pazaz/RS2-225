@@ -37,7 +37,7 @@ public final class IsaacRandom {
 				throw new NullPointerException();
 			}
 			@Pc(32) boolean local32 = false;
-			this.method534();
+			this.init();
 		} catch (@Pc(42) RuntimeException local42) {
 			signlink.reporterror("45225, " + arg0 + ", " + arg1 + ", " + local42.toString());
 			throw new RuntimeException();
@@ -45,16 +45,16 @@ public final class IsaacRandom {
 	}
 
 	@OriginalMember(owner = "client!tb", name = "a", descriptor = "()I")
-	public int method532() {
+	public int nextInt() {
 		if (this.anInt758-- == 0) {
-			this.method533();
+			this.isaac();
 			this.anInt758 = 255;
 		}
 		return this.anIntArray219[this.anInt758];
 	}
 
 	@OriginalMember(owner = "client!tb", name = "b", descriptor = "()V")
-	private void method533() {
+	private void isaac() {
 		this.anInt760 += ++this.anInt761;
 		for (@Pc(15) int local15 = 0; local15 < 256; local15++) {
 			@Pc(22) int local22 = this.anIntArray220[local15];
@@ -79,7 +79,7 @@ public final class IsaacRandom {
 	}
 
 	@OriginalMember(owner = "client!tb", name = "c", descriptor = "()V")
-	private void method534() {
+	private void init() {
 		@Pc(4) int local4 = -1640531527;
 		@Pc(6) int local6 = -1640531527;
 		@Pc(8) int local8 = -1640531527;
@@ -199,7 +199,7 @@ public final class IsaacRandom {
 			this.anIntArray220[local19 + 6] = local6;
 			this.anIntArray220[local19 + 7] = local4;
 		}
-		this.method533();
+		this.isaac();
 		this.anInt758 = 256;
 	}
 }

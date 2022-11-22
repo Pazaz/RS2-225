@@ -42,9 +42,9 @@ public final class InputTracking {
 	private static Buffer aClass1_Sub3_Sub3_8 = null;
 
 	@OriginalMember(owner = "client!e", name = "a", descriptor = "(I)V")
-	public static synchronized void method208(@OriginalArg(0) int arg0) {
+	public static synchronized void setEnabled(@OriginalArg(0) int arg0) {
 		try {
-			aClass1_Sub3_Sub3_7 = Buffer.method378(1, -737);
+			aClass1_Sub3_Sub3_7 = Buffer.reserve(1, -737);
 			aClass1_Sub3_Sub3_8 = null;
 			aLong11 = System.currentTimeMillis();
 			if (arg0 != -31717) {
@@ -58,7 +58,7 @@ public final class InputTracking {
 	}
 
 	@OriginalMember(owner = "client!e", name = "a", descriptor = "(B)V")
-	public static synchronized void method209(@OriginalArg(0) byte arg0) {
+	public static synchronized void setDisabled(@OriginalArg(0) byte arg0) {
 		try {
 			aBoolean81 = false;
 			aClass1_Sub3_Sub3_7 = null;
@@ -72,7 +72,7 @@ public final class InputTracking {
 	}
 
 	@OriginalMember(owner = "client!e", name = "b", descriptor = "(I)Lclient!kb;")
-	public static synchronized Buffer method210(@OriginalArg(0) int arg0) {
+	public static synchronized Buffer flush(@OriginalArg(0) int arg0) {
 		try {
 			@Pc(1) Buffer local1 = null;
 			if (aClass1_Sub3_Sub3_8 != null && aBoolean81) {
@@ -90,7 +90,7 @@ public final class InputTracking {
 	}
 
 	@OriginalMember(owner = "client!e", name = "c", descriptor = "(I)Lclient!kb;")
-	public static synchronized Buffer method211(@OriginalArg(0) int arg0) {
+	public static synchronized Buffer stop(@OriginalArg(0) int arg0) {
 		try {
 			if (arg0 <= 0) {
 				aBoolean80 = !aBoolean80;
@@ -99,7 +99,7 @@ public final class InputTracking {
 			if (aClass1_Sub3_Sub3_7 != null && aClass1_Sub3_Sub3_7.anInt561 > 0 && aBoolean81) {
 				local9 = aClass1_Sub3_Sub3_7;
 			}
-			method209((byte) 65);
+			setDisabled((byte) 65);
 			return local9;
 		} catch (@Pc(23) RuntimeException local23) {
 			signlink.reporterror("12569, " + arg0 + ", " + local23.toString());
@@ -108,14 +108,14 @@ public final class InputTracking {
 	}
 
 	@OriginalMember(owner = "client!e", name = "a", descriptor = "(II)V")
-	private static synchronized void method212(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+	private static synchronized void resize(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		try {
 			if (arg0 <= 0) {
 				aBoolean79 = !aBoolean79;
 			}
 			if (aClass1_Sub3_Sub3_7.anInt561 + arg1 >= 500) {
 				@Pc(15) Buffer local15 = aClass1_Sub3_Sub3_7;
-				aClass1_Sub3_Sub3_7 = Buffer.method378(1, -737);
+				aClass1_Sub3_Sub3_7 = Buffer.reserve(1, -737);
 				aClass1_Sub3_Sub3_8 = local15;
 			}
 		} catch (@Pc(23) RuntimeException local23) {
@@ -125,7 +125,7 @@ public final class InputTracking {
 	}
 
 	@OriginalMember(owner = "client!e", name = "a", descriptor = "(IIIB)V")
-	public static synchronized void method213(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) byte arg3) {
+	public static synchronized void mousePressed(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) byte arg3) {
 		try {
 			if (aBoolean81 && (arg0 >= 0 && arg0 < 789 && arg2 >= 0 && arg2 < 532)) {
 				anInt352++;
@@ -135,15 +135,15 @@ public final class InputTracking {
 					local25 = 250L;
 				}
 				aLong11 = local19;
-				method212(anInt351, 5);
+				resize(anInt351, 5);
 				if (arg3 == 4) {
 					if (arg1 == 1) {
-						aClass1_Sub3_Sub3_7.method381(1);
+						aClass1_Sub3_Sub3_7.p1(1);
 					} else {
-						aClass1_Sub3_Sub3_7.method381(2);
+						aClass1_Sub3_Sub3_7.p1(2);
 					}
-					aClass1_Sub3_Sub3_7.method381((int) local25);
-					aClass1_Sub3_Sub3_7.method384(arg0 + (arg2 << 10));
+					aClass1_Sub3_Sub3_7.p1((int) local25);
+					aClass1_Sub3_Sub3_7.p3(arg0 + (arg2 << 10));
 				}
 			}
 		} catch (@Pc(64) RuntimeException local64) {
@@ -153,7 +153,7 @@ public final class InputTracking {
 	}
 
 	@OriginalMember(owner = "client!e", name = "b", descriptor = "(II)V")
-	public static synchronized void method214(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+	public static synchronized void mouseReleased(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		try {
 			if (aBoolean81) {
 				anInt352++;
@@ -164,13 +164,13 @@ public final class InputTracking {
 				}
 				aLong11 = local8;
 				if (arg1 == 0) {
-					method212(anInt351, 2);
+					resize(anInt351, 2);
 					if (arg0 == 1) {
-						aClass1_Sub3_Sub3_7.method381(3);
+						aClass1_Sub3_Sub3_7.p1(3);
 					} else {
-						aClass1_Sub3_Sub3_7.method381(4);
+						aClass1_Sub3_Sub3_7.p1(4);
 					}
-					aClass1_Sub3_Sub3_7.method381((int) local14);
+					aClass1_Sub3_Sub3_7.p1((int) local14);
 				}
 			}
 		} catch (@Pc(45) RuntimeException local45) {
@@ -180,7 +180,7 @@ public final class InputTracking {
 	}
 
 	@OriginalMember(owner = "client!e", name = "a", descriptor = "(IZI)V")
-	public static synchronized void method215(@OriginalArg(0) int arg0, @OriginalArg(1) boolean arg1, @OriginalArg(2) int arg2) {
+	public static synchronized void mouseMoved(@OriginalArg(0) int arg0, @OriginalArg(1) boolean arg1, @OriginalArg(2) int arg2) {
 		try {
 			if (aBoolean81 && (arg2 >= 0 && arg2 < 789 && arg0 >= 0 && arg0 < 532)) {
 				@Pc(17) long local17 = System.currentTimeMillis();
@@ -196,21 +196,21 @@ public final class InputTracking {
 					}
 					aLong11 = local17;
 					if (arg2 - anInt353 < 8 && arg2 - anInt353 >= -8 && arg0 - anInt354 < 8 && arg0 - anInt354 >= -8) {
-						method212(anInt351, 3);
-						aClass1_Sub3_Sub3_7.method381(5);
-						aClass1_Sub3_Sub3_7.method381((int) local39);
-						aClass1_Sub3_Sub3_7.method381(arg2 + (arg0 - anInt354 + 8 << 4) + 8 - anInt353);
+						resize(anInt351, 3);
+						aClass1_Sub3_Sub3_7.p1(5);
+						aClass1_Sub3_Sub3_7.p1((int) local39);
+						aClass1_Sub3_Sub3_7.p1(arg2 + (arg0 - anInt354 + 8 << 4) + 8 - anInt353);
 					} else if (arg2 - anInt353 < 128 && arg2 - anInt353 >= -128 && arg0 - anInt354 < 128 && arg0 - anInt354 >= -128) {
-						method212(anInt351, 4);
-						aClass1_Sub3_Sub3_7.method381(6);
-						aClass1_Sub3_Sub3_7.method381((int) local39);
-						aClass1_Sub3_Sub3_7.method381(arg2 + 128 - anInt353);
-						aClass1_Sub3_Sub3_7.method381(arg0 + 128 - anInt354);
+						resize(anInt351, 4);
+						aClass1_Sub3_Sub3_7.p1(6);
+						aClass1_Sub3_Sub3_7.p1((int) local39);
+						aClass1_Sub3_Sub3_7.p1(arg2 + 128 - anInt353);
+						aClass1_Sub3_Sub3_7.p1(arg0 + 128 - anInt354);
 					} else {
-						method212(anInt351, 5);
-						aClass1_Sub3_Sub3_7.method381(7);
-						aClass1_Sub3_Sub3_7.method381((int) local39);
-						aClass1_Sub3_Sub3_7.method384(arg2 + (arg0 << 10));
+						resize(anInt351, 5);
+						aClass1_Sub3_Sub3_7.p1(7);
+						aClass1_Sub3_Sub3_7.p1((int) local39);
+						aClass1_Sub3_Sub3_7.p3(arg2 + (arg0 << 10));
 					}
 					anInt353 = arg2;
 					anInt354 = arg0;
@@ -223,7 +223,7 @@ public final class InputTracking {
 	}
 
 	@OriginalMember(owner = "client!e", name = "a", descriptor = "(IZ)V")
-	public static synchronized void method216(@OriginalArg(0) int arg0, @OriginalArg(1) boolean arg1) {
+	public static synchronized void keyPressed(@OriginalArg(0) int arg0, @OriginalArg(1) boolean arg1) {
 		try {
 			if (aBoolean81) {
 				anInt352++;
@@ -248,14 +248,14 @@ public final class InputTracking {
 				if (arg0 >= 1008) {
 					arg0 -= 992;
 				}
-				method212(anInt351, 3);
+				resize(anInt351, 3);
 				if (!arg1) {
 					for (@Pc(53) int local53 = 1; local53 > 0; local53++) {
 					}
 				}
-				aClass1_Sub3_Sub3_7.method381(8);
-				aClass1_Sub3_Sub3_7.method381((int) local14);
-				aClass1_Sub3_Sub3_7.method381(arg0);
+				aClass1_Sub3_Sub3_7.p1(8);
+				aClass1_Sub3_Sub3_7.p1((int) local14);
+				aClass1_Sub3_Sub3_7.p1(arg0);
 			}
 		} catch (@Pc(70) RuntimeException local70) {
 			signlink.reporterror("93007, " + arg0 + ", " + arg1 + ", " + local70.toString());
@@ -264,7 +264,7 @@ public final class InputTracking {
 	}
 
 	@OriginalMember(owner = "client!e", name = "c", descriptor = "(II)V")
-	public static synchronized void method217(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+	public static synchronized void keyReleased(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		try {
 			if (aBoolean81) {
 				anInt352++;
@@ -289,10 +289,10 @@ public final class InputTracking {
 				if (arg0 >= 1008) {
 					arg0 -= 992;
 				}
-				method212(anInt351, 3);
-				aClass1_Sub3_Sub3_7.method381(9);
-				aClass1_Sub3_Sub3_7.method381((int) local14);
-				aClass1_Sub3_Sub3_7.method381(arg0);
+				resize(anInt351, 3);
+				aClass1_Sub3_Sub3_7.p1(9);
+				aClass1_Sub3_Sub3_7.p1((int) local14);
+				aClass1_Sub3_Sub3_7.p1(arg0);
 				if (arg1 == 1) {
 					;
 				}
@@ -304,7 +304,7 @@ public final class InputTracking {
 	}
 
 	@OriginalMember(owner = "client!e", name = "d", descriptor = "(I)V")
-	public static synchronized void method218(@OriginalArg(0) int arg0) {
+	public static synchronized void focusGained(@OriginalArg(0) int arg0) {
 		try {
 			if (aBoolean81) {
 				anInt352++;
@@ -315,9 +315,9 @@ public final class InputTracking {
 						local17 = 250L;
 					}
 					aLong11 = local11;
-					method212(anInt351, 2);
-					aClass1_Sub3_Sub3_7.method381(10);
-					aClass1_Sub3_Sub3_7.method381((int) local17);
+					resize(anInt351, 2);
+					aClass1_Sub3_Sub3_7.p1(10);
+					aClass1_Sub3_Sub3_7.p1((int) local17);
 				}
 			}
 		} catch (@Pc(37) RuntimeException local37) {
@@ -327,7 +327,7 @@ public final class InputTracking {
 	}
 
 	@OriginalMember(owner = "client!e", name = "e", descriptor = "(I)V")
-	public static synchronized void method219(@OriginalArg(0) int arg0) {
+	public static synchronized void focusLost(@OriginalArg(0) int arg0) {
 		try {
 			if (aBoolean81) {
 				anInt352++;
@@ -337,12 +337,12 @@ public final class InputTracking {
 					local14 = 250L;
 				}
 				aLong11 = local8;
-				method212(anInt351, 2);
+				resize(anInt351, 2);
 				if (arg0 != 0) {
 					aBoolean80 = !aBoolean80;
 				}
-				aClass1_Sub3_Sub3_7.method381(11);
-				aClass1_Sub3_Sub3_7.method381((int) local14);
+				aClass1_Sub3_Sub3_7.p1(11);
+				aClass1_Sub3_Sub3_7.p1((int) local14);
 			}
 		} catch (@Pc(42) RuntimeException local42) {
 			signlink.reporterror("80777, " + arg0 + ", " + local42.toString());
@@ -351,7 +351,7 @@ public final class InputTracking {
 	}
 
 	@OriginalMember(owner = "client!e", name = "f", descriptor = "(I)V")
-	public static synchronized void method220(@OriginalArg(0) int arg0) {
+	public static synchronized void mouseEntered(@OriginalArg(0) int arg0) {
 		try {
 			if (aBoolean81) {
 				anInt352++;
@@ -361,10 +361,10 @@ public final class InputTracking {
 					local14 = 250L;
 				}
 				aLong11 = local8;
-				method212(anInt351, 2);
+				resize(anInt351, 2);
 				if (arg0 < 0) {
-					aClass1_Sub3_Sub3_7.method381(12);
-					aClass1_Sub3_Sub3_7.method381((int) local14);
+					aClass1_Sub3_Sub3_7.p1(12);
+					aClass1_Sub3_Sub3_7.p1((int) local14);
 				}
 			}
 		} catch (@Pc(39) RuntimeException local39) {
@@ -374,7 +374,7 @@ public final class InputTracking {
 	}
 
 	@OriginalMember(owner = "client!e", name = "a", descriptor = "(Z)V")
-	public static synchronized void method221(@OriginalArg(0) boolean arg0) {
+	public static synchronized void mouseExited(@OriginalArg(0) boolean arg0) {
 		try {
 			if (!arg0 && aBoolean81) {
 				anInt352++;
@@ -384,9 +384,9 @@ public final class InputTracking {
 					local17 = 250L;
 				}
 				aLong11 = local11;
-				method212(anInt351, 2);
-				aClass1_Sub3_Sub3_7.method381(13);
-				aClass1_Sub3_Sub3_7.method381((int) local17);
+				resize(anInt351, 2);
+				aClass1_Sub3_Sub3_7.p1(13);
+				aClass1_Sub3_Sub3_7.p1((int) local17);
 			}
 		} catch (@Pc(37) RuntimeException local37) {
 			signlink.reporterror("76997, " + arg0 + ", " + local37.toString());

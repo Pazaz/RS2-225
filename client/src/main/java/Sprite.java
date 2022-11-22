@@ -79,53 +79,53 @@ public final class Sprite extends Draw2D {
 
 	@OriginalMember(owner = "client!hb", name = "<init>", descriptor = "(Lclient!ub;Ljava/lang/String;I)V")
 	public Sprite(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) String arg1, @OriginalArg(2) int arg2) {
-		@Pc(32) Buffer local32 = new Buffer(363, arg0.method536(arg1 + ".dat", null, (byte) 2));
-		@Pc(42) Buffer local42 = new Buffer(363, arg0.method536("index.dat", null, (byte) 2));
-		local42.anInt561 = local32.method393();
-		this.anInt465 = local42.method393();
-		this.anInt466 = local42.method393();
-		@Pc(57) int local57 = local42.method391();
+		@Pc(32) Buffer local32 = new Buffer(363, arg0.read(arg1 + ".dat", null, (byte) 2));
+		@Pc(42) Buffer local42 = new Buffer(363, arg0.read("index.dat", null, (byte) 2));
+		local42.anInt561 = local32.g2();
+		this.anInt465 = local42.g2();
+		this.anInt466 = local42.g2();
+		@Pc(57) int local57 = local42.g1();
 		@Pc(60) int[] local60 = new int[local57];
 		for (@Pc(62) int local62 = 0; local62 < local57 - 1; local62++) {
-			local60[local62 + 1] = local42.method395();
+			local60[local62 + 1] = local42.g3();
 			if (local60[local62 + 1] == 0) {
 				local60[local62 + 1] = 1;
 			}
 		}
 		for (@Pc(91) int local91 = 0; local91 < arg2; local91++) {
 			local42.anInt561 += 2;
-			local32.anInt561 += local42.method393() * local42.method393();
+			local32.anInt561 += local42.g2() * local42.g2();
 			local42.anInt561++;
 		}
-		this.anInt463 = local42.method391();
-		this.anInt464 = local42.method391();
-		this.anInt461 = local42.method393();
-		this.anInt462 = local42.method393();
-		@Pc(138) int local138 = local42.method391();
+		this.anInt463 = local42.g1();
+		this.anInt464 = local42.g1();
+		this.anInt461 = local42.g2();
+		this.anInt462 = local42.g2();
+		@Pc(138) int local138 = local42.g1();
 		@Pc(144) int local144 = this.anInt461 * this.anInt462;
 		this.anIntArray148 = new int[local144];
 		@Pc(152) int local152;
 		if (local138 == 0) {
 			for (local152 = 0; local152 < local144; local152++) {
-				this.anIntArray148[local152] = local60[local32.method391()];
+				this.anIntArray148[local152] = local60[local32.g1()];
 			}
 		} else if (local138 == 1) {
 			for (local152 = 0; local152 < this.anInt461; local152++) {
 				for (@Pc(176) int local176 = 0; local176 < this.anInt462; local176++) {
-					this.anIntArray148[local152 + local176 * this.anInt461] = local60[local32.method391()];
+					this.anIntArray148[local152 + local176 * this.anInt461] = local60[local32.g1()];
 				}
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(B)V")
-	public void method318(@OriginalArg(0) byte arg0) {
+	public void prepare(@OriginalArg(0) byte arg0) {
 		try {
 			if (arg0 != 62) {
 				for (@Pc(4) int local4 = 1; local4 > 0; local4++) {
 				}
 			}
-			Draw2D.method354(this.anInt461, this.anIntArray148, -657, this.anInt462);
+			Draw2D.prepare(this.anInt461, this.anIntArray148, -657, this.anInt462);
 		} catch (@Pc(19) RuntimeException local19) {
 			signlink.reporterror("23946, " + arg0 + ", " + local19.toString());
 			throw new RuntimeException();
@@ -133,7 +133,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(IIIZ)V")
-	public void method319(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) boolean arg3) {
+	public void translate(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) boolean arg3) {
 		try {
 			for (@Pc(3) int local3 = 0; local3 < this.anIntArray148.length; local3++) {
 				@Pc(10) int local10 = this.anIntArray148[local3];
@@ -172,7 +172,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(III)V")
-	public void method320(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
+	public void drawOpaque(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		try {
 			arg1 += this.anInt463;
 			arg2 += this.anInt464;
@@ -209,7 +209,7 @@ public final class Sprite extends Draw2D {
 				local27 += local36;
 			}
 			if (local23 > 0 && local20 > 0) {
-				this.method321(15223, this.anIntArray148, local27, local20, local17, local29, local15, local23, Draw2D.anIntArray178);
+				this.copyImage(15223, this.anIntArray148, local27, local20, local17, local29, local15, local23, Draw2D.anIntArray178);
 				if (arg0 != 34676) {
 					this.anInt459 = 117;
 				}
@@ -221,7 +221,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(I[IIIIIII[I)V")
-	private void method321(@OriginalArg(0) int arg0, @OriginalArg(1) int[] arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int[] arg8) {
+	private void copyImage(@OriginalArg(0) int arg0, @OriginalArg(1) int[] arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int[] arg8) {
 		try {
 			@Pc(6) int local6 = -(arg7 >> 2);
 			@Pc(11) int local11 = -(arg7 & 0x3);
@@ -250,7 +250,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(IIZ)V")
-	public void method322(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) boolean arg2) {
+	public void draw(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) boolean arg2) {
 		try {
 			if (arg2) {
 				this.anInt460 = 32;
@@ -290,7 +290,7 @@ public final class Sprite extends Draw2D {
 				local32 += local41;
 			}
 			if (local28 > 0 && local25 > 0) {
-				this.method323(Draw2D.anIntArray178, this.anIntArray148, 0, local22, local20, local28, local25, local32, local34);
+				this.copyImage(Draw2D.anIntArray178, this.anIntArray148, 0, local22, local20, local28, local25, local32, local34);
 			}
 		} catch (@Pc(143) RuntimeException local143) {
 			signlink.reporterror("90492, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + local143.toString());
@@ -299,7 +299,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "([I[IIIIIIII)V")
-	private void method323(@OriginalArg(0) int[] arg0, @OriginalArg(1) int[] arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8) {
+	private void copyImage(@OriginalArg(0) int[] arg0, @OriginalArg(1) int[] arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8) {
 		@Pc(6) int local6 = -(arg5 >> 2);
 		@Pc(11) int local11 = -(arg5 & 0x3);
 		for (@Pc(14) int local14 = -arg6; local14 < 0; local14++) {
@@ -344,7 +344,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "d", descriptor = "(IIIII)V")
-	public void method324(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
+	public void draw(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
 		try {
 			if (arg3 == 17713) {
 				try {
@@ -394,7 +394,7 @@ public final class Sprite extends Draw2D {
 						arg2 -= local148;
 						local141 += local148;
 					}
-					this.method325(local11, local37, Draw2D.anIntArray178, 0, local43, local13, 0, this.anIntArray148, local141, local137, arg0, local6, arg2);
+					this.copyImage(local11, local37, Draw2D.anIntArray178, 0, local43, local13, 0, this.anIntArray148, local141, local137, arg0, local6, arg2);
 				} catch (@Pc(243) Exception local243) {
 					System.out.println("error in sprite clipping routine");
 				}
@@ -406,7 +406,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(II[IIIII[IIIIII)V")
-	private void method325(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int[] arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int[] arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9, @OriginalArg(10) int arg10, @OriginalArg(11) int arg11, @OriginalArg(12) int arg12) {
+	private void copyImage(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int[] arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int[] arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9, @OriginalArg(10) int arg10, @OriginalArg(11) int arg11, @OriginalArg(12) int arg12) {
 		try {
 			@Pc(5) int local5;
 			if (arg6 != 0) {
@@ -440,7 +440,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(IIIB)V")
-	public void method326(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) byte arg3) {
+	public void drawAlpha(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) byte arg3) {
 		try {
 			@Pc(4) int local4;
 			if (arg3 != -26) {
@@ -482,7 +482,7 @@ public final class Sprite extends Draw2D {
 				local37 += local46;
 			}
 			if (local33 > 0 && local30 > 0) {
-				this.method327(local4, 0, this.anIntArray148, arg0, local30, Draw2D.anIntArray178, local27, (byte) 8, local33, local37, local39);
+				this.copyImageAlpha(local4, 0, this.anIntArray148, arg0, local30, Draw2D.anIntArray178, local27, (byte) 8, local33, local37, local39);
 			}
 		} catch (@Pc(150) RuntimeException local150) {
 			signlink.reporterror("1642, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + local150.toString());
@@ -491,7 +491,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(II[III[IIBIII)V")
-	private void method327(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int[] arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int[] arg5, @OriginalArg(6) int arg6, @OriginalArg(7) byte arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9, @OriginalArg(10) int arg10) {
+	private void copyImageAlpha(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int[] arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int[] arg5, @OriginalArg(6) int arg6, @OriginalArg(7) byte arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9, @OriginalArg(10) int arg10) {
 		try {
 			@Pc(5) int local5 = 256 - arg3;
 			if (arg7 != 8) {
@@ -517,7 +517,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(II[IIIIIIIZ[I)V")
-	public void method328(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int[] arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(9) boolean arg9, @OriginalArg(10) int[] arg10) {
+	public void drawRotatedMasked(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int[] arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(9) boolean arg9, @OriginalArg(10) int[] arg10) {
 		try {
 			if (arg9) {
 				this.aBoolean104 = !this.aBoolean104;
@@ -555,7 +555,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(Lclient!ib;IIB)V")
-	public void method329(@OriginalArg(0) IndexedSprite arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) byte arg3) {
+	public void drawMasked(@OriginalArg(0) IndexedSprite arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) byte arg3) {
 		try {
 			arg2 += this.anInt463;
 			arg1 += this.anInt464;
@@ -593,7 +593,7 @@ public final class Sprite extends Draw2D {
 					local31 += local40;
 				}
 				if (local27 > 0 && local24 > 0) {
-					this.method330(local27, local33, 0, -478, local24, local17, Draw2D.anIntArray178, this.anIntArray148, local15, arg0.aByteArray6, local31);
+					this.copyImageMasked(local27, local33, 0, -478, local24, local17, Draw2D.anIntArray178, this.anIntArray148, local15, arg0.aByteArray6, local31);
 				}
 			}
 		} catch (@Pc(145) RuntimeException local145) {
@@ -603,7 +603,7 @@ public final class Sprite extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(IIIIII[I[II[BI)V")
-	private void method330(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int[] arg6, @OriginalArg(7) int[] arg7, @OriginalArg(8) int arg8, @OriginalArg(9) byte[] arg9, @OriginalArg(10) int arg10) {
+	private void copyImageMasked(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int[] arg6, @OriginalArg(7) int[] arg7, @OriginalArg(8) int arg8, @OriginalArg(9) byte[] arg9, @OriginalArg(10) int arg10) {
 		try {
 			if (arg3 < 0) {
 				@Pc(9) int local9 = -(arg0 >> 2);

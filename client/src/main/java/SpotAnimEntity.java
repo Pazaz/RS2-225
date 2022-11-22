@@ -60,7 +60,7 @@ public final class SpotAnimEntity extends Entity {
 	}
 
 	@OriginalMember(owner = "client!bb", name = "a", descriptor = "(II)V")
-	public void method29(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+	public void update(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		try {
 			if (arg1 != 0) {
 				this.anInt59 = -255;
@@ -87,37 +87,37 @@ public final class SpotAnimEntity extends Entity {
 
 	@OriginalMember(owner = "client!bb", name = "a", descriptor = "(Z)Lclient!eb;")
 	@Override
-	public Model method568(@OriginalArg(0) boolean arg0) {
+	public Model getDrawMethod(@OriginalArg(0) boolean arg0) {
 		try {
-			@Pc(3) Model local3 = this.aClass21_2.method409();
+			@Pc(3) Model local3 = this.aClass21_2.getModel();
 			@Pc(19) Model local19 = new Model(local3, true, !this.aClass21_2.aBoolean131, this.anInt58, false);
 			if (!arg0) {
 				throw new NullPointerException();
 			}
 			if (!this.aBoolean17) {
-				local19.method230(4);
-				local19.method231(-16599, this.aClass21_2.aClass19_1.anIntArray186[this.anInt65]);
+				local19.applyGroup(4);
+				local19.applyFrame(-16599, this.aClass21_2.aClass19_1.anIntArray186[this.anInt65]);
 				local19.anIntArrayArray7 = null;
 				local19.anIntArrayArray6 = null;
 			}
 			if (this.aClass21_2.anInt571 != 128 || this.aClass21_2.anInt572 != 128) {
-				local19.method239(this.aClass21_2.anInt571, 2, this.aClass21_2.anInt572, this.aClass21_2.anInt571);
+				local19.scale(this.aClass21_2.anInt571, 2, this.aClass21_2.anInt572, this.aClass21_2.anInt571);
 			}
 			if (this.aClass21_2.anInt573 != 0) {
 				if (this.aClass21_2.anInt573 == 90) {
-					local19.method234(0);
+					local19.rotateCounterClockwise(0);
 				}
 				if (this.aClass21_2.anInt573 == 180) {
-					local19.method234(0);
-					local19.method234(0);
+					local19.rotateCounterClockwise(0);
+					local19.rotateCounterClockwise(0);
 				}
 				if (this.aClass21_2.anInt573 == 270) {
-					local19.method234(0);
-					local19.method234(0);
-					local19.method234(0);
+					local19.rotateCounterClockwise(0);
+					local19.rotateCounterClockwise(0);
+					local19.rotateCounterClockwise(0);
 				}
 			}
-			local19.method240(this.aClass21_2.anInt574 + 64, this.aClass21_2.anInt575 + 850, -30, -50, -30, true);
+			local19.applyLighting(this.aClass21_2.anInt574 + 64, this.aClass21_2.anInt575 + 850, -30, -50, -30, true);
 			return local19;
 		} catch (@Pc(125) RuntimeException local125) {
 			signlink.reporterror("26048, " + arg0 + ", " + local125.toString());

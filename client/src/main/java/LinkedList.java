@@ -40,9 +40,9 @@ public final class LinkedList {
 	}
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "(Lclient!u;)V")
-	public void method453(@OriginalArg(0) Node arg0) {
+	public void pushNext(@OriginalArg(0) Node arg0) {
 		if (arg0.aClass1_42 != null) {
-			arg0.method567();
+			arg0.unlink();
 		}
 		arg0.aClass1_42 = this.aClass1_33.aClass1_42;
 		arg0.aClass1_41 = this.aClass1_33;
@@ -51,10 +51,10 @@ public final class LinkedList {
 	}
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "(Lclient!u;I)V")
-	public void method454(@OriginalArg(0) Node arg0, @OriginalArg(1) int arg1) {
+	public void pushPrevious(@OriginalArg(0) Node arg0, @OriginalArg(1) int arg1) {
 		try {
 			if (arg0.aClass1_42 != null) {
-				arg0.method567();
+				arg0.unlink();
 			}
 			arg0.aClass1_42 = this.aClass1_33;
 			if (arg1 == -26173) {
@@ -69,18 +69,18 @@ public final class LinkedList {
 	}
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "()Lclient!u;")
-	public Node method455() {
+	public Node poll() {
 		@Pc(3) Node local3 = this.aClass1_33.aClass1_41;
 		if (local3 == this.aClass1_33) {
 			return null;
 		} else {
-			local3.method567();
+			local3.unlink();
 			return local3;
 		}
 	}
 
 	@OriginalMember(owner = "client!ob", name = "b", descriptor = "()Lclient!u;")
-	public Node method456() {
+	public Node peekPrevious() {
 		@Pc(3) Node local3 = this.aClass1_33.aClass1_41;
 		if (local3 == this.aClass1_33) {
 			this.aClass1_34 = null;
@@ -92,7 +92,7 @@ public final class LinkedList {
 	}
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "(B)Lclient!u;")
-	public Node method457(@OriginalArg(0) byte arg0) {
+	public Node peekNext(@OriginalArg(0) byte arg0) {
 		try {
 			@Pc(3) Node local3 = this.aClass1_33.aClass1_42;
 			if (local3 == this.aClass1_33) {
@@ -111,7 +111,7 @@ public final class LinkedList {
 	}
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "(I)Lclient!u;")
-	public Node method458(@OriginalArg(0) int arg0) {
+	public Node getPrevious(@OriginalArg(0) int arg0) {
 		try {
 			if (arg0 <= 0) {
 				throw new NullPointerException();
@@ -131,7 +131,7 @@ public final class LinkedList {
 	}
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "(Z)Lclient!u;")
-	public Node method459(@OriginalArg(0) boolean arg0) {
+	public Node getNext(@OriginalArg(0) boolean arg0) {
 		try {
 			@Pc(2) Node local2 = this.aClass1_34;
 			if (arg0) {
@@ -152,13 +152,13 @@ public final class LinkedList {
 	}
 
 	@OriginalMember(owner = "client!ob", name = "c", descriptor = "()V")
-	public void method460() {
+	public void clear() {
 		while (true) {
 			@Pc(3) Node local3 = this.aClass1_33.aClass1_41;
 			if (local3 == this.aClass1_33) {
 				return;
 			}
-			local3.method567();
+			local3.unlink();
 		}
 	}
 }

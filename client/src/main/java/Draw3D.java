@@ -105,7 +105,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(Z)V")
-	public static void method287(@OriginalArg(0) boolean arg0) {
+	public static void unload(@OriginalArg(0) boolean arg0) {
 		try {
 			anIntArray135 = null;
 			anIntArray135 = null;
@@ -130,7 +130,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "c", descriptor = "(I)V")
-	public static void method288(@OriginalArg(0) int arg0) {
+	public static void prepareOffsets(@OriginalArg(0) int arg0) {
 		try {
 			label29: while (true) {
 				@Pc(5) int local5;
@@ -158,7 +158,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(III)V")
-	public static void method289(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
+	public static void prepareOffsets(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		try {
 			if (arg2 != 0) {
 				aBoolean93 = !aBoolean93;
@@ -176,7 +176,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "b", descriptor = "(Z)V")
-	public static void method290(@OriginalArg(0) boolean arg0) {
+	public static void clearPools(@OriginalArg(0) boolean arg0) {
 		try {
 			if (!arg0) {
 				anIntArrayArray12 = null;
@@ -191,7 +191,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(II)V")
-	public static void method291(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+	public static void setupPools(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		try {
 			label37: while (true) {
 				@Pc(5) int local5;
@@ -225,7 +225,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(BLclient!ub;)V")
-	public static void method292(@OriginalArg(0) byte arg0, @OriginalArg(1) FileArchive arg1) {
+	public static void unpackTextures(@OriginalArg(0) byte arg0, @OriginalArg(1) FileArchive arg1) {
 		try {
 			if (arg0 == 2) {
 				anInt432 = 0;
@@ -233,9 +233,9 @@ public final class Draw3D extends Draw2D {
 					try {
 						aClass1_Sub3_Sub2_Sub3Array4[local9] = new IndexedSprite(arg1, String.valueOf(local9), 0);
 						if (aBoolean96 && aClass1_Sub3_Sub2_Sub3Array4[local9].anInt517 == 128) {
-							aClass1_Sub3_Sub2_Sub3Array4[local9].method345(aBoolean94);
+							aClass1_Sub3_Sub2_Sub3Array4[local9].shrink(aBoolean94);
 						} else {
-							aClass1_Sub3_Sub2_Sub3Array4[local9].method346(0);
+							aClass1_Sub3_Sub2_Sub3Array4[local9].crop(0);
 						}
 						anInt432++;
 					} catch (@Pc(47) Exception local47) {
@@ -249,7 +249,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "b", descriptor = "(II)I")
-	public static int method293(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+	public static int getAverageTextureRgb(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		try {
 			@Pc(3) int local3 = 25 / arg0;
 			if (anIntArray140[arg1] != 0) {
@@ -265,7 +265,7 @@ public final class Draw3D extends Draw2D {
 				local17 += anIntArrayArray14[arg1][local24] & 0xFF;
 			}
 			@Pc(80) int local80 = (local13 / local22 << 16) + (local15 / local22 << 8) + local17 / local22;
-			local80 = method297(local80, 1.4D);
+			local80 = powRgb(local80, 1.4D);
 			if (local80 == 0) {
 				local80 = 1;
 			}
@@ -278,7 +278,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "c", descriptor = "(II)V")
-	public static void method294(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+	public static void updateTexture(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		try {
 			if (anIntArrayArray13[arg0] != null) {
 				anIntArrayArray12[anInt433++] = anIntArrayArray13[arg0];
@@ -292,7 +292,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "d", descriptor = "(I)[I")
-	private static int[] method295(@OriginalArg(0) int arg0) {
+	private static int[] getTexels(@OriginalArg(0) int arg0) {
 		anIntArray141[arg0] = anInt434++;
 		if (anIntArrayArray13[arg0] != null) {
 			return anIntArrayArray13[arg0];
@@ -357,7 +357,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(ZD)V")
-	public static void method296(@OriginalArg(0) boolean arg0, @OriginalArg(1) double arg1) {
+	public static void setBrightness(@OriginalArg(0) boolean arg0, @OriginalArg(1) double arg1) {
 		try {
 			@Pc(9) double local9 = arg1 + Math.random() * 0.03D - 0.015D;
 			@Pc(11) int local11 = 0;
@@ -417,7 +417,7 @@ public final class Draw3D extends Draw2D {
 					@Pc(264) int local264 = (int) (local46 * 256.0D);
 					@Pc(269) int local269 = (int) (local48 * 256.0D);
 					@Pc(279) int local279 = (local259 << 16) + (local264 << 8) + local269;
-					@Pc(283) int local283 = method297(local279, local9);
+					@Pc(283) int local283 = powRgb(local279, local9);
 					anIntArray142[local11++] = local283;
 				}
 			}
@@ -426,7 +426,7 @@ public final class Draw3D extends Draw2D {
 					@Pc(309) int[] local309 = aClass1_Sub3_Sub2_Sub3Array4[local298].anIntArray177;
 					anIntArrayArray14[local298] = new int[local309.length];
 					for (@Pc(317) int local317 = 0; local317 < local309.length; local317++) {
-						anIntArrayArray14[local298][local317] = method297(local309[local317], local9);
+						anIntArrayArray14[local298][local317] = powRgb(local309[local317], local9);
 					}
 				}
 			}
@@ -434,7 +434,7 @@ public final class Draw3D extends Draw2D {
 				anInt428 = -352;
 			}
 			for (@Pc(344) int local344 = 0; local344 < 50; local344++) {
-				method294(local344, 150);
+				updateTexture(local344, 150);
 			}
 		} catch (@Pc(355) RuntimeException local355) {
 			signlink.reporterror("9701, " + arg0 + ", " + arg1 + ", " + local355.toString());
@@ -443,7 +443,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(ID)I")
-	private static int method297(@OriginalArg(0) int arg0, @OriginalArg(1) double arg1) {
+	private static int powRgb(@OriginalArg(0) int arg0, @OriginalArg(1) double arg1) {
 		@Pc(6) double local6 = (double) (arg0 >> 16) / 256.0D;
 		@Pc(15) double local15 = (double) (arg0 >> 8 & 0xFF) / 256.0D;
 		@Pc(22) double local22 = (double) (arg0 & 0xFF) / 256.0D;
@@ -457,7 +457,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(IIIIIIIII)V")
-	public static void method298(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8) {
+	public static void fillGouraudTriangle(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8) {
 		@Pc(3) int local3 = 0;
 		@Pc(5) int local5 = 0;
 		if (arg1 != arg0) {
@@ -513,7 +513,7 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									method299(anIntArray178, arg0, 0, 0, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
+									drawGouraudScanline(anIntArray178, arg0, 0, 0, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
 									arg5 += local57;
 									arg4 += local30;
 									arg8 += local59;
@@ -521,7 +521,7 @@ public final class Draw3D extends Draw2D {
 									arg0 += anInt528;
 								}
 							}
-							method299(anIntArray178, arg0, 0, 0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
+							drawGouraudScanline(anIntArray178, arg0, 0, 0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
 							arg5 += local57;
 							arg3 += local3;
 							arg8 += local59;
@@ -540,7 +540,7 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									method299(anIntArray178, arg0, 0, 0, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
+									drawGouraudScanline(anIntArray178, arg0, 0, 0, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
 									arg5 += local57;
 									arg4 += local30;
 									arg8 += local59;
@@ -548,7 +548,7 @@ public final class Draw3D extends Draw2D {
 									arg0 += anInt528;
 								}
 							}
-							method299(anIntArray178, arg0, 0, 0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
+							drawGouraudScanline(anIntArray178, arg0, 0, 0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
 							arg5 += local57;
 							arg3 += local3;
 							arg8 += local59;
@@ -585,7 +585,7 @@ public final class Draw3D extends Draw2D {
 									if (arg1 < 0) {
 										return;
 									}
-									method299(anIntArray178, arg0, 0, 0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
+									drawGouraudScanline(anIntArray178, arg0, 0, 0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
 									arg5 += local30;
 									arg3 += local3;
 									arg8 += local32;
@@ -593,7 +593,7 @@ public final class Draw3D extends Draw2D {
 									arg0 += anInt528;
 								}
 							}
-							method299(anIntArray178, arg0, 0, 0, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
+							drawGouraudScanline(anIntArray178, arg0, 0, 0, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
 							arg4 += local57;
 							arg3 += local3;
 							arg7 += local59;
@@ -612,7 +612,7 @@ public final class Draw3D extends Draw2D {
 									if (arg1 < 0) {
 										return;
 									}
-									method299(anIntArray178, arg0, 0, 0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
+									drawGouraudScanline(anIntArray178, arg0, 0, 0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
 									arg5 += local30;
 									arg3 += local3;
 									arg8 += local32;
@@ -620,7 +620,7 @@ public final class Draw3D extends Draw2D {
 									arg0 += anInt528;
 								}
 							}
-							method299(anIntArray178, arg0, 0, 0, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
+							drawGouraudScanline(anIntArray178, arg0, 0, 0, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
 							arg4 += local57;
 							arg3 += local3;
 							arg7 += local59;
@@ -667,7 +667,7 @@ public final class Draw3D extends Draw2D {
 									if (arg0 < 0) {
 										return;
 									}
-									method299(anIntArray178, arg1, 0, 0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
+									drawGouraudScanline(anIntArray178, arg1, 0, 0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
 									arg3 += local3;
 									arg5 += local57;
 									arg6 += local5;
@@ -675,7 +675,7 @@ public final class Draw3D extends Draw2D {
 									arg1 += anInt528;
 								}
 							}
-							method299(anIntArray178, arg1, 0, 0, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
+							drawGouraudScanline(anIntArray178, arg1, 0, 0, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
 							arg3 += local3;
 							arg4 += local30;
 							arg6 += local5;
@@ -694,7 +694,7 @@ public final class Draw3D extends Draw2D {
 									if (arg0 < 0) {
 										return;
 									}
-									method299(anIntArray178, arg1, 0, 0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
+									drawGouraudScanline(anIntArray178, arg1, 0, 0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
 									arg3 += local3;
 									arg5 += local57;
 									arg6 += local5;
@@ -702,7 +702,7 @@ public final class Draw3D extends Draw2D {
 									arg1 += anInt528;
 								}
 							}
-							method299(anIntArray178, arg1, 0, 0, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
+							drawGouraudScanline(anIntArray178, arg1, 0, 0, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
 							arg3 += local3;
 							arg4 += local30;
 							arg6 += local5;
@@ -739,7 +739,7 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									method299(anIntArray178, arg1, 0, 0, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
+									drawGouraudScanline(anIntArray178, arg1, 0, 0, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
 									arg3 += local57;
 									arg4 += local30;
 									arg6 += local59;
@@ -747,7 +747,7 @@ public final class Draw3D extends Draw2D {
 									arg1 += anInt528;
 								}
 							}
-							method299(anIntArray178, arg1, 0, 0, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
+							drawGouraudScanline(anIntArray178, arg1, 0, 0, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
 							arg5 += local3;
 							arg4 += local30;
 							arg8 += local5;
@@ -766,7 +766,7 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									method299(anIntArray178, arg1, 0, 0, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
+									drawGouraudScanline(anIntArray178, arg1, 0, 0, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
 									arg3 += local57;
 									arg4 += local30;
 									arg6 += local59;
@@ -774,7 +774,7 @@ public final class Draw3D extends Draw2D {
 									arg1 += anInt528;
 								}
 							}
-							method299(anIntArray178, arg1, 0, 0, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
+							drawGouraudScanline(anIntArray178, arg1, 0, 0, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
 							arg5 += local3;
 							arg4 += local30;
 							arg8 += local5;
@@ -820,7 +820,7 @@ public final class Draw3D extends Draw2D {
 								if (arg1 < 0) {
 									return;
 								}
-								method299(anIntArray178, arg2, 0, 0, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
+								drawGouraudScanline(anIntArray178, arg2, 0, 0, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
 								arg4 += local30;
 								arg3 += local3;
 								arg7 += local32;
@@ -828,7 +828,7 @@ public final class Draw3D extends Draw2D {
 								arg2 += anInt528;
 							}
 						}
-						method299(anIntArray178, arg2, 0, 0, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
+						drawGouraudScanline(anIntArray178, arg2, 0, 0, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
 						arg4 += local30;
 						arg5 += local57;
 						arg7 += local32;
@@ -847,7 +847,7 @@ public final class Draw3D extends Draw2D {
 								if (arg1 < 0) {
 									return;
 								}
-								method299(anIntArray178, arg2, 0, 0, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
+								drawGouraudScanline(anIntArray178, arg2, 0, 0, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
 								arg4 += local30;
 								arg3 += local3;
 								arg7 += local32;
@@ -855,7 +855,7 @@ public final class Draw3D extends Draw2D {
 								arg2 += anInt528;
 							}
 						}
-						method299(anIntArray178, arg2, 0, 0, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
+						drawGouraudScanline(anIntArray178, arg2, 0, 0, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
 						arg4 += local30;
 						arg5 += local57;
 						arg7 += local32;
@@ -892,7 +892,7 @@ public final class Draw3D extends Draw2D {
 								if (arg0 < 0) {
 									return;
 								}
-								method299(anIntArray178, arg2, 0, 0, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
+								drawGouraudScanline(anIntArray178, arg2, 0, 0, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
 								arg4 += local3;
 								arg5 += local57;
 								arg7 += local5;
@@ -900,7 +900,7 @@ public final class Draw3D extends Draw2D {
 								arg2 += anInt528;
 							}
 						}
-						method299(anIntArray178, arg2, 0, 0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
+						drawGouraudScanline(anIntArray178, arg2, 0, 0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
 						arg3 += local30;
 						arg5 += local57;
 						arg6 += local32;
@@ -919,7 +919,7 @@ public final class Draw3D extends Draw2D {
 								if (arg0 < 0) {
 									return;
 								}
-								method299(anIntArray178, arg2, 0, 0, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
+								drawGouraudScanline(anIntArray178, arg2, 0, 0, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
 								arg4 += local3;
 								arg5 += local57;
 								arg7 += local5;
@@ -927,7 +927,7 @@ public final class Draw3D extends Draw2D {
 								arg2 += anInt528;
 							}
 						}
-						method299(anIntArray178, arg2, 0, 0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
+						drawGouraudScanline(anIntArray178, arg2, 0, 0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
 						arg3 += local30;
 						arg5 += local57;
 						arg6 += local32;
@@ -940,7 +940,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "([IIIIIIII)V")
-	private static void method299(@OriginalArg(0) int[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7) {
+	private static void drawGouraudScanline(@OriginalArg(0) int[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7) {
 		@Pc(18) int local18;
 		@Pc(149) int local149;
 		@Pc(153) int local153;
@@ -1069,7 +1069,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(IIIIIII)V")
-	public static void method300(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
+	public static void fillTriangle(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
 		@Pc(3) int local3 = 0;
 		if (arg1 != arg0) {
 			local3 = (arg4 - arg3 << 16) / (arg1 - arg0);
@@ -1114,13 +1114,13 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									method301(anIntArray178, arg0, arg6, 0, arg5 >> 16, arg4 >> 16);
+									drawScanline(anIntArray178, arg0, arg6, 0, arg5 >> 16, arg4 >> 16);
 									arg5 += local33;
 									arg4 += local18;
 									arg0 += anInt528;
 								}
 							}
-							method301(anIntArray178, arg0, arg6, 0, arg5 >> 16, arg3 >> 16);
+							drawScanline(anIntArray178, arg0, arg6, 0, arg5 >> 16, arg3 >> 16);
 							arg5 += local33;
 							arg3 += local3;
 							arg0 += anInt528;
@@ -1137,13 +1137,13 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									method301(anIntArray178, arg0, arg6, 0, arg4 >> 16, arg5 >> 16);
+									drawScanline(anIntArray178, arg0, arg6, 0, arg4 >> 16, arg5 >> 16);
 									arg5 += local33;
 									arg4 += local18;
 									arg0 += anInt528;
 								}
 							}
-							method301(anIntArray178, arg0, arg6, 0, arg3 >> 16, arg5 >> 16);
+							drawScanline(anIntArray178, arg0, arg6, 0, arg3 >> 16, arg5 >> 16);
 							arg5 += local33;
 							arg3 += local3;
 							arg0 += anInt528;
@@ -1173,13 +1173,13 @@ public final class Draw3D extends Draw2D {
 									if (arg1 < 0) {
 										return;
 									}
-									method301(anIntArray178, arg0, arg6, 0, arg5 >> 16, arg3 >> 16);
+									drawScanline(anIntArray178, arg0, arg6, 0, arg5 >> 16, arg3 >> 16);
 									arg5 += local18;
 									arg3 += local3;
 									arg0 += anInt528;
 								}
 							}
-							method301(anIntArray178, arg0, arg6, 0, arg4 >> 16, arg3 >> 16);
+							drawScanline(anIntArray178, arg0, arg6, 0, arg4 >> 16, arg3 >> 16);
 							arg4 += local33;
 							arg3 += local3;
 							arg0 += anInt528;
@@ -1196,13 +1196,13 @@ public final class Draw3D extends Draw2D {
 									if (arg1 < 0) {
 										return;
 									}
-									method301(anIntArray178, arg0, arg6, 0, arg3 >> 16, arg5 >> 16);
+									drawScanline(anIntArray178, arg0, arg6, 0, arg3 >> 16, arg5 >> 16);
 									arg5 += local18;
 									arg3 += local3;
 									arg0 += anInt528;
 								}
 							}
-							method301(anIntArray178, arg0, arg6, 0, arg3 >> 16, arg4 >> 16);
+							drawScanline(anIntArray178, arg0, arg6, 0, arg3 >> 16, arg4 >> 16);
 							arg4 += local33;
 							arg3 += local3;
 							arg0 += anInt528;
@@ -1242,13 +1242,13 @@ public final class Draw3D extends Draw2D {
 									if (arg0 < 0) {
 										return;
 									}
-									method301(anIntArray178, arg1, arg6, 0, arg3 >> 16, arg5 >> 16);
+									drawScanline(anIntArray178, arg1, arg6, 0, arg3 >> 16, arg5 >> 16);
 									arg3 += local3;
 									arg5 += local33;
 									arg1 += anInt528;
 								}
 							}
-							method301(anIntArray178, arg1, arg6, 0, arg3 >> 16, arg4 >> 16);
+							drawScanline(anIntArray178, arg1, arg6, 0, arg3 >> 16, arg4 >> 16);
 							arg3 += local3;
 							arg4 += local18;
 							arg1 += anInt528;
@@ -1265,13 +1265,13 @@ public final class Draw3D extends Draw2D {
 									if (arg0 < 0) {
 										return;
 									}
-									method301(anIntArray178, arg1, arg6, 0, arg5 >> 16, arg3 >> 16);
+									drawScanline(anIntArray178, arg1, arg6, 0, arg5 >> 16, arg3 >> 16);
 									arg3 += local3;
 									arg5 += local33;
 									arg1 += anInt528;
 								}
 							}
-							method301(anIntArray178, arg1, arg6, 0, arg4 >> 16, arg3 >> 16);
+							drawScanline(anIntArray178, arg1, arg6, 0, arg4 >> 16, arg3 >> 16);
 							arg3 += local3;
 							arg4 += local18;
 							arg1 += anInt528;
@@ -1301,13 +1301,13 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									method301(anIntArray178, arg1, arg6, 0, arg3 >> 16, arg4 >> 16);
+									drawScanline(anIntArray178, arg1, arg6, 0, arg3 >> 16, arg4 >> 16);
 									arg3 += local33;
 									arg4 += local18;
 									arg1 += anInt528;
 								}
 							}
-							method301(anIntArray178, arg1, arg6, 0, arg5 >> 16, arg4 >> 16);
+							drawScanline(anIntArray178, arg1, arg6, 0, arg5 >> 16, arg4 >> 16);
 							arg5 += local3;
 							arg4 += local18;
 							arg1 += anInt528;
@@ -1324,13 +1324,13 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									method301(anIntArray178, arg1, arg6, 0, arg4 >> 16, arg3 >> 16);
+									drawScanline(anIntArray178, arg1, arg6, 0, arg4 >> 16, arg3 >> 16);
 									arg3 += local33;
 									arg4 += local18;
 									arg1 += anInt528;
 								}
 							}
-							method301(anIntArray178, arg1, arg6, 0, arg4 >> 16, arg5 >> 16);
+							drawScanline(anIntArray178, arg1, arg6, 0, arg4 >> 16, arg5 >> 16);
 							arg5 += local3;
 							arg4 += local18;
 							arg1 += anInt528;
@@ -1369,13 +1369,13 @@ public final class Draw3D extends Draw2D {
 								if (arg1 < 0) {
 									return;
 								}
-								method301(anIntArray178, arg2, arg6, 0, arg4 >> 16, arg3 >> 16);
+								drawScanline(anIntArray178, arg2, arg6, 0, arg4 >> 16, arg3 >> 16);
 								arg4 += local18;
 								arg3 += local3;
 								arg2 += anInt528;
 							}
 						}
-						method301(anIntArray178, arg2, arg6, 0, arg4 >> 16, arg5 >> 16);
+						drawScanline(anIntArray178, arg2, arg6, 0, arg4 >> 16, arg5 >> 16);
 						arg4 += local18;
 						arg5 += local33;
 						arg2 += anInt528;
@@ -1392,13 +1392,13 @@ public final class Draw3D extends Draw2D {
 								if (arg1 < 0) {
 									return;
 								}
-								method301(anIntArray178, arg2, arg6, 0, arg3 >> 16, arg4 >> 16);
+								drawScanline(anIntArray178, arg2, arg6, 0, arg3 >> 16, arg4 >> 16);
 								arg4 += local18;
 								arg3 += local3;
 								arg2 += anInt528;
 							}
 						}
-						method301(anIntArray178, arg2, arg6, 0, arg5 >> 16, arg4 >> 16);
+						drawScanline(anIntArray178, arg2, arg6, 0, arg5 >> 16, arg4 >> 16);
 						arg4 += local18;
 						arg5 += local33;
 						arg2 += anInt528;
@@ -1428,13 +1428,13 @@ public final class Draw3D extends Draw2D {
 								if (arg0 < 0) {
 									return;
 								}
-								method301(anIntArray178, arg2, arg6, 0, arg4 >> 16, arg5 >> 16);
+								drawScanline(anIntArray178, arg2, arg6, 0, arg4 >> 16, arg5 >> 16);
 								arg4 += local3;
 								arg5 += local33;
 								arg2 += anInt528;
 							}
 						}
-						method301(anIntArray178, arg2, arg6, 0, arg3 >> 16, arg5 >> 16);
+						drawScanline(anIntArray178, arg2, arg6, 0, arg3 >> 16, arg5 >> 16);
 						arg3 += local18;
 						arg5 += local33;
 						arg2 += anInt528;
@@ -1451,13 +1451,13 @@ public final class Draw3D extends Draw2D {
 								if (arg0 < 0) {
 									return;
 								}
-								method301(anIntArray178, arg2, arg6, 0, arg5 >> 16, arg4 >> 16);
+								drawScanline(anIntArray178, arg2, arg6, 0, arg5 >> 16, arg4 >> 16);
 								arg4 += local3;
 								arg5 += local33;
 								arg2 += anInt528;
 							}
 						}
-						method301(anIntArray178, arg2, arg6, 0, arg5 >> 16, arg3 >> 16);
+						drawScanline(anIntArray178, arg2, arg6, 0, arg5 >> 16, arg3 >> 16);
 						arg3 += local18;
 						arg5 += local33;
 						arg2 += anInt528;
@@ -1468,7 +1468,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "([IIIIII)V")
-	private static void method301(@OriginalArg(0) int[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
+	private static void drawScanline(@OriginalArg(0) int[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
 		if (aBoolean97) {
 			if (arg5 > anInt534) {
 				arg5 = anInt534;
@@ -1532,8 +1532,8 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(IIIIIIIIIIIIIIIIIII)V")
-	public static void method302(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9, @OriginalArg(10) int arg10, @OriginalArg(11) int arg11, @OriginalArg(12) int arg12, @OriginalArg(13) int arg13, @OriginalArg(14) int arg14, @OriginalArg(15) int arg15, @OriginalArg(16) int arg16, @OriginalArg(17) int arg17, @OriginalArg(18) int arg18) {
-		@Pc(4) int[] local4 = method295(arg18);
+	public static void fillTexturedTriangle(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9, @OriginalArg(10) int arg10, @OriginalArg(11) int arg11, @OriginalArg(12) int arg12, @OriginalArg(13) int arg13, @OriginalArg(14) int arg14, @OriginalArg(15) int arg15, @OriginalArg(16) int arg16, @OriginalArg(17) int arg17, @OriginalArg(18) int arg18) {
+		@Pc(4) int[] local4 = getTexels(arg18);
 		aBoolean98 = !aBooleanArray4[arg18];
 		@Pc(16) int local16 = arg9 - arg10;
 		@Pc(20) int local20 = arg12 - arg13;
@@ -1610,7 +1610,7 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									method303(anIntArray178, local4, 0, 0, arg0, arg5 >> 16, arg4 >> 16, arg8 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
+									drawTexturedScanline(anIntArray178, local4, 0, 0, arg0, arg5 >> 16, arg4 >> 16, arg8 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
 									arg5 += local182;
 									arg4 += local155;
 									arg8 += local184;
@@ -1621,7 +1621,7 @@ public final class Draw3D extends Draw2D {
 									local106 += local126;
 								}
 							}
-							method303(anIntArray178, local4, 0, 0, arg0, arg5 >> 16, arg3 >> 16, arg8 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
+							drawTexturedScanline(anIntArray178, local4, 0, 0, arg0, arg5 >> 16, arg3 >> 16, arg8 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
 							arg5 += local182;
 							arg3 += local128;
 							arg8 += local184;
@@ -1643,7 +1643,7 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									method303(anIntArray178, local4, 0, 0, arg0, arg4 >> 16, arg5 >> 16, arg7 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
+									drawTexturedScanline(anIntArray178, local4, 0, 0, arg0, arg4 >> 16, arg5 >> 16, arg7 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
 									arg5 += local182;
 									arg4 += local155;
 									arg8 += local184;
@@ -1654,7 +1654,7 @@ public final class Draw3D extends Draw2D {
 									local106 += local126;
 								}
 							}
-							method303(anIntArray178, local4, 0, 0, arg0, arg3 >> 16, arg5 >> 16, arg6 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
+							drawTexturedScanline(anIntArray178, local4, 0, 0, arg0, arg3 >> 16, arg5 >> 16, arg6 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
 							arg5 += local182;
 							arg3 += local128;
 							arg8 += local184;
@@ -1698,7 +1698,7 @@ public final class Draw3D extends Draw2D {
 									if (arg1 < 0) {
 										return;
 									}
-									method303(anIntArray178, local4, 0, 0, arg0, arg3 >> 16, arg5 >> 16, arg6 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
+									drawTexturedScanline(anIntArray178, local4, 0, 0, arg0, arg3 >> 16, arg5 >> 16, arg6 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
 									arg5 += local155;
 									arg3 += local128;
 									arg8 += local157;
@@ -1709,7 +1709,7 @@ public final class Draw3D extends Draw2D {
 									local106 += local126;
 								}
 							}
-							method303(anIntArray178, local4, 0, 0, arg0, arg3 >> 16, arg4 >> 16, arg6 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
+							drawTexturedScanline(anIntArray178, local4, 0, 0, arg0, arg3 >> 16, arg4 >> 16, arg6 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
 							arg4 += local182;
 							arg3 += local128;
 							arg7 += local184;
@@ -1731,7 +1731,7 @@ public final class Draw3D extends Draw2D {
 									if (arg1 < 0) {
 										return;
 									}
-									method303(anIntArray178, local4, 0, 0, arg0, arg5 >> 16, arg3 >> 16, arg8 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
+									drawTexturedScanline(anIntArray178, local4, 0, 0, arg0, arg5 >> 16, arg3 >> 16, arg8 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
 									arg5 += local155;
 									arg3 += local128;
 									arg8 += local157;
@@ -1742,7 +1742,7 @@ public final class Draw3D extends Draw2D {
 									local106 += local126;
 								}
 							}
-							method303(anIntArray178, local4, 0, 0, arg0, arg4 >> 16, arg3 >> 16, arg7 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
+							drawTexturedScanline(anIntArray178, local4, 0, 0, arg0, arg4 >> 16, arg3 >> 16, arg7 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
 							arg4 += local182;
 							arg3 += local128;
 							arg7 += local184;
@@ -1796,7 +1796,7 @@ public final class Draw3D extends Draw2D {
 									if (arg0 < 0) {
 										return;
 									}
-									method303(anIntArray178, local4, 0, 0, arg1, arg3 >> 16, arg5 >> 16, arg6 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
+									drawTexturedScanline(anIntArray178, local4, 0, 0, arg1, arg3 >> 16, arg5 >> 16, arg6 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
 									arg3 += local128;
 									arg5 += local182;
 									arg6 += local130;
@@ -1807,7 +1807,7 @@ public final class Draw3D extends Draw2D {
 									local106 += local126;
 								}
 							}
-							method303(anIntArray178, local4, 0, 0, arg1, arg3 >> 16, arg4 >> 16, arg6 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
+							drawTexturedScanline(anIntArray178, local4, 0, 0, arg1, arg3 >> 16, arg4 >> 16, arg6 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
 							arg3 += local128;
 							arg4 += local155;
 							arg6 += local130;
@@ -1829,7 +1829,7 @@ public final class Draw3D extends Draw2D {
 									if (arg0 < 0) {
 										return;
 									}
-									method303(anIntArray178, local4, 0, 0, arg1, arg5 >> 16, arg3 >> 16, arg8 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
+									drawTexturedScanline(anIntArray178, local4, 0, 0, arg1, arg5 >> 16, arg3 >> 16, arg8 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
 									arg3 += local128;
 									arg5 += local182;
 									arg6 += local130;
@@ -1840,7 +1840,7 @@ public final class Draw3D extends Draw2D {
 									local106 += local126;
 								}
 							}
-							method303(anIntArray178, local4, 0, 0, arg1, arg4 >> 16, arg3 >> 16, arg7 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
+							drawTexturedScanline(anIntArray178, local4, 0, 0, arg1, arg4 >> 16, arg3 >> 16, arg7 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
 							arg3 += local128;
 							arg4 += local155;
 							arg6 += local130;
@@ -1884,7 +1884,7 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									method303(anIntArray178, local4, 0, 0, arg1, arg3 >> 16, arg4 >> 16, arg6 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
+									drawTexturedScanline(anIntArray178, local4, 0, 0, arg1, arg3 >> 16, arg4 >> 16, arg6 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
 									arg3 += local182;
 									arg4 += local155;
 									arg6 += local184;
@@ -1895,7 +1895,7 @@ public final class Draw3D extends Draw2D {
 									local106 += local126;
 								}
 							}
-							method303(anIntArray178, local4, 0, 0, arg1, arg5 >> 16, arg4 >> 16, arg8 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
+							drawTexturedScanline(anIntArray178, local4, 0, 0, arg1, arg5 >> 16, arg4 >> 16, arg8 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
 							arg5 += local128;
 							arg4 += local155;
 							arg8 += local130;
@@ -1917,7 +1917,7 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									method303(anIntArray178, local4, 0, 0, arg1, arg4 >> 16, arg3 >> 16, arg7 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
+									drawTexturedScanline(anIntArray178, local4, 0, 0, arg1, arg4 >> 16, arg3 >> 16, arg7 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
 									arg3 += local182;
 									arg4 += local155;
 									arg6 += local184;
@@ -1928,7 +1928,7 @@ public final class Draw3D extends Draw2D {
 									local106 += local126;
 								}
 							}
-							method303(anIntArray178, local4, 0, 0, arg1, arg4 >> 16, arg5 >> 16, arg7 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
+							drawTexturedScanline(anIntArray178, local4, 0, 0, arg1, arg4 >> 16, arg5 >> 16, arg7 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
 							arg5 += local128;
 							arg4 += local155;
 							arg8 += local130;
@@ -1981,7 +1981,7 @@ public final class Draw3D extends Draw2D {
 								if (arg1 < 0) {
 									return;
 								}
-								method303(anIntArray178, local4, 0, 0, arg2, arg4 >> 16, arg3 >> 16, arg7 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
+								drawTexturedScanline(anIntArray178, local4, 0, 0, arg2, arg4 >> 16, arg3 >> 16, arg7 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
 								arg4 += local155;
 								arg3 += local128;
 								arg7 += local157;
@@ -1992,7 +1992,7 @@ public final class Draw3D extends Draw2D {
 								local106 += local126;
 							}
 						}
-						method303(anIntArray178, local4, 0, 0, arg2, arg4 >> 16, arg5 >> 16, arg7 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
+						drawTexturedScanline(anIntArray178, local4, 0, 0, arg2, arg4 >> 16, arg5 >> 16, arg7 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
 						arg4 += local155;
 						arg5 += local182;
 						arg7 += local157;
@@ -2014,7 +2014,7 @@ public final class Draw3D extends Draw2D {
 								if (arg1 < 0) {
 									return;
 								}
-								method303(anIntArray178, local4, 0, 0, arg2, arg3 >> 16, arg4 >> 16, arg6 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
+								drawTexturedScanline(anIntArray178, local4, 0, 0, arg2, arg3 >> 16, arg4 >> 16, arg6 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
 								arg4 += local155;
 								arg3 += local128;
 								arg7 += local157;
@@ -2025,7 +2025,7 @@ public final class Draw3D extends Draw2D {
 								local106 += local126;
 							}
 						}
-						method303(anIntArray178, local4, 0, 0, arg2, arg5 >> 16, arg4 >> 16, arg8 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
+						drawTexturedScanline(anIntArray178, local4, 0, 0, arg2, arg5 >> 16, arg4 >> 16, arg8 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
 						arg4 += local155;
 						arg5 += local182;
 						arg7 += local157;
@@ -2069,7 +2069,7 @@ public final class Draw3D extends Draw2D {
 								if (arg0 < 0) {
 									return;
 								}
-								method303(anIntArray178, local4, 0, 0, arg2, arg4 >> 16, arg5 >> 16, arg7 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
+								drawTexturedScanline(anIntArray178, local4, 0, 0, arg2, arg4 >> 16, arg5 >> 16, arg7 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
 								arg4 += local128;
 								arg5 += local182;
 								arg7 += local130;
@@ -2080,7 +2080,7 @@ public final class Draw3D extends Draw2D {
 								local106 += local126;
 							}
 						}
-						method303(anIntArray178, local4, 0, 0, arg2, arg3 >> 16, arg5 >> 16, arg6 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
+						drawTexturedScanline(anIntArray178, local4, 0, 0, arg2, arg3 >> 16, arg5 >> 16, arg6 >> 8, arg8 >> 8, local46, local76, local106, local56, local86, local116);
 						arg3 += local155;
 						arg5 += local182;
 						arg6 += local157;
@@ -2102,7 +2102,7 @@ public final class Draw3D extends Draw2D {
 								if (arg0 < 0) {
 									return;
 								}
-								method303(anIntArray178, local4, 0, 0, arg2, arg5 >> 16, arg4 >> 16, arg8 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
+								drawTexturedScanline(anIntArray178, local4, 0, 0, arg2, arg5 >> 16, arg4 >> 16, arg8 >> 8, arg7 >> 8, local46, local76, local106, local56, local86, local116);
 								arg4 += local128;
 								arg5 += local182;
 								arg7 += local130;
@@ -2113,7 +2113,7 @@ public final class Draw3D extends Draw2D {
 								local106 += local126;
 							}
 						}
-						method303(anIntArray178, local4, 0, 0, arg2, arg5 >> 16, arg3 >> 16, arg8 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
+						drawTexturedScanline(anIntArray178, local4, 0, 0, arg2, arg5 >> 16, arg3 >> 16, arg8 >> 8, arg6 >> 8, local46, local76, local106, local56, local86, local116);
 						arg3 += local155;
 						arg5 += local182;
 						arg6 += local157;
@@ -2129,7 +2129,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "([I[IIIIIIIIIIIIII)V")
-	private static void method303(@OriginalArg(0) int[] arg0, @OriginalArg(1) int[] arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9, @OriginalArg(10) int arg10, @OriginalArg(11) int arg11, @OriginalArg(12) int arg12, @OriginalArg(13) int arg13, @OriginalArg(14) int arg14) {
+	private static void drawTexturedScanline(@OriginalArg(0) int[] arg0, @OriginalArg(1) int[] arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9, @OriginalArg(10) int arg10, @OriginalArg(11) int arg11, @OriginalArg(12) int arg12, @OriginalArg(13) int arg13, @OriginalArg(14) int arg14) {
 		if (arg5 >= arg6) {
 			return;
 		}

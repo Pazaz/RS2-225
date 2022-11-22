@@ -56,11 +56,11 @@ public final class SpotAnimType {
 	public int anInt572 = 128;
 
 	@OriginalMember(owner = "client!kc", name = "a", descriptor = "(Lclient!ub;I)V")
-	public static void method407(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) int arg1) {
+	public static void unpack(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) int arg1) {
 		try {
 			@Pc(3) int local3 = 91 / arg1;
-			@Pc(13) Buffer local13 = new Buffer(363, arg0.method536("spotanim.dat", null, (byte) 2));
-			anInt567 = local13.method393();
+			@Pc(13) Buffer local13 = new Buffer(363, arg0.read("spotanim.dat", null, (byte) 2));
+			anInt567 = local13.g2();
 			if (aClass21Array1 == null) {
 				aClass21Array1 = new SpotAnimType[anInt567];
 			}
@@ -69,7 +69,7 @@ public final class SpotAnimType {
 					aClass21Array1[local23] = new SpotAnimType();
 				}
 				aClass21Array1[local23].anInt568 = local23;
-				aClass21Array1[local23].method408(false, local13);
+				aClass21Array1[local23].decode(false, local13);
 			}
 		} catch (@Pc(52) RuntimeException local52) {
 			signlink.reporterror("26561, " + arg0 + ", " + arg1 + ", " + local52.toString());
@@ -78,7 +78,7 @@ public final class SpotAnimType {
 	}
 
 	@OriginalMember(owner = "client!kc", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void method408(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
+	public void decode(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
 		try {
 			@Pc(5) int local5;
 			if (arg0) {
@@ -87,33 +87,33 @@ public final class SpotAnimType {
 			}
 			while (true) {
 				while (true) {
-					local5 = arg1.method391();
+					local5 = arg1.g1();
 					if (local5 == 0) {
 						return;
 					}
 					if (local5 == 1) {
-						this.anInt569 = arg1.method393();
+						this.anInt569 = arg1.g2();
 					} else if (local5 == 2) {
-						this.anInt570 = arg1.method393();
+						this.anInt570 = arg1.g2();
 						if (SeqType.aClass19Array1 != null) {
 							this.aClass19_1 = SeqType.aClass19Array1[this.anInt570];
 						}
 					} else if (local5 == 3) {
 						this.aBoolean131 = true;
 					} else if (local5 == 4) {
-						this.anInt571 = arg1.method393();
+						this.anInt571 = arg1.g2();
 					} else if (local5 == 5) {
-						this.anInt572 = arg1.method393();
+						this.anInt572 = arg1.g2();
 					} else if (local5 == 6) {
-						this.anInt573 = arg1.method393();
+						this.anInt573 = arg1.g2();
 					} else if (local5 == 7) {
-						this.anInt574 = arg1.method391();
+						this.anInt574 = arg1.g1();
 					} else if (local5 == 8) {
-						this.anInt575 = arg1.method391();
+						this.anInt575 = arg1.g1();
 					} else if (local5 >= 40 && local5 < 50) {
-						this.anIntArray192[local5 - 40] = arg1.method393();
+						this.anIntArray192[local5 - 40] = arg1.g2();
 					} else if (local5 >= 50 && local5 < 60) {
-						this.anIntArray193[local5 - 50] = arg1.method393();
+						this.anIntArray193[local5 - 50] = arg1.g2();
 					} else {
 						System.out.println("Error unrecognised spotanim config code: " + local5);
 					}
@@ -126,18 +126,18 @@ public final class SpotAnimType {
 	}
 
 	@OriginalMember(owner = "client!kc", name = "a", descriptor = "()Lclient!eb;")
-	public Model method409() {
-		@Pc(6) Model local6 = (Model) aClass35_8.method527((long) this.anInt568);
+	public Model getModel() {
+		@Pc(6) Model local6 = (Model) aClass35_8.get((long) this.anInt568);
 		if (local6 != null) {
 			return local6;
 		}
 		local6 = new Model(false, this.anInt569);
 		for (@Pc(19) int local19 = 0; local19 < 6; local19++) {
 			if (this.anIntArray192[0] != 0) {
-				local6.method237(this.anIntArray192[local19], this.anIntArray193[local19]);
+				local6.recolor(this.anIntArray192[local19], this.anIntArray193[local19]);
 			}
 		}
-		aClass35_8.method528(6, (long) this.anInt568, local6);
+		aClass35_8.put(6, (long) this.anInt568, local6);
 		return local6;
 	}
 }

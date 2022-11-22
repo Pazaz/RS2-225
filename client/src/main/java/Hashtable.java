@@ -39,7 +39,7 @@ public final class Hashtable {
 	}
 
 	@OriginalMember(owner = "client!t", name = "a", descriptor = "(J)Lclient!u;")
-	public Node method530(@OriginalArg(0) long arg0) {
+	public Node get(@OriginalArg(0) long arg0) {
 		@Pc(11) Node local11 = this.aClass1Array1[(int) (arg0 & (long) (this.anInt757 - 1))];
 		for (@Pc(14) Node local14 = local11.aClass1_41; local14 != local11; local14 = local14.aClass1_41) {
 			if (local14.aLong26 == arg0) {
@@ -50,10 +50,10 @@ public final class Hashtable {
 	}
 
 	@OriginalMember(owner = "client!t", name = "a", descriptor = "(JILclient!u;)V")
-	public void method531(@OriginalArg(0) long arg0, @OriginalArg(1) int arg1, @OriginalArg(2) Node arg2) {
+	public void put(@OriginalArg(0) long arg0, @OriginalArg(1) int arg1, @OriginalArg(2) Node arg2) {
 		try {
 			if (arg2.aClass1_42 != null) {
-				arg2.method567();
+				arg2.unlink();
 			}
 			@Pc(18) Node local18 = this.aClass1Array1[(int) (arg0 & (long) (this.anInt757 - 1))];
 			arg2.aClass1_42 = local18.aClass1_42;

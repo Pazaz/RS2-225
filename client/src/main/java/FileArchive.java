@@ -47,7 +47,7 @@ public final class FileArchive {
 				for (@Pc(17) int local17 = 1; local17 > 0; local17++) {
 				}
 			}
-			this.method535(true, arg0);
+			this.parse(true, arg0);
 		} catch (@Pc(28) RuntimeException local28) {
 			signlink.reporterror("94335, " + arg0 + ", " + arg1 + ", " + local28.toString());
 			throw new RuntimeException();
@@ -55,22 +55,22 @@ public final class FileArchive {
 	}
 
 	@OriginalMember(owner = "client!ub", name = "a", descriptor = "(Z[B)V")
-	private void method535(@OriginalArg(0) boolean arg0, @OriginalArg(1) byte[] arg1) {
+	private void parse(@OriginalArg(0) boolean arg0, @OriginalArg(1) byte[] arg1) {
 		try {
 			@Pc(7) Buffer local7 = new Buffer(363, arg1);
-			@Pc(10) int local10 = local7.method395();
-			@Pc(13) int local13 = local7.method395();
+			@Pc(10) int local10 = local7.g3();
+			@Pc(13) int local13 = local7.g3();
 			if (local13 == local10) {
 				this.aByteArray14 = arg1;
 				this.aBoolean150 = false;
 			} else {
 				@Pc(19) byte[] local19 = new byte[local10];
-				BZip2InputStream.method519(local19, local10, arg1, local13, 6);
+				BZip2InputStream.read(local19, local10, arg1, local13, 6);
 				this.aByteArray14 = local19;
 				local7 = new Buffer(363, this.aByteArray14);
 				this.aBoolean150 = true;
 			}
-			this.anInt763 = local7.method393();
+			this.anInt763 = local7.g2();
 			this.anIntArray221 = new int[this.anInt763];
 			this.anIntArray222 = new int[this.anInt763];
 			this.anIntArray223 = new int[this.anInt763];
@@ -78,9 +78,9 @@ public final class FileArchive {
 			if (arg0) {
 				@Pc(82) int local82 = local7.anInt561 + this.anInt763 * 10;
 				for (@Pc(84) int local84 = 0; local84 < this.anInt763; local84++) {
-					this.anIntArray221[local84] = local7.method396();
-					this.anIntArray222[local84] = local7.method395();
-					this.anIntArray223[local84] = local7.method395();
+					this.anIntArray221[local84] = local7.g4();
+					this.anIntArray222[local84] = local7.g3();
+					this.anIntArray223[local84] = local7.g3();
 					this.anIntArray224[local84] = local82;
 					local82 += this.anIntArray223[local84];
 				}
@@ -92,7 +92,7 @@ public final class FileArchive {
 	}
 
 	@OriginalMember(owner = "client!ub", name = "a", descriptor = "(Ljava/lang/String;[BB)[B")
-	public byte[] method536(@OriginalArg(0) String arg0, @OriginalArg(1) byte[] arg1, @OriginalArg(2) byte arg2) {
+	public byte[] read(@OriginalArg(0) String arg0, @OriginalArg(1) byte[] arg1, @OriginalArg(2) byte arg2) {
 		try {
 			@Pc(3) int local3 = 0;
 			@Pc(6) String local6 = arg0.toUpperCase();
@@ -109,7 +109,7 @@ public final class FileArchive {
 							arg1[local67] = this.aByteArray14[this.anIntArray224[local27] + local67];
 						}
 					} else {
-						BZip2InputStream.method519(arg1, this.anIntArray222[local27], this.aByteArray14, this.anIntArray223[local27], this.anIntArray224[local27]);
+						BZip2InputStream.read(arg1, this.anIntArray222[local27], this.aByteArray14, this.anIntArray223[local27], this.anIntArray224[local27]);
 					}
 					return arg1;
 				}

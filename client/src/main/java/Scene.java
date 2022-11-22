@@ -120,8 +120,8 @@ public final class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(II)I")
-	public static int method42(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		@Pc(32) int local32 = method43(arg0 + 45365, arg1 + 91923, 4) + (method43(arg0 + 10294, arg1 + 37821, 2) - 128 >> 1) + (method43(arg0, arg1, 1) - 128 >> 2) - 128;
+	public static int getPerlinNoise(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+		@Pc(32) int local32 = getSmoothNoise(arg0 + 45365, arg1 + 91923, 4) + (getSmoothNoise(arg0 + 10294, arg1 + 37821, 2) - 128 >> 1) + (getSmoothNoise(arg0, arg1, 1) - 128 >> 2) - 128;
 		local32 = (int) ((double) local32 * 0.3D) + 35;
 		if (local32 < 10) {
 			local32 = 10;
@@ -132,36 +132,36 @@ public final class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(III)I")
-	private static int method43(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
+	private static int getSmoothNoise(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		@Pc(3) int local3 = arg0 / arg2;
 		@Pc(9) int local9 = arg0 & arg2 - 1;
 		@Pc(13) int local13 = arg1 / arg2;
 		@Pc(19) int local19 = arg1 & arg2 - 1;
-		@Pc(23) int local23 = method45(local3, local13);
-		@Pc(29) int local29 = method45(local3 + 1, local13);
-		@Pc(35) int local35 = method45(local3, local13 + 1);
-		@Pc(43) int local43 = method45(local3 + 1, local13 + 1);
-		@Pc(49) int local49 = method44(local23, local29, local9, arg2);
-		@Pc(55) int local55 = method44(local35, local43, local9, arg2);
-		return method44(local49, local55, local19, arg2);
+		@Pc(23) int local23 = getSmoothNoise2D(local3, local13);
+		@Pc(29) int local29 = getSmoothNoise2D(local3 + 1, local13);
+		@Pc(35) int local35 = getSmoothNoise2D(local3, local13 + 1);
+		@Pc(43) int local43 = getSmoothNoise2D(local3 + 1, local13 + 1);
+		@Pc(49) int local49 = getCosineLerp(local23, local29, local9, arg2);
+		@Pc(55) int local55 = getCosineLerp(local35, local43, local9, arg2);
+		return getCosineLerp(local49, local55, local19, arg2);
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(IIII)I")
-	private static int method44(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
+	private static int getCosineLerp(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
 		@Pc(11) int local11 = 65536 - Draw3D.anIntArray138[arg2 * 1024 / arg3] >> 1;
 		return (arg0 * (65536 - local11) >> 16) + (arg1 * local11 >> 16);
 	}
 
 	@OriginalMember(owner = "client!c", name = "b", descriptor = "(II)I")
-	private static int method45(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		@Pc(31) int local31 = method46(arg0 - 1, arg1 - 1) + method46(arg0 + 1, arg1 - 1) + method46(arg0 - 1, arg1 + 1) + method46(arg0 + 1, arg1 + 1);
-		@Pc(55) int local55 = method46(arg0 - 1, arg1) + method46(arg0 + 1, arg1) + method46(arg0, arg1 - 1) + method46(arg0, arg1 + 1);
-		@Pc(59) int local59 = method46(arg0, arg1);
+	private static int getSmoothNoise2D(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+		@Pc(31) int local31 = getNoise(arg0 - 1, arg1 - 1) + getNoise(arg0 + 1, arg1 - 1) + getNoise(arg0 - 1, arg1 + 1) + getNoise(arg0 + 1, arg1 + 1);
+		@Pc(55) int local55 = getNoise(arg0 - 1, arg1) + getNoise(arg0 + 1, arg1) + getNoise(arg0, arg1 - 1) + getNoise(arg0, arg1 + 1);
+		@Pc(59) int local59 = getNoise(arg0, arg1);
 		return local31 / 16 + local55 / 8 + local59 / 4;
 	}
 
 	@OriginalMember(owner = "client!c", name = "c", descriptor = "(II)I")
-	private static int method46(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+	private static int getNoise(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		@Pc(5) int local5 = arg0 + arg1 * 57;
 		@Pc(11) int local11 = local5 << 13 ^ local5;
 		@Pc(25) int local25 = local11 * (local11 * local11 * 15731 + 789221) + 1376312589 & Integer.MAX_VALUE;
@@ -169,7 +169,7 @@ public final class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "d", descriptor = "(II)I")
-	public static int method47(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+	public static int adjustHslLightness1(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		if (arg0 == -1) {
 			return 12345678;
 		}
@@ -183,7 +183,7 @@ public final class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(ILclient!ob;Lclient!ec;II[[[IIIIILclient!r;I)V")
-	public static void method50(@OriginalArg(0) int arg0, @OriginalArg(1) LinkedList arg1, @OriginalArg(2) CollisionMap arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int[][][] arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9, @OriginalArg(10) MapSquare arg10, @OriginalArg(11) int arg11) {
+	public static void addLoc(@OriginalArg(0) int arg0, @OriginalArg(1) LinkedList arg1, @OriginalArg(2) CollisionMap arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int[][][] arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9, @OriginalArg(10) MapSquare arg10, @OriginalArg(11) int arg11) {
 		try {
 			if (arg6 != 0) {
 				aBoolean21 = !aBoolean21;
@@ -193,7 +193,7 @@ public final class Scene {
 			@Pc(37) int local37 = arg5[arg11][arg0 + 1][arg3 + 1];
 			@Pc(47) int local47 = arg5[arg11][arg0][arg3 + 1];
 			@Pc(57) int local57 = local15 + local25 + local37 + local47 >> 2;
-			@Pc(60) LocType local60 = LocType.method23(arg8);
+			@Pc(60) LocType local60 = LocType.get(arg8);
 			@Pc(72) int local72 = arg0 + (arg3 << 7) + (arg8 << 14) + 1073741824;
 			if (!local60.aBoolean9) {
 				local72 += Integer.MIN_VALUE;
@@ -201,18 +201,18 @@ public final class Scene {
 			@Pc(86) byte local86 = (byte) ((arg4 << 6) + arg9);
 			@Pc(99) Model local99;
 			if (arg9 == 22) {
-				local99 = local60.method26(22, arg4, local15, local25, local37, local47, -1);
-				arg10.method473(local99, (byte) 6, arg0, local72, arg3, arg7, local86, local57);
+				local99 = local60.getModel(22, arg4, local15, local25, local37, local47, -1);
+				arg10.addGroundDecoration(local99, (byte) 6, arg0, local72, arg3, arg7, local86, local57);
 				if (local60.aBoolean7 && local60.aBoolean9) {
-					arg2.method252((byte) 12, arg3, arg0);
+					arg2.setBlocked((byte) 12, arg3, arg0);
 				}
 				if (local60.anInt45 != -1) {
-					arg1.method453(new LocEntity(true, arg8, arg7, 0, 3, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
+					arg1.pushNext(new LocEntity(true, arg8, arg7, 0, 3, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
 				}
 			} else {
 				@Pc(174) int local174;
 				if (arg9 == 10 || arg9 == 11) {
-					local99 = local60.method26(10, arg4, local15, local25, local37, local47, -1);
+					local99 = local60.getModel(10, arg4, local15, local25, local37, local47, -1);
 					if (local99 != null) {
 						@Pc(161) int local161 = 0;
 						if (arg9 == 11) {
@@ -226,107 +226,107 @@ public final class Scene {
 							local174 = local60.anInt43;
 							local177 = local60.anInt44;
 						}
-						arg10.method477(local57, 775, arg7, null, local72, arg3, arg0, local174, local86, local99, local161, local177);
+						arg10.addLocation(local57, 775, arg7, null, local72, arg3, arg0, local174, local86, local99, local161, local177);
 					}
 					if (local60.aBoolean7) {
-						arg2.method251(arg4, local60.anInt44, local60.anInt43, arg0, 9, arg3, local60.aBoolean8);
+						arg2.setLoc(arg4, local60.anInt44, local60.anInt43, arg0, 9, arg3, local60.aBoolean8);
 					}
 					if (local60.anInt45 != -1) {
-						arg1.method453(new LocEntity(true, arg8, arg7, 0, 2, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
+						arg1.pushNext(new LocEntity(true, arg8, arg7, 0, 2, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
 					}
 				} else if (arg9 >= 12) {
-					local99 = local60.method26(arg9, arg4, local15, local25, local37, local47, -1);
-					arg10.method477(local57, 775, arg7, null, local72, arg3, arg0, 1, local86, local99, 0, 1);
+					local99 = local60.getModel(arg9, arg4, local15, local25, local37, local47, -1);
+					arg10.addLocation(local57, 775, arg7, null, local72, arg3, arg0, 1, local86, local99, 0, 1);
 					if (local60.aBoolean7) {
-						arg2.method251(arg4, local60.anInt44, local60.anInt43, arg0, 9, arg3, local60.aBoolean8);
+						arg2.setLoc(arg4, local60.anInt44, local60.anInt43, arg0, 9, arg3, local60.aBoolean8);
 					}
 					if (local60.anInt45 != -1) {
-						arg1.method453(new LocEntity(true, arg8, arg7, 0, 2, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
+						arg1.pushNext(new LocEntity(true, arg8, arg7, 0, 2, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
 					}
 				} else if (arg9 == 0) {
-					local99 = local60.method26(0, arg4, local15, local25, local37, local47, -1);
-					arg10.method475(0, local57, arg7, anIntArray18[arg4], 8, local99, null, arg0, local72, arg3, local86);
+					local99 = local60.getModel(0, arg4, local15, local25, local37, local47, -1);
+					arg10.addWall(0, local57, arg7, anIntArray18[arg4], 8, local99, null, arg0, local72, arg3, local86);
 					if (local60.aBoolean7) {
-						arg2.method250(true, arg4, arg3, arg0, local60.aBoolean8, arg9);
+						arg2.setWall(true, arg4, arg3, arg0, local60.aBoolean8, arg9);
 					}
 					if (local60.anInt45 != -1) {
-						arg1.method453(new LocEntity(true, arg8, arg7, 0, 0, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
+						arg1.pushNext(new LocEntity(true, arg8, arg7, 0, 0, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
 					}
 				} else if (arg9 == 1) {
-					local99 = local60.method26(1, arg4, local15, local25, local37, local47, -1);
-					arg10.method475(0, local57, arg7, anIntArray19[arg4], 8, local99, null, arg0, local72, arg3, local86);
+					local99 = local60.getModel(1, arg4, local15, local25, local37, local47, -1);
+					arg10.addWall(0, local57, arg7, anIntArray19[arg4], 8, local99, null, arg0, local72, arg3, local86);
 					if (local60.aBoolean7) {
-						arg2.method250(true, arg4, arg3, arg0, local60.aBoolean8, arg9);
+						arg2.setWall(true, arg4, arg3, arg0, local60.aBoolean8, arg9);
 					}
 					if (local60.anInt45 != -1) {
-						arg1.method453(new LocEntity(true, arg8, arg7, 0, 0, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
+						arg1.pushNext(new LocEntity(true, arg8, arg7, 0, 0, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
 					}
 				} else {
 					@Pc(430) int local430;
 					@Pc(452) Model local452;
 					if (arg9 == 2) {
 						local430 = arg4 + 1 & 0x3;
-						@Pc(442) Model local442 = local60.method26(2, arg4 + 4, local15, local25, local37, local47, -1);
-						local452 = local60.method26(2, local430, local15, local25, local37, local47, -1);
-						arg10.method475(anIntArray18[local430], local57, arg7, anIntArray18[arg4], 8, local442, local452, arg0, local72, arg3, local86);
+						@Pc(442) Model local442 = local60.getModel(2, arg4 + 4, local15, local25, local37, local47, -1);
+						local452 = local60.getModel(2, local430, local15, local25, local37, local47, -1);
+						arg10.addWall(anIntArray18[local430], local57, arg7, anIntArray18[arg4], 8, local442, local452, arg0, local72, arg3, local86);
 						if (local60.aBoolean7) {
-							arg2.method250(true, arg4, arg3, arg0, local60.aBoolean8, arg9);
+							arg2.setWall(true, arg4, arg3, arg0, local60.aBoolean8, arg9);
 						}
 						if (local60.anInt45 != -1) {
-							arg1.method453(new LocEntity(true, arg8, arg7, 0, 0, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
+							arg1.pushNext(new LocEntity(true, arg8, arg7, 0, 0, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
 						}
 					} else if (arg9 == 3) {
-						local99 = local60.method26(3, arg4, local15, local25, local37, local47, -1);
-						arg10.method475(0, local57, arg7, anIntArray19[arg4], 8, local99, null, arg0, local72, arg3, local86);
+						local99 = local60.getModel(3, arg4, local15, local25, local37, local47, -1);
+						arg10.addWall(0, local57, arg7, anIntArray19[arg4], 8, local99, null, arg0, local72, arg3, local86);
 						if (local60.aBoolean7) {
-							arg2.method250(true, arg4, arg3, arg0, local60.aBoolean8, arg9);
+							arg2.setWall(true, arg4, arg3, arg0, local60.aBoolean8, arg9);
 						}
 						if (local60.anInt45 != -1) {
-							arg1.method453(new LocEntity(true, arg8, arg7, 0, 0, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
+							arg1.pushNext(new LocEntity(true, arg8, arg7, 0, 0, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
 						}
 					} else if (arg9 == 9) {
-						local99 = local60.method26(arg9, arg4, local15, local25, local37, local47, -1);
-						arg10.method477(local57, 775, arg7, null, local72, arg3, arg0, 1, local86, local99, 0, 1);
+						local99 = local60.getModel(arg9, arg4, local15, local25, local37, local47, -1);
+						arg10.addLocation(local57, 775, arg7, null, local72, arg3, arg0, 1, local86, local99, 0, 1);
 						if (local60.aBoolean7) {
-							arg2.method251(arg4, local60.anInt44, local60.anInt43, arg0, 9, arg3, local60.aBoolean8);
+							arg2.setLoc(arg4, local60.anInt44, local60.anInt43, arg0, 9, arg3, local60.aBoolean8);
 						}
 						if (local60.anInt45 != -1) {
-							arg1.method453(new LocEntity(true, arg8, arg7, 0, 2, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
+							arg1.pushNext(new LocEntity(true, arg8, arg7, 0, 2, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
 						}
 					} else if (arg9 == 4) {
-						local99 = local60.method26(4, 0, local15, local25, local37, local47, -1);
-						arg10.method476(local57, arg3, 0, local72, arg4 * 512, anIntArray18[arg4], 465, 0, arg0, local99, local86, arg7);
+						local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
+						arg10.addWallDecoration(local57, arg3, 0, local72, arg4 * 512, anIntArray18[arg4], 465, 0, arg0, local99, local86, arg7);
 						if (local60.anInt45 != -1) {
-							arg1.method453(new LocEntity(true, arg8, arg7, 0, 1, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
+							arg1.pushNext(new LocEntity(true, arg8, arg7, 0, 1, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
 						}
 					} else if (arg9 == 5) {
 						local430 = 16;
-						local174 = arg10.method494(arg7, arg0, arg3);
+						local174 = arg10.getWallBitset(arg7, arg0, arg3);
 						if (local174 > 0) {
-							local430 = LocType.method23(local174 >> 14 & 0x7FFF).anInt46;
+							local430 = LocType.get(local174 >> 14 & 0x7FFF).anInt46;
 						}
-						local452 = local60.method26(4, 0, local15, local25, local37, local47, -1);
-						arg10.method476(local57, arg3, anIntArray21[arg4] * local430, local72, arg4 * 512, anIntArray18[arg4], 465, anIntArray20[arg4] * local430, arg0, local452, local86, arg7);
+						local452 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
+						arg10.addWallDecoration(local57, arg3, anIntArray21[arg4] * local430, local72, arg4 * 512, anIntArray18[arg4], 465, anIntArray20[arg4] * local430, arg0, local452, local86, arg7);
 						if (local60.anInt45 != -1) {
-							arg1.method453(new LocEntity(true, arg8, arg7, 0, 1, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
+							arg1.pushNext(new LocEntity(true, arg8, arg7, 0, 1, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
 						}
 					} else if (arg9 == 6) {
-						local99 = local60.method26(4, 0, local15, local25, local37, local47, -1);
-						arg10.method476(local57, arg3, 0, local72, arg4, 256, 465, 0, arg0, local99, local86, arg7);
+						local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
+						arg10.addWallDecoration(local57, arg3, 0, local72, arg4, 256, 465, 0, arg0, local99, local86, arg7);
 						if (local60.anInt45 != -1) {
-							arg1.method453(new LocEntity(true, arg8, arg7, 0, 1, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
+							arg1.pushNext(new LocEntity(true, arg8, arg7, 0, 1, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
 						}
 					} else if (arg9 == 7) {
-						local99 = local60.method26(4, 0, local15, local25, local37, local47, -1);
-						arg10.method476(local57, arg3, 0, local72, arg4, 512, 465, 0, arg0, local99, local86, arg7);
+						local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
+						arg10.addWallDecoration(local57, arg3, 0, local72, arg4, 512, 465, 0, arg0, local99, local86, arg7);
 						if (local60.anInt45 != -1) {
-							arg1.method453(new LocEntity(true, arg8, arg7, 0, 1, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
+							arg1.pushNext(new LocEntity(true, arg8, arg7, 0, 1, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
 						}
 					} else if (arg9 == 8) {
-						local99 = local60.method26(4, 0, local15, local25, local37, local47, -1);
-						arg10.method476(local57, arg3, 0, local72, arg4, 768, 465, 0, arg0, local99, local86, arg7);
+						local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
+						arg10.addWallDecoration(local57, arg3, 0, local72, arg4, 768, 465, 0, arg0, local99, local86, arg7);
 						if (local60.anInt45 != -1) {
-							arg1.method453(new LocEntity(true, arg8, arg7, 0, 1, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
+							arg1.pushNext(new LocEntity(true, arg8, arg7, 0, 1, SeqType.aClass19Array1[local60.anInt45], arg3, arg0));
 						}
 					}
 				}
@@ -338,7 +338,7 @@ public final class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(IIIII)V")
-	public void method36(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
+	public void clearLandscape(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
 		try {
 			@Pc(3) byte local3 = 0;
 			if (arg2 != 3) {
@@ -368,7 +368,7 @@ public final class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "([BIIIII)V")
-	public void method37(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
+	public void readLandscape(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
 		try {
 			@Pc(7) Buffer local7 = new Buffer(363, arg0);
 			if (arg2 != 1) {
@@ -383,17 +383,17 @@ public final class Scene {
 						if (local34 >= 0 && local34 < 104 && local38 >= 0 && local38 < 104) {
 							this.aByteArrayArrayArray1[local20][local34][local38] = 0;
 							while (true) {
-								local60 = local7.method391();
+								local60 = local7.g1();
 								if (local60 == 0) {
 									if (local20 == 0) {
-										this.anIntArrayArrayArray1[0][local34][local38] = -method42(local34 + arg1 + 932731, local38 + 556238 + arg5) * 8;
+										this.anIntArrayArrayArray1[0][local34][local38] = -getPerlinNoise(local34 + arg1 + 932731, local38 + 556238 + arg5) * 8;
 									} else {
 										this.anIntArrayArrayArray1[local20][local34][local38] = this.anIntArrayArrayArray1[local20 - 1][local34][local38] - 240;
 									}
 									break;
 								}
 								if (local60 == 1) {
-									@Pc(116) int local116 = local7.method391();
+									@Pc(116) int local116 = local7.g1();
 									if (local116 == 1) {
 										local116 = 0;
 									}
@@ -405,7 +405,7 @@ public final class Scene {
 									break;
 								}
 								if (local60 <= 49) {
-									this.aByteArrayArrayArray3[local20][local34][local38] = local7.method392();
+									this.aByteArrayArrayArray3[local20][local34][local38] = local7.g1b();
 									this.aByteArrayArrayArray4[local20][local34][local38] = (byte) ((local60 - 2) / 4);
 									this.aByteArrayArrayArray5[local20][local34][local38] = (byte) (local60 - 2 & 0x3);
 								} else if (local60 <= 81) {
@@ -416,16 +416,16 @@ public final class Scene {
 							}
 						} else {
 							while (true) {
-								local60 = local7.method391();
+								local60 = local7.g1();
 								if (local60 == 0) {
 									break;
 								}
 								if (local60 == 1) {
-									local7.method391();
+									local7.g1();
 									break;
 								}
 								if (local60 <= 49) {
-									local7.method391();
+									local7.g1();
 								}
 							}
 						}
@@ -439,7 +439,7 @@ public final class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "([BLclient!r;[Lclient!ec;Lclient!ob;ZII)V")
-	public void method38(@OriginalArg(0) byte[] arg0, @OriginalArg(1) MapSquare arg1, @OriginalArg(2) CollisionMap[] arg2, @OriginalArg(3) LinkedList arg3, @OriginalArg(4) boolean arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
+	public void readLocs(@OriginalArg(0) byte[] arg0, @OriginalArg(1) MapSquare arg1, @OriginalArg(2) CollisionMap[] arg2, @OriginalArg(3) LinkedList arg3, @OriginalArg(4) boolean arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
 		try {
 			@Pc(7) Buffer local7 = new Buffer(363, arg0);
 			if (!arg4) {
@@ -447,14 +447,14 @@ public final class Scene {
 			}
 			@Pc(19) int local19 = -1;
 			while (true) {
-				@Pc(22) int local22 = local7.method405();
+				@Pc(22) int local22 = local7.gsmarts();
 				if (local22 == 0) {
 					return;
 				}
 				local19 += local22;
 				@Pc(30) int local30 = 0;
 				while (true) {
-					@Pc(33) int local33 = local7.method405();
+					@Pc(33) int local33 = local7.gsmarts();
 					if (local33 == 0) {
 						break;
 					}
@@ -462,7 +462,7 @@ public final class Scene {
 					@Pc(45) int local45 = local30 & 0x3F;
 					@Pc(51) int local51 = local30 >> 6 & 0x3F;
 					@Pc(55) int local55 = local30 >> 12;
-					@Pc(58) int local58 = local7.method391();
+					@Pc(58) int local58 = local7.g1();
 					@Pc(62) int local62 = local58 >> 2;
 					@Pc(66) int local66 = local58 & 0x3;
 					@Pc(70) int local70 = local51 + arg6;
@@ -476,7 +476,7 @@ public final class Scene {
 						if (local86 >= 0) {
 							local101 = arg2[local86];
 						}
-						this.method39(local101, true, local55, local74, local66, local62, arg1, arg3, local19, local70);
+						this.addLoc(local101, true, local55, local74, local66, local62, arg1, arg3, local19, local70);
 					}
 				}
 			}
@@ -487,14 +487,14 @@ public final class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(Lclient!ec;ZIIIILclient!r;Lclient!ob;II)V")
-	private void method39(@OriginalArg(0) CollisionMap arg0, @OriginalArg(1) boolean arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) MapSquare arg6, @OriginalArg(7) LinkedList arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9) {
+	private void addLoc(@OriginalArg(0) CollisionMap arg0, @OriginalArg(1) boolean arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) MapSquare arg6, @OriginalArg(7) LinkedList arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9) {
 		try {
 			if (arg1) {
 				if (aBoolean23) {
 					if ((this.aByteArrayArrayArray1[arg2][arg9][arg3] & 0x10) != 0) {
 						return;
 					}
-					if (this.method41(arg2, (byte) 10, arg9, arg3) != anInt81) {
+					if (this.getRenderLevel(arg2, (byte) 10, arg9, arg3) != anInt81) {
 						return;
 					}
 				}
@@ -503,7 +503,7 @@ public final class Scene {
 				@Pc(60) int local60 = this.anIntArrayArrayArray1[arg2][arg9 + 1][arg3 + 1];
 				@Pc(71) int local71 = this.anIntArrayArrayArray1[arg2][arg9][arg3 + 1];
 				@Pc(81) int local81 = local36 + local47 + local60 + local71 >> 2;
-				@Pc(84) LocType local84 = LocType.method23(arg8);
+				@Pc(84) LocType local84 = LocType.get(arg8);
 				@Pc(96) int local96 = arg9 + (arg3 << 7) + (arg8 << 14) + 1073741824;
 				if (!local84.aBoolean9) {
 					local96 += Integer.MIN_VALUE;
@@ -513,7 +513,7 @@ public final class Scene {
 				if (arg5 != 22) {
 					@Pc(209) int local209;
 					if (arg5 == 10 || arg5 == 11) {
-						local132 = local84.method26(10, arg4, local36, local47, local60, local71, -1);
+						local132 = local84.getModel(10, arg4, local36, local47, local60, local71, -1);
 						if (local132 != null) {
 							@Pc(196) int local196 = 0;
 							if (arg5 == 11) {
@@ -527,7 +527,7 @@ public final class Scene {
 								local209 = local84.anInt43;
 								local212 = local84.anInt44;
 							}
-							if (arg6.method477(local81, 775, arg2, null, local96, arg3, arg9, local209, local110, local132, local196, local212) && local84.aBoolean15) {
+							if (arg6.addLocation(local81, 775, arg2, null, local96, arg3, arg9, local209, local110, local132, local196, local212) && local84.aBoolean15) {
 								for (@Pc(240) int local240 = 0; local240 <= local209; local240++) {
 									for (@Pc(244) int local244 = 0; local244 <= local212; local244++) {
 										@Pc(251) int local251 = local132.anInt367 / 4;
@@ -542,26 +542,26 @@ public final class Scene {
 							}
 						}
 						if (local84.aBoolean7 && arg0 != null) {
-							arg0.method251(arg4, local84.anInt44, local84.anInt43, arg9, 9, arg3, local84.aBoolean8);
+							arg0.setLoc(arg4, local84.anInt44, local84.anInt43, arg9, 9, arg3, local84.aBoolean8);
 						}
 						if (local84.anInt45 != -1) {
-							arg7.method453(new LocEntity(true, arg8, arg2, 0, 2, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
+							arg7.pushNext(new LocEntity(true, arg8, arg2, 0, 2, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
 						}
 					} else if (arg5 >= 12) {
-						local132 = local84.method26(arg5, arg4, local36, local47, local60, local71, -1);
-						arg6.method477(local81, 775, arg2, null, local96, arg3, arg9, 1, local110, local132, 0, 1);
+						local132 = local84.getModel(arg5, arg4, local36, local47, local60, local71, -1);
+						arg6.addLocation(local81, 775, arg2, null, local96, arg3, arg9, 1, local110, local132, 0, 1);
 						if (arg5 >= 12 && arg5 <= 17 && arg5 != 13 && arg2 > 0) {
 							this.anIntArrayArrayArray2[arg2][arg9][arg3] |= 0x924;
 						}
 						if (local84.aBoolean7 && arg0 != null) {
-							arg0.method251(arg4, local84.anInt44, local84.anInt43, arg9, 9, arg3, local84.aBoolean8);
+							arg0.setLoc(arg4, local84.anInt44, local84.anInt43, arg9, 9, arg3, local84.aBoolean8);
 						}
 						if (local84.anInt45 != -1) {
-							arg7.method453(new LocEntity(true, arg8, arg2, 0, 2, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
+							arg7.pushNext(new LocEntity(true, arg8, arg2, 0, 2, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
 						}
 					} else if (arg5 == 0) {
-						local132 = local84.method26(0, arg4, local36, local47, local60, local71, -1);
-						arg6.method475(0, local81, arg2, anIntArray18[arg4], 8, local132, null, arg9, local96, arg3, local110);
+						local132 = local84.getModel(0, arg4, local36, local47, local60, local71, -1);
+						arg6.addWall(0, local81, arg2, anIntArray18[arg4], 8, local132, null, arg9, local96, arg3, local110);
 						if (arg4 == 0) {
 							if (local84.aBoolean15) {
 								this.aByteArrayArrayArray6[arg2][arg9][arg3] = 50;
@@ -596,17 +596,17 @@ public final class Scene {
 							}
 						}
 						if (local84.aBoolean7 && arg0 != null) {
-							arg0.method250(true, arg4, arg3, arg9, local84.aBoolean8, arg5);
+							arg0.setWall(true, arg4, arg3, arg9, local84.aBoolean8, arg5);
 						}
 						if (local84.anInt45 != -1) {
-							arg7.method453(new LocEntity(true, arg8, arg2, 0, 0, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
+							arg7.pushNext(new LocEntity(true, arg8, arg2, 0, 0, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
 						}
 						if (local84.anInt46 != 16) {
-							arg6.method484(arg2, arg3, arg9, local84.anInt46, (byte) 6);
+							arg6.setWallDecoration(arg2, arg3, arg9, local84.anInt46, (byte) 6);
 						}
 					} else if (arg5 == 1) {
-						local132 = local84.method26(1, arg4, local36, local47, local60, local71, -1);
-						arg6.method475(0, local81, arg2, anIntArray19[arg4], 8, local132, null, arg9, local96, arg3, local110);
+						local132 = local84.getModel(1, arg4, local36, local47, local60, local71, -1);
+						arg6.addWall(0, local81, arg2, anIntArray19[arg4], 8, local132, null, arg9, local96, arg3, local110);
 						if (local84.aBoolean15) {
 							if (arg4 == 0) {
 								this.aByteArrayArrayArray6[arg2][arg9][arg3 + 1] = 50;
@@ -619,19 +619,19 @@ public final class Scene {
 							}
 						}
 						if (local84.aBoolean7 && arg0 != null) {
-							arg0.method250(true, arg4, arg3, arg9, local84.aBoolean8, arg5);
+							arg0.setWall(true, arg4, arg3, arg9, local84.aBoolean8, arg5);
 						}
 						if (local84.anInt45 != -1) {
-							arg7.method453(new LocEntity(true, arg8, arg2, 0, 0, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
+							arg7.pushNext(new LocEntity(true, arg8, arg2, 0, 0, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
 						}
 					} else {
 						@Pc(810) int local810;
 						@Pc(832) Model local832;
 						if (arg5 == 2) {
 							local810 = arg4 + 1 & 0x3;
-							@Pc(822) Model local822 = local84.method26(2, arg4 + 4, local36, local47, local60, local71, -1);
-							local832 = local84.method26(2, local810, local36, local47, local60, local71, -1);
-							arg6.method475(anIntArray18[local810], local81, arg2, anIntArray18[arg4], 8, local822, local832, arg9, local96, arg3, local110);
+							@Pc(822) Model local822 = local84.getModel(2, arg4 + 4, local36, local47, local60, local71, -1);
+							local832 = local84.getModel(2, local810, local36, local47, local60, local71, -1);
+							arg6.addWall(anIntArray18[local810], local81, arg2, anIntArray18[arg4], 8, local822, local832, arg9, local96, arg3, local110);
 							if (local84.aBoolean12) {
 								if (arg4 == 0) {
 									this.anIntArrayArrayArray2[arg2][arg9][arg3] |= 0x249;
@@ -648,17 +648,17 @@ public final class Scene {
 								}
 							}
 							if (local84.aBoolean7 && arg0 != null) {
-								arg0.method250(true, arg4, arg3, arg9, local84.aBoolean8, arg5);
+								arg0.setWall(true, arg4, arg3, arg9, local84.aBoolean8, arg5);
 							}
 							if (local84.anInt45 != -1) {
-								arg7.method453(new LocEntity(true, arg8, arg2, 0, 0, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
+								arg7.pushNext(new LocEntity(true, arg8, arg2, 0, 0, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
 							}
 							if (local84.anInt46 != 16) {
-								arg6.method484(arg2, arg3, arg9, local84.anInt46, (byte) 6);
+								arg6.setWallDecoration(arg2, arg3, arg9, local84.anInt46, (byte) 6);
 							}
 						} else if (arg5 == 3) {
-							local132 = local84.method26(3, arg4, local36, local47, local60, local71, -1);
-							arg6.method475(0, local81, arg2, anIntArray19[arg4], 8, local132, null, arg9, local96, arg3, local110);
+							local132 = local84.getModel(3, arg4, local36, local47, local60, local71, -1);
+							arg6.addWall(0, local81, arg2, anIntArray19[arg4], 8, local132, null, arg9, local96, arg3, local110);
 							if (local84.aBoolean15) {
 								if (arg4 == 0) {
 									this.aByteArrayArrayArray6[arg2][arg9][arg3 + 1] = 50;
@@ -671,65 +671,65 @@ public final class Scene {
 								}
 							}
 							if (local84.aBoolean7 && arg0 != null) {
-								arg0.method250(true, arg4, arg3, arg9, local84.aBoolean8, arg5);
+								arg0.setWall(true, arg4, arg3, arg9, local84.aBoolean8, arg5);
 							}
 							if (local84.anInt45 != -1) {
-								arg7.method453(new LocEntity(true, arg8, arg2, 0, 0, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
+								arg7.pushNext(new LocEntity(true, arg8, arg2, 0, 0, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
 							}
 						} else if (arg5 == 9) {
-							local132 = local84.method26(arg5, arg4, local36, local47, local60, local71, -1);
-							arg6.method477(local81, 775, arg2, null, local96, arg3, arg9, 1, local110, local132, 0, 1);
+							local132 = local84.getModel(arg5, arg4, local36, local47, local60, local71, -1);
+							arg6.addLocation(local81, 775, arg2, null, local96, arg3, arg9, 1, local110, local132, 0, 1);
 							if (local84.aBoolean7 && arg0 != null) {
-								arg0.method251(arg4, local84.anInt44, local84.anInt43, arg9, 9, arg3, local84.aBoolean8);
+								arg0.setLoc(arg4, local84.anInt44, local84.anInt43, arg9, 9, arg3, local84.aBoolean8);
 							}
 							if (local84.anInt45 != -1) {
-								arg7.method453(new LocEntity(true, arg8, arg2, 0, 2, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
+								arg7.pushNext(new LocEntity(true, arg8, arg2, 0, 2, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
 							}
 						} else if (arg5 == 4) {
-							local132 = local84.method26(4, 0, local36, local47, local60, local71, -1);
-							arg6.method476(local81, arg3, 0, local96, arg4 * 512, anIntArray18[arg4], 465, 0, arg9, local132, local110, arg2);
+							local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
+							arg6.addWallDecoration(local81, arg3, 0, local96, arg4 * 512, anIntArray18[arg4], 465, 0, arg9, local132, local110, arg2);
 							if (local84.anInt45 != -1) {
-								arg7.method453(new LocEntity(true, arg8, arg2, 0, 1, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
+								arg7.pushNext(new LocEntity(true, arg8, arg2, 0, 1, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
 							}
 						} else if (arg5 == 5) {
 							local810 = 16;
-							local209 = arg6.method494(arg2, arg9, arg3);
+							local209 = arg6.getWallBitset(arg2, arg9, arg3);
 							if (local209 > 0) {
-								local810 = LocType.method23(local209 >> 14 & 0x7FFF).anInt46;
+								local810 = LocType.get(local209 >> 14 & 0x7FFF).anInt46;
 							}
-							local832 = local84.method26(4, 0, local36, local47, local60, local71, -1);
-							arg6.method476(local81, arg3, anIntArray21[arg4] * local810, local96, arg4 * 512, anIntArray18[arg4], 465, anIntArray20[arg4] * local810, arg9, local832, local110, arg2);
+							local832 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
+							arg6.addWallDecoration(local81, arg3, anIntArray21[arg4] * local810, local96, arg4 * 512, anIntArray18[arg4], 465, anIntArray20[arg4] * local810, arg9, local832, local110, arg2);
 							if (local84.anInt45 != -1) {
-								arg7.method453(new LocEntity(true, arg8, arg2, 0, 1, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
+								arg7.pushNext(new LocEntity(true, arg8, arg2, 0, 1, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
 							}
 						} else if (arg5 == 6) {
-							local132 = local84.method26(4, 0, local36, local47, local60, local71, -1);
-							arg6.method476(local81, arg3, 0, local96, arg4, 256, 465, 0, arg9, local132, local110, arg2);
+							local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
+							arg6.addWallDecoration(local81, arg3, 0, local96, arg4, 256, 465, 0, arg9, local132, local110, arg2);
 							if (local84.anInt45 != -1) {
-								arg7.method453(new LocEntity(true, arg8, arg2, 0, 1, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
+								arg7.pushNext(new LocEntity(true, arg8, arg2, 0, 1, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
 							}
 						} else if (arg5 == 7) {
-							local132 = local84.method26(4, 0, local36, local47, local60, local71, -1);
-							arg6.method476(local81, arg3, 0, local96, arg4, 512, 465, 0, arg9, local132, local110, arg2);
+							local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
+							arg6.addWallDecoration(local81, arg3, 0, local96, arg4, 512, 465, 0, arg9, local132, local110, arg2);
 							if (local84.anInt45 != -1) {
-								arg7.method453(new LocEntity(true, arg8, arg2, 0, 1, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
+								arg7.pushNext(new LocEntity(true, arg8, arg2, 0, 1, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
 							}
 						} else if (arg5 == 8) {
-							local132 = local84.method26(4, 0, local36, local47, local60, local71, -1);
-							arg6.method476(local81, arg3, 0, local96, arg4, 768, 465, 0, arg9, local132, local110, arg2);
+							local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
+							arg6.addWallDecoration(local81, arg3, 0, local96, arg4, 768, 465, 0, arg9, local132, local110, arg2);
 							if (local84.anInt45 != -1) {
-								arg7.method453(new LocEntity(true, arg8, arg2, 0, 1, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
+								arg7.pushNext(new LocEntity(true, arg8, arg2, 0, 1, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
 							}
 						}
 					}
 				} else if (!aBoolean23 || local84.aBoolean9 || local84.aBoolean16) {
-					local132 = local84.method26(22, arg4, local36, local47, local60, local71, -1);
-					arg6.method473(local132, (byte) 6, arg9, local96, arg3, arg2, local110, local81);
+					local132 = local84.getModel(22, arg4, local36, local47, local60, local71, -1);
+					arg6.addGroundDecoration(local132, (byte) 6, arg9, local96, arg3, arg2, local110, local81);
 					if (local84.aBoolean7 && local84.aBoolean9 && arg0 != null) {
-						arg0.method252((byte) 12, arg3, arg9);
+						arg0.setBlocked((byte) 12, arg3, arg9);
 					}
 					if (local84.anInt45 != -1) {
-						arg7.method453(new LocEntity(true, arg8, arg2, 0, 3, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
+						arg7.pushNext(new LocEntity(true, arg8, arg2, 0, 3, SeqType.aClass19Array1[local84.anInt45], arg3, arg9));
 					}
 				}
 			}
@@ -740,7 +740,7 @@ public final class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(Lclient!r;I[Lclient!ec;)V")
-	public void method40(@OriginalArg(0) MapSquare arg0, @OriginalArg(1) int arg1, @OriginalArg(2) CollisionMap[] arg2) {
+	public void buildLandscape(@OriginalArg(0) MapSquare arg0, @OriginalArg(1) int arg1, @OriginalArg(2) CollisionMap[] arg2) {
 		try {
 			@Pc(7) int local7;
 			@Pc(11) int local11;
@@ -754,7 +754,7 @@ public final class Scene {
 								local27 = local3 - 1;
 							}
 							if (local27 >= 0) {
-								arg2[local27].method252((byte) 12, local11, local7);
+								arg2[local27].setBlocked((byte) 12, local11, local7);
 							}
 						}
 					}
@@ -866,7 +866,7 @@ public final class Scene {
 								local220 -= this.anIntArray16[local572];
 								local236 -= this.anIntArray17[local572];
 							}
-							if (local284 >= 1 && local284 < this.anInt83 - 1 && (!aBoolean23 || (this.aByteArrayArrayArray1[local7][local169][local284] & 0x10) == 0 && this.method41(local7, (byte) 10, local169, local284) == anInt81)) {
+							if (local284 >= 1 && local284 < this.anInt83 - 1 && (!aBoolean23 || (this.aByteArrayArrayArray1[local7][local169][local284] & 0x10) == 0 && this.getRenderLevel(local7, (byte) 10, local169, local284) == anInt81)) {
 								@Pc(655) int local655 = this.aByteArrayArrayArray2[local7][local169][local284] & 0xFF;
 								@Pc(666) int local666 = this.aByteArrayArrayArray3[local7][local169][local284] & 0xFF;
 								if (local655 > 0 || local666 > 0) {
@@ -886,7 +886,7 @@ public final class Scene {
 										local762 = local204 * 256 / local220;
 										local766 = local210 / local236;
 										@Pc(770) int local770 = local214 / local236;
-										local752 = this.method49(local762, local766, local770);
+										local752 = this.hsl24To16(local762, local766, local770);
 										@Pc(782) int local782 = local762 + anInt84 & 0xFF;
 										local770 += anInt85;
 										if (local770 < 0) {
@@ -894,7 +894,7 @@ public final class Scene {
 										} else if (local770 > 255) {
 											local770 = 255;
 										}
-										local754 = this.method49(local782, local766, local770);
+										local754 = this.hsl24To16(local782, local766, local770);
 									}
 									if (local7 > 0) {
 										@Pc(807) boolean local807 = true;
@@ -910,10 +910,10 @@ public final class Scene {
 									}
 									local762 = 0;
 									if (local752 != -1) {
-										local762 = Draw3D.anIntArray142[method47(local754, 96)];
+										local762 = Draw3D.anIntArray142[adjustHslLightness1(local754, 96)];
 									}
 									if (local666 == 0) {
-										arg0.method472(local7, local169, local284, 0, 0, -1, local679, local690, local703, local714, method47(local752, local721), method47(local752, local730), method47(local752, local741), method47(local752, local750), 0, 0, 0, 0, local762, 0);
+										arg0.addTile(local7, local169, local284, 0, 0, -1, local679, local690, local703, local714, adjustHslLightness1(local752, local721), adjustHslLightness1(local752, local730), adjustHslLightness1(local752, local741), adjustHslLightness1(local752, local750), 0, 0, 0, 0, local762, 0);
 									} else {
 										local766 = this.aByteArrayArrayArray4[local7][local169][local284] + 1;
 										@Pc(919) byte local919 = this.aByteArrayArrayArray5[local7][local169][local284];
@@ -922,17 +922,17 @@ public final class Scene {
 										@Pc(936) int local936;
 										@Pc(934) int local934;
 										if (local928 >= 0) {
-											local934 = Draw3D.method293(787, local928);
+											local934 = Draw3D.getAverageTextureRgb(787, local928);
 											local936 = -1;
 										} else if (local925.anInt403 == 16711935) {
 											local934 = 0;
 											local936 = -2;
 											local928 = -1;
 										} else {
-											local936 = this.method49(local925.anInt405, local925.anInt406, local925.anInt407);
-											local934 = Draw3D.anIntArray142[this.method48(local925.anInt410, 96)];
+											local936 = this.hsl24To16(local925.anInt405, local925.anInt406, local925.anInt407);
+											local934 = Draw3D.anIntArray142[this.adjustHslLightness0(local925.anInt410, 96)];
 										}
-										arg0.method472(local7, local169, local284, local766, local919, local928, local679, local690, local703, local714, method47(local752, local721), method47(local752, local730), method47(local752, local741), method47(local752, local750), this.method48(local936, local721), this.method48(local936, local730), this.method48(local936, local741), this.method48(local936, local750), local762, local934);
+										arg0.addTile(local7, local169, local284, local766, local919, local928, local679, local690, local703, local714, adjustHslLightness1(local752, local721), adjustHslLightness1(local752, local730), adjustHslLightness1(local752, local741), adjustHslLightness1(local752, local750), this.adjustHslLightness0(local936, local721), this.adjustHslLightness0(local936, local730), this.adjustHslLightness0(local936, local741), this.adjustHslLightness0(local936, local750), local762, local934);
 									}
 								}
 							}
@@ -941,7 +941,7 @@ public final class Scene {
 				}
 				for (local191 = 1; local191 < this.anInt83 - 1; local191++) {
 					for (local204 = 1; local204 < this.anInt82 - 1; local204++) {
-						arg0.method471(local7, local204, local191, this.method41(local7, (byte) 10, local204, local191));
+						arg0.setPhysicalLevel(local7, local204, local191, this.getRenderLevel(local7, (byte) 10, local204, local191));
 					}
 				}
 			}
@@ -950,12 +950,12 @@ public final class Scene {
 				}
 			}
 			if (!aBoolean24) {
-				arg0.method499(-10, 64, -50, 768, -50, false);
+				arg0.applyLighting(-10, 64, -50, 768, -50, false);
 			}
 			for (local11 = 0; local11 < this.anInt82; local11++) {
 				for (local27 = 0; local27 < this.anInt83; local27++) {
 					if ((this.aByteArrayArrayArray1[1][local11][local27] & 0x2) == 2) {
-						arg0.method469(local27, local11, (byte) -41);
+						arg0.setBridge(local27, local11, (byte) -41);
 					}
 				}
 			}
@@ -1005,7 +1005,7 @@ public final class Scene {
 										local1284 = 240;
 										local214 = this.anIntArrayArrayArray1[local191][local139][local141] - local1284;
 										local220 = this.anIntArrayArrayArray1[local169][local139][local141];
-										MapSquare.method470(local145 * 128 + 128, local139 * 128, -802, local220, 1, local139 * 128, local1127, local214, local141 * 128);
+										MapSquare.addOcclude(local145 * 128 + 128, local139 * 128, -802, local220, 1, local139 * 128, local1127, local214, local141 * 128);
 										for (local236 = local169; local236 <= local191; local236++) {
 											for (local284 = local141; local284 <= local145; local284++) {
 												this.anIntArrayArrayArray2[local236][local139][local284] &= ~local27;
@@ -1045,7 +1045,7 @@ public final class Scene {
 										local1284 = 240;
 										local214 = this.anIntArrayArrayArray1[local191][local141][local133] - local1284;
 										local220 = this.anIntArrayArrayArray1[local169][local141][local133];
-										MapSquare.method470(local133 * 128, local141 * 128, -802, local220, 2, local145 * 128 + 128, local1127, local214, local133 * 128);
+										MapSquare.addOcclude(local133 * 128, local141 * 128, -802, local220, 2, local145 * 128 + 128, local1127, local214, local133 * 128);
 										for (local236 = local169; local236 <= local191; local236++) {
 											for (local284 = local141; local284 <= local145; local284++) {
 												this.anIntArrayArrayArray2[local236][local284][local133] &= ~local1123;
@@ -1082,7 +1082,7 @@ public final class Scene {
 									}
 									if ((local145 + 1 - local141) * (local191 + 1 - local169) >= 4) {
 										local204 = this.anIntArrayArrayArray1[local1145][local141][local169];
-										MapSquare.method470(local191 * 128 + 128, local141 * 128, -802, local204, 4, local145 * 128 + 128, local1127, local204, local169 * 128);
+										MapSquare.addOcclude(local191 * 128 + 128, local141 * 128, -802, local204, 4, local145 * 128 + 128, local1127, local204, local169 * 128);
 										for (local210 = local141; local210 <= local145; local210++) {
 											for (local214 = local169; local214 <= local191; local214++) {
 												this.anIntArrayArrayArray2[local1145][local210][local214] &= ~local1125;
@@ -1102,7 +1102,7 @@ public final class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(IBII)I")
-	private int method41(@OriginalArg(0) int arg0, @OriginalArg(1) byte arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
+	private int getRenderLevel(@OriginalArg(0) int arg0, @OriginalArg(1) byte arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
 		try {
 			if (arg1 != 10) {
 				this.anInt80 = 29;
@@ -1119,7 +1119,7 @@ public final class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "e", descriptor = "(II)I")
-	private int method48(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+	private int adjustHslLightness0(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		if (arg0 == -2) {
 			return 12345678;
 		} else if (arg0 == -1) {
@@ -1141,7 +1141,7 @@ public final class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "b", descriptor = "(III)I")
-	private int method49(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
+	private int hsl24To16(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		if (arg2 > 179) {
 			arg1 /= 2;
 		}

@@ -53,10 +53,10 @@ public final class FloType {
 	public boolean aBoolean91 = true;
 
 	@OriginalMember(owner = "client!fc", name = "a", descriptor = "(Lclient!ub;I)V")
-	public static void method272(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) int arg1) {
+	public static void unpack(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) int arg1) {
 		try {
-			@Pc(9) Buffer local9 = new Buffer(363, arg0.method536("flo.dat", null, (byte) 2));
-			anInt402 = local9.method393();
+			@Pc(9) Buffer local9 = new Buffer(363, arg0.read("flo.dat", null, (byte) 2));
+			anInt402 = local9.g2();
 			@Pc(16) int local16 = 35 / arg1;
 			if (aClass11Array1 == null) {
 				aClass11Array1 = new FloType[anInt402];
@@ -65,7 +65,7 @@ public final class FloType {
 				if (aClass11Array1[local23] == null) {
 					aClass11Array1[local23] = new FloType();
 				}
-				aClass11Array1[local23].method273(false, local9);
+				aClass11Array1[local23].decode(false, local9);
 			}
 		} catch (@Pc(47) RuntimeException local47) {
 			signlink.reporterror("39430, " + arg0 + ", " + arg1 + ", " + local47.toString());
@@ -74,27 +74,27 @@ public final class FloType {
 	}
 
 	@OriginalMember(owner = "client!fc", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void method273(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
+	public void decode(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
 		try {
 			if (arg0) {
 				throw new NullPointerException();
 			}
 			while (true) {
-				@Pc(10) int local10 = arg1.method391();
+				@Pc(10) int local10 = arg1.g1();
 				if (local10 == 0) {
 					return;
 				}
 				if (local10 == 1) {
-					this.anInt403 = arg1.method395();
-					this.method274(anInt401, this.anInt403);
+					this.anInt403 = arg1.g3();
+					this.setColor(anInt401, this.anInt403);
 				} else if (local10 == 2) {
-					this.anInt404 = arg1.method391();
+					this.anInt404 = arg1.g1();
 				} else if (local10 == 3) {
 					this.aBoolean90 = true;
 				} else if (local10 == 5) {
 					this.aBoolean91 = false;
 				} else if (local10 == 6) {
-					this.aString19 = arg1.method398();
+					this.aString19 = arg1.gstr();
 				} else {
 					System.out.println("Error unrecognised config code: " + local10);
 				}
@@ -106,7 +106,7 @@ public final class FloType {
 	}
 
 	@OriginalMember(owner = "client!fc", name = "a", descriptor = "(II)V")
-	private void method274(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+	private void setColor(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		try {
 			@Pc(10) double local10 = (double) (arg1 >> 16 & 0xFF) / 256.0D;
 			if (arg0 >= 0) {
@@ -188,7 +188,7 @@ public final class FloType {
 			} else if (local290 > 255) {
 				local290 = 255;
 			}
-			this.anInt410 = this.method275(local248, local269, local290);
+			this.anInt410 = this.setHsl16(local248, local269, local290);
 		} catch (@Pc(310) RuntimeException local310) {
 			signlink.reporterror("14446, " + arg0 + ", " + arg1 + ", " + local310.toString());
 			throw new RuntimeException();
@@ -196,7 +196,7 @@ public final class FloType {
 	}
 
 	@OriginalMember(owner = "client!fc", name = "a", descriptor = "(III)I")
-	private int method275(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
+	private int setHsl16(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		if (arg2 > 179) {
 			arg1 /= 2;
 		}

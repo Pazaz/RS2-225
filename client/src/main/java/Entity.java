@@ -8,7 +8,7 @@ import sign.signlink;
 public class Entity extends Node {
 
 	@OriginalMember(owner = "client!w", name = "a", descriptor = "(Z)Lclient!eb;")
-	public Model method568(@OriginalArg(0) boolean arg0) {
+	public Model getDrawMethod(@OriginalArg(0) boolean arg0) {
 		try {
 			if (!arg0) {
 				throw new NullPointerException();

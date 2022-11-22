@@ -41,29 +41,29 @@ public final class Cache {
 	}
 
 	@OriginalMember(owner = "client!s", name = "a", descriptor = "(J)Lclient!db;")
-	public CacheableNode method527(@OriginalArg(0) long arg0) {
-		@Pc(5) CacheableNode local5 = (CacheableNode) this.aClass37_1.method530(arg0);
+	public CacheableNode get(@OriginalArg(0) long arg0) {
+		@Pc(5) CacheableNode local5 = (CacheableNode) this.aClass37_1.get(arg0);
 		if (local5 != null) {
-			this.aClass30_1.method461(local5);
+			this.aClass30_1.push(local5);
 		}
 		return local5;
 	}
 
 	@OriginalMember(owner = "client!s", name = "a", descriptor = "(IJLclient!db;)V")
-	public void method528(@OriginalArg(0) int arg0, @OriginalArg(1) long arg1, @OriginalArg(2) CacheableNode arg2) {
+	public void put(@OriginalArg(0) int arg0, @OriginalArg(1) long arg1, @OriginalArg(2) CacheableNode arg2) {
 		try {
 			if (this.anInt727 == 0) {
-				@Pc(8) CacheableNode local8 = this.aClass30_1.method462();
-				local8.method567();
-				local8.method377();
+				@Pc(8) CacheableNode local8 = this.aClass30_1.pop();
+				local8.unlink();
+				local8.uncache();
 			} else {
 				this.anInt727--;
 			}
-			this.aClass37_1.method531(arg1, -566, arg2);
+			this.aClass37_1.put(arg1, -566, arg2);
 			if (arg0 < 6 || arg0 > 6) {
 				this.aBoolean145 = !this.aBoolean145;
 			}
-			this.aClass30_1.method461(arg2);
+			this.aClass30_1.push(arg2);
 		} catch (@Pc(51) RuntimeException local51) {
 			signlink.reporterror("10260, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + local51.toString());
 			throw new RuntimeException();
@@ -71,15 +71,15 @@ public final class Cache {
 	}
 
 	@OriginalMember(owner = "client!s", name = "a", descriptor = "()V")
-	public void method529() {
+	public void clear() {
 		while (true) {
-			@Pc(3) CacheableNode local3 = this.aClass30_1.method462();
+			@Pc(3) CacheableNode local3 = this.aClass30_1.pop();
 			if (local3 == null) {
 				this.anInt727 = this.anInt726;
 				return;
 			}
-			local3.method567();
-			local3.method377();
+			local3.unlink();
+			local3.uncache();
 		}
 	}
 }

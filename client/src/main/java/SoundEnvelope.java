@@ -41,12 +41,12 @@ public final class SoundEnvelope {
 	private int anInt826;
 
 	@OriginalMember(owner = "client!xb", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void method552(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
+	public void readShape(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
 		try {
-			this.anInt821 = arg1.method391();
-			this.anInt819 = arg1.method396();
-			this.anInt820 = arg1.method396();
-			this.anInt818 = arg1.method391();
+			this.anInt821 = arg1.g1();
+			this.anInt819 = arg1.g4();
+			this.anInt820 = arg1.g4();
+			this.anInt818 = arg1.g1();
 			this.anIntArray227 = new int[this.anInt818];
 			this.anIntArray228 = new int[this.anInt818];
 			@Pc(31) int local31;
@@ -55,8 +55,8 @@ public final class SoundEnvelope {
 				}
 			}
 			for (local31 = 0; local31 < this.anInt818; local31++) {
-				this.anIntArray227[local31] = arg1.method393();
-				this.anIntArray228[local31] = arg1.method393();
+				this.anIntArray227[local31] = arg1.g2();
+				this.anIntArray228[local31] = arg1.g2();
 			}
 		} catch (@Pc(67) RuntimeException local67) {
 			signlink.reporterror("83915, " + arg0 + ", " + arg1 + ", " + local67.toString());
@@ -65,7 +65,7 @@ public final class SoundEnvelope {
 	}
 
 	@OriginalMember(owner = "client!xb", name = "a", descriptor = "(I)V")
-	public void method553(@OriginalArg(0) int arg0) {
+	public void reset(@OriginalArg(0) int arg0) {
 		try {
 			this.anInt822 = 0;
 			this.anInt823 = 0;
@@ -81,7 +81,7 @@ public final class SoundEnvelope {
 	}
 
 	@OriginalMember(owner = "client!xb", name = "a", descriptor = "(ZI)I")
-	public int method554(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1) {
+	public int evaluate(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1) {
 		try {
 			if (!arg0) {
 				for (@Pc(3) int local3 = 1; local3 > 0; local3++) {

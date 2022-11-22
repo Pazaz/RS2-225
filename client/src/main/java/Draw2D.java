@@ -51,7 +51,7 @@ public class Draw2D extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!fb", name = "a", descriptor = "(I[III)V")
-	public static void method354(@OriginalArg(0) int arg0, @OriginalArg(1) int[] arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
+	public static void prepare(@OriginalArg(0) int arg0, @OriginalArg(1) int[] arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
 		try {
 			anIntArray178 = arg1;
 			anInt528 = arg0;
@@ -59,7 +59,7 @@ public class Draw2D extends CacheableNode {
 				anInt526 = -151;
 			}
 			anInt529 = arg3;
-			method356(arg3, 0, arg0, 789, 0);
+			setBounds(arg3, 0, arg0, 789, 0);
 		} catch (@Pc(19) RuntimeException local19) {
 			signlink.reporterror("39631, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + local19.toString());
 			throw new RuntimeException();
@@ -67,7 +67,7 @@ public class Draw2D extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!fb", name = "a", descriptor = "(I)V")
-	public static void method355(@OriginalArg(0) int arg0) {
+	public static void resetBounds(@OriginalArg(0) int arg0) {
 		try {
 			anInt532 = 0;
 			anInt530 = 0;
@@ -86,7 +86,7 @@ public class Draw2D extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!fb", name = "a", descriptor = "(IIIII)V")
-	public static void method356(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
+	public static void setBounds(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
 		try {
 			if (arg4 < 0) {
 				arg4 = 0;
@@ -118,7 +118,7 @@ public class Draw2D extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!fb", name = "b", descriptor = "(I)V")
-	public static void method357(@OriginalArg(0) int arg0) {
+	public static void clear(@OriginalArg(0) int arg0) {
 		try {
 			@Pc(3) int local3 = 87 / arg0;
 			@Pc(7) int local7 = anInt528 * anInt529;
@@ -132,7 +132,7 @@ public class Draw2D extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!fb", name = "a", descriptor = "(IIIBII)V")
-	public static void method358(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) byte arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
+	public static void fillRect(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) byte arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
 		try {
 			if (arg3 != 93) {
 				anInt526 = 289;
@@ -166,13 +166,13 @@ public class Draw2D extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!fb", name = "a", descriptor = "(IIIIII)V")
-	public static void method359(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
+	public static void drawRect(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
 		try {
 			if (arg0 >= 3 && arg0 <= 3) {
-				method360(arg2, 0, arg4, arg5, arg1);
-				method360(arg2, 0, arg4 + arg3 - 1, arg5, arg1);
-				method361(arg2, anInt527, arg4, arg3, arg1);
-				method361(arg2, anInt527, arg4, arg3, arg1 + arg5 - 1);
+				drawHorizontalLine(arg2, 0, arg4, arg5, arg1);
+				drawHorizontalLine(arg2, 0, arg4 + arg3 - 1, arg5, arg1);
+				drawVerticalLine(arg2, anInt527, arg4, arg3, arg1);
+				drawVerticalLine(arg2, anInt527, arg4, arg3, arg1 + arg5 - 1);
 			}
 		} catch (@Pc(40) RuntimeException local40) {
 			signlink.reporterror("74170, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + arg4 + ", " + arg5 + ", " + local40.toString());
@@ -181,7 +181,7 @@ public class Draw2D extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!fb", name = "b", descriptor = "(IIIII)V")
-	public static void method360(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
+	public static void drawHorizontalLine(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
 		try {
 			if (arg2 >= anInt530 && arg2 < anInt531) {
 				if (arg4 < anInt532) {
@@ -205,7 +205,7 @@ public class Draw2D extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!fb", name = "c", descriptor = "(IIIII)V")
-	public static void method361(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
+	public static void drawVerticalLine(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
 		try {
 			if (arg4 >= anInt532 && arg4 < anInt533) {
 				if (arg2 < anInt530) {

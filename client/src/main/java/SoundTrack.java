@@ -35,20 +35,20 @@ public final class SoundTrack {
 	private final SoundTone[] aClass44Array1 = new SoundTone[10];
 
 	@OriginalMember(owner = "client!yb", name = "a", descriptor = "(Lclient!kb;I)V")
-	public static void method561(@OriginalArg(0) Buffer arg0, @OriginalArg(1) int arg1) {
+	public static void load(@OriginalArg(0) Buffer arg0, @OriginalArg(1) int arg1) {
 		try {
 			aByteArray15 = new byte[441000];
 			aClass1_Sub3_Sub3_23 = new Buffer(363, aByteArray15);
 			@Pc(12) int local12 = 87 / arg1;
-			SoundTone.method575();
+			SoundTone.init();
 			while (true) {
-				@Pc(16) int local16 = arg0.method393();
+				@Pc(16) int local16 = arg0.g2();
 				if (local16 == 65535) {
 					return;
 				}
 				aClass43Array1[local16] = new SoundTrack();
-				aClass43Array1[local16].method563(false, arg0);
-				anIntArray231[local16] = aClass43Array1[local16].method564((byte) 7);
+				aClass43Array1[local16].read(false, arg0);
+				anIntArray231[local16] = aClass43Array1[local16].trim((byte) 7);
 			}
 		} catch (@Pc(42) RuntimeException local42) {
 			signlink.reporterror("6214, " + arg0 + ", " + arg1 + ", " + local42.toString());
@@ -57,7 +57,7 @@ public final class SoundTrack {
 	}
 
 	@OriginalMember(owner = "client!yb", name = "a", descriptor = "(BII)Lclient!kb;")
-	public static Buffer method562(@OriginalArg(0) byte arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
+	public static Buffer generate(@OriginalArg(0) byte arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		try {
 			if (arg0 != -16) {
 				anInt877 = -83;
@@ -66,7 +66,7 @@ public final class SoundTrack {
 				return null;
 			} else {
 				@Pc(12) SoundTrack local12 = aClass43Array1[arg2];
-				return local12.method565(true, arg1);
+				return local12.toWav(true, arg1);
 			}
 		} catch (@Pc(20) RuntimeException local20) {
 			signlink.reporterror("72905, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + local20.toString());
@@ -75,21 +75,21 @@ public final class SoundTrack {
 	}
 
 	@OriginalMember(owner = "client!yb", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void method563(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
+	public void read(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
 		try {
 			for (@Pc(1) int local1 = 0; local1 < 10; local1++) {
-				@Pc(6) int local6 = arg1.method391();
+				@Pc(6) int local6 = arg1.g1();
 				if (local6 != 0) {
 					arg1.anInt561--;
 					this.aClass44Array1[local1] = new SoundTone();
-					this.aClass44Array1[local1].method578(false, arg1);
+					this.aClass44Array1[local1].read(false, arg1);
 				}
 			}
 			if (arg0) {
 				anInt877 = -307;
 			}
-			this.anInt878 = arg1.method393();
-			this.anInt879 = arg1.method393();
+			this.anInt878 = arg1.g2();
+			this.anInt879 = arg1.g2();
 		} catch (@Pc(46) RuntimeException local46) {
 			signlink.reporterror("58220, " + arg0 + ", " + arg1 + ", " + local46.toString());
 			throw new RuntimeException();
@@ -97,7 +97,7 @@ public final class SoundTrack {
 	}
 
 	@OriginalMember(owner = "client!yb", name = "a", descriptor = "(B)I")
-	public int method564(@OriginalArg(0) byte arg0) {
+	public int trim(@OriginalArg(0) byte arg0) {
 		try {
 			@Pc(3) int local3 = 9999999;
 			for (@Pc(5) int local5 = 0; local5 < 10; local5++) {
@@ -133,27 +133,27 @@ public final class SoundTrack {
 	}
 
 	@OriginalMember(owner = "client!yb", name = "a", descriptor = "(ZI)Lclient!kb;")
-	public Buffer method565(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1) {
+	public Buffer toWav(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1) {
 		try {
-			@Pc(3) int local3 = this.method566(arg1);
+			@Pc(3) int local3 = this.generate(arg1);
 			aClass1_Sub3_Sub3_23.anInt561 = 0;
-			aClass1_Sub3_Sub3_23.method385(1380533830);
-			aClass1_Sub3_Sub3_23.method386(false, local3 + 36);
-			aClass1_Sub3_Sub3_23.method385(1463899717);
-			aClass1_Sub3_Sub3_23.method385(1718449184);
-			aClass1_Sub3_Sub3_23.method386(false, 16);
+			aClass1_Sub3_Sub3_23.p4(1380533830);
+			aClass1_Sub3_Sub3_23.ip4(false, local3 + 36);
+			aClass1_Sub3_Sub3_23.p4(1463899717);
+			aClass1_Sub3_Sub3_23.p4(1718449184);
+			aClass1_Sub3_Sub3_23.ip4(false, 16);
 			if (!arg0) {
 				for (@Pc(29) int local29 = 1; local29 > 0; local29++) {
 				}
 			}
-			aClass1_Sub3_Sub3_23.method383(this.aBoolean158, 1);
-			aClass1_Sub3_Sub3_23.method383(this.aBoolean158, 1);
-			aClass1_Sub3_Sub3_23.method386(false, 22050);
-			aClass1_Sub3_Sub3_23.method386(false, 22050);
-			aClass1_Sub3_Sub3_23.method383(this.aBoolean158, 1);
-			aClass1_Sub3_Sub3_23.method383(this.aBoolean158, 8);
-			aClass1_Sub3_Sub3_23.method385(1684108385);
-			aClass1_Sub3_Sub3_23.method386(false, local3);
+			aClass1_Sub3_Sub3_23.ip2(this.aBoolean158, 1);
+			aClass1_Sub3_Sub3_23.ip2(this.aBoolean158, 1);
+			aClass1_Sub3_Sub3_23.ip4(false, 22050);
+			aClass1_Sub3_Sub3_23.ip4(false, 22050);
+			aClass1_Sub3_Sub3_23.ip2(this.aBoolean158, 1);
+			aClass1_Sub3_Sub3_23.ip2(this.aBoolean158, 8);
+			aClass1_Sub3_Sub3_23.p4(1684108385);
+			aClass1_Sub3_Sub3_23.ip4(false, local3);
 			aClass1_Sub3_Sub3_23.anInt561 += local3;
 			return aClass1_Sub3_Sub3_23;
 		} catch (@Pc(78) RuntimeException local78) {
@@ -163,7 +163,7 @@ public final class SoundTrack {
 	}
 
 	@OriginalMember(owner = "client!yb", name = "a", descriptor = "(I)I")
-	private int method566(@OriginalArg(0) int arg0) {
+	private int generate(@OriginalArg(0) int arg0) {
 		@Pc(3) int local3 = 0;
 		for (@Pc(5) int local5 = 0; local5 < 10; local5++) {
 			if (this.aClass44Array1[local5] != null && this.aClass44Array1[local5].anInt947 + this.aClass44Array1[local5].anInt948 > local3) {
@@ -190,7 +190,7 @@ public final class SoundTrack {
 			if (this.aClass44Array1[local106] != null) {
 				local123 = this.aClass44Array1[local106].anInt947 * 22050 / 1000;
 				local133 = this.aClass44Array1[local106].anInt948 * 22050 / 1000;
-				@Pc(145) int[] local145 = this.aClass44Array1[local106].method576(local123, this.aClass44Array1[local106].anInt947);
+				@Pc(145) int[] local145 = this.aClass44Array1[local106].generate(local123, this.aClass44Array1[local106].anInt947);
 				for (local147 = 0; local147 < local123; local147++) {
 					aByteArray15[local147 + local133 + 44] += (byte) (local145[local147] >> 8);
 				}

@@ -45,14 +45,14 @@ public final class ImageProducerFrameBuffer implements ImageProducer, ImageObser
 			this.anIntArray197 = new int[arg1 * arg3];
 			this.aColorModel1 = new DirectColorModel(32, 16711680, 65280, 255);
 			this.anImage1 = arg0.createImage(this);
-			this.method465();
+			this.setPixels();
 			arg0.prepareImage(this.anImage1, this);
-			this.method465();
+			this.setPixels();
 			arg0.prepareImage(this.anImage1, this);
-			this.method465();
+			this.setPixels();
 			@Pc(52) int local52 = 96 / arg2;
 			arg0.prepareImage(this.anImage1, this);
-			this.method463((byte) 62);
+			this.makeTarget((byte) 62);
 		} catch (@Pc(63) RuntimeException local63) {
 			signlink.reporterror("56385, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + local63.toString());
 			throw new RuntimeException();
@@ -60,12 +60,12 @@ public final class ImageProducerFrameBuffer implements ImageProducer, ImageObser
 	}
 
 	@OriginalMember(owner = "client!qb", name = "a", descriptor = "(B)V")
-	public void method463(@OriginalArg(0) byte arg0) {
+	public void makeTarget(@OriginalArg(0) byte arg0) {
 		try {
 			if (arg0 != 62) {
 				this.anInt685 = -283;
 			}
-			Draw2D.method354(this.anInt686, this.anIntArray197, -657, this.anInt687);
+			Draw2D.prepare(this.anInt686, this.anIntArray197, -657, this.anInt687);
 		} catch (@Pc(15) RuntimeException local15) {
 			signlink.reporterror("2756, " + arg0 + ", " + local15.toString());
 			throw new RuntimeException();
@@ -73,10 +73,10 @@ public final class ImageProducerFrameBuffer implements ImageProducer, ImageObser
 	}
 
 	@OriginalMember(owner = "client!qb", name = "a", descriptor = "(ILjava/awt/Graphics;II)V")
-	public void method464(@OriginalArg(0) int arg0, @OriginalArg(1) Graphics arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
+	public void drawAt(@OriginalArg(0) int arg0, @OriginalArg(1) Graphics arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
 		try {
 			if (arg3 == 5193) {
-				this.method465();
+				this.setPixels();
 				arg1.drawImage(this.anImage1, arg2, arg0, this);
 			}
 		} catch (@Pc(15) RuntimeException local15) {
@@ -122,7 +122,7 @@ public final class ImageProducerFrameBuffer implements ImageProducer, ImageObser
 	}
 
 	@OriginalMember(owner = "client!qb", name = "a", descriptor = "()V")
-	private synchronized void method465() {
+	private synchronized void setPixels() {
 		if (this.anImageConsumer1 != null) {
 			this.anImageConsumer1.setPixels(0, 0, this.anInt686, this.anInt687, this.aColorModel1, this.anIntArray197, 0, this.anInt686);
 			this.anImageConsumer1.imageComplete(2);

@@ -8,7 +8,7 @@ public final class BZip2InputStream {
 	private static final BZip2Context aClass36_1 = new BZip2Context();
 
 	@OriginalMember(owner = "client!rb", name = "a", descriptor = "([BI[BII)I")
-	public static int method519(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) byte[] arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
+	public static int read(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) byte[] arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
 		@Pc(3) BZip2Context local3 = aClass36_1;
 		synchronized (aClass36_1) {
 			aClass36_1.aByteArray8 = arg2;
@@ -24,13 +24,13 @@ public final class BZip2InputStream {
 			aClass36_1.anInt743 = 0;
 			aClass36_1.anInt744 = 0;
 			aClass36_1.anInt749 = 0;
-			method521(aClass36_1);
+			decompress(aClass36_1);
 			return arg1 - aClass36_1.anInt742;
 		}
 	}
 
 	@OriginalMember(owner = "client!rb", name = "a", descriptor = "(Lclient!sb;)V")
-	private static void method520(@OriginalArg(0) BZip2Context arg0) {
+	private static void finish(@OriginalArg(0) BZip2Context arg0) {
 		@Pc(4) byte local4 = arg0.aByte38;
 		@Pc(7) int local7 = arg0.anInt745;
 		@Pc(10) int local10 = arg0.anInt753;
@@ -147,7 +147,7 @@ public final class BZip2InputStream {
 	}
 
 	@OriginalMember(owner = "client!rb", name = "b", descriptor = "(Lclient!sb;)V")
-	private static void method521(@OriginalArg(0) BZip2Context arg0) {
+	private static void decompress(@OriginalArg(0) BZip2Context arg0) {
 		@Pc(3) boolean local3 = false;
 		@Pc(5) boolean local5 = false;
 		@Pc(7) boolean local7 = false;
@@ -178,21 +178,21 @@ public final class BZip2InputStream {
 		@Pc(60) boolean local60 = true;
 		while (true) {
 			while (local60) {
-				@Pc(64) byte local64 = method522(arg0);
+				@Pc(64) byte local64 = getUnsignedChar(arg0);
 				if (local64 == 23) {
 					return;
 				}
-				local64 = method522(arg0);
-				local64 = method522(arg0);
-				local64 = method522(arg0);
-				local64 = method522(arg0);
-				local64 = method522(arg0);
+				local64 = getUnsignedChar(arg0);
+				local64 = getUnsignedChar(arg0);
+				local64 = getUnsignedChar(arg0);
+				local64 = getUnsignedChar(arg0);
+				local64 = getUnsignedChar(arg0);
 				arg0.anInt749++;
-				local64 = method522(arg0);
-				local64 = method522(arg0);
-				local64 = method522(arg0);
-				local64 = method522(arg0);
-				local64 = method523(arg0);
+				local64 = getUnsignedChar(arg0);
+				local64 = getUnsignedChar(arg0);
+				local64 = getUnsignedChar(arg0);
+				local64 = getUnsignedChar(arg0);
+				local64 = getBit(arg0);
 				if (local64 == 0) {
 					arg0.aBoolean146 = false;
 				} else {
@@ -202,15 +202,15 @@ public final class BZip2InputStream {
 					System.out.println("PANIC! RANDOMISED BLOCK!");
 				}
 				arg0.anInt750 = 0;
-				local64 = method522(arg0);
+				local64 = getUnsignedChar(arg0);
 				arg0.anInt750 = arg0.anInt750 << 8 | local64 & 0xFF;
-				local64 = method522(arg0);
+				local64 = getUnsignedChar(arg0);
 				arg0.anInt750 = arg0.anInt750 << 8 | local64 & 0xFF;
-				local64 = method522(arg0);
+				local64 = getUnsignedChar(arg0);
 				arg0.anInt750 = arg0.anInt750 << 8 | local64 & 0xFF;
 				@Pc(164) int local164;
 				for (local164 = 0; local164 < 16; local164++) {
-					local64 = method523(arg0);
+					local64 = getBit(arg0);
 					if (local64 == 1) {
 						arg0.aBooleanArray6[local164] = true;
 					} else {
@@ -224,21 +224,21 @@ public final class BZip2InputStream {
 				for (local164 = 0; local164 < 16; local164++) {
 					if (arg0.aBooleanArray6[local164]) {
 						for (local212 = 0; local212 < 16; local212++) {
-							local64 = method523(arg0);
+							local64 = getBit(arg0);
 							if (local64 == 1) {
 								arg0.aBooleanArray5[local164 * 16 + local212] = true;
 							}
 						}
 					}
 				}
-				method525(arg0);
+				makeMaps(arg0);
 				@Pc(244) int local244 = arg0.anInt754 + 2;
-				@Pc(248) int local248 = method524(3, arg0);
-				@Pc(252) int local252 = method524(15, arg0);
+				@Pc(248) int local248 = getBits(3, arg0);
+				@Pc(252) int local252 = getBits(15, arg0);
 				for (local164 = 0; local164 < local252; local164++) {
 					local212 = 0;
 					while (true) {
-						local64 = method523(arg0);
+						local64 = getBit(arg0);
 						if (local64 == 0) {
 							arg0.aByteArray13[local164] = (byte) local212;
 							break;
@@ -263,15 +263,15 @@ public final class BZip2InputStream {
 				}
 				@Pc(340) int local340;
 				for (local340 = 0; local340 < local248; local340++) {
-					@Pc(346) int local346 = method524(5, arg0);
+					@Pc(346) int local346 = getBits(5, arg0);
 					for (local164 = 0; local164 < local244; local164++) {
 						while (true) {
-							local64 = method523(arg0);
+							local64 = getBit(arg0);
 							if (local64 == 0) {
 								arg0.aByteArrayArray4[local340][local164] = (byte) local346;
 								break;
 							}
-							local64 = method523(arg0);
+							local64 = getBit(arg0);
 							if (local64 == 0) {
 								local346++;
 							} else {
@@ -291,7 +291,7 @@ public final class BZip2InputStream {
 							local388 = arg0.aByteArrayArray4[local340][local164];
 						}
 					}
-					method526(arg0.anIntArrayArray20[local340], arg0.anIntArrayArray21[local340], arg0.anIntArrayArray22[local340], arg0.aByteArrayArray4[local340], local388, local390, local244);
+					createDecodeTables(arg0.anIntArrayArray20[local340], arg0.anIntArrayArray21[local340], arg0.anIntArrayArray22[local340], arg0.aByteArrayArray4[local340], local388, local390, local244);
 					arg0.anIntArray218[local340] = local388;
 				}
 				@Pc(462) int local462 = arg0.anInt754 + 1;
@@ -324,9 +324,9 @@ public final class BZip2InputStream {
 				@Pc(553) int local553 = local41;
 				@Pc(557) int local557;
 				@Pc(566) byte local566;
-				for (local557 = method524(local41, arg0); local557 > local43[local553]; local557 = local557 << 1 | local566) {
+				for (local557 = getBits(local41, arg0); local557 > local43[local553]; local557 = local557 << 1 | local566) {
 					local553++;
-					local566 = method523(arg0);
+					local566 = getBit(arg0);
 				}
 				@Pc(582) int local582 = local47[local557 - local45[local553]];
 				while (true) {
@@ -352,9 +352,9 @@ public final class BZip2InputStream {
 								}
 								local551--;
 								local553 = local41;
-								for (local557 = method524(local41, arg0); local557 > local43[local553]; local557 = local557 << 1 | local566) {
+								for (local557 = getBits(local41, arg0); local557 > local43[local553]; local557 = local557 << 1 | local566) {
 									local553++;
-									local566 = method523(arg0);
+									local566 = getBit(arg0);
 								}
 								local582 = local47[local557 - local45[local553]];
 							} while (local582 == 0 || local582 == 1);
@@ -427,9 +427,9 @@ public final class BZip2InputStream {
 							}
 							local551--;
 							local553 = local41;
-							for (local557 = method524(local41, arg0); local557 > local43[local553]; local557 = local557 << 1 | local566) {
+							for (local557 = getBits(local41, arg0); local557 > local43[local553]; local557 = local557 << 1 | local566) {
 								local553++;
-								local566 = method523(arg0);
+								local566 = getBit(arg0);
 							}
 							local582 = local47[local557 - local45[local553]];
 						}
@@ -455,7 +455,7 @@ public final class BZip2InputStream {
 					arg0.anInt751 >>= 0x8;
 					arg0.anInt753++;
 					arg0.anInt755 = local520;
-					method520(arg0);
+					finish(arg0);
 					if (arg0.anInt753 == arg0.anInt755 + 1 && arg0.anInt745 == 0) {
 						local60 = true;
 						break;
@@ -469,17 +469,17 @@ public final class BZip2InputStream {
 	}
 
 	@OriginalMember(owner = "client!rb", name = "c", descriptor = "(Lclient!sb;)B")
-	private static byte method522(@OriginalArg(0) BZip2Context arg0) {
-		return (byte) method524(8, arg0);
+	private static byte getUnsignedChar(@OriginalArg(0) BZip2Context arg0) {
+		return (byte) getBits(8, arg0);
 	}
 
 	@OriginalMember(owner = "client!rb", name = "d", descriptor = "(Lclient!sb;)B")
-	private static byte method523(@OriginalArg(0) BZip2Context arg0) {
-		return (byte) method524(1, arg0);
+	private static byte getBit(@OriginalArg(0) BZip2Context arg0) {
+		return (byte) getBits(1, arg0);
 	}
 
 	@OriginalMember(owner = "client!rb", name = "a", descriptor = "(ILclient!sb;)I")
-	private static int method524(@OriginalArg(0) int arg0, @OriginalArg(1) BZip2Context arg1) {
+	private static int getBits(@OriginalArg(0) int arg0, @OriginalArg(1) BZip2Context arg1) {
 		while (arg1.anInt747 < arg0) {
 			arg1.anInt746 = arg1.anInt746 << 8 | arg1.aByteArray8[arg1.anInt737] & 0xFF;
 			arg1.anInt747 += 8;
@@ -496,7 +496,7 @@ public final class BZip2InputStream {
 	}
 
 	@OriginalMember(owner = "client!rb", name = "e", descriptor = "(Lclient!sb;)V")
-	private static void method525(@OriginalArg(0) BZip2Context arg0) {
+	private static void makeMaps(@OriginalArg(0) BZip2Context arg0) {
 		arg0.anInt754 = 0;
 		for (@Pc(4) int local4 = 0; local4 < 256; local4++) {
 			if (arg0.aBooleanArray5[local4]) {
@@ -507,7 +507,7 @@ public final class BZip2InputStream {
 	}
 
 	@OriginalMember(owner = "client!rb", name = "a", descriptor = "([I[I[I[BIII)V")
-	private static void method526(@OriginalArg(0) int[] arg0, @OriginalArg(1) int[] arg1, @OriginalArg(2) int[] arg2, @OriginalArg(3) byte[] arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
+	private static void createDecodeTables(@OriginalArg(0) int[] arg0, @OriginalArg(1) int[] arg1, @OriginalArg(2) int[] arg2, @OriginalArg(3) byte[] arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
 		@Pc(3) int local3 = 0;
 		@Pc(5) int local5;
 		for (local5 = arg4; local5 <= arg5; local5++) {
