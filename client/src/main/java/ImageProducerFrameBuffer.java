@@ -1,17 +1,12 @@
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.ColorModel;
-import java.awt.image.DirectColorModel;
-import java.awt.image.ImageConsumer;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-
 import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
 import sign.signlink;
+
+import java.awt.Component;
+import java.awt.*;
+import java.awt.image.*;
 
 @OriginalClass("client!qb")
 public final class ImageProducerFrameBuffer implements ImageProducer, ImageObserver {

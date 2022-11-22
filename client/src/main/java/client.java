@@ -1,5 +1,10 @@
-import java.awt.Color;
-import java.awt.Graphics;
+import org.openrs2.deob.annotation.OriginalArg;
+import org.openrs2.deob.annotation.OriginalClass;
+import org.openrs2.deob.annotation.OriginalMember;
+import org.openrs2.deob.annotation.Pc;
+import sign.signlink;
+
+import java.awt.*;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -7,11 +12,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
 import java.util.zip.CRC32;
-import org.openrs2.deob.annotation.OriginalArg;
-import org.openrs2.deob.annotation.OriginalClass;
-import org.openrs2.deob.annotation.OriginalMember;
-import org.openrs2.deob.annotation.Pc;
-import sign.signlink;
 
 @OriginalClass("client!client")
 public final class client extends GameShell {

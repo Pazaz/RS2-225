@@ -1,19 +1,15 @@
 package sign;
 
-import java.applet.Applet;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.URL;
 import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
+
+import java.applet.Applet;
+import java.io.*;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.URL;
 
 @OriginalClass("client!sign/signlink")
 public final class signlink implements Runnable {

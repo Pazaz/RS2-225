@@ -1,13 +1,12 @@
-import java.awt.Component;
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.Toolkit;
-import java.awt.image.PixelGrabber;
 import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
 import sign.signlink;
+
+import java.awt.Component;
+import java.awt.*;
+import java.awt.image.PixelGrabber;
 
 @OriginalClass("client!hb")
 public final class Sprite extends Draw2D {
