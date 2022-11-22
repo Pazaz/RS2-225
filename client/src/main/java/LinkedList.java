@@ -8,7 +8,7 @@ import sign.signlink;
 public final class LinkedList {
 
 	@OriginalMember(owner = "client!ob", name = "f", descriptor = "Lclient!u;")
-	private Node aClass1_34;
+	private Node selected;
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "Z")
 	private boolean aBoolean139 = true;
@@ -23,7 +23,7 @@ public final class LinkedList {
 	private int anInt665 = -676;
 
 	@OriginalMember(owner = "client!ob", name = "e", descriptor = "Lclient!u;")
-	private final Node aClass1_33 = new Node();
+	private final Node head = new Node();
 
 	@OriginalMember(owner = "client!ob", name = "<init>", descriptor = "(I)V")
 	public LinkedList(@OriginalArg(0) int arg0) {
@@ -31,8 +31,8 @@ public final class LinkedList {
 			if (arg0 != 0) {
 				this.aBoolean139 = !this.aBoolean139;
 			}
-			this.aClass1_33.aClass1_41 = this.aClass1_33;
-			this.aClass1_33.aClass1_42 = this.aClass1_33;
+			this.head.prev = this.head;
+			this.head.next = this.head;
 		} catch (@Pc(40) RuntimeException local40) {
 			signlink.reporterror("59838, " + arg0 + ", " + local40.toString());
 			throw new RuntimeException();
@@ -41,26 +41,26 @@ public final class LinkedList {
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "(Lclient!u;)V")
 	public void pushNext(@OriginalArg(0) Node arg0) {
-		if (arg0.aClass1_42 != null) {
+		if (arg0.next != null) {
 			arg0.unlink();
 		}
-		arg0.aClass1_42 = this.aClass1_33.aClass1_42;
-		arg0.aClass1_41 = this.aClass1_33;
-		arg0.aClass1_42.aClass1_41 = arg0;
-		arg0.aClass1_41.aClass1_42 = arg0;
+		arg0.next = this.head.next;
+		arg0.prev = this.head;
+		arg0.next.prev = arg0;
+		arg0.prev.next = arg0;
 	}
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "(Lclient!u;I)V")
 	public void pushPrevious(@OriginalArg(0) Node arg0, @OriginalArg(1) int arg1) {
 		try {
-			if (arg0.aClass1_42 != null) {
+			if (arg0.next != null) {
 				arg0.unlink();
 			}
-			arg0.aClass1_42 = this.aClass1_33;
+			arg0.next = this.head;
 			if (arg1 == -26173) {
-				arg0.aClass1_41 = this.aClass1_33.aClass1_41;
-				arg0.aClass1_42.aClass1_41 = arg0;
-				arg0.aClass1_41.aClass1_42 = arg0;
+				arg0.prev = this.head.prev;
+				arg0.next.prev = arg0;
+				arg0.prev.next = arg0;
 			}
 		} catch (@Pc(27) RuntimeException local27) {
 			signlink.reporterror("2399, " + arg0 + ", " + arg1 + ", " + local27.toString());
@@ -70,8 +70,8 @@ public final class LinkedList {
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "()Lclient!u;")
 	public Node poll() {
-		@Pc(3) Node local3 = this.aClass1_33.aClass1_41;
-		if (local3 == this.aClass1_33) {
+		@Pc(3) Node local3 = this.head.prev;
+		if (local3 == this.head) {
 			return null;
 		} else {
 			local3.unlink();
@@ -81,12 +81,12 @@ public final class LinkedList {
 
 	@OriginalMember(owner = "client!ob", name = "b", descriptor = "()Lclient!u;")
 	public Node peekPrevious() {
-		@Pc(3) Node local3 = this.aClass1_33.aClass1_41;
-		if (local3 == this.aClass1_33) {
-			this.aClass1_34 = null;
+		@Pc(3) Node local3 = this.head.prev;
+		if (local3 == this.head) {
+			this.selected = null;
 			return null;
 		} else {
-			this.aClass1_34 = local3.aClass1_41;
+			this.selected = local3.prev;
 			return local3;
 		}
 	}
@@ -94,12 +94,12 @@ public final class LinkedList {
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "(B)Lclient!u;")
 	public Node peekNext(@OriginalArg(0) byte arg0) {
 		try {
-			@Pc(3) Node local3 = this.aClass1_33.aClass1_42;
-			if (local3 == this.aClass1_33) {
-				this.aClass1_34 = null;
+			@Pc(3) Node local3 = this.head.next;
+			if (local3 == this.head) {
+				this.selected = null;
 				return null;
 			}
-			this.aClass1_34 = local3.aClass1_42;
+			this.selected = local3.next;
 			if (arg0 != this.aByte32) {
 				this.anInt665 = 112;
 			}
@@ -116,12 +116,12 @@ public final class LinkedList {
 			if (arg0 <= 0) {
 				throw new NullPointerException();
 			}
-			@Pc(8) Node local8 = this.aClass1_34;
-			if (local8 == this.aClass1_33) {
-				this.aClass1_34 = null;
+			@Pc(8) Node local8 = this.selected;
+			if (local8 == this.head) {
+				this.selected = null;
 				return null;
 			} else {
-				this.aClass1_34 = local8.aClass1_41;
+				this.selected = local8.prev;
 				return local8;
 			}
 		} catch (@Pc(24) RuntimeException local24) {
@@ -133,16 +133,16 @@ public final class LinkedList {
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "(Z)Lclient!u;")
 	public Node getNext(@OriginalArg(0) boolean arg0) {
 		try {
-			@Pc(2) Node local2 = this.aClass1_34;
+			@Pc(2) Node local2 = this.selected;
 			if (arg0) {
 				for (@Pc(6) int local6 = 1; local6 > 0; local6++) {
 				}
 			}
-			if (local2 == this.aClass1_33) {
-				this.aClass1_34 = null;
+			if (local2 == this.head) {
+				this.selected = null;
 				return null;
 			} else {
-				this.aClass1_34 = local2.aClass1_42;
+				this.selected = local2.next;
 				return local2;
 			}
 		} catch (@Pc(27) RuntimeException local27) {
@@ -154,8 +154,8 @@ public final class LinkedList {
 	@OriginalMember(owner = "client!ob", name = "c", descriptor = "()V")
 	public void clear() {
 		while (true) {
-			@Pc(3) Node local3 = this.aClass1_33.aClass1_41;
-			if (local3 == this.aClass1_33) {
+			@Pc(3) Node local3 = this.head.prev;
+			if (local3 == this.head) {
 				return;
 			}
 			local3.unlink();

@@ -5,21 +5,21 @@ import org.openrs2.deob.annotation.OriginalMember;
 public class Node {
 
 	@OriginalMember(owner = "client!u", name = "a", descriptor = "J")
-	public long aLong26;
+	public long key;
 
 	@OriginalMember(owner = "client!u", name = "b", descriptor = "Lclient!u;")
-	public Node aClass1_41;
+	public Node prev;
 
 	@OriginalMember(owner = "client!u", name = "c", descriptor = "Lclient!u;")
-	public Node aClass1_42;
+	public Node next;
 
 	@OriginalMember(owner = "client!u", name = "a", descriptor = "()V")
 	public final void unlink() {
-		if (this.aClass1_42 != null) {
-			this.aClass1_42.aClass1_41 = this.aClass1_41;
-			this.aClass1_41.aClass1_42 = this.aClass1_42;
-			this.aClass1_41 = null;
-			this.aClass1_42 = null;
+		if (this.next != null) {
+			this.next.prev = this.prev;
+			this.prev.next = this.next;
+			this.prev = null;
+			this.next = null;
 		}
 	}
 }

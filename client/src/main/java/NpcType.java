@@ -137,7 +137,7 @@ public final class NpcType {
 		}
 		anInt68 = (anInt68 + 1) % 20;
 		@Pc(33) NpcType local33 = aClass3Array1[anInt68] = new NpcType();
-		aClass1_Sub3_Sub3_2.anInt561 = anIntArray8[arg0];
+		aClass1_Sub3_Sub3_2.pos = anIntArray8[arg0];
 		local33.aLong5 = arg0;
 		local33.decode(false, aClass1_Sub3_Sub3_2);
 		return local33;

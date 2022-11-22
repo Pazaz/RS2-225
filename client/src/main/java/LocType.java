@@ -178,7 +178,7 @@ public final class LocType {
 		}
 		anInt41 = (anInt41 + 1) % 10;
 		@Pc(27) LocType local27 = aClass2Array1[anInt41];
-		aClass1_Sub3_Sub3_1.anInt561 = anIntArray3[arg0];
+		aClass1_Sub3_Sub3_1.pos = anIntArray3[arg0];
 		local27.anInt42 = arg0;
 		local27.reset();
 		local27.decode(false, aClass1_Sub3_Sub3_1);

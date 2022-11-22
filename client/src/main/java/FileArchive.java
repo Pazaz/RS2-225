@@ -8,25 +8,25 @@ import sign.signlink;
 public final class FileArchive {
 
 	@OriginalMember(owner = "client!ub", name = "e", descriptor = "[B")
-	private byte[] aByteArray14;
+	private byte[] data;
 
 	@OriginalMember(owner = "client!ub", name = "f", descriptor = "I")
-	private int anInt763;
+	private int fileCount;
 
 	@OriginalMember(owner = "client!ub", name = "g", descriptor = "[I")
-	private int[] anIntArray221;
+	private int[] fileHash;
 
 	@OriginalMember(owner = "client!ub", name = "h", descriptor = "[I")
-	private int[] anIntArray222;
+	private int[] fileUnpackedSize;
 
 	@OriginalMember(owner = "client!ub", name = "i", descriptor = "[I")
-	private int[] anIntArray223;
+	private int[] filePackedSize;
 
 	@OriginalMember(owner = "client!ub", name = "j", descriptor = "[I")
-	private int[] anIntArray224;
+	private int[] fileOffset;
 
 	@OriginalMember(owner = "client!ub", name = "k", descriptor = "Z")
-	private boolean aBoolean150;
+	private boolean isCompressedWhole;
 
 	@OriginalMember(owner = "client!ub", name = "a", descriptor = "Z")
 	private final boolean aBoolean148 = false;
@@ -61,28 +61,28 @@ public final class FileArchive {
 			@Pc(10) int local10 = local7.g3();
 			@Pc(13) int local13 = local7.g3();
 			if (local13 == local10) {
-				this.aByteArray14 = arg1;
-				this.aBoolean150 = false;
+				this.data = arg1;
+				this.isCompressedWhole = false;
 			} else {
 				@Pc(19) byte[] local19 = new byte[local10];
 				BZip2InputStream.read(local19, local10, arg1, local13, 6);
-				this.aByteArray14 = local19;
-				local7 = new Buffer(363, this.aByteArray14);
-				this.aBoolean150 = true;
+				this.data = local19;
+				local7 = new Buffer(363, this.data);
+				this.isCompressedWhole = true;
 			}
-			this.anInt763 = local7.g2();
-			this.anIntArray221 = new int[this.anInt763];
-			this.anIntArray222 = new int[this.anInt763];
-			this.anIntArray223 = new int[this.anInt763];
-			this.anIntArray224 = new int[this.anInt763];
+			this.fileCount = local7.g2();
+			this.fileHash = new int[this.fileCount];
+			this.fileUnpackedSize = new int[this.fileCount];
+			this.filePackedSize = new int[this.fileCount];
+			this.fileOffset = new int[this.fileCount];
 			if (arg0) {
-				@Pc(82) int local82 = local7.anInt561 + this.anInt763 * 10;
-				for (@Pc(84) int local84 = 0; local84 < this.anInt763; local84++) {
-					this.anIntArray221[local84] = local7.g4();
-					this.anIntArray222[local84] = local7.g3();
-					this.anIntArray223[local84] = local7.g3();
-					this.anIntArray224[local84] = local82;
-					local82 += this.anIntArray223[local84];
+				@Pc(82) int local82 = local7.pos + this.fileCount * 10;
+				for (@Pc(84) int local84 = 0; local84 < this.fileCount; local84++) {
+					this.fileHash[local84] = local7.g4();
+					this.fileUnpackedSize[local84] = local7.g3();
+					this.filePackedSize[local84] = local7.g3();
+					this.fileOffset[local84] = local82;
+					local82 += this.filePackedSize[local84];
 				}
 			}
 		} catch (@Pc(123) RuntimeException local123) {
@@ -99,17 +99,17 @@ public final class FileArchive {
 			for (@Pc(8) int local8 = 0; local8 < local6.length(); local8++) {
 				local3 = local3 * 61 + local6.charAt(local8) - 32;
 			}
-			for (@Pc(27) int local27 = 0; local27 < this.anInt763; local27++) {
-				if (this.anIntArray221[local27] == local3) {
+			for (@Pc(27) int local27 = 0; local27 < this.fileCount; local27++) {
+				if (this.fileHash[local27] == local3) {
 					if (arg1 == null) {
-						arg1 = new byte[this.anIntArray222[local27]];
+						arg1 = new byte[this.fileUnpackedSize[local27]];
 					}
-					if (this.aBoolean150) {
-						for (@Pc(67) int local67 = 0; local67 < this.anIntArray222[local27]; local67++) {
-							arg1[local67] = this.aByteArray14[this.anIntArray224[local27] + local67];
+					if (this.isCompressedWhole) {
+						for (@Pc(67) int local67 = 0; local67 < this.fileUnpackedSize[local27]; local67++) {
+							arg1[local67] = this.data[this.fileOffset[local27] + local67];
 						}
 					} else {
-						BZip2InputStream.read(arg1, this.anIntArray222[local27], this.aByteArray14, this.anIntArray223[local27], this.anIntArray224[local27]);
+						BZip2InputStream.read(arg1, this.fileUnpackedSize[local27], this.data, this.filePackedSize[local27], this.fileOffset[local27]);
 					}
 					return arg1;
 				}

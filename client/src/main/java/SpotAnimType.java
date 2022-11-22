@@ -11,7 +11,7 @@ public final class SpotAnimType {
 	private static final int anInt566 = 473;
 
 	@OriginalMember(owner = "client!kc", name = "c", descriptor = "[Lclient!kc;")
-	public static SpotAnimType[] aClass21Array1;
+	public static SpotAnimType[] instances;
 
 	@OriginalMember(owner = "client!kc", name = "p", descriptor = "Lclient!s;")
 	public static Cache aClass35_8 = new Cache((byte) 0, 30);
@@ -61,15 +61,15 @@ public final class SpotAnimType {
 			@Pc(3) int local3 = 91 / arg1;
 			@Pc(13) Buffer local13 = new Buffer(363, arg0.read("spotanim.dat", null, (byte) 2));
 			anInt567 = local13.g2();
-			if (aClass21Array1 == null) {
-				aClass21Array1 = new SpotAnimType[anInt567];
+			if (instances == null) {
+				instances = new SpotAnimType[anInt567];
 			}
 			for (@Pc(23) int local23 = 0; local23 < anInt567; local23++) {
-				if (aClass21Array1[local23] == null) {
-					aClass21Array1[local23] = new SpotAnimType();
+				if (instances[local23] == null) {
+					instances[local23] = new SpotAnimType();
 				}
-				aClass21Array1[local23].anInt568 = local23;
-				aClass21Array1[local23].decode(false, local13);
+				instances[local23].anInt568 = local23;
+				instances[local23].decode(false, local13);
 			}
 		} catch (@Pc(52) RuntimeException local52) {
 			signlink.reporterror("26561, " + arg0 + ", " + arg1 + ", " + local52.toString());
@@ -95,8 +95,8 @@ public final class SpotAnimType {
 						this.anInt569 = arg1.g2();
 					} else if (local5 == 2) {
 						this.anInt570 = arg1.g2();
-						if (SeqType.aClass19Array1 != null) {
-							this.aClass19_1 = SeqType.aClass19Array1[this.anInt570];
+						if (SeqType.instances != null) {
+							this.aClass19_1 = SeqType.instances[this.anInt570];
 						}
 					} else if (local5 == 3) {
 						this.aBoolean131 = true;

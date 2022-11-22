@@ -6,10 +6,10 @@ import sign.signlink;
 public final class TextEncoder {
 
 	@OriginalMember(owner = "client!wb", name = "a", descriptor = "[C")
-	private static final char[] aCharArray3 = new char[100];
+	private static final char[] builder = new char[100];
 
 	@OriginalMember(owner = "client!wb", name = "b", descriptor = "[C")
-	private static final char[] aCharArray4 = new char[] { ' ', 'e', 't', 'a', 'o', 'i', 'h', 'n', 's', 'r', 'd', 'l', 'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b', 'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '!', '?', '.', ',', ':', ';', '(', ')', '-', '&', '*', '\\', '\'', '@', '#', '+', '=', '£', '$', '%', '"', '[', ']' };
+	private static final char[] CHARSET = new char[] { ' ', 'e', 't', 'a', 'o', 'i', 'h', 'n', 's', 'r', 'd', 'l', 'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b', 'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '!', '?', '.', ',', ':', ';', '(', ')', '-', '&', '*', '\\', '\'', '@', '#', '+', '=', '£', '$', '%', '"', '[', ']' };
 
 	@OriginalMember(owner = "client!wb", name = "a", descriptor = "(Lclient!kb;II)Ljava/lang/String;")
 	public static String read(@OriginalArg(0) Buffer arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
@@ -22,35 +22,35 @@ public final class TextEncoder {
 				@Pc(16) int local16 = arg0.g1();
 				local22 = local16 >> 4 & 0xF;
 				if (local5 != -1) {
-					aCharArray3[local3++] = aCharArray4[(local5 << 4) + local22 - 195];
+					builder[local3++] = CHARSET[(local5 << 4) + local22 - 195];
 					local5 = -1;
 				} else if (local22 < 13) {
-					aCharArray3[local3++] = aCharArray4[local22];
+					builder[local3++] = CHARSET[local22];
 				} else {
 					local5 = local22;
 				}
 				local22 = local16 & 0xF;
 				if (local5 != -1) {
-					aCharArray3[local3++] = aCharArray4[(local5 << 4) + local22 - 195];
+					builder[local3++] = CHARSET[(local5 << 4) + local22 - 195];
 					local5 = -1;
 				} else if (local22 < 13) {
-					aCharArray3[local3++] = aCharArray4[local22];
+					builder[local3++] = CHARSET[local22];
 				} else {
 					local5 = local22;
 				}
 			}
 			@Pc(100) boolean local100 = true;
 			for (local22 = 0; local22 < local3; local22++) {
-				@Pc(108) char local108 = aCharArray3[local22];
+				@Pc(108) char local108 = builder[local22];
 				if (local100 && local108 >= 'a' && local108 <= 'z') {
-					aCharArray3[local22] = (char) (aCharArray3[local22] - 32);
+					builder[local22] = (char) (builder[local22] - 32);
 					local100 = false;
 				}
 				if (local108 == '.' || local108 == '!') {
 					local100 = true;
 				}
 			}
-			return new String(aCharArray3, 0, local3);
+			return new String(builder, 0, local3);
 		} catch (@Pc(146) RuntimeException local146) {
 			signlink.reporterror("31206, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + local146.toString());
 			throw new RuntimeException();
@@ -68,8 +68,8 @@ public final class TextEncoder {
 			for (@Pc(17) int local17 = 0; local17 < arg2.length(); local17++) {
 				@Pc(23) char local23 = arg2.charAt(local17);
 				@Pc(25) int local25 = 0;
-				for (@Pc(27) int local27 = 0; local27 < aCharArray4.length; local27++) {
-					if (local23 == aCharArray4[local27]) {
+				for (@Pc(27) int local27 = 0; local27 < CHARSET.length; local27++) {
+					if (local23 == CHARSET[local27]) {
 						local25 = local27;
 						break;
 					}

@@ -8,47 +8,47 @@ import sign.signlink;
 public final class LocEntity extends Node {
 
 	@OriginalMember(owner = "client!nb", name = "e", descriptor = "I")
-	public int anInt651;
+	public int level;
 
 	@OriginalMember(owner = "client!nb", name = "f", descriptor = "I")
-	public final int anInt652;
+	public final int classType;
 
 	@OriginalMember(owner = "client!nb", name = "g", descriptor = "I")
-	public final int anInt653;
+	public final int x;
 
 	@OriginalMember(owner = "client!nb", name = "h", descriptor = "I")
-	public final int anInt654;
+	public final int z;
 
 	@OriginalMember(owner = "client!nb", name = "i", descriptor = "I")
-	public final int anInt655;
+	public final int locIndex;
 
 	@OriginalMember(owner = "client!nb", name = "j", descriptor = "Lclient!jc;")
-	public final SeqType aClass19_2;
+	public final SeqType seq;
 
 	@OriginalMember(owner = "client!nb", name = "k", descriptor = "I")
-	public int anInt656;
+	public int seqFrame;
 
 	@OriginalMember(owner = "client!nb", name = "l", descriptor = "I")
-	public int anInt657;
+	public int seqDelay;
 
 	@OriginalMember(owner = "client!nb", name = "<init>", descriptor = "(ZIIIILclient!jc;II)V")
 	public LocEntity(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) SeqType arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7) {
 		try {
-			this.anInt651 = arg2;
-			this.anInt652 = arg4;
-			this.anInt653 = arg7;
-			this.anInt654 = arg6;
+			this.level = arg2;
+			this.classType = arg4;
+			this.x = arg7;
+			this.z = arg6;
 			if (arg3 != 0) {
 				throw new NullPointerException();
 			}
-			this.anInt655 = arg1;
-			this.aClass19_2 = arg5;
+			this.locIndex = arg1;
+			this.seq = arg5;
 			if (arg0 && arg5.anInt544 != -1) {
-				this.anInt656 = (int) (Math.random() * (double) this.aClass19_2.anInt543);
-				this.anInt657 = (int) (Math.random() * (double) this.aClass19_2.anIntArray188[this.anInt656]);
+				this.seqFrame = (int) (Math.random() * (double) this.seq.anInt543);
+				this.seqDelay = (int) (Math.random() * (double) this.seq.anIntArray188[this.seqFrame]);
 			} else {
-				this.anInt656 = -1;
-				this.anInt657 = 0;
+				this.seqFrame = -1;
+				this.seqDelay = 0;
 			}
 		} catch (@Pc(61) RuntimeException local61) {
 			signlink.reporterror("91798, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + arg4 + ", " + arg5 + ", " + arg6 + ", " + arg7 + ", " + local61.toString());

@@ -5,146 +5,146 @@ import org.openrs2.deob.annotation.OriginalMember;
 public final class BZip2Context {
 
 	@OriginalMember(owner = "client!sb", name = "H", descriptor = "[I")
-	public static int[] anIntArray216;
+	public static int[] tt;
 
 	@OriginalMember(owner = "client!sb", name = "j", descriptor = "[B")
-	public byte[] aByteArray8;
+	public byte[] stream;
 
 	@OriginalMember(owner = "client!sb", name = "k", descriptor = "I")
-	public int anInt737;
+	public int nextIn;
 
 	@OriginalMember(owner = "client!sb", name = "l", descriptor = "I")
-	public int anInt738;
+	public int availIn;
 
 	@OriginalMember(owner = "client!sb", name = "m", descriptor = "I")
-	public int anInt739;
+	public int totalInLo32;
 
 	@OriginalMember(owner = "client!sb", name = "n", descriptor = "I")
-	public int anInt740;
+	public int totalInHi32;
 
 	@OriginalMember(owner = "client!sb", name = "o", descriptor = "[B")
-	public byte[] aByteArray9;
+	public byte[] decompressed;
 
 	@OriginalMember(owner = "client!sb", name = "p", descriptor = "I")
-	public int anInt741;
+	public int nextOut;
 
 	@OriginalMember(owner = "client!sb", name = "q", descriptor = "I")
-	public int anInt742;
+	public int length;
 
 	@OriginalMember(owner = "client!sb", name = "r", descriptor = "I")
-	public int anInt743;
+	public int totalOutLo32;
 
 	@OriginalMember(owner = "client!sb", name = "s", descriptor = "I")
-	public int anInt744;
+	public int totalOutHigh32;
 
 	@OriginalMember(owner = "client!sb", name = "t", descriptor = "B")
-	public byte aByte38;
+	public byte stateOutCh;
 
 	@OriginalMember(owner = "client!sb", name = "u", descriptor = "I")
-	public int anInt745;
+	public int stateOutLen;
 
 	@OriginalMember(owner = "client!sb", name = "v", descriptor = "Z")
-	public boolean aBoolean146;
+	public boolean blockRandomized;
 
 	@OriginalMember(owner = "client!sb", name = "w", descriptor = "I")
-	public int anInt746;
+	public int bsBuff;
 
 	@OriginalMember(owner = "client!sb", name = "x", descriptor = "I")
-	public int anInt747;
+	public int bsLive;
 
 	@OriginalMember(owner = "client!sb", name = "y", descriptor = "I")
-	public int anInt748;
+	public int blockSize100k;
 
 	@OriginalMember(owner = "client!sb", name = "z", descriptor = "I")
-	public int anInt749;
+	public int currentBlockNo;
 
 	@OriginalMember(owner = "client!sb", name = "A", descriptor = "I")
-	public int anInt750;
+	public int origPtr;
 
 	@OriginalMember(owner = "client!sb", name = "B", descriptor = "I")
-	public int anInt751;
+	public int tPos;
 
 	@OriginalMember(owner = "client!sb", name = "C", descriptor = "I")
-	public int anInt752;
+	public int k0;
 
 	@OriginalMember(owner = "client!sb", name = "E", descriptor = "I")
-	public int anInt753;
+	public int nBlockUsed;
 
 	@OriginalMember(owner = "client!sb", name = "I", descriptor = "I")
-	public int anInt754;
+	public int nInUse;
 
 	@OriginalMember(owner = "client!sb", name = "V", descriptor = "I")
-	public int anInt755;
+	public int count;
 
 	@OriginalMember(owner = "client!sb", name = "a", descriptor = "I")
-	private final int anInt728 = 4096;
+	private final int MTFA_SIZE = 4096;
 
 	@OriginalMember(owner = "client!sb", name = "b", descriptor = "I")
-	private final int anInt729 = 16;
+	private final int MTFL_SIZE = 16;
 
 	@OriginalMember(owner = "client!sb", name = "c", descriptor = "I")
-	private final int anInt730 = 258;
+	private final int BZ_MAX_ALPHA_SIZE = 258;
 
 	@OriginalMember(owner = "client!sb", name = "d", descriptor = "I")
-	private final int anInt731 = 23;
+	private final int BZ_MAX_CODE_LEN = 23;
 
 	@OriginalMember(owner = "client!sb", name = "e", descriptor = "I")
-	private final int anInt732 = 1;
+	private final int anInt732 = 1; // TODO
 
 	@OriginalMember(owner = "client!sb", name = "f", descriptor = "I")
-	private final int anInt733 = 6;
+	private final int BZ_N_GROUPS = 6;
 
 	@OriginalMember(owner = "client!sb", name = "g", descriptor = "I")
-	private final int anInt734 = 50;
+	private final int BZ_G_SIZE = 50;
 
 	@OriginalMember(owner = "client!sb", name = "h", descriptor = "I")
-	private final int anInt735 = 4;
+	private final int anInt735 = 4; // TODO
 
 	@OriginalMember(owner = "client!sb", name = "i", descriptor = "I")
-	private final int anInt736 = 18002;
+	private final int BZ_MAX_SELECTORS = (2 + (900000 / BZ_G_SIZE));
 
 	@OriginalMember(owner = "client!sb", name = "D", descriptor = "[I")
-	public final int[] anIntArray213 = new int[256];
+	public final int[] unzftab = new int[256];
 
 	@OriginalMember(owner = "client!sb", name = "F", descriptor = "[I")
-	public final int[] anIntArray214 = new int[257];
+	public final int[] cftab = new int[257];
 
 	@OriginalMember(owner = "client!sb", name = "G", descriptor = "[I")
-	private final int[] anIntArray215 = new int[257];
+	private final int[] cftabCopy = new int[257];
 
 	@OriginalMember(owner = "client!sb", name = "J", descriptor = "[Z")
-	public final boolean[] aBooleanArray5 = new boolean[256];
+	public final boolean[] inUse = new boolean[256];
 
 	@OriginalMember(owner = "client!sb", name = "K", descriptor = "[Z")
-	public final boolean[] aBooleanArray6 = new boolean[16];
+	public final boolean[] inUse16 = new boolean[16];
 
 	@OriginalMember(owner = "client!sb", name = "L", descriptor = "[B")
-	public final byte[] aByteArray10 = new byte[256];
+	public final byte[] seqToUnseq = new byte[256];
 
 	@OriginalMember(owner = "client!sb", name = "M", descriptor = "[B")
-	public final byte[] aByteArray11 = new byte[4096];
+	public final byte[] mtfa = new byte[MTFA_SIZE];
 
 	@OriginalMember(owner = "client!sb", name = "N", descriptor = "[I")
-	public final int[] anIntArray217 = new int[16];
+	public final int[] mtfbase = new int[256 / MTFL_SIZE];
 
 	@OriginalMember(owner = "client!sb", name = "O", descriptor = "[B")
-	public final byte[] aByteArray12 = new byte[18002];
+	public final byte[] selector = new byte[BZ_MAX_SELECTORS];
 
 	@OriginalMember(owner = "client!sb", name = "P", descriptor = "[B")
-	public final byte[] aByteArray13 = new byte[18002];
+	public final byte[] selectorMtf = new byte[BZ_MAX_SELECTORS];
 
 	@OriginalMember(owner = "client!sb", name = "Q", descriptor = "[[B")
-	public final byte[][] aByteArrayArray4 = new byte[6][258];
+	public final byte[][] len = new byte[BZ_N_GROUPS][BZ_MAX_ALPHA_SIZE];
 
 	@OriginalMember(owner = "client!sb", name = "R", descriptor = "[[I")
-	public final int[][] anIntArrayArray20 = new int[6][258];
+	public final int[][] limit = new int[BZ_N_GROUPS][BZ_MAX_ALPHA_SIZE];
 
 	@OriginalMember(owner = "client!sb", name = "S", descriptor = "[[I")
-	public final int[][] anIntArrayArray21 = new int[6][258];
+	public final int[][] base = new int[BZ_N_GROUPS][BZ_MAX_ALPHA_SIZE];
 
 	@OriginalMember(owner = "client!sb", name = "T", descriptor = "[[I")
-	public final int[][] anIntArrayArray22 = new int[6][258];
+	public final int[][] perm = new int[BZ_N_GROUPS][BZ_MAX_ALPHA_SIZE];
 
 	@OriginalMember(owner = "client!sb", name = "U", descriptor = "[I")
-	public final int[] anIntArray218 = new int[6];
+	public final int[] minLens = new int[BZ_N_GROUPS];
 }

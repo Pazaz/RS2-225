@@ -11,7 +11,7 @@ public final class SeqType {
 	private static final int anInt541 = 473;
 
 	@OriginalMember(owner = "client!jc", name = "d", descriptor = "[Lclient!jc;")
-	public static SeqType[] aClass19Array1;
+	public static SeqType[] instances;
 
 	@OriginalMember(owner = "client!jc", name = "c", descriptor = "I")
 	private static int anInt542;
@@ -41,7 +41,7 @@ public final class SeqType {
 	public boolean aBoolean126 = false;
 
 	@OriginalMember(owner = "client!jc", name = "l", descriptor = "I")
-	public int anInt545 = 5;
+	public int priority = 5;
 
 	@OriginalMember(owner = "client!jc", name = "m", descriptor = "I")
 	public int anInt546 = -1;
@@ -60,14 +60,14 @@ public final class SeqType {
 				aBoolean125 = !aBoolean125;
 			}
 			anInt542 = local9.g2();
-			if (aClass19Array1 == null) {
-				aClass19Array1 = new SeqType[anInt542];
+			if (instances == null) {
+				instances = new SeqType[anInt542];
 			}
 			for (@Pc(27) int local27 = 0; local27 < anInt542; local27++) {
-				if (aClass19Array1[local27] == null) {
-					aClass19Array1[local27] = new SeqType();
+				if (instances[local27] == null) {
+					instances[local27] = new SeqType();
 				}
-				aClass19Array1[local27].decode(false, local9);
+				instances[local27].decode(false, local9);
 			}
 		} catch (@Pc(51) RuntimeException local51) {
 			signlink.reporterror("35892, " + arg0 + ", " + arg1 + ", " + local51.toString());
@@ -131,7 +131,7 @@ public final class SeqType {
 					} else if (local5 == 4) {
 						this.aBoolean126 = true;
 					} else if (local5 == 5) {
-						this.anInt545 = arg1.g1();
+						this.priority = arg1.g1();
 					} else if (local5 == 6) {
 						this.anInt546 = arg1.g2();
 					} else if (local5 == 7) {

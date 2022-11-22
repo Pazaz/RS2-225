@@ -47,7 +47,7 @@ public final class IndexedSprite extends Draw2D {
 	public IndexedSprite(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) String arg1, @OriginalArg(2) int arg2) {
 		@Pc(32) Buffer local32 = new Buffer(363, arg0.read(arg1 + ".dat", null, (byte) 2));
 		@Pc(42) Buffer local42 = new Buffer(363, arg0.read("index.dat", null, (byte) 2));
-		local42.anInt561 = local32.g2();
+		local42.pos = local32.g2();
 		this.anInt517 = local42.g2();
 		this.anInt518 = local42.g2();
 		@Pc(57) int local57 = local42.g1();
@@ -56,9 +56,9 @@ public final class IndexedSprite extends Draw2D {
 			this.anIntArray177[local63 + 1] = local42.g3();
 		}
 		for (@Pc(81) int local81 = 0; local81 < arg2; local81++) {
-			local42.anInt561 += 2;
-			local32.anInt561 += local42.g2() * local42.g2();
-			local42.anInt561++;
+			local42.pos += 2;
+			local32.pos += local42.g2() * local42.g2();
+			local42.pos++;
 		}
 		this.anInt515 = local42.g1();
 		this.anInt516 = local42.g1();
@@ -220,40 +220,40 @@ public final class IndexedSprite extends Draw2D {
 		try {
 			arg1 += this.anInt515;
 			arg0 += this.anInt516;
-			@Pc(15) int local15 = arg1 + arg0 * Draw2D.anInt528;
+			@Pc(15) int local15 = arg1 + arg0 * Draw2D.width;
 			@Pc(17) int local17 = 0;
 			@Pc(20) int local20 = this.anInt514;
 			@Pc(23) int local23 = this.anInt513;
-			@Pc(27) int local27 = Draw2D.anInt528 - local23;
+			@Pc(27) int local27 = Draw2D.width - local23;
 			@Pc(29) int local29 = 0;
 			@Pc(36) int local36;
-			if (arg0 < Draw2D.anInt530) {
-				local36 = Draw2D.anInt530 - arg0;
+			if (arg0 < Draw2D.top) {
+				local36 = Draw2D.top - arg0;
 				local20 -= local36;
-				arg0 = Draw2D.anInt530;
+				arg0 = Draw2D.top;
 				local17 += local36 * local23;
-				local15 += local36 * Draw2D.anInt528;
+				local15 += local36 * Draw2D.width;
 			}
-			if (arg0 + local20 > Draw2D.anInt531) {
-				local20 -= arg0 + local20 - Draw2D.anInt531;
+			if (arg0 + local20 > Draw2D.bottom) {
+				local20 -= arg0 + local20 - Draw2D.bottom;
 			}
-			if (arg1 < Draw2D.anInt532) {
-				local36 = Draw2D.anInt532 - arg1;
+			if (arg1 < Draw2D.left) {
+				local36 = Draw2D.left - arg1;
 				local23 -= local36;
-				arg1 = Draw2D.anInt532;
+				arg1 = Draw2D.left;
 				local17 += local36;
 				local15 += local36;
 				local29 += local36;
 				local27 += local36;
 			}
-			if (arg1 + local23 > Draw2D.anInt533) {
-				local36 = arg1 + local23 - Draw2D.anInt533;
+			if (arg1 + local23 > Draw2D.anInt) {
+				local36 = arg1 + local23 - Draw2D.anInt;
 				local23 -= local36;
 				local29 += local36;
 				local27 += local36;
 			}
 			if (local23 > 0 && local20 > 0) {
-				this.copyImage(Draw2D.anIntArray178, local17, local29, this.aByteArray6, local20, 0, local23, local15, local27, this.anIntArray177);
+				this.copyImage(Draw2D.data, local17, local29, this.aByteArray6, local20, 0, local23, local15, local27, this.anIntArray177);
 				if (!arg2) {
 					;
 				}

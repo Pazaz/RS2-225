@@ -73,10 +73,10 @@ public final class Font extends Draw2D {
 		try {
 			@Pc(71) Buffer local71 = new Buffer(363, arg0.read(arg1 + ".dat", null, (byte) 2));
 			@Pc(81) Buffer local81 = new Buffer(363, arg0.read("index.dat", null, (byte) 2));
-			local81.anInt561 = local71.g2() + 4;
+			local81.pos = local71.g2() + 4;
 			@Pc(90) int local90 = local81.g1();
 			if (local90 > 0) {
-				local81.anInt561 += (local90 - 1) * 3;
+				local81.pos += (local90 - 1) * 3;
 			}
 			@Pc(131) int local131;
 			for (@Pc(104) int local104 = 0; local104 < 94; local104++) {
@@ -346,38 +346,38 @@ public final class Font extends Draw2D {
 
 	@OriginalMember(owner = "client!jb", name = "a", descriptor = "([BIIIII)V")
 	private void fillMaskedRect(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
-		@Pc(5) int local5 = arg1 + arg2 * Draw2D.anInt528;
-		@Pc(9) int local9 = Draw2D.anInt528 - arg3;
+		@Pc(5) int local5 = arg1 + arg2 * Draw2D.width;
+		@Pc(9) int local9 = Draw2D.width - arg3;
 		@Pc(11) int local11 = 0;
 		@Pc(13) int local13 = 0;
 		@Pc(20) int local20;
-		if (arg2 < Draw2D.anInt530) {
-			local20 = Draw2D.anInt530 - arg2;
+		if (arg2 < Draw2D.top) {
+			local20 = Draw2D.top - arg2;
 			arg4 -= local20;
-			arg2 = Draw2D.anInt530;
+			arg2 = Draw2D.top;
 			local13 += local20 * arg3;
-			local5 += local20 * Draw2D.anInt528;
+			local5 += local20 * Draw2D.width;
 		}
-		if (arg2 + arg4 >= Draw2D.anInt531) {
-			arg4 -= arg2 + arg4 + 1 - Draw2D.anInt531;
+		if (arg2 + arg4 >= Draw2D.bottom) {
+			arg4 -= arg2 + arg4 + 1 - Draw2D.bottom;
 		}
-		if (arg1 < Draw2D.anInt532) {
-			local20 = Draw2D.anInt532 - arg1;
+		if (arg1 < Draw2D.left) {
+			local20 = Draw2D.left - arg1;
 			arg3 -= local20;
-			arg1 = Draw2D.anInt532;
+			arg1 = Draw2D.left;
 			local13 += local20;
 			local5 += local20;
 			local11 += local20;
 			local9 += local20;
 		}
-		if (arg1 + arg3 >= Draw2D.anInt533) {
-			local20 = arg1 + arg3 + 1 - Draw2D.anInt533;
+		if (arg1 + arg3 >= Draw2D.anInt) {
+			local20 = arg1 + arg3 + 1 - Draw2D.anInt;
 			arg3 -= local20;
 			local11 += local20;
 			local9 += local20;
 		}
 		if (arg3 > 0 && arg4 > 0) {
-			this.fillMaskedRect(Draw2D.anIntArray178, arg0, arg5, local13, local5, arg3, arg4, local9, local11);
+			this.fillMaskedRect(Draw2D.data, arg0, arg5, local13, local5, arg3, arg4, local9, local11);
 		}
 	}
 
@@ -424,38 +424,38 @@ public final class Font extends Draw2D {
 	private void fillMaskedRect(@OriginalArg(0) byte[] arg0, @OriginalArg(1) byte arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7) {
 		try {
 			if (arg1 == this.aByte27) {
-				@Pc(10) int local10 = arg2 + arg5 * Draw2D.anInt528;
-				@Pc(14) int local14 = Draw2D.anInt528 - arg7;
+				@Pc(10) int local10 = arg2 + arg5 * Draw2D.width;
+				@Pc(14) int local14 = Draw2D.width - arg7;
 				@Pc(16) int local16 = 0;
 				@Pc(18) int local18 = 0;
 				@Pc(25) int local25;
-				if (arg5 < Draw2D.anInt530) {
-					local25 = Draw2D.anInt530 - arg5;
+				if (arg5 < Draw2D.top) {
+					local25 = Draw2D.top - arg5;
 					arg3 -= local25;
-					arg5 = Draw2D.anInt530;
+					arg5 = Draw2D.top;
 					local18 += local25 * arg7;
-					local10 += local25 * Draw2D.anInt528;
+					local10 += local25 * Draw2D.width;
 				}
-				if (arg5 + arg3 >= Draw2D.anInt531) {
-					arg3 -= arg5 + arg3 + 1 - Draw2D.anInt531;
+				if (arg5 + arg3 >= Draw2D.bottom) {
+					arg3 -= arg5 + arg3 + 1 - Draw2D.bottom;
 				}
-				if (arg2 < Draw2D.anInt532) {
-					local25 = Draw2D.anInt532 - arg2;
+				if (arg2 < Draw2D.left) {
+					local25 = Draw2D.left - arg2;
 					arg7 -= local25;
-					arg2 = Draw2D.anInt532;
+					arg2 = Draw2D.left;
 					local18 += local25;
 					local10 += local25;
 					local16 += local25;
 					local14 += local25;
 				}
-				if (arg2 + arg7 >= Draw2D.anInt533) {
-					local25 = arg2 + arg7 + 1 - Draw2D.anInt533;
+				if (arg2 + arg7 >= Draw2D.anInt) {
+					local25 = arg2 + arg7 + 1 - Draw2D.anInt;
 					arg7 -= local25;
 					local16 += local25;
 					local14 += local25;
 				}
 				if (arg7 > 0 && arg3 > 0) {
-					this.fillMaskedRect(arg3, local10, arg7, Draw2D.anIntArray178, arg0, arg6, local18, local14, local16, (byte) 2, arg4);
+					this.fillMaskedRect(arg3, local10, arg7, Draw2D.data, arg0, arg6, local18, local14, local16, (byte) 2, arg4);
 				}
 			}
 		} catch (@Pc(132) RuntimeException local132) {

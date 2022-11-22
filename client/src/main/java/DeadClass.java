@@ -8,7 +8,7 @@ public final class DeadClass {
 	private static final int anInt519 = 473;
 
 	@OriginalMember(owner = "client!ic", name = "b", descriptor = "[Lclient!ic;")
-	public static DeadClass[] aClass17Array1;
+	public static DeadClass[] instances;
 
 	@OriginalMember(owner = "client!ic", name = "c", descriptor = "Z")
 	private final boolean aBoolean118 = true;

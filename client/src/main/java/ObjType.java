@@ -191,7 +191,7 @@ public final class ObjType {
 		}
 		anInt102 = (anInt102 + 1) % 10;
 		@Pc(27) ObjType local27 = aClass5Array1[anInt102];
-		aClass1_Sub3_Sub3_3.anInt561 = anIntArray23[arg0];
+		aClass1_Sub3_Sub3_3.pos = anIntArray23[arg0];
 		local27.anInt103 = arg0;
 		local27.reset();
 		local27.decode(false, aClass1_Sub3_Sub3_3);
@@ -236,23 +236,23 @@ public final class ObjType {
 				}
 			}
 			local7 = new Sprite(32, 32);
-			local38 = Draw3D.anInt430;
-			local40 = Draw3D.anInt431;
-			@Pc(80) int[] local80 = Draw3D.anIntArray139;
-			@Pc(82) int[] local82 = Draw2D.anIntArray178;
-			@Pc(84) int local84 = Draw2D.anInt528;
-			@Pc(86) int local86 = Draw2D.anInt529;
-			@Pc(88) int local88 = Draw2D.anInt532;
-			@Pc(90) int local90 = Draw2D.anInt533;
-			@Pc(92) int local92 = Draw2D.anInt530;
-			@Pc(94) int local94 = Draw2D.anInt531;
-			Draw3D.aBoolean99 = false;
+			local38 = Draw3D.centerX3D;
+			local40 = Draw3D.centerY3D;
+			@Pc(80) int[] local80 = Draw3D.offsets;
+			@Pc(82) int[] local82 = Draw2D.data;
+			@Pc(84) int local84 = Draw2D.width;
+			@Pc(86) int local86 = Draw2D.height;
+			@Pc(88) int local88 = Draw2D.left;
+			@Pc(90) int local90 = Draw2D.anInt;
+			@Pc(92) int local92 = Draw2D.top;
+			@Pc(94) int local94 = Draw2D.bottom;
+			Draw3D.jagged = false;
 			Draw2D.prepare(32, local7.anIntArray148, -657, 32);
 			Draw2D.fillRect(0, 0, 0, (byte) 93, 32, 32);
 			Draw3D.prepareOffsets(anInt99);
 			@Pc(115) Model local115 = local28.getModel(1);
-			@Pc(125) int local125 = Draw3D.anIntArray137[local28.anInt106] * local28.anInt105 >> 16;
-			@Pc(135) int local135 = Draw3D.anIntArray138[local28.anInt106] * local28.anInt105 >> 16;
+			@Pc(125) int local125 = Draw3D.sin[local28.anInt106] * local28.anInt105 >> 16;
+			@Pc(135) int local135 = Draw3D.cos[local28.anInt106] * local28.anInt105 >> 16;
 			local115.draw(0, local28.anInt107, local28.anInt108, local28.anInt106, local28.anInt109, local125 + local115.anInt368 / 2 + local28.anInt110, local135 + local28.anInt110);
 			if (arg1 != 24638) {
 				throw new NullPointerException();
@@ -292,10 +292,10 @@ public final class ObjType {
 			aClass35_5.put(6, (long) arg0, local7);
 			Draw2D.prepare(local84, local82, -657, local86);
 			Draw2D.setBounds(local94, local92, local90, 789, local88);
-			Draw3D.anInt430 = local38;
-			Draw3D.anInt431 = local40;
-			Draw3D.anIntArray139 = local80;
-			Draw3D.aBoolean99 = true;
+			Draw3D.centerX3D = local38;
+			Draw3D.centerY3D = local40;
+			Draw3D.offsets = local80;
+			Draw3D.jagged = true;
 			if (local28.aBoolean31) {
 				local7.anInt465 = 33;
 			} else {

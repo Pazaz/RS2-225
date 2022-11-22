@@ -80,7 +80,7 @@ public final class SoundTrack {
 			for (@Pc(1) int local1 = 0; local1 < 10; local1++) {
 				@Pc(6) int local6 = arg1.g1();
 				if (local6 != 0) {
-					arg1.anInt561--;
+					arg1.pos--;
 					this.aClass44Array1[local1] = new SoundTone();
 					this.aClass44Array1[local1].read(false, arg1);
 				}
@@ -136,7 +136,7 @@ public final class SoundTrack {
 	public Buffer toWav(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1) {
 		try {
 			@Pc(3) int local3 = this.generate(arg1);
-			aClass1_Sub3_Sub3_23.anInt561 = 0;
+			aClass1_Sub3_Sub3_23.pos = 0;
 			aClass1_Sub3_Sub3_23.p4(1380533830);
 			aClass1_Sub3_Sub3_23.ip4(false, local3 + 36);
 			aClass1_Sub3_Sub3_23.p4(1463899717);
@@ -154,7 +154,7 @@ public final class SoundTrack {
 			aClass1_Sub3_Sub3_23.ip2(this.aBoolean158, 8);
 			aClass1_Sub3_Sub3_23.p4(1684108385);
 			aClass1_Sub3_Sub3_23.ip4(false, local3);
-			aClass1_Sub3_Sub3_23.anInt561 += local3;
+			aClass1_Sub3_Sub3_23.pos += local3;
 			return aClass1_Sub3_Sub3_23;
 		} catch (@Pc(78) RuntimeException local78) {
 			signlink.reporterror("83597, " + arg0 + ", " + arg1 + ", " + local78.toString());

@@ -29,13 +29,13 @@ public final class CollisionMap {
 	private final int anInt382;
 
 	@OriginalMember(owner = "client!ec", name = "h", descriptor = "I")
-	private final int anInt383;
+	private final int x;
 
 	@OriginalMember(owner = "client!ec", name = "i", descriptor = "I")
-	private final int anInt384;
+	private final int z;
 
 	@OriginalMember(owner = "client!ec", name = "j", descriptor = "[[I")
-	public final int[][] anIntArrayArray10;
+	public final int[][] flags;
 
 	@OriginalMember(owner = "client!ec", name = "<init>", descriptor = "(III)V")
 	public CollisionMap(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
@@ -45,9 +45,9 @@ public final class CollisionMap {
 			}
 			this.anInt381 = 0;
 			this.anInt382 = 0;
-			this.anInt383 = arg0;
-			this.anInt384 = arg2;
-			this.anIntArrayArray10 = new int[this.anInt383][this.anInt384];
+			this.x = arg0;
+			this.z = arg2;
+			this.flags = new int[this.x][this.z];
 			this.reset((byte) 74);
 		} catch (@Pc(49) RuntimeException local49) {
 			signlink.reporterror("56319, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + local49.toString());
@@ -59,12 +59,12 @@ public final class CollisionMap {
 	public void reset(@OriginalArg(0) byte arg0) {
 		try {
 			@Pc(7) int local7;
-			for (@Pc(3) int local3 = 0; local3 < this.anInt383; local3++) {
-				for (local7 = 0; local7 < this.anInt384; local7++) {
-					if (local3 == 0 || local7 == 0 || local3 == this.anInt383 - 1 || local7 == this.anInt384 - 1) {
-						this.anIntArrayArray10[local3][local7] = 16777215;
+			for (@Pc(3) int local3 = 0; local3 < this.x; local3++) {
+				for (local7 = 0; local7 < this.z; local7++) {
+					if (local3 == 0 || local7 == 0 || local3 == this.x - 1 || local7 == this.z - 1) {
+						this.flags[local3][local7] = 16777215;
 					} else {
-						this.anIntArrayArray10[local3][local7] = 0;
+						this.flags[local3][local7] = 0;
 					}
 				}
 			}
@@ -228,9 +228,9 @@ public final class CollisionMap {
 			}
 			@Pc(43) int local43;
 			for (local27 = local14; local27 < local14 + arg2; local27++) {
-				if (local27 >= 0 && local27 < this.anInt383) {
+				if (local27 >= 0 && local27 < this.x) {
 					for (local43 = local19; local43 < local19 + arg1; local43++) {
-						if (local43 >= 0 && local43 < this.anInt384) {
+						if (local43 >= 0 && local43 < this.z) {
 							this.add(local27, local43, local3);
 						}
 					}
@@ -252,7 +252,7 @@ public final class CollisionMap {
 			if (arg0 == this.aByte21) {
 				@Pc(9) int local9 = arg2 - this.anInt381;
 				@Pc(14) int local14 = arg1 - this.anInt382;
-				this.anIntArrayArray10[local9][local14] |= 0x200000;
+				this.flags[local9][local14] |= 0x200000;
 			}
 		} catch (@Pc(26) RuntimeException local26) {
 			signlink.reporterror("23195, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + local26.toString());
@@ -262,7 +262,7 @@ public final class CollisionMap {
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(III)V")
 	private void add(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
-		this.anIntArrayArray10[arg0][arg1] |= arg2;
+		this.flags[arg0][arg1] |= arg2;
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(ZIIIII)V")
@@ -415,9 +415,9 @@ public final class CollisionMap {
 				arg6 = local32;
 			}
 			for (local32 = local14; local32 < local14 + arg3; local32++) {
-				if (local32 >= 0 && local32 < this.anInt383) {
+				if (local32 >= 0 && local32 < this.x) {
 					for (@Pc(48) int local48 = local19; local48 < local19 + arg6; local48++) {
-						if (local48 >= 0 && local48 < this.anInt384) {
+						if (local48 >= 0 && local48 < this.z) {
 							this.remove(local48, (byte) -9, local32, local3);
 						}
 					}
@@ -432,7 +432,7 @@ public final class CollisionMap {
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(IBII)V")
 	private void remove(@OriginalArg(0) int arg0, @OriginalArg(1) byte arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
 		try {
-			this.anIntArrayArray10[arg2][arg0] &= 16777215 - arg3;
+			this.flags[arg2][arg0] &= 16777215 - arg3;
 			if (arg1 == -9) {
 				;
 			}
@@ -448,7 +448,7 @@ public final class CollisionMap {
 			if (arg2 == 0) {
 				@Pc(7) int local7 = arg1 - this.anInt381;
 				@Pc(12) int local12 = arg0 - this.anInt382;
-				this.anIntArrayArray10[local7][local12] &= 0xDFFFFF;
+				this.flags[local7][local12] &= 0xDFFFFF;
 			}
 		} catch (@Pc(24) RuntimeException local24) {
 			signlink.reporterror("3785, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + local24.toString());
@@ -474,40 +474,40 @@ public final class CollisionMap {
 					if (local12 == local29 - 1 && local17 == local34) {
 						return true;
 					}
-					if (local12 == local29 && local17 == local34 + 1 && (this.anIntArrayArray10[local12][local17] & 0x280120) == 0) {
+					if (local12 == local29 && local17 == local34 + 1 && (this.flags[local12][local17] & 0x280120) == 0) {
 						return true;
 					}
-					if (local12 == local29 && local17 == local34 - 1 && (this.anIntArrayArray10[local12][local17] & 0x280102) == 0) {
+					if (local12 == local29 && local17 == local34 - 1 && (this.flags[local12][local17] & 0x280102) == 0) {
 						return true;
 					}
 				} else if (arg1 == 1) {
 					if (local12 == local29 && local17 == local34 + 1) {
 						return true;
 					}
-					if (local12 == local29 - 1 && local17 == local34 && (this.anIntArrayArray10[local12][local17] & 0x280108) == 0) {
+					if (local12 == local29 - 1 && local17 == local34 && (this.flags[local12][local17] & 0x280108) == 0) {
 						return true;
 					}
-					if (local12 == local29 + 1 && local17 == local34 && (this.anIntArrayArray10[local12][local17] & 0x280180) == 0) {
+					if (local12 == local29 + 1 && local17 == local34 && (this.flags[local12][local17] & 0x280180) == 0) {
 						return true;
 					}
 				} else if (arg1 == 2) {
 					if (local12 == local29 + 1 && local17 == local34) {
 						return true;
 					}
-					if (local12 == local29 && local17 == local34 + 1 && (this.anIntArrayArray10[local12][local17] & 0x280120) == 0) {
+					if (local12 == local29 && local17 == local34 + 1 && (this.flags[local12][local17] & 0x280120) == 0) {
 						return true;
 					}
-					if (local12 == local29 && local17 == local34 - 1 && (this.anIntArrayArray10[local12][local17] & 0x280102) == 0) {
+					if (local12 == local29 && local17 == local34 - 1 && (this.flags[local12][local17] & 0x280102) == 0) {
 						return true;
 					}
 				} else if (arg1 == 3) {
 					if (local12 == local29 && local17 == local34 - 1) {
 						return true;
 					}
-					if (local12 == local29 - 1 && local17 == local34 && (this.anIntArrayArray10[local12][local17] & 0x280108) == 0) {
+					if (local12 == local29 - 1 && local17 == local34 && (this.flags[local12][local17] & 0x280108) == 0) {
 						return true;
 					}
-					if (local12 == local29 + 1 && local17 == local34 && (this.anIntArrayArray10[local12][local17] & 0x280180) == 0) {
+					if (local12 == local29 + 1 && local17 == local34 && (this.flags[local12][local17] & 0x280180) == 0) {
 						return true;
 					}
 				}
@@ -520,14 +520,14 @@ public final class CollisionMap {
 					if (local12 == local29 && local17 == local34 + 1) {
 						return true;
 					}
-					if (local12 == local29 + 1 && local17 == local34 && (this.anIntArrayArray10[local12][local17] & 0x280180) == 0) {
+					if (local12 == local29 + 1 && local17 == local34 && (this.flags[local12][local17] & 0x280180) == 0) {
 						return true;
 					}
-					if (local12 == local29 && local17 == local34 - 1 && (this.anIntArrayArray10[local12][local17] & 0x280102) == 0) {
+					if (local12 == local29 && local17 == local34 - 1 && (this.flags[local12][local17] & 0x280102) == 0) {
 						return true;
 					}
 				} else if (arg1 == 1) {
-					if (local12 == local29 - 1 && local17 == local34 && (this.anIntArrayArray10[local12][local17] & 0x280108) == 0) {
+					if (local12 == local29 - 1 && local17 == local34 && (this.flags[local12][local17] & 0x280108) == 0) {
 						return true;
 					}
 					if (local12 == local29 && local17 == local34 + 1) {
@@ -536,14 +536,14 @@ public final class CollisionMap {
 					if (local12 == local29 + 1 && local17 == local34) {
 						return true;
 					}
-					if (local12 == local29 && local17 == local34 - 1 && (this.anIntArrayArray10[local12][local17] & 0x280102) == 0) {
+					if (local12 == local29 && local17 == local34 - 1 && (this.flags[local12][local17] & 0x280102) == 0) {
 						return true;
 					}
 				} else if (arg1 == 2) {
-					if (local12 == local29 - 1 && local17 == local34 && (this.anIntArrayArray10[local12][local17] & 0x280108) == 0) {
+					if (local12 == local29 - 1 && local17 == local34 && (this.flags[local12][local17] & 0x280108) == 0) {
 						return true;
 					}
-					if (local12 == local29 && local17 == local34 + 1 && (this.anIntArrayArray10[local12][local17] & 0x280120) == 0) {
+					if (local12 == local29 && local17 == local34 + 1 && (this.flags[local12][local17] & 0x280120) == 0) {
 						return true;
 					}
 					if (local12 == local29 + 1 && local17 == local34) {
@@ -556,10 +556,10 @@ public final class CollisionMap {
 					if (local12 == local29 - 1 && local17 == local34) {
 						return true;
 					}
-					if (local12 == local29 && local17 == local34 + 1 && (this.anIntArrayArray10[local12][local17] & 0x280120) == 0) {
+					if (local12 == local29 && local17 == local34 + 1 && (this.flags[local12][local17] & 0x280120) == 0) {
 						return true;
 					}
-					if (local12 == local29 + 1 && local17 == local34 && (this.anIntArrayArray10[local12][local17] & 0x280180) == 0) {
+					if (local12 == local29 + 1 && local17 == local34 && (this.flags[local12][local17] & 0x280180) == 0) {
 						return true;
 					}
 					if (local12 == local29 && local17 == local34 - 1) {
@@ -568,16 +568,16 @@ public final class CollisionMap {
 				}
 			}
 			if (arg3 == 9) {
-				if (local12 == local29 && local17 == local34 + 1 && (this.anIntArrayArray10[local12][local17] & 0x20) == 0) {
+				if (local12 == local29 && local17 == local34 + 1 && (this.flags[local12][local17] & 0x20) == 0) {
 					return true;
 				}
-				if (local12 == local29 && local17 == local34 - 1 && (this.anIntArrayArray10[local12][local17] & 0x2) == 0) {
+				if (local12 == local29 && local17 == local34 - 1 && (this.flags[local12][local17] & 0x2) == 0) {
 					return true;
 				}
-				if (local12 == local29 - 1 && local17 == local34 && (this.anIntArrayArray10[local12][local17] & 0x8) == 0) {
+				if (local12 == local29 - 1 && local17 == local34 && (this.flags[local12][local17] & 0x8) == 0) {
 					return true;
 				}
-				if (local12 == local29 + 1 && local17 == local34 && (this.anIntArrayArray10[local12][local17] & 0x80) == 0) {
+				if (local12 == local29 + 1 && local17 == local34 && (this.flags[local12][local17] & 0x80) == 0) {
 					return true;
 				}
 			}
@@ -606,46 +606,46 @@ public final class CollisionMap {
 					arg0 = arg0 + 2 & 0x3;
 				}
 				if (arg0 == 0) {
-					if (local19 == local29 + 1 && local24 == local34 && (this.anIntArrayArray10[local19][local24] & 0x80) == 0) {
+					if (local19 == local29 + 1 && local24 == local34 && (this.flags[local19][local24] & 0x80) == 0) {
 						return true;
 					}
-					if (local19 == local29 && local24 == local34 - 1 && (this.anIntArrayArray10[local19][local24] & 0x2) == 0) {
+					if (local19 == local29 && local24 == local34 - 1 && (this.flags[local19][local24] & 0x2) == 0) {
 						return true;
 					}
 				} else if (arg0 == 1) {
-					if (local19 == local29 - 1 && local24 == local34 && (this.anIntArrayArray10[local19][local24] & 0x8) == 0) {
+					if (local19 == local29 - 1 && local24 == local34 && (this.flags[local19][local24] & 0x8) == 0) {
 						return true;
 					}
-					if (local19 == local29 && local24 == local34 - 1 && (this.anIntArrayArray10[local19][local24] & 0x2) == 0) {
+					if (local19 == local29 && local24 == local34 - 1 && (this.flags[local19][local24] & 0x2) == 0) {
 						return true;
 					}
 				} else if (arg0 == 2) {
-					if (local19 == local29 - 1 && local24 == local34 && (this.anIntArrayArray10[local19][local24] & 0x8) == 0) {
+					if (local19 == local29 - 1 && local24 == local34 && (this.flags[local19][local24] & 0x8) == 0) {
 						return true;
 					}
-					if (local19 == local29 && local24 == local34 + 1 && (this.anIntArrayArray10[local19][local24] & 0x20) == 0) {
+					if (local19 == local29 && local24 == local34 + 1 && (this.flags[local19][local24] & 0x20) == 0) {
 						return true;
 					}
 				} else if (arg0 == 3) {
-					if (local19 == local29 + 1 && local24 == local34 && (this.anIntArrayArray10[local19][local24] & 0x80) == 0) {
+					if (local19 == local29 + 1 && local24 == local34 && (this.flags[local19][local24] & 0x80) == 0) {
 						return true;
 					}
-					if (local19 == local29 && local24 == local34 + 1 && (this.anIntArrayArray10[local19][local24] & 0x20) == 0) {
+					if (local19 == local29 && local24 == local34 + 1 && (this.flags[local19][local24] & 0x20) == 0) {
 						return true;
 					}
 				}
 			}
 			if (arg1 == 8) {
-				if (local19 == local29 && local24 == local34 + 1 && (this.anIntArrayArray10[local19][local24] & 0x20) == 0) {
+				if (local19 == local29 && local24 == local34 + 1 && (this.flags[local19][local24] & 0x20) == 0) {
 					return true;
 				}
-				if (local19 == local29 && local24 == local34 - 1 && (this.anIntArrayArray10[local19][local24] & 0x2) == 0) {
+				if (local19 == local29 && local24 == local34 - 1 && (this.flags[local19][local24] & 0x2) == 0) {
 					return true;
 				}
-				if (local19 == local29 - 1 && local24 == local34 && (this.anIntArrayArray10[local19][local24] & 0x8) == 0) {
+				if (local19 == local29 - 1 && local24 == local34 && (this.flags[local19][local24] & 0x8) == 0) {
 					return true;
 				}
-				if (local19 == local29 + 1 && local24 == local34 && (this.anIntArrayArray10[local19][local24] & 0x80) == 0) {
+				if (local19 == local29 + 1 && local24 == local34 && (this.flags[local19][local24] & 0x80) == 0) {
 					return true;
 				}
 			}
@@ -664,14 +664,14 @@ public final class CollisionMap {
 			@Pc(15) int local15 = 17 / arg7;
 			if (arg2 >= arg3 && arg2 <= local5 && arg0 >= arg5 && arg0 <= local11) {
 				return true;
-			} else if (arg2 == arg3 - 1 && arg0 >= arg5 && arg0 <= local11 && (this.anIntArrayArray10[arg2 - this.anInt381][arg0 - this.anInt382] & 0x8) == 0 && (arg4 & 0x8) == 0) {
+			} else if (arg2 == arg3 - 1 && arg0 >= arg5 && arg0 <= local11 && (this.flags[arg2 - this.anInt381][arg0 - this.anInt382] & 0x8) == 0 && (arg4 & 0x8) == 0) {
 				return true;
-			} else if (arg2 == local5 + 1 && arg0 >= arg5 && arg0 <= local11 && (this.anIntArrayArray10[arg2 - this.anInt381][arg0 - this.anInt382] & 0x80) == 0 && (arg4 & 0x2) == 0) {
+			} else if (arg2 == local5 + 1 && arg0 >= arg5 && arg0 <= local11 && (this.flags[arg2 - this.anInt381][arg0 - this.anInt382] & 0x80) == 0 && (arg4 & 0x2) == 0) {
 				return true;
-			} else if (arg0 == arg5 - 1 && arg2 >= arg3 && arg2 <= local5 && (this.anIntArrayArray10[arg2 - this.anInt381][arg0 - this.anInt382] & 0x2) == 0 && (arg4 & 0x4) == 0) {
+			} else if (arg0 == arg5 - 1 && arg2 >= arg3 && arg2 <= local5 && (this.flags[arg2 - this.anInt381][arg0 - this.anInt382] & 0x2) == 0 && (arg4 & 0x4) == 0) {
 				return true;
 			} else {
-				return arg0 == local11 + 1 && arg2 >= arg3 && arg2 <= local5 && (this.anIntArrayArray10[arg2 - this.anInt381][arg0 - this.anInt382] & 0x20) == 0 && (arg4 & 0x1) == 0;
+				return arg0 == local11 + 1 && arg2 >= arg3 && arg2 <= local5 && (this.flags[arg2 - this.anInt381][arg0 - this.anInt382] & 0x20) == 0 && (arg4 & 0x1) == 0;
 			}
 		} catch (@Pc(160) RuntimeException local160) {
 			signlink.reporterror("71488, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + arg4 + ", " + arg5 + ", " + arg6 + ", " + arg7 + ", " + local160.toString());

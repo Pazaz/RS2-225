@@ -11,48 +11,48 @@ public final class SpotAnimEntity extends Entity {
 	private int anInt58;
 
 	@OriginalMember(owner = "client!bb", name = "m", descriptor = "I")
-	private int anInt65;
+	private int seqFrame;
 
 	@OriginalMember(owner = "client!bb", name = "n", descriptor = "I")
-	private int anInt66;
+	private int frameCycle;
 
 	@OriginalMember(owner = "client!bb", name = "o", descriptor = "Z")
-	public boolean aBoolean17 = false;
+	public boolean finished = false;
 
 	@OriginalMember(owner = "client!bb", name = "g", descriptor = "Lclient!kc;")
-	private final SpotAnimType aClass21_2;
+	private final SpotAnimType spotanim;
 
 	@OriginalMember(owner = "client!bb", name = "i", descriptor = "I")
-	public final int anInt61;
+	public final int plane;
 
 	@OriginalMember(owner = "client!bb", name = "f", descriptor = "I")
 	private int anInt59;
 
 	@OriginalMember(owner = "client!bb", name = "j", descriptor = "I")
-	public final int anInt62;
+	public final int x;
 
 	@OriginalMember(owner = "client!bb", name = "k", descriptor = "I")
-	public final int anInt63;
+	public final int z;
 
 	@OriginalMember(owner = "client!bb", name = "l", descriptor = "I")
-	public final int anInt64;
+	public final int height;
 
 	@OriginalMember(owner = "client!bb", name = "h", descriptor = "I")
-	public final int anInt60;
+	public final int firstCycle;
 
 	@OriginalMember(owner = "client!bb", name = "<init>", descriptor = "(IIZIIIII)V")
 	public SpotAnimEntity(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) boolean arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7) {
 		try {
-			this.aClass21_2 = SpotAnimType.aClass21Array1[arg1];
-			this.anInt61 = arg6;
+			this.spotanim = SpotAnimType.instances[arg1];
+			this.plane = arg6;
 			if (arg2) {
 				this.anInt59 = -147;
 			}
-			this.anInt62 = arg0;
-			this.anInt63 = arg3;
-			this.anInt64 = arg5;
-			this.anInt60 = arg7 + arg4;
-			this.aBoolean17 = false;
+			this.x = arg0;
+			this.z = arg3;
+			this.height = arg5;
+			this.firstCycle = arg7 + arg4;
+			this.finished = false;
 		} catch (@Pc(36) RuntimeException local36) {
 			signlink.reporterror("19764, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + arg4 + ", " + arg5 + ", " + arg6 + ", " + arg7 + ", " + local36.toString());
 			throw new RuntimeException();
@@ -65,19 +65,19 @@ public final class SpotAnimEntity extends Entity {
 			if (arg1 != 0) {
 				this.anInt59 = -255;
 			}
-			this.anInt66 += arg0;
+			this.frameCycle += arg0;
 			while (true) {
 				do {
 					do {
-						if (this.anInt66 <= this.aClass21_2.aClass19_1.anIntArray188[this.anInt65]) {
+						if (this.frameCycle <= this.spotanim.aClass19_1.anIntArray188[this.seqFrame]) {
 							return;
 						}
-						this.anInt66 -= this.aClass21_2.aClass19_1.anIntArray188[this.anInt65] + 1;
-						this.anInt65++;
-					} while (this.anInt65 < this.aClass21_2.aClass19_1.anInt543);
-				} while (this.anInt65 >= 0 && this.anInt65 < this.aClass21_2.aClass19_1.anInt543);
-				this.anInt65 = 0;
-				this.aBoolean17 = true;
+						this.frameCycle -= this.spotanim.aClass19_1.anIntArray188[this.seqFrame] + 1;
+						this.seqFrame++;
+					} while (this.seqFrame < this.spotanim.aClass19_1.anInt543);
+				} while (this.seqFrame >= 0 && this.seqFrame < this.spotanim.aClass19_1.anInt543);
+				this.seqFrame = 0;
+				this.finished = true;
 			}
 		} catch (@Pc(67) RuntimeException local67) {
 			signlink.reporterror("59523, " + arg0 + ", " + arg1 + ", " + local67.toString());
@@ -89,35 +89,35 @@ public final class SpotAnimEntity extends Entity {
 	@Override
 	public Model getDrawMethod(@OriginalArg(0) boolean arg0) {
 		try {
-			@Pc(3) Model local3 = this.aClass21_2.getModel();
-			@Pc(19) Model local19 = new Model(local3, true, !this.aClass21_2.aBoolean131, this.anInt58, false);
+			@Pc(3) Model local3 = this.spotanim.getModel();
+			@Pc(19) Model local19 = new Model(local3, true, !this.spotanim.aBoolean131, this.anInt58, false);
 			if (!arg0) {
 				throw new NullPointerException();
 			}
-			if (!this.aBoolean17) {
+			if (!this.finished) {
 				local19.applyGroup(4);
-				local19.applyFrame(-16599, this.aClass21_2.aClass19_1.anIntArray186[this.anInt65]);
+				local19.applyFrame(-16599, this.spotanim.aClass19_1.anIntArray186[this.seqFrame]);
 				local19.anIntArrayArray7 = null;
 				local19.anIntArrayArray6 = null;
 			}
-			if (this.aClass21_2.anInt571 != 128 || this.aClass21_2.anInt572 != 128) {
-				local19.scale(this.aClass21_2.anInt571, 2, this.aClass21_2.anInt572, this.aClass21_2.anInt571);
+			if (this.spotanim.anInt571 != 128 || this.spotanim.anInt572 != 128) {
+				local19.scale(this.spotanim.anInt571, 2, this.spotanim.anInt572, this.spotanim.anInt571);
 			}
-			if (this.aClass21_2.anInt573 != 0) {
-				if (this.aClass21_2.anInt573 == 90) {
+			if (this.spotanim.anInt573 != 0) {
+				if (this.spotanim.anInt573 == 90) {
 					local19.rotateCounterClockwise(0);
 				}
-				if (this.aClass21_2.anInt573 == 180) {
+				if (this.spotanim.anInt573 == 180) {
 					local19.rotateCounterClockwise(0);
 					local19.rotateCounterClockwise(0);
 				}
-				if (this.aClass21_2.anInt573 == 270) {
+				if (this.spotanim.anInt573 == 270) {
 					local19.rotateCounterClockwise(0);
 					local19.rotateCounterClockwise(0);
 					local19.rotateCounterClockwise(0);
 				}
 			}
-			local19.applyLighting(this.aClass21_2.anInt574 + 64, this.aClass21_2.anInt575 + 850, -30, -50, -30, true);
+			local19.applyLighting(this.spotanim.anInt574 + 64, this.spotanim.anInt575 + 850, -30, -50, -30, true);
 			return local19;
 		} catch (@Pc(125) RuntimeException local125) {
 			signlink.reporterror("26048, " + arg0 + ", " + local125.toString());

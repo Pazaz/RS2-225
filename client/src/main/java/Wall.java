@@ -5,29 +5,29 @@ import org.openrs2.deob.annotation.OriginalMember;
 public final class Wall {
 
 	@OriginalMember(owner = "client!q", name = "a", descriptor = "I")
-	public int anInt679;
+	public int plane;
 
 	@OriginalMember(owner = "client!q", name = "b", descriptor = "I")
-	public int anInt680;
+	public int x;
 
 	@OriginalMember(owner = "client!q", name = "c", descriptor = "I")
-	public int anInt681;
+	public int z;
 
 	@OriginalMember(owner = "client!q", name = "d", descriptor = "I")
-	public int anInt682;
+	public int type0;
 
 	@OriginalMember(owner = "client!q", name = "e", descriptor = "I")
-	public int anInt683;
+	public int type1;
 
 	@OriginalMember(owner = "client!q", name = "f", descriptor = "Lclient!eb;")
-	public Model aClass1_Sub3_Sub1_9;
+	public Model model0;
 
 	@OriginalMember(owner = "client!q", name = "g", descriptor = "Lclient!eb;")
-	public Model aClass1_Sub3_Sub1_10;
+	public Model model1;
 
 	@OriginalMember(owner = "client!q", name = "h", descriptor = "I")
-	public int anInt684;
+	public int bitset;
 
 	@OriginalMember(owner = "client!q", name = "i", descriptor = "B")
-	public byte aByte35;
+	public byte info;
 }

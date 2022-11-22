@@ -79,7 +79,7 @@ public final class PlayerEntity extends PathingEntity {
 	@OriginalMember(owner = "client!z", name = "a", descriptor = "(ZLclient!kb;)V")
 	public void decode(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
 		try {
-			arg1.anInt561 = 0;
+			arg1.pos = 0;
 			this.anInt930 = arg1.g1();
 			this.anInt931 = arg1.g1();
 			@Pc(19) int local19;
@@ -101,33 +101,33 @@ public final class PlayerEntity extends PathingEntity {
 				this.anIntArray235[local19] = local31;
 			}
 			if (!arg0) {
-				super.anInt886 = arg1.g2();
-				if (super.anInt886 == 65535) {
-					super.anInt886 = -1;
+				super.standSeq = arg1.g2();
+				if (super.standSeq == 65535) {
+					super.standSeq = -1;
 				}
-				super.anInt887 = arg1.g2();
-				if (super.anInt887 == 65535) {
-					super.anInt887 = -1;
+				super.turnSeq = arg1.g2();
+				if (super.turnSeq == 65535) {
+					super.turnSeq = -1;
 				}
-				super.anInt888 = arg1.g2();
-				if (super.anInt888 == 65535) {
-					super.anInt888 = -1;
+				super.runSeq = arg1.g2();
+				if (super.runSeq == 65535) {
+					super.runSeq = -1;
 				}
-				super.anInt889 = arg1.g2();
-				if (super.anInt889 == 65535) {
-					super.anInt889 = -1;
+				super.walkSeq = arg1.g2();
+				if (super.walkSeq == 65535) {
+					super.walkSeq = -1;
 				}
-				super.anInt890 = arg1.g2();
-				if (super.anInt890 == 65535) {
-					super.anInt890 = -1;
+				super.turnAroundSeq = arg1.g2();
+				if (super.turnAroundSeq == 65535) {
+					super.turnAroundSeq = -1;
 				}
-				super.anInt891 = arg1.g2();
-				if (super.anInt891 == 65535) {
-					super.anInt891 = -1;
+				super.turnRightSeq = arg1.g2();
+				if (super.turnRightSeq == 65535) {
+					super.turnRightSeq = -1;
 				}
-				super.anInt892 = arg1.g2();
-				if (super.anInt892 == 65535) {
-					super.anInt892 = -1;
+				super.turnLeftSeq = arg1.g2();
+				if (super.turnLeftSeq == 65535) {
+					super.turnLeftSeq = -1;
 				}
 				this.aString29 = StringUtils.formatName(0, StringUtils.fromBase37(arg1.g8(603), false));
 				this.anInt932 = arg1.g1();
@@ -166,17 +166,17 @@ public final class PlayerEntity extends PathingEntity {
 				return null;
 			}
 			@Pc(10) Model local10 = this.getModel(false);
-			super.anInt925 = local10.anInt368;
+			super.height = local10.anInt368;
 			local10.aBoolean84 = true;
 			if (this.aBoolean163) {
 				return local10;
 			}
-			if (super.anInt912 != -1 && super.anInt913 != -1) {
-				@Pc(35) SpotAnimType local35 = SpotAnimType.aClass21Array1[super.anInt912];
+			if (super.spotAnimIndex != -1 && super.spotAnimFrame != -1) {
+				@Pc(35) SpotAnimType local35 = SpotAnimType.instances[super.spotAnimIndex];
 				@Pc(51) Model local51 = new Model(local35.getModel(), true, !local35.aBoolean131, this.anInt929, false);
-				local51.translate(-super.anInt916, 0, -122, 0);
+				local51.translate(-super.spotAnimOffsetY, 0, -122, 0);
 				local51.applyGroup(4);
-				local51.applyFrame(-16599, local35.aClass19_1.anIntArray186[super.anInt913]);
+				local51.applyFrame(-16599, local35.aClass19_1.anIntArray186[super.spotAnimFrame]);
 				local51.anIntArrayArray7 = null;
 				local51.anIntArrayArray6 = null;
 				if (local35.anInt571 != 128 || local35.anInt572 != 128) {
@@ -192,30 +192,30 @@ public final class PlayerEntity extends PathingEntity {
 				}
 				if (client.anInt266 >= this.anInt934 && client.anInt266 < this.anInt935) {
 					@Pc(148) Model local148 = this.aClass1_Sub3_Sub1_11;
-					local148.translate(this.anInt937 - this.anInt933, this.anInt936 - super.anInt882, -122, this.anInt938 - super.anInt883);
-					if (super.anInt926 == 512) {
+					local148.translate(this.anInt937 - this.anInt933, this.anInt936 - super.x, -122, this.anInt938 - super.z);
+					if (super.dstYaw == 512) {
 						local148.rotateCounterClockwise(0);
 						local148.rotateCounterClockwise(0);
 						local148.rotateCounterClockwise(0);
-					} else if (super.anInt926 == 1024) {
+					} else if (super.dstYaw == 1024) {
 						local148.rotateCounterClockwise(0);
 						local148.rotateCounterClockwise(0);
-					} else if (super.anInt926 == 1536) {
+					} else if (super.dstYaw == 1536) {
 						local148.rotateCounterClockwise(0);
 					}
 					@Pc(211) Model[] local211 = new Model[] { local10, local148 };
 					local10 = new Model(local211, (byte) -31, 2, true);
-					if (super.anInt926 == 512) {
+					if (super.dstYaw == 512) {
 						local148.rotateCounterClockwise(0);
-					} else if (super.anInt926 == 1024) {
+					} else if (super.dstYaw == 1024) {
 						local148.rotateCounterClockwise(0);
 						local148.rotateCounterClockwise(0);
-					} else if (super.anInt926 == 1536) {
+					} else if (super.dstYaw == 1536) {
 						local148.rotateCounterClockwise(0);
 						local148.rotateCounterClockwise(0);
 						local148.rotateCounterClockwise(0);
 					}
-					local148.translate(this.anInt933 - this.anInt937, super.anInt882 - this.anInt936, -122, super.anInt883 - this.anInt938);
+					local148.translate(this.anInt933 - this.anInt937, super.x - this.anInt936, -122, super.z - this.anInt938);
 				}
 			}
 			local10.aBoolean84 = true;
@@ -238,11 +238,11 @@ public final class PlayerEntity extends PathingEntity {
 			@Pc(8) int local8 = -1;
 			@Pc(10) int local10 = -1;
 			@Pc(12) int local12 = -1;
-			if (super.anInt907 >= 0 && super.anInt910 == 0) {
-				@Pc(23) SeqType local23 = SeqType.aClass19Array1[super.anInt907];
-				local6 = local23.anIntArray186[super.anInt908];
-				if (super.anInt904 >= 0 && super.anInt904 != super.anInt886) {
-					local8 = SeqType.aClass19Array1[super.anInt904].anIntArray186[super.anInt905];
+			if (super.primarySeq >= 0 && super.primarySeqDelay == 0) {
+				@Pc(23) SeqType local23 = SeqType.instances[super.primarySeq];
+				local6 = local23.anIntArray186[super.primarySeqFrame];
+				if (super.secondarySeq >= 0 && super.secondarySeq != super.standSeq) {
+					local8 = SeqType.instances[super.secondarySeq].anIntArray186[super.secondarySeqFrame];
 				}
 				if (local23.anInt546 >= 0) {
 					local10 = local23.anInt546;
@@ -252,8 +252,8 @@ public final class PlayerEntity extends PathingEntity {
 					local12 = local23.anInt547;
 					local4 += local12 - this.anIntArray234[3] << 16;
 				}
-			} else if (super.anInt904 >= 0) {
-				local6 = SeqType.aClass19Array1[super.anInt904].anIntArray186[super.anInt905];
+			} else if (super.secondarySeq >= 0) {
+				local6 = SeqType.instances[super.secondarySeq].anIntArray186[super.secondarySeqFrame];
 			}
 			@Pc(101) Model local101 = (Model) aClass35_9.get(local4);
 			if (local101 == null) {
@@ -269,7 +269,7 @@ public final class PlayerEntity extends PathingEntity {
 						local117 = local10;
 					}
 					if (local117 >= 256 && local117 < 512) {
-						local106[local108++] = IdkType.aClass13Array1[local117 - 256].getModel();
+						local106[local108++] = IdkType.instances[local117 - 256].getModel();
 					}
 					if (local117 >= 512) {
 						@Pc(155) ObjType local155 = ObjType.get(local117 - 512);
@@ -300,7 +300,7 @@ public final class PlayerEntity extends PathingEntity {
 				this.aBoolean161 = !this.aBoolean161;
 			}
 			if (local6 != -1 && local8 != -1) {
-				local249.applyFrames(local8, 3, local6, SeqType.aClass19Array1[super.anInt907].anIntArray189);
+				local249.applyFrames(local8, 3, local6, SeqType.instances[super.primarySeq].anIntArray189);
 			} else if (local6 != -1) {
 				local249.applyFrame(-16599, local6);
 			}
@@ -325,7 +325,7 @@ public final class PlayerEntity extends PathingEntity {
 			for (@Pc(13) int local13 = 0; local13 < 12; local13++) {
 				@Pc(20) int local20 = this.anIntArray234[local13];
 				if (local20 >= 256 && local20 < 512) {
-					local9[local11++] = IdkType.aClass13Array1[local20 - 256].getHeadModel(false);
+					local9[local11++] = IdkType.instances[local20 - 256].getHeadModel(false);
 				}
 				if (local20 >= 512) {
 					@Pc(49) Model local49 = ObjType.get(local20 - 512).getHeadModel(-22246, this.anInt930);

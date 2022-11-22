@@ -15,22 +15,22 @@ public final class WordPack {
 	private static boolean aBoolean137;
 
 	@OriginalMember(owner = "client!mc", name = "j", descriptor = "[I")
-	private static int[] anIntArray195;
+	private static int[] fragments;
 
 	@OriginalMember(owner = "client!mc", name = "k", descriptor = "[[C")
-	private static char[][] aCharArrayArray1;
+	private static char[][] bads;
 
 	@OriginalMember(owner = "client!mc", name = "l", descriptor = "[[[B")
-	private static byte[][][] aByteArrayArrayArray8;
+	private static byte[][][] badCombinations;
 
 	@OriginalMember(owner = "client!mc", name = "m", descriptor = "[[C")
-	private static char[][] aCharArrayArray2;
+	private static char[][] domains;
 
 	@OriginalMember(owner = "client!mc", name = "n", descriptor = "[[C")
-	private static char[][] aCharArrayArray3;
+	private static char[][] tlds;
 
 	@OriginalMember(owner = "client!mc", name = "o", descriptor = "[I")
-	private static int[] anIntArray196;
+	private static int[] tldTypes;
 
 	@OriginalMember(owner = "client!mc", name = "b", descriptor = "I")
 	private static int anInt639 = 24882;
@@ -51,7 +51,7 @@ public final class WordPack {
 	private static final int anInt644 = -81;
 
 	@OriginalMember(owner = "client!mc", name = "p", descriptor = "[Ljava/lang/String;")
-	private static final String[] aStringArray11 = new String[] { "cook", "cook's", "cooks", "seeks", "sheet" };
+	private static final String[] whitelist = new String[] { "cook", "cook's", "cooks", "seeks", "sheet" };
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(Lclient!ub;)V")
 	public static void decode(@OriginalArg(0) FileArchive arg0) {
@@ -74,16 +74,16 @@ public final class WordPack {
 	private static void readTld(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
 		try {
 			@Pc(4) int local4 = arg1.g4();
-			aCharArrayArray3 = new char[local4][];
-			anIntArray196 = new int[local4];
+			tlds = new char[local4][];
+			tldTypes = new int[local4];
 			if (arg0) {
 				for (@Pc(15) int local15 = 0; local15 < local4; local15++) {
-					anIntArray196[local15] = arg1.g1();
+					tldTypes[local15] = arg1.g1();
 					@Pc(26) char[] local26 = new char[arg1.g1()];
 					for (@Pc(28) int local28 = 0; local28 < local26.length; local28++) {
 						local26[local28] = (char) arg1.g1();
 					}
-					aCharArrayArray3[local15] = local26;
+					tlds[local15] = local26;
 				}
 			}
 		} catch (@Pc(51) RuntimeException local51) {
@@ -100,9 +100,9 @@ public final class WordPack {
 				for (@Pc(7) int local7 = 1; local7 > 0; local7++) {
 				}
 			}
-			aCharArrayArray1 = new char[local2][];
-			aByteArrayArrayArray8 = new byte[local2][][];
-			readBad(aByteArrayArrayArray8, aCharArrayArray1, arg1, (byte) 1);
+			bads = new char[local2][];
+			badCombinations = new byte[local2][][];
+			readBad(badCombinations, bads, arg1, (byte) 1);
 		} catch (@Pc(25) RuntimeException local25) {
 			signlink.reporterror("34550, " + arg0 + ", " + arg1 + ", " + local25.toString());
 			throw new RuntimeException();
@@ -114,8 +114,8 @@ public final class WordPack {
 		try {
 			@Pc(2) int local2 = arg0.g4();
 			if (arg1 < 0) {
-				aCharArrayArray2 = new char[local2][];
-				readDomain(-178, arg0, aCharArrayArray2);
+				domains = new char[local2][];
+				readDomain(-178, arg0, domains);
 			}
 		} catch (@Pc(14) RuntimeException local14) {
 			signlink.reporterror("77072, " + arg0 + ", " + arg1 + ", " + local14.toString());
@@ -126,9 +126,9 @@ public final class WordPack {
 	@OriginalMember(owner = "client!mc", name = "b", descriptor = "(ILclient!kb;)V")
 	private static void readFragments(@OriginalArg(0) int arg0, @OriginalArg(1) Buffer arg1) {
 		try {
-			anIntArray195 = new int[arg1.g4()];
-			for (@Pc(5) int local5 = 0; local5 < anIntArray195.length; local5++) {
-				anIntArray195[local5] = arg1.g2();
+			fragments = new int[arg1.g4()];
+			for (@Pc(5) int local5 = 0; local5 < fragments.length; local5++) {
+				fragments[local5] = arg1.g2();
 			}
 			if (arg0 != anInt639) {
 				aBoolean136 = !aBoolean136;
@@ -248,10 +248,10 @@ public final class WordPack {
 			filterDomains((byte) 120, local19);
 			filterNumFragments(8, local19);
 			@Pc(45) int local45;
-			for (@Pc(36) int local36 = 0; local36 < aStringArray11.length; local36++) {
+			for (@Pc(36) int local36 = 0; local36 < whitelist.length; local36++) {
 				local45 = -1;
-				while ((local45 = local22.indexOf(aStringArray11[local36], local45 + 1)) != -1) {
-					@Pc(52) char[] local52 = aStringArray11[local36].toCharArray();
+				while ((local45 = local22.indexOf(whitelist[local36], local45 + 1)) != -1) {
+					@Pc(52) char[] local52 = whitelist[local36].toCharArray();
 					for (@Pc(54) int local54 = 0; local54 < local52.length; local54++) {
 						local19[local54 + local45] = local52[local54];
 					}
@@ -315,8 +315,8 @@ public final class WordPack {
 	private static void filterBad(@OriginalArg(0) boolean arg0, @OriginalArg(1) char[] arg1) {
 		try {
 			for (@Pc(3) int local3 = 0; local3 < 2; local3++) {
-				for (@Pc(10) int local10 = aCharArrayArray1.length - 1; local10 >= 0; local10--) {
-					filterBad((byte) -102, aByteArrayArrayArray8[local10], arg1, aCharArrayArray1[local10]);
+				for (@Pc(10) int local10 = bads.length - 1; local10 >= 0; local10--) {
+					filterBad((byte) -102, badCombinations[local10], arg1, bads[local10]);
 				}
 			}
 			if (arg0) {
@@ -338,8 +338,8 @@ public final class WordPack {
 			@Pc(42) char[] local42 = new char[] { 'd', 'o', 't' };
 			filterBad((byte) -102, null, local27, local42);
 			if (arg0 == 120) {
-				for (@Pc(56) int local56 = aCharArrayArray2.length - 1; local56 >= 0; local56--) {
-					filterDomain(local27, -706, local3, aCharArrayArray2[local56], arg1);
+				for (@Pc(56) int local56 = domains.length - 1; local56 >= 0; local56--) {
+					filterDomain(local27, -706, local3, domains[local56], arg1);
 				}
 			}
 		} catch (@Pc(71) RuntimeException local71) {
@@ -501,8 +501,8 @@ public final class WordPack {
 				aBoolean136 = !aBoolean136;
 			}
 			filterBad((byte) -102, null, local27, local50);
-			for (@Pc(65) int local65 = 0; local65 < aCharArrayArray3.length; local65++) {
-				filterTld(local27, anIntArray196[local65], true, arg0, aCharArrayArray3[local65], local3);
+			for (@Pc(65) int local65 = 0; local65 < tlds.length; local65++) {
+				filterTld(local27, tldTypes[local65], true, arg0, tlds[local65], local3);
 			}
 		} catch (@Pc(85) RuntimeException local85) {
 			signlink.reporterror("31380, " + arg0 + ", " + arg1 + ", " + local85.toString());
@@ -1339,16 +1339,16 @@ public final class WordPack {
 				for (local39 = 1; local39 > 0; local39++) {
 				}
 			}
-			local39 = anIntArray195.length - 1;
-			if (local32 == anIntArray195[local34] || local32 == anIntArray195[local39]) {
+			local39 = fragments.length - 1;
+			if (local32 == fragments[local34] || local32 == fragments[local39]) {
 				return true;
 			}
 			do {
 				@Pc(67) int local67 = (local34 + local39) / 2;
-				if (local32 == anIntArray195[local67]) {
+				if (local32 == fragments[local67]) {
 					return true;
 				}
-				if (local32 < anIntArray195[local67]) {
+				if (local32 < fragments[local67]) {
 					local39 = local67;
 				} else {
 					local34 = local67;

@@ -13,7 +13,7 @@ public final class GameFrame extends Frame {
 	private int anInt56 = 8;
 
 	@OriginalMember(owner = "client!b", name = "b", descriptor = "Lclient!a;")
-	private final GameShell anApplet_Sub1_1;
+	private final GameShell shell;
 
 	@OriginalMember(owner = "client!b", name = "<init>", descriptor = "(IILclient!a;I)V")
 	public GameFrame(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) GameShell arg2, @OriginalArg(3) int arg3) {
@@ -21,7 +21,7 @@ public final class GameFrame extends Frame {
 			if (arg1 != 35731) {
 				this.anInt56 = -475;
 			}
-			this.anApplet_Sub1_1 = arg2;
+			this.shell = arg2;
 			this.setTitle("Jagex");
 			this.setResizable(false);
 			this.show();
@@ -44,12 +44,12 @@ public final class GameFrame extends Frame {
 	@OriginalMember(owner = "client!b", name = "update", descriptor = "(Ljava/awt/Graphics;)V")
 	@Override
 	public void update(@OriginalArg(0) Graphics arg0) {
-		this.anApplet_Sub1_1.update(arg0);
+		this.shell.update(arg0);
 	}
 
 	@OriginalMember(owner = "client!b", name = "paint", descriptor = "(Ljava/awt/Graphics;)V")
 	@Override
 	public void paint(@OriginalArg(0) Graphics arg0) {
-		this.anApplet_Sub1_1.paint(arg0);
+		this.shell.paint(arg0);
 	}
 }

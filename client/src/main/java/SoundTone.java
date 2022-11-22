@@ -241,7 +241,7 @@ public final class SoundTone {
 				throw new NullPointerException();
 			}
 			if (local24 != 0) {
-				arg1.anInt561--;
+				arg1.pos--;
 				this.aClass42_3 = new SoundEnvelope();
 				this.aClass42_3.readShape(false, arg1);
 				this.aClass42_4 = new SoundEnvelope();
@@ -249,7 +249,7 @@ public final class SoundTone {
 			}
 			local24 = arg1.g1();
 			if (local24 != 0) {
-				arg1.anInt561--;
+				arg1.pos--;
 				this.aClass42_5 = new SoundEnvelope();
 				this.aClass42_5.readShape(false, arg1);
 				this.aClass42_6 = new SoundEnvelope();
@@ -257,7 +257,7 @@ public final class SoundTone {
 			}
 			local24 = arg1.g1();
 			if (local24 != 0) {
-				arg1.anInt561--;
+				arg1.pos--;
 				this.aClass42_7 = new SoundEnvelope();
 				this.aClass42_7.readShape(false, arg1);
 				this.aClass42_8 = new SoundEnvelope();

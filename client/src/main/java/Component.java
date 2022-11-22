@@ -203,7 +203,7 @@ public final class Component {
 			while (true) {
 				@Pc(62) Component local62;
 				do {
-					if (local27.anInt561 >= local27.aByteArray7.length) {
+					if (local27.pos >= local27.data.length) {
 						aClass35_6 = null;
 						aClass35_7 = null;
 						return;

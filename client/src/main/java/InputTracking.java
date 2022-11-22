@@ -96,7 +96,7 @@ public final class InputTracking {
 				aBoolean80 = !aBoolean80;
 			}
 			@Pc(9) Buffer local9 = null;
-			if (aClass1_Sub3_Sub3_7 != null && aClass1_Sub3_Sub3_7.anInt561 > 0 && aBoolean81) {
+			if (aClass1_Sub3_Sub3_7 != null && aClass1_Sub3_Sub3_7.pos > 0 && aBoolean81) {
 				local9 = aClass1_Sub3_Sub3_7;
 			}
 			setDisabled((byte) 65);
@@ -113,7 +113,7 @@ public final class InputTracking {
 			if (arg0 <= 0) {
 				aBoolean79 = !aBoolean79;
 			}
-			if (aClass1_Sub3_Sub3_7.anInt561 + arg1 >= 500) {
+			if (aClass1_Sub3_Sub3_7.pos + arg1 >= 500) {
 				@Pc(15) Buffer local15 = aClass1_Sub3_Sub3_7;
 				aClass1_Sub3_Sub3_7 = Buffer.reserve(1, -737);
 				aClass1_Sub3_Sub3_8 = local15;

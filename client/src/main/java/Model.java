@@ -131,16 +131,16 @@ public final class Model extends CacheableNode {
 	public static int[] anIntArray119 = new int[12];
 
 	@OriginalMember(owner = "client!eb", name = "Nb", descriptor = "[I")
-	public static int[] anIntArray124 = Draw3D.anIntArray137;
+	public static int[] anIntArray124 = Draw3D.sin;
 
 	@OriginalMember(owner = "client!eb", name = "Ob", descriptor = "[I")
-	public static int[] anIntArray125 = Draw3D.anIntArray138;
+	public static int[] anIntArray125 = Draw3D.cos;
 
 	@OriginalMember(owner = "client!eb", name = "Pb", descriptor = "[I")
-	public static int[] anIntArray126 = Draw3D.anIntArray142;
+	public static int[] anIntArray126 = Draw3D.palette;
 
 	@OriginalMember(owner = "client!eb", name = "Qb", descriptor = "[I")
-	public static int[] anIntArray127 = Draw3D.anIntArray136;
+	public static int[] anIntArray127 = Draw3D.reciprical16;
 
 	@OriginalMember(owner = "client!eb", name = "Z", descriptor = "Lclient!kb;")
 	private static Buffer aClass1_Sub3_Sub3_9;
@@ -279,9 +279,9 @@ public final class Model extends CacheableNode {
 				if (local28 == null) {
 					System.out.println("Error model:" + arg1 + " not found!");
 				} else {
-					this.anInt359 = local28.anInt576;
-					this.anInt360 = local28.anInt577;
-					this.anInt362 = local28.anInt578;
+					this.anInt359 = local28.vertexCount;
+					this.anInt360 = local28.triangleCount;
+					this.anInt362 = local28.texturedCount;
 					this.anIntArray91 = new int[this.anInt359];
 					this.anIntArray92 = new int[this.anInt359];
 					this.anIntArray93 = new int[this.anInt359];
@@ -291,29 +291,29 @@ public final class Model extends CacheableNode {
 					this.anIntArray104 = new int[this.anInt362];
 					this.anIntArray105 = new int[this.anInt362];
 					this.anIntArray106 = new int[this.anInt362];
-					if (local28.anInt583 >= 0) {
+					if (local28.vertexLabelDataOffset >= 0) {
 						this.anIntArray107 = new int[this.anInt359];
 					}
-					if (local28.anInt587 >= 0) {
+					if (local28.triangleInfoDataOffset >= 0) {
 						this.anIntArray100 = new int[this.anInt360];
 					}
-					if (local28.anInt588 >= 0) {
+					if (local28.trianglePriorityDataOffset >= 0) {
 						this.anIntArray101 = new int[this.anInt360];
 					} else {
-						this.anInt361 = -local28.anInt588 - 1;
+						this.anInt361 = -local28.trianglePriorityDataOffset - 1;
 					}
-					if (local28.anInt589 >= 0) {
+					if (local28.triangleAlphaDataOffset >= 0) {
 						this.anIntArray102 = new int[this.anInt360];
 					}
-					if (local28.anInt590 >= 0) {
+					if (local28.triangleSkinDataOffset >= 0) {
 						this.anIntArray108 = new int[this.anInt360];
 					}
 					this.anIntArray103 = new int[this.anInt360];
-					aClass1_Sub3_Sub3_15.anInt561 = local28.anInt579;
-					aClass1_Sub3_Sub3_16.anInt561 = local28.anInt580;
-					aClass1_Sub3_Sub3_17.anInt561 = local28.anInt581;
-					aClass1_Sub3_Sub3_18.anInt561 = local28.anInt582;
-					aClass1_Sub3_Sub3_19.anInt561 = local28.anInt583;
+					aClass1_Sub3_Sub3_15.pos = local28.vertexFlagDataOffset;
+					aClass1_Sub3_Sub3_16.pos = local28.vertexXDataOffset;
+					aClass1_Sub3_Sub3_17.pos = local28.vertexYDataOffset;
+					aClass1_Sub3_Sub3_18.pos = local28.vertexZDataOffset;
+					aClass1_Sub3_Sub3_19.pos = local28.vertexLabelDataOffset;
 					@Pc(175) int local175 = 0;
 					@Pc(177) int local177 = 0;
 					@Pc(179) int local179 = 0;
@@ -345,11 +345,11 @@ public final class Model extends CacheableNode {
 							this.anIntArray107[local181] = aClass1_Sub3_Sub3_19.g1();
 						}
 					}
-					aClass1_Sub3_Sub3_10.anInt561 = local28.anInt586;
-					aClass1_Sub3_Sub3_11.anInt561 = local28.anInt587;
-					aClass1_Sub3_Sub3_12.anInt561 = local28.anInt588;
-					aClass1_Sub3_Sub3_13.anInt561 = local28.anInt589;
-					aClass1_Sub3_Sub3_14.anInt561 = local28.anInt590;
+					aClass1_Sub3_Sub3_10.pos = local28.triangleColorDataOffset;
+					aClass1_Sub3_Sub3_11.pos = local28.triangleInfoDataOffset;
+					aClass1_Sub3_Sub3_12.pos = local28.trianglePriorityDataOffset;
+					aClass1_Sub3_Sub3_13.pos = local28.triangleAlphaDataOffset;
+					aClass1_Sub3_Sub3_14.pos = local28.triangleSkinDataOffset;
 					for (local186 = 0; local186 < this.anInt360; local186++) {
 						this.anIntArray103[local186] = aClass1_Sub3_Sub3_10.g2();
 						if (this.anIntArray100 != null) {
@@ -365,8 +365,8 @@ public final class Model extends CacheableNode {
 							this.anIntArray108[local186] = aClass1_Sub3_Sub3_14.g1();
 						}
 					}
-					aClass1_Sub3_Sub3_20.anInt561 = local28.anInt584;
-					aClass1_Sub3_Sub3_21.anInt561 = local28.anInt585;
+					aClass1_Sub3_Sub3_20.pos = local28.vertexIndexDataOffset;
+					aClass1_Sub3_Sub3_21.pos = local28.triangleTypeDataOffset;
 					local188 = 0;
 					local197 = 0;
 					local206 = 0;
@@ -415,7 +415,7 @@ public final class Model extends CacheableNode {
 					if (arg0) {
 						throw new NullPointerException();
 					}
-					aClass1_Sub3_Sub3_22.anInt561 = local28.anInt591 * 6;
+					aClass1_Sub3_Sub3_22.pos = local28.triangleTextureDataOffset * 6;
 					for (local357 = 0; local357 < this.anInt362; local357++) {
 						this.anIntArray104[local357] = aClass1_Sub3_Sub3_22.g2();
 						this.anIntArray105[local357] = aClass1_Sub3_Sub3_22.g2();
@@ -762,10 +762,10 @@ public final class Model extends CacheableNode {
 				for (local122 = 0; local122 < this.anInt359; local122++) {
 					@Pc(170) VertexNormal local170 = this.aClass26Array1[local122] = new VertexNormal();
 					@Pc(175) VertexNormal local175 = arg0.aClass26Array1[local122];
-					local170.anInt646 = local175.anInt646;
-					local170.anInt647 = local175.anInt647;
-					local170.anInt648 = local175.anInt648;
-					local170.anInt649 = local175.anInt649;
+					local170.x = local175.x;
+					local170.y = local175.y;
+					local170.z = local175.z;
+					local170.magnitude = local175.magnitude;
 				}
 				this.aClass26Array2 = arg0.aClass26Array2;
 			} else {
@@ -922,13 +922,13 @@ public final class Model extends CacheableNode {
 					aClass1_Sub3_Sub3_20 = new Buffer(363, arg1.read("ob_vertex1.dat", null, (byte) 2));
 					aClass1_Sub3_Sub3_21 = new Buffer(363, arg1.read("ob_vertex2.dat", null, (byte) 2));
 					aClass1_Sub3_Sub3_22 = new Buffer(363, arg1.read("ob_axis.dat", null, (byte) 2));
-					aClass1_Sub3_Sub3_9.anInt561 = 0;
-					aClass1_Sub3_Sub3_15.anInt561 = 0;
-					aClass1_Sub3_Sub3_16.anInt561 = 0;
-					aClass1_Sub3_Sub3_17.anInt561 = 0;
-					aClass1_Sub3_Sub3_18.anInt561 = 0;
-					aClass1_Sub3_Sub3_20.anInt561 = 0;
-					aClass1_Sub3_Sub3_21.anInt561 = 0;
+					aClass1_Sub3_Sub3_9.pos = 0;
+					aClass1_Sub3_Sub3_15.pos = 0;
+					aClass1_Sub3_Sub3_16.pos = 0;
+					aClass1_Sub3_Sub3_17.pos = 0;
+					aClass1_Sub3_Sub3_18.pos = 0;
+					aClass1_Sub3_Sub3_20.pos = 0;
+					aClass1_Sub3_Sub3_21.pos = 0;
 					@Pc(172) int local172 = aClass1_Sub3_Sub3_9.g2();
 					aClass22Array1 = new Metadata[local172 + 100];
 					@Pc(179) int local179 = 0;
@@ -941,22 +941,22 @@ public final class Model extends CacheableNode {
 					for (@Pc(193) int local193 = 0; local193 < local172; local193++) {
 						@Pc(198) int local198 = aClass1_Sub3_Sub3_9.g2();
 						@Pc(206) Metadata local206 = aClass22Array1[local198] = new Metadata();
-						local206.anInt576 = aClass1_Sub3_Sub3_9.g2();
-						local206.anInt577 = aClass1_Sub3_Sub3_9.g2();
-						local206.anInt578 = aClass1_Sub3_Sub3_9.g1();
-						local206.anInt579 = aClass1_Sub3_Sub3_15.anInt561;
-						local206.anInt580 = aClass1_Sub3_Sub3_16.anInt561;
-						local206.anInt581 = aClass1_Sub3_Sub3_17.anInt561;
-						local206.anInt582 = aClass1_Sub3_Sub3_18.anInt561;
-						local206.anInt584 = aClass1_Sub3_Sub3_20.anInt561;
-						local206.anInt585 = aClass1_Sub3_Sub3_21.anInt561;
+						local206.vertexCount = aClass1_Sub3_Sub3_9.g2();
+						local206.triangleCount = aClass1_Sub3_Sub3_9.g2();
+						local206.texturedCount = aClass1_Sub3_Sub3_9.g1();
+						local206.vertexFlagDataOffset = aClass1_Sub3_Sub3_15.pos;
+						local206.vertexXDataOffset = aClass1_Sub3_Sub3_16.pos;
+						local206.vertexYDataOffset = aClass1_Sub3_Sub3_17.pos;
+						local206.vertexZDataOffset = aClass1_Sub3_Sub3_18.pos;
+						local206.vertexIndexDataOffset = aClass1_Sub3_Sub3_20.pos;
+						local206.triangleTypeDataOffset = aClass1_Sub3_Sub3_21.pos;
 						@Pc(245) int local245 = aClass1_Sub3_Sub3_9.g1();
 						@Pc(248) int local248 = aClass1_Sub3_Sub3_9.g1();
 						@Pc(251) int local251 = aClass1_Sub3_Sub3_9.g1();
 						@Pc(254) int local254 = aClass1_Sub3_Sub3_9.g1();
 						@Pc(257) int local257 = aClass1_Sub3_Sub3_9.g1();
 						@Pc(264) int local264;
-						for (@Pc(259) int local259 = 0; local259 < local206.anInt576; local259++) {
+						for (@Pc(259) int local259 = 0; local259 < local206.vertexCount; local259++) {
 							local264 = aClass1_Sub3_Sub3_15.g1();
 							if ((local264 & 0x1) != 0) {
 								aClass1_Sub3_Sub3_16.gsmart();
@@ -968,7 +968,7 @@ public final class Model extends CacheableNode {
 								aClass1_Sub3_Sub3_18.gsmart();
 							}
 						}
-						for (local264 = 0; local264 < local206.anInt577; local264++) {
+						for (local264 = 0; local264 < local206.triangleCount; local264++) {
 							@Pc(297) int local297 = aClass1_Sub3_Sub3_21.g1();
 							if (local297 == 1) {
 								aClass1_Sub3_Sub3_20.gsmart();
@@ -976,40 +976,40 @@ public final class Model extends CacheableNode {
 							}
 							aClass1_Sub3_Sub3_20.gsmart();
 						}
-						local206.anInt586 = local183;
-						local183 += local206.anInt577 * 2;
+						local206.triangleColorDataOffset = local183;
+						local183 += local206.triangleCount * 2;
 						if (local245 == 1) {
-							local206.anInt587 = local185;
-							local185 += local206.anInt577;
+							local206.triangleInfoDataOffset = local185;
+							local185 += local206.triangleCount;
 						} else {
-							local206.anInt587 = -1;
+							local206.triangleInfoDataOffset = -1;
 						}
 						if (local248 == 255) {
-							local206.anInt588 = local187;
-							local187 += local206.anInt577;
+							local206.trianglePriorityDataOffset = local187;
+							local187 += local206.triangleCount;
 						} else {
-							local206.anInt588 = -local248 - 1;
+							local206.trianglePriorityDataOffset = -local248 - 1;
 						}
 						if (local251 == 1) {
-							local206.anInt589 = local189;
-							local189 += local206.anInt577;
+							local206.triangleAlphaDataOffset = local189;
+							local189 += local206.triangleCount;
 						} else {
-							local206.anInt589 = -1;
+							local206.triangleAlphaDataOffset = -1;
 						}
 						if (local254 == 1) {
-							local206.anInt590 = local191;
-							local191 += local206.anInt577;
+							local206.triangleSkinDataOffset = local191;
+							local191 += local206.triangleCount;
 						} else {
-							local206.anInt590 = -1;
+							local206.triangleSkinDataOffset = -1;
 						}
 						if (local257 == 1) {
-							local206.anInt583 = local181;
-							local181 += local206.anInt576;
+							local206.vertexLabelDataOffset = local181;
+							local181 += local206.vertexCount;
 						} else {
-							local206.anInt583 = -1;
+							local206.vertexLabelDataOffset = -1;
 						}
-						local206.anInt591 = local179;
-						local179 += local206.anInt578;
+						local206.triangleTextureDataOffset = local179;
+						local179 += local206.texturedCount;
 					}
 				} catch (@Pc(421) Exception local421) {
 					System.out.println("Error loading model index");
@@ -1586,20 +1586,20 @@ public final class Model extends CacheableNode {
 			local167 = local167 * 256 / local214;
 			if (this.anIntArray100 == null || (this.anIntArray100[local50] & 0x1) == 0) {
 				@Pc(251) VertexNormal local251 = this.aClass26Array1[local73];
-				local251.anInt646 += local151;
-				local251.anInt647 += local159;
-				local251.anInt648 += local167;
-				local251.anInt649++;
+				local251.x += local151;
+				local251.y += local159;
+				local251.z += local167;
+				local251.magnitude++;
 				@Pc(280) VertexNormal local280 = this.aClass26Array1[local78];
-				local280.anInt646 += local151;
-				local280.anInt647 += local159;
-				local280.anInt648 += local167;
-				local280.anInt649++;
+				local280.x += local151;
+				local280.y += local159;
+				local280.z += local167;
+				local280.magnitude++;
 				@Pc(309) VertexNormal local309 = this.aClass26Array1[local83];
-				local309.anInt646 += local151;
-				local309.anInt647 += local159;
-				local309.anInt648 += local167;
-				local309.anInt649++;
+				local309.x += local151;
+				local309.y += local159;
+				local309.z += local167;
+				local309.magnitude++;
 			} else {
 				@Pc(355) int local355 = arg0 + (arg2 * local151 + arg3 * local159 + arg4 * local167) / (local22 + local22 / 2);
 				this.anIntArray97[local50] = adjustHslLightness(this.anIntArray103[local50], local355, this.anIntArray100[local50]);
@@ -1612,10 +1612,10 @@ public final class Model extends CacheableNode {
 			for (local73 = 0; local73 < this.anInt359; local73++) {
 				@Pc(399) VertexNormal local399 = this.aClass26Array1[local73];
 				@Pc(408) VertexNormal local408 = this.aClass26Array2[local73] = new VertexNormal();
-				local408.anInt646 = local399.anInt646;
-				local408.anInt647 = local399.anInt647;
-				local408.anInt648 = local399.anInt648;
-				local408.anInt649 = local399.anInt649;
+				local408.x = local399.x;
+				local408.y = local399.y;
+				local408.z = local399.z;
+				local408.magnitude = local399.magnitude;
 			}
 		}
 		if (arg5) {
@@ -1638,25 +1638,25 @@ public final class Model extends CacheableNode {
 			if (this.anIntArray100 == null) {
 				local28 = this.anIntArray103[local3];
 				local33 = this.aClass26Array1[local10];
-				local55 = arg0 + (arg2 * local33.anInt646 + arg3 * local33.anInt647 + arg4 * local33.anInt648) / (arg1 * local33.anInt649);
+				local55 = arg0 + (arg2 * local33.x + arg3 * local33.y + arg4 * local33.z) / (arg1 * local33.magnitude);
 				this.anIntArray97[local3] = adjustHslLightness(local28, local55, 0);
 				@Pc(68) VertexNormal local68 = this.aClass26Array1[local15];
-				@Pc(90) int local90 = arg0 + (arg2 * local68.anInt646 + arg3 * local68.anInt647 + arg4 * local68.anInt648) / (arg1 * local68.anInt649);
+				@Pc(90) int local90 = arg0 + (arg2 * local68.x + arg3 * local68.y + arg4 * local68.z) / (arg1 * local68.magnitude);
 				this.anIntArray98[local3] = adjustHslLightness(local28, local90, 0);
 				@Pc(103) VertexNormal local103 = this.aClass26Array1[local20];
-				@Pc(125) int local125 = arg0 + (arg2 * local103.anInt646 + arg3 * local103.anInt647 + arg4 * local103.anInt648) / (arg1 * local103.anInt649);
+				@Pc(125) int local125 = arg0 + (arg2 * local103.x + arg3 * local103.y + arg4 * local103.z) / (arg1 * local103.magnitude);
 				this.anIntArray99[local3] = adjustHslLightness(local28, local125, 0);
 			} else if ((this.anIntArray100[local3] & 0x1) == 0) {
 				local28 = this.anIntArray103[local3];
 				@Pc(152) int local152 = this.anIntArray100[local3];
 				local33 = this.aClass26Array1[local10];
-				local55 = arg0 + (arg2 * local33.anInt646 + arg3 * local33.anInt647 + arg4 * local33.anInt648) / (arg1 * local33.anInt649);
+				local55 = arg0 + (arg2 * local33.x + arg3 * local33.y + arg4 * local33.z) / (arg1 * local33.magnitude);
 				this.anIntArray97[local3] = adjustHslLightness(local28, local55, local152);
 				local33 = this.aClass26Array1[local15];
-				local55 = arg0 + (arg2 * local33.anInt646 + arg3 * local33.anInt647 + arg4 * local33.anInt648) / (arg1 * local33.anInt649);
+				local55 = arg0 + (arg2 * local33.x + arg3 * local33.y + arg4 * local33.z) / (arg1 * local33.magnitude);
 				this.anIntArray98[local3] = adjustHslLightness(local28, local55, local152);
 				local33 = this.aClass26Array1[local20];
-				local55 = arg0 + (arg2 * local33.anInt646 + arg3 * local33.anInt647 + arg4 * local33.anInt648) / (arg1 * local33.anInt649);
+				local55 = arg0 + (arg2 * local33.x + arg3 * local33.y + arg4 * local33.z) / (arg1 * local33.magnitude);
 				this.anIntArray99[local3] = adjustHslLightness(local28, local55, local152);
 			}
 		}
@@ -1676,8 +1676,8 @@ public final class Model extends CacheableNode {
 
 	@OriginalMember(owner = "client!eb", name = "a", descriptor = "(IIIIIII)V")
 	public void draw(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
-		@Pc(1) int local1 = Draw3D.anInt430;
-		@Pc(3) int local3 = Draw3D.anInt431;
+		@Pc(1) int local1 = Draw3D.centerX3D;
+		@Pc(3) int local3 = Draw3D.centerY3D;
 		@Pc(7) int local7 = anIntArray124[arg0];
 		@Pc(11) int local11 = anIntArray125[arg0];
 		@Pc(15) int local15 = anIntArray124[arg1];
@@ -1738,22 +1738,22 @@ public final class Model extends CacheableNode {
 		}
 		@Pc(49) int local49 = arg7 * arg3 + arg5 * arg4 >> 16;
 		@Pc(56) int local56 = local49 - this.anInt367 << 9;
-		if (local56 / local32 >= Draw2D.anInt535) {
+		if (local56 / local32 >= Draw2D.centerX) {
 			return;
 		}
 		@Pc(69) int local69 = local49 + this.anInt367 << 9;
-		if (local69 / local32 <= -Draw2D.anInt535) {
+		if (local69 / local32 <= -Draw2D.centerX) {
 			return;
 		}
 		@Pc(86) int local86 = arg6 * arg2 - local11 * arg1 >> 16;
 		@Pc(93) int local93 = this.anInt367 * arg1 >> 16;
 		@Pc(99) int local99 = local86 + local93 << 9;
-		if (local99 / local32 <= -Draw2D.anInt536) {
+		if (local99 / local32 <= -Draw2D.centerY) {
 			return;
 		}
 		@Pc(115) int local115 = local93 + (this.anInt368 * arg2 >> 16);
 		@Pc(121) int local121 = local86 - local115 << 9;
-		if (local121 / local32 >= Draw2D.anInt536) {
+		if (local121 / local32 >= Draw2D.centerY) {
 			return;
 		}
 		@Pc(136) int local136 = local28 + (this.anInt368 * arg1 >> 16);
@@ -1784,8 +1784,8 @@ public final class Model extends CacheableNode {
 				local99 /= local32;
 				local121 /= local155;
 			}
-			local204 = anInt376 - Draw3D.anInt430;
-			local208 = anInt377 - Draw3D.anInt431;
+			local204 = anInt376 - Draw3D.centerX3D;
+			local208 = anInt377 - Draw3D.centerY3D;
 			if (local204 > local56 && local204 < local69 && local208 > local121 && local208 < local99) {
 				if (this.aBoolean84) {
 					anIntArray123[anInt378++] = arg8;
@@ -1794,8 +1794,8 @@ public final class Model extends CacheableNode {
 				}
 			}
 		}
-		local155 = Draw3D.anInt430;
-		local204 = Draw3D.anInt431;
+		local155 = Draw3D.centerX3D;
+		local204 = Draw3D.centerY3D;
 		local208 = 0;
 		@Pc(243) int local243 = 0;
 		if (arg0 != 0) {
@@ -1871,7 +1871,7 @@ public final class Model extends CacheableNode {
 					}
 					if ((local46 - local50) * (anIntArray110[local42] - anIntArray110[local37]) - (anIntArray110[local32] - anIntArray110[local37]) * (local54 - local50) > 0) {
 						aBooleanArray3[local16] = false;
-						if (local46 >= 0 && local50 >= 0 && local54 >= 0 && local46 <= Draw2D.anInt534 && local50 <= Draw2D.anInt534 && local54 <= Draw2D.anInt534) {
+						if (local46 >= 0 && local50 >= 0 && local54 >= 0 && local46 <= Draw2D.safeX && local50 <= Draw2D.safeX && local54 <= Draw2D.safeX) {
 							aBooleanArray2[local16] = false;
 						} else {
 							aBooleanArray2[local16] = true;
@@ -2019,11 +2019,11 @@ public final class Model extends CacheableNode {
 		@Pc(14) int local14 = this.anIntArray94[arg0];
 		@Pc(19) int local19 = this.anIntArray95[arg0];
 		@Pc(24) int local24 = this.anIntArray96[arg0];
-		Draw3D.aBoolean97 = aBooleanArray2[arg0];
+		Draw3D.testX = aBooleanArray2[arg0];
 		if (this.anIntArray102 == null) {
-			Draw3D.anInt429 = 0;
+			Draw3D.alpha = 0;
 		} else {
-			Draw3D.anInt429 = this.anIntArray102[arg0];
+			Draw3D.alpha = this.anIntArray102[arg0];
 		}
 		@Pc(45) int local45;
 		if (this.anIntArray100 == null) {
@@ -2058,8 +2058,8 @@ public final class Model extends CacheableNode {
 
 	@OriginalMember(owner = "client!eb", name = "g", descriptor = "(I)V")
 	private void drawProjectedTriangle(@OriginalArg(0) int arg0) {
-		@Pc(3) int local3 = Draw3D.anInt430;
-		@Pc(5) int local5 = Draw3D.anInt431;
+		@Pc(3) int local3 = Draw3D.centerX3D;
+		@Pc(5) int local5 = Draw3D.centerY3D;
 		@Pc(7) int local7 = 0;
 		@Pc(12) int local12 = this.anIntArray94[arg0];
 		@Pc(17) int local17 = this.anIntArray95[arg0];
@@ -2143,15 +2143,15 @@ public final class Model extends CacheableNode {
 		if ((local63 - local67) * (local586 - local582) - (local85 - local582) * (local72 - local67) <= 0) {
 			return;
 		}
-		Draw3D.aBoolean97 = false;
+		Draw3D.testX = false;
 		@Pc(629) int local629;
 		@Pc(686) int local686;
 		@Pc(691) int local691;
 		@Pc(696) int local696;
 		@Pc(701) int local701;
 		if (local7 == 3) {
-			if (local63 < 0 || local67 < 0 || local72 < 0 || local63 > Draw2D.anInt534 || local67 > Draw2D.anInt534 || local72 > Draw2D.anInt534) {
-				Draw3D.aBoolean97 = true;
+			if (local63 < 0 || local67 < 0 || local72 < 0 || local63 > Draw2D.safeX || local67 > Draw2D.safeX || local72 > Draw2D.safeX) {
+				Draw3D.testX = true;
 			}
 			if (this.anIntArray100 == null) {
 				local629 = 0;
@@ -2179,8 +2179,8 @@ public final class Model extends CacheableNode {
 		if (local7 != 4) {
 			return;
 		}
-		if (local63 < 0 || local67 < 0 || local72 < 0 || local63 > Draw2D.anInt534 || local67 > Draw2D.anInt534 || local72 > Draw2D.anInt534 || anIntArray120[3] < 0 || anIntArray120[3] > Draw2D.anInt534) {
-			Draw3D.aBoolean97 = true;
+		if (local63 < 0 || local67 < 0 || local72 < 0 || local63 > Draw2D.safeX || local67 > Draw2D.safeX || local72 > Draw2D.safeX || anIntArray120[3] < 0 || anIntArray120[3] > Draw2D.safeX) {
+			Draw3D.testX = true;
 		}
 		if (this.anIntArray100 == null) {
 			local629 = 0;

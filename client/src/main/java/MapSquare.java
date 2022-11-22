@@ -256,20 +256,20 @@ public final class MapSquare {
 	public static void addOcclude(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8) {
 		try {
 			@Pc(3) Occluder local3 = new Occluder();
-			local3.anInt611 = arg1 / 128;
-			local3.anInt612 = arg5 / 128;
-			local3.anInt613 = arg8 / 128;
-			local3.anInt614 = arg0 / 128;
-			local3.anInt615 = arg4;
-			local3.anInt616 = arg1;
-			local3.anInt617 = arg5;
-			local3.anInt618 = arg8;
+			local3.minTileX = arg1 / 128;
+			local3.maxTileX = arg5 / 128;
+			local3.minTileZ = arg8 / 128;
+			local3.maxTileZ = arg0 / 128;
+			local3.type = arg4;
+			local3.minX = arg1;
+			local3.maxX = arg5;
+			local3.minZ = arg8;
 			while (arg2 >= 0) {
 				anInt690 = 127;
 			}
-			local3.anInt619 = arg0;
-			local3.anInt620 = arg7;
-			local3.anInt621 = arg3;
+			local3.maxZ = arg0;
+			local3.minY = arg7;
+			local3.maxY = arg3;
 			aClass24ArrayArray1[arg6][anIntArray202[arg6]++] = local3;
 		} catch (@Pc(65) RuntimeException local65) {
 			signlink.reporterror("341, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + arg4 + ", " + arg5 + ", " + arg6 + ", " + arg7 + ", " + arg8 + ", " + local65.toString());
@@ -443,13 +443,13 @@ public final class MapSquare {
 			for (@Pc(12) int local12 = 0; local12 < 3; local12++) {
 				this.aClass1_Sub2ArrayArrayArray1[local12][arg1][arg0] = this.aClass1_Sub2ArrayArrayArray1[local12 + 1][arg1][arg0];
 				if (this.aClass1_Sub2ArrayArrayArray1[local12][arg1][arg0] != null) {
-					this.aClass1_Sub2ArrayArrayArray1[local12][arg1][arg0].anInt87--;
+					this.aClass1_Sub2ArrayArrayArray1[local12][arg1][arg0].level--;
 				}
 			}
 			if (this.aClass1_Sub2ArrayArrayArray1[0][arg1][arg0] == null) {
 				this.aClass1_Sub2ArrayArrayArray1[0][arg1][arg0] = new Tile(0, arg1, arg0);
 			}
-			this.aClass1_Sub2ArrayArrayArray1[0][arg1][arg0].aClass1_Sub2_1 = local10;
+			this.aClass1_Sub2ArrayArrayArray1[0][arg1][arg0].bridge = local10;
 			this.aClass1_Sub2ArrayArrayArray1[3][arg1][arg0] = null;
 			if (arg2 != -41) {
 				for (@Pc(105) int local105 = 1; local105 > 0; local105++) {
@@ -465,7 +465,7 @@ public final class MapSquare {
 	public void setPhysicalLevel(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
 		@Pc(8) Tile local8 = this.aClass1_Sub2ArrayArrayArray1[arg0][arg1][arg2];
 		if (local8 != null) {
-			this.aClass1_Sub2ArrayArrayArray1[arg0][arg1][arg2].anInt93 = arg3;
+			this.aClass1_Sub2ArrayArrayArray1[arg0][arg1][arg2].physicalLevel = arg3;
 		}
 	}
 
@@ -480,7 +480,7 @@ public final class MapSquare {
 					this.aClass1_Sub2ArrayArrayArray1[local16][arg1][arg2] = new Tile(local16, arg1, arg2);
 				}
 			}
-			this.aClass1_Sub2ArrayArrayArray1[arg0][arg1][arg2].aClass27_1 = local14;
+			this.aClass1_Sub2ArrayArrayArray1[arg0][arg1][arg2].underlay = local14;
 		} else if (arg3 == 1) {
 			local14 = new TileUnderlay(arg14, arg15, arg16, arg17, arg5, arg19, arg6 == arg7 && arg6 == arg8 && arg6 == arg9);
 			for (local16 = arg0; local16 >= 0; local16--) {
@@ -488,7 +488,7 @@ public final class MapSquare {
 					this.aClass1_Sub2ArrayArrayArray1[local16][arg1][arg2] = new Tile(local16, arg1, arg2);
 				}
 			}
-			this.aClass1_Sub2ArrayArrayArray1[arg0][arg1][arg2].aClass27_1 = local14;
+			this.aClass1_Sub2ArrayArrayArray1[arg0][arg1][arg2].underlay = local14;
 		} else {
 			@Pc(145) TileOverlay local145 = new TileOverlay(arg1, arg3, arg15, arg7, arg12, arg4, arg10, arg9, arg19, arg14, arg5, arg17, arg18, arg8, arg16, arg13, 10659, arg6, arg2, arg11);
 			for (local16 = arg0; local16 >= 0; local16--) {
@@ -496,7 +496,7 @@ public final class MapSquare {
 					this.aClass1_Sub2ArrayArrayArray1[local16][arg1][arg2] = new Tile(local16, arg1, arg2);
 				}
 			}
-			this.aClass1_Sub2ArrayArrayArray1[arg0][arg1][arg2].aClass16_1 = local145;
+			this.aClass1_Sub2ArrayArrayArray1[arg0][arg1][arg2].overlay = local145;
 		}
 	}
 
@@ -504,16 +504,16 @@ public final class MapSquare {
 	public void addGroundDecoration(@OriginalArg(0) Model arg0, @OriginalArg(1) byte arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) byte arg6, @OriginalArg(7) int arg7) {
 		try {
 			@Pc(3) GroundDecoration local3 = new GroundDecoration();
-			local3.aClass1_Sub3_Sub1_4 = arg0;
-			local3.anInt521 = arg2 * 128 + 64;
-			local3.anInt522 = arg4 * 128 + 64;
-			local3.anInt520 = arg7;
-			local3.anInt523 = arg3;
-			local3.aByte25 = arg6;
+			local3.model = arg0;
+			local3.x = arg2 * 128 + 64;
+			local3.z = arg4 * 128 + 64;
+			local3.plane = arg7;
+			local3.bitset = arg3;
+			local3.info = arg6;
 			if (this.aClass1_Sub2ArrayArrayArray1[arg5][arg2][arg4] == null) {
 				this.aClass1_Sub2ArrayArrayArray1[arg5][arg2][arg4] = new Tile(arg5, arg2, arg4);
 			}
-			this.aClass1_Sub2ArrayArrayArray1[arg5][arg2][arg4].aClass18_1 = local3;
+			this.aClass1_Sub2ArrayArrayArray1[arg5][arg2][arg4].groundDecoration = local3;
 			if (arg1 == this.aByte36) {
 				@Pc(68) boolean local68 = false;
 			} else {
@@ -529,29 +529,29 @@ public final class MapSquare {
 	public void addObject(@OriginalArg(0) Model arg0, @OriginalArg(1) Model arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) Model arg7, @OriginalArg(8) int arg8) {
 		try {
 			@Pc(3) ObjEntity local3 = new ObjEntity();
-			local3.aClass1_Sub3_Sub1_5 = arg0;
+			local3.model0 = arg0;
 			@Pc(10) int local10 = 90 / arg8;
-			local3.anInt550 = arg6 * 128 + 64;
-			local3.anInt551 = arg5 * 128 + 64;
-			local3.anInt549 = arg2;
-			local3.anInt552 = arg4;
-			local3.aClass1_Sub3_Sub1_6 = arg1;
-			local3.aClass1_Sub3_Sub1_7 = arg7;
+			local3.x = arg6 * 128 + 64;
+			local3.z = arg5 * 128 + 64;
+			local3.plane = arg2;
+			local3.bitset = arg4;
+			local3.model1 = arg1;
+			local3.model2 = arg7;
 			@Pc(38) int local38 = 0;
 			@Pc(47) Tile local47 = this.aClass1_Sub2ArrayArrayArray1[arg3][arg6][arg5];
 			if (local47 != null) {
-				for (@Pc(51) int local51 = 0; local51 < local47.anInt91; local51++) {
-					@Pc(60) int local60 = local47.aClass29Array1[local51].aClass1_Sub3_Sub1_8.anInt372;
+				for (@Pc(51) int local51 = 0; local51 < local47.locationCount; local51++) {
+					@Pc(60) int local60 = local47.locs[local51].model.anInt372;
 					if (local60 > local38) {
 						local38 = local60;
 					}
 				}
 			}
-			local3.anInt553 = local38;
+			local3.offsetY = local38;
 			if (this.aClass1_Sub2ArrayArrayArray1[arg3][arg6][arg5] == null) {
 				this.aClass1_Sub2ArrayArrayArray1[arg3][arg6][arg5] = new Tile(arg3, arg6, arg5);
 			}
-			this.aClass1_Sub2ArrayArrayArray1[arg3][arg6][arg5].aClass20_1 = local3;
+			this.aClass1_Sub2ArrayArrayArray1[arg3][arg6][arg5].objEntity = local3;
 		} catch (@Pc(108) RuntimeException local108) {
 			signlink.reporterror("55772, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + arg4 + ", " + arg5 + ", " + arg6 + ", " + arg7 + ", " + arg8 + ", " + local108.toString());
 			throw new RuntimeException();
@@ -563,24 +563,24 @@ public final class MapSquare {
 		try {
 			if (arg5 != null || arg6 != null) {
 				@Pc(8) Wall local8 = new Wall();
-				local8.anInt684 = arg8;
-				local8.aByte35 = arg10;
-				local8.anInt680 = arg7 * 128 + 64;
-				local8.anInt681 = arg9 * 128 + 64;
-				local8.anInt679 = arg1;
-				local8.aClass1_Sub3_Sub1_9 = arg5;
+				local8.bitset = arg8;
+				local8.info = arg10;
+				local8.x = arg7 * 128 + 64;
+				local8.z = arg9 * 128 + 64;
+				local8.plane = arg1;
+				local8.model0 = arg5;
 				if (arg4 != 8) {
 					aBoolean142 = !aBoolean142;
 				}
-				local8.aClass1_Sub3_Sub1_10 = arg6;
-				local8.anInt682 = arg3;
-				local8.anInt683 = arg0;
+				local8.model1 = arg6;
+				local8.type0 = arg3;
+				local8.type1 = arg0;
 				for (@Pc(54) int local54 = arg2; local54 >= 0; local54--) {
 					if (this.aClass1_Sub2ArrayArrayArray1[local54][arg7][arg9] == null) {
 						this.aClass1_Sub2ArrayArrayArray1[local54][arg7][arg9] = new Tile(local54, arg7, arg9);
 					}
 				}
-				this.aClass1_Sub2ArrayArrayArray1[arg2][arg7][arg9].aClass31_1 = local8;
+				this.aClass1_Sub2ArrayArrayArray1[arg2][arg7][arg9].wall = local8;
 			}
 		} catch (@Pc(94) RuntimeException local94) {
 			signlink.reporterror("66047, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + arg4 + ", " + arg5 + ", " + arg6 + ", " + arg7 + ", " + arg8 + ", " + arg9 + ", " + arg10 + ", " + local94.toString());
@@ -594,20 +594,20 @@ public final class MapSquare {
 			@Pc(3) int local3 = 66 / arg6;
 			if (arg9 != null) {
 				@Pc(10) WallDecoration local10 = new WallDecoration();
-				local10.anInt444 = arg3;
-				local10.aByte22 = arg10;
-				local10.anInt440 = arg8 * 128 + arg7 + 64;
-				local10.anInt441 = arg1 * 128 + arg2 + 64;
-				local10.anInt439 = arg0;
-				local10.aClass1_Sub3_Sub1_1 = arg9;
-				local10.anInt442 = arg5;
-				local10.anInt443 = arg4;
+				local10.bitset = arg3;
+				local10.info = arg10;
+				local10.x = arg8 * 128 + arg7 + 64;
+				local10.z = arg1 * 128 + arg2 + 64;
+				local10.plane = arg0;
+				local10.model = arg9;
+				local10.type0 = arg5;
+				local10.type1 = arg4;
 				for (@Pc(48) int local48 = arg11; local48 >= 0; local48--) {
 					if (this.aClass1_Sub2ArrayArrayArray1[local48][arg8][arg1] == null) {
 						this.aClass1_Sub2ArrayArrayArray1[local48][arg8][arg1] = new Tile(local48, arg8, arg1);
 					}
 				}
-				this.aClass1_Sub2ArrayArrayArray1[arg11][arg8][arg1].aClass14_1 = local10;
+				this.aClass1_Sub2ArrayArrayArray1[arg11][arg8][arg1].wallDecoration = local10;
 			}
 		} catch (@Pc(88) RuntimeException local88) {
 			signlink.reporterror("67649, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + arg4 + ", " + arg5 + ", " + arg6 + ", " + arg7 + ", " + arg8 + ", " + arg9 + ", " + arg10 + ", " + arg11 + ", " + local88.toString());
@@ -695,25 +695,25 @@ public final class MapSquare {
 					return false;
 				}
 				@Pc(38) Tile local38 = this.aClass1_Sub2ArrayArrayArray1[arg0][local9][local13];
-				if (local38 != null && local38.anInt91 >= 5) {
+				if (local38 != null && local38.locationCount >= 5) {
 					return false;
 				}
 			}
 		}
 		@Pc(62) Loc local62 = new Loc();
-		local62.anInt677 = arg12;
-		local62.aByte33 = arg13;
-		local62.anInt666 = arg0;
-		local62.anInt668 = arg5;
-		local62.anInt669 = arg6;
-		local62.anInt667 = arg7;
-		local62.aClass1_Sub3_Sub1_8 = arg8;
-		local62.aClass1_Sub1_1 = arg9;
-		local62.anInt670 = arg10;
-		local62.anInt671 = arg1;
-		local62.anInt673 = arg2;
-		local62.anInt672 = arg1 + arg3 - 1;
-		local62.anInt674 = arg2 + arg4 - 1;
+		local62.bitset = arg12;
+		local62.info = arg13;
+		local62.plane = arg0;
+		local62.x = arg5;
+		local62.z = arg6;
+		local62.y = arg7;
+		local62.model = arg8;
+		local62.entity = arg9;
+		local62.yaw = arg10;
+		local62.minSceneTileX = arg1;
+		local62.minSceneTileZ = arg2;
+		local62.maxSceneTileX = arg1 + arg3 - 1;
+		local62.maxSceneTileZ = arg2 + arg4 - 1;
 		for (@Pc(111) int local111 = arg1; local111 < arg1 + arg3; local111++) {
 			for (@Pc(115) int local115 = arg2; local115 < arg2 + arg4; local115++) {
 				@Pc(119) int local119 = 0;
@@ -735,10 +735,10 @@ public final class MapSquare {
 					}
 				}
 				@Pc(182) Tile local182 = this.aClass1_Sub2ArrayArrayArray1[arg0][local111][local115];
-				local182.aClass29Array1[local182.anInt91] = local62;
-				local182.anIntArray22[local182.anInt91] = local119;
-				local182.anInt92 |= local119;
-				local182.anInt91++;
+				local182.locs[local182.locationCount] = local62;
+				local182.locFlags[local182.locationCount] = local119;
+				local182.flags |= local119;
+				local182.locationCount++;
 			}
 		}
 		if (arg11) {
@@ -768,25 +768,25 @@ public final class MapSquare {
 	@OriginalMember(owner = "client!r", name = "a", descriptor = "(Lclient!p;B)V")
 	private void removeLocation(@OriginalArg(0) Loc arg0, @OriginalArg(1) byte arg1) {
 		try {
-			for (@Pc(4) int local4 = arg0.anInt671; local4 <= arg0.anInt672; local4++) {
-				for (@Pc(9) int local9 = arg0.anInt673; local9 <= arg0.anInt674; local9++) {
-					@Pc(21) Tile local21 = this.aClass1_Sub2ArrayArrayArray1[arg0.anInt666][local4][local9];
+			for (@Pc(4) int local4 = arg0.minSceneTileX; local4 <= arg0.maxSceneTileX; local4++) {
+				for (@Pc(9) int local9 = arg0.minSceneTileZ; local9 <= arg0.maxSceneTileZ; local9++) {
+					@Pc(21) Tile local21 = this.aClass1_Sub2ArrayArrayArray1[arg0.plane][local4][local9];
 					if (local21 != null) {
 						@Pc(41) int local41;
-						for (@Pc(25) int local25 = 0; local25 < local21.anInt91; local25++) {
-							if (local21.aClass29Array1[local25] == arg0) {
-								local21.anInt91--;
-								for (local41 = local25; local41 < local21.anInt91; local41++) {
-									local21.aClass29Array1[local41] = local21.aClass29Array1[local41 + 1];
-									local21.anIntArray22[local41] = local21.anIntArray22[local41 + 1];
+						for (@Pc(25) int local25 = 0; local25 < local21.locationCount; local25++) {
+							if (local21.locs[local25] == arg0) {
+								local21.locationCount--;
+								for (local41 = local25; local41 < local21.locationCount; local41++) {
+									local21.locs[local41] = local21.locs[local41 + 1];
+									local21.locFlags[local41] = local21.locFlags[local41 + 1];
 								}
-								local21.aClass29Array1[local21.anInt91] = null;
+								local21.locs[local21.locationCount] = null;
 								break;
 							}
 						}
-						local21.anInt92 = 0;
-						for (local41 = 0; local41 < local21.anInt91; local41++) {
-							local21.anInt92 |= local21.anIntArray22[local41];
+						local21.flags = 0;
+						for (local41 = 0; local41 < local21.locationCount; local41++) {
+							local21.flags |= local21.locFlags[local41];
 						}
 					}
 				}
@@ -811,10 +811,10 @@ public final class MapSquare {
 					}
 				}
 				if (local13 != null) {
-					for (local21 = 0; local21 < local13.anInt91; local21++) {
-						@Pc(38) Loc local38 = local13.aClass29Array1[local21];
-						if ((local38.anInt677 >> 29 & 0x3) == 2) {
-							local38.aClass1_Sub3_Sub1_8 = arg1;
+					for (local21 = 0; local21 < local13.locationCount; local21++) {
+						@Pc(38) Loc local38 = local13.locs[local21];
+						if ((local38.bitset >> 29 & 0x3) == 2) {
+							local38.model = arg1;
 							return;
 						}
 					}
@@ -835,12 +835,12 @@ public final class MapSquare {
 				}
 			}
 			if (local8 != null) {
-				@Pc(24) WallDecoration local24 = local8.aClass14_1;
+				@Pc(24) WallDecoration local24 = local8.wallDecoration;
 				if (local24 != null) {
 					@Pc(33) int local33 = arg2 * 128 + 64;
 					@Pc(39) int local39 = arg1 * 128 + 64;
-					local24.anInt440 = local33 + (local24.anInt440 - local33) * arg3 / 16;
-					local24.anInt441 = local39 + (local24.anInt441 - local39) * arg3 / 16;
+					local24.x = local33 + (local24.x - local33) * arg3 / 16;
+					local24.z = local39 + (local24.z - local39) * arg3 / 16;
 				}
 			}
 		} catch (@Pc(65) RuntimeException local65) {
@@ -856,9 +856,9 @@ public final class MapSquare {
 			if (arg3 != null) {
 				@Pc(15) Tile local15 = this.aClass1_Sub2ArrayArrayArray1[arg4][arg2][arg1];
 				if (local15 != null) {
-					@Pc(21) WallDecoration local21 = local15.aClass14_1;
+					@Pc(21) WallDecoration local21 = local15.wallDecoration;
 					if (local21 != null) {
-						local21.aClass1_Sub3_Sub1_1 = arg3;
+						local21.model = arg3;
 					}
 				}
 			}
@@ -874,9 +874,9 @@ public final class MapSquare {
 			if (arg2 == -48639 && arg0 != null) {
 				@Pc(15) Tile local15 = this.aClass1_Sub2ArrayArrayArray1[arg4][arg3][arg1];
 				if (local15 != null) {
-					@Pc(21) GroundDecoration local21 = local15.aClass18_1;
+					@Pc(21) GroundDecoration local21 = local15.groundDecoration;
 					if (local21 != null) {
-						local21.aClass1_Sub3_Sub1_4 = arg0;
+						local21.model = arg0;
 					}
 				}
 			}
@@ -896,9 +896,9 @@ public final class MapSquare {
 			if (arg1 != null) {
 				@Pc(21) Tile local21 = this.aClass1_Sub2ArrayArrayArray1[arg4][arg3][arg2];
 				if (local21 != null) {
-					@Pc(27) Wall local27 = local21.aClass31_1;
+					@Pc(27) Wall local27 = local21.wall;
 					if (local27 != null) {
-						local27.aClass1_Sub3_Sub1_9 = arg1;
+						local27.model0 = arg1;
 					}
 				}
 			}
@@ -914,10 +914,10 @@ public final class MapSquare {
 			if (arg0 != null) {
 				@Pc(11) Tile local11 = this.aClass1_Sub2ArrayArrayArray1[arg5][arg4][arg2];
 				if (local11 != null) {
-					@Pc(17) Wall local17 = local11.aClass31_1;
+					@Pc(17) Wall local17 = local11.wall;
 					if (local17 != null) {
-						local17.aClass1_Sub3_Sub1_9 = arg0;
-						local17.aClass1_Sub3_Sub1_10 = arg1;
+						local17.model0 = arg0;
+						local17.model1 = arg1;
 						if (arg3) {
 							this.aBoolean141 = !this.aBoolean141;
 						}
@@ -935,7 +935,7 @@ public final class MapSquare {
 		try {
 			@Pc(8) Tile local8 = this.aClass1_Sub2ArrayArrayArray1[arg1][arg0][arg2];
 			if (arg3 == 1 && local8 != null) {
-				local8.aClass31_1 = null;
+				local8.wall = null;
 			}
 		} catch (@Pc(20) RuntimeException local20) {
 			signlink.reporterror("70237, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + local20.toString());
@@ -951,7 +951,7 @@ public final class MapSquare {
 				this.aBoolean141 = !this.aBoolean141;
 			}
 			if (local8 != null) {
-				local8.aClass14_1 = null;
+				local8.wallDecoration = null;
 			}
 		} catch (@Pc(28) RuntimeException local28) {
 			signlink.reporterror("83859, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + local28.toString());
@@ -964,9 +964,9 @@ public final class MapSquare {
 		try {
 			@Pc(10) Tile local10 = this.aClass1_Sub2ArrayArrayArray1[arg3][arg0][arg1];
 			if (local10 != null) {
-				for (@Pc(15) int local15 = 0; local15 < local10.anInt91; local15++) {
-					@Pc(22) Loc local22 = local10.aClass29Array1[local15];
-					if ((local22.anInt677 >> 29 & 0x3) == 2 && local22.anInt671 == arg0 && local22.anInt673 == arg1) {
+				for (@Pc(15) int local15 = 0; local15 < local10.locationCount; local15++) {
+					@Pc(22) Loc local22 = local10.locs[local15];
+					if ((local22.bitset >> 29 & 0x3) == 2 && local22.minSceneTileX == arg0 && local22.minSceneTileZ == arg1) {
 						this.removeLocation(local22, (byte) 1);
 						return;
 					}
@@ -990,7 +990,7 @@ public final class MapSquare {
 			}
 			@Pc(16) Tile local16 = this.aClass1_Sub2ArrayArrayArray1[arg0][arg2][arg3];
 			if (local16 != null) {
-				local16.aClass18_1 = null;
+				local16.groundDecoration = null;
 			}
 		} catch (@Pc(24) RuntimeException local24) {
 			signlink.reporterror("17123, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + local24.toString());
@@ -1002,14 +1002,14 @@ public final class MapSquare {
 	public void removeObject(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		@Pc(8) Tile local8 = this.aClass1_Sub2ArrayArrayArray1[arg0][arg1][arg2];
 		if (local8 != null) {
-			local8.aClass20_1 = null;
+			local8.objEntity = null;
 		}
 	}
 
 	@OriginalMember(owner = "client!r", name = "b", descriptor = "(III)I")
 	public int getWallBitset(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		@Pc(8) Tile local8 = this.aClass1_Sub2ArrayArrayArray1[arg0][arg1][arg2];
-		return local8 == null || local8.aClass31_1 == null ? 0 : local8.aClass31_1.anInt684;
+		return local8 == null || local8.wall == null ? 0 : local8.wall.bitset;
 	}
 
 	@OriginalMember(owner = "client!r", name = "f", descriptor = "(IIII)I")
@@ -1019,7 +1019,7 @@ public final class MapSquare {
 				this.aBoolean141 = !this.aBoolean141;
 			}
 			@Pc(19) Tile local19 = this.aClass1_Sub2ArrayArrayArray1[arg0][arg3][arg1];
-			return local19 == null || local19.aClass14_1 == null ? 0 : local19.aClass14_1.anInt444;
+			return local19 == null || local19.wallDecoration == null ? 0 : local19.wallDecoration.bitset;
 		} catch (@Pc(31) RuntimeException local31) {
 			signlink.reporterror("99919, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + local31.toString());
 			throw new RuntimeException();
@@ -1032,10 +1032,10 @@ public final class MapSquare {
 		if (local8 == null) {
 			return 0;
 		}
-		for (@Pc(14) int local14 = 0; local14 < local8.anInt91; local14++) {
-			@Pc(21) Loc local21 = local8.aClass29Array1[local14];
-			if ((local21.anInt677 >> 29 & 0x3) == 2 && local21.anInt671 == arg1 && local21.anInt673 == arg2) {
-				return local21.anInt677;
+		for (@Pc(14) int local14 = 0; local14 < local8.locationCount; local14++) {
+			@Pc(21) Loc local21 = local8.locs[local14];
+			if ((local21.bitset >> 29 & 0x3) == 2 && local21.minSceneTileX == arg1 && local21.minSceneTileZ == arg2) {
+				return local21.bitset;
 			}
 		}
 		return 0;
@@ -1044,7 +1044,7 @@ public final class MapSquare {
 	@OriginalMember(owner = "client!r", name = "d", descriptor = "(III)I")
 	public int getGroundDecorationBitset(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		@Pc(8) Tile local8 = this.aClass1_Sub2ArrayArrayArray1[arg0][arg1][arg2];
-		return local8 == null || local8.aClass18_1 == null ? 0 : local8.aClass18_1.anInt523;
+		return local8 == null || local8.groundDecoration == null ? 0 : local8.groundDecoration.bitset;
 	}
 
 	@OriginalMember(owner = "client!r", name = "g", descriptor = "(IIII)I")
@@ -1052,16 +1052,16 @@ public final class MapSquare {
 		@Pc(8) Tile local8 = this.aClass1_Sub2ArrayArrayArray1[arg0][arg1][arg2];
 		if (local8 == null) {
 			return -1;
-		} else if (local8.aClass31_1 != null && local8.aClass31_1.anInt684 == arg3) {
-			return local8.aClass31_1.aByte35 & 0xFF;
-		} else if (local8.aClass14_1 != null && local8.aClass14_1.anInt444 == arg3) {
-			return local8.aClass14_1.aByte22 & 0xFF;
-		} else if (local8.aClass18_1 != null && local8.aClass18_1.anInt523 == arg3) {
-			return local8.aClass18_1.aByte25 & 0xFF;
+		} else if (local8.wall != null && local8.wall.bitset == arg3) {
+			return local8.wall.info & 0xFF;
+		} else if (local8.wallDecoration != null && local8.wallDecoration.bitset == arg3) {
+			return local8.wallDecoration.info & 0xFF;
+		} else if (local8.groundDecoration != null && local8.groundDecoration.bitset == arg3) {
+			return local8.groundDecoration.info & 0xFF;
 		} else {
-			for (@Pc(56) int local56 = 0; local56 < local8.anInt91; local56++) {
-				if (local8.aClass29Array1[local56].anInt677 == arg3) {
-					return local8.aClass29Array1[local56].aByte33 & 0xFF;
+			for (@Pc(56) int local56 = 0; local56 < local8.locationCount; local56++) {
+				if (local8.locs[local56].bitset == arg3) {
+					return local8.locs[local56].info & 0xFF;
 				}
 			}
 			return -1;
@@ -1081,27 +1081,27 @@ public final class MapSquare {
 					for (@Pc(36) int local36 = 0; local36 < this.anInt693; local36++) {
 						@Pc(47) Tile local47 = this.aClass1_Sub2ArrayArrayArray1[local28][local32][local36];
 						if (local47 != null) {
-							@Pc(52) Wall local52 = local47.aClass31_1;
-							if (local52 != null && local52.aClass1_Sub3_Sub1_9 != null && local52.aClass1_Sub3_Sub1_9.aClass26Array1 != null) {
-								this.mergeLocNormals(local32, 1, 1, local28, 872, local52.aClass1_Sub3_Sub1_9, local36);
-								if (local52.aClass1_Sub3_Sub1_10 != null && local52.aClass1_Sub3_Sub1_10.aClass26Array1 != null) {
-									this.mergeLocNormals(local32, 1, 1, local28, 872, local52.aClass1_Sub3_Sub1_10, local36);
-									this.mergeNormals(local52.aClass1_Sub3_Sub1_9, local52.aClass1_Sub3_Sub1_10, 0, 0, 0, false);
-									local52.aClass1_Sub3_Sub1_10.calculateLighting(arg1, local26, arg2, arg0, arg4);
+							@Pc(52) Wall local52 = local47.wall;
+							if (local52 != null && local52.model0 != null && local52.model0.aClass26Array1 != null) {
+								this.mergeLocNormals(local32, 1, 1, local28, 872, local52.model0, local36);
+								if (local52.model1 != null && local52.model1.aClass26Array1 != null) {
+									this.mergeLocNormals(local32, 1, 1, local28, 872, local52.model1, local36);
+									this.mergeNormals(local52.model0, local52.model1, 0, 0, 0, false);
+									local52.model1.calculateLighting(arg1, local26, arg2, arg0, arg4);
 								}
-								local52.aClass1_Sub3_Sub1_9.calculateLighting(arg1, local26, arg2, arg0, arg4);
+								local52.model0.calculateLighting(arg1, local26, arg2, arg0, arg4);
 							}
-							for (@Pc(116) int local116 = 0; local116 < local47.anInt91; local116++) {
-								@Pc(123) Loc local123 = local47.aClass29Array1[local116];
-								if (local123 != null && local123.aClass1_Sub3_Sub1_8 != null && local123.aClass1_Sub3_Sub1_8.aClass26Array1 != null) {
-									this.mergeLocNormals(local32, local123.anInt672 + 1 - local123.anInt671, local123.anInt674 - local123.anInt673 + 1, local28, 872, local123.aClass1_Sub3_Sub1_8, local36);
-									local123.aClass1_Sub3_Sub1_8.calculateLighting(arg1, local26, arg2, arg0, arg4);
+							for (@Pc(116) int local116 = 0; local116 < local47.locationCount; local116++) {
+								@Pc(123) Loc local123 = local47.locs[local116];
+								if (local123 != null && local123.model != null && local123.model.aClass26Array1 != null) {
+									this.mergeLocNormals(local32, local123.maxSceneTileX + 1 - local123.minSceneTileX, local123.maxSceneTileZ - local123.minSceneTileZ + 1, local28, 872, local123.model, local36);
+									local123.model.calculateLighting(arg1, local26, arg2, arg0, arg4);
 								}
 							}
-							@Pc(170) GroundDecoration local170 = local47.aClass18_1;
-							if (local170 != null && local170.aClass1_Sub3_Sub1_4.aClass26Array1 != null) {
-								this.mergeGroundDecorationNormals((byte) -70, local28, local36, local170.aClass1_Sub3_Sub1_4, local32);
-								local170.aClass1_Sub3_Sub1_4.calculateLighting(arg1, local26, arg2, arg0, arg4);
+							@Pc(170) GroundDecoration local170 = local47.groundDecoration;
+							if (local170 != null && local170.model.aClass26Array1 != null) {
+								this.mergeGroundDecorationNormals((byte) -70, local28, local36, local170.model, local32);
+								local170.model.calculateLighting(arg1, local26, arg2, arg0, arg4);
 							}
 						}
 					}
@@ -1122,26 +1122,26 @@ public final class MapSquare {
 			@Pc(19) Tile local19;
 			if (arg4 < this.anInt692) {
 				local19 = this.aClass1_Sub2ArrayArrayArray1[arg1][arg4 + 1][arg2];
-				if (local19 != null && local19.aClass18_1 != null && local19.aClass18_1.aClass1_Sub3_Sub1_4.aClass26Array1 != null) {
-					this.mergeNormals(arg3, local19.aClass18_1.aClass1_Sub3_Sub1_4, 128, 0, 0, true);
+				if (local19 != null && local19.groundDecoration != null && local19.groundDecoration.model.aClass26Array1 != null) {
+					this.mergeNormals(arg3, local19.groundDecoration.model, 128, 0, 0, true);
 				}
 			}
 			if (arg2 < this.anInt692) {
 				local19 = this.aClass1_Sub2ArrayArrayArray1[arg1][arg4][arg2 + 1];
-				if (local19 != null && local19.aClass18_1 != null && local19.aClass18_1.aClass1_Sub3_Sub1_4.aClass26Array1 != null) {
-					this.mergeNormals(arg3, local19.aClass18_1.aClass1_Sub3_Sub1_4, 0, 0, 128, true);
+				if (local19 != null && local19.groundDecoration != null && local19.groundDecoration.model.aClass26Array1 != null) {
+					this.mergeNormals(arg3, local19.groundDecoration.model, 0, 0, 128, true);
 				}
 			}
 			if (arg4 < this.anInt692 && arg2 < this.anInt693) {
 				local19 = this.aClass1_Sub2ArrayArrayArray1[arg1][arg4 + 1][arg2 + 1];
-				if (local19 != null && local19.aClass18_1 != null && local19.aClass18_1.aClass1_Sub3_Sub1_4.aClass26Array1 != null) {
-					this.mergeNormals(arg3, local19.aClass18_1.aClass1_Sub3_Sub1_4, 128, 0, 128, true);
+				if (local19 != null && local19.groundDecoration != null && local19.groundDecoration.model.aClass26Array1 != null) {
+					this.mergeNormals(arg3, local19.groundDecoration.model, 128, 0, 128, true);
 				}
 			}
 			if (arg4 < this.anInt692 && arg2 > 0) {
 				local19 = this.aClass1_Sub2ArrayArrayArray1[arg1][arg4 + 1][arg2 - 1];
-				if (local19 != null && local19.aClass18_1 != null && local19.aClass18_1.aClass1_Sub3_Sub1_4.aClass26Array1 != null) {
-					this.mergeNormals(arg3, local19.aClass18_1.aClass1_Sub3_Sub1_4, 128, 0, -128, true);
+				if (local19 != null && local19.groundDecoration != null && local19.groundDecoration.model.aClass26Array1 != null) {
+					this.mergeNormals(arg3, local19.groundDecoration.model, 128, 0, -128, true);
 					return;
 				}
 			}
@@ -1169,19 +1169,19 @@ public final class MapSquare {
 									@Pc(75) Tile local75 = this.aClass1_Sub2ArrayArrayArray1[local23][local31][local42];
 									if (local75 != null) {
 										@Pc(169) int local169 = (this.anIntArrayArrayArray4[local23][local31][local42] + this.anIntArrayArrayArray4[local23][local31 + 1][local42] + this.anIntArrayArrayArray4[local23][local31][local42 + 1] + this.anIntArrayArrayArray4[local23][local31 + 1][local42 + 1]) / 4 - (this.anIntArrayArrayArray4[arg3][arg0][arg6] + this.anIntArrayArrayArray4[arg3][arg0 + 1][arg6] + this.anIntArrayArrayArray4[arg3][arg0][arg6 + 1] + this.anIntArrayArrayArray4[arg3][arg0 + 1][arg6 + 1]) / 4;
-										@Pc(172) Wall local172 = local75.aClass31_1;
-										if (local172 != null && local172.aClass1_Sub3_Sub1_9 != null && local172.aClass1_Sub3_Sub1_9.aClass26Array1 != null) {
-											this.mergeNormals(arg5, local172.aClass1_Sub3_Sub1_9, (local31 - arg0) * 128 + (1 - arg1) * 64, local169, (local42 - arg6) * 128 + (1 - arg2) * 64, local7);
+										@Pc(172) Wall local172 = local75.wall;
+										if (local172 != null && local172.model0 != null && local172.model0.aClass26Array1 != null) {
+											this.mergeNormals(arg5, local172.model0, (local31 - arg0) * 128 + (1 - arg1) * 64, local169, (local42 - arg6) * 128 + (1 - arg2) * 64, local7);
 										}
-										if (local172 != null && local172.aClass1_Sub3_Sub1_10 != null && local172.aClass1_Sub3_Sub1_10.aClass26Array1 != null) {
-											this.mergeNormals(arg5, local172.aClass1_Sub3_Sub1_10, (local31 - arg0) * 128 + (1 - arg1) * 64, local169, (local42 - arg6) * 128 + (1 - arg2) * 64, local7);
+										if (local172 != null && local172.model1 != null && local172.model1.aClass26Array1 != null) {
+											this.mergeNormals(arg5, local172.model1, (local31 - arg0) * 128 + (1 - arg1) * 64, local169, (local42 - arg6) * 128 + (1 - arg2) * 64, local7);
 										}
-										for (@Pc(250) int local250 = 0; local250 < local75.anInt91; local250++) {
-											@Pc(257) Loc local257 = local75.aClass29Array1[local250];
-											if (local257 != null && local257.aClass1_Sub3_Sub1_8 != null && local257.aClass1_Sub3_Sub1_8.aClass26Array1 != null) {
-												@Pc(274) int local274 = local257.anInt672 + 1 - local257.anInt671;
-												@Pc(282) int local282 = local257.anInt674 + 1 - local257.anInt673;
-												this.mergeNormals(arg5, local257.aClass1_Sub3_Sub1_8, (local257.anInt671 - arg0) * 128 + (local274 - arg1) * 64, local169, (local257.anInt673 - arg6) * 128 + (local282 - arg2) * 64, local7);
+										for (@Pc(250) int local250 = 0; local250 < local75.locationCount; local250++) {
+											@Pc(257) Loc local257 = local75.locs[local250];
+											if (local257 != null && local257.model != null && local257.model.aClass26Array1 != null) {
+												@Pc(274) int local274 = local257.maxSceneTileX + 1 - local257.minSceneTileX;
+												@Pc(282) int local282 = local257.maxSceneTileZ + 1 - local257.minSceneTileZ;
+												this.mergeNormals(arg5, local257.model, (local257.minSceneTileX - arg0) * 128 + (local274 - arg1) * 64, local169, (local257.minSceneTileZ - arg6) * 128 + (local282 - arg2) * 64, local7);
 											}
 										}
 									}
@@ -1208,7 +1208,7 @@ public final class MapSquare {
 		for (@Pc(17) int local17 = 0; local17 < arg0.anInt359; local17++) {
 			@Pc(24) VertexNormal local24 = arg0.aClass26Array1[local17];
 			@Pc(29) VertexNormal local29 = arg0.aClass26Array2[local17];
-			if (local29.anInt649 != 0) {
+			if (local29.magnitude != 0) {
 				@Pc(39) int local39 = arg0.anIntArray92[local17] - arg3;
 				if (local39 <= arg1.anInt369) {
 					@Pc(50) int local50 = arg0.anIntArray91[local17] - arg2;
@@ -1218,15 +1218,15 @@ public final class MapSquare {
 							for (@Pc(77) int local77 = 0; local77 < local15; local77++) {
 								@Pc(84) VertexNormal local84 = arg1.aClass26Array1[local77];
 								@Pc(89) VertexNormal local89 = arg1.aClass26Array2[local77];
-								if (local50 == local12[local77] && local66 == arg1.anIntArray93[local77] && local39 == arg1.anIntArray92[local77] && local89.anInt649 != 0) {
-									local24.anInt646 += local89.anInt646;
-									local24.anInt647 += local89.anInt647;
-									local24.anInt648 += local89.anInt648;
-									local24.anInt649 += local89.anInt649;
-									local84.anInt646 += local29.anInt646;
-									local84.anInt647 += local29.anInt647;
-									local84.anInt648 += local29.anInt648;
-									local84.anInt649 += local29.anInt649;
+								if (local50 == local12[local77] && local66 == arg1.anIntArray93[local77] && local39 == arg1.anIntArray92[local77] && local89.magnitude != 0) {
+									local24.x += local89.x;
+									local24.y += local89.y;
+									local24.z += local89.z;
+									local24.magnitude += local89.magnitude;
+									local84.x += local29.x;
+									local84.y += local29.y;
+									local84.z += local29.z;
+									local84.magnitude += local29.magnitude;
 									local9++;
 									this.anIntArray211[local17] = this.anInt718;
 									this.anIntArray212[local77] = this.anInt718;
@@ -1258,10 +1258,10 @@ public final class MapSquare {
 		if (local10 == null) {
 			return;
 		}
-		@Pc(16) TileUnderlay local16 = local10.aClass27_1;
+		@Pc(16) TileUnderlay local16 = local10.underlay;
 		@Pc(26) int local26;
 		if (local16 != null) {
-			@Pc(21) int local21 = local16.anInt663;
+			@Pc(21) int local21 = local16.rgb;
 			if (local21 != 0) {
 				for (local26 = 0; local26 < 4; local26++) {
 					arg0[arg1] = local21;
@@ -1273,14 +1273,14 @@ public final class MapSquare {
 			}
 			return;
 		}
-		@Pc(62) TileOverlay local62 = local10.aClass16_1;
+		@Pc(62) TileOverlay local62 = local10.overlay;
 		if (local62 == null) {
 			return;
 		}
-		local26 = local62.anInt494;
-		@Pc(71) int local71 = local62.anInt495;
-		@Pc(74) int local74 = local62.anInt496;
-		@Pc(77) int local77 = local62.anInt497;
+		local26 = local62.shape;
+		@Pc(71) int local71 = local62.orientation;
+		@Pc(74) int local74 = local62.underlayRgb;
+		@Pc(77) int local77 = local62.overlayRgb;
 		@Pc(82) int[] local82 = this.anIntArrayArray18[local26];
 		@Pc(87) int[] local87 = this.anIntArrayArray19[local71];
 		@Pc(89) int local89 = 0;
@@ -1382,19 +1382,19 @@ public final class MapSquare {
 					for (local151 = anInt701; local151 < anInt702; local151++) {
 						@Pc(159) Tile local159 = local145[local147][local151];
 						if (local159 != null) {
-							if (local159.anInt93 <= arg2 && (aBooleanArrayArray1[local147 + 25 - anInt703][local151 + 25 - anInt704] || this.anIntArrayArrayArray4[local138][local147][local151] - arg4 >= 2000)) {
-								local159.aBoolean25 = true;
-								local159.aBoolean26 = true;
-								if (local159.anInt91 > 0) {
-									local159.aBoolean27 = true;
+							if (local159.physicalLevel <= arg2 && (aBooleanArrayArray1[local147 + 25 - anInt703][local151 + 25 - anInt704] || this.anIntArrayArrayArray4[local138][local147][local151] - arg4 >= 2000)) {
+								local159.draw = true;
+								local159.isVisible = true;
+								if (local159.locationCount > 0) {
+									local159.drawLocs = true;
 								} else {
-									local159.aBoolean27 = false;
+									local159.drawLocs = false;
 								}
 								anInt696++;
 							} else {
-								local159.aBoolean25 = false;
-								local159.aBoolean26 = false;
-								local159.anInt94 = 0;
+								local159.draw = false;
+								local159.isVisible = false;
+								local159.wallCullDirection = 0;
 							}
 						}
 					}
@@ -1418,13 +1418,13 @@ public final class MapSquare {
 							if (local254 >= anInt699) {
 								if (local272 >= anInt701) {
 									local288 = local246[local254][local272];
-									if (local288 != null && local288.aBoolean25) {
+									if (local288 != null && local288.draw) {
 										this.draw(local288, true);
 									}
 								}
 								if (local276 < anInt702) {
 									local288 = local246[local254][local276];
-									if (local288 != null && local288.aBoolean25) {
+									if (local288 != null && local288.draw) {
 										this.draw(local288, true);
 									}
 								}
@@ -1432,13 +1432,13 @@ public final class MapSquare {
 							if (local258 < anInt700) {
 								if (local272 >= anInt701) {
 									local288 = local246[local258][local272];
-									if (local288 != null && local288.aBoolean25) {
+									if (local288 != null && local288.draw) {
 										this.draw(local288, true);
 									}
 								}
 								if (local276 < anInt702) {
 									local288 = local246[local258][local276];
-									if (local288 != null && local288.aBoolean25) {
+									if (local288 != null && local288.draw) {
 										this.draw(local288, true);
 									}
 								}
@@ -1464,13 +1464,13 @@ public final class MapSquare {
 							if (local258 >= anInt699) {
 								if (local276 >= anInt701) {
 									local422 = local380[local258][local276];
-									if (local422 != null && local422.aBoolean25) {
+									if (local422 != null && local422.draw) {
 										this.draw(local422, false);
 									}
 								}
 								if (local410 < anInt702) {
 									local422 = local380[local258][local410];
-									if (local422 != null && local422.aBoolean25) {
+									if (local422 != null && local422.draw) {
 										this.draw(local422, false);
 									}
 								}
@@ -1478,13 +1478,13 @@ public final class MapSquare {
 							if (local266 < anInt700) {
 								if (local276 >= anInt701) {
 									local422 = local380[local266][local276];
-									if (local422 != null && local422.aBoolean25) {
+									if (local422 != null && local422.draw) {
 										this.draw(local422, false);
 									}
 								}
 								if (local410 < anInt702) {
 									local422 = local380[local266][local410];
-									if (local422 != null && local422.aBoolean25) {
+									if (local422 != null && local422.draw) {
 										this.draw(local422, false);
 									}
 								}
@@ -1540,88 +1540,88 @@ public final class MapSquare {
 												if (local8 == null) {
 													return;
 												}
-											} while (!local8.aBoolean26);
-											local17 = local8.anInt88;
-											local20 = local8.anInt89;
-											local23 = local8.anInt87;
-											local26 = local8.anInt90;
+											} while (!local8.isVisible);
+											local17 = local8.x;
+											local20 = local8.z;
+											local23 = local8.level;
+											local26 = local8.renderLevel;
 											local31 = this.aClass1_Sub2ArrayArrayArray1[local23];
-											if (!local8.aBoolean25) {
+											if (!local8.draw) {
 												break;
 											}
 											if (arg1) {
 												if (local23 > 0) {
 													local49 = this.aClass1_Sub2ArrayArrayArray1[local23 - 1][local17][local20];
-													if (local49 != null && local49.aBoolean26) {
+													if (local49 != null && local49.isVisible) {
 														continue;
 													}
 												}
 												if (local17 <= anInt703 && local17 > anInt699) {
 													local49 = local31[local17 - 1][local20];
-													if (local49 != null && local49.aBoolean26 && (local49.aBoolean25 || (local8.anInt92 & 0x1) == 0)) {
+													if (local49 != null && local49.isVisible && (local49.draw || (local8.flags & 0x1) == 0)) {
 														continue;
 													}
 												}
 												if (local17 >= anInt703 && local17 < anInt700 - 1) {
 													local49 = local31[local17 + 1][local20];
-													if (local49 != null && local49.aBoolean26 && (local49.aBoolean25 || (local8.anInt92 & 0x4) == 0)) {
+													if (local49 != null && local49.isVisible && (local49.draw || (local8.flags & 0x4) == 0)) {
 														continue;
 													}
 												}
 												if (local20 <= anInt704 && local20 > anInt701) {
 													local49 = local31[local17][local20 - 1];
-													if (local49 != null && local49.aBoolean26 && (local49.aBoolean25 || (local8.anInt92 & 0x8) == 0)) {
+													if (local49 != null && local49.isVisible && (local49.draw || (local8.flags & 0x8) == 0)) {
 														continue;
 													}
 												}
 												if (local20 >= anInt704 && local20 < anInt702 - 1) {
 													local49 = local31[local17][local20 + 1];
-													if (local49 != null && local49.aBoolean26 && (local49.aBoolean25 || (local8.anInt92 & 0x2) == 0)) {
+													if (local49 != null && local49.isVisible && (local49.draw || (local8.flags & 0x2) == 0)) {
 														continue;
 													}
 												}
 											} else {
 												arg1 = true;
 											}
-											local8.aBoolean25 = false;
-											if (local8.aClass1_Sub2_1 != null) {
-												local49 = local8.aClass1_Sub2_1;
-												if (local49.aClass27_1 == null) {
-													if (local49.aClass16_1 != null && !this.isTileOccluded(0, local17, local20)) {
-														this.drawTileOverlay(anInt710, local20, local49.aClass16_1, local17, anInt709, anInt708, anInt711, true);
+											local8.draw = false;
+											if (local8.bridge != null) {
+												local49 = local8.bridge;
+												if (local49.underlay == null) {
+													if (local49.overlay != null && !this.isTileOccluded(0, local17, local20)) {
+														this.drawTileOverlay(anInt710, local20, local49.overlay, local17, anInt709, anInt708, anInt711, true);
 													}
 												} else if (!this.isTileOccluded(0, local17, local20)) {
-													this.drawTileUnderlay(local49.aClass27_1, 0, anInt708, anInt709, anInt710, anInt711, local17, local20);
+													this.drawTileUnderlay(local49.underlay, 0, anInt708, anInt709, anInt710, anInt711, local17, local20);
 												}
-												@Pc(227) Wall local227 = local49.aClass31_1;
+												@Pc(227) Wall local227 = local49.wall;
 												if (local227 != null) {
-													local227.aClass1_Sub3_Sub1_9.draw(0, anInt708, anInt709, anInt710, anInt711, local227.anInt680 - anInt705, local227.anInt679 - anInt706, local227.anInt681 - anInt707, local227.anInt684);
+													local227.model0.draw(0, anInt708, anInt709, anInt710, anInt711, local227.x - anInt705, local227.plane - anInt706, local227.z - anInt707, local227.bitset);
 												}
-												for (local253 = 0; local253 < local49.anInt91; local253++) {
-													var12 = local49.aClass29Array1[local253];
+												for (local253 = 0; local253 < local49.locationCount; local253++) {
+													var12 = local49.locs[local253];
 													if (var12 != null) {
-														@Pc(265) Model local265 = var12.aClass1_Sub3_Sub1_8;
+														@Pc(265) Model local265 = var12.model;
 														if (local265 == null) {
-															local265 = var12.aClass1_Sub1_1.getDrawMethod(true);
+															local265 = var12.entity.getDrawMethod(true);
 														}
-														local265.draw(var12.anInt670, anInt708, anInt709, anInt710, anInt711, var12.anInt668 - anInt705, var12.anInt667 - anInt706, var12.anInt669 - anInt707, var12.anInt677);
+														local265.draw(var12.yaw, anInt708, anInt709, anInt710, anInt711, var12.x - anInt705, var12.y - anInt706, var12.z - anInt707, var12.bitset);
 													}
 												}
 											}
 											var23 = false;
-											if (local8.aClass27_1 == null) {
-												if (local8.aClass16_1 != null && !this.isTileOccluded(local26, local17, local20)) {
+											if (local8.underlay == null) {
+												if (local8.overlay != null && !this.isTileOccluded(local26, local17, local20)) {
 													var23 = true;
-													this.drawTileOverlay(anInt710, local20, local8.aClass16_1, local17, anInt709, anInt708, anInt711, true);
+													this.drawTileOverlay(anInt710, local20, local8.overlay, local17, anInt709, anInt708, anInt711, true);
 												}
 											} else if (!this.isTileOccluded(local26, local17, local20)) {
 												var23 = true;
-												this.drawTileUnderlay(local8.aClass27_1, local26, anInt708, anInt709, anInt710, anInt711, local17, local20);
+												this.drawTileUnderlay(local8.underlay, local26, anInt708, anInt709, anInt710, anInt711, local17, local20);
 											}
 											var22 = 0;
 											local253 = 0;
-											@Pc(354) Wall local354 = local8.aClass31_1;
-											@Pc(357) WallDecoration local357 = local8.aClass14_1;
+											@Pc(354) Wall local354 = local8.wall;
+											@Pc(357) WallDecoration local357 = local8.wallDecoration;
 											if (local354 != null || local357 != null) {
 												if (anInt703 == local17) {
 													var22++;
@@ -1634,43 +1634,43 @@ public final class MapSquare {
 													var22 += 6;
 												}
 												local253 = anIntArray203[var22];
-												local8.anInt97 = anIntArray205[var22];
+												local8.wallDrawFlags = anIntArray205[var22];
 											}
 											if (local354 != null) {
-												if ((local354.anInt682 & anIntArray204[var22]) == 0) {
-													local8.anInt94 = 0;
-												} else if (local354.anInt682 == 16) {
-													local8.anInt94 = 3;
-													local8.anInt95 = anIntArray206[var22];
-													local8.anInt96 = 3 - local8.anInt95;
-												} else if (local354.anInt682 == 32) {
-													local8.anInt94 = 6;
-													local8.anInt95 = anIntArray207[var22];
-													local8.anInt96 = 6 - local8.anInt95;
-												} else if (local354.anInt682 == 64) {
-													local8.anInt94 = 12;
-													local8.anInt95 = anIntArray208[var22];
-													local8.anInt96 = 12 - local8.anInt95;
+												if ((local354.type0 & anIntArray204[var22]) == 0) {
+													local8.wallCullDirection = 0;
+												} else if (local354.type0 == 16) {
+													local8.wallCullDirection = 3;
+													local8.wallUncullDirection = anIntArray206[var22];
+													local8.wallCullOppositeDirection = 3 - local8.wallUncullDirection;
+												} else if (local354.type0 == 32) {
+													local8.wallCullDirection = 6;
+													local8.wallUncullDirection = anIntArray207[var22];
+													local8.wallCullOppositeDirection = 6 - local8.wallUncullDirection;
+												} else if (local354.type0 == 64) {
+													local8.wallCullDirection = 12;
+													local8.wallUncullDirection = anIntArray208[var22];
+													local8.wallCullOppositeDirection = 12 - local8.wallUncullDirection;
 												} else {
-													local8.anInt94 = 9;
-													local8.anInt95 = anIntArray209[var22];
-													local8.anInt96 = 9 - local8.anInt95;
+													local8.wallCullDirection = 9;
+													local8.wallUncullDirection = anIntArray209[var22];
+													local8.wallCullOppositeDirection = 9 - local8.wallUncullDirection;
 												}
-												if ((local354.anInt682 & local253) != 0 && !this.isWallOccluded(local26, local17, local20, local354.anInt682)) {
-													local354.aClass1_Sub3_Sub1_9.draw(0, anInt708, anInt709, anInt710, anInt711, local354.anInt680 - anInt705, local354.anInt679 - anInt706, local354.anInt681 - anInt707, local354.anInt684);
+												if ((local354.type0 & local253) != 0 && !this.isWallOccluded(local26, local17, local20, local354.type0)) {
+													local354.model0.draw(0, anInt708, anInt709, anInt710, anInt711, local354.x - anInt705, local354.plane - anInt706, local354.z - anInt707, local354.bitset);
 												}
-												if ((local354.anInt683 & local253) != 0 && !this.isWallOccluded(local26, local17, local20, local354.anInt683)) {
-													local354.aClass1_Sub3_Sub1_10.draw(0, anInt708, anInt709, anInt710, anInt711, local354.anInt680 - anInt705, local354.anInt679 - anInt706, local354.anInt681 - anInt707, local354.anInt684);
+												if ((local354.type1 & local253) != 0 && !this.isWallOccluded(local26, local17, local20, local354.type1)) {
+													local354.model1.draw(0, anInt708, anInt709, anInt710, anInt711, local354.x - anInt705, local354.plane - anInt706, local354.z - anInt707, local354.bitset);
 												}
 											}
-											if (local357 != null && !this.isOccluded(local26, local17, local20, local357.aClass1_Sub3_Sub1_1.anInt368)) {
-												if ((local357.anInt442 & local253) != 0) {
-													local357.aClass1_Sub3_Sub1_1.draw(local357.anInt443, anInt708, anInt709, anInt710, anInt711, local357.anInt440 - anInt705, local357.anInt439 - anInt706, local357.anInt441 - anInt707, local357.anInt444);
-												} else if ((local357.anInt442 & 0x300) != 0) {
-													local599 = local357.anInt440 - anInt705;
-													local604 = local357.anInt439 - anInt706;
-													local609 = local357.anInt441 - anInt707;
-													local612 = local357.anInt443;
+											if (local357 != null && !this.isOccluded(local26, local17, local20, local357.model.anInt368)) {
+												if ((local357.type0 & local253) != 0) {
+													local357.model.draw(local357.type1, anInt708, anInt709, anInt710, anInt711, local357.x - anInt705, local357.plane - anInt706, local357.z - anInt707, local357.bitset);
+												} else if ((local357.type0 & 0x300) != 0) {
+													local599 = local357.x - anInt705;
+													local604 = local357.plane - anInt706;
+													local609 = local357.z - anInt707;
+													local612 = local357.type1;
 													if (local612 == 1 || local612 == 2) {
 														local621 = -local599;
 													} else {
@@ -1684,130 +1684,130 @@ public final class MapSquare {
 													}
 													@Pc(652) int local652;
 													@Pc(658) int local658;
-													if ((local357.anInt442 & 0x100) != 0 && local634 < local621) {
+													if ((local357.type0 & 0x100) != 0 && local634 < local621) {
 														local652 = local599 + anIntArray198[local612];
 														local658 = local609 + anIntArray199[local612];
-														local357.aClass1_Sub3_Sub1_1.draw(local612 * 512 + 256, anInt708, anInt709, anInt710, anInt711, local652, local604, local658, local357.anInt444);
+														local357.model.draw(local612 * 512 + 256, anInt708, anInt709, anInt710, anInt711, local652, local604, local658, local357.bitset);
 													}
-													if ((local357.anInt442 & 0x200) != 0 && local634 > local621) {
+													if ((local357.type0 & 0x200) != 0 && local634 > local621) {
 														local652 = local599 + anIntArray200[local612];
 														local658 = local609 + anIntArray201[local612];
-														local357.aClass1_Sub3_Sub1_1.draw(local612 * 512 + 1280 & 0x7FF, anInt708, anInt709, anInt710, anInt711, local652, local604, local658, local357.anInt444);
+														local357.model.draw(local612 * 512 + 1280 & 0x7FF, anInt708, anInt709, anInt710, anInt711, local652, local604, local658, local357.bitset);
 													}
 												}
 											}
 											if (var23) {
-												@Pc(719) GroundDecoration local719 = local8.aClass18_1;
+												@Pc(719) GroundDecoration local719 = local8.groundDecoration;
 												if (local719 != null) {
-													local719.aClass1_Sub3_Sub1_4.draw(0, anInt708, anInt709, anInt710, anInt711, local719.anInt521 - anInt705, local719.anInt520 - anInt706, local719.anInt522 - anInt707, local719.anInt523);
+													local719.model.draw(0, anInt708, anInt709, anInt710, anInt711, local719.x - anInt705, local719.plane - anInt706, local719.z - anInt707, local719.bitset);
 												}
-												@Pc(746) ObjEntity local746 = local8.aClass20_1;
-												if (local746 != null && local746.anInt553 == 0) {
-													if (local746.aClass1_Sub3_Sub1_6 != null) {
-														local746.aClass1_Sub3_Sub1_6.draw(0, anInt708, anInt709, anInt710, anInt711, local746.anInt550 - anInt705, local746.anInt549 - anInt706, local746.anInt551 - anInt707, local746.anInt552);
+												@Pc(746) ObjEntity local746 = local8.objEntity;
+												if (local746 != null && local746.offsetY == 0) {
+													if (local746.model1 != null) {
+														local746.model1.draw(0, anInt708, anInt709, anInt710, anInt711, local746.x - anInt705, local746.plane - anInt706, local746.z - anInt707, local746.bitset);
 													}
-													if (local746.aClass1_Sub3_Sub1_7 != null) {
-														local746.aClass1_Sub3_Sub1_7.draw(0, anInt708, anInt709, anInt710, anInt711, local746.anInt550 - anInt705, local746.anInt549 - anInt706, local746.anInt551 - anInt707, local746.anInt552);
+													if (local746.model2 != null) {
+														local746.model2.draw(0, anInt708, anInt709, anInt710, anInt711, local746.x - anInt705, local746.plane - anInt706, local746.z - anInt707, local746.bitset);
 													}
-													if (local746.aClass1_Sub3_Sub1_5 != null) {
-														local746.aClass1_Sub3_Sub1_5.draw(0, anInt708, anInt709, anInt710, anInt711, local746.anInt550 - anInt705, local746.anInt549 - anInt706, local746.anInt551 - anInt707, local746.anInt552);
+													if (local746.model0 != null) {
+														local746.model0.draw(0, anInt708, anInt709, anInt710, anInt711, local746.x - anInt705, local746.plane - anInt706, local746.z - anInt707, local746.bitset);
 													}
 												}
 											}
-											local599 = local8.anInt92;
+											local599 = local8.flags;
 											if (local599 != 0) {
 												if (local17 < anInt703 && (local599 & 0x4) != 0) {
 													var35 = local31[local17 + 1][local20];
-													if (var35 != null && var35.aBoolean26) {
+													if (var35 != null && var35.isVisible) {
 														aClass28_9.pushNext(var35);
 													}
 												}
 												if (local20 < anInt704 && (local599 & 0x2) != 0) {
 													var35 = local31[local17][local20 + 1];
-													if (var35 != null && var35.aBoolean26) {
+													if (var35 != null && var35.isVisible) {
 														aClass28_9.pushNext(var35);
 													}
 												}
 												if (local17 > anInt703 && (local599 & 0x1) != 0) {
 													var35 = local31[local17 - 1][local20];
-													if (var35 != null && var35.aBoolean26) {
+													if (var35 != null && var35.isVisible) {
 														aClass28_9.pushNext(var35);
 													}
 												}
 												if (local20 > anInt704 && (local599 & 0x8) != 0) {
 													var35 = local31[local17][local20 - 1];
-													if (var35 != null && var35.aBoolean26) {
+													if (var35 != null && var35.isVisible) {
 														aClass28_9.pushNext(var35);
 													}
 												}
 											}
 											break;
 										}
-										if (local8.anInt94 != 0) {
+										if (local8.wallCullDirection != 0) {
 											var23 = true;
-											for (var22 = 0; var22 < local8.anInt91; var22++) {
-												if (local8.aClass29Array1[var22].anInt676 != anInt698 && (local8.anIntArray22[var22] & local8.anInt94) == local8.anInt95) {
+											for (var22 = 0; var22 < local8.locationCount; var22++) {
+												if (local8.locs[var22].cycle != anInt698 && (local8.locFlags[var22] & local8.wallCullDirection) == local8.wallUncullDirection) {
 													var23 = false;
 													break;
 												}
 											}
 											if (var23) {
-												local963 = local8.aClass31_1;
-												if (!this.isWallOccluded(local26, local17, local20, local963.anInt682)) {
-													local963.aClass1_Sub3_Sub1_9.draw(0, anInt708, anInt709, anInt710, anInt711, local963.anInt680 - anInt705, local963.anInt679 - anInt706, local963.anInt681 - anInt707, local963.anInt684);
+												local963 = local8.wall;
+												if (!this.isWallOccluded(local26, local17, local20, local963.type0)) {
+													local963.model0.draw(0, anInt708, anInt709, anInt710, anInt711, local963.x - anInt705, local963.plane - anInt706, local963.z - anInt707, local963.bitset);
 												}
-												local8.anInt94 = 0;
+												local8.wallCullDirection = 0;
 											}
 										}
-										if (!local8.aBoolean27) {
+										if (!local8.drawLocs) {
 											break;
 										}
-										@Pc(1002) int local1002 = local8.anInt91;
-										local8.aBoolean27 = false;
+										@Pc(1002) int local1002 = local8.locationCount;
+										local8.drawLocs = false;
 										var22 = 0;
 										label559: for (local253 = 0; local253 < local1002; local253++) {
-											var12 = local8.aClass29Array1[local253];
-											if (var12.anInt676 != anInt698) {
-												for (local1023 = var12.anInt671; local1023 <= var12.anInt672; local1023++) {
-													for (local599 = var12.anInt673; local599 <= var12.anInt674; local599++) {
+											var12 = local8.locs[local253];
+											if (var12.cycle != anInt698) {
+												for (local1023 = var12.minSceneTileX; local1023 <= var12.maxSceneTileX; local1023++) {
+													for (local599 = var12.minSceneTileZ; local599 <= var12.maxSceneTileZ; local599++) {
 														var35 = local31[local1023][local599];
-														if (var35.aBoolean25) {
-															local8.aBoolean27 = true;
+														if (var35.draw) {
+															local8.drawLocs = true;
 															continue label559;
 														}
-														if (var35.anInt94 != 0) {
+														if (var35.wallCullDirection != 0) {
 															local609 = 0;
-															if (local1023 > var12.anInt671) {
+															if (local1023 > var12.minSceneTileX) {
 																local609++;
 															}
-															if (local1023 < var12.anInt672) {
+															if (local1023 < var12.maxSceneTileX) {
 																local609 += 4;
 															}
-															if (local599 > var12.anInt673) {
+															if (local599 > var12.minSceneTileZ) {
 																local609 += 8;
 															}
-															if (local599 < var12.anInt674) {
+															if (local599 < var12.maxSceneTileZ) {
 																local609 += 2;
 															}
-															if ((local609 & var35.anInt94) == local8.anInt96) {
-																local8.aBoolean27 = true;
+															if ((local609 & var35.wallCullDirection) == local8.wallCullOppositeDirection) {
+																local8.drawLocs = true;
 																continue label559;
 															}
 														}
 													}
 												}
 												aClass29Array3[var22++] = var12;
-												local599 = anInt703 - var12.anInt671;
-												local604 = var12.anInt672 - anInt703;
+												local599 = anInt703 - var12.minSceneTileX;
+												local604 = var12.maxSceneTileX - anInt703;
 												if (local604 > local599) {
 													local599 = local604;
 												}
-												local609 = anInt704 - var12.anInt673;
-												local612 = var12.anInt674 - anInt704;
+												local609 = anInt704 - var12.minSceneTileZ;
+												local612 = var12.maxSceneTileZ - anInt704;
 												if (local612 > local609) {
-													var12.anInt675 = local599 + local612;
+													var12.distance = local599 + local612;
 												} else {
-													var12.anInt675 = local599 + local609;
+													var12.distance = local599 + local609;
 												}
 											}
 										}
@@ -1817,8 +1817,8 @@ public final class MapSquare {
 											@Pc(1154) Loc local1154;
 											for (local599 = 0; local599 < var22; local599++) {
 												local1154 = aClass29Array3[local599];
-												if (local1154.anInt675 > local1144 && local1154.anInt676 != anInt698) {
-													local1144 = local1154.anInt675;
+												if (local1154.distance > local1144 && local1154.cycle != anInt698) {
+													local1144 = local1154.distance;
 													local1023 = local599;
 												}
 											}
@@ -1826,75 +1826,75 @@ public final class MapSquare {
 												break;
 											}
 											local1154 = aClass29Array3[local1023];
-											local1154.anInt676 = anInt698;
-											@Pc(1184) Model local1184 = local1154.aClass1_Sub3_Sub1_8;
+											local1154.cycle = anInt698;
+											@Pc(1184) Model local1184 = local1154.model;
 											if (local1184 == null) {
-												local1184 = local1154.aClass1_Sub1_1.getDrawMethod(true);
+												local1184 = local1154.entity.getDrawMethod(true);
 											}
-											if (!this.isAreaOccluded(local26, local1154.anInt671, local1154.anInt672, local1154.anInt673, local1154.anInt674, local1184.anInt368)) {
-												local1184.draw(local1154.anInt670, anInt708, anInt709, anInt710, anInt711, local1154.anInt668 - anInt705, local1154.anInt667 - anInt706, local1154.anInt669 - anInt707, local1154.anInt677);
+											if (!this.isAreaOccluded(local26, local1154.minSceneTileX, local1154.maxSceneTileX, local1154.minSceneTileZ, local1154.maxSceneTileZ, local1184.anInt368)) {
+												local1184.draw(local1154.yaw, anInt708, anInt709, anInt710, anInt711, local1154.x - anInt705, local1154.y - anInt706, local1154.z - anInt707, local1154.bitset);
 											}
-											for (local612 = local1154.anInt671; local612 <= local1154.anInt672; local612++) {
-												for (local621 = local1154.anInt673; local621 <= local1154.anInt674; local621++) {
+											for (local612 = local1154.minSceneTileX; local612 <= local1154.maxSceneTileX; local612++) {
+												for (local621 = local1154.minSceneTileZ; local621 <= local1154.maxSceneTileZ; local621++) {
 													@Pc(1243) Tile local1243 = local31[local612][local621];
-													if (local1243.anInt94 != 0) {
+													if (local1243.wallCullDirection != 0) {
 														aClass28_9.pushNext(local1243);
-													} else if ((local612 != local17 || local621 != local20) && local1243.aBoolean26) {
+													} else if ((local612 != local17 || local621 != local20) && local1243.isVisible) {
 														aClass28_9.pushNext(local1243);
 													}
 												}
 											}
 										}
-										if (!local8.aBoolean27) {
+										if (!local8.drawLocs) {
 											break;
 										}
 									}
-								} while (!local8.aBoolean26);
-							} while (local8.anInt94 != 0);
+								} while (!local8.isVisible);
+							} while (local8.wallCullDirection != 0);
 							if (local17 > anInt703 || local17 <= anInt699) {
 								break;
 							}
 							local49 = local31[local17 - 1][local20];
-						} while (local49 != null && local49.aBoolean26);
+						} while (local49 != null && local49.isVisible);
 						if (local17 < anInt703 || local17 >= anInt700 - 1) {
 							break;
 						}
 						local49 = local31[local17 + 1][local20];
-					} while (local49 != null && local49.aBoolean26);
+					} while (local49 != null && local49.isVisible);
 					if (local20 > anInt704 || local20 <= anInt701) {
 						break;
 					}
 					local49 = local31[local17][local20 - 1];
-				} while (local49 != null && local49.aBoolean26);
+				} while (local49 != null && local49.isVisible);
 				if (local20 < anInt704 || local20 >= anInt702 - 1) {
 					break;
 				}
 				local49 = local31[local17][local20 + 1];
-			} while (local49 != null && local49.aBoolean26);
-			local8.aBoolean26 = false;
+			} while (local49 != null && local49.isVisible);
+			local8.isVisible = false;
 			anInt696--;
-			@Pc(1379) ObjEntity local1379 = local8.aClass20_1;
-			if (local1379 != null && local1379.anInt553 != 0) {
-				if (local1379.aClass1_Sub3_Sub1_6 != null) {
-					local1379.aClass1_Sub3_Sub1_6.draw(0, anInt708, anInt709, anInt710, anInt711, local1379.anInt550 - anInt705, local1379.anInt549 - anInt706 - local1379.anInt553, local1379.anInt551 - anInt707, local1379.anInt552);
+			@Pc(1379) ObjEntity local1379 = local8.objEntity;
+			if (local1379 != null && local1379.offsetY != 0) {
+				if (local1379.model1 != null) {
+					local1379.model1.draw(0, anInt708, anInt709, anInt710, anInt711, local1379.x - anInt705, local1379.plane - anInt706 - local1379.offsetY, local1379.z - anInt707, local1379.bitset);
 				}
-				if (local1379.aClass1_Sub3_Sub1_7 != null) {
-					local1379.aClass1_Sub3_Sub1_7.draw(0, anInt708, anInt709, anInt710, anInt711, local1379.anInt550 - anInt705, local1379.anInt549 - anInt706 - local1379.anInt553, local1379.anInt551 - anInt707, local1379.anInt552);
+				if (local1379.model2 != null) {
+					local1379.model2.draw(0, anInt708, anInt709, anInt710, anInt711, local1379.x - anInt705, local1379.plane - anInt706 - local1379.offsetY, local1379.z - anInt707, local1379.bitset);
 				}
-				if (local1379.aClass1_Sub3_Sub1_5 != null) {
-					local1379.aClass1_Sub3_Sub1_5.draw(0, anInt708, anInt709, anInt710, anInt711, local1379.anInt550 - anInt705, local1379.anInt549 - anInt706 - local1379.anInt553, local1379.anInt551 - anInt707, local1379.anInt552);
+				if (local1379.model0 != null) {
+					local1379.model0.draw(0, anInt708, anInt709, anInt710, anInt711, local1379.x - anInt705, local1379.plane - anInt706 - local1379.offsetY, local1379.z - anInt707, local1379.bitset);
 				}
 			}
-			if (local8.anInt97 != 0) {
-				@Pc(1474) WallDecoration local1474 = local8.aClass14_1;
-				if (local1474 != null && !this.isOccluded(local26, local17, local20, local1474.aClass1_Sub3_Sub1_1.anInt368)) {
-					if ((local1474.anInt442 & local8.anInt97) != 0) {
-						local1474.aClass1_Sub3_Sub1_1.draw(local1474.anInt443, anInt708, anInt709, anInt710, anInt711, local1474.anInt440 - anInt705, local1474.anInt439 - anInt706, local1474.anInt441 - anInt707, local1474.anInt444);
-					} else if ((local1474.anInt442 & 0x300) != 0) {
-						local253 = local1474.anInt440 - anInt705;
-						local1144 = local1474.anInt439 - anInt706;
-						local1023 = local1474.anInt441 - anInt707;
-						local599 = local1474.anInt443;
+			if (local8.wallDrawFlags != 0) {
+				@Pc(1474) WallDecoration local1474 = local8.wallDecoration;
+				if (local1474 != null && !this.isOccluded(local26, local17, local20, local1474.model.anInt368)) {
+					if ((local1474.type0 & local8.wallDrawFlags) != 0) {
+						local1474.model.draw(local1474.type1, anInt708, anInt709, anInt710, anInt711, local1474.x - anInt705, local1474.plane - anInt706, local1474.z - anInt707, local1474.bitset);
+					} else if ((local1474.type0 & 0x300) != 0) {
+						local253 = local1474.x - anInt705;
+						local1144 = local1474.plane - anInt706;
+						local1023 = local1474.z - anInt707;
+						local599 = local1474.type1;
 						if (local599 == 1 || local599 == 2) {
 							local604 = -local253;
 						} else {
@@ -1905,56 +1905,56 @@ public final class MapSquare {
 						} else {
 							local609 = local1023;
 						}
-						if ((local1474.anInt442 & 0x100) != 0 && local609 >= local604) {
+						if ((local1474.type0 & 0x100) != 0 && local609 >= local604) {
 							local612 = local253 + anIntArray198[local599];
 							local621 = local1023 + anIntArray199[local599];
-							local1474.aClass1_Sub3_Sub1_1.draw(local599 * 512 + 256, anInt708, anInt709, anInt710, anInt711, local612, local1144, local621, local1474.anInt444);
+							local1474.model.draw(local599 * 512 + 256, anInt708, anInt709, anInt710, anInt711, local612, local1144, local621, local1474.bitset);
 						}
-						if ((local1474.anInt442 & 0x200) != 0 && local609 <= local604) {
+						if ((local1474.type0 & 0x200) != 0 && local609 <= local604) {
 							local612 = local253 + anIntArray200[local599];
 							local621 = local1023 + anIntArray201[local599];
-							local1474.aClass1_Sub3_Sub1_1.draw(local599 * 512 + 1280 & 0x7FF, anInt708, anInt709, anInt710, anInt711, local612, local1144, local621, local1474.anInt444);
+							local1474.model.draw(local599 * 512 + 1280 & 0x7FF, anInt708, anInt709, anInt710, anInt711, local612, local1144, local621, local1474.bitset);
 						}
 					}
 				}
-				local963 = local8.aClass31_1;
+				local963 = local8.wall;
 				if (local963 != null) {
-					if ((local963.anInt683 & local8.anInt97) != 0 && !this.isWallOccluded(local26, local17, local20, local963.anInt683)) {
-						local963.aClass1_Sub3_Sub1_10.draw(0, anInt708, anInt709, anInt710, anInt711, local963.anInt680 - anInt705, local963.anInt679 - anInt706, local963.anInt681 - anInt707, local963.anInt684);
+					if ((local963.type1 & local8.wallDrawFlags) != 0 && !this.isWallOccluded(local26, local17, local20, local963.type1)) {
+						local963.model1.draw(0, anInt708, anInt709, anInt710, anInt711, local963.x - anInt705, local963.plane - anInt706, local963.z - anInt707, local963.bitset);
 					}
-					if ((local963.anInt682 & local8.anInt97) != 0 && !this.isWallOccluded(local26, local17, local20, local963.anInt682)) {
-						local963.aClass1_Sub3_Sub1_9.draw(0, anInt708, anInt709, anInt710, anInt711, local963.anInt680 - anInt705, local963.anInt679 - anInt706, local963.anInt681 - anInt707, local963.anInt684);
+					if ((local963.type0 & local8.wallDrawFlags) != 0 && !this.isWallOccluded(local26, local17, local20, local963.type0)) {
+						local963.model0.draw(0, anInt708, anInt709, anInt710, anInt711, local963.x - anInt705, local963.plane - anInt706, local963.z - anInt707, local963.bitset);
 					}
 				}
 			}
 			@Pc(1735) Tile local1735;
 			if (local23 < this.anInt691 - 1) {
 				local1735 = this.aClass1_Sub2ArrayArrayArray1[local23 + 1][local17][local20];
-				if (local1735 != null && local1735.aBoolean26) {
+				if (local1735 != null && local1735.isVisible) {
 					aClass28_9.pushNext(local1735);
 				}
 			}
 			if (local17 < anInt703) {
 				local1735 = local31[local17 + 1][local20];
-				if (local1735 != null && local1735.aBoolean26) {
+				if (local1735 != null && local1735.isVisible) {
 					aClass28_9.pushNext(local1735);
 				}
 			}
 			if (local20 < anInt704) {
 				local1735 = local31[local17][local20 + 1];
-				if (local1735 != null && local1735.aBoolean26) {
+				if (local1735 != null && local1735.isVisible) {
 					aClass28_9.pushNext(local1735);
 				}
 			}
 			if (local17 > anInt703) {
 				local1735 = local31[local17 - 1][local20];
-				if (local1735 != null && local1735.aBoolean26) {
+				if (local1735 != null && local1735.isVisible) {
 					aClass28_9.pushNext(local1735);
 				}
 			}
 			if (local20 > anInt704) {
 				local1735 = local31[local17][local20 - 1];
-				if (local1735 != null && local1735.aBoolean26) {
+				if (local1735 != null && local1735.isVisible) {
 					aClass28_9.pushNext(local1735);
 				}
 			}
@@ -2010,58 +2010,58 @@ public final class MapSquare {
 		if (local267 < 50) {
 			return;
 		}
-		@Pc(281) int local281 = Draw3D.anInt430 + (local103 << 9) / local123;
-		@Pc(289) int local289 = Draw3D.anInt431 + (local125 << 9) / local123;
-		@Pc(297) int local297 = Draw3D.anInt430 + (local23 << 9) / local171;
-		@Pc(305) int local305 = Draw3D.anInt431 + (local53 << 9) / local171;
-		@Pc(313) int local313 = Draw3D.anInt430 + (local199 << 9) / local29;
-		@Pc(321) int local321 = Draw3D.anInt431 + (local68 << 9) / local29;
-		@Pc(329) int local329 = Draw3D.anInt430 + (local247 << 9) / local267;
-		@Pc(337) int local337 = Draw3D.anInt431 + (local91 << 9) / local267;
-		Draw3D.anInt429 = 0;
+		@Pc(281) int local281 = Draw3D.centerX3D + (local103 << 9) / local123;
+		@Pc(289) int local289 = Draw3D.centerY3D + (local125 << 9) / local123;
+		@Pc(297) int local297 = Draw3D.centerX3D + (local23 << 9) / local171;
+		@Pc(305) int local305 = Draw3D.centerY3D + (local53 << 9) / local171;
+		@Pc(313) int local313 = Draw3D.centerX3D + (local199 << 9) / local29;
+		@Pc(321) int local321 = Draw3D.centerY3D + (local68 << 9) / local29;
+		@Pc(329) int local329 = Draw3D.centerX3D + (local247 << 9) / local267;
+		@Pc(337) int local337 = Draw3D.centerY3D + (local91 << 9) / local267;
+		Draw3D.alpha = 0;
 		@Pc(476) int local476;
 		if ((local313 - local329) * (local305 - local337) - (local321 - local337) * (local297 - local329) > 0) {
-			Draw3D.aBoolean97 = false;
-			if (local313 < 0 || local329 < 0 || local297 < 0 || local313 > Draw2D.anInt534 || local329 > Draw2D.anInt534 || local297 > Draw2D.anInt534) {
-				Draw3D.aBoolean97 = true;
+			Draw3D.testX = false;
+			if (local313 < 0 || local329 < 0 || local297 < 0 || local313 > Draw2D.safeX || local329 > Draw2D.safeX || local297 > Draw2D.safeX) {
+				Draw3D.testX = true;
 			}
 			if (aBoolean144 && this.withinTriangle(anInt712, anInt713, local321, local337, local305, local313, local329, local297)) {
 				anInt714 = arg6;
 				anInt715 = arg7;
 			}
-			if (arg0.anInt662 == -1) {
-				if (arg0.anInt660 != 12345678) {
-					Draw3D.fillGouraudTriangle(local321, local337, local305, local313, local329, local297, arg0.anInt660, arg0.anInt661, arg0.anInt659);
+			if (arg0.textureIndex == -1) {
+				if (arg0.neColor != 12345678) {
+					Draw3D.fillGouraudTriangle(local321, local337, local305, local313, local329, local297, arg0.neColor, arg0.nwColor, arg0.seColor);
 				}
 			} else if (aBoolean143) {
-				local476 = anIntArray210[arg0.anInt662];
-				Draw3D.fillGouraudTriangle(local321, local337, local305, local313, local329, local297, this.adjustHslLightness(arg0.anInt660, local476, 9), this.adjustHslLightness(arg0.anInt661, local476, 9), this.adjustHslLightness(arg0.anInt659, local476, 9));
-			} else if (arg0.aBoolean138) {
-				Draw3D.fillTexturedTriangle(local321, local337, local305, local313, local329, local297, arg0.anInt660, arg0.anInt661, arg0.anInt659, local103, local23, local247, local125, local53, local91, local123, local171, local267, arg0.anInt662);
+				local476 = anIntArray210[arg0.textureIndex];
+				Draw3D.fillGouraudTriangle(local321, local337, local305, local313, local329, local297, this.adjustHslLightness(arg0.neColor, local476, 9), this.adjustHslLightness(arg0.nwColor, local476, 9), this.adjustHslLightness(arg0.seColor, local476, 9));
+			} else if (arg0.isFlat) {
+				Draw3D.fillTexturedTriangle(local321, local337, local305, local313, local329, local297, arg0.neColor, arg0.nwColor, arg0.seColor, local103, local23, local247, local125, local53, local91, local123, local171, local267, arg0.textureIndex);
 			} else {
-				Draw3D.fillTexturedTriangle(local321, local337, local305, local313, local329, local297, arg0.anInt660, arg0.anInt661, arg0.anInt659, local199, local247, local23, local68, local91, local53, local29, local267, local171, arg0.anInt662);
+				Draw3D.fillTexturedTriangle(local321, local337, local305, local313, local329, local297, arg0.neColor, arg0.nwColor, arg0.seColor, local199, local247, local23, local68, local91, local53, local29, local267, local171, arg0.textureIndex);
 			}
 		}
 		if ((local281 - local297) * (local337 - local305) - (local289 - local305) * (local329 - local297) <= 0) {
 			return;
 		}
-		Draw3D.aBoolean97 = false;
-		if (local281 < 0 || local297 < 0 || local329 < 0 || local281 > Draw2D.anInt534 || local297 > Draw2D.anInt534 || local329 > Draw2D.anInt534) {
-			Draw3D.aBoolean97 = true;
+		Draw3D.testX = false;
+		if (local281 < 0 || local297 < 0 || local329 < 0 || local281 > Draw2D.safeX || local297 > Draw2D.safeX || local329 > Draw2D.safeX) {
+			Draw3D.testX = true;
 		}
 		if (aBoolean144 && this.withinTriangle(anInt712, anInt713, local289, local305, local337, local281, local297, local329)) {
 			anInt714 = arg6;
 			anInt715 = arg7;
 		}
-		if (arg0.anInt662 != -1) {
+		if (arg0.textureIndex != -1) {
 			if (!aBoolean143) {
-				Draw3D.fillTexturedTriangle(local289, local305, local337, local281, local297, local329, arg0.anInt658, arg0.anInt659, arg0.anInt661, local103, local23, local247, local125, local53, local91, local123, local171, local267, arg0.anInt662);
+				Draw3D.fillTexturedTriangle(local289, local305, local337, local281, local297, local329, arg0.swColor, arg0.seColor, arg0.nwColor, local103, local23, local247, local125, local53, local91, local123, local171, local267, arg0.textureIndex);
 				return;
 			}
-			local476 = anIntArray210[arg0.anInt662];
-			Draw3D.fillGouraudTriangle(local289, local305, local337, local281, local297, local329, this.adjustHslLightness(arg0.anInt658, local476, 9), this.adjustHslLightness(arg0.anInt659, local476, 9), this.adjustHslLightness(arg0.anInt661, local476, 9));
-		} else if (arg0.anInt658 != 12345678) {
-			Draw3D.fillGouraudTriangle(local289, local305, local337, local281, local297, local329, arg0.anInt658, arg0.anInt659, arg0.anInt661);
+			local476 = anIntArray210[arg0.textureIndex];
+			Draw3D.fillGouraudTriangle(local289, local305, local337, local281, local297, local329, this.adjustHslLightness(arg0.swColor, local476, 9), this.adjustHslLightness(arg0.seColor, local476, 9), this.adjustHslLightness(arg0.nwColor, local476, 9));
+		} else if (arg0.swColor != 12345678) {
+			Draw3D.fillGouraudTriangle(local289, local305, local337, local281, local297, local329, arg0.swColor, arg0.seColor, arg0.nwColor);
 			return;
 		}
 	}
@@ -2069,15 +2069,15 @@ public final class MapSquare {
 	@OriginalMember(owner = "client!r", name = "a", descriptor = "(IILclient!i;IIIIZ)V")
 	private void drawTileOverlay(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) TileOverlay arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) boolean arg7) {
 		try {
-			@Pc(5) int local5 = arg2.anIntArray158.length;
+			@Pc(5) int local5 = arg2.vertexX.length;
 			@Pc(16) int local16;
 			@Pc(23) int local23;
 			@Pc(30) int local30;
 			@Pc(40) int local40;
 			for (@Pc(7) int local7 = 0; local7 < local5; local7++) {
-				local16 = arg2.anIntArray158[local7] - anInt705;
-				local23 = arg2.anIntArray159[local7] - anInt706;
-				local30 = arg2.anIntArray160[local7] - anInt707;
+				local16 = arg2.vertexX[local7] - anInt705;
+				local23 = arg2.vertexY[local7] - anInt706;
+				local30 = arg2.vertexZ[local7] - anInt707;
 				local40 = local30 * arg0 + local16 * arg6 >> 16;
 				@Pc(50) int local50 = local30 * arg6 - local16 * arg0 >> 16;
 				@Pc(62) int local62 = local23 * arg4 - local50 * arg5 >> 16;
@@ -2085,47 +2085,47 @@ public final class MapSquare {
 				if (local72 < 50) {
 					return;
 				}
-				if (arg2.anIntArray167 != null) {
-					TileOverlay.anIntArray170[local7] = local40;
-					TileOverlay.anIntArray171[local7] = local62;
-					TileOverlay.anIntArray172[local7] = local72;
+				if (arg2.triangleTextureIndex != null) {
+					TileOverlay.vertexSceneX[local7] = local40;
+					TileOverlay.vertexSceneY[local7] = local62;
+					TileOverlay.vertexSceneZ[local7] = local72;
 				}
-				TileOverlay.anIntArray168[local7] = Draw3D.anInt430 + (local40 << 9) / local72;
-				TileOverlay.anIntArray169[local7] = Draw3D.anInt431 + (local62 << 9) / local72;
+				TileOverlay.tmpScreenX[local7] = Draw3D.centerX3D + (local40 << 9) / local72;
+				TileOverlay.tmpScreenY[local7] = Draw3D.centerY3D + (local62 << 9) / local72;
 			}
-			Draw3D.anInt429 = 0;
-			local5 = arg2.anIntArray164.length;
+			Draw3D.alpha = 0;
+			local5 = arg2.triangleColorA.length;
 			if (arg7) {
 				for (local16 = 0; local16 < local5; local16++) {
-					local23 = arg2.anIntArray164[local16];
-					local30 = arg2.anIntArray165[local16];
-					local40 = arg2.anIntArray166[local16];
-					@Pc(149) int local149 = TileOverlay.anIntArray168[local23];
-					@Pc(153) int local153 = TileOverlay.anIntArray168[local30];
-					@Pc(157) int local157 = TileOverlay.anIntArray168[local40];
-					@Pc(161) int local161 = TileOverlay.anIntArray169[local23];
-					@Pc(165) int local165 = TileOverlay.anIntArray169[local30];
-					@Pc(169) int local169 = TileOverlay.anIntArray169[local40];
+					local23 = arg2.triangleColorA[local16];
+					local30 = arg2.triangleColorB[local16];
+					local40 = arg2.triangleColorC[local16];
+					@Pc(149) int local149 = TileOverlay.tmpScreenX[local23];
+					@Pc(153) int local153 = TileOverlay.tmpScreenX[local30];
+					@Pc(157) int local157 = TileOverlay.tmpScreenX[local40];
+					@Pc(161) int local161 = TileOverlay.tmpScreenY[local23];
+					@Pc(165) int local165 = TileOverlay.tmpScreenY[local30];
+					@Pc(169) int local169 = TileOverlay.tmpScreenY[local40];
 					if ((local149 - local153) * (local169 - local165) - (local161 - local165) * (local157 - local153) > 0) {
-						Draw3D.aBoolean97 = false;
-						if (local149 < 0 || local153 < 0 || local157 < 0 || local149 > Draw2D.anInt534 || local153 > Draw2D.anInt534 || local157 > Draw2D.anInt534) {
-							Draw3D.aBoolean97 = true;
+						Draw3D.testX = false;
+						if (local149 < 0 || local153 < 0 || local157 < 0 || local149 > Draw2D.safeX || local153 > Draw2D.safeX || local157 > Draw2D.safeX) {
+							Draw3D.testX = true;
 						}
 						if (aBoolean144 && this.withinTriangle(anInt712, anInt713, local161, local165, local169, local149, local153, local157)) {
 							anInt714 = arg3;
 							anInt715 = arg1;
 						}
-						if (arg2.anIntArray167 == null || arg2.anIntArray167[local16] == -1) {
-							if (arg2.anIntArray161[local16] != 12345678) {
-								Draw3D.fillGouraudTriangle(local161, local165, local169, local149, local153, local157, arg2.anIntArray161[local16], arg2.anIntArray162[local16], arg2.anIntArray163[local16]);
+						if (arg2.triangleTextureIndex == null || arg2.triangleTextureIndex[local16] == -1) {
+							if (arg2.triangleVertexA[local16] != 12345678) {
+								Draw3D.fillGouraudTriangle(local161, local165, local169, local149, local153, local157, arg2.triangleVertexA[local16], arg2.triangleVertexB[local16], arg2.triangleVertexC[local16]);
 							}
 						} else if (aBoolean143) {
-							@Pc(373) int local373 = anIntArray210[arg2.anIntArray167[local16]];
-							Draw3D.fillGouraudTriangle(local161, local165, local169, local149, local153, local157, this.adjustHslLightness(arg2.anIntArray161[local16], local373, 9), this.adjustHslLightness(arg2.anIntArray162[local16], local373, 9), this.adjustHslLightness(arg2.anIntArray163[local16], local373, 9));
-						} else if (arg2.aBoolean114) {
-							Draw3D.fillTexturedTriangle(local161, local165, local169, local149, local153, local157, arg2.anIntArray161[local16], arg2.anIntArray162[local16], arg2.anIntArray163[local16], TileOverlay.anIntArray170[0], TileOverlay.anIntArray170[1], TileOverlay.anIntArray170[3], TileOverlay.anIntArray171[0], TileOverlay.anIntArray171[1], TileOverlay.anIntArray171[3], TileOverlay.anIntArray172[0], TileOverlay.anIntArray172[1], TileOverlay.anIntArray172[3], arg2.anIntArray167[local16]);
+							@Pc(373) int local373 = anIntArray210[arg2.triangleTextureIndex[local16]];
+							Draw3D.fillGouraudTriangle(local161, local165, local169, local149, local153, local157, this.adjustHslLightness(arg2.triangleVertexA[local16], local373, 9), this.adjustHslLightness(arg2.triangleVertexB[local16], local373, 9), this.adjustHslLightness(arg2.triangleVertexC[local16], local373, 9));
+						} else if (arg2.isFlat) {
+							Draw3D.fillTexturedTriangle(local161, local165, local169, local149, local153, local157, arg2.triangleVertexA[local16], arg2.triangleVertexB[local16], arg2.triangleVertexC[local16], TileOverlay.vertexSceneX[0], TileOverlay.vertexSceneX[1], TileOverlay.vertexSceneX[3], TileOverlay.vertexSceneY[0], TileOverlay.vertexSceneY[1], TileOverlay.vertexSceneY[3], TileOverlay.vertexSceneZ[0], TileOverlay.vertexSceneZ[1], TileOverlay.vertexSceneZ[3], arg2.triangleTextureIndex[local16]);
 						} else {
-							Draw3D.fillTexturedTriangle(local161, local165, local169, local149, local153, local157, arg2.anIntArray161[local16], arg2.anIntArray162[local16], arg2.anIntArray163[local16], TileOverlay.anIntArray170[local23], TileOverlay.anIntArray170[local30], TileOverlay.anIntArray170[local40], TileOverlay.anIntArray171[local23], TileOverlay.anIntArray171[local30], TileOverlay.anIntArray171[local40], TileOverlay.anIntArray172[local23], TileOverlay.anIntArray172[local30], TileOverlay.anIntArray172[local40], arg2.anIntArray167[local16]);
+							Draw3D.fillTexturedTriangle(local161, local165, local169, local149, local153, local157, arg2.triangleVertexA[local16], arg2.triangleVertexB[local16], arg2.triangleVertexC[local16], TileOverlay.vertexSceneX[local23], TileOverlay.vertexSceneX[local30], TileOverlay.vertexSceneX[local40], TileOverlay.vertexSceneY[local23], TileOverlay.vertexSceneY[local30], TileOverlay.vertexSceneY[local40], TileOverlay.vertexSceneZ[local23], TileOverlay.vertexSceneZ[local30], TileOverlay.vertexSceneZ[local40], arg2.triangleTextureIndex[local16]);
 						}
 					}
 				}
@@ -2187,14 +2187,14 @@ public final class MapSquare {
 				@Pc(54) int local54;
 				@Pc(84) int local84;
 				@Pc(61) boolean local61;
-				if (local19.anInt615 == 1) {
-					local30 = local19.anInt611 + 25 - anInt703;
+				if (local19.type == 1) {
+					local30 = local19.minTileX + 25 - anInt703;
 					if (local30 >= 0 && local30 <= 50) {
-						local43 = local19.anInt613 + 25 - anInt704;
+						local43 = local19.minTileZ + 25 - anInt704;
 						if (local43 < 0) {
 							local43 = 0;
 						}
-						local54 = local19.anInt614 + 25 - anInt704;
+						local54 = local19.maxTileZ + 25 - anInt704;
 						if (local54 > 50) {
 							local54 = 50;
 						}
@@ -2206,31 +2206,31 @@ public final class MapSquare {
 							}
 						}
 						if (local61) {
-							local84 = anInt705 - local19.anInt616;
+							local84 = anInt705 - local19.minX;
 							if (local84 > 32) {
-								local19.anInt622 = 1;
+								local19.testDirection = 1;
 							} else {
 								if (local84 >= -32) {
 									continue;
 								}
-								local19.anInt622 = 2;
+								local19.testDirection = 2;
 								local84 = -local84;
 							}
-							local19.anInt625 = (local19.anInt618 - anInt707 << 8) / local84;
-							local19.anInt626 = (local19.anInt619 - anInt707 << 8) / local84;
-							local19.anInt627 = (local19.anInt620 - anInt706 << 8) / local84;
-							local19.anInt628 = (local19.anInt621 - anInt706 << 8) / local84;
+							local19.minNormalZ = (local19.minZ - anInt707 << 8) / local84;
+							local19.maxNormalZ = (local19.maxZ - anInt707 << 8) / local84;
+							local19.minNormalY = (local19.minY - anInt706 << 8) / local84;
+							local19.maxNormalY = (local19.maxY - anInt706 << 8) / local84;
 							aClass24Array1[anInt717++] = local19;
 						}
 					}
-				} else if (local19.anInt615 == 2) {
-					local30 = local19.anInt613 + 25 - anInt704;
+				} else if (local19.type == 2) {
+					local30 = local19.minTileZ + 25 - anInt704;
 					if (local30 >= 0 && local30 <= 50) {
-						local43 = local19.anInt611 + 25 - anInt703;
+						local43 = local19.minTileX + 25 - anInt703;
 						if (local43 < 0) {
 							local43 = 0;
 						}
-						local54 = local19.anInt612 + 25 - anInt703;
+						local54 = local19.maxTileX + 25 - anInt703;
 						if (local54 > 50) {
 							local54 = 50;
 						}
@@ -2242,40 +2242,40 @@ public final class MapSquare {
 							}
 						}
 						if (local61) {
-							local84 = anInt707 - local19.anInt618;
+							local84 = anInt707 - local19.minZ;
 							if (local84 > 32) {
-								local19.anInt622 = 3;
+								local19.testDirection = 3;
 							} else {
 								if (local84 >= -32) {
 									continue;
 								}
-								local19.anInt622 = 4;
+								local19.testDirection = 4;
 								local84 = -local84;
 							}
-							local19.anInt623 = (local19.anInt616 - anInt705 << 8) / local84;
-							local19.anInt624 = (local19.anInt617 - anInt705 << 8) / local84;
-							local19.anInt627 = (local19.anInt620 - anInt706 << 8) / local84;
-							local19.anInt628 = (local19.anInt621 - anInt706 << 8) / local84;
+							local19.minNormalX = (local19.minX - anInt705 << 8) / local84;
+							local19.maxNormalX = (local19.maxX - anInt705 << 8) / local84;
+							local19.minNormalY = (local19.minY - anInt706 << 8) / local84;
+							local19.maxNormalY = (local19.maxY - anInt706 << 8) / local84;
 							aClass24Array1[anInt717++] = local19;
 						}
 					}
-				} else if (local19.anInt615 == 4) {
-					local30 = local19.anInt620 - anInt706;
+				} else if (local19.type == 4) {
+					local30 = local19.minY - anInt706;
 					if (local30 > 128) {
-						local43 = local19.anInt613 + 25 - anInt704;
+						local43 = local19.minTileZ + 25 - anInt704;
 						if (local43 < 0) {
 							local43 = 0;
 						}
-						local54 = local19.anInt614 + 25 - anInt704;
+						local54 = local19.maxTileZ + 25 - anInt704;
 						if (local54 > 50) {
 							local54 = 50;
 						}
 						if (local43 <= local54) {
-							@Pc(330) int local330 = local19.anInt611 + 25 - anInt703;
+							@Pc(330) int local330 = local19.minTileX + 25 - anInt703;
 							if (local330 < 0) {
 								local330 = 0;
 							}
-							local84 = local19.anInt612 + 25 - anInt703;
+							local84 = local19.maxTileX + 25 - anInt703;
 							if (local84 > 50) {
 								local84 = 50;
 							}
@@ -2289,11 +2289,11 @@ public final class MapSquare {
 								}
 							}
 							if (local348) {
-								local19.anInt622 = 5;
-								local19.anInt623 = (local19.anInt616 - anInt705 << 8) / local30;
-								local19.anInt624 = (local19.anInt617 - anInt705 << 8) / local30;
-								local19.anInt625 = (local19.anInt618 - anInt707 << 8) / local30;
-								local19.anInt626 = (local19.anInt619 - anInt707 << 8) / local30;
+								local19.testDirection = 5;
+								local19.minNormalX = (local19.minX - anInt705 << 8) / local30;
+								local19.maxNormalX = (local19.maxX - anInt705 << 8) / local30;
+								local19.minNormalZ = (local19.minZ - anInt707 << 8) / local30;
+								local19.maxNormalZ = (local19.maxZ - anInt707 << 8) / local30;
 								aClass24Array1[anInt717++] = local19;
 							}
 						}
@@ -2517,57 +2517,57 @@ public final class MapSquare {
 			@Pc(38) int local38;
 			@Pc(48) int local48;
 			@Pc(58) int local58;
-			if (local7.anInt622 == 1) {
-				local16 = local7.anInt616 - arg0;
+			if (local7.testDirection == 1) {
+				local16 = local7.minX - arg0;
 				if (local16 > 0) {
-					local28 = local7.anInt618 + (local7.anInt625 * local16 >> 8);
-					local38 = local7.anInt619 + (local7.anInt626 * local16 >> 8);
-					local48 = local7.anInt620 + (local7.anInt627 * local16 >> 8);
-					local58 = local7.anInt621 + (local7.anInt628 * local16 >> 8);
+					local28 = local7.minZ + (local7.minNormalZ * local16 >> 8);
+					local38 = local7.maxZ + (local7.maxNormalZ * local16 >> 8);
+					local48 = local7.minY + (local7.minNormalY * local16 >> 8);
+					local58 = local7.maxY + (local7.maxNormalY * local16 >> 8);
 					if (arg2 >= local28 && arg2 <= local38 && arg1 >= local48 && arg1 <= local58) {
 						return true;
 					}
 				}
-			} else if (local7.anInt622 == 2) {
-				local16 = arg0 - local7.anInt616;
+			} else if (local7.testDirection == 2) {
+				local16 = arg0 - local7.minX;
 				if (local16 > 0) {
-					local28 = local7.anInt618 + (local7.anInt625 * local16 >> 8);
-					local38 = local7.anInt619 + (local7.anInt626 * local16 >> 8);
-					local48 = local7.anInt620 + (local7.anInt627 * local16 >> 8);
-					local58 = local7.anInt621 + (local7.anInt628 * local16 >> 8);
+					local28 = local7.minZ + (local7.minNormalZ * local16 >> 8);
+					local38 = local7.maxZ + (local7.maxNormalZ * local16 >> 8);
+					local48 = local7.minY + (local7.minNormalY * local16 >> 8);
+					local58 = local7.maxY + (local7.maxNormalY * local16 >> 8);
 					if (arg2 >= local28 && arg2 <= local38 && arg1 >= local48 && arg1 <= local58) {
 						return true;
 					}
 				}
-			} else if (local7.anInt622 == 3) {
-				local16 = local7.anInt618 - arg2;
+			} else if (local7.testDirection == 3) {
+				local16 = local7.minZ - arg2;
 				if (local16 > 0) {
-					local28 = local7.anInt616 + (local7.anInt623 * local16 >> 8);
-					local38 = local7.anInt617 + (local7.anInt624 * local16 >> 8);
-					local48 = local7.anInt620 + (local7.anInt627 * local16 >> 8);
-					local58 = local7.anInt621 + (local7.anInt628 * local16 >> 8);
+					local28 = local7.minX + (local7.minNormalX * local16 >> 8);
+					local38 = local7.maxX + (local7.maxNormalX * local16 >> 8);
+					local48 = local7.minY + (local7.minNormalY * local16 >> 8);
+					local58 = local7.maxY + (local7.maxNormalY * local16 >> 8);
 					if (arg0 >= local28 && arg0 <= local38 && arg1 >= local48 && arg1 <= local58) {
 						return true;
 					}
 				}
-			} else if (local7.anInt622 == 4) {
-				local16 = arg2 - local7.anInt618;
+			} else if (local7.testDirection == 4) {
+				local16 = arg2 - local7.minZ;
 				if (local16 > 0) {
-					local28 = local7.anInt616 + (local7.anInt623 * local16 >> 8);
-					local38 = local7.anInt617 + (local7.anInt624 * local16 >> 8);
-					local48 = local7.anInt620 + (local7.anInt627 * local16 >> 8);
-					local58 = local7.anInt621 + (local7.anInt628 * local16 >> 8);
+					local28 = local7.minX + (local7.minNormalX * local16 >> 8);
+					local38 = local7.maxX + (local7.maxNormalX * local16 >> 8);
+					local48 = local7.minY + (local7.minNormalY * local16 >> 8);
+					local58 = local7.maxY + (local7.maxNormalY * local16 >> 8);
 					if (arg0 >= local28 && arg0 <= local38 && arg1 >= local48 && arg1 <= local58) {
 						return true;
 					}
 				}
-			} else if (local7.anInt622 == 5) {
-				local16 = arg1 - local7.anInt620;
+			} else if (local7.testDirection == 5) {
+				local16 = arg1 - local7.minY;
 				if (local16 > 0) {
-					local28 = local7.anInt616 + (local7.anInt623 * local16 >> 8);
-					local38 = local7.anInt617 + (local7.anInt624 * local16 >> 8);
-					local48 = local7.anInt618 + (local7.anInt625 * local16 >> 8);
-					local58 = local7.anInt619 + (local7.anInt626 * local16 >> 8);
+					local28 = local7.minX + (local7.minNormalX * local16 >> 8);
+					local38 = local7.maxX + (local7.maxNormalX * local16 >> 8);
+					local48 = local7.minZ + (local7.minNormalZ * local16 >> 8);
+					local58 = local7.maxZ + (local7.maxNormalZ * local16 >> 8);
 					if (arg0 >= local28 && arg0 <= local38 && arg2 >= local48 && arg2 <= local58) {
 						return true;
 					}
