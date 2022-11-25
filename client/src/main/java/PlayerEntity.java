@@ -7,6 +7,12 @@ import sign.signlink;
 @OriginalClass("client!z")
 public final class PlayerEntity extends PathingEntity {
 
+	@OriginalMember(owner = "client!client", name = "Oe", descriptor = "[[I")
+	public static final int[][] APPEARANCE_COLORS = new int[][] { { 6798, 107, 10283, 16, 4797, 7744, 5799, 4634, 33697, 22433, 2983, 54193 }, { 8741, 12, 64030, 43162, 7735, 8404, 1701, 38430, 24094, 10153, 56621, 4783, 1341, 16578, 35003, 25239 }, { 25238, 8742, 12, 64030, 43162, 7735, 8404, 1701, 38430, 24094, 10153, 56621, 4783, 1341, 16578, 35003 }, { 4626, 11146, 6439, 12, 4758, 10270 }, { 4550, 4537, 5681, 5673, 5790, 6806, 8076, 4574 } };
+
+	@OriginalMember(owner = "client!client", name = "qh", descriptor = "[I")
+	public static final int[] BEARD_COLORS = new int[] { 9104, 10275, 7595, 3610, 7975, 8526, 918, 38802, 24466, 10145, 58654, 5027, 1457, 16565, 34991, 25486 };
+
 	@OriginalMember(owner = "client!z", name = "Cb", descriptor = "Lclient!s;")
 	public static Cache models = new Cache((byte) 0, 200);
 
@@ -95,7 +101,7 @@ public final class PlayerEntity extends PathingEntity {
 			}
 			for (local19 = 0; local19 < 5; local19++) {
 				local31 = arg1.g1();
-				if (local31 < 0 || local31 >= client.anIntArrayArray4[local19].length) {
+				if (local31 < 0 || local31 >= APPEARANCE_COLORS[local19].length) {
 					local31 = 0;
 				}
 				this.colors[local19] = local31;
@@ -187,10 +193,10 @@ public final class PlayerEntity extends PathingEntity {
 				local10 = new Model(local119, (byte) -31, 2, true);
 			}
 			if (this.model != null) {
-				if (client.anInt266 >= this.lastCycle) {
+				if (client.clientClock >= this.lastCycle) {
 					this.model = null;
 				}
-				if (client.anInt266 >= this.firstCycle && client.anInt266 < this.lastCycle) {
+				if (client.clientClock >= this.firstCycle && client.clientClock < this.lastCycle) {
 					@Pc(148) Model local148 = this.model;
 					local148.translate(this.sceneY - this.plane, this.sceneX - super.x, -122, this.sceneZ - super.z);
 					if (super.dstYaw == 512) {
@@ -282,9 +288,9 @@ public final class PlayerEntity extends PathingEntity {
 				local101 = new Model(0, local106, local108);
 				for (local117 = 0; local117 < 5; local117++) {
 					if (this.colors[local117] != 0) {
-						local101.recolor(client.anIntArrayArray4[local117][0], client.anIntArrayArray4[local117][this.colors[local117]]);
+						local101.recolor(APPEARANCE_COLORS[local117][0], APPEARANCE_COLORS[local117][this.colors[local117]]);
 						if (local117 == 1) {
-							local101.recolor(client.anIntArray70[0], client.anIntArray70[this.colors[local117]]);
+							local101.recolor(BEARD_COLORS[0], BEARD_COLORS[this.colors[local117]]);
 						}
 					}
 				}
@@ -337,9 +343,9 @@ public final class PlayerEntity extends PathingEntity {
 			@Pc(67) Model local67 = new Model(0, local9, local11);
 			for (@Pc(69) int local69 = 0; local69 < 5; local69++) {
 				if (this.colors[local69] != 0) {
-					local67.recolor(client.anIntArrayArray4[local69][0], client.anIntArrayArray4[local69][this.colors[local69]]);
+					local67.recolor(APPEARANCE_COLORS[local69][0], APPEARANCE_COLORS[local69][this.colors[local69]]);
 					if (local69 == 1) {
-						local67.recolor(client.anIntArray70[0], client.anIntArray70[this.colors[local69]]);
+						local67.recolor(BEARD_COLORS[0], BEARD_COLORS[this.colors[local69]]);
 					}
 				}
 			}
