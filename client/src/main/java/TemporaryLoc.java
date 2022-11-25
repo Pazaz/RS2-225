@@ -8,7 +8,7 @@ import sign.signlink;
 public final class TemporaryLoc extends Node {
 
 	@OriginalMember(owner = "client!mb", name = "e", descriptor = "I")
-	private int anInt630 = 27808;
+	private int flowObfuscator1 = 27808;
 
 	@OriginalMember(owner = "client!mb", name = "f", descriptor = "I")
 	public final int plane;
@@ -38,7 +38,7 @@ public final class TemporaryLoc extends Node {
 	public TemporaryLoc(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8) {
 		try {
 			if (arg4 != 2) {
-				this.anInt630 = -420;
+				this.flowObfuscator1 = -420;
 			}
 			this.plane = arg0;
 			this.classType = arg8;

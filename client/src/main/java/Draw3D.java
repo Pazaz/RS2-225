@@ -8,7 +8,7 @@ import sign.signlink;
 public final class Draw3D extends Draw2D {
 
 	@OriginalMember(owner = "client!gb", name = "w", descriptor = "I")
-	private static final int anInt427 = 787;
+	private static final int flowObfuscator2 = 787;
 
 	@OriginalMember(owner = "client!gb", name = "H", descriptor = "[I")
 	public static int[] reciprical15 = new int[512];
@@ -38,7 +38,7 @@ public final class Draw3D extends Draw2D {
 	public static int[] offsets;
 
 	@OriginalMember(owner = "client!gb", name = "U", descriptor = "I")
-	public static int anInt434;
+	public static int cycle;
 
 	@OriginalMember(owner = "client!gb", name = "V", descriptor = "[I")
 	public static int[] palette = new int[65536];
@@ -56,10 +56,10 @@ public final class Draw3D extends Draw2D {
 	public static int[] textureCycles = new int[50];
 
 	@OriginalMember(owner = "client!gb", name = "v", descriptor = "Z")
-	private static boolean aBoolean93;
+	private static boolean flowObfuscator1;
 
 	@OriginalMember(owner = "client!gb", name = "x", descriptor = "Z")
-	private static boolean aBoolean94;
+	private static boolean flowObfuscator3;
 
 	@OriginalMember(owner = "client!gb", name = "C", descriptor = "Z")
 	private static boolean opaque;
@@ -74,10 +74,10 @@ public final class Draw3D extends Draw2D {
 	private static int[][] texelPool;
 
 	@OriginalMember(owner = "client!gb", name = "y", descriptor = "I")
-	private static int anInt428 = 473;
+	private static int flowObfuscator4 = 473;
 
 	@OriginalMember(owner = "client!gb", name = "z", descriptor = "Z")
-	private static boolean aBoolean95 = true;
+	private static boolean flowObfuscator5 = true;
 
 	@OriginalMember(owner = "client!gb", name = "O", descriptor = "[Z")
 	private static boolean[] textureHasTransparency = new boolean[50];
@@ -116,7 +116,7 @@ public final class Draw3D extends Draw2D {
 			textureHasTransparency = null;
 			textureColors = null;
 			if (!arg0) {
-				aBoolean95 = !aBoolean95;
+				flowObfuscator5 = !flowObfuscator5;
 			}
 			texelPool = null;
 			activeTexels = null;
@@ -161,7 +161,7 @@ public final class Draw3D extends Draw2D {
 	public static void prepareOffsets(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		try {
 			if (arg2 != 0) {
-				aBoolean93 = !aBoolean93;
+				flowObfuscator1 = !flowObfuscator1;
 			}
 			offsets = new int[arg0];
 			for (@Pc(12) int local12 = 0; local12 < arg0; local12++) {
@@ -232,8 +232,8 @@ public final class Draw3D extends Draw2D {
 				for (@Pc(9) int local9 = 0; local9 < 50; local9++) {
 					try {
 						textures[local9] = new IndexedSprite(arg1, String.valueOf(local9), 0);
-						if (lowMemory && textures[local9].anInt517 == 128) {
-							textures[local9].shrink(aBoolean94);
+						if (lowMemory && textures[local9].clipWidth == 128) {
+							textures[local9].shrink(flowObfuscator3);
 						} else {
 							textures[local9].crop(0);
 						}
@@ -293,7 +293,7 @@ public final class Draw3D extends Draw2D {
 
 	@OriginalMember(owner = "client!gb", name = "d", descriptor = "(I)[I")
 	private static int[] getTexels(@OriginalArg(0) int arg0) {
-		textureCycles[arg0] = anInt434++;
+		textureCycles[arg0] = cycle++;
 		if (activeTexels[arg0] != null) {
 			return activeTexels[arg0];
 		}
@@ -321,7 +321,7 @@ public final class Draw3D extends Draw2D {
 		if (lowMemory) {
 			textureHasTransparency[arg0] = false;
 			for (local39 = 0; local39 < 4096; local39++) {
-				local106 = local27[local39] = local83[local79.aByteArray6[local39]] & 0xF8F8FF;
+				local106 = local27[local39] = local83[local79.pixels[local39]] & 0xF8F8FF;
 				if (local106 == 0) {
 					textureHasTransparency[arg0] = true;
 				}
@@ -330,15 +330,15 @@ public final class Draw3D extends Draw2D {
 				local27[local39 + 12288] = local106 - (local106 >>> 2) - (local106 >>> 3) & 0xF8F8FF;
 			}
 		} else {
-			if (local79.anInt513 == 64) {
+			if (local79.spriteWidth == 64) {
 				for (local39 = 0; local39 < 128; local39++) {
 					for (local106 = 0; local106 < 128; local106++) {
-						local27[local106 + (local39 << 7)] = local83[local79.aByteArray6[(local106 >> 1) + (local39 >> 1 << 6)]];
+						local27[local106 + (local39 << 7)] = local83[local79.pixels[(local106 >> 1) + (local39 >> 1 << 6)]];
 					}
 				}
 			} else {
 				for (local39 = 0; local39 < 16384; local39++) {
-					local27[local39] = local83[local79.aByteArray6[local39]];
+					local27[local39] = local83[local79.pixels[local39]];
 				}
 			}
 			textureHasTransparency[arg0] = false;
@@ -423,7 +423,7 @@ public final class Draw3D extends Draw2D {
 			}
 			for (@Pc(298) int local298 = 0; local298 < 50; local298++) {
 				if (textures[local298] != null) {
-					@Pc(309) int[] local309 = textures[local298].anIntArray177;
+					@Pc(309) int[] local309 = textures[local298].palette;
 					texturePalettes[local298] = new int[local309.length];
 					for (@Pc(317) int local317 = 0; local317 < local309.length; local317++) {
 						texturePalettes[local298][local317] = powRgb(local309[local317], local9);
@@ -431,7 +431,7 @@ public final class Draw3D extends Draw2D {
 				}
 			}
 			if (!arg0) {
-				anInt428 = -352;
+				flowObfuscator4 = -352;
 			}
 			for (@Pc(344) int local344 = 0; local344 < 50; local344++) {
 				updateTexture(local344, 150);

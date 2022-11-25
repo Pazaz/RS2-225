@@ -29,16 +29,16 @@ public final class FileArchive {
 	private boolean isCompressedWhole;
 
 	@OriginalMember(owner = "client!ub", name = "a", descriptor = "Z")
-	private final boolean aBoolean148 = false;
+	private final boolean flowObfuscator1 = false;
 
 	@OriginalMember(owner = "client!ub", name = "b", descriptor = "B")
-	private final byte aByte39 = 2;
+	private final byte flowObfuscator2 = 2;
 
 	@OriginalMember(owner = "client!ub", name = "c", descriptor = "I")
-	private final int anInt762 = 40267;
+	private final int flowObfuscator3 = 40267;
 
 	@OriginalMember(owner = "client!ub", name = "d", descriptor = "Z")
-	private final boolean aBoolean149 = false;
+	private final boolean flowObfuscator4 = false;
 
 	@OriginalMember(owner = "client!ub", name = "<init>", descriptor = "([BZ)V")
 	public FileArchive(@OriginalArg(0) byte[] arg0, @OriginalArg(1) boolean arg1) {
@@ -114,7 +114,7 @@ public final class FileArchive {
 					return arg1;
 				}
 			}
-			if (arg2 != this.aByte39) {
+			if (arg2 != this.flowObfuscator2) {
 				throw new NullPointerException();
 			}
 			return null;

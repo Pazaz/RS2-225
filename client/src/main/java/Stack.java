@@ -8,13 +8,13 @@ import sign.signlink;
 public final class Stack {
 
 	@OriginalMember(owner = "client!pb", name = "a", descriptor = "I")
-	private int anInt678 = 679;
+	private int flowObfuscator1 = 679;
 
 	@OriginalMember(owner = "client!pb", name = "b", descriptor = "B")
-	private final byte aByte34 = 2;
+	private final byte flowObfuscator2 = 2;
 
 	@OriginalMember(owner = "client!pb", name = "c", descriptor = "Z")
-	private final boolean aBoolean140 = true;
+	private final boolean flowObfuscator3 = true;
 
 	@OriginalMember(owner = "client!pb", name = "d", descriptor = "Lclient!db;")
 	private final CacheableNode head = new CacheableNode();
@@ -24,7 +24,7 @@ public final class Stack {
 		try {
 			this.head.nextCacheable = this.head;
 			if (arg0 < 5 || arg0 > 5) {
-				this.anInt678 = -426;
+				this.flowObfuscator1 = -426;
 			}
 			this.head.prevCacheable = this.head;
 		} catch (@Pc(36) RuntimeException local36) {

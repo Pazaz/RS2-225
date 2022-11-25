@@ -10,7 +10,7 @@ import java.awt.*;
 public final class GameFrame extends Frame {
 
 	@OriginalMember(owner = "client!b", name = "a", descriptor = "I")
-	private int anInt56 = 8;
+	private int flowObfuscator1 = 8;
 
 	@OriginalMember(owner = "client!b", name = "b", descriptor = "Lclient!a;")
 	private final GameShell shell;
@@ -19,7 +19,7 @@ public final class GameFrame extends Frame {
 	public GameFrame(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) GameShell arg2, @OriginalArg(3) int arg3) {
 		try {
 			if (arg1 != 35731) {
-				this.anInt56 = -475;
+				this.flowObfuscator1 = -475;
 			}
 			this.shell = arg2;
 			this.setTitle("Jagex");

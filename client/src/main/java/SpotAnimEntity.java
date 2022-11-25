@@ -8,7 +8,7 @@ import sign.signlink;
 public final class SpotAnimEntity extends Entity {
 
 	@OriginalMember(owner = "client!bb", name = "e", descriptor = "I")
-	private int anInt58;
+	private int flowObfuscator1;
 
 	@OriginalMember(owner = "client!bb", name = "m", descriptor = "I")
 	private int seqFrame;
@@ -26,7 +26,7 @@ public final class SpotAnimEntity extends Entity {
 	public final int plane;
 
 	@OriginalMember(owner = "client!bb", name = "f", descriptor = "I")
-	private int anInt59;
+	private int flowObfuscator2;
 
 	@OriginalMember(owner = "client!bb", name = "j", descriptor = "I")
 	public final int x;
@@ -46,7 +46,7 @@ public final class SpotAnimEntity extends Entity {
 			this.spotanim = SpotAnimType.instances[arg1];
 			this.plane = arg6;
 			if (arg2) {
-				this.anInt59 = -147;
+				this.flowObfuscator2 = -147;
 			}
 			this.x = arg0;
 			this.z = arg3;
@@ -63,19 +63,19 @@ public final class SpotAnimEntity extends Entity {
 	public void update(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		try {
 			if (arg1 != 0) {
-				this.anInt59 = -255;
+				this.flowObfuscator2 = -255;
 			}
 			this.frameCycle += arg0;
 			while (true) {
 				do {
 					do {
-						if (this.frameCycle <= this.spotanim.aClass19_1.anIntArray188[this.seqFrame]) {
+						if (this.frameCycle <= this.spotanim.seq.frameDelay[this.seqFrame]) {
 							return;
 						}
-						this.frameCycle -= this.spotanim.aClass19_1.anIntArray188[this.seqFrame] + 1;
+						this.frameCycle -= this.spotanim.seq.frameDelay[this.seqFrame] + 1;
 						this.seqFrame++;
-					} while (this.seqFrame < this.spotanim.aClass19_1.anInt543);
-				} while (this.seqFrame >= 0 && this.seqFrame < this.spotanim.aClass19_1.anInt543);
+					} while (this.seqFrame < this.spotanim.seq.framecount);
+				} while (this.seqFrame >= 0 && this.seqFrame < this.spotanim.seq.framecount);
 				this.seqFrame = 0;
 				this.finished = true;
 			}
@@ -90,34 +90,34 @@ public final class SpotAnimEntity extends Entity {
 	public Model getDrawMethod(@OriginalArg(0) boolean arg0) {
 		try {
 			@Pc(3) Model local3 = this.spotanim.getModel();
-			@Pc(19) Model local19 = new Model(local3, true, !this.spotanim.aBoolean131, this.anInt58, false);
+			@Pc(19) Model local19 = new Model(local3, true, !this.spotanim.disposeAlpha, this.flowObfuscator1, false);
 			if (!arg0) {
 				throw new NullPointerException();
 			}
 			if (!this.finished) {
 				local19.applyGroup(4);
-				local19.applyFrame(-16599, this.spotanim.aClass19_1.anIntArray186[this.seqFrame]);
-				local19.anIntArrayArray7 = null;
-				local19.anIntArrayArray6 = null;
+				local19.applyFrame(-16599, this.spotanim.seq.primaryFrames[this.seqFrame]);
+				local19.skinTriangle = null;
+				local19.labelVertices = null;
 			}
-			if (this.spotanim.anInt571 != 128 || this.spotanim.anInt572 != 128) {
-				local19.scale(this.spotanim.anInt571, 2, this.spotanim.anInt572, this.spotanim.anInt571);
+			if (this.spotanim.resizeh != 128 || this.spotanim.resizev != 128) {
+				local19.scale(this.spotanim.resizeh, 2, this.spotanim.resizev, this.spotanim.resizeh);
 			}
-			if (this.spotanim.anInt573 != 0) {
-				if (this.spotanim.anInt573 == 90) {
+			if (this.spotanim.orientation != 0) {
+				if (this.spotanim.orientation == 90) {
 					local19.rotateCounterClockwise(0);
 				}
-				if (this.spotanim.anInt573 == 180) {
-					local19.rotateCounterClockwise(0);
-					local19.rotateCounterClockwise(0);
-				}
-				if (this.spotanim.anInt573 == 270) {
-					local19.rotateCounterClockwise(0);
+				if (this.spotanim.orientation == 180) {
 					local19.rotateCounterClockwise(0);
 					local19.rotateCounterClockwise(0);
 				}
+				if (this.spotanim.orientation == 270) {
+					local19.rotateCounterClockwise(0);
+					local19.rotateCounterClockwise(0);
+					local19.rotateCounterClockwise(0);
+				}
 			}
-			local19.applyLighting(this.spotanim.anInt574 + 64, this.spotanim.anInt575 + 850, -30, -50, -30, true);
+			local19.applyLighting(this.spotanim.ambient + 64, this.spotanim.contrast + 850, -30, -50, -30, true);
 			return local19;
 		} catch (@Pc(125) RuntimeException local125) {
 			signlink.reporterror("26048, " + arg0 + ", " + local125.toString());

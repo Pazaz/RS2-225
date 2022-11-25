@@ -34,10 +34,10 @@ public final class Buffer extends CacheableNode {
 	public static int queueMaxCount;
 
 	@OriginalMember(owner = "client!kb", name = "h", descriptor = "I")
-	public static int anInt556 = 40946;
+	public static int flowObfuscator1 = 40946;
 
 	@OriginalMember(owner = "client!kb", name = "o", descriptor = "Z")
-	public static boolean aBoolean129 = true;
+	public static boolean flowObfuscator8 = true;
 
 	@OriginalMember(owner = "client!kb", name = "q", descriptor = "[B")
 	public byte[] data;
@@ -52,37 +52,37 @@ public final class Buffer extends CacheableNode {
 	public IsaacRandom aClass38_2;
 
 	@OriginalMember(owner = "client!kb", name = "i", descriptor = "B")
-	private final byte aByte29 = -34;
+	private final byte flowObfuscator2 = -34;
 
 	@OriginalMember(owner = "client!kb", name = "j", descriptor = "B")
-	private final byte aByte30 = -106;
+	private final byte flowObfuscator3 = -106;
 
 	@OriginalMember(owner = "client!kb", name = "k", descriptor = "I")
-	private final int anInt557 = 3;
+	private final int flowObfuscator4 = 3;
 
 	@OriginalMember(owner = "client!kb", name = "l", descriptor = "I")
-	private int anInt558 = -506;
+	private int flowObfuscator5 = -506;
 
 	@OriginalMember(owner = "client!kb", name = "m", descriptor = "Z")
-	private boolean aBoolean128 = true;
+	private boolean flowObfuscator6 = true;
 
 	@OriginalMember(owner = "client!kb", name = "n", descriptor = "I")
-	private final int anInt559 = 4277;
+	private final int flowObfuscator7 = 4277;
 
 	@OriginalMember(owner = "client!kb", name = "p", descriptor = "I")
-	private final int anInt560 = -178;
+	private final int flowObfuscator9 = -178;
 
 	static {
-		for (@Pc(8) int local8 = 0; local8 < 256; local8++) {
-			@Pc(11) int local11 = local8;
-			for (@Pc(13) int local13 = 0; local13 < 8; local13++) {
-				if ((local11 & 0x1) == 1) {
-					local11 = local11 >>> 1 ^ 0xEDB88320;
+		for (@Pc(8) int j = 0; j < 256; j++) {
+			@Pc(11) int i = j;
+			for (@Pc(13) int k = 0; k < 8; k++) {
+				if ((i & 0x1) == 1) {
+					i = i >>> 1 ^ 0xEDB88320;
 				} else {
-					local11 >>>= 0x1;
+					i >>>= 0x1;
 				}
 			}
-			crctable[local8] = local11;
+			crctable[j] = i;
 		}
 	}
 
@@ -90,7 +90,7 @@ public final class Buffer extends CacheableNode {
 	public Buffer(@OriginalArg(0) int arg0) {
 		try {
 			if (arg0 != 40946) {
-				aBoolean129 = !aBoolean129;
+				flowObfuscator8 = !flowObfuscator8;
 			}
 		} catch (@Pc(33) RuntimeException local33) {
 			signlink.reporterror("73559, " + arg0 + ", " + local33.toString());
@@ -132,9 +132,9 @@ public final class Buffer extends CacheableNode {
 				}
 			}
 			if (arg1 >= 0) {
-				aBoolean129 = !aBoolean129;
+				flowObfuscator8 = !flowObfuscator8;
 			}
-			@Pc(77) Buffer local77 = new Buffer(anInt556);
+			@Pc(77) Buffer local77 = new Buffer(flowObfuscator1);
 			local77.pos = 0;
 			if (arg0 == 0) {
 				local77.data = new byte[100];
@@ -173,7 +173,7 @@ public final class Buffer extends CacheableNode {
 				}
 			}
 			if (arg0 != 8) {
-				anInt556 = -173;
+				flowObfuscator1 = -173;
 			}
 		} catch (@Pc(73) RuntimeException local73) {
 			signlink.reporterror("53281, " + arg0 + ", " + local73.toString());
@@ -185,8 +185,8 @@ public final class Buffer extends CacheableNode {
 	public void p1isaac(@OriginalArg(0) byte arg0, @OriginalArg(1) int arg1) {
 		try {
 			this.data[this.pos++] = (byte) (arg1 + this.aClass38_2.nextInt());
-			if (arg0 != this.aByte29) {
-				aBoolean129 = !aBoolean129;
+			if (arg0 != this.flowObfuscator2) {
+				flowObfuscator8 = !flowObfuscator8;
 			}
 		} catch (@Pc(27) RuntimeException local27) {
 			signlink.reporterror("36381, " + arg0 + ", " + arg1 + ", " + local27.toString());
@@ -209,7 +209,7 @@ public final class Buffer extends CacheableNode {
 	public void ip2(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1) {
 		try {
 			if (!arg0) {
-				aBoolean129 = !aBoolean129;
+				flowObfuscator8 = !flowObfuscator8;
 			}
 			this.data[this.pos++] = (byte) arg1;
 			this.data[this.pos++] = (byte) (arg1 >> 8);
@@ -279,7 +279,7 @@ public final class Buffer extends CacheableNode {
 	public void pdata(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) byte arg3) {
 		try {
 			@Pc(7) int local7;
-			if (arg3 != this.aByte30) {
+			if (arg3 != this.flowObfuscator3) {
 				for (local7 = 1; local7 > 0; local7++) {
 				}
 			}
@@ -296,7 +296,7 @@ public final class Buffer extends CacheableNode {
 	public void psize1(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		try {
 			if (arg0 != 0) {
-				aBoolean129 = !aBoolean129;
+				flowObfuscator8 = !flowObfuscator8;
 			}
 			this.data[this.pos - arg1 - 1] = (byte) arg1;
 		} catch (@Pc(20) RuntimeException local20) {
@@ -388,7 +388,7 @@ public final class Buffer extends CacheableNode {
 	public void gdata(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) byte[] arg3) {
 		try {
 			if (arg1 >= 0) {
-				this.anInt558 = -432;
+				this.flowObfuscator5 = -432;
 			}
 			for (@Pc(6) int local6 = arg2; local6 < arg2 + arg0; local6++) {
 				arg3[local6] = this.data[this.pos++];
@@ -404,7 +404,7 @@ public final class Buffer extends CacheableNode {
 		try {
 			this.bitOffset = this.pos * 8;
 			if (arg0 <= 0) {
-				this.aBoolean128 = !this.aBoolean128;
+				this.flowObfuscator6 = !this.flowObfuscator6;
 			}
 		} catch (@Pc(17) RuntimeException local17) {
 			signlink.reporterror("5633, " + arg0 + ", " + local17.toString());
@@ -416,7 +416,7 @@ public final class Buffer extends CacheableNode {
 	public int gBit(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		try {
 			if (arg0 < 9 || arg0 > 9) {
-				return this.anInt557;
+				return this.flowObfuscator4;
 			}
 			@Pc(15) int local15 = this.bitOffset >> 3;
 			@Pc(22) int local22 = 8 - (this.bitOffset & 0x7);
@@ -442,7 +442,7 @@ public final class Buffer extends CacheableNode {
 	@OriginalMember(owner = "client!kb", name = "g", descriptor = "(I)V")
 	public void accessBytes(@OriginalArg(0) int arg0) {
 		try {
-			if (arg0 != this.anInt559) {
+			if (arg0 != this.flowObfuscator7) {
 				for (@Pc(5) int local5 = 1; local5 > 0; local5++) {
 				}
 			}

@@ -8,7 +8,7 @@ import sign.signlink;
 public final class ProjectileEntity extends Entity {
 
 	@OriginalMember(owner = "client!ab", name = "e", descriptor = "I")
-	private int anInt22;
+	private int flowObfuscator1;
 
 	@OriginalMember(owner = "client!ab", name = "s", descriptor = "D")
 	public double x;
@@ -47,7 +47,7 @@ public final class ProjectileEntity extends Entity {
 	private int frameCycle;
 
 	@OriginalMember(owner = "client!ab", name = "f", descriptor = "I")
-	private int anInt23 = -159;
+	private int flowObfuscator2 = -159;
 
 	@OriginalMember(owner = "client!ab", name = "r", descriptor = "Z")
 	private boolean isMobile = false;
@@ -142,7 +142,7 @@ public final class ProjectileEntity extends Entity {
 	public void update(@OriginalArg(0) byte arg0, @OriginalArg(1) int arg1) {
 		try {
 			if (arg0 != -30) {
-				this.anInt23 = -454;
+				this.flowObfuscator2 = -454;
 			}
 			this.isMobile = true;
 			this.x += this.velocityX * (double) arg1;
@@ -151,12 +151,12 @@ public final class ProjectileEntity extends Entity {
 			this.velocityZ += this.accelerationZ * (double) arg1;
 			this.yaw = (int) (Math.atan2(this.velocityX, this.velocityY) * 325.949D) + 1024 & 0x7FF;
 			this.pitch = (int) (Math.atan2(this.velocityZ, this.velocity) * 325.949D) & 0x7FF;
-			if (this.spotAnim.aClass19_1 != null) {
+			if (this.spotAnim.seq != null) {
 				this.frameCycle += arg1;
-				while (this.frameCycle > this.spotAnim.aClass19_1.anIntArray188[this.seqFrame]) {
-					this.frameCycle -= this.spotAnim.aClass19_1.anIntArray188[this.seqFrame] + 1;
+				while (this.frameCycle > this.spotAnim.seq.frameDelay[this.seqFrame]) {
+					this.frameCycle -= this.spotAnim.seq.frameDelay[this.seqFrame] + 1;
 					this.seqFrame++;
-					if (this.seqFrame >= this.spotAnim.aClass19_1.anInt543) {
+					if (this.seqFrame >= this.spotAnim.seq.framecount) {
 						this.seqFrame = 0;
 					}
 				}
@@ -172,22 +172,22 @@ public final class ProjectileEntity extends Entity {
 	public Model getDrawMethod(@OriginalArg(0) boolean arg0) {
 		try {
 			@Pc(3) Model local3 = this.spotAnim.getModel();
-			@Pc(19) Model local19 = new Model(local3, true, !this.spotAnim.aBoolean131, this.anInt22, false);
+			@Pc(19) Model local19 = new Model(local3, true, !this.spotAnim.disposeAlpha, this.flowObfuscator1, false);
 			if (!arg0) {
 				for (@Pc(23) int local23 = 1; local23 > 0; local23++) {
 				}
 			}
-			if (this.spotAnim.aClass19_1 != null) {
+			if (this.spotAnim.seq != null) {
 				local19.applyGroup(4);
-				local19.applyFrame(-16599, this.spotAnim.aClass19_1.anIntArray186[this.seqFrame]);
-				local19.anIntArrayArray7 = null;
-				local19.anIntArrayArray6 = null;
+				local19.applyFrame(-16599, this.spotAnim.seq.primaryFrames[this.seqFrame]);
+				local19.skinTriangle = null;
+				local19.labelVertices = null;
 			}
-			if (this.spotAnim.anInt571 != 128 || this.spotAnim.anInt572 != 128) {
-				local19.scale(this.spotAnim.anInt571, 2, this.spotAnim.anInt572, this.spotAnim.anInt571);
+			if (this.spotAnim.resizeh != 128 || this.spotAnim.resizev != 128) {
+				local19.scale(this.spotAnim.resizeh, 2, this.spotAnim.resizev, this.spotAnim.resizeh);
 			}
 			local19.rotatePitch((byte) 7, this.pitch);
-			local19.applyLighting(this.spotAnim.anInt574 + 64, this.spotAnim.anInt575 + 850, -30, -50, -30, true);
+			local19.applyLighting(this.spotAnim.ambient + 64, this.spotAnim.contrast + 850, -30, -50, -30, true);
 			return local19;
 		} catch (@Pc(97) RuntimeException local97) {
 			signlink.reporterror("99718, " + arg0 + ", " + local97.toString());

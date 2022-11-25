@@ -14,7 +14,7 @@ import java.awt.event.*;
 public class GameShell extends Applet implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
 
 	@OriginalMember(owner = "client!a", name = "c", descriptor = "I")
-	private int anInt125;
+	private int flowObfuscator3;
 
 	@OriginalMember(owner = "client!a", name = "g", descriptor = "I")
 	private int state;
@@ -65,19 +65,19 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	private int unprocessedKeyCount;
 
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "Z")
-	private boolean aBoolean33 = false;
+	private boolean flowObfuscator1 = false;
 
 	@OriginalMember(owner = "client!a", name = "b", descriptor = "Z")
-	private boolean aBoolean34 = false;
+	private boolean flowObfuscator2 = false;
 
 	@OriginalMember(owner = "client!a", name = "d", descriptor = "Z")
-	private boolean aBoolean35 = false;
+	private boolean flowObfuscator4 = false;
 
 	@OriginalMember(owner = "client!a", name = "e", descriptor = "B")
-	private final byte aByte7 = 3;
+	private final byte flowObfuscator5 = 3;
 
 	@OriginalMember(owner = "client!a", name = "f", descriptor = "I")
-	private int anInt126 = 27808;
+	private int flowObfuscator6 = 27808;
 
 	@OriginalMember(owner = "client!a", name = "h", descriptor = "I")
 	private int deltime = 20;
@@ -104,13 +104,13 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	protected final void initApplication(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		try {
 			if (arg2 != 0) {
-				this.anInt125 = 411;
+				this.flowObfuscator3 = 411;
 			}
 			this.gameWidth = arg1;
 			this.gameHeight = arg0;
 			this.frame = new GameFrame(this.gameHeight, 35731, this, this.gameWidth);
-			this.graphics = this.getBaseComponent(this.aByte7).getGraphics();
-			this.frameBuffer = new ImageProducerFrameBuffer(this.getBaseComponent(this.aByte7), this.gameWidth, 299, this.gameHeight);
+			this.graphics = this.getBaseComponent(this.flowObfuscator5).getGraphics();
+			this.frameBuffer = new ImageProducerFrameBuffer(this.getBaseComponent(this.flowObfuscator5), this.gameWidth, 299, this.gameHeight);
 			this.startThread(this, 1);
 		} catch (@Pc(48) RuntimeException local48) {
 			signlink.reporterror("32828, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + local48.toString());
@@ -123,10 +123,10 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 		try {
 			this.gameWidth = arg2;
 			this.gameHeight = arg0;
-			this.graphics = this.getBaseComponent(this.aByte7).getGraphics();
-			this.frameBuffer = new ImageProducerFrameBuffer(this.getBaseComponent(this.aByte7), this.gameWidth, 299, this.gameHeight);
+			this.graphics = this.getBaseComponent(this.flowObfuscator5).getGraphics();
+			this.frameBuffer = new ImageProducerFrameBuffer(this.getBaseComponent(this.flowObfuscator5), this.gameWidth, 299, this.gameHeight);
 			if (arg1) {
-				this.anInt125 = -370;
+				this.flowObfuscator3 = -370;
 			}
 			this.startThread(this, 1);
 		} catch (@Pc(37) RuntimeException local37) {
@@ -138,10 +138,10 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	@OriginalMember(owner = "client!a", name = "run", descriptor = "()V")
 	@Override
 	public void run() {
-		this.getBaseComponent(this.aByte7).addMouseListener(this);
-		this.getBaseComponent(this.aByte7).addMouseMotionListener(this);
-		this.getBaseComponent(this.aByte7).addKeyListener(this);
-		this.getBaseComponent(this.aByte7).addFocusListener(this);
+		this.getBaseComponent(this.flowObfuscator5).addMouseListener(this);
+		this.getBaseComponent(this.flowObfuscator5).addMouseMotionListener(this);
+		this.getBaseComponent(this.flowObfuscator5).addKeyListener(this);
+		this.getBaseComponent(this.flowObfuscator5).addFocusListener(this);
 		if (this.frame != null) {
 			this.frame.addWindowListener(this);
 		}
@@ -218,7 +218,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	private void shutdown(@OriginalArg(0) int arg0) {
 		try {
 			while (arg0 >= 0) {
-				this.aBoolean35 = !this.aBoolean35;
+				this.flowObfuscator4 = !this.flowObfuscator4;
 			}
 			this.state = -2;
 			this.unload((byte) -28);
@@ -241,7 +241,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 		try {
 			this.deltime = 1000 / arg1;
 			if (arg0 <= 0) {
-				this.aBoolean33 = !this.aBoolean33;
+				this.flowObfuscator1 = !this.flowObfuscator1;
 			}
 		} catch (@Pc(16) RuntimeException local16) {
 			signlink.reporterror("9789, " + arg0 + ", " + arg1 + ", " + local16.toString());
@@ -317,7 +317,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 			this.mouseButton = 1;
 			this.dragButton = 1;
 		}
-		if (InputTracking.aBoolean81) {
+		if (InputTracking.enabled) {
 			InputTracking.mousePressed(local2, arg0.isMetaDown() ? 1 : 0, local5, (byte) 4);
 		}
 	}
@@ -327,7 +327,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	public final void mouseReleased(@OriginalArg(0) MouseEvent arg0) {
 		this.idleCycles = 0;
 		this.dragButton = 0;
-		if (InputTracking.aBoolean81) {
+		if (InputTracking.enabled) {
 			InputTracking.mouseReleased(arg0.isMetaDown() ? 1 : 0, 0);
 		}
 	}
@@ -340,7 +340,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	@OriginalMember(owner = "client!a", name = "mouseEntered", descriptor = "(Ljava/awt/event/MouseEvent;)V")
 	@Override
 	public final void mouseEntered(@OriginalArg(0) MouseEvent arg0) {
-		if (InputTracking.aBoolean81) {
+		if (InputTracking.enabled) {
 			InputTracking.mouseEntered(-657);
 		}
 	}
@@ -348,7 +348,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	@OriginalMember(owner = "client!a", name = "mouseExited", descriptor = "(Ljava/awt/event/MouseEvent;)V")
 	@Override
 	public final void mouseExited(@OriginalArg(0) MouseEvent arg0) {
-		if (InputTracking.aBoolean81) {
+		if (InputTracking.enabled) {
 			InputTracking.mouseExited(false);
 		}
 	}
@@ -365,7 +365,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 		this.idleCycles = 0;
 		this.mouseX = local2;
 		this.mouseY = local5;
-		if (InputTracking.aBoolean81) {
+		if (InputTracking.enabled) {
 			InputTracking.mouseMoved(local5, true, local2);
 		}
 	}
@@ -382,7 +382,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 		this.idleCycles = 0;
 		this.mouseX = local2;
 		this.mouseY = local5;
-		if (InputTracking.aBoolean81) {
+		if (InputTracking.enabled) {
 			InputTracking.mouseMoved(local5, true, local2);
 		}
 	}
@@ -445,7 +445,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 			this.pressedKeys[this.unprocessedKeyCount] = local10;
 			this.unprocessedKeyCount = this.unprocessedKeyCount + 1 & 0x7F;
 		}
-		if (InputTracking.aBoolean81) {
+		if (InputTracking.enabled) {
 			InputTracking.keyPressed(local10, true);
 		}
 	}
@@ -489,7 +489,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 		if (local8 > '\u0000' && local8 < '\u0080') {
 			this.keyDown[local8] = 0;
 		}
-		if (InputTracking.aBoolean81) {
+		if (InputTracking.enabled) {
 			InputTracking.keyReleased(local8, 1);
 		}
 	}
@@ -504,7 +504,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	public final void focusGained(@OriginalArg(0) FocusEvent arg0) {
 		this.refresh = true;
 		this.refresh(3);
-		if (InputTracking.aBoolean81) {
+		if (InputTracking.enabled) {
 			InputTracking.focusGained(-936);
 		}
 	}
@@ -512,7 +512,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	@OriginalMember(owner = "client!a", name = "focusLost", descriptor = "(Ljava/awt/event/FocusEvent;)V")
 	@Override
 	public final void focusLost(@OriginalArg(0) FocusEvent arg0) {
-		if (InputTracking.aBoolean81) {
+		if (InputTracking.enabled) {
 			InputTracking.focusLost(0);
 		}
 	}
@@ -579,7 +579,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	protected void update(@OriginalArg(0) int arg0) {
 		try {
 			if (arg0 <= 0) {
-				this.aBoolean34 = !this.aBoolean34;
+				this.flowObfuscator2 = !this.flowObfuscator2;
 			}
 		} catch (@Pc(11) RuntimeException local11) {
 			signlink.reporterror("39582, " + arg0 + ", " + local11.toString());
@@ -591,7 +591,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	protected void unload(@OriginalArg(0) byte arg0) {
 		try {
 			if (arg0 != -28) {
-				this.anInt126 = -407;
+				this.flowObfuscator6 = -407;
 			}
 		} catch (@Pc(7) RuntimeException local7) {
 			signlink.reporterror("60526, " + arg0 + ", " + local7.toString());
@@ -603,7 +603,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	protected void draw(@OriginalArg(0) boolean arg0) {
 		try {
 			if (arg0) {
-				this.aBoolean35 = !this.aBoolean35;
+				this.flowObfuscator4 = !this.flowObfuscator4;
 			}
 		} catch (@Pc(11) RuntimeException local11) {
 			signlink.reporterror("89494, " + arg0 + ", " + local11.toString());
@@ -615,7 +615,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	protected void refresh(@OriginalArg(0) int arg0) {
 		try {
 			if (arg0 < 3 || arg0 > 3) {
-				this.aBoolean34 = !this.aBoolean34;
+				this.flowObfuscator2 = !this.flowObfuscator2;
 			}
 		} catch (@Pc(15) RuntimeException local15) {
 			signlink.reporterror("40825, " + arg0 + ", " + local15.toString());
@@ -647,9 +647,9 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	protected void showProgress(@OriginalArg(0) boolean arg0, @OriginalArg(1) String arg1, @OriginalArg(2) int arg2) {
 		try {
 			while (this.graphics == null) {
-				this.graphics = this.getBaseComponent(this.aByte7).getGraphics();
+				this.graphics = this.getBaseComponent(this.flowObfuscator5).getGraphics();
 				try {
-					this.getBaseComponent(this.aByte7).repaint();
+					this.getBaseComponent(this.flowObfuscator5).repaint();
 				} catch (@Pc(22) Exception local22) {
 				}
 				try {
@@ -658,9 +658,9 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 				}
 			}
 			@Pc(37) Font local37 = new Font("Helvetica", 1, 13);
-			@Pc(44) FontMetrics local44 = this.getBaseComponent(this.aByte7).getFontMetrics(local37);
+			@Pc(44) FontMetrics local44 = this.getBaseComponent(this.flowObfuscator5).getFontMetrics(local37);
 			@Pc(51) Font local51 = new Font("Helvetica", 0, 13);
-			this.getBaseComponent(this.aByte7).getFontMetrics(local51);
+			this.getBaseComponent(this.flowObfuscator5).getFontMetrics(local51);
 			if (this.refresh) {
 				this.graphics.setColor(Color.black);
 				this.graphics.fillRect(0, 0, this.gameWidth, this.gameHeight);

@@ -22,7 +22,7 @@ public final class BufferedStream implements Runnable {
 	private int offset;
 
 	@OriginalMember(owner = "client!d", name = "a", descriptor = "Z")
-	private boolean aBoolean74 = false;
+	private boolean flowObfuscator1 = false;
 
 	@OriginalMember(owner = "client!d", name = "e", descriptor = "Z")
 	private boolean closed = false;
@@ -51,7 +51,7 @@ public final class BufferedStream implements Runnable {
 			if (arg1 == 2) {
 				@Pc(18) boolean local18 = false;
 			} else {
-				this.aBoolean74 = !this.aBoolean74;
+				this.flowObfuscator1 = !this.flowObfuscator1;
 			}
 			this.shell = arg0;
 			this.socket = arg2;

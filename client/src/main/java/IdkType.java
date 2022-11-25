@@ -8,10 +8,10 @@ import sign.signlink;
 public final class IdkType {
 
 	@OriginalMember(owner = "client!gc", name = "b", descriptor = "I")
-	private static final int anInt436 = 473;
+	private static final int flowObfuscator2 = 473;
 
 	@OriginalMember(owner = "client!gc", name = "a", descriptor = "I")
-	public static int anInt435;
+	public static int flowObfuscator1;
 
 	@OriginalMember(owner = "client!gc", name = "d", descriptor = "I")
 	public static int count;
@@ -23,7 +23,7 @@ public final class IdkType {
 	private int[] models;
 
 	@OriginalMember(owner = "client!gc", name = "c", descriptor = "Z")
-	private final boolean aBoolean100 = false;
+	private final boolean flowObfuscator3 = false;
 
 	@OriginalMember(owner = "client!gc", name = "f", descriptor = "I")
 	public int type = -1;
@@ -65,7 +65,7 @@ public final class IdkType {
 	public void decode(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
 		try {
 			if (arg0) {
-				anInt435 = 65;
+				flowObfuscator1 = 65;
 			}
 			while (true) {
 				while (true) {

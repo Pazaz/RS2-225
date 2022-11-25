@@ -8,10 +8,10 @@ import sign.signlink;
 public final class VarpType {
 
 	@OriginalMember(owner = "client!lc", name = "a", descriptor = "I")
-	private static final int anInt603 = 473;
+	private static final int flowObfuscator1 = 473;
 
 	@OriginalMember(owner = "client!lc", name = "b", descriptor = "I")
-	private static final int anInt604 = 13703;
+	private static final int flowObfuscator2 = 13703;
 
 	@OriginalMember(owner = "client!lc", name = "d", descriptor = "[Lclient!lc;")
 	public static VarpType[] instances;
@@ -69,7 +69,7 @@ public final class VarpType {
 				if (instances[local30] == null) {
 					instances[local30] = new VarpType();
 				}
-				instances[local30].decode(anInt604, local30, local9);
+				instances[local30].decode(flowObfuscator2, local30, local9);
 			}
 		} catch (@Pc(55) RuntimeException local55) {
 			signlink.reporterror("45283, " + arg0 + ", " + arg1 + ", " + local55.toString());

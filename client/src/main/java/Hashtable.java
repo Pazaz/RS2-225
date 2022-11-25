@@ -8,10 +8,10 @@ import sign.signlink;
 public final class Hashtable {
 
 	@OriginalMember(owner = "client!t", name = "a", descriptor = "I")
-	private final int anInt756 = 4277;
+	private final int flowObfuscator1 = 4277;
 
 	@OriginalMember(owner = "client!t", name = "b", descriptor = "Z")
-	private boolean aBoolean147 = false;
+	private boolean flowObfuscator2 = false;
 
 	@OriginalMember(owner = "client!t", name = "c", descriptor = "I")
 	private final int size;
@@ -25,7 +25,7 @@ public final class Hashtable {
 			this.size = arg1;
 			this.nodes = new Node[arg1];
 			if (arg0 < 9 || arg0 > 9) {
-				this.aBoolean147 = !this.aBoolean147;
+				this.flowObfuscator2 = !this.flowObfuscator2;
 			}
 			for (@Pc(30) int local30 = 0; local30 < arg1; local30++) {
 				@Pc(40) Node local40 = this.nodes[local30] = new Node();

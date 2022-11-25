@@ -43,9 +43,9 @@ public final class LocEntity extends Node {
 			}
 			this.locIndex = arg1;
 			this.seq = arg5;
-			if (arg0 && arg5.anInt544 != -1) {
-				this.seqFrame = (int) (Math.random() * (double) this.seq.anInt543);
-				this.seqDelay = (int) (Math.random() * (double) this.seq.anIntArray188[this.seqFrame]);
+			if (arg0 && arg5.replayoff != -1) {
+				this.seqFrame = (int) (Math.random() * (double) this.seq.framecount);
+				this.seqDelay = (int) (Math.random() * (double) this.seq.frameDelay[this.seqFrame]);
 			} else {
 				this.seqFrame = -1;
 				this.seqDelay = 0;

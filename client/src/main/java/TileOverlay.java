@@ -29,13 +29,13 @@ public final class TileOverlay {
 	public static final int[][] SHAPE_PATHS = new int[][] { { 0, 1, 2, 3, 0, 0, 1, 3 }, { 1, 1, 2, 3, 1, 0, 1, 3 }, { 0, 1, 2, 3, 1, 0, 1, 3 }, { 0, 0, 1, 2, 0, 0, 2, 4, 1, 0, 4, 3 }, { 0, 0, 1, 4, 0, 0, 4, 3, 1, 1, 2, 4 }, { 0, 0, 4, 3, 1, 0, 1, 2, 1, 0, 2, 4 }, { 0, 1, 2, 4, 1, 0, 1, 4, 1, 0, 4, 3 }, { 0, 4, 1, 2, 0, 4, 2, 5, 1, 0, 4, 5, 1, 0, 5, 3 }, { 0, 4, 1, 2, 0, 4, 2, 3, 0, 4, 3, 5, 1, 0, 4, 5 }, { 0, 0, 4, 5, 1, 4, 1, 2, 1, 4, 2, 3, 1, 4, 3, 5 }, { 0, 0, 1, 5, 0, 1, 4, 5, 0, 1, 2, 4, 1, 0, 5, 3, 1, 5, 4, 3, 1, 4, 2, 3 }, { 1, 0, 1, 5, 1, 1, 4, 5, 1, 1, 2, 4, 0, 0, 5, 3, 0, 5, 4, 3, 0, 4, 2, 3 }, { 1, 0, 5, 4, 1, 0, 1, 5, 0, 0, 4, 3, 0, 4, 5, 3, 0, 5, 2, 3, 0, 1, 2, 5 } };
 
 	@OriginalMember(owner = "client!i", name = "u", descriptor = "[I")
-	private static final int[] unused1 = new int[] { 1, 0 };
+	private static final int[] intArr1 = new int[] { 1, 0 };
 
 	@OriginalMember(owner = "client!i", name = "v", descriptor = "[I")
-	private static final int[] unused2 = new int[] { 2, 1 };
+	private static final int[] intArr2 = new int[] { 2, 1 };
 
 	@OriginalMember(owner = "client!i", name = "w", descriptor = "[I")
-	private static final int[] unused3 = new int[] { 3, 3 };
+	private static final int[] intArr3 = new int[] { 3, 3 };
 
 	@OriginalMember(owner = "client!i", name = "k", descriptor = "Z")
 	public boolean isFlat = true;

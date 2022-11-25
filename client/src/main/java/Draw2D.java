@@ -8,7 +8,7 @@ import sign.signlink;
 public class Draw2D extends CacheableNode {
 
 	@OriginalMember(owner = "client!fb", name = "j", descriptor = "Z")
-	private static final boolean aBoolean123 = true;
+	private static final boolean flowObfuscator3 = true;
 
 	@OriginalMember(owner = "client!fb", name = "k", descriptor = "[I")
 	public static int[] data;
@@ -29,7 +29,7 @@ public class Draw2D extends CacheableNode {
 	public static int left;
 
 	@OriginalMember(owner = "client!fb", name = "q", descriptor = "I")
-	public static int anInt;
+	public static int right;
 
 	@OriginalMember(owner = "client!fb", name = "r", descriptor = "I")
 	public static int safeX;
@@ -41,10 +41,10 @@ public class Draw2D extends CacheableNode {
 	public static int centerY;
 
 	@OriginalMember(owner = "client!fb", name = "h", descriptor = "I")
-	private static int anInt526;
+	private static int flowObfuscator1;
 
 	@OriginalMember(owner = "client!fb", name = "i", descriptor = "I")
-	private static int anInt527;
+	private static int flowObfuscator2;
 
 	@OriginalMember(owner = "client!fb", name = "<init>", descriptor = "()V")
 	protected Draw2D() {
@@ -56,7 +56,7 @@ public class Draw2D extends CacheableNode {
 			data = arg1;
 			width = arg0;
 			while (arg2 >= 0) {
-				anInt526 = -151;
+				flowObfuscator1 = -151;
 			}
 			height = arg3;
 			setBounds(arg3, 0, arg0, 789, 0);
@@ -71,14 +71,14 @@ public class Draw2D extends CacheableNode {
 		try {
 			left = 0;
 			top = 0;
-			anInt = width;
+			right = width;
 			if (arg0 != 0) {
 				for (@Pc(9) int local9 = 1; local9 > 0; local9++) {
 				}
 			}
 			bottom = height;
-			safeX = anInt - 1;
-			centerX = anInt / 2;
+			safeX = right - 1;
+			centerX = right / 2;
 		} catch (@Pc(26) RuntimeException local26) {
 			signlink.reporterror("74265, " + arg0 + ", " + local26.toString());
 			throw new RuntimeException();
@@ -102,10 +102,10 @@ public class Draw2D extends CacheableNode {
 			}
 			left = arg4;
 			top = arg1;
-			anInt = arg2;
+			right = arg2;
 			bottom = arg0;
-			safeX = anInt - 1;
-			centerX = anInt / 2;
+			safeX = right - 1;
+			centerX = right / 2;
 			if (arg3 <= 0) {
 				for (@Pc(37) int local37 = 1; local37 > 0; local37++) {
 				}
@@ -135,7 +135,7 @@ public class Draw2D extends CacheableNode {
 	public static void fillRect(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) byte arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
 		try {
 			if (arg3 != 93) {
-				anInt526 = 289;
+				flowObfuscator1 = 289;
 			}
 			if (arg1 < left) {
 				arg4 -= left - arg1;
@@ -145,8 +145,8 @@ public class Draw2D extends CacheableNode {
 				arg5 -= top - arg0;
 				arg0 = top;
 			}
-			if (arg1 + arg4 > anInt) {
-				arg4 = anInt - arg1;
+			if (arg1 + arg4 > right) {
+				arg4 = right - arg1;
 			}
 			if (arg0 + arg5 > bottom) {
 				arg5 = bottom - arg0;
@@ -171,8 +171,8 @@ public class Draw2D extends CacheableNode {
 			if (arg0 >= 3 && arg0 <= 3) {
 				drawHorizontalLine(arg2, 0, arg4, arg5, arg1);
 				drawHorizontalLine(arg2, 0, arg4 + arg3 - 1, arg5, arg1);
-				drawVerticalLine(arg2, anInt527, arg4, arg3, arg1);
-				drawVerticalLine(arg2, anInt527, arg4, arg3, arg1 + arg5 - 1);
+				drawVerticalLine(arg2, flowObfuscator2, arg4, arg3, arg1);
+				drawVerticalLine(arg2, flowObfuscator2, arg4, arg3, arg1 + arg5 - 1);
 			}
 		} catch (@Pc(40) RuntimeException local40) {
 			signlink.reporterror("74170, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + arg4 + ", " + arg5 + ", " + local40.toString());
@@ -188,8 +188,8 @@ public class Draw2D extends CacheableNode {
 					arg3 -= left - arg4;
 					arg4 = left;
 				}
-				if (arg4 + arg3 > anInt) {
-					arg3 = anInt - arg4;
+				if (arg4 + arg3 > right) {
+					arg3 = right - arg4;
 				}
 				@Pc(32) int local32 = arg4 + arg2 * width;
 				if (arg1 == 0) {
@@ -207,7 +207,7 @@ public class Draw2D extends CacheableNode {
 	@OriginalMember(owner = "client!fb", name = "c", descriptor = "(IIIII)V")
 	public static void drawVerticalLine(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
 		try {
-			if (arg4 >= left && arg4 < anInt) {
+			if (arg4 >= left && arg4 < right) {
 				if (arg2 < top) {
 					arg3 -= top - arg2;
 					arg2 = top;
@@ -217,7 +217,7 @@ public class Draw2D extends CacheableNode {
 				}
 				@Pc(32) int local32 = arg4 + arg2 * width;
 				if (arg1 != 0) {
-					anInt527 = 71;
+					flowObfuscator2 = 71;
 				}
 				for (@Pc(38) int local38 = 0; local38 < arg3; local38++) {
 					data[local32 + local38 * width] = arg0;

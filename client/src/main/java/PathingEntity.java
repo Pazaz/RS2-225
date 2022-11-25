@@ -107,13 +107,13 @@ public class PathingEntity extends Entity {
 	public int pathRemaining;
 
 	@OriginalMember(owner = "client!x", name = "fb", descriptor = "I")
-	public int anInt928; // TODO
+	public int int1; // TODO
 
 	@OriginalMember(owner = "client!x", name = "e", descriptor = "I")
-	private int anInt881 = 332;
+	private int flowObfuscator1 = 332;
 
 	@OriginalMember(owner = "client!x", name = "f", descriptor = "Z")
-	private final boolean aBoolean159 = false;
+	private final boolean flowObfuscator2 = false;
 
 	@OriginalMember(owner = "client!x", name = "j", descriptor = "Z")
 	public boolean animationStretches = false;
@@ -194,7 +194,7 @@ public class PathingEntity extends Entity {
 				}
 			}
 			this.pathRemaining = 0;
-			this.anInt928 = 0;
+			this.int1 = 0;
 			this.pathTileX[0] = arg2;
 			if (!arg0) {
 				this.pathTileZ[0] = arg3;
@@ -215,7 +215,7 @@ public class PathingEntity extends Entity {
 			if (arg2 == 6) {
 				@Pc(16) boolean local16 = false;
 			} else {
-				this.anInt881 = 243;
+				this.flowObfuscator1 = 243;
 			}
 			if (arg1 == 0) {
 				local6--;

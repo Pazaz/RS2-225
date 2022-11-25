@@ -8,16 +8,16 @@ import sign.signlink;
 public final class SeqBase {
 
 	@OriginalMember(owner = "client!f", name = "a", descriptor = "[Lclient!f;")
-	public static SeqBase[] aClass10Array1;
+	public static SeqBase[] instances;
 
 	@OriginalMember(owner = "client!f", name = "b", descriptor = "I")
-	public int anInt385;
+	public int length;
 
 	@OriginalMember(owner = "client!f", name = "c", descriptor = "[I")
-	public int[] anIntArray128;
+	public int[] types;
 
 	@OriginalMember(owner = "client!f", name = "d", descriptor = "[[I")
-	public int[][] anIntArrayArray11;
+	public int[][] groupLabels;
 
 	@OriginalMember(owner = "client!f", name = "a", descriptor = "(ZLclient!ub;)V")
 	public static void unpack(@OriginalArg(0) boolean arg0, @OriginalArg(1) FileArchive arg1) {
@@ -27,7 +27,7 @@ public final class SeqBase {
 			@Pc(31) Buffer local31 = new Buffer(363, arg1.read("base_label.dat", null, (byte) 2));
 			@Pc(34) int local34 = local11.g2();
 			@Pc(37) int local37 = local11.g2();
-			aClass10Array1 = new SeqBase[local37 + 1];
+			instances = new SeqBase[local37 + 1];
 			if (arg0) {
 				throw new NullPointerException();
 			}
@@ -44,10 +44,10 @@ public final class SeqBase {
 						local64[local66][local83] = local31.g1();
 					}
 				}
-				aClass10Array1[local55] = new SeqBase();
-				aClass10Array1[local55].anInt385 = local58;
-				aClass10Array1[local55].anIntArray128 = local61;
-				aClass10Array1[local55].anIntArrayArray11 = local64;
+				instances[local55] = new SeqBase();
+				instances[local55].length = local58;
+				instances[local55].types = local61;
+				instances[local55].groupLabels = local64;
 			}
 		} catch (@Pc(127) RuntimeException local127) {
 			signlink.reporterror("88924, " + arg0 + ", " + arg1 + ", " + local127.toString());

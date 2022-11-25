@@ -6,19 +6,19 @@ import sign.signlink;
 public final class StringUtils {
 
 	@OriginalMember(owner = "client!vb", name = "a", descriptor = "Z")
-	private static boolean aBoolean151;
+	private static boolean flowObfuscator1;
 
 	@OriginalMember(owner = "client!vb", name = "b", descriptor = "B")
-	private static final byte aByte40 = 25;
+	private static final byte flowObfuscator2 = 25;
 
 	@OriginalMember(owner = "client!vb", name = "c", descriptor = "I")
-	private static int anInt767 = 3;
+	private static int flowObfuscator3 = 3;
 
 	@OriginalMember(owner = "client!vb", name = "d", descriptor = "Z")
-	private static final boolean aBoolean152 = true;
+	private static final boolean flowObfuscator4 = true;
 
 	@OriginalMember(owner = "client!vb", name = "e", descriptor = "I")
-	private static int anInt768 = 629;
+	private static int flowObfuscator5 = 629;
 
 	@OriginalMember(owner = "client!vb", name = "f", descriptor = "[C")
 	private static final char[] builder = new char[12];
@@ -56,7 +56,7 @@ public final class StringUtils {
 			} else {
 				@Pc(19) int local19 = 0;
 				if (arg1) {
-					anInt768 = -363;
+					flowObfuscator5 = -363;
 				}
 				while (arg0 != 0L) {
 					@Pc(27) long local27 = arg0;
@@ -94,7 +94,7 @@ public final class StringUtils {
 	public static String fromIPv4(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		try {
 			if (arg0 >= 0) {
-				aBoolean151 = !aBoolean151;
+				flowObfuscator1 = !flowObfuscator1;
 			}
 			return (arg1 >> 24 & 0xFF) + "." + (arg1 >> 16 & 0xFF) + "." + (arg1 >> 8 & 0xFF) + "." + (arg1 & 0xFF);
 		} catch (@Pc(41) RuntimeException local41) {
@@ -136,7 +136,7 @@ public final class StringUtils {
 		try {
 			@Pc(2) String local2 = arg0.toLowerCase();
 			if (arg1 != 0) {
-				anInt767 = -18;
+				flowObfuscator3 = -18;
 			}
 			@Pc(9) char[] local9 = local2.toCharArray();
 			@Pc(12) int local12 = local9.length;

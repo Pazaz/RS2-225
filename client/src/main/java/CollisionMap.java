@@ -8,19 +8,19 @@ import sign.signlink;
 public final class CollisionMap {
 
 	@OriginalMember(owner = "client!ec", name = "b", descriptor = "I")
-	private int anInt379;
+	private int flowObfuscator2;
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "Z")
-	private boolean aBoolean87 = false;
+	private boolean flowObfuscator1 = false;
 
 	@OriginalMember(owner = "client!ec", name = "c", descriptor = "B")
-	private final byte aByte21 = 12;
+	private final byte flowObfuscator3 = 12;
 
 	@OriginalMember(owner = "client!ec", name = "d", descriptor = "I")
-	private final int anInt380 = 27808;
+	private final int flowObfuscator4 = 27808;
 
 	@OriginalMember(owner = "client!ec", name = "e", descriptor = "Z")
-	private boolean aBoolean88 = true;
+	private boolean flowObfuscator5 = true;
 
 	@OriginalMember(owner = "client!ec", name = "f", descriptor = "I")
 	private final int anInt381;
@@ -41,7 +41,7 @@ public final class CollisionMap {
 	public CollisionMap(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		try {
 			while (arg1 >= 0) {
-				this.aBoolean88 = !this.aBoolean88;
+				this.flowObfuscator5 = !this.flowObfuscator5;
 			}
 			this.anInt381 = 0;
 			this.anInt382 = 0;
@@ -83,7 +83,7 @@ public final class CollisionMap {
 		try {
 			@Pc(4) int local4 = arg3 - this.anInt381;
 			if (!arg0) {
-				this.aBoolean87 = !this.aBoolean87;
+				this.flowObfuscator1 = !this.flowObfuscator1;
 			}
 			@Pc(19) int local19 = arg2 - this.anInt382;
 			if (arg5 == 0) {
@@ -249,7 +249,7 @@ public final class CollisionMap {
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(BII)V")
 	public void setBlocked(@OriginalArg(0) byte arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		try {
-			if (arg0 == this.aByte21) {
+			if (arg0 == this.flowObfuscator3) {
 				@Pc(9) int local9 = arg2 - this.anInt381;
 				@Pc(14) int local14 = arg1 - this.anInt382;
 				this.flags[local9][local14] |= 0x200000;
@@ -406,7 +406,7 @@ public final class CollisionMap {
 			@Pc(14) int local14 = arg1 - this.anInt381;
 			@Pc(19) int local19 = arg0 - this.anInt382;
 			if (!arg4) {
-				this.anInt379 = 67;
+				this.flowObfuscator2 = 67;
 			}
 			@Pc(32) int local32;
 			if (arg2 == 1 || arg2 == 3) {
@@ -591,8 +591,8 @@ public final class CollisionMap {
 	@OriginalMember(owner = "client!ec", name = "b", descriptor = "(IIIIIII)Z")
 	public boolean reachedDecoration(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
 		try {
-			if (arg2 != this.anInt380) {
-				this.anInt379 = -218;
+			if (arg2 != this.flowObfuscator4) {
+				this.flowObfuscator2 = -218;
 			}
 			if (arg3 == arg4 && arg5 == arg6) {
 				return true;

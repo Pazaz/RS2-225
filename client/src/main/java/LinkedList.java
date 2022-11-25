@@ -11,16 +11,16 @@ public final class LinkedList {
 	private Node selected;
 
 	@OriginalMember(owner = "client!ob", name = "a", descriptor = "Z")
-	private boolean aBoolean139 = true;
+	private boolean flowObfuscator1 = true;
 
 	@OriginalMember(owner = "client!ob", name = "b", descriptor = "B")
-	private final byte aByte32 = 2;
+	private final byte flowObfuscator2 = 2;
 
 	@OriginalMember(owner = "client!ob", name = "c", descriptor = "I")
-	private final int anInt664 = -546;
+	private final int flowObfuscator3 = -546;
 
 	@OriginalMember(owner = "client!ob", name = "d", descriptor = "I")
-	private int anInt665 = -676;
+	private int flowObfuscator4 = -676;
 
 	@OriginalMember(owner = "client!ob", name = "e", descriptor = "Lclient!u;")
 	private final Node head = new Node();
@@ -29,7 +29,7 @@ public final class LinkedList {
 	public LinkedList(@OriginalArg(0) int arg0) {
 		try {
 			if (arg0 != 0) {
-				this.aBoolean139 = !this.aBoolean139;
+				this.flowObfuscator1 = !this.flowObfuscator1;
 			}
 			this.head.prev = this.head;
 			this.head.next = this.head;
@@ -100,8 +100,8 @@ public final class LinkedList {
 				return null;
 			}
 			this.selected = local3.next;
-			if (arg0 != this.aByte32) {
-				this.anInt665 = 112;
+			if (arg0 != this.flowObfuscator2) {
+				this.flowObfuscator4 = 112;
 			}
 			return local3;
 		} catch (@Pc(26) RuntimeException local26) {

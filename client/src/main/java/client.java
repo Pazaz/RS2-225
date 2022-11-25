@@ -1373,10 +1373,10 @@ public final class client extends GameShell {
 			if (!arg0) {
 				aBoolean48 = !aBoolean48;
 			}
-			MapSquare.aBoolean143 = true;
+			MapSquare.lowMemory = true;
 			Draw3D.lowMemory = true;
 			aBoolean53 = true;
-			Scene.aBoolean23 = true;
+			Scene.lowMemory = true;
 		} catch (@Pc(17) RuntimeException local17) {
 			signlink.reporterror("70501, " + arg0 + ", " + local17.toString());
 			throw new RuntimeException();
@@ -1440,11 +1440,11 @@ public final class client extends GameShell {
 	@OriginalMember(owner = "client!client", name = "B", descriptor = "(I)V")
 	public static void setHighMemory(@OriginalArg(0) int arg0) {
 		try {
-			MapSquare.aBoolean143 = false;
+			MapSquare.lowMemory = false;
 			Draw3D.lowMemory = false;
 			if (arg0 == 9) {
 				aBoolean53 = false;
-				Scene.aBoolean23 = false;
+				Scene.lowMemory = false;
 			}
 		} catch (@Pc(13) RuntimeException local13) {
 			signlink.reporterror("39707, " + arg0 + ", " + local13.toString());
@@ -1513,11 +1513,11 @@ public final class client extends GameShell {
 					if (local15 < this.anInt205) {
 						local63 = 30;
 						@Pc(66) PlayerEntity local66 = (PlayerEntity) local23;
-						if (local66.anInt931 != 0) {
+						if (local66.headicons != 0) {
 							this.setDrawPos(local23.height + 15, this.aBoolean45, local23);
 							if (this.anInt287 > -1) {
 								for (local84 = 0; local84 < 8; local84++) {
-									if ((local66.anInt931 & 0x1 << local84) != 0) {
+									if ((local66.headicons & 0x1 << local84) != 0) {
 										this.aClass1_Sub3_Sub2_Sub2Array5[local84].draw(this.anInt288 - local63, this.anInt287 - 12, false);
 										local63 -= 25;
 									}
@@ -1536,11 +1536,11 @@ public final class client extends GameShell {
 							this.aClass1_Sub3_Sub2_Sub2Array5[2].draw(this.anInt288 - 28, this.anInt287 - 12, false);
 						}
 					}
-					if (local23.spoken != null && (local15 >= this.anInt205 || this.anInt273 == 0 || this.anInt273 == 3 || this.anInt273 == 1 && this.isFriend(-20, ((PlayerEntity) local23).aString29))) {
+					if (local23.spoken != null && (local15 >= this.anInt205 || this.anInt273 == 0 || this.anInt273 == 3 || this.anInt273 == 1 && this.isFriend(-20, ((PlayerEntity) local23).name))) {
 						this.setDrawPos(local23.height, this.aBoolean45, local23);
 						if (this.anInt287 > -1 && this.anInt314 < this.anInt315) {
 							this.anIntArray76[this.anInt314] = this.aClass1_Sub3_Sub2_Sub4_3.stringWidth(false, local23.spoken) / 2;
-							this.anIntArray75[this.anInt314] = this.aClass1_Sub3_Sub2_Sub4_3.anInt540;
+							this.anIntArray75[this.anInt314] = this.aClass1_Sub3_Sub2_Sub4_3.fontHeight;
 							this.anIntArray73[this.anInt314] = this.anInt287;
 							this.anIntArray74[this.anInt314] = this.anInt288;
 							this.anIntArray77[this.anInt314] = local23.spokenColor;
@@ -1856,11 +1856,11 @@ public final class client extends GameShell {
 				}
 				if ((local16 & 0x20) == 32) {
 					local13.type = NpcType.get(arg0.g2());
-					local13.runSeq = local13.type.anInt70;
-					local13.walkSeq = local13.type.anInt71;
-					local13.turnAroundSeq = local13.type.anInt72;
-					local13.turnRightSeq = local13.type.anInt73;
-					local13.standSeq = local13.type.anInt69;
+					local13.runSeq = local13.type.walkanim;
+					local13.walkSeq = local13.type.walkanim_b;
+					local13.turnAroundSeq = local13.type.walkanim_r;
+					local13.turnRightSeq = local13.type.walkanim_l;
+					local13.standSeq = local13.type.readyanim;
 				}
 				if ((local16 & 0x40) == 64) {
 					local13.spotAnimIndex = arg0.g2();
@@ -2154,18 +2154,18 @@ public final class client extends GameShell {
 								@Pc(1006) int local1006 = this.anIntArrayArrayArray3[this.anInt231][local24 + 1][local31 + 1];
 								@Pc(1018) int local1018 = this.anIntArrayArrayArray3[this.anInt231][local24][local31 + 1];
 								@Pc(1021) LocType local1021 = LocType.get(local52);
-								local921.anInt934 = local572 + anInt266;
-								local921.anInt935 = local575 + anInt266;
-								local921.aClass1_Sub3_Sub1_11 = local1021.getModel(local38, local42, local980, local992, local1006, local1018, -1);
-								@Pc(1045) int local1045 = local1021.anInt43;
-								@Pc(1048) int local1048 = local1021.anInt44;
+								local921.firstCycle = local572 + anInt266;
+								local921.lastCycle = local575 + anInt266;
+								local921.model = local1021.getModel(local38, local42, local980, local992, local1006, local1018, -1);
+								@Pc(1045) int local1045 = local1021.width;
+								@Pc(1048) int local1048 = local1021.length;
 								if (local42 == 1 || local42 == 3) {
-									local1045 = local1021.anInt44;
-									local1048 = local1021.anInt43;
+									local1045 = local1021.length;
+									local1048 = local1021.width;
 								}
-								local921.anInt936 = local24 * 128 + local1045 * 64;
-								local921.anInt938 = local31 * 128 + local1048 * 64;
-								local921.anInt937 = this.getLandY(this.anInt231, local921.anInt936, (byte) 5, local921.anInt938);
+								local921.sceneX = local24 * 128 + local1045 * 64;
+								local921.sceneZ = local31 * 128 + local1048 * 64;
+								local921.sceneY = this.getLandY(this.anInt231, local921.sceneX, (byte) 5, local921.sceneZ);
 								@Pc(1094) byte local1094;
 								if (local905 > local911) {
 									local1094 = local905;
@@ -2177,10 +2177,10 @@ public final class client extends GameShell {
 									local908 = local914;
 									local914 = local1094;
 								}
-								local921.anInt939 = local24 + local905;
-								local921.anInt941 = local24 + local911;
-								local921.anInt940 = local31 + local908;
-								local921.anInt942 = local31 + local914;
+								local921.minTileX = local24 + local905;
+								local921.maxTileX = local24 + local911;
+								local921.minTileZ = local31 + local908;
+								local921.maxTileZ = local31 + local914;
 							}
 						}
 						if (arg2 == 151) {
@@ -2398,11 +2398,11 @@ public final class client extends GameShell {
 					}
 				}
 			}
-			local264 = Draw3D.anInt434;
-			Model.aBoolean85 = true;
-			Model.anInt378 = 0;
-			Model.anInt376 = super.mouseX - 8;
-			Model.anInt377 = super.mouseY - 11;
+			local264 = Draw3D.cycle;
+			Model.allowInput = true;
+			Model.resourceCount = 0;
+			Model.cursorX = super.mouseX - 8;
+			Model.cursorY = super.mouseY - 11;
 			Draw2D.clear(this.anInt336);
 			this.aClass33_1.draw(this.anInt326, this.anInt322, local34, this.anInt325, this.anInt323, this.anInt324, 0);
 			this.aClass33_1.clearFrameLocs(0);
@@ -2524,7 +2524,7 @@ public final class client extends GameShell {
 				}
 			}
 			for (local8 = 0; local8 < 33920; local8++) {
-				this.aClass32_19.pixels[local8] = this.aClass1_Sub3_Sub2_Sub2_3.anIntArray148[local8];
+				this.aClass32_19.pixels[local8] = this.aClass1_Sub3_Sub2_Sub2_3.pixels[local8];
 			}
 			@Pc(181) int local181 = 0;
 			@Pc(183) int local183 = 1152;
@@ -2558,7 +2558,7 @@ public final class client extends GameShell {
 			}
 			this.aClass32_19.drawAt(0, super.graphics, 0, 5193);
 			for (local198 = 0; local198 < 33920; local198++) {
-				this.aClass32_20.pixels[local198] = this.aClass1_Sub3_Sub2_Sub2_4.anIntArray148[local198];
+				this.aClass32_20.pixels[local198] = this.aClass1_Sub3_Sub2_Sub2_4.pixels[local198];
 			}
 			local181 = 0;
 			local183 = 1176;
@@ -2594,138 +2594,138 @@ public final class client extends GameShell {
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(IIILclient!hc;III)V")
 	private void updateInterface(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) Component arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
 		try {
-			if (arg3.anInt472 == 0 && arg3.anIntArray153 != null && !arg3.aBoolean106 && (arg1 >= arg5 && arg0 >= arg2 && arg1 <= arg5 + arg3.anInt475 && arg0 <= arg2 + arg3.anInt476)) {
-				@Pc(34) int local34 = arg3.anIntArray153.length;
+			if (arg3.type == 0 && arg3.children != null && !arg3.hide && (arg1 >= arg5 && arg0 >= arg2 && arg1 <= arg5 + arg3.width && arg0 <= arg2 + arg3.height)) {
+				@Pc(34) int local34 = arg3.children.length;
 				if (arg4 != 5082) {
 					this.anInt179 = this.aClass1_Sub3_Sub3_5.g1();
 				}
 				for (@Pc(44) int local44 = 0; local44 < local34; local44++) {
-					@Pc(53) int local53 = arg3.anIntArray154[local44] + arg5;
-					@Pc(62) int local62 = arg3.anIntArray155[local44] + arg2 - arg6;
-					@Pc(69) Component local69 = Component.aClass15Array1[arg3.anIntArray153[local44]];
-					@Pc(74) int local74 = local53 + local69.anInt477;
-					@Pc(79) int local79 = local62 + local69.anInt478;
-					if ((local69.anInt479 >= 0 || local69.anInt487 != 0) && arg1 >= local74 && arg0 >= local79 && arg1 < local74 + local69.anInt475 && arg0 < local79 + local69.anInt476) {
-						if (local69.anInt479 >= 0) {
-							this.anInt225 = local69.anInt479;
+					@Pc(53) int local53 = arg3.childX[local44] + arg5;
+					@Pc(62) int local62 = arg3.childY[local44] + arg2 - arg6;
+					@Pc(69) Component local69 = Component.instances[arg3.children[local44]];
+					@Pc(74) int local74 = local53 + local69.x;
+					@Pc(79) int local79 = local62 + local69.y;
+					if ((local69.overlayer >= 0 || local69.overcolour != 0) && arg1 >= local74 && arg0 >= local79 && arg1 < local74 + local69.width && arg0 < local79 + local69.height) {
+						if (local69.overlayer >= 0) {
+							this.anInt225 = local69.overlayer;
 						} else {
-							this.anInt225 = local69.anInt470;
+							this.anInt225 = local69.id;
 						}
 					}
-					if (local69.anInt472 == 0) {
-						this.updateInterface(arg0, arg1, local79, local69, 5082, local74, local69.anInt481);
-						if (local69.anInt480 > local69.anInt476) {
-							this.updateInterfaceScrollbar(arg1, 0, arg0, local69.anInt480, local69.anInt476, true, local74 + local69.anInt475, local79, local69);
+					if (local69.type == 0) {
+						this.updateInterface(arg0, arg1, local79, local69, 5082, local74, local69.scrollY);
+						if (local69.scrollHeight > local69.height) {
+							this.updateInterfaceScrollbar(arg1, 0, arg0, local69.scrollHeight, local69.height, true, local74 + local69.width, local79, local69);
 						}
 					} else {
-						if (local69.anInt473 == 1 && arg1 >= local74 && arg0 >= local79 && arg1 < local74 + local69.anInt475 && arg0 < local79 + local69.anInt476) {
+						if (local69.buttontype == 1 && arg1 >= local74 && arg0 >= local79 && arg1 < local74 + local69.width && arg0 < local79 + local69.height) {
 							@Pc(176) boolean local176 = false;
-							if (local69.anInt474 != 0) {
+							if (local69.clientcode != 0) {
 								local176 = this.updateInterfaceTooltip(local69, (byte) 8);
 							}
 							if (!local176) {
-								this.aStringArray5[this.anInt304] = local69.aString24;
+								this.aStringArray5[this.anInt304] = local69.option;
 								this.anIntArray86[this.anInt304] = 951;
-								this.anIntArray85[this.anInt304] = local69.anInt470;
+								this.anIntArray85[this.anInt304] = local69.id;
 								this.anInt304++;
 							}
 						}
-						if (local69.anInt473 == 2 && this.anInt291 == 0 && arg1 >= local74 && arg0 >= local79 && arg1 < local74 + local69.anInt475 && arg0 < local79 + local69.anInt476) {
-							@Pc(240) String local240 = local69.aString22;
+						if (local69.buttontype == 2 && this.anInt291 == 0 && arg1 >= local74 && arg0 >= local79 && arg1 < local74 + local69.width && arg0 < local79 + local69.height) {
+							@Pc(240) String local240 = local69.optionCircumfix;
 							if (local240.indexOf(" ") != -1) {
 								local240 = local240.substring(0, local240.indexOf(" "));
 							}
-							this.aStringArray5[this.anInt304] = local240 + " @gre@" + local69.aString23;
+							this.aStringArray5[this.anInt304] = local240 + " @gre@" + local69.optionSuffix;
 							this.anIntArray86[this.anInt304] = 930;
-							this.anIntArray85[this.anInt304] = local69.anInt470;
+							this.anIntArray85[this.anInt304] = local69.id;
 							this.anInt304++;
 						}
-						if (local69.anInt473 == 3 && arg1 >= local74 && arg0 >= local79 && arg1 < local74 + local69.anInt475 && arg0 < local79 + local69.anInt476) {
+						if (local69.buttontype == 3 && arg1 >= local74 && arg0 >= local79 && arg1 < local74 + local69.width && arg0 < local79 + local69.height) {
 							this.aStringArray5[this.anInt304] = "Close";
 							this.anIntArray86[this.anInt304] = 947;
-							this.anIntArray85[this.anInt304] = local69.anInt470;
+							this.anIntArray85[this.anInt304] = local69.id;
 							this.anInt304++;
 						}
-						if (local69.anInt473 == 4 && arg1 >= local74 && arg0 >= local79 && arg1 < local74 + local69.anInt475 && arg0 < local79 + local69.anInt476) {
-							this.aStringArray5[this.anInt304] = local69.aString24;
+						if (local69.buttontype == 4 && arg1 >= local74 && arg0 >= local79 && arg1 < local74 + local69.width && arg0 < local79 + local69.height) {
+							this.aStringArray5[this.anInt304] = local69.option;
 							this.anIntArray86[this.anInt304] = 465;
-							this.anIntArray85[this.anInt304] = local69.anInt470;
+							this.anIntArray85[this.anInt304] = local69.id;
 							this.anInt304++;
 						}
-						if (local69.anInt473 == 5 && arg1 >= local74 && arg0 >= local79 && arg1 < local74 + local69.anInt475 && arg0 < local79 + local69.anInt476) {
-							this.aStringArray5[this.anInt304] = local69.aString24;
+						if (local69.buttontype == 5 && arg1 >= local74 && arg0 >= local79 && arg1 < local74 + local69.width && arg0 < local79 + local69.height) {
+							this.aStringArray5[this.anInt304] = local69.option;
 							this.anIntArray86[this.anInt304] = 960;
-							this.anIntArray85[this.anInt304] = local69.anInt470;
+							this.anIntArray85[this.anInt304] = local69.id;
 							this.anInt304++;
 						}
-						if (local69.anInt473 == 6 && !this.aBoolean49 && arg1 >= local74 && arg0 >= local79 && arg1 < local74 + local69.anInt475 && arg0 < local79 + local69.anInt476) {
-							this.aStringArray5[this.anInt304] = local69.aString24;
+						if (local69.buttontype == 6 && !this.aBoolean49 && arg1 >= local74 && arg0 >= local79 && arg1 < local74 + local69.width && arg0 < local79 + local69.height) {
+							this.aStringArray5[this.anInt304] = local69.option;
 							this.anIntArray86[this.anInt304] = 44;
-							this.anIntArray85[this.anInt304] = local69.anInt470;
+							this.anIntArray85[this.anInt304] = local69.id;
 							this.anInt304++;
 						}
-						if (local69.anInt472 == 2) {
+						if (local69.type == 2) {
 							@Pc(488) int local488 = 0;
-							for (@Pc(490) int local490 = 0; local490 < local69.anInt476; local490++) {
-								for (@Pc(494) int local494 = 0; local494 < local69.anInt475; local494++) {
-									@Pc(505) int local505 = local74 + local494 * (local69.anInt483 + 32);
-									@Pc(514) int local514 = local79 + local490 * (local69.anInt484 + 32);
+							for (@Pc(490) int local490 = 0; local490 < local69.height; local490++) {
+								for (@Pc(494) int local494 = 0; local494 < local69.width; local494++) {
+									@Pc(505) int local505 = local74 + local494 * (local69.inventoryMarginX + 32);
+									@Pc(514) int local514 = local79 + local490 * (local69.inventoryMarginY + 32);
 									if (local488 < 20) {
-										local505 += local69.anIntArray156[local488];
-										local514 += local69.anIntArray157[local488];
+										local505 += local69.inventoryOffsetX[local488];
+										local514 += local69.inventoryOffsetY[local488];
 									}
 									if (arg1 >= local505 && arg0 >= local514 && arg1 < local505 + 32 && arg0 < local514 + 32) {
 										this.anInt310 = local488;
-										this.anInt311 = local69.anInt470;
-										if (local69.anIntArray149[local488] > 0) {
-											@Pc(567) ObjType local567 = ObjType.get(local69.anIntArray149[local488] - 1);
-											if (this.anInt281 == 1 && local69.aBoolean109) {
-												if (local69.anInt470 != this.anInt283 || local488 != this.anInt282) {
-													this.aStringArray5[this.anInt304] = "Use " + this.aString10 + " with @lre@" + local567.aString3;
+										this.anInt311 = local69.id;
+										if (local69.inventoryIndices[local488] > 0) {
+											@Pc(567) ObjType local567 = ObjType.get(local69.inventoryIndices[local488] - 1);
+											if (this.anInt281 == 1 && local69.inventoryHasOptions) {
+												if (local69.id != this.anInt283 || local488 != this.anInt282) {
+													this.aStringArray5[this.anInt304] = "Use " + this.aString10 + " with @lre@" + local567.name;
 													this.anIntArray86[this.anInt304] = 881;
-													this.anIntArray87[this.anInt304] = local567.anInt103;
+													this.anIntArray87[this.anInt304] = local567.id;
 													this.anIntArray84[this.anInt304] = local488;
-													this.anIntArray85[this.anInt304] = local69.anInt470;
+													this.anIntArray85[this.anInt304] = local69.id;
 													this.anInt304++;
 												}
-											} else if (this.anInt291 != 1 || !local69.aBoolean109) {
+											} else if (this.anInt291 != 1 || !local69.inventoryHasOptions) {
 												@Pc(704) int local704;
-												if (local69.aBoolean109) {
+												if (local69.inventoryHasOptions) {
 													for (local704 = 4; local704 >= 3; local704--) {
-														if (local567.aStringArray4 != null && local567.aStringArray4[local704] != null) {
-															this.aStringArray5[this.anInt304] = local567.aStringArray4[local704] + " @lre@" + local567.aString3;
+														if (local567.iops != null && local567.iops[local704] != null) {
+															this.aStringArray5[this.anInt304] = local567.iops[local704] + " @lre@" + local567.name;
 															if (local704 == 3) {
 																this.anIntArray86[this.anInt304] = 478;
 															}
 															if (local704 == 4) {
 																this.anIntArray86[this.anInt304] = 347;
 															}
-															this.anIntArray87[this.anInt304] = local567.anInt103;
+															this.anIntArray87[this.anInt304] = local567.id;
 															this.anIntArray84[this.anInt304] = local488;
-															this.anIntArray85[this.anInt304] = local69.anInt470;
+															this.anIntArray85[this.anInt304] = local69.id;
 															this.anInt304++;
 														} else if (local704 == 4) {
-															this.aStringArray5[this.anInt304] = "Drop @lre@" + local567.aString3;
+															this.aStringArray5[this.anInt304] = "Drop @lre@" + local567.name;
 															this.anIntArray86[this.anInt304] = 347;
-															this.anIntArray87[this.anInt304] = local567.anInt103;
+															this.anIntArray87[this.anInt304] = local567.id;
 															this.anIntArray84[this.anInt304] = local488;
-															this.anIntArray85[this.anInt304] = local69.anInt470;
+															this.anIntArray85[this.anInt304] = local69.id;
 															this.anInt304++;
 														}
 													}
 												}
-												if (local69.aBoolean110) {
-													this.aStringArray5[this.anInt304] = "Use @lre@" + local567.aString3;
+												if (local69.inventoryIsUsable) {
+													this.aStringArray5[this.anInt304] = "Use @lre@" + local567.name;
 													this.anIntArray86[this.anInt304] = 188;
-													this.anIntArray87[this.anInt304] = local567.anInt103;
+													this.anIntArray87[this.anInt304] = local567.id;
 													this.anIntArray84[this.anInt304] = local488;
-													this.anIntArray85[this.anInt304] = local69.anInt470;
+													this.anIntArray85[this.anInt304] = local69.id;
 													this.anInt304++;
 												}
-												if (local69.aBoolean109 && local567.aStringArray4 != null) {
+												if (local69.inventoryHasOptions && local567.iops != null) {
 													for (local704 = 2; local704 >= 0; local704--) {
-														if (local567.aStringArray4[local704] != null) {
-															this.aStringArray5[this.anInt304] = local567.aStringArray4[local704] + " @lre@" + local567.aString3;
+														if (local567.iops[local704] != null) {
+															this.aStringArray5[this.anInt304] = local567.iops[local704] + " @lre@" + local567.name;
 															if (local704 == 0) {
 																this.anIntArray86[this.anInt304] = 405;
 															}
@@ -2735,17 +2735,17 @@ public final class client extends GameShell {
 															if (local704 == 2) {
 																this.anIntArray86[this.anInt304] = 422;
 															}
-															this.anIntArray87[this.anInt304] = local567.anInt103;
+															this.anIntArray87[this.anInt304] = local567.id;
 															this.anIntArray84[this.anInt304] = local488;
-															this.anIntArray85[this.anInt304] = local69.anInt470;
+															this.anIntArray85[this.anInt304] = local69.id;
 															this.anInt304++;
 														}
 													}
 												}
-												if (local69.aStringArray10 != null) {
+												if (local69.inventoryOptions != null) {
 													for (local704 = 4; local704 >= 0; local704--) {
-														if (local69.aStringArray10[local704] != null) {
-															this.aStringArray5[this.anInt304] = local69.aStringArray10[local704] + " @lre@" + local567.aString3;
+														if (local69.inventoryOptions[local704] != null) {
+															this.aStringArray5[this.anInt304] = local69.inventoryOptions[local704] + " @lre@" + local567.name;
 															if (local704 == 0) {
 																this.anIntArray86[this.anInt304] = 602;
 															}
@@ -2761,24 +2761,24 @@ public final class client extends GameShell {
 															if (local704 == 4) {
 																this.anIntArray86[this.anInt304] = 415;
 															}
-															this.anIntArray87[this.anInt304] = local567.anInt103;
+															this.anIntArray87[this.anInt304] = local567.id;
 															this.anIntArray84[this.anInt304] = local488;
-															this.anIntArray85[this.anInt304] = local69.anInt470;
+															this.anIntArray85[this.anInt304] = local69.id;
 															this.anInt304++;
 														}
 													}
 												}
-												this.aStringArray5[this.anInt304] = "Examine @lre@" + local567.aString3;
+												this.aStringArray5[this.anInt304] = "Examine @lre@" + local567.name;
 												this.anIntArray86[this.anInt304] = 1773;
-												this.anIntArray87[this.anInt304] = local567.anInt103;
-												this.anIntArray85[this.anInt304] = local69.anIntArray150[local488];
+												this.anIntArray87[this.anInt304] = local567.id;
+												this.anIntArray85[this.anInt304] = local69.inventoryAmount[local488];
 												this.anInt304++;
 											} else if ((this.anInt293 & 0x10) == 16) {
-												this.aStringArray5[this.anInt304] = this.aString11 + " @lre@" + local567.aString3;
+												this.aStringArray5[this.anInt304] = this.aString11 + " @lre@" + local567.name;
 												this.anIntArray86[this.anInt304] = 391;
-												this.anIntArray87[this.anInt304] = local567.anInt103;
+												this.anIntArray87[this.anInt304] = local567.id;
 												this.anIntArray84[this.anInt304] = local488;
-												this.anIntArray85[this.anInt304] = local69.anInt470;
+												this.anIntArray85[this.anInt304] = local69.id;
 												this.anInt304++;
 											}
 										}
@@ -2832,9 +2832,9 @@ public final class client extends GameShell {
 					this.closeInterface((byte) -60);
 					this.aString9 = "";
 					this.aBoolean51 = false;
-					for (@Pc(186) int local186 = 0; local186 < Component.aClass15Array1.length; local186++) {
-						if (Component.aClass15Array1[local186] != null && Component.aClass15Array1[local186].anInt474 == 600) {
-							this.anInt240 = this.anInt271 = Component.aClass15Array1[local186].anInt471;
+					for (@Pc(186) int local186 = 0; local186 < Component.instances.length; local186++) {
+						if (Component.instances[local186] != null && Component.instances[local186].clientcode == 600) {
+							this.anInt240 = this.anInt271 = Component.instances[local186].parent;
 							return;
 						}
 					}
@@ -2862,7 +2862,7 @@ public final class client extends GameShell {
 						local1++;
 					}
 					if ((local15 == 1 || local15 == 2) && (local15 == 1 || this.anInt273 == 0 || this.anInt273 == 1 && this.isFriend(-20, this.aStringArray6[local3]))) {
-						if (arg0 > local26 - 14 && arg0 <= local26 && !this.aStringArray6[local3].equals(this.aClass1_Sub1_Sub3_Sub2_1.aString29)) {
+						if (arg0 > local26 - 14 && arg0 <= local26 && !this.aStringArray6[local3].equals(this.aClass1_Sub1_Sub3_Sub2_1.name)) {
 							if (this.aBoolean65) {
 								this.aStringArray5[this.anInt304] = "Report abuse @whi@" + this.aStringArray6[local3];
 								this.anIntArray86[this.anInt304] = 34;
@@ -2938,26 +2938,26 @@ public final class client extends GameShell {
 					local35 = this.anIntArray39[local22] << 14;
 				}
 				if (local30 != null && local30.isValid(false)) {
-					local30.aBoolean163 = false;
+					local30.lowMemory = false;
 					if ((aBoolean53 && this.anInt205 > 50 || this.anInt205 > 200) && local22 != -1 && local30.secondarySeq == local30.standSeq) {
-						local30.aBoolean163 = true;
+						local30.lowMemory = true;
 					}
 					@Pc(87) int local87 = local30.x >> 7;
 					@Pc(92) int local92 = local30.z >> 7;
 					if (local87 >= 0 && local87 < 104 && local92 >= 0 && local92 < 104) {
-						if (local30.aClass1_Sub3_Sub1_11 == null || anInt266 < local30.anInt934 || anInt266 >= local30.anInt935) {
+						if (local30.model == null || anInt266 < local30.firstCycle || anInt266 >= local30.lastCycle) {
 							if ((local30.x & 0x7F) == 64 && (local30.z & 0x7F) == 64) {
 								if (this.anIntArrayArray3[local87][local92] == this.anInt211) {
 									continue;
 								}
 								this.anIntArrayArray3[local87][local92] = this.anInt211;
 							}
-							local30.anInt933 = this.getLandY(this.anInt231, local30.x, (byte) 5, local30.z);
-							this.aClass33_1.add(-44713, local30.z, 60, local30.animationDelay, local30.x, local35, local30.animationStretches, null, local30, local30.anInt933, this.anInt231);
+							local30.plane = this.getLandY(this.anInt231, local30.x, (byte) 5, local30.z);
+							this.aClass33_1.add(-44713, local30.z, 60, local30.animationDelay, local30.x, local35, local30.animationStretches, null, local30, local30.plane, this.anInt231);
 						} else {
-							local30.aBoolean163 = false;
-							local30.anInt933 = this.getLandY(this.anInt231, local30.x, (byte) 5, local30.z);
-							this.aClass33_1.add(local30.anInt941, 60, null, local30.z, local30.anInt933, local35, local30.animationDelay, local30.anInt940, local30.anInt939, local30, false, this.anInt231, local30.anInt942, local30.x);
+							local30.lowMemory = false;
+							local30.plane = this.getLandY(this.anInt231, local30.x, (byte) 5, local30.z);
+							this.aClass33_1.add(local30.maxTileX, 60, null, local30.z, local30.plane, local35, local30.animationDelay, local30.minTileZ, local30.minTileX, local30, false, this.anInt231, local30.maxTileZ, local30.x);
 						}
 					}
 				}
@@ -3001,9 +3001,9 @@ public final class client extends GameShell {
 				this.anInt179 = -1;
 			}
 			if (this.anInt304 < 400) {
-				@Pc(16) String local16 = arg0.aString2;
-				if (arg0.anInt77 != 0) {
-					local16 = local16 + getLevelColorTag(this.aClass1_Sub1_Sub3_Sub2_1.anInt932, false, arg0.anInt77) + " (level-" + arg0.anInt77 + ")";
+				@Pc(16) String local16 = arg0.name;
+				if (arg0.vislevel != 0) {
+					local16 = local16 + getLevelColorTag(this.aClass1_Sub1_Sub3_Sub2_1.combatLevel, false, arg0.vislevel) + " (level-" + arg0.vislevel + ")";
 				}
 				if (this.anInt281 == 1) {
 					this.aStringArray5[this.anInt304] = "Use " + this.aString10 + " with @yel@" + local16;
@@ -3014,10 +3014,10 @@ public final class client extends GameShell {
 					this.anInt304++;
 				} else if (this.anInt291 != 1) {
 					@Pc(155) int local155;
-					if (arg0.aStringArray2 != null) {
+					if (arg0.ops != null) {
 						for (local155 = 4; local155 >= 0; local155--) {
-							if (arg0.aStringArray2[local155] != null && !arg0.aStringArray2[local155].equalsIgnoreCase("attack")) {
-								this.aStringArray5[this.anInt304] = arg0.aStringArray2[local155] + " @yel@" + local16;
+							if (arg0.ops[local155] != null && !arg0.ops[local155].equalsIgnoreCase("attack")) {
+								this.aStringArray5[this.anInt304] = arg0.ops[local155] + " @yel@" + local16;
 								if (local155 == 0) {
 									this.anIntArray86[this.anInt304] = 728;
 								}
@@ -3040,14 +3040,14 @@ public final class client extends GameShell {
 							}
 						}
 					}
-					if (arg0.aStringArray2 != null) {
+					if (arg0.ops != null) {
 						for (local155 = 4; local155 >= 0; local155--) {
-							if (arg0.aStringArray2[local155] != null && arg0.aStringArray2[local155].equalsIgnoreCase("attack")) {
+							if (arg0.ops[local155] != null && arg0.ops[local155].equalsIgnoreCase("attack")) {
 								@Pc(279) short local279 = 0;
-								if (arg0.anInt77 > this.aClass1_Sub1_Sub3_Sub2_1.anInt932) {
+								if (arg0.vislevel > this.aClass1_Sub1_Sub3_Sub2_1.combatLevel) {
 									local279 = 2000;
 								}
-								this.aStringArray5[this.anInt304] = arg0.aStringArray2[local155] + " @yel@" + local16;
+								this.aStringArray5[this.anInt304] = arg0.ops[local155] + " @yel@" + local16;
 								if (local155 == 0) {
 									this.anIntArray86[this.anInt304] = local279 + 728;
 								}
@@ -3272,7 +3272,7 @@ public final class client extends GameShell {
 									this.aClass1_Sub1_Sub3_Sub2_1.spokenColor = local496;
 									this.aClass1_Sub1_Sub3_Sub2_1.spokenEffect = local654;
 									this.aClass1_Sub1_Sub3_Sub2_1.textCycle = 150;
-									this.addMessage(2, this.aClass1_Sub1_Sub3_Sub2_1.spoken, (byte) 4, this.aClass1_Sub1_Sub3_Sub2_1.aString29);
+									this.addMessage(2, this.aClass1_Sub1_Sub3_Sub2_1.spoken, (byte) 4, this.aClass1_Sub1_Sub3_Sub2_1.name);
 									if (this.anInt273 == 2) {
 										this.anInt273 = 3;
 										this.aBoolean56 = true;
@@ -3543,15 +3543,15 @@ public final class client extends GameShell {
 			@Pc(27) int local27;
 			@Pc(37) int local37;
 			if (local5 != 0) {
-				local23 = Model.anIntArray124[local5];
-				local27 = Model.anIntArray125[local5];
+				local23 = Model.sin[local5];
+				local27 = Model.cos[local5];
 				local37 = local15 * local27 - arg6 * local23 >> 16;
 				local17 = local15 * local23 + arg6 * local27 >> 16;
 				local15 = local37;
 			}
 			if (local11 != 0) {
-				local23 = Model.anIntArray124[local11];
-				local27 = Model.anIntArray125[local11];
+				local23 = Model.sin[local11];
+				local27 = Model.cos[local11];
 				local37 = local17 * local23 + local13 * local27 >> 16;
 				local17 = local17 * local27 - local13 * local23 >> 16;
 				local13 = local37;
@@ -3585,27 +3585,27 @@ public final class client extends GameShell {
 				@Pc(41) int local41;
 				if (Draw3D.textureCycles[17] >= arg0) {
 					local17 = Draw3D.textures[17];
-					local25 = local17.anInt513 * local17.anInt514 - 1;
-					local33 = local17.anInt513 * this.anInt270 * 2;
-					local36 = local17.aByteArray6;
+					local25 = local17.spriteWidth * local17.spriteHeight - 1;
+					local33 = local17.spriteWidth * this.anInt270 * 2;
+					local36 = local17.pixels;
 					local39 = this.aByteArray4;
 					for (local41 = 0; local41 <= local25; local41++) {
 						local39[local41] = local36[local41 - local33 & local25];
 					}
-					local17.aByteArray6 = local39;
+					local17.pixels = local39;
 					this.aByteArray4 = local36;
 					Draw3D.updateTexture(17, 150);
 				}
 				if (Draw3D.textureCycles[24] >= arg0) {
 					local17 = Draw3D.textures[24];
-					local25 = local17.anInt513 * local17.anInt514 - 1;
-					local33 = local17.anInt513 * this.anInt270 * 2;
-					local36 = local17.aByteArray6;
+					local25 = local17.spriteWidth * local17.spriteHeight - 1;
+					local33 = local17.spriteWidth * this.anInt270 * 2;
+					local36 = local17.pixels;
 					local39 = this.aByteArray4;
 					for (local41 = 0; local41 <= local25; local41++) {
 						local39[local41] = local36[local41 - local33 & local25];
 					}
-					local17.aByteArray6 = local39;
+					local17.pixels = local39;
 					this.aByteArray4 = local36;
 					Draw3D.updateTexture(24, 150);
 					return;
@@ -3719,7 +3719,7 @@ public final class client extends GameShell {
 			}
 			for (local124 = 0; local124 < this.anInt248; local124++) {
 				@Pc(189) NpcEntity local189 = this.aClass1_Sub1_Sub3_Sub1Array1[this.anIntArray58[local124]];
-				if (local189 != null && local189.isValid(false) && local189.type.aBoolean20) {
+				if (local189 != null && local189.isValid(false) && local189.type.visonmap) {
 					local26 = local189.x / 32 - this.aClass1_Sub1_Sub3_Sub2_1.x / 32;
 					local34 = local189.z / 32 - this.aClass1_Sub1_Sub3_Sub2_1.z / 32;
 					this.drawOnMinimap(local34, 4, this.aClass1_Sub3_Sub2_Sub2_8, local26);
@@ -3731,7 +3731,7 @@ public final class client extends GameShell {
 					local26 = local245.x / 32 - this.aClass1_Sub1_Sub3_Sub2_1.x / 32;
 					local34 = local245.z / 32 - this.aClass1_Sub1_Sub3_Sub2_1.z / 32;
 					@Pc(275) boolean local275 = false;
-					@Pc(279) long local279 = StringUtils.toBase37(local245.aString29);
+					@Pc(279) long local279 = StringUtils.toBase37(local245.name);
 					for (@Pc(281) int local281 = 0; local281 < this.anInt312; local281++) {
 						if (local279 == this.aLongArray4[local281] && this.anIntArray34[local281] != 0) {
 							local275 = true;
@@ -3805,7 +3805,7 @@ public final class client extends GameShell {
 	@OriginalMember(owner = "client!client", name = "c", descriptor = "(II)V")
 	private void createMinimap(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		try {
-			@Pc(5) int[] local5 = this.aClass1_Sub3_Sub2_Sub2_6.anIntArray148;
+			@Pc(5) int[] local5 = this.aClass1_Sub3_Sub2_Sub2_6.pixels;
 			if (arg1 < 0) {
 				@Pc(11) int local11 = local5.length;
 				for (@Pc(13) int local13 = 0; local13 < local11; local13++) {
@@ -3846,7 +3846,7 @@ public final class client extends GameShell {
 						@Pc(227) int local227 = this.aClass33_1.getGroundDecorationBitset(this.anInt231, local149, local217);
 						if (local227 != 0) {
 							local227 = local227 >> 14 & 0x7FFF;
-							@Pc(239) int local239 = LocType.get(local227).anInt47;
+							@Pc(239) int local239 = LocType.get(local227).mapfunction;
 							if (local239 >= 0) {
 								@Pc(243) int local243 = local149;
 								@Pc(245) int local245 = local217;
@@ -3903,11 +3903,11 @@ public final class client extends GameShell {
 				if (local8 > 0) {
 					local30 = arg4;
 				}
-				@Pc(38) int[] local38 = this.aClass1_Sub3_Sub2_Sub2_6.anIntArray148;
+				@Pc(38) int[] local38 = this.aClass1_Sub3_Sub2_Sub2_6.pixels;
 				local52 = arg3 * 4 + (103 - arg5) * 512 * 4 + 24624;
 				local58 = local8 >> 14 & 0x7FFF;
 				@Pc(61) LocType local61 = LocType.get(local58);
-				if (local61.anInt48 == -1) {
+				if (local61.mapscene == -1) {
 					if (local28 == 0 || local28 == 2) {
 						if (local24 == 0) {
 							local38[local52] = local30;
@@ -3966,11 +3966,11 @@ public final class client extends GameShell {
 						}
 					}
 				} else {
-					@Pc(71) IndexedSprite local71 = this.aClass1_Sub3_Sub2_Sub3Array3[local61.anInt48];
+					@Pc(71) IndexedSprite local71 = this.aClass1_Sub3_Sub2_Sub3Array3[local61.mapscene];
 					if (local71 != null) {
-						@Pc(83) int local83 = (local61.anInt43 * 4 - local71.anInt513) / 2;
-						@Pc(93) int local93 = (local61.anInt44 * 4 - local71.anInt514) / 2;
-						local71.draw((104 - arg5 - local61.anInt44) * 4 + local93 + 48, arg3 * 4 + 48 + local83, false);
+						@Pc(83) int local83 = (local61.width * 4 - local71.spriteWidth) / 2;
+						@Pc(93) int local93 = (local61.length * 4 - local71.spriteHeight) / 2;
+						local71.draw((104 - arg5 - local61.length) * 4 + local93 + 48, arg3 * 4 + 48 + local83, false);
 					}
 				}
 			}
@@ -3983,19 +3983,19 @@ public final class client extends GameShell {
 				local30 = local8 >> 14 & 0x7FFF;
 				@Pc(451) LocType local451 = LocType.get(local30);
 				@Pc(483) int local483;
-				if (local451.anInt48 != -1) {
-					@Pc(461) IndexedSprite local461 = this.aClass1_Sub3_Sub2_Sub3Array3[local451.anInt48];
+				if (local451.mapscene != -1) {
+					@Pc(461) IndexedSprite local461 = this.aClass1_Sub3_Sub2_Sub3Array3[local451.mapscene];
 					if (local461 != null) {
-						local58 = (local451.anInt43 * 4 - local461.anInt513) / 2;
-						local483 = (local451.anInt44 * 4 - local461.anInt514) / 2;
-						local461.draw((104 - arg5 - local451.anInt44) * 4 + local483 + 48, arg3 * 4 + 48 + local58, false);
+						local58 = (local451.width * 4 - local461.spriteWidth) / 2;
+						local483 = (local451.length * 4 - local461.spriteHeight) / 2;
+						local461.draw((104 - arg5 - local451.length) * 4 + local483 + 48, arg3 * 4 + 48 + local58, false);
 					}
 				} else if (local28 == 9) {
 					local52 = 15658734;
 					if (local8 > 0) {
 						local52 = 15597568;
 					}
-					@Pc(520) int[] local520 = this.aClass1_Sub3_Sub2_Sub2_6.anIntArray148;
+					@Pc(520) int[] local520 = this.aClass1_Sub3_Sub2_Sub2_6.pixels;
 					local483 = arg3 * 4 + (103 - arg5) * 512 * 4 + 24624;
 					if (local24 == 0 || local24 == 2) {
 						local520[local483 + 1536] = local52;
@@ -4014,12 +4014,12 @@ public final class client extends GameShell {
 			if (local8 != 0) {
 				local18 = local8 >> 14 & 0x7FFF;
 				@Pc(615) LocType local615 = LocType.get(local18);
-				if (local615.anInt48 != -1) {
-					@Pc(625) IndexedSprite local625 = this.aClass1_Sub3_Sub2_Sub3Array3[local615.anInt48];
+				if (local615.mapscene != -1) {
+					@Pc(625) IndexedSprite local625 = this.aClass1_Sub3_Sub2_Sub3Array3[local615.mapscene];
 					if (local625 != null) {
-						local30 = (local615.anInt43 * 4 - local625.anInt513) / 2;
-						@Pc(647) int local647 = (local615.anInt44 * 4 - local625.anInt514) / 2;
-						local625.draw((104 - arg5 - local615.anInt44) * 4 + local647 + 48, arg3 * 4 + 48 + local30, false);
+						local30 = (local615.width * 4 - local625.spriteWidth) / 2;
+						@Pc(647) int local647 = (local615.length * 4 - local625.spriteHeight) / 2;
+						local625.draw((104 - arg5 - local615.length) * 4 + local647 + 48, arg3 * 4 + 48 + local30, false);
 						return;
 					}
 				}
@@ -4090,10 +4090,10 @@ public final class client extends GameShell {
 			this.aClass1_Sub3_Sub2_Sub2_3 = new Sprite(128, 265);
 			this.aClass1_Sub3_Sub2_Sub2_4 = new Sprite(128, 265);
 			for (@Pc(65) int local65 = 0; local65 < 33920; local65++) {
-				this.aClass1_Sub3_Sub2_Sub2_3.anIntArray148[local65] = this.aClass32_19.pixels[local65];
+				this.aClass1_Sub3_Sub2_Sub2_3.pixels[local65] = this.aClass32_19.pixels[local65];
 			}
 			for (@Pc(83) int local83 = 0; local83 < 33920; local83++) {
-				this.aClass1_Sub3_Sub2_Sub2_4.anIntArray148[local83] = this.aClass32_20.pixels[local83];
+				this.aClass1_Sub3_Sub2_Sub2_4.pixels[local83] = this.aClass32_20.pixels[local83];
 			}
 			this.anIntArray51 = new int[256];
 			for (@Pc(105) int local105 = 0; local105 < 64; local105++) {
@@ -4520,37 +4520,37 @@ public final class client extends GameShell {
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(IIILclient!hc;I)V")
 	private void drawInterface(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) Component arg3, @OriginalArg(4) int arg4) {
 		try {
-			if (arg3.anInt472 == 0 && arg3.anIntArray153 != null && (!arg3.aBoolean106 || this.anInt300 == arg3.anInt470 || this.anInt256 == arg3.anInt470 || this.anInt221 == arg3.anInt470)) {
+			if (arg3.type == 0 && arg3.children != null && (!arg3.hide || this.anInt300 == arg3.id || this.anInt256 == arg3.id || this.anInt221 == arg3.id)) {
 				@Pc(29) int local29 = Draw2D.left;
 				@Pc(31) int local31 = Draw2D.top;
-				@Pc(33) int local33 = Draw2D.anInt;
+				@Pc(33) int local33 = Draw2D.right;
 				@Pc(35) int local35 = Draw2D.bottom;
 				if (arg2 != 38682) {
 					this.anInt179 = -1;
 				}
-				Draw2D.setBounds(arg0 + arg3.anInt476, arg0, arg1 + arg3.anInt475, 789, arg1);
-				@Pc(57) int local57 = arg3.anIntArray153.length;
+				Draw2D.setBounds(arg0 + arg3.height, arg0, arg1 + arg3.width, 789, arg1);
+				@Pc(57) int local57 = arg3.children.length;
 				for (@Pc(59) int local59 = 0; local59 < local57; local59++) {
-					@Pc(68) int local68 = arg3.anIntArray154[local59] + arg1;
-					@Pc(77) int local77 = arg3.anIntArray155[local59] + arg0 - arg4;
-					@Pc(84) Component local84 = Component.aClass15Array1[arg3.anIntArray153[local59]];
-					@Pc(89) int local89 = local68 + local84.anInt477;
-					@Pc(94) int local94 = local77 + local84.anInt478;
-					if (local84.anInt474 > 0) {
+					@Pc(68) int local68 = arg3.childX[local59] + arg1;
+					@Pc(77) int local77 = arg3.childY[local59] + arg0 - arg4;
+					@Pc(84) Component local84 = Component.instances[arg3.children[local59]];
+					@Pc(89) int local89 = local68 + local84.x;
+					@Pc(94) int local94 = local77 + local84.y;
+					if (local84.clientcode > 0) {
 						this.updateComponentContent(0, local84);
 					}
-					if (local84.anInt472 == 0) {
-						if (local84.anInt481 > local84.anInt480 - local84.anInt476) {
-							local84.anInt481 = local84.anInt480 - local84.anInt476;
+					if (local84.type == 0) {
+						if (local84.scrollY > local84.scrollHeight - local84.height) {
+							local84.scrollY = local84.scrollHeight - local84.height;
 						}
-						if (local84.anInt481 < 0) {
-							local84.anInt481 = 0;
+						if (local84.scrollY < 0) {
+							local84.scrollY = 0;
 						}
-						this.drawInterface(local94, local89, 38682, local84, local84.anInt481);
-						if (local84.anInt480 > local84.anInt476) {
-							this.drawScrollbar(this.anInt192, local89 + local84.anInt475, local94, local84.anInt481, local84.anInt480, local84.anInt476);
+						this.drawInterface(local94, local89, 38682, local84, local84.scrollY);
+						if (local84.scrollHeight > local84.height) {
+							this.drawScrollbar(this.anInt192, local89 + local84.width, local94, local84.scrollY, local84.scrollHeight, local84.height);
 						}
-					} else if (local84.anInt472 != 1) {
+					} else if (local84.type != 1) {
 						@Pc(167) int local167;
 						@Pc(171) int local171;
 						@Pc(182) int local182;
@@ -4559,23 +4559,23 @@ public final class client extends GameShell {
 						@Pc(165) int local165;
 						@Pc(191) int local191;
 						@Pc(215) int local215;
-						if (local84.anInt472 == 2) {
+						if (local84.type == 2) {
 							local165 = 0;
-							for (local167 = 0; local167 < local84.anInt476; local167++) {
-								for (local171 = 0; local171 < local84.anInt475; local171++) {
-									local182 = local89 + local171 * (local84.anInt483 + 32);
-									local191 = local94 + local167 * (local84.anInt484 + 32);
+							for (local167 = 0; local167 < local84.height; local167++) {
+								for (local171 = 0; local171 < local84.width; local171++) {
+									local182 = local89 + local171 * (local84.inventoryMarginX + 32);
+									local191 = local94 + local167 * (local84.inventoryMarginY + 32);
 									if (local165 < 20) {
-										local182 += local84.anIntArray156[local165];
-										local191 += local84.anIntArray157[local165];
+										local182 += local84.inventoryOffsetX[local165];
+										local191 += local84.inventoryOffsetY[local165];
 									}
-									if (local84.anIntArray149[local165] > 0) {
+									if (local84.inventoryIndices[local165] > 0) {
 										local215 = 0;
 										local217 = 0;
-										local224 = local84.anIntArray149[local165] - 1;
+										local224 = local84.inventoryIndices[local165] - 1;
 										if (local182 >= -32 && local182 <= 512 && local191 >= -32 && local191 <= 334 || this.anInt216 != 0 && this.anInt215 == local165) {
-											@Pc(251) Sprite local251 = ObjType.getSprite(local224, 24638, local84.anIntArray150[local165]);
-											if (this.anInt216 != 0 && this.anInt215 == local165 && this.anInt214 == local84.anInt470) {
+											@Pc(251) Sprite local251 = ObjType.getSprite(local224, 24638, local84.inventoryAmount[local165]);
+											if (this.anInt216 != 0 && this.anInt215 == local165 && this.anInt214 == local84.id) {
 												local215 = super.mouseX - this.anInt217;
 												local217 = super.mouseY - this.anInt218;
 												if (local215 < 5 && local215 > -5) {
@@ -4589,19 +4589,19 @@ public final class client extends GameShell {
 													local217 = 0;
 												}
 												local251.drawAlpha(128, local182 + local215, local191 + local217, (byte) -26);
-											} else if (this.anInt260 != 0 && this.anInt259 == local165 && this.anInt258 == local84.anInt470) {
+											} else if (this.anInt260 != 0 && this.anInt259 == local165 && this.anInt258 == local84.id) {
 												local251.drawAlpha(128, local182, local191, (byte) -26);
 											} else {
 												local251.draw(local191, local182, false);
 											}
-											if (local251.anInt465 == 33 || local84.anIntArray150[local165] != 1) {
-												@Pc(351) int local351 = local84.anIntArray150[local165];
+											if (local251.cropW == 33 || local84.inventoryAmount[local165] != 1) {
+												@Pc(351) int local351 = local84.inventoryAmount[local165];
 												this.aClass1_Sub3_Sub2_Sub4_1.draw(local182 + local215 + 1, local191 + 10 + local217, false, 0, formatObjAmount(true, local351));
 												this.aClass1_Sub3_Sub2_Sub4_1.draw(local182 + local215, local191 + 9 + local217, false, 16776960, formatObjAmount(true, local351));
 											}
 										}
-									} else if (local84.aClass1_Sub3_Sub2_Sub2Array8 != null && local165 < 20) {
-										@Pc(398) Sprite local398 = local84.aClass1_Sub3_Sub2_Sub2Array8[local165];
+									} else if (local84.inventorySprite != null && local165 < 20) {
+										@Pc(398) Sprite local398 = local84.inventorySprite[local165];
 										if (local398 != null) {
 											local398.draw(local191, local182, false);
 										}
@@ -4609,26 +4609,26 @@ public final class client extends GameShell {
 									local165++;
 								}
 							}
-						} else if (local84.anInt472 != 3) {
+						} else if (local84.type != 3) {
 							@Pc(456) Font local456;
-							if (local84.anInt472 == 4) {
-								local456 = local84.aClass1_Sub3_Sub2_Sub4_5;
-								local167 = local84.anInt485;
-								@Pc(462) String local462 = local84.aString20;
-								if ((this.anInt221 == local84.anInt470 || this.anInt256 == local84.anInt470 || this.anInt300 == local84.anInt470) && local84.anInt487 != 0) {
-									local167 = local84.anInt487;
+							if (local84.type == 4) {
+								local456 = local84.font;
+								local167 = local84.colour;
+								@Pc(462) String local462 = local84.text;
+								if ((this.anInt221 == local84.id || this.anInt256 == local84.id || this.anInt300 == local84.id) && local84.overcolour != 0) {
+									local167 = local84.overcolour;
 								}
 								if (this.isInterfaceEnabled(local84, 65)) {
-									local167 = local84.anInt486;
-									if (local84.aString21.length() > 0) {
-										local462 = local84.aString21;
+									local167 = local84.activecolour;
+									if (local84.activetext.length() > 0) {
+										local462 = local84.activetext;
 									}
 								}
-								if (local84.anInt473 == 6 && this.aBoolean49) {
+								if (local84.buttontype == 6 && this.aBoolean49) {
 									local462 = "Please wait...";
-									local167 = local84.anInt485;
+									local167 = local84.colour;
 								}
-								local191 = local94 + local456.anInt540;
+								local191 = local94 + local456.fontHeight;
 								while (local462.length() > 0) {
 									if (local462.indexOf("%") != -1) {
 										label264: while (true) {
@@ -4672,75 +4672,75 @@ public final class client extends GameShell {
 										local704 = local462.substring(0, local215);
 										local462 = local462.substring(local215 + 2);
 									}
-									if (local84.aBoolean112) {
-										local456.drawCentered(local89 + local84.anInt475 / 2, local167, local84.aBoolean113, local191, local704, 0);
+									if (local84.halign) {
+										local456.drawCentered(local89 + local84.width / 2, local167, local84.shadowed, local191, local704, 0);
 									} else {
-										local456.draw(local89, 6, local191, local704, local84.aBoolean113, local167);
+										local456.draw(local89, 6, local191, local704, local84.shadowed, local167);
 									}
-									local191 += local456.anInt540;
+									local191 += local456.fontHeight;
 								}
-							} else if (local84.anInt472 == 5) {
+							} else if (local84.type == 5) {
 								@Pc(766) Sprite local766;
 								if (this.isInterfaceEnabled(local84, 65)) {
-									local766 = local84.aClass1_Sub3_Sub2_Sub2_13;
+									local766 = local84.activegraphic;
 								} else {
-									local766 = local84.aClass1_Sub3_Sub2_Sub2_12;
+									local766 = local84.graphic;
 								}
 								if (local766 != null) {
 									local766.draw(local94, local89, false);
 								}
-							} else if (local84.anInt472 == 6) {
+							} else if (local84.type == 6) {
 								local165 = Draw3D.centerX3D;
 								local167 = Draw3D.centerY3D;
-								Draw3D.centerX3D = local89 + local84.anInt475 / 2;
-								Draw3D.centerY3D = local94 + local84.anInt476 / 2;
-								local171 = Draw3D.sin[local84.anInt491] * local84.anInt490 >> 16;
-								local182 = Draw3D.cos[local84.anInt491] * local84.anInt490 >> 16;
+								Draw3D.centerX3D = local89 + local84.width / 2;
+								Draw3D.centerY3D = local94 + local84.height / 2;
+								local171 = Draw3D.sin[local84.xan] * local84.zoom >> 16;
+								local182 = Draw3D.cos[local84.xan] * local84.zoom >> 16;
 								@Pc(827) boolean local827 = this.isInterfaceEnabled(local84, 65);
 								if (local827) {
-									local215 = local84.anInt489;
+									local215 = local84.activeanim;
 								} else {
-									local215 = local84.anInt488;
+									local215 = local84.anim;
 								}
 								@Pc(846) Model local846;
 								if (local215 == -1) {
 									local846 = local84.getModel(-1, -1, local827);
 								} else {
 									@Pc(852) SeqType local852 = SeqType.instances[local215];
-									local846 = local84.getModel(local852.anIntArray186[local84.anInt468], local852.anIntArray187[local84.anInt468], local827);
+									local846 = local84.getModel(local852.primaryFrames[local84.seqFrame], local852.secondaryFrames[local84.seqFrame], local827);
 								}
 								if (local846 != null) {
-									local846.draw(0, local84.anInt492, 0, local84.anInt491, 0, local171, local182);
+									local846.draw(0, local84.yan, 0, local84.xan, 0, local171, local182);
 								}
 								Draw3D.centerX3D = local165;
 								Draw3D.centerY3D = local167;
-							} else if (local84.anInt472 == 7) {
-								local456 = local84.aClass1_Sub3_Sub2_Sub4_5;
+							} else if (local84.type == 7) {
+								local456 = local84.font;
 								local167 = 0;
-								for (local171 = 0; local171 < local84.anInt476; local171++) {
-									for (local182 = 0; local182 < local84.anInt475; local182++) {
-										if (local84.anIntArray149[local167] > 0) {
-											@Pc(915) ObjType local915 = ObjType.get(local84.anIntArray149[local167] - 1);
-											@Pc(918) String local918 = local915.aString3;
-											if (local915.aBoolean31 || local84.anIntArray150[local167] != 1) {
-												local918 = local918 + " x" + formatNumber(local84.anIntArray150[local167], 0);
+								for (local171 = 0; local171 < local84.height; local171++) {
+									for (local182 = 0; local182 < local84.width; local182++) {
+										if (local84.inventoryIndices[local167] > 0) {
+											@Pc(915) ObjType local915 = ObjType.get(local84.inventoryIndices[local167] - 1);
+											@Pc(918) String local918 = local915.name;
+											if (local915.stackable || local84.inventoryAmount[local167] != 1) {
+												local918 = local918 + " x" + formatNumber(local84.inventoryAmount[local167], 0);
 											}
-											local217 = local89 + local182 * (local84.anInt483 + 115);
-											local224 = local94 + local171 * (local84.anInt484 + 12);
-											if (local84.aBoolean112) {
-												local456.drawCentered(local217 + local84.anInt475 / 2, local84.anInt485, local84.aBoolean113, local224, local918, 0);
+											local217 = local89 + local182 * (local84.inventoryMarginX + 115);
+											local224 = local94 + local171 * (local84.inventoryMarginY + 12);
+											if (local84.halign) {
+												local456.drawCentered(local217 + local84.width / 2, local84.colour, local84.shadowed, local224, local918, 0);
 											} else {
-												local456.draw(local217, 6, local224, local918, local84.aBoolean113, local84.anInt485);
+												local456.draw(local217, 6, local224, local918, local84.shadowed, local84.colour);
 											}
 										}
 										local167++;
 									}
 								}
 							}
-						} else if (local84.aBoolean111) {
-							Draw2D.fillRect(local94, local89, local84.anInt485, (byte) 93, local84.anInt475, local84.anInt476);
+						} else if (local84.fill) {
+							Draw2D.fillRect(local94, local89, local84.colour, (byte) 93, local84.width, local84.height);
 						} else {
-							Draw2D.drawRect(3, local89, local84.anInt485, local84.anInt476, local94, local84.anInt475);
+							Draw2D.drawRect(3, local89, local84.colour, local84.height, local94, local84.width);
 						}
 					}
 				}
@@ -4791,7 +4791,7 @@ public final class client extends GameShell {
 					if (local16 == 4) {
 						Draw3D.setBrightness(true, 0.6D);
 					}
-					ObjType.aClass35_5.clear();
+					ObjType.icons.clear();
 					this.aBoolean37 = true;
 				}
 				if (local8 == 3) {
@@ -4870,7 +4870,7 @@ public final class client extends GameShell {
 				@Pc(14) int local14 = this.anIntArray58[local7];
 				@Pc(19) NpcEntity local19 = this.aClass1_Sub1_Sub3_Sub1Array1[local14];
 				if (local19 != null) {
-					this.updateEntity(local19, (byte) -128, local19.type.aByte4);
+					this.updateEntity(local19, (byte) -128, local19.type.size);
 				}
 			}
 		} catch (@Pc(35) RuntimeException local35) {
@@ -4929,7 +4929,7 @@ public final class client extends GameShell {
 				this.anInt151 = this.aClass38_1.nextInt();
 			}
 			arg0.z += (local24 - arg0.z) / local4;
-			arg0.anInt928 = 0;
+			arg0.int1 = 0;
 			if (arg0.faceDirection == 0) {
 				arg0.dstYaw = 1024;
 			}
@@ -4952,7 +4952,7 @@ public final class client extends GameShell {
 	private void moveEntity2(@OriginalArg(0) PathingEntity arg0, @OriginalArg(1) int arg1) {
 		try {
 			this.anInt178 += arg1;
-			if (arg0.lastMoveCycle == anInt266 || arg0.primarySeq == -1 || arg0.primarySeqDelay != 0 || arg0.primarySeqCycle + 1 > SeqType.instances[arg0.primarySeq].anIntArray188[arg0.primarySeqFrame]) {
+			if (arg0.lastMoveCycle == anInt266 || arg0.primarySeq == -1 || arg0.primarySeqDelay != 0 || arg0.primarySeqCycle + 1 > SeqType.instances[arg0.primarySeq].frameDelay[arg0.primarySeqFrame]) {
 				@Pc(35) int local35 = arg0.lastMoveCycle - arg0.firstMoveCycle;
 				@Pc(40) int local40 = anInt266 - arg0.firstMoveCycle;
 				@Pc(50) int local50 = arg0.srcTileX * 128 + arg0.index * 64;
@@ -4962,7 +4962,7 @@ public final class client extends GameShell {
 				arg0.x = (local50 * (local35 - local40) + local70 * local40) / local35;
 				arg0.z = (local60 * (local35 - local40) + local80 * local40) / local35;
 			}
-			arg0.anInt928 = 0;
+			arg0.int1 = 0;
 			if (arg0.faceDirection == 0) {
 				arg0.dstYaw = 1024;
 			}
@@ -4988,12 +4988,12 @@ public final class client extends GameShell {
 			arg1.secondarySeq = arg1.standSeq;
 			@Pc(9) int local9 = 56 / arg0;
 			if (arg1.pathRemaining == 0) {
-				arg1.anInt928 = 0;
+				arg1.int1 = 0;
 			} else {
 				if (arg1.primarySeq != -1 && arg1.primarySeqDelay == 0) {
 					@Pc(28) SeqType local28 = SeqType.instances[arg1.primarySeq];
-					if (local28.anIntArray189 == null) {
-						arg1.anInt928++;
+					if (local28.labelGroups == null) {
+						arg1.int1++;
 						return;
 					}
 				}
@@ -5049,9 +5049,9 @@ public final class client extends GameShell {
 					if (arg1.pathRemaining > 3) {
 						local217 = 8;
 					}
-					if (arg1.anInt928 > 0 && arg1.pathRemaining > 1) {
+					if (arg1.int1 > 0 && arg1.pathRemaining > 1) {
 						local217 = 8;
-						arg1.anInt928--;
+						arg1.int1--;
 					}
 					if (arg1.pathRunning[arg1.pathRemaining - 1]) {
 						local217 <<= 0x1;
@@ -5128,7 +5128,7 @@ public final class client extends GameShell {
 					}
 				}
 			}
-			if ((arg0.focusX != 0 || arg0.focusZ != 0) && (arg0.pathRemaining == 0 || arg0.anInt928 > 0)) {
+			if ((arg0.focusX != 0 || arg0.focusZ != 0) && (arg0.pathRemaining == 0 || arg0.int1 > 0)) {
 				local61 = arg0.x - (arg0.focusX - this.anInt169 - this.anInt169) * 64;
 				local30 = arg0.z - (arg0.focusZ - this.anInt170 - this.anInt170) * 64;
 				if (local61 != 0 || local30 != 0) {
@@ -5171,11 +5171,11 @@ public final class client extends GameShell {
 				if (arg1.secondarySeq != -1) {
 					local16 = SeqType.instances[arg1.secondarySeq];
 					arg1.secondarySeqCycle++;
-					if (arg1.secondarySeqFrame < local16.anInt543 && arg1.secondarySeqCycle > local16.anIntArray188[arg1.secondarySeqFrame]) {
+					if (arg1.secondarySeqFrame < local16.framecount && arg1.secondarySeqCycle > local16.frameDelay[arg1.secondarySeqFrame]) {
 						arg1.secondarySeqCycle = 0;
 						arg1.secondarySeqFrame++;
 					}
-					if (arg1.secondarySeqFrame >= local16.anInt543) {
+					if (arg1.secondarySeqFrame >= local16.framecount) {
 						arg1.secondarySeqCycle = 0;
 						arg1.secondarySeqFrame = 0;
 					}
@@ -5183,21 +5183,21 @@ public final class client extends GameShell {
 				if (arg1.primarySeq != -1 && arg1.primarySeqDelay == 0) {
 					local16 = SeqType.instances[arg1.primarySeq];
 					arg1.primarySeqCycle++;
-					while (arg1.primarySeqFrame < local16.anInt543 && arg1.primarySeqCycle > local16.anIntArray188[arg1.primarySeqFrame]) {
-						arg1.primarySeqCycle -= local16.anIntArray188[arg1.primarySeqFrame];
+					while (arg1.primarySeqFrame < local16.framecount && arg1.primarySeqCycle > local16.frameDelay[arg1.primarySeqFrame]) {
+						arg1.primarySeqCycle -= local16.frameDelay[arg1.primarySeqFrame];
 						arg1.primarySeqFrame++;
 					}
-					if (arg1.primarySeqFrame >= local16.anInt543) {
-						arg1.primarySeqFrame -= local16.anInt544;
+					if (arg1.primarySeqFrame >= local16.framecount) {
+						arg1.primarySeqFrame -= local16.replayoff;
 						arg1.primarySeqPlays++;
-						if (arg1.primarySeqPlays >= local16.anInt548) {
+						if (arg1.primarySeqPlays >= local16.replaycount) {
 							arg1.primarySeq = -1;
 						}
-						if (arg1.primarySeqFrame < 0 || arg1.primarySeqFrame >= local16.anInt543) {
+						if (arg1.primarySeqFrame < 0 || arg1.primarySeqFrame >= local16.framecount) {
 							arg1.primarySeq = -1;
 						}
 					}
-					arg1.animationStretches = local16.aBoolean126;
+					arg1.animationStretches = local16.stretches;
 				}
 				if (arg1.primarySeqDelay > 0) {
 					arg1.primarySeqDelay--;
@@ -5206,14 +5206,14 @@ public final class client extends GameShell {
 					if (arg1.spotAnimFrame < 0) {
 						arg1.spotAnimFrame = 0;
 					}
-					local16 = SpotAnimType.instances[arg1.spotAnimIndex].aClass19_1;
+					local16 = SpotAnimType.instances[arg1.spotAnimIndex].seq;
 					arg1.spotAnimCycle++;
-					while (arg1.spotAnimFrame < local16.anInt543 && arg1.spotAnimCycle > local16.anIntArray188[arg1.spotAnimFrame]) {
-						arg1.spotAnimCycle -= local16.anIntArray188[arg1.spotAnimFrame];
+					while (arg1.spotAnimFrame < local16.framecount && arg1.spotAnimCycle > local16.frameDelay[arg1.spotAnimFrame]) {
+						arg1.spotAnimCycle -= local16.frameDelay[arg1.spotAnimFrame];
 						arg1.spotAnimFrame++;
 					}
-					if (arg1.spotAnimFrame >= local16.anInt543) {
-						if (arg1.spotAnimFrame < 0 || arg1.spotAnimFrame >= local16.anInt543) {
+					if (arg1.spotAnimFrame >= local16.framecount) {
+						if (arg1.spotAnimFrame < 0 || arg1.spotAnimFrame >= local16.framecount) {
 							arg1.spotAnimIndex = -1;
 						}
 						return;
@@ -5277,11 +5277,11 @@ public final class client extends GameShell {
 				this.aBoolean59 = false;
 			}
 			if (this.anInt280 == -1) {
-				this.aClass15_1.anInt481 = this.anInt185 - this.anInt274 - 77;
+				this.aClass15_1.scrollY = this.anInt185 - this.anInt274 - 77;
 				if (super.mouseX > 453 && super.mouseX < 565 && super.mouseY > 350) {
 					this.updateInterfaceScrollbar(super.mouseX - 22, 0, super.mouseY - 375, this.anInt185, 77, false, 463, 0, this.aClass15_1);
 				}
-				@Pc(234) int local234 = this.anInt185 - this.aClass15_1.anInt481 - 77;
+				@Pc(234) int local234 = this.anInt185 - this.aClass15_1.scrollY - 77;
 				if (local234 < 0) {
 					local234 = 0;
 				}
@@ -5522,7 +5522,7 @@ public final class client extends GameShell {
 						@Pc(71) boolean local71 = false;
 						for (local73 = 0; local73 < this.anInt205; local73++) {
 							@Pc(83) PlayerEntity local83 = this.aClass1_Sub1_Sub3_Sub2Array1[this.anIntArray39[local73]];
-							if (local83 != null && local83.aString29 != null && local83.aString29.equalsIgnoreCase(local69)) {
+							if (local83 != null && local83.name != null && local83.name.equalsIgnoreCase(local69)) {
 								this.tryMove(this.aClass1_Sub1_Sub3_Sub2_1.pathTileX[0], 1, false, local83.pathTileX[0], this.aClass1_Sub1_Sub3_Sub2_1.pathTileZ[0], 0, 2, 1, local83.pathTileZ[0], 0, 0, 0);
 								if (local28 == 903) {
 									this.aClass1_Sub3_Sub3_6.p1isaac((byte) -34, 206);
@@ -5579,10 +5579,10 @@ public final class client extends GameShell {
 					this.anInt258 = local23;
 					this.anInt259 = local18;
 					this.anInt260 = 2;
-					if (Component.aClass15Array1[local23].anInt471 == this.anInt271) {
+					if (Component.instances[local23].parent == this.anInt271) {
 						this.anInt260 = 1;
 					}
-					if (Component.aClass15Array1[local23].anInt471 == this.anInt280) {
+					if (Component.instances[local23].parent == this.anInt280) {
 						this.anInt260 = 3;
 					}
 				}
@@ -5648,10 +5648,10 @@ public final class client extends GameShell {
 				if (local28 == 1175) {
 					@Pc(586) int local586 = local33 >> 14 & 0x7FFF;
 					@Pc(589) LocType local589 = LocType.get(local586);
-					if (local589.aByteArray1 == null) {
-						local69 = "It's a " + local589.aString1 + ".";
+					if (local589.desc == null) {
+						local69 = "It's a " + local589.name + ".";
 					} else {
-						local69 = new String(local589.aByteArray1);
+						local69 = new String(local589.desc);
 					}
 					this.addMessage(0, local69, (byte) 4, "");
 				}
@@ -5670,10 +5670,10 @@ public final class client extends GameShell {
 					this.anInt258 = local23;
 					this.anInt259 = local18;
 					this.anInt260 = 2;
-					if (Component.aClass15Array1[local23].anInt471 == this.anInt271) {
+					if (Component.instances[local23].parent == this.anInt271) {
 						this.anInt260 = 1;
 					}
-					if (Component.aClass15Array1[local23].anInt471 == this.anInt280) {
+					if (Component.instances[local23].parent == this.anInt280) {
 						this.anInt260 = 3;
 					}
 				}
@@ -5687,10 +5687,10 @@ public final class client extends GameShell {
 					this.anInt258 = local23;
 					this.anInt259 = local18;
 					this.anInt260 = 2;
-					if (Component.aClass15Array1[local23].anInt471 == this.anInt271) {
+					if (Component.instances[local23].parent == this.anInt271) {
 						this.anInt260 = 1;
 					}
-					if (Component.aClass15Array1[local23].anInt471 == this.anInt280) {
+					if (Component.instances[local23].parent == this.anInt280) {
 						this.anInt260 = 3;
 					}
 				}
@@ -5706,7 +5706,7 @@ public final class client extends GameShell {
 					this.anInt282 = local18;
 					this.anInt283 = local23;
 					this.anInt284 = local33;
-					this.aString10 = ObjType.get(local33).aString3;
+					this.aString10 = ObjType.get(local33).name;
 					this.anInt291 = 0;
 				} else {
 					if (local28 == 44 && !this.aBoolean49) {
@@ -5719,11 +5719,11 @@ public final class client extends GameShell {
 					if (local28 == 1773) {
 						local830 = ObjType.get(local33);
 						if (local23 >= 100000) {
-							local845 = local23 + " x " + local830.aString3;
-						} else if (local830.aByteArray3 == null) {
-							local845 = "It's a " + local830.aString3 + ".";
+							local845 = local23 + " x " + local830.name;
+						} else if (local830.desc == null) {
+							local845 = "It's a " + local830.name + ".";
 						} else {
-							local845 = new String(local830.aByteArray3);
+							local845 = new String(local830.desc);
 						}
 						this.addMessage(0, local845, (byte) 4, "");
 					}
@@ -5842,10 +5842,10 @@ public final class client extends GameShell {
 					if (local28 == 1607) {
 						local345 = this.aClass1_Sub1_Sub3_Sub1Array1[local33];
 						if (local345 != null) {
-							if (local345.type.aByteArray2 == null) {
-								local845 = "It's a " + local345.type.aString2 + ".";
+							if (local345.type.desc == null) {
+								local845 = "It's a " + local345.type.name + ".";
 							} else {
-								local845 = new String(local345.type.aByteArray2);
+								local845 = new String(local345.type.desc);
 							}
 							this.addMessage(0, local845, (byte) 4, "");
 						}
@@ -5855,20 +5855,20 @@ public final class client extends GameShell {
 					}
 					@Pc(1429) Component local1429;
 					if (local28 == 930) {
-						local1429 = Component.aClass15Array1[local23];
+						local1429 = Component.instances[local23];
 						this.anInt291 = 1;
 						this.anInt292 = local23;
-						this.anInt293 = local1429.anInt493;
+						this.anInt293 = local1429.optionFlags;
 						this.anInt281 = 0;
-						local845 = local1429.aString22;
+						local845 = local1429.optionCircumfix;
 						if (local845.indexOf(" ") != -1) {
 							local845 = local845.substring(0, local845.indexOf(" "));
 						}
-						local69 = local1429.aString22;
+						local69 = local1429.optionCircumfix;
 						if (local69.indexOf(" ") != -1) {
 							local69 = local69.substring(local69.indexOf(" ") + 1);
 						}
-						this.aString11 = local845 + " " + local1429.aString23 + " " + local69;
+						this.aString11 = local845 + " " + local1429.optionSuffix + " " + local69;
 						if (this.anInt293 == 16) {
 							this.aBoolean59 = true;
 							this.anInt166 = 3;
@@ -5876,9 +5876,9 @@ public final class client extends GameShell {
 						}
 					} else {
 						if (local28 == 951) {
-							local1429 = Component.aClass15Array1[local23];
+							local1429 = Component.instances[local23];
 							@Pc(1513) boolean local1513 = true;
-							if (local1429.anInt474 > 0) {
+							if (local1429.clientcode > 0) {
 								local1513 = this.handleComponentAction(false, local1429);
 							}
 							if (local1513) {
@@ -5923,10 +5923,10 @@ public final class client extends GameShell {
 							this.anInt258 = local23;
 							this.anInt259 = local18;
 							this.anInt260 = 2;
-							if (Component.aClass15Array1[local23].anInt471 == this.anInt271) {
+							if (Component.instances[local23].parent == this.anInt271) {
 								this.anInt260 = 1;
 							}
-							if (Component.aClass15Array1[local23].anInt471 == this.anInt280) {
+							if (Component.instances[local23].parent == this.anInt280) {
 								this.anInt260 = 3;
 							}
 						}
@@ -5968,21 +5968,21 @@ public final class client extends GameShell {
 						}
 						if (local28 == 1102) {
 							local830 = ObjType.get(local33);
-							if (local830.aByteArray3 == null) {
-								local845 = "It's a " + local830.aString3 + ".";
+							if (local830.desc == null) {
+								local845 = "It's a " + local830.name + ".";
 							} else {
-								local845 = new String(local830.aByteArray3);
+								local845 = new String(local830.desc);
 							}
 							this.addMessage(0, local845, (byte) 4, "");
 						}
 						if (local28 == 960) {
 							this.aClass1_Sub3_Sub3_6.p1isaac((byte) -34, 155);
 							this.aClass1_Sub3_Sub3_6.p2(local23);
-							local1429 = Component.aClass15Array1[local23];
-							if (local1429.anIntArrayArray15 != null && local1429.anIntArrayArray15[0][0] == 5) {
-								local52 = local1429.anIntArrayArray15[0][1];
-								if (this.anIntArray59[local52] != local1429.anIntArray152[0]) {
-									this.anIntArray59[local52] = local1429.anIntArray152[0];
+							local1429 = Component.instances[local23];
+							if (local1429.script != null && local1429.script[0][0] == 5) {
+								local52 = local1429.script[0][1];
+								if (this.anIntArray59[local52] != local1429.scriptCompareValue[0]) {
+									this.anIntArray59[local52] = local1429.scriptCompareValue[0];
 									this.updateVarp(local52, 49);
 									this.aBoolean59 = true;
 								}
@@ -5995,9 +5995,9 @@ public final class client extends GameShell {
 								this.closeInterface((byte) -60);
 								this.aString9 = local48.substring(local52 + 5).trim();
 								this.aBoolean51 = false;
-								for (@Pc(1957) int local1957 = 0; local1957 < Component.aClass15Array1.length; local1957++) {
-									if (Component.aClass15Array1[local1957] != null && Component.aClass15Array1[local1957].anInt474 == 600) {
-										this.anInt240 = this.anInt271 = Component.aClass15Array1[local1957].anInt471;
+								for (@Pc(1957) int local1957 = 0; local1957 < Component.instances.length; local1957++) {
+									if (Component.instances[local1957] != null && Component.instances[local1957].clientcode == 600) {
+										this.anInt240 = this.anInt271 = Component.instances[local1957].parent;
 										break;
 									}
 								}
@@ -6024,9 +6024,9 @@ public final class client extends GameShell {
 						if (local28 == 465) {
 							this.aClass1_Sub3_Sub3_6.p1isaac((byte) -34, 155);
 							this.aClass1_Sub3_Sub3_6.p2(local23);
-							local1429 = Component.aClass15Array1[local23];
-							if (local1429.anIntArrayArray15 != null && local1429.anIntArrayArray15[0][0] == 5) {
-								local52 = local1429.anIntArrayArray15[0][1];
+							local1429 = Component.instances[local23];
+							if (local1429.script != null && local1429.script[0][0] == 5) {
+								local52 = local1429.script[0][1];
 								this.anIntArray59[local52] = 1 - this.anIntArray59[local52];
 								this.updateVarp(local52, 49);
 								this.aBoolean59 = true;
@@ -6190,56 +6190,56 @@ public final class client extends GameShell {
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ILclient!hc;)V")
 	private void updateComponentContent(@OriginalArg(0) int arg0, @OriginalArg(1) Component arg1) {
 		try {
-			@Pc(4) int local4 = arg1.anInt474;
+			@Pc(4) int local4 = arg1.clientcode;
 			if (arg0 != 0) {
 				anInt268 = -68;
 			}
 			if (local4 >= 1 && local4 <= 100) {
 				local4--;
 				if (local4 >= this.anInt312) {
-					arg1.aString20 = "";
-					arg1.anInt473 = 0;
+					arg1.text = "";
+					arg1.buttontype = 0;
 				} else {
-					arg1.aString20 = this.aStringArray9[local4];
-					arg1.anInt473 = 1;
+					arg1.text = this.aStringArray9[local4];
+					arg1.buttontype = 1;
 				}
 			} else if (local4 >= 101 && local4 <= 200) {
 				local4 -= 101;
 				if (local4 >= this.anInt312) {
-					arg1.aString20 = "";
-					arg1.anInt473 = 0;
+					arg1.text = "";
+					arg1.buttontype = 0;
 				} else {
 					if (this.anIntArray34[local4] == 0) {
-						arg1.aString20 = "@red@Offline";
+						arg1.text = "@red@Offline";
 					} else if (this.anIntArray34[local4] == anInt235) {
-						arg1.aString20 = "@gre@World-" + (this.anIntArray34[local4] - 9);
+						arg1.text = "@gre@World-" + (this.anIntArray34[local4] - 9);
 					} else {
-						arg1.aString20 = "@yel@World-" + (this.anIntArray34[local4] - 9);
+						arg1.text = "@yel@World-" + (this.anIntArray34[local4] - 9);
 					}
-					arg1.anInt473 = 1;
+					arg1.buttontype = 1;
 				}
 			} else if (local4 == 203) {
-				arg1.anInt480 = this.anInt312 * 15 + 20;
-				if (arg1.anInt480 <= arg1.anInt476) {
-					arg1.anInt480 = arg1.anInt476 + 1;
+				arg1.scrollHeight = this.anInt312 * 15 + 20;
+				if (arg1.scrollHeight <= arg1.height) {
+					arg1.scrollHeight = arg1.height + 1;
 				}
 			} else if (local4 >= 401 && local4 <= 500) {
 				local4 -= 401;
 				if (local4 >= this.anInt186) {
-					arg1.aString20 = "";
-					arg1.anInt473 = 0;
+					arg1.text = "";
+					arg1.buttontype = 0;
 				} else {
-					arg1.aString20 = StringUtils.formatName(0, StringUtils.fromBase37(this.aLongArray3[local4], false));
-					arg1.anInt473 = 1;
+					arg1.text = StringUtils.formatName(0, StringUtils.fromBase37(this.aLongArray3[local4], false));
+					arg1.buttontype = 1;
 				}
 			} else if (local4 == 503) {
-				arg1.anInt480 = this.anInt186 * 15 + 20;
-				if (arg1.anInt480 <= arg1.anInt476) {
-					arg1.anInt480 = arg1.anInt476 + 1;
+				arg1.scrollHeight = this.anInt186 * 15 + 20;
+				if (arg1.scrollHeight <= arg1.height) {
+					arg1.scrollHeight = arg1.height + 1;
 				}
 			} else if (local4 == 327) {
-				arg1.anInt491 = 150;
-				arg1.anInt492 = (int) (Math.sin((double) anInt266 / 40.0D) * 256.0D) & 0x7FF;
+				arg1.xan = 150;
+				arg1.yan = (int) (Math.sin((double) anInt266 / 40.0D) * 256.0D) & 0x7FF;
 				if (this.aBoolean39) {
 					this.aBoolean39 = false;
 					@Pc(209) Model[] local209 = new Model[7];
@@ -6260,53 +6260,53 @@ public final class client extends GameShell {
 						}
 					}
 					local241.applyGroup(4);
-					local241.applyFrame(-16599, SeqType.instances[this.aClass1_Sub1_Sub3_Sub2_1.standSeq].anIntArray186[0]);
+					local241.applyFrame(-16599, SeqType.instances[this.aClass1_Sub1_Sub3_Sub2_1.standSeq].primaryFrames[0]);
 					local241.applyLighting(64, 850, -30, -50, -30, true);
-					arg1.aClass1_Sub3_Sub1_2 = local241;
+					arg1.model = local241;
 				}
 			} else if (local4 == 324) {
 				if (this.aClass1_Sub3_Sub2_Sub2_1 == null) {
-					this.aClass1_Sub3_Sub2_Sub2_1 = arg1.aClass1_Sub3_Sub2_Sub2_12;
-					this.aClass1_Sub3_Sub2_Sub2_2 = arg1.aClass1_Sub3_Sub2_Sub2_13;
+					this.aClass1_Sub3_Sub2_Sub2_1 = arg1.graphic;
+					this.aClass1_Sub3_Sub2_Sub2_2 = arg1.activegraphic;
 				}
 				if (this.aBoolean43) {
-					arg1.aClass1_Sub3_Sub2_Sub2_12 = this.aClass1_Sub3_Sub2_Sub2_2;
+					arg1.graphic = this.aClass1_Sub3_Sub2_Sub2_2;
 				} else {
-					arg1.aClass1_Sub3_Sub2_Sub2_12 = this.aClass1_Sub3_Sub2_Sub2_1;
+					arg1.graphic = this.aClass1_Sub3_Sub2_Sub2_1;
 				}
 			} else if (local4 == 325) {
 				if (this.aClass1_Sub3_Sub2_Sub2_1 == null) {
-					this.aClass1_Sub3_Sub2_Sub2_1 = arg1.aClass1_Sub3_Sub2_Sub2_12;
-					this.aClass1_Sub3_Sub2_Sub2_2 = arg1.aClass1_Sub3_Sub2_Sub2_13;
+					this.aClass1_Sub3_Sub2_Sub2_1 = arg1.graphic;
+					this.aClass1_Sub3_Sub2_Sub2_2 = arg1.activegraphic;
 				}
 				if (this.aBoolean43) {
-					arg1.aClass1_Sub3_Sub2_Sub2_12 = this.aClass1_Sub3_Sub2_Sub2_1;
+					arg1.graphic = this.aClass1_Sub3_Sub2_Sub2_1;
 				} else {
-					arg1.aClass1_Sub3_Sub2_Sub2_12 = this.aClass1_Sub3_Sub2_Sub2_2;
+					arg1.graphic = this.aClass1_Sub3_Sub2_Sub2_2;
 				}
 			} else if (local4 == 600) {
-				arg1.aString20 = this.aString9;
+				arg1.text = this.aString9;
 				if (anInt266 % 20 < 10) {
-					arg1.aString20 = arg1.aString20 + "|";
+					arg1.text = arg1.text + "|";
 				} else {
-					arg1.aString20 = arg1.aString20 + " ";
+					arg1.text = arg1.text + " ";
 				}
 			} else {
 				if (local4 == 613) {
 					if (!this.aBoolean65) {
-						arg1.aString20 = "";
+						arg1.text = "";
 					} else if (this.aBoolean51) {
-						arg1.anInt485 = 16711680;
-						arg1.aString20 = "Moderator option: Mute player for 48 hours: <ON>";
+						arg1.colour = 16711680;
+						arg1.text = "Moderator option: Mute player for 48 hours: <ON>";
 					} else {
-						arg1.anInt485 = 16777215;
-						arg1.aString20 = "Moderator option: Mute player for 48 hours: <OFF>";
+						arg1.colour = 16777215;
+						arg1.text = "Moderator option: Mute player for 48 hours: <OFF>";
 					}
 				}
 				@Pc(441) String local441;
 				if (local4 == 650 || local4 == 655) {
 					if (this.anInt299 == 0) {
-						arg1.aString20 = "";
+						arg1.text = "";
 					} else {
 						if (this.anInt226 == 0) {
 							local441 = "earlier today";
@@ -6315,28 +6315,28 @@ public final class client extends GameShell {
 						} else {
 							local441 = this.anInt226 + " days ago";
 						}
-						arg1.aString20 = "You last logged in " + local441 + " from: " + signlink.dns;
+						arg1.text = "You last logged in " + local441 + " from: " + signlink.dns;
 					}
 				}
 				if (local4 == 651) {
 					if (this.anInt298 == 0) {
-						arg1.aString20 = "0 unread messages";
-						arg1.anInt485 = 16776960;
+						arg1.text = "0 unread messages";
+						arg1.colour = 16776960;
 					}
 					if (this.anInt298 == 1) {
-						arg1.aString20 = "1 unread message";
-						arg1.anInt485 = 65280;
+						arg1.text = "1 unread message";
+						arg1.colour = 65280;
 					}
 					if (this.anInt298 > 1) {
-						arg1.aString20 = this.anInt298 + " unread messages";
-						arg1.anInt485 = 65280;
+						arg1.text = this.anInt298 + " unread messages";
+						arg1.colour = 65280;
 					}
 				}
 				if (local4 == 652) {
 					if (this.anInt239 == 201) {
-						arg1.aString20 = "";
+						arg1.text = "";
 					} else if (this.anInt239 == 200) {
-						arg1.aString20 = "You have not yet set any password recovery questions.";
+						arg1.text = "You have not yet set any password recovery questions.";
 					} else {
 						if (this.anInt239 == 0) {
 							local441 = "Earlier today";
@@ -6345,25 +6345,25 @@ public final class client extends GameShell {
 						} else {
 							local441 = this.anInt239 + " days ago";
 						}
-						arg1.aString20 = local441 + " you changed your recovery questions";
+						arg1.text = local441 + " you changed your recovery questions";
 					}
 				}
 				if (local4 == 653) {
 					if (this.anInt239 == 201) {
-						arg1.aString20 = "";
+						arg1.text = "";
 					} else if (this.anInt239 == 200) {
-						arg1.aString20 = "We strongly recommend you do so now to secure your account.";
+						arg1.text = "We strongly recommend you do so now to secure your account.";
 					} else {
-						arg1.aString20 = "If you do not remember making this change then cancel it immediately";
+						arg1.text = "If you do not remember making this change then cancel it immediately";
 					}
 				}
 				if (local4 == 654) {
 					if (this.anInt239 == 201) {
-						arg1.aString20 = "";
+						arg1.text = "";
 					} else if (this.anInt239 == 200) {
-						arg1.aString20 = "Do this from the 'account management' area on our front webpage";
+						arg1.text = "Do this from the 'account management' area on our front webpage";
 					} else {
-						arg1.aString20 = "Do this from the 'account management' area on our front webpage";
+						arg1.text = "Do this from the 'account management' area on our front webpage";
 					}
 				}
 			}
@@ -6430,12 +6430,12 @@ public final class client extends GameShell {
 				this.anIntArray58[this.anInt248++] = local16;
 				local36.removeTimer = anInt266;
 				local36.type = NpcType.get(arg1.gBit(9, 11));
-				local36.index = local36.type.aByte4;
-				local36.runSeq = local36.type.anInt70;
-				local36.walkSeq = local36.type.anInt71;
-				local36.turnAroundSeq = local36.type.anInt72;
-				local36.turnRightSeq = local36.type.anInt73;
-				local36.standSeq = local36.type.anInt69;
+				local36.index = local36.type.size;
+				local36.runSeq = local36.type.walkanim;
+				local36.walkSeq = local36.type.walkanim_b;
+				local36.turnAroundSeq = local36.type.walkanim_r;
+				local36.turnRightSeq = local36.type.walkanim_l;
+				local36.standSeq = local36.type.readyanim;
 				@Pc(92) int local92 = arg1.gBit(9, 5);
 				if (local92 > 15) {
 					local92 -= 32;
@@ -6460,7 +6460,7 @@ public final class client extends GameShell {
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ZLclient!hc;)Z")
 	private boolean handleComponentAction(@OriginalArg(0) boolean arg0, @OriginalArg(1) Component arg1) {
 		try {
-			@Pc(4) int local4 = arg1.anInt474;
+			@Pc(4) int local4 = arg1.clientcode;
 			if (arg0) {
 				this.load();
 			}
@@ -6747,34 +6747,34 @@ public final class client extends GameShell {
 			this.aClass1_Sub3_Sub2_Sub3_16.flipHorizontally(-725);
 			this.aClass1_Sub3_Sub2_Sub3_16.flipVertically((byte) -74);
 			@Pc(725) Sprite local725 = new Sprite(local277, "backleft1", 0);
-			this.aClass32_6 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local725.anInt461, 299, local725.anInt462);
+			this.aClass32_6 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local725.spriteWidth, 299, local725.spriteHeight);
 			local725.drawOpaque(34676, 0, 0);
 			@Pc(750) Sprite local750 = new Sprite(local277, "backleft2", 0);
-			this.aClass32_7 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local750.anInt461, 299, local750.anInt462);
+			this.aClass32_7 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local750.spriteWidth, 299, local750.spriteHeight);
 			local750.drawOpaque(34676, 0, 0);
 			@Pc(775) Sprite local775 = new Sprite(local277, "backright1", 0);
-			this.aClass32_8 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local775.anInt461, 299, local775.anInt462);
+			this.aClass32_8 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local775.spriteWidth, 299, local775.spriteHeight);
 			local775.drawOpaque(34676, 0, 0);
 			@Pc(800) Sprite local800 = new Sprite(local277, "backright2", 0);
-			this.aClass32_9 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local800.anInt461, 299, local800.anInt462);
+			this.aClass32_9 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local800.spriteWidth, 299, local800.spriteHeight);
 			local800.drawOpaque(34676, 0, 0);
 			@Pc(825) Sprite local825 = new Sprite(local277, "backtop1", 0);
-			this.aClass32_10 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local825.anInt461, 299, local825.anInt462);
+			this.aClass32_10 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local825.spriteWidth, 299, local825.spriteHeight);
 			local825.drawOpaque(34676, 0, 0);
 			@Pc(850) Sprite local850 = new Sprite(local277, "backtop2", 0);
-			this.aClass32_11 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local850.anInt461, 299, local850.anInt462);
+			this.aClass32_11 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local850.spriteWidth, 299, local850.spriteHeight);
 			local850.drawOpaque(34676, 0, 0);
 			@Pc(875) Sprite local875 = new Sprite(local277, "backvmid1", 0);
-			this.aClass32_12 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local875.anInt461, 299, local875.anInt462);
+			this.aClass32_12 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local875.spriteWidth, 299, local875.spriteHeight);
 			local875.drawOpaque(34676, 0, 0);
 			@Pc(900) Sprite local900 = new Sprite(local277, "backvmid2", 0);
-			this.aClass32_13 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local900.anInt461, 299, local900.anInt462);
+			this.aClass32_13 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local900.spriteWidth, 299, local900.spriteHeight);
 			local900.drawOpaque(34676, 0, 0);
 			@Pc(925) Sprite local925 = new Sprite(local277, "backvmid3", 0);
-			this.aClass32_14 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local925.anInt461, 299, local925.anInt462);
+			this.aClass32_14 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local925.spriteWidth, 299, local925.spriteHeight);
 			local925.drawOpaque(34676, 0, 0);
 			@Pc(950) Sprite local950 = new Sprite(local277, "backhmid2", 0);
-			this.aClass32_15 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local950.anInt461, 299, local950.anInt462);
+			this.aClass32_15 = new ImageProducerFrameBuffer(this.getBaseComponent(aByte16), local950.spriteWidth, 299, local950.spriteHeight);
 			local950.drawOpaque(34676, 0, 0);
 			@Pc(975) int local975 = (int) (Math.random() * 21.0D) - 10;
 			@Pc(982) int local982 = (int) (Math.random() * 21.0D) - 10;
@@ -6805,7 +6805,7 @@ public final class client extends GameShell {
 			IdkType.unpack(local255, 473);
 			SpotAnimType.unpack(local255, 473);
 			VarpType.unpack(local255, 473);
-			ObjType.aBoolean29 = aBoolean52;
+			ObjType.isMember = aBoolean52;
 			if (!aBoolean53) {
 				this.showProgress(true, "Unpacking sounds", 90);
 				@Pc(1113) byte[] local1113 = local321.read("sounds.dat", null, (byte) 2);
@@ -6823,7 +6823,7 @@ public final class client extends GameShell {
 				local1166 = 999;
 				local1168 = 0;
 				for (local1170 = 0; local1170 < 35; local1170++) {
-					if (this.aClass1_Sub3_Sub2_Sub3_10.aByteArray6[local1170 + local1162 * this.aClass1_Sub3_Sub2_Sub3_10.anInt513] == 0) {
+					if (this.aClass1_Sub3_Sub2_Sub3_10.pixels[local1170 + local1162 * this.aClass1_Sub3_Sub2_Sub3_10.spriteWidth] == 0) {
 						if (local1166 == 999) {
 							local1166 = local1170;
 						}
@@ -6840,7 +6840,7 @@ public final class client extends GameShell {
 				local1168 = 999;
 				local1170 = 0;
 				for (local1228 = 10; local1228 < 168; local1228++) {
-					if (this.aClass1_Sub3_Sub2_Sub3_10.aByteArray6[local1228 + local1166 * this.aClass1_Sub3_Sub2_Sub3_10.anInt513] == 0 && (local1228 > 34 || local1166 > 34)) {
+					if (this.aClass1_Sub3_Sub2_Sub3_10.pixels[local1228 + local1166 * this.aClass1_Sub3_Sub2_Sub3_10.spriteWidth] == 0 && (local1228 > 34 || local1166 > 34)) {
 						if (local1168 == 999) {
 							local1168 = local1228;
 						}
@@ -6886,7 +6886,7 @@ public final class client extends GameShell {
 					if (this.anInt271 == -1) {
 						this.updateViewport((byte) 2);
 					} else {
-						this.updateInterface(super.mouseY, super.mouseX, 11, Component.aClass15Array1[this.anInt271], 5082, 8, 0);
+						this.updateInterface(super.mouseY, super.mouseX, 11, Component.instances[this.anInt271], 5082, 8, 0);
 					}
 				}
 				if (this.anInt225 != this.anInt300) {
@@ -6895,9 +6895,9 @@ public final class client extends GameShell {
 				this.anInt225 = 0;
 				if (super.mouseX > 562 && super.mouseY > 231 && super.mouseX < 752 && super.mouseY < 492) {
 					if (this.anInt330 != -1) {
-						this.updateInterface(super.mouseY, super.mouseX, 231, Component.aClass15Array1[this.anInt330], 5082, 562, 0);
+						this.updateInterface(super.mouseY, super.mouseX, 231, Component.instances[this.anInt330], 5082, 562, 0);
 					} else if (this.anIntArray46[this.anInt166] != -1) {
-						this.updateInterface(super.mouseY, super.mouseX, 231, Component.aClass15Array1[this.anIntArray46[this.anInt166]], 5082, 562, 0);
+						this.updateInterface(super.mouseY, super.mouseX, 231, Component.instances[this.anIntArray46[this.anInt166]], 5082, 562, 0);
 					}
 				}
 				if (this.anInt225 != this.anInt256) {
@@ -6909,7 +6909,7 @@ public final class client extends GameShell {
 					if (this.anInt280 == -1) {
 						this.updatePlayerTooltip(super.mouseY - 375, 0, super.mouseX - 22);
 					} else {
-						this.updateInterface(super.mouseY, super.mouseX, 375, Component.aClass15Array1[this.anInt280], 5082, 22, 0);
+						this.updateInterface(super.mouseY, super.mouseX, 375, Component.instances[this.anInt280], 5082, 22, 0);
 					}
 				}
 				if (this.anInt280 != -1 && this.anInt225 != this.anInt221) {
@@ -6950,13 +6950,13 @@ public final class client extends GameShell {
 	@OriginalMember(owner = "client!client", name = "h", descriptor = "(B)V")
 	private void clearCaches(@OriginalArg(0) byte arg0) {
 		try {
-			LocType.aClass35_1.clear();
-			LocType.aClass35_2.clear();
-			NpcType.aClass35_3.clear();
-			ObjType.aClass35_4.clear();
-			ObjType.aClass35_5.clear();
-			PlayerEntity.aClass35_9.clear();
-			SpotAnimType.aClass35_8.clear();
+			LocType.modelCache.clear();
+			LocType.modelCacheBuilt.clear();
+			NpcType.builtModels.clear();
+			ObjType.models.clear();
+			ObjType.icons.clear();
+			PlayerEntity.models.clear();
+			SpotAnimType.models.clear();
 			if (arg0 == this.aByte10) {
 				@Pc(19) boolean local19 = false;
 			} else {
@@ -6985,7 +6985,7 @@ public final class client extends GameShell {
 			}
 			if (this.anInt271 != -1) {
 				this.animateInterface(this.anInt271, this.anInt270, 623);
-				this.drawInterface(0, 0, 38682, Component.aClass15Array1[this.anInt271], 0);
+				this.drawInterface(0, 0, 38682, Component.instances[this.anInt271], 0);
 			}
 			this.drawWildyLevel(39734);
 			if (!this.aBoolean50) {
@@ -7161,16 +7161,16 @@ public final class client extends GameShell {
 				this.aBoolean45 = !this.aBoolean45;
 			}
 			if (local15 <= 6400) {
-				@Pc(34) int local34 = Model.anIntArray124[local7];
-				@Pc(38) int local38 = Model.anIntArray125[local7];
+				@Pc(34) int local34 = Model.sin[local7];
+				@Pc(38) int local38 = Model.cos[local7];
 				@Pc(47) int local47 = local34 * 256 / (this.anInt249 + 256);
 				@Pc(56) int local56 = local38 * 256 / (this.anInt249 + 256);
 				@Pc(66) int local66 = arg0 * local47 + arg3 * local56 >> 16;
 				@Pc(76) int local76 = arg0 * local56 - arg3 * local47 >> 16;
 				if (local15 > 2500) {
-					arg2.drawMasked(this.aClass1_Sub3_Sub2_Sub3_10, 83 - local76 - arg2.anInt466 / 2, local66 + 94 - arg2.anInt465 / 2, (byte) -15);
+					arg2.drawMasked(this.aClass1_Sub3_Sub2_Sub3_10, 83 - local76 - arg2.cropH / 2, local66 + 94 - arg2.cropW / 2, (byte) -15);
 				} else {
-					arg2.draw(83 - local76 - arg2.anInt466 / 2, local66 + 94 - arg2.anInt465 / 2, false);
+					arg2.draw(83 - local76 - arg2.cropH / 2, local66 + 94 - arg2.cropW / 2, false);
 				}
 			}
 		} catch (@Pc(122) RuntimeException local122) {
@@ -7227,10 +7227,10 @@ public final class client extends GameShell {
 				@Pc(33) int local33 = arg1 - this.anInt322;
 				@Pc(38) int local38 = local28 - this.anInt323;
 				@Pc(43) int local43 = arg0 - this.anInt324;
-				@Pc(48) int local48 = Model.anIntArray124[this.anInt325];
-				@Pc(53) int local53 = Model.anIntArray125[this.anInt325];
-				@Pc(58) int local58 = Model.anIntArray124[this.anInt326];
-				@Pc(63) int local63 = Model.anIntArray125[this.anInt326];
+				@Pc(48) int local48 = Model.sin[this.anInt325];
+				@Pc(53) int local53 = Model.cos[this.anInt325];
+				@Pc(58) int local58 = Model.sin[this.anInt326];
+				@Pc(63) int local63 = Model.cos[this.anInt326];
 				@Pc(73) int local73 = local43 * local58 + local33 * local63 >> 16;
 				@Pc(83) int local83 = local43 * local63 - local33 * local58 >> 16;
 				if (arg2 >= 0) {
@@ -7271,13 +7271,13 @@ public final class client extends GameShell {
 				@Pc(51) int local51;
 				@Pc(54) int local54;
 				if (local31 == 0 || local31 == 2) {
-					local51 = local43.anInt43;
-					local54 = local43.anInt44;
+					local51 = local43.width;
+					local54 = local43.length;
 				} else {
-					local51 = local43.anInt44;
-					local54 = local43.anInt43;
+					local51 = local43.length;
+					local54 = local43.width;
 				}
-				@Pc(65) int local65 = local43.anInt55;
+				@Pc(65) int local65 = local43.blocksides;
 				if (local31 != 0) {
 					local65 = (local65 << local31 & 0xF) + (local65 >> 4 - local31);
 				}
@@ -7501,13 +7501,13 @@ public final class client extends GameShell {
 			this.aBoolean71 = false;
 			this.anInt178 += arg1;
 			if (arg0 >= arg6 && arg0 < arg6 + 16 && arg2 >= arg7 && arg2 < arg7 + 16) {
-				arg8.anInt481 -= this.anInt253 * 4;
+				arg8.scrollY -= this.anInt253 * 4;
 				if (arg5) {
 					this.aBoolean59 = true;
 					return;
 				}
 			} else if (arg0 >= arg6 && arg0 < arg6 + 16 && arg2 >= arg7 + arg4 - 16 && arg2 < arg7 + arg4) {
-				arg8.anInt481 += this.anInt253 * 4;
+				arg8.scrollY += this.anInt253 * 4;
 				if (arg5) {
 					this.aBoolean59 = true;
 					return;
@@ -7519,7 +7519,7 @@ public final class client extends GameShell {
 				}
 				@Pc(137) int local137 = arg2 - arg7 - local122 / 2 - 16;
 				@Pc(143) int local143 = arg4 - local122 - 32;
-				arg8.anInt481 = (arg3 - arg4) * local137 / local143;
+				arg8.scrollY = (arg3 - arg4) * local137 / local143;
 				if (arg5) {
 					this.aBoolean59 = true;
 				}
@@ -7802,8 +7802,8 @@ public final class client extends GameShell {
 					if (arg3 == 0) {
 						this.aClass33_1.removeWall(arg1, arg7, arg2, 1);
 						local107 = LocType.get(local87);
-						if (local107.aBoolean7) {
-							this.aClass9Array1[arg7].removeWall(local107.aBoolean8, local95, arg1, arg2, 323, local91);
+						if (local107.blockwalk) {
+							this.aClass9Array1[arg7].removeWall(local107.blockrange, local95, arg1, arg2, 323, local91);
 						}
 					}
 					if (arg3 == 1) {
@@ -7812,17 +7812,17 @@ public final class client extends GameShell {
 					if (arg3 == 2) {
 						this.aClass33_1.removeLocation(arg1, arg2, -54, arg7);
 						local107 = LocType.get(local87);
-						if (arg1 + local107.anInt43 > 103 || arg2 + local107.anInt43 > 103 || arg1 + local107.anInt44 > 103 || arg2 + local107.anInt44 > 103) {
+						if (arg1 + local107.width > 103 || arg2 + local107.width > 103 || arg1 + local107.length > 103 || arg2 + local107.length > 103) {
 							return;
 						}
-						if (local107.aBoolean7) {
-							this.aClass9Array1[arg7].removeLoc(arg2, arg1, local95, local107.anInt43, true, local107.aBoolean8, local107.anInt44);
+						if (local107.blockwalk) {
+							this.aClass9Array1[arg7].removeLoc(arg2, arg1, local95, local107.width, true, local107.blockrange, local107.length);
 						}
 					}
 					if (arg3 == 3) {
 						this.aClass33_1.removeGroundDecoration(arg7, this.anInt290, arg1, arg2);
 						local107 = LocType.get(local87);
-						if (local107.aBoolean7 && local107.aBoolean9) {
+						if (local107.blockwalk && local107.interactable) {
 							this.aClass9Array1[arg7].removeBlock(arg2, arg1, 0);
 						}
 					}
@@ -7862,7 +7862,7 @@ public final class client extends GameShell {
 							return;
 						}
 					}
-					if (!local23.equals(this.aClass1_Sub1_Sub3_Sub2_1.aString29)) {
+					if (!local23.equals(this.aClass1_Sub1_Sub3_Sub2_1.name)) {
 						this.aStringArray9[this.anInt312] = local23;
 						this.aLongArray4[this.anInt312] = arg0;
 						this.anIntArray34[this.anInt312] = 0;
@@ -8000,19 +8000,19 @@ public final class client extends GameShell {
 			ObjType.unload(true);
 			FloType.instances = null;
 			IdkType.instances = null;
-			Component.aClass15Array1 = null;
+			Component.instances = null;
 			DeadClass.instances = null;
 			SeqType.instances = null;
 			SpotAnimType.instances = null;
-			SpotAnimType.aClass35_8 = null;
+			SpotAnimType.models = null;
 			VarpType.instances = null;
 			super.frameBuffer = null;
-			PlayerEntity.aClass35_9 = null;
+			PlayerEntity.models = null;
 			Draw3D.unload(true);
 			MapSquare.unload(true);
 			Model.unload(true);
-			SeqBase.aClass10Array1 = null;
-			SeqFrame.aClass12Array1 = null;
+			SeqBase.instances = null;
+			SeqFrame.instances = null;
 			System.gc();
 		} catch (@Pc(361) RuntimeException local361) {
 			signlink.reporterror("6631, " + arg0 + ", " + local361.toString());
@@ -8032,7 +8032,7 @@ public final class client extends GameShell {
 				this.anInt290 = this.aClass38_1.nextInt();
 			}
 			if (arg3 != this.aClass1_Sub1_Sub3_Sub2_1 && this.anInt304 < 400) {
-				@Pc(41) String local41 = arg3.aString29 + getLevelColorTag(this.aClass1_Sub1_Sub3_Sub2_1.anInt932, false, arg3.anInt932) + " (level-" + arg3.anInt932 + ")";
+				@Pc(41) String local41 = arg3.name + getLevelColorTag(this.aClass1_Sub1_Sub3_Sub2_1.combatLevel, false, arg3.combatLevel) + " (level-" + arg3.combatLevel + ")";
 				if (this.anInt281 == 1) {
 					this.aStringArray5[this.anInt304] = "Use " + this.aString10 + " with @whi@" + local41;
 					this.anIntArray86[this.anInt304] = 367;
@@ -8057,7 +8057,7 @@ public final class client extends GameShell {
 					}
 					if (this.anInt316 > 0) {
 						this.aStringArray5[this.anInt304] = "Attack @whi@" + local41;
-						if (this.aClass1_Sub1_Sub3_Sub2_1.anInt932 >= arg3.anInt932) {
+						if (this.aClass1_Sub1_Sub3_Sub2_1.combatLevel >= arg3.combatLevel) {
 							this.anIntArray86[this.anInt304] = 151;
 						} else {
 							this.anIntArray86[this.anInt304] = 2151;
@@ -8226,13 +8226,13 @@ public final class client extends GameShell {
 							this.anInt311 = -1;
 							this.updateInput(26);
 							if (this.anInt311 == this.anInt214 && this.anInt310 != this.anInt215) {
-								@Pc(502) Component local502 = Component.aClass15Array1[this.anInt214];
-								local508 = local502.anIntArray149[this.anInt310];
-								local502.anIntArray149[this.anInt310] = local502.anIntArray149[this.anInt215];
-								local502.anIntArray149[this.anInt215] = local508;
-								@Pc(530) int local530 = local502.anIntArray150[this.anInt310];
-								local502.anIntArray150[this.anInt310] = local502.anIntArray150[this.anInt215];
-								local502.anIntArray150[this.anInt215] = local530;
+								@Pc(502) Component local502 = Component.instances[this.anInt214];
+								local508 = local502.inventoryIndices[this.anInt310];
+								local502.inventoryIndices[this.anInt310] = local502.inventoryIndices[this.anInt215];
+								local502.inventoryIndices[this.anInt215] = local508;
+								@Pc(530) int local530 = local502.inventoryAmount[this.anInt310];
+								local502.inventoryAmount[this.anInt310] = local502.inventoryAmount[this.anInt215];
+								local502.inventoryAmount[this.anInt215] = local530;
 								this.aClass1_Sub3_Sub3_6.p1isaac((byte) -34, 159);
 								this.aClass1_Sub3_Sub3_6.p2(this.anInt214);
 								this.aClass1_Sub3_Sub3_6.p2(this.anInt215);
@@ -8253,11 +8253,11 @@ public final class client extends GameShell {
 					this.aClass1_Sub3_Sub3_6.p1isaac((byte) -34, 215);
 					this.aClass1_Sub3_Sub3_6.p3(4991788);
 				}
-				if (MapSquare.anInt714 != -1) {
-					local155 = MapSquare.anInt714;
-					local508 = MapSquare.anInt715;
+				if (MapSquare.clickedTileX != -1) {
+					local155 = MapSquare.clickedTileX;
+					local508 = MapSquare.clickedTileZ;
 					@Pc(653) boolean local653 = this.tryMove(this.aClass1_Sub1_Sub3_Sub2_1.pathTileX[0], 0, true, local155, this.aClass1_Sub1_Sub3_Sub2_1.pathTileZ[0], 0, 0, 0, local508, 0, 0, 0);
-					MapSquare.anInt714 = -1;
+					MapSquare.clickedTileX = -1;
 					if (local653) {
 						this.anInt153 = super.clickX;
 						this.anInt154 = super.clickY;
@@ -8684,30 +8684,30 @@ public final class client extends GameShell {
 	private boolean animateInterface(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
 		try {
 			@Pc(3) boolean local3 = false;
-			@Pc(7) Component local7 = Component.aClass15Array1[arg0];
-			for (@Pc(9) int local9 = 0; local9 < local7.anIntArray153.length && local7.anIntArray153[local9] != -1; local9++) {
-				@Pc(24) Component local24 = Component.aClass15Array1[local7.anIntArray153[local9]];
-				if (local24.anInt472 == 1) {
-					local3 |= this.animateInterface(local24.anInt470, arg1, 623);
+			@Pc(7) Component local7 = Component.instances[arg0];
+			for (@Pc(9) int local9 = 0; local9 < local7.children.length && local7.children[local9] != -1; local9++) {
+				@Pc(24) Component local24 = Component.instances[local7.children[local9]];
+				if (local24.type == 1) {
+					local3 |= this.animateInterface(local24.id, arg1, 623);
 				}
-				if (local24.anInt472 == 6 && (local24.anInt488 != -1 || local24.anInt489 != -1)) {
+				if (local24.type == 6 && (local24.anim != -1 || local24.activeanim != -1)) {
 					@Pc(54) boolean local54 = this.isInterfaceEnabled(local24, 65);
 					@Pc(59) int local59;
 					if (local54) {
-						local59 = local24.anInt489;
+						local59 = local24.activeanim;
 					} else {
-						local59 = local24.anInt488;
+						local59 = local24.anim;
 					}
 					if (local59 != -1) {
 						@Pc(71) SeqType local71 = SeqType.instances[local59];
-						local24.anInt469 += arg1;
-						while (local24.anInt469 > local71.anIntArray188[local24.anInt468]) {
-							local24.anInt469 -= local71.anIntArray188[local24.anInt468] + 1;
-							local24.anInt468++;
-							if (local24.anInt468 >= local71.anInt543) {
-								local24.anInt468 -= local71.anInt544;
-								if (local24.anInt468 < 0 || local24.anInt468 >= local71.anInt543) {
-									local24.anInt468 = 0;
+						local24.seqCycle += arg1;
+						while (local24.seqCycle > local71.frameDelay[local24.seqFrame]) {
+							local24.seqCycle -= local71.frameDelay[local24.seqFrame] + 1;
+							local24.seqFrame++;
+							if (local24.seqFrame >= local71.framecount) {
+								local24.seqFrame -= local71.replayoff;
+								if (local24.seqFrame < 0 || local24.seqFrame >= local71.framecount) {
+									local24.seqFrame = 0;
 								}
 							}
 							local3 = true;
@@ -8755,14 +8755,14 @@ public final class client extends GameShell {
 	@OriginalMember(owner = "client!client", name = "i", descriptor = "(II)V")
 	private void resetParentComponentSeq(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		try {
-			@Pc(3) Component local3 = Component.aClass15Array1[arg1];
-			for (@Pc(5) int local5 = 0; local5 < local3.anIntArray153.length && local3.anIntArray153[local5] != -1; local5++) {
-				@Pc(20) Component local20 = Component.aClass15Array1[local3.anIntArray153[local5]];
-				if (local20.anInt472 == 1) {
-					this.resetParentComponentSeq(-321, local20.anInt470);
+			@Pc(3) Component local3 = Component.instances[arg1];
+			for (@Pc(5) int local5 = 0; local5 < local3.children.length && local3.children[local5] != -1; local5++) {
+				@Pc(20) Component local20 = Component.instances[local3.children[local5]];
+				if (local20.type == 1) {
+					this.resetParentComponentSeq(-321, local20.id);
 				}
-				local20.anInt468 = 0;
-				local20.anInt469 = 0;
+				local20.seqFrame = 0;
+				local20.seqCycle = 0;
 			}
 			if (arg0 >= 0) {
 				this.aClass28ArrayArrayArray1 = null;
@@ -8806,21 +8806,21 @@ public final class client extends GameShell {
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(Lclient!hc;I)Z")
 	private boolean isInterfaceEnabled(@OriginalArg(0) Component arg0, @OriginalArg(1) int arg1) {
 		try {
-			if (arg0.anIntArray151 == null) {
+			if (arg0.scriptCompareType == null) {
 				return false;
 			}
-			for (@Pc(6) int local6 = 0; local6 < arg0.anIntArray151.length; local6++) {
+			for (@Pc(6) int local6 = 0; local6 < arg0.scriptCompareType.length; local6++) {
 				@Pc(14) int local14 = this.executeInterface(arg0, false, local6);
-				@Pc(19) int local19 = arg0.anIntArray152[local6];
-				if (arg0.anIntArray151[local6] == 2) {
+				@Pc(19) int local19 = arg0.scriptCompareValue[local6];
+				if (arg0.scriptCompareType[local6] == 2) {
 					if (local14 >= local19) {
 						return false;
 					}
-				} else if (arg0.anIntArray151[local6] == 3) {
+				} else if (arg0.scriptCompareType[local6] == 3) {
 					if (local14 <= local19) {
 						return false;
 					}
-				} else if (arg0.anIntArray151[local6] == 4) {
+				} else if (arg0.scriptCompareType[local6] == 4) {
 					if (local14 == local19) {
 						return false;
 					}
@@ -8965,8 +8965,8 @@ public final class client extends GameShell {
 						if (local45 == 602 || local45 == 596 || local45 == 22 || local45 == 892 || local45 == 415 || local45 == 405 || local45 == 38 || local45 == 422 || local45 == 478 || local45 == 347 || local45 == 188) {
 							local48 = this.anIntArray84[this.anInt304 - 1];
 							local124 = this.anIntArray85[this.anInt304 - 1];
-							@Pc(283) Component local283 = Component.aClass15Array1[local124];
-							if (local283.aBoolean108) {
+							@Pc(283) Component local283 = Component.instances[local124];
+							if (local283.inventoryDummy) {
 								this.aBoolean58 = false;
 								this.anInt247 = 0;
 								this.anInt214 = local124;
@@ -8974,10 +8974,10 @@ public final class client extends GameShell {
 								this.anInt216 = 2;
 								this.anInt217 = super.clickX;
 								this.anInt218 = super.clickY;
-								if (Component.aClass15Array1[local124].anInt471 == this.anInt271) {
+								if (Component.instances[local124].parent == this.anInt271) {
 									this.anInt216 = 1;
 								}
-								if (Component.aClass15Array1[local124].anInt471 == this.anInt280) {
+								if (Component.instances[local124].parent == this.anInt280) {
 									this.anInt216 = 3;
 								}
 								return;
@@ -9198,7 +9198,7 @@ public final class client extends GameShell {
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(Lclient!hc;B)Z")
 	private boolean updateInterfaceTooltip(@OriginalArg(0) Component arg0, @OriginalArg(1) byte arg1) {
 		try {
-			@Pc(2) int local2 = arg0.anInt474;
+			@Pc(2) int local2 = arg0.clientcode;
 			if (arg1 != this.aByte9) {
 				this.anInt294 = this.aClass38_1.nextInt();
 			}
@@ -9216,7 +9216,7 @@ public final class client extends GameShell {
 				this.anInt304++;
 				return true;
 			} else if (local2 >= 401 && local2 <= 500) {
-				this.aStringArray5[this.anInt304] = "Remove @whi@" + arg0.aString20;
+				this.aStringArray5[this.anInt304] = "Remove @whi@" + arg0.text;
 				this.anIntArray86[this.anInt304] = 556;
 				this.anInt304++;
 				return true;
@@ -9365,11 +9365,11 @@ public final class client extends GameShell {
 			}
 			if (arg1 != null) {
 				local48 = 0;
-				for (local52 = 0; local52 < arg1.anInt514; local52++) {
-					for (local60 = 0; local60 < arg1.anInt513; local60++) {
-						if (arg1.aByteArray6[local48++] != 0) {
-							@Pc(152) int local152 = local60 + arg1.anInt515 + 16;
-							@Pc(159) int local159 = local52 + arg1.anInt516 + 16;
+				for (local52 = 0; local52 < arg1.spriteHeight; local52++) {
+					for (local60 = 0; local60 < arg1.spriteWidth; local60++) {
+						if (arg1.pixels[local48++] != 0) {
+							@Pc(152) int local152 = local60 + arg1.clipX + 16;
+							@Pc(159) int local159 = local52 + arg1.clipY + 16;
 							@Pc(165) int local165 = local152 + (local159 << 7);
 							this.anIntArray41[local165] = 0;
 						}
@@ -9395,8 +9395,8 @@ public final class client extends GameShell {
 		@Pc(35) int local35;
 		for (local27 = (ObjStackEntity) local9.peekPrevious(); local27 != null; local27 = (ObjStackEntity) local9.getPrevious(551)) {
 			@Pc(32) ObjType local32 = ObjType.get(local27.id);
-			local35 = local32.anInt112;
-			if (local32.aBoolean31) {
+			local35 = local32.cost;
+			if (local32.stackable) {
 				local35 *= local27.amount + 1;
 			}
 			if (local35 > local21) {
@@ -9451,17 +9451,17 @@ public final class client extends GameShell {
 				@Pc(53) Scene local53 = new Scene(104, this.aByteArrayArrayArray7, 104, this.anIntArrayArrayArray3, this.anInt318);
 				@Pc(56) byte[] local56 = new byte[100000];
 				@Pc(60) int local60 = this.aByteArrayArray1.length;
-				Scene.aBoolean23 = MapSquare.aBoolean143;
+				Scene.lowMemory = MapSquare.lowMemory;
 				@Pc(73) int local73;
 				@Pc(80) int local80;
 				for (@Pc(64) int local64 = 0; local64 < local60; local64++) {
 					local73 = this.anIntArray56[local64] >> 8;
 					local80 = this.anIntArray56[local64] & 0xFF;
 					if (local73 == 33 && local80 >= 71 && local80 <= 73) {
-						Scene.aBoolean23 = false;
+						Scene.lowMemory = false;
 					}
 				}
-				if (Scene.aBoolean23) {
+				if (Scene.lowMemory) {
 					this.aClass33_1.setup(0, this.anInt231);
 				} else {
 					this.aClass33_1.setup(0, 0);
@@ -9514,7 +9514,7 @@ public final class client extends GameShell {
 				}
 			} catch (@Pc(390) Exception local390) {
 			}
-			LocType.aClass35_1.clear();
+			LocType.modelCache.clear();
 			if (arg0 <= 0) {
 				this.aBoolean72 = !this.aBoolean72;
 			}
@@ -9589,11 +9589,11 @@ public final class client extends GameShell {
 			if (arg1) {
 				this.aBoolean44 = !this.aBoolean44;
 			}
-			if (arg0.anIntArrayArray15 == null || arg2 >= arg0.anIntArrayArray15.length) {
+			if (arg0.script == null || arg2 >= arg0.script.length) {
 				return -2;
 			}
 			try {
-				@Pc(26) int[] local26 = arg0.anIntArrayArray15[arg2];
+				@Pc(26) int[] local26 = arg0.script[arg2];
 				@Pc(28) int local28 = 0;
 				@Pc(30) int local30 = 0;
 				while (true) {
@@ -9614,11 +9614,11 @@ public final class client extends GameShell {
 					@Pc(95) int local95;
 					@Pc(97) int local97;
 					if (local35 == 4) {
-						local88 = Component.aClass15Array1[local26[local30++]];
+						local88 = Component.instances[local26[local30++]];
 						local95 = local26[local30++] + 1;
-						for (local97 = 0; local97 < local88.anIntArray149.length; local97++) {
-							if (local88.anIntArray149[local97] == local95) {
-								local28 += local88.anIntArray150[local97];
+						for (local97 = 0; local97 < local88.inventoryIndices.length; local97++) {
+							if (local88.inventoryIndices[local97] == local95) {
+								local28 += local88.inventoryAmount[local97];
 							}
 						}
 					}
@@ -9632,7 +9632,7 @@ public final class client extends GameShell {
 						local28 += this.anIntArray59[local26[local30++]] * 100 / 46875;
 					}
 					if (local35 == 8) {
-						local28 += this.aClass1_Sub1_Sub3_Sub2_1.anInt932;
+						local28 += this.aClass1_Sub1_Sub3_Sub2_1.combatLevel;
 					}
 					@Pc(179) int local179;
 					if (local35 == 9) {
@@ -9644,10 +9644,10 @@ public final class client extends GameShell {
 						}
 					}
 					if (local35 == 10) {
-						local88 = Component.aClass15Array1[local26[local30++]];
+						local88 = Component.instances[local26[local30++]];
 						local95 = local26[local30++] + 1;
-						for (local97 = 0; local97 < local88.anIntArray149.length; local97++) {
-							if (local88.anIntArray149[local97] == local95) {
+						for (local97 = 0; local97 < local88.inventoryIndices.length; local97++) {
+							if (local88.inventoryIndices[local97] == local95) {
 								local28 += 999999999;
 								break;
 							}
@@ -9764,13 +9764,13 @@ public final class client extends GameShell {
 			local14.drawOpaque(34676, -128, -186);
 			this.aClass32_24.makeTarget((byte) 62);
 			local14.drawOpaque(34676, -574, -186);
-			@Pc(110) int[] local110 = new int[local14.anInt461];
-			for (@Pc(112) int local112 = 0; local112 < local14.anInt462; local112++) {
-				for (@Pc(116) int local116 = 0; local116 < local14.anInt461; local116++) {
-					local110[local116] = local14.anIntArray148[local14.anInt461 + local14.anInt461 * local112 - local116 - 1];
+			@Pc(110) int[] local110 = new int[local14.spriteWidth];
+			for (@Pc(112) int local112 = 0; local112 < local14.spriteHeight; local112++) {
+				for (@Pc(116) int local116 = 0; local116 < local14.spriteWidth; local116++) {
+					local110[local116] = local14.pixels[local14.spriteWidth + local14.spriteWidth * local112 - local116 - 1];
 				}
-				for (@Pc(142) int local142 = 0; local142 < local14.anInt461; local142++) {
-					local14.anIntArray148[local142 + local14.anInt461 * local112] = local110[local142];
+				for (@Pc(142) int local142 = 0; local142 < local14.spriteWidth; local142++) {
+					local14.pixels[local142 + local14.spriteWidth * local112] = local110[local142];
 				}
 			}
 			this.aClass32_19.makeTarget((byte) 62);
@@ -9793,7 +9793,7 @@ public final class client extends GameShell {
 			local14.drawOpaque(34676, -180, -186);
 			local14 = new Sprite(this.aClass39_1, "logo", 0);
 			this.aClass32_16.makeTarget((byte) 62);
-			local14.draw(18, super.gameWidth / 2 - local14.anInt461 / 2 - 128, false);
+			local14.draw(18, super.gameWidth / 2 - local14.spriteWidth / 2 - 128, false);
 			local14 = null;
 			@Pc(278) Object local278 = null;
 			@Pc(280) Object local280 = null;
@@ -9818,15 +9818,15 @@ public final class client extends GameShell {
 				label70: {
 					do {
 						do {
-							if (local10.seqDelay <= local10.seq.anIntArray188[local10.seqFrame]) {
+							if (local10.seqDelay <= local10.seq.frameDelay[local10.seqFrame]) {
 								break label70;
 							}
-							local10.seqDelay -= local10.seq.anIntArray188[local10.seqFrame] + 1;
+							local10.seqDelay -= local10.seq.frameDelay[local10.seqFrame] + 1;
 							local10.seqFrame++;
 							local14 = true;
-						} while (local10.seqFrame < local10.seq.anInt543);
-						local10.seqFrame -= local10.seq.anInt544;
-					} while (local10.seqFrame >= 0 && local10.seqFrame < local10.seq.anInt543);
+						} while (local10.seqFrame < local10.seq.framecount);
+						local10.seqFrame -= local10.seq.replayoff;
+					} while (local10.seqFrame >= 0 && local10.seqFrame < local10.seq.framecount);
 					local10.unlink();
 					local14 = false;
 				}
@@ -9855,7 +9855,7 @@ public final class client extends GameShell {
 						@Pc(210) LocType local210 = LocType.get(local10.locIndex);
 						@Pc(212) int local212 = -1;
 						if (local10.seqFrame != -1) {
-							local212 = local10.seq.anIntArray186[local10.seqFrame];
+							local212 = local10.seq.primaryFrames[local10.seqFrame];
 						}
 						@Pc(235) int local235;
 						@Pc(239) int local239;
@@ -9943,8 +9943,8 @@ public final class client extends GameShell {
 			if (arg0 != 2) {
 				aBoolean48 = !aBoolean48;
 			}
-			for (@Pc(52) int local52 = 0; local52 < Model.anInt378; local52++) {
-				@Pc(58) int local58 = Model.anIntArray123[local52];
+			for (@Pc(52) int local52 = 0; local52 < Model.resourceCount; local52++) {
+				@Pc(58) int local58 = Model.hoveredBitsets[local52];
 				@Pc(62) int local62 = local58 & 0x7F;
 				@Pc(68) int local68 = local58 >> 7 & 0x7F;
 				@Pc(74) int local74 = local58 >> 29 & 0x3;
@@ -9955,17 +9955,17 @@ public final class client extends GameShell {
 					if (local74 == 2 && this.aClass33_1.getInfo(this.anInt231, local62, local68, local58) >= 0) {
 						@Pc(100) LocType local100 = LocType.get(local80);
 						if (this.anInt281 == 1) {
-							this.aStringArray5[this.anInt304] = "Use " + this.aString10 + " with @cya@" + local100.aString1;
+							this.aStringArray5[this.anInt304] = "Use " + this.aString10 + " with @cya@" + local100.name;
 							this.anIntArray86[this.anInt304] = 450;
 							this.anIntArray87[this.anInt304] = local58;
 							this.anIntArray84[this.anInt304] = local62;
 							this.anIntArray85[this.anInt304] = local68;
 							this.anInt304++;
 						} else if (this.anInt291 != 1) {
-							if (local100.aStringArray1 != null) {
+							if (local100.ops != null) {
 								for (local218 = 4; local218 >= 0; local218--) {
-									if (local100.aStringArray1[local218] != null) {
-										this.aStringArray5[this.anInt304] = local100.aStringArray1[local218] + " @cya@" + local100.aString1;
+									if (local100.ops[local218] != null) {
+										this.aStringArray5[this.anInt304] = local100.ops[local218] + " @cya@" + local100.name;
 										if (local218 == 0) {
 											this.anIntArray86[this.anInt304] = 285;
 										}
@@ -9988,14 +9988,14 @@ public final class client extends GameShell {
 									}
 								}
 							}
-							this.aStringArray5[this.anInt304] = "Examine @cya@" + local100.aString1;
+							this.aStringArray5[this.anInt304] = "Examine @cya@" + local100.name;
 							this.anIntArray86[this.anInt304] = 1175;
 							this.anIntArray87[this.anInt304] = local58;
 							this.anIntArray84[this.anInt304] = local62;
 							this.anIntArray85[this.anInt304] = local68;
 							this.anInt304++;
 						} else if ((this.anInt293 & 0x4) == 4) {
-							this.aStringArray5[this.anInt304] = this.aString11 + " @cya@" + local100.aString1;
+							this.aStringArray5[this.anInt304] = this.aString11 + " @cya@" + local100.name;
 							this.anIntArray86[this.anInt304] = 55;
 							this.anIntArray87[this.anInt304] = local58;
 							this.anIntArray84[this.anInt304] = local62;
@@ -10006,10 +10006,10 @@ public final class client extends GameShell {
 					@Pc(395) NpcEntity local395;
 					if (local74 == 1) {
 						@Pc(366) NpcEntity local366 = this.aClass1_Sub1_Sub3_Sub1Array1[local80];
-						if (local366.type.aByte4 == 1 && (local366.x & 0x7F) == 64 && (local366.z & 0x7F) == 64) {
+						if (local366.type.size == 1 && (local366.x & 0x7F) == 64 && (local366.z & 0x7F) == 64) {
 							for (local218 = 0; local218 < this.anInt248; local218++) {
 								local395 = this.aClass1_Sub1_Sub3_Sub1Array1[this.anIntArray58[local218]];
-								if (local395 != null && local395 != local366 && local395.type.aByte4 == 1 && local395.x == local366.x && local395.z == local366.z) {
+								if (local395 != null && local395 != local366 && local395.type.size == 1 && local395.x == local366.x && local395.z == local366.z) {
 									this.drawTooltip(local395.type, -641, local68, local62, this.anIntArray58[local218]);
 								}
 							}
@@ -10021,7 +10021,7 @@ public final class client extends GameShell {
 						if ((local446.x & 0x7F) == 64 && (local446.z & 0x7F) == 64) {
 							for (local218 = 0; local218 < this.anInt248; local218++) {
 								local395 = this.aClass1_Sub1_Sub3_Sub1Array1[this.anIntArray58[local218]];
-								if (local395 != null && local395.type.aByte4 == 1 && local395.x == local446.x && local395.z == local446.z) {
+								if (local395 != null && local395.type.size == 1 && local395.x == local446.x && local395.z == local446.z) {
 									this.drawTooltip(local395.type, -641, local68, local62, this.anIntArray58[local218]);
 								}
 							}
@@ -10040,7 +10040,7 @@ public final class client extends GameShell {
 							for (@Pc(572) ObjStackEntity local572 = (ObjStackEntity) local565.peekNext((byte) 2); local572 != null; local572 = (ObjStackEntity) local565.getNext(false)) {
 								@Pc(578) ObjType local578 = ObjType.get(local572.id);
 								if (this.anInt281 == 1) {
-									this.aStringArray5[this.anInt304] = "Use " + this.aString10 + " with @lre@" + local578.aString3;
+									this.aStringArray5[this.anInt304] = "Use " + this.aString10 + " with @lre@" + local578.name;
 									this.anIntArray86[this.anInt304] = 217;
 									this.anIntArray87[this.anInt304] = local572.id;
 									this.anIntArray84[this.anInt304] = local62;
@@ -10048,8 +10048,8 @@ public final class client extends GameShell {
 									this.anInt304++;
 								} else if (this.anInt291 != 1) {
 									for (@Pc(695) int local695 = 4; local695 >= 0; local695--) {
-										if (local578.aStringArray3 != null && local578.aStringArray3[local695] != null) {
-											this.aStringArray5[this.anInt304] = local578.aStringArray3[local695] + " @lre@" + local578.aString3;
+										if (local578.ops != null && local578.ops[local695] != null) {
+											this.aStringArray5[this.anInt304] = local578.ops[local695] + " @lre@" + local578.name;
 											if (local695 == 0) {
 												this.anIntArray86[this.anInt304] = 224;
 											}
@@ -10070,7 +10070,7 @@ public final class client extends GameShell {
 											this.anIntArray85[this.anInt304] = local68;
 											this.anInt304++;
 										} else if (local695 == 2) {
-											this.aStringArray5[this.anInt304] = "Take @lre@" + local578.aString3;
+											this.aStringArray5[this.anInt304] = "Take @lre@" + local578.name;
 											this.anIntArray86[this.anInt304] = 99;
 											this.anIntArray87[this.anInt304] = local572.id;
 											this.anIntArray84[this.anInt304] = local62;
@@ -10078,14 +10078,14 @@ public final class client extends GameShell {
 											this.anInt304++;
 										}
 									}
-									this.aStringArray5[this.anInt304] = "Examine @lre@" + local578.aString3;
+									this.aStringArray5[this.anInt304] = "Examine @lre@" + local578.name;
 									this.anIntArray86[this.anInt304] = 1102;
 									this.anIntArray87[this.anInt304] = local572.id;
 									this.anIntArray84[this.anInt304] = local62;
 									this.anIntArray85[this.anInt304] = local68;
 									this.anInt304++;
 								} else if ((this.anInt293 & 0x1) == 1) {
-									this.aStringArray5[this.anInt304] = this.aString11 + " @lre@" + local578.aString3;
+									this.aStringArray5[this.anInt304] = this.aString11 + " @lre@" + local578.name;
 									this.anIntArray86[this.anInt304] = 965;
 									this.anIntArray87[this.anInt304] = local572.id;
 									this.anIntArray84[this.anInt304] = local62;
@@ -10239,7 +10239,7 @@ public final class client extends GameShell {
 				this.aClass1_Sub3_Sub2_Sub4_3.drawCentered(40, (byte) 6, 0, this.aString8, 239);
 				this.aClass1_Sub3_Sub2_Sub4_3.drawCentered(60, (byte) 6, 128, "Click to continue", 239);
 			} else if (this.anInt280 != -1) {
-				this.drawInterface(0, 0, 38682, Component.aClass15Array1[this.anInt280], 0);
+				this.drawInterface(0, 0, 38682, Component.instances[this.anInt280], 0);
 			} else if (this.anInt289 == -1) {
 				@Pc(135) Font local135 = this.aClass1_Sub3_Sub2_Sub4_2;
 				@Pc(137) int local137 = 0;
@@ -10312,7 +10312,7 @@ public final class client extends GameShell {
 				local135.draw(local135.stringWidth(false, this.aString13 + ": ") + 6, 90, false, 255, this.aString18 + "*");
 				Draw2D.drawHorizontalLine(0, 0, 77, 479, 0);
 			} else {
-				this.drawInterface(0, 0, 38682, Component.aClass15Array1[this.anInt289], 0);
+				this.drawInterface(0, 0, 38682, Component.instances[this.anInt289], 0);
 			}
 			if (this.aBoolean50 && this.anInt337 == 2) {
 				this.drawMenu(-961);
@@ -10626,7 +10626,7 @@ public final class client extends GameShell {
 				}
 				if (this.anInt179 == 197) {
 					local159 = this.aClass1_Sub3_Sub3_5.g2();
-					Component.aClass15Array1[local159].aClass1_Sub3_Sub1_2 = this.aClass1_Sub1_Sub3_Sub2_1.getHeadModel(-718);
+					Component.instances[local159].model = this.aClass1_Sub1_Sub3_Sub2_1.getHeadModel(-718);
 					this.anInt179 = -1;
 					return true;
 				}
@@ -10754,7 +10754,7 @@ public final class client extends GameShell {
 				if (this.anInt179 == 146) {
 					local159 = this.aClass1_Sub3_Sub3_5.g2();
 					local462 = this.aClass1_Sub3_Sub3_5.g2();
-					Component.aClass15Array1[local159].anInt488 = local462;
+					Component.instances[local159].anim = local462;
 					this.anInt179 = -1;
 					return true;
 				}
@@ -10805,19 +10805,19 @@ public final class client extends GameShell {
 				if (this.anInt179 == 98) {
 					this.aBoolean59 = true;
 					local159 = this.aClass1_Sub3_Sub3_5.g2();
-					local1745 = Component.aClass15Array1[local159];
+					local1745 = Component.instances[local159];
 					local211 = this.aClass1_Sub3_Sub3_5.g1();
 					for (local466 = 0; local466 < local211; local466++) {
-						local1745.anIntArray149[local466] = this.aClass1_Sub3_Sub3_5.g2();
+						local1745.inventoryIndices[local466] = this.aClass1_Sub3_Sub3_5.g2();
 						local219 = this.aClass1_Sub3_Sub3_5.g1();
 						if (local219 == 255) {
 							local219 = this.aClass1_Sub3_Sub3_5.g4();
 						}
-						local1745.anIntArray150[local466] = local219;
+						local1745.inventoryAmount[local466] = local219;
 					}
-					for (local219 = local211; local219 < local1745.anIntArray149.length; local219++) {
-						local1745.anIntArray149[local219] = 0;
-						local1745.anIntArray150[local219] = 0;
+					for (local219 = local211; local219 < local1745.inventoryIndices.length; local219++) {
+						local1745.inventoryIndices[local219] = 0;
+						local1745.inventoryAmount[local219] = 0;
 					}
 					this.anInt179 = -1;
 					return true;
@@ -10837,10 +10837,10 @@ public final class client extends GameShell {
 				}
 				if (this.anInt179 == 15) {
 					local159 = this.aClass1_Sub3_Sub3_5.g2();
-					local1745 = Component.aClass15Array1[local159];
-					for (local211 = 0; local211 < local1745.anIntArray149.length; local211++) {
-						local1745.anIntArray149[local211] = -1;
-						local1745.anIntArray149[local211] = 0;
+					local1745 = Component.instances[local159];
+					for (local211 = 0; local211 < local1745.inventoryIndices.length; local211++) {
+						local1745.inventoryIndices[local211] = -1;
+						local1745.inventoryIndices[local211] = 0;
 					}
 					this.anInt179 = -1;
 					return true;
@@ -10859,9 +10859,9 @@ public final class client extends GameShell {
 						}
 						this.aString9 = "";
 						this.aBoolean51 = false;
-						for (local462 = 0; local462 < Component.aClass15Array1.length; local462++) {
-							if (Component.aClass15Array1[local462] != null && Component.aClass15Array1[local462].anInt474 == local1915) {
-								this.anInt271 = Component.aClass15Array1[local462].anInt471;
+						for (local462 = 0; local462 < Component.instances.length; local462++) {
+							if (Component.instances[local462] != null && Component.instances[local462].clientcode == local1915) {
+								this.anInt271 = Component.instances[local462].parent;
 								break;
 							}
 						}
@@ -10907,7 +10907,7 @@ public final class client extends GameShell {
 					if (this.aBoolean73 && !aBoolean53 && this.anInt286 < 50) {
 						this.anIntArray82[this.anInt286] = local159;
 						this.anIntArray37[this.anInt286] = local462;
-						this.anIntArray45[this.anInt286] = local211 + SoundTrack.anIntArray231[local159];
+						this.anIntArray45[this.anInt286] = local211 + SoundTrack.delays[local159];
 						this.anInt286++;
 					}
 					this.anInt179 = -1;
@@ -10917,7 +10917,7 @@ public final class client extends GameShell {
 					local159 = this.aClass1_Sub3_Sub3_5.g2();
 					local462 = this.aClass1_Sub3_Sub3_5.g2();
 					@Pc(2130) NpcType local2130 = NpcType.get(local462);
-					Component.aClass15Array1[local159].aClass1_Sub3_Sub1_2 = local2130.getHeadModel(false);
+					Component.instances[local159].model = local2130.getHeadModel(false);
 					this.anInt179 = -1;
 					return true;
 				}
@@ -10932,8 +10932,8 @@ public final class client extends GameShell {
 					local159 = this.aClass1_Sub3_Sub3_5.g2();
 					local462 = this.aClass1_Sub3_Sub3_5.g2();
 					local211 = this.aClass1_Sub3_Sub3_5.g2();
-					local2181 = Component.aClass15Array1[local159];
-					@Pc(2184) Model local2184 = local2181.aClass1_Sub3_Sub1_2;
+					local2181 = Component.instances[local159];
+					@Pc(2184) Model local2184 = local2181.model;
 					if (local2184 != null) {
 						local2184.recolor(local462, local211);
 					}
@@ -10987,9 +10987,9 @@ public final class client extends GameShell {
 					local159 = this.aClass1_Sub3_Sub3_5.g2();
 					local462 = this.aClass1_Sub3_Sub3_5.g2b();
 					local211 = this.aClass1_Sub3_Sub3_5.g2b();
-					local2181 = Component.aClass15Array1[local159];
-					local2181.anInt477 = local462;
-					local2181.anInt478 = local211;
+					local2181 = Component.instances[local159];
+					local2181.x = local462;
+					local2181.y = local211;
 					this.anInt179 = -1;
 					return true;
 				}
@@ -11100,7 +11100,7 @@ public final class client extends GameShell {
 				if (this.anInt179 == 87) {
 					local159 = this.aClass1_Sub3_Sub3_5.g2();
 					local462 = this.aClass1_Sub3_Sub3_5.g2();
-					Component.aClass15Array1[local159].aClass1_Sub3_Sub1_2 = new Model(false, local462);
+					Component.instances[local159].model = new Model(false, local462);
 					this.anInt179 = -1;
 					return true;
 				}
@@ -11194,10 +11194,10 @@ public final class client extends GameShell {
 					local462 = this.aClass1_Sub3_Sub3_5.g2();
 					local211 = this.aClass1_Sub3_Sub3_5.g2();
 					@Pc(3157) ObjType local3157 = ObjType.get(local462);
-					Component.aClass15Array1[local159].aClass1_Sub3_Sub1_2 = local3157.getModel(50);
-					Component.aClass15Array1[local159].anInt491 = local3157.anInt106;
-					Component.aClass15Array1[local159].anInt492 = local3157.anInt107;
-					Component.aClass15Array1[local159].anInt490 = local3157.anInt105 * 100 / local211;
+					Component.instances[local159].model = local3157.getModel(50);
+					Component.instances[local159].xan = local3157.xan2d;
+					Component.instances[local159].yan = local3157.yan2d;
+					Component.instances[local159].zoom = local3157.zoom2d * 100 / local211;
 					this.anInt179 = -1;
 					return true;
 				}
@@ -11228,7 +11228,7 @@ public final class client extends GameShell {
 					local211 = local462 >> 10 & 0x1F;
 					local466 = local462 >> 5 & 0x1F;
 					local219 = local462 & 0x1F;
-					Component.aClass15Array1[local159].anInt485 = (local211 << 19) + (local466 << 11) + (local219 << 3);
+					Component.instances[local159].colour = (local211 << 19) + (local466 << 11) + (local219 << 3);
 					this.anInt179 = -1;
 					return true;
 				}
@@ -11249,7 +11249,7 @@ public final class client extends GameShell {
 				if (this.anInt179 == 26) {
 					local159 = this.aClass1_Sub3_Sub3_5.g2();
 					@Pc(3362) boolean local3362 = this.aClass1_Sub3_Sub3_5.g1() == 1;
-					Component.aClass15Array1[local159].aBoolean106 = local3362;
+					Component.instances[local159].hide = local3362;
 					this.anInt179 = -1;
 					return true;
 				}
@@ -11291,8 +11291,8 @@ public final class client extends GameShell {
 				if (this.anInt179 == 201) {
 					local159 = this.aClass1_Sub3_Sub3_5.g2();
 					local3040 = this.aClass1_Sub3_Sub3_5.gstr();
-					Component.aClass15Array1[local159].aString20 = local3040;
-					if (Component.aClass15Array1[local159].anInt471 == this.anIntArray46[this.anInt166]) {
+					Component.instances[local159].text = local3040;
+					if (Component.instances[local159].parent == this.anIntArray46[this.anInt166]) {
 						this.aBoolean59 = true;
 					}
 					this.anInt179 = -1;
@@ -11348,7 +11348,7 @@ public final class client extends GameShell {
 				if (this.anInt179 == 213) {
 					this.aBoolean59 = true;
 					local159 = this.aClass1_Sub3_Sub3_5.g2();
-					local1745 = Component.aClass15Array1[local159];
+					local1745 = Component.instances[local159];
 					while (this.aClass1_Sub3_Sub3_5.pos < this.anInt178) {
 						local211 = this.aClass1_Sub3_Sub3_5.g1();
 						local466 = this.aClass1_Sub3_Sub3_5.g2();
@@ -11356,9 +11356,9 @@ public final class client extends GameShell {
 						if (local219 == 255) {
 							local219 = this.aClass1_Sub3_Sub3_5.g4();
 						}
-						if (local211 >= 0 && local211 < local1745.anIntArray149.length) {
-							local1745.anIntArray149[local211] = local466;
-							local1745.anIntArray150[local211] = local219;
+						if (local211 >= 0 && local211 < local1745.inventoryIndices.length) {
+							local1745.inventoryIndices[local211] = local466;
+							local1745.inventoryAmount[local211] = local219;
 						}
 					}
 					this.anInt179 = -1;
@@ -11368,15 +11368,15 @@ public final class client extends GameShell {
 					this.updatePlayers(this.aClass1_Sub3_Sub3_5, this.anInt178, 822);
 					if (this.anInt307 == 1) {
 						this.anInt307 = 2;
-						Scene.anInt81 = this.anInt231;
+						Scene.levelBuilt = this.anInt231;
 						this.createScene(869);
 					}
-					if (aBoolean53 && this.anInt307 == 2 && Scene.anInt81 != this.anInt231) {
+					if (aBoolean53 && this.anInt307 == 2 && Scene.levelBuilt != this.anInt231) {
 						this.aClass32_27.makeTarget((byte) 62);
 						this.aClass1_Sub3_Sub2_Sub4_2.drawCentered(151, (byte) 6, 0, "Loading - please wait.", 257);
 						this.aClass1_Sub3_Sub2_Sub4_2.drawCentered(150, (byte) 6, 16777215, "Loading - please wait.", 256);
 						this.aClass32_27.drawAt(11, super.graphics, 8, 5193);
-						Scene.anInt81 = this.anInt231;
+						Scene.levelBuilt = this.anInt231;
 						this.createScene(869);
 					}
 					if (this.anInt231 != this.anInt176 && this.anInt307 == 2) {
@@ -11412,9 +11412,9 @@ public final class client extends GameShell {
 			Draw3D.offsets = this.anIntArray31;
 			this.aClass1_Sub3_Sub2_Sub3_9.draw(0, 0, false);
 			if (this.anInt330 != -1) {
-				this.drawInterface(0, 0, 38682, Component.aClass15Array1[this.anInt330], 0);
+				this.drawInterface(0, 0, 38682, Component.instances[this.anInt330], 0);
 			} else if (this.anIntArray46[this.anInt166] != -1) {
-				this.drawInterface(0, 0, 38682, Component.aClass15Array1[this.anIntArray46[this.anInt166]], 0);
+				this.drawInterface(0, 0, 38682, Component.instances[this.anIntArray46[this.anInt166]], 0);
 			}
 			if (this.aBoolean50 && this.anInt337 == 1) {
 				this.drawMenu(-961);
@@ -11445,7 +11445,7 @@ public final class client extends GameShell {
 					return true;
 				}
 			}
-			if (arg1.equalsIgnoreCase(this.aClass1_Sub1_Sub3_Sub2_1.aString29)) {
+			if (arg1.equalsIgnoreCase(this.aClass1_Sub1_Sub3_Sub2_1.name)) {
 				return true;
 			} else {
 				return false;
@@ -11520,7 +11520,7 @@ public final class client extends GameShell {
 				arg4.spokenColor = 0;
 				arg4.spokenEffect = 0;
 				arg4.textCycle = 150;
-				this.addMessage(2, arg4.spoken, (byte) 4, arg4.aString29);
+				this.addMessage(2, arg4.spoken, (byte) 4, arg4.name);
 			}
 			if ((arg2 & 0x10) == 16) {
 				arg4.damageTaken = arg3.g1();
@@ -11538,8 +11538,8 @@ public final class client extends GameShell {
 				local66 = arg3.g1();
 				@Pc(199) int local199 = arg3.g1();
 				@Pc(202) int local202 = arg3.pos;
-				if (arg4.aString29 != null) {
-					@Pc(209) long local209 = StringUtils.toBase37(arg4.aString29);
+				if (arg4.name != null) {
+					@Pc(209) long local209 = StringUtils.toBase37(arg4.name);
 					@Pc(211) boolean local211 = false;
 					if (local66 <= 1) {
 						for (@Pc(216) int local216 = 0; local216 < this.anInt186; local216++) {
@@ -11558,9 +11558,9 @@ public final class client extends GameShell {
 							arg4.spokenEffect = local19 & 0xFF;
 							arg4.textCycle = 150;
 							if (local66 > 1) {
-								this.addMessage(1, local248, (byte) 4, arg4.aString29);
+								this.addMessage(1, local248, (byte) 4, arg4.name);
 							} else {
-								this.addMessage(2, local248, (byte) 4, arg4.aString29);
+								this.addMessage(2, local248, (byte) 4, arg4.name);
 							}
 						} catch (@Pc(285) Exception local285) {
 							signlink.reporterror("cde2");

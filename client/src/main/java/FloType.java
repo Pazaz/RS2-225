@@ -8,10 +8,10 @@ import sign.signlink;
 public final class FloType {
 
 	@OriginalMember(owner = "client!fc", name = "b", descriptor = "I")
-	public static final int anInt401 = -546;
+	public static final int flowObfuscator2 = -546;
 
 	@OriginalMember(owner = "client!fc", name = "a", descriptor = "I")
-	private static final int anInt400 = 473;
+	private static final int flowObfuscator1 = 473;
 
 	@OriginalMember(owner = "client!fc", name = "c", descriptor = "I")
 	public static int count;
@@ -86,7 +86,7 @@ public final class FloType {
 				}
 				if (local10 == 1) {
 					this.rgb = arg1.g3();
-					this.setColor(anInt401, this.rgb);
+					this.setColor(flowObfuscator2, this.rgb);
 				} else if (local10 == 2) {
 					this.texture = arg1.g1();
 				} else if (local10 == 3) {

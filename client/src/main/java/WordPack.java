@@ -6,13 +6,13 @@ import sign.signlink;
 public final class WordPack {
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "Z")
-	private static boolean aBoolean136;
+	private static boolean flowObfuscator1;
 
 	@OriginalMember(owner = "client!mc", name = "d", descriptor = "I")
-	private static int anInt641;
+	private static int flowObfuscator4;
 
 	@OriginalMember(owner = "client!mc", name = "i", descriptor = "Z")
-	private static boolean aBoolean137;
+	private static boolean flowObfuscator9;
 
 	@OriginalMember(owner = "client!mc", name = "j", descriptor = "[I")
 	private static int[] fragments;
@@ -33,22 +33,22 @@ public final class WordPack {
 	private static int[] tldTypes;
 
 	@OriginalMember(owner = "client!mc", name = "b", descriptor = "I")
-	private static int anInt639 = 24882;
+	private static int flowObfuscator2 = 24882;
 
 	@OriginalMember(owner = "client!mc", name = "c", descriptor = "I")
-	private static int anInt640 = -178;
+	private static int flowObfuscator3 = -178;
 
 	@OriginalMember(owner = "client!mc", name = "e", descriptor = "I")
-	private static int anInt642 = 16180;
+	private static int flowObfuscator5 = 16180;
 
 	@OriginalMember(owner = "client!mc", name = "f", descriptor = "I")
-	private static int anInt643 = 383;
+	private static int flowObfuscator6 = 383;
 
 	@OriginalMember(owner = "client!mc", name = "g", descriptor = "B")
-	private static final byte aByte31 = 6;
+	private static final byte flowObfuscator7 = 6;
 
 	@OriginalMember(owner = "client!mc", name = "h", descriptor = "I")
-	private static final int anInt644 = -81;
+	private static final int flowObfuscator8 = -81;
 
 	@OriginalMember(owner = "client!mc", name = "p", descriptor = "[Ljava/lang/String;")
 	private static final String[] whitelist = new String[] { "cook", "cook's", "cooks", "seeks", "sheet" };
@@ -130,8 +130,8 @@ public final class WordPack {
 			for (@Pc(5) int local5 = 0; local5 < fragments.length; local5++) {
 				fragments[local5] = arg1.g2();
 			}
-			if (arg0 != anInt639) {
-				aBoolean136 = !aBoolean136;
+			if (arg0 != flowObfuscator2) {
+				flowObfuscator1 = !flowObfuscator1;
 			}
 		} catch (@Pc(28) RuntimeException local28) {
 			signlink.reporterror("14267, " + arg0 + ", " + arg1 + ", " + local28.toString());
@@ -210,7 +210,7 @@ public final class WordPack {
 				}
 			}
 			if (arg1 != 0) {
-				aBoolean136 = !aBoolean136;
+				flowObfuscator1 = !flowObfuscator1;
 			}
 			for (@Pc(55) int local55 = local3; local55 < arg0.length; local55++) {
 				arg0[local55] = ' ';
@@ -224,7 +224,7 @@ public final class WordPack {
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(IC)Z")
 	private static boolean isValid(@OriginalArg(0) int arg0, @OriginalArg(1) char arg1) {
 		try {
-			if (arg0 != anInt642) {
+			if (arg0 != flowObfuscator5) {
 				throw new NullPointerException();
 			}
 			return arg1 >= ' ' && arg1 <= '\u007f' || arg1 == ' ' || arg1 == '\n' || arg1 == '\t' || arg1 == '£' || arg1 == '€';
@@ -354,7 +354,7 @@ public final class WordPack {
 			if (arg3.length <= arg4.length) {
 				@Pc(9) boolean local9 = true;
 				if (arg1 >= 0) {
-					anInt642 = -499;
+					flowObfuscator5 = -499;
 				}
 				@Pc(23) int local23;
 				for (@Pc(15) int local15 = 0; local15 <= arg4.length - arg3.length; local15 += local23) {
@@ -428,8 +428,8 @@ public final class WordPack {
 					return 3;
 				}
 			}
-			if (arg2 != aByte31) {
-				return anInt640;
+			if (arg2 != flowObfuscator7) {
+				return flowObfuscator3;
 			}
 			@Pc(32) boolean local32 = false;
 			@Pc(37) int local37 = 0;
@@ -455,7 +455,7 @@ public final class WordPack {
 	private static int getDomainDotFilterStatus(@OriginalArg(0) char[] arg0, @OriginalArg(1) char[] arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
 		try {
 			if (arg3 >= 0) {
-				return anInt641;
+				return flowObfuscator4;
 			} else if (arg2 + 1 == arg1.length) {
 				return 2;
 			} else {
@@ -498,7 +498,7 @@ public final class WordPack {
 			@Pc(27) char[] local27 = (char[]) arg0.clone();
 			@Pc(50) char[] local50 = new char[] { 's', 'l', 'a', 's', 'h' };
 			if (arg1 != 0) {
-				aBoolean136 = !aBoolean136;
+				flowObfuscator1 = !flowObfuscator1;
 			}
 			filterBad((byte) -102, null, local27, local50);
 			for (@Pc(65) int local65 = 0; local65 < tlds.length; local65++) {
@@ -736,7 +736,7 @@ public final class WordPack {
 			if (arg3.length <= arg2.length) {
 				@Pc(9) boolean local9 = true;
 				if (arg0 != -102) {
-					anInt643 = -198;
+					flowObfuscator6 = -198;
 				}
 				@Pc(26) int local26;
 				for (@Pc(16) int local16 = 0; local16 <= arg2.length - arg3.length; local16 += local26) {
@@ -886,7 +886,7 @@ public final class WordPack {
 	private static boolean comboMatches(@OriginalArg(0) int arg0, @OriginalArg(1) byte arg1, @OriginalArg(2) byte[][] arg2, @OriginalArg(3) byte arg3) {
 		try {
 			if (arg0 <= 0) {
-				aBoolean137 = !aBoolean137;
+				flowObfuscator9 = !flowObfuscator9;
 			}
 			@Pc(9) int local9 = 0;
 			if (arg2[local9][0] == arg1 && arg2[local9][1] == arg3) {
@@ -1285,7 +1285,7 @@ public final class WordPack {
 	private static boolean isNumeral(@OriginalArg(0) char arg0, @OriginalArg(1) int arg1) {
 		try {
 			if (arg1 != 10361) {
-				anInt639 = -124;
+				flowObfuscator2 = -124;
 			}
 			return arg0 >= '0' && arg0 <= '9';
 		} catch (@Pc(15) RuntimeException local15) {
@@ -1298,7 +1298,7 @@ public final class WordPack {
 	private static boolean isLowercaseAlpha(@OriginalArg(0) byte arg0, @OriginalArg(1) char arg1) {
 		try {
 			if (arg0 != 0) {
-				anInt640 = -254;
+				flowObfuscator3 = -254;
 			}
 			return arg1 >= 'a' && arg1 <= 'z';
 		} catch (@Pc(14) RuntimeException local14) {
@@ -1311,7 +1311,7 @@ public final class WordPack {
 	private static boolean isUppercaseAlpha(@OriginalArg(0) int arg0, @OriginalArg(1) char arg1) {
 		try {
 			if (arg0 < 0 || arg0 > 0) {
-				aBoolean136 = !aBoolean136;
+				flowObfuscator1 = !flowObfuscator1;
 			}
 			return arg1 >= 'A' && arg1 <= 'Z';
 		} catch (@Pc(20) RuntimeException local20) {

@@ -15,7 +15,7 @@ public final class ImageProducerFrameBuffer implements ImageProducer, ImageObser
 	private ImageConsumer consumer;
 
 	@OriginalMember(owner = "client!qb", name = "a", descriptor = "I")
-	private int anInt685 = 299;
+	private int flowObfuscator1 = 299;
 
 	@OriginalMember(owner = "client!qb", name = "c", descriptor = "I")
 	private final int width;
@@ -58,7 +58,7 @@ public final class ImageProducerFrameBuffer implements ImageProducer, ImageObser
 	public void makeTarget(@OriginalArg(0) byte arg0) {
 		try {
 			if (arg0 != 62) {
-				this.anInt685 = -283;
+				this.flowObfuscator1 = -283;
 			}
 			Draw2D.prepare(this.width, this.pixels, -657, this.height);
 		} catch (@Pc(15) RuntimeException local15) {

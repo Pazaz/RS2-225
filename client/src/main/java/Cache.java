@@ -8,16 +8,16 @@ import sign.signlink;
 public final class Cache {
 
 	@OriginalMember(owner = "client!s", name = "a", descriptor = "Z")
-	private boolean aBoolean145 = false;
+	private boolean flowObfuscator1 = false;
 
 	@OriginalMember(owner = "client!s", name = "e", descriptor = "Lclient!t;")
 	private final Hashtable hashtable = new Hashtable(9, 1024);
 
 	@OriginalMember(owner = "client!s", name = "b", descriptor = "I")
-	public static final int anInt725 = 5;
+	public static final int HISTORY_SIZE = 5;
 
 	@OriginalMember(owner = "client!s", name = "f", descriptor = "Lclient!pb;")
-	private final Stack history = new Stack(anInt725);
+	private final Stack history = new Stack(HISTORY_SIZE);
 
 	@OriginalMember(owner = "client!s", name = "c", descriptor = "I")
 	private final int capacity;
@@ -61,7 +61,7 @@ public final class Cache {
 			}
 			this.hashtable.put(arg1, -566, arg2);
 			if (arg0 < 6 || arg0 > 6) {
-				this.aBoolean145 = !this.aBoolean145;
+				this.flowObfuscator1 = !this.flowObfuscator1;
 			}
 			this.history.push(arg2);
 		} catch (@Pc(51) RuntimeException local51) {

@@ -10,61 +10,61 @@ import java.util.Random;
 public final class Font extends Draw2D {
 
 	@OriginalMember(owner = "client!jb", name = "K", descriptor = "[I")
-	private static final int[] anIntArray185 = new int[256];
+	private static final int[] CHAR_TABLE = new int[256];
 
 	@OriginalMember(owner = "client!jb", name = "v", descriptor = "Z")
-	private boolean aBoolean124 = true;
+	private boolean flowObfuscator1 = true;
 
 	@OriginalMember(owner = "client!jb", name = "w", descriptor = "B")
-	private final byte aByte26 = 8;
+	private final byte flowObfuscator2 = 8;
 
 	@OriginalMember(owner = "client!jb", name = "x", descriptor = "B")
-	private final byte aByte27 = 6;
+	private final byte flowObfuscator3 = 6;
 
 	@OriginalMember(owner = "client!jb", name = "y", descriptor = "B")
-	private final byte aByte28 = 2;
+	private final byte flowObfuscator4 = 2;
 
 	@OriginalMember(owner = "client!jb", name = "z", descriptor = "I")
-	private int anInt538 = -708;
+	private int flowObfuscator5 = -708;
 
 	@OriginalMember(owner = "client!jb", name = "A", descriptor = "I")
-	private int anInt539 = 997;
+	private int flowObfuscator6 = 997;
 
 	@OriginalMember(owner = "client!jb", name = "B", descriptor = "[[B")
-	private final byte[][] aByteArrayArray3 = new byte[94][];
+	private final byte[][] pixels = new byte[94][];
 
 	@OriginalMember(owner = "client!jb", name = "C", descriptor = "[I")
-	private final int[] anIntArray179 = new int[94];
+	private final int[] charWidth = new int[94];
 
 	@OriginalMember(owner = "client!jb", name = "D", descriptor = "[I")
-	private final int[] anIntArray180 = new int[94];
+	private final int[] charHeight = new int[94];
 
 	@OriginalMember(owner = "client!jb", name = "E", descriptor = "[I")
-	private final int[] anIntArray181 = new int[94];
+	private final int[] charOffsetX = new int[94];
 
 	@OriginalMember(owner = "client!jb", name = "F", descriptor = "[I")
-	private final int[] anIntArray182 = new int[94];
+	private final int[] charOffsetY = new int[94];
 
 	@OriginalMember(owner = "client!jb", name = "G", descriptor = "[I")
-	private final int[] anIntArray183 = new int[95];
+	private final int[] charSpace = new int[95];
 
 	@OriginalMember(owner = "client!jb", name = "H", descriptor = "[I")
-	private final int[] anIntArray184 = new int[256];
+	private final int[] drawWidth = new int[256];
 
 	@OriginalMember(owner = "client!jb", name = "J", descriptor = "Ljava/util/Random;")
-	private final Random aRandom1 = new Random();
+	private final Random random = new Random();
 
 	@OriginalMember(owner = "client!jb", name = "I", descriptor = "I")
-	public int anInt540;
+	public int fontHeight;
 
 	static {
-		@Pc(4) String local4 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
-		for (@Pc(6) int local6 = 0; local6 < 256; local6++) {
-			@Pc(11) int local11 = local4.indexOf(local6);
-			if (local11 == -1) {
-				local11 = 74;
+		@Pc(4) String s = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
+		for (@Pc(6) int i = 0; i < 256; i++) {
+			@Pc(11) int c = s.indexOf(i);
+			if (c == -1) {
+				c = 74;
 			}
-			anIntArray185[local6] = local11;
+			CHAR_TABLE[i] = c;
 		}
 	}
 
@@ -80,52 +80,52 @@ public final class Font extends Draw2D {
 			}
 			@Pc(131) int local131;
 			for (@Pc(104) int local104 = 0; local104 < 94; local104++) {
-				this.anIntArray181[local104] = local81.g1();
-				this.anIntArray182[local104] = local81.g1();
-				local131 = this.anIntArray179[local104] = local81.g2();
-				@Pc(139) int local139 = this.anIntArray180[local104] = local81.g2();
+				this.charOffsetX[local104] = local81.g1();
+				this.charOffsetY[local104] = local81.g1();
+				local131 = this.charWidth[local104] = local81.g2();
+				@Pc(139) int local139 = this.charHeight[local104] = local81.g2();
 				@Pc(142) int local142 = local81.g1();
 				@Pc(146) int local146 = local131 * local139;
-				this.aByteArrayArray3[local104] = new byte[local146];
+				this.pixels[local104] = new byte[local146];
 				@Pc(156) int local156;
 				@Pc(181) int local181;
 				if (local142 == 0) {
 					for (local156 = 0; local156 < local146; local156++) {
-						this.aByteArrayArray3[local104][local156] = local71.g1b();
+						this.pixels[local104][local156] = local71.g1b();
 					}
 				} else if (local142 == 1) {
 					for (local156 = 0; local156 < local131; local156++) {
 						for (local181 = 0; local181 < local139; local181++) {
-							this.aByteArrayArray3[local104][local156 + local181 * local131] = local71.g1b();
+							this.pixels[local104][local156 + local181 * local131] = local71.g1b();
 						}
 					}
 				}
-				if (local139 > this.anInt540) {
-					this.anInt540 = local139;
+				if (local139 > this.fontHeight) {
+					this.fontHeight = local139;
 				}
-				this.anIntArray181[local104] = 1;
-				this.anIntArray183[local104] = local131 + 2;
+				this.charOffsetX[local104] = 1;
+				this.charSpace[local104] = local131 + 2;
 				local156 = 0;
 				for (local181 = local139 / 7; local181 < local139; local181++) {
-					local156 += this.aByteArrayArray3[local104][local181 * local131];
+					local156 += this.pixels[local104][local181 * local131];
 				}
 				@Pc(255) int local255;
 				if (local156 <= local139 / 7) {
-					local255 = this.anIntArray183[local104]--;
-					this.anIntArray181[local104] = 0;
+					local255 = this.charSpace[local104]--;
+					this.charOffsetX[local104] = 0;
 				}
 				local156 = 0;
 				for (@Pc(269) int local269 = local139 / 7; local269 < local139; local269++) {
-					local156 += this.aByteArrayArray3[local104][local131 + local269 * local131 - 1];
+					local156 += this.pixels[local104][local131 + local269 * local131 - 1];
 				}
 				if (local156 <= local139 / 7) {
-					local255 = this.anIntArray183[local104]--;
+					local255 = this.charSpace[local104]--;
 				}
 			}
 			@Pc(311) int local311 = 9 / arg2;
-			this.anIntArray183[94] = this.anIntArray183[8];
+			this.charSpace[94] = this.charSpace[8];
 			for (local131 = 0; local131 < 256; local131++) {
-				this.anIntArray184[local131] = this.anIntArray183[anIntArray185[local131]];
+				this.drawWidth[local131] = this.charSpace[CHAR_TABLE[local131]];
 			}
 		} catch (@Pc(339) RuntimeException local339) {
 			signlink.reporterror("26392, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + local339.toString());
@@ -137,7 +137,7 @@ public final class Font extends Draw2D {
 	public void drawCentered(@OriginalArg(0) int arg0, @OriginalArg(1) byte arg1, @OriginalArg(2) int arg2, @OriginalArg(3) String arg3, @OriginalArg(4) int arg4) {
 		try {
 			if (arg1 != 6) {
-				this.anInt539 = 140;
+				this.flowObfuscator6 = 140;
 			}
 			this.draw(arg4 - this.stringWidth(false, arg3) / 2, arg0, false, arg2, arg3);
 		} catch (@Pc(21) RuntimeException local21) {
@@ -151,7 +151,7 @@ public final class Font extends Draw2D {
 		try {
 			this.draw(arg0 - this.stringWidth(false, arg4) / 2, 6, arg3, arg4, arg2, arg1);
 			if (arg5 != 0) {
-				this.aBoolean124 = !this.aBoolean124;
+				this.flowObfuscator1 = !this.flowObfuscator1;
 			}
 		} catch (@Pc(26) RuntimeException local26) {
 			signlink.reporterror("53756, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + arg4 + ", " + arg5 + ", " + local26.toString());
@@ -167,13 +167,13 @@ public final class Font extends Draw2D {
 			}
 			@Pc(7) int local7 = 0;
 			if (arg0) {
-				return this.anInt538;
+				return this.flowObfuscator5;
 			}
 			for (@Pc(14) int local14 = 0; local14 < arg1.length(); local14++) {
 				if (arg1.charAt(local14) == '@' && local14 + 4 < arg1.length() && arg1.charAt(local14 + 4) == '@') {
 					local14 += 4;
 				} else {
-					local7 += this.anIntArray184[arg1.charAt(local14)];
+					local7 += this.drawWidth[arg1.charAt(local14)];
 				}
 			}
 			return local7;
@@ -187,16 +187,16 @@ public final class Font extends Draw2D {
 	public void draw(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) boolean arg2, @OriginalArg(3) int arg3, @OriginalArg(4) String arg4) {
 		try {
 			if (arg4 != null) {
-				@Pc(7) int local7 = arg1 - this.anInt540;
+				@Pc(7) int local7 = arg1 - this.fontHeight;
 				if (arg2) {
-					this.aBoolean124 = !this.aBoolean124;
+					this.flowObfuscator1 = !this.flowObfuscator1;
 				}
 				for (@Pc(19) int local19 = 0; local19 < arg4.length(); local19++) {
-					@Pc(27) int local27 = anIntArray185[arg4.charAt(local19)];
+					@Pc(27) int local27 = CHAR_TABLE[arg4.charAt(local19)];
 					if (local27 != 94) {
-						this.fillMaskedRect(this.aByteArrayArray3[local27], arg0 + this.anIntArray181[local27], local7 + this.anIntArray182[local27], this.anIntArray179[local27], this.anIntArray180[local27], arg3);
+						this.fillMaskedRect(this.pixels[local27], arg0 + this.charOffsetX[local27], local7 + this.charOffsetY[local27], this.charWidth[local27], this.charHeight[local27], arg3);
 					}
-					arg0 += this.anIntArray183[local27];
+					arg0 += this.charSpace[local27];
 				}
 			}
 		} catch (@Pc(71) RuntimeException local71) {
@@ -210,18 +210,18 @@ public final class Font extends Draw2D {
 		try {
 			if (arg5 != null) {
 				arg2 -= this.stringWidth(false, arg5) / 2;
-				@Pc(18) int local18 = arg3 - this.anInt540;
+				@Pc(18) int local18 = arg3 - this.fontHeight;
 				@Pc(24) int local24;
-				if (arg1 != this.aByte26) {
+				if (arg1 != this.flowObfuscator2) {
 					for (local24 = 1; local24 > 0; local24++) {
 					}
 				}
 				for (local24 = 0; local24 < arg5.length(); local24++) {
-					@Pc(39) int local39 = anIntArray185[arg5.charAt(local24)];
+					@Pc(39) int local39 = CHAR_TABLE[arg5.charAt(local24)];
 					if (local39 != 94) {
-						this.fillMaskedRect(this.aByteArrayArray3[local39], arg2 + this.anIntArray181[local39], local18 + this.anIntArray182[local39] + (int) (Math.sin((double) local24 / 2.0D + (double) arg0 / 5.0D) * 5.0D), this.anIntArray179[local39], this.anIntArray180[local39], arg4);
+						this.fillMaskedRect(this.pixels[local39], arg2 + this.charOffsetX[local39], local18 + this.charOffsetY[local39] + (int) (Math.sin((double) local24 / 2.0D + (double) arg0 / 5.0D) * 5.0D), this.charWidth[local39], this.charHeight[local39], arg4);
 					}
-					arg2 += this.anIntArray183[local39];
+					arg2 += this.charSpace[local39];
 				}
 			}
 		} catch (@Pc(97) RuntimeException local97) {
@@ -234,20 +234,20 @@ public final class Font extends Draw2D {
 	public void draw(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) String arg3, @OriginalArg(4) boolean arg4, @OriginalArg(5) int arg5) {
 		try {
 			if (arg3 != null) {
-				@Pc(9) int local9 = arg2 - this.anInt540;
+				@Pc(9) int local9 = arg2 - this.fontHeight;
 				for (@Pc(11) int local11 = 0; local11 < arg3.length(); local11++) {
 					if (arg3.charAt(local11) == '@' && local11 + 4 < arg3.length() && arg3.charAt(local11 + 4) == '@') {
 						arg5 = this.evaluateTag(0, arg3.substring(local11 + 1, local11 + 4));
 						local11 += 4;
 					} else {
-						@Pc(52) int local52 = anIntArray185[arg3.charAt(local11)];
+						@Pc(52) int local52 = CHAR_TABLE[arg3.charAt(local11)];
 						if (local52 != 94) {
 							if (arg4) {
-								this.fillMaskedRect(this.aByteArrayArray3[local52], arg0 + this.anIntArray181[local52] + 1, local9 + this.anIntArray182[local52] + 1, this.anIntArray179[local52], this.anIntArray180[local52], 0);
+								this.fillMaskedRect(this.pixels[local52], arg0 + this.charOffsetX[local52] + 1, local9 + this.charOffsetY[local52] + 1, this.charWidth[local52], this.charHeight[local52], 0);
 							}
-							this.fillMaskedRect(this.aByteArrayArray3[local52], arg0 + this.anIntArray181[local52], local9 + this.anIntArray182[local52], this.anIntArray179[local52], this.anIntArray180[local52], arg5);
+							this.fillMaskedRect(this.pixels[local52], arg0 + this.charOffsetX[local52], local9 + this.charOffsetY[local52], this.charWidth[local52], this.charHeight[local52], arg5);
 						}
-						arg0 += this.anIntArray183[local52];
+						arg0 += this.charSpace[local52];
 					}
 				}
 				if (arg1 == 6) {
@@ -264,26 +264,26 @@ public final class Font extends Draw2D {
 	public void drawTooltip(@OriginalArg(0) int arg0, @OriginalArg(1) boolean arg1, @OriginalArg(2) byte arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) String arg5, @OriginalArg(6) int arg6) {
 		try {
 			if (arg5 != null) {
-				this.aRandom1.setSeed((long) arg0);
-				@Pc(17) int local17 = (this.aRandom1.nextInt() & 0x1F) + 192;
-				@Pc(22) int local22 = arg3 - this.anInt540;
+				this.random.setSeed((long) arg0);
+				@Pc(17) int local17 = (this.random.nextInt() & 0x1F) + 192;
+				@Pc(22) int local22 = arg3 - this.fontHeight;
 				if (arg2 != -121) {
-					this.anInt539 = 341;
+					this.flowObfuscator6 = 341;
 				}
 				for (@Pc(30) int local30 = 0; local30 < arg5.length(); local30++) {
 					if (arg5.charAt(local30) == '@' && local30 + 4 < arg5.length() && arg5.charAt(local30 + 4) == '@') {
 						arg4 = this.evaluateTag(0, arg5.substring(local30 + 1, local30 + 4));
 						local30 += 4;
 					} else {
-						@Pc(71) int local71 = anIntArray185[arg5.charAt(local30)];
+						@Pc(71) int local71 = CHAR_TABLE[arg5.charAt(local30)];
 						if (local71 != 94) {
 							if (arg1) {
-								this.fillMaskedRect(this.aByteArrayArray3[local71], (byte) 6, arg6 + this.anIntArray181[local71] + 1, this.anIntArray180[local71], 0, local22 + this.anIntArray182[local71] + 1, 192, this.anIntArray179[local71]);
+								this.fillMaskedRect(this.pixels[local71], (byte) 6, arg6 + this.charOffsetX[local71] + 1, this.charHeight[local71], 0, local22 + this.charOffsetY[local71] + 1, 192, this.charWidth[local71]);
 							}
-							this.fillMaskedRect(this.aByteArrayArray3[local71], (byte) 6, arg6 + this.anIntArray181[local71], this.anIntArray180[local71], arg4, local22 + this.anIntArray182[local71], local17, this.anIntArray179[local71]);
+							this.fillMaskedRect(this.pixels[local71], (byte) 6, arg6 + this.charOffsetX[local71], this.charHeight[local71], arg4, local22 + this.charOffsetY[local71], local17, this.charWidth[local71]);
 						}
-						arg6 += this.anIntArray183[local71];
-						if ((this.aRandom1.nextInt() & 0x3) == 0) {
+						arg6 += this.charSpace[local71];
+						if ((this.random.nextInt() & 0x3) == 0) {
 							arg6++;
 						}
 					}
@@ -299,7 +299,7 @@ public final class Font extends Draw2D {
 	private int evaluateTag(@OriginalArg(0) int arg0, @OriginalArg(1) String arg1) {
 		try {
 			if (arg0 != 0) {
-				this.anInt538 = 450;
+				this.flowObfuscator5 = 450;
 			}
 			if (arg1.equals("red")) {
 				return 16711680;
@@ -370,8 +370,8 @@ public final class Font extends Draw2D {
 			local11 += local20;
 			local9 += local20;
 		}
-		if (arg1 + arg3 >= Draw2D.anInt) {
-			local20 = arg1 + arg3 + 1 - Draw2D.anInt;
+		if (arg1 + arg3 >= Draw2D.right) {
+			local20 = arg1 + arg3 + 1 - Draw2D.right;
 			arg3 -= local20;
 			local11 += local20;
 			local9 += local20;
@@ -423,7 +423,7 @@ public final class Font extends Draw2D {
 	@OriginalMember(owner = "client!jb", name = "a", descriptor = "([BBIIIIII)V")
 	private void fillMaskedRect(@OriginalArg(0) byte[] arg0, @OriginalArg(1) byte arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7) {
 		try {
-			if (arg1 == this.aByte27) {
+			if (arg1 == this.flowObfuscator3) {
 				@Pc(10) int local10 = arg2 + arg5 * Draw2D.width;
 				@Pc(14) int local14 = Draw2D.width - arg7;
 				@Pc(16) int local16 = 0;
@@ -448,8 +448,8 @@ public final class Font extends Draw2D {
 					local16 += local25;
 					local14 += local25;
 				}
-				if (arg2 + arg7 >= Draw2D.anInt) {
-					local25 = arg2 + arg7 + 1 - Draw2D.anInt;
+				if (arg2 + arg7 >= Draw2D.right) {
+					local25 = arg2 + arg7 + 1 - Draw2D.right;
 					arg7 -= local25;
 					local16 += local25;
 					local14 += local25;
@@ -469,7 +469,7 @@ public final class Font extends Draw2D {
 		try {
 			@Pc(19) int local19 = ((arg10 & 0xFF00FF) * arg5 & 0xFF00FF00) + ((arg10 & 0xFF00) * arg5 & 0xFF0000) >> 8;
 			@Pc(29) int local29;
-			if (arg9 == this.aByte28) {
+			if (arg9 == this.flowObfuscator4) {
 				@Pc(25) boolean local25 = false;
 			} else {
 				for (local29 = 1; local29 > 0; local29++) {
