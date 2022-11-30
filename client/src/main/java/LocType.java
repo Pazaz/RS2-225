@@ -138,8 +138,8 @@ public final class LocType {
 
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "(Lclient!ub;)V")
 	public static void unpack(@OriginalArg(0) FileArchive arg0) {
-		dat = new Buffer(363, arg0.read("loc.dat", null, (byte) 2));
-		@Pc(21) Buffer local21 = new Buffer(363, arg0.read("loc.idx", null, (byte) 2));
+		dat = new Buffer(arg0.read("loc.dat", null));
+		@Pc(21) Buffer local21 = new Buffer(arg0.read("loc.idx", null));
 		count = local21.g2();
 		offsets = new int[count];
 		@Pc(29) int local29 = 2;
@@ -262,7 +262,7 @@ public final class LocType {
 					} else if (local15 == 2) {
 						this.name = arg1.gstr();
 					} else if (local15 == 3) {
-						this.desc = arg1.gstrbyte((byte) 31);
+						this.desc = arg1.gstrbyte();
 					} else if (local15 == 14) {
 						this.width = arg1.g1();
 					} else if (local15 == 15) {

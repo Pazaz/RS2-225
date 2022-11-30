@@ -45,8 +45,8 @@ public final class IndexedSprite extends Draw2D {
 
 	@OriginalMember(owner = "client!ib", name = "<init>", descriptor = "(Lclient!ub;Ljava/lang/String;I)V")
 	public IndexedSprite(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) String arg1, @OriginalArg(2) int arg2) {
-		@Pc(32) Buffer local32 = new Buffer(363, arg0.read(arg1 + ".dat", null, (byte) 2));
-		@Pc(42) Buffer local42 = new Buffer(363, arg0.read("index.dat", null, (byte) 2));
+		@Pc(32) Buffer local32 = new Buffer(arg0.read(arg1 + ".dat", null));
+		@Pc(42) Buffer local42 = new Buffer(arg0.read("index.dat", null));
 		local42.pos = local32.g2();
 		this.clipWidth = local42.g2();
 		this.clipHeight = local42.g2();

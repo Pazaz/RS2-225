@@ -22,9 +22,9 @@ public final class SeqBase {
 	@OriginalMember(owner = "client!f", name = "a", descriptor = "(ZLclient!ub;)V")
 	public static void unpack(@OriginalArg(0) boolean arg0, @OriginalArg(1) FileArchive arg1) {
 		try {
-			@Pc(11) Buffer local11 = new Buffer(363, arg1.read("base_head.dat", null, (byte) 2));
-			@Pc(21) Buffer local21 = new Buffer(363, arg1.read("base_type.dat", null, (byte) 2));
-			@Pc(31) Buffer local31 = new Buffer(363, arg1.read("base_label.dat", null, (byte) 2));
+			@Pc(11) Buffer local11 = new Buffer(arg1.read("base_head.dat", null));
+			@Pc(21) Buffer local21 = new Buffer(arg1.read("base_type.dat", null));
+			@Pc(31) Buffer local31 = new Buffer(arg1.read("base_label.dat", null));
 			@Pc(34) int local34 = local11.g2();
 			@Pc(37) int local37 = local11.g2();
 			instances = new SeqBase[local37 + 1];

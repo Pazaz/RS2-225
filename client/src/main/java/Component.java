@@ -196,7 +196,7 @@ public final class Component {
 			@Pc(5) int local5 = 17 / arg2;
 			spriteCache = new Cache((byte) 0, 50000);
 			modelCache = new Cache((byte) 0, 50000);
-			@Pc(27) Buffer local27 = new Buffer(363, arg3.read("data", null, (byte) 2));
+			@Pc(27) Buffer local27 = new Buffer(arg3.read("data", null));
 			@Pc(29) int local29 = -1;
 			@Pc(32) int local32 = local27.g2();
 			instances = new Component[local32];

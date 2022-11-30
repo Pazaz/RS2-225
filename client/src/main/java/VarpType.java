@@ -55,7 +55,7 @@ public final class VarpType {
 	@OriginalMember(owner = "client!lc", name = "a", descriptor = "(Lclient!ub;I)V")
 	public static void unpack(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) int arg1) {
 		try {
-			@Pc(9) Buffer local9 = new Buffer(363, arg0.read("varp.dat", null, (byte) 2));
+			@Pc(9) Buffer local9 = new Buffer(arg0.read("varp.dat", null));
 			opcode3Count = 0;
 			@Pc(15) int local15 = 28 / arg1;
 			count = local9.g2();

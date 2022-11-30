@@ -150,8 +150,8 @@ public final class ObjType {
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(Lclient!ub;)V")
 	public static void unpack(@OriginalArg(0) FileArchive arg0) {
-		dat = new Buffer(363, arg0.read("obj.dat", null, (byte) 2));
-		@Pc(21) Buffer local21 = new Buffer(363, arg0.read("obj.idx", null, (byte) 2));
+		dat = new Buffer(arg0.read("obj.dat", null));
+		@Pc(21) Buffer local21 = new Buffer(arg0.read("obj.idx", null));
 		count = local21.g2();
 		offsets = new int[count];
 		@Pc(29) int local29 = 2;
@@ -364,7 +364,7 @@ public final class ObjType {
 					} else if (local10 == 2) {
 						this.name = arg1.gstr();
 					} else if (local10 == 3) {
-						this.desc = arg1.gstrbyte((byte) 31);
+						this.desc = arg1.gstrbyte();
 					} else if (local10 == 4) {
 						this.zoom2d = arg1.g2();
 					} else if (local10 == 5) {

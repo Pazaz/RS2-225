@@ -14,10 +14,10 @@ public final class Cache {
 	private final Hashtable hashtable = new Hashtable(9, 1024);
 
 	@OriginalMember(owner = "client!s", name = "b", descriptor = "I")
-	public static final int HISTORY_SIZE = 5;
+	public static final int flowObfuscator2 = 5;
 
 	@OriginalMember(owner = "client!s", name = "f", descriptor = "Lclient!pb;")
-	private final Stack history = new Stack(HISTORY_SIZE);
+	private final Stack history = new Stack(flowObfuscator2);
 
 	@OriginalMember(owner = "client!s", name = "c", descriptor = "I")
 	private final int capacity;

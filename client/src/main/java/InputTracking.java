@@ -44,7 +44,7 @@ public final class InputTracking {
 	@OriginalMember(owner = "client!e", name = "a", descriptor = "(I)V")
 	public static synchronized void setEnabled(@OriginalArg(0) int arg0) {
 		try {
-			outBuffer = Buffer.reserve(1, -737);
+			outBuffer = Buffer.reserve(1);
 			oldBuffer = null;
 			lastTime = System.currentTimeMillis();
 			if (arg0 != -31717) {
@@ -115,7 +115,7 @@ public final class InputTracking {
 			}
 			if (outBuffer.pos + arg1 >= 500) {
 				@Pc(15) Buffer local15 = outBuffer;
-				outBuffer = Buffer.reserve(1, -737);
+				outBuffer = Buffer.reserve(1);
 				oldBuffer = local15;
 			}
 		} catch (@Pc(23) RuntimeException local23) {

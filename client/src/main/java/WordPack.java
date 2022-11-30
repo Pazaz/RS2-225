@@ -55,10 +55,10 @@ public final class WordPack {
 
 	@OriginalMember(owner = "client!mc", name = "a", descriptor = "(Lclient!ub;)V")
 	public static void decode(@OriginalArg(0) FileArchive arg0) {
-		@Pc(11) Buffer local11 = new Buffer(363, arg0.read("fragmentsenc.txt", null, (byte) 2));
-		@Pc(21) Buffer local21 = new Buffer(363, arg0.read("badenc.txt", null, (byte) 2));
-		@Pc(31) Buffer local31 = new Buffer(363, arg0.read("domainenc.txt", null, (byte) 2));
-		@Pc(41) Buffer local41 = new Buffer(363, arg0.read("tldlist.txt", null, (byte) 2));
+		@Pc(11) Buffer local11 = new Buffer(arg0.read("fragmentsenc.txt", null));
+		@Pc(21) Buffer local21 = new Buffer(arg0.read("badenc.txt", null));
+		@Pc(31) Buffer local31 = new Buffer(arg0.read("domainenc.txt", null));
+		@Pc(41) Buffer local41 = new Buffer(arg0.read("tldlist.txt", null));
 		decode(local11, local21, local31, local41);
 	}
 

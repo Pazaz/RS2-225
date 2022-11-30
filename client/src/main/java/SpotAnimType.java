@@ -59,7 +59,7 @@ public final class SpotAnimType {
 	public static void unpack(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) int arg1) {
 		try {
 			@Pc(3) int local3 = 91 / arg1;
-			@Pc(13) Buffer local13 = new Buffer(363, arg0.read("spotanim.dat", null, (byte) 2));
+			@Pc(13) Buffer local13 = new Buffer(arg0.read("spotanim.dat", null));
 			count = local13.g2();
 			if (instances == null) {
 				instances = new SpotAnimType[count];

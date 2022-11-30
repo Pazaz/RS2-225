@@ -43,7 +43,7 @@ public final class IdkType {
 	@OriginalMember(owner = "client!gc", name = "a", descriptor = "(Lclient!ub;I)V")
 	public static void unpack(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) int arg1) {
 		try {
-			@Pc(9) Buffer local9 = new Buffer(363, arg0.read("idk.dat", null, (byte) 2));
+			@Pc(9) Buffer local9 = new Buffer(arg0.read("idk.dat", null));
 			count = local9.g2();
 			if (instances == null) {
 				instances = new IdkType[count];

@@ -71,8 +71,8 @@ public final class Font extends Draw2D {
 	@OriginalMember(owner = "client!jb", name = "<init>", descriptor = "(Lclient!ub;Ljava/lang/String;I)V")
 	public Font(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) String arg1, @OriginalArg(2) int arg2) {
 		try {
-			@Pc(71) Buffer local71 = new Buffer(363, arg0.read(arg1 + ".dat", null, (byte) 2));
-			@Pc(81) Buffer local81 = new Buffer(363, arg0.read("index.dat", null, (byte) 2));
+			@Pc(71) Buffer local71 = new Buffer(arg0.read(arg1 + ".dat", null));
+			@Pc(81) Buffer local81 = new Buffer(arg0.read("index.dat", null));
 			local81.pos = local71.g2() + 4;
 			@Pc(90) int local90 = local81.g1();
 			if (local90 > 0) {

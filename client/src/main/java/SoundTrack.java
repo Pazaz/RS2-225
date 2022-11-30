@@ -38,7 +38,7 @@ public final class SoundTrack {
 	public static void load(@OriginalArg(0) Buffer arg0, @OriginalArg(1) int arg1) {
 		try {
 			bbuf = new byte[441000];
-			buffer = new Buffer(363, bbuf);
+			buffer = new Buffer(bbuf);
 			@Pc(12) int local12 = 87 / arg1;
 			SoundTone.init();
 			while (true) {
@@ -138,22 +138,22 @@ public final class SoundTrack {
 			@Pc(3) int local3 = this.generate(arg1);
 			buffer.pos = 0;
 			buffer.p4(1380533830);
-			buffer.ip4(false, local3 + 36);
+			buffer.ip4(local3 + 36);
 			buffer.p4(1463899717);
 			buffer.p4(1718449184);
-			buffer.ip4(false, 16);
+			buffer.ip4(16);
 			if (!arg0) {
 				for (@Pc(29) int local29 = 1; local29 > 0; local29++) {
 				}
 			}
-			buffer.ip2(this.flowObfuscator1, 1);
-			buffer.ip2(this.flowObfuscator1, 1);
-			buffer.ip4(false, 22050);
-			buffer.ip4(false, 22050);
-			buffer.ip2(this.flowObfuscator1, 1);
-			buffer.ip2(this.flowObfuscator1, 8);
+			buffer.ip2(1);
+			buffer.ip2(1);
+			buffer.ip4(22050);
+			buffer.ip4(22050);
+			buffer.ip2(1);
+			buffer.ip2(8);
 			buffer.p4(1684108385);
-			buffer.ip4(false, local3);
+			buffer.ip4(local3);
 			buffer.pos += local3;
 			return buffer;
 		} catch (@Pc(78) RuntimeException local78) {

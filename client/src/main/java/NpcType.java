@@ -96,8 +96,8 @@ public final class NpcType {
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(Lclient!ub;)V")
 	public static void unpack(@OriginalArg(0) FileArchive arg0) {
-		dat = new Buffer(363, arg0.read("npc.dat", null, (byte) 2));
-		@Pc(21) Buffer local21 = new Buffer(363, arg0.read("npc.idx", null, (byte) 2));
+		dat = new Buffer(arg0.read("npc.dat", null));
+		@Pc(21) Buffer local21 = new Buffer(arg0.read("npc.idx", null));
 		count = local21.g2();
 		offsets = new int[count];
 		@Pc(29) int local29 = 2;
@@ -166,7 +166,7 @@ public final class NpcType {
 					} else if (local10 == 2) {
 						this.name = arg1.gstr();
 					} else if (local10 == 3) {
-						this.desc = arg1.gstrbyte((byte) 31);
+						this.desc = arg1.gstrbyte();
 					} else if (local10 == 12) {
 						this.size = arg1.g1b();
 					} else if (local10 == 13) {

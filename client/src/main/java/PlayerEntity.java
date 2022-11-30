@@ -135,7 +135,7 @@ public final class PlayerEntity extends PathingEntity {
 				if (super.turnLeftSeq == 65535) {
 					super.turnLeftSeq = -1;
 				}
-				this.name = StringUtils.formatName(0, StringUtils.fromBase37(arg1.g8(603), false));
+				this.name = StringUtils.formatName(0, StringUtils.fromBase37(arg1.g8(), false));
 				this.combatLevel = arg1.g1();
 				this.visible = true;
 				this.uid = 0L;

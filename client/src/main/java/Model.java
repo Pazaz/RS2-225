@@ -908,20 +908,20 @@ public final class Model extends CacheableNode {
 		try {
 			if (arg0 >= 3 && arg0 <= 3) {
 				try {
-					head = new Buffer(363, arg1.read("ob_head.dat", null, (byte) 2));
-					face1 = new Buffer(363, arg1.read("ob_face1.dat", null, (byte) 2));
-					face2 = new Buffer(363, arg1.read("ob_face2.dat", null, (byte) 2));
-					face3 = new Buffer(363, arg1.read("ob_face3.dat", null, (byte) 2));
-					face4 = new Buffer(363, arg1.read("ob_face4.dat", null, (byte) 2));
-					face5 = new Buffer(363, arg1.read("ob_face5.dat", null, (byte) 2));
-					point1 = new Buffer(363, arg1.read("ob_point1.dat", null, (byte) 2));
-					point2 = new Buffer(363, arg1.read("ob_point2.dat", null, (byte) 2));
-					point3 = new Buffer(363, arg1.read("ob_point3.dat", null, (byte) 2));
-					point4 = new Buffer(363, arg1.read("ob_point4.dat", null, (byte) 2));
-					point5 = new Buffer(363, arg1.read("ob_point5.dat", null, (byte) 2));
-					vertex1 = new Buffer(363, arg1.read("ob_vertex1.dat", null, (byte) 2));
-					vertex2 = new Buffer(363, arg1.read("ob_vertex2.dat", null, (byte) 2));
-					axis = new Buffer(363, arg1.read("ob_axis.dat", null, (byte) 2));
+					head = new Buffer(arg1.read("ob_head.dat", null));
+					face1 = new Buffer(arg1.read("ob_face1.dat", null));
+					face2 = new Buffer(arg1.read("ob_face2.dat", null));
+					face3 = new Buffer(arg1.read("ob_face3.dat", null));
+					face4 = new Buffer(arg1.read("ob_face4.dat", null));
+					face5 = new Buffer(arg1.read("ob_face5.dat", null));
+					point1 = new Buffer(arg1.read("ob_point1.dat", null));
+					point2 = new Buffer(arg1.read("ob_point2.dat", null));
+					point3 = new Buffer(arg1.read("ob_point3.dat", null));
+					point4 = new Buffer(arg1.read("ob_point4.dat", null));
+					point5 = new Buffer(arg1.read("ob_point5.dat", null));
+					vertex1 = new Buffer(arg1.read("ob_vertex1.dat", null));
+					vertex2 = new Buffer(arg1.read("ob_vertex2.dat", null));
+					axis = new Buffer(arg1.read("ob_axis.dat", null));
 					head.pos = 0;
 					point1.pos = 0;
 					point2.pos = 0;

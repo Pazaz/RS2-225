@@ -370,7 +370,7 @@ public final class Scene {
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "([BIIIII)V")
 	public void readLandscape(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
 		try {
-			@Pc(7) Buffer local7 = new Buffer(363, arg0);
+			@Pc(7) Buffer local7 = new Buffer(arg0);
 			if (arg2 != 1) {
 				this.flowObfuscator2 = !this.flowObfuscator2;
 			}
@@ -441,7 +441,7 @@ public final class Scene {
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "([BLclient!r;[Lclient!ec;Lclient!ob;ZII)V")
 	public void readLocs(@OriginalArg(0) byte[] arg0, @OriginalArg(1) MapSquare arg1, @OriginalArg(2) CollisionMap[] arg2, @OriginalArg(3) LinkedList arg3, @OriginalArg(4) boolean arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
 		try {
-			@Pc(7) Buffer local7 = new Buffer(363, arg0);
+			@Pc(7) Buffer local7 = new Buffer(arg0);
 			if (!arg4) {
 				this.flowObfuscator2 = !this.flowObfuscator2;
 			}
