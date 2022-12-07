@@ -2,13 +2,9 @@ import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
-import sign.signlink;
 
 @OriginalClass("client!ab")
 public final class ProjectileEntity extends Entity {
-
-	@OriginalMember(owner = "client!ab", name = "e", descriptor = "I")
-	private int flowObfuscator1;
 
 	@OriginalMember(owner = "client!ab", name = "s", descriptor = "D")
 	public double x;
@@ -45,9 +41,6 @@ public final class ProjectileEntity extends Entity {
 
 	@OriginalMember(owner = "client!ab", name = "D", descriptor = "I")
 	private int frameCycle;
-
-	@OriginalMember(owner = "client!ab", name = "f", descriptor = "I")
-	private int flowObfuscator2 = -159;
 
 	@OriginalMember(owner = "client!ab", name = "r", descriptor = "Z")
 	private boolean isMobile = false;
@@ -86,112 +79,79 @@ public final class ProjectileEntity extends Entity {
 	public final int baseZ;
 
 	@OriginalMember(owner = "client!ab", name = "<init>", descriptor = "(IIIIIIIIIIII)V")
-	public ProjectileEntity(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9, @OriginalArg(10) int arg10, @OriginalArg(11) int arg11) {
-		try {
-			this.spotAnim = SpotAnimType.instances[arg10];
-			if (arg8 != 0) {
-				throw new NullPointerException();
-			}
-			this.level = arg4;
-			this.sourceX = arg11;
-			this.sourceY = arg2;
-			this.sourceZ = arg9;
-			this.firstCycle = arg6;
-			this.lastCycle = arg3;
-			this.elevationPitch = arg1;
-			this.arcScale = arg7;
-			this.targetIndex = arg5;
-			this.baseZ = arg0;
-			this.isMobile = false;
-		} catch (@Pc(53) RuntimeException local53) {
-			signlink.reporterror("57613, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + arg4 + ", " + arg5 + ", " + arg6 + ", " + arg7 + ", " + arg8 + ", " + arg9 + ", " + arg10 + ", " + arg11 + ", " + local53.toString());
-			throw new RuntimeException();
-		}
+	public ProjectileEntity(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(9) int arg9, @OriginalArg(10) int arg10, @OriginalArg(11) int arg11) {
+		this.spotAnim = SpotAnimType.instances[arg10];
+		this.level = arg4;
+		this.sourceX = arg11;
+		this.sourceY = arg2;
+		this.sourceZ = arg9;
+		this.firstCycle = arg6;
+		this.lastCycle = arg3;
+		this.elevationPitch = arg1;
+		this.arcScale = arg7;
+		this.targetIndex = arg5;
+		this.baseZ = arg0;
+		this.isMobile = false;
 	}
 
 	@OriginalMember(owner = "client!ab", name = "a", descriptor = "(IIIII)V")
-	public void setTarget(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
-		try {
-			@Pc(8) double local8;
-			if (!this.isMobile) {
-				local8 = arg2 - this.sourceX;
-				@Pc(14) double local14 = (double) (arg1 - this.sourceY);
-				@Pc(23) double local23 = Math.sqrt(local8 * local8 + local14 * local14);
-				this.x = (double) this.sourceX + local8 * (double) this.arcScale / local23;
-				this.y = (double) this.sourceY + local14 * (double) this.arcScale / local23;
-				this.z = this.sourceZ;
-			}
-			local8 = this.lastCycle + 1 - arg4;
-			this.velocityX = ((double) arg2 - this.x) / local8;
-			this.velocityY = ((double) arg1 - this.y) / local8;
-			this.velocity = Math.sqrt(this.velocityX * this.velocityX + this.velocityY * this.velocityY);
-			if (!this.isMobile) {
-				this.velocityZ = -this.velocity * Math.tan((double) this.elevationPitch * 0.02454369D);
-			}
-			this.accelerationZ = ((double) arg0 - this.z - this.velocityZ * local8) * 2.0D / (local8 * local8);
-			if (arg3 < 0) {
-				;
-			}
-		} catch (@Pc(131) RuntimeException local131) {
-			signlink.reporterror("18544, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + arg4 + ", " + local131.toString());
-			throw new RuntimeException();
+	public void setTarget(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(4) int arg4) {
+		@Pc(8) double local8;
+		if (!this.isMobile) {
+			local8 = arg2 - this.sourceX;
+			@Pc(14) double local14 = arg1 - this.sourceY;
+			@Pc(23) double local23 = Math.sqrt(local8 * local8 + local14 * local14);
+			this.x = (double) this.sourceX + local8 * (double) this.arcScale / local23;
+			this.y = (double) this.sourceY + local14 * (double) this.arcScale / local23;
+			this.z = this.sourceZ;
 		}
+		local8 = this.lastCycle + 1 - arg4;
+		this.velocityX = ((double) arg2 - this.x) / local8;
+		this.velocityY = ((double) arg1 - this.y) / local8;
+		this.velocity = Math.sqrt(this.velocityX * this.velocityX + this.velocityY * this.velocityY);
+		if (!this.isMobile) {
+			this.velocityZ = -this.velocity * Math.tan((double) this.elevationPitch * 0.02454369D);
+		}
+		this.accelerationZ = ((double) arg0 - this.z - this.velocityZ * local8) * 2.0D / (local8 * local8);
 	}
 
 	@OriginalMember(owner = "client!ab", name = "a", descriptor = "(BI)V")
-	public void update(@OriginalArg(0) byte arg0, @OriginalArg(1) int arg1) {
-		try {
-			if (arg0 != -30) {
-				this.flowObfuscator2 = -454;
-			}
-			this.isMobile = true;
-			this.x += this.velocityX * (double) arg1;
-			this.y += this.velocityY * (double) arg1;
-			this.z += this.velocityZ * (double) arg1 + this.accelerationZ * 0.5D * (double) arg1 * (double) arg1;
-			this.velocityZ += this.accelerationZ * (double) arg1;
-			this.yaw = (int) (Math.atan2(this.velocityX, this.velocityY) * 325.949D) + 1024 & 0x7FF;
-			this.pitch = (int) (Math.atan2(this.velocityZ, this.velocity) * 325.949D) & 0x7FF;
-			if (this.spotAnim.seq != null) {
-				this.frameCycle += arg1;
-				while (this.frameCycle > this.spotAnim.seq.frameDelay[this.seqFrame]) {
-					this.frameCycle -= this.spotAnim.seq.frameDelay[this.seqFrame] + 1;
-					this.seqFrame++;
-					if (this.seqFrame >= this.spotAnim.seq.framecount) {
-						this.seqFrame = 0;
-					}
+	public void update(@OriginalArg(1) int arg1) {
+		this.isMobile = true;
+		this.x += this.velocityX * (double) arg1;
+		this.y += this.velocityY * (double) arg1;
+		this.z += this.velocityZ * (double) arg1 + this.accelerationZ * 0.5D * (double) arg1 * (double) arg1;
+		this.velocityZ += this.accelerationZ * (double) arg1;
+		this.yaw = (int) (Math.atan2(this.velocityX, this.velocityY) * 325.949D) + 1024 & 0x7FF;
+		this.pitch = (int) (Math.atan2(this.velocityZ, this.velocity) * 325.949D) & 0x7FF;
+		if (this.spotAnim.seq != null) {
+			this.frameCycle += arg1;
+			while (this.frameCycle > this.spotAnim.seq.frameDelay[this.seqFrame]) {
+				this.frameCycle -= this.spotAnim.seq.frameDelay[this.seqFrame] + 1;
+				this.seqFrame++;
+				if (this.seqFrame >= this.spotAnim.seq.framecount) {
+					this.seqFrame = 0;
 				}
 			}
-		} catch (@Pc(139) RuntimeException local139) {
-			signlink.reporterror("86911, " + arg0 + ", " + arg1 + ", " + local139.toString());
-			throw new RuntimeException();
 		}
 	}
 
 	@OriginalMember(owner = "client!ab", name = "a", descriptor = "(Z)Lclient!eb;")
 	@Override
-	public Model getDrawMethod(@OriginalArg(0) boolean arg0) {
-		try {
-			@Pc(3) Model local3 = this.spotAnim.getModel();
-			@Pc(19) Model local19 = new Model(local3, true, !this.spotAnim.disposeAlpha, this.flowObfuscator1, false);
-			if (!arg0) {
-				for (@Pc(23) int local23 = 1; local23 > 0; local23++) {
-				}
-			}
-			if (this.spotAnim.seq != null) {
-				local19.applyGroup(4);
-				local19.applyFrame(-16599, this.spotAnim.seq.primaryFrames[this.seqFrame]);
-				local19.skinTriangle = null;
-				local19.labelVertices = null;
-			}
-			if (this.spotAnim.resizeh != 128 || this.spotAnim.resizev != 128) {
-				local19.scale(this.spotAnim.resizeh, 2, this.spotAnim.resizev, this.spotAnim.resizeh);
-			}
-			local19.rotatePitch((byte) 7, this.pitch);
-			local19.applyLighting(this.spotAnim.ambient + 64, this.spotAnim.contrast + 850, -30, -50, -30, true);
-			return local19;
-		} catch (@Pc(97) RuntimeException local97) {
-			signlink.reporterror("99718, " + arg0 + ", " + local97.toString());
-			throw new RuntimeException();
+	public Model getDrawMethod() {
+		@Pc(3) Model local3 = this.spotAnim.getModel();
+		@Pc(19) Model local19 = new Model(local3, true, !this.spotAnim.disposeAlpha, false);
+		if (this.spotAnim.seq != null) {
+			local19.applyGroup();
+			local19.applyFrame(this.spotAnim.seq.primaryFrames[this.seqFrame]);
+			local19.skinTriangle = null;
+			local19.labelVertices = null;
 		}
+		if (this.spotAnim.resizeh != 128 || this.spotAnim.resizev != 128) {
+			local19.scale(this.spotAnim.resizeh, this.spotAnim.resizev, this.spotAnim.resizeh);
+		}
+		local19.rotatePitch(this.pitch);
+		local19.applyLighting(this.spotAnim.ambient + 64, this.spotAnim.contrast + 850, -30, -50, -30, true);
+		return local19;
 	}
 }

@@ -411,7 +411,7 @@ public final class signlink implements Runnable {
 				urlreq = null;
 			}
 			try {
-				Thread.sleep((long) looprate);
+				Thread.sleep(looprate);
 			} catch (@Pc(187) Exception local187) {
 			}
 		}

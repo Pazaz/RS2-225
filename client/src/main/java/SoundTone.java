@@ -2,13 +2,9 @@ import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
-import sign.signlink;
 
 @OriginalClass("client!zb")
 public final class SoundTone {
-
-	@OriginalMember(owner = "client!zb", name = "a", descriptor = "I")
-	public static final int flowObfuscator1 = 8;
 
 	@OriginalMember(owner = "client!zb", name = "u", descriptor = "[I")
 	public static final int[] tmpPhases = new int[5];
@@ -64,9 +60,6 @@ public final class SoundTone {
 	@OriginalMember(owner = "client!zb", name = "q", descriptor = "I")
 	public int start;
 
-	@OriginalMember(owner = "client!zb", name = "b", descriptor = "I")
-	private final int flowObfuscator2 = -15143;
-
 	@OriginalMember(owner = "client!zb", name = "k", descriptor = "[I")
 	private final int[] harmonicVolume = new int[5];
 
@@ -108,14 +101,14 @@ public final class SoundTone {
 			return buffer;
 		}
 		@Pc(26) double local26 = (double) arg0 / ((double) arg1 + 0.0D);
-		this.frequencyBase.reset(flowObfuscator1);
-		this.amplitudeBase.reset(flowObfuscator1);
+		this.frequencyBase.reset();
+		this.amplitudeBase.reset();
 		@Pc(36) int local36 = 0;
 		@Pc(38) int local38 = 0;
 		@Pc(40) int local40 = 0;
 		if (this.frequencyModRate != null) {
-			this.frequencyModRate.reset(flowObfuscator1);
-			this.frequencyModRange.reset(flowObfuscator1);
+			this.frequencyModRate.reset();
+			this.frequencyModRange.reset();
 			local36 = (int) ((double) (this.frequencyModRate.end - this.frequencyModRate.start) * 32.768D / local26);
 			local38 = (int) ((double) this.frequencyModRate.start * 32.768D / local26);
 		}
@@ -123,8 +116,8 @@ public final class SoundTone {
 		@Pc(79) int local79 = 0;
 		@Pc(81) int local81 = 0;
 		if (this.amplitudeModRate != null) {
-			this.amplitudeModRate.reset(flowObfuscator1);
-			this.amplitudeModRange.reset(flowObfuscator1);
+			this.amplitudeModRate.reset();
+			this.amplitudeModRange.reset();
 			local77 = (int) ((double) (this.amplitudeModRate.end - this.amplitudeModRate.start) * 32.768D / local26);
 			local79 = (int) ((double) this.amplitudeModRate.start * 32.768D / local26);
 		}
@@ -133,7 +126,7 @@ public final class SoundTone {
 				tmpPhases[local118] = 0;
 				tmpDelays[local118] = (int) ((double) this.harmonicDelay[local118] * local26);
 				tmpVolumes[local118] = (this.harmonicVolume[local118] << 14) / 100;
-				tmpSemitones[local118] = (int) ((double) (this.frequencyBase.end - this.frequencyBase.start) * 32.768D * Math.pow(1.0057929410678534D, (double) this.harmonicSemitone[local118]) / local26);
+				tmpSemitones[local118] = (int) ((double) (this.frequencyBase.end - this.frequencyBase.start) * 32.768D * Math.pow(1.0057929410678534D, this.harmonicSemitone[local118]) / local26);
 				tmpStarts[local118] = (int) ((double) this.frequencyBase.start * 32.768D / local26);
 			}
 		}
@@ -141,40 +134,40 @@ public final class SoundTone {
 		@Pc(207) int local207;
 		@Pc(222) int local222;
 		for (@Pc(193) int local193 = 0; local193 < arg0; local193++) {
-			local201 = this.frequencyBase.evaluate(true, arg0);
-			local207 = this.amplitudeBase.evaluate(true, arg0);
+			local201 = this.frequencyBase.evaluate(arg0);
+			local207 = this.amplitudeBase.evaluate(arg0);
 			@Pc(216) int local216;
 			if (this.frequencyModRate != null) {
-				local216 = this.frequencyModRate.evaluate(true, arg0);
-				local222 = this.frequencyModRange.evaluate(true, arg0);
-				local201 += this.generate(-15143, local222, local40, this.frequencyModRate.form) >> 1;
+				local216 = this.frequencyModRate.evaluate(arg0);
+				local222 = this.frequencyModRange.evaluate(arg0);
+				local201 += this.generate(local222, local40, this.frequencyModRate.form) >> 1;
 				local40 += (local216 * local36 >> 16) + local38;
 			}
 			if (this.amplitudeModRate != null) {
-				local216 = this.amplitudeModRate.evaluate(true, arg0);
-				local222 = this.amplitudeModRange.evaluate(true, arg0);
-				local207 = local207 * ((this.generate(-15143, local222, local81, this.amplitudeModRate.form) >> 1) + 32768) >> 15;
+				local216 = this.amplitudeModRate.evaluate(arg0);
+				local222 = this.amplitudeModRange.evaluate(arg0);
+				local207 = local207 * ((this.generate(local222, local81, this.amplitudeModRate.form) >> 1) + 32768) >> 15;
 				local81 += (local216 * local77 >> 16) + local79;
 			}
 			for (local216 = 0; local216 < 5; local216++) {
 				if (this.harmonicVolume[local216] != 0) {
 					local222 = local193 + tmpDelays[local216];
 					if (local222 < arg0) {
-						buffer[local222] += this.generate(-15143, local207 * tmpVolumes[local216] >> 15, tmpPhases[local216], this.frequencyBase.form);
+						buffer[local222] += this.generate(local207 * tmpVolumes[local216] >> 15, tmpPhases[local216], this.frequencyBase.form);
 						tmpPhases[local216] += (local201 * tmpSemitones[local216] >> 16) + tmpStarts[local216];
 					}
 				}
 			}
 		}
 		if (this.release != null) {
-			this.release.reset(flowObfuscator1);
-			this.attack.reset(flowObfuscator1);
+			this.release.reset();
+			this.attack.reset();
 			local201 = 0;
 			@Pc(367) boolean local367 = false;
 			@Pc(369) boolean local369 = true;
 			for (local222 = 0; local222 < arg0; local222++) {
-				@Pc(379) int local379 = this.release.evaluate(true, arg0);
-				@Pc(385) int local385 = this.attack.evaluate(true, arg0);
+				@Pc(379) int local379 = this.release.evaluate(arg0);
+				@Pc(385) int local385 = this.attack.evaluate(arg0);
 				if (local369) {
 					local207 = this.release.start + ((this.release.end - this.release.start) * local379 >> 8);
 				} else {
@@ -208,77 +201,62 @@ public final class SoundTone {
 	}
 
 	@OriginalMember(owner = "client!zb", name = "a", descriptor = "(IIII)I")
-	private int generate(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
-		try {
-			if (arg0 != this.flowObfuscator2) {
-				return 2;
-			} else if (arg3 == 1) {
-				return (arg2 & 0x7FFF) < 16384 ? arg1 : -arg1;
-			} else if (arg3 == 2) {
-				return sin[arg2 & 0x7FFF] * arg1 >> 14;
-			} else if (arg3 == 3) {
-				return ((arg2 & 0x7FFF) * arg1 >> 14) - arg1;
-			} else if (arg3 == 4) {
-				return noise[arg2 / 2607 & 0x7FFF] * arg1;
-			} else {
-				return 0;
-			}
-		} catch (@Pc(60) RuntimeException local60) {
-			signlink.reporterror("41611, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + local60.toString());
-			throw new RuntimeException();
+	private int generate(@OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
+		if (arg3 == 1) {
+			return (arg2 & 0x7FFF) < 16384 ? arg1 : -arg1;
+		} else if (arg3 == 2) {
+			return sin[arg2 & 0x7FFF] * arg1 >> 14;
+		} else if (arg3 == 3) {
+			return ((arg2 & 0x7FFF) * arg1 >> 14) - arg1;
+		} else if (arg3 == 4) {
+			return noise[arg2 / 2607 & 0x7FFF] * arg1;
+		} else {
+			return 0;
 		}
 	}
 
 	@OriginalMember(owner = "client!zb", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void read(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
-		try {
-			this.frequencyBase = new SoundEnvelope();
-			this.frequencyBase.readShape(false, arg1);
-			this.amplitudeBase = new SoundEnvelope();
-			this.amplitudeBase.readShape(false, arg1);
-			@Pc(24) int local24 = arg1.g1();
-			if (arg0) {
-				throw new NullPointerException();
-			}
-			if (local24 != 0) {
-				arg1.pos--;
-				this.frequencyModRate = new SoundEnvelope();
-				this.frequencyModRate.readShape(false, arg1);
-				this.frequencyModRange = new SoundEnvelope();
-				this.frequencyModRange.readShape(false, arg1);
-			}
-			local24 = arg1.g1();
-			if (local24 != 0) {
-				arg1.pos--;
-				this.amplitudeModRate = new SoundEnvelope();
-				this.amplitudeModRate.readShape(false, arg1);
-				this.amplitudeModRange = new SoundEnvelope();
-				this.amplitudeModRange.readShape(false, arg1);
-			}
-			local24 = arg1.g1();
-			if (local24 != 0) {
-				arg1.pos--;
-				this.release = new SoundEnvelope();
-				this.release.readShape(false, arg1);
-				this.attack = new SoundEnvelope();
-				this.attack.readShape(false, arg1);
-			}
-			for (@Pc(122) int local122 = 0; local122 < 10; local122++) {
-				@Pc(132) int local132 = arg1.gsmarts();
-				if (local132 == 0) {
-					break;
-				}
-				this.harmonicVolume[local122] = local132;
-				this.harmonicSemitone[local122] = arg1.gsmart();
-				this.harmonicDelay[local122] = arg1.gsmarts();
-			}
-			this.reverbDelay = arg1.gsmarts();
-			this.reverb = arg1.gsmarts();
-			this.delay = arg1.g2();
-			this.start = arg1.g2();
-		} catch (@Pc(173) RuntimeException local173) {
-			signlink.reporterror("36876, " + arg0 + ", " + arg1 + ", " + local173.toString());
-			throw new RuntimeException();
+	public void read(@OriginalArg(1) Buffer arg1) {
+		this.frequencyBase = new SoundEnvelope();
+		this.frequencyBase.readShape(arg1);
+		this.amplitudeBase = new SoundEnvelope();
+		this.amplitudeBase.readShape(arg1);
+		@Pc(24) int local24 = arg1.g1();
+		if (local24 != 0) {
+			arg1.pos--;
+			this.frequencyModRate = new SoundEnvelope();
+			this.frequencyModRate.readShape(arg1);
+			this.frequencyModRange = new SoundEnvelope();
+			this.frequencyModRange.readShape(arg1);
 		}
+		local24 = arg1.g1();
+		if (local24 != 0) {
+			arg1.pos--;
+			this.amplitudeModRate = new SoundEnvelope();
+			this.amplitudeModRate.readShape(arg1);
+			this.amplitudeModRange = new SoundEnvelope();
+			this.amplitudeModRange.readShape(arg1);
+		}
+		local24 = arg1.g1();
+		if (local24 != 0) {
+			arg1.pos--;
+			this.release = new SoundEnvelope();
+			this.release.readShape(arg1);
+			this.attack = new SoundEnvelope();
+			this.attack.readShape(arg1);
+		}
+		for (@Pc(122) int local122 = 0; local122 < 10; local122++) {
+			@Pc(132) int local132 = arg1.gsmarts();
+			if (local132 == 0) {
+				break;
+			}
+			this.harmonicVolume[local122] = local132;
+			this.harmonicSemitone[local122] = arg1.gsmart();
+			this.harmonicDelay[local122] = arg1.gsmarts();
+		}
+		this.reverbDelay = arg1.gsmarts();
+		this.reverb = arg1.gsmarts();
+		this.delay = arg1.g2();
+		this.start = arg1.g2();
 	}
 }

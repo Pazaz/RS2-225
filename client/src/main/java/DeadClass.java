@@ -4,9 +4,6 @@ import org.openrs2.deob.annotation.OriginalMember;
 @OriginalClass("client!ic")
 public final class DeadClass {
 
-	@OriginalMember(owner = "client!ic", name = "a", descriptor = "I")
-	private static final int flowObfuscator1 = 473;
-
 	@OriginalMember(owner = "client!ic", name = "b", descriptor = "[Lclient!ic;")
 	public static DeadClass[] instances;
 

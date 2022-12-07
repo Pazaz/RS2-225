@@ -2,13 +2,12 @@ import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
-import sign.signlink;
 
 @OriginalClass("client!bc")
 public final class NpcType {
 
 	@OriginalMember(owner = "client!bc", name = "C", descriptor = "Lclient!s;")
-	public static Cache builtModels = new Cache((byte) 0, 30);
+	public static Cache builtModels = new Cache(30);
 
 	@OriginalMember(owner = "client!bc", name = "b", descriptor = "I")
 	private static int count;
@@ -45,9 +44,6 @@ public final class NpcType {
 
 	@OriginalMember(owner = "client!bc", name = "u", descriptor = "[Ljava/lang/String;")
 	public String[] ops;
-
-	@OriginalMember(owner = "client!bc", name = "a", descriptor = "Z")
-	private final boolean flowObfuscator1 = false;
 
 	@OriginalMember(owner = "client!bc", name = "g", descriptor = "J")
 	public long id = -1L;
@@ -112,20 +108,11 @@ public final class NpcType {
 	}
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(Z)V")
-	public static void unload(@OriginalArg(0) boolean arg0) {
-		try {
-			builtModels = null;
-			offsets = null;
-			instances = null;
-			if (!arg0) {
-				for (@Pc(9) int local9 = 1; local9 > 0; local9++) {
-				}
-			}
-			dat = null;
-		} catch (@Pc(18) RuntimeException local18) {
-			signlink.reporterror("32991, " + arg0 + ", " + local18.toString());
-			throw new RuntimeException();
-		}
+	public static void unload() {
+		builtModels = null;
+		offsets = null;
+		instances = null;
+		dat = null;
 	}
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(I)Lclient!bc;")
@@ -139,89 +126,79 @@ public final class NpcType {
 		@Pc(33) NpcType local33 = instances[offset] = new NpcType();
 		dat.pos = offsets[arg0];
 		local33.id = arg0;
-		local33.decode(false, dat);
+		local33.decode(dat);
 		return local33;
 	}
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void decode(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
-		try {
-			if (arg0) {
-				throw new NullPointerException();
+	public void decode(@OriginalArg(1) Buffer arg1) {
+		while (true) {
+			@Pc(10) int local10 = arg1.g1();
+			if (local10 == 0) {
+				return;
 			}
-			while (true) {
-				while (true) {
-					@Pc(10) int local10 = arg1.g1();
-					if (local10 == 0) {
-						return;
-					}
-					@Pc(19) int local19;
-					@Pc(25) int local25;
-					if (local10 == 1) {
-						local19 = arg1.g1();
-						this.models = new int[local19];
-						for (local25 = 0; local25 < local19; local25++) {
-							this.models[local25] = arg1.g2();
-						}
-					} else if (local10 == 2) {
-						this.name = arg1.gstr();
-					} else if (local10 == 3) {
-						this.desc = arg1.gstrbyte();
-					} else if (local10 == 12) {
-						this.size = arg1.g1b();
-					} else if (local10 == 13) {
-						this.readyanim = arg1.g2();
-					} else if (local10 == 14) {
-						this.walkanim = arg1.g2();
-					} else if (local10 == 16) {
-						this.disposeAlpha = true;
-					} else if (local10 == 17) {
-						this.walkanim = arg1.g2();
-						this.walkanim_b = arg1.g2();
-						this.walkanim_r = arg1.g2();
-						this.walkanim_l = arg1.g2();
-					} else if (local10 >= 30 && local10 < 40) {
-						if (this.ops == null) {
-							this.ops = new String[5];
-						}
-						this.ops[local10 - 30] = arg1.gstr();
-						if (this.ops[local10 - 30].equalsIgnoreCase("hidden")) {
-							this.ops[local10 - 30] = null;
-						}
-					} else if (local10 == 40) {
-						local19 = arg1.g1();
-						this.recol_s = new int[local19];
-						this.recol_d = new int[local19];
-						for (local25 = 0; local25 < local19; local25++) {
-							this.recol_s[local25] = arg1.g2();
-							this.recol_d[local25] = arg1.g2();
-						}
-					} else if (local10 == 60) {
-						local19 = arg1.g1();
-						this.headModels = new int[local19];
-						for (local25 = 0; local25 < local19; local25++) {
-							this.headModels[local25] = arg1.g2();
-						}
-					} else if (local10 == 90) {
-						this.opcode90 = arg1.g2();
-					} else if (local10 == 91) {
-						this.opcode91 = arg1.g2();
-					} else if (local10 == 92) {
-						this.opcode92 = arg1.g2();
-					} else if (local10 == 93) {
-						this.visonmap = false;
-					} else if (local10 == 95) {
-						this.vislevel = arg1.g2();
-					} else if (local10 == 97) {
-						this.resizex = arg1.g2();
-					} else if (local10 == 98) {
-						this.resizez = arg1.g2();
-					}
+			@Pc(19) int local19;
+			@Pc(25) int local25;
+			if (local10 == 1) {
+				local19 = arg1.g1();
+				this.models = new int[local19];
+				for (local25 = 0; local25 < local19; local25++) {
+					this.models[local25] = arg1.g2();
 				}
+			} else if (local10 == 2) {
+				this.name = arg1.gstr();
+			} else if (local10 == 3) {
+				this.desc = arg1.gstrbyte();
+			} else if (local10 == 12) {
+				this.size = arg1.g1b();
+			} else if (local10 == 13) {
+				this.readyanim = arg1.g2();
+			} else if (local10 == 14) {
+				this.walkanim = arg1.g2();
+			} else if (local10 == 16) {
+				this.disposeAlpha = true;
+			} else if (local10 == 17) {
+				this.walkanim = arg1.g2();
+				this.walkanim_b = arg1.g2();
+				this.walkanim_r = arg1.g2();
+				this.walkanim_l = arg1.g2();
+			} else if (local10 >= 30 && local10 < 40) {
+				if (this.ops == null) {
+					this.ops = new String[5];
+				}
+				this.ops[local10 - 30] = arg1.gstr();
+				if (this.ops[local10 - 30].equalsIgnoreCase("hidden")) {
+					this.ops[local10 - 30] = null;
+				}
+			} else if (local10 == 40) {
+				local19 = arg1.g1();
+				this.recol_s = new int[local19];
+				this.recol_d = new int[local19];
+				for (local25 = 0; local25 < local19; local25++) {
+					this.recol_s[local25] = arg1.g2();
+					this.recol_d[local25] = arg1.g2();
+				}
+			} else if (local10 == 60) {
+				local19 = arg1.g1();
+				this.headModels = new int[local19];
+				for (local25 = 0; local25 < local19; local25++) {
+					this.headModels[local25] = arg1.g2();
+				}
+			} else if (local10 == 90) {
+				this.opcode90 = arg1.g2();
+			} else if (local10 == 91) {
+				this.opcode91 = arg1.g2();
+			} else if (local10 == 92) {
+				this.opcode92 = arg1.g2();
+			} else if (local10 == 93) {
+				this.visonmap = false;
+			} else if (local10 == 95) {
+				this.vislevel = arg1.g2();
+			} else if (local10 == 97) {
+				this.resizex = arg1.g2();
+			} else if (local10 == 98) {
+				this.resizez = arg1.g2();
 			}
-		} catch (@Pc(277) RuntimeException local277) {
-			signlink.reporterror("30732, " + arg0 + ", " + arg1 + ", " + local277.toString());
-			throw new RuntimeException();
 		}
 	}
 
@@ -237,27 +214,27 @@ public final class NpcType {
 			if (local16.length == 1) {
 				local9 = local16[0];
 			} else {
-				local9 = new Model(0, local16, local16.length);
+				local9 = new Model(local16, local16.length);
 			}
 			if (this.recol_s != null) {
 				for (@Pc(60) int local60 = 0; local60 < this.recol_s.length; local60++) {
 					local9.recolor(this.recol_s[local60], this.recol_d[local60]);
 				}
 			}
-			local9.applyGroup(4);
+			local9.applyGroup();
 			local9.applyLighting(64, 850, -30, -50, -30, true);
-			builtModels.put(6, this.id, local9);
+			builtModels.put(this.id, local9);
 		}
-		local3 = new Model(0, local9, !this.disposeAlpha);
+		local3 = new Model(local9, !this.disposeAlpha);
 		if (arg0 != -1 && arg1 != -1) {
-			local3.applyFrames(arg1, 3, arg0, arg2);
+			local3.applyFrames(arg1, arg0, arg2);
 		} else if (arg0 != -1) {
-			local3.applyFrame(-16599, arg0);
+			local3.applyFrame(arg0);
 		}
 		if (this.resizex != 128 || this.resizez != 128) {
-			local3.scale(this.resizex, 2, this.resizez, this.resizex);
+			local3.scale(this.resizex, this.resizez, this.resizex);
 		}
-		local3.calculateYBoundaries(2992);
+		local3.calculateYBoundaries();
 		local3.skinTriangle = null;
 		local3.labelVertices = null;
 		if (this.size == 1) {
@@ -267,33 +244,26 @@ public final class NpcType {
 	}
 
 	@OriginalMember(owner = "client!bc", name = "b", descriptor = "(Z)Lclient!eb;")
-	public Model getHeadModel(@OriginalArg(0) boolean arg0) {
-		try {
-			if (arg0) {
-				throw new NullPointerException();
-			} else if (this.headModels == null) {
-				return null;
-			} else {
-				@Pc(17) Model[] local17 = new Model[this.headModels.length];
-				for (@Pc(19) int local19 = 0; local19 < this.headModels.length; local19++) {
-					local17[local19] = new Model(false, this.headModels[local19]);
-				}
-				@Pc(46) Model local46;
-				if (local17.length == 1) {
-					local46 = local17[0];
-				} else {
-					local46 = new Model(0, local17, local17.length);
-				}
-				if (this.recol_s != null) {
-					for (@Pc(61) int local61 = 0; local61 < this.recol_s.length; local61++) {
-						local46.recolor(this.recol_s[local61], this.recol_d[local61]);
-					}
-				}
-				return local46;
+	public Model getHeadModel() {
+		if (this.headModels == null) {
+			return null;
+		} else {
+			@Pc(17) Model[] local17 = new Model[this.headModels.length];
+			for (@Pc(19) int local19 = 0; local19 < this.headModels.length; local19++) {
+				local17[local19] = new Model(false, this.headModels[local19]);
 			}
-		} catch (@Pc(82) RuntimeException local82) {
-			signlink.reporterror("86097, " + arg0 + ", " + local82.toString());
-			throw new RuntimeException();
+			@Pc(46) Model local46;
+			if (local17.length == 1) {
+				local46 = local17[0];
+			} else {
+				local46 = new Model(local17, local17.length);
+			}
+			if (this.recol_s != null) {
+				for (@Pc(61) int local61 = 0; local61 < this.recol_s.length; local61++) {
+					local46.recolor(this.recol_s[local61], this.recol_d[local61]);
+				}
+			}
+			return local46;
 		}
 	}
 }

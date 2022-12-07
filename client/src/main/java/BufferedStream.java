@@ -2,7 +2,6 @@ import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
-import sign.signlink;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,9 +19,6 @@ public final class BufferedStream implements Runnable {
 
 	@OriginalMember(owner = "client!d", name = "i", descriptor = "I")
 	private int offset;
-
-	@OriginalMember(owner = "client!d", name = "a", descriptor = "Z")
-	private boolean flowObfuscator1 = false;
 
 	@OriginalMember(owner = "client!d", name = "e", descriptor = "Z")
 	private boolean closed = false;
@@ -46,23 +42,13 @@ public final class BufferedStream implements Runnable {
 	private final OutputStream out;
 
 	@OriginalMember(owner = "client!d", name = "<init>", descriptor = "(Lclient!a;BLjava/net/Socket;)V")
-	public BufferedStream(@OriginalArg(0) GameShell arg0, @OriginalArg(1) byte arg1, @OriginalArg(2) Socket arg2) throws IOException {
-		try {
-			if (arg1 == 2) {
-				@Pc(18) boolean local18 = false;
-			} else {
-				this.flowObfuscator1 = !this.flowObfuscator1;
-			}
-			this.shell = arg0;
-			this.socket = arg2;
-			this.socket.setSoTimeout(30000);
-			this.socket.setTcpNoDelay(true);
-			this.in = this.socket.getInputStream();
-			this.out = this.socket.getOutputStream();
-		} catch (@Pc(54) RuntimeException local54) {
-			signlink.reporterror("77482, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + local54.toString());
-			throw new RuntimeException();
-		}
+	public BufferedStream(@OriginalArg(0) GameShell arg0, @OriginalArg(2) Socket arg2) throws IOException {
+		this.shell = arg0;
+		this.socket = arg2;
+		this.socket.setSoTimeout(30000);
+		this.socket.setTcpNoDelay(true);
+		this.in = this.socket.getInputStream();
+		this.out = this.socket.getOutputStream();
 	}
 
 	@OriginalMember(owner = "client!d", name = "a", descriptor = "()V")
@@ -114,34 +100,35 @@ public final class BufferedStream implements Runnable {
 	}
 
 	@OriginalMember(owner = "client!d", name = "a", descriptor = "([BIZI)V")
-	public void write(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) boolean arg2, @OriginalArg(3) int arg3) throws IOException {
-		try {
-			if (arg2 && !this.closed) {
-				if (this.exception) {
-					this.exception = false;
-					throw new IOException("Error in writer thread");
-				}
-				if (this.buffer == null) {
-					this.buffer = new byte[5000];
-				}
-				synchronized (this) {
-					for (@Pc(31) int local31 = 0; local31 < arg1; local31++) {
-						this.buffer[this.offset] = arg0[local31 + arg3];
-						this.offset = (this.offset + 1) % 5000;
-						if (this.offset == (this.length + 4900) % 5000) {
-							throw new IOException("buffer overflow");
-						}
-					}
-					if (!this.writing) {
-						this.writing = true;
-						this.shell.startThread(this, 2);
-					}
-					this.notify();
+	public void write(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(3) int arg3) throws IOException {
+		if (this.closed) {
+			return;
+		}
+
+		if (this.exception) {
+			this.exception = false;
+			throw new IOException("Error in writer thread");
+		}
+
+		if (this.buffer == null) {
+			this.buffer = new byte[5000];
+		}
+
+		synchronized (this) {
+			for (@Pc(31) int local31 = 0; local31 < arg1; local31++) {
+				this.buffer[this.offset] = arg0[local31 + arg3];
+				this.offset = (this.offset + 1) % 5000;
+				if (this.offset == (this.length + 4900) % 5000) {
+					throw new IOException("buffer overflow");
 				}
 			}
-		} catch (@Pc(90) RuntimeException local90) {
-			signlink.reporterror("86047, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + arg3 + ", " + local90.toString());
-			throw new RuntimeException();
+
+			if (!this.writing) {
+				this.writing = true;
+				this.shell.startThread(this, 2);
+			}
+
+			this.notify();
 		}
 	}
 

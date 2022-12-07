@@ -2,13 +2,9 @@ import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
-import sign.signlink;
 
 @OriginalClass("client!gb")
 public final class Draw3D extends Draw2D {
-
-	@OriginalMember(owner = "client!gb", name = "w", descriptor = "I")
-	private static final int flowObfuscator2 = 787;
 
 	@OriginalMember(owner = "client!gb", name = "H", descriptor = "[I")
 	public static int[] reciprical15 = new int[512];
@@ -55,12 +51,6 @@ public final class Draw3D extends Draw2D {
 	@OriginalMember(owner = "client!gb", name = "T", descriptor = "[I")
 	public static int[] textureCycles = new int[50];
 
-	@OriginalMember(owner = "client!gb", name = "v", descriptor = "Z")
-	private static boolean flowObfuscator1;
-
-	@OriginalMember(owner = "client!gb", name = "x", descriptor = "Z")
-	private static boolean flowObfuscator3;
-
 	@OriginalMember(owner = "client!gb", name = "C", descriptor = "Z")
 	private static boolean opaque;
 
@@ -72,12 +62,6 @@ public final class Draw3D extends Draw2D {
 
 	@OriginalMember(owner = "client!gb", name = "R", descriptor = "[[I")
 	private static int[][] texelPool;
-
-	@OriginalMember(owner = "client!gb", name = "y", descriptor = "I")
-	private static int flowObfuscator4 = 473;
-
-	@OriginalMember(owner = "client!gb", name = "z", descriptor = "Z")
-	private static boolean flowObfuscator5 = true;
 
 	@OriginalMember(owner = "client!gb", name = "O", descriptor = "[Z")
 	private static boolean[] textureHasTransparency = new boolean[50];
@@ -105,189 +89,114 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(Z)V")
-	public static void unload(@OriginalArg(0) boolean arg0) {
-		try {
-			reciprical15 = null;
-			reciprical15 = null;
-			sin = null;
-			cos = null;
-			offsets = null;
-			textures = null;
-			textureHasTransparency = null;
-			textureColors = null;
-			if (!arg0) {
-				flowObfuscator5 = !flowObfuscator5;
-			}
-			texelPool = null;
-			activeTexels = null;
-			textureCycles = null;
-			palette = null;
-			texturePalettes = null;
-		} catch (@Pc(35) RuntimeException local35) {
-			signlink.reporterror("90248, " + arg0 + ", " + local35.toString());
-			throw new RuntimeException();
-		}
+	public static void unload() {
+		reciprical15 = null;
+		reciprical15 = null;
+		sin = null;
+		cos = null;
+		offsets = null;
+		textures = null;
+		textureHasTransparency = null;
+		textureColors = null;
+		texelPool = null;
+		activeTexels = null;
+		textureCycles = null;
+		palette = null;
+		texturePalettes = null;
 	}
 
 	@OriginalMember(owner = "client!gb", name = "c", descriptor = "(I)V")
-	public static void prepareOffsets(@OriginalArg(0) int arg0) {
-		try {
-			label29: while (true) {
-				@Pc(5) int local5;
-				if (arg0 >= 0) {
-					local5 = 1;
-					while (true) {
-						if (local5 <= 0) {
-							continue label29;
-						}
-						local5++;
-					}
-				}
-				offsets = new int[height];
-				for (local5 = 0; local5 < height; local5++) {
-					offsets[local5] = width * local5;
-				}
-				centerX3D = width / 2;
-				centerY3D = height / 2;
-				return;
-			}
-		} catch (@Pc(39) RuntimeException local39) {
-			signlink.reporterror("37605, " + arg0 + ", " + local39.toString());
-			throw new RuntimeException();
+	public static void prepareOffsets() {
+		offsets = new int[height];
+		for (@Pc(5) int local5 = 0; local5 < height; local5++) {
+			offsets[local5] = width * local5;
 		}
+		centerX3D = width / 2;
+		centerY3D = height / 2;
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(III)V")
-	public static void prepareOffsets(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
-		try {
-			if (arg2 != 0) {
-				flowObfuscator1 = !flowObfuscator1;
-			}
-			offsets = new int[arg0];
-			for (@Pc(12) int local12 = 0; local12 < arg0; local12++) {
-				offsets[local12] = arg1 * local12;
-			}
-			centerX3D = arg1 / 2;
-			centerY3D = arg0 / 2;
-		} catch (@Pc(34) RuntimeException local34) {
-			signlink.reporterror("74604, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + local34.toString());
-			throw new RuntimeException();
+	public static void prepareOffsets(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+		offsets = new int[arg0];
+		for (@Pc(12) int local12 = 0; local12 < arg0; local12++) {
+			offsets[local12] = arg1 * local12;
 		}
+		centerX3D = arg1 / 2;
+		centerY3D = arg0 / 2;
 	}
 
 	@OriginalMember(owner = "client!gb", name = "b", descriptor = "(Z)V")
-	public static void clearPools(@OriginalArg(0) boolean arg0) {
-		try {
-			if (!arg0) {
-				texelPool = null;
-				for (@Pc(6) int local6 = 0; local6 < 50; local6++) {
-					activeTexels[local6] = null;
-				}
-			}
-		} catch (@Pc(18) RuntimeException local18) {
-			signlink.reporterror("98638, " + arg0 + ", " + local18.toString());
-			throw new RuntimeException();
+	public static void clearPools() {
+		texelPool = null;
+		for (@Pc(6) int local6 = 0; local6 < 50; local6++) {
+			activeTexels[local6] = null;
 		}
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(II)V")
-	public static void setupPools(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		try {
-			label37: while (true) {
-				@Pc(5) int local5;
-				if (arg1 >= 0) {
-					local5 = 1;
-					while (true) {
-						if (local5 <= 0) {
-							continue label37;
-						}
-						local5++;
-					}
-				}
-				if (texelPool != null) {
-					return;
-				}
-				poolSize = arg0;
-				if (lowMemory) {
-					texelPool = new int[poolSize][16384];
-				} else {
-					texelPool = new int[poolSize][65536];
-				}
-				for (local5 = 0; local5 < 50; local5++) {
-					activeTexels[local5] = null;
-				}
-				return;
-			}
-		} catch (@Pc(42) RuntimeException local42) {
-			signlink.reporterror("75782, " + arg0 + ", " + arg1 + ", " + local42.toString());
-			throw new RuntimeException();
+	public static void setupPools(@OriginalArg(0) int arg0) {
+		if (texelPool != null) {
+			return;
+		}
+		poolSize = arg0;
+		if (lowMemory) {
+			texelPool = new int[poolSize][16384];
+		} else {
+			texelPool = new int[poolSize][65536];
+		}
+		for (@Pc(5) int local5 = 0; local5 < 50; local5++) {
+			activeTexels[local5] = null;
 		}
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(BLclient!ub;)V")
-	public static void unpackTextures(@OriginalArg(0) byte arg0, @OriginalArg(1) FileArchive arg1) {
-		try {
-			if (arg0 == 2) {
-				textureCount = 0;
-				for (@Pc(9) int local9 = 0; local9 < 50; local9++) {
-					try {
-						textures[local9] = new IndexedSprite(arg1, String.valueOf(local9), 0);
-						if (lowMemory && textures[local9].clipWidth == 128) {
-							textures[local9].shrink(flowObfuscator3);
-						} else {
-							textures[local9].crop(0);
-						}
-						textureCount++;
-					} catch (@Pc(47) Exception local47) {
-					}
+	public static void unpackTextures(@OriginalArg(1) FileArchive arg1) {
+		textureCount = 0;
+		for (@Pc(9) int local9 = 0; local9 < 50; local9++) {
+			try {
+				textures[local9] = new IndexedSprite(arg1, String.valueOf(local9), 0);
+				if (lowMemory && textures[local9].clipWidth == 128) {
+					textures[local9].shrink();
+				} else {
+					textures[local9].crop();
 				}
+				textureCount++;
+			} catch (@Pc(47) Exception local47) {
 			}
-		} catch (@Pc(54) RuntimeException local54) {
-			signlink.reporterror("24488, " + arg0 + ", " + arg1 + ", " + local54.toString());
-			throw new RuntimeException();
 		}
 	}
 
 	@OriginalMember(owner = "client!gb", name = "b", descriptor = "(II)I")
-	public static int getAverageTextureRgb(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		try {
-			@Pc(3) int local3 = 25 / arg0;
-			if (textureColors[arg1] != 0) {
-				return textureColors[arg1];
-			}
-			@Pc(13) int local13 = 0;
-			@Pc(15) int local15 = 0;
-			@Pc(17) int local17 = 0;
-			@Pc(22) int local22 = texturePalettes[arg1].length;
-			for (@Pc(24) int local24 = 0; local24 < local22; local24++) {
-				local13 += texturePalettes[arg1][local24] >> 16 & 0xFF;
-				local15 += texturePalettes[arg1][local24] >> 8 & 0xFF;
-				local17 += texturePalettes[arg1][local24] & 0xFF;
-			}
-			@Pc(80) int local80 = (local13 / local22 << 16) + (local15 / local22 << 8) + local17 / local22;
-			local80 = powRgb(local80, 1.4D);
-			if (local80 == 0) {
-				local80 = 1;
-			}
-			textureColors[arg1] = local80;
-			return local80;
-		} catch (@Pc(95) RuntimeException local95) {
-			signlink.reporterror("77363, " + arg0 + ", " + arg1 + ", " + local95.toString());
-			throw new RuntimeException();
+	public static int getAverageTextureRgb(@OriginalArg(1) int arg1) {
+		if (textureColors[arg1] != 0) {
+			return textureColors[arg1];
 		}
+
+		@Pc(13) int local13 = 0;
+		@Pc(15) int local15 = 0;
+		@Pc(17) int local17 = 0;
+		@Pc(22) int local22 = texturePalettes[arg1].length;
+		for (@Pc(24) int local24 = 0; local24 < local22; local24++) {
+			local13 += texturePalettes[arg1][local24] >> 16 & 0xFF;
+			local15 += texturePalettes[arg1][local24] >> 8 & 0xFF;
+			local17 += texturePalettes[arg1][local24] & 0xFF;
+		}
+
+		@Pc(80) int local80 = (local13 / local22 << 16) + (local15 / local22 << 8) + local17 / local22;
+		local80 = powRgb(local80, 1.4D);
+		if (local80 == 0) {
+			local80 = 1;
+		}
+
+		textureColors[arg1] = local80;
+		return local80;
 	}
 
 	@OriginalMember(owner = "client!gb", name = "c", descriptor = "(II)V")
-	public static void updateTexture(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		try {
-			if (activeTexels[arg0] != null) {
-				texelPool[poolSize++] = activeTexels[arg0];
-				@Pc(18) int local18 = 11 / arg1;
-				activeTexels[arg0] = null;
-			}
-		} catch (@Pc(24) RuntimeException local24) {
-			signlink.reporterror("15308, " + arg0 + ", " + arg1 + ", " + local24.toString());
-			throw new RuntimeException();
+	public static void updateTexture(@OriginalArg(0) int arg0) {
+		if (activeTexels[arg0] != null) {
+			texelPool[poolSize++] = activeTexels[arg0];
+			activeTexels[arg0] = null;
 		}
 	}
 
@@ -297,6 +206,7 @@ public final class Draw3D extends Draw2D {
 		if (activeTexels[arg0] != null) {
 			return activeTexels[arg0];
 		}
+
 		@Pc(27) int[] local27;
 		@Pc(39) int local39;
 		if (poolSize > 0) {
@@ -314,6 +224,7 @@ public final class Draw3D extends Draw2D {
 			local27 = activeTexels[local37];
 			activeTexels[local37] = null;
 		}
+
 		activeTexels[arg0] = local27;
 		@Pc(79) IndexedSprite local79 = textures[arg0];
 		@Pc(83) int[] local83 = texturePalettes[arg0];
@@ -341,6 +252,7 @@ public final class Draw3D extends Draw2D {
 					local27[local39] = local83[local79.pixels[local39]];
 				}
 			}
+
 			textureHasTransparency[arg0] = false;
 			for (local39 = 0; local39 < 16384; local39++) {
 				local27[local39] &= 0xF8F8FF;
@@ -353,92 +265,85 @@ public final class Draw3D extends Draw2D {
 				local27[local39 + 49152] = local106 - (local106 >>> 2) - (local106 >>> 3) & 0xF8F8FF;
 			}
 		}
+
 		return local27;
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(ZD)V")
-	public static void setBrightness(@OriginalArg(0) boolean arg0, @OriginalArg(1) double arg1) {
-		try {
-			@Pc(9) double local9 = arg1 + Math.random() * 0.03D - 0.015D;
-			@Pc(11) int local11 = 0;
-			for (@Pc(13) int local13 = 0; local13 < 512; local13++) {
-				@Pc(24) double local24 = (double) (local13 / 8) / 64.0D + 0.0078125D;
-				@Pc(33) double local33 = (double) (local13 & 0x7) / 8.0D + 0.0625D;
-				for (@Pc(35) int local35 = 0; local35 < 128; local35++) {
-					@Pc(42) double local42 = (double) local35 / 128.0D;
-					@Pc(44) double local44 = local42;
-					@Pc(46) double local46 = local42;
-					@Pc(48) double local48 = local42;
-					if (local33 != 0.0D) {
-						@Pc(62) double local62;
-						if (local42 < 0.5D) {
-							local62 = local42 * (local33 + 1.0D);
-						} else {
-							local62 = local42 + local33 - local42 * local33;
-						}
-						@Pc(78) double local78 = local42 * 2.0D - local62;
-						@Pc(82) double local82 = local24 + 0.3333333333333333D;
-						if (local82 > 1.0D) {
-							local82--;
-						}
-						@Pc(96) double local96 = local24 - 0.3333333333333333D;
-						if (local96 < 0.0D) {
-							local96++;
-						}
-						if (local82 * 6.0D < 1.0D) {
-							local44 = local78 + (local62 - local78) * 6.0D * local82;
-						} else if (local82 * 2.0D < 1.0D) {
-							local44 = local62;
-						} else if (local82 * 3.0D < 2.0D) {
-							local44 = local78 + (local62 - local78) * (0.6666666666666666D - local82) * 6.0D;
-						} else {
-							local44 = local78;
-						}
-						if (local24 * 6.0D < 1.0D) {
-							local46 = local78 + (local62 - local78) * 6.0D * local24;
-						} else if (local24 * 2.0D < 1.0D) {
-							local46 = local62;
-						} else if (local24 * 3.0D < 2.0D) {
-							local46 = local78 + (local62 - local78) * (0.6666666666666666D - local24) * 6.0D;
-						} else {
-							local46 = local78;
-						}
-						if (local96 * 6.0D < 1.0D) {
-							local48 = local78 + (local62 - local78) * 6.0D * local96;
-						} else if (local96 * 2.0D < 1.0D) {
-							local48 = local62;
-						} else if (local96 * 3.0D < 2.0D) {
-							local48 = local78 + (local62 - local78) * (0.6666666666666666D - local96) * 6.0D;
-						} else {
-							local48 = local78;
-						}
+	public static void setBrightness(@OriginalArg(1) double arg1) {
+		@Pc(9) double local9 = arg1 + Math.random() * 0.03D - 0.015D;
+		@Pc(11) int local11 = 0;
+		for (@Pc(13) int local13 = 0; local13 < 512; local13++) {
+			@Pc(24) double local24 = (double) (local13 / 8) / 64.0D + 0.0078125D;
+			@Pc(33) double local33 = (double) (local13 & 0x7) / 8.0D + 0.0625D;
+			for (@Pc(35) int local35 = 0; local35 < 128; local35++) {
+				@Pc(42) double local42 = (double) local35 / 128.0D;
+				@Pc(44) double local44 = local42;
+				@Pc(46) double local46 = local42;
+				@Pc(48) double local48 = local42;
+				if (local33 != 0.0D) {
+					@Pc(62) double local62;
+					if (local42 < 0.5D) {
+						local62 = local42 * (local33 + 1.0D);
+					} else {
+						local62 = local42 + local33 - local42 * local33;
 					}
-					@Pc(259) int local259 = (int) (local44 * 256.0D);
-					@Pc(264) int local264 = (int) (local46 * 256.0D);
-					@Pc(269) int local269 = (int) (local48 * 256.0D);
-					@Pc(279) int local279 = (local259 << 16) + (local264 << 8) + local269;
-					@Pc(283) int local283 = powRgb(local279, local9);
-					palette[local11++] = local283;
-				}
-			}
-			for (@Pc(298) int local298 = 0; local298 < 50; local298++) {
-				if (textures[local298] != null) {
-					@Pc(309) int[] local309 = textures[local298].palette;
-					texturePalettes[local298] = new int[local309.length];
-					for (@Pc(317) int local317 = 0; local317 < local309.length; local317++) {
-						texturePalettes[local298][local317] = powRgb(local309[local317], local9);
+					@Pc(78) double local78 = local42 * 2.0D - local62;
+					@Pc(82) double local82 = local24 + 0.3333333333333333D;
+					if (local82 > 1.0D) {
+						local82--;
+					}
+					@Pc(96) double local96 = local24 - 0.3333333333333333D;
+					if (local96 < 0.0D) {
+						local96++;
+					}
+					if (local82 * 6.0D < 1.0D) {
+						local44 = local78 + (local62 - local78) * 6.0D * local82;
+					} else if (local82 * 2.0D < 1.0D) {
+						local44 = local62;
+					} else if (local82 * 3.0D < 2.0D) {
+						local44 = local78 + (local62 - local78) * (0.6666666666666666D - local82) * 6.0D;
+					} else {
+						local44 = local78;
+					}
+					if (local24 * 6.0D < 1.0D) {
+						local46 = local78 + (local62 - local78) * 6.0D * local24;
+					} else if (local24 * 2.0D < 1.0D) {
+						local46 = local62;
+					} else if (local24 * 3.0D < 2.0D) {
+						local46 = local78 + (local62 - local78) * (0.6666666666666666D - local24) * 6.0D;
+					} else {
+						local46 = local78;
+					}
+					if (local96 * 6.0D < 1.0D) {
+						local48 = local78 + (local62 - local78) * 6.0D * local96;
+					} else if (local96 * 2.0D < 1.0D) {
+						local48 = local62;
+					} else if (local96 * 3.0D < 2.0D) {
+						local48 = local78 + (local62 - local78) * (0.6666666666666666D - local96) * 6.0D;
+					} else {
+						local48 = local78;
 					}
 				}
+				@Pc(259) int local259 = (int) (local44 * 256.0D);
+				@Pc(264) int local264 = (int) (local46 * 256.0D);
+				@Pc(269) int local269 = (int) (local48 * 256.0D);
+				@Pc(279) int local279 = (local259 << 16) + (local264 << 8) + local269;
+				@Pc(283) int local283 = powRgb(local279, local9);
+				palette[local11++] = local283;
 			}
-			if (!arg0) {
-				flowObfuscator4 = -352;
+		}
+		for (@Pc(298) int local298 = 0; local298 < 50; local298++) {
+			if (textures[local298] != null) {
+				@Pc(309) int[] local309 = textures[local298].palette;
+				texturePalettes[local298] = new int[local309.length];
+				for (@Pc(317) int local317 = 0; local317 < local309.length; local317++) {
+					texturePalettes[local298][local317] = powRgb(local309[local317], local9);
+				}
 			}
-			for (@Pc(344) int local344 = 0; local344 < 50; local344++) {
-				updateTexture(local344, 150);
-			}
-		} catch (@Pc(355) RuntimeException local355) {
-			signlink.reporterror("9701, " + arg0 + ", " + arg1 + ", " + local355.toString());
-			throw new RuntimeException();
+		}
+		for (@Pc(344) int local344 = 0; local344 < 50; local344++) {
+			updateTexture(local344);
 		}
 	}
 
@@ -1114,13 +1019,13 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									drawScanline(data, arg0, arg6, 0, arg5 >> 16, arg4 >> 16);
+									drawScanline(data, arg0, arg6, arg5 >> 16, arg4 >> 16);
 									arg5 += local33;
 									arg4 += local18;
 									arg0 += width;
 								}
 							}
-							drawScanline(data, arg0, arg6, 0, arg5 >> 16, arg3 >> 16);
+							drawScanline(data, arg0, arg6, arg5 >> 16, arg3 >> 16);
 							arg5 += local33;
 							arg3 += local3;
 							arg0 += width;
@@ -1137,13 +1042,13 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									drawScanline(data, arg0, arg6, 0, arg4 >> 16, arg5 >> 16);
+									drawScanline(data, arg0, arg6, arg4 >> 16, arg5 >> 16);
 									arg5 += local33;
 									arg4 += local18;
 									arg0 += width;
 								}
 							}
-							drawScanline(data, arg0, arg6, 0, arg3 >> 16, arg5 >> 16);
+							drawScanline(data, arg0, arg6, arg3 >> 16, arg5 >> 16);
 							arg5 += local33;
 							arg3 += local3;
 							arg0 += width;
@@ -1173,13 +1078,13 @@ public final class Draw3D extends Draw2D {
 									if (arg1 < 0) {
 										return;
 									}
-									drawScanline(data, arg0, arg6, 0, arg5 >> 16, arg3 >> 16);
+									drawScanline(data, arg0, arg6, arg5 >> 16, arg3 >> 16);
 									arg5 += local18;
 									arg3 += local3;
 									arg0 += width;
 								}
 							}
-							drawScanline(data, arg0, arg6, 0, arg4 >> 16, arg3 >> 16);
+							drawScanline(data, arg0, arg6, arg4 >> 16, arg3 >> 16);
 							arg4 += local33;
 							arg3 += local3;
 							arg0 += width;
@@ -1196,13 +1101,13 @@ public final class Draw3D extends Draw2D {
 									if (arg1 < 0) {
 										return;
 									}
-									drawScanline(data, arg0, arg6, 0, arg3 >> 16, arg5 >> 16);
+									drawScanline(data, arg0, arg6, arg3 >> 16, arg5 >> 16);
 									arg5 += local18;
 									arg3 += local3;
 									arg0 += width;
 								}
 							}
-							drawScanline(data, arg0, arg6, 0, arg3 >> 16, arg4 >> 16);
+							drawScanline(data, arg0, arg6, arg3 >> 16, arg4 >> 16);
 							arg4 += local33;
 							arg3 += local3;
 							arg0 += width;
@@ -1242,13 +1147,13 @@ public final class Draw3D extends Draw2D {
 									if (arg0 < 0) {
 										return;
 									}
-									drawScanline(data, arg1, arg6, 0, arg3 >> 16, arg5 >> 16);
+									drawScanline(data, arg1, arg6, arg3 >> 16, arg5 >> 16);
 									arg3 += local3;
 									arg5 += local33;
 									arg1 += width;
 								}
 							}
-							drawScanline(data, arg1, arg6, 0, arg3 >> 16, arg4 >> 16);
+							drawScanline(data, arg1, arg6, arg3 >> 16, arg4 >> 16);
 							arg3 += local3;
 							arg4 += local18;
 							arg1 += width;
@@ -1265,13 +1170,13 @@ public final class Draw3D extends Draw2D {
 									if (arg0 < 0) {
 										return;
 									}
-									drawScanline(data, arg1, arg6, 0, arg5 >> 16, arg3 >> 16);
+									drawScanline(data, arg1, arg6, arg5 >> 16, arg3 >> 16);
 									arg3 += local3;
 									arg5 += local33;
 									arg1 += width;
 								}
 							}
-							drawScanline(data, arg1, arg6, 0, arg4 >> 16, arg3 >> 16);
+							drawScanline(data, arg1, arg6, arg4 >> 16, arg3 >> 16);
 							arg3 += local3;
 							arg4 += local18;
 							arg1 += width;
@@ -1301,13 +1206,13 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									drawScanline(data, arg1, arg6, 0, arg3 >> 16, arg4 >> 16);
+									drawScanline(data, arg1, arg6, arg3 >> 16, arg4 >> 16);
 									arg3 += local33;
 									arg4 += local18;
 									arg1 += width;
 								}
 							}
-							drawScanline(data, arg1, arg6, 0, arg5 >> 16, arg4 >> 16);
+							drawScanline(data, arg1, arg6, arg5 >> 16, arg4 >> 16);
 							arg5 += local3;
 							arg4 += local18;
 							arg1 += width;
@@ -1324,13 +1229,13 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									drawScanline(data, arg1, arg6, 0, arg4 >> 16, arg3 >> 16);
+									drawScanline(data, arg1, arg6, arg4 >> 16, arg3 >> 16);
 									arg3 += local33;
 									arg4 += local18;
 									arg1 += width;
 								}
 							}
-							drawScanline(data, arg1, arg6, 0, arg4 >> 16, arg5 >> 16);
+							drawScanline(data, arg1, arg6, arg4 >> 16, arg5 >> 16);
 							arg5 += local3;
 							arg4 += local18;
 							arg1 += width;
@@ -1369,13 +1274,13 @@ public final class Draw3D extends Draw2D {
 								if (arg1 < 0) {
 									return;
 								}
-								drawScanline(data, arg2, arg6, 0, arg4 >> 16, arg3 >> 16);
+								drawScanline(data, arg2, arg6, arg4 >> 16, arg3 >> 16);
 								arg4 += local18;
 								arg3 += local3;
 								arg2 += width;
 							}
 						}
-						drawScanline(data, arg2, arg6, 0, arg4 >> 16, arg5 >> 16);
+						drawScanline(data, arg2, arg6, arg4 >> 16, arg5 >> 16);
 						arg4 += local18;
 						arg5 += local33;
 						arg2 += width;
@@ -1392,13 +1297,13 @@ public final class Draw3D extends Draw2D {
 								if (arg1 < 0) {
 									return;
 								}
-								drawScanline(data, arg2, arg6, 0, arg3 >> 16, arg4 >> 16);
+								drawScanline(data, arg2, arg6, arg3 >> 16, arg4 >> 16);
 								arg4 += local18;
 								arg3 += local3;
 								arg2 += width;
 							}
 						}
-						drawScanline(data, arg2, arg6, 0, arg5 >> 16, arg4 >> 16);
+						drawScanline(data, arg2, arg6, arg5 >> 16, arg4 >> 16);
 						arg4 += local18;
 						arg5 += local33;
 						arg2 += width;
@@ -1428,13 +1333,13 @@ public final class Draw3D extends Draw2D {
 								if (arg0 < 0) {
 									return;
 								}
-								drawScanline(data, arg2, arg6, 0, arg4 >> 16, arg5 >> 16);
+								drawScanline(data, arg2, arg6, arg4 >> 16, arg5 >> 16);
 								arg4 += local3;
 								arg5 += local33;
 								arg2 += width;
 							}
 						}
-						drawScanline(data, arg2, arg6, 0, arg3 >> 16, arg5 >> 16);
+						drawScanline(data, arg2, arg6, arg3 >> 16, arg5 >> 16);
 						arg3 += local18;
 						arg5 += local33;
 						arg2 += width;
@@ -1451,13 +1356,13 @@ public final class Draw3D extends Draw2D {
 								if (arg0 < 0) {
 									return;
 								}
-								drawScanline(data, arg2, arg6, 0, arg5 >> 16, arg4 >> 16);
+								drawScanline(data, arg2, arg6, arg5 >> 16, arg4 >> 16);
 								arg4 += local3;
 								arg5 += local33;
 								arg2 += width;
 							}
 						}
-						drawScanline(data, arg2, arg6, 0, arg5 >> 16, arg3 >> 16);
+						drawScanline(data, arg2, arg6, arg5 >> 16, arg3 >> 16);
 						arg3 += local18;
 						arg5 += local33;
 						arg2 += width;
@@ -1468,7 +1373,7 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "([IIIIII)V")
-	private static void drawScanline(@OriginalArg(0) int[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
+	private static void drawScanline(@OriginalArg(0) int[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
 		if (testX) {
 			if (arg5 > safeX) {
 				arg5 = safeX;
@@ -2149,7 +2054,6 @@ public final class Draw3D extends Draw2D {
 			}
 			local40 = arg6 - arg5 >> 3;
 			local15 <<= 0xC;
-			arg7 <<= 0x9;
 		} else {
 			if (arg6 - arg5 > 7) {
 				local40 = arg6 - arg5 >> 3;
@@ -2158,8 +2062,8 @@ public final class Draw3D extends Draw2D {
 				local40 = 0;
 				local15 = 0;
 			}
-			arg7 <<= 0x9;
 		}
+		arg7 <<= 0x9;
 		arg4 += arg5;
 		@Pc(89) int local89;
 		@Pc(91) int local91;

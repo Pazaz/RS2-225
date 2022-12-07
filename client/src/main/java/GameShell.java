@@ -2,7 +2,6 @@ import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
-import sign.signlink;
 
 import java.applet.Applet;
 import java.awt.Component;
@@ -12,9 +11,6 @@ import java.awt.event.*;
 
 @OriginalClass("client!a")
 public class GameShell extends Applet implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
-
-	@OriginalMember(owner = "client!a", name = "c", descriptor = "I")
-	private int flowObfuscator3;
 
 	@OriginalMember(owner = "client!a", name = "g", descriptor = "I")
 	private int state;
@@ -64,21 +60,6 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	@OriginalMember(owner = "client!a", name = "C", descriptor = "I")
 	private int unprocessedKeyCount;
 
-	@OriginalMember(owner = "client!a", name = "a", descriptor = "Z")
-	private boolean flowObfuscator1 = false;
-
-	@OriginalMember(owner = "client!a", name = "b", descriptor = "Z")
-	private boolean flowObfuscator2 = false;
-
-	@OriginalMember(owner = "client!a", name = "d", descriptor = "Z")
-	private boolean flowObfuscator4 = false;
-
-	@OriginalMember(owner = "client!a", name = "e", descriptor = "B")
-	private final byte flowObfuscator5 = 3;
-
-	@OriginalMember(owner = "client!a", name = "f", descriptor = "I")
-	private int flowObfuscator6 = 27808;
-
 	@OriginalMember(owner = "client!a", name = "h", descriptor = "I")
 	private int deltime = 20;
 
@@ -101,51 +82,35 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	private final int[] pressedKeys = new int[128];
 
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "(III)V")
-	protected final void initApplication(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
-		try {
-			if (arg2 != 0) {
-				this.flowObfuscator3 = 411;
-			}
-			this.gameWidth = arg1;
-			this.gameHeight = arg0;
-			this.frame = new GameFrame(this.gameHeight, 35731, this, this.gameWidth);
-			this.graphics = this.getBaseComponent(this.flowObfuscator5).getGraphics();
-			this.frameBuffer = new ImageProducerFrameBuffer(this.getBaseComponent(this.flowObfuscator5), this.gameWidth, 299, this.gameHeight);
-			this.startThread(this, 1);
-		} catch (@Pc(48) RuntimeException local48) {
-			signlink.reporterror("32828, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + local48.toString());
-			throw new RuntimeException();
-		}
+	protected final void initApplication(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
+		this.gameWidth = arg1;
+		this.gameHeight = arg0;
+		this.frame = new GameFrame(this.gameHeight, this, this.gameWidth);
+		this.graphics = this.getBaseComponent().getGraphics();
+		this.frameBuffer = new ImageProducerFrameBuffer(this.getBaseComponent(), this.gameWidth, this.gameHeight);
+		this.startThread(this, 1);
 	}
 
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "(IZI)V")
-	protected final void initApplet(@OriginalArg(0) int arg0, @OriginalArg(1) boolean arg1, @OriginalArg(2) int arg2) {
-		try {
-			this.gameWidth = arg2;
-			this.gameHeight = arg0;
-			this.graphics = this.getBaseComponent(this.flowObfuscator5).getGraphics();
-			this.frameBuffer = new ImageProducerFrameBuffer(this.getBaseComponent(this.flowObfuscator5), this.gameWidth, 299, this.gameHeight);
-			if (arg1) {
-				this.flowObfuscator3 = -370;
-			}
-			this.startThread(this, 1);
-		} catch (@Pc(37) RuntimeException local37) {
-			signlink.reporterror("68129, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + local37.toString());
-			throw new RuntimeException();
-		}
+	protected final void initApplet(@OriginalArg(0) int arg0, @OriginalArg(2) int arg2) {
+		this.gameWidth = arg2;
+		this.gameHeight = arg0;
+		this.graphics = this.getBaseComponent().getGraphics();
+		this.frameBuffer = new ImageProducerFrameBuffer(this.getBaseComponent(), this.gameWidth, this.gameHeight);
+		this.startThread(this, 1);
 	}
 
 	@OriginalMember(owner = "client!a", name = "run", descriptor = "()V")
 	@Override
 	public void run() {
-		this.getBaseComponent(this.flowObfuscator5).addMouseListener(this);
-		this.getBaseComponent(this.flowObfuscator5).addMouseMotionListener(this);
-		this.getBaseComponent(this.flowObfuscator5).addKeyListener(this);
-		this.getBaseComponent(this.flowObfuscator5).addFocusListener(this);
+		this.getBaseComponent().addMouseListener(this);
+		this.getBaseComponent().addMouseMotionListener(this);
+		this.getBaseComponent().addKeyListener(this);
+		this.getBaseComponent().addFocusListener(this);
 		if (this.frame != null) {
 			this.frame.addWindowListener(this);
 		}
-		this.showProgress(true, "Loading...", 0);
+		this.showProgress("Loading...", 0);
 		this.load();
 		@Pc(41) int local41 = 0;
 		@Pc(43) int local43 = 256;
@@ -159,7 +124,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 			if (this.state > 0) {
 				this.state--;
 				if (this.state == 0) {
-					this.shutdown(-652);
+					this.shutdown();
 					return;
 				}
 			}
@@ -172,7 +137,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 				local43 = local82;
 				local45 = local84;
 			} else if (local62 > this.otim[local41]) {
-				local43 = (int) ((long) (this.deltime * 2560) / (local62 - this.otim[local41]));
+				local43 = (int) ((this.deltime * 2560L) / (local62 - this.otim[local41]));
 			}
 			if (local43 < 25) {
 				local43 = 25;
@@ -194,11 +159,11 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 				local45 = this.mindel;
 			}
 			try {
-				Thread.sleep((long) local45);
+				Thread.sleep(local45);
 			} catch (@Pc(198) InterruptedException local198) {
 			}
 			while (local47 < 256) {
-				this.update(437);
+				this.update();
 				this.mouseButton = 0;
 				this.lastProcessedKey = this.unprocessedKeyCount;
 				local47 += local43;
@@ -207,46 +172,30 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 			if (this.deltime > 0) {
 				this.fps = local43 * 1000 / (this.deltime * 256);
 			}
-			this.draw(false);
+			this.draw();
 		}
 		if (this.state == -1) {
-			this.shutdown(-652);
+			this.shutdown();
 		}
 	}
 
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "(I)V")
-	private void shutdown(@OriginalArg(0) int arg0) {
+	private void shutdown() {
+		this.state = -2;
+		this.unload();
 		try {
-			while (arg0 >= 0) {
-				this.flowObfuscator4 = !this.flowObfuscator4;
-			}
-			this.state = -2;
-			this.unload((byte) -28);
-			try {
-				Thread.sleep(1000L);
-			} catch (@Pc(21) Exception local21) {
-			}
-			try {
-				System.exit(0);
-			} catch (@Pc(25) Throwable local25) {
-			}
-		} catch (@Pc(27) RuntimeException local27) {
-			signlink.reporterror("31182, " + arg0 + ", " + local27.toString());
-			throw new RuntimeException();
+			Thread.sleep(1000L);
+		} catch (@Pc(21) Exception local21) {
+		}
+		try {
+			System.exit(0);
+		} catch (@Pc(25) Throwable local25) {
 		}
 	}
 
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "(II)V")
-	protected final void setLoopRate(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		try {
-			this.deltime = 1000 / arg1;
-			if (arg0 <= 0) {
-				this.flowObfuscator1 = !this.flowObfuscator1;
-			}
-		} catch (@Pc(16) RuntimeException local16) {
-			signlink.reporterror("9789, " + arg0 + ", " + arg1 + ", " + local16.toString());
-			throw new RuntimeException();
-		}
+	protected final void setLoopRate(@OriginalArg(1) int arg1) {
+		this.deltime = 1000 / arg1;
 	}
 
 	@OriginalMember(owner = "client!a", name = "start", descriptor = "()V")
@@ -274,7 +223,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 		} catch (@Pc(6) Exception local6) {
 		}
 		if (this.state == -1) {
-			this.shutdown(-652);
+			this.shutdown();
 		}
 	}
 
@@ -285,7 +234,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 			this.graphics = arg0;
 		}
 		this.refresh = true;
-		this.refresh(3);
+		this.refresh();
 	}
 
 	@OriginalMember(owner = "client!a", name = "paint", descriptor = "(Ljava/awt/Graphics;)V")
@@ -295,7 +244,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 			this.graphics = arg0;
 		}
 		this.refresh = true;
-		this.refresh(3);
+		this.refresh();
 	}
 
 	@OriginalMember(owner = "client!a", name = "mousePressed", descriptor = "(Ljava/awt/event/MouseEvent;)V")
@@ -341,7 +290,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	@Override
 	public final void mouseEntered(@OriginalArg(0) MouseEvent arg0) {
 		if (InputTracking.enabled) {
-			InputTracking.mouseEntered(-657);
+			InputTracking.mouseEntered();
 		}
 	}
 
@@ -349,7 +298,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	@Override
 	public final void mouseExited(@OriginalArg(0) MouseEvent arg0) {
 		if (InputTracking.enabled) {
-			InputTracking.mouseExited(false);
+			InputTracking.mouseExited();
 		}
 	}
 
@@ -366,7 +315,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 		this.mouseX = local2;
 		this.mouseY = local5;
 		if (InputTracking.enabled) {
-			InputTracking.mouseMoved(local5, true, local2);
+			InputTracking.mouseMoved(local5, local2);
 		}
 	}
 
@@ -383,7 +332,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 		this.mouseX = local2;
 		this.mouseY = local5;
 		if (InputTracking.enabled) {
-			InputTracking.mouseMoved(local5, true, local2);
+			InputTracking.mouseMoved(local5, local2);
 		}
 	}
 
@@ -446,7 +395,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 			this.unprocessedKeyCount = this.unprocessedKeyCount + 1 & 0x7F;
 		}
 		if (InputTracking.enabled) {
-			InputTracking.keyPressed(local10, true);
+			InputTracking.keyPressed(local10);
 		}
 	}
 
@@ -490,7 +439,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 			this.keyDown[local8] = 0;
 		}
 		if (InputTracking.enabled) {
-			InputTracking.keyReleased(local8, 1);
+			InputTracking.keyReleased(local8);
 		}
 	}
 
@@ -503,9 +452,9 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	@Override
 	public final void focusGained(@OriginalArg(0) FocusEvent arg0) {
 		this.refresh = true;
-		this.refresh(3);
+		this.refresh();
 		if (InputTracking.enabled) {
-			InputTracking.focusGained(-936);
+			InputTracking.focusGained();
 		}
 	}
 
@@ -513,26 +462,18 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	@Override
 	public final void focusLost(@OriginalArg(0) FocusEvent arg0) {
 		if (InputTracking.enabled) {
-			InputTracking.focusLost(0);
+			InputTracking.focusLost();
 		}
 	}
 
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "(Z)I")
-	protected final int pollKey(@OriginalArg(0) boolean arg0) {
-		try {
-			@Pc(1) int local1 = -1;
-			if (arg0) {
-				return 2;
-			}
-			if (this.unprocessedKeyCount != this.lastProcessedKey) {
-				local1 = this.pressedKeys[this.lastProcessedKey];
-				this.lastProcessedKey = this.lastProcessedKey + 1 & 0x7F;
-			}
-			return local1;
-		} catch (@Pc(27) RuntimeException local27) {
-			signlink.reporterror("3026, " + arg0 + ", " + local27.toString());
-			throw new RuntimeException();
+	protected final int pollKey() {
+		@Pc(1) int local1 = -1;
+		if (this.unprocessedKeyCount != this.lastProcessedKey) {
+			local1 = this.pressedKeys[this.lastProcessedKey];
+			this.lastProcessedKey = this.lastProcessedKey + 1 & 0x7F;
 		}
+		return local1;
 	}
 
 	@OriginalMember(owner = "client!a", name = "windowActivated", descriptor = "(Ljava/awt/event/WindowEvent;)V")
@@ -576,64 +517,24 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	}
 
 	@OriginalMember(owner = "client!a", name = "b", descriptor = "(I)V")
-	protected void update(@OriginalArg(0) int arg0) {
-		try {
-			if (arg0 <= 0) {
-				this.flowObfuscator2 = !this.flowObfuscator2;
-			}
-		} catch (@Pc(11) RuntimeException local11) {
-			signlink.reporterror("39582, " + arg0 + ", " + local11.toString());
-			throw new RuntimeException();
-		}
+	protected void update() {
 	}
 
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "(B)V")
-	protected void unload(@OriginalArg(0) byte arg0) {
-		try {
-			if (arg0 != -28) {
-				this.flowObfuscator6 = -407;
-			}
-		} catch (@Pc(7) RuntimeException local7) {
-			signlink.reporterror("60526, " + arg0 + ", " + local7.toString());
-			throw new RuntimeException();
-		}
+	protected void unload() {
 	}
 
 	@OriginalMember(owner = "client!a", name = "b", descriptor = "(Z)V")
-	protected void draw(@OriginalArg(0) boolean arg0) {
-		try {
-			if (arg0) {
-				this.flowObfuscator4 = !this.flowObfuscator4;
-			}
-		} catch (@Pc(11) RuntimeException local11) {
-			signlink.reporterror("89494, " + arg0 + ", " + local11.toString());
-			throw new RuntimeException();
-		}
+	protected void draw() {
 	}
 
 	@OriginalMember(owner = "client!a", name = "c", descriptor = "(I)V")
-	protected void refresh(@OriginalArg(0) int arg0) {
-		try {
-			if (arg0 < 3 || arg0 > 3) {
-				this.flowObfuscator2 = !this.flowObfuscator2;
-			}
-		} catch (@Pc(15) RuntimeException local15) {
-			signlink.reporterror("40825, " + arg0 + ", " + local15.toString());
-			throw new RuntimeException();
-		}
+	protected void refresh() {
 	}
 
 	@OriginalMember(owner = "client!a", name = "b", descriptor = "(B)Ljava/awt/Component;")
-	protected Component getBaseComponent(@OriginalArg(0) byte arg0) {
-		try {
-			if (arg0 != 3) {
-				throw new NullPointerException();
-			}
-			return this.frame == null ? this : this.frame;
-		} catch (@Pc(15) RuntimeException local15) {
-			signlink.reporterror("24145, " + arg0 + ", " + local15.toString());
-			throw new RuntimeException();
-		}
+	protected Component getBaseComponent() {
+		return this.frame == null ? this : this.frame;
 	}
 
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "(Ljava/lang/Runnable;I)V")
@@ -644,43 +545,36 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	}
 
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "(ZLjava/lang/String;I)V")
-	protected void showProgress(@OriginalArg(0) boolean arg0, @OriginalArg(1) String arg1, @OriginalArg(2) int arg2) {
-		try {
-			while (this.graphics == null) {
-				this.graphics = this.getBaseComponent(this.flowObfuscator5).getGraphics();
-				try {
-					this.getBaseComponent(this.flowObfuscator5).repaint();
-				} catch (@Pc(22) Exception local22) {
-				}
-				try {
-					Thread.sleep(1000L);
-				} catch (@Pc(26) Exception local26) {
-				}
+	protected void showProgress(@OriginalArg(1) String arg1, @OriginalArg(2) int arg2) {
+		while (this.graphics == null) {
+			this.graphics = this.getBaseComponent().getGraphics();
+			try {
+				this.getBaseComponent().repaint();
+			} catch (@Pc(22) Exception local22) {
 			}
-			@Pc(37) Font local37 = new Font("Helvetica", 1, 13);
-			@Pc(44) FontMetrics local44 = this.getBaseComponent(this.flowObfuscator5).getFontMetrics(local37);
-			@Pc(51) Font local51 = new Font("Helvetica", 0, 13);
-			this.getBaseComponent(this.flowObfuscator5).getFontMetrics(local51);
-			if (this.refresh) {
-				this.graphics.setColor(Color.black);
-				this.graphics.fillRect(0, 0, this.gameWidth, this.gameHeight);
-				this.refresh = false;
+			try {
+				Thread.sleep(1000L);
+			} catch (@Pc(26) Exception local26) {
 			}
-			@Pc(84) Color local84 = new Color(140, 17, 17);
-			@Pc(91) int local91 = this.gameHeight / 2 - 18;
-			this.graphics.setColor(local84);
-			this.graphics.drawRect(this.gameWidth / 2 - 152, local91, 304, 34);
-			this.graphics.fillRect(this.gameWidth / 2 - 150, local91 + 2, arg2 * 3, 30);
-			this.graphics.setColor(Color.black);
-			this.graphics.fillRect(this.gameWidth / 2 + arg2 * 3 - 150, local91 + 2, 300 - arg2 * 3, 30);
-			this.graphics.setFont(local37);
-			this.graphics.setColor(Color.white);
-			if (arg0) {
-				this.graphics.drawString(arg1, (this.gameWidth - local44.stringWidth(arg1)) / 2, local91 + 22);
-			}
-		} catch (@Pc(177) RuntimeException local177) {
-			signlink.reporterror("55533, " + arg0 + ", " + arg1 + ", " + arg2 + ", " + local177.toString());
-			throw new RuntimeException();
 		}
+		@Pc(37) Font local37 = new Font("Helvetica", java.awt.Font.BOLD, 13);
+		@Pc(44) FontMetrics local44 = this.getBaseComponent().getFontMetrics(local37);
+		@Pc(51) Font local51 = new Font("Helvetica", java.awt.Font.PLAIN, 13);
+		this.getBaseComponent().getFontMetrics(local51);
+		if (this.refresh) {
+			this.graphics.setColor(Color.black);
+			this.graphics.fillRect(0, 0, this.gameWidth, this.gameHeight);
+			this.refresh = false;
+		}
+		@Pc(84) Color local84 = new Color(140, 17, 17);
+		@Pc(91) int local91 = this.gameHeight / 2 - 18;
+		this.graphics.setColor(local84);
+		this.graphics.drawRect(this.gameWidth / 2 - 152, local91, 304, 34);
+		this.graphics.fillRect(this.gameWidth / 2 - 150, local91 + 2, arg2 * 3, 30);
+		this.graphics.setColor(Color.black);
+		this.graphics.fillRect(this.gameWidth / 2 + arg2 * 3 - 150, local91 + 2, 300 - arg2 * 3, 30);
+		this.graphics.setFont(local37);
+		this.graphics.setColor(Color.white);
+		this.graphics.drawString(arg1, (this.gameWidth - local44.stringWidth(arg1)) / 2, local91 + 22);
 	}
 }

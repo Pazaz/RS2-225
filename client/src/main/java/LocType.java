@@ -2,25 +2,18 @@ import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
-import sign.signlink;
 
 @OriginalClass("client!ac")
 public final class LocType {
-
-	@OriginalMember(owner = "client!ac", name = "a", descriptor = "I")
-	public static int flowObfuscator1;
-
-	@OriginalMember(owner = "client!ac", name = "b", descriptor = "I")
-	public static int flowObfuscator2;
 
 	@OriginalMember(owner = "client!ac", name = "c", descriptor = "Z")
 	public static boolean reset;
 
 	@OriginalMember(owner = "client!ac", name = "P", descriptor = "Lclient!s;")
-	public static Cache modelCache = new Cache((byte) 0, 500);
+	public static Cache modelCache = new Cache(500);
 
 	@OriginalMember(owner = "client!ac", name = "Q", descriptor = "Lclient!s;")
-	public static Cache modelCacheBuilt = new Cache((byte) 0, 30);
+	public static Cache modelCacheBuilt = new Cache(30);
 
 	@OriginalMember(owner = "client!ac", name = "d", descriptor = "I")
 	private static int count;
@@ -154,19 +147,12 @@ public final class LocType {
 	}
 
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "(Z)V")
-	public static void unload(@OriginalArg(0) boolean arg0) {
-		try {
-			modelCache = null;
-			modelCacheBuilt = null;
-			if (arg0) {
-				offsets = null;
-				cache = null;
-				dat = null;
-			}
-		} catch (@Pc(14) RuntimeException local14) {
-			signlink.reporterror("1378, " + arg0 + ", " + local14.toString());
-			throw new RuntimeException();
-		}
+	public static void unload() {
+		modelCache = null;
+		modelCacheBuilt = null;
+		offsets = null;
+		cache = null;
+		dat = null;
 	}
 
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "(I)Lclient!ac;")
@@ -181,7 +167,7 @@ public final class LocType {
 		dat.pos = offsets[arg0];
 		local27.id = arg0;
 		local27.reset();
-		local27.decode(false, dat);
+		local27.decode(dat);
 		return local27;
 	}
 
@@ -222,125 +208,114 @@ public final class LocType {
 	}
 
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void decode(@OriginalArg(0) boolean arg0, @OriginalArg(1) Buffer arg1) {
-		try {
-			@Pc(5) int local5;
-			if (arg0) {
-				for (local5 = 1; local5 > 0; local5++) {
+	public void decode(@OriginalArg(1) Buffer arg1) {
+		@Pc(5) int local5 = -1;
+
+		while (true) {
+			@Pc(15) int local15 = arg1.g1();
+			if (local15 == 0) {
+				if (this.shapes == null) {
+					this.shapes = new int[0];
 				}
-			}
-			local5 = -1;
-			while (true) {
-				while (true) {
-					@Pc(15) int local15 = arg1.g1();
-					if (local15 == 0) {
-						if (this.shapes == null) {
-							this.shapes = new int[0];
-						}
-						if (local5 == -1) {
-							this.interactable = false;
-							if (this.shapes.length > 0 && this.shapes[0] == 10) {
-								this.interactable = true;
-							}
-							if (this.ops != null) {
-								this.interactable = true;
-								return;
-							}
-						}
+				if (local5 == -1) {
+					this.interactable = false;
+					if (this.shapes.length > 0 && this.shapes[0] == 10) {
+						this.interactable = true;
+					}
+					if (this.ops != null) {
+						this.interactable = true;
 						return;
 					}
-					@Pc(23) int local23;
-					@Pc(33) int local33;
-					if (local15 == 1) {
-						local23 = arg1.g1();
-						this.shapes = new int[local23];
-						this.models = new int[local23];
-						for (local33 = 0; local33 < local23; local33++) {
-							this.models[local33] = arg1.g2();
-							this.shapes[local33] = arg1.g1();
-						}
-					} else if (local15 == 2) {
-						this.name = arg1.gstr();
-					} else if (local15 == 3) {
-						this.desc = arg1.gstrbyte();
-					} else if (local15 == 14) {
-						this.width = arg1.g1();
-					} else if (local15 == 15) {
-						this.length = arg1.g1();
-					} else if (local15 == 17) {
-						this.blockwalk = false;
-					} else if (local15 == 18) {
-						this.blockrange = false;
-					} else if (local15 == 19) {
-						local5 = arg1.g1();
-						if (local5 == 1) {
-							this.interactable = true;
-						}
-					} else if (local15 == 21) {
-						this.hillskew = true;
-					} else if (local15 == 22) {
-						this.computeVertexColors = true;
-					} else if (local15 == 23) {
-						this.occlude = true;
-					} else if (local15 == 24) {
-						this.anim = arg1.g2();
-						if (this.anim == 65535) {
-							this.anim = -1;
-						}
-					} else if (local15 == 25) {
-						this.disposeAlpha = true;
-					} else if (local15 == 28) {
-						this.walloff = arg1.g1();
-					} else if (local15 == 29) {
-						this.ambient = arg1.g1b();
-					} else if (local15 == 39) {
-						this.contrast = arg1.g1b();
-					} else if (local15 >= 30 && local15 < 39) {
-						if (this.ops == null) {
-							this.ops = new String[5];
-						}
-						this.ops[local15 - 30] = arg1.gstr();
-						if (this.ops[local15 - 30].equalsIgnoreCase("hidden")) {
-							this.ops[local15 - 30] = null;
-						}
-					} else if (local15 == 40) {
-						local23 = arg1.g1();
-						this.recol_s = new int[local23];
-						this.recol_d = new int[local23];
-						for (local33 = 0; local33 < local23; local33++) {
-							this.recol_s[local33] = arg1.g2();
-							this.recol_d[local33] = arg1.g2();
-						}
-					} else if (local15 == 60) {
-						this.mapfunction = arg1.g2();
-					} else if (local15 == 62) {
-						this.mirror = true;
-					} else if (local15 == 64) {
-						this.active = false;
-					} else if (local15 == 65) {
-						this.resizex = arg1.g2();
-					} else if (local15 == 66) {
-						this.resizey = arg1.g2();
-					} else if (local15 == 67) {
-						this.resizez = arg1.g2();
-					} else if (local15 == 68) {
-						this.mapscene = arg1.g2();
-					} else if (local15 == 69) {
-						this.blocksides = arg1.g1();
-					} else if (local15 == 70) {
-						this.xoff = arg1.g2b();
-					} else if (local15 == 71) {
-						this.yoff = arg1.g2b();
-					} else if (local15 == 72) {
-						this.zoff = arg1.g2b();
-					} else if (local15 == 73) {
-						this.forcedecor = true;
-					}
 				}
+				return;
 			}
-		} catch (@Pc(409) RuntimeException local409) {
-			signlink.reporterror("20782, " + arg0 + ", " + arg1 + ", " + local409.toString());
-			throw new RuntimeException();
+			@Pc(23) int local23;
+			@Pc(33) int local33;
+			if (local15 == 1) {
+				local23 = arg1.g1();
+				this.shapes = new int[local23];
+				this.models = new int[local23];
+				for (local33 = 0; local33 < local23; local33++) {
+					this.models[local33] = arg1.g2();
+					this.shapes[local33] = arg1.g1();
+				}
+			} else if (local15 == 2) {
+				this.name = arg1.gstr();
+			} else if (local15 == 3) {
+				this.desc = arg1.gstrbyte();
+			} else if (local15 == 14) {
+				this.width = arg1.g1();
+			} else if (local15 == 15) {
+				this.length = arg1.g1();
+			} else if (local15 == 17) {
+				this.blockwalk = false;
+			} else if (local15 == 18) {
+				this.blockrange = false;
+			} else if (local15 == 19) {
+				local5 = arg1.g1();
+				if (local5 == 1) {
+					this.interactable = true;
+				}
+			} else if (local15 == 21) {
+				this.hillskew = true;
+			} else if (local15 == 22) {
+				this.computeVertexColors = true;
+			} else if (local15 == 23) {
+				this.occlude = true;
+			} else if (local15 == 24) {
+				this.anim = arg1.g2();
+				if (this.anim == 65535) {
+					this.anim = -1;
+				}
+			} else if (local15 == 25) {
+				this.disposeAlpha = true;
+			} else if (local15 == 28) {
+				this.walloff = arg1.g1();
+			} else if (local15 == 29) {
+				this.ambient = arg1.g1b();
+			} else if (local15 == 39) {
+				this.contrast = arg1.g1b();
+			} else if (local15 >= 30 && local15 < 39) {
+				if (this.ops == null) {
+					this.ops = new String[5];
+				}
+				this.ops[local15 - 30] = arg1.gstr();
+				if (this.ops[local15 - 30].equalsIgnoreCase("hidden")) {
+					this.ops[local15 - 30] = null;
+				}
+			} else if (local15 == 40) {
+				local23 = arg1.g1();
+				this.recol_s = new int[local23];
+				this.recol_d = new int[local23];
+				for (local33 = 0; local33 < local23; local33++) {
+					this.recol_s[local33] = arg1.g2();
+					this.recol_d[local33] = arg1.g2();
+				}
+			} else if (local15 == 60) {
+				this.mapfunction = arg1.g2();
+			} else if (local15 == 62) {
+				this.mirror = true;
+			} else if (local15 == 64) {
+				this.active = false;
+			} else if (local15 == 65) {
+				this.resizex = arg1.g2();
+			} else if (local15 == 66) {
+				this.resizey = arg1.g2();
+			} else if (local15 == 67) {
+				this.resizez = arg1.g2();
+			} else if (local15 == 68) {
+				this.mapscene = arg1.g2();
+			} else if (local15 == 69) {
+				this.blocksides = arg1.g1();
+			} else if (local15 == 70) {
+				this.xoff = arg1.g2b();
+			} else if (local15 == 71) {
+				this.yoff = arg1.g2b();
+			} else if (local15 == 72) {
+				this.zoff = arg1.g2b();
+			} else if (local15 == 73) {
+				this.forcedecor = true;
+			}
 		}
 	}
 
@@ -356,7 +331,7 @@ public final class LocType {
 		if (local3 == -1) {
 			return null;
 		}
-		@Pc(47) long local47 = (long) ((this.id << 6) + (local3 << 3) + arg1) + ((long) (arg6 + 1) << 32);
+		@Pc(47) long local47 = (long) (((long) this.id << 6) + ((long) local3 << 3) + arg1) + ((long) (arg6 + 1) << 32);
 		if (reset) {
 			local47 = 0L;
 		}
@@ -375,13 +350,13 @@ public final class LocType {
 			if (local188) {
 				local91 += 65536;
 			}
-			@Pc(200) Model local200 = (Model) modelCache.get((long) local91);
+			@Pc(200) Model local200 = (Model) modelCache.get(local91);
 			if (local200 == null) {
 				local200 = new Model(false, local91 & 0xFFFF);
 				if (local188) {
-					local200.flipBackwards(-725);
+					local200.flipBackwards();
 				}
-				modelCache.put(6, (long) local91, local200);
+				modelCache.put(local91, local200);
 			}
 			@Pc(235) boolean local235;
 			if (this.resizex == 128 && this.resizey == 128 && this.resizez == 128) {
@@ -395,15 +370,15 @@ public final class LocType {
 			} else {
 				local250 = true;
 			}
-			@Pc(284) Model local284 = new Model(local200, this.recol_s == null, !this.disposeAlpha, flowObfuscator1, arg1 == 0 && arg6 == -1 && !local235 && !local250);
+			@Pc(284) Model local284 = new Model(local200, this.recol_s == null, !this.disposeAlpha, arg1 == 0 && arg6 == -1 && !local235 && !local250);
 			if (arg6 != -1) {
-				local284.applyGroup(4);
-				local284.applyFrame(-16599, arg6);
+				local284.applyGroup();
+				local284.applyFrame(arg6);
 				local284.skinTriangle = null;
 				local284.labelVertices = null;
 			}
 			while (arg1-- > 0) {
-				local284.rotateCounterClockwise(0);
+				local284.rotateCounterClockwise();
 			}
 			if (this.recol_s != null) {
 				for (local141 = 0; local141 < this.recol_s.length; local141++) {
@@ -411,18 +386,18 @@ public final class LocType {
 				}
 			}
 			if (local235) {
-				local284.scale(this.resizez, 2, this.resizey, this.resizex);
+				local284.scale(this.resizez, this.resizey, this.resizex);
 			}
 			if (local250) {
-				local284.translate(this.yoff, this.xoff, -122, this.zoff);
+				local284.translate(this.yoff, this.xoff, this.zoff);
 			}
 			local284.applyLighting(this.ambient + 64, this.contrast * 5 + 768, -50, -10, -50, !this.computeVertexColors);
 			if (this.blockwalk) {
 				local284.collisionPoint = local284.maxBoundY;
 			}
-			modelCacheBuilt.put(6, local47, local284);
+			modelCacheBuilt.put(local47, local284);
 			if (this.hillskew || this.computeVertexColors) {
-				local284 = new Model(local284, (byte) -31, this.hillskew, this.computeVertexColors);
+				local284 = new Model(local284, this.hillskew, this.computeVertexColors);
 			}
 			if (this.hillskew) {
 				local141 = (arg2 + arg3 + arg4 + arg5) / 4;
@@ -434,14 +409,14 @@ public final class LocType {
 					@Pc(465) int local465 = local441 + (local453 - local441) * (local429 + 64) / 128;
 					local284.vertexY[local417] += local465 - local141;
 				}
-				local284.calculateYBoundaries2(flowObfuscator2);
+				local284.calculateYBoundaries2();
 			}
 			return local284;
 		} else if (reset) {
 			return local56;
 		} else {
 			if (this.hillskew || this.computeVertexColors) {
-				local56 = new Model(local56, (byte) -31, this.hillskew, this.computeVertexColors);
+				local56 = new Model(local56, this.hillskew, this.computeVertexColors);
 			}
 			if (this.hillskew) {
 				local91 = (arg2 + arg3 + arg4 + arg5) / 4;
@@ -453,7 +428,7 @@ public final class LocType {
 					local141 = local117 + (local129 - local117) * (local105 + 64) / 128;
 					local56.vertexY[local93] += local141 - local91;
 				}
-				local56.calculateYBoundaries2(flowObfuscator2);
+				local56.calculateYBoundaries2();
 			}
 			return local56;
 		}
