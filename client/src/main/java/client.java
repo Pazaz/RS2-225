@@ -6897,7 +6897,7 @@ public final class client extends GameShell {
 				return;
 			}
 			if (local237 == 11) {
-				this.loginMessage2 = "Login server rejected session.";
+				// this.loginMessage1 = "Login server rejected session.";
 				this.loginMessage2 = "Please try again.";
 				return;
 			}

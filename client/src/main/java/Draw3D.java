@@ -10,7 +10,7 @@ public final class Draw3D extends Draw2D {
 	public static int[] reciprical15 = new int[512];
 
 	@OriginalMember(owner = "client!gb", name = "I", descriptor = "[I")
-	public static final int[] reciprical16 = new int[2048];
+	public static int[] reciprical16 = new int[2048];
 
 	@OriginalMember(owner = "client!gb", name = "J", descriptor = "[I")
 	public static int[] sin = new int[2048];
@@ -91,7 +91,7 @@ public final class Draw3D extends Draw2D {
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(Z)V")
 	public static void unload() {
 		reciprical15 = null;
-		reciprical15 = null;
+		reciprical16 = null;
 		sin = null;
 		cos = null;
 		offsets = null;
@@ -418,7 +418,7 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									drawGouraudScanline(data, arg0, 0, 0, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
+									drawGouraudScanline(data, arg0, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
 									arg5 += local57;
 									arg4 += local30;
 									arg8 += local59;
@@ -426,7 +426,7 @@ public final class Draw3D extends Draw2D {
 									arg0 += width;
 								}
 							}
-							drawGouraudScanline(data, arg0, 0, 0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
+							drawGouraudScanline(data, arg0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
 							arg5 += local57;
 							arg3 += local3;
 							arg8 += local59;
@@ -445,7 +445,7 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									drawGouraudScanline(data, arg0, 0, 0, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
+									drawGouraudScanline(data, arg0, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
 									arg5 += local57;
 									arg4 += local30;
 									arg8 += local59;
@@ -453,7 +453,7 @@ public final class Draw3D extends Draw2D {
 									arg0 += width;
 								}
 							}
-							drawGouraudScanline(data, arg0, 0, 0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
+							drawGouraudScanline(data, arg0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
 							arg5 += local57;
 							arg3 += local3;
 							arg8 += local59;
@@ -490,7 +490,7 @@ public final class Draw3D extends Draw2D {
 									if (arg1 < 0) {
 										return;
 									}
-									drawGouraudScanline(data, arg0, 0, 0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
+									drawGouraudScanline(data, arg0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
 									arg5 += local30;
 									arg3 += local3;
 									arg8 += local32;
@@ -498,7 +498,7 @@ public final class Draw3D extends Draw2D {
 									arg0 += width;
 								}
 							}
-							drawGouraudScanline(data, arg0, 0, 0, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
+							drawGouraudScanline(data, arg0, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
 							arg4 += local57;
 							arg3 += local3;
 							arg7 += local59;
@@ -517,7 +517,7 @@ public final class Draw3D extends Draw2D {
 									if (arg1 < 0) {
 										return;
 									}
-									drawGouraudScanline(data, arg0, 0, 0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
+									drawGouraudScanline(data, arg0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
 									arg5 += local30;
 									arg3 += local3;
 									arg8 += local32;
@@ -525,7 +525,7 @@ public final class Draw3D extends Draw2D {
 									arg0 += width;
 								}
 							}
-							drawGouraudScanline(data, arg0, 0, 0, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
+							drawGouraudScanline(data, arg0, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
 							arg4 += local57;
 							arg3 += local3;
 							arg7 += local59;
@@ -572,7 +572,7 @@ public final class Draw3D extends Draw2D {
 									if (arg0 < 0) {
 										return;
 									}
-									drawGouraudScanline(data, arg1, 0, 0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
+									drawGouraudScanline(data, arg1, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
 									arg3 += local3;
 									arg5 += local57;
 									arg6 += local5;
@@ -580,7 +580,7 @@ public final class Draw3D extends Draw2D {
 									arg1 += width;
 								}
 							}
-							drawGouraudScanline(data, arg1, 0, 0, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
+							drawGouraudScanline(data, arg1, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
 							arg3 += local3;
 							arg4 += local30;
 							arg6 += local5;
@@ -599,7 +599,7 @@ public final class Draw3D extends Draw2D {
 									if (arg0 < 0) {
 										return;
 									}
-									drawGouraudScanline(data, arg1, 0, 0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
+									drawGouraudScanline(data, arg1, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
 									arg3 += local3;
 									arg5 += local57;
 									arg6 += local5;
@@ -607,7 +607,7 @@ public final class Draw3D extends Draw2D {
 									arg1 += width;
 								}
 							}
-							drawGouraudScanline(data, arg1, 0, 0, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
+							drawGouraudScanline(data, arg1, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
 							arg3 += local3;
 							arg4 += local30;
 							arg6 += local5;
@@ -644,7 +644,7 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									drawGouraudScanline(data, arg1, 0, 0, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
+									drawGouraudScanline(data, arg1, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
 									arg3 += local57;
 									arg4 += local30;
 									arg6 += local59;
@@ -652,7 +652,7 @@ public final class Draw3D extends Draw2D {
 									arg1 += width;
 								}
 							}
-							drawGouraudScanline(data, arg1, 0, 0, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
+							drawGouraudScanline(data, arg1, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
 							arg5 += local3;
 							arg4 += local30;
 							arg8 += local5;
@@ -671,7 +671,7 @@ public final class Draw3D extends Draw2D {
 									if (arg2 < 0) {
 										return;
 									}
-									drawGouraudScanline(data, arg1, 0, 0, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
+									drawGouraudScanline(data, arg1, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
 									arg3 += local57;
 									arg4 += local30;
 									arg6 += local59;
@@ -679,7 +679,7 @@ public final class Draw3D extends Draw2D {
 									arg1 += width;
 								}
 							}
-							drawGouraudScanline(data, arg1, 0, 0, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
+							drawGouraudScanline(data, arg1, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
 							arg5 += local3;
 							arg4 += local30;
 							arg8 += local5;
@@ -725,7 +725,7 @@ public final class Draw3D extends Draw2D {
 								if (arg1 < 0) {
 									return;
 								}
-								drawGouraudScanline(data, arg2, 0, 0, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
+								drawGouraudScanline(data, arg2, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
 								arg4 += local30;
 								arg3 += local3;
 								arg7 += local32;
@@ -733,7 +733,7 @@ public final class Draw3D extends Draw2D {
 								arg2 += width;
 							}
 						}
-						drawGouraudScanline(data, arg2, 0, 0, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
+						drawGouraudScanline(data, arg2, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
 						arg4 += local30;
 						arg5 += local57;
 						arg7 += local32;
@@ -752,7 +752,7 @@ public final class Draw3D extends Draw2D {
 								if (arg1 < 0) {
 									return;
 								}
-								drawGouraudScanline(data, arg2, 0, 0, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
+								drawGouraudScanline(data, arg2, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
 								arg4 += local30;
 								arg3 += local3;
 								arg7 += local32;
@@ -760,7 +760,7 @@ public final class Draw3D extends Draw2D {
 								arg2 += width;
 							}
 						}
-						drawGouraudScanline(data, arg2, 0, 0, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
+						drawGouraudScanline(data, arg2, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
 						arg4 += local30;
 						arg5 += local57;
 						arg7 += local32;
@@ -797,7 +797,7 @@ public final class Draw3D extends Draw2D {
 								if (arg0 < 0) {
 									return;
 								}
-								drawGouraudScanline(data, arg2, 0, 0, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
+								drawGouraudScanline(data, arg2, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
 								arg4 += local3;
 								arg5 += local57;
 								arg7 += local5;
@@ -805,7 +805,7 @@ public final class Draw3D extends Draw2D {
 								arg2 += width;
 							}
 						}
-						drawGouraudScanline(data, arg2, 0, 0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
+						drawGouraudScanline(data, arg2, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
 						arg3 += local30;
 						arg5 += local57;
 						arg6 += local32;
@@ -824,7 +824,7 @@ public final class Draw3D extends Draw2D {
 								if (arg0 < 0) {
 									return;
 								}
-								drawGouraudScanline(data, arg2, 0, 0, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
+								drawGouraudScanline(data, arg2, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
 								arg4 += local3;
 								arg5 += local57;
 								arg7 += local5;
@@ -832,7 +832,7 @@ public final class Draw3D extends Draw2D {
 								arg2 += width;
 							}
 						}
-						drawGouraudScanline(data, arg2, 0, 0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
+						drawGouraudScanline(data, arg2, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
 						arg3 += local30;
 						arg5 += local57;
 						arg6 += local32;
@@ -845,130 +845,131 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "([IIIIIIII)V")
-	private static void drawGouraudScanline(@OriginalArg(0) int[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7) {
-		@Pc(18) int local18;
-		@Pc(149) int local149;
-		@Pc(153) int local153;
-		@Pc(97) int local97;
-		@Pc(130) int local130;
+	private static void drawGouraudScanline(@OriginalArg(0) int[] pixels, @OriginalArg(1) int offset, @OriginalArg(4) int leftX, @OriginalArg(5) int rightX, @OriginalArg(6) int leftColor, @OriginalArg(7) int rightColor) {
+		@Pc(18) int colorStep;
+		@Pc(149) int alpha;
+		@Pc(153) int invAlpha;
+		@Pc(97) int color;
+		@Pc(130) int length;
+
 		if (jagged) {
 			if (testX) {
-				if (arg5 - arg4 > 3) {
-					local18 = (arg7 - arg6) / (arg5 - arg4);
+				if (rightX - leftX > 3) {
+					colorStep = (rightColor - leftColor) / (rightX - leftX);
 				} else {
-					local18 = 0;
+					colorStep = 0;
 				}
-				if (arg5 > safeX) {
-					arg5 = safeX;
+
+				if (rightX > safeX) {
+					rightX = safeX;
 				}
-				if (arg4 < 0) {
-					arg6 -= arg4 * local18;
-					arg4 = 0;
+
+				if (leftX < 0) {
+					leftColor -= leftX * colorStep;
+					leftX = 0;
 				}
-				if (arg4 >= arg5) {
+
+				if (leftX >= rightX) {
 					return;
 				}
-				arg1 += arg4;
-				arg3 = arg5 - arg4 >> 2;
-				local18 <<= 0x2;
-			} else if (arg4 < arg5) {
-				arg1 += arg4;
-				arg3 = arg5 - arg4 >> 2;
-				if (arg3 > 0) {
-					local18 = (arg7 - arg6) * reciprical15[arg3] >> 15;
+
+				offset += leftX;
+				length = rightX - leftX >> 2;
+				colorStep <<= 0x2;
+			} else if (leftX < rightX) {
+				offset += leftX;
+				length = rightX - leftX >> 2;
+				if (length > 0) {
+					colorStep = (rightColor - leftColor) * reciprical15[length] >> 15;
 				} else {
-					local18 = 0;
+					colorStep = 0;
 				}
 			} else {
 				return;
 			}
-			@Pc(104) int local104;
-			if (alpha == 0) {
-				while (true) {
-					arg3--;
-					if (arg3 < 0) {
-						local130 = arg5 - arg4 & 0x3;
-						if (local130 > 0) {
-							local97 = palette[arg6 >> 8];
-							do {
-								arg0[arg1++] = local97;
-								local130--;
-							} while (local130 > 0);
-							return;
-						}
-						break;
-					}
-					local97 = palette[arg6 >> 8];
-					arg6 += local18;
-					local104 = arg1 + 1;
-					arg0[arg1] = local97;
-					@Pc(109) int local109 = local104 + 1;
-					arg0[local104] = local97;
-					@Pc(114) int local114 = local109 + 1;
-					arg0[local109] = local97;
-					arg1 = local114 + 1;
-					arg0[local114] = local97;
+
+			if (Draw3D.alpha == 0) {
+				while (--length >= 0) {
+					color = palette[leftColor >> 8];
+					leftColor += colorStep;
+					pixels[offset++] = color;
+					pixels[offset++] = color;
+					pixels[offset++] = color;
+					pixels[offset++] = color;
+				}
+
+				length = rightX - leftX & 0x3;
+				if (length > 0) {
+					color = palette[leftColor >> 8];
+					do {
+						pixels[offset++] = color;
+						length--;
+					} while (length > 0);
 				}
 			} else {
-				local149 = alpha;
-				local153 = 256 - alpha;
-				while (true) {
-					arg3--;
-					if (arg3 < 0) {
-						local130 = arg5 - arg4 & 0x3;
-						if (local130 > 0) {
-							local97 = palette[arg6 >> 8];
-							local97 = ((local97 & 0xFF00FF) * local153 >> 8 & 0xFF00FF) + ((local97 & 0xFF00) * local153 >> 8 & 0xFF00);
-							do {
-								arg0[arg1++] = local97 + ((arg0[arg1] & 0xFF00FF) * local149 >> 8 & 0xFF00FF) + ((arg0[arg1] & 0xFF00) * local149 >> 8 & 0xFF00);
-								local130--;
-							} while (local130 > 0);
-						}
-						break;
-					}
-					local97 = palette[arg6 >> 8];
-					arg6 += local18;
-					local97 = ((local97 & 0xFF00FF) * local153 >> 8 & 0xFF00FF) + ((local97 & 0xFF00) * local153 >> 8 & 0xFF00);
-					local104 = arg1 + 1;
-					arg0[arg1] = local97 + ((arg0[local104] & 0xFF00FF) * local149 >> 8 & 0xFF00FF) + ((arg0[local104] & 0xFF00) * local149 >> 8 & 0xFF00);
-					arg0[local104++] = local97 + ((arg0[local104] & 0xFF00FF) * local149 >> 8 & 0xFF00FF) + ((arg0[local104] & 0xFF00) * local149 >> 8 & 0xFF00);
-					arg0[local104++] = local97 + ((arg0[local104] & 0xFF00FF) * local149 >> 8 & 0xFF00FF) + ((arg0[local104] & 0xFF00) * local149 >> 8 & 0xFF00);
-					arg1 = local104 + 1;
-					arg0[local104] = local97 + ((arg0[arg1] & 0xFF00FF) * local149 >> 8 & 0xFF00FF) + ((arg0[arg1] & 0xFF00) * local149 >> 8 & 0xFF00);
+				alpha = Draw3D.alpha;
+				invAlpha = 256 - Draw3D.alpha;
+
+				while (--length >= 0) {
+					color = palette[leftColor >> 8];
+					leftColor += colorStep;
+					color = ((color & 0xFF00FF) * invAlpha >> 8 & 0xFF00FF) + ((color & 0xFF00) * invAlpha >> 8 & 0xFF00);
+					pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+					offset++; // post-increment to fix a transparency bug resulting in overlapping lines
+					pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+					offset++;
+					pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+					offset++;
+					pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+					offset++;
+				}
+
+				length = rightX - leftX & 0x3;
+				if (length > 0) {
+					color = palette[leftColor >> 8];
+					color = ((color & 0xFF00FF) * invAlpha >> 8 & 0xFF00FF) + ((color & 0xFF00) * invAlpha >> 8 & 0xFF00);
+					do {
+						pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+						offset++;
+					} while (--length > 0);
 				}
 			}
-		} else if (arg4 < arg5) {
-			local18 = (arg7 - arg6) / (arg5 - arg4);
+		} else if (leftX < rightX) {
+			colorStep = (rightColor - leftColor) / (rightX - leftX);
+
 			if (testX) {
-				if (arg5 > safeX) {
-					arg5 = safeX;
+				if (rightX > safeX) {
+					rightX = safeX;
 				}
-				if (arg4 < 0) {
-					arg6 -= arg4 * local18;
-					arg4 = 0;
+
+				if (leftX < 0) {
+					leftColor -= leftX * colorStep;
+					leftX = 0;
 				}
-				if (arg4 >= arg5) {
+
+				if (leftX >= rightX) {
 					return;
 				}
 			}
-			@Pc(408) int local408 = arg1 + arg4;
-			local130 = arg5 - arg4;
-			if (alpha == 0) {
+
+			offset += leftX;
+			length = rightX - leftX;
+			if (Draw3D.alpha == 0) {
 				do {
-					arg0[local408++] = palette[arg6 >> 8];
-					arg6 += local18;
-					local130--;
-				} while (local130 > 0);
+					pixels[offset++] = palette[leftColor >> 8];
+					leftColor += colorStep;
+				} while (--length > 0);
 			} else {
-				local149 = alpha;
-				local153 = 256 - alpha;
+				alpha = Draw3D.alpha;
+				invAlpha = 256 - Draw3D.alpha;
+
 				do {
-					local97 = palette[arg6 >> 8];
-					arg6 += local18;
-					@Pc(467) int local467 = ((local97 & 0xFF00FF) * local153 >> 8 & 0xFF00FF) + ((local97 & 0xFF00) * local153 >> 8 & 0xFF00);
-					arg0[local408++] = local467 + ((arg0[local408] & 0xFF00FF) * local149 >> 8 & 0xFF00FF) + ((arg0[local408] & 0xFF00) * local149 >> 8 & 0xFF00);
-					local130--;
-				} while (local130 > 0);
+					color = palette[leftColor >> 8];
+					leftColor += colorStep;
+					color = ((color & 0xFF00FF) * invAlpha >> 8 & 0xFF00FF) + ((color & 0xFF00) * invAlpha >> 8 & 0xFF00);
+					pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+					offset++; // post-increment to fix a transparency bug resulting in overlapping lines
+				} while (--length > 0);
 			}
 		}
 	}
