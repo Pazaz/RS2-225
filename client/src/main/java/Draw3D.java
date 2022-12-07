@@ -76,15 +76,17 @@ public final class Draw3D extends Draw2D {
 	private static int[][] texturePalettes = new int[50][];
 
 	static {
-		for (@Pc(23) int local23 = 1; local23 < 512; local23++) {
-			reciprical15[local23] = 32768 / local23;
+		for (@Pc(23) int i = 1; i < 512; i++) {
+			reciprical15[i] = 32768 / i;
 		}
-		for (@Pc(36) int local36 = 1; local36 < 2048; local36++) {
-			reciprical16[local36] = 65536 / local36;
+
+		for (@Pc(36) int i = 1; i < 2048; i++) {
+			reciprical16[i] = 65536 / i;
 		}
-		for (@Pc(49) int local49 = 0; local49 < 2048; local49++) {
-			sin[local49] = (int) (Math.sin((double) local49 * 0.0030679615D) * 65536.0D);
-			cos[local49] = (int) (Math.cos((double) local49 * 0.0030679615D) * 65536.0D);
+
+		for (@Pc(49) int i = 0; i < 2048; i++) {
+			sin[i] = (int) (Math.sin((double) i * 0.0030679615D) * 65536.0D);
+			cos[i] = (int) (Math.cos((double) i * 0.0030679615D) * 65536.0D);
 		}
 	}
 
@@ -108,257 +110,281 @@ public final class Draw3D extends Draw2D {
 	@OriginalMember(owner = "client!gb", name = "c", descriptor = "(I)V")
 	public static void prepareOffsets() {
 		offsets = new int[height];
-		for (@Pc(5) int local5 = 0; local5 < height; local5++) {
-			offsets[local5] = width * local5;
+		for (@Pc(5) int line = 0; line < height; line++) {
+			offsets[line] = width * line;
 		}
 		centerX3D = width / 2;
 		centerY3D = height / 2;
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(III)V")
-	public static void prepareOffsets(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		offsets = new int[arg0];
-		for (@Pc(12) int local12 = 0; local12 < arg0; local12++) {
-			offsets[local12] = arg1 * local12;
+	public static void prepareOffsets(@OriginalArg(0) int y, @OriginalArg(1) int x) {
+		offsets = new int[y];
+		for (@Pc(12) int line = 0; line < y; line++) {
+			offsets[line] = x * line;
 		}
-		centerX3D = arg1 / 2;
-		centerY3D = arg0 / 2;
+		centerX3D = x / 2;
+		centerY3D = y / 2;
 	}
 
 	@OriginalMember(owner = "client!gb", name = "b", descriptor = "(Z)V")
 	public static void clearPools() {
 		texelPool = null;
-		for (@Pc(6) int local6 = 0; local6 < 50; local6++) {
-			activeTexels[local6] = null;
+		for (@Pc(6) int i = 0; i < 50; i++) {
+			activeTexels[i] = null;
 		}
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(II)V")
-	public static void setupPools(@OriginalArg(0) int arg0) {
+	public static void setupPools(@OriginalArg(0) int size) {
 		if (texelPool != null) {
 			return;
 		}
-		poolSize = arg0;
+
+		poolSize = size;
 		if (lowMemory) {
-			texelPool = new int[poolSize][16384];
+			texelPool = new int[poolSize][64 * 64 * 4];
 		} else {
-			texelPool = new int[poolSize][65536];
+			texelPool = new int[poolSize][128 * 128 * 4];
 		}
-		for (@Pc(5) int local5 = 0; local5 < 50; local5++) {
-			activeTexels[local5] = null;
+
+		for (@Pc(5) int i = 0; i < 50; i++) {
+			activeTexels[i] = null;
 		}
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(BLclient!ub;)V")
-	public static void unpackTextures(@OriginalArg(1) FileArchive arg1) {
+	public static void unpackTextures(@OriginalArg(1) FileArchive archive) {
 		textureCount = 0;
-		for (@Pc(9) int local9 = 0; local9 < 50; local9++) {
+
+		for (@Pc(9) int i = 0; i < 50; i++) {
 			try {
-				textures[local9] = new IndexedSprite(arg1, String.valueOf(local9), 0);
-				if (lowMemory && textures[local9].clipWidth == 128) {
-					textures[local9].shrink();
+				textures[i] = new IndexedSprite(archive, String.valueOf(i), 0);
+				if (lowMemory && textures[i].clipWidth == 128) {
+					textures[i].shrink();
 				} else {
-					textures[local9].crop();
+					textures[i].crop();
 				}
 				textureCount++;
-			} catch (@Pc(47) Exception local47) {
+			} catch (@Pc(47) Exception ignored) {
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!gb", name = "b", descriptor = "(II)I")
-	public static int getAverageTextureRgb(@OriginalArg(1) int arg1) {
-		if (textureColors[arg1] != 0) {
-			return textureColors[arg1];
+	public static int getAverageTextureRgb(@OriginalArg(1) int tex) {
+		if (textureColors[tex] != 0) {
+			return textureColors[tex];
 		}
 
-		@Pc(13) int local13 = 0;
-		@Pc(15) int local15 = 0;
-		@Pc(17) int local17 = 0;
-		@Pc(22) int local22 = texturePalettes[arg1].length;
-		for (@Pc(24) int local24 = 0; local24 < local22; local24++) {
-			local13 += texturePalettes[arg1][local24] >> 16 & 0xFF;
-			local15 += texturePalettes[arg1][local24] >> 8 & 0xFF;
-			local17 += texturePalettes[arg1][local24] & 0xFF;
+		@Pc(13) int r = 0;
+		@Pc(15) int g = 0;
+		@Pc(17) int b = 0;
+		@Pc(22) int length = texturePalettes[tex].length;
+		for (@Pc(24) int i = 0; i < length; i++) {
+			r += texturePalettes[tex][i] >> 16 & 0xFF;
+			g += texturePalettes[tex][i] >> 8 & 0xFF;
+			b += texturePalettes[tex][i] & 0xFF;
 		}
 
-		@Pc(80) int local80 = (local13 / local22 << 16) + (local15 / local22 << 8) + local17 / local22;
-		local80 = powRgb(local80, 1.4D);
-		if (local80 == 0) {
-			local80 = 1;
+		@Pc(80) int rgb = (r / length << 16) + (g / length << 8) + b / length;
+		rgb = powRgb(rgb, 1.4D);
+		if (rgb == 0) {
+			rgb = 1;
 		}
 
-		textureColors[arg1] = local80;
-		return local80;
+		textureColors[tex] = rgb;
+		return rgb;
 	}
 
 	@OriginalMember(owner = "client!gb", name = "c", descriptor = "(II)V")
-	public static void updateTexture(@OriginalArg(0) int arg0) {
-		if (activeTexels[arg0] != null) {
-			texelPool[poolSize++] = activeTexels[arg0];
-			activeTexels[arg0] = null;
+	public static void updateTexture(@OriginalArg(0) int id) {
+		if (activeTexels[id] != null) {
+			texelPool[poolSize++] = activeTexels[id];
+			activeTexels[id] = null;
 		}
 	}
 
 	@OriginalMember(owner = "client!gb", name = "d", descriptor = "(I)[I")
-	private static int[] getTexels(@OriginalArg(0) int arg0) {
-		textureCycles[arg0] = cycle++;
-		if (activeTexels[arg0] != null) {
-			return activeTexels[arg0];
+	private static int[] getTexels(@OriginalArg(0) int id) {
+		textureCycles[id] = cycle++;
+		if (activeTexels[id] != null) {
+			return activeTexels[id];
 		}
 
-		@Pc(27) int[] local27;
-		@Pc(39) int local39;
+		@Pc(27) int[] texels;
 		if (poolSize > 0) {
-			local27 = texelPool[--poolSize];
+			texels = texelPool[--poolSize];
 			texelPool[poolSize] = null;
 		} else {
-			@Pc(35) int local35 = 0;
-			@Pc(37) int local37 = -1;
-			for (local39 = 0; local39 < textureCount; local39++) {
-				if (activeTexels[local39] != null && (textureCycles[local39] < local35 || local37 == -1)) {
-					local35 = textureCycles[local39];
-					local37 = local39;
+			@Pc(35) int cycle = 0;
+			@Pc(37) int selected = -1;
+
+			for (@Pc(39) int i = 0; i < textureCount; i++) {
+				if (activeTexels[i] != null && (textureCycles[i] < cycle || selected == -1)) {
+					cycle = textureCycles[i];
+					selected = i;
 				}
 			}
-			local27 = activeTexels[local37];
-			activeTexels[local37] = null;
+
+			texels = activeTexels[selected];
+			activeTexels[selected] = null;
 		}
 
-		activeTexels[arg0] = local27;
-		@Pc(79) IndexedSprite local79 = textures[arg0];
-		@Pc(83) int[] local83 = texturePalettes[arg0];
-		@Pc(106) int local106;
+		activeTexels[id] = texels;
+		@Pc(79) IndexedSprite texture = textures[id];
+		@Pc(83) int[] palette = texturePalettes[id];
+
 		if (lowMemory) {
-			textureHasTransparency[arg0] = false;
-			for (local39 = 0; local39 < 4096; local39++) {
-				local106 = local27[local39] = local83[local79.pixels[local39]] & 0xF8F8FF;
-				if (local106 == 0) {
-					textureHasTransparency[arg0] = true;
+			textureHasTransparency[id] = false;
+			for (int i = 0; i < 64 * 64; i++) {
+				int rgb = texels[i] = palette[texture.pixels[i]] & 0xF8F8FF;
+				if (rgb == 0) {
+					textureHasTransparency[id] = true;
 				}
-				local27[local39 + 4096] = local106 - (local106 >>> 3) & 0xF8F8FF;
-				local27[local39 + 8192] = local106 - (local106 >>> 2) & 0xF8F8FF;
-				local27[local39 + 12288] = local106 - (local106 >>> 2) - (local106 >>> 3) & 0xF8F8FF;
+
+				texels[i + (64 * 64)] = rgb - (rgb >>> 3) & 0xF8F8FF;
+				texels[i + (64 * 64 * 2)] = rgb - (rgb >>> 2) & 0xF8F8FF;
+				texels[i + (64 * 64 * 3)] = rgb - (rgb >>> 2) - (rgb >>> 3) & 0xF8F8FF;
 			}
 		} else {
-			if (local79.spriteWidth == 64) {
-				for (local39 = 0; local39 < 128; local39++) {
-					for (local106 = 0; local106 < 128; local106++) {
-						local27[local106 + (local39 << 7)] = local83[local79.pixels[(local106 >> 1) + (local39 >> 1 << 6)]];
+			if (texture.spriteWidth == 64) {
+				// upscale 64x64 textures to 128x128
+				for (int y = 0; y < 128; y++) {
+					for (int x = 0; x < 128; x++) {
+						texels[x + (y << 7)] = palette[texture.pixels[(x >> 1) + (y >> 1 << 6)]];
 					}
 				}
 			} else {
-				for (local39 = 0; local39 < 16384; local39++) {
-					local27[local39] = local83[local79.pixels[local39]];
+				for (int i = 0; i < 128 * 128; i++) {
+					texels[i] = palette[texture.pixels[i]];
 				}
 			}
 
-			textureHasTransparency[arg0] = false;
-			for (local39 = 0; local39 < 16384; local39++) {
-				local27[local39] &= 0xF8F8FF;
-				local106 = local27[local39];
-				if (local106 == 0) {
-					textureHasTransparency[arg0] = true;
+			textureHasTransparency[id] = false;
+			for (int i = 0; i < 128 * 128; i++) {
+				texels[i] &= 0xF8F8FF;
+
+				int rgb = texels[i];
+				if (rgb == 0) {
+					textureHasTransparency[id] = true;
 				}
-				local27[local39 + 16384] = local106 - (local106 >>> 3) & 0xF8F8FF;
-				local27[local39 + 32768] = local106 - (local106 >>> 2) & 0xF8F8FF;
-				local27[local39 + 49152] = local106 - (local106 >>> 2) - (local106 >>> 3) & 0xF8F8FF;
+
+				texels[i + (128 * 128)] = rgb - (rgb >>> 3) & 0xF8F8FF;
+				texels[i + (128 * 128 * 2)] = rgb - (rgb >>> 2) & 0xF8F8FF;
+				texels[i + (128 * 128 * 3)] = rgb - (rgb >>> 2) - (rgb >>> 3) & 0xF8F8FF;
 			}
 		}
 
-		return local27;
+		return texels;
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(ZD)V")
-	public static void setBrightness(@OriginalArg(1) double arg1) {
-		@Pc(9) double local9 = arg1 + Math.random() * 0.03D - 0.015D;
-		@Pc(11) int local11 = 0;
-		for (@Pc(13) int local13 = 0; local13 < 512; local13++) {
-			@Pc(24) double local24 = (double) (local13 / 8) / 64.0D + 0.0078125D;
-			@Pc(33) double local33 = (double) (local13 & 0x7) / 8.0D + 0.0625D;
-			for (@Pc(35) int local35 = 0; local35 < 128; local35++) {
-				@Pc(42) double local42 = (double) local35 / 128.0D;
-				@Pc(44) double local44 = local42;
-				@Pc(46) double local46 = local42;
-				@Pc(48) double local48 = local42;
-				if (local33 != 0.0D) {
-					@Pc(62) double local62;
-					if (local42 < 0.5D) {
-						local62 = local42 * (local33 + 1.0D);
+	public static void setBrightness(@OriginalArg(1) double brightness) {
+		brightness += Math.random() * 0.03D - 0.015D;
+
+		@Pc(11) int offset = 0;
+		for (@Pc(13) int y = 0; y < 512; y++) {
+			@Pc(24) double hue = (double) (y / 8) / 64.0D + 0.0078125D;
+			@Pc(33) double saturation = (double) (y & 0x7) / 8.0D + 0.0625D;
+
+			for (@Pc(35) int x = 0; x < 128; x++) {
+				@Pc(42) double lightness = (double) x / 128.0D;
+
+				@Pc(44) double r = lightness;
+				@Pc(46) double g = lightness;
+				@Pc(48) double b = lightness;
+
+				if (saturation != 0.0D) {
+					@Pc(62) double q;
+					if (lightness < 0.5D) {
+						q = lightness * (saturation + 1.0D);
 					} else {
-						local62 = local42 + local33 - local42 * local33;
+						q = lightness + saturation - lightness * saturation;
 					}
-					@Pc(78) double local78 = local42 * 2.0D - local62;
-					@Pc(82) double local82 = local24 + 0.3333333333333333D;
-					if (local82 > 1.0D) {
-						local82--;
+
+					@Pc(78) double p = lightness * 2.0D - q;
+					@Pc(82) double t = hue + 0.3333333333333333D;
+					if (t > 1.0D) {
+						t--;
 					}
-					@Pc(96) double local96 = local24 - 0.3333333333333333D;
-					if (local96 < 0.0D) {
-						local96++;
+
+					@Pc(96) double d11 = hue - 0.3333333333333333D;
+					if (d11 < 0.0D) {
+						d11++;
 					}
-					if (local82 * 6.0D < 1.0D) {
-						local44 = local78 + (local62 - local78) * 6.0D * local82;
-					} else if (local82 * 2.0D < 1.0D) {
-						local44 = local62;
-					} else if (local82 * 3.0D < 2.0D) {
-						local44 = local78 + (local62 - local78) * (0.6666666666666666D - local82) * 6.0D;
+
+					if (t * 6.0D < 1.0D) {
+						r = p + (q - p) * 6.0D * t;
+					} else if (t * 2.0D < 1.0D) {
+						r = q;
+					} else if (t * 3.0D < 2.0D) {
+						r = p + (q - p) * (0.6666666666666666D - t) * 6.0D;
 					} else {
-						local44 = local78;
+						r = p;
 					}
-					if (local24 * 6.0D < 1.0D) {
-						local46 = local78 + (local62 - local78) * 6.0D * local24;
-					} else if (local24 * 2.0D < 1.0D) {
-						local46 = local62;
-					} else if (local24 * 3.0D < 2.0D) {
-						local46 = local78 + (local62 - local78) * (0.6666666666666666D - local24) * 6.0D;
+
+					if (hue * 6.0D < 1.0D) {
+						g = p + (q - p) * 6.0D * hue;
+					} else if (hue * 2.0D < 1.0D) {
+						g = q;
+					} else if (hue * 3.0D < 2.0D) {
+						g = p + (q - p) * (0.6666666666666666D - hue) * 6.0D;
 					} else {
-						local46 = local78;
+						g = p;
 					}
-					if (local96 * 6.0D < 1.0D) {
-						local48 = local78 + (local62 - local78) * 6.0D * local96;
-					} else if (local96 * 2.0D < 1.0D) {
-						local48 = local62;
-					} else if (local96 * 3.0D < 2.0D) {
-						local48 = local78 + (local62 - local78) * (0.6666666666666666D - local96) * 6.0D;
+
+					if (d11 * 6.0D < 1.0D) {
+						b = p + (q - p) * 6.0D * d11;
+					} else if (d11 * 2.0D < 1.0D) {
+						b = q;
+					} else if (d11 * 3.0D < 2.0D) {
+						b = p + (q - p) * (0.6666666666666666D - d11) * 6.0D;
 					} else {
-						local48 = local78;
+						b = p;
 					}
 				}
-				@Pc(259) int local259 = (int) (local44 * 256.0D);
-				@Pc(264) int local264 = (int) (local46 * 256.0D);
-				@Pc(269) int local269 = (int) (local48 * 256.0D);
-				@Pc(279) int local279 = (local259 << 16) + (local264 << 8) + local269;
-				@Pc(283) int local283 = powRgb(local279, local9);
-				palette[local11++] = local283;
+
+				@Pc(259) int intR = (int) (r * 256.0D);
+				@Pc(264) int intG = (int) (g * 256.0D);
+				@Pc(269) int intB = (int) (b * 256.0D);
+
+				@Pc(279) int rgb = (intR << 16) + (intG << 8) + intB;
+				rgb = powRgb(rgb, brightness);
+				palette[offset++] = rgb;
 			}
 		}
-		for (@Pc(298) int local298 = 0; local298 < 50; local298++) {
-			if (textures[local298] != null) {
-				@Pc(309) int[] local309 = textures[local298].palette;
-				texturePalettes[local298] = new int[local309.length];
-				for (@Pc(317) int local317 = 0; local317 < local309.length; local317++) {
-					texturePalettes[local298][local317] = powRgb(local309[local317], local9);
+
+		for (@Pc(298) int id = 0; id < 50; id++) {
+			if (textures[id] != null) {
+				@Pc(309) int[] palette = textures[id].palette;
+				texturePalettes[id] = new int[palette.length];
+
+				for (@Pc(317) int i = 0; i < palette.length; i++) {
+					texturePalettes[id][i] = powRgb(palette[i], brightness);
 				}
 			}
 		}
-		for (@Pc(344) int local344 = 0; local344 < 50; local344++) {
-			updateTexture(local344);
+
+		for (@Pc(344) int id = 0; id < 50; id++) {
+			updateTexture(id);
 		}
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(ID)I")
-	private static int powRgb(@OriginalArg(0) int arg0, @OriginalArg(1) double arg1) {
-		@Pc(6) double local6 = (double) (arg0 >> 16) / 256.0D;
-		@Pc(15) double local15 = (double) (arg0 >> 8 & 0xFF) / 256.0D;
-		@Pc(22) double local22 = (double) (arg0 & 0xFF) / 256.0D;
-		@Pc(26) double local26 = Math.pow(local6, arg1);
-		@Pc(30) double local30 = Math.pow(local15, arg1);
-		@Pc(34) double local34 = Math.pow(local22, arg1);
-		@Pc(39) int local39 = (int) (local26 * 256.0D);
-		@Pc(44) int local44 = (int) (local30 * 256.0D);
-		@Pc(49) int local49 = (int) (local34 * 256.0D);
-		return (local39 << 16) + (local44 << 8) + local49;
+	private static int powRgb(@OriginalArg(0) int color, @OriginalArg(1) double brightness) {
+		@Pc(6) double r = (double) (color >> 16) / 256.0D;
+		@Pc(15) double g = (double) (color >> 8 & 0xFF) / 256.0D;
+		@Pc(22) double b = (double) (color & 0xFF) / 256.0D;
+
+		r = Math.pow(r, brightness);
+		g = Math.pow(g, brightness);
+		b = Math.pow(b, brightness);
+
+		@Pc(39) int intR = (int) (r * 256.0D);
+		@Pc(44) int intG = (int) (g * 256.0D);
+		@Pc(49) int intB = (int) (b * 256.0D);
+		return (intR << 16) + (intG << 8) + intB;
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(IIIIIIIII)V")
