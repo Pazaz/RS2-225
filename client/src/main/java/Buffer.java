@@ -318,4 +318,14 @@ public final class Buffer extends CacheableNode {
 		this.p1(encRaw.length);
 		this.pdata(encRaw, encRaw.length, 0);
 	}
+
+	public static int getcrc(byte[] data) {
+		int crc = -1;
+		for (int j = 0; j < data.length; j++) {
+			crc = crc >>> 8 ^ crctable[(crc ^ data[j]) & 0xff];
+		}
+
+		crc = ~crc;
+		return crc;
+	}
 }

@@ -11,7 +11,6 @@ import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
-import java.util.zip.CRC32;
 
 @OriginalClass("client!client")
 public final class client extends GameShell {
@@ -1026,9 +1025,6 @@ public final class client extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "Qf", descriptor = "[I")
 	private int[] bfsStepZ = new int[4000];
-
-	@OriginalMember(owner = "client!client", name = "Rf", descriptor = "Ljava/util/zip/CRC32;")
-	private final CRC32 crc32 = new CRC32();
 
 	@OriginalMember(owner = "client!client", name = "Wf", descriptor = "I")
 	private int chatbackComponentId = -1;
@@ -2192,9 +2188,7 @@ public final class client extends GameShell {
 				@Pc(52) byte[] local52 = signlink.cacheload(local19 + ".mid");
 				@Pc(69) int local69;
 				if (local52 != null && local22 != 12345678) {
-					this.crc32.reset();
-					this.crc32.update(local52);
-					local69 = (int) this.crc32.getValue();
+					local69 = Buffer.getcrc(local52);
 					if (local69 != local22) {
 						local52 = null;
 					}
@@ -3089,9 +3083,7 @@ public final class client extends GameShell {
 		@Pc(6) byte[] local6 = signlink.cacheload(arg2);
 		@Pc(20) int local20;
 		if (local6 != null) {
-			this.crc32.reset();
-			this.crc32.update(local6);
-			local20 = (int) this.crc32.getValue();
+			local20 = Buffer.getcrc(local6);
 			if (local20 != arg1) {
 				local6 = null;
 			}
@@ -9411,9 +9403,7 @@ public final class client extends GameShell {
 					if (local354 != 0) {
 						local686 = signlink.cacheload("m" + local650 + "_" + local321);
 						if (local686 != null) {
-							this.crc32.reset();
-							this.crc32.update(local686);
-							if ((int) this.crc32.getValue() != local354) {
+							if (Buffer.getcrc(local686) != local354) {
 								local686 = null;
 							}
 						}
@@ -9430,9 +9420,7 @@ public final class client extends GameShell {
 					if (local662 != 0) {
 						local686 = signlink.cacheload("l" + local650 + "_" + local321);
 						if (local686 != null) {
-							this.crc32.reset();
-							this.crc32.update(local686);
-							if ((int) this.crc32.getValue() != local662) {
+							if (Buffer.getcrc(local686) != local662) {
 								local686 = null;
 							}
 						}
