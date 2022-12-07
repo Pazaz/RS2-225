@@ -46,8 +46,8 @@ public final class SeqType {
 	public int replaycount = 99;
 
 	@OriginalMember(owner = "client!jc", name = "a", descriptor = "(Lclient!ub;I)V")
-	public static void unpack(@OriginalArg(0) FileArchive arg0) {
-		@Pc(9) Buffer local9 = new Buffer(arg0.read("seq.dat", null));
+	public static void unpack(@OriginalArg(0) FileArchive archive) {
+		@Pc(9) Buffer local9 = new Buffer(archive.read("seq.dat", null));
 		count = local9.g2();
 		if (instances == null) {
 			instances = new SeqType[count];

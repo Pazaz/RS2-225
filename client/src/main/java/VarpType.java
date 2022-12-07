@@ -46,8 +46,8 @@ public final class VarpType {
 	private boolean opcode8 = false;
 
 	@OriginalMember(owner = "client!lc", name = "a", descriptor = "(Lclient!ub;I)V")
-	public static void unpack(@OriginalArg(0) FileArchive arg0) {
-		@Pc(9) Buffer local9 = new Buffer(arg0.read("varp.dat", null));
+	public static void unpack(@OriginalArg(0) FileArchive archive) {
+		@Pc(9) Buffer local9 = new Buffer(archive.read("varp.dat", null));
 		opcode3Count = 0;
 		count = local9.g2();
 		if (instances == null) {

@@ -31,11 +31,11 @@ public final class SeqFrame {
 	public int[] z;
 
 	@OriginalMember(owner = "client!g", name = "a", descriptor = "(ZLclient!ub;)V")
-	public static void unpack(@OriginalArg(1) FileArchive arg1) {
-		@Pc(17) Buffer local17 = new Buffer(arg1.read("frame_head.dat", null));
-		@Pc(27) Buffer local27 = new Buffer(arg1.read("frame_tran1.dat", null));
-		@Pc(37) Buffer local37 = new Buffer(arg1.read("frame_tran2.dat", null));
-		@Pc(47) Buffer local47 = new Buffer(arg1.read("frame_del.dat", null));
+	public static void unpack(@OriginalArg(1) FileArchive archive) {
+		@Pc(17) Buffer local17 = new Buffer(archive.read("frame_head.dat", null));
+		@Pc(27) Buffer local27 = new Buffer(archive.read("frame_tran1.dat", null));
+		@Pc(37) Buffer local37 = new Buffer(archive.read("frame_tran2.dat", null));
+		@Pc(47) Buffer local47 = new Buffer(archive.read("frame_del.dat", null));
 		@Pc(50) int local50 = local17.g2();
 		@Pc(53) int local53 = local17.g2();
 		instances = new SeqFrame[local53 + 1];

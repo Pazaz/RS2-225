@@ -91,9 +91,9 @@ public final class NpcType {
 	private int resizez = 128;
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(Lclient!ub;)V")
-	public static void unpack(@OriginalArg(0) FileArchive arg0) {
-		dat = new Buffer(arg0.read("npc.dat", null));
-		@Pc(21) Buffer local21 = new Buffer(arg0.read("npc.idx", null));
+	public static void unpack(@OriginalArg(0) FileArchive archive) {
+		dat = new Buffer(archive.read("npc.dat", null));
+		@Pc(21) Buffer local21 = new Buffer(archive.read("npc.idx", null));
 		count = local21.g2();
 		offsets = new int[count];
 		@Pc(29) int local29 = 2;

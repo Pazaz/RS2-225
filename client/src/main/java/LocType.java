@@ -130,9 +130,9 @@ public final class LocType {
 	public int id = -1;
 
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "(Lclient!ub;)V")
-	public static void unpack(@OriginalArg(0) FileArchive arg0) {
-		dat = new Buffer(arg0.read("loc.dat", null));
-		@Pc(21) Buffer local21 = new Buffer(arg0.read("loc.idx", null));
+	public static void unpack(@OriginalArg(0) FileArchive archive) {
+		dat = new Buffer(archive.read("loc.dat", null));
+		@Pc(21) Buffer local21 = new Buffer(archive.read("loc.idx", null));
 		count = local21.g2();
 		offsets = new int[count];
 		@Pc(29) int local29 = 2;

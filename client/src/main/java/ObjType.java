@@ -136,9 +136,9 @@ public final class ObjType {
 	public int id = -1;
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(Lclient!ub;)V")
-	public static void unpack(@OriginalArg(0) FileArchive arg0) {
-		dat = new Buffer(arg0.read("obj.dat", null));
-		@Pc(21) Buffer local21 = new Buffer(arg0.read("obj.idx", null));
+	public static void unpack(@OriginalArg(0) FileArchive archive) {
+		dat = new Buffer(archive.read("obj.dat", null));
+		@Pc(21) Buffer local21 = new Buffer(archive.read("obj.idx", null));
 		count = local21.g2();
 		offsets = new int[count];
 		@Pc(29) int local29 = 2;

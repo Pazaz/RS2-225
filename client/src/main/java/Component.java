@@ -184,10 +184,10 @@ public final class Component {
 	public String option;
 
 	@OriginalMember(owner = "client!hc", name = "a", descriptor = "(Lclient!ub;[Lclient!jb;ILclient!ub;)V")
-	public static void unpack(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) Font[] arg1, @OriginalArg(3) FileArchive arg3) {
+	public static void unpack(@OriginalArg(0) FileArchive mediaArchive, @OriginalArg(1) Font[] arg1, @OriginalArg(3) FileArchive interfaceArchive) {
 		spriteCache = new Cache(50000);
 		modelCache = new Cache(50000);
-		@Pc(27) Buffer local27 = new Buffer(arg3.read("data", null));
+		@Pc(27) Buffer local27 = new Buffer(interfaceArchive.read("data", null));
 		@Pc(29) int local29 = -1;
 		@Pc(32) int local32 = local27.g2();
 		instances = new Component[local32];
@@ -275,9 +275,9 @@ public final class Component {
 							local62.inventoryOffsetX[local155] = local27.g2b();
 							local62.inventoryOffsetY[local155] = local27.g2b();
 							@Pc(352) String local352 = local27.gstr();
-							if (arg0 != null && local352.length() > 0) {
+							if (mediaArchive != null && local352.length() > 0) {
 								@Pc(361) int local361 = local352.lastIndexOf(",");
-								local62.inventorySprite[local155] = getSprite(arg0, Integer.parseInt(local352.substring(local361 + 1)), local352.substring(0, local361));
+								local62.inventorySprite[local155] = getSprite(mediaArchive, Integer.parseInt(local352.substring(local361 + 1)), local352.substring(0, local361));
 							}
 						}
 					}
@@ -313,14 +313,14 @@ public final class Component {
 				}
 				if (local62.type == 5) {
 					@Pc(511) String local511 = local27.gstr();
-					if (arg0 != null && local511.length() > 0) {
+					if (mediaArchive != null && local511.length() > 0) {
 						local160 = local511.lastIndexOf(",");
-						local62.graphic = getSprite(arg0, Integer.parseInt(local511.substring(local160 + 1)), local511.substring(0, local160));
+						local62.graphic = getSprite(mediaArchive, Integer.parseInt(local511.substring(local160 + 1)), local511.substring(0, local160));
 					}
 					local511 = local27.gstr();
-					if (arg0 != null && local511.length() > 0) {
+					if (mediaArchive != null && local511.length() > 0) {
 						local160 = local511.lastIndexOf(",");
-						local62.activegraphic = getSprite(arg0, Integer.parseInt(local511.substring(local160 + 1)), local511.substring(0, local160));
+						local62.activegraphic = getSprite(mediaArchive, Integer.parseInt(local511.substring(local160 + 1)), local511.substring(0, local160));
 					}
 				}
 				if (local62.type == 6) {

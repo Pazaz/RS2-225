@@ -28,17 +28,17 @@ public final class SoundTrack {
 	private final SoundTone[] tones = new SoundTone[10];
 
 	@OriginalMember(owner = "client!yb", name = "a", descriptor = "(Lclient!kb;I)V")
-	public static void load(@OriginalArg(0) Buffer arg0) {
+	public static void unpack(@OriginalArg(0) Buffer archive) {
 		bbuf = new byte[441000];
 		buffer = new Buffer(bbuf);
 		SoundTone.init();
 		while (true) {
-			@Pc(16) int local16 = arg0.g2();
+			@Pc(16) int local16 = archive.g2();
 			if (local16 == 65535) {
 				return;
 			}
 			tracks[local16] = new SoundTrack();
-			tracks[local16].read(arg0);
+			tracks[local16].read(archive);
 			delays[local16] = tracks[local16].trim();
 		}
 	}

@@ -52,8 +52,8 @@ public final class SpotAnimType {
 	public int resizev = 128;
 
 	@OriginalMember(owner = "client!kc", name = "a", descriptor = "(Lclient!ub;I)V")
-	public static void unpack(@OriginalArg(0) FileArchive arg0) {
-		@Pc(13) Buffer local13 = new Buffer(arg0.read("spotanim.dat", null));
+	public static void unpack(@OriginalArg(0) FileArchive archive) {
+		@Pc(13) Buffer local13 = new Buffer(archive.read("spotanim.dat", null));
 		count = local13.g2();
 		if (instances == null) {
 			instances = new SpotAnimType[count];

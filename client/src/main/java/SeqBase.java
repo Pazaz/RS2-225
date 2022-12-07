@@ -19,10 +19,10 @@ public final class SeqBase {
 	public int[][] groupLabels;
 
 	@OriginalMember(owner = "client!f", name = "a", descriptor = "(ZLclient!ub;)V")
-	public static void unpack(@OriginalArg(1) FileArchive arg1) {
-		@Pc(11) Buffer local11 = new Buffer(arg1.read("base_head.dat", null));
-		@Pc(21) Buffer local21 = new Buffer(arg1.read("base_type.dat", null));
-		@Pc(31) Buffer local31 = new Buffer(arg1.read("base_label.dat", null));
+	public static void unpack(@OriginalArg(1) FileArchive archive) {
+		@Pc(11) Buffer local11 = new Buffer(archive.read("base_head.dat", null));
+		@Pc(21) Buffer local21 = new Buffer(archive.read("base_type.dat", null));
+		@Pc(31) Buffer local31 = new Buffer(archive.read("base_label.dat", null));
 		@Pc(34) int local34 = local11.g2();
 		@Pc(37) int local37 = local11.g2();
 		instances = new SeqBase[local37 + 1];

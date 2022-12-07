@@ -28,18 +28,18 @@ public final class ImageProducerFrameBuffer implements ImageProducer, ImageObser
 	private final Image image;
 
 	@OriginalMember(owner = "client!qb", name = "<init>", descriptor = "(Ljava/awt/Component;III)V")
-	public ImageProducerFrameBuffer(@OriginalArg(0) Component arg0, @OriginalArg(1) int arg1, @OriginalArg(3) int arg3) {
-		this.width = arg1;
-		this.height = arg3;
-		this.pixels = new int[arg1 * arg3];
+	public ImageProducerFrameBuffer(@OriginalArg(0) Component component, @OriginalArg(1) int width, @OriginalArg(3) int height) {
+		this.width = width;
+		this.height = height;
+		this.pixels = new int[width * height];
 		this.colorModel = new DirectColorModel(32, 16711680, 65280, 255);
-		this.image = arg0.createImage(this);
+		this.image = component.createImage(this);
 		this.setPixels();
-		arg0.prepareImage(this.image, this);
+		component.prepareImage(this.image, this);
 		this.setPixels();
-		arg0.prepareImage(this.image, this);
+		component.prepareImage(this.image, this);
 		this.setPixels();
-		arg0.prepareImage(this.image, this);
+		component.prepareImage(this.image, this);
 		this.makeTarget();
 	}
 
@@ -49,44 +49,44 @@ public final class ImageProducerFrameBuffer implements ImageProducer, ImageObser
 	}
 
 	@OriginalMember(owner = "client!qb", name = "a", descriptor = "(ILjava/awt/Graphics;II)V")
-	public void drawAt(@OriginalArg(0) int arg0, @OriginalArg(1) Graphics arg1, @OriginalArg(2) int arg2) {
+	public void drawAt(@OriginalArg(0) int y, @OriginalArg(1) Graphics g, @OriginalArg(2) int xg2) {
 		this.setPixels();
-		arg1.drawImage(this.image, arg2, arg0, this);
+		g.drawImage(this.image, xg2, y, this);
 	}
 
 	@OriginalMember(owner = "client!qb", name = "addConsumer", descriptor = "(Ljava/awt/image/ImageConsumer;)V")
 	@Override
-	public synchronized void addConsumer(@OriginalArg(0) ImageConsumer arg0) {
-		this.consumer = arg0;
-		arg0.setDimensions(this.width, this.height);
-		arg0.setProperties(null);
-		arg0.setColorModel(this.colorModel);
-		arg0.setHints(14);
+	public synchronized void addConsumer(@OriginalArg(0) ImageConsumer consumer) {
+		this.consumer = consumer;
+		consumer.setDimensions(this.width, this.height);
+		consumer.setProperties(null);
+		consumer.setColorModel(this.colorModel);
+		consumer.setHints(14);
 	}
 
 	@OriginalMember(owner = "client!qb", name = "isConsumer", descriptor = "(Ljava/awt/image/ImageConsumer;)Z")
 	@Override
-	public synchronized boolean isConsumer(@OriginalArg(0) ImageConsumer arg0) {
-		return this.consumer == arg0;
+	public synchronized boolean isConsumer(@OriginalArg(0) ImageConsumer consumer) {
+		return this.consumer == consumer;
 	}
 
 	@OriginalMember(owner = "client!qb", name = "removeConsumer", descriptor = "(Ljava/awt/image/ImageConsumer;)V")
 	@Override
-	public synchronized void removeConsumer(@OriginalArg(0) ImageConsumer arg0) {
-		if (this.consumer == arg0) {
+	public synchronized void removeConsumer(@OriginalArg(0) ImageConsumer consumer) {
+		if (this.consumer == consumer) {
 			this.consumer = null;
 		}
 	}
 
 	@OriginalMember(owner = "client!qb", name = "startProduction", descriptor = "(Ljava/awt/image/ImageConsumer;)V")
 	@Override
-	public void startProduction(@OriginalArg(0) ImageConsumer arg0) {
-		this.addConsumer(arg0);
+	public void startProduction(@OriginalArg(0) ImageConsumer consumer) {
+		this.addConsumer(consumer);
 	}
 
 	@OriginalMember(owner = "client!qb", name = "requestTopDownLeftRightResend", descriptor = "(Ljava/awt/image/ImageConsumer;)V")
 	@Override
-	public void requestTopDownLeftRightResend(@OriginalArg(0) ImageConsumer arg0) {
+	public void requestTopDownLeftRightResend(@OriginalArg(0) ImageConsumer consumer) {
 		System.out.println("TDLR");
 	}
 
@@ -100,7 +100,7 @@ public final class ImageProducerFrameBuffer implements ImageProducer, ImageObser
 
 	@OriginalMember(owner = "client!qb", name = "imageUpdate", descriptor = "(Ljava/awt/Image;IIIII)Z")
 	@Override
-	public boolean imageUpdate(@OriginalArg(0) Image arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
+	public boolean imageUpdate(@OriginalArg(0) Image image, @OriginalArg(1) int infoflags, @OriginalArg(2) int x, @OriginalArg(3) int y, @OriginalArg(4) int width, @OriginalArg(5) int height) {
 		return true;
 	}
 }

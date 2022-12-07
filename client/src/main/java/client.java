@@ -736,7 +736,7 @@ public final class client extends GameShell {
 	private int cameraAnticheatAngle;
 
 	@OriginalMember(owner = "client!client", name = "Bi", descriptor = "Lclient!ub;")
-	private FileArchive title;
+	private FileArchive titleArchive;
 
 	@OriginalMember(owner = "client!client", name = "Ki", descriptor = "Lclient!hb;")
 	private Sprite compass;
@@ -3636,11 +3636,11 @@ public final class client extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "n", descriptor = "(I)V")
 	private void loadTitleForeground() {
-		this.titlebox = new IndexedSprite(this.title, "titlebox", 0);
-		this.titlebutton = new IndexedSprite(this.title, "titlebutton", 0);
+		this.titlebox = new IndexedSprite(this.titleArchive, "titlebox", 0);
+		this.titlebutton = new IndexedSprite(this.titleArchive, "titlebutton", 0);
 		this.runes = new IndexedSprite[12];
 		for (@Pc(32) int local32 = 0; local32 < 12; local32++) {
-			this.runes[local32] = new IndexedSprite(this.title, "runes", local32);
+			this.runes[local32] = new IndexedSprite(this.titleArchive, "runes", local32);
 		}
 		this.imageFlamesLeft = new Sprite(128, 265);
 		this.imageFlamesRight = new Sprite(128, 265);
@@ -5966,20 +5966,20 @@ public final class client extends GameShell {
 					}
 				}
 			}
-			this.title = this.loadArchive("title screen", this.archiveChecksums[1], "title", 10);
-			this.plain11 = new Font(this.title, "p11");
-			this.plain12 = new Font(this.title, "p12");
-			this.bold12 = new Font(this.title, "b12");
-			this.quill8 = new Font(this.title, "q8");
+			this.titleArchive = this.loadArchive("title screen", this.archiveChecksums[1], "title", 10);
+			this.plain11 = new Font(this.titleArchive, "p11");
+			this.plain12 = new Font(this.titleArchive, "p12");
+			this.bold12 = new Font(this.titleArchive, "b12");
+			this.quill8 = new Font(this.titleArchive, "q8");
 			this.loadTitleBackground();
 			this.loadTitleForeground();
-			@Pc(255) FileArchive local255 = this.loadArchive("config", this.archiveChecksums[2], "config", 15);
-			@Pc(266) FileArchive local266 = this.loadArchive("interface", this.archiveChecksums[3], "interface", 20);
-			@Pc(277) FileArchive local277 = this.loadArchive("2d graphics", this.archiveChecksums[4], "media", 30);
-			@Pc(288) FileArchive local288 = this.loadArchive("3d graphics", this.archiveChecksums[5], "models", 40);
-			@Pc(299) FileArchive local299 = this.loadArchive("textures", this.archiveChecksums[6], "textures", 60);
-			@Pc(310) FileArchive local310 = this.loadArchive("chat system", this.archiveChecksums[7], "wordenc", 65);
-			@Pc(321) FileArchive local321 = this.loadArchive("sound effects", this.archiveChecksums[8], "sounds", 70);
+			@Pc(255) FileArchive configArchive = this.loadArchive("config", this.archiveChecksums[2], "config", 15);
+			@Pc(266) FileArchive interfaceArchive = this.loadArchive("interface", this.archiveChecksums[3], "interface", 20);
+			@Pc(277) FileArchive mediaArchive = this.loadArchive("2d graphics", this.archiveChecksums[4], "media", 30);
+			@Pc(288) FileArchive modelsArchive = this.loadArchive("3d graphics", this.archiveChecksums[5], "models", 40);
+			@Pc(299) FileArchive texturesArchive = this.loadArchive("textures", this.archiveChecksums[6], "textures", 60);
+			@Pc(310) FileArchive wordencArchive = this.loadArchive("chat system", this.archiveChecksums[7], "wordenc", 65);
+			@Pc(321) FileArchive soundsArchive = this.loadArchive("sound effects", this.archiveChecksums[8], "sounds", 70);
 			this.levelRenderFlags = new byte[4][104][104];
 			this.levelHeightMaps = new int[4][105][105];
 			this.mapSquare = new MapSquare(this.levelHeightMaps, 104, 4, 104);
@@ -5988,101 +5988,101 @@ public final class client extends GameShell {
 			}
 			this.minimap = new Sprite(512, 512);
 			this.showProgress("Unpacking media", 75);
-			this.invback = new IndexedSprite(local277, "invback", 0);
-			this.chatback = new IndexedSprite(local277, "chatback", 0);
-			this.mapback = new IndexedSprite(local277, "mapback", 0);
-			this.backbase1 = new IndexedSprite(local277, "backbase1", 0);
-			this.backbase2 = new IndexedSprite(local277, "backbase2", 0);
-			this.backhmid1 = new IndexedSprite(local277, "backhmid1", 0);
+			this.invback = new IndexedSprite(mediaArchive, "invback", 0);
+			this.chatback = new IndexedSprite(mediaArchive, "chatback", 0);
+			this.mapback = new IndexedSprite(mediaArchive, "mapback", 0);
+			this.backbase1 = new IndexedSprite(mediaArchive, "backbase1", 0);
+			this.backbase2 = new IndexedSprite(mediaArchive, "backbase2", 0);
+			this.backhmid1 = new IndexedSprite(mediaArchive, "backhmid1", 0);
 			for (@Pc(424) int local424 = 0; local424 < 13; local424++) {
-				this.sideicons[local424] = new IndexedSprite(local277, "sideicons", local424);
+				this.sideicons[local424] = new IndexedSprite(mediaArchive, "sideicons", local424);
 			}
-			this.compass = new Sprite(local277, "compass", 0);
+			this.compass = new Sprite(mediaArchive, "compass", 0);
 			@Pc(450) int local450;
 			try {
 				for (local450 = 0; local450 < 50; local450++) {
 					if (local450 == 22) {
 						continue;
 					}
-					this.mapscene[local450] = new IndexedSprite(local277, "mapscene", local450);
+					this.mapscene[local450] = new IndexedSprite(mediaArchive, "mapscene", local450);
 				}
 			} catch (@Pc(468) Exception local468) {
 			}
 			try {
 				for (local450 = 0; local450 < 50; local450++) {
-					this.mapfunction[local450] = new Sprite(local277, "mapfunction", local450);
+					this.mapfunction[local450] = new Sprite(mediaArchive, "mapfunction", local450);
 				}
 			} catch (@Pc(488) Exception local488) {
 			}
 			try {
 				for (local450 = 0; local450 < 20; local450++) {
-					this.hitmarks[local450] = new Sprite(local277, "hitmarks", local450);
+					this.hitmarks[local450] = new Sprite(mediaArchive, "hitmarks", local450);
 				}
 			} catch (@Pc(508) Exception local508) {
 			}
 			try {
 				for (local450 = 0; local450 < 20; local450++) {
-					this.headicons[local450] = new Sprite(local277, "headicons", local450);
+					this.headicons[local450] = new Sprite(mediaArchive, "headicons", local450);
 				}
 			} catch (@Pc(528) Exception local528) {
 			}
-			this.mapflags = new Sprite(local277, "mapflag", 0);
+			this.mapflags = new Sprite(mediaArchive, "mapflag", 0);
 			for (local450 = 0; local450 < 8; local450++) {
-				this.cross[local450] = new Sprite(local277, "cross", local450);
+				this.cross[local450] = new Sprite(mediaArchive, "cross", local450);
 			}
-			this.mapdot0 = new Sprite(local277, "mapdots", 0);
-			this.mapdot1 = new Sprite(local277, "mapdots", 1);
-			this.mapdot2 = new Sprite(local277, "mapdots", 2);
-			this.mapdot3 = new Sprite(local277, "mapdots", 3);
-			this.scrollbar1 = new IndexedSprite(local277, "scrollbar", 0);
-			this.scrollbar2 = new IndexedSprite(local277, "scrollbar", 1);
-			this.redstone1 = new IndexedSprite(local277, "redstone1", 0);
-			this.redstone2 = new IndexedSprite(local277, "redstone2", 0);
-			this.redstone3 = new IndexedSprite(local277, "redstone3", 0);
-			this.redstone1h = new IndexedSprite(local277, "redstone1", 0);
+			this.mapdot0 = new Sprite(mediaArchive, "mapdots", 0);
+			this.mapdot1 = new Sprite(mediaArchive, "mapdots", 1);
+			this.mapdot2 = new Sprite(mediaArchive, "mapdots", 2);
+			this.mapdot3 = new Sprite(mediaArchive, "mapdots", 3);
+			this.scrollbar1 = new IndexedSprite(mediaArchive, "scrollbar", 0);
+			this.scrollbar2 = new IndexedSprite(mediaArchive, "scrollbar", 1);
+			this.redstone1 = new IndexedSprite(mediaArchive, "redstone1", 0);
+			this.redstone2 = new IndexedSprite(mediaArchive, "redstone2", 0);
+			this.redstone3 = new IndexedSprite(mediaArchive, "redstone3", 0);
+			this.redstone1h = new IndexedSprite(mediaArchive, "redstone1", 0);
 			this.redstone1h.flipHorizontally();
-			this.redstone2h = new IndexedSprite(local277, "redstone2", 0);
+			this.redstone2h = new IndexedSprite(mediaArchive, "redstone2", 0);
 			this.redstone2h.flipHorizontally();
-			this.redstone1v = new IndexedSprite(local277, "redstone1", 0);
+			this.redstone1v = new IndexedSprite(mediaArchive, "redstone1", 0);
 			this.redstone1v.flipVertically();
-			this.redstone2v = new IndexedSprite(local277, "redstone2", 0);
+			this.redstone2v = new IndexedSprite(mediaArchive, "redstone2", 0);
 			this.redstone2v.flipVertically();
-			this.redstone3v = new IndexedSprite(local277, "redstone3", 0);
+			this.redstone3v = new IndexedSprite(mediaArchive, "redstone3", 0);
 			this.redstone3v.flipVertically();
-			this.redstone1vh = new IndexedSprite(local277, "redstone1", 0);
+			this.redstone1vh = new IndexedSprite(mediaArchive, "redstone1", 0);
 			this.redstone1vh.flipHorizontally();
 			this.redstone1vh.flipVertically();
-			this.redstone2vh = new IndexedSprite(local277, "redstone2", 0);
+			this.redstone2vh = new IndexedSprite(mediaArchive, "redstone2", 0);
 			this.redstone2vh.flipHorizontally();
 			this.redstone2vh.flipVertically();
-			@Pc(725) Sprite local725 = new Sprite(local277, "backleft1", 0);
+			@Pc(725) Sprite local725 = new Sprite(mediaArchive, "backleft1", 0);
 			this.backleft1 = new ImageProducerFrameBuffer(this.getBaseComponent(), local725.spriteWidth, local725.spriteHeight);
 			local725.drawOpaque(0, 0);
-			@Pc(750) Sprite local750 = new Sprite(local277, "backleft2", 0);
+			@Pc(750) Sprite local750 = new Sprite(mediaArchive, "backleft2", 0);
 			this.backleft2 = new ImageProducerFrameBuffer(this.getBaseComponent(), local750.spriteWidth, local750.spriteHeight);
 			local750.drawOpaque(0, 0);
-			@Pc(775) Sprite local775 = new Sprite(local277, "backright1", 0);
+			@Pc(775) Sprite local775 = new Sprite(mediaArchive, "backright1", 0);
 			this.backright1 = new ImageProducerFrameBuffer(this.getBaseComponent(), local775.spriteWidth, local775.spriteHeight);
 			local775.drawOpaque(0, 0);
-			@Pc(800) Sprite local800 = new Sprite(local277, "backright2", 0);
+			@Pc(800) Sprite local800 = new Sprite(mediaArchive, "backright2", 0);
 			this.backright2 = new ImageProducerFrameBuffer(this.getBaseComponent(), local800.spriteWidth, local800.spriteHeight);
 			local800.drawOpaque(0, 0);
-			@Pc(825) Sprite local825 = new Sprite(local277, "backtop1", 0);
+			@Pc(825) Sprite local825 = new Sprite(mediaArchive, "backtop1", 0);
 			this.backtop1 = new ImageProducerFrameBuffer(this.getBaseComponent(), local825.spriteWidth, local825.spriteHeight);
 			local825.drawOpaque(0, 0);
-			@Pc(850) Sprite local850 = new Sprite(local277, "backtop2", 0);
+			@Pc(850) Sprite local850 = new Sprite(mediaArchive, "backtop2", 0);
 			this.backtop2 = new ImageProducerFrameBuffer(this.getBaseComponent(), local850.spriteWidth, local850.spriteHeight);
 			local850.drawOpaque(0, 0);
-			@Pc(875) Sprite local875 = new Sprite(local277, "backvmid1", 0);
+			@Pc(875) Sprite local875 = new Sprite(mediaArchive, "backvmid1", 0);
 			this.backvmid1 = new ImageProducerFrameBuffer(this.getBaseComponent(), local875.spriteWidth, local875.spriteHeight);
 			local875.drawOpaque(0, 0);
-			@Pc(900) Sprite local900 = new Sprite(local277, "backvmid2", 0);
+			@Pc(900) Sprite local900 = new Sprite(mediaArchive, "backvmid2", 0);
 			this.backvmid2 = new ImageProducerFrameBuffer(this.getBaseComponent(), local900.spriteWidth, local900.spriteHeight);
 			local900.drawOpaque(0, 0);
-			@Pc(925) Sprite local925 = new Sprite(local277, "backvmid3", 0);
+			@Pc(925) Sprite local925 = new Sprite(mediaArchive, "backvmid3", 0);
 			this.backvmid3 = new ImageProducerFrameBuffer(this.getBaseComponent(), local925.spriteWidth, local925.spriteHeight);
 			local925.drawOpaque(0, 0);
-			@Pc(950) Sprite local950 = new Sprite(local277, "backhmid2", 0);
+			@Pc(950) Sprite local950 = new Sprite(mediaArchive, "backhmid2", 0);
 			this.backhmid2 = new ImageProducerFrameBuffer(this.getBaseComponent(), local950.spriteWidth, local950.spriteHeight);
 			local950.drawOpaque(0, 0);
 			@Pc(975) int local975 = (int) (Math.random() * 21.0D) - 10;
@@ -6098,32 +6098,32 @@ public final class client extends GameShell {
 				}
 			}
 			this.showProgress("Unpacking textures", 80);
-			Draw3D.unpackTextures(local299);
+			Draw3D.unpackTextures(texturesArchive);
 			Draw3D.setBrightness(0.8D);
 			Draw3D.setupPools(20);
 			this.showProgress("Unpacking models", 83);
-			Model.unpack(local288);
-			SeqBase.unpack(local288);
-			SeqFrame.unpack(local288);
+			Model.unpack(modelsArchive);
+			SeqBase.unpack(modelsArchive);
+			SeqFrame.unpack(modelsArchive);
 			this.showProgress("Unpacking config", 86);
-			SeqType.unpack(local255);
-			LocType.unpack(local255);
-			FloType.unpack(local255);
-			ObjType.unpack(local255);
-			NpcType.unpack(local255);
-			IdkType.unpack(local255);
-			SpotAnimType.unpack(local255);
-			VarpType.unpack(local255);
+			SeqType.unpack(configArchive);
+			LocType.unpack(configArchive);
+			FloType.unpack(configArchive);
+			ObjType.unpack(configArchive);
+			NpcType.unpack(configArchive);
+			IdkType.unpack(configArchive);
+			SpotAnimType.unpack(configArchive);
+			VarpType.unpack(configArchive);
 			ObjType.isMember = members;
 			if (!lowMemory) {
 				this.showProgress("Unpacking sounds", 90);
-				@Pc(1113) byte[] local1113 = local321.read("sounds.dat", null);
+				@Pc(1113) byte[] local1113 = soundsArchive.read("sounds.dat", null);
 				@Pc(1119) Buffer local1119 = new Buffer(local1113);
-				SoundTrack.load(local1119);
+				SoundTrack.unpack(local1119);
 			}
 			this.showProgress("Unpacking interfaces", 92);
 			@Pc(1150) Font[] local1150 = new Font[] { this.plain11, this.plain12, this.bold12, this.quill8};
-			Component.unpack(local277, local1150, local266);
+			Component.unpack(mediaArchive, local1150, interfaceArchive);
 			this.showProgress("Preparing game engine", 97);
 			@Pc(1166) int local1166;
 			@Pc(1168) int local1168;
@@ -6175,7 +6175,7 @@ public final class client extends GameShell {
 				local1312[local1170] = local1330 * local1334 >> 16;
 			}
 			MapSquare.init(local1312, 800, 512, 334, 500);
-			WordPack.decode(local310);
+			WordPack.decode(wordencArchive);
 		} catch (@Pc(1357) Exception local1357) {
 			this.errorLoading = true;
 		}
@@ -6629,7 +6629,7 @@ public final class client extends GameShell {
 			Draw2D.clear();
 			this.titleRightSpace = new ImageProducerFrameBuffer(this.getBaseComponent(), 87, 79);
 			Draw2D.clear();
-			if (this.title != null) {
+			if (this.titleArchive != null) {
 				this.loadTitleBackground();
 				this.loadTitleForeground();
 			}
@@ -8702,7 +8702,7 @@ public final class client extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "p", descriptor = "(B)V")
 	private void loadTitleBackground() {
-		@Pc(8) byte[] local8 = this.title.read("title.dat", null);
+		@Pc(8) byte[] local8 = this.titleArchive.read("title.dat", null);
 		@Pc(14) Sprite local14 = new Sprite(local8, this);
 		this.titleLeft.makeTarget();
 		local14.drawOpaque(0, 0);
@@ -8749,7 +8749,7 @@ public final class client extends GameShell {
 		local14.drawOpaque(212, -186);
 		this.titleRightSpace.makeTarget();
 		local14.drawOpaque(-180, -186);
-		local14 = new Sprite(this.title, "logo", 0);
+		local14 = new Sprite(this.titleArchive, "logo", 0);
 		this.titleTop.makeTarget();
 		local14.draw(18, super.gameWidth / 2 - local14.spriteWidth / 2 - 128);
 		local14 = null;
@@ -10469,7 +10469,7 @@ public final class client extends GameShell {
 	@Override
 	protected void showProgress(@OriginalArg(1) String arg1, @OriginalArg(2) int arg2) {
 		this.prepareTitleScreen();
-		if (this.title == null) {
+		if (this.titleArchive == null) {
 			super.showProgress(arg1, arg2);
 		} else {
 			this.titleCenter.makeTarget();

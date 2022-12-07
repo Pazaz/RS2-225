@@ -31,8 +31,8 @@ public final class IdkType {
 	public boolean disable = false;
 
 	@OriginalMember(owner = "client!gc", name = "a", descriptor = "(Lclient!ub;I)V")
-	public static void unpack(@OriginalArg(0) FileArchive arg0) {
-		@Pc(9) Buffer local9 = new Buffer(arg0.read("idk.dat", null));
+	public static void unpack(@OriginalArg(0) FileArchive archive) {
+		@Pc(9) Buffer local9 = new Buffer(archive.read("idk.dat", null));
 		count = local9.g2();
 		if (instances == null) {
 			instances = new IdkType[count];

@@ -46,8 +46,8 @@ public final class FloType {
 	public boolean occlude = true;
 
 	@OriginalMember(owner = "client!fc", name = "a", descriptor = "(Lclient!ub;I)V")
-	public static void unpack(@OriginalArg(0) FileArchive arg0) {
-		@Pc(9) Buffer local9 = new Buffer(arg0.read("flo.dat", null));
+	public static void unpack(@OriginalArg(0) FileArchive archive) {
+		@Pc(9) Buffer local9 = new Buffer(archive.read("flo.dat", null));
 		count = local9.g2();
 		if (instances == null) {
 			instances = new FloType[count];

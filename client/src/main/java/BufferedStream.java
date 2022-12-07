@@ -42,9 +42,9 @@ public final class BufferedStream implements Runnable {
 	private final OutputStream out;
 
 	@OriginalMember(owner = "client!d", name = "<init>", descriptor = "(Lclient!a;BLjava/net/Socket;)V")
-	public BufferedStream(@OriginalArg(0) GameShell arg0, @OriginalArg(2) Socket arg2) throws IOException {
-		this.shell = arg0;
-		this.socket = arg2;
+	public BufferedStream(@OriginalArg(0) GameShell shell, @OriginalArg(2) Socket socket) throws IOException {
+		this.shell = shell;
+		this.socket = socket;
 		this.socket.setSoTimeout(30000);
 		this.socket.setTcpNoDelay(true);
 		this.in = this.socket.getInputStream();
@@ -64,7 +64,7 @@ public final class BufferedStream implements Runnable {
 			if (this.socket != null) {
 				this.socket.close();
 			}
-		} catch (@Pc(22) IOException local22) {
+		} catch (@Pc(22) IOException ignored) {
 			System.out.println("Error closing stream");
 		}
 		this.writing = false;
@@ -85,22 +85,24 @@ public final class BufferedStream implements Runnable {
 	}
 
 	@OriginalMember(owner = "client!d", name = "a", descriptor = "([BII)V")
-	public void read(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) throws IOException {
+	public void read(@OriginalArg(0) byte[] dst, @OriginalArg(1) int off, @OriginalArg(2) int len) throws IOException {
 		if (this.closed) {
 			return;
 		}
-		while (arg2 > 0) {
-			@Pc(11) int local11 = this.in.read(arg0, arg1, arg2);
-			if (local11 <= 0) {
+
+		while (len > 0) {
+			@Pc(11) int read = this.in.read(dst, off, len);
+			if (read <= 0) {
 				throw new IOException("EOF");
 			}
-			arg1 += local11;
-			arg2 -= local11;
+
+			off += read;
+			len -= read;
 		}
 	}
 
 	@OriginalMember(owner = "client!d", name = "a", descriptor = "([BIZI)V")
-	public void write(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(3) int arg3) throws IOException {
+	public void write(@OriginalArg(0) byte[] src, @OriginalArg(1) int len, @OriginalArg(3) int off) throws IOException {
 		if (this.closed) {
 			return;
 		}
@@ -115,8 +117,8 @@ public final class BufferedStream implements Runnable {
 		}
 
 		synchronized (this) {
-			for (@Pc(31) int local31 = 0; local31 < arg1; local31++) {
-				this.buffer[this.offset] = arg0[local31 + arg3];
+			for (@Pc(31) int i = 0; i < len; i++) {
+				this.buffer[this.offset] = src[i + off];
 				this.offset = (this.offset + 1) % 5000;
 				if (this.offset == (this.length + 4900) % 5000) {
 					throw new IOException("buffer overflow");
@@ -136,37 +138,42 @@ public final class BufferedStream implements Runnable {
 	@Override
 	public void run() {
 		while (this.writing) {
-			@Pc(38) int local38;
-			@Pc(27) int local27;
+			@Pc(38) int off;
+			@Pc(27) int len;
 			synchronized (this) {
 				if (this.offset == this.length) {
 					try {
 						this.wait();
-					} catch (@Pc(16) InterruptedException local16) {
+					} catch (@Pc(16) InterruptedException ignored) {
 					}
 				}
+
 				if (!this.writing) {
 					return;
 				}
-				local27 = this.length;
+
+				len = this.length;
 				if (this.offset >= this.length) {
-					local38 = this.offset - this.length;
+					off = this.offset - this.length;
 				} else {
-					local38 = 5000 - this.length;
+					off = 5000 - this.length;
 				}
 			}
-			if (local38 > 0) {
+
+			if (off > 0) {
 				try {
-					this.out.write(this.buffer, local27, local38);
-				} catch (@Pc(62) IOException local62) {
+					this.out.write(this.buffer, len, off);
+				} catch (@Pc(62) IOException ignored) {
 					this.exception = true;
 				}
-				this.length = (this.length + local38) % 5000;
+
+				this.length = (this.length + off) % 5000;
+
 				try {
 					if (this.offset == this.length) {
 						this.out.flush();
 					}
-				} catch (@Pc(83) IOException local83) {
+				} catch (@Pc(83) IOException ignored) {
 					this.exception = true;
 				}
 			}
