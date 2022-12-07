@@ -3360,7 +3360,7 @@ public final class client extends GameShell {
 	@Override
 	protected java.awt.Component getBaseComponent() {
 		if (signlink.mainapp == null) {
-			return super.frame == null ? this : super.frame;
+			return this;
 		} else {
 			return signlink.mainapp;
 		}

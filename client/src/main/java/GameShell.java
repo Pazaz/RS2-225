@@ -85,7 +85,8 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	protected final void initApplication(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
 		this.gameWidth = arg1;
 		this.gameHeight = arg0;
-		this.frame = new GameFrame(this.gameHeight, this, this.gameWidth);
+		this.setPreferredSize(new Dimension(this.gameWidth, this.gameHeight));
+		this.frame = new GameFrame(this);
 		this.graphics = this.getBaseComponent().getGraphics();
 		this.frameBuffer = new ImageProducerFrameBuffer(this.getBaseComponent(), this.gameWidth, this.gameHeight);
 		this.startThread(this, 1);
@@ -252,10 +253,6 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	public final void mousePressed(@OriginalArg(0) MouseEvent arg0) {
 		@Pc(2) int local2 = arg0.getX();
 		@Pc(5) int local5 = arg0.getY();
-		if (this.frame != null) {
-			local2 -= 4;
-			local5 -= 22;
-		}
 		this.idleCycles = 0;
 		this.clickX = local2;
 		this.clickY = local5;
@@ -307,10 +304,6 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	public final void mouseDragged(@OriginalArg(0) MouseEvent arg0) {
 		@Pc(2) int local2 = arg0.getX();
 		@Pc(5) int local5 = arg0.getY();
-		if (this.frame != null) {
-			local2 -= 4;
-			local5 -= 22;
-		}
 		this.idleCycles = 0;
 		this.mouseX = local2;
 		this.mouseY = local5;
@@ -324,10 +317,6 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	public final void mouseMoved(@OriginalArg(0) MouseEvent arg0) {
 		@Pc(2) int local2 = arg0.getX();
 		@Pc(5) int local5 = arg0.getY();
-		if (this.frame != null) {
-			local2 -= 4;
-			local5 -= 22;
-		}
 		this.idleCycles = 0;
 		this.mouseX = local2;
 		this.mouseY = local5;
@@ -534,7 +523,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 
 	@OriginalMember(owner = "client!a", name = "b", descriptor = "(B)Ljava/awt/Component;")
 	protected Component getBaseComponent() {
-		return this.frame == null ? this : this.frame;
+		return this;
 	}
 
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "(Ljava/lang/Runnable;I)V")
