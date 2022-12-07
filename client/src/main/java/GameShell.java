@@ -250,13 +250,13 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 
 	@OriginalMember(owner = "client!a", name = "mousePressed", descriptor = "(Ljava/awt/event/MouseEvent;)V")
 	@Override
-	public final void mousePressed(@OriginalArg(0) MouseEvent arg0) {
-		@Pc(2) int local2 = arg0.getX();
-		@Pc(5) int local5 = arg0.getY();
+	public final void mousePressed(@OriginalArg(0) MouseEvent e) {
+		@Pc(2) int local2 = e.getX();
+		@Pc(5) int local5 = e.getY();
 		this.idleCycles = 0;
 		this.clickX = local2;
 		this.clickY = local5;
-		if (arg0.isMetaDown()) {
+		if ((e.getModifiersEx() & MouseEvent.BUTTON3_DOWN_MASK) != 0) {
 			this.mouseButton = 2;
 			this.dragButton = 2;
 		} else {
@@ -264,7 +264,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 			this.dragButton = 1;
 		}
 		if (InputTracking.enabled) {
-			InputTracking.mousePressed(local2, arg0.isMetaDown() ? 1 : 0, local5, (byte) 4);
+			InputTracking.mousePressed(local2, (e.getModifiersEx() & MouseEvent.BUTTON3_DOWN_MASK) != 0 ? 1 : 0, local5, (byte) 4);
 		}
 	}
 
