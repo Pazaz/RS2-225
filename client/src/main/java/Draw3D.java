@@ -362,482 +362,446 @@ public final class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(IIIIIIIII)V")
-	public static void fillGouraudTriangle(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8) {
-		@Pc(3) int local3 = 0;
-		@Pc(5) int local5 = 0;
-		if (arg1 != arg0) {
-			local3 = (arg4 - arg3 << 16) / (arg1 - arg0);
-			local5 = (arg7 - arg6 << 15) / (arg1 - arg0);
+	public static void fillGouraudTriangle(@OriginalArg(0) int yA, @OriginalArg(1) int yB, @OriginalArg(2) int yC, @OriginalArg(3) int xA, @OriginalArg(4) int xB, @OriginalArg(5) int xC, @OriginalArg(6) int colorA, @OriginalArg(7) int colorB, @OriginalArg(8) int colorC) {
+		@Pc(3) int xStepAB = 0;
+		@Pc(5) int colorStepAB = 0;
+		if (yB != yA) {
+			xStepAB = (xB - xA << 16) / (yB - yA);
+			colorStepAB = (colorB - colorA << 15) / (yB - yA);
 		}
-		@Pc(30) int local30 = 0;
-		@Pc(32) int local32 = 0;
-		if (arg2 != arg1) {
-			local30 = (arg5 - arg4 << 16) / (arg2 - arg1);
-			local32 = (arg8 - arg7 << 15) / (arg2 - arg1);
+
+		@Pc(30) int xStepBC = 0;
+		@Pc(32) int colorStepBC = 0;
+		if (yC != yB) {
+			xStepBC = (xC - xB << 16) / (yC - yB);
+			colorStepBC = (colorC - colorB << 15) / (yC - yB);
 		}
-		@Pc(57) int local57 = 0;
-		@Pc(59) int local59 = 0;
-		if (arg2 != arg0) {
-			local57 = (arg3 - arg5 << 16) / (arg0 - arg2);
-			local59 = (arg6 - arg8 << 15) / (arg0 - arg2);
+
+		@Pc(57) int xStepAC = 0;
+		@Pc(59) int colorStepAC = 0;
+		if (yC != yA) {
+			xStepAC = (xA - xC << 16) / (yA - yC);
+			colorStepAC = (colorA - colorC << 15) / (yA - yC);
 		}
-		if (arg0 <= arg1 && arg0 <= arg2) {
-			if (arg0 < bottom) {
-				if (arg1 > bottom) {
-					arg1 = bottom;
+
+		if (yA <= yB && yA <= yC) {
+			if (yA >= bottom) {
+				return;
+			}
+
+			if (yB > bottom) {
+				yB = bottom;
+			}
+
+			if (yC > bottom) {
+				yC = bottom;
+			}
+
+			if (yB < yC) {
+				xC = xA <<= 0x10;
+				colorC = colorA <<= 0xF;
+				if (yA < 0) {
+					xC -= xStepAC * yA;
+					xA -= xStepAB * yA;
+					colorC -= colorStepAC * yA;
+					colorA -= colorStepAB * yA;
+					yA = 0;
 				}
-				if (arg2 > bottom) {
-					arg2 = bottom;
+
+				xB <<= 0x10;
+				colorB <<= 0xF;
+				if (yB < 0) {
+					xB -= xStepBC * yB;
+					colorB -= colorStepBC * yB;
+					yB = 0;
 				}
-				if (arg1 < arg2) {
-					arg5 = arg3 <<= 0x10;
-					arg8 = arg6 <<= 0xF;
-					if (arg0 < 0) {
-						arg5 -= local57 * arg0;
-						arg3 -= local3 * arg0;
-						arg8 -= local59 * arg0;
-						arg6 -= local5 * arg0;
-						arg0 = 0;
+
+				if (yA != yB && xStepAC < xStepAB || yA == yB && xStepAC > xStepBC) {
+					yC -= yB;
+					yB -= yA;
+
+					yA = offsets[yA];
+					while (--yB >= 0) {
+						drawGouraudScanline(data, yA, xC >> 16, xA >> 16, colorC >> 7, colorA >> 7);
+						xC += xStepAC;
+						xA += xStepAB;
+						colorC += colorStepAC;
+						colorA += colorStepAB;
 					}
-					arg4 <<= 0x10;
-					arg7 <<= 0xF;
-					if (arg1 < 0) {
-						arg4 -= local30 * arg1;
-						arg7 -= local32 * arg1;
-						arg1 = 0;
-					}
-					if (arg0 != arg1 && local57 < local3 || arg0 == arg1 && local57 > local30) {
-						arg2 -= arg1;
-						arg1 -= arg0;
-						arg0 = offsets[arg0];
-						while (true) {
-							arg1--;
-							if (arg1 < 0) {
-								while (true) {
-									arg2--;
-									if (arg2 < 0) {
-										return;
-									}
-									drawGouraudScanline(data, arg0, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
-									arg5 += local57;
-									arg4 += local30;
-									arg8 += local59;
-									arg7 += local32;
-									arg0 += width;
-								}
-							}
-							drawGouraudScanline(data, arg0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
-							arg5 += local57;
-							arg3 += local3;
-							arg8 += local59;
-							arg6 += local5;
-							arg0 += width;
-						}
-					} else {
-						arg2 -= arg1;
-						arg1 -= arg0;
-						arg0 = offsets[arg0];
-						while (true) {
-							arg1--;
-							if (arg1 < 0) {
-								while (true) {
-									arg2--;
-									if (arg2 < 0) {
-										return;
-									}
-									drawGouraudScanline(data, arg0, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
-									arg5 += local57;
-									arg4 += local30;
-									arg8 += local59;
-									arg7 += local32;
-									arg0 += width;
-								}
-							}
-							drawGouraudScanline(data, arg0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
-							arg5 += local57;
-							arg3 += local3;
-							arg8 += local59;
-							arg6 += local5;
-							arg0 += width;
-						}
+
+					while (--yC >= 0) {
+						drawGouraudScanline(data, yA, xC >> 16, xB >> 16, colorC >> 7, colorB >> 7);
+						xC += xStepAC;
+						xB += xStepBC;
+						colorC += colorStepAC;
+						colorB += colorStepBC;
+						yA += width;
 					}
 				} else {
-					arg4 = arg3 <<= 0x10;
-					arg7 = arg6 <<= 0xF;
-					if (arg0 < 0) {
-						arg4 -= local57 * arg0;
-						arg3 -= local3 * arg0;
-						arg7 -= local59 * arg0;
-						arg6 -= local5 * arg0;
-						arg0 = 0;
+					yC -= yB;
+					yB -= yA;
+
+					yA = offsets[yA];
+					while (--yB >= 0) {
+						drawGouraudScanline(data, yA, xA >> 16, xC >> 16, colorA >> 7, colorC >> 7);
+						xC += xStepAC;
+						xA += xStepAB;
+						colorC += colorStepAC;
+						colorA += colorStepAB;
+						yA += width;
 					}
-					arg5 <<= 0x10;
-					arg8 <<= 0xF;
-					if (arg2 < 0) {
-						arg5 -= local30 * arg2;
-						arg8 -= local32 * arg2;
-						arg2 = 0;
-					}
-					if (arg0 != arg2 && local57 < local3 || arg0 == arg2 && local30 > local3) {
-						arg1 -= arg2;
-						arg2 -= arg0;
-						arg0 = offsets[arg0];
-						while (true) {
-							arg2--;
-							if (arg2 < 0) {
-								while (true) {
-									arg1--;
-									if (arg1 < 0) {
-										return;
-									}
-									drawGouraudScanline(data, arg0, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
-									arg5 += local30;
-									arg3 += local3;
-									arg8 += local32;
-									arg6 += local5;
-									arg0 += width;
-								}
-							}
-							drawGouraudScanline(data, arg0, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
-							arg4 += local57;
-							arg3 += local3;
-							arg7 += local59;
-							arg6 += local5;
-							arg0 += width;
-						}
-					} else {
-						arg1 -= arg2;
-						arg2 -= arg0;
-						arg0 = offsets[arg0];
-						while (true) {
-							arg2--;
-							if (arg2 < 0) {
-								while (true) {
-									arg1--;
-									if (arg1 < 0) {
-										return;
-									}
-									drawGouraudScanline(data, arg0, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
-									arg5 += local30;
-									arg3 += local3;
-									arg8 += local32;
-									arg6 += local5;
-									arg0 += width;
-								}
-							}
-							drawGouraudScanline(data, arg0, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
-							arg4 += local57;
-							arg3 += local3;
-							arg7 += local59;
-							arg6 += local5;
-							arg0 += width;
-						}
-					}
-				}
-			}
-		} else if (arg1 <= arg2) {
-			if (arg1 < bottom) {
-				if (arg2 > bottom) {
-					arg2 = bottom;
-				}
-				if (arg0 > bottom) {
-					arg0 = bottom;
-				}
-				if (arg2 < arg0) {
-					arg3 = arg4 <<= 0x10;
-					arg6 = arg7 <<= 0xF;
-					if (arg1 < 0) {
-						arg3 -= local3 * arg1;
-						arg4 -= local30 * arg1;
-						arg6 -= local5 * arg1;
-						arg7 -= local32 * arg1;
-						arg1 = 0;
-					}
-					arg5 <<= 0x10;
-					arg8 <<= 0xF;
-					if (arg2 < 0) {
-						arg5 -= local57 * arg2;
-						arg8 -= local59 * arg2;
-						arg2 = 0;
-					}
-					if (arg1 != arg2 && local3 < local30 || arg1 == arg2 && local3 > local57) {
-						arg0 -= arg2;
-						arg2 -= arg1;
-						arg1 = offsets[arg1];
-						while (true) {
-							arg2--;
-							if (arg2 < 0) {
-								while (true) {
-									arg0--;
-									if (arg0 < 0) {
-										return;
-									}
-									drawGouraudScanline(data, arg1, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
-									arg3 += local3;
-									arg5 += local57;
-									arg6 += local5;
-									arg8 += local59;
-									arg1 += width;
-								}
-							}
-							drawGouraudScanline(data, arg1, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
-							arg3 += local3;
-							arg4 += local30;
-							arg6 += local5;
-							arg7 += local32;
-							arg1 += width;
-						}
-					} else {
-						arg0 -= arg2;
-						arg2 -= arg1;
-						arg1 = offsets[arg1];
-						while (true) {
-							arg2--;
-							if (arg2 < 0) {
-								while (true) {
-									arg0--;
-									if (arg0 < 0) {
-										return;
-									}
-									drawGouraudScanline(data, arg1, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
-									arg3 += local3;
-									arg5 += local57;
-									arg6 += local5;
-									arg8 += local59;
-									arg1 += width;
-								}
-							}
-							drawGouraudScanline(data, arg1, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
-							arg3 += local3;
-							arg4 += local30;
-							arg6 += local5;
-							arg7 += local32;
-							arg1 += width;
-						}
-					}
-				} else {
-					arg5 = arg4 <<= 0x10;
-					arg8 = arg7 <<= 0xF;
-					if (arg1 < 0) {
-						arg5 -= local3 * arg1;
-						arg4 -= local30 * arg1;
-						arg8 -= local5 * arg1;
-						arg7 -= local32 * arg1;
-						arg1 = 0;
-					}
-					arg3 <<= 0x10;
-					arg6 <<= 0xF;
-					if (arg0 < 0) {
-						arg3 -= local57 * arg0;
-						arg6 -= local59 * arg0;
-						arg0 = 0;
-					}
-					if (local3 < local30) {
-						arg2 -= arg0;
-						arg0 -= arg1;
-						arg1 = offsets[arg1];
-						while (true) {
-							arg0--;
-							if (arg0 < 0) {
-								while (true) {
-									arg2--;
-									if (arg2 < 0) {
-										return;
-									}
-									drawGouraudScanline(data, arg1, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
-									arg3 += local57;
-									arg4 += local30;
-									arg6 += local59;
-									arg7 += local32;
-									arg1 += width;
-								}
-							}
-							drawGouraudScanline(data, arg1, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
-							arg5 += local3;
-							arg4 += local30;
-							arg8 += local5;
-							arg7 += local32;
-							arg1 += width;
-						}
-					} else {
-						arg2 -= arg0;
-						arg0 -= arg1;
-						arg1 = offsets[arg1];
-						while (true) {
-							arg0--;
-							if (arg0 < 0) {
-								while (true) {
-									arg2--;
-									if (arg2 < 0) {
-										return;
-									}
-									drawGouraudScanline(data, arg1, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
-									arg3 += local57;
-									arg4 += local30;
-									arg6 += local59;
-									arg7 += local32;
-									arg1 += width;
-								}
-							}
-							drawGouraudScanline(data, arg1, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
-							arg5 += local3;
-							arg4 += local30;
-							arg8 += local5;
-							arg7 += local32;
-							arg1 += width;
-						}
-					}
-				}
-			}
-		} else if (arg2 < bottom) {
-			if (arg0 > bottom) {
-				arg0 = bottom;
-			}
-			if (arg1 > bottom) {
-				arg1 = bottom;
-			}
-			if (arg0 < arg1) {
-				arg4 = arg5 <<= 0x10;
-				arg7 = arg8 <<= 0xF;
-				if (arg2 < 0) {
-					arg4 -= local30 * arg2;
-					arg5 -= local57 * arg2;
-					arg7 -= local32 * arg2;
-					arg8 -= local59 * arg2;
-					arg2 = 0;
-				}
-				arg3 <<= 0x10;
-				arg6 <<= 0xF;
-				if (arg0 < 0) {
-					arg3 -= local3 * arg0;
-					arg6 -= local5 * arg0;
-					arg0 = 0;
-				}
-				if (local30 < local57) {
-					arg1 -= arg0;
-					arg0 -= arg2;
-					arg2 = offsets[arg2];
-					while (true) {
-						arg0--;
-						if (arg0 < 0) {
-							while (true) {
-								arg1--;
-								if (arg1 < 0) {
-									return;
-								}
-								drawGouraudScanline(data, arg2, arg4 >> 16, arg3 >> 16, arg7 >> 7, arg6 >> 7);
-								arg4 += local30;
-								arg3 += local3;
-								arg7 += local32;
-								arg6 += local5;
-								arg2 += width;
-							}
-						}
-						drawGouraudScanline(data, arg2, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
-						arg4 += local30;
-						arg5 += local57;
-						arg7 += local32;
-						arg8 += local59;
-						arg2 += width;
-					}
-				} else {
-					arg1 -= arg0;
-					arg0 -= arg2;
-					arg2 = offsets[arg2];
-					while (true) {
-						arg0--;
-						if (arg0 < 0) {
-							while (true) {
-								arg1--;
-								if (arg1 < 0) {
-									return;
-								}
-								drawGouraudScanline(data, arg2, arg3 >> 16, arg4 >> 16, arg6 >> 7, arg7 >> 7);
-								arg4 += local30;
-								arg3 += local3;
-								arg7 += local32;
-								arg6 += local5;
-								arg2 += width;
-							}
-						}
-						drawGouraudScanline(data, arg2, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
-						arg4 += local30;
-						arg5 += local57;
-						arg7 += local32;
-						arg8 += local59;
-						arg2 += width;
+
+					while (--yC >= 0) {
+						drawGouraudScanline(data, yA, xB >> 16, xC >> 16, colorB >> 7, colorC >> 7);
+						xC += xStepAC;
+						xB += xStepBC;
+						colorC += colorStepAC;
+						colorB += colorStepBC;
+						yA += width;
 					}
 				}
 			} else {
-				arg3 = arg5 <<= 0x10;
-				arg6 = arg8 <<= 0xF;
-				if (arg2 < 0) {
-					arg3 -= local30 * arg2;
-					arg5 -= local57 * arg2;
-					arg6 -= local32 * arg2;
-					arg8 -= local59 * arg2;
-					arg2 = 0;
+				xB = xA <<= 0x10;
+				colorB = colorA <<= 0xF;
+				if (yA < 0) {
+					xB -= xStepAC * yA;
+					xA -= xStepAB * yA;
+					colorB -= colorStepAC * yA;
+					colorA -= colorStepAB * yA;
+					yA = 0;
 				}
-				arg4 <<= 0x10;
-				arg7 <<= 0xF;
-				if (arg1 < 0) {
-					arg4 -= local3 * arg1;
-					arg7 -= local5 * arg1;
-					arg1 = 0;
+
+				xC <<= 0x10;
+				colorC <<= 0xF;
+				if (yC < 0) {
+					xC -= xStepBC * yC;
+					colorC -= colorStepBC * yC;
+					yC = 0;
 				}
-				if (local30 < local57) {
-					arg0 -= arg1;
-					arg1 -= arg2;
-					arg2 = offsets[arg2];
-					while (true) {
-						arg1--;
-						if (arg1 < 0) {
-							while (true) {
-								arg0--;
-								if (arg0 < 0) {
-									return;
-								}
-								drawGouraudScanline(data, arg2, arg4 >> 16, arg5 >> 16, arg7 >> 7, arg8 >> 7);
-								arg4 += local3;
-								arg5 += local57;
-								arg7 += local5;
-								arg8 += local59;
-								arg2 += width;
-							}
-						}
-						drawGouraudScanline(data, arg2, arg3 >> 16, arg5 >> 16, arg6 >> 7, arg8 >> 7);
-						arg3 += local30;
-						arg5 += local57;
-						arg6 += local32;
-						arg8 += local59;
-						arg2 += width;
+
+				if (yA != yC && xStepAC < xStepAB || yA == yC && xStepBC > xStepAB) {
+					yB -= yC;
+					yC -= yA;
+
+					yA = offsets[yA];
+					while (--yC >= 0) {
+						drawGouraudScanline(data, yA, xB >> 16, xA >> 16, colorB >> 7, colorA >> 7);
+						xB += xStepAC;
+						xA += xStepAB;
+						colorB += colorStepAC;
+						colorA += colorStepAB;
+						yA += width;
+					}
+
+					while (--yB >= 0) {
+						drawGouraudScanline(data, yA, xC >> 16, xA >> 16, colorC >> 7, colorA >> 7);
+						xC += xStepBC;
+						xA += xStepAB;
+						colorC += colorStepBC;
+						colorA += colorStepAB;
+						yA += width;
 					}
 				} else {
-					arg0 -= arg1;
-					arg1 -= arg2;
-					arg2 = offsets[arg2];
-					while (true) {
-						arg1--;
-						if (arg1 < 0) {
-							while (true) {
-								arg0--;
-								if (arg0 < 0) {
-									return;
-								}
-								drawGouraudScanline(data, arg2, arg5 >> 16, arg4 >> 16, arg8 >> 7, arg7 >> 7);
-								arg4 += local3;
-								arg5 += local57;
-								arg7 += local5;
-								arg8 += local59;
-								arg2 += width;
-							}
-						}
-						drawGouraudScanline(data, arg2, arg5 >> 16, arg3 >> 16, arg8 >> 7, arg6 >> 7);
-						arg3 += local30;
-						arg5 += local57;
-						arg6 += local32;
-						arg8 += local59;
-						arg2 += width;
+					yB -= yC;
+					yC -= yA;
+
+					yA = offsets[yA];
+					while (--yC >= 0) {
+						drawGouraudScanline(data, yA, xA >> 16, xB >> 16, colorA >> 7, colorB >> 7);
+						xB += xStepAC;
+						xA += xStepAB;
+						colorB += colorStepAC;
+						colorA += colorStepAB;
+						yA += width;
+					}
+
+					while (--yB >= 0) {
+						drawGouraudScanline(data, yA, xA >> 16, xC >> 16, colorA >> 7, colorC >> 7);
+						xC += xStepBC;
+						xA += xStepAB;
+						colorC += colorStepBC;
+						colorA += colorStepAB;
+						yA += width;
+					}
+				}
+			}
+		} else if (yB <= yC) {
+			if (yB >= bottom) {
+				return;
+			}
+
+			if (yC > bottom) {
+				yC = bottom;
+			}
+
+			if (yA > bottom) {
+				yA = bottom;
+			}
+
+			if (yC < yA) {
+				xA = xB <<= 0x10;
+				colorA = colorB <<= 0xF;
+				if (yB < 0) {
+					xA -= xStepAB * yB;
+					xB -= xStepBC * yB;
+					colorA -= colorStepAB * yB;
+					colorB -= colorStepBC * yB;
+					yB = 0;
+				}
+
+				xC <<= 0x10;
+				colorC <<= 0xF;
+				if (yC < 0) {
+					xC -= xStepAC * yC;
+					colorC -= colorStepAC * yC;
+					yC = 0;
+				}
+
+				if (yB != yC && xStepAB < xStepBC || yB == yC && xStepAB > xStepAC) {
+					yA -= yC;
+					yC -= yB;
+
+					yB = offsets[yB];
+					while (--yC >= 0) {
+						drawGouraudScanline(data, yB, xA >> 16, xB >> 16, colorA >> 7, colorB >> 7);
+						xA += xStepAB;
+						xB += xStepBC;
+						colorA += colorStepAB;
+						colorB += colorStepBC;
+						yB += width;
+					}
+
+					while (--yA >= 0) {
+						drawGouraudScanline(data, yB, xA >> 16, xC >> 16, colorA >> 7, colorC >> 7);
+						xA += xStepAB;
+						xC += xStepAC;
+						colorA += colorStepAB;
+						colorC += colorStepAC;
+						yB += width;
+					}
+				} else {
+					yA -= yC;
+					yC -= yB;
+
+					yB = offsets[yB];
+					while (--yC >= 0) {
+						drawGouraudScanline(data, yB, xB >> 16, xA >> 16, colorB >> 7, colorA >> 7);
+						xA += xStepAB;
+						xB += xStepBC;
+						colorA += colorStepAB;
+						colorB += colorStepBC;
+						yB += width;
+					}
+
+					while (--yA >= 0) {
+						drawGouraudScanline(data, yB, xC >> 16, xA >> 16, colorC >> 7, colorA >> 7);
+						xA += xStepAB;
+						xC += xStepAC;
+						colorA += colorStepAB;
+						colorC += colorStepAC;
+						yB += width;
+					}
+				}
+			} else {
+				xC = xB <<= 0x10;
+				colorC = colorB <<= 0xF;
+				if (yB < 0) {
+					xC -= xStepAB * yB;
+					xB -= xStepBC * yB;
+					colorC -= colorStepAB * yB;
+					colorB -= colorStepBC * yB;
+					yB = 0;
+				}
+
+				xA <<= 0x10;
+				colorA <<= 0xF;
+				if (yA < 0) {
+					xA -= xStepAC * yA;
+					colorA -= colorStepAC * yA;
+					yA = 0;
+				}
+
+				if (xStepAB < xStepBC) {
+					yC -= yA;
+					yA -= yB;
+
+					yB = offsets[yB];
+					while (--yA >= 0) {
+						drawGouraudScanline(data, yB, xC >> 16, xB >> 16, colorC >> 7, colorB >> 7);
+						xC += xStepAB;
+						xB += xStepBC;
+						colorC += colorStepAB;
+						colorB += colorStepBC;
+						yB += width;
+					}
+
+					while (--yC >= 0) {
+						drawGouraudScanline(data, yB, xA >> 16, xB >> 16, colorA >> 7, colorB >> 7);
+						xA += xStepAC;
+						xB += xStepBC;
+						colorA += colorStepAC;
+						colorB += colorStepBC;
+						yB += width;
+					}
+				} else {
+					yC -= yA;
+					yA -= yB;
+
+					yB = offsets[yB];
+					while (--yA >= 0) {
+						drawGouraudScanline(data, yB, xB >> 16, xC >> 16, colorB >> 7, colorC >> 7);
+						xC += xStepAB;
+						xB += xStepBC;
+						colorC += colorStepAB;
+						colorB += colorStepBC;
+						yB += width;
+					}
+
+					while (--yC >= 0) {
+						drawGouraudScanline(data, yB, xB >> 16, xA >> 16, colorB >> 7, colorA >> 7);
+						xA += xStepAC;
+						xB += xStepBC;
+						colorA += colorStepAC;
+						colorB += colorStepBC;
+						yB += width;
+					}
+				}
+			}
+		} else if (yC < bottom) {
+			if (yA > bottom) {
+				yA = bottom;
+			}
+
+			if (yB > bottom) {
+				yB = bottom;
+			}
+
+			if (yA < yB) {
+				xB = xC <<= 0x10;
+				colorB = colorC <<= 0xF;
+				if (yC < 0) {
+					xB -= xStepBC * yC;
+					xC -= xStepAC * yC;
+					colorB -= colorStepBC * yC;
+					colorC -= colorStepAC * yC;
+					yC = 0;
+				}
+
+				xA <<= 0x10;
+				colorA <<= 0xF;
+				if (yA < 0) {
+					xA -= xStepAB * yA;
+					colorA -= colorStepAB * yA;
+					yA = 0;
+				}
+
+				if (xStepBC < xStepAC) {
+					yB -= yA;
+					yA -= yC;
+
+					yC = offsets[yC];
+					while (--yA >= 0) {
+						drawGouraudScanline(data, yC, xB >> 16, xC >> 16, colorB >> 7, colorC >> 7);
+						xB += xStepBC;
+						xC += xStepAC;
+						colorB += colorStepBC;
+						colorC += colorStepAC;
+						yC += width;
+					}
+
+					while (--yB >= 0) {
+						drawGouraudScanline(data, yC, xB >> 16, xA >> 16, colorB >> 7, colorA >> 7);
+						xB += xStepBC;
+						xA += xStepAB;
+						colorB += colorStepBC;
+						colorA += colorStepAB;
+						yC += width;
+					}
+				} else {
+					yB -= yA;
+					yA -= yC;
+
+					yC = offsets[yC];
+					while (--yA >= 0) {
+						drawGouraudScanline(data, yC, xC >> 16, xB >> 16, colorC >> 7, colorB >> 7);
+						xB += xStepBC;
+						xC += xStepAC;
+						colorB += colorStepBC;
+						colorC += colorStepAC;
+						yC += width;
+					}
+
+					while (--yB >= 0) {
+						drawGouraudScanline(data, yC, xA >> 16, xB >> 16, colorA >> 7, colorB >> 7);
+						xB += xStepBC;
+						xA += xStepAB;
+						colorB += colorStepBC;
+						colorA += colorStepAB;
+						yC += width;
+					}
+				}
+			} else {
+				xA = xC <<= 0x10;
+				colorA = colorC <<= 0xF;
+				if (yC < 0) {
+					xA -= xStepBC * yC;
+					xC -= xStepAC * yC;
+					colorA -= colorStepBC * yC;
+					colorC -= colorStepAC * yC;
+					yC = 0;
+				}
+
+				xB <<= 0x10;
+				colorB <<= 0xF;
+				if (yB < 0) {
+					xB -= xStepAB * yB;
+					colorB -= colorStepAB * yB;
+					yB = 0;
+				}
+
+				if (xStepBC < xStepAC) {
+					yA -= yB;
+					yB -= yC;
+
+					yC = offsets[yC];
+					while (--yB >= 0) {
+						drawGouraudScanline(data, yC, xA >> 16, xC >> 16, colorA >> 7, colorC >> 7);
+						xA += xStepBC;
+						xC += xStepAC;
+						colorA += colorStepBC;
+						colorC += colorStepAC;
+						yC += width;
+					}
+
+					while (--yA >= 0) {
+						drawGouraudScanline(data, yC, xB >> 16, xC >> 16, colorB >> 7, colorC >> 7);
+						xB += xStepAB;
+						xC += xStepAC;
+						colorB += colorStepAB;
+						colorC += colorStepAC;
+						yC += width;
+					}
+				} else {
+					yA -= yB;
+					yB -= yC;
+
+					yC = offsets[yC];
+					while (--yB >= 0) {
+						drawGouraudScanline(data, yC, xC >> 16, xA >> 16, colorC >> 7, colorA >> 7);
+						xA += xStepBC;
+						xC += xStepAC;
+						colorA += colorStepBC;
+						colorC += colorStepAC;
+						yC += width;
+					}
+
+					while (--yA >= 0) {
+						drawGouraudScanline(data, yC, xC >> 16, xB >> 16, colorC >> 7, colorB >> 7);
+						xB += xStepAB;
+						xC += xStepAC;
+						colorB += colorStepAB;
+						colorC += colorStepAC;
+						yC += width;
 					}
 				}
 			}
