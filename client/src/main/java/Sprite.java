@@ -426,28 +426,31 @@ public final class Sprite extends Draw2D {
 
 	@OriginalMember(owner = "client!hb", name = "a", descriptor = "(II[IIIIIIIZ[I)V")
 	public void drawRotatedMasked(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int[] arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(10) int[] arg10) {
-		@Pc(16) int local16 = -arg1 / 2;
-		@Pc(21) int local21 = -arg3 / 2;
-		@Pc(30) int local30 = (int) (Math.sin((double) arg0 / 326.11D) * 65536.0D);
-		@Pc(39) int local39 = (int) (Math.cos((double) arg0 / 326.11D) * 65536.0D);
-		@Pc(45) int local45 = local30 * arg5 >> 8;
-		@Pc(51) int local51 = local39 * arg5 >> 8;
-		@Pc(63) int local63 = (arg6 << 16) + local21 * local45 + local16 * local51;
-		@Pc(75) int local75 = (arg4 << 16) + (local21 * local51 - local16 * local45);
-		@Pc(81) int local81 = arg7 + arg8 * Draw2D.width;
-		for (@Pc(83) int local83 = 0; local83 < arg3; local83++) {
-			@Pc(89) int local89 = arg2[local83];
-			@Pc(93) int local93 = local81 + local89;
-			@Pc(99) int local99 = local63 + local51 * local89;
-			@Pc(105) int local105 = local75 - local45 * local89;
-			for (@Pc(110) int local110 = -arg10[local83]; local110 < 0; local110++) {
-				Draw2D.data[local93++] = this.pixels[(local99 >> 16) + (local105 >> 16) * this.spriteWidth];
-				local99 += local51;
-				local105 -= local45;
+		try {
+			@Pc(16) int local16 = -arg1 / 2;
+			@Pc(21) int local21 = -arg3 / 2;
+			@Pc(30) int local30 = (int) (Math.sin((double) arg0 / 326.11D) * 65536.0D);
+			@Pc(39) int local39 = (int) (Math.cos((double) arg0 / 326.11D) * 65536.0D);
+			@Pc(45) int local45 = local30 * arg5 >> 8;
+			@Pc(51) int local51 = local39 * arg5 >> 8;
+			@Pc(63) int local63 = (arg6 << 16) + local21 * local45 + local16 * local51;
+			@Pc(75) int local75 = (arg4 << 16) + (local21 * local51 - local16 * local45);
+			@Pc(81) int local81 = arg7 + arg8 * Draw2D.width;
+			for (@Pc(83) int local83 = 0; local83 < arg3; local83++) {
+				@Pc(89) int local89 = arg2[local83];
+				@Pc(93) int local93 = local81 + local89;
+				@Pc(99) int local99 = local63 + local51 * local89;
+				@Pc(105) int local105 = local75 - local45 * local89;
+				for (@Pc(110) int local110 = -arg10[local83]; local110 < 0; local110++) {
+					Draw2D.data[local93++] = this.pixels[(local99 >> 16) + (local105 >> 16) * this.spriteWidth];
+					local99 += local51;
+					local105 -= local45;
+				}
+				local63 += local45;
+				local75 += local51;
+				local81 += Draw2D.width;
 			}
-			local63 += local45;
-			local75 += local51;
-			local81 += Draw2D.width;
+		} catch (@Pc(158) Exception ignored) {
 		}
 	}
 
