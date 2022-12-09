@@ -16,24 +16,25 @@ public final class Stack {
 	}
 
 	@OriginalMember(owner = "client!pb", name = "a", descriptor = "(Lclient!db;)V")
-	public void push(@OriginalArg(0) CacheableNode arg0) {
-		if (arg0.prevCacheable != null) {
-			arg0.uncache();
+	public void push(@OriginalArg(0) CacheableNode node) {
+		if (node.prevCacheable != null) {
+			node.uncache();
 		}
-		arg0.prevCacheable = this.head.prevCacheable;
-		arg0.nextCacheable = this.head;
-		arg0.prevCacheable.nextCacheable = arg0;
-		arg0.nextCacheable.prevCacheable = arg0;
+
+		node.prevCacheable = this.head.prevCacheable;
+		node.nextCacheable = this.head;
+		node.prevCacheable.nextCacheable = node;
+		node.nextCacheable.prevCacheable = node;
 	}
 
 	@OriginalMember(owner = "client!pb", name = "a", descriptor = "()Lclient!db;")
 	public CacheableNode pop() {
-		@Pc(3) CacheableNode local3 = this.head.nextCacheable;
-		if (local3 == this.head) {
+		@Pc(3) CacheableNode node = this.head.nextCacheable;
+		if (node == this.head) {
 			return null;
-		} else {
-			local3.uncache();
-			return local3;
 		}
+
+		node.uncache();
+		return node;
 	}
 }

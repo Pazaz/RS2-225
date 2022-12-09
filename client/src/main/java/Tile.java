@@ -75,9 +75,9 @@ public final class Tile extends Node {
 	public final int z;
 
 	@OriginalMember(owner = "client!cb", name = "<init>", descriptor = "(III)V")
-	public Tile(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
-		this.renderLevel = this.level = arg0;
-		this.x = arg1;
-		this.z = arg2;
+	public Tile(@OriginalArg(0) int plane, @OriginalArg(1) int x, @OriginalArg(2) int z) {
+		this.renderLevel = this.level = plane;
+		this.x = x;
+		this.z = z;
 	}
 }

@@ -32,44 +32,47 @@ public final class IdkType {
 
 	@OriginalMember(owner = "client!gc", name = "a", descriptor = "(Lclient!ub;I)V")
 	public static void unpack(@OriginalArg(0) FileArchive archive) {
-		@Pc(9) Buffer local9 = new Buffer(archive.read("idk.dat", null));
-		count = local9.g2();
+		@Pc(9) Buffer dat = new Buffer(archive.read("idk.dat", null));
+		count = dat.g2();
 		if (instances == null) {
 			instances = new IdkType[count];
 		}
-		for (@Pc(19) int local19 = 0; local19 < count; local19++) {
-			if (instances[local19] == null) {
-				instances[local19] = new IdkType();
+
+		for (@Pc(19) int i = 0; i < count; i++) {
+			if (instances[i] == null) {
+				instances[i] = new IdkType();
 			}
-			instances[local19].decode(local9);
+
+			instances[i].decode(dat);
 		}
 	}
 
 	@OriginalMember(owner = "client!gc", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void decode(@OriginalArg(1) Buffer arg1) {
+	public void decode(@OriginalArg(1) Buffer dat) {
 		while (true) {
-			@Pc(8) int local8 = arg1.g1();
-			if (local8 == 0) {
-				return;
+			@Pc(8) int opcode = dat.g1();
+			if (opcode == 0) {
+				break;
 			}
-			if (local8 == 1) {
-				this.type = arg1.g1();
-			} else if (local8 == 2) {
-				@Pc(26) int local26 = arg1.g1();
-				this.models = new int[local26];
-				for (@Pc(32) int local32 = 0; local32 < local26; local32++) {
-					this.models[local32] = arg1.g2();
+
+			if (opcode == 1) {
+				this.type = dat.g1();
+			} else if (opcode == 2) {
+				@Pc(26) int count = dat.g1();
+				this.models = new int[count];
+				for (@Pc(32) int i = 0; i < count; i++) {
+					this.models[i] = dat.g2();
 				}
-			} else if (local8 == 3) {
+			} else if (opcode == 3) {
 				this.disable = true;
-			} else if (local8 >= 40 && local8 < 50) {
-				this.recol_s[local8 - 40] = arg1.g2();
-			} else if (local8 >= 50 && local8 < 60) {
-				this.recol_d[local8 - 50] = arg1.g2();
-			} else if (local8 >= 60 && local8 < 70) {
-				this.heads[local8 - 60] = arg1.g2();
+			} else if (opcode >= 40 && opcode < 50) {
+				this.recol_s[opcode - 40] = dat.g2();
+			} else if (opcode >= 50 && opcode < 60) {
+				this.recol_d[opcode - 50] = dat.g2();
+			} else if (opcode >= 60 && opcode < 70) {
+				this.heads[opcode - 60] = dat.g2();
 			} else {
-				System.out.println("Error unrecognised config code: " + local8);
+				System.out.println("Error unrecognised config code: " + opcode);
 			}
 		}
 	}
@@ -79,35 +82,41 @@ public final class IdkType {
 		if (this.models == null) {
 			return null;
 		}
-		@Pc(11) Model[] local11 = new Model[this.models.length];
-		for (@Pc(13) int local13 = 0; local13 < this.models.length; local13++) {
-			local11[local13] = new Model(false, this.models[local13]);
+
+		@Pc(11) Model[] models = new Model[this.models.length];
+		for (@Pc(13) int i = 0; i < this.models.length; i++) {
+			models[i] = new Model(false, this.models[i]);
 		}
-		@Pc(40) Model local40;
-		if (local11.length == 1) {
-			local40 = local11[0];
+
+		@Pc(40) Model m;
+		if (models.length == 1) {
+			m = models[0];
 		} else {
-			local40 = new Model(local11, local11.length);
+			m = new Model(models, models.length);
 		}
-		for (@Pc(52) int local52 = 0; local52 < 6 && this.recol_s[local52] != 0; local52++) {
-			local40.recolor(this.recol_s[local52], this.recol_d[local52]);
+
+		for (@Pc(52) int i = 0; i < 6 && this.recol_s[i] != 0; i++) {
+			m.recolor(this.recol_s[i], this.recol_d[i]);
 		}
-		return local40;
+
+		return m;
 	}
 
 	@OriginalMember(owner = "client!gc", name = "a", descriptor = "(Z)Lclient!eb;")
 	public Model getHeadModel() {
-		@Pc(4) Model[] local4 = new Model[5];
-		@Pc(6) int local6 = 0;
-		for (@Pc(8) int local8 = 0; local8 < 5; local8++) {
-			if (this.heads[local8] != -1) {
-				local4[local6++] = new Model(false, this.heads[local8]);
+		@Pc(4) Model[] models = new Model[5];
+		@Pc(6) int count = 0;
+		for (@Pc(8) int i = 0; i < 5; i++) {
+			if (this.heads[i] != -1) {
+				models[count++] = new Model(false, this.heads[i]);
 			}
 		}
-		@Pc(39) Model local39 = new Model(local4, local6);
-		for (@Pc(41) int local41 = 0; local41 < 6 && this.recol_s[local41] != 0; local41++) {
-			local39.recolor(this.recol_s[local41], this.recol_d[local41]);
+
+		@Pc(39) Model m = new Model(models, count);
+		for (@Pc(41) int i = 0; i < 6 && this.recol_s[i] != 0; i++) {
+			m.recolor(this.recol_s[i], this.recol_d[i]);
 		}
-		return local39;
+
+		return m;
 	}
 }

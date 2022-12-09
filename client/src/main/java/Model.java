@@ -847,6 +847,7 @@ public final class Model extends CacheableNode {
 			vertex1 = new Buffer(archive.read("ob_vertex1.dat", null));
 			vertex2 = new Buffer(archive.read("ob_vertex2.dat", null));
 			axis = new Buffer(archive.read("ob_axis.dat", null));
+
 			head.pos = 0;
 			point1.pos = 0;
 			point2.pos = 0;
@@ -854,6 +855,7 @@ public final class Model extends CacheableNode {
 			point4.pos = 0;
 			vertex1.pos = 0;
 			vertex2.pos = 0;
+
 			@Pc(172) int local172 = head.g2();
 			metadata = new Metadata[local172 + 100];
 			@Pc(179) int local179 = 0;
@@ -936,9 +938,9 @@ public final class Model extends CacheableNode {
 				local206.triangleTextureDataOffset = local179;
 				local179 += local206.texturedCount;
 			}
-		} catch (@Pc(421) Exception local421) {
+		} catch (@Pc(421) Exception ex) {
 			System.out.println("Error loading model index");
-			local421.printStackTrace();
+			ex.printStackTrace();
 		}
 	}
 

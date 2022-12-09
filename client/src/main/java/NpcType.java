@@ -93,17 +93,19 @@ public final class NpcType {
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(Lclient!ub;)V")
 	public static void unpack(@OriginalArg(0) FileArchive archive) {
 		dat = new Buffer(archive.read("npc.dat", null));
-		@Pc(21) Buffer local21 = new Buffer(archive.read("npc.idx", null));
-		count = local21.g2();
+		@Pc(21) Buffer idx = new Buffer(archive.read("npc.idx", null));
+		count = idx.g2();
 		offsets = new int[count];
-		@Pc(29) int local29 = 2;
-		for (@Pc(31) int local31 = 0; local31 < count; local31++) {
-			offsets[local31] = local29;
-			local29 += local21.g2();
+
+		@Pc(29) int offset = 2;
+		for (@Pc(31) int i = 0; i < count; i++) {
+			offsets[i] = offset;
+			offset += idx.g2();
 		}
+
 		instances = new NpcType[20];
-		for (@Pc(51) int local51 = 0; local51 < 20; local51++) {
-			instances[local51] = new NpcType();
+		for (@Pc(51) int i = 0; i < 20; i++) {
+			instances[i] = new NpcType();
 		}
 	}
 
@@ -116,154 +118,165 @@ public final class NpcType {
 	}
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(I)Lclient!bc;")
-	public static NpcType get(@OriginalArg(0) int arg0) {
-		for (@Pc(1) int local1 = 0; local1 < 20; local1++) {
-			if (instances[local1].id == (long) arg0) {
-				return instances[local1];
+	public static NpcType get(@OriginalArg(0) int id) {
+		for (@Pc(1) int i = 0; i < 20; i++) {
+			if (instances[i].id == (long) id) {
+				return instances[i];
 			}
 		}
+
 		offset = (offset + 1) % 20;
-		@Pc(33) NpcType local33 = instances[offset] = new NpcType();
-		dat.pos = offsets[arg0];
-		local33.id = arg0;
-		local33.decode(dat);
-		return local33;
+		@Pc(33) NpcType npc = instances[offset] = new NpcType();
+		dat.pos = offsets[id];
+		npc.id = id;
+		npc.decode(dat);
+		return npc;
 	}
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void decode(@OriginalArg(1) Buffer arg1) {
+	public void decode(@OriginalArg(1) Buffer dat) {
 		while (true) {
-			@Pc(10) int local10 = arg1.g1();
-			if (local10 == 0) {
-				return;
+			@Pc(10) int opcode = dat.g1();
+			if (opcode == 0) {
+				break;
 			}
-			@Pc(19) int local19;
-			@Pc(25) int local25;
-			if (local10 == 1) {
-				local19 = arg1.g1();
-				this.models = new int[local19];
-				for (local25 = 0; local25 < local19; local25++) {
-					this.models[local25] = arg1.g2();
+
+			if (opcode == 1) {
+				@Pc(19) int count = dat.g1();
+				this.models = new int[count];
+				for (@Pc(25) int i = 0; i < count; i++) {
+					this.models[i] = dat.g2();
 				}
-			} else if (local10 == 2) {
-				this.name = arg1.gstr();
-			} else if (local10 == 3) {
-				this.desc = arg1.gstrbyte();
-			} else if (local10 == 12) {
-				this.size = arg1.g1b();
-			} else if (local10 == 13) {
-				this.readyanim = arg1.g2();
-			} else if (local10 == 14) {
-				this.walkanim = arg1.g2();
-			} else if (local10 == 16) {
+			} else if (opcode == 2) {
+				this.name = dat.gstr();
+			} else if (opcode == 3) {
+				this.desc = dat.gstrbyte();
+			} else if (opcode == 12) {
+				this.size = dat.g1b();
+			} else if (opcode == 13) {
+				this.readyanim = dat.g2();
+			} else if (opcode == 14) {
+				this.walkanim = dat.g2();
+			} else if (opcode == 16) {
 				this.disposeAlpha = true;
-			} else if (local10 == 17) {
-				this.walkanim = arg1.g2();
-				this.walkanim_b = arg1.g2();
-				this.walkanim_r = arg1.g2();
-				this.walkanim_l = arg1.g2();
-			} else if (local10 >= 30 && local10 < 40) {
+			} else if (opcode == 17) {
+				this.walkanim = dat.g2();
+				this.walkanim_b = dat.g2();
+				this.walkanim_r = dat.g2();
+				this.walkanim_l = dat.g2();
+			} else if (opcode >= 30 && opcode < 40) {
 				if (this.ops == null) {
 					this.ops = new String[5];
 				}
-				this.ops[local10 - 30] = arg1.gstr();
-				if (this.ops[local10 - 30].equalsIgnoreCase("hidden")) {
-					this.ops[local10 - 30] = null;
+
+				this.ops[opcode - 30] = dat.gstr();
+				if (this.ops[opcode - 30].equalsIgnoreCase("hidden")) {
+					this.ops[opcode - 30] = null;
 				}
-			} else if (local10 == 40) {
-				local19 = arg1.g1();
-				this.recol_s = new int[local19];
-				this.recol_d = new int[local19];
-				for (local25 = 0; local25 < local19; local25++) {
-					this.recol_s[local25] = arg1.g2();
-					this.recol_d[local25] = arg1.g2();
+			} else if (opcode == 40) {
+				int count = dat.g1();
+				this.recol_s = new int[count];
+				this.recol_d = new int[count];
+				for (int i = 0; i < count; i++) {
+					this.recol_s[i] = dat.g2();
+					this.recol_d[i] = dat.g2();
 				}
-			} else if (local10 == 60) {
-				local19 = arg1.g1();
-				this.headModels = new int[local19];
-				for (local25 = 0; local25 < local19; local25++) {
-					this.headModels[local25] = arg1.g2();
+			} else if (opcode == 60) {
+				int count = dat.g1();
+				this.headModels = new int[count];
+				for (int i = 0; i < count; i++) {
+					this.headModels[i] = dat.g2();
 				}
-			} else if (local10 == 90) {
-				this.opcode90 = arg1.g2();
-			} else if (local10 == 91) {
-				this.opcode91 = arg1.g2();
-			} else if (local10 == 92) {
-				this.opcode92 = arg1.g2();
-			} else if (local10 == 93) {
+			} else if (opcode == 90) {
+				this.opcode90 = dat.g2();
+			} else if (opcode == 91) {
+				this.opcode91 = dat.g2();
+			} else if (opcode == 92) {
+				this.opcode92 = dat.g2();
+			} else if (opcode == 93) {
 				this.visonmap = false;
-			} else if (local10 == 95) {
-				this.vislevel = arg1.g2();
-			} else if (local10 == 97) {
-				this.resizex = arg1.g2();
-			} else if (local10 == 98) {
-				this.resizez = arg1.g2();
+			} else if (opcode == 95) {
+				this.vislevel = dat.g2();
+			} else if (opcode == 97) {
+				this.resizex = dat.g2();
+			} else if (opcode == 98) {
+				this.resizez = dat.g2();
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!bc", name = "a", descriptor = "(II[I)Lclient!eb;")
-	public Model getModel(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int[] arg2) {
-		@Pc(3) Model local3 = null;
-		@Pc(9) Model local9 = (Model) builtModels.get(this.id);
-		if (local9 == null) {
-			@Pc(16) Model[] local16 = new Model[this.models.length];
-			for (@Pc(18) int local18 = 0; local18 < this.models.length; local18++) {
-				local16[local18] = new Model(false, this.models[local18]);
+	public Model getModel(@OriginalArg(0) int scaleX, @OriginalArg(1) int scaleY, @OriginalArg(2) int[] scaleZ) {
+		@Pc(9) Model model = (Model) builtModels.get(this.id);
+		if (model == null) {
+			@Pc(16) Model[] models = new Model[this.models.length];
+			for (@Pc(18) int i = 0; i < this.models.length; i++) {
+				models[i] = new Model(false, this.models[i]);
 			}
-			if (local16.length == 1) {
-				local9 = local16[0];
+
+			if (models.length == 1) {
+				model = models[0];
 			} else {
-				local9 = new Model(local16, local16.length);
+				model = new Model(models, models.length);
 			}
+
 			if (this.recol_s != null) {
-				for (@Pc(60) int local60 = 0; local60 < this.recol_s.length; local60++) {
-					local9.recolor(this.recol_s[local60], this.recol_d[local60]);
+				for (@Pc(60) int i = 0; i < this.recol_s.length; i++) {
+					model.recolor(this.recol_s[i], this.recol_d[i]);
 				}
 			}
-			local9.applyGroup();
-			local9.applyLighting(64, 850, -30, -50, -30, true);
-			builtModels.put(this.id, local9);
+
+			model.applyGroup();
+			model.applyLighting(64, 850, -30, -50, -30, true);
+			builtModels.put(this.id, model);
 		}
-		local3 = new Model(local9, !this.disposeAlpha);
-		if (arg0 != -1 && arg1 != -1) {
-			local3.applyFrames(arg1, arg0, arg2);
-		} else if (arg0 != -1) {
-			local3.applyFrame(arg0);
+
+		model = new Model(model, !this.disposeAlpha);
+		if (scaleX != -1 && scaleY != -1) {
+			model.applyFrames(scaleY, scaleX, scaleZ);
+		} else if (scaleX != -1) {
+			model.applyFrame(scaleX);
 		}
+
 		if (this.resizex != 128 || this.resizez != 128) {
-			local3.scale(this.resizex, this.resizez, this.resizex);
+			model.scale(this.resizex, this.resizez, this.resizex);
 		}
-		local3.calculateYBoundaries();
-		local3.skinTriangle = null;
-		local3.labelVertices = null;
+
+		model.calculateYBoundaries();
+		model.skinTriangle = null;
+		model.labelVertices = null;
+
 		if (this.size == 1) {
-			local3.pickable = true;
+			model.pickable = true;
 		}
-		return local3;
+
+		return model;
 	}
 
 	@OriginalMember(owner = "client!bc", name = "b", descriptor = "(Z)Lclient!eb;")
 	public Model getHeadModel() {
 		if (this.headModels == null) {
 			return null;
-		} else {
-			@Pc(17) Model[] local17 = new Model[this.headModels.length];
-			for (@Pc(19) int local19 = 0; local19 < this.headModels.length; local19++) {
-				local17[local19] = new Model(false, this.headModels[local19]);
-			}
-			@Pc(46) Model local46;
-			if (local17.length == 1) {
-				local46 = local17[0];
-			} else {
-				local46 = new Model(local17, local17.length);
-			}
-			if (this.recol_s != null) {
-				for (@Pc(61) int local61 = 0; local61 < this.recol_s.length; local61++) {
-					local46.recolor(this.recol_s[local61], this.recol_d[local61]);
-				}
-			}
-			return local46;
 		}
+
+		@Pc(17) Model[] models = new Model[this.headModels.length];
+		for (@Pc(19) int i = 0; i < this.headModels.length; i++) {
+			models[i] = new Model(false, this.headModels[i]);
+		}
+
+		@Pc(46) Model model;
+		if (models.length == 1) {
+			model = models[0];
+		} else {
+			model = new Model(models, models.length);
+		}
+
+		if (this.recol_s != null) {
+			for (@Pc(61) int i = 0; i < this.recol_s.length; i++) {
+				model.recolor(this.recol_s[i], this.recol_d[i]);
+			}
+		}
+
+		return model;
 	}
 }

@@ -264,7 +264,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 			this.dragButton = 1;
 		}
 		if (InputTracking.enabled) {
-			InputTracking.mousePressed(local2, (e.getModifiersEx() & MouseEvent.BUTTON3_DOWN_MASK) != 0 ? 1 : 0, local5, (byte) 4);
+			InputTracking.mousePressed(local2, (e.getModifiersEx() & MouseEvent.BUTTON3_DOWN_MASK) != 0 ? 1 : 0, local5);
 		}
 	}
 
@@ -274,7 +274,7 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 		this.idleCycles = 0;
 		this.dragButton = 0;
 		if (InputTracking.enabled) {
-			InputTracking.mouseReleased(arg0.isMetaDown() ? 1 : 0, 0);
+			InputTracking.mouseReleased(arg0.isMetaDown() ? 1 : 0);
 		}
 	}
 

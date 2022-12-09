@@ -42,6 +42,7 @@ public final class Cache {
 		} else {
 			this.available--;
 		}
+
 		this.hashtable.put(key, node);
 		this.history.push(node);
 	}
@@ -54,6 +55,7 @@ public final class Cache {
 				this.available = this.capacity;
 				return;
 			}
+
 			last.unlink();
 			last.uncache();
 		}

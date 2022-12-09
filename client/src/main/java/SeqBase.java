@@ -20,29 +20,33 @@ public final class SeqBase {
 
 	@OriginalMember(owner = "client!f", name = "a", descriptor = "(ZLclient!ub;)V")
 	public static void unpack(@OriginalArg(1) FileArchive archive) {
-		@Pc(11) Buffer local11 = new Buffer(archive.read("base_head.dat", null));
-		@Pc(21) Buffer local21 = new Buffer(archive.read("base_type.dat", null));
-		@Pc(31) Buffer local31 = new Buffer(archive.read("base_label.dat", null));
-		@Pc(34) int local34 = local11.g2();
-		@Pc(37) int local37 = local11.g2();
-		instances = new SeqBase[local37 + 1];
-		for (@Pc(50) int local50 = 0; local50 < local34; local50++) {
-			@Pc(55) int local55 = local11.g2();
-			@Pc(58) int local58 = local11.g1();
-			@Pc(61) int[] local61 = new int[local58];
-			@Pc(64) int[][] local64 = new int[local58][];
-			for (@Pc(66) int local66 = 0; local66 < local58; local66++) {
-				local61[local66] = local21.g1();
-				@Pc(76) int local76 = local31.g1();
-				local64[local66] = new int[local76];
-				for (@Pc(83) int local83 = 0; local83 < local76; local83++) {
-					local64[local66][local83] = local31.g1();
+		@Pc(11) Buffer head = new Buffer(archive.read("base_head.dat", null));
+		@Pc(21) Buffer type = new Buffer(archive.read("base_type.dat", null));
+		@Pc(31) Buffer label = new Buffer(archive.read("base_label.dat", null));
+
+		@Pc(34) int count = head.g2();
+		instances = new SeqBase[head.g2() + 1];
+		for (@Pc(50) int i = 0; i < count; i++) {
+			@Pc(55) int id = head.g2();
+
+			@Pc(58) int length = head.g1();
+			@Pc(61) int[] transformTypes = new int[length];
+			@Pc(64) int[][] groupLabels = new int[length][];
+			for (@Pc(66) int group = 0; group < length; group++) {
+				transformTypes[group] = type.g1();
+
+				@Pc(76) int groupCount = label.g1();
+				groupLabels[group] = new int[groupCount];
+
+				for (@Pc(83) int child = 0; child < groupCount; child++) {
+					groupLabels[group][child] = label.g1();
 				}
 			}
-			instances[local55] = new SeqBase();
-			instances[local55].length = local58;
-			instances[local55].types = local61;
-			instances[local55].groupLabels = local64;
+
+			instances[id] = new SeqBase();
+			instances[id].length = length;
+			instances[id].types = transformTypes;
+			instances[id].groupLabels = groupLabels;
 		}
 	}
 }

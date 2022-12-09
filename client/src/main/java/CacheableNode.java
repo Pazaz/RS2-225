@@ -12,11 +12,13 @@ public class CacheableNode extends Node {
 
 	@OriginalMember(owner = "client!db", name = "b", descriptor = "()V")
 	public final void uncache() {
-		if (this.prevCacheable != null) {
-			this.prevCacheable.nextCacheable = this.nextCacheable;
-			this.nextCacheable.prevCacheable = this.prevCacheable;
-			this.nextCacheable = null;
-			this.prevCacheable = null;
+		if (this.prevCacheable == null) {
+			return;
 		}
+
+		this.prevCacheable.nextCacheable = this.nextCacheable;
+		this.nextCacheable.prevCacheable = this.prevCacheable;
+		this.nextCacheable = null;
+		this.prevCacheable = null;
 	}
 }

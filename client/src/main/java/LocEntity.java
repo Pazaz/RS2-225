@@ -30,14 +30,15 @@ public final class LocEntity extends Node {
 	public int seqDelay;
 
 	@OriginalMember(owner = "client!nb", name = "<init>", descriptor = "(ZIIIILclient!jc;II)V")
-	public LocEntity(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(4) int arg4, @OriginalArg(5) SeqType arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7) {
-		this.level = arg2;
-		this.classType = arg4;
-		this.x = arg7;
-		this.z = arg6;
-		this.locIndex = arg1;
-		this.seq = arg5;
-		if (arg0 && arg5.replayoff != -1) {
+	public LocEntity(@OriginalArg(0) boolean animated, @OriginalArg(1) int locIndex, @OriginalArg(2) int level, @OriginalArg(4) int classType, @OriginalArg(5) SeqType seq, @OriginalArg(6) int z, @OriginalArg(7) int x) {
+		this.level = level;
+		this.classType = classType;
+		this.x = x;
+		this.z = z;
+		this.locIndex = locIndex;
+		this.seq = seq;
+
+		if (animated && seq.replayoff != -1) {
 			this.seqFrame = (int) (Math.random() * (double) this.seq.framecount);
 			this.seqDelay = (int) (Math.random() * (double) this.seq.frameDelay[this.seqFrame]);
 		} else {

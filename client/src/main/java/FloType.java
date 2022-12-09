@@ -47,139 +47,147 @@ public final class FloType {
 
 	@OriginalMember(owner = "client!fc", name = "a", descriptor = "(Lclient!ub;I)V")
 	public static void unpack(@OriginalArg(0) FileArchive archive) {
-		@Pc(9) Buffer local9 = new Buffer(archive.read("flo.dat", null));
-		count = local9.g2();
+		@Pc(9) Buffer dat = new Buffer(archive.read("flo.dat", null));
+		count = dat.g2();
 		if (instances == null) {
 			instances = new FloType[count];
 		}
-		for (@Pc(23) int local23 = 0; local23 < count; local23++) {
-			if (instances[local23] == null) {
-				instances[local23] = new FloType();
+
+		for (@Pc(23) int i = 0; i < count; i++) {
+			if (instances[i] == null) {
+				instances[i] = new FloType();
 			}
-			instances[local23].decode(local9);
+
+			instances[i].decode(dat);
 		}
 	}
 
 	@OriginalMember(owner = "client!fc", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void decode(@OriginalArg(1) Buffer arg1) {
+	public void decode(@OriginalArg(1) Buffer dat) {
 		while (true) {
-			@Pc(10) int local10 = arg1.g1();
-			if (local10 == 0) {
-				return;
+			@Pc(10) int opcode = dat.g1();
+			if (opcode == 0) {
+				break;
 			}
 
-			if (local10 == 1) {
-				this.rgb = arg1.g3();
+			if (opcode == 1) {
+				this.rgb = dat.g3();
 				this.setColor(this.rgb);
-			} else if (local10 == 2) {
-				this.texture = arg1.g1();
-			} else if (local10 == 3) {
+			} else if (opcode == 2) {
+				this.texture = dat.g1();
+			} else if (opcode == 3) {
 				this.opcode3 = true;
-			} else if (local10 == 5) {
+			} else if (opcode == 5) {
 				this.occlude = false;
-			} else if (local10 == 6) {
-				this.name = arg1.gstr();
+			} else if (opcode == 6) {
+				this.name = dat.gstr();
 			} else {
-				System.out.println("Error unrecognised config code: " + local10);
+				System.out.println("Error unrecognised config code: " + opcode);
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!fc", name = "a", descriptor = "(II)V")
-	private void setColor(@OriginalArg(1) int arg1) {
-		@Pc(10) double local10 = (double) (arg1 >> 16 & 0xFF) / 256.0D;
-		@Pc(28) double local28 = (double) (arg1 >> 8 & 0xFF) / 256.0D;
-		@Pc(35) double local35 = (double) (arg1 & 0xFF) / 256.0D;
-		@Pc(37) double local37 = local10;
-		if (local28 < local10) {
-			local37 = local28;
-		}
-		if (local35 < local37) {
-			local37 = local35;
-		}
-		@Pc(51) double local51 = local10;
-		if (local28 > local10) {
-			local51 = local28;
-		}
-		if (local35 > local51) {
-			local51 = local35;
-		}
-		@Pc(65) double local65 = 0.0D;
-		@Pc(67) double local67 = 0.0D;
-		@Pc(73) double local73 = (local37 + local51) / 2.0D;
-		if (local37 != local51) {
-			if (local73 < 0.5D) {
-				local67 = (local51 - local37) / (local51 + local37);
+	private void setColor(@OriginalArg(1) int color) {
+		@Pc(10) double r = (double) (color >> 16 & 0xFF) / 256.0D;
+		@Pc(28) double g = (double) (color >> 8 & 0xFF) / 256.0D;
+		@Pc(35) double b = (double) (color & 0xFF) / 256.0D;
+
+		@Pc(37) double min = Math.min(Math.min(r, g), b);
+		@Pc(51) double max = Math.max(Math.max(r, g), b);
+
+		@Pc(65) double h = 0.0D;
+		@Pc(67) double s = 0.0D;
+		@Pc(73) double l = (min + max) / 2.0D;
+
+		if (min != max) {
+			if (l < 0.5D) {
+				s = (max - min) / (max + min);
+			} else if (l >= 0.5D) {
+				s = (max - min) / (2.0D - max - min);
 			}
-			if (local73 >= 0.5D) {
-				local67 = (local51 - local37) / (2.0D - local51 - local37);
-			}
-			if (local10 == local51) {
-				local65 = (local28 - local35) / (local51 - local37);
-			} else if (local28 == local51) {
-				local65 = (local35 - local10) / (local51 - local37) + 2.0D;
-			} else if (local35 == local51) {
-				local65 = (local10 - local28) / (local51 - local37) + 4.0D;
+
+			if (r == max) {
+				h = (g - b) / (max - min);
+			} else if (g == max) {
+				h = (b - r) / (max - min) + 2.0D;
+			} else if (b == max) {
+				h = (r - g) / (max - min) + 4.0D;
 			}
 		}
-		local65 /= 6.0D;
-		this.hue = (int) (local65 * 256.0D);
-		this.saturation = (int) (local67 * 256.0D);
-		this.lightness = (int) (local73 * 256.0D);
+
+		h /= 6.0D;
+
+		this.hue = (int) (h * 256.0D);
+		this.saturation = (int) (s * 256.0D);
+		this.lightness = (int) (l * 256.0D);
+
 		if (this.saturation < 0) {
 			this.saturation = 0;
 		} else if (this.saturation > 255) {
 			this.saturation = 255;
 		}
+
 		if (this.lightness < 0) {
 			this.lightness = 0;
 		} else if (this.lightness > 255) {
 			this.lightness = 255;
 		}
-		if (local73 > 0.5D) {
-			this.hsl16 = (int) ((1.0D - local73) * local67 * 512.0D);
+
+		if (l > 0.5D) {
+			this.hsl16 = (int) ((1.0D - l) * s * 512.0D);
 		} else {
-			this.hsl16 = (int) (local73 * local67 * 512.0D);
+			this.hsl16 = (int) (l * s * 512.0D);
 		}
+
 		if (this.hsl16 < 1) {
 			this.hsl16 = 1;
 		}
-		this.blendHue = (int) (local65 * (double) this.hsl16);
-		@Pc(248) int local248 = this.hue + (int) (Math.random() * 16.0D) - 8;
-		if (local248 < 0) {
-			local248 = 0;
-		} else if (local248 > 255) {
-			local248 = 255;
+
+		this.blendHue = (int) (h * (double) this.hsl16);
+
+		@Pc(248) int randHue = this.hue + (int) (Math.random() * 16.0D) - 8;
+		if (randHue < 0) {
+			randHue = 0;
+		} else if (randHue > 255) {
+			randHue = 255;
 		}
-		@Pc(269) int local269 = this.saturation + (int) (Math.random() * 48.0D) - 24;
-		if (local269 < 0) {
-			local269 = 0;
-		} else if (local269 > 255) {
-			local269 = 255;
+
+		@Pc(269) int randSaturation = this.saturation + (int) (Math.random() * 48.0D) - 24;
+		if (randSaturation < 0) {
+			randSaturation = 0;
+		} else if (randSaturation > 255) {
+			randSaturation = 255;
 		}
-		@Pc(290) int local290 = this.lightness + (int) (Math.random() * 48.0D) - 24;
-		if (local290 < 0) {
-			local290 = 0;
-		} else if (local290 > 255) {
-			local290 = 255;
+
+		@Pc(290) int randLightness = this.lightness + (int) (Math.random() * 48.0D) - 24;
+		if (randLightness < 0) {
+			randLightness = 0;
+		} else if (randLightness > 255) {
+			randLightness = 255;
 		}
-		this.blendHueMultiplier = this.setHsl16(local248, local269, local290);
+
+		this.blendHueMultiplier = this.setHsl16(randHue, randSaturation, randLightness);
 	}
 
 	@OriginalMember(owner = "client!fc", name = "a", descriptor = "(III)I")
-	private int setHsl16(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
-		if (arg2 > 179) {
-			arg1 /= 2;
+	private int setHsl16(@OriginalArg(0) int h, @OriginalArg(1) int s, @OriginalArg(2) int l) {
+		if (l > 179) {
+			s /= 2;
 		}
-		if (arg2 > 192) {
-			arg1 /= 2;
+
+		if (l > 192) {
+			s /= 2;
 		}
-		if (arg2 > 217) {
-			arg1 /= 2;
+
+		if (l > 217) {
+			s /= 2;
 		}
-		if (arg2 > 243) {
-			arg1 /= 2;
+
+		if (l > 243) {
+			s /= 2;
 		}
-		return (arg0 / 4 << 10) + (arg1 / 32 << 7) + arg2 / 2;
+
+		return (h / 4 << 10) + (s / 32 << 7) + l / 2;
 	}
 }

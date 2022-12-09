@@ -3774,12 +3774,12 @@ public final class client extends GameShell {
 		Draw2D.fillRect(arg2 + local52 + 16, arg1, this.SCROLLBAR_GRIP_FOREGROUND, 16, local35);
 		Draw2D.drawVerticalLine(this.SCROLLBAR_GRIP_HIGHLIGHT, arg2 + local52 + 16, local35, arg1);
 		Draw2D.drawVerticalLine(this.SCROLLBAR_GRIP_HIGHLIGHT, arg2 + local52 + 16, local35, arg1 + 1);
-		Draw2D.drawHorizontalLine(this.SCROLLBAR_GRIP_HIGHLIGHT, 0, arg2 + local52 + 16, 16, arg1);
-		Draw2D.drawHorizontalLine(this.SCROLLBAR_GRIP_HIGHLIGHT, 0, arg2 + local52 + 17, 16, arg1);
+		Draw2D.drawHorizontalLine(this.SCROLLBAR_GRIP_HIGHLIGHT, arg2 + local52 + 16, 16, arg1);
+		Draw2D.drawHorizontalLine(this.SCROLLBAR_GRIP_HIGHLIGHT, arg2 + local52 + 17, 16, arg1);
 		Draw2D.drawVerticalLine(this.SCROLLBAR_GRIP_LOWLIGHT, arg2 + local52 + 16, local35, arg1 + 15);
 		Draw2D.drawVerticalLine(this.SCROLLBAR_GRIP_LOWLIGHT, arg2 + local52 + 17, local35 - 1, arg1 + 14);
-		Draw2D.drawHorizontalLine(this.SCROLLBAR_GRIP_LOWLIGHT, 0, arg2 + local52 + local35 + 15, 16, arg1);
-		Draw2D.drawHorizontalLine(this.SCROLLBAR_GRIP_LOWLIGHT, 0, arg2 + local52 + local35 + 14, 15, arg1 + 1);
+		Draw2D.drawHorizontalLine(this.SCROLLBAR_GRIP_LOWLIGHT, arg2 + local52 + local35 + 15, 16, arg1);
+		Draw2D.drawHorizontalLine(this.SCROLLBAR_GRIP_LOWLIGHT, arg2 + local52 + local35 + 14, 15, arg1 + 1);
 	}
 
 	@OriginalMember(owner = "client!client", name = "g", descriptor = "(B)V")
@@ -9214,7 +9214,7 @@ public final class client extends GameShell {
 			this.drawScrollbar(463, 0, this.chatScrollY - this.chatScrollAmount - 77, this.chatScrollY, 77);
 			local135.draw(4, 90, 0, StringUtils.formatName(this.username) + ":");
 			local135.draw(local135.stringWidth(this.username + ": ") + 6, 90, 255, this.input + "*");
-			Draw2D.drawHorizontalLine(0, 0, 77, 479, 0);
+			Draw2D.drawHorizontalLine(0, 77, 479, 0);
 		} else {
 			this.drawInterface(0, 0, Component.instances[this.stickyChatbackComponentId], 0);
 		}

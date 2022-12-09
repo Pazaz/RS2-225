@@ -138,17 +138,19 @@ public final class ObjType {
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(Lclient!ub;)V")
 	public static void unpack(@OriginalArg(0) FileArchive archive) {
 		dat = new Buffer(archive.read("obj.dat", null));
-		@Pc(21) Buffer local21 = new Buffer(archive.read("obj.idx", null));
-		count = local21.g2();
+		@Pc(21) Buffer idx = new Buffer(archive.read("obj.idx", null));
+		count = idx.g2();
+
 		offsets = new int[count];
-		@Pc(29) int local29 = 2;
-		for (@Pc(31) int local31 = 0; local31 < count; local31++) {
-			offsets[local31] = local29;
-			local29 += local21.g2();
+		@Pc(29) int offset = 2;
+		for (@Pc(31) int i = 0; i < count; i++) {
+			offsets[i] = offset;
+			offset += idx.g2();
 		}
+
 		instances = new ObjType[10];
-		for (@Pc(51) int local51 = 0; local51 < 10; local51++) {
-			instances[local51] = new ObjType();
+		for (@Pc(51) int i = 0; i < 10; i++) {
+			instances[i] = new ObjType();
 		}
 	}
 
@@ -162,122 +164,137 @@ public final class ObjType {
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(I)Lclient!cc;")
-	public static ObjType get(@OriginalArg(0) int arg0) {
-		for (@Pc(1) int local1 = 0; local1 < 10; local1++) {
-			if (instances[local1].id == arg0) {
-				return instances[local1];
+	public static ObjType get(@OriginalArg(0) int id) {
+		for (@Pc(1) int i = 0; i < 10; i++) {
+			if (instances[i].id == id) {
+				return instances[i];
 			}
 		}
+
 		offset = (offset + 1) % 10;
-		@Pc(27) ObjType local27 = instances[offset];
-		dat.pos = offsets[arg0];
-		local27.id = arg0;
-		local27.reset();
-		local27.decode(dat);
-		if (local27.certtemplate != -1) {
-			local27.toCertificate();
+		@Pc(27) ObjType obj = instances[offset];
+		dat.pos = offsets[id];
+		obj.id = id;
+		obj.reset();
+		obj.decode(dat);
+
+		if (obj.certtemplate != -1) {
+			obj.toCertificate();
 		}
-		if (!isMember && local27.members) {
-			local27.name = "Members Object";
-			local27.desc = "Login to a members' server to use this object.".getBytes();
-			local27.ops = null;
-			local27.iops = null;
+
+		if (!isMember && obj.members) {
+			obj.name = "Members Object";
+			obj.desc = "Login to a members' server to use this object.".getBytes();
+			obj.ops = null;
+			obj.iops = null;
 		}
-		return local27;
+
+		return obj;
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(III)Lclient!hb;")
-	public static Sprite getSprite(@OriginalArg(0) int arg0, @OriginalArg(2) int arg2) {
-		@Pc(7) Sprite local7 = (Sprite) icons.get(arg0);
-		if (local7 != null && local7.cropH != arg2 && local7.cropH != -1) {
-			local7.unlink();
-			local7 = null;
+	public static Sprite getSprite(@OriginalArg(0) int id, @OriginalArg(2) int amount) {
+		@Pc(7) Sprite icon = (Sprite) icons.get(id);
+		if (icon != null && icon.cropH != amount && icon.cropH != -1) {
+			icon.unlink();
+			icon = null;
 		}
-		if (local7 != null) {
-			return local7;
+
+		if (icon != null) {
+			return icon;
 		}
-		@Pc(28) ObjType local28 = get(arg0);
-		if (local28.countobj == null) {
-			arg2 = -1;
+
+		@Pc(28) ObjType obj = get(id);
+		if (obj.countobj == null) {
+			amount = -1;
 		}
-		@Pc(38) int local38;
-		@Pc(40) int local40;
-		if (arg2 > 1) {
-			local38 = -1;
-			for (local40 = 0; local40 < 10; local40++) {
-				if (arg2 >= local28.countco[local40] && local28.countco[local40] != 0) {
-					local38 = local28.countobj[local40];
+
+		@Pc(38) int centerX;
+		@Pc(40) int cenetrY;
+		if (amount > 1) {
+			centerX = -1;
+			for (cenetrY = 0; cenetrY < 10; cenetrY++) {
+				if (amount >= obj.countco[cenetrY] && obj.countco[cenetrY] != 0) {
+					centerX = obj.countobj[cenetrY];
 				}
 			}
-			if (local38 != -1) {
-				local28 = get(local38);
+			if (centerX != -1) {
+				obj = get(centerX);
 			}
 		}
-		local7 = new Sprite(32, 32);
-		local38 = Draw3D.centerX3D;
-		local40 = Draw3D.centerY3D;
-		@Pc(80) int[] local80 = Draw3D.offsets;
-		@Pc(82) int[] local82 = Draw2D.data;
-		@Pc(84) int local84 = Draw2D.width;
-		@Pc(86) int local86 = Draw2D.height;
-		@Pc(88) int local88 = Draw2D.left;
-		@Pc(90) int local90 = Draw2D.right;
-		@Pc(92) int local92 = Draw2D.top;
-		@Pc(94) int local94 = Draw2D.bottom;
+
+		icon = new Sprite(32, 32);
+		centerX = Draw3D.centerX3D;
+		cenetrY = Draw3D.centerY3D;
+
+		@Pc(80) int[] offsets = Draw3D.offsets;
+		@Pc(82) int[] data = Draw2D.data;
+		@Pc(84) int width = Draw2D.width;
+		@Pc(86) int height = Draw2D.height;
+		@Pc(88) int left = Draw2D.left;
+		@Pc(90) int right = Draw2D.right;
+		@Pc(92) int top = Draw2D.top;
+		@Pc(94) int bottom = Draw2D.bottom;
+
 		Draw3D.jagged = false;
-		Draw2D.prepare(32, local7.pixels, 32);
+		Draw2D.prepare(32, icon.pixels, 32);
 		Draw2D.fillRect(0, 0, 0, 32, 32);
 		Draw3D.prepareOffsets();
-		@Pc(115) Model local115 = local28.getModel(1);
-		@Pc(125) int local125 = Draw3D.sin[local28.xan2d] * local28.zoom2d >> 16;
-		@Pc(135) int local135 = Draw3D.cos[local28.xan2d] * local28.zoom2d >> 16;
-		local115.draw(0, local28.yan2d, local28.zan2d, local28.xan2d, local28.xof2d, local125 + local115.maxBoundY / 2 + local28.yof2d, local135 + local28.yof2d);
-		for (@Pc(168) int local168 = 31; local168 >= 0; local168--) {
-			for (local135 = 31; local135 >= 0; local135--) {
-				if (local7.pixels[local168 + local135 * 32] == 0) {
-					if (local168 > 0 && local7.pixels[local168 + local135 * 32 - 1] > 1) {
-						local7.pixels[local168 + local135 * 32] = 1;
-					} else if (local135 > 0 && local7.pixels[local168 + (local135 - 1) * 32] > 1) {
-						local7.pixels[local168 + local135 * 32] = 1;
-					} else if (local168 < 31 && local7.pixels[local168 + local135 * 32 + 1] > 1) {
-						local7.pixels[local168 + local135 * 32] = 1;
-					} else if (local135 < 31 && local7.pixels[local168 + (local135 + 1) * 32] > 1) {
-						local7.pixels[local168 + local135 * 32] = 1;
+
+		@Pc(115) Model m = obj.getModel(1);
+		@Pc(125) int cameraY = Draw3D.sin[obj.xan2d] * obj.zoom2d >> 16;
+		@Pc(135) int cameraZ = Draw3D.cos[obj.xan2d] * obj.zoom2d >> 16;
+		m.draw(0, obj.yan2d, obj.zan2d, obj.xan2d, obj.xof2d, cameraY + m.maxBoundY / 2 + obj.yof2d, cameraZ + obj.yof2d);
+
+		for (@Pc(168) int x = 31; x >= 0; x--) {
+			for (int y = 31; y >= 0; y--) {
+				if (icon.pixels[x + y * 32] == 0) {
+					if (x > 0 && icon.pixels[x + y * 32 - 1] > 1) {
+						icon.pixels[x + y * 32] = 1;
+					} else if (y > 0 && icon.pixels[x + (y - 1) * 32] > 1) {
+						icon.pixels[x + y * 32] = 1;
+					} else if (x < 31 && icon.pixels[x + y * 32 + 1] > 1) {
+						icon.pixels[x + y * 32] = 1;
+					} else if (y < 31 && icon.pixels[x + (y + 1) * 32] > 1) {
+						icon.pixels[x + y * 32] = 1;
 					}
 				}
 			}
 		}
-		for (@Pc(291) int local291 = 31; local291 >= 0; local291--) {
-			for (local135 = 31; local135 >= 0; local135--) {
-				if (local7.pixels[local291 + local135 * 32] == 0 && local291 > 0 && local135 > 0 && local7.pixels[local291 + (local135 - 1) * 32 - 1] > 0) {
-					local7.pixels[local291 + local135 * 32] = 3153952;
+
+		for (@Pc(291) int x = 31; x >= 0; x--) {
+			for (int y = 31; y >= 0; y--) {
+				if (icon.pixels[x + y * 32] == 0 && x > 0 && y > 0 && icon.pixels[x + (y - 1) * 32 - 1] > 0) {
+					icon.pixels[x + y * 32] = 0x302020;
 				}
 			}
 		}
-		if (local28.certtemplate != -1) {
-			@Pc(348) Sprite local348 = getSprite(local28.certlink, 10);
-			@Pc(351) int local351 = local348.cropW;
-			@Pc(354) int local354 = local348.cropH;
-			local348.cropW = 32;
-			local348.cropH = 32;
-			local348.draw(22, 5, 22, 5);
-			local348.cropW = local351;
-			local348.cropH = local354;
+
+		if (obj.certtemplate != -1) {
+			@Pc(348) Sprite mini = getSprite(obj.certlink, 10);
+			@Pc(351) int tempW = mini.cropW;
+			@Pc(354) int tempH = mini.cropH;
+			mini.cropW = 32;
+			mini.cropH = 32;
+			mini.crop(22, 5, 22, 5);
+			mini.cropW = tempW;
+			mini.cropH = tempH;
 		}
-		icons.put(arg0, local7);
-		Draw2D.prepare(local84, local82, local86);
-		Draw2D.setBounds(local94, local92, local90, local88);
-		Draw3D.centerX3D = local38;
-		Draw3D.centerY3D = local40;
-		Draw3D.offsets = local80;
+
+		icons.put(id, icon);
+		Draw2D.prepare(width, data, height);
+		Draw2D.setBounds(bottom, top, right, left);
+		Draw3D.centerX3D = centerX;
+		Draw3D.centerY3D = cenetrY;
+		Draw3D.offsets = offsets;
 		Draw3D.jagged = true;
-		if (local28.stackable) {
-			local7.cropW = 33;
+		if (obj.stackable) {
+			icon.cropW = 33;
 		} else {
-			local7.cropW = 32;
+			icon.cropW = 32;
 		}
-		local7.cropH = arg2;
-		return local7;
+		icon.cropH = amount;
+		return icon;
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "()V")
@@ -319,226 +336,241 @@ public final class ObjType {
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void decode(@OriginalArg(1) Buffer arg1) {
+	public void decode(@OriginalArg(1) Buffer dat) {
 		while (true) {
-			@Pc(10) int local10 = arg1.g1();
-			if (local10 == 0) {
+			@Pc(10) int opcode = dat.g1();
+			if (opcode == 0) {
 				return;
 			}
-			if (local10 == 1) {
-				this.model = arg1.g2();
-			} else if (local10 == 2) {
-				this.name = arg1.gstr();
-			} else if (local10 == 3) {
-				this.desc = arg1.gstrbyte();
-			} else if (local10 == 4) {
-				this.zoom2d = arg1.g2();
-			} else if (local10 == 5) {
-				this.xan2d = arg1.g2();
-			} else if (local10 == 6) {
-				this.yan2d = arg1.g2();
-			} else if (local10 == 7) {
-				this.xof2d = arg1.g2();
+
+			if (opcode == 1) {
+				this.model = dat.g2();
+			} else if (opcode == 2) {
+				this.name = dat.gstr();
+			} else if (opcode == 3) {
+				this.desc = dat.gstrbyte();
+			} else if (opcode == 4) {
+				this.zoom2d = dat.g2();
+			} else if (opcode == 5) {
+				this.xan2d = dat.g2();
+			} else if (opcode == 6) {
+				this.yan2d = dat.g2();
+			} else if (opcode == 7) {
+				this.xof2d = dat.g2();
 				if (this.xof2d > 32767) {
 					this.xof2d -= 65536;
 				}
-			} else if (local10 == 8) {
-				this.yof2d = arg1.g2();
+			} else if (opcode == 8) {
+				this.yof2d = dat.g2();
 				if (this.yof2d > 32767) {
 					this.yof2d -= 65536;
 				}
-			} else if (local10 == 9) {
+			} else if (opcode == 9) {
 				this.opcode9 = true;
-			} else if (local10 == 10) {
-				this.opcode10 = arg1.g2();
-			} else if (local10 == 11) {
+			} else if (opcode == 10) {
+				this.opcode10 = dat.g2();
+			} else if (opcode == 11) {
 				this.stackable = true;
-			} else if (local10 == 12) {
-				this.cost = arg1.g4();
-			} else if (local10 == 16) {
+			} else if (opcode == 12) {
+				this.cost = dat.g4();
+			} else if (opcode == 16) {
 				this.members = true;
-			} else if (local10 == 23) {
-				this.manwear = arg1.g2();
-				this.manwearOffsetY = arg1.g1b();
-			} else if (local10 == 24) {
-				this.manwear2 = arg1.g2();
-			} else if (local10 == 25) {
-				this.womanwear = arg1.g2();
-				this.womanwearOffsetY = arg1.g1b();
-			} else if (local10 == 26) {
-				this.womanwear2 = arg1.g2();
-			} else if (local10 >= 30 && local10 < 35) {
+			} else if (opcode == 23) {
+				this.manwear = dat.g2();
+				this.manwearOffsetY = dat.g1b();
+			} else if (opcode == 24) {
+				this.manwear2 = dat.g2();
+			} else if (opcode == 25) {
+				this.womanwear = dat.g2();
+				this.womanwearOffsetY = dat.g1b();
+			} else if (opcode == 26) {
+				this.womanwear2 = dat.g2();
+			} else if (opcode >= 30 && opcode < 35) {
 				if (this.ops == null) {
 					this.ops = new String[5];
 				}
-				this.ops[local10 - 30] = arg1.gstr();
-				if (this.ops[local10 - 30].equalsIgnoreCase("hidden")) {
-					this.ops[local10 - 30] = null;
+
+				this.ops[opcode - 30] = dat.gstr();
+				if (this.ops[opcode - 30].equalsIgnoreCase("hidden")) {
+					this.ops[opcode - 30] = null;
 				}
-			} else if (local10 >= 35 && local10 < 40) {
+			} else if (opcode >= 35 && opcode < 40) {
 				if (this.iops == null) {
 					this.iops = new String[5];
 				}
-				this.iops[local10 - 35] = arg1.gstr();
-			} else if (local10 == 40) {
-				@Pc(260) int local260 = arg1.g1();
-				this.recol_s = new int[local260];
-				this.recol_d = new int[local260];
-				for (@Pc(270) int local270 = 0; local270 < local260; local270++) {
-					this.recol_s[local270] = arg1.g2();
-					this.recol_d[local270] = arg1.g2();
+
+				this.iops[opcode - 35] = dat.gstr();
+			} else if (opcode == 40) {
+				@Pc(260) int count = dat.g1();
+				this.recol_s = new int[count];
+				this.recol_d = new int[count];
+				for (@Pc(270) int i = 0; i < count; i++) {
+					this.recol_s[i] = dat.g2();
+					this.recol_d[i] = dat.g2();
 				}
-			} else if (local10 == 78) {
-				this.manwear3 = arg1.g2();
-			} else if (local10 == 79) {
-				this.womanwear3 = arg1.g2();
-			} else if (local10 == 90) {
-				this.manhead = arg1.g2();
-			} else if (local10 == 91) {
-				this.womanhead = arg1.g2();
-			} else if (local10 == 92) {
-				this.manhead2 = arg1.g2();
-			} else if (local10 == 93) {
-				this.womanhead2 = arg1.g2();
-			} else if (local10 == 95) {
-				this.zan2d = arg1.g2();
-			} else if (local10 == 97) {
-				this.certlink = arg1.g2();
-			} else if (local10 == 98) {
-				this.certtemplate = arg1.g2();
-			} else if (local10 >= 100 && local10 < 110) {
+			} else if (opcode == 78) {
+				this.manwear3 = dat.g2();
+			} else if (opcode == 79) {
+				this.womanwear3 = dat.g2();
+			} else if (opcode == 90) {
+				this.manhead = dat.g2();
+			} else if (opcode == 91) {
+				this.womanhead = dat.g2();
+			} else if (opcode == 92) {
+				this.manhead2 = dat.g2();
+			} else if (opcode == 93) {
+				this.womanhead2 = dat.g2();
+			} else if (opcode == 95) {
+				this.zan2d = dat.g2();
+			} else if (opcode == 97) {
+				this.certlink = dat.g2();
+			} else if (opcode == 98) {
+				this.certtemplate = dat.g2();
+			} else if (opcode >= 100 && opcode < 110) {
 				if (this.countobj == null) {
 					this.countobj = new int[10];
 					this.countco = new int[10];
 				}
-				this.countobj[local10 - 100] = arg1.g2();
-				this.countco[local10 - 100] = arg1.g2();
+
+				this.countobj[opcode - 100] = dat.g2();
+				this.countco[opcode - 100] = dat.g2();
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!cc", name = "b", descriptor = "(I)V")
 	public void toCertificate() {
-		@Pc(3) ObjType local3 = get(this.certtemplate);
-		this.model = local3.model;
-		this.zoom2d = local3.zoom2d;
-		this.xan2d = local3.xan2d;
-		this.yan2d = local3.yan2d;
-		this.zan2d = local3.zan2d;
-		this.xof2d = local3.xof2d;
-		this.yof2d = local3.yof2d;
-		this.recol_s = local3.recol_s;
-		this.recol_d = local3.recol_d;
-		@Pc(55) ObjType local55 = get(this.certlink);
-		this.name = local55.name;
-		this.members = local55.members;
-		this.cost = local55.cost;
-		@Pc(69) String local69 = "a";
-		@Pc(74) char local74 = local55.name.charAt(0);
-		if (local74 == 'A' || local74 == 'E' || local74 == 'I' || local74 == 'O' || local74 == 'U') {
-			local69 = "an";
+		@Pc(3) ObjType obj = get(this.certtemplate);
+		this.model = obj.model;
+		this.zoom2d = obj.zoom2d;
+		this.xan2d = obj.xan2d;
+		this.yan2d = obj.yan2d;
+		this.zan2d = obj.zan2d;
+		this.xof2d = obj.xof2d;
+		this.yof2d = obj.yof2d;
+		this.recol_s = obj.recol_s;
+		this.recol_d = obj.recol_d;
+
+		@Pc(55) ObjType linked = get(this.certlink);
+		this.name = linked.name;
+		this.members = linked.members;
+		this.cost = linked.cost;
+
+		@Pc(69) String article = "a";
+		@Pc(74) char vowel = linked.name.charAt(0);
+		if (vowel == 'A' || vowel == 'E' || vowel == 'I' || vowel == 'O' || vowel == 'U') {
+			article = "an";
 		}
-		this.desc = ("Swap this note at any bank for " + local69 + " " + local55.name + ".").getBytes();
+		this.desc = ("Swap this note at any bank for " + article + " " + linked.name + ".").getBytes();
 		this.stackable = true;
 	}
 
 	@OriginalMember(owner = "client!cc", name = "c", descriptor = "(I)Lclient!eb;")
-	public Model getModel(@OriginalArg(0) int arg0) {
-		@Pc(11) int local11;
-		if (this.countobj != null && arg0 > 1) {
-			@Pc(9) int local9 = -1;
-			for (local11 = 0; local11 < 10; local11++) {
-				if (arg0 >= this.countco[local11] && this.countco[local11] != 0) {
-					local9 = this.countobj[local11];
+	public Model getModel(@OriginalArg(0) int amount) {
+		if (this.countobj != null && amount > 1) {
+			@Pc(9) int newId = -1;
+			for (@Pc(11) int i = 0; i < 10; i++) {
+				if (amount >= this.countco[i] && this.countco[i] != 0) {
+					newId = this.countobj[i];
 				}
 			}
-			if (local9 != -1) {
-				return get(local9).getModel(1);
+
+			if (newId != -1) {
+				return get(newId).getModel(1);
 			}
 		}
-		@Pc(48) Model local48 = (Model) models.get(this.id);
-		if (local48 != null) {
-			return local48;
+
+		@Pc(48) Model m = (Model) models.get(this.id);
+		if (m != null) {
+			return m;
 		}
-		local48 = new Model(false, this.model);
+
+		m = new Model(false, this.model);
 		if (this.recol_s != null) {
-			for (local11 = 0; local11 < this.recol_s.length; local11++) {
-				local48.recolor(this.recol_s[local11], this.recol_d[local11]);
+			for (int i = 0; i < this.recol_s.length; i++) {
+				m.recolor(this.recol_s[i], this.recol_d[i]);
 			}
 		}
-		local48.applyLighting(64, 768, -50, -10, -50, true);
-		local48.pickable = true;
-		models.put(this.id, local48);
-		return local48;
+		m.applyLighting(64, 768, -50, -10, -50, true);
+		m.pickable = true;
+		models.put(this.id, m);
+		return m;
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(BI)Lclient!eb;")
-	public Model getWornModel(@OriginalArg(1) int arg1) {
-		@Pc(4) int local4 = this.manwear;
-		if (arg1 == 1) {
-			local4 = this.womanwear;
+	public Model getWornModel(@OriginalArg(1) int gender) {
+		@Pc(4) int m0 = this.manwear;
+		@Pc(25) int m1 = this.manwear2;
+		@Pc(28) int m2 = this.manwear3;
+
+		if (gender == 1) {
+			m0 = this.womanwear;
+			m1 = this.womanwear2;
+			m2 = this.womanwear3;
 		}
-		if (local4 == -1) {
+
+		if (m0 == -1) {
 			return null;
 		}
-		@Pc(25) int local25 = this.manwear2;
-		@Pc(28) int local28 = this.manwear3;
-		if (arg1 == 1) {
-			local25 = this.womanwear2;
-			local28 = this.womanwear3;
-		}
-		@Pc(43) Model local43 = new Model(false, local4);
-		if (local25 != -1) {
-			@Pc(55) Model local55;
-			if (local28 == -1) {
-				local55 = new Model(false, local25);
-				@Pc(102) Model[] local102 = new Model[] { local43, local55 };
-				local43 = new Model(local102, 2);
+
+		@Pc(43) Model m = new Model(false, m0);
+		if (m1 != -1) {
+			@Pc(55) Model model1;
+			if (m2 == -1) {
+				model1 = new Model(false, m1);
+				@Pc(102) Model[] models = new Model[] { m, model1 };
+				m = new Model(models, 2);
 			} else {
-				local55 = new Model(false, local25);
-				@Pc(61) Model local61 = new Model(false, local28);
-				@Pc(76) Model[] local76 = new Model[] { local43, local55, local61 };
-				local43 = new Model(local76, 3);
+				model1 = new Model(false, m1);
+				@Pc(61) Model model2 = new Model(false, m2);
+				@Pc(76) Model[] models = new Model[] { m, model1, model2 };
+				m = new Model(models, 3);
 			}
 		}
-		if (arg1 == 0 && this.manwearOffsetY != 0) {
-			local43.translate(this.manwearOffsetY, 0, 0);
+
+		if (gender == 0 && this.manwearOffsetY != 0) {
+			m.translate(this.manwearOffsetY, 0, 0);
 		}
-		if (arg1 == 1 && this.womanwearOffsetY != 0) {
-			local43.translate(this.womanwearOffsetY, 0, 0);
+
+		if (gender == 1 && this.womanwearOffsetY != 0) {
+			m.translate(this.womanwearOffsetY, 0, 0);
 		}
+
 		if (this.recol_s != null) {
-			for (@Pc(139) int local139 = 0; local139 < this.recol_s.length; local139++) {
-				local43.recolor(this.recol_s[local139], this.recol_d[local139]);
+			for (@Pc(139) int i = 0; i < this.recol_s.length; i++) {
+				m.recolor(this.recol_s[i], this.recol_d[i]);
 			}
 		}
-		return local43;
+
+		return m;
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(II)Lclient!eb;")
-	public Model getHeadModel(@OriginalArg(1) int arg1) {
-		@Pc(2) int local2 = this.manhead;
-		if (arg1 == 1) {
-			local2 = this.womanhead;
+	public Model getHeadModel(@OriginalArg(1) int gender) {
+		@Pc(2) int m0 = this.manhead;
+		@Pc(22) int m1 = this.manhead2;
+		if (gender == 1) {
+			m0 = this.womanhead;
+			m1 = this.womanhead2;
 		}
-		if (local2 == -1) {
+
+		if (m0 == -1) {
 			return null;
 		}
-		@Pc(22) int local22 = this.manhead2;
-		if (arg1 == 1) {
-			local22 = this.womanhead2;
+
+		@Pc(34) Model model1 = new Model(false, m0);
+		if (m1 != -1) {
+			@Pc(43) Model model2 = new Model(false, m1);
+			@Pc(54) Model[] models = new Model[] { model1, model2 };
+			model1 = new Model(models, 2);
 		}
-		@Pc(34) Model local34 = new Model(false, local2);
-		if (local22 != -1) {
-			@Pc(43) Model local43 = new Model(false, local22);
-			@Pc(54) Model[] local54 = new Model[] { local34, local43 };
-			local34 = new Model(local54, 2);
-		}
+
 		if (this.recol_s != null) {
-			for (@Pc(66) int local66 = 0; local66 < this.recol_s.length; local66++) {
-				local34.recolor(this.recol_s[local66], this.recol_d[local66]);
+			for (@Pc(66) int i = 0; i < this.recol_s.length; i++) {
+				model1.recolor(this.recol_s[i], this.recol_d[i]);
 			}
 		}
-		return local34;
+
+		return model1;
 	}
 }

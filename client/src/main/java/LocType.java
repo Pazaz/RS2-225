@@ -132,17 +132,19 @@ public final class LocType {
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "(Lclient!ub;)V")
 	public static void unpack(@OriginalArg(0) FileArchive archive) {
 		dat = new Buffer(archive.read("loc.dat", null));
-		@Pc(21) Buffer local21 = new Buffer(archive.read("loc.idx", null));
-		count = local21.g2();
+		@Pc(21) Buffer idx = new Buffer(archive.read("loc.idx", null));
+		count = idx.g2();
 		offsets = new int[count];
-		@Pc(29) int local29 = 2;
-		for (@Pc(31) int local31 = 0; local31 < count; local31++) {
-			offsets[local31] = local29;
-			local29 += local21.g2();
+
+		@Pc(29) int offset = 2;
+		for (@Pc(31) int i = 0; i < count; i++) {
+			offsets[i] = offset;
+			offset += idx.g2();
 		}
+
 		cache = new LocType[10];
-		for (@Pc(51) int local51 = 0; local51 < 10; local51++) {
-			cache[local51] = new LocType();
+		for (@Pc(51) int i = 0; i < 10; i++) {
+			cache[i] = new LocType();
 		}
 	}
 
@@ -156,19 +158,20 @@ public final class LocType {
 	}
 
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "(I)Lclient!ac;")
-	public static LocType get(@OriginalArg(0) int arg0) {
-		for (@Pc(1) int local1 = 0; local1 < 10; local1++) {
-			if (cache[local1].id == arg0) {
-				return cache[local1];
+	public static LocType get(@OriginalArg(0) int id) {
+		for (@Pc(1) int i = 0; i < 10; i++) {
+			if (cache[i].id == id) {
+				return cache[i];
 			}
 		}
+
 		offset = (offset + 1) % 10;
-		@Pc(27) LocType local27 = cache[offset];
-		dat.pos = offsets[arg0];
-		local27.id = arg0;
-		local27.reset();
-		local27.decode(dat);
-		return local27;
+		@Pc(27) LocType loc = cache[offset];
+		dat.pos = offsets[id];
+		loc.id = id;
+		loc.reset();
+		loc.decode(dat);
+		return loc;
 	}
 
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "()V")
@@ -208,229 +211,249 @@ public final class LocType {
 	}
 
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void decode(@OriginalArg(1) Buffer arg1) {
-		@Pc(5) int local5 = -1;
+	public void decode(@OriginalArg(1) Buffer dat) {
+		@Pc(5) int interactive = -1;
 
 		while (true) {
-			@Pc(15) int local15 = arg1.g1();
-			if (local15 == 0) {
-				if (this.shapes == null) {
-					this.shapes = new int[0];
-				}
-				if (local5 == -1) {
-					this.interactable = false;
-					if (this.shapes.length > 0 && this.shapes[0] == 10) {
-						this.interactable = true;
-					}
-					if (this.ops != null) {
-						this.interactable = true;
-						return;
-					}
-				}
-				return;
+			@Pc(15) int opcode = dat.g1();
+			if (opcode == 0) {
+				break;
 			}
-			@Pc(23) int local23;
-			@Pc(33) int local33;
-			if (local15 == 1) {
-				local23 = arg1.g1();
-				this.shapes = new int[local23];
-				this.models = new int[local23];
-				for (local33 = 0; local33 < local23; local33++) {
-					this.models[local33] = arg1.g2();
-					this.shapes[local33] = arg1.g1();
+
+			if (opcode == 1) {
+				@Pc(23) int count = dat.g1();
+				this.shapes = new int[count];
+				this.models = new int[count];
+				for (@Pc(33) int i = 0; i < count; i++) {
+					this.models[i] = dat.g2();
+					this.shapes[i] = dat.g1();
 				}
-			} else if (local15 == 2) {
-				this.name = arg1.gstr();
-			} else if (local15 == 3) {
-				this.desc = arg1.gstrbyte();
-			} else if (local15 == 14) {
-				this.width = arg1.g1();
-			} else if (local15 == 15) {
-				this.length = arg1.g1();
-			} else if (local15 == 17) {
+			} else if (opcode == 2) {
+				this.name = dat.gstr();
+			} else if (opcode == 3) {
+				this.desc = dat.gstrbyte();
+			} else if (opcode == 14) {
+				this.width = dat.g1();
+			} else if (opcode == 15) {
+				this.length = dat.g1();
+			} else if (opcode == 17) {
 				this.blockwalk = false;
-			} else if (local15 == 18) {
+			} else if (opcode == 18) {
 				this.blockrange = false;
-			} else if (local15 == 19) {
-				local5 = arg1.g1();
-				if (local5 == 1) {
+			} else if (opcode == 19) {
+				interactive = dat.g1();
+				if (interactive == 1) {
 					this.interactable = true;
 				}
-			} else if (local15 == 21) {
+			} else if (opcode == 21) {
 				this.hillskew = true;
-			} else if (local15 == 22) {
+			} else if (opcode == 22) {
 				this.computeVertexColors = true;
-			} else if (local15 == 23) {
+			} else if (opcode == 23) {
 				this.occlude = true;
-			} else if (local15 == 24) {
-				this.anim = arg1.g2();
+			} else if (opcode == 24) {
+				this.anim = dat.g2();
 				if (this.anim == 65535) {
 					this.anim = -1;
 				}
-			} else if (local15 == 25) {
+			} else if (opcode == 25) {
 				this.disposeAlpha = true;
-			} else if (local15 == 28) {
-				this.walloff = arg1.g1();
-			} else if (local15 == 29) {
-				this.ambient = arg1.g1b();
-			} else if (local15 == 39) {
-				this.contrast = arg1.g1b();
-			} else if (local15 >= 30 && local15 < 39) {
+			} else if (opcode == 28) {
+				this.walloff = dat.g1();
+			} else if (opcode == 29) {
+				this.ambient = dat.g1b();
+			} else if (opcode == 39) {
+				this.contrast = dat.g1b();
+			} else if (opcode >= 30 && opcode < 39) {
 				if (this.ops == null) {
 					this.ops = new String[5];
 				}
-				this.ops[local15 - 30] = arg1.gstr();
-				if (this.ops[local15 - 30].equalsIgnoreCase("hidden")) {
-					this.ops[local15 - 30] = null;
+
+				this.ops[opcode - 30] = dat.gstr();
+				if (this.ops[opcode - 30].equalsIgnoreCase("hidden")) {
+					this.ops[opcode - 30] = null;
 				}
-			} else if (local15 == 40) {
-				local23 = arg1.g1();
-				this.recol_s = new int[local23];
-				this.recol_d = new int[local23];
-				for (local33 = 0; local33 < local23; local33++) {
-					this.recol_s[local33] = arg1.g2();
-					this.recol_d[local33] = arg1.g2();
+			} else if (opcode == 40) {
+				int count = dat.g1();
+				this.recol_s = new int[count];
+				this.recol_d = new int[count];
+				for (int i = 0; i < count; i++) {
+					this.recol_s[i] = dat.g2();
+					this.recol_d[i] = dat.g2();
 				}
-			} else if (local15 == 60) {
-				this.mapfunction = arg1.g2();
-			} else if (local15 == 62) {
+			} else if (opcode == 60) {
+				this.mapfunction = dat.g2();
+			} else if (opcode == 62) {
 				this.mirror = true;
-			} else if (local15 == 64) {
+			} else if (opcode == 64) {
 				this.active = false;
-			} else if (local15 == 65) {
-				this.resizex = arg1.g2();
-			} else if (local15 == 66) {
-				this.resizey = arg1.g2();
-			} else if (local15 == 67) {
-				this.resizez = arg1.g2();
-			} else if (local15 == 68) {
-				this.mapscene = arg1.g2();
-			} else if (local15 == 69) {
-				this.blocksides = arg1.g1();
-			} else if (local15 == 70) {
-				this.xoff = arg1.g2b();
-			} else if (local15 == 71) {
-				this.yoff = arg1.g2b();
-			} else if (local15 == 72) {
-				this.zoff = arg1.g2b();
-			} else if (local15 == 73) {
+			} else if (opcode == 65) {
+				this.resizex = dat.g2();
+			} else if (opcode == 66) {
+				this.resizey = dat.g2();
+			} else if (opcode == 67) {
+				this.resizez = dat.g2();
+			} else if (opcode == 68) {
+				this.mapscene = dat.g2();
+			} else if (opcode == 69) {
+				this.blocksides = dat.g1();
+			} else if (opcode == 70) {
+				this.xoff = dat.g2b();
+			} else if (opcode == 71) {
+				this.yoff = dat.g2b();
+			} else if (opcode == 72) {
+				this.zoff = dat.g2b();
+			} else if (opcode == 73) {
 				this.forcedecor = true;
+			}
+		}
+
+		if (this.shapes == null) {
+			this.shapes = new int[0];
+		}
+
+		if (interactive == -1) {
+			this.interactable = false;
+			if (this.shapes.length > 0 && this.shapes[0] == 10) {
+				this.interactable = true;
+			}
+
+			if (this.ops != null) {
+				this.interactable = true;
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!ac", name = "a", descriptor = "(IIIIIII)Lclient!eb;")
-	public Model getModel(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
-		@Pc(3) int local3 = -1;
-		for (@Pc(5) int local5 = 0; local5 < this.shapes.length; local5++) {
-			if (this.shapes[local5] == arg0) {
-				local3 = local5;
+	public Model getModel(@OriginalArg(0) int type, @OriginalArg(1) int orientation, @OriginalArg(2) int swY, @OriginalArg(3) int seY, @OriginalArg(4) int nwY, @OriginalArg(5) int neY, @OriginalArg(6) int seqFrame) {
+		@Pc(3) int modelType = -1;
+		for (@Pc(5) int i = 0; i < this.shapes.length; i++) {
+			if (this.shapes[i] == type) {
+				modelType = i;
 				break;
 			}
 		}
-		if (local3 == -1) {
+
+		if (modelType == -1) {
 			return null;
 		}
-		@Pc(47) long local47 = (long) (((long) this.id << 6) + ((long) local3 << 3) + arg1) + ((long) (arg6 + 1) << 32);
+
+		@Pc(47) long key = ((long) this.id << 6) + ((long) modelType << 3) + orientation + ((long) (seqFrame + 1) << 32);
 		if (reset) {
-			local47 = 0L;
+			key = 0L;
 		}
-		@Pc(56) Model local56 = (Model) modelCacheBuilt.get(local47);
-		@Pc(91) int local91;
-		@Pc(141) int local141;
-		if (local56 == null) {
-			if (local3 >= this.models.length) {
+
+		@Pc(56) Model m = (Model) modelCacheBuilt.get(key);
+		@Pc(91) int modelIndex;
+		@Pc(141) int n;
+		if (m == null) {
+			if (modelType >= this.models.length) {
 				return null;
 			}
-			local91 = this.models[local3];
-			if (local91 == -1) {
+
+			modelIndex = this.models[modelType];
+			if (modelIndex == -1) {
 				return null;
 			}
-			@Pc(188) boolean local188 = this.mirror ^ arg1 > 3;
-			if (local188) {
-				local91 += 65536;
+
+			@Pc(188) boolean flipBackwards = this.mirror ^ orientation > 3;
+			if (flipBackwards) {
+				modelIndex += 65536;
 			}
-			@Pc(200) Model local200 = (Model) modelCache.get(local91);
-			if (local200 == null) {
-				local200 = new Model(false, local91 & 0xFFFF);
-				if (local188) {
-					local200.flipBackwards();
+
+			@Pc(200) Model m2 = (Model) modelCache.get(modelIndex);
+			if (m2 == null) {
+				m2 = new Model(false, modelIndex & 0xFFFF);
+				if (flipBackwards) {
+					m2.flipBackwards();
 				}
-				modelCache.put(local91, local200);
+				modelCache.put(modelIndex, m2);
 			}
-			@Pc(235) boolean local235;
+
+			@Pc(235) boolean rescale;
 			if (this.resizex == 128 && this.resizey == 128 && this.resizez == 128) {
-				local235 = false;
+				rescale = false;
 			} else {
-				local235 = true;
+				rescale = true;
 			}
-			@Pc(250) boolean local250;
+
+			@Pc(250) boolean move;
 			if (this.xoff == 0 && this.yoff == 0 && this.zoff == 0) {
-				local250 = false;
+				move = false;
 			} else {
-				local250 = true;
+				move = true;
 			}
-			@Pc(284) Model local284 = new Model(local200, this.recol_s == null, !this.disposeAlpha, arg1 == 0 && arg6 == -1 && !local235 && !local250);
-			if (arg6 != -1) {
-				local284.applyGroup();
-				local284.applyFrame(arg6);
-				local284.skinTriangle = null;
-				local284.labelVertices = null;
+
+			@Pc(284) Model m3 = new Model(m2, this.recol_s == null, !this.disposeAlpha, orientation == 0 && seqFrame == -1 && !rescale && !move);
+			if (seqFrame != -1) {
+				m3.applyGroup();
+				m3.applyFrame(seqFrame);
+				m3.skinTriangle = null;
+				m3.labelVertices = null;
 			}
-			while (arg1-- > 0) {
-				local284.rotateCounterClockwise();
+
+			while (orientation-- > 0) {
+				m3.rotateCounterClockwise();
 			}
+
 			if (this.recol_s != null) {
-				for (local141 = 0; local141 < this.recol_s.length; local141++) {
-					local284.recolor(this.recol_s[local141], this.recol_d[local141]);
+				for (n = 0; n < this.recol_s.length; n++) {
+					m3.recolor(this.recol_s[n], this.recol_d[n]);
 				}
 			}
-			if (local235) {
-				local284.scale(this.resizez, this.resizey, this.resizex);
+
+			if (rescale) {
+				m3.scale(this.resizez, this.resizey, this.resizex);
 			}
-			if (local250) {
-				local284.translate(this.yoff, this.xoff, this.zoff);
+
+			if (move) {
+				m3.translate(this.yoff, this.xoff, this.zoff);
 			}
-			local284.applyLighting(this.ambient + 64, this.contrast * 5 + 768, -50, -10, -50, !this.computeVertexColors);
+
+			m3.applyLighting(this.ambient + 64, this.contrast * 5 + 768, -50, -10, -50, !this.computeVertexColors);
 			if (this.blockwalk) {
-				local284.collisionPoint = local284.maxBoundY;
+				m3.collisionPoint = m3.maxBoundY;
 			}
-			modelCacheBuilt.put(local47, local284);
+			modelCacheBuilt.put(key, m3);
 			if (this.hillskew || this.computeVertexColors) {
-				local284 = new Model(local284, this.hillskew, this.computeVertexColors);
+				m3 = new Model(m3, this.hillskew, this.computeVertexColors);
 			}
+
 			if (this.hillskew) {
-				local141 = (arg2 + arg3 + arg4 + arg5) / 4;
-				for (@Pc(417) int local417 = 0; local417 < local284.vertexCount; local417++) {
-					@Pc(424) int local424 = local284.vertexX[local417];
-					@Pc(429) int local429 = local284.vertexZ[local417];
-					@Pc(441) int local441 = arg2 + (arg3 - arg2) * (local424 + 64) / 128;
-					@Pc(453) int local453 = arg5 + (arg4 - arg5) * (local424 + 64) / 128;
-					@Pc(465) int local465 = local441 + (local453 - local441) * (local429 + 64) / 128;
-					local284.vertexY[local417] += local465 - local141;
+				n = (swY + seY + nwY + neY) / 4;
+				for (@Pc(417) int v = 0; v < m3.vertexCount; v++) {
+					@Pc(424) int x = m3.vertexX[v];
+					@Pc(429) int z = m3.vertexZ[v];
+					@Pc(441) int averageY1 = swY + (seY - swY) * (x + 64) / 128;
+					@Pc(453) int averageY2 = neY + (nwY - neY) * (x + 64) / 128;
+					@Pc(465) int average = averageY1 + (averageY2 - averageY1) * (z + 64) / 128;
+					m3.vertexY[v] += average - n;
 				}
-				local284.calculateYBoundaries2();
+				m3.calculateYBoundaries2();
 			}
-			return local284;
+
+			return m3;
 		} else if (reset) {
-			return local56;
+			return m;
 		} else {
 			if (this.hillskew || this.computeVertexColors) {
-				local56 = new Model(local56, this.hillskew, this.computeVertexColors);
+				m = new Model(m, this.hillskew, this.computeVertexColors);
 			}
+
 			if (this.hillskew) {
-				local91 = (arg2 + arg3 + arg4 + arg5) / 4;
-				for (@Pc(93) int local93 = 0; local93 < local56.vertexCount; local93++) {
-					@Pc(100) int local100 = local56.vertexX[local93];
-					@Pc(105) int local105 = local56.vertexZ[local93];
-					@Pc(117) int local117 = arg2 + (arg3 - arg2) * (local100 + 64) / 128;
-					@Pc(129) int local129 = arg5 + (arg4 - arg5) * (local100 + 64) / 128;
-					local141 = local117 + (local129 - local117) * (local105 + 64) / 128;
-					local56.vertexY[local93] += local141 - local91;
+				modelIndex = (swY + seY + nwY + neY) / 4;
+				for (@Pc(93) int v = 0; v < m.vertexCount; v++) {
+					@Pc(100) int x = m.vertexX[v];
+					@Pc(105) int z = m.vertexZ[v];
+					@Pc(117) int averageY1 = swY + (seY - swY) * (x + 64) / 128;
+					@Pc(129) int averageY2 = neY + (nwY - neY) * (x + 64) / 128;
+					n = averageY1 + (averageY2 - averageY1) * (z + 64) / 128;
+					m.vertexY[v] += n - modelIndex;
 				}
-				local56.calculateYBoundaries2();
+				m.calculateYBoundaries2();
 			}
-			return local56;
+
+			return m;
 		}
 	}
 }

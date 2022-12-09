@@ -53,71 +53,76 @@ public final class SpotAnimType {
 
 	@OriginalMember(owner = "client!kc", name = "a", descriptor = "(Lclient!ub;I)V")
 	public static void unpack(@OriginalArg(0) FileArchive archive) {
-		@Pc(13) Buffer local13 = new Buffer(archive.read("spotanim.dat", null));
-		count = local13.g2();
+		@Pc(13) Buffer dat = new Buffer(archive.read("spotanim.dat", null));
+		count = dat.g2();
+
 		if (instances == null) {
 			instances = new SpotAnimType[count];
 		}
-		for (@Pc(23) int local23 = 0; local23 < count; local23++) {
-			if (instances[local23] == null) {
-				instances[local23] = new SpotAnimType();
+
+		for (@Pc(23) int i = 0; i < count; i++) {
+			if (instances[i] == null) {
+				instances[i] = new SpotAnimType();
 			}
-			instances[local23].id = local23;
-			instances[local23].decode(local13);
+
+			instances[i].id = i;
+			instances[i].decode(dat);
 		}
 	}
 
 	@OriginalMember(owner = "client!kc", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void decode(@OriginalArg(1) Buffer arg1) {
-		@Pc(5) int local5;
+	public void decode(@OriginalArg(1) Buffer dat) {
 		while (true) {
-			local5 = arg1.g1();
-			if (local5 == 0) {
+			@Pc(5) int opcode = dat.g1();
+			if (opcode == 0) {
 				break;
 			}
 
-			if (local5 == 1) {
-				this.model = arg1.g2();
-			} else if (local5 == 2) {
-				this.anim = arg1.g2();
+			if (opcode == 1) {
+				this.model = dat.g2();
+			} else if (opcode == 2) {
+				this.anim = dat.g2();
+
 				if (SeqType.instances != null) {
 					this.seq = SeqType.instances[this.anim];
 				}
-			} else if (local5 == 3) {
+			} else if (opcode == 3) {
 				this.disposeAlpha = true;
-			} else if (local5 == 4) {
-				this.resizeh = arg1.g2();
-			} else if (local5 == 5) {
-				this.resizev = arg1.g2();
-			} else if (local5 == 6) {
-				this.orientation = arg1.g2();
-			} else if (local5 == 7) {
-				this.ambient = arg1.g1();
-			} else if (local5 == 8) {
-				this.contrast = arg1.g1();
-			} else if (local5 >= 40 && local5 < 50) {
-				this.recol_s[local5 - 40] = arg1.g2();
-			} else if (local5 >= 50 && local5 < 60) {
-				this.recol_d[local5 - 50] = arg1.g2();
+			} else if (opcode == 4) {
+				this.resizeh = dat.g2();
+			} else if (opcode == 5) {
+				this.resizev = dat.g2();
+			} else if (opcode == 6) {
+				this.orientation = dat.g2();
+			} else if (opcode == 7) {
+				this.ambient = dat.g1();
+			} else if (opcode == 8) {
+				this.contrast = dat.g1();
+			} else if (opcode >= 40 && opcode < 50) {
+				this.recol_s[opcode - 40] = dat.g2();
+			} else if (opcode >= 50 && opcode < 60) {
+				this.recol_d[opcode - 50] = dat.g2();
 			} else {
-				System.out.println("Error unrecognised spotanim config code: " + local5);
+				System.out.println("Error unrecognised spotanim config code: " + opcode);
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!kc", name = "a", descriptor = "()Lclient!eb;")
 	public Model getModel() {
-		@Pc(6) Model local6 = (Model) models.get(this.id);
-		if (local6 != null) {
-			return local6;
+		@Pc(6) Model m = (Model) models.get(this.id);
+		if (m != null) {
+			return m;
 		}
-		local6 = new Model(false, this.model);
-		for (@Pc(19) int local19 = 0; local19 < 6; local19++) {
+
+		m = new Model(false, this.model);
+		for (@Pc(19) int i = 0; i < 6; i++) {
 			if (this.recol_s[0] != 0) {
-				local6.recolor(this.recol_s[local19], this.recol_d[local19]);
+				m.recolor(this.recol_s[i], this.recol_d[i]);
 			}
 		}
-		models.put(this.id, local6);
-		return local6;
+
+		models.put(this.id, m);
+		return m;
 	}
 }

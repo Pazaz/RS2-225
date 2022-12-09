@@ -47,78 +47,84 @@ public final class SeqType {
 
 	@OriginalMember(owner = "client!jc", name = "a", descriptor = "(Lclient!ub;I)V")
 	public static void unpack(@OriginalArg(0) FileArchive archive) {
-		@Pc(9) Buffer local9 = new Buffer(archive.read("seq.dat", null));
-		count = local9.g2();
+		@Pc(9) Buffer dat = new Buffer(archive.read("seq.dat", null));
+		count = dat.g2();
+
 		if (instances == null) {
 			instances = new SeqType[count];
 		}
-		for (@Pc(27) int local27 = 0; local27 < count; local27++) {
-			if (instances[local27] == null) {
-				instances[local27] = new SeqType();
+
+		for (@Pc(27) int i = 0; i < count; i++) {
+			if (instances[i] == null) {
+				instances[i] = new SeqType();
 			}
-			instances[local27].decode(local9);
+
+			instances[i].decode(dat);
 		}
 	}
 
 	@OriginalMember(owner = "client!jc", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void decode(@OriginalArg(1) Buffer arg1) {
+	public void decode(@OriginalArg(1) Buffer dat) {
 		while (true) {
-			@Pc(5) int local5 = arg1.g1();
-			if (local5 == 0) {
-				if (this.framecount == 0) {
-					this.framecount = 1;
-					this.primaryFrames = new int[1];
-					this.primaryFrames[0] = -1;
-					this.secondaryFrames = new int[1];
-					this.secondaryFrames[0] = -1;
-					this.frameDelay = new int[1];
-					this.frameDelay[0] = -1;
-					return;
-				}
-				return;
+			@Pc(5) int opcode = dat.g1();
+			if (opcode == 0) {
+				break;
 			}
-			@Pc(40) int local40;
-			if (local5 == 1) {
-				this.framecount = arg1.g1();
+
+			if (opcode == 1) {
+				this.framecount = dat.g1();
 				this.primaryFrames = new int[this.framecount];
 				this.secondaryFrames = new int[this.framecount];
 				this.frameDelay = new int[this.framecount];
-				for (local40 = 0; local40 < this.framecount; local40++) {
-					this.primaryFrames[local40] = arg1.g2();
-					this.secondaryFrames[local40] = arg1.g2();
-					if (this.secondaryFrames[local40] == 65535) {
-						this.secondaryFrames[local40] = -1;
+
+				for (@Pc(40) int i = 0; i < this.framecount; i++) {
+					this.primaryFrames[i] = dat.g2();
+					this.secondaryFrames[i] = dat.g2();
+					if (this.secondaryFrames[i] == 65535) {
+						this.secondaryFrames[i] = -1;
 					}
-					this.frameDelay[local40] = arg1.g2();
-					if (this.frameDelay[local40] == 0) {
-						this.frameDelay[local40] = SeqFrame.instances[this.primaryFrames[local40]].delay;
+
+					this.frameDelay[i] = dat.g2();
+					if (this.frameDelay[i] == 0) {
+						this.frameDelay[i] = SeqFrame.instances[this.primaryFrames[i]].delay;
 					}
-					if (this.frameDelay[local40] == 0) {
-						this.frameDelay[local40] = 1;
+
+					if (this.frameDelay[i] == 0) {
+						this.frameDelay[i] = 1;
 					}
 				}
-			} else if (local5 == 2) {
-				this.replayoff = arg1.g2();
-			} else if (local5 == 3) {
-				local40 = arg1.g1();
-				this.labelGroups = new int[local40 + 1];
-				for (@Pc(127) int local127 = 0; local127 < local40; local127++) {
-					this.labelGroups[local127] = arg1.g1();
+			} else if (opcode == 2) {
+				this.replayoff = dat.g2();
+			} else if (opcode == 3) {
+				int count = dat.g1();
+				this.labelGroups = new int[count + 1];
+				for (@Pc(127) int i = 0; i < count; i++) {
+					this.labelGroups[i] = dat.g1();
 				}
-				this.labelGroups[local40] = 9999999;
-			} else if (local5 == 4) {
+				this.labelGroups[count] = 9999999;
+			} else if (opcode == 4) {
 				this.stretches = true;
-			} else if (local5 == 5) {
-				this.priority = arg1.g1();
-			} else if (local5 == 6) {
-				this.mainhand = arg1.g2();
-			} else if (local5 == 7) {
-				this.offhand = arg1.g2();
-			} else if (local5 == 8) {
-				this.replaycount = arg1.g1();
+			} else if (opcode == 5) {
+				this.priority = dat.g1();
+			} else if (opcode == 6) {
+				this.mainhand = dat.g2();
+			} else if (opcode == 7) {
+				this.offhand = dat.g2();
+			} else if (opcode == 8) {
+				this.replaycount = dat.g1();
 			} else {
-				System.out.println("Error unrecognised seq config code: " + local5);
+				System.out.println("Error unrecognised seq config code: " + opcode);
 			}
+		}
+
+		if (this.framecount == 0) {
+			this.framecount = 1;
+			this.primaryFrames = new int[1];
+			this.primaryFrames[0] = -1;
+			this.secondaryFrames = new int[1];
+			this.secondaryFrames[0] = -1;
+			this.frameDelay = new int[1];
+			this.frameDelay[0] = -1;
 		}
 	}
 }

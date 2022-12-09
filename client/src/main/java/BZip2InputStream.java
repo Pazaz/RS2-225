@@ -8,14 +8,14 @@ public final class BZip2InputStream {
 	private static final BZip2Context context = new BZip2Context();
 
 	@OriginalMember(owner = "client!rb", name = "a", descriptor = "([BI[BII)I")
-	public static int read(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) byte[] arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
+	public static int read(@OriginalArg(0) byte[] decompressed, @OriginalArg(1) int length, @OriginalArg(2) byte[] stream, @OriginalArg(3) int availIn, @OriginalArg(4) int nextIn) {
 		synchronized (context) {
-			context.stream = arg2;
-			context.nextIn = arg4;
-			context.decompressed = arg0;
+			context.stream = stream;
+			context.nextIn = nextIn;
+			context.decompressed = decompressed;
 			context.nextOut = 0;
-			context.availIn = arg3;
-			context.length = arg1;
+			context.availIn = availIn;
+			context.length = length;
 			context.bsLive = 0;
 			context.bsBuff = 0;
 			context.totalInLo32 = 0;
@@ -24,7 +24,7 @@ public final class BZip2InputStream {
 			context.totalOutHigh32 = 0;
 			context.currentBlockNo = 0;
 			decompress(context);
-			return arg1 - context.length;
+			return length - context.length;
 		}
 	}
 
@@ -483,6 +483,7 @@ public final class BZip2InputStream {
 				arg1.totalInHi32++;
 			}
 		}
+
 		@Pc(17) int local17 = arg1.bsBuff >> arg1.bsLive - arg0 & (0x1 << arg0) - 1;
 		arg1.bsLive -= arg0;
 		return local17;
@@ -511,24 +512,30 @@ public final class BZip2InputStream {
 				}
 			}
 		}
+
 		for (local5 = 0; local5 < 23; local5++) {
 			arg1[local5] = 0;
 		}
+
 		for (local5 = 0; local5 < arg6; local5++) {
 			arg1[arg3[local5] + 1]++;
 		}
+
 		for (local5 = 1; local5 < 23; local5++) {
 			arg1[local5] += arg1[local5 - 1];
 		}
+
 		for (local5 = 0; local5 < 23; local5++) {
 			arg0[local5] = 0;
 		}
+
 		@Pc(93) int local93 = 0;
 		for (local5 = arg4; local5 <= arg5; local5++) {
 			local93 += arg1[local5 + 1] - arg1[local5];
 			arg0[local5] = local93 - 1;
 			local93 <<= 0x1;
 		}
+
 		for (local5 = arg4 + 1; local5 <= arg5; local5++) {
 			arg1[local5] = (arg0[local5 - 1] + 1 << 1) - arg1[local5];
 		}

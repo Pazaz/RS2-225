@@ -41,11 +41,11 @@ public class Draw2D extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!fb", name = "a", descriptor = "(I[III)V")
-	public static void prepare(@OriginalArg(0) int arg0, @OriginalArg(1) int[] arg1, @OriginalArg(3) int arg3) {
-		data = arg1;
-		width = arg0;
-		height = arg3;
-		setBounds(arg3, 0, arg0, 0);
+	public static void prepare(@OriginalArg(0) int width, @OriginalArg(1) int[] data, @OriginalArg(3) int height) {
+		Draw2D.data = data;
+		Draw2D.width = width;
+		Draw2D.height = height;
+		setBounds(height, 0, width, 0);
 	}
 
 	@OriginalMember(owner = "client!fb", name = "a", descriptor = "(I)V")
@@ -59,27 +59,27 @@ public class Draw2D extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!fb", name = "a", descriptor = "(IIIII)V")
-	public static void setBounds(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(4) int arg4) {
-		if (arg4 < 0) {
-			arg4 = 0;
+	public static void setBounds(@OriginalArg(0) int y1, @OriginalArg(1) int y0, @OriginalArg(2) int x1, @OriginalArg(4) int x0) {
+		if (x0 < 0) {
+			x0 = 0;
 		}
 
-		if (arg1 < 0) {
-			arg1 = 0;
+		if (y0 < 0) {
+			y0 = 0;
 		}
 
-		if (arg2 > width) {
-			arg2 = width;
+		if (x1 > width) {
+			x1 = width;
 		}
 
-		if (arg0 > height) {
-			arg0 = height;
+		if (y1 > height) {
+			y1 = height;
 		}
 
-		left = arg4;
-		top = arg1;
-		right = arg2;
-		bottom = arg0;
+		left = x0;
+		top = y0;
+		right = x1;
+		bottom = y1;
 		safeX = right - 1;
 		centerX = right / 2;
 		centerY = bottom / 2;
@@ -87,92 +87,90 @@ public class Draw2D extends CacheableNode {
 
 	@OriginalMember(owner = "client!fb", name = "b", descriptor = "(I)V")
 	public static void clear() {
-		@Pc(7) int local7 = width * height;
-		for (@Pc(9) int local9 = 0; local9 < local7; local9++) {
-			data[local9] = 0;
+		@Pc(7) int len = width * height;
+		for (@Pc(9) int i = 0; i < len; i++) {
+			data[i] = 0;
 		}
 	}
 
 	@OriginalMember(owner = "client!fb", name = "a", descriptor = "(IIIBII)V")
-	public static void fillRect(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
-		if (arg1 < left) {
-			arg4 -= left - arg1;
-			arg1 = left;
+	public static void fillRect(@OriginalArg(0) int y, @OriginalArg(1) int x, @OriginalArg(2) int color, @OriginalArg(4) int w, @OriginalArg(5) int h) {
+		if (x < left) {
+			w -= left - x;
+			x = left;
 		}
 
-		if (arg0 < top) {
-			arg5 -= top - arg0;
-			arg0 = top;
+		if (y < top) {
+			h -= top - y;
+			y = top;
 		}
 
-		if (arg1 + arg4 > right) {
-			arg4 = right - arg1;
+		if (x + w > right) {
+			w = right - x;
 		}
 
-		if (arg0 + arg5 > bottom) {
-			arg5 = bottom - arg0;
+		if (y + h > bottom) {
+			h = bottom - y;
 		}
 
-		@Pc(50) int local50 = width - arg4;
-		@Pc(56) int local56 = arg1 + arg0 * width;
-		for (@Pc(59) int local59 = -arg5; local59 < 0; local59++) {
-			for (@Pc(64) int local64 = -arg4; local64 < 0; local64++) {
-				data[local56++] = arg2;
+		@Pc(50) int step = width - w;
+		@Pc(56) int off = x + y * width;
+		for (@Pc(59) int col = -h; col < 0; col++) {
+			for (@Pc(64) int row = -w; row < 0; row++) {
+				data[off++] = color;
 			}
 
-			local56 += local50;
+			off += step;
 		}
 	}
 
 	@OriginalMember(owner = "client!fb", name = "a", descriptor = "(IIIIII)V")
-	public static void drawRect(@OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
-		drawHorizontalLine(arg2, 0, arg4, arg5, arg1);
-		drawHorizontalLine(arg2, 0, arg4 + arg3 - 1, arg5, arg1);
-		drawVerticalLine(arg2, arg4, arg3, arg1);
-		drawVerticalLine(arg2, arg4, arg3, arg1 + arg5 - 1);
+	public static void drawRect(@OriginalArg(1) int x, @OriginalArg(2) int color, @OriginalArg(3) int h, @OriginalArg(4) int y, @OriginalArg(5) int w) {
+		drawHorizontalLine(color, y, w, x);
+		drawHorizontalLine(color, y + h - 1, w, x);
+		drawVerticalLine(color, y, h, x);
+		drawVerticalLine(color, y, h, x + w - 1);
 	}
 
 	@OriginalMember(owner = "client!fb", name = "b", descriptor = "(IIIII)V")
-	public static void drawHorizontalLine(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
-		if (arg2 < top || arg2 >= bottom) {
+	public static void drawHorizontalLine(@OriginalArg(0) int color, @OriginalArg(2) int y, @OriginalArg(3) int len, @OriginalArg(4) int x) {
+		if (y < top || y >= bottom) {
 			return;
 		}
 
-		if (arg4 < left) {
-			arg3 -= left - arg4;
-			arg4 = left;
+		if (x < left) {
+			len -= left - x;
+			x = left;
 		}
 
-		if (arg4 + arg3 > right) {
-			arg3 = right - arg4;
+		if (x + len > right) {
+			len = right - x;
 		}
 
-		@Pc(32) int local32 = arg4 + arg2 * width;
-		if (arg1 == 0) {
-			for (@Pc(37) int local37 = 0; local37 < arg3; local37++) {
-				data[local32 + local37] = arg0;
-			}
+		@Pc(32) int off = x + y * width;
+		for (@Pc(37) int w = 0; w < len; w++) {
+			data[off + w] = color;
 		}
 	}
 
 	@OriginalMember(owner = "client!fb", name = "c", descriptor = "(IIIII)V")
-	public static void drawVerticalLine(@OriginalArg(0) int arg0, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
-		if (arg4 < left || arg4 >= right) {
+	public static void drawVerticalLine(@OriginalArg(0) int color, @OriginalArg(2) int y, @OriginalArg(3) int len, @OriginalArg(4) int x) {
+		if (x < left || x >= right) {
 			return;
 		}
 
-		if (arg2 < top) {
-			arg3 -= top - arg2;
-			arg2 = top;
+		if (y < top) {
+			len -= top - y;
+			y = top;
 		}
 
-		if (arg2 + arg3 > bottom) {
-			arg3 = bottom - arg2;
+		if (y + len > bottom) {
+			len = bottom - y;
 		}
 
-		@Pc(32) int local32 = arg4 + arg2 * width;
-		for (@Pc(38) int local38 = 0; local38 < arg3; local38++) {
-			data[local32 + local38 * width] = arg0;
+		@Pc(32) int off = x + y * width;
+		for (@Pc(38) int v = 0; v < len; v++) {
+			data[off + v * width] = color;
 		}
 	}
 }
