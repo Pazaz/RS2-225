@@ -11,6 +11,9 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
 
+import javax.sound.midi.*;
+import javax.sound.sampled.*;
+
 @OriginalClass("client!sign/signlink")
 public final class signlink implements Runnable {
 
@@ -109,6 +112,14 @@ public final class signlink implements Runnable {
 
 	@OriginalMember(owner = "client!sign/signlink", name = "errorname", descriptor = "Ljava/lang/String;")
 	public static String errorname = "";
+	
+    private Sequencer sequencer = null;
+    private Sequence sequence = null;
+    enum Position {
+		LEFT, RIGHT, NORMAL
+	};
+    private final int EXTERNAL_BUFFER_SIZE = 524288;
+    private Position curPosition;
 
 	@OriginalMember(owner = "client!sign/signlink", name = "startpriv", descriptor = "(Ljava/net/InetAddress;)V")
 	public static void startpriv(@OriginalArg(0) InetAddress ip) {
@@ -417,11 +428,81 @@ public final class signlink implements Runnable {
 
 				if (waveplay) {
 					wave = cachedir + savereq;
+					try {
+						AudioInputStream audioInputStream = null;
+						try {
+							audioInputStream = AudioSystem.getAudioInputStream(new File(wave));
+						} catch (Exception e1) {
+							e1.printStackTrace();
+							return;
+						}
+
+						AudioFormat format = audioInputStream.getFormat();
+						SourceDataLine auline = null;
+						DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
+
+						try {
+							auline = (SourceDataLine) AudioSystem.getLine(info);
+							auline.open(format);
+						} catch (Exception e) {
+							e.printStackTrace();
+							return;
+						}
+
+						if (auline.isControlSupported(FloatControl.Type.PAN)) {
+							FloatControl pan = (FloatControl) auline
+									.getControl(FloatControl.Type.PAN);
+							if (curPosition == Position.RIGHT)
+								pan.setValue(1.0f);
+							else if (curPosition == Position.LEFT)
+								pan.setValue(-1.0f);
+						}
+
+						auline.start();
+						int nBytesRead = 0;
+						byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
+
+						try {
+							while (nBytesRead != -1) {
+								nBytesRead = audioInputStream.read(abData, 0, abData.length);
+								if (nBytesRead >= 0)
+									auline.write(abData, 0, nBytesRead);
+							}
+						} catch (IOException e) {
+							e.printStackTrace();
+						} finally {
+							auline.drain();
+							auline.close();
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
 					waveplay = false;
 				}
 
 				if (midiplay) {
 					midi = cachedir + savereq;
+					try {
+						if (sequencer != null) {
+							sequencer.stop();
+							sequencer.close();
+						}
+						sequencer = null;
+						sequence = null;
+
+						File music = new File(midi);
+						if (music.exists()) {
+							sequence = MidiSystem.getSequence(music);
+						}
+
+						sequencer = MidiSystem.getSequencer();
+						sequencer.open();
+						sequencer.setSequence(sequence);
+						sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
+						sequencer.start();
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
 					midiplay = false;
 				}
 
