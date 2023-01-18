@@ -2,7 +2,7 @@ import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 
 @OriginalClass("client!sb")
-public final class BZip2Context {
+public final class BZip2State {
 
 	@OriginalMember(owner = "client!sb", name = "H", descriptor = "[I")
 	public static int[] tt;
@@ -11,37 +11,37 @@ public final class BZip2Context {
 	public byte[] stream;
 
 	@OriginalMember(owner = "client!sb", name = "k", descriptor = "I")
-	public int nextIn;
+	public int next_in;
 
 	@OriginalMember(owner = "client!sb", name = "l", descriptor = "I")
-	public int availIn;
+	public int avail_in;
 
 	@OriginalMember(owner = "client!sb", name = "m", descriptor = "I")
-	public int totalInLo32;
+	public int total_in_lo32;
 
 	@OriginalMember(owner = "client!sb", name = "n", descriptor = "I")
-	public int totalInHi32;
+	public int total_in_hi32;
 
 	@OriginalMember(owner = "client!sb", name = "o", descriptor = "[B")
 	public byte[] decompressed;
 
 	@OriginalMember(owner = "client!sb", name = "p", descriptor = "I")
-	public int nextOut;
+	public int next_out;
 
 	@OriginalMember(owner = "client!sb", name = "q", descriptor = "I")
-	public int length;
+	public int avail_out;
 
 	@OriginalMember(owner = "client!sb", name = "r", descriptor = "I")
-	public int totalOutLo32;
+	public int total_out_lo32;
 
 	@OriginalMember(owner = "client!sb", name = "s", descriptor = "I")
-	public int totalOutHigh32;
+	public int total_out_hi32;
 
 	@OriginalMember(owner = "client!sb", name = "t", descriptor = "B")
-	public byte stateOutCh;
+	public byte state_out_ch;
 
 	@OriginalMember(owner = "client!sb", name = "u", descriptor = "I")
-	public int stateOutLen;
+	public int state_out_len;
 
 	@OriginalMember(owner = "client!sb", name = "v", descriptor = "Z")
 	public boolean blockRandomized;
@@ -56,7 +56,7 @@ public final class BZip2Context {
 	public int blockSize100k;
 
 	@OriginalMember(owner = "client!sb", name = "z", descriptor = "I")
-	public int currentBlockNo;
+	public int currBlockNo;
 
 	@OriginalMember(owner = "client!sb", name = "A", descriptor = "I")
 	public int origPtr;
@@ -68,40 +68,43 @@ public final class BZip2Context {
 	public int k0;
 
 	@OriginalMember(owner = "client!sb", name = "E", descriptor = "I")
-	public int nBlockUsed;
+	public int c_nblock_used;
 
 	@OriginalMember(owner = "client!sb", name = "I", descriptor = "I")
 	public int nInUse;
 
 	@OriginalMember(owner = "client!sb", name = "V", descriptor = "I")
-	public int count;
+	public int save_nblock;
 
 	@OriginalMember(owner = "client!sb", name = "a", descriptor = "I")
-	private final int MTFA_SIZE = 4096;
+	public static final int MTFA_SIZE = 4096;
 
 	@OriginalMember(owner = "client!sb", name = "b", descriptor = "I")
-	private final int MTFL_SIZE = 16;
+	public static final int MTFL_SIZE = 16;
 
 	@OriginalMember(owner = "client!sb", name = "c", descriptor = "I")
-	private final int BZ_MAX_ALPHA_SIZE = 258;
+	public static final int BZ_MAX_ALPHA_SIZE = 258;
 
 	@OriginalMember(owner = "client!sb", name = "d", descriptor = "I")
-	private final int BZ_MAX_CODE_LEN = 23;
+	public static final int BZ_MAX_CODE_LEN = 23;
 
 	@OriginalMember(owner = "client!sb", name = "e", descriptor = "I")
-	private final int anInt732 = 1; // TODO
+	public static final int anInt732 = 1; // TODO
 
 	@OriginalMember(owner = "client!sb", name = "f", descriptor = "I")
-	private final int BZ_N_GROUPS = 6;
+	public static final int BZ_N_GROUPS = 6;
 
 	@OriginalMember(owner = "client!sb", name = "g", descriptor = "I")
-	private final int BZ_G_SIZE = 50;
+	public static final int BZ_G_SIZE = 50;
 
 	@OriginalMember(owner = "client!sb", name = "h", descriptor = "I")
-	private final int anInt735 = 4; // TODO
+	public static final int anInt735 = 4; // TODO
 
 	@OriginalMember(owner = "client!sb", name = "i", descriptor = "I")
-	private final int BZ_MAX_SELECTORS = (2 + (900000 / BZ_G_SIZE));
+	public static final int BZ_MAX_SELECTORS = (2 + (900000 / BZ_G_SIZE));
+
+	public static final int BZ_RUNA = 0;
+	public static final int BZ_RUNB = 1;
 
 	@OriginalMember(owner = "client!sb", name = "D", descriptor = "[I")
 	public final int[] unzftab = new int[256];
