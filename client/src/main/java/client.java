@@ -15,6 +15,8 @@ import java.net.URL;
 @OriginalClass("client!client")
 public final class client extends GameShell {
 
+	public static final boolean MINIMAP_BILINEAR_FILTERING = true;
+
 	@OriginalMember(owner = "client!client", name = "F", descriptor = "Ljava/lang/String;")
 	public static final String ASCII_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
 

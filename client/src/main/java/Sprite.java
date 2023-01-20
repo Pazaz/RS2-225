@@ -490,8 +490,33 @@ public final class Sprite extends Draw2D {
 				@Pc(93) int dstOff = origin + start;
 				@Pc(99) int dstX = originX + cos * start;
 				@Pc(105) int dstY = originY - sin * start;
+
 				for (x = -lineWidth[y]; x < 0; x++) {
-					Draw2D.data[dstOff++] = this.pixels[(dstX >> 16) + (dstY >> 16) * this.spriteWidth];
+					if (client.MINIMAP_BILINEAR_FILTERING) {
+						int x1 = dstX >> 16;
+						int y1 = dstY >> 16;
+						int x2 = x1 + 1;
+						int y2 = y1 + 1;
+						int sampleColor1 = pixels[x1 + y1 * this.spriteWidth];
+						int sampleColor2 = pixels[x2 + y1 * this.spriteWidth];
+						int sampleColor3 = pixels[x1 + y2 * this.spriteWidth];
+						int sampleColor4 = pixels[x2 + y2 * this.spriteWidth];
+						int x1Distance = (dstX >> 8) - (x1 << 8);
+						int y1Distance = (dstY >> 8) - (y1 << 8);
+						int x2Distance = (x2 << 8) - (dstX >> 8);
+						int y2Distance = (y2 << 8) - (dstY >> 8);
+						int sampleAlpha1 = x2Distance * y2Distance;
+						int sampleAlpha2 = x1Distance * y2Distance;
+						int sampleAlpha3 = x2Distance * y1Distance;
+						int sampleAlpha4 = x1Distance * y1Distance;
+						int red = (sampleColor1 >> 16 & 0xff) * sampleAlpha1 + (sampleColor2 >> 16 & 0xff) * sampleAlpha2 + (sampleColor3 >> 16 & 0xff) * sampleAlpha3 + (sampleColor4 >> 16 & 0xff) * sampleAlpha4 & 0xff0000;
+						int green = (sampleColor1 >> 8 & 0xff) * sampleAlpha1 + (sampleColor2 >> 8 & 0xff) * sampleAlpha2 + (sampleColor3 >> 8 & 0xff) * sampleAlpha3 + (sampleColor4 >> 8 & 0xff) * sampleAlpha4 >> 8 & 0xff00;
+						int blue = (sampleColor1 & 0xff) * sampleAlpha1 + (sampleColor2 & 0xff) * sampleAlpha2 + (sampleColor3 & 0xff) * sampleAlpha3 + (sampleColor4 & 0xff) * sampleAlpha4 >> 16;
+						Draw2D.data[dstOff++] = red | green | blue;
+					} else {
+						Draw2D.data[dstOff++] = this.pixels[(dstX >> 16) + (dstY >> 16) * this.spriteWidth];
+					}
+
 					dstX += cos;
 					dstY -= sin;
 				}
