@@ -1,5 +1,6 @@
 package com.jagex.game.runetek3.scene;
 
+import com.jagex.game.runetek3.config.LocType;
 import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
@@ -8,11 +9,43 @@ import org.openrs2.deob.annotation.Pc;
 @OriginalClass("client!ec")
 public class CollisionMap {
 
+	public static final int OPEN = 0x0;
+	public static final int CLOSED = 0xFFFFFF;
+
+	public static final int WALL_NORTHWEST = 0x1;
+	public static final int WALL_NORTH = 0x2;
+	public static final int WALL_NORTHEAST = 0x4;
+	public static final int WALL_EAST = 0x8;
+	public static final int WALL_SOUTHEAST = 0x10;
+	public static final int WALL_SOUTH = 0x20;
+	public static final int WALL_SOUTHWEST = 0x40;
+	public static final int WALL_WEST = 0x80;
+
+	public static final int OCCUPIED_TILE = 0x100;
+
+	public static final int BLOCKED_NORTHWEST = 0x200;
+	public static final int BLOCKED_NORTH = 0x400;
+	public static final int BLOCKED_NORTHEAST = 0x800;
+	public static final int BLOCKED_EAST = 0x1000;
+	public static final int BLOCKED_SOUTHEAST = 0x2000;
+	public static final int BLOCKED_SOUTH = 0x4000;
+	public static final int BLOCKED_SOUTHWEST = 0x8000;
+	public static final int BLOCKED_WEST = 0x10000;
+
+	public static final int SOLID = 0x20000;
+	public static final int FLAG_UNUSED1 = 0x80000;
+	public static final int BLOCKED_TILE = 0x200000;
+
+	public static final int NORTH_WEST = 0;
+	public static final int NORTH_EAST = 1;
+	public static final int SOUTH_EAST = 2;
+	public static final int SOUTH_WEST = 3;
+
 	@OriginalMember(owner = "client!ec", name = "f", descriptor = "I")
-	private final int anInt381;
+	private final int xOffset;
 
 	@OriginalMember(owner = "client!ec", name = "g", descriptor = "I")
-	private final int anInt382;
+	private final int zOffset;
 
 	@OriginalMember(owner = "client!ec", name = "h", descriptor = "I")
 	private final int x;
@@ -24,173 +57,154 @@ public class CollisionMap {
 	public final int[][] flags;
 
 	@OriginalMember(owner = "client!ec", name = "<init>", descriptor = "(III)V")
-	public CollisionMap(@OriginalArg(0) int arg0, @OriginalArg(2) int arg2) {
-		this.anInt381 = 0;
-		this.anInt382 = 0;
-		this.x = arg0;
-		this.z = arg2;
+	public CollisionMap(@OriginalArg(0) int x, @OriginalArg(2) int z) {
+		this.xOffset = 0;
+		this.zOffset = 0;
+		this.x = x;
+		this.z = z;
 		this.flags = new int[this.x][this.z];
 		this.reset();
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(B)V")
 	public void reset() {
-		@Pc(7) int local7;
-		for (@Pc(3) int local3 = 0; local3 < this.x; local3++) {
-			for (local7 = 0; local7 < this.z; local7++) {
-				if (local3 == 0 || local7 == 0 || local3 == this.x - 1 || local7 == this.z - 1) {
-					this.flags[local3][local7] = 16777215;
+		@Pc(7) int x;
+		for (@Pc(3) int z = 0; z < this.x; z++) {
+			for (x = 0; x < this.z; x++) {
+				if (z == 0 || x == 0 || z == this.x - 1 || x == this.z - 1) {
+					this.flags[z][x] = CLOSED;
 				} else {
-					this.flags[local3][local7] = 0;
+					this.flags[z][x] = OPEN;
 				}
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(ZIIIZI)V")
-	public void setWall(@OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) boolean arg4, @OriginalArg(5) int arg5) {
-		@Pc(4) int local4 = arg3 - this.anInt381;
-		@Pc(19) int local19 = arg2 - this.anInt382;
-		if (arg5 == 0) {
-			if (arg1 == 0) {
-				this.add(local4, local19, 128);
-				this.add(local4 - 1, local19, 8);
+	public void setWall(@OriginalArg(1) int orientation, @OriginalArg(2) int z, @OriginalArg(3) int x, @OriginalArg(4) boolean blocks, @OriginalArg(5) int type) {
+		x -= this.xOffset;
+		z -= this.zOffset;
+
+		if (type == LocType.WALL_STRAIGHT) {
+			if (orientation == NORTH_WEST) {
+				this.add(x, z, WALL_WEST);
+				this.add(x - 1, z, WALL_EAST);
+			} else if (orientation == NORTH_EAST) {
+				this.add(x, z, WALL_NORTH);
+				this.add(x, z + 1, WALL_SOUTH);
+			} else if (orientation == SOUTH_EAST) {
+				this.add(x, z, WALL_EAST);
+				this.add(x + 1, z, WALL_WEST);
+			} else if (orientation == SOUTH_WEST) {
+				this.add(x, z, WALL_SOUTH);
+				this.add(x, z - 1, WALL_NORTH);
 			}
-			if (arg1 == 1) {
-				this.add(local4, local19, 2);
-				this.add(local4, local19 + 1, 32);
+		} else if (type == LocType.WALL_DIAGONALCORNER || type == LocType.WALL_SQUARECORNER) {
+			if (orientation == NORTH_WEST) {
+				this.add(x, z, WALL_NORTHWEST);
+				this.add(x - 1, z + 1, WALL_SOUTHEAST);
+			} else if (orientation == NORTH_EAST) {
+				this.add(x, z, WALL_NORTHEAST);
+				this.add(x + 1, z + 1, WALL_SOUTHWEST);
+			} else if (orientation == SOUTH_EAST) {
+				this.add(x, z, WALL_SOUTHEAST);
+				this.add(x + 1, z - 1, WALL_NORTHWEST);
+			} else if (orientation == SOUTH_WEST) {
+				this.add(x, z, WALL_SOUTHWEST);
+				this.add(x - 1, z - 1, WALL_NORTHEAST);
 			}
-			if (arg1 == 2) {
-				this.add(local4, local19, 8);
-				this.add(local4 + 1, local19, 128);
-			}
-			if (arg1 == 3) {
-				this.add(local4, local19, 32);
-				this.add(local4, local19 - 1, 2);
-			}
-		}
-		if (arg5 == 1 || arg5 == 3) {
-			if (arg1 == 0) {
-				this.add(local4, local19, 1);
-				this.add(local4 - 1, local19 + 1, 16);
-			}
-			if (arg1 == 1) {
-				this.add(local4, local19, 4);
-				this.add(local4 + 1, local19 + 1, 64);
-			}
-			if (arg1 == 2) {
-				this.add(local4, local19, 16);
-				this.add(local4 + 1, local19 - 1, 1);
-			}
-			if (arg1 == 3) {
-				this.add(local4, local19, 64);
-				this.add(local4 - 1, local19 - 1, 4);
-			}
-		}
-		if (arg5 == 2) {
-			if (arg1 == 0) {
-				this.add(local4, local19, 130);
-				this.add(local4 - 1, local19, 8);
-				this.add(local4, local19 + 1, 32);
-			}
-			if (arg1 == 1) {
-				this.add(local4, local19, 10);
-				this.add(local4, local19 + 1, 32);
-				this.add(local4 + 1, local19, 128);
-			}
-			if (arg1 == 2) {
-				this.add(local4, local19, 40);
-				this.add(local4 + 1, local19, 128);
-				this.add(local4, local19 - 1, 2);
-			}
-			if (arg1 == 3) {
-				this.add(local4, local19, 160);
-				this.add(local4, local19 - 1, 2);
-				this.add(local4 - 1, local19, 8);
+		} else if (type == LocType.WALL_L) {
+			if (orientation == NORTH_WEST) {
+				this.add(x, z, WALL_WEST | WALL_NORTH);
+				this.add(x - 1, z, WALL_EAST);
+				this.add(x, z + 1, WALL_SOUTH);
+			} else if (orientation == NORTH_EAST) {
+				this.add(x, z, WALL_EAST | WALL_NORTH);
+				this.add(x, z + 1, WALL_SOUTH);
+				this.add(x + 1, z, WALL_WEST);
+			} else if (orientation == SOUTH_EAST) {
+				this.add(x, z, WALL_SOUTH | WALL_EAST);
+				this.add(x + 1, z, WALL_WEST);
+				this.add(x, z - 1, WALL_NORTH);
+			} else if (orientation == SOUTH_WEST) {
+				this.add(x, z, WALL_WEST | WALL_SOUTH);
+				this.add(x, z - 1, WALL_NORTH);
+				this.add(x - 1, z, WALL_EAST);
 			}
 		}
-		if (arg4) {
-			if (arg5 == 0) {
-				if (arg1 == 0) {
-					this.add(local4, local19, 65536);
-					this.add(local4 - 1, local19, 4096);
+
+		if (blocks) {
+			if (type == LocType.WALL_STRAIGHT) {
+				if (orientation == NORTH_WEST) {
+					this.add(x, z, BLOCKED_WEST);
+					this.add(x - 1, z, BLOCKED_EAST);
+				} else if (orientation == NORTH_EAST) {
+					this.add(x, z, BLOCKED_NORTH);
+					this.add(x, z + 1, BLOCKED_SOUTH);
+				} else if (orientation == SOUTH_EAST) {
+					this.add(x, z, BLOCKED_EAST);
+					this.add(x + 1, z, BLOCKED_WEST);
+				} else if (orientation == SOUTH_WEST) {
+					this.add(x, z, BLOCKED_SOUTH);
+					this.add(x, z - 1, BLOCKED_NORTH);
 				}
-				if (arg1 == 1) {
-					this.add(local4, local19, 1024);
-					this.add(local4, local19 + 1, 16384);
+			} else if (type == LocType.WALL_DIAGONALCORNER || type == LocType.WALL_SQUARECORNER) {
+				if (orientation == NORTH_WEST) {
+					this.add(x, z, BLOCKED_NORTHWEST);
+					this.add(x - 1, z + 1, BLOCKED_SOUTHEAST);
+				} else if (orientation == NORTH_EAST) {
+					this.add(x, z, BLOCKED_NORTHEAST);
+					this.add(x + 1, z + 1, BLOCKED_SOUTHWEST);
+				} else if (orientation == SOUTH_EAST) {
+					this.add(x, z, BLOCKED_SOUTHEAST);
+					this.add(x + 1, z - 1, BLOCKED_NORTHWEST);
+				} else if (orientation == SOUTH_WEST) {
+					this.add(x, z, BLOCKED_SOUTHWEST);
+					this.add(x - 1, z - 1, BLOCKED_NORTHEAST);
 				}
-				if (arg1 == 2) {
-					this.add(local4, local19, 4096);
-					this.add(local4 + 1, local19, 65536);
-				}
-				if (arg1 == 3) {
-					this.add(local4, local19, 16384);
-					this.add(local4, local19 - 1, 1024);
-				}
-			}
-			if (arg5 == 1 || arg5 == 3) {
-				if (arg1 == 0) {
-					this.add(local4, local19, 512);
-					this.add(local4 - 1, local19 + 1, 8192);
-				}
-				if (arg1 == 1) {
-					this.add(local4, local19, 2048);
-					this.add(local4 + 1, local19 + 1, 32768);
-				}
-				if (arg1 == 2) {
-					this.add(local4, local19, 8192);
-					this.add(local4 + 1, local19 - 1, 512);
-				}
-				if (arg1 == 3) {
-					this.add(local4, local19, 32768);
-					this.add(local4 - 1, local19 - 1, 2048);
-				}
-			}
-			if (arg5 == 2) {
-				if (arg1 == 0) {
-					this.add(local4, local19, 66560);
-					this.add(local4 - 1, local19, 4096);
-					this.add(local4, local19 + 1, 16384);
-				}
-				if (arg1 == 1) {
-					this.add(local4, local19, 5120);
-					this.add(local4, local19 + 1, 16384);
-					this.add(local4 + 1, local19, 65536);
-				}
-				if (arg1 == 2) {
-					this.add(local4, local19, 20480);
-					this.add(local4 + 1, local19, 65536);
-					this.add(local4, local19 - 1, 1024);
-				}
-				if (arg1 == 3) {
-					this.add(local4, local19, 81920);
-					this.add(local4, local19 - 1, 1024);
-					this.add(local4 - 1, local19, 4096);
+			} else if (type == LocType.WALL_L) {
+				if (orientation == NORTH_WEST) {
+					this.add(x, z, BLOCKED_WEST | BLOCKED_NORTH);
+					this.add(x - 1, z, BLOCKED_EAST);
+					this.add(x, z + 1, BLOCKED_SOUTH);
+				} else if (orientation == NORTH_EAST) {
+					this.add(x, z, BLOCKED_EAST | BLOCKED_NORTH);
+					this.add(x, z + 1, BLOCKED_SOUTH);
+					this.add(x + 1, z, BLOCKED_WEST);
+				} else if (orientation == SOUTH_EAST) {
+					this.add(x, z, BLOCKED_SOUTH | BLOCKED_EAST);
+					this.add(x + 1, z, BLOCKED_WEST);
+					this.add(x, z - 1, BLOCKED_NORTH);
+				} else if (orientation == SOUTH_WEST) {
+					this.add(x, z, BLOCKED_WEST | BLOCKED_SOUTH);
+					this.add(x, z - 1, BLOCKED_NORTH);
+					this.add(x - 1, z, BLOCKED_EAST);
 				}
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(IIIIIIZ)V")
-	public void setLoc(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(5) int arg5, @OriginalArg(6) boolean arg6) {
-		@Pc(3) int local3 = 256;
-		if (arg6) {
-			local3 += 131072;
+	public void setLoc(@OriginalArg(0) int orientation, @OriginalArg(1) int sizeZ, @OriginalArg(2) int sizeX, @OriginalArg(3) int xOffset, @OriginalArg(5) int zOffset, @OriginalArg(6) boolean solid) {
+		@Pc(3) int flag = OCCUPIED_TILE;
+		if (solid) {
+			flag += SOLID;
 		}
-		@Pc(14) int local14 = arg3 - this.anInt381;
-		@Pc(19) int local19 = arg5 - this.anInt382;
-		@Pc(27) int local27;
-		if (arg0 == 1 || arg0 == 3) {
-			local27 = arg2;
-			arg2 = arg1;
-			arg1 = local27;
+
+		@Pc(14) int startX = xOffset - this.xOffset;
+		@Pc(19) int startZ = zOffset - this.zOffset;
+
+		if (orientation == 1 || orientation == 3) {
+			int temp = sizeX;
+			sizeX = sizeZ;
+			sizeZ = temp;
 		}
-		@Pc(43) int local43;
-		for (local27 = local14; local27 < local14 + arg2; local27++) {
-			if (local27 >= 0 && local27 < this.x) {
-				for (local43 = local19; local43 < local19 + arg1; local43++) {
-					if (local43 >= 0 && local43 < this.z) {
-						this.add(local27, local43, local3);
+
+		for (int x = startX; x < startX + sizeX; x++) {
+			if (x >= 0 && x < this.x) {
+				for (int z = startZ; z < startZ + sizeZ; z++) {
+					if (z >= 0 && z < this.z) {
+						this.add(x, z, flag);
 					}
 				}
 			}
@@ -198,160 +212,142 @@ public class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(BII)V")
-	public void setBlocked(@OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
-		@Pc(9) int local9 = arg2 - this.anInt381;
-		@Pc(14) int local14 = arg1 - this.anInt382;
-		this.flags[local9][local14] |= 0x200000;
+	public void setBlocked(@OriginalArg(1) int zOffset, @OriginalArg(2) int xOffset) {
+		@Pc(9) int x = xOffset - this.xOffset;
+		@Pc(14) int z = zOffset - this.zOffset;
+		this.flags[x][z] |= BLOCKED_TILE;
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(III)V")
-	private void add(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
-		this.flags[arg0][arg1] |= arg2;
+	private void add(@OriginalArg(0) int x, @OriginalArg(1) int z, @OriginalArg(2) int flag) {
+		this.flags[x][z] |= flag;
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(ZIIIII)V")
-	public void removeWall(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(5) int arg5) {
-		@Pc(8) int local8 = arg2 - this.anInt381;
-		@Pc(13) int local13 = arg3 - this.anInt382;
-		if (arg5 == 0) {
-			if (arg1 == 0) {
-				this.remove(local13, local8, 128);
-				this.remove(local13, local8 - 1, 8);
+	public void removeWall(@OriginalArg(0) boolean blocks, @OriginalArg(1) int orientation, @OriginalArg(2) int x, @OriginalArg(3) int z, @OriginalArg(5) int type) {
+		x -= this.xOffset;
+		z -= this.zOffset;
+
+		if (type == LocType.WALL_STRAIGHT) {
+			if (orientation == NORTH_WEST) {
+				this.remove(z, x, WALL_WEST);
+				this.remove(z, x - 1, WALL_EAST);
+			} else if (orientation == NORTH_EAST) {
+				this.remove(z, x, WALL_NORTH);
+				this.remove(z + 1, x, WALL_SOUTH);
+			} else if (orientation == SOUTH_EAST) {
+				this.remove(z, x, WALL_EAST);
+				this.remove(z, x + 1, WALL_WEST);
+			} else if (orientation == SOUTH_WEST) {
+				this.remove(z, x, WALL_SOUTH);
+				this.remove(z - 1, x, WALL_NORTH);
 			}
-			if (arg1 == 1) {
-				this.remove(local13, local8, 2);
-				this.remove(local13 + 1, local8, 32);
+		} else if (type == LocType.WALL_DIAGONALCORNER || type == LocType.WALL_SQUARECORNER) {
+			if (orientation == NORTH_WEST) {
+				this.remove(z, x, WALL_NORTHWEST);
+				this.remove(z + 1, x - 1, WALL_SOUTHEAST);
+			} else if (orientation == NORTH_EAST) {
+				this.remove(z, x, WALL_NORTHEAST);
+				this.remove(z + 1, x + 1, WALL_SOUTHWEST);
+			} else if (orientation == SOUTH_EAST) {
+				this.remove(z, x, WALL_SOUTHEAST);
+				this.remove(z - 1, x + 1, WALL_NORTHWEST);
+			} else if (orientation == SOUTH_WEST) {
+				this.remove(z, x, WALL_SOUTHWEST);
+				this.remove(z - 1, x - 1, WALL_NORTHEAST);
 			}
-			if (arg1 == 2) {
-				this.remove(local13, local8, 8);
-				this.remove(local13, local8 + 1, 128);
-			}
-			if (arg1 == 3) {
-				this.remove(local13, local8, 32);
-				this.remove(local13 - 1, local8, 2);
-			}
-		}
-		if (arg5 == 1 || arg5 == 3) {
-			if (arg1 == 0) {
-				this.remove(local13, local8, 1);
-				this.remove(local13 + 1, local8 - 1, 16);
-			}
-			if (arg1 == 1) {
-				this.remove(local13, local8, 4);
-				this.remove(local13 + 1, local8 + 1, 64);
-			}
-			if (arg1 == 2) {
-				this.remove(local13, local8, 16);
-				this.remove(local13 - 1, local8 + 1, 1);
-			}
-			if (arg1 == 3) {
-				this.remove(local13, local8, 64);
-				this.remove(local13 - 1, local8 - 1, 4);
-			}
-		}
-		if (arg5 == 2) {
-			if (arg1 == 0) {
-				this.remove(local13, local8, 130);
-				this.remove(local13, local8 - 1, 8);
-				this.remove(local13 + 1, local8, 32);
-			}
-			if (arg1 == 1) {
-				this.remove(local13, local8, 10);
-				this.remove(local13 + 1, local8, 32);
-				this.remove(local13, local8 + 1, 128);
-			}
-			if (arg1 == 2) {
-				this.remove(local13, local8, 40);
-				this.remove(local13, local8 + 1, 128);
-				this.remove(local13 - 1, local8, 2);
-			}
-			if (arg1 == 3) {
-				this.remove(local13, local8, 160);
-				this.remove(local13 - 1, local8, 2);
-				this.remove(local13, local8 - 1, 8);
+		} else if (type == LocType.WALL_L) {
+			if (orientation == NORTH_WEST) {
+				this.remove(z, x, WALL_WEST | WALL_NORTH);
+				this.remove(z, x - 1, WALL_EAST);
+				this.remove(z + 1, x, WALL_SOUTH);
+			} else if (orientation == NORTH_EAST) {
+				this.remove(z, x, WALL_EAST | WALL_NORTH);
+				this.remove(z + 1, x, WALL_SOUTH);
+				this.remove(z, x + 1, WALL_WEST);
+			} else if (orientation == SOUTH_EAST) {
+				this.remove(z, x, WALL_SOUTH | WALL_EAST);
+				this.remove(z, x + 1, WALL_WEST);
+				this.remove(z - 1, x, WALL_NORTH);
+			} else if (orientation == SOUTH_WEST) {
+				this.remove(z, x, WALL_WEST | WALL_SOUTH);
+				this.remove(z - 1, x, WALL_NORTH);
+				this.remove(z, x - 1, WALL_EAST);
 			}
 		}
-		if (arg0) {
-			if (arg5 == 0) {
-				if (arg1 == 0) {
-					this.remove(local13, local8, 65536);
-					this.remove(local13, local8 - 1, 4096);
+
+		if (blocks) {
+			if (type == LocType.WALL_STRAIGHT) {
+				if (orientation == NORTH_WEST) {
+					this.remove(z, x, BLOCKED_WEST);
+					this.remove(z, x - 1, BLOCKED_EAST);
+				} else if (orientation == NORTH_EAST) {
+					this.remove(z, x, BLOCKED_NORTH);
+					this.remove(z + 1, x, BLOCKED_SOUTH);
+				} else if (orientation == SOUTH_EAST) {
+					this.remove(z, x, BLOCKED_EAST);
+					this.remove(z, x + 1, BLOCKED_WEST);
+				} else if (orientation == SOUTH_WEST) {
+					this.remove(z, x, BLOCKED_SOUTH);
+					this.remove(z - 1, x, BLOCKED_NORTH);
 				}
-				if (arg1 == 1) {
-					this.remove(local13, local8, 1024);
-					this.remove(local13 + 1, local8, 16384);
+			} else if (type == LocType.WALL_DIAGONALCORNER || type == LocType.WALL_SQUARECORNER) {
+				if (orientation == NORTH_WEST) {
+					this.remove(z, x, BLOCKED_NORTHWEST);
+					this.remove(z + 1, x - 1, BLOCKED_SOUTHEAST);
+				} else if (orientation == NORTH_EAST) {
+					this.remove(z, x, BLOCKED_NORTHEAST);
+					this.remove(z + 1, x + 1, BLOCKED_SOUTHWEST);
+				} else if (orientation == SOUTH_EAST) {
+					this.remove(z, x, BLOCKED_SOUTHEAST);
+					this.remove(z - 1, x + 1, BLOCKED_NORTHWEST);
+				} else if (orientation == SOUTH_WEST) {
+					this.remove(z, x, BLOCKED_SOUTHWEST);
+					this.remove(z - 1, x - 1, BLOCKED_NORTHEAST);
 				}
-				if (arg1 == 2) {
-					this.remove(local13, local8, 4096);
-					this.remove(local13, local8 + 1, 65536);
-				}
-				if (arg1 == 3) {
-					this.remove(local13, local8, 16384);
-					this.remove(local13 - 1, local8, 1024);
-				}
-			}
-			if (arg5 == 1 || arg5 == 3) {
-				if (arg1 == 0) {
-					this.remove(local13, local8, 512);
-					this.remove(local13 + 1, local8 - 1, 8192);
-				}
-				if (arg1 == 1) {
-					this.remove(local13, local8, 2048);
-					this.remove(local13 + 1, local8 + 1, 32768);
-				}
-				if (arg1 == 2) {
-					this.remove(local13, local8, 8192);
-					this.remove(local13 - 1, local8 + 1, 512);
-				}
-				if (arg1 == 3) {
-					this.remove(local13, local8, 32768);
-					this.remove(local13 - 1, local8 - 1, 2048);
-				}
-			}
-			if (arg5 == 2) {
-				if (arg1 == 0) {
-					this.remove(local13, local8, 66560);
-					this.remove(local13, local8 - 1, 4096);
-					this.remove(local13 + 1, local8, 16384);
-				}
-				if (arg1 == 1) {
-					this.remove(local13, local8, 5120);
-					this.remove(local13 + 1, local8, 16384);
-					this.remove(local13, local8 + 1, 65536);
-				}
-				if (arg1 == 2) {
-					this.remove(local13, local8, 20480);
-					this.remove(local13, local8 + 1, 65536);
-					this.remove(local13 - 1, local8, 1024);
-				}
-				if (arg1 == 3) {
-					this.remove(local13, local8, 81920);
-					this.remove(local13 - 1, local8, 1024);
-					this.remove(local13, local8 - 1, 4096);
+			} else if (type == LocType.WALL_L) {
+				if (orientation == NORTH_WEST) {
+					this.remove(z, x, BLOCKED_WEST | BLOCKED_NORTH);
+					this.remove(z, x - 1, BLOCKED_EAST);
+					this.remove(z + 1, x, BLOCKED_SOUTH);
+				} else if (orientation == NORTH_EAST) {
+					this.remove(z, x, BLOCKED_EAST | BLOCKED_NORTH);
+					this.remove(z + 1, x, BLOCKED_SOUTH);
+					this.remove(z, x + 1, BLOCKED_WEST);
+				} else if (orientation == SOUTH_EAST) {
+					this.remove(z, x, BLOCKED_SOUTH | BLOCKED_EAST);
+					this.remove(z, x + 1, BLOCKED_WEST);
+					this.remove(z - 1, x, BLOCKED_NORTH);
+				} else if (orientation == SOUTH_WEST) {
+					this.remove(z, x, BLOCKED_WEST | BLOCKED_SOUTH);
+					this.remove(z - 1, x, BLOCKED_NORTH);
+					this.remove(z, x - 1, BLOCKED_EAST);
 				}
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(IIIIZZI)V")
-	public void removeLoc(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(5) boolean arg5, @OriginalArg(6) int arg6) {
-		@Pc(3) int local3 = 256;
-		if (arg5) {
-			local3 += 131072;
+	public void removeLoc(@OriginalArg(0) int zOffset, @OriginalArg(1) int xOffset, @OriginalArg(2) int orientation, @OriginalArg(3) int sizeX, @OriginalArg(5) boolean solid, @OriginalArg(6) int sizeZ) {
+		@Pc(3) int flag = OCCUPIED_TILE;
+		if (solid) {
+			flag += SOLID;
 		}
-		@Pc(14) int local14 = arg1 - this.anInt381;
-		@Pc(19) int local19 = arg0 - this.anInt382;
-		@Pc(32) int local32;
-		if (arg2 == 1 || arg2 == 3) {
-			local32 = arg3;
-			arg3 = arg6;
-			arg6 = local32;
+
+		@Pc(14) int startX = xOffset - this.xOffset;
+		@Pc(19) int startZ = zOffset - this.zOffset;
+
+		if (orientation == 1 || orientation == 3) {
+			int temp = sizeX;
+			sizeX = sizeZ;
+			sizeZ = temp;
 		}
-		for (local32 = local14; local32 < local14 + arg3; local32++) {
-			if (local32 >= 0 && local32 < this.x) {
-				for (@Pc(48) int local48 = local19; local48 < local19 + arg6; local48++) {
-					if (local48 >= 0 && local48 < this.z) {
-						this.remove(local48, local32, local3);
+
+		for (int x = startX; x < startX + sizeX; x++) {
+			if (x >= 0 && x < this.x) {
+				for (@Pc(48) int z = startZ; z < startZ + sizeZ; z++) {
+					if (z >= 0 && z < this.z) {
+						this.remove(z, x, flag);
 					}
 				}
 			}
@@ -359,195 +355,168 @@ public class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(IBII)V")
-	private void remove(@OriginalArg(0) int arg0, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
-		this.flags[arg2][arg0] &= 16777215 - arg3;
+	private void remove(@OriginalArg(0) int z, @OriginalArg(2) int x, @OriginalArg(3) int flag) {
+		this.flags[x][z] &= CLOSED - flag;
 	}
 
 	@OriginalMember(owner = "client!ec", name = "b", descriptor = "(III)V")
-	public void removeBlock(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		@Pc(7) int local7 = arg1 - this.anInt381;
-		@Pc(12) int local12 = arg0 - this.anInt382;
-		this.flags[local7][local12] &= 0xDFFFFF;
+	public void removeBlock(@OriginalArg(0) int zOffset, @OriginalArg(1) int xOffset) {
+		@Pc(7) int x = xOffset - this.xOffset;
+		@Pc(12) int z = zOffset - this.zOffset;
+		this.flags[x][z] &= CLOSED - BLOCKED_TILE;
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(IIIIIII)Z")
-	public boolean reachedWall(@OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
-		if (arg6 == arg5 && arg4 == arg2) {
+	public boolean reachedWall(@OriginalArg(1) int orientation, @OriginalArg(2) int finalZOffset, @OriginalArg(3) int type, @OriginalArg(4) int initialZOffset, @OriginalArg(5) int finalXOffset, @OriginalArg(6) int initialXOffset) {
+		if (initialXOffset == finalXOffset && initialZOffset == finalZOffset) {
 			return true;
 		}
-		@Pc(12) int local12 = arg6 - this.anInt381;
-		@Pc(17) int local17 = arg4 - this.anInt382;
-		@Pc(29) int local29 = arg5 - this.anInt381;
-		@Pc(34) int local34 = arg2 - this.anInt382;
-		if (arg3 == 0) {
-			if (arg1 == 0) {
-				if (local12 == local29 - 1 && local17 == local34) {
+
+		@Pc(12) int x0 = initialXOffset - this.xOffset;
+		@Pc(17) int z0 = initialZOffset - this.zOffset;
+		@Pc(29) int x1 = finalXOffset - this.xOffset;
+		@Pc(34) int z1 = finalZOffset - this.zOffset;
+
+		if (type == LocType.WALL_STRAIGHT) {
+			if (orientation == NORTH_WEST) {
+				if (x0 == x1 - 1 && z0 == z1) {
+					return true;
+				} else if (x0 == x1 && z0 == z1 + 1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_SOUTH)) == 0) {
+					return true;
+				} else if (x0 == x1 && z0 == z1 - 1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_NORTH)) == 0) {
 					return true;
 				}
-				if (local12 == local29 && local17 == local34 + 1 && (this.flags[local12][local17] & 0x280120) == 0) {
+			} else if (orientation == NORTH_EAST) {
+				if (x0 == x1 && z0 == z1 + 1) {
+					return true;
+				} else if (x0 == x1 - 1 && z0 == z1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_EAST)) == 0) {
+					return true;
+				} else if (x0 == x1 + 1 && z0 == z1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_WEST)) == 0) {
 					return true;
 				}
-				if (local12 == local29 && local17 == local34 - 1 && (this.flags[local12][local17] & 0x280102) == 0) {
+			} else if (orientation == SOUTH_EAST) {
+				if (x0 == x1 + 1 && z0 == z1) {
+					return true;
+				} else if (x0 == x1 && z0 == z1 + 1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_SOUTH)) == 0) {
+					return true;
+				} else if (x0 == x1 && z0 == z1 - 1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_NORTH)) == 0) {
 					return true;
 				}
-			} else if (arg1 == 1) {
-				if (local12 == local29 && local17 == local34 + 1) {
+			} else if (orientation == SOUTH_WEST) {
+				if (x0 == x1 && z0 == z1 - 1) {
 					return true;
-				}
-				if (local12 == local29 - 1 && local17 == local34 && (this.flags[local12][local17] & 0x280108) == 0) {
+				} else if (x0 == x1 - 1 && z0 == z1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_EAST)) == 0) {
 					return true;
-				}
-				if (local12 == local29 + 1 && local17 == local34 && (this.flags[local12][local17] & 0x280180) == 0) {
-					return true;
-				}
-			} else if (arg1 == 2) {
-				if (local12 == local29 + 1 && local17 == local34) {
-					return true;
-				}
-				if (local12 == local29 && local17 == local34 + 1 && (this.flags[local12][local17] & 0x280120) == 0) {
-					return true;
-				}
-				if (local12 == local29 && local17 == local34 - 1 && (this.flags[local12][local17] & 0x280102) == 0) {
-					return true;
-				}
-			} else if (arg1 == 3) {
-				if (local12 == local29 && local17 == local34 - 1) {
-					return true;
-				}
-				if (local12 == local29 - 1 && local17 == local34 && (this.flags[local12][local17] & 0x280108) == 0) {
-					return true;
-				}
-				if (local12 == local29 + 1 && local17 == local34 && (this.flags[local12][local17] & 0x280180) == 0) {
+				} else if (x0 == x1 + 1 && z0 == z1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_WEST)) == 0) {
 					return true;
 				}
 			}
-		}
-		if (arg3 == 2) {
-			if (arg1 == 0) {
-				if (local12 == local29 - 1 && local17 == local34) {
+		} else if (type == LocType.WALL_L) {
+			if (orientation == NORTH_WEST) {
+				if (x0 == x1 - 1 && z0 == z1) {
+					return true;
+				} else if (x0 == x1 && z0 == z1 + 1) {
+					return true;
+				} else if (x0 == x1 + 1 && z0 == z1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_WEST)) == 0) {
+					return true;
+				} else if (x0 == x1 && z0 == z1 - 1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_NORTH)) == 0) {
 					return true;
 				}
-				if (local12 == local29 && local17 == local34 + 1) {
+			} else if (orientation == NORTH_EAST) {
+				if (x0 == x1 - 1 && z0 == z1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_EAST)) == 0) {
+					return true;
+				} else if (x0 == x1 && z0 == z1 + 1) {
+					return true;
+				} else if (x0 == x1 + 1 && z0 == z1) {
+					return true;
+				} else if (x0 == x1 && z0 == z1 - 1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_NORTH)) == 0) {
 					return true;
 				}
-				if (local12 == local29 + 1 && local17 == local34 && (this.flags[local12][local17] & 0x280180) == 0) {
+			} else if (orientation == SOUTH_EAST) {
+				if (x0 == x1 - 1 && z0 == z1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_EAST)) == 0) {
+					return true;
+				} else if (x0 == x1 && z0 == z1 + 1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_SOUTH)) == 0) {
+					return true;
+				} else if (x0 == x1 + 1 && z0 == z1) {
+					return true;
+				} else if (x0 == x1 && z0 == z1 - 1) {
 					return true;
 				}
-				if (local12 == local29 && local17 == local34 - 1 && (this.flags[local12][local17] & 0x280102) == 0) {
+			} else if (orientation == SOUTH_WEST) {
+				if (x0 == x1 - 1 && z0 == z1) {
 					return true;
-				}
-			} else if (arg1 == 1) {
-				if (local12 == local29 - 1 && local17 == local34 && (this.flags[local12][local17] & 0x280108) == 0) {
+				} else if (x0 == x1 && z0 == z1 + 1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_SOUTH)) == 0) {
 					return true;
-				}
-				if (local12 == local29 && local17 == local34 + 1) {
+				} else if (x0 == x1 + 1 && z0 == z1 && (this.flags[x0][z0] & (BLOCKED_TILE | FLAG_UNUSED1 | OCCUPIED_TILE | WALL_WEST)) == 0) {
 					return true;
-				}
-				if (local12 == local29 + 1 && local17 == local34) {
-					return true;
-				}
-				if (local12 == local29 && local17 == local34 - 1 && (this.flags[local12][local17] & 0x280102) == 0) {
-					return true;
-				}
-			} else if (arg1 == 2) {
-				if (local12 == local29 - 1 && local17 == local34 && (this.flags[local12][local17] & 0x280108) == 0) {
-					return true;
-				}
-				if (local12 == local29 && local17 == local34 + 1 && (this.flags[local12][local17] & 0x280120) == 0) {
-					return true;
-				}
-				if (local12 == local29 + 1 && local17 == local34) {
-					return true;
-				}
-				if (local12 == local29 && local17 == local34 - 1) {
-					return true;
-				}
-			} else if (arg1 == 3) {
-				if (local12 == local29 - 1 && local17 == local34) {
-					return true;
-				}
-				if (local12 == local29 && local17 == local34 + 1 && (this.flags[local12][local17] & 0x280120) == 0) {
-					return true;
-				}
-				if (local12 == local29 + 1 && local17 == local34 && (this.flags[local12][local17] & 0x280180) == 0) {
-					return true;
-				}
-				if (local12 == local29 && local17 == local34 - 1) {
+				} else if (x0 == x1 && z0 == z1 - 1) {
 					return true;
 				}
 			}
-		}
-		if (arg3 == 9) {
-			if (local12 == local29 && local17 == local34 + 1 && (this.flags[local12][local17] & 0x20) == 0) {
+		} else if (type == LocType.WALL_DIAGONAL) {
+			if (x0 == x1 && z0 == z1 + 1 && (this.flags[x0][z0] & WALL_SOUTH) == 0) {
 				return true;
-			}
-			if (local12 == local29 && local17 == local34 - 1 && (this.flags[local12][local17] & 0x2) == 0) {
+			} else if (x0 == x1 && z0 == z1 - 1 && (this.flags[x0][z0] & WALL_NORTH) == 0) {
 				return true;
-			}
-			if (local12 == local29 - 1 && local17 == local34 && (this.flags[local12][local17] & 0x8) == 0) {
+			} else if (x0 == x1 - 1 && z0 == z1 && (this.flags[x0][z0] & WALL_EAST) == 0) {
 				return true;
-			}
-			if (local12 == local29 + 1 && local17 == local34 && (this.flags[local12][local17] & 0x80) == 0) {
+			} else if (x0 == x1 + 1 && z0 == z1 && (this.flags[x0][z0] & WALL_WEST) == 0) {
 				return true;
 			}
 		}
+
 		return false;
 	}
 
 	@OriginalMember(owner = "client!ec", name = "b", descriptor = "(IIIIIII)Z")
-	public boolean reachedDecoration(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
-		if (arg3 == arg4 && arg5 == arg6) {
+	public boolean reachedDecoration(@OriginalArg(0) int orientation, @OriginalArg(1) int type, @OriginalArg(3) int initialXOffset, @OriginalArg(4) int finalXOffset, @OriginalArg(5) int initialZOffset, @OriginalArg(6) int finalZOffset) {
+		if (initialXOffset == finalXOffset && initialZOffset == finalZOffset) {
 			return true;
 		}
-		@Pc(19) int local19 = arg3 - this.anInt381;
-		@Pc(24) int local24 = arg5 - this.anInt382;
-		@Pc(29) int local29 = arg4 - this.anInt381;
-		@Pc(34) int local34 = arg6 - this.anInt382;
-		if (arg1 == 6 || arg1 == 7) {
-			if (arg1 == 7) {
-				arg0 = arg0 + 2 & 0x3;
+
+		@Pc(19) int x0 = initialXOffset - this.xOffset;
+		@Pc(24) int z0 = initialZOffset - this.zOffset;
+		@Pc(29) int x1 = finalXOffset - this.xOffset;
+		@Pc(34) int z1 = finalZOffset - this.zOffset;
+
+		if (type == LocType.WALLDECOR_DIAGONAL_XOFFSET || type == LocType.WALLDECOR_DIAGONAL_ZOFFSET) {
+			if (type == LocType.WALLDECOR_DIAGONAL_ZOFFSET) {
+				orientation = orientation + 2 & 0x3;
 			}
-			if (arg0 == 0) {
-				if (local19 == local29 + 1 && local24 == local34 && (this.flags[local19][local24] & 0x80) == 0) {
+
+			if (orientation == NORTH_WEST) {
+				if (x0 == x1 + 1 && z0 == z1 && (this.flags[x0][z0] & WALL_WEST) == 0) {
+					return true;
+				} else if (x0 == x1 && z0 == z1 - 1 && (this.flags[x0][z0] & WALL_NORTH) == 0) {
 					return true;
 				}
-				if (local19 == local29 && local24 == local34 - 1 && (this.flags[local19][local24] & 0x2) == 0) {
+			} else if (orientation == NORTH_EAST) {
+				if (x0 == x1 - 1 && z0 == z1 && (this.flags[x0][z0] & WALL_EAST) == 0) {
+					return true;
+				} else if (x0 == x1 && z0 == z1 - 1 && (this.flags[x0][z0] & WALL_NORTH) == 0) {
 					return true;
 				}
-			} else if (arg0 == 1) {
-				if (local19 == local29 - 1 && local24 == local34 && (this.flags[local19][local24] & 0x8) == 0) {
+			} else if (orientation == SOUTH_EAST) {
+				if (x0 == x1 - 1 && z0 == z1 && (this.flags[x0][z0] & WALL_EAST) == 0) {
+					return true;
+				} else if (x0 == x1 && z0 == z1 + 1 && (this.flags[x0][z0] & WALL_SOUTH) == 0) {
 					return true;
 				}
-				if (local19 == local29 && local24 == local34 - 1 && (this.flags[local19][local24] & 0x2) == 0) {
+			} else if (orientation == SOUTH_WEST) {
+				if (x0 == x1 + 1 && z0 == z1 && (this.flags[x0][z0] & WALL_WEST) == 0) {
 					return true;
-				}
-			} else if (arg0 == 2) {
-				if (local19 == local29 - 1 && local24 == local34 && (this.flags[local19][local24] & 0x8) == 0) {
-					return true;
-				}
-				if (local19 == local29 && local24 == local34 + 1 && (this.flags[local19][local24] & 0x20) == 0) {
-					return true;
-				}
-			} else if (arg0 == 3) {
-				if (local19 == local29 + 1 && local24 == local34 && (this.flags[local19][local24] & 0x80) == 0) {
-					return true;
-				}
-				if (local19 == local29 && local24 == local34 + 1 && (this.flags[local19][local24] & 0x20) == 0) {
+				} else if (x0 == x1 && z0 == z1 + 1 && (this.flags[x0][z0] & WALL_SOUTH) == 0) {
 					return true;
 				}
 			}
-		}
-		if (arg1 == 8) {
-			if (local19 == local29 && local24 == local34 + 1 && (this.flags[local19][local24] & 0x20) == 0) {
+		} else if (type == LocType.WALLDECOR_DIAGONAL_BOTH) {
+			if (x0 == x1 && z0 == z1 + 1 && (this.flags[x0][z0] & WALL_SOUTH) == 0) {
 				return true;
-			}
-			if (local19 == local29 && local24 == local34 - 1 && (this.flags[local19][local24] & 0x2) == 0) {
+			} else if (x0 == x1 && z0 == z1 - 1 && (this.flags[x0][z0] & WALL_NORTH) == 0) {
 				return true;
-			}
-			if (local19 == local29 - 1 && local24 == local34 && (this.flags[local19][local24] & 0x8) == 0) {
+			} else if (x0 == x1 - 1 && z0 == z1 && (this.flags[x0][z0] & WALL_EAST) == 0) {
 				return true;
-			}
-			if (local19 == local29 + 1 && local24 == local34 && (this.flags[local19][local24] & 0x80) == 0) {
+			} else if (x0 == x1 + 1 && z0 == z1 && (this.flags[x0][z0] & WALL_WEST) == 0) {
 				return true;
 			}
 		}
@@ -555,19 +524,22 @@ public class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(IIIIIIII)Z")
-	public boolean reachedObject(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
-		@Pc(5) int local5 = arg3 + arg6 - 1;
-		@Pc(11) int local11 = arg5 + arg1 - 1;
-		if (arg2 >= arg3 && arg2 <= local5 && arg0 >= arg5 && arg0 <= local11) {
+	public boolean reachedObject(@OriginalArg(0) int z, @OriginalArg(1) int depth, @OriginalArg(2) int x, @OriginalArg(3) int finalX, @OriginalArg(4) int surroundings, @OriginalArg(5) int finalZ, @OriginalArg(6) int width) {
+		@Pc(5) int maxX = finalX + width - 1;
+		@Pc(11) int maxZ = finalZ + depth - 1;
+
+		if (x >= finalX && x <= maxX && z >= finalZ && z <= maxZ) {
 			return true;
-		} else if (arg2 == arg3 - 1 && arg0 >= arg5 && arg0 <= local11 && (this.flags[arg2 - this.anInt381][arg0 - this.anInt382] & 0x8) == 0 && (arg4 & 0x8) == 0) {
+		} else if (x == finalX - 1 && z >= finalZ && z <= maxZ && (this.flags[x - this.xOffset][z - this.zOffset] & WALL_EAST) == 0 && (surroundings & 0x8) == 0) {
 			return true;
-		} else if (arg2 == local5 + 1 && arg0 >= arg5 && arg0 <= local11 && (this.flags[arg2 - this.anInt381][arg0 - this.anInt382] & 0x80) == 0 && (arg4 & 0x2) == 0) {
+		} else if (x == maxX + 1 && z >= finalZ && z <= maxZ && (this.flags[x - this.xOffset][z - this.zOffset] & WALL_WEST) == 0 && (surroundings & 0x2) == 0) {
 			return true;
-		} else if (arg0 == arg5 - 1 && arg2 >= arg3 && arg2 <= local5 && (this.flags[arg2 - this.anInt381][arg0 - this.anInt382] & 0x2) == 0 && (arg4 & 0x4) == 0) {
+		} else if (z == finalZ - 1 && x >= finalX && x <= maxX && (this.flags[x - this.xOffset][z - this.zOffset] & WALL_NORTH) == 0 && (surroundings & 0x4) == 0) {
 			return true;
-		} else {
-			return arg0 == local11 + 1 && arg2 >= arg3 && arg2 <= local5 && (this.flags[arg2 - this.anInt381][arg0 - this.anInt382] & 0x20) == 0 && (arg4 & 0x1) == 0;
+		} else if (z == maxZ + 1 && x >= finalX && x <= maxX && (this.flags[x - this.xOffset][z - this.zOffset] & WALL_SOUTH) == 0 && (surroundings & 0x1) == 0) {
+			return true;
 		}
+
+		return false;
 	}
 }
