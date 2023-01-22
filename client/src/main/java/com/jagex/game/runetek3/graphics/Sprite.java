@@ -19,13 +19,13 @@ public class Sprite extends Draw2D {
 	public int[] pixels;
 
 	@OriginalMember(owner = "client!hb", name = "F", descriptor = "I")
-	public int cropW;
+	public int clipWidth;
 
 	@OriginalMember(owner = "client!hb", name = "B", descriptor = "I")
 	public int spriteWidth;
 
 	@OriginalMember(owner = "client!hb", name = "G", descriptor = "I")
-	public int cropH;
+	public int clipHeight;
 
 	@OriginalMember(owner = "client!hb", name = "C", descriptor = "I")
 	public int spriteHeight;
@@ -39,8 +39,8 @@ public class Sprite extends Draw2D {
 	@OriginalMember(owner = "client!hb", name = "<init>", descriptor = "(II)V")
 	public Sprite(@OriginalArg(0) int w, @OriginalArg(1) int h) {
 		this.pixels = new int[w * h];
-		this.spriteWidth = this.cropW = w;
-		this.spriteHeight = this.cropH = h;
+		this.spriteWidth = this.clipWidth = w;
+		this.spriteHeight = this.clipHeight = h;
 		this.clipX = this.clipY = 0;
 	}
 
@@ -53,8 +53,8 @@ public class Sprite extends Draw2D {
 			media.waitForAll();
 			this.spriteWidth = image.getWidth(c);
 			this.spriteHeight = image.getHeight(c);
-			this.cropW = this.spriteWidth;
-			this.cropH = this.spriteHeight;
+			this.clipWidth = this.spriteWidth;
+			this.clipHeight = this.spriteHeight;
 			this.clipX = 0;
 			this.clipY = 0;
 			this.pixels = new int[this.spriteWidth * this.spriteHeight];
@@ -71,13 +71,14 @@ public class Sprite extends Draw2D {
 		@Pc(42) Buffer index = new Buffer(archive.read("index.dat", null));
 
 		index.pos = dat.g2();
-		this.cropW = index.g2();
-		this.cropH = index.g2();
+		this.clipWidth = index.g2();
+		this.clipHeight = index.g2();
 
 		@Pc(57) int count = index.g1();
 		@Pc(60) int[] palette = new int[count];
 		for (@Pc(62) int i = 0; i < count - 1; i++) {
 			palette[i + 1] = index.g3();
+
 			if (palette[i + 1] == 0) {
 				palette[i + 1] = 1;
 			}
@@ -94,15 +95,15 @@ public class Sprite extends Draw2D {
 		this.spriteWidth = index.g2();
 		this.spriteHeight = index.g2();
 
-		@Pc(138) int type = index.g1();
+		@Pc(138) int order = index.g1();
 		@Pc(144) int len = this.spriteWidth * this.spriteHeight;
 		this.pixels = new int[len];
 
-		if (type == 0) {
+		if (order == 0) {
 			for (@Pc(152) int i = 0; i < len; i++) {
 				this.pixels[i] = palette[dat.g1()];
 			}
-		} else if (type == 1) {
+		} else if (order == 1) {
 			for (int x = 0; x < this.spriteWidth; x++) {
 				for (@Pc(176) int y = 0; y < this.spriteHeight; y++) {
 					this.pixels[x + y * this.spriteWidth] = palette[dat.g1()];
@@ -328,8 +329,8 @@ public class Sprite extends Draw2D {
 			@Pc(19) int local19 = (w << 16) / right;
 			@Pc(25) int local25 = (h << 16) / bottom;
 
-			@Pc(28) int cropW = this.cropW;
-			@Pc(31) int cropH = this.cropH;
+			@Pc(28) int cropW = this.clipWidth;
+			@Pc(31) int cropH = this.clipHeight;
 			@Pc(37) int local37 = (cropW << 16) / right;
 			@Pc(43) int local43 = (cropH << 16) / bottom;
 

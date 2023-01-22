@@ -204,7 +204,7 @@ public class ObjType {
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(III)Lclient!hb;")
 	public static Sprite getSprite(@OriginalArg(0) int id, @OriginalArg(2) int amount) {
 		@Pc(7) Sprite icon = (Sprite) icons.get(id);
-		if (icon != null && icon.cropH != amount && icon.cropH != -1) {
+		if (icon != null && icon.clipHeight != amount && icon.clipHeight != -1) {
 			icon.unlink();
 			icon = null;
 		}
@@ -281,13 +281,13 @@ public class ObjType {
 
 		if (obj.certtemplate != -1) {
 			@Pc(348) Sprite mini = getSprite(obj.certlink, 10);
-			@Pc(351) int tempW = mini.cropW;
-			@Pc(354) int tempH = mini.cropH;
-			mini.cropW = 32;
-			mini.cropH = 32;
+			@Pc(351) int tempW = mini.clipWidth;
+			@Pc(354) int tempH = mini.clipHeight;
+			mini.clipWidth = 32;
+			mini.clipHeight = 32;
 			mini.crop(22, 5, 22, 5);
-			mini.cropW = tempW;
-			mini.cropH = tempH;
+			mini.clipWidth = tempW;
+			mini.clipHeight = tempH;
 		}
 
 		icons.put(id, icon);
@@ -298,11 +298,11 @@ public class ObjType {
 		Draw3D.offsets = offsets;
 		Draw3D.jagged = true;
 		if (obj.stackable) {
-			icon.cropW = 33;
+			icon.clipWidth = 33;
 		} else {
-			icon.cropW = 32;
+			icon.clipWidth = 32;
 		}
-		icon.cropH = amount;
+		icon.clipHeight = amount;
 		return icon;
 	}
 

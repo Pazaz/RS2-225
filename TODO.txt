@@ -2,7 +2,6 @@
 - CollisionMap
 - Draw3D
 - GameShell
-- IndexedSprite
 - MapSquare
 - Model
 - PathingEntity

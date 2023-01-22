@@ -4080,7 +4080,7 @@ public class Game extends GameShell {
 										} else {
 											local251.draw(local191, local182);
 										}
-										if (local251.cropW == 33 || local84.inventoryAmount[local165] != 1) {
+										if (local251.clipWidth == 33 || local84.inventoryAmount[local165] != 1) {
 											@Pc(351) int local351 = local84.inventoryAmount[local165];
 											this.plain11.draw(local182 + local215 + 1, local191 + 10 + local217, 0, formatObjAmount(local351));
 											this.plain11.draw(local182 + local215, local191 + 9 + local217, 16776960, formatObjAmount(local351));
@@ -6445,9 +6445,9 @@ public class Game extends GameShell {
 			@Pc(66) int local66 = arg0 * local47 + arg3 * local56 >> 16;
 			@Pc(76) int local76 = arg0 * local56 - arg3 * local47 >> 16;
 			if (local15 > 2500) {
-				arg2.drawMasked(this.mapback, 83 - local76 - arg2.cropH / 2, local66 + 94 - arg2.cropW / 2);
+				arg2.drawMasked(this.mapback, 83 - local76 - arg2.clipHeight / 2, local66 + 94 - arg2.clipWidth / 2);
 			} else {
-				arg2.draw(83 - local76 - arg2.cropH / 2, local66 + 94 - arg2.cropW / 2);
+				arg2.draw(83 - local76 - arg2.clipHeight / 2, local66 + 94 - arg2.clipWidth / 2);
 			}
 		}
 	}

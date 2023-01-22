@@ -58,32 +58,32 @@ public class Font extends Draw2D {
 	@OriginalMember(owner = "client!jb", name = "<init>", descriptor = "(Lclient!ub;Ljava/lang/String;I)V")
 	public Font(@OriginalArg(0) FileArchive archive, @OriginalArg(1) String name) {
 		@Pc(71) Buffer dat = new Buffer(archive.read(name + ".dat", null));
-		@Pc(81) Buffer idx = new Buffer(archive.read("index.dat", null));
+		@Pc(81) Buffer index = new Buffer(archive.read("index.dat", null));
 
-		idx.pos = dat.g2() + 4; // skipping clipWidth and clipHeight
+		index.pos = dat.g2() + 4; // skipping clipWidth and clipHeight
 
-		@Pc(90) int paletteCount = idx.g1();
+		@Pc(90) int paletteCount = index.g1();
 		if (paletteCount > 0) {
 			// color palette is simply on (white) or off (black) here, so we skip it
-			idx.pos += (paletteCount - 1) * 3;
+			index.pos += (paletteCount - 1) * 3;
 		}
 
 		for (@Pc(104) int c = 0; c < 94; c++) {
-			this.clipX[c] = idx.g1();
-			this.clipY[c] = idx.g1();
+			this.clipX[c] = index.g1();
+			this.clipY[c] = index.g1();
 
-			@Pc(131) int width = this.charWidth[c] = idx.g2();
-			@Pc(139) int height = this.charHeight[c] = idx.g2();
+			@Pc(131) int width = this.charWidth[c] = index.g2();
+			@Pc(139) int height = this.charHeight[c] = index.g2();
 
-			@Pc(142) int pixelOrder = idx.g1();
-			@Pc(146) int pixelCount = width * height;
-			this.pixels[c] = new byte[pixelCount];
+			@Pc(142) int order = index.g1();
+			@Pc(146) int len = width * height;
+			this.pixels[c] = new byte[len];
 
-			if (pixelOrder == 0) {
-				for (int i = 0; i < pixelCount; i++) {
+			if (order == 0) {
+				for (int i = 0; i < len; i++) {
 					this.pixels[c][i] = dat.g1b();
 				}
-			} else if (pixelOrder == 1) {
+			} else if (order == 1) {
 				for (int x = 0; x < width; x++) {
 					for (int y = 0; y < height; y++) {
 						this.pixels[c][x + y * width] = dat.g1b();

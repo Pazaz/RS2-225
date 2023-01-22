@@ -35,38 +35,43 @@ public class IndexedSprite extends Draw2D {
 	public byte[] pixels;
 
 	@OriginalMember(owner = "client!ib", name = "<init>", descriptor = "(Lclient!ub;Ljava/lang/String;I)V")
-	public IndexedSprite(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) String arg1, @OriginalArg(2) int arg2) {
-		@Pc(32) Buffer local32 = new Buffer(arg0.read(arg1 + ".dat", null));
-		@Pc(42) Buffer local42 = new Buffer(arg0.read("index.dat", null));
-		local42.pos = local32.g2();
-		this.clipWidth = local42.g2();
-		this.clipHeight = local42.g2();
-		@Pc(57) int local57 = local42.g1();
-		this.palette = new int[local57];
-		for (@Pc(63) int local63 = 0; local63 < local57 - 1; local63++) {
-			this.palette[local63 + 1] = local42.g3();
+	public IndexedSprite(@OriginalArg(0) FileArchive archive, @OriginalArg(1) String name, @OriginalArg(2) int id) {
+		@Pc(32) Buffer dat = new Buffer(archive.read(name + ".dat", null));
+		@Pc(42) Buffer index = new Buffer(archive.read("index.dat", null));
+
+		index.pos = dat.g2();
+		this.clipWidth = index.g2();
+		this.clipHeight = index.g2();
+
+		@Pc(57) int count = index.g1();
+		this.palette = new int[count];
+		for (@Pc(63) int i = 0; i < count - 1; i++) {
+			this.palette[i + 1] = index.g3();
 		}
-		for (@Pc(81) int local81 = 0; local81 < arg2; local81++) {
-			local42.pos += 2;
-			local32.pos += local42.g2() * local42.g2();
-			local42.pos++;
+
+		for (@Pc(81) int i = 0; i < id; i++) {
+			index.pos += 2;
+			dat.pos += index.g2() * index.g2();
+			index.pos++;
 		}
-		this.clipX = local42.g1();
-		this.clipY = local42.g1();
-		this.spriteWidth = local42.g2();
-		this.spriteHeight = local42.g2();
-		@Pc(128) int local128 = local42.g1();
-		@Pc(134) int local134 = this.spriteWidth * this.spriteHeight;
-		this.pixels = new byte[local134];
-		@Pc(142) int local142;
-		if (local128 == 0) {
-			for (local142 = 0; local142 < local134; local142++) {
-				this.pixels[local142] = local32.g1b();
+
+		this.clipX = index.g1();
+		this.clipY = index.g1();
+		this.spriteWidth = index.g2();
+		this.spriteHeight = index.g2();
+
+		@Pc(128) int order = index.g1();
+		@Pc(134) int len = this.spriteWidth * this.spriteHeight;
+		this.pixels = new byte[len];
+
+		if (order == 0) {
+			for (int i = 0; i < len; i++) {
+				this.pixels[i] = dat.g1b();
 			}
-		} else if (local128 == 1) {
-			for (local142 = 0; local142 < this.spriteWidth; local142++) {
-				for (@Pc(164) int local164 = 0; local164 < this.spriteHeight; local164++) {
-					this.pixels[local142 + local164 * this.spriteWidth] = local32.g1b();
+		} else if (order == 1) {
+			for (int x = 0; x < this.spriteWidth; x++) {
+				for (@Pc(164) int y = 0; y < this.spriteHeight; y++) {
+					this.pixels[x + y * this.spriteWidth] = dat.g1b();
 				}
 			}
 		}
@@ -76,14 +81,16 @@ public class IndexedSprite extends Draw2D {
 	public void shrink() {
 		this.clipWidth /= 2;
 		this.clipHeight /= 2;
-		@Pc(20) byte[] local20 = new byte[this.clipWidth * this.clipHeight];
-		@Pc(22) int local22 = 0;
-		for (@Pc(24) int local24 = 0; local24 < this.spriteHeight; local24++) {
-			for (@Pc(28) int local28 = 0; local28 < this.spriteWidth; local28++) {
-				local20[(local28 + this.clipX >> 1) + (local24 + this.clipY >> 1) * this.clipWidth] = this.pixels[local22++];
+
+		@Pc(20) byte[] tmp = new byte[this.clipWidth * this.clipHeight];
+		@Pc(22) int i = 0;
+		for (@Pc(24) int y = 0; y < this.spriteHeight; y++) {
+			for (@Pc(28) int x = 0; x < this.spriteWidth; x++) {
+				tmp[(x + this.clipX >> 1) + (y + this.clipY >> 1) * this.clipWidth] = this.pixels[i++];
 			}
 		}
-		this.pixels = local20;
+
+		this.pixels = tmp;
 		this.spriteWidth = this.clipWidth;
 		this.spriteHeight = this.clipHeight;
 		this.clipX = 0;
@@ -92,159 +99,179 @@ public class IndexedSprite extends Draw2D {
 
 	@OriginalMember(owner = "client!ib", name = "c", descriptor = "(I)V")
 	public void crop() {
-		if (this.spriteWidth != this.clipWidth || this.spriteHeight != this.clipHeight) {
-			@Pc(19) byte[] local19 = new byte[this.clipWidth * this.clipHeight];
-			@Pc(21) int local21 = 0;
-			for (@Pc(33) int local33 = 0; local33 < this.spriteHeight; local33++) {
-				for (@Pc(37) int local37 = 0; local37 < this.spriteWidth; local37++) {
-					local19[local37 + this.clipX + (local33 + this.clipY) * this.clipWidth] = this.pixels[local21++];
-				}
-			}
-			this.pixels = local19;
-			this.spriteWidth = this.clipWidth;
-			this.spriteHeight = this.clipHeight;
-			this.clipX = 0;
-			this.clipY = 0;
+		if (this.spriteWidth == this.clipWidth && this.spriteHeight == this.clipHeight) {
+			return;
 		}
+
+		@Pc(19) byte[] tmp = new byte[this.clipWidth * this.clipHeight];
+		@Pc(21) int i = 0;
+		for (@Pc(33) int y = 0; y < this.spriteHeight; y++) {
+			for (@Pc(37) int x = 0; x < this.spriteWidth; x++) {
+				tmp[x + this.clipX + (y + this.clipY) * this.clipWidth] = this.pixels[i++];
+			}
+		}
+
+		this.pixels = tmp;
+		this.spriteWidth = this.clipWidth;
+		this.spriteHeight = this.clipHeight;
+		this.clipX = 0;
+		this.clipY = 0;
 	}
 
 	@OriginalMember(owner = "client!ib", name = "d", descriptor = "(I)V")
 	public void flipHorizontally() {
-		@Pc(8) byte[] local8 = new byte[this.spriteWidth * this.spriteHeight];
-		@Pc(10) int local10 = 0;
-		for (@Pc(12) int local12 = 0; local12 < this.spriteHeight; local12++) {
-			for (@Pc(19) int local19 = this.spriteWidth - 1; local19 >= 0; local19--) {
-				local8[local10++] = this.pixels[local19 + local12 * this.spriteWidth];
+		@Pc(8) byte[] tmp = new byte[this.spriteWidth * this.spriteHeight];
+		@Pc(10) int i = 0;
+		for (@Pc(12) int y = 0; y < this.spriteHeight; y++) {
+			for (@Pc(19) int x = this.spriteWidth - 1; x >= 0; x--) {
+				tmp[i++] = this.pixels[x + y * this.spriteWidth];
 			}
 		}
-		this.pixels = local8;
+
+		this.pixels = tmp;
 		this.clipX = this.clipWidth - this.spriteWidth - this.clipX;
 	}
 
 	@OriginalMember(owner = "client!ib", name = "a", descriptor = "(B)V")
 	public void flipVertically() {
-		@Pc(8) byte[] local8 = new byte[this.spriteWidth * this.spriteHeight];
-		@Pc(13) int local13 = 0;
-		for (@Pc(25) int local25 = this.spriteHeight - 1; local25 >= 0; local25--) {
-			for (@Pc(29) int local29 = 0; local29 < this.spriteWidth; local29++) {
-				local8[local13++] = this.pixels[local29 + local25 * this.spriteWidth];
+		@Pc(8) byte[] tmp = new byte[this.spriteWidth * this.spriteHeight];
+		@Pc(13) int i = 0;
+		for (@Pc(25) int y = this.spriteHeight - 1; y >= 0; y--) {
+			for (@Pc(29) int x = 0; x < this.spriteWidth; x++) {
+				tmp[i++] = this.pixels[x + y * this.spriteWidth];
 			}
 		}
-		this.pixels = local8;
+
+		this.pixels = tmp;
 		this.clipY = this.clipHeight - this.spriteHeight - this.clipY;
 	}
 
 	@OriginalMember(owner = "client!ib", name = "a", descriptor = "(IIIZ)V")
-	public void translate(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
-		@Pc(14) int local14;
-		for (@Pc(3) int local3 = 0; local3 < this.palette.length; local3++) {
-			local14 = this.palette[local3] >> 16 & 0xFF;
-			local14 += arg0;
-			if (local14 < 0) {
-				local14 = 0;
-			} else if (local14 > 255) {
-				local14 = 255;
+	public void translate(@OriginalArg(0) int r, @OriginalArg(1) int g, @OriginalArg(2) int b) {
+		for (@Pc(3) int i = 0; i < this.palette.length; i++) {
+			int red = this.palette[i] >> 16 & 0xFF;
+			red += r;
+			if (red < 0) {
+				red = 0;
+			} else if (red > 255) {
+				red = 255;
 			}
-			@Pc(38) int local38 = this.palette[local3] >> 8 & 0xFF;
-			local38 += arg1;
-			if (local38 < 0) {
-				local38 = 0;
-			} else if (local38 > 255) {
-				local38 = 255;
+
+			@Pc(38) int green = this.palette[i] >> 8 & 0xFF;
+			green += g;
+			if (green < 0) {
+				green = 0;
+			} else if (green > 255) {
+				green = 255;
 			}
-			@Pc(60) int local60 = this.palette[local3] & 0xFF;
-			local60 += arg2;
-			if (local60 < 0) {
-				local60 = 0;
-			} else if (local60 > 255) {
-				local60 = 255;
+
+			@Pc(60) int blue = this.palette[i] & 0xFF;
+			blue += b;
+			if (blue < 0) {
+				blue = 0;
+			} else if (blue > 255) {
+				blue = 255;
 			}
-			this.palette[local3] = (local14 << 16) + (local38 << 8) + local60;
+
+			this.palette[i] = (red << 16) + (green << 8) + blue;
 		}
 	}
 
 	@OriginalMember(owner = "client!ib", name = "a", descriptor = "(IIZ)V")
-	public void draw(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		arg1 += this.clipX;
-		arg0 += this.clipY;
-		@Pc(15) int local15 = arg1 + arg0 * Draw2D.width;
-		@Pc(17) int local17 = 0;
-		@Pc(20) int local20 = this.spriteHeight;
-		@Pc(23) int local23 = this.spriteWidth;
-		@Pc(27) int local27 = Draw2D.width - local23;
-		@Pc(29) int local29 = 0;
-		@Pc(36) int local36;
-		if (arg0 < Draw2D.top) {
-			local36 = Draw2D.top - arg0;
-			local20 -= local36;
-			arg0 = Draw2D.top;
-			local17 += local36 * local23;
-			local15 += local36 * Draw2D.width;
+	public void draw(@OriginalArg(0) int y, @OriginalArg(1) int x) {
+		x += this.clipX;
+		y += this.clipY;
+
+		@Pc(15) int dstOff = x + y * Draw2D.width;
+		@Pc(17) int srcOff = 0;
+
+		@Pc(20) int h = this.spriteHeight;
+		@Pc(23) int w = this.spriteWidth;
+
+		@Pc(27) int dstStep = Draw2D.width - w;
+		@Pc(29) int srcStep = 0;
+
+		if (y < Draw2D.top) {
+			int cutoff = Draw2D.top - y;
+			h -= cutoff;
+			y = Draw2D.top;
+			srcOff += cutoff * w;
+			dstOff += cutoff * Draw2D.width;
 		}
-		if (arg0 + local20 > Draw2D.bottom) {
-			local20 -= arg0 + local20 - Draw2D.bottom;
+
+		if (y + h > Draw2D.bottom) {
+			h -= y + h - Draw2D.bottom;
 		}
-		if (arg1 < Draw2D.left) {
-			local36 = Draw2D.left - arg1;
-			local23 -= local36;
-			arg1 = Draw2D.left;
-			local17 += local36;
-			local15 += local36;
-			local29 += local36;
-			local27 += local36;
+
+		if (x < Draw2D.left) {
+			int cutoff = Draw2D.left - x;
+			w -= cutoff;
+			x = Draw2D.left;
+			srcOff += cutoff;
+			dstOff += cutoff;
+			srcStep += cutoff;
+			dstStep += cutoff;
 		}
-		if (arg1 + local23 > Draw2D.right) {
-			local36 = arg1 + local23 - Draw2D.right;
-			local23 -= local36;
-			local29 += local36;
-			local27 += local36;
+
+		if (x + w > Draw2D.right) {
+			int cutoff = x + w - Draw2D.right;
+			w -= cutoff;
+			srcStep += cutoff;
+			dstStep += cutoff;
 		}
-		if (local23 > 0 && local20 > 0) {
-			this.copyImage(Draw2D.data, local17, local29, this.pixels, local20, local23, local15, local27, this.palette);
+
+		if (w > 0 && h > 0) {
+			this.copyImage(Draw2D.data, srcOff, srcStep, this.pixels, h, w, dstOff, dstStep, this.palette);
 		}
 	}
 
 	@OriginalMember(owner = "client!ib", name = "a", descriptor = "([III[BIIIII[I)V")
-	private void copyImage(@OriginalArg(0) int[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) byte[] arg3, @OriginalArg(4) int arg4, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int[] arg9) {
-		@Pc(6) int local6 = -(arg6 >> 2);
-		@Pc(11) int local11 = -(arg6 & 0x3);
-		for (@Pc(17) int local17 = -arg4; local17 < 0; local17++) {
-			for (@Pc(21) int local21 = local6; local21 < 0; local21++) {
-				@Pc(28) byte local28 = arg3[arg1++];
-				if (local28 == 0) {
-					arg7++;
+	private void copyImage(@OriginalArg(0) int[] dst, @OriginalArg(1) int srcOff, @OriginalArg(2) int srcStep, @OriginalArg(3) byte[] src, @OriginalArg(4) int h, @OriginalArg(6) int w, @OriginalArg(7) int dstOff, @OriginalArg(8) int dstStep, @OriginalArg(9) int[] palette) {
+		@Pc(6) int hw = -(w >> 2);
+		w = -(w & 0x3);
+
+		for (@Pc(17) int y = -h; y < 0; y++) {
+			for (@Pc(21) int x = hw; x < 0; x++) {
+				@Pc(28) byte p = src[srcOff++];
+				if (p != 0) {
+					dst[dstOff++] = palette[p & 0xFF];
 				} else {
-					arg0[arg7++] = arg9[local28 & 0xFF];
+					dstOff++;
 				}
-				local28 = arg3[arg1++];
-				if (local28 == 0) {
-					arg7++;
+
+				p = src[srcOff++];
+				if (p != 0) {
+					dst[dstOff++] = palette[p & 0xFF];
 				} else {
-					arg0[arg7++] = arg9[local28 & 0xFF];
+					dstOff++;
 				}
-				local28 = arg3[arg1++];
-				if (local28 == 0) {
-					arg7++;
+
+				p = src[srcOff++];
+				if (p != 0) {
+					dst[dstOff++] = palette[p & 0xFF];
 				} else {
-					arg0[arg7++] = arg9[local28 & 0xFF];
+					dstOff++;
 				}
-				local28 = arg3[arg1++];
-				if (local28 == 0) {
-					arg7++;
+
+				p = src[srcOff++];
+				if (p != 0) {
+					dst[dstOff++] = palette[p & 0xFF];
 				} else {
-					arg0[arg7++] = arg9[local28 & 0xFF];
-				}
-			}
-			for (@Pc(104) int local104 = local11; local104 < 0; local104++) {
-				@Pc(111) byte local111 = arg3[arg1++];
-				if (local111 == 0) {
-					arg7++;
-				} else {
-					arg0[arg7++] = arg9[local111 & 0xFF];
+					dstOff++;
 				}
 			}
-			arg7 += arg8;
-			arg1 += arg2;
+
+			for (@Pc(104) int x = w; x < 0; x++) {
+				@Pc(111) byte p = src[srcOff++];
+				if (p != 0) {
+					dst[dstOff++] = palette[p & 0xFF];
+				} else {
+					dstOff++;
+				}
+			}
+
+			dstOff += dstStep;
+			srcOff += srcStep;
 		}
 	}
 }
