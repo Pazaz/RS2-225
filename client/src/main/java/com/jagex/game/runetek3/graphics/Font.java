@@ -25,10 +25,10 @@ public class Font extends Draw2D {
 	private final int[] charHeight = new int[94];
 
 	@OriginalMember(owner = "client!jb", name = "E", descriptor = "[I")
-	private final int[] charOffsetX = new int[94];
+	private final int[] clipX = new int[94];
 
 	@OriginalMember(owner = "client!jb", name = "F", descriptor = "[I")
-	private final int[] charOffsetY = new int[94];
+	private final int[] clipY = new int[94];
 
 	@OriginalMember(owner = "client!jb", name = "G", descriptor = "[I")
 	private final int[] charSpace = new int[95];
@@ -44,357 +44,398 @@ public class Font extends Draw2D {
 
 	static {
 		@Pc(4) String s = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
+
 		for (@Pc(6) int i = 0; i < 256; i++) {
 			@Pc(11) int c = s.indexOf(i);
 			if (c == -1) {
 				c = 74;
 			}
+
 			CHAR_TABLE[i] = c;
 		}
 	}
 
 	@OriginalMember(owner = "client!jb", name = "<init>", descriptor = "(Lclient!ub;Ljava/lang/String;I)V")
-	public Font(@OriginalArg(0) FileArchive arg0, @OriginalArg(1) String arg1) {
-		@Pc(71) Buffer local71 = new Buffer(arg0.read(arg1 + ".dat", null));
-		@Pc(81) Buffer local81 = new Buffer(arg0.read("index.dat", null));
-		local81.pos = local71.g2() + 4;
-		@Pc(90) int local90 = local81.g1();
-		if (local90 > 0) {
-			local81.pos += (local90 - 1) * 3;
+	public Font(@OriginalArg(0) FileArchive archive, @OriginalArg(1) String name) {
+		@Pc(71) Buffer dat = new Buffer(archive.read(name + ".dat", null));
+		@Pc(81) Buffer idx = new Buffer(archive.read("index.dat", null));
+
+		idx.pos = dat.g2() + 4; // skipping clipWidth and clipHeight
+
+		@Pc(90) int paletteCount = idx.g1();
+		if (paletteCount > 0) {
+			// color palette is simply on (white) or off (black) here, so we skip it
+			idx.pos += (paletteCount - 1) * 3;
 		}
-		@Pc(131) int local131;
-		for (@Pc(104) int local104 = 0; local104 < 94; local104++) {
-			this.charOffsetX[local104] = local81.g1();
-			this.charOffsetY[local104] = local81.g1();
-			local131 = this.charWidth[local104] = local81.g2();
-			@Pc(139) int local139 = this.charHeight[local104] = local81.g2();
-			@Pc(142) int local142 = local81.g1();
-			@Pc(146) int local146 = local131 * local139;
-			this.pixels[local104] = new byte[local146];
-			@Pc(156) int local156;
-			@Pc(181) int local181;
-			if (local142 == 0) {
-				for (local156 = 0; local156 < local146; local156++) {
-					this.pixels[local104][local156] = local71.g1b();
+
+		for (@Pc(104) int c = 0; c < 94; c++) {
+			this.clipX[c] = idx.g1();
+			this.clipY[c] = idx.g1();
+
+			@Pc(131) int width = this.charWidth[c] = idx.g2();
+			@Pc(139) int height = this.charHeight[c] = idx.g2();
+
+			@Pc(142) int pixelOrder = idx.g1();
+			@Pc(146) int pixelCount = width * height;
+			this.pixels[c] = new byte[pixelCount];
+
+			if (pixelOrder == 0) {
+				for (int i = 0; i < pixelCount; i++) {
+					this.pixels[c][i] = dat.g1b();
 				}
-			} else if (local142 == 1) {
-				for (local156 = 0; local156 < local131; local156++) {
-					for (local181 = 0; local181 < local139; local181++) {
-						this.pixels[local104][local156 + local181 * local131] = local71.g1b();
+			} else if (pixelOrder == 1) {
+				for (int x = 0; x < width; x++) {
+					for (int y = 0; y < height; y++) {
+						this.pixels[c][x + y * width] = dat.g1b();
 					}
 				}
 			}
-			if (local139 > this.fontHeight) {
-				this.fontHeight = local139;
+
+			if (height > this.fontHeight) {
+				this.fontHeight = height;
 			}
-			this.charOffsetX[local104] = 1;
-			this.charSpace[local104] = local131 + 2;
-			local156 = 0;
-			for (local181 = local139 / 7; local181 < local139; local181++) {
-				local156 += this.pixels[local104][local181 * local131];
+
+			this.clipX[c] = 1;
+			this.charSpace[c] = width + 2;
+
+			// adjust x
+			int i = 0;
+			for (int x = height / 7; x < height; x++) {
+				i += this.pixels[c][x * width];
 			}
-			@Pc(255) int local255;
-			if (local156 <= local139 / 7) {
-				local255 = this.charSpace[local104]--;
-				this.charOffsetX[local104] = 0;
+
+			if (i <= height / 7) {
+				this.charSpace[c]--;
+				this.clipX[c] = 0;
 			}
-			local156 = 0;
-			for (@Pc(269) int local269 = local139 / 7; local269 < local139; local269++) {
-				local156 += this.pixels[local104][local131 + local269 * local131 - 1];
+
+			// adjust y
+			i = 0;
+			for (@Pc(269) int y = height / 7; y < height; y++) {
+				i += this.pixels[c][width + y * width - 1];
 			}
-			if (local156 <= local139 / 7) {
-				local255 = this.charSpace[local104]--;
+
+			if (i <= height / 7) {
+				this.charSpace[c]--;
 			}
 		}
+
 		this.charSpace[94] = this.charSpace[8];
-		for (local131 = 0; local131 < 256; local131++) {
-			this.drawWidth[local131] = this.charSpace[CHAR_TABLE[local131]];
+		for (int i = 0; i < 256; i++) {
+			this.drawWidth[i] = this.charSpace[CHAR_TABLE[i]];
 		}
 	}
 
 	@OriginalMember(owner = "client!jb", name = "a", descriptor = "(IBILjava/lang/String;I)V")
-	public void drawCentered(@OriginalArg(0) int arg0, @OriginalArg(2) int arg2, @OriginalArg(3) String arg3, @OriginalArg(4) int arg4) {
-		this.draw(arg4 - this.stringWidth(arg3) / 2, arg0, arg2, arg3);
+	public void drawCentered(@OriginalArg(0) int y, @OriginalArg(2) int color, @OriginalArg(3) String str, @OriginalArg(4) int x) {
+		this.draw(x - this.stringWidth(str) / 2, y, color, str);
 	}
 
 	@OriginalMember(owner = "client!jb", name = "a", descriptor = "(IIZILjava/lang/String;I)V")
-	public void drawCentered(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) boolean arg2, @OriginalArg(3) int arg3, @OriginalArg(4) String arg4) {
-		this.draw(arg0 - this.stringWidth(arg4) / 2, arg3, arg4, arg2, arg1);
+	public void drawCentered(@OriginalArg(0) int x, @OriginalArg(1) int color, @OriginalArg(2) boolean shadow, @OriginalArg(3) int y, @OriginalArg(4) String str) {
+		this.draw(x - this.stringWidth(str) / 2, y, str, shadow, color);
 	}
 
 	@OriginalMember(owner = "client!jb", name = "a", descriptor = "(ZLjava/lang/String;)I")
-	public int stringWidth(@OriginalArg(1) String arg1) {
-		if (arg1 == null) {
+	public int stringWidth(@OriginalArg(1) String str) {
+		if (str == null) {
 			return 0;
 		}
-		@Pc(7) int local7 = 0;
-		for (@Pc(14) int local14 = 0; local14 < arg1.length(); local14++) {
-			if (arg1.charAt(local14) == '@' && local14 + 4 < arg1.length() && arg1.charAt(local14 + 4) == '@') {
-				local14 += 4;
+
+		@Pc(7) int w = 0;
+		for (@Pc(14) int i = 0; i < str.length(); i++) {
+			if (str.charAt(i) == '@' && i + 4 < str.length() && str.charAt(i + 4) == '@') {
+				i += 4;
 			} else {
-				local7 += this.drawWidth[arg1.charAt(local14)];
+				w += this.drawWidth[str.charAt(i)];
 			}
 		}
-		return local7;
+
+		return w;
 	}
 
 	@OriginalMember(owner = "client!jb", name = "a", descriptor = "(IIZILjava/lang/String;)V")
-	public void draw(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(3) int arg3, @OriginalArg(4) String arg4) {
-		if (arg4 == null) {
+	public void draw(@OriginalArg(0) int x, @OriginalArg(1) int y, @OriginalArg(3) int color, @OriginalArg(4) String str) {
+		if (str == null) {
 			return;
 		}
 
-		@Pc(7) int local7 = arg1 - this.fontHeight;
-		for (@Pc(19) int local19 = 0; local19 < arg4.length(); local19++) {
-			@Pc(27) int local27 = CHAR_TABLE[arg4.charAt(local19)];
-			if (local27 != 94) {
-				this.fillMaskedRect(this.pixels[local27], arg0 + this.charOffsetX[local27], local7 + this.charOffsetY[local27], this.charWidth[local27], this.charHeight[local27], arg3);
+		y -= this.fontHeight;
+		for (@Pc(19) int i = 0; i < str.length(); i++) {
+			@Pc(27) int c = CHAR_TABLE[str.charAt(i)];
+
+			if (c != 94) {
+				this.fillMaskedRect(this.pixels[c], x + this.clipX[c], y + this.clipY[c], this.charWidth[c], this.charHeight[c], color);
 			}
-			arg0 += this.charSpace[local27];
+
+			x += this.charSpace[c];
 		}
 	}
 
 	@OriginalMember(owner = "client!jb", name = "a", descriptor = "(IBIIILjava/lang/String;)V")
-	public void drawCenteredWave(@OriginalArg(0) int arg0, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) String arg5) {
-		if (arg5 == null) {
+	public void drawCenteredWave(@OriginalArg(0) int cycle, @OriginalArg(2) int x, @OriginalArg(3) int y, @OriginalArg(4) int color, @OriginalArg(5) String str) {
+		if (str == null) {
 			return;
 		}
 
-		arg2 -= this.stringWidth(arg5) / 2;
-		@Pc(18) int local18 = arg3 - this.fontHeight;
-		@Pc(24) int local24;
-		for (local24 = 0; local24 < arg5.length(); local24++) {
-			@Pc(39) int local39 = CHAR_TABLE[arg5.charAt(local24)];
-			if (local39 != 94) {
-				this.fillMaskedRect(this.pixels[local39], arg2 + this.charOffsetX[local39], local18 + this.charOffsetY[local39] + (int) (Math.sin((double) local24 / 2.0D + (double) arg0 / 5.0D) * 5.0D), this.charWidth[local39], this.charHeight[local39], arg4);
+		x -= this.stringWidth(str) / 2;
+		y -= this.fontHeight;
+
+		for (int i = 0; i < str.length(); i++) {
+			@Pc(39) int c = CHAR_TABLE[str.charAt(i)];
+
+			if (c != 94) {
+				this.fillMaskedRect(this.pixels[c], x + this.clipX[c], y + this.clipY[c] + (int) (Math.sin((double) i / 2.0D + (double) cycle / 5.0D) * 5.0D), this.charWidth[c], this.charHeight[c], color);
 			}
-			arg2 += this.charSpace[local39];
+
+			x += this.charSpace[c];
 		}
 	}
 
 	@OriginalMember(owner = "client!jb", name = "a", descriptor = "(IIILjava/lang/String;ZI)V")
-	public void draw(@OriginalArg(0) int arg0, @OriginalArg(2) int arg2, @OriginalArg(3) String arg3, @OriginalArg(4) boolean arg4, @OriginalArg(5) int arg5) {
-		if (arg3 == null) {
+	public void draw(@OriginalArg(0) int x, @OriginalArg(2) int y, @OriginalArg(3) String str, @OriginalArg(4) boolean shadow, @OriginalArg(5) int color) {
+		if (str == null) {
 			return;
 		}
 
-		@Pc(9) int local9 = arg2 - this.fontHeight;
-		for (@Pc(11) int local11 = 0; local11 < arg3.length(); local11++) {
-			if (arg3.charAt(local11) == '@' && local11 + 4 < arg3.length() && arg3.charAt(local11 + 4) == '@') {
-				arg5 = this.evaluateTag(arg3.substring(local11 + 1, local11 + 4));
-				local11 += 4;
+		y -= this.fontHeight;
+		for (@Pc(11) int i = 0; i < str.length(); i++) {
+			if (str.charAt(i) == '@' && i + 4 < str.length() && str.charAt(i + 4) == '@') {
+				color = this.evaluateTag(str.substring(i + 1, i + 4));
+				i += 4;
 			} else {
-				@Pc(52) int local52 = CHAR_TABLE[arg3.charAt(local11)];
-				if (local52 != 94) {
-					if (arg4) {
-						this.fillMaskedRect(this.pixels[local52], arg0 + this.charOffsetX[local52] + 1, local9 + this.charOffsetY[local52] + 1, this.charWidth[local52], this.charHeight[local52], 0);
+				@Pc(52) int c = CHAR_TABLE[str.charAt(i)];
+				if (c != 94) {
+					if (shadow) {
+						this.fillMaskedRect(this.pixels[c], x + this.clipX[c] + 1, y + this.clipY[c] + 1, this.charWidth[c], this.charHeight[c], 0);
 					}
-					this.fillMaskedRect(this.pixels[local52], arg0 + this.charOffsetX[local52], local9 + this.charOffsetY[local52], this.charWidth[local52], this.charHeight[local52], arg5);
+
+					this.fillMaskedRect(this.pixels[c], x + this.clipX[c], y + this.clipY[c], this.charWidth[c], this.charHeight[c], color);
 				}
-				arg0 += this.charSpace[local52];
+
+				x += this.charSpace[c];
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!jb", name = "a", descriptor = "(IZBIILjava/lang/String;I)V")
-	public void drawTooltip(@OriginalArg(0) int arg0, @OriginalArg(1) boolean arg1, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) String arg5, @OriginalArg(6) int arg6) {
-		if (arg5 == null) {
+	public void drawTooltip(@OriginalArg(0) int seed, @OriginalArg(1) boolean shadow, @OriginalArg(3) int y, @OriginalArg(4) int color, @OriginalArg(5) String str, @OriginalArg(6) int x) {
+		if (str == null) {
 			return;
 		}
 
-		this.random.setSeed(arg0);
-		@Pc(17) int local17 = (this.random.nextInt() & 0x1F) + 192;
-		@Pc(22) int local22 = arg3 - this.fontHeight;
-		for (@Pc(30) int local30 = 0; local30 < arg5.length(); local30++) {
-			if (arg5.charAt(local30) == '@' && local30 + 4 < arg5.length() && arg5.charAt(local30 + 4) == '@') {
-				arg4 = this.evaluateTag(arg5.substring(local30 + 1, local30 + 4));
-				local30 += 4;
+		this.random.setSeed(seed);
+		@Pc(17) int alpha = (this.random.nextInt() & 0x1F) + 192;
+
+		y -= this.fontHeight;
+		for (@Pc(30) int i = 0; i < str.length(); i++) {
+			if (str.charAt(i) == '@' && i + 4 < str.length() && str.charAt(i + 4) == '@') {
+				color = this.evaluateTag(str.substring(i + 1, i + 4));
+				i += 4;
 			} else {
-				@Pc(71) int local71 = CHAR_TABLE[arg5.charAt(local30)];
-				if (local71 != 94) {
-					if (arg1) {
-						this.fillMaskedRect(this.pixels[local71], arg6 + this.charOffsetX[local71] + 1, this.charHeight[local71], 0, local22 + this.charOffsetY[local71] + 1, 192, this.charWidth[local71]);
+				@Pc(71) int c = CHAR_TABLE[str.charAt(i)];
+				if (c != 94) {
+					if (shadow) {
+						this.fillMaskedRect(this.pixels[c], x + this.clipX[c] + 1, this.charHeight[c], 0, y + this.clipY[c] + 1, 192, this.charWidth[c]);
 					}
-					this.fillMaskedRect(this.pixels[local71], arg6 + this.charOffsetX[local71], this.charHeight[local71], arg4, local22 + this.charOffsetY[local71], local17, this.charWidth[local71]);
+
+					this.fillMaskedRect(this.pixels[c], x + this.clipX[c], this.charHeight[c], color, y + this.clipY[c], alpha, this.charWidth[c]);
 				}
-				arg6 += this.charSpace[local71];
+
+				x += this.charSpace[c];
+
 				if ((this.random.nextInt() & 0x3) == 0) {
-					arg6++;
+					x++;
 				}
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!jb", name = "a", descriptor = "(ILjava/lang/String;)I")
-	private int evaluateTag(@OriginalArg(1) String arg1) {
-		if (arg1.equals("red")) {
-			return 0xff0000;
-		} else if (arg1.equals("gre")) {
-			return 0xff00;
-		} else if (arg1.equals("blu")) {
-			return 0xff;
-		} else if (arg1.equals("yel")) {
-			return 0xffff00;
-		} else if (arg1.equals("cya")) {
-			return 0xffff;
-		} else if (arg1.equals("mag")) {
-			return 0xff00ff;
-		} else if (arg1.equals("whi")) {
-			return 0xffffff;
-		} else if (arg1.equals("bla")) {
-			return 0;
-		} else if (arg1.equals("lre")) {
-			return 0xff9040;
-		} else if (arg1.equals("dre")) {
-			return 0x800000;
-		} else if (arg1.equals("dbl")) {
-			return 0x80;
-		} else if (arg1.equals("or1")) {
-			return 0xffb000;
-		} else if (arg1.equals("or2")) {
-			return 0xff7000;
-		} else if (arg1.equals("or3")) {
-			return 0xff3000;
-		} else if (arg1.equals("gr1")) {
-			return 0xc0ff00;
-		} else if (arg1.equals("gr2")) {
-			return 0x80ff00;
-		} else if (arg1.equals("gr3")) {
-			return 0x40ff00;
-		} else {
-			return 0;
+	private int evaluateTag(@OriginalArg(1) String str) {
+		switch (str) {
+			case "red":
+				return 0xff0000;
+			case "gre":
+				return 0xff00;
+			case "blu":
+				return 0xff;
+			case "yel":
+				return 0xffff00;
+			case "cya":
+				return 0xffff;
+			case "mag":
+				return 0xff00ff;
+			case "whi":
+				return 0xffffff;
+			case "lre":
+				return 0xff9040;
+			case "dre":
+				return 0x800000;
+			case "dbl":
+				return 0x80;
+			case "or1":
+				return 0xffb000;
+			case "or2":
+				return 0xff7000;
+			case "or3":
+				return 0xff3000;
+			case "gr1":
+				return 0xc0ff00;
+			case "gr2":
+				return 0x80ff00;
+			case "gr3":
+				return 0x40ff00;
+			case "bla":
+			default:
+				return 0;
 		}
 	}
 
 	@OriginalMember(owner = "client!jb", name = "a", descriptor = "([BIIIII)V")
-	private void fillMaskedRect(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
-		@Pc(5) int local5 = arg1 + arg2 * Draw2D.width;
-		@Pc(9) int local9 = Draw2D.width - arg3;
-		@Pc(11) int local11 = 0;
-		@Pc(13) int local13 = 0;
-		@Pc(20) int local20;
-		if (arg2 < Draw2D.top) {
-			local20 = Draw2D.top - arg2;
-			arg4 -= local20;
-			arg2 = Draw2D.top;
-			local13 += local20 * arg3;
-			local5 += local20 * Draw2D.width;
+	private void fillMaskedRect(@OriginalArg(0) byte[] data, @OriginalArg(1) int x, @OriginalArg(2) int y, @OriginalArg(3) int w, @OriginalArg(4) int h, @OriginalArg(5) int color) {
+		@Pc(5) int dstOff = x + y * Draw2D.width;
+		@Pc(9) int dstStep = Draw2D.width - w;
+		@Pc(11) int srcStep = 0;
+		@Pc(13) int srcOff = 0;
+
+		if (y < Draw2D.top) {
+			int cutoff = Draw2D.top - y;
+			h -= cutoff;
+			y = Draw2D.top;
+			srcOff += cutoff * w;
+			dstOff += cutoff * Draw2D.width;
 		}
-		if (arg2 + arg4 >= Draw2D.bottom) {
-			arg4 -= arg2 + arg4 + 1 - Draw2D.bottom;
+
+		if (y + h >= Draw2D.bottom) {
+			h -= y + h + 1 - Draw2D.bottom;
 		}
-		if (arg1 < Draw2D.left) {
-			local20 = Draw2D.left - arg1;
-			arg3 -= local20;
-			arg1 = Draw2D.left;
-			local13 += local20;
-			local5 += local20;
-			local11 += local20;
-			local9 += local20;
+
+		if (x < Draw2D.left) {
+			int cutoff = Draw2D.left - x;
+			w -= cutoff;
+			x = Draw2D.left;
+			srcOff += cutoff;
+			dstOff += cutoff;
+			srcStep += cutoff;
+			dstStep += cutoff;
 		}
-		if (arg1 + arg3 >= Draw2D.right) {
-			local20 = arg1 + arg3 + 1 - Draw2D.right;
-			arg3 -= local20;
-			local11 += local20;
-			local9 += local20;
+
+		if (x + w >= Draw2D.right) {
+			int cutoff = x + w + 1 - Draw2D.right;
+			w -= cutoff;
+			srcStep += cutoff;
+			dstStep += cutoff;
 		}
-		if (arg3 > 0 && arg4 > 0) {
-			this.fillMaskedRect(Draw2D.data, arg0, arg5, local13, local5, arg3, arg4, local9, local11);
+
+		if (w > 0 && h > 0) {
+			this.fillMaskedRect(Draw2D.data, data, color, srcOff, dstOff, w, h, dstStep, srcStep);
 		}
 	}
 
 	@OriginalMember(owner = "client!jb", name = "a", descriptor = "([I[BIIIIIII)V")
-	private void fillMaskedRect(@OriginalArg(0) int[] arg0, @OriginalArg(1) byte[] arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8) {
-		@Pc(6) int local6 = -(arg5 >> 2);
-		@Pc(11) int local11 = -(arg5 & 0x3);
-		for (@Pc(14) int local14 = -arg6; local14 < 0; local14++) {
-			for (@Pc(18) int local18 = local6; local18 < 0; local18++) {
-				if (arg1[arg3++] == 0) {
-					arg4++;
+	private void fillMaskedRect(@OriginalArg(0) int[] dst, @OriginalArg(1) byte[] src, @OriginalArg(2) int color, @OriginalArg(3) int srcOff, @OriginalArg(4) int dstOff, @OriginalArg(5) int w, @OriginalArg(6) int h, @OriginalArg(7) int dstStep, @OriginalArg(8) int srcStep) {
+		@Pc(6) int hw = -(w >> 2);
+		w = -(w & 0x3);
+
+		for (@Pc(14) int y = -h; y < 0; y++) {
+			for (@Pc(18) int x = hw; x < 0; x++) {
+				if (src[srcOff++] != 0) {
+					dst[dstOff++] = color;
 				} else {
-					arg0[arg4++] = arg2;
+					dstOff++;
 				}
-				if (arg1[arg3++] == 0) {
-					arg4++;
+
+				if (src[srcOff++] != 0) {
+					dst[dstOff++] = color;
 				} else {
-					arg0[arg4++] = arg2;
+					dstOff++;
 				}
-				if (arg1[arg3++] == 0) {
-					arg4++;
+
+				if (src[srcOff++] != 0) {
+					dst[dstOff++] = color;
 				} else {
-					arg0[arg4++] = arg2;
+					dstOff++;
 				}
-				if (arg1[arg3++] == 0) {
-					arg4++;
+
+				if (src[srcOff++] != 0) {
+					dst[dstOff++] = color;
 				} else {
-					arg0[arg4++] = arg2;
-				}
-			}
-			for (@Pc(77) int local77 = local11; local77 < 0; local77++) {
-				if (arg1[arg3++] == 0) {
-					arg4++;
-				} else {
-					arg0[arg4++] = arg2;
+					dstOff++;
 				}
 			}
-			arg4 += arg7;
-			arg3 += arg8;
+
+			for (@Pc(77) int x = w; x < 0; x++) {
+				if (src[srcOff++] == 0) {
+					dstOff++;
+				} else {
+					dst[dstOff++] = color;
+				}
+			}
+
+			dstOff += dstStep;
+			srcOff += srcStep;
 		}
 	}
 
 	@OriginalMember(owner = "client!jb", name = "a", descriptor = "([BBIIIIII)V")
-	private void fillMaskedRect(@OriginalArg(0) byte[] arg0, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7) {
-		@Pc(10) int local10 = arg2 + arg5 * Draw2D.width;
-		@Pc(14) int local14 = Draw2D.width - arg7;
-		@Pc(16) int local16 = 0;
-		@Pc(18) int local18 = 0;
-		@Pc(25) int local25;
-		if (arg5 < Draw2D.top) {
-			local25 = Draw2D.top - arg5;
-			arg3 -= local25;
-			arg5 = Draw2D.top;
-			local18 += local25 * arg7;
-			local10 += local25 * Draw2D.width;
+	private void fillMaskedRect(@OriginalArg(0) byte[] mask, @OriginalArg(2) int x, @OriginalArg(3) int h, @OriginalArg(4) int color, @OriginalArg(5) int y, @OriginalArg(6) int alpha, @OriginalArg(7) int w) {
+		@Pc(10) int dstOff = x + y * Draw2D.width;
+		@Pc(14) int dstStep = Draw2D.width - w;
+		@Pc(16) int maskStep = 0;
+		@Pc(18) int maskOff = 0;
+
+		if (y < Draw2D.top) {
+			int cutoff = Draw2D.top - y;
+			h -= cutoff;
+			y = Draw2D.top;
+			maskOff += cutoff * w;
+			dstOff += cutoff * Draw2D.width;
 		}
-		if (arg5 + arg3 >= Draw2D.bottom) {
-			arg3 -= arg5 + arg3 + 1 - Draw2D.bottom;
+
+		if (y + h >= Draw2D.bottom) {
+			h -= y + h + 1 - Draw2D.bottom;
 		}
-		if (arg2 < Draw2D.left) {
-			local25 = Draw2D.left - arg2;
-			arg7 -= local25;
-			arg2 = Draw2D.left;
-			local18 += local25;
-			local10 += local25;
-			local16 += local25;
-			local14 += local25;
+
+		if (x < Draw2D.left) {
+			int cutoff = Draw2D.left - x;
+			w -= cutoff;
+			x = Draw2D.left;
+			maskOff += cutoff;
+			dstOff += cutoff;
+			maskStep += cutoff;
+			dstStep += cutoff;
 		}
-		if (arg2 + arg7 >= Draw2D.right) {
-			local25 = arg2 + arg7 + 1 - Draw2D.right;
-			arg7 -= local25;
-			local16 += local25;
-			local14 += local25;
+
+		if (x + w >= Draw2D.right) {
+			int cutoff = x + w + 1 - Draw2D.right;
+			w -= cutoff;
+			maskStep += cutoff;
+			dstStep += cutoff;
 		}
-		if (arg7 > 0 && arg3 > 0) {
-			this.fillMaskedRect(arg3, local10, arg7, Draw2D.data, arg0, arg6, local18, local14, local16, arg4);
+
+		if (w > 0 && h > 0) {
+			this.fillMaskedRect(h, dstOff, w, Draw2D.data, mask, alpha, maskOff, dstStep, maskStep, color);
 		}
 	}
 
 	@OriginalMember(owner = "client!jb", name = "a", descriptor = "(III[I[BIIIIBI)V")
-	private void fillMaskedRect(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int[] arg3, @OriginalArg(4) byte[] arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(10) int arg10) {
-		@Pc(19) int local19 = ((arg10 & 0xFF00FF) * arg5 & 0xFF00FF00) + ((arg10 & 0xFF00) * arg5 & 0xFF0000) >> 8;
-		@Pc(29) int local29;
-		@Pc(38) int local38 = 256 - arg5;
-		for (local29 = -arg0; local29 < 0; local29++) {
-			for (@Pc(46) int local46 = -arg2; local46 < 0; local46++) {
-				if (arg4[arg6++] == 0) {
-					arg1++;
+	private void fillMaskedRect(@OriginalArg(0) int h, @OriginalArg(1) int dstOff, @OriginalArg(2) int w, @OriginalArg(3) int[] dst, @OriginalArg(4) byte[] mask, @OriginalArg(5) int alpha, @OriginalArg(6) int maskOff, @OriginalArg(7) int dstStep, @OriginalArg(8) int maskStep, @OriginalArg(10) int color) {
+		color = ((color & 0xFF00FF) * alpha & 0xFF00FF00) + ((color & 0xFF00) * alpha & 0xFF0000) >> 8;
+		@Pc(38) int invAlpha = 256 - alpha;
+
+		for (int y = -h; y < 0; y++) {
+			for (@Pc(46) int x = -w; x < 0; x++) {
+				if (mask[maskOff++] != 0) {
+					@Pc(57) int dstColor = dst[dstOff];
+					dst[dstOff++] = (((dstColor & 0xFF00FF) * invAlpha & 0xFF00FF00) + ((dstColor & 0xFF00) * invAlpha & 0xFF0000) >> 8) + color;
 				} else {
-					@Pc(57) int local57 = arg3[arg1];
-					arg3[arg1++] = (((local57 & 0xFF00FF) * local38 & 0xFF00FF00) + ((local57 & 0xFF00) * local38 & 0xFF0000) >> 8) + local19;
+					dstOff++;
 				}
 			}
-			arg1 += arg7;
-			arg6 += arg8;
+
+			dstOff += dstStep;
+			maskOff += maskStep;
 		}
 	}
 }
