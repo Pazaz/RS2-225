@@ -6194,7 +6194,8 @@ public class Game extends GameShell {
 			}
 			MapSquare.init(local1312, 800, 512, 334, 500);
 			WordPack.decode(wordencArchive);
-		} catch (@Pc(1357) Exception local1357) {
+		} catch (@Pc(1357) Exception ex) {
+			ex.printStackTrace();
 			this.errorLoading = true;
 		}
 	}
