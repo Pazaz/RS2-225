@@ -3647,11 +3647,11 @@ public class Game extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(Ljava/lang/Runnable;I)V")
 	@Override
-	public void startThread(@OriginalArg(0) Runnable arg0, @OriginalArg(1) int arg1) {
+	public void startThread(@OriginalArg(0) Runnable runnable, @OriginalArg(1) int priority) {
 		if (SignedLink.mainapp == null) {
-			super.startThread(arg0, arg1);
+			super.startThread(runnable, priority);
 		} else {
-			SignedLink.startthread(arg0, arg1);
+			SignedLink.startthread(runnable, priority);
 		}
 	}
 
@@ -10484,10 +10484,10 @@ public class Game extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ZLjava/lang/String;I)V")
 	@Override
-	protected void showProgress(@OriginalArg(1) String arg1, @OriginalArg(2) int arg2) {
+	protected void showProgress(@OriginalArg(1) String str, @OriginalArg(2) int progress) {
 		this.prepareTitleScreen();
 		if (this.titleArchive == null) {
-			super.showProgress(arg1, arg2);
+			super.showProgress(str, progress);
 		} else {
 			this.titleCenter.makeTarget();
 			@Pc(17) short local17 = 360;
@@ -10497,9 +10497,9 @@ public class Game extends GameShell {
 			@Pc(51) int local51 = local19 / 2 - local21 - 18;
 			Draw2D.drawRect(local17 / 2 - 152, 9179409, 34, local51, 304);
 			Draw2D.drawRect(local17 / 2 - 151, 0, 32, local51 + 1, 302);
-			Draw2D.fillRect(local51 + 2, local17 / 2 - 150, 9179409, arg2 * 3, 30);
-			Draw2D.fillRect(local51 + 2, local17 / 2 - 150 + arg2 * 3, 0, 300 - arg2 * 3, 30);
-			this.bold12.drawCentered(local19 / 2 + 5 - local21, 16777215, arg1, local17 / 2);
+			Draw2D.fillRect(local51 + 2, local17 / 2 - 150, 9179409, progress * 3, 30);
+			Draw2D.fillRect(local51 + 2, local17 / 2 - 150 + progress * 3, 0, 300 - progress * 3, 30);
+			this.bold12.drawCentered(local19 / 2 + 5 - local21, 16777215, str, local17 / 2);
 			this.titleCenter.drawAt(186, super.graphics, 214);
 			if (this.redrawTitleBackground) {
 				this.redrawTitleBackground = false;

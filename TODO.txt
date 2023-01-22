@@ -1,7 +1,6 @@
 - client
 - CollisionMap
 - Draw3D
-- GameShell
 - MapSquare
 - Model
 - PathingEntity
