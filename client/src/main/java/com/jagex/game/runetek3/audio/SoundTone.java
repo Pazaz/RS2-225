@@ -81,185 +81,213 @@ public class SoundTone {
 	@OriginalMember(owner = "client!zb", name = "a", descriptor = "()V")
 	public static void init() {
 		noise = new int[32768];
-		for (@Pc(6) int local6 = 0; local6 < 32768; local6++) {
+		for (@Pc(6) int i = 0; i < 32768; i++) {
 			if (Math.random() > 0.5D) {
-				noise[local6] = 1;
+				noise[i] = 1;
 			} else {
-				noise[local6] = -1;
+				noise[i] = -1;
 			}
 		}
+
 		sin = new int[32768];
-		for (@Pc(31) int local31 = 0; local31 < 32768; local31++) {
-			sin[local31] = (int) (Math.sin((double) local31 / 5215.1903D) * 16384.0D);
+		for (@Pc(31) int i = 0; i < 32768; i++) {
+			sin[i] = (int) (Math.sin((double) i / 5215.1903D) * 16384.0D);
 		}
+
 		buffer = new int[220500];
 	}
 
 	@OriginalMember(owner = "client!zb", name = "a", descriptor = "(II)[I")
-	public int[] generate(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		for (@Pc(3) int local3 = 0; local3 < arg0; local3++) {
-			buffer[local3] = 0;
+	public int[] generate(@OriginalArg(0) int sampleCount, @OriginalArg(1) int length) {
+		for (@Pc(3) int i = 0; i < sampleCount; i++) {
+			buffer[i] = 0;
 		}
-		if (arg1 < 10) {
+
+		if (length < 10) {
 			return buffer;
 		}
-		@Pc(26) double local26 = (double) arg0 / ((double) arg1 + 0.0D);
+
+		@Pc(26) double samplesPerStep = (double) sampleCount / ((double) length + 0.0D);
 		this.frequencyBase.reset();
 		this.amplitudeBase.reset();
-		@Pc(36) int local36 = 0;
-		@Pc(38) int local38 = 0;
-		@Pc(40) int local40 = 0;
+
+		@Pc(36) int frequencyStart = 0;
+		@Pc(38) int frequencyDuration = 0;
+		@Pc(40) int frequencyPhase = 0;
 		if (this.frequencyModRate != null) {
 			this.frequencyModRate.reset();
 			this.frequencyModRange.reset();
-			local36 = (int) ((double) (this.frequencyModRate.end - this.frequencyModRate.start) * 32.768D / local26);
-			local38 = (int) ((double) this.frequencyModRate.start * 32.768D / local26);
+			frequencyStart = (int) ((double) (this.frequencyModRate.end - this.frequencyModRate.start) * 32.768D / samplesPerStep);
+			frequencyDuration = (int) ((double) this.frequencyModRate.start * 32.768D / samplesPerStep);
 		}
-		@Pc(77) int local77 = 0;
-		@Pc(79) int local79 = 0;
-		@Pc(81) int local81 = 0;
+
+		@Pc(77) int amplitudeStart = 0;
+		@Pc(79) int amplitudeDuration = 0;
+		@Pc(81) int amplitudePhase = 0;
 		if (this.amplitudeModRate != null) {
 			this.amplitudeModRate.reset();
 			this.amplitudeModRange.reset();
-			local77 = (int) ((double) (this.amplitudeModRate.end - this.amplitudeModRate.start) * 32.768D / local26);
-			local79 = (int) ((double) this.amplitudeModRate.start * 32.768D / local26);
+			amplitudeStart = (int) ((double) (this.amplitudeModRate.end - this.amplitudeModRate.start) * 32.768D / samplesPerStep);
+			amplitudeDuration = (int) ((double) this.amplitudeModRate.start * 32.768D / samplesPerStep);
 		}
-		for (@Pc(118) int local118 = 0; local118 < 5; local118++) {
-			if (this.harmonicVolume[local118] != 0) {
-				tmpPhases[local118] = 0;
-				tmpDelays[local118] = (int) ((double) this.harmonicDelay[local118] * local26);
-				tmpVolumes[local118] = (this.harmonicVolume[local118] << 14) / 100;
-				tmpSemitones[local118] = (int) ((double) (this.frequencyBase.end - this.frequencyBase.start) * 32.768D * Math.pow(1.0057929410678534D, this.harmonicSemitone[local118]) / local26);
-				tmpStarts[local118] = (int) ((double) this.frequencyBase.start * 32.768D / local26);
+
+		for (@Pc(118) int i = 0; i < 5; i++) {
+			if (this.harmonicVolume[i] != 0) {
+				tmpPhases[i] = 0;
+				tmpDelays[i] = (int) ((double) this.harmonicDelay[i] * samplesPerStep);
+				tmpVolumes[i] = (this.harmonicVolume[i] << 14) / 100;
+				tmpSemitones[i] = (int) ((double) (this.frequencyBase.end - this.frequencyBase.start) * 32.768D * Math.pow(1.0057929410678534D, this.harmonicSemitone[i]) / samplesPerStep);
+				tmpStarts[i] = (int) ((double) this.frequencyBase.start * 32.768D / samplesPerStep);
 			}
 		}
-		@Pc(201) int local201;
-		@Pc(207) int local207;
-		@Pc(222) int local222;
-		for (@Pc(193) int local193 = 0; local193 < arg0; local193++) {
-			local201 = this.frequencyBase.evaluate(arg0);
-			local207 = this.amplitudeBase.evaluate(arg0);
-			@Pc(216) int local216;
+
+		@Pc(201) int frequency;
+		@Pc(207) int amplitude;
+		@Pc(222) int range;
+		for (@Pc(193) int i = 0; i < sampleCount; i++) {
+			frequency = this.frequencyBase.evaluate(sampleCount);
+			amplitude = this.amplitudeBase.evaluate(sampleCount);
+
+			@Pc(216) int rate;
 			if (this.frequencyModRate != null) {
-				local216 = this.frequencyModRate.evaluate(arg0);
-				local222 = this.frequencyModRange.evaluate(arg0);
-				local201 += this.generate(local222, local40, this.frequencyModRate.form) >> 1;
-				local40 += (local216 * local36 >> 16) + local38;
+				rate = this.frequencyModRate.evaluate(sampleCount);
+				range = this.frequencyModRange.evaluate(sampleCount);
+				frequency += this.generate(range, frequencyPhase, this.frequencyModRate.form) >> 1;
+				frequencyPhase += (rate * frequencyStart >> 16) + frequencyDuration;
 			}
+
 			if (this.amplitudeModRate != null) {
-				local216 = this.amplitudeModRate.evaluate(arg0);
-				local222 = this.amplitudeModRange.evaluate(arg0);
-				local207 = local207 * ((this.generate(local222, local81, this.amplitudeModRate.form) >> 1) + 32768) >> 15;
-				local81 += (local216 * local77 >> 16) + local79;
+				rate = this.amplitudeModRate.evaluate(sampleCount);
+				range = this.amplitudeModRange.evaluate(sampleCount);
+				amplitude = amplitude * ((this.generate(range, amplitudePhase, this.amplitudeModRate.form) >> 1) + 32768) >> 15;
+				amplitudePhase += (rate * amplitudeStart >> 16) + amplitudeDuration;
 			}
-			for (local216 = 0; local216 < 5; local216++) {
-				if (this.harmonicVolume[local216] != 0) {
-					local222 = local193 + tmpDelays[local216];
-					if (local222 < arg0) {
-						buffer[local222] += this.generate(local207 * tmpVolumes[local216] >> 15, tmpPhases[local216], this.frequencyBase.form);
-						tmpPhases[local216] += (local201 * tmpSemitones[local216] >> 16) + tmpStarts[local216];
+
+			for (rate = 0; rate < 5; rate++) {
+				if (this.harmonicVolume[rate] != 0) {
+					range = i + tmpDelays[rate];
+
+					if (range < sampleCount) {
+						buffer[range] += this.generate(amplitude * tmpVolumes[rate] >> 15, tmpPhases[rate], this.frequencyBase.form);
+						tmpPhases[rate] += (frequency * tmpSemitones[rate] >> 16) + tmpStarts[rate];
 					}
 				}
 			}
 		}
+
 		if (this.release != null) {
 			this.release.reset();
 			this.attack.reset();
-			local201 = 0;
-			@Pc(367) boolean local367 = false;
-			@Pc(369) boolean local369 = true;
-			for (local222 = 0; local222 < arg0; local222++) {
-				@Pc(379) int local379 = this.release.evaluate(arg0);
-				@Pc(385) int local385 = this.attack.evaluate(arg0);
-				if (local369) {
-					local207 = this.release.start + ((this.release.end - this.release.start) * local379 >> 8);
+			frequency = 0;
+			@Pc(369) boolean muted = true;
+
+			for (range = 0; range < sampleCount; range++) {
+				@Pc(379) int releaseValue = this.release.evaluate(sampleCount);
+				@Pc(385) int attackValue = this.attack.evaluate(sampleCount);
+
+				if (muted) {
+					amplitude = this.release.start + ((this.release.end - this.release.start) * releaseValue >> 8);
 				} else {
-					local207 = this.release.start + ((this.release.end - this.release.start) * local385 >> 8);
+					amplitude = this.release.start + ((this.release.end - this.release.start) * attackValue >> 8);
 				}
-				local201 += 256;
-				if (local201 >= local207) {
-					local201 = 0;
-					local369 = !local369;
+
+				frequency += 256;
+				if (frequency >= amplitude) {
+					frequency = 0;
+					muted = !muted;
 				}
-				if (local369) {
-					buffer[local222] = 0;
+
+				if (muted) {
+					buffer[range] = 0;
 				}
 			}
 		}
+
 		if (this.reverbDelay > 0 && this.reverb > 0) {
-			local201 = (int) ((double) this.reverbDelay * local26);
-			for (local207 = local201; local207 < arg0; local207++) {
-				buffer[local207] += buffer[local207 - local201] * this.reverb / 100;
+			frequency = (int) ((double) this.reverbDelay * samplesPerStep);
+
+			for (amplitude = frequency; amplitude < sampleCount; amplitude++) {
+				buffer[amplitude] += buffer[amplitude - frequency] * this.reverb / 100;
 			}
 		}
-		for (local201 = 0; local201 < arg0; local201++) {
-			if (buffer[local201] < -32768) {
-				buffer[local201] = -32768;
+
+		for (frequency = 0; frequency < sampleCount; frequency++) {
+			if (buffer[frequency] < -32768) {
+				buffer[frequency] = -32768;
 			}
-			if (buffer[local201] > 32767) {
-				buffer[local201] = 32767;
+
+			if (buffer[frequency] > 32767) {
+				buffer[frequency] = 32767;
 			}
 		}
+
 		return buffer;
 	}
 
 	@OriginalMember(owner = "client!zb", name = "a", descriptor = "(IIII)I")
-	private int generate(@OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
-		if (arg3 == 1) {
-			return (arg2 & 0x7FFF) < 16384 ? arg1 : -arg1;
-		} else if (arg3 == 2) {
-			return sin[arg2 & 0x7FFF] * arg1 >> 14;
-		} else if (arg3 == 3) {
-			return ((arg2 & 0x7FFF) * arg1 >> 14) - arg1;
-		} else if (arg3 == 4) {
-			return noise[arg2 / 2607 & 0x7FFF] * arg1;
+	private int generate(@OriginalArg(1) int amplitude, @OriginalArg(2) int phase, @OriginalArg(3) int form) {
+		if (form == 1) {
+			return (phase & 0x7FFF) < 16384 ? amplitude : -amplitude;
+		} else if (form == 2) {
+			return sin[phase & 0x7FFF] * amplitude >> 14;
+		} else if (form == 3) {
+			return ((phase & 0x7FFF) * amplitude >> 14) - amplitude;
+		} else if (form == 4) {
+			return noise[phase / 2607 & 0x7FFF] * amplitude;
 		} else {
 			return 0;
 		}
 	}
 
 	@OriginalMember(owner = "client!zb", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void read(@OriginalArg(1) Buffer arg1) {
+	public void read(@OriginalArg(1) Buffer buf) {
 		this.frequencyBase = new SoundEnvelope();
-		this.frequencyBase.readShape(arg1);
+		this.frequencyBase.readShape(buf);
+
 		this.amplitudeBase = new SoundEnvelope();
-		this.amplitudeBase.readShape(arg1);
-		@Pc(24) int local24 = arg1.g1();
-		if (local24 != 0) {
-			arg1.pos--;
+		this.amplitudeBase.readShape(buf);
+
+		int hasFrequency = buf.g1();
+		if (hasFrequency != 0) {
+			buf.pos--;
 			this.frequencyModRate = new SoundEnvelope();
-			this.frequencyModRate.readShape(arg1);
+			this.frequencyModRate.readShape(buf);
 			this.frequencyModRange = new SoundEnvelope();
-			this.frequencyModRange.readShape(arg1);
+			this.frequencyModRange.readShape(buf);
 		}
-		local24 = arg1.g1();
-		if (local24 != 0) {
-			arg1.pos--;
+
+		int hasAmplitude = buf.g1();
+		if (hasAmplitude != 0) {
+			buf.pos--;
 			this.amplitudeModRate = new SoundEnvelope();
-			this.amplitudeModRate.readShape(arg1);
+			this.amplitudeModRate.readShape(buf);
 			this.amplitudeModRange = new SoundEnvelope();
-			this.amplitudeModRange.readShape(arg1);
+			this.amplitudeModRange.readShape(buf);
 		}
-		local24 = arg1.g1();
-		if (local24 != 0) {
-			arg1.pos--;
+
+		int hasReleaseAttack = buf.g1();
+		if (hasReleaseAttack != 0) {
+			buf.pos--;
 			this.release = new SoundEnvelope();
-			this.release.readShape(arg1);
+			this.release.readShape(buf);
 			this.attack = new SoundEnvelope();
-			this.attack.readShape(arg1);
+			this.attack.readShape(buf);
 		}
-		for (@Pc(122) int local122 = 0; local122 < 10; local122++) {
-			@Pc(132) int local132 = arg1.gsmarts();
-			if (local132 == 0) {
+
+		for (@Pc(122) int i = 0; i < 10; i++) {
+			@Pc(132) int volume = buf.gsmarts();
+			if (volume == 0) {
 				break;
 			}
-			this.harmonicVolume[local122] = local132;
-			this.harmonicSemitone[local122] = arg1.gsmart();
-			this.harmonicDelay[local122] = arg1.gsmarts();
+
+			this.harmonicVolume[i] = volume;
+			this.harmonicSemitone[i] = buf.gsmart();
+			this.harmonicDelay[i] = buf.gsmarts();
 		}
-		this.reverbDelay = arg1.gsmarts();
-		this.reverb = arg1.gsmarts();
-		this.delay = arg1.g2();
-		this.start = arg1.g2();
+
+		this.reverbDelay = buf.gsmarts();
+		this.reverb = buf.gsmarts();
+		this.delay = buf.g2();
+		this.start = buf.g2();
 	}
 }

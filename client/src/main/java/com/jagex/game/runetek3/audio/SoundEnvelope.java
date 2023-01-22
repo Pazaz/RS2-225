@@ -43,17 +43,17 @@ public class SoundEnvelope {
 	private int ticks;
 
 	@OriginalMember(owner = "client!xb", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void readShape(@OriginalArg(1) Buffer arg1) {
-		this.form = arg1.g1();
-		this.start = arg1.g4();
-		this.end = arg1.g4();
-		this.length = arg1.g1();
+	public void readShape(@OriginalArg(1) Buffer buf) {
+		this.form = buf.g1();
+		this.start = buf.g4();
+		this.end = buf.g4();
+		this.length = buf.g1();
 		this.shapeDelta = new int[this.length];
 		this.shapePeak = new int[this.length];
-		@Pc(31) int local31;
-		for (local31 = 0; local31 < this.length; local31++) {
-			this.shapeDelta[local31] = arg1.g2();
-			this.shapePeak[local31] = arg1.g2();
+
+		for (int i = 0; i < this.length; i++) {
+			this.shapeDelta[i] = buf.g2();
+			this.shapePeak[i] = buf.g2();
 		}
 	}
 
@@ -73,11 +73,13 @@ public class SoundEnvelope {
 			if (this.position >= this.length) {
 				this.position = this.length - 1;
 			}
+
 			this.threshold = (int) ((double) this.shapeDelta[this.position] / 65536.0D * (double) arg1);
 			if (this.threshold > this.ticks) {
 				this.delta = ((this.shapePeak[this.position] << 15) - this.amplitude) / (this.threshold - this.ticks);
 			}
 		}
+
 		this.amplitude += this.delta;
 		this.ticks++;
 		return this.amplitude - this.delta >> 15;

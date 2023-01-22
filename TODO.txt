@@ -7,8 +7,5 @@
 - PathingEntity
 - PlayerEntity
 - Scene
-- SoundEnvelope
-- SoundTone
-- SoundTrack
 - TextEncoder
 - WordPack

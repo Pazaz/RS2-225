@@ -34,75 +34,86 @@ public class SoundTrack {
 	public static void unpack(@OriginalArg(0) Buffer archive) {
 		bbuf = new byte[441000];
 		buffer = new Buffer(bbuf);
+
 		SoundTone.init();
+
 		while (true) {
-			@Pc(16) int local16 = archive.g2();
-			if (local16 == 65535) {
+			@Pc(16) int id = archive.g2();
+			if (id == 65535) {
 				return;
 			}
-			tracks[local16] = new SoundTrack();
-			tracks[local16].read(archive);
-			delays[local16] = tracks[local16].trim();
+
+			tracks[id] = new SoundTrack();
+			tracks[id].read(archive);
+			delays[id] = tracks[id].trim();
 		}
 	}
 
 	@OriginalMember(owner = "client!yb", name = "a", descriptor = "(BII)Lclient!kb;")
-	public static Buffer generate(@OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
-		if (tracks[arg2] == null) {
+	public static Buffer generate(@OriginalArg(1) int loops, @OriginalArg(2) int id) {
+		if (tracks[id] == null) {
 			return null;
 		} else {
-			@Pc(12) SoundTrack local12 = tracks[arg2];
-			return local12.toWav(arg1);
+			@Pc(12) SoundTrack track = tracks[id];
+			return track.toWav(loops);
 		}
 	}
 
 	@OriginalMember(owner = "client!yb", name = "a", descriptor = "(ZLclient!kb;)V")
-	public void read(@OriginalArg(1) Buffer arg1) {
-		for (@Pc(1) int local1 = 0; local1 < 10; local1++) {
-			@Pc(6) int local6 = arg1.g1();
-			if (local6 != 0) {
-				arg1.pos--;
-				this.tones[local1] = new SoundTone();
-				this.tones[local1].read(arg1);
+	public void read(@OriginalArg(1) Buffer buf) {
+		for (@Pc(1) int tone = 0; tone < 10; tone++) {
+			@Pc(6) int hasTone = buf.g1();
+
+			if (hasTone != 0) {
+				buf.pos--;
+				this.tones[tone] = new SoundTone();
+				this.tones[tone].read(buf);
 			}
 		}
-		this.loopBegin = arg1.g2();
-		this.loopEnd = arg1.g2();
+
+		this.loopBegin = buf.g2();
+		this.loopEnd = buf.g2();
 	}
 
 	@OriginalMember(owner = "client!yb", name = "a", descriptor = "(B)I")
 	public int trim() {
-		@Pc(3) int local3 = 9999999;
-		for (@Pc(5) int local5 = 0; local5 < 10; local5++) {
-			if (this.tones[local5] != null && this.tones[local5].start / 20 < local3) {
-				local3 = this.tones[local5].start / 20;
+		@Pc(3) int start = 9999999;
+		for (@Pc(5) int i = 0; i < 10; i++) {
+			if (this.tones[i] != null && this.tones[i].start / 20 < start) {
+				start = this.tones[i].start / 20;
 			}
 		}
-		if (this.loopBegin < this.loopEnd && this.loopBegin / 20 < local3) {
-			local3 = this.loopBegin / 20;
+
+		if (this.loopBegin < this.loopEnd && this.loopBegin / 20 < start) {
+			start = this.loopBegin / 20;
 		}
-		if (local3 == 9999999 || local3 == 0) {
+
+		if (start == 9999999 || start == 0) {
 			return 0;
 		}
-		for (@Pc(67) int local67 = 0; local67 < 10; local67++) {
-			if (this.tones[local67] != null) {
-				this.tones[local67].start -= local3 * 20;
+
+		for (@Pc(67) int i = 0; i < 10; i++) {
+			if (this.tones[i] != null) {
+				this.tones[i].start -= start * 20;
 			}
 		}
+
 		if (this.loopBegin < this.loopEnd) {
-			this.loopBegin -= local3 * 20;
-			this.loopEnd -= local3 * 20;
+			this.loopBegin -= start * 20;
+			this.loopEnd -= start * 20;
 		}
-		return local3;
+
+		return start;
 	}
 
 	@OriginalMember(owner = "client!yb", name = "a", descriptor = "(ZI)Lclient!kb;")
-	public Buffer toWav(@OriginalArg(1) int arg1) {
-		@Pc(3) int local3 = this.generate(arg1);
+	public Buffer toWav(@OriginalArg(1) int loops) {
+		@Pc(3) int size = this.generate(loops);
+
 		buffer.pos = 0;
 		// RIFF header
 		buffer.p4(0x52494646); // Chunk ID
-		buffer.ip4(local3 + 36); // Chunk Size
+		buffer.ip4(size + 36); // Chunk Size
 		buffer.p4(0x57415645); // Format
 		// WAVE format
 		// Fmt subchunk
@@ -116,62 +127,72 @@ public class SoundTrack {
 		buffer.ip2(8); // Bits Per Sample
 		// Data subchunk
 		buffer.p4(0x64617461); // Subchunk2 ID
-		buffer.ip4(local3); // Subchunk2 Size
-		buffer.pos += local3;
+		buffer.ip4(size); // Subchunk2 Size
+		buffer.pos += size;
 		return buffer;
 	}
 
 	@OriginalMember(owner = "client!yb", name = "a", descriptor = "(I)I")
-	private int generate(@OriginalArg(0) int arg0) {
-		@Pc(3) int local3 = 0;
-		for (@Pc(5) int local5 = 0; local5 < 10; local5++) {
-			if (this.tones[local5] != null && this.tones[local5].delay + this.tones[local5].start > local3) {
-				local3 = this.tones[local5].delay + this.tones[local5].start;
+	private int generate(@OriginalArg(0) int loops) {
+		@Pc(3) int duration = 0;
+		for (@Pc(5) int i = 0; i < 10; i++) {
+			if (this.tones[i] != null && this.tones[i].delay + this.tones[i].start > duration) {
+				duration = this.tones[i].delay + this.tones[i].start;
 			}
 		}
-		if (local3 == 0) {
+
+		if (duration == 0) {
 			return 0;
 		}
-		@Pc(51) int local51 = local3 * 22050 / 1000;
-		@Pc(58) int local58 = this.loopBegin * 22050 / 1000;
-		@Pc(65) int local65 = this.loopEnd * 22050 / 1000;
-		if (local58 < 0 || local58 > local51 || local65 < 0 || local65 > local51 || local58 >= local65) {
-			arg0 = 0;
+
+		@Pc(51) int sampleCount = duration * 22050 / 1000;
+		@Pc(58) int loopStart = this.loopBegin * 22050 / 1000;
+		@Pc(65) int loopEnd = this.loopEnd * 22050 / 1000;
+		if (loopStart < 0 || loopStart > sampleCount || loopEnd < 0 || loopEnd > sampleCount || loopStart >= loopEnd) {
+			loops = 0;
 		}
-		@Pc(90) int local90 = local51 + (local65 - local58) * (arg0 - 1);
-		for (@Pc(92) int local92 = 44; local92 < local90 + 44; local92++) {
-			bbuf[local92] = -128;
+
+		@Pc(90) int totalSampleCount = sampleCount + (loopEnd - loopStart) * (loops - 1);
+		for (@Pc(92) int i = 44; i < totalSampleCount + 44; i++) {
+			bbuf[i] = -128;
 		}
-		@Pc(123) int local123;
-		@Pc(133) int local133;
-		@Pc(147) int local147;
-		for (@Pc(106) int local106 = 0; local106 < 10; local106++) {
-			if (this.tones[local106] != null) {
-				local123 = this.tones[local106].delay * 22050 / 1000;
-				local133 = this.tones[local106].start * 22050 / 1000;
-				@Pc(145) int[] local145 = this.tones[local106].generate(local123, this.tones[local106].delay);
-				for (local147 = 0; local147 < local123; local147++) {
-					bbuf[local147 + local133 + 44] += (byte) (local145[local147] >> 8);
+
+		@Pc(123) int toneLength;
+		@Pc(133) int toneStart;
+		@Pc(147) int toneSample;
+		for (@Pc(106) int i = 0; i < 10; i++) {
+			if (this.tones[i] != null) {
+				toneLength = this.tones[i].delay * 22050 / 1000;
+				toneStart = this.tones[i].start * 22050 / 1000;
+
+				@Pc(145) int[] samples = this.tones[i].generate(toneLength, this.tones[i].delay);
+				for (toneSample = 0; toneSample < toneLength; toneSample++) {
+					bbuf[toneSample + toneStart + 44] += (byte) (samples[toneSample] >> 8);
 				}
 			}
 		}
-		if (arg0 > 1) {
-			local58 += 44;
-			local65 += 44;
-			local51 += 44;
-			local90 += 44;
-			local123 = local90 - local51;
-			for (local133 = local51 - 1; local133 >= local65; local133--) {
-				bbuf[local133 + local123] = bbuf[local133];
+
+		if (loops > 1) {
+			loopStart += 44;
+			loopEnd += 44;
+			sampleCount += 44;
+			totalSampleCount += 44;
+			toneLength = totalSampleCount - sampleCount;
+
+			for (toneStart = sampleCount - 1; toneStart >= loopEnd; toneStart--) {
+				bbuf[toneStart + toneLength] = bbuf[toneStart];
 			}
-			for (@Pc(205) int local205 = 1; local205 < arg0; local205++) {
-				local123 = (local65 - local58) * local205;
-				for (local147 = local58; local147 < local65; local147++) {
-					bbuf[local147 + local123] = bbuf[local147];
+
+			for (@Pc(205) int i = 1; i < loops; i++) {
+				toneLength = (loopEnd - loopStart) * i;
+				for (toneSample = loopStart; toneSample < loopEnd; toneSample++) {
+					bbuf[toneSample + toneLength] = bbuf[toneSample];
 				}
 			}
-			local90 -= 44;
+
+			totalSampleCount -= 44;
 		}
-		return local90;
+
+		return totalSampleCount;
 	}
 }
