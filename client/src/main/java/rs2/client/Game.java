@@ -1949,11 +1949,11 @@ public class Game extends GameShell {
 							local921.firstCycle = local572 + clientClock;
 							local921.lastCycle = local575 + clientClock;
 							local921.model = local1021.getModel(local38, local42, local980, local992, local1006, local1018, -1);
-							@Pc(1045) int local1045 = local1021.width;
-							@Pc(1048) int local1048 = local1021.length;
+							@Pc(1045) int local1045 = local1021.sizeX;
+							@Pc(1048) int local1048 = local1021.sizeZ;
 							if (local42 == 1 || local42 == 3) {
-								local1045 = local1021.length;
-								local1048 = local1021.width;
+								local1045 = local1021.sizeZ;
+								local1048 = local1021.sizeX;
 							}
 							local921.sceneX = local24 * 128 + local1045 * 64;
 							local921.sceneZ = local31 * 128 + local1048 * 64;
@@ -3562,9 +3562,9 @@ public class Game extends GameShell {
 			} else {
 				@Pc(71) IndexedSprite local71 = this.mapscene[local61.mapscene];
 				if (local71 != null) {
-					@Pc(83) int local83 = (local61.width * 4 - local71.spriteWidth) / 2;
-					@Pc(93) int local93 = (local61.length * 4 - local71.spriteHeight) / 2;
-					local71.draw((104 - arg5 - local61.length) * 4 + local93 + 48, arg3 * 4 + 48 + local83);
+					@Pc(83) int local83 = (local61.sizeX * 4 - local71.spriteWidth) / 2;
+					@Pc(93) int local93 = (local61.sizeZ * 4 - local71.spriteHeight) / 2;
+					local71.draw((104 - arg5 - local61.sizeZ) * 4 + local93 + 48, arg3 * 4 + 48 + local83);
 				}
 			}
 		}
@@ -3579,9 +3579,9 @@ public class Game extends GameShell {
 			if (local451.mapscene != -1) {
 				@Pc(461) IndexedSprite local461 = this.mapscene[local451.mapscene];
 				if (local461 != null) {
-					local58 = (local451.width * 4 - local461.spriteWidth) / 2;
-					local483 = (local451.length * 4 - local461.spriteHeight) / 2;
-					local461.draw((104 - arg5 - local451.length) * 4 + local483 + 48, arg3 * 4 + 48 + local58);
+					local58 = (local451.sizeX * 4 - local461.spriteWidth) / 2;
+					local483 = (local451.sizeZ * 4 - local461.spriteHeight) / 2;
+					local461.draw((104 - arg5 - local451.sizeZ) * 4 + local483 + 48, arg3 * 4 + 48 + local58);
 				}
 			} else if (local28 == 9) {
 				local52 = 15658734;
@@ -3610,9 +3610,9 @@ public class Game extends GameShell {
 			if (local615.mapscene != -1) {
 				@Pc(625) IndexedSprite local625 = this.mapscene[local615.mapscene];
 				if (local625 != null) {
-					local30 = (local615.width * 4 - local625.spriteWidth) / 2;
-					@Pc(647) int local647 = (local615.length * 4 - local625.spriteHeight) / 2;
-					local625.draw((104 - arg5 - local615.length) * 4 + local647 + 48, arg3 * 4 + 48 + local30);
+					local30 = (local615.sizeX * 4 - local625.spriteWidth) / 2;
+					@Pc(647) int local647 = (local615.sizeZ * 4 - local625.spriteHeight) / 2;
+					local625.draw((104 - arg5 - local615.sizeZ) * 4 + local647 + 48, arg3 * 4 + 48 + local30);
 				}
 			}
 		}
@@ -6511,11 +6511,11 @@ public class Game extends GameShell {
 			@Pc(51) int local51;
 			@Pc(54) int local54;
 			if (local31 == 0 || local31 == 2) {
-				local51 = local43.width;
-				local54 = local43.length;
+				local51 = local43.sizeX;
+				local54 = local43.sizeZ;
 			} else {
-				local51 = local43.length;
-				local54 = local43.width;
+				local51 = local43.sizeZ;
+				local54 = local43.sizeX;
 			}
 			@Pc(65) int local65 = local43.blocksides;
 			if (local31 != 0) {
@@ -7007,11 +7007,11 @@ public class Game extends GameShell {
 				if (arg3 == 2) {
 					this.mapSquare.removeLocation(arg1, arg2, arg7);
 					local107 = LocType.get(local87);
-					if (arg1 + local107.width > 103 || arg2 + local107.width > 103 || arg1 + local107.length > 103 || arg2 + local107.length > 103) {
+					if (arg1 + local107.sizeX > 103 || arg2 + local107.sizeX > 103 || arg1 + local107.sizeZ > 103 || arg2 + local107.sizeZ > 103) {
 						return;
 					}
 					if (local107.blockwalk) {
-						this.collisionMaps[arg7].removeLoc(arg2, arg1, local95, local107.width, local107.blockrange, local107.length);
+						this.collisionMaps[arg7].removeLoc(arg2, arg1, local95, local107.sizeX, local107.blockrange, local107.sizeZ);
 					}
 				}
 				if (arg3 == 3) {

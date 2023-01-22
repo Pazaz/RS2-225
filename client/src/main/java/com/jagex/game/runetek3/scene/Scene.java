@@ -17,10 +17,10 @@ import org.openrs2.deob.annotation.Pc;
 public class Scene {
 
 	@OriginalMember(owner = "client!c", name = "w", descriptor = "[I")
-	public static final int[] WALL_ROTATION_TYPE1 = new int[] { 1, 2, 4, 8 };
+	public static final int[] WALL_ROTATION_TYPE1 = new int[] { 0x1, 0x2, 0x4, 0x8 };
 
 	@OriginalMember(owner = "client!c", name = "x", descriptor = "[I")
-	public static final int[] WALL_ROTATION_TYPE2 = new int[] { 16, 32, 64, 128 };
+	public static final int[] WALL_ROTATION_TYPE2 = new int[] { 0x10, 0x20, 0x40, 0x80 };
 
 	@OriginalMember(owner = "client!c", name = "y", descriptor = "[I")
 	public static final int[] WALL_DECO_ROT_SIZE_X_DIR = new int[] { 1, 0, -1, 0 };
@@ -38,10 +38,10 @@ public class Scene {
 	public static boolean lowMemory = true;
 
 	@OriginalMember(owner = "client!c", name = "A", descriptor = "I")
-	public static int rand1 = (int) (Math.random() * 17.0D) - 8;
+	public static int randomHueOffset = (int) (Math.random() * 17.0D) - 8;
 
 	@OriginalMember(owner = "client!c", name = "B", descriptor = "I")
-	public static int rand2 = (int) (Math.random() * 33.0D) - 16;
+	public static int randomLightnessOffset = (int) (Math.random() * 33.0D) - 16;
 
 	@OriginalMember(owner = "client!c", name = "g", descriptor = "I")
 	private final int tileCountX;
@@ -77,26 +77,26 @@ public class Scene {
 	private final int[][] lightmap;
 
 	@OriginalMember(owner = "client!c", name = "q", descriptor = "[I")
-	private final int[] blendedHue;
+	private final int[] blendChroma;
 
 	@OriginalMember(owner = "client!c", name = "r", descriptor = "[I")
-	private final int[] blendedSaturation;
+	private final int[] blendSaturation;
 
 	@OriginalMember(owner = "client!c", name = "s", descriptor = "[I")
-	private final int[] blendedLightness;
+	private final int[] blendLightness;
 
 	@OriginalMember(owner = "client!c", name = "t", descriptor = "[I")
-	private final int[] blendedHueMultiplier;
+	private final int[] blendLuminance;
 
 	@OriginalMember(owner = "client!c", name = "u", descriptor = "[I")
-	private final int[] blendDirectionTracker;
+	private final int[] blendMagnitude;
 
 	@OriginalMember(owner = "client!c", name = "<init>", descriptor = "(I[[[BI[[[II)V")
-	public Scene(@OriginalArg(0) int arg0, @OriginalArg(1) byte[][][] arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int[][][] arg3) {
-		this.tileCountX = arg2;
-		this.tileCountZ = arg0;
-		this.heightmap = arg3;
-		this.renderFlags = arg1;
+	public Scene(@OriginalArg(0) int sizeZ, @OriginalArg(1) byte[][][] renderFlags, @OriginalArg(2) int sizeX, @OriginalArg(3) int[][][] heightmap) {
+		this.tileCountX = sizeX;
+		this.tileCountZ = sizeZ;
+		this.heightmap = heightmap;
+		this.renderFlags = renderFlags;
 		this.planeUnderlayFloorIndices = new byte[4][this.tileCountX][this.tileCountZ];
 		this.planeOverlayFloorIndices = new byte[4][this.tileCountX][this.tileCountZ];
 		this.planeOverlayTypes = new byte[4][this.tileCountX][this.tileCountZ];
@@ -104,239 +104,269 @@ public class Scene {
 		this.occludeFlags = new int[4][this.tileCountX + 1][this.tileCountZ + 1];
 		this.shadowmap = new byte[4][this.tileCountX + 1][this.tileCountZ + 1];
 		this.lightmap = new int[this.tileCountX + 1][this.tileCountZ + 1];
-		this.blendedHue = new int[this.tileCountZ];
-		this.blendedSaturation = new int[this.tileCountZ];
-		this.blendedLightness = new int[this.tileCountZ];
-		this.blendedHueMultiplier = new int[this.tileCountZ];
-		this.blendDirectionTracker = new int[this.tileCountZ];
+		this.blendChroma = new int[this.tileCountZ];
+		this.blendSaturation = new int[this.tileCountZ];
+		this.blendLightness = new int[this.tileCountZ];
+		this.blendLuminance = new int[this.tileCountZ];
+		this.blendMagnitude = new int[this.tileCountZ];
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(II)I")
-	public static int getPerlinNoise(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		@Pc(32) int local32 = getSmoothNoise(arg0 + 45365, arg1 + 91923, 4) + (getSmoothNoise(arg0 + 10294, arg1 + 37821, 2) - 128 >> 1) + (getSmoothNoise(arg0, arg1, 1) - 128 >> 2) - 128;
-		local32 = (int) ((double) local32 * 0.3D) + 35;
-		if (local32 < 10) {
-			local32 = 10;
-		} else if (local32 > 60) {
-			local32 = 60;
+	public static int perlin(@OriginalArg(0) int x, @OriginalArg(1) int z) {
+		@Pc(32) int value = perlin(x + 45365, z + 91923, 4) + (perlin(x + 10294, z + 37821, 2) - 128 >> 1) + (perlin(x, z, 1) - 128 >> 2) - 128;
+		value = (int) ((double) value * 0.3D) + 35;
+
+		if (value < 10) {
+			value = 10;
+		} else if (value > 60) {
+			value = 60;
 		}
-		return local32;
+
+		return value;
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(III)I")
-	private static int getSmoothNoise(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
-		@Pc(3) int local3 = arg0 / arg2;
-		@Pc(9) int local9 = arg0 & arg2 - 1;
-		@Pc(13) int local13 = arg1 / arg2;
-		@Pc(19) int local19 = arg1 & arg2 - 1;
-		@Pc(23) int local23 = getSmoothNoise2D(local3, local13);
-		@Pc(29) int local29 = getSmoothNoise2D(local3 + 1, local13);
-		@Pc(35) int local35 = getSmoothNoise2D(local3, local13 + 1);
-		@Pc(43) int local43 = getSmoothNoise2D(local3 + 1, local13 + 1);
-		@Pc(49) int local49 = getCosineLerp(local23, local29, local9, arg2);
-		@Pc(55) int local55 = getCosineLerp(local35, local43, local9, arg2);
-		return getCosineLerp(local49, local55, local19, arg2);
+	private static int perlin(@OriginalArg(0) int x, @OriginalArg(1) int z, @OriginalArg(2) int scale) {
+		@Pc(3) int intX = x / scale;
+		@Pc(9) int fracX = x & scale - 1;
+		@Pc(13) int intZ = z / scale;
+		@Pc(19) int fracZ = z & scale - 1;
+		@Pc(23) int v1 = smoothNoise(intX, intZ);
+		@Pc(29) int v2 = smoothNoise(intX + 1, intZ);
+		@Pc(35) int v3 = smoothNoise(intX, intZ + 1);
+		@Pc(43) int v4 = smoothNoise(intX + 1, intZ + 1);
+		@Pc(49) int i1 = interpolate(v1, v2, fracX, scale);
+		@Pc(55) int i2 = interpolate(v3, v4, fracX, scale);
+		return interpolate(i1, i2, fracZ, scale);
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(IIII)I")
-	private static int getCosineLerp(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
-		@Pc(11) int local11 = 65536 - Draw3D.cos[arg2 * 1024 / arg3] >> 1;
-		return (arg0 * (65536 - local11) >> 16) + (arg1 * local11 >> 16);
+	private static int interpolate(@OriginalArg(0) int a, @OriginalArg(1) int b, @OriginalArg(2) int x, @OriginalArg(3) int scale) {
+		@Pc(11) int f = 65536 - Draw3D.cos[x * 1024 / scale] >> 1;
+		return (a * (65536 - f) >> 16) + (b * f >> 16);
 	}
 
 	@OriginalMember(owner = "client!c", name = "b", descriptor = "(II)I")
-	private static int getSmoothNoise2D(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		@Pc(31) int local31 = getNoise(arg0 - 1, arg1 - 1) + getNoise(arg0 + 1, arg1 - 1) + getNoise(arg0 - 1, arg1 + 1) + getNoise(arg0 + 1, arg1 + 1);
-		@Pc(55) int local55 = getNoise(arg0 - 1, arg1) + getNoise(arg0 + 1, arg1) + getNoise(arg0, arg1 - 1) + getNoise(arg0, arg1 + 1);
-		@Pc(59) int local59 = getNoise(arg0, arg1);
-		return local31 / 16 + local55 / 8 + local59 / 4;
+	private static int smoothNoise(@OriginalArg(0) int x, @OriginalArg(1) int z) {
+		@Pc(31) int corners = noise(x - 1, z - 1) + noise(x + 1, z - 1) + noise(x - 1, z + 1) + noise(x + 1, z + 1);
+		@Pc(55) int sides = noise(x - 1, z) + noise(x + 1, z) + noise(x, z - 1) + noise(x, z + 1);
+		@Pc(59) int corner = noise(x, z);
+		return corners / 16 + sides / 8 + corner / 4;
 	}
 
 	@OriginalMember(owner = "client!c", name = "c", descriptor = "(II)I")
-	private static int getNoise(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		@Pc(5) int local5 = arg0 + arg1 * 57;
-		@Pc(11) int local11 = local5 << 13 ^ local5;
-		@Pc(25) int local25 = local11 * (local11 * local11 * 15731 + 789221) + 1376312589 & Integer.MAX_VALUE;
-		return local25 >> 19 & 0xFF;
+	private static int noise(@OriginalArg(0) int x, @OriginalArg(1) int y) {
+		@Pc(5) int n = x + y * 57;
+		n = n << 13 ^ n;
+		n = n * (n * n * 15731 + 789221) + 1376312589 & Integer.MAX_VALUE;
+		return n >> 19 & 0xFF;
 	}
 
 	@OriginalMember(owner = "client!c", name = "d", descriptor = "(II)I")
-	public static int adjustHslLightness1(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		if (arg0 == -1) {
+	public static int mulHSL(@OriginalArg(0) int hsl, @OriginalArg(1) int lightness) {
+		if (hsl == -1) {
 			return 12345678;
 		}
-		arg1 = arg1 * (arg0 & 0x7F) / 128;
-		if (arg1 < 2) {
-			arg1 = 2;
-		} else if (arg1 > 126) {
-			arg1 = 126;
+
+		lightness = lightness * (hsl & 0x7F) / 128;
+
+		if (lightness < 2) {
+			lightness = 2;
+		} else if (lightness > 126) {
+			lightness = 126;
 		}
-		return (arg0 & 0xFF80) + arg1;
+
+		return (hsl & 0xFF80) + lightness;
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(ILclient!ob;Lclient!ec;II[[[IIIIILclient!r;I)V")
-	public static void addLoc(@OriginalArg(0) int arg0, @OriginalArg(1) LinkedList arg1, @OriginalArg(2) CollisionMap arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int[][][] arg5, @OriginalArg(7) int arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9, @OriginalArg(10) MapSquare arg10, @OriginalArg(11) int arg11) {
-		@Pc(15) int local15 = arg5[arg11][arg0][arg3];
-		@Pc(25) int local25 = arg5[arg11][arg0 + 1][arg3];
-		@Pc(37) int local37 = arg5[arg11][arg0 + 1][arg3 + 1];
-		@Pc(47) int local47 = arg5[arg11][arg0][arg3 + 1];
-		@Pc(57) int local57 = local15 + local25 + local37 + local47 >> 2;
-		@Pc(60) LocType local60 = LocType.get(arg8);
-		@Pc(72) int local72 = arg0 + (arg3 << 7) + (arg8 << 14) + 1073741824;
-		if (!local60.interactable) {
-			local72 += Integer.MIN_VALUE;
+	public static void addLoc(@OriginalArg(0) int x, @OriginalArg(1) LinkedList anims, @OriginalArg(2) CollisionMap collision, @OriginalArg(3) int z, @OriginalArg(4) int orientation, @OriginalArg(5) int[][][] levelHeightmap, @OriginalArg(7) int plane, @OriginalArg(8) int locId, @OriginalArg(9) int type, @OriginalArg(10) MapSquare mapSquare, @OriginalArg(11) int level) {
+		@Pc(15) int heightSW = levelHeightmap[level][x][z];
+		@Pc(25) int heightSE = levelHeightmap[level][x + 1][z];
+		@Pc(37) int heightNE = levelHeightmap[level][x + 1][z + 1];
+		@Pc(47) int heightNW = levelHeightmap[level][x][z + 1];
+		@Pc(57) int y = heightSW + heightSE + heightNE + heightNW >> 2;
+
+		@Pc(60) LocType loc = LocType.get(locId);
+		@Pc(72) int bitset = x + (z << 7) + (locId << 14) + 0x40000000;
+
+		if (!loc.interactable) {
+			bitset += 0x80000000;
 		}
-		@Pc(86) byte local86 = (byte) ((arg4 << 6) + arg9);
-		@Pc(99) Model local99;
-		if (arg9 == 22) {
-			local99 = local60.getModel(22, arg4, local15, local25, local37, local47, -1);
-			arg10.addGroundDecoration(local99, arg0, local72, arg3, arg7, local86, local57);
-			if (local60.blockwalk && local60.interactable) {
-				arg2.setBlocked(arg3, arg0);
+
+		@Pc(86) byte info = (byte) ((orientation << 6) + type);
+		if (type == LocType.GROUNDDECOR) {
+			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addGroundDecoration(model, x, bitset, z, plane, info, y);
+
+			if (loc.blockwalk && loc.interactable) {
+				collision.setBlocked(z, x);
 			}
-			if (local60.anim != -1) {
-				arg1.pushNext(new LocEntity(true, arg8, arg7, 3, SeqType.instances[local60.anim], arg3, arg0));
+
+			if (loc.anim != -1) {
+				anims.pushNext(new LocEntity(true, locId, plane, 3, SeqType.instances[loc.anim], z, x));
 			}
-		} else {
-			@Pc(174) int local174;
-			if (arg9 == 10 || arg9 == 11) {
-				local99 = local60.getModel(10, arg4, local15, local25, local37, local47, -1);
-				if (local99 != null) {
-					@Pc(161) int local161 = 0;
-					if (arg9 == 11) {
-						local161 += 256;
-					}
-					@Pc(177) int local177;
-					if (arg4 == 1 || arg4 == 3) {
-						local174 = local60.length;
-						local177 = local60.width;
-					} else {
-						local174 = local60.width;
-						local177 = local60.length;
-					}
-					arg10.addLocation(local57, arg7, null, local72, arg3, arg0, local174, local86, local99, local161, local177);
+		} else if (type == LocType.CENTREPIECE_STRAIGHT || type == LocType.CENTREPIECE_DIAGONAL) {
+			Model model = loc.getModel(LocType.CENTREPIECE_STRAIGHT, orientation, heightSW, heightSE, heightNE, heightNW, -1);
+
+			if (model != null) {
+				@Pc(161) int yaw = 0;
+				if (type == LocType.CENTREPIECE_DIAGONAL) {
+					yaw += 256;
 				}
-				if (local60.blockwalk) {
-					arg2.setLoc(arg4, local60.length, local60.width, arg0, arg3, local60.blockrange);
+
+				int width;
+				int height;
+				if (orientation == CollisionMap.NORTH_EAST || orientation == CollisionMap.SOUTH_WEST) {
+					width = loc.sizeZ;
+					height = loc.sizeX;
+				} else {
+					width = loc.sizeX;
+					height = loc.sizeZ;
 				}
-				if (local60.anim != -1) {
-					arg1.pushNext(new LocEntity(true, arg8, arg7, 2, SeqType.instances[local60.anim], arg3, arg0));
-				}
-			} else if (arg9 >= 12) {
-				local99 = local60.getModel(arg9, arg4, local15, local25, local37, local47, -1);
-				arg10.addLocation(local57, arg7, null, local72, arg3, arg0, 1, local86, local99, 0, 1);
-				if (local60.blockwalk) {
-					arg2.setLoc(arg4, local60.length, local60.width, arg0, arg3, local60.blockrange);
-				}
-				if (local60.anim != -1) {
-					arg1.pushNext(new LocEntity(true, arg8, arg7, 2, SeqType.instances[local60.anim], arg3, arg0));
-				}
-			} else if (arg9 == 0) {
-				local99 = local60.getModel(0, arg4, local15, local25, local37, local47, -1);
-				arg10.addWall(0, local57, arg7, WALL_ROTATION_TYPE1[arg4], local99, null, arg0, local72, arg3, local86);
-				if (local60.blockwalk) {
-					arg2.setWall(arg4, arg3, arg0, local60.blockrange, arg9);
-				}
-				if (local60.anim != -1) {
-					arg1.pushNext(new LocEntity(true, arg8, arg7, 0, SeqType.instances[local60.anim], arg3, arg0));
-				}
-			} else if (arg9 == 1) {
-				local99 = local60.getModel(1, arg4, local15, local25, local37, local47, -1);
-				arg10.addWall(0, local57, arg7, WALL_ROTATION_TYPE2[arg4], local99, null, arg0, local72, arg3, local86);
-				if (local60.blockwalk) {
-					arg2.setWall(arg4, arg3, arg0, local60.blockrange, arg9);
-				}
-				if (local60.anim != -1) {
-					arg1.pushNext(new LocEntity(true, arg8, arg7, 0, SeqType.instances[local60.anim], arg3, arg0));
-				}
-			} else {
-				@Pc(430) int local430;
-				@Pc(452) Model local452;
-				if (arg9 == 2) {
-					local430 = arg4 + 1 & 0x3;
-					@Pc(442) Model local442 = local60.getModel(2, arg4 + 4, local15, local25, local37, local47, -1);
-					local452 = local60.getModel(2, local430, local15, local25, local37, local47, -1);
-					arg10.addWall(WALL_ROTATION_TYPE1[local430], local57, arg7, WALL_ROTATION_TYPE1[arg4], local442, local452, arg0, local72, arg3, local86);
-					if (local60.blockwalk) {
-						arg2.setWall(arg4, arg3, arg0, local60.blockrange, arg9);
-					}
-					if (local60.anim != -1) {
-						arg1.pushNext(new LocEntity(true, arg8, arg7, 0, SeqType.instances[local60.anim], arg3, arg0));
-					}
-				} else if (arg9 == 3) {
-					local99 = local60.getModel(3, arg4, local15, local25, local37, local47, -1);
-					arg10.addWall(0, local57, arg7, WALL_ROTATION_TYPE2[arg4], local99, null, arg0, local72, arg3, local86);
-					if (local60.blockwalk) {
-						arg2.setWall(arg4, arg3, arg0, local60.blockrange, arg9);
-					}
-					if (local60.anim != -1) {
-						arg1.pushNext(new LocEntity(true, arg8, arg7, 0, SeqType.instances[local60.anim], arg3, arg0));
-					}
-				} else if (arg9 == 9) {
-					local99 = local60.getModel(arg9, arg4, local15, local25, local37, local47, -1);
-					arg10.addLocation(local57, arg7, null, local72, arg3, arg0, 1, local86, local99, 0, 1);
-					if (local60.blockwalk) {
-						arg2.setLoc(arg4, local60.length, local60.width, arg0, arg3, local60.blockrange);
-					}
-					if (local60.anim != -1) {
-						arg1.pushNext(new LocEntity(true, arg8, arg7, 2, SeqType.instances[local60.anim], arg3, arg0));
-					}
-				} else if (arg9 == 4) {
-					local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
-					arg10.addWallDecoration(local57, arg3, 0, local72, arg4 * 512, WALL_ROTATION_TYPE1[arg4], 0, arg0, local99, local86, arg7);
-					if (local60.anim != -1) {
-						arg1.pushNext(new LocEntity(true, arg8, arg7, 1, SeqType.instances[local60.anim], arg3, arg0));
-					}
-				} else if (arg9 == 5) {
-					local430 = 16;
-					local174 = arg10.getWallBitset(arg7, arg0, arg3);
-					if (local174 > 0) {
-						local430 = LocType.get(local174 >> 14 & 0x7FFF).walloff;
-					}
-					local452 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
-					arg10.addWallDecoration(local57, arg3, WALL_DECO_ROT_SIZE_Y_DIR[arg4] * local430, local72, arg4 * 512, WALL_ROTATION_TYPE1[arg4], WALL_DECO_ROT_SIZE_X_DIR[arg4] * local430, arg0, local452, local86, arg7);
-					if (local60.anim != -1) {
-						arg1.pushNext(new LocEntity(true, arg8, arg7, 1, SeqType.instances[local60.anim], arg3, arg0));
-					}
-				} else if (arg9 == 6) {
-					local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
-					arg10.addWallDecoration(local57, arg3, 0, local72, arg4, 256, 0, arg0, local99, local86, arg7);
-					if (local60.anim != -1) {
-						arg1.pushNext(new LocEntity(true, arg8, arg7, 1, SeqType.instances[local60.anim], arg3, arg0));
-					}
-				} else if (arg9 == 7) {
-					local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
-					arg10.addWallDecoration(local57, arg3, 0, local72, arg4, 512, 0, arg0, local99, local86, arg7);
-					if (local60.anim != -1) {
-						arg1.pushNext(new LocEntity(true, arg8, arg7, 1, SeqType.instances[local60.anim], arg3, arg0));
-					}
-				} else if (arg9 == 8) {
-					local99 = local60.getModel(4, 0, local15, local25, local37, local47, -1);
-					arg10.addWallDecoration(local57, arg3, 0, local72, arg4, 768, 0, arg0, local99, local86, arg7);
-					if (local60.anim != -1) {
-						arg1.pushNext(new LocEntity(true, arg8, arg7, 1, SeqType.instances[local60.anim], arg3, arg0));
-					}
-				}
+
+				mapSquare.addLocation(y, plane, null, bitset, z, x, width, info, model, yaw, height);
+			}
+
+			if (loc.blockwalk) {
+				collision.setLoc(orientation, loc.sizeZ, loc.sizeX, x, z, loc.blockrange);
+			}
+
+			if (loc.anim != -1) {
+				anims.pushNext(new LocEntity(true, locId, plane, 2, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type >= LocType.ROOF_STRAIGHT) {
+			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addLocation(y, plane, null, bitset, z, x, 1, info, model, 0, 1);
+
+			if (loc.blockwalk) {
+				collision.setLoc(orientation, loc.sizeZ, loc.sizeX, x, z, loc.blockrange);
+			}
+
+			if (loc.anim != -1) {
+				anims.pushNext(new LocEntity(true, locId, plane, 2, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALL_STRAIGHT) {
+			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWall(0, y, plane, WALL_ROTATION_TYPE1[orientation], model, null, x, bitset, z, info);
+
+			if (loc.blockwalk) {
+				collision.setWall(orientation, z, x, loc.blockrange, type);
+			}
+
+			if (loc.anim != -1) {
+				anims.pushNext(new LocEntity(true, locId, plane, 0, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALL_DIAGONALCORNER) {
+			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWall(0, y, plane, WALL_ROTATION_TYPE2[orientation], model, null, x, bitset, z, info);
+
+			if (loc.blockwalk) {
+				collision.setWall(orientation, z, x, loc.blockrange, type);
+			}
+
+			if (loc.anim != -1) {
+				anims.pushNext(new LocEntity(true, locId, plane, 0, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALL_L) {
+			int nextOrientation = orientation + 1 & 0x3;
+
+			@Pc(442) Model model1 = loc.getModel(type, orientation + 4, heightSW, heightSE, heightNE, heightNW, -1);
+			Model model2 = loc.getModel(2, nextOrientation, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWall(WALL_ROTATION_TYPE1[nextOrientation], y, plane, WALL_ROTATION_TYPE1[orientation], model1, model2, x, bitset, z, info);
+
+			if (loc.blockwalk) {
+				collision.setWall(orientation, z, x, loc.blockrange, type);
+			}
+
+			if (loc.anim != -1) {
+				anims.pushNext(new LocEntity(true, locId, plane, 0, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALL_SQUARECORNER) {
+			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWall(0, y, plane, WALL_ROTATION_TYPE2[orientation], model, null, x, bitset, z, info);
+
+			if (loc.blockwalk) {
+				collision.setWall(orientation, z, x, loc.blockrange, type);
+			}
+
+			if (loc.anim != -1) {
+				anims.pushNext(new LocEntity(true, locId, plane, 0, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALL_DIAGONAL) {
+			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addLocation(y, plane, null, bitset, z, x, 1, info, model, 0, 1);
+
+			if (loc.blockwalk) {
+				collision.setLoc(orientation, loc.sizeZ, loc.sizeX, x, z, loc.blockrange);
+			}
+
+			if (loc.anim != -1) {
+				anims.pushNext(new LocEntity(true, locId, plane, 2, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALLDECOR_STRAIGHT) {
+			Model model = loc.getModel(type, CollisionMap.NORTH_WEST, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWallDecoration(y, z, 0, bitset, orientation * 512, WALL_ROTATION_TYPE1[orientation], 0, x, model, info, plane);
+
+			if (loc.anim != -1) {
+				anims.pushNext(new LocEntity(true, locId, plane, 1, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALLDECOR_STRAIGHT_OFFSET) {
+			int wallOffset = 16;
+			int wallBitset = mapSquare.getWallBitset(plane, x, z);
+
+			if (wallBitset > 0) {
+				wallOffset = LocType.get(wallBitset >> 14 & 0x7FFF).walloff;
+			}
+
+			Model model2 = loc.getModel(4, CollisionMap.NORTH_WEST, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWallDecoration(y, z, WALL_DECO_ROT_SIZE_Y_DIR[orientation] * wallOffset, bitset, orientation * 512, WALL_ROTATION_TYPE1[orientation], WALL_DECO_ROT_SIZE_X_DIR[orientation] * wallOffset, x, model2, info, plane);
+
+			if (loc.anim != -1) {
+				anims.pushNext(new LocEntity(true, locId, plane, 1, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALLDECOR_DIAGONAL_NOOFFSET) {
+			Model model = loc.getModel(LocType.WALLDECOR_STRAIGHT, CollisionMap.NORTH_WEST, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWallDecoration(y, z, 0, bitset, orientation, 256, 0, x, model, info, plane);
+
+			if (loc.anim != -1) {
+				anims.pushNext(new LocEntity(true, locId, plane, 1, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALLDECOR_DIAGONAL_OFFSET) {
+			Model model = loc.getModel(LocType.WALLDECOR_STRAIGHT, CollisionMap.NORTH_WEST, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWallDecoration(y, z, 0, bitset, orientation, 512, 0, x, model, info, plane);
+
+			if (loc.anim != -1) {
+				anims.pushNext(new LocEntity(true, locId, plane, 1, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALLDECOR_DIAGONAL_BOTH) {
+			Model model = loc.getModel(LocType.WALLDECOR_STRAIGHT, CollisionMap.NORTH_WEST, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWallDecoration(y, z, 0, bitset, orientation, 768, 0, x, model, info, plane);
+
+			if (loc.anim != -1) {
+				anims.pushNext(new LocEntity(true, locId, plane, 1, SeqType.instances[loc.anim], z, x));
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(IIIII)V")
-	public void clearLandscape(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
-		@Pc(3) byte local3 = 0;
-		for (@Pc(11) int local11 = 0; local11 < FloType.count; local11++) {
-			if (FloType.instances[local11].name.equalsIgnoreCase("water")) {
-				local3 = (byte) (local11 + 1);
+	public void clearLandscape(@OriginalArg(0) int startX, @OriginalArg(1) int startZ, @OriginalArg(3) int endX, @OriginalArg(4) int endZ) {
+		@Pc(3) byte flo = 0;
+		for (@Pc(11) int i = 0; i < FloType.count; i++) {
+			if (FloType.instances[i].name.equalsIgnoreCase("water")) {
+				flo = (byte) (i + 1);
 				break;
 			}
 		}
-		for (@Pc(33) int local33 = arg1; local33 < arg1 + arg4; local33++) {
-			for (@Pc(37) int local37 = arg0; local37 < arg0 + arg3; local37++) {
-				if (local37 >= 0 && local37 < this.tileCountX && local33 >= 0 && local33 < this.tileCountZ) {
-					this.planeOverlayFloorIndices[0][local37][local33] = local3;
-					for (@Pc(62) int local62 = 0; local62 < 4; local62++) {
-						this.heightmap[local62][local37][local33] = 0;
-						this.renderFlags[local62][local37][local33] = 0;
+
+		for (@Pc(33) int z = startZ; z < startZ + endZ; z++) {
+			for (@Pc(37) int x = startX; x < startX + endX; x++) {
+				if (x >= 0 && x < this.tileCountX && z >= 0 && z < this.tileCountZ) {
+					this.planeOverlayFloorIndices[0][x][z] = flo;
+
+					for (@Pc(62) int plane = 0; plane < 4; plane++) {
+						this.heightmap[plane][x][z] = 0;
+						this.renderFlags[plane][x][z] = 0;
 					}
 				}
 			}
@@ -344,60 +374,70 @@ public class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "([BIIIII)V")
-	public void readLandscape(@OriginalArg(0) byte[] arg0, @OriginalArg(1) int arg1, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
-		@Pc(7) Buffer local7 = new Buffer(arg0);
-		for (@Pc(20) int local20 = 0; local20 < 4; local20++) {
-			for (@Pc(24) int local24 = 0; local24 < 64; local24++) {
-				for (@Pc(28) int local28 = 0; local28 < 64; local28++) {
-					@Pc(34) int local34 = local24 + arg4;
-					@Pc(38) int local38 = local28 + arg3;
-					@Pc(60) int local60;
-					if (local34 >= 0 && local34 < 104 && local38 >= 0 && local38 < 104) {
-						this.renderFlags[local20][local34][local38] = 0;
+	public void readLandscape(@OriginalArg(0) byte[] src, @OriginalArg(1) int originX, @OriginalArg(3) int startZ, @OriginalArg(4) int startX, @OriginalArg(5) int originZ) {
+		@Pc(7) Buffer buf = new Buffer(src);
+
+		for (@Pc(20) int plane = 0; plane < 4; plane++) {
+			for (@Pc(24) int x = 0; x < 64; x++) {
+				for (@Pc(28) int z = 0; z < 64; z++) {
+					@Pc(34) int localX = x + startX;
+					@Pc(38) int localZ = z + startZ;
+
+					if (localX >= 0 && localX < 104 && localZ >= 0 && localZ < 104) {
+						this.renderFlags[plane][localX][localZ] = 0;
+
 						while (true) {
-							local60 = local7.g1();
-							if (local60 == 0) {
-								if (local20 == 0) {
-									this.heightmap[0][local34][local38] = -getPerlinNoise(local34 + arg1 + 932731, local38 + 556238 + arg5) * 8;
+							int opcode = buf.g1();
+
+							if (opcode == 0) {
+								if (plane == 0) {
+									this.heightmap[0][localX][localZ] = -perlin(932731 + localX + originX, 556238 + localZ + originZ) * 8;
 								} else {
-									this.heightmap[local20][local34][local38] = this.heightmap[local20 - 1][local34][local38] - 240;
+									this.heightmap[plane][localX][localZ] = this.heightmap[plane - 1][localX][localZ] - 240;
 								}
 								break;
 							}
-							if (local60 == 1) {
-								@Pc(116) int local116 = local7.g1();
-								if (local116 == 1) {
-									local116 = 0;
+
+							if (opcode == 1) {
+								@Pc(116) int height = buf.g1();
+
+								if (height == 1) {
+									height = 0;
 								}
-								if (local20 == 0) {
-									this.heightmap[0][local34][local38] = -local116 * 8;
+
+								if (plane == 0) {
+									this.heightmap[0][localX][localZ] = -height * 8;
 								} else {
-									this.heightmap[local20][local34][local38] = this.heightmap[local20 - 1][local34][local38] - local116 * 8;
+									this.heightmap[plane][localX][localZ] = this.heightmap[plane - 1][localX][localZ] - height * 8;
 								}
+
 								break;
 							}
-							if (local60 <= 49) {
-								this.planeOverlayFloorIndices[local20][local34][local38] = local7.g1b();
-								this.planeOverlayTypes[local20][local34][local38] = (byte) ((local60 - 2) / 4);
-								this.planeOverlayRotations[local20][local34][local38] = (byte) (local60 - 2 & 0x3);
-							} else if (local60 <= 81) {
-								this.renderFlags[local20][local34][local38] = (byte) (local60 - 49);
+
+							if (opcode <= 49) {
+								this.planeOverlayFloorIndices[plane][localX][localZ] = buf.g1b();
+								this.planeOverlayTypes[plane][localX][localZ] = (byte) ((opcode - 2) / 4);
+								this.planeOverlayRotations[plane][localX][localZ] = (byte) (opcode - 2 & 0x3);
+							} else if (opcode <= 81) {
+								this.renderFlags[plane][localX][localZ] = (byte) (opcode - 49);
 							} else {
-								this.planeUnderlayFloorIndices[local20][local34][local38] = (byte) (local60 - 81);
+								this.planeUnderlayFloorIndices[plane][localX][localZ] = (byte) (opcode - 81);
 							}
 						}
 					} else {
 						while (true) {
-							local60 = local7.g1();
-							if (local60 == 0) {
+							int opcode = buf.g1();
+							if (opcode == 0) {
 								break;
 							}
-							if (local60 == 1) {
-								local7.g1();
+
+							if (opcode == 1) {
+								buf.g1();
 								break;
 							}
-							if (local60 <= 49) {
-								local7.g1();
+
+							if (opcode <= 49) {
+								buf.g1();
 							}
 						}
 					}
@@ -407,639 +447,734 @@ public class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "([BLclient!r;[Lclient!ec;Lclient!ob;ZII)V")
-	public void readLocs(@OriginalArg(0) byte[] arg0, @OriginalArg(1) MapSquare arg1, @OriginalArg(2) CollisionMap[] arg2, @OriginalArg(3) LinkedList arg3, @OriginalArg(4) boolean arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
-		@Pc(7) Buffer local7 = new Buffer(arg0);
-		@Pc(19) int local19 = -1;
+	public void readLocs(@OriginalArg(0) byte[] src, @OriginalArg(1) MapSquare arg1, @OriginalArg(2) CollisionMap[] collisionMaps, @OriginalArg(3) LinkedList arg3, @OriginalArg(4) boolean arg4, @OriginalArg(5) int startZ, @OriginalArg(6) int startX) {
+		@Pc(7) Buffer buf = new Buffer(src);
+
+		@Pc(19) int locId = -1;
 		while (true) {
-			@Pc(22) int local22 = local7.gsmarts();
-			if (local22 == 0) {
+			@Pc(22) int deltaId = buf.gsmarts();
+			if (deltaId == 0) {
 				return;
 			}
-			local19 += local22;
-			@Pc(30) int local30 = 0;
+
+			locId += deltaId;
+
+			@Pc(30) int locData = 0;
 			while (true) {
-				@Pc(33) int local33 = local7.gsmarts();
-				if (local33 == 0) {
+				@Pc(33) int deltaData = buf.gsmarts();
+				if (deltaData == 0) {
 					break;
 				}
-				local30 += local33 - 1;
-				@Pc(45) int local45 = local30 & 0x3F;
-				@Pc(51) int local51 = local30 >> 6 & 0x3F;
-				@Pc(55) int local55 = local30 >> 12;
-				@Pc(58) int local58 = local7.g1();
-				@Pc(62) int local62 = local58 >> 2;
-				@Pc(66) int local66 = local58 & 0x3;
-				@Pc(70) int local70 = local51 + arg6;
-				@Pc(74) int local74 = local45 + arg5;
-				if (local70 > 0 && local74 > 0 && local70 < 103 && local74 < 103) {
-					@Pc(86) int local86 = local55;
-					if ((this.renderFlags[1][local70][local74] & 0x2) == 2) {
-						local86 = local55 - 1;
+
+				locData += deltaData - 1;
+				@Pc(45) int locX = locData & 0x3F;
+				@Pc(51) int locZ = locData >> 6 & 0x3F;
+				@Pc(55) int locLevel = locData >> 12;
+				@Pc(58) int locInfo = buf.g1();
+				@Pc(62) int locType = locInfo >> 2; // e.g. WALL_STRAIGHT
+				@Pc(66) int locRotation = locInfo & 0x3;
+				@Pc(70) int x = locZ + startX;
+				@Pc(74) int z = locX + startZ;
+
+				if (x > 0 && z > 0 && x < 103 && z < 103) {
+					@Pc(86) int collisionLevel = locLevel;
+					if ((this.renderFlags[1][x][z] & 0x2) == 2) {
+						collisionLevel = locLevel - 1;
 					}
-					@Pc(101) CollisionMap local101 = null;
-					if (local86 >= 0) {
-						local101 = arg2[local86];
+
+					@Pc(101) CollisionMap collision = null;
+					if (collisionLevel >= 0) {
+						collision = collisionMaps[collisionLevel];
 					}
-					this.addLoc(local101, local55, local74, local66, local62, arg1, arg3, local19, local70);
+
+					this.addLoc(collision, locLevel, z, locRotation, locType, arg1, arg3, locId, x);
 				}
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(Lclient!ec;ZIIIILclient!r;Lclient!ob;II)V")
-	private void addLoc(@OriginalArg(0) CollisionMap arg0, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) MapSquare arg6, @OriginalArg(7) LinkedList arg7, @OriginalArg(8) int arg8, @OriginalArg(9) int arg9) {
+	private void addLoc(@OriginalArg(0) CollisionMap collision, @OriginalArg(2) int level, @OriginalArg(3) int z, @OriginalArg(4) int orientation, @OriginalArg(5) int type, @OriginalArg(6) MapSquare mapSquare, @OriginalArg(7) LinkedList anim, @OriginalArg(8) int locId, @OriginalArg(9) int x) {
 		if (lowMemory) {
-			if ((this.renderFlags[arg2][arg9][arg3] & 0x10) != 0) {
+			if ((this.renderFlags[level][x][z] & 0x10) != 0) {
 				return;
 			}
-			if (this.getRenderLevel(arg2, arg9, arg3) != levelBuilt) {
+
+			if (this.getRenderLevel(level, x, z) != levelBuilt) {
 				return;
 			}
 		}
-		@Pc(36) int local36 = this.heightmap[arg2][arg9][arg3];
-		@Pc(47) int local47 = this.heightmap[arg2][arg9 + 1][arg3];
-		@Pc(60) int local60 = this.heightmap[arg2][arg9 + 1][arg3 + 1];
-		@Pc(71) int local71 = this.heightmap[arg2][arg9][arg3 + 1];
-		@Pc(81) int local81 = local36 + local47 + local60 + local71 >> 2;
-		@Pc(84) LocType local84 = LocType.get(arg8);
-		@Pc(96) int local96 = arg9 + (arg3 << 7) + (arg8 << 14) + 1073741824;
-		if (!local84.interactable) {
-			local96 += Integer.MIN_VALUE;
+
+		@Pc(36) int heightSW = this.heightmap[level][x][z];
+		@Pc(47) int heightSE = this.heightmap[level][x + 1][z];
+		@Pc(60) int heightNE = this.heightmap[level][x + 1][z + 1];
+		@Pc(71) int heightNW = this.heightmap[level][x][z + 1];
+		@Pc(81) int y = heightSW + heightSE + heightNE + heightNW >> 2;
+
+		@Pc(84) LocType loc = LocType.get(locId);
+		@Pc(96) int bitset = x + (z << 7) + (locId << 14) + 0x40000000;
+
+		if (!loc.interactable) {
+			bitset += 0x80000000;
 		}
-		@Pc(110) byte local110 = (byte) ((arg4 << 6) + arg5);
-		@Pc(132) Model local132;
-		if (arg5 != 22) {
-			@Pc(209) int local209;
-			if (arg5 == 10 || arg5 == 11) {
-				local132 = local84.getModel(10, arg4, local36, local47, local60, local71, -1);
-				if (local132 != null) {
-					@Pc(196) int local196 = 0;
-					if (arg5 == 11) {
-						local196 += 256;
-					}
-					@Pc(212) int local212;
-					if (arg4 == 1 || arg4 == 3) {
-						local209 = local84.length;
-						local212 = local84.width;
-					} else {
-						local209 = local84.width;
-						local212 = local84.length;
-					}
-					if (arg6.addLocation(local81, arg2, null, local96, arg3, arg9, local209, local110, local132, local196, local212) && local84.active) {
-						for (@Pc(240) int local240 = 0; local240 <= local209; local240++) {
-							for (@Pc(244) int local244 = 0; local244 <= local212; local244++) {
-								@Pc(251) int local251 = local132.lengthXZ / 4;
-								if (local251 > 30) {
-									local251 = 30;
-								}
-								if (local251 > this.shadowmap[arg2][arg9 + local240][arg3 + local244]) {
-									this.shadowmap[arg2][arg9 + local240][arg3 + local244] = (byte) local251;
-								}
+
+		@Pc(110) byte info = (byte) ((orientation << 6) + type);
+		if (type == LocType.GROUNDDECOR) {
+			if (!lowMemory || loc.interactable || loc.forcedecor) {
+				Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
+				mapSquare.addGroundDecoration(model, x, bitset, z, level, info, y);
+
+				if (loc.blockwalk && loc.interactable && collision != null) {
+					collision.setBlocked(z, x);
+				}
+
+				if (loc.anim != -1) {
+					anim.pushNext(new LocEntity(true, locId, level, 3, SeqType.instances[loc.anim], z, x));
+				}
+			}
+		} else if (type == LocType.CENTREPIECE_STRAIGHT || type == LocType.CENTREPIECE_DIAGONAL) {
+			Model model = loc.getModel(LocType.CENTREPIECE_STRAIGHT, orientation, heightSW, heightSE, heightNE, heightNW, -1);
+			if (model != null) {
+				@Pc(196) int yaw = 0;
+				if (type == LocType.CENTREPIECE_DIAGONAL) {
+					yaw += 256;
+				}
+
+				int width;
+				int height;
+				if (orientation == CollisionMap.NORTH_EAST || orientation == CollisionMap.SOUTH_WEST) {
+					width = loc.sizeZ;
+					height = loc.sizeX;
+				} else {
+					width = loc.sizeX;
+					height = loc.sizeZ;
+				}
+
+				if (mapSquare.addLocation(y, level, null, bitset, z, x, width, info, model, yaw, height) && loc.active) {
+					for (@Pc(240) int offX = 0; offX <= width; offX++) {
+						for (@Pc(244) int offZ = 0; offZ <= height; offZ++) {
+							@Pc(251) int shadow = model.lengthXZ / 4;
+							if (shadow > 30) {
+								shadow = 30;
+							}
+
+							if (shadow > this.shadowmap[level][x + offX][z + offZ]) {
+								this.shadowmap[level][x + offX][z + offZ] = (byte) shadow;
 							}
 						}
 					}
 				}
-				if (local84.blockwalk && arg0 != null) {
-					arg0.setLoc(arg4, local84.length, local84.width, arg9, arg3, local84.blockrange);
+			}
+
+			if (loc.blockwalk && collision != null) {
+				collision.setLoc(orientation, loc.sizeZ, loc.sizeX, x, z, loc.blockrange);
+			}
+
+			if (loc.anim != -1) {
+				anim.pushNext(new LocEntity(true, locId, level, 2, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type >= LocType.ROOF_STRAIGHT) {
+			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addLocation(y, level, null, bitset, z, x, 1, info, model, 0, 1);
+
+			if (type <= LocType.ROOF_FLAT && type != LocType.ROOF_DIAGONAL_WITH_ROOFEDGE && level > 0) {
+				this.occludeFlags[level][x][z] |= 0x924;
+			}
+
+			if (loc.blockwalk && collision != null) {
+				collision.setLoc(orientation, loc.sizeZ, loc.sizeX, x, z, loc.blockrange);
+			}
+
+			if (loc.anim != -1) {
+				anim.pushNext(new LocEntity(true, locId, level, 2, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALL_STRAIGHT) {
+			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWall(0, y, level, WALL_ROTATION_TYPE1[orientation], model, null, x, bitset, z, info);
+
+			if (orientation == CollisionMap.NORTH_WEST) {
+				if (loc.active) {
+					this.shadowmap[level][x][z] = 50;
+					this.shadowmap[level][x][z + 1] = 50;
 				}
-				if (local84.anim != -1) {
-					arg7.pushNext(new LocEntity(true, arg8, arg2, 2, SeqType.instances[local84.anim], arg3, arg9));
+
+				if (loc.occlude) {
+					this.occludeFlags[level][x][z] |= 0x249;
 				}
-			} else if (arg5 >= 12) {
-				local132 = local84.getModel(arg5, arg4, local36, local47, local60, local71, -1);
-				arg6.addLocation(local81, arg2, null, local96, arg3, arg9, 1, local110, local132, 0, 1);
-				if (arg5 >= 12 && arg5 <= 17 && arg5 != 13 && arg2 > 0) {
-					this.occludeFlags[arg2][arg9][arg3] |= 0x924;
+			} else if (orientation == CollisionMap.NORTH_EAST) {
+				if (loc.active) {
+					this.shadowmap[level][x][z + 1] = 50;
+					this.shadowmap[level][x + 1][z + 1] = 50;
 				}
-				if (local84.blockwalk && arg0 != null) {
-					arg0.setLoc(arg4, local84.length, local84.width, arg9, arg3, local84.blockrange);
+
+				if (loc.occlude) {
+					this.occludeFlags[level][x][z + 1] |= 0x492;
 				}
-				if (local84.anim != -1) {
-					arg7.pushNext(new LocEntity(true, arg8, arg2, 2, SeqType.instances[local84.anim], arg3, arg9));
+			} else if (orientation == CollisionMap.SOUTH_EAST) {
+				if (loc.active) {
+					this.shadowmap[level][x + 1][z] = 50;
+					this.shadowmap[level][x + 1][z + 1] = 50;
 				}
-			} else if (arg5 == 0) {
-				local132 = local84.getModel(0, arg4, local36, local47, local60, local71, -1);
-				arg6.addWall(0, local81, arg2, WALL_ROTATION_TYPE1[arg4], local132, null, arg9, local96, arg3, local110);
-				if (arg4 == 0) {
-					if (local84.active) {
-						this.shadowmap[arg2][arg9][arg3] = 50;
-						this.shadowmap[arg2][arg9][arg3 + 1] = 50;
-					}
-					if (local84.occlude) {
-						this.occludeFlags[arg2][arg9][arg3] |= 0x249;
-					}
-				} else if (arg4 == 1) {
-					if (local84.active) {
-						this.shadowmap[arg2][arg9][arg3 + 1] = 50;
-						this.shadowmap[arg2][arg9 + 1][arg3 + 1] = 50;
-					}
-					if (local84.occlude) {
-						this.occludeFlags[arg2][arg9][arg3 + 1] |= 0x492;
-					}
-				} else if (arg4 == 2) {
-					if (local84.active) {
-						this.shadowmap[arg2][arg9 + 1][arg3] = 50;
-						this.shadowmap[arg2][arg9 + 1][arg3 + 1] = 50;
-					}
-					if (local84.occlude) {
-						this.occludeFlags[arg2][arg9 + 1][arg3] |= 0x249;
-					}
-				} else if (arg4 == 3) {
-					if (local84.active) {
-						this.shadowmap[arg2][arg9][arg3] = 50;
-						this.shadowmap[arg2][arg9 + 1][arg3] = 50;
-					}
-					if (local84.occlude) {
-						this.occludeFlags[arg2][arg9][arg3] |= 0x492;
-					}
+
+				if (loc.occlude) {
+					this.occludeFlags[level][x + 1][z] |= 0x249;
 				}
-				if (local84.blockwalk && arg0 != null) {
-					arg0.setWall(arg4, arg3, arg9, local84.blockrange, arg5);
+			} else if (orientation == CollisionMap.SOUTH_WEST) {
+				if (loc.active) {
+					this.shadowmap[level][x][z] = 50;
+					this.shadowmap[level][x + 1][z] = 50;
 				}
-				if (local84.anim != -1) {
-					arg7.pushNext(new LocEntity(true, arg8, arg2, 0, SeqType.instances[local84.anim], arg3, arg9));
-				}
-				if (local84.walloff != 16) {
-					arg6.setWallDecoration(arg2, arg3, arg9, local84.walloff);
-				}
-			} else if (arg5 == 1) {
-				local132 = local84.getModel(1, arg4, local36, local47, local60, local71, -1);
-				arg6.addWall(0, local81, arg2, WALL_ROTATION_TYPE2[arg4], local132, null, arg9, local96, arg3, local110);
-				if (local84.active) {
-					if (arg4 == 0) {
-						this.shadowmap[arg2][arg9][arg3 + 1] = 50;
-					} else if (arg4 == 1) {
-						this.shadowmap[arg2][arg9 + 1][arg3 + 1] = 50;
-					} else if (arg4 == 2) {
-						this.shadowmap[arg2][arg9 + 1][arg3] = 50;
-					} else if (arg4 == 3) {
-						this.shadowmap[arg2][arg9][arg3] = 50;
-					}
-				}
-				if (local84.blockwalk && arg0 != null) {
-					arg0.setWall(arg4, arg3, arg9, local84.blockrange, arg5);
-				}
-				if (local84.anim != -1) {
-					arg7.pushNext(new LocEntity(true, arg8, arg2, 0, SeqType.instances[local84.anim], arg3, arg9));
-				}
-			} else {
-				@Pc(810) int local810;
-				@Pc(832) Model local832;
-				if (arg5 == 2) {
-					local810 = arg4 + 1 & 0x3;
-					@Pc(822) Model local822 = local84.getModel(2, arg4 + 4, local36, local47, local60, local71, -1);
-					local832 = local84.getModel(2, local810, local36, local47, local60, local71, -1);
-					arg6.addWall(WALL_ROTATION_TYPE1[local810], local81, arg2, WALL_ROTATION_TYPE1[arg4], local822, local832, arg9, local96, arg3, local110);
-					if (local84.occlude) {
-						if (arg4 == 0) {
-							this.occludeFlags[arg2][arg9][arg3] |= 0x249;
-							this.occludeFlags[arg2][arg9][arg3 + 1] |= 0x492;
-						} else if (arg4 == 1) {
-							this.occludeFlags[arg2][arg9][arg3 + 1] |= 0x492;
-							this.occludeFlags[arg2][arg9 + 1][arg3] |= 0x249;
-						} else if (arg4 == 2) {
-							this.occludeFlags[arg2][arg9 + 1][arg3] |= 0x249;
-							this.occludeFlags[arg2][arg9][arg3] |= 0x492;
-						} else if (arg4 == 3) {
-							this.occludeFlags[arg2][arg9][arg3] |= 0x492;
-							this.occludeFlags[arg2][arg9][arg3] |= 0x249;
-						}
-					}
-					if (local84.blockwalk && arg0 != null) {
-						arg0.setWall(arg4, arg3, arg9, local84.blockrange, arg5);
-					}
-					if (local84.anim != -1) {
-						arg7.pushNext(new LocEntity(true, arg8, arg2, 0, SeqType.instances[local84.anim], arg3, arg9));
-					}
-					if (local84.walloff != 16) {
-						arg6.setWallDecoration(arg2, arg3, arg9, local84.walloff);
-					}
-				} else if (arg5 == 3) {
-					local132 = local84.getModel(3, arg4, local36, local47, local60, local71, -1);
-					arg6.addWall(0, local81, arg2, WALL_ROTATION_TYPE2[arg4], local132, null, arg9, local96, arg3, local110);
-					if (local84.active) {
-						if (arg4 == 0) {
-							this.shadowmap[arg2][arg9][arg3 + 1] = 50;
-						} else if (arg4 == 1) {
-							this.shadowmap[arg2][arg9 + 1][arg3 + 1] = 50;
-						} else if (arg4 == 2) {
-							this.shadowmap[arg2][arg9 + 1][arg3] = 50;
-						} else if (arg4 == 3) {
-							this.shadowmap[arg2][arg9][arg3] = 50;
-						}
-					}
-					if (local84.blockwalk && arg0 != null) {
-						arg0.setWall(arg4, arg3, arg9, local84.blockrange, arg5);
-					}
-					if (local84.anim != -1) {
-						arg7.pushNext(new LocEntity(true, arg8, arg2, 0, SeqType.instances[local84.anim], arg3, arg9));
-					}
-				} else if (arg5 == 9) {
-					local132 = local84.getModel(arg5, arg4, local36, local47, local60, local71, -1);
-					arg6.addLocation(local81, arg2, null, local96, arg3, arg9, 1, local110, local132, 0, 1);
-					if (local84.blockwalk && arg0 != null) {
-						arg0.setLoc(arg4, local84.length, local84.width, arg9, arg3, local84.blockrange);
-					}
-					if (local84.anim != -1) {
-						arg7.pushNext(new LocEntity(true, arg8, arg2, 2, SeqType.instances[local84.anim], arg3, arg9));
-					}
-				} else if (arg5 == 4) {
-					local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
-					arg6.addWallDecoration(local81, arg3, 0, local96, arg4 * 512, WALL_ROTATION_TYPE1[arg4], 0, arg9, local132, local110, arg2);
-					if (local84.anim != -1) {
-						arg7.pushNext(new LocEntity(true, arg8, arg2, 1, SeqType.instances[local84.anim], arg3, arg9));
-					}
-				} else if (arg5 == 5) {
-					local810 = 16;
-					local209 = arg6.getWallBitset(arg2, arg9, arg3);
-					if (local209 > 0) {
-						local810 = LocType.get(local209 >> 14 & 0x7FFF).walloff;
-					}
-					local832 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
-					arg6.addWallDecoration(local81, arg3, WALL_DECO_ROT_SIZE_Y_DIR[arg4] * local810, local96, arg4 * 512, WALL_ROTATION_TYPE1[arg4], WALL_DECO_ROT_SIZE_X_DIR[arg4] * local810, arg9, local832, local110, arg2);
-					if (local84.anim != -1) {
-						arg7.pushNext(new LocEntity(true, arg8, arg2, 1, SeqType.instances[local84.anim], arg3, arg9));
-					}
-				} else if (arg5 == 6) {
-					local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
-					arg6.addWallDecoration(local81, arg3, 0, local96, arg4, 256, 0, arg9, local132, local110, arg2);
-					if (local84.anim != -1) {
-						arg7.pushNext(new LocEntity(true, arg8, arg2, 1, SeqType.instances[local84.anim], arg3, arg9));
-					}
-				} else if (arg5 == 7) {
-					local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
-					arg6.addWallDecoration(local81, arg3, 0, local96, arg4, 512, 0, arg9, local132, local110, arg2);
-					if (local84.anim != -1) {
-						arg7.pushNext(new LocEntity(true, arg8, arg2, 1, SeqType.instances[local84.anim], arg3, arg9));
-					}
-				} else if (arg5 == 8) {
-					local132 = local84.getModel(4, 0, local36, local47, local60, local71, -1);
-					arg6.addWallDecoration(local81, arg3, 0, local96, arg4, 768, 0, arg9, local132, local110, arg2);
-					if (local84.anim != -1) {
-						arg7.pushNext(new LocEntity(true, arg8, arg2, 1, SeqType.instances[local84.anim], arg3, arg9));
-					}
+
+				if (loc.occlude) {
+					this.occludeFlags[level][x][z] |= 0x492;
 				}
 			}
-		} else if (!lowMemory || local84.interactable || local84.forcedecor) {
-			local132 = local84.getModel(22, arg4, local36, local47, local60, local71, -1);
-			arg6.addGroundDecoration(local132, arg9, local96, arg3, arg2, local110, local81);
-			if (local84.blockwalk && local84.interactable && arg0 != null) {
-				arg0.setBlocked(arg3, arg9);
+
+			if (loc.blockwalk && collision != null) {
+				collision.setWall(orientation, z, x, loc.blockrange, type);
 			}
-			if (local84.anim != -1) {
-				arg7.pushNext(new LocEntity(true, arg8, arg2, 3, SeqType.instances[local84.anim], arg3, arg9));
+
+			if (loc.anim != -1) {
+				anim.pushNext(new LocEntity(true, locId, level, 0, SeqType.instances[loc.anim], z, x));
+			}
+
+			if (loc.walloff != 16) {
+				mapSquare.setWallDecoration(level, z, x, loc.walloff);
+			}
+		} else if (type == LocType.WALL_DIAGONALCORNER) {
+			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWall(0, y, level, WALL_ROTATION_TYPE2[orientation], model, null, x, bitset, z, info);
+
+			if (loc.active) {
+				if (orientation == CollisionMap.NORTH_WEST) {
+					this.shadowmap[level][x][z + 1] = 50;
+				} else if (orientation == CollisionMap.NORTH_EAST) {
+					this.shadowmap[level][x + 1][z + 1] = 50;
+				} else if (orientation == CollisionMap.SOUTH_EAST) {
+					this.shadowmap[level][x + 1][z] = 50;
+				} else if (orientation == CollisionMap.SOUTH_WEST) {
+					this.shadowmap[level][x][z] = 50;
+				}
+			}
+
+			if (loc.blockwalk && collision != null) {
+				collision.setWall(orientation, z, x, loc.blockrange, type);
+			}
+
+			if (loc.anim != -1) {
+				anim.pushNext(new LocEntity(true, locId, level, 0, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALL_L) {
+			int nextOrientation = orientation + 1 & 0x3;
+
+			@Pc(822) Model model1 = loc.getModel(type, orientation + 4, heightSW, heightSE, heightNE, heightNW, -1);
+			Model model2 = loc.getModel(type, nextOrientation, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWall(WALL_ROTATION_TYPE1[nextOrientation], y, level, WALL_ROTATION_TYPE1[orientation], model1, model2, x, bitset, z, info);
+
+			if (loc.occlude) {
+				if (orientation == CollisionMap.NORTH_WEST) {
+					this.occludeFlags[level][x][z] |= 0x249;
+					this.occludeFlags[level][x][z + 1] |= 0x492;
+				} else if (orientation == CollisionMap.NORTH_EAST) {
+					this.occludeFlags[level][x][z + 1] |= 0x492;
+					this.occludeFlags[level][x + 1][z] |= 0x249;
+				} else if (orientation == CollisionMap.SOUTH_EAST) {
+					this.occludeFlags[level][x + 1][z] |= 0x249;
+					this.occludeFlags[level][x][z] |= 0x492;
+				} else if (orientation == CollisionMap.SOUTH_WEST) {
+					this.occludeFlags[level][x][z] |= 0x492;
+					this.occludeFlags[level][x][z] |= 0x249;
+				}
+			}
+
+			if (loc.blockwalk && collision != null) {
+				collision.setWall(orientation, z, x, loc.blockrange, type);
+			}
+
+			if (loc.anim != -1) {
+				anim.pushNext(new LocEntity(true, locId, level, 0, SeqType.instances[loc.anim], z, x));
+			}
+
+			if (loc.walloff != 16) {
+				mapSquare.setWallDecoration(level, z, x, loc.walloff);
+			}
+		} else if (type == LocType.WALL_SQUARECORNER) {
+			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWall(0, y, level, WALL_ROTATION_TYPE2[orientation], model, null, x, bitset, z, info);
+
+			if (loc.active) {
+				if (orientation == CollisionMap.NORTH_WEST) {
+					this.shadowmap[level][x][z + 1] = 50;
+				} else if (orientation == CollisionMap.NORTH_EAST) {
+					this.shadowmap[level][x + 1][z + 1] = 50;
+				} else if (orientation == CollisionMap.SOUTH_EAST) {
+					this.shadowmap[level][x + 1][z] = 50;
+				} else if (orientation == CollisionMap.SOUTH_WEST) {
+					this.shadowmap[level][x][z] = 50;
+				}
+			}
+
+			if (loc.blockwalk && collision != null) {
+				collision.setWall(orientation, z, x, loc.blockrange, type);
+			}
+
+			if (loc.anim != -1) {
+				anim.pushNext(new LocEntity(true, locId, level, 0, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALL_DIAGONAL) {
+			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addLocation(y, level, null, bitset, z, x, 1, info, model, 0, 1);
+
+			if (loc.blockwalk && collision != null) {
+				collision.setLoc(orientation, loc.sizeZ, loc.sizeX, x, z, loc.blockrange);
+			}
+
+			if (loc.anim != -1) {
+				anim.pushNext(new LocEntity(true, locId, level, 2, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALLDECOR_STRAIGHT) {
+			Model model = loc.getModel(type, CollisionMap.NORTH_WEST, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWallDecoration(y, z, 0, bitset, orientation * 512, WALL_ROTATION_TYPE1[orientation], 0, x, model, info, level);
+
+			if (loc.anim != -1) {
+				anim.pushNext(new LocEntity(true, locId, level, 1, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALLDECOR_STRAIGHT_OFFSET) {
+			int wallOffset = 16;
+			int wallBitset = mapSquare.getWallBitset(level, x, z);
+
+			if (wallBitset > 0) {
+				wallOffset = LocType.get(wallBitset >> 14 & 0x7FFF).walloff;
+			}
+
+			Model model2 = loc.getModel(LocType.WALLDECOR_STRAIGHT, 0, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWallDecoration(y, z, WALL_DECO_ROT_SIZE_Y_DIR[orientation] * wallOffset, bitset, orientation * 512, WALL_ROTATION_TYPE1[orientation], WALL_DECO_ROT_SIZE_X_DIR[orientation] * wallOffset, x, model2, info, level);
+
+			if (loc.anim != -1) {
+				anim.pushNext(new LocEntity(true, locId, level, 1, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALLDECOR_DIAGONAL_NOOFFSET) {
+			Model model = loc.getModel(LocType.WALLDECOR_STRAIGHT, 0, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWallDecoration(y, z, 0, bitset, orientation, 256, 0, x, model, info, level);
+
+			if (loc.anim != -1) {
+				anim.pushNext(new LocEntity(true, locId, level, 1, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALLDECOR_DIAGONAL_OFFSET) {
+			Model model = loc.getModel(LocType.WALLDECOR_STRAIGHT, 0, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWallDecoration(y, z, 0, bitset, orientation, 512, 0, x, model, info, level);
+
+			if (loc.anim != -1) {
+				anim.pushNext(new LocEntity(true, locId, level, 1, SeqType.instances[loc.anim], z, x));
+			}
+		} else if (type == LocType.WALLDECOR_DIAGONAL_BOTH) {
+			Model model = loc.getModel(LocType.WALLDECOR_STRAIGHT, 0, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWallDecoration(y, z, 0, bitset, orientation, 768, 0, x, model, info, level);
+
+			if (loc.anim != -1) {
+				anim.pushNext(new LocEntity(true, locId, level, 1, SeqType.instances[loc.anim], z, x));
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(Lclient!r;I[Lclient!ec;)V")
-	public void buildLandscape(@OriginalArg(0) MapSquare arg0, @OriginalArg(2) CollisionMap[] arg2) {
-		@Pc(7) int local7;
-		@Pc(11) int local11;
-		@Pc(27) int local27;
-		for (@Pc(3) int local3 = 0; local3 < 4; local3++) {
-			for (local7 = 0; local7 < 104; local7++) {
-				for (local11 = 0; local11 < 104; local11++) {
-					if ((this.renderFlags[local3][local7][local11] & 0x1) == 1) {
-						local27 = local3;
-						if ((this.renderFlags[1][local7][local11] & 0x2) == 2) {
-							local27 = local3 - 1;
+	public void buildLandscape(@OriginalArg(0) MapSquare mapSquare, @OriginalArg(2) CollisionMap[] collisionMaps) {
+		for (@Pc(3) int plane = 0; plane < 4; plane++) {
+			for (int x = 0; x < 104; x++) {
+				for (int z = 0; z < 104; z++) {
+					if ((this.renderFlags[plane][x][z] & 0x1) == 1) {
+						int truePlane = plane;
+
+						// bridge
+						if ((this.renderFlags[1][x][z] & 0x2) == 2) {
+							truePlane = plane - 1;
 						}
-						if (local27 >= 0) {
-							arg2[local27].setBlocked(local11, local7);
+
+						if (truePlane >= 0) {
+							collisionMaps[truePlane].setBlocked(z, x);
 						}
 					}
 				}
 			}
 		}
-		rand1 += (int) (Math.random() * 5.0D) - 2;
-		if (rand1 < -8) {
-			rand1 = -8;
+
+		randomHueOffset += (int) (Math.random() * 5.0D) - 2;
+		if (randomHueOffset < -8) {
+			randomHueOffset = -8;
+		} else if (randomHueOffset > 8) {
+			randomHueOffset = 8;
 		}
-		if (rand1 > 8) {
-			rand1 = 8;
+
+		randomLightnessOffset += (int) (Math.random() * 5.0D) - 2;
+		if (randomLightnessOffset < -16) {
+			randomLightnessOffset = -16;
+		} else if (randomLightnessOffset > 16) {
+			randomLightnessOffset = 16;
 		}
-		rand2 += (int) (Math.random() * 5.0D) - 2;
-		if (rand2 < -16) {
-			rand2 = -16;
-		}
-		if (rand2 > 16) {
-			rand2 = 16;
-		}
-		@Pc(133) int local133;
-		@Pc(139) int local139;
-		@Pc(141) int local141;
-		@Pc(145) int local145;
-		@Pc(169) int local169;
-		@Pc(191) int local191;
-		@Pc(204) int local204;
-		@Pc(210) int local210;
-		@Pc(214) int local214;
-		@Pc(220) int local220;
-		@Pc(236) int local236;
-		@Pc(284) int local284;
-		for (local7 = 0; local7 < 4; local7++) {
-			@Pc(108) byte[][] local108 = this.shadowmap[local7];
-			@Pc(110) byte local110 = 96;
-			@Pc(112) short local112 = 768;
-			@Pc(114) byte local114 = -50;
-			@Pc(116) byte local116 = -10;
-			@Pc(118) byte local118 = -50;
-			local133 = (int) Math.sqrt(local114 * local114 + local116 * local116 + local118 * local118);
-			local139 = local112 * local133 >> 8;
-			for (local141 = 1; local141 < this.tileCountZ - 1; local141++) {
-				for (local145 = 1; local145 < this.tileCountX - 1; local145++) {
-					local169 = this.heightmap[local7][local145 + 1][local141] - this.heightmap[local7][local145 - 1][local141];
-					local191 = this.heightmap[local7][local145][local141 + 1] - this.heightmap[local7][local145][local141 - 1];
-					local204 = (int) Math.sqrt(local169 * local169 + local191 * local191 + 65536);
-					local210 = (local169 << 8) / local204;
-					local214 = 65536 / local204;
-					local220 = (local191 << 8) / local204;
-					local236 = local110 + (local114 * local210 + local116 * local214 + local118 * local220) / local139;
-					local284 = (local108[local145 - 1][local141] >> 2) + (local108[local145 + 1][local141] >> 3) + (local108[local145][local141 - 1] >> 2) + (local108[local145][local141 + 1] >> 3) + (local108[local145][local141] >> 1);
-					this.lightmap[local145][local141] = local236 - local284;
+
+		for (int plane = 0; plane < 4; plane++) {
+			@Pc(108) byte[][] shadowmap = this.shadowmap[plane];
+			@Pc(110) byte lightAmbient = 96;
+			@Pc(112) short lightAttenuation = 768;
+			@Pc(114) byte lightX = -50;
+			@Pc(116) byte lightY = -10;
+			@Pc(118) byte lightZ = -50;
+			int lightMagnitude = (lightAttenuation * (int) Math.sqrt(lightX * lightX + lightY * lightY + lightZ * lightZ)) >> 8;
+
+			for (int z = 1; z < this.tileCountZ - 1; z++) {
+				for (int x = 1; x < this.tileCountX - 1; x++) {
+					int dx = this.heightmap[plane][x + 1][z] - this.heightmap[plane][x - 1][z];
+					int dz = this.heightmap[plane][x][z + 1] - this.heightmap[plane][x][z - 1];
+					int len = (int) Math.sqrt(dx * dx + dz * dz + 65536);
+					int normalX = (dx << 8) / len;
+					int normalY = 65536 / len;
+					int normalZ = (dz << 8) / len;
+					int light = lightAmbient + (lightX * normalX + lightY * normalY + lightZ * normalZ) / lightMagnitude;
+					int shade = (shadowmap[x - 1][z] >> 2) + (shadowmap[x + 1][z] >> 3) + (shadowmap[x][z - 1] >> 2) + (shadowmap[x][z + 1] >> 3) + (shadowmap[x][z] >> 1);
+					this.lightmap[x][z] = light - shade;
 				}
 			}
-			for (local145 = 0; local145 < this.tileCountZ; local145++) {
-				this.blendedHue[local145] = 0;
-				this.blendedSaturation[local145] = 0;
-				this.blendedLightness[local145] = 0;
-				this.blendedHueMultiplier[local145] = 0;
-				this.blendDirectionTracker[local145] = 0;
+
+			for (int z = 0; z < this.tileCountZ; z++) {
+				this.blendChroma[z] = 0;
+				this.blendSaturation[z] = 0;
+				this.blendLightness[z] = 0;
+				this.blendLuminance[z] = 0;
+				this.blendMagnitude[z] = 0;
 			}
-			for (local169 = -5; local169 < this.tileCountX + 5; local169++) {
-				for (local191 = 0; local191 < this.tileCountZ; local191++) {
-					local204 = local169 + 5;
-					@Pc(419) int local419;
-					if (local204 >= 0 && local204 < this.tileCountX) {
-						local210 = this.planeUnderlayFloorIndices[local7][local204][local191] & 0xFF;
-						if (local210 > 0) {
-							@Pc(378) FloType local378 = FloType.instances[local210 - 1];
-							this.blendedHue[local191] += local378.blendHue;
-							this.blendedSaturation[local191] += local378.saturation;
-							this.blendedLightness[local191] += local378.lightness;
-							this.blendedHueMultiplier[local191] += local378.hsl16;
-							local419 = this.blendDirectionTracker[local191]++;
+
+			for (int x0 = -5; x0 < this.tileCountX + 5; x0++) {
+				for (int z0 = 0; z0 < this.tileCountZ; z0++) {
+					int x1 = x0 + 5;
+
+					if (x1 >= 0 && x1 < this.tileCountX) {
+						int floId = this.planeUnderlayFloorIndices[plane][x1][z0] & 0xFF;
+
+						if (floId > 0) {
+							@Pc(378) FloType flo = FloType.instances[floId - 1];
+							this.blendChroma[z0] += flo.chroma;
+							this.blendSaturation[z0] += flo.saturation;
+							this.blendLightness[z0] += flo.lightness;
+							this.blendLuminance[z0] += flo.luminance;
+							this.blendMagnitude[z0]++;
 						}
 					}
-					local210 = local169 - 5;
-					if (local210 >= 0 && local210 < this.tileCountX) {
-						local214 = this.planeUnderlayFloorIndices[local7][local210][local191] & 0xFF;
-						if (local214 > 0) {
-							@Pc(451) FloType local451 = FloType.instances[local214 - 1];
-							this.blendedHue[local191] -= local451.blendHue;
-							this.blendedSaturation[local191] -= local451.saturation;
-							this.blendedLightness[local191] -= local451.lightness;
-							this.blendedHueMultiplier[local191] -= local451.hsl16;
-							local419 = this.blendDirectionTracker[local191]--;
+
+					int x2 = x0 - 5;
+					if (x2 >= 0 && x2 < this.tileCountX) {
+						int floId = this.planeUnderlayFloorIndices[plane][x2][z0] & 0xFF;
+
+						if (floId > 0) {
+							@Pc(451) FloType flo = FloType.instances[floId - 1];
+							this.blendChroma[z0] -= flo.chroma;
+							this.blendSaturation[z0] -= flo.saturation;
+							this.blendLightness[z0] -= flo.lightness;
+							this.blendLuminance[z0] -= flo.luminance;
+							this.blendMagnitude[z0]--;
 						}
 					}
 				}
-				if (local169 >= 1 && local169 < this.tileCountX - 1) {
-					local204 = 0;
-					local210 = 0;
-					local214 = 0;
-					local220 = 0;
-					local236 = 0;
-					for (local284 = -5; local284 < this.tileCountZ + 5; local284++) {
-						@Pc(527) int local527 = local284 + 5;
-						if (local527 >= 0 && local527 < this.tileCountZ) {
-							local204 += this.blendedHue[local527];
-							local210 += this.blendedSaturation[local527];
-							local214 += this.blendedLightness[local527];
-							local220 += this.blendedHueMultiplier[local527];
-							local236 += this.blendDirectionTracker[local527];
+
+				if (x0 >= 1 && x0 < this.tileCountX - 1) {
+					int hueAccumulator = 0;
+					int saturationAccumulator = 0;
+					int lightnessAccumulator = 0;
+					int luminanceAccumulator = 0;
+					int magnitudeAccumulator = 0;
+
+					for (int z0 = -5; z0 < this.tileCountZ + 5; z0++) {
+						@Pc(527) int dz1 = z0 + 5;
+
+						if (dz1 >= 0 && dz1 < this.tileCountZ) {
+							hueAccumulator += this.blendChroma[dz1];
+							saturationAccumulator += this.blendSaturation[dz1];
+							lightnessAccumulator += this.blendLightness[dz1];
+							luminanceAccumulator += this.blendLuminance[dz1];
+							magnitudeAccumulator += this.blendMagnitude[dz1];
 						}
-						@Pc(572) int local572 = local284 - 5;
-						if (local572 >= 0 && local572 < this.tileCountZ) {
-							local204 -= this.blendedHue[local572];
-							local210 -= this.blendedSaturation[local572];
-							local214 -= this.blendedLightness[local572];
-							local220 -= this.blendedHueMultiplier[local572];
-							local236 -= this.blendDirectionTracker[local572];
+
+						@Pc(572) int dz2 = z0 - 5;
+						if (dz2 >= 0 && dz2 < this.tileCountZ) {
+							hueAccumulator -= this.blendChroma[dz2];
+							saturationAccumulator -= this.blendSaturation[dz2];
+							lightnessAccumulator -= this.blendLightness[dz2];
+							luminanceAccumulator -= this.blendLuminance[dz2];
+							magnitudeAccumulator -= this.blendMagnitude[dz2];
 						}
-						if (local284 >= 1 && local284 < this.tileCountZ - 1 && (!lowMemory || (this.renderFlags[local7][local169][local284] & 0x10) == 0 && this.getRenderLevel(local7, local169, local284) == levelBuilt)) {
-							@Pc(655) int local655 = this.planeUnderlayFloorIndices[local7][local169][local284] & 0xFF;
-							@Pc(666) int local666 = this.planeOverlayFloorIndices[local7][local169][local284] & 0xFF;
-							if (local655 > 0 || local666 > 0) {
-								@Pc(679) int local679 = this.heightmap[local7][local169][local284];
-								@Pc(690) int local690 = this.heightmap[local7][local169 + 1][local284];
-								@Pc(703) int local703 = this.heightmap[local7][local169 + 1][local284 + 1];
-								@Pc(714) int local714 = this.heightmap[local7][local169][local284 + 1];
-								@Pc(721) int local721 = this.lightmap[local169][local284];
-								@Pc(730) int local730 = this.lightmap[local169 + 1][local284];
-								@Pc(741) int local741 = this.lightmap[local169 + 1][local284 + 1];
-								@Pc(750) int local750 = this.lightmap[local169][local284 + 1];
-								@Pc(752) int local752 = -1;
-								@Pc(754) int local754 = -1;
-								@Pc(762) int local762;
-								@Pc(766) int local766;
-								if (local655 > 0) {
-									local762 = local204 * 256 / local220;
-									local766 = local210 / local236;
-									@Pc(770) int local770 = local214 / local236;
-									local752 = this.hsl24To16(local762, local766, local770);
-									@Pc(782) int local782 = local762 + rand1 & 0xFF;
-									local770 += rand2;
-									if (local770 < 0) {
-										local770 = 0;
-									} else if (local770 > 255) {
-										local770 = 255;
-									}
-									local754 = this.hsl24To16(local782, local766, local770);
+
+						if (z0 >= 1 && z0 < this.tileCountZ - 1 && (!lowMemory || (this.renderFlags[plane][x0][z0] & 0x10) == 0 && this.getRenderLevel(plane, x0, z0) == levelBuilt)) {
+							@Pc(655) int underlayId = this.planeUnderlayFloorIndices[plane][x0][z0] & 0xFF;
+							@Pc(666) int overlayId = this.planeOverlayFloorIndices[plane][x0][z0] & 0xFF;
+
+							if (underlayId <= 0 && overlayId <= 0) {
+								continue;
+							}
+
+							@Pc(679) int heightSW = this.heightmap[plane][x0][z0];
+							@Pc(690) int heightSE = this.heightmap[plane][x0 + 1][z0];
+							@Pc(703) int heightNE = this.heightmap[plane][x0 + 1][z0 + 1];
+							@Pc(714) int heightNW = this.heightmap[plane][x0][z0 + 1];
+
+							@Pc(721) int lightSW = this.lightmap[x0][z0];
+							@Pc(730) int lightSE = this.lightmap[x0 + 1][z0];
+							@Pc(741) int lightNE = this.lightmap[x0 + 1][z0 + 1];
+							@Pc(750) int lightNW = this.lightmap[x0][z0 + 1];
+
+							@Pc(752) int baseColor = -1;
+							@Pc(754) int tintColor = -1;
+
+							if (underlayId > 0) {
+								int hue = hueAccumulator * 256 / luminanceAccumulator;
+								int saturation = saturationAccumulator / magnitudeAccumulator;
+								@Pc(770) int lightness = lightnessAccumulator / magnitudeAccumulator;
+
+								baseColor = this.hsl24To16(hue, saturation, lightness);
+
+								hue += randomHueOffset & 0xFF;
+								lightness += randomLightnessOffset;
+
+								if (lightness < 0) {
+									lightness = 0;
+								} else if (lightness > 255) {
+									lightness = 255;
 								}
-								if (local7 > 0) {
-									@Pc(807) boolean local807 = true;
-									if (local655 == 0 && this.planeOverlayTypes[local7][local169][local284] != 0) {
-										local807 = false;
-									}
-									if (local666 > 0 && !FloType.instances[local666 - 1].occlude) {
-										local807 = false;
-									}
-									if (local807 && local679 == local690 && local679 == local703 && local679 == local714) {
-										this.occludeFlags[local7][local169][local284] |= 0x924;
-									}
+
+								tintColor = this.hsl24To16(hue, saturation, lightness);
+							}
+
+							if (plane > 0) {
+								@Pc(807) boolean occludes = true;
+
+								if (underlayId == 0 && this.planeOverlayTypes[plane][x0][z0] != 0) {
+									occludes = false;
 								}
-								local762 = 0;
-								if (local752 != -1) {
-									local762 = Draw3D.palette[adjustHslLightness1(local754, 96)];
+
+								if (overlayId > 0 && !FloType.instances[overlayId - 1].occlude) {
+									occludes = false;
 								}
-								if (local666 == 0) {
-									arg0.addTile(local7, local169, local284, 0, 0, -1, local679, local690, local703, local714, adjustHslLightness1(local752, local721), adjustHslLightness1(local752, local730), adjustHslLightness1(local752, local741), adjustHslLightness1(local752, local750), 0, 0, 0, 0, local762, 0);
+
+								if (occludes && heightSW == heightSE && heightSW == heightNE && heightSW == heightNW) {
+									this.occludeFlags[plane][x0][z0] |= 0x924;
+								}
+							}
+
+							int shadeColor = 0;
+							if (baseColor != -1) {
+								shadeColor = Draw3D.palette[mulHSL(tintColor, 96)];
+							}
+
+							if (overlayId == 0) {
+								mapSquare.addTile(plane, x0, z0, 0, 0, -1, heightSW, heightSE, heightNE, heightNW, mulHSL(baseColor, lightSW), mulHSL(baseColor, lightSE), mulHSL(baseColor, lightNE), mulHSL(baseColor, lightNW), 0, 0, 0, 0, shadeColor, 0);
+							} else {
+								int shape = this.planeOverlayTypes[plane][x0][z0] + 1;
+								@Pc(919) byte rotation = this.planeOverlayRotations[plane][x0][z0];
+								@Pc(925) FloType flo = FloType.instances[overlayId - 1];
+								@Pc(928) int textureId = flo.texture;
+								@Pc(936) int hsl;
+								@Pc(934) int rgb;
+
+								if (textureId >= 0) {
+									rgb = Draw3D.getAverageTextureRgb(textureId);
+									hsl = -1;
+								} else if (flo.rgb == 16711935) {
+									rgb = 0;
+									hsl = -2;
+									textureId = -1;
 								} else {
-									local766 = this.planeOverlayTypes[local7][local169][local284] + 1;
-									@Pc(919) byte local919 = this.planeOverlayRotations[local7][local169][local284];
-									@Pc(925) FloType local925 = FloType.instances[local666 - 1];
-									@Pc(928) int local928 = local925.texture;
-									@Pc(936) int local936;
-									@Pc(934) int local934;
-									if (local928 >= 0) {
-										local934 = Draw3D.getAverageTextureRgb(local928);
-										local936 = -1;
-									} else if (local925.rgb == 16711935) {
-										local934 = 0;
-										local936 = -2;
-										local928 = -1;
-									} else {
-										local936 = this.hsl24To16(local925.hue, local925.saturation, local925.lightness);
-										local934 = Draw3D.palette[this.adjustHslLightness0(local925.blendHueMultiplier, 96)];
-									}
-									arg0.addTile(local7, local169, local284, local766, local919, local928, local679, local690, local703, local714, adjustHslLightness1(local752, local721), adjustHslLightness1(local752, local730), adjustHslLightness1(local752, local741), adjustHslLightness1(local752, local750), this.adjustHslLightness0(local936, local721), this.adjustHslLightness0(local936, local730), this.adjustHslLightness0(local936, local741), this.adjustHslLightness0(local936, local750), local762, local934);
+									hsl = this.hsl24To16(flo.hue, flo.saturation, flo.lightness);
+									rgb = Draw3D.palette[this.adjustLightness(flo.blendHueMultiplier, 96)];
 								}
+
+								mapSquare.addTile(plane, x0, z0, shape, rotation, textureId, heightSW, heightSE, heightNE, heightNW, mulHSL(baseColor, lightSW), mulHSL(baseColor, lightSE), mulHSL(baseColor, lightNE), mulHSL(baseColor, lightNW), this.adjustLightness(hsl, lightSW), this.adjustLightness(hsl, lightSE), this.adjustLightness(hsl, lightNE), this.adjustLightness(hsl, lightNW), shadeColor, rgb);
 							}
 						}
 					}
 				}
 			}
-			for (local191 = 1; local191 < this.tileCountZ - 1; local191++) {
-				for (local204 = 1; local204 < this.tileCountX - 1; local204++) {
-					arg0.setPhysicalLevel(local7, local204, local191, this.getRenderLevel(local7, local204, local191));
+
+			for (int z = 1; z < this.tileCountZ - 1; z++) {
+				for (int x = 1; x < this.tileCountX - 1; x++) {
+					mapSquare.setPhysicalLevel(plane, x, z, this.getRenderLevel(plane, x, z));
 				}
 			}
 		}
+
 		if (!fullbright) {
-			arg0.applyLighting(-10, 64, -50, 768, -50);
+			mapSquare.applyLighting(-10, 64, -50, 768, -50);
 		}
-		for (local11 = 0; local11 < this.tileCountX; local11++) {
-			for (local27 = 0; local27 < this.tileCountZ; local27++) {
-				if ((this.renderFlags[1][local11][local27] & 0x2) == 2) {
-					arg0.setBridge(local27, local11);
+
+		for (int x = 0; x < this.tileCountX; x++) {
+			for (int z = 0; z < this.tileCountZ; z++) {
+				if ((this.renderFlags[1][x][z] & 0x2) == 2) {
+					mapSquare.setBridge(z, x);
 				}
 			}
 		}
+
 		if (!fullbright) {
-			local27 = 1;
-			@Pc(1123) int local1123 = 2;
-			@Pc(1125) int local1125 = 4;
-			for (@Pc(1127) int local1127 = 0; local1127 < 4; local1127++) {
-				if (local1127 > 0) {
-					local27 <<= 0x3;
-					local1123 <<= 0x3;
-					local1125 <<= 0x3;
+			int wall0 = 0b001;
+			int wall1 = 0b010;
+			int floor = 0b100;
+
+			for (@Pc(1127) int topLevel = 0; topLevel < 4; topLevel++) {
+				if (topLevel > 0) {
+					wall0 <<= 0x3;
+					wall1 <<= 0x3;
+					floor <<= 0x3;
 				}
-				for (@Pc(1145) int local1145 = 0; local1145 <= local1127; local1145++) {
-					for (local133 = 0; local133 <= this.tileCountZ; local133++) {
-						for (local139 = 0; local139 <= this.tileCountX; local139++) {
-							@Pc(1284) short local1284;
-							if ((this.occludeFlags[local1145][local139][local133] & local27) != 0) {
-								local141 = local133;
-								local145 = local133;
-								local169 = local1145;
-								local191 = local1145;
-								while (local141 > 0 && (this.occludeFlags[local1145][local139][local141 - 1] & local27) != 0) {
-									local141--;
+
+				for (@Pc(1145) int level = 0; level <= topLevel; level++) {
+					for (int z = 0; z <= this.tileCountZ; z++) {
+						for (int x = 0; x <= this.tileCountX; x++) {
+							// buildWallOccludersX
+							if ((this.occludeFlags[level][x][z] & wall0) != 0) {
+								int minTileZ = z;
+								int maxTileZ = z;
+								int minLevel = level;
+								int maxLevel = level;
+
+								while (minTileZ > 0 && (this.occludeFlags[level][x][minTileZ - 1] & wall0) != 0) {
+									minTileZ--;
 								}
-								while (local145 < this.tileCountZ && (this.occludeFlags[local1145][local139][local145 + 1] & local27) != 0) {
-									local145++;
+
+								while (maxTileZ < this.tileCountZ && (this.occludeFlags[level][x][maxTileZ + 1] & wall0) != 0) {
+									maxTileZ++;
 								}
-								label337:
-								while (local169 > 0) {
-									for (local204 = local141; local204 <= local145; local204++) {
-										if ((this.occludeFlags[local169 - 1][local139][local204] & local27) == 0) {
-											break label337;
+
+								find_min_level:
+								while (minLevel > 0) {
+									for (int len = minTileZ; len <= maxTileZ; len++) {
+										if ((this.occludeFlags[minLevel - 1][x][len] & wall0) == 0) {
+											break find_min_level;
 										}
 									}
-									local169--;
+
+									minLevel--;
 								}
-								label326:
-								while (local191 < local1127) {
-									for (local204 = local141; local204 <= local145; local204++) {
-										if ((this.occludeFlags[local191 + 1][local139][local204] & local27) == 0) {
-											break label326;
+
+								find_max_level:
+								while (maxLevel < topLevel) {
+									for (int len = minTileZ; len <= maxTileZ; len++) {
+										if ((this.occludeFlags[maxLevel + 1][x][len] & wall0) == 0) {
+											break find_max_level;
 										}
 									}
-									local191++;
+
+									maxLevel++;
 								}
-								local204 = (local191 + 1 - local169) * (local145 + 1 - local141);
-								if (local204 >= 8) {
-									local1284 = 240;
-									local214 = this.heightmap[local191][local139][local141] - local1284;
-									local220 = this.heightmap[local169][local139][local141];
-									MapSquare.addOcclude(local145 * 128 + 128, local139 * 128, local220, 1, local139 * 128, local1127, local214, local141 * 128);
-									for (local236 = local169; local236 <= local191; local236++) {
-										for (local284 = local141; local284 <= local145; local284++) {
-											this.occludeFlags[local236][local139][local284] &= ~local27;
+
+								int area = (maxLevel + 1 - minLevel) * (maxTileZ + 1 - minTileZ);
+								if (area >= 8) {
+									int minY = this.heightmap[maxLevel][x][minTileZ] - 240;
+									int maxY = this.heightmap[minLevel][x][minTileZ];
+
+									MapSquare.addOcclude(maxTileZ * 128 + 128, x * 128, maxY, 1, x * 128, topLevel, minY, minTileZ * 128);
+
+									for (int tileLevel = minLevel; tileLevel <= maxLevel; tileLevel++) {
+										for (int tileZ = minTileZ; tileZ <= maxTileZ; tileZ++) {
+											this.occludeFlags[tileLevel][x][tileZ] &= ~wall0;
 										}
 									}
 								}
 							}
-							if ((this.occludeFlags[local1145][local139][local133] & local1123) != 0) {
-								local141 = local139;
-								local145 = local139;
-								local169 = local1145;
-								local191 = local1145;
-								while (local141 > 0 && (this.occludeFlags[local1145][local141 - 1][local133] & local1123) != 0) {
-									local141--;
+
+							// buildWallOccludersZ
+							if ((this.occludeFlags[level][x][z] & wall1) != 0) {
+								int minTileX = x;
+								int maxTileX = x;
+								int minLevel = level;
+								int maxLevel = level;
+
+								while (minTileX > 0 && (this.occludeFlags[level][minTileX - 1][z] & wall1) != 0) {
+									minTileX--;
 								}
-								while (local145 < this.tileCountX && (this.occludeFlags[local1145][local145 + 1][local133] & local1123) != 0) {
-									local145++;
+
+								while (maxTileX < this.tileCountX && (this.occludeFlags[level][maxTileX + 1][z] & wall1) != 0) {
+									maxTileX++;
 								}
-								label390:
-								while (local169 > 0) {
-									for (local204 = local141; local204 <= local145; local204++) {
-										if ((this.occludeFlags[local169 - 1][local204][local133] & local1123) == 0) {
-											break label390;
+
+								find_min_level2:
+								while (minLevel > 0) {
+									for (int len = minTileX; len <= maxTileX; len++) {
+										if ((this.occludeFlags[minLevel - 1][len][z] & wall1) == 0) {
+											break find_min_level2;
 										}
 									}
-									local169--;
+
+									minLevel--;
 								}
-								label379:
-								while (local191 < local1127) {
-									for (local204 = local141; local204 <= local145; local204++) {
-										if ((this.occludeFlags[local191 + 1][local204][local133] & local1123) == 0) {
-											break label379;
+
+								find_max_level2:
+								while (maxLevel < topLevel) {
+									for (int len = minTileX; len <= maxTileX; len++) {
+										if ((this.occludeFlags[maxLevel + 1][len][z] & wall1) == 0) {
+											break find_max_level2;
 										}
 									}
-									local191++;
+
+									maxLevel++;
 								}
-								local204 = (local191 + 1 - local169) * (local145 + 1 - local141);
-								if (local204 >= 8) {
-									local1284 = 240;
-									local214 = this.heightmap[local191][local141][local133] - local1284;
-									local220 = this.heightmap[local169][local141][local133];
-									MapSquare.addOcclude(local133 * 128, local141 * 128, local220, 2, local145 * 128 + 128, local1127, local214, local133 * 128);
-									for (local236 = local169; local236 <= local191; local236++) {
-										for (local284 = local141; local284 <= local145; local284++) {
-											this.occludeFlags[local236][local284][local133] &= ~local1123;
+
+								int area = (maxLevel + 1 - minLevel) * (maxTileX + 1 - minTileX);
+								if (area >= 8) {
+									int normalY = this.heightmap[maxLevel][minTileX][z] - 240;
+									int normalZ = this.heightmap[minLevel][minTileX][z];
+
+									MapSquare.addOcclude(z * 128, minTileX * 128, normalZ, 2, maxTileX * 128 + 128, topLevel, normalY, z * 128);
+
+									for (int tileLevel = minLevel; tileLevel <= maxLevel; tileLevel++) {
+										for (int tileX = minTileX; tileX <= maxTileX; tileX++) {
+											this.occludeFlags[tileLevel][tileX][z] &= ~wall1;
 										}
 									}
 								}
 							}
-							if ((this.occludeFlags[local1145][local139][local133] & local1125) != 0) {
-								local141 = local139;
-								local145 = local139;
-								local169 = local133;
-								local191 = local133;
-								while (local169 > 0 && (this.occludeFlags[local1145][local139][local169 - 1] & local1125) != 0) {
-									local169--;
+
+							// buildFloorOccluders
+							if ((this.occludeFlags[level][x][z] & floor) != 0) {
+								int minTileX = x;
+								int maxTileX = x;
+								int minTileZ = z;
+								int maxTileZ = z;
+
+								while (minTileZ > 0 && (this.occludeFlags[level][x][minTileZ - 1] & floor) != 0) {
+									minTileZ--;
 								}
-								while (local191 < this.tileCountZ && (this.occludeFlags[local1145][local139][local191 + 1] & local1125) != 0) {
-									local191++;
+
+								while (maxTileZ < this.tileCountZ && (this.occludeFlags[level][x][maxTileZ + 1] & floor) != 0) {
+									maxTileZ++;
 								}
-								label443:
-								while (local141 > 0) {
-									for (local204 = local169; local204 <= local191; local204++) {
-										if ((this.occludeFlags[local1145][local141 - 1][local204] & local1125) == 0) {
-											break label443;
+
+								find_min_tile_x:
+								while (minTileX > 0) {
+									for (int len = minTileZ; len <= maxTileZ; len++) {
+										if ((this.occludeFlags[level][minTileX - 1][len] & floor) == 0) {
+											break find_min_tile_x;
 										}
 									}
-									local141--;
+
+									minTileX--;
 								}
-								label432:
-								while (local145 < this.tileCountX) {
-									for (local204 = local169; local204 <= local191; local204++) {
-										if ((this.occludeFlags[local1145][local145 + 1][local204] & local1125) == 0) {
-											break label432;
+
+								find_max_tile_x:
+								while (maxTileX < this.tileCountX) {
+									for (int len = minTileZ; len <= maxTileZ; len++) {
+										if ((this.occludeFlags[level][maxTileX + 1][len] & floor) == 0) {
+											break find_max_tile_x;
 										}
 									}
-									local145++;
+
+									maxTileX++;
 								}
-								if ((local145 + 1 - local141) * (local191 + 1 - local169) >= 4) {
-									local204 = this.heightmap[local1145][local141][local169];
-									MapSquare.addOcclude(local191 * 128 + 128, local141 * 128, local204, 4, local145 * 128 + 128, local1127, local204, local169 * 128);
-									for (local210 = local141; local210 <= local145; local210++) {
-										for (local214 = local169; local214 <= local191; local214++) {
-											this.occludeFlags[local1145][local210][local214] &= ~local1125;
+
+								if ((maxTileX + 1 - minTileX) * (maxTileZ + 1 - minTileZ) >= 4) {
+									int y = this.heightmap[level][minTileX][minTileZ];
+
+									MapSquare.addOcclude(maxTileZ * 128 + 128, minTileX * 128, y, 4, maxTileX * 128 + 128, topLevel, y, minTileZ * 128);
+
+									for (int tileX = minTileX; tileX <= maxTileX; tileX++) {
+										for (int tileZ = minTileZ; tileZ <= maxTileZ; tileZ++) {
+											this.occludeFlags[level][tileX][tileZ] &= ~floor;
 										}
 									}
 								}
@@ -1052,50 +1187,59 @@ public class Scene {
 	}
 
 	@OriginalMember(owner = "client!c", name = "a", descriptor = "(IBII)I")
-	private int getRenderLevel(@OriginalArg(0) int arg0, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
-		if ((this.renderFlags[arg0][arg2][arg3] & 0x8) == 0) {
-			return arg0 <= 0 || (this.renderFlags[1][arg2][arg3] & 0x2) == 0 ? arg0 : arg0 - 1;
+	private int getRenderLevel(@OriginalArg(0) int plane, @OriginalArg(2) int x, @OriginalArg(3) int z) {
+		if ((this.renderFlags[plane][x][z] & 0x8) == 0) {
+			return plane <= 0 || (this.renderFlags[1][x][z] & 0x2) == 0 ? plane : plane - 1;
 		} else {
 			return 0;
 		}
 	}
 
 	@OriginalMember(owner = "client!c", name = "e", descriptor = "(II)I")
-	private int adjustHslLightness0(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		if (arg0 == -2) {
+	private int adjustLightness(@OriginalArg(0) int hsl, @OriginalArg(1) int scalar) {
+		if (hsl == -2) {
 			return 12345678;
-		} else if (arg0 == -1) {
-			if (arg1 < 0) {
-				arg1 = 0;
-			} else if (arg1 > 127) {
-				arg1 = 127;
+		}
+
+		if (hsl == -1) {
+			if (scalar < 0) {
+				scalar = 0;
+			} else if (scalar > 127) {
+				scalar = 127;
 			}
-			return 127 - arg1;
+
+			return 127 - scalar;
 		} else {
-			arg1 = arg1 * (arg0 & 0x7F) / 128;
-			if (arg1 < 2) {
-				arg1 = 2;
-			} else if (arg1 > 126) {
-				arg1 = 126;
+			scalar = scalar * (hsl & 0x7F) / 128;
+
+			if (scalar < 2) {
+				scalar = 2;
+			} else if (scalar > 126) {
+				scalar = 126;
 			}
-			return (arg0 & 0xFF80) + arg1;
+
+			return (hsl & 0xFF80) + scalar;
 		}
 	}
 
 	@OriginalMember(owner = "client!c", name = "b", descriptor = "(III)I")
-	private int hsl24To16(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
-		if (arg2 > 179) {
-			arg1 /= 2;
+	private int hsl24To16(@OriginalArg(0) int hue, @OriginalArg(1) int saturation, @OriginalArg(2) int lightness) {
+		if (lightness > 179) {
+			saturation /= 2;
 		}
-		if (arg2 > 192) {
-			arg1 /= 2;
+
+		if (lightness > 192) {
+			saturation /= 2;
 		}
-		if (arg2 > 217) {
-			arg1 /= 2;
+
+		if (lightness > 217) {
+			saturation /= 2;
 		}
-		if (arg2 > 243) {
-			arg1 /= 2;
+
+		if (lightness > 243) {
+			saturation /= 2;
 		}
-		return (arg0 / 4 << 10) + (arg1 / 32 << 7) + arg2 / 2;
+
+		return (hue / 4 << 10) + (saturation / 32 << 7) + lightness / 2;
 	}
 }

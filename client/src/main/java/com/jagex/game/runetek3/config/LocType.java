@@ -16,13 +16,17 @@ public class LocType {
 	public static final int WALL_DIAGONALCORNER = 1;
 	public static final int WALL_L = 2;
 	public static final int WALL_SQUARECORNER = 3;
+
+	public static final int WALLDECOR_STRAIGHT = 4;
+	public static final int WALLDECOR_STRAIGHT_OFFSET = 5;
+	public static final int WALLDECOR_DIAGONAL_NOOFFSET = 6;
+	public static final int WALLDECOR_DIAGONAL_OFFSET = 7;
+	public static final int WALLDECOR_DIAGONAL_BOTH = 8;
+
 	public static final int WALL_DIAGONAL = 9;
 
-	public static final int WALLDECOR_STRAIGHT_XOFFSET = 4;
-	public static final int WALLDECOR_STRAIGHT_ZOFFSET = 5;
-	public static final int WALLDECOR_DIAGONAL_XOFFSET = 6;
-	public static final int WALLDECOR_DIAGONAL_ZOFFSET = 7;
-	public static final int WALLDECOR_DIAGONAL_BOTH = 8;
+	public static final int CENTREPIECE_STRAIGHT = 10;
+	public static final int CENTREPIECE_DIAGONAL = 11;
 
 	public static final int ROOF_STRAIGHT = 12;
 	public static final int ROOF_DIAGONAL_WITH_ROOFEDGE = 13;
@@ -36,8 +40,6 @@ public class LocType {
 	public static final int ROOFEDGE_L = 20;
 	public static final int ROOFEDGE_SQUARECORNER = 21;
 
-	public static final int CENTREPIECE_STRAIGHT = 10;
-	public static final int CENTREPIECE_DIAGONAL = 11;
 	public static final int GROUNDDECOR = 22;
 
 	@OriginalMember(owner = "client!ac", name = "c", descriptor = "Z")
@@ -83,10 +85,10 @@ public class LocType {
 	private int[] recol_d;
 
 	@OriginalMember(owner = "client!ac", name = "p", descriptor = "I")
-	public int width;
+	public int sizeX;
 
 	@OriginalMember(owner = "client!ac", name = "q", descriptor = "I")
-	public int length;
+	public int sizeZ;
 
 	@OriginalMember(owner = "client!ac", name = "r", descriptor = "Z")
 	public boolean blockwalk;
@@ -216,8 +218,8 @@ public class LocType {
 		this.desc = null;
 		this.recol_s = null;
 		this.recol_d = null;
-		this.width = 1;
-		this.length = 1;
+		this.sizeX = 1;
+		this.sizeZ = 1;
 		this.blockwalk = true;
 		this.blockrange = true;
 		this.interactable = false;
@@ -267,9 +269,9 @@ public class LocType {
 			} else if (opcode == 3) {
 				this.desc = dat.gstrbyte();
 			} else if (opcode == 14) {
-				this.width = dat.g1();
+				this.sizeX = dat.g1();
 			} else if (opcode == 15) {
-				this.length = dat.g1();
+				this.sizeZ = dat.g1();
 			} else if (opcode == 17) {
 				this.blockwalk = false;
 			} else if (opcode == 18) {

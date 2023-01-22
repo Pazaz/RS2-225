@@ -32,10 +32,10 @@ public class FloType {
 	public int lightness;
 
 	@OriginalMember(owner = "client!fc", name = "m", descriptor = "I")
-	public int blendHue;
+	public int chroma;
 
 	@OriginalMember(owner = "client!fc", name = "n", descriptor = "I")
-	public int hsl16;
+	public int luminance;
 
 	@OriginalMember(owner = "client!fc", name = "o", descriptor = "I")
 	public int blendHueMultiplier;
@@ -139,16 +139,16 @@ public class FloType {
 		}
 
 		if (l > 0.5D) {
-			this.hsl16 = (int) ((1.0D - l) * s * 512.0D);
+			this.luminance = (int) ((1.0D - l) * s * 512.0D);
 		} else {
-			this.hsl16 = (int) (l * s * 512.0D);
+			this.luminance = (int) (l * s * 512.0D);
 		}
 
-		if (this.hsl16 < 1) {
-			this.hsl16 = 1;
+		if (this.luminance < 1) {
+			this.luminance = 1;
 		}
 
-		this.blendHue = (int) (h * (double) this.hsl16);
+		this.chroma = (int) (h * (double) this.luminance);
 
 		@Pc(248) int randHue = this.hue + (int) (Math.random() * 16.0D) - 8;
 		if (randHue < 0) {

@@ -426,18 +426,20 @@ public class MapSquare {
 	}
 
 	@OriginalMember(owner = "client!r", name = "a", descriptor = "(Lclient!eb;BIIIIBI)V")
-	public void addGroundDecoration(@OriginalArg(0) Model arg0, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) byte arg6, @OriginalArg(7) int arg7) {
-		@Pc(3) GroundDecoration local3 = new GroundDecoration();
-		local3.model = arg0;
-		local3.x = arg2 * 128 + 64;
-		local3.z = arg4 * 128 + 64;
-		local3.plane = arg7;
-		local3.bitset = arg3;
-		local3.info = arg6;
-		if (this.levelTiles[arg5][arg2][arg4] == null) {
-			this.levelTiles[arg5][arg2][arg4] = new Tile(arg5, arg2, arg4);
+	public void addGroundDecoration(@OriginalArg(0) Model model, @OriginalArg(2) int x, @OriginalArg(3) int bitset, @OriginalArg(4) int z, @OriginalArg(5) int plane, @OriginalArg(6) byte info, @OriginalArg(7) int level) {
+		@Pc(3) GroundDecoration decor = new GroundDecoration();
+		decor.model = model;
+		decor.x = x * 128 + 64;
+		decor.z = z * 128 + 64;
+		decor.plane = level;
+		decor.bitset = bitset;
+		decor.info = info;
+
+		if (this.levelTiles[plane][x][z] == null) {
+			this.levelTiles[plane][x][z] = new Tile(plane, x, z);
 		}
-		this.levelTiles[arg5][arg2][arg4].groundDecoration = local3;
+
+		this.levelTiles[plane][x][z].groundDecoration = decor;
 	}
 
 	@OriginalMember(owner = "client!r", name = "a", descriptor = "(Lclient!eb;Lclient!eb;IIIIILclient!eb;I)V")

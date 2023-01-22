@@ -185,9 +185,9 @@ public class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(IIIIIIZ)V")
-	public void setLoc(@OriginalArg(0) int orientation, @OriginalArg(1) int sizeZ, @OriginalArg(2) int sizeX, @OriginalArg(3) int xOffset, @OriginalArg(5) int zOffset, @OriginalArg(6) boolean solid) {
+	public void setLoc(@OriginalArg(0) int orientation, @OriginalArg(1) int sizeZ, @OriginalArg(2) int sizeX, @OriginalArg(3) int xOffset, @OriginalArg(5) int zOffset, @OriginalArg(6) boolean blocks) {
 		@Pc(3) int flag = OCCUPIED_TILE;
-		if (solid) {
+		if (blocks) {
 			flag += SOLID;
 		}
 
@@ -328,9 +328,9 @@ public class CollisionMap {
 	}
 
 	@OriginalMember(owner = "client!ec", name = "a", descriptor = "(IIIIZZI)V")
-	public void removeLoc(@OriginalArg(0) int zOffset, @OriginalArg(1) int xOffset, @OriginalArg(2) int orientation, @OriginalArg(3) int sizeX, @OriginalArg(5) boolean solid, @OriginalArg(6) int sizeZ) {
+	public void removeLoc(@OriginalArg(0) int zOffset, @OriginalArg(1) int xOffset, @OriginalArg(2) int orientation, @OriginalArg(3) int sizeX, @OriginalArg(5) boolean blocks, @OriginalArg(6) int sizeZ) {
 		@Pc(3) int flag = OCCUPIED_TILE;
-		if (solid) {
+		if (blocks) {
 			flag += SOLID;
 		}
 
@@ -479,8 +479,8 @@ public class CollisionMap {
 		@Pc(29) int x1 = finalXOffset - this.xOffset;
 		@Pc(34) int z1 = finalZOffset - this.zOffset;
 
-		if (type == LocType.WALLDECOR_DIAGONAL_XOFFSET || type == LocType.WALLDECOR_DIAGONAL_ZOFFSET) {
-			if (type == LocType.WALLDECOR_DIAGONAL_ZOFFSET) {
+		if (type == LocType.WALLDECOR_DIAGONAL_NOOFFSET || type == LocType.WALLDECOR_DIAGONAL_OFFSET) {
+			if (type == LocType.WALLDECOR_DIAGONAL_OFFSET) {
 				orientation = orientation + 2 & 0x3;
 			}
 
