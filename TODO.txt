@@ -1,8 +1,8 @@
-- client
-- CollisionMap
-- Draw3D
-- MapSquare
-- Model
-- Scene
+- client, 10520 lines
+- CollisionMap, 572 lines
+- Draw3D, 2432 lines
+- MapSquare, 2294 lines
+- Model, 2075 lines
+- Scene, 1102 lines
 - TextEncoder
-- WordPack
+- WordPack, 1080 lines
