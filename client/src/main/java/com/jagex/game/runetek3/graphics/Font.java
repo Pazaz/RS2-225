@@ -98,25 +98,27 @@ public class Font extends Draw2D {
 			this.clipX[c] = 1;
 			this.charSpace[c] = width + 2;
 
-			// adjust x
-			int i = 0;
-			for (int x = height / 7; x < height; x++) {
-				i += this.pixels[c][x * width];
+			{
+				int i = 0;
+				for (int y = height / 7; y < height; y++) {
+					i += this.pixels[c][y * width];
+				}
+
+				if (i <= height / 7) {
+					this.charSpace[c]--;
+					this.clipX[c] = 0;
+				}
 			}
 
-			if (i <= height / 7) {
-				this.charSpace[c]--;
-				this.clipX[c] = 0;
-			}
+			{
+				int i = 0;
+				for (int y = height / 7; y < height; y++) {
+					i += this.pixels[c][width + y * width - 1];
+				}
 
-			// adjust y
-			i = 0;
-			for (@Pc(269) int y = height / 7; y < height; y++) {
-				i += this.pixels[c][width + y * width - 1];
-			}
-
-			if (i <= height / 7) {
-				this.charSpace[c]--;
+				if (i <= height / 7) {
+					this.charSpace[c]--;
+				}
 			}
 		}
 
