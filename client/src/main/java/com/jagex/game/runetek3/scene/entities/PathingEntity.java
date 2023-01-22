@@ -166,25 +166,28 @@ public class PathingEntity extends Entity {
 	public final boolean[] pathRunning = new boolean[10];
 
 	@OriginalMember(owner = "client!x", name = "a", descriptor = "(ZZII)V")
-	public final void move(@OriginalArg(1) boolean arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
+	public final void move(@OriginalArg(1) boolean teleport, @OriginalArg(2) int x, @OriginalArg(3) int z) {
 		if (this.primarySeq != -1 && SeqType.instances[this.primarySeq].priority <= 1) {
 			this.primarySeq = -1;
 		}
 
-		if (!arg1) {
-			@Pc(22) int local22 = arg2 - this.pathTileX[0];
-			@Pc(29) int local29 = arg3 - this.pathTileZ[0];
-			if (local22 >= -8 && local22 <= 8 && local29 >= -8 && local29 <= 8) {
+		if (!teleport) {
+			@Pc(22) int dx = x - this.pathTileX[0];
+			@Pc(29) int dz = z - this.pathTileZ[0];
+
+			if (dx >= -8 && dx <= 8 && dz >= -8 && dz <= 8) {
 				if (this.pathRemaining < 9) {
 					this.pathRemaining++;
 				}
-				for (@Pc(54) int local54 = this.pathRemaining; local54 > 0; local54--) {
-					this.pathTileX[local54] = this.pathTileX[local54 - 1];
-					this.pathTileZ[local54] = this.pathTileZ[local54 - 1];
-					this.pathRunning[local54] = this.pathRunning[local54 - 1];
+
+				for (@Pc(54) int i = this.pathRemaining; i > 0; i--) {
+					this.pathTileX[i] = this.pathTileX[i - 1];
+					this.pathTileZ[i] = this.pathTileZ[i - 1];
+					this.pathRunning[i] = this.pathRunning[i - 1];
 				}
-				this.pathTileX[0] = arg2;
-				this.pathTileZ[0] = arg3;
+
+				this.pathTileX[0] = x;
+				this.pathTileZ[0] = z;
 				this.pathRunning[0] = false;
 				return;
 			}
@@ -192,58 +195,56 @@ public class PathingEntity extends Entity {
 
 		this.pathRemaining = 0;
 		this.int1 = 0;
-		this.pathTileX[0] = arg2;
-		this.pathTileZ[0] = arg3;
+		this.pathTileX[0] = x;
+		this.pathTileZ[0] = z;
 		this.x = this.pathTileX[0] * 128 + this.index * 64;
 		this.z = this.pathTileZ[0] * 128 + this.index * 64;
 	}
 
 	@OriginalMember(owner = "client!x", name = "a", descriptor = "(ZIB)V")
-	public final void walk(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1) {
-		@Pc(6) int local6 = this.pathTileX[0];
-		@Pc(11) int local11 = this.pathTileZ[0];
-		if (arg1 == 0) {
-			local6--;
-			local11++;
+	public final void walk(@OriginalArg(0) boolean running, @OriginalArg(1) int direction) {
+		@Pc(6) int x = this.pathTileX[0];
+		@Pc(11) int z = this.pathTileZ[0];
+
+		if (direction == 0) {
+			x--;
+			z++;
+		} else if (direction == 1) {
+			z++;
+		} else if (direction == 2) {
+			x++;
+			z++;
+		} else if (direction == 3) {
+			x--;
+		} else if (direction == 4) {
+			x++;
+		} else if (direction == 5) {
+			x--;
+			z--;
+		} else if (direction == 6) {
+			z--;
+		} else if (direction == 7) {
+			x++;
+			z--;
 		}
-		if (arg1 == 1) {
-			local11++;
-		}
-		if (arg1 == 2) {
-			local6++;
-			local11++;
-		}
-		if (arg1 == 3) {
-			local6--;
-		}
-		if (arg1 == 4) {
-			local6++;
-		}
-		if (arg1 == 5) {
-			local6--;
-			local11--;
-		}
-		if (arg1 == 6) {
-			local11--;
-		}
-		if (arg1 == 7) {
-			local6++;
-			local11--;
-		}
+
 		if (this.primarySeq != -1 && SeqType.instances[this.primarySeq].priority <= 1) {
 			this.primarySeq = -1;
 		}
+
 		if (this.pathRemaining < 9) {
 			this.pathRemaining++;
 		}
-		for (@Pc(83) int local83 = this.pathRemaining; local83 > 0; local83--) {
-			this.pathTileX[local83] = this.pathTileX[local83 - 1];
-			this.pathTileZ[local83] = this.pathTileZ[local83 - 1];
-			this.pathRunning[local83] = this.pathRunning[local83 - 1];
+
+		for (@Pc(83) int i = this.pathRemaining; i > 0; i--) {
+			this.pathTileX[i] = this.pathTileX[i - 1];
+			this.pathTileZ[i] = this.pathTileZ[i - 1];
+			this.pathRunning[i] = this.pathRunning[i - 1];
 		}
-		this.pathTileX[0] = local6;
-		this.pathTileZ[0] = local11;
-		this.pathRunning[0] = arg0;
+
+		this.pathTileX[0] = x;
+		this.pathTileZ[0] = z;
+		this.pathRunning[0] = running;
 	}
 
 	@OriginalMember(owner = "client!x", name = "b", descriptor = "(Z)Z")

@@ -3,8 +3,6 @@
 - Draw3D
 - MapSquare
 - Model
-- PathingEntity
-- PlayerEntity
 - Scene
 - TextEncoder
 - WordPack
