@@ -45,7 +45,8 @@ public class BZip2InputStream {
 		@Pc(29) int avail_out_INIT = cs_avail_out;
 		@Pc(34) int s_save_nblockPP = s.save_nblock + 1;
 
-		label67: while (true) {
+		label67:
+		while (true) {
 			if (c_state_out_len > 0) {
 				while (true) {
 					if (cs_avail_out == 0) {

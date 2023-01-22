@@ -18,13 +18,13 @@ import com.jagex.game.runetek3.config.*;
 import com.jagex.game.runetek3.graphics.Component;
 import com.jagex.game.runetek3.graphics.Font;
 import com.jagex.game.runetek3.graphics.*;
-import rs2.shared.network.ServerProt;
 import com.jagex.game.runetek3.scene.*;
 import com.jagex.game.runetek3.scene.entities.*;
 import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
+import rs2.shared.network.ServerProt;
 import rs2.shared.network.ZoneProt;
 
 import java.awt.*;
@@ -2227,9 +2227,7 @@ public class Game extends GameShell {
 							local106 = local91.read(local52, local96, local25 - local96);
 							if (local106 == -1) {
 								@Pc(112) byte[] local112 = new byte[local96];
-								for (@Pc(114) int local114 = 0; local114 < local96; local114++) {
-									local112[local114] = local52[local114];
-								}
+								System.arraycopy(local52, 0, local112, 0, local96);
 								local52 = local112;
 								local25 = local96;
 								break;
@@ -3128,9 +3126,7 @@ public class Game extends GameShell {
 				@Pc(82) int local82 = local74.g3() + 6;
 				@Pc(84) int local84 = 6;
 				local6 = new byte[local82];
-				for (@Pc(89) int local89 = 0; local89 < 6; local89++) {
-					local6[local89] = local63[local89];
-				}
+				System.arraycopy(local63, 0, local6, 0, 6);
 				while (local84 < local82) {
 					@Pc(107) int local107 = local82 - local84;
 					if (local107 > 1000) {
@@ -3669,12 +3665,8 @@ public class Game extends GameShell {
 		}
 		this.imageFlamesLeft = new Sprite(128, 265);
 		this.imageFlamesRight = new Sprite(128, 265);
-		for (@Pc(65) int local65 = 0; local65 < 33920; local65++) {
-			this.imageFlamesLeft.pixels[local65] = this.titleLeft.pixels[local65];
-		}
-		for (@Pc(83) int local83 = 0; local83 < 33920; local83++) {
-			this.imageFlamesRight.pixels[local83] = this.titleRight.pixels[local83];
-		}
+		System.arraycopy(this.titleLeft.pixels, 0, this.imageFlamesLeft.pixels, 0, 33920);
+		System.arraycopy(this.titleRight.pixels, 0, this.imageFlamesRight.pixels, 0, 33920);
 		this.flameGradientRed = new int[256];
 		for (@Pc(105) int local105 = 0; local105 < 64; local105++) {
 			this.flameGradientRed[local105] = local105 * 262144;
@@ -4125,7 +4117,8 @@ public class Game extends GameShell {
 							local191 = local94 + local456.fontHeight;
 							while (local462.length() > 0) {
 								if (local462.indexOf("%") != -1) {
-									label264: while (true) {
+									label264:
+									while (true) {
 										local215 = local462.indexOf("%1");
 										if (local215 == -1) {
 											while (true) {
@@ -6147,7 +6140,7 @@ public class Game extends GameShell {
 				SoundTrack.unpack(local1119);
 			}
 			this.showProgress("Unpacking interfaces", 92);
-			@Pc(1150) Font[] local1150 = new Font[] { this.plain11, this.plain12, this.bold12, this.quill8};
+			@Pc(1150) Font[] local1150 = new Font[] { this.plain11, this.plain12, this.bold12, this.quill8 };
 			Component.unpack(mediaArchive, local1150, interfaceArchive);
 			this.showProgress("Preparing game engine", 97);
 			@Pc(1166) int local1166;
@@ -6752,7 +6745,7 @@ public class Game extends GameShell {
 			this.stream.read(this.inBuffer.data, 0, 8);
 			this.inBuffer.pos = 0;
 			this.serverSeed = this.inBuffer.g8();
-			@Pc(47) int[] local47 = new int[] { (int) (Math.random() * 9.9999999E7D), (int) (Math.random() * 9.9999999E7D), (int) (this.serverSeed >> 32), (int) this.serverSeed};
+			@Pc(47) int[] local47 = new int[] { (int) (Math.random() * 9.9999999E7D), (int) (Math.random() * 9.9999999E7D), (int) (this.serverSeed >> 32), (int) this.serverSeed };
 			this.outBuffer.pos = 0;
 			this.outBuffer.p1(10);
 			this.outBuffer.p4(local47[0]);
@@ -8751,9 +8744,7 @@ public class Game extends GameShell {
 			for (@Pc(116) int local116 = 0; local116 < local14.spriteWidth; local116++) {
 				local110[local116] = local14.pixels[local14.spriteWidth + local14.spriteWidth * local112 - local116 - 1];
 			}
-			for (@Pc(142) int local142 = 0; local142 < local14.spriteWidth; local142++) {
-				local14.pixels[local142 + local14.spriteWidth * local112] = local110[local142];
-			}
+			System.arraycopy(local110, 0, local14.pixels, local14.spriteWidth * local112, local14.spriteWidth);
 		}
 		this.titleLeft.makeTarget();
 		local14.drawOpaque(394, 0);
@@ -8789,7 +8780,8 @@ public class Game extends GameShell {
 				local10.seqFrame = 0;
 				local14 = true;
 			}
-			label70: {
+			label70:
+			{
 				do {
 					do {
 						if (local10.seqDelay <= local10.seq.frameDelay[local10.seqFrame]) {

@@ -286,7 +286,8 @@ public class MapSquare {
 				for (local62 = -25; local62 < 25; local62++) {
 					for (local64 = -25; local64 < 25; local64++) {
 						@Pc(155) boolean local155 = false;
-						label83: for (local74 = -1; local74 <= 1; local74++) {
+						label83:
+						for (local74 = -1; local74 <= 1; local74++) {
 							for (local78 = -1; local78 <= 1; local78++) {
 								if (local28[local34][local58][local62 + local74 + 25 + 1][local64 + local78 + 25 + 1]) {
 									local155 = true;
@@ -1500,7 +1501,8 @@ public class MapSquare {
 										@Pc(1002) int local1002 = local8.locationCount;
 										local8.drawLocs = false;
 										var22 = 0;
-										label559: for (local253 = 0; local253 < local1002; local253++) {
+										label559:
+										for (local253 = 0; local253 < local1002; local253++) {
 											var12 = local8.locs[local253];
 											if (var12.cycle != activeLevel) {
 												for (local1023 = var12.minSceneTileX; local1023 <= var12.maxSceneTileX; local1023++) {
@@ -1998,7 +2000,8 @@ public class MapSquare {
 							local84 = 50;
 						}
 						@Pc(348) boolean local348 = false;
-						label149: for (@Pc(350) int local350 = local330; local350 <= local84; local350++) {
+						label149:
+						for (@Pc(350) int local350 = local330; local350 <= local84; local350++) {
 							for (@Pc(354) int local354 = local43; local354 <= local54; local354++) {
 								if (visibilityMap[local350][local354]) {
 									local348 = true;

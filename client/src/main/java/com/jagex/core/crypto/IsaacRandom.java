@@ -30,9 +30,7 @@ public class IsaacRandom {
 	public IsaacRandom(@OriginalArg(1) int[] seed) {
 		this.mem = new int[256];
 		this.rsl = new int[256];
-		for (@Pc(13) int i = 0; i < seed.length; i++) {
-			this.rsl[i] = seed[i];
-		}
+		System.arraycopy(seed, 0, this.rsl, 0, seed.length);
 		this.init();
 	}
 

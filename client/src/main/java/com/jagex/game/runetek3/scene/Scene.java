@@ -932,7 +932,8 @@ public class Scene {
 								while (local145 < this.tileCountZ && (this.occludeFlags[local1145][local139][local145 + 1] & local27) != 0) {
 									local145++;
 								}
-								label337: while (local169 > 0) {
+								label337:
+								while (local169 > 0) {
 									for (local204 = local141; local204 <= local145; local204++) {
 										if ((this.occludeFlags[local169 - 1][local139][local204] & local27) == 0) {
 											break label337;
@@ -940,7 +941,8 @@ public class Scene {
 									}
 									local169--;
 								}
-								label326: while (local191 < local1127) {
+								label326:
+								while (local191 < local1127) {
 									for (local204 = local141; local204 <= local145; local204++) {
 										if ((this.occludeFlags[local191 + 1][local139][local204] & local27) == 0) {
 											break label326;
@@ -972,7 +974,8 @@ public class Scene {
 								while (local145 < this.tileCountX && (this.occludeFlags[local1145][local145 + 1][local133] & local1123) != 0) {
 									local145++;
 								}
-								label390: while (local169 > 0) {
+								label390:
+								while (local169 > 0) {
 									for (local204 = local141; local204 <= local145; local204++) {
 										if ((this.occludeFlags[local169 - 1][local204][local133] & local1123) == 0) {
 											break label390;
@@ -980,7 +983,8 @@ public class Scene {
 									}
 									local169--;
 								}
-								label379: while (local191 < local1127) {
+								label379:
+								while (local191 < local1127) {
 									for (local204 = local141; local204 <= local145; local204++) {
 										if ((this.occludeFlags[local191 + 1][local204][local133] & local1123) == 0) {
 											break label379;
@@ -1012,7 +1016,8 @@ public class Scene {
 								while (local191 < this.tileCountZ && (this.occludeFlags[local1145][local139][local191 + 1] & local1125) != 0) {
 									local191++;
 								}
-								label443: while (local141 > 0) {
+								label443:
+								while (local141 > 0) {
 									for (local204 = local169; local204 <= local191; local204++) {
 										if ((this.occludeFlags[local1145][local141 - 1][local204] & local1125) == 0) {
 											break label443;
@@ -1020,7 +1025,8 @@ public class Scene {
 									}
 									local141--;
 								}
-								label432: while (local145 < this.tileCountX) {
+								label432:
+								while (local145 < this.tileCountX) {
 									for (local204 = local169; local204 <= local191; local204++) {
 										if ((this.occludeFlags[local1145][local145 + 1][local204] & local1125) == 0) {
 											break label432;

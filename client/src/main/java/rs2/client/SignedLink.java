@@ -21,7 +21,7 @@ import java.util.Objects;
 public class SignedLink implements Runnable {
 
 	@OriginalMember(owner = "client!sign/signlink", name = "clientversion", descriptor = "I")
-	private static int clientversion = 225;
+	private static final int clientversion = 225;
 
 	@OriginalMember(owner = "client!sign/signlink", name = "uid", descriptor = "I")
 	public static int uid;
@@ -117,10 +117,11 @@ public class SignedLink implements Runnable {
 	public static String errorname = "";
 
 	// sounds
-    enum Position {
+	enum Position {
 		LEFT, RIGHT, NORMAL
-	};
-    private Position curPosition = Position.NORMAL;
+	}
+
+	private Position curPosition = Position.NORMAL;
 
 	// music
 	private MidiPlayer midiPlayer;

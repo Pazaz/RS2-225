@@ -156,9 +156,7 @@ public class WordPack {
 			local45 = -1;
 			while ((local45 = local22.indexOf(whitelist[local36], local45 + 1)) != -1) {
 				@Pc(52) char[] local52 = whitelist[local36].toCharArray();
-				for (@Pc(54) int local54 = 0; local54 < local52.length; local54++) {
-					local19[local54 + local45] = local52[local54];
-				}
+				System.arraycopy(local52, 0, local19, local45, local52.length);
 			}
 		}
 		replaceUppercases(local19, local15.toCharArray());
@@ -226,7 +224,8 @@ public class WordPack {
 				@Pc(21) int local21 = 0;
 				local23 = 1;
 				@Pc(27) boolean var9;
-				label62: while (true) {
+				label62:
+				while (true) {
 					while (true) {
 						if (local19 >= arg4.length) {
 							break label62;
@@ -357,7 +356,8 @@ public class WordPack {
 				@Pc(26) int local26 = 0;
 				local5 = 1;
 				@Pc(32) boolean var10;
-				label124: while (true) {
+				label124:
+				while (true) {
 					while (true) {
 						if (local24 >= arg3.length) {
 							break label124;
@@ -557,7 +557,8 @@ public class WordPack {
 				@Pc(36) boolean var12;
 				@Pc(40) char var13;
 				@Pc(42) char var14;
-				label163: while (true) {
+				label163:
+				while (true) {
 					while (true) {
 						if (local20 >= arg2.length || local30 && local32) {
 							break label163;
