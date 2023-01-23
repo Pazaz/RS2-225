@@ -517,11 +517,11 @@ public class SignedLink implements Runnable {
 			ex.printStackTrace();
 		}
 
-		try {
-			midiPlayer.setSoundfont(Files.readAllBytes(Paths.get(SignedLink.class.getResource("gm.dls").toURI())));
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		// try {
+		// 	midiPlayer.setSoundfont(Files.readAllBytes(Paths.get(SignedLink.class.getResource("gm.dls").toURI())));
+		// } catch (Exception ex) {
+		// 	ex.printStackTrace();
+		// }
 
 		@Pc(8) int threadid = threadliveid;
 		while (threadliveid == threadid) {
