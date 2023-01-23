@@ -40,6 +40,9 @@ public class Game extends GameShell {
 
 	public static final boolean MINIMAP_BILINEAR_FILTERING = true;
 
+	// public static final String SERVER_ADDRESS = "localhost";
+	public static final String SERVER_ADDRESS = "lostcity.runewiki.org";
+
 	@OriginalMember(owner = "client!client", name = "F", descriptor = "Ljava/lang/String;")
 	public static final String ASCII_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
 
@@ -1261,7 +1264,7 @@ public class Game extends GameShell {
 				members = true;
 			}
 
-			SignedLink.startpriv(InetAddress.getLocalHost());
+			SignedLink.startpriv(InetAddress.getByName(SERVER_ADDRESS)); // InetAddress.getLocalHost());
 			@Pc(82) Game game = new Game();
 			game.initApplication(532, 789);
 		} catch (Exception ex) {
@@ -7579,7 +7582,7 @@ public class Game extends GameShell {
 		}
 		try {
 			if (super.frame != null) {
-				return new URL("http://127.0.0.1:" + (gamePortOffset + 80));
+				return new URL("http://" + SERVER_ADDRESS + ":" + (gamePortOffset + 80));
 			}
 		} catch (@Pc(21) Exception local21) {
 		}
