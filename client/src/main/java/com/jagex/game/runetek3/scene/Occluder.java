@@ -6,6 +6,10 @@ import org.openrs2.deob.annotation.OriginalMember;
 @OriginalClass("client!m")
 public class Occluder {
 
+	public static final int TYPE_WALL_X = 1;
+	public static final int TYPE_WALL_Z = 2;
+	public static final int TYPE_GROUND = 4;
+
 	@OriginalMember(owner = "client!m", name = "a", descriptor = "I")
 	public int minTileX;
 
@@ -40,23 +44,23 @@ public class Occluder {
 	public int maxY;
 
 	@OriginalMember(owner = "client!m", name = "l", descriptor = "I")
-	public int testDirection;
+	public int mode;
 
 	@OriginalMember(owner = "client!m", name = "m", descriptor = "I")
-	public int minNormalX;
+	public int minDeltaX;
 
 	@OriginalMember(owner = "client!m", name = "n", descriptor = "I")
-	public int maxNormalX;
+	public int maxDeltaX;
 
 	@OriginalMember(owner = "client!m", name = "o", descriptor = "I")
-	public int minNormalZ;
+	public int minDeltaZ;
 
 	@OriginalMember(owner = "client!m", name = "p", descriptor = "I")
-	public int maxNormalZ;
+	public int maxDeltaZ;
 
 	@OriginalMember(owner = "client!m", name = "q", descriptor = "I")
-	public int minNormalY;
+	public int minDeltaY;
 
 	@OriginalMember(owner = "client!m", name = "r", descriptor = "I")
-	public int maxNormalY;
+	public int maxDeltaY;
 }

@@ -91,13 +91,13 @@ public class MapSquare {
 	public static int screenCenterY;
 
 	@OriginalMember(owner = "client!r", name = "A", descriptor = "I")
-	public static int cameraX2;
+	public static int eyeX;
 
 	@OriginalMember(owner = "client!r", name = "B", descriptor = "I")
-	public static int cameraY2;
+	public static int eyeY;
 
 	@OriginalMember(owner = "client!r", name = "C", descriptor = "I")
-	public static int cameraZ2;
+	public static int eyeZ;
 
 	@OriginalMember(owner = "client!r", name = "D", descriptor = "I")
 	public static int pitchsin;
@@ -1090,9 +1090,9 @@ public class MapSquare {
 		yawsin = Model.sin[arg0];
 		yawcos = Model.cos[arg0];
 		visibilityMap = visibilityMaps[(arg3 - 128) / 32][arg0 / 64];
-		cameraX2 = arg1;
-		cameraY2 = arg4;
-		cameraZ2 = arg5;
+		eyeX = arg1;
+		eyeY = arg4;
+		eyeZ = arg5;
 		screenCenterX = arg1 / 128;
 		screenCenterY = arg5 / 128;
 		tileUpdateCount = arg2;
@@ -1325,15 +1325,15 @@ public class MapSquare {
 											if (local8.bridge != null) {
 												local49 = local8.bridge;
 												if (local49.underlay == null) {
-													if (local49.overlay != null && !this.isTileOccluded(0, local17, local20)) {
+													if (local49.overlay != null && !this.isTileVisible(0, local17, local20)) {
 														this.drawTileOverlay(yawsin, local20, local49.overlay, local17, pitchcos, pitchsin, yawcos);
 													}
-												} else if (!this.isTileOccluded(0, local17, local20)) {
+												} else if (!this.isTileVisible(0, local17, local20)) {
 													this.drawTileUnderlay(local49.underlay, 0, pitchsin, pitchcos, yawsin, yawcos, local17, local20);
 												}
 												@Pc(227) Wall local227 = local49.wall;
 												if (local227 != null) {
-													local227.model0.draw(0, pitchsin, pitchcos, yawsin, yawcos, local227.x - cameraX2, local227.plane - cameraY2, local227.z - cameraZ2, local227.bitset);
+													local227.model0.draw(0, pitchsin, pitchcos, yawsin, yawcos, local227.x - eyeX, local227.plane - eyeY, local227.z - eyeZ, local227.bitset);
 												}
 												for (local253 = 0; local253 < local49.locationCount; local253++) {
 													var12 = local49.locs[local253];
@@ -1342,17 +1342,17 @@ public class MapSquare {
 														if (local265 == null) {
 															local265 = var12.entity.getDrawMethod();
 														}
-														local265.draw(var12.yaw, pitchsin, pitchcos, yawsin, yawcos, var12.x - cameraX2, var12.y - cameraY2, var12.z - cameraZ2, var12.bitset);
+														local265.draw(var12.yaw, pitchsin, pitchcos, yawsin, yawcos, var12.x - eyeX, var12.y - eyeY, var12.z - eyeZ, var12.bitset);
 													}
 												}
 											}
 											var23 = false;
 											if (local8.underlay == null) {
-												if (local8.overlay != null && !this.isTileOccluded(local26, local17, local20)) {
+												if (local8.overlay != null && !this.isTileVisible(local26, local17, local20)) {
 													var23 = true;
 													this.drawTileOverlay(yawsin, local20, local8.overlay, local17, pitchcos, pitchsin, yawcos);
 												}
-											} else if (!this.isTileOccluded(local26, local17, local20)) {
+											} else if (!this.isTileVisible(local26, local17, local20)) {
 												var23 = true;
 												this.drawTileUnderlay(local8.underlay, local26, pitchsin, pitchcos, yawsin, yawcos, local17, local20);
 											}
@@ -1394,20 +1394,20 @@ public class MapSquare {
 													local8.wallUncullDirection = WALL_UNCULL_FLAGS_3[var22];
 													local8.wallCullOppositeDirection = 9 - local8.wallUncullDirection;
 												}
-												if ((local354.type0 & local253) != 0 && !this.isWallOccluded(local26, local17, local20, local354.type0)) {
-													local354.model0.draw(0, pitchsin, pitchcos, yawsin, yawcos, local354.x - cameraX2, local354.plane - cameraY2, local354.z - cameraZ2, local354.bitset);
+												if ((local354.type0 & local253) != 0 && !this.isWallVisible(local26, local17, local20, local354.type0)) {
+													local354.model0.draw(0, pitchsin, pitchcos, yawsin, yawcos, local354.x - eyeX, local354.plane - eyeY, local354.z - eyeZ, local354.bitset);
 												}
-												if ((local354.type1 & local253) != 0 && !this.isWallOccluded(local26, local17, local20, local354.type1)) {
-													local354.model1.draw(0, pitchsin, pitchcos, yawsin, yawcos, local354.x - cameraX2, local354.plane - cameraY2, local354.z - cameraZ2, local354.bitset);
+												if ((local354.type1 & local253) != 0 && !this.isWallVisible(local26, local17, local20, local354.type1)) {
+													local354.model1.draw(0, pitchsin, pitchcos, yawsin, yawcos, local354.x - eyeX, local354.plane - eyeY, local354.z - eyeZ, local354.bitset);
 												}
 											}
 											if (local357 != null && !this.isOccluded(local26, local17, local20, local357.model.maxBoundY)) {
 												if ((local357.type0 & local253) != 0) {
-													local357.model.draw(local357.type1, pitchsin, pitchcos, yawsin, yawcos, local357.x - cameraX2, local357.plane - cameraY2, local357.z - cameraZ2, local357.bitset);
+													local357.model.draw(local357.type1, pitchsin, pitchcos, yawsin, yawcos, local357.x - eyeX, local357.plane - eyeY, local357.z - eyeZ, local357.bitset);
 												} else if ((local357.type0 & 0x300) != 0) {
-													local599 = local357.x - cameraX2;
-													local604 = local357.plane - cameraY2;
-													local609 = local357.z - cameraZ2;
+													local599 = local357.x - eyeX;
+													local604 = local357.plane - eyeY;
+													local609 = local357.z - eyeZ;
 													local612 = local357.type1;
 													if (local612 == 1 || local612 == 2) {
 														local621 = -local599;
@@ -1437,18 +1437,18 @@ public class MapSquare {
 											if (var23) {
 												@Pc(719) GroundDecoration local719 = local8.groundDecoration;
 												if (local719 != null) {
-													local719.model.draw(0, pitchsin, pitchcos, yawsin, yawcos, local719.x - cameraX2, local719.plane - cameraY2, local719.z - cameraZ2, local719.bitset);
+													local719.model.draw(0, pitchsin, pitchcos, yawsin, yawcos, local719.x - eyeX, local719.plane - eyeY, local719.z - eyeZ, local719.bitset);
 												}
 												@Pc(746) ObjEntity local746 = local8.objEntity;
 												if (local746 != null && local746.offsetY == 0) {
 													if (local746.model1 != null) {
-														local746.model1.draw(0, pitchsin, pitchcos, yawsin, yawcos, local746.x - cameraX2, local746.plane - cameraY2, local746.z - cameraZ2, local746.bitset);
+														local746.model1.draw(0, pitchsin, pitchcos, yawsin, yawcos, local746.x - eyeX, local746.plane - eyeY, local746.z - eyeZ, local746.bitset);
 													}
 													if (local746.model2 != null) {
-														local746.model2.draw(0, pitchsin, pitchcos, yawsin, yawcos, local746.x - cameraX2, local746.plane - cameraY2, local746.z - cameraZ2, local746.bitset);
+														local746.model2.draw(0, pitchsin, pitchcos, yawsin, yawcos, local746.x - eyeX, local746.plane - eyeY, local746.z - eyeZ, local746.bitset);
 													}
 													if (local746.model0 != null) {
-														local746.model0.draw(0, pitchsin, pitchcos, yawsin, yawcos, local746.x - cameraX2, local746.plane - cameraY2, local746.z - cameraZ2, local746.bitset);
+														local746.model0.draw(0, pitchsin, pitchcos, yawsin, yawcos, local746.x - eyeX, local746.plane - eyeY, local746.z - eyeZ, local746.bitset);
 													}
 												}
 											}
@@ -1491,8 +1491,8 @@ public class MapSquare {
 											}
 											if (var23) {
 												local963 = local8.wall;
-												if (!this.isWallOccluded(local26, local17, local20, local963.type0)) {
-													local963.model0.draw(0, pitchsin, pitchcos, yawsin, yawcos, local963.x - cameraX2, local963.plane - cameraY2, local963.z - cameraZ2, local963.bitset);
+												if (!this.isWallVisible(local26, local17, local20, local963.type0)) {
+													local963.model0.draw(0, pitchsin, pitchcos, yawsin, yawcos, local963.x - eyeX, local963.plane - eyeY, local963.z - eyeZ, local963.bitset);
 												}
 												local8.wallCullDirection = 0;
 											}
@@ -1571,7 +1571,7 @@ public class MapSquare {
 												local1184 = local1154.entity.getDrawMethod();
 											}
 											if (!this.isAreaOccluded(local26, local1154.minSceneTileX, local1154.maxSceneTileX, local1154.minSceneTileZ, local1154.maxSceneTileZ, local1184.maxBoundY)) {
-												local1184.draw(local1154.yaw, pitchsin, pitchcos, yawsin, yawcos, local1154.x - cameraX2, local1154.y - cameraY2, local1154.z - cameraZ2, local1154.bitset);
+												local1184.draw(local1154.yaw, pitchsin, pitchcos, yawsin, yawcos, local1154.x - eyeX, local1154.y - eyeY, local1154.z - eyeZ, local1154.bitset);
 											}
 											for (local612 = local1154.minSceneTileX; local612 <= local1154.maxSceneTileX; local612++) {
 												for (local621 = local1154.minSceneTileZ; local621 <= local1154.maxSceneTileZ; local621++) {
@@ -1615,24 +1615,24 @@ public class MapSquare {
 			@Pc(1379) ObjEntity local1379 = local8.objEntity;
 			if (local1379 != null && local1379.offsetY != 0) {
 				if (local1379.model1 != null) {
-					local1379.model1.draw(0, pitchsin, pitchcos, yawsin, yawcos, local1379.x - cameraX2, local1379.plane - cameraY2 - local1379.offsetY, local1379.z - cameraZ2, local1379.bitset);
+					local1379.model1.draw(0, pitchsin, pitchcos, yawsin, yawcos, local1379.x - eyeX, local1379.plane - eyeY - local1379.offsetY, local1379.z - eyeZ, local1379.bitset);
 				}
 				if (local1379.model2 != null) {
-					local1379.model2.draw(0, pitchsin, pitchcos, yawsin, yawcos, local1379.x - cameraX2, local1379.plane - cameraY2 - local1379.offsetY, local1379.z - cameraZ2, local1379.bitset);
+					local1379.model2.draw(0, pitchsin, pitchcos, yawsin, yawcos, local1379.x - eyeX, local1379.plane - eyeY - local1379.offsetY, local1379.z - eyeZ, local1379.bitset);
 				}
 				if (local1379.model0 != null) {
-					local1379.model0.draw(0, pitchsin, pitchcos, yawsin, yawcos, local1379.x - cameraX2, local1379.plane - cameraY2 - local1379.offsetY, local1379.z - cameraZ2, local1379.bitset);
+					local1379.model0.draw(0, pitchsin, pitchcos, yawsin, yawcos, local1379.x - eyeX, local1379.plane - eyeY - local1379.offsetY, local1379.z - eyeZ, local1379.bitset);
 				}
 			}
 			if (local8.wallDrawFlags != 0) {
 				@Pc(1474) WallDecoration local1474 = local8.wallDecoration;
 				if (local1474 != null && !this.isOccluded(local26, local17, local20, local1474.model.maxBoundY)) {
 					if ((local1474.type0 & local8.wallDrawFlags) != 0) {
-						local1474.model.draw(local1474.type1, pitchsin, pitchcos, yawsin, yawcos, local1474.x - cameraX2, local1474.plane - cameraY2, local1474.z - cameraZ2, local1474.bitset);
+						local1474.model.draw(local1474.type1, pitchsin, pitchcos, yawsin, yawcos, local1474.x - eyeX, local1474.plane - eyeY, local1474.z - eyeZ, local1474.bitset);
 					} else if ((local1474.type0 & 0x300) != 0) {
-						local253 = local1474.x - cameraX2;
-						local1144 = local1474.plane - cameraY2;
-						local1023 = local1474.z - cameraZ2;
+						local253 = local1474.x - eyeX;
+						local1144 = local1474.plane - eyeY;
+						local1023 = local1474.z - eyeZ;
 						local599 = local1474.type1;
 						if (local599 == 1 || local599 == 2) {
 							local604 = -local253;
@@ -1658,11 +1658,11 @@ public class MapSquare {
 				}
 				local963 = local8.wall;
 				if (local963 != null) {
-					if ((local963.type1 & local8.wallDrawFlags) != 0 && !this.isWallOccluded(local26, local17, local20, local963.type1)) {
-						local963.model1.draw(0, pitchsin, pitchcos, yawsin, yawcos, local963.x - cameraX2, local963.plane - cameraY2, local963.z - cameraZ2, local963.bitset);
+					if ((local963.type1 & local8.wallDrawFlags) != 0 && !this.isWallVisible(local26, local17, local20, local963.type1)) {
+						local963.model1.draw(0, pitchsin, pitchcos, yawsin, yawcos, local963.x - eyeX, local963.plane - eyeY, local963.z - eyeZ, local963.bitset);
 					}
-					if ((local963.type0 & local8.wallDrawFlags) != 0 && !this.isWallOccluded(local26, local17, local20, local963.type0)) {
-						local963.model0.draw(0, pitchsin, pitchcos, yawsin, yawcos, local963.x - cameraX2, local963.plane - cameraY2, local963.z - cameraZ2, local963.bitset);
+					if ((local963.type0 & local8.wallDrawFlags) != 0 && !this.isWallVisible(local26, local17, local20, local963.type0)) {
+						local963.model0.draw(0, pitchsin, pitchcos, yawsin, yawcos, local963.x - eyeX, local963.plane - eyeY, local963.z - eyeZ, local963.bitset);
 					}
 				}
 			}
@@ -1703,17 +1703,17 @@ public class MapSquare {
 	@OriginalMember(owner = "client!r", name = "a", descriptor = "(Lclient!o;IIIIIII)V")
 	private void drawTileUnderlay(@OriginalArg(0) TileUnderlay arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, @OriginalArg(7) int arg7) {
 		@Pc(8) int local8;
-		@Pc(9) int local9 = local8 = (arg6 << 7) - cameraX2;
+		@Pc(9) int local9 = local8 = (arg6 << 7) - eyeX;
 		@Pc(16) int local16;
-		@Pc(17) int local17 = local16 = (arg7 << 7) - cameraZ2;
+		@Pc(17) int local17 = local16 = (arg7 << 7) - eyeZ;
 		@Pc(22) int local22;
 		@Pc(23) int local23 = local22 = local9 + 128;
 		@Pc(28) int local28;
 		@Pc(29) int local29 = local28 = local17 + 128;
-		@Pc(40) int local40 = this.heightmap[arg1][arg6][arg7] - cameraY2;
-		@Pc(53) int local53 = this.heightmap[arg1][arg6 + 1][arg7] - cameraY2;
-		@Pc(68) int local68 = this.heightmap[arg1][arg6 + 1][arg7 + 1] - cameraY2;
-		@Pc(81) int local81 = this.heightmap[arg1][arg6][arg7 + 1] - cameraY2;
+		@Pc(40) int local40 = this.heightmap[arg1][arg6][arg7] - eyeY;
+		@Pc(53) int local53 = this.heightmap[arg1][arg6 + 1][arg7] - eyeY;
+		@Pc(68) int local68 = this.heightmap[arg1][arg6 + 1][arg7 + 1] - eyeY;
+		@Pc(81) int local81 = this.heightmap[arg1][arg6][arg7 + 1] - eyeY;
 		@Pc(91) int local91 = local17 * arg4 + local9 * arg5 >> 16;
 		@Pc(101) int local101 = local17 * arg5 - local9 * arg4 >> 16;
 		@Pc(103) int local103 = local91;
@@ -1812,9 +1812,9 @@ public class MapSquare {
 		@Pc(30) int local30;
 		@Pc(40) int local40;
 		for (@Pc(7) int local7 = 0; local7 < local5; local7++) {
-			local16 = arg2.vertexX[local7] - cameraX2;
-			local23 = arg2.vertexY[local7] - cameraY2;
-			local30 = arg2.vertexZ[local7] - cameraZ2;
+			local16 = arg2.vertexX[local7] - eyeX;
+			local23 = arg2.vertexY[local7] - eyeY;
+			local30 = arg2.vertexZ[local7] - eyeZ;
 			local40 = local30 * arg0 + local16 * arg6 >> 16;
 			@Pc(50) int local50 = local30 * arg6 - local16 * arg0 >> 16;
 			@Pc(62) int local62 = local23 * arg4 - local50 * arg5 >> 16;
@@ -1899,275 +1899,334 @@ public class MapSquare {
 
 	@OriginalMember(owner = "client!r", name = "b", descriptor = "(Z)V")
 	private void updateOccluders() {
-		@Pc(5) int local5 = levelOccluderCount[tileUpdateCount];
-		@Pc(9) Occluder[] local9 = levelOccluders[tileUpdateCount];
 		activeOccluderCount = 0;
-		for (@Pc(13) int local13 = 0; local13 < local5; local13++) {
-			@Pc(19) Occluder local19 = local9[local13];
-			@Pc(30) int local30;
-			@Pc(43) int local43;
-			@Pc(54) int local54;
-			@Pc(84) int local84;
-			@Pc(61) boolean local61;
-			if (local19.type == 1) {
-				local30 = local19.minTileX + 25 - screenCenterX;
-				if (local30 >= 0 && local30 <= 50) {
-					local43 = local19.minTileZ + 25 - screenCenterY;
-					if (local43 < 0) {
-						local43 = 0;
-					}
-					local54 = local19.maxTileZ + 25 - screenCenterY;
-					if (local54 > 50) {
-						local54 = 50;
-					}
-					local61 = false;
-					while (local43 <= local54) {
-						if (visibilityMap[local30][local43++]) {
-							local61 = true;
-							break;
-						}
-					}
-					if (local61) {
-						local84 = cameraX2 - local19.minX;
-						if (local84 > 32) {
-							local19.testDirection = 1;
-						} else {
-							if (local84 >= -32) {
-								continue;
-							}
-							local19.testDirection = 2;
-							local84 = -local84;
-						}
-						local19.minNormalZ = (local19.minZ - cameraZ2 << 8) / local84;
-						local19.maxNormalZ = (local19.maxZ - cameraZ2 << 8) / local84;
-						local19.minNormalY = (local19.minY - cameraY2 << 8) / local84;
-						local19.maxNormalY = (local19.maxY - cameraY2 << 8) / local84;
-						activeOccluders[activeOccluderCount++] = local19;
+
+		@Pc(5) int count = levelOccluderCount[tileUpdateCount];
+		@Pc(9) Occluder[] occluders = levelOccluders[tileUpdateCount];
+
+		for (@Pc(13) int i = 0; i < count; i++) {
+			@Pc(19) Occluder occluder = occluders[i];
+
+			if (occluder.type == Occluder.TYPE_WALL_X) {
+				int distanceMinTileX = occluder.minTileX + 25 - screenCenterX;
+				if (distanceMinTileX < 0 || distanceMinTileX > 50) {
+					continue;
+				}
+
+				int minZ = occluder.minTileZ + 25 - screenCenterY;
+				if (minZ < 0) {
+					minZ = 0;
+				}
+
+				int maxZ = occluder.maxTileZ + 25 - screenCenterY;
+				if (maxZ > 50) {
+					maxZ = 50;
+				}
+
+				boolean state = false;
+				while (minZ <= maxZ) {
+					if (visibilityMap[distanceMinTileX][minZ++]) {
+						state = true;
+						break;
 					}
 				}
-			} else if (local19.type == 2) {
-				local30 = local19.minTileZ + 25 - screenCenterY;
-				if (local30 >= 0 && local30 <= 50) {
-					local43 = local19.minTileX + 25 - screenCenterX;
-					if (local43 < 0) {
-						local43 = 0;
+
+				if (!state) {
+					continue;
+				}
+
+				int deltaMinX = eyeX - occluder.minX;
+				if (deltaMinX > 32) {
+					occluder.mode = 1;
+				} else {
+					if (deltaMinX >= -32) {
+						continue;
 					}
-					local54 = local19.maxTileX + 25 - screenCenterX;
-					if (local54 > 50) {
-						local54 = 50;
-					}
-					local61 = false;
-					while (local43 <= local54) {
-						if (visibilityMap[local43++][local30]) {
-							local61 = true;
-							break;
-						}
-					}
-					if (local61) {
-						local84 = cameraZ2 - local19.minZ;
-						if (local84 > 32) {
-							local19.testDirection = 3;
-						} else {
-							if (local84 >= -32) {
-								continue;
-							}
-							local19.testDirection = 4;
-							local84 = -local84;
-						}
-						local19.minNormalX = (local19.minX - cameraX2 << 8) / local84;
-						local19.maxNormalX = (local19.maxX - cameraX2 << 8) / local84;
-						local19.minNormalY = (local19.minY - cameraY2 << 8) / local84;
-						local19.maxNormalY = (local19.maxY - cameraY2 << 8) / local84;
-						activeOccluders[activeOccluderCount++] = local19;
+
+					occluder.mode = 2;
+					deltaMinX = -deltaMinX;
+				}
+
+				occluder.minDeltaZ = (occluder.minZ - eyeZ << 8) / deltaMinX;
+				occluder.maxDeltaZ = (occluder.maxZ - eyeZ << 8) / deltaMinX;
+				occluder.minDeltaY = (occluder.minY - eyeY << 8) / deltaMinX;
+				occluder.maxDeltaY = (occluder.maxY - eyeY << 8) / deltaMinX;
+				activeOccluders[activeOccluderCount++] = occluder;
+			} else if (occluder.type == Occluder.TYPE_WALL_Z) {
+				int distanceMinTileZ = occluder.minTileZ + 25 - screenCenterY;
+				if (distanceMinTileZ < 0 || distanceMinTileZ > 50) {
+					continue;
+				}
+
+				int distanceMinTileX = occluder.minTileX + 25 - screenCenterX;
+				if (distanceMinTileX < 0) {
+					distanceMinTileX = 0;
+				}
+
+				int distanceMaxTileX = occluder.maxTileX + 25 - screenCenterX;
+				if (distanceMaxTileX > 50) {
+					distanceMaxTileX = 50;
+				}
+
+				boolean state = false;
+				while (distanceMinTileX <= distanceMaxTileX) {
+					if (visibilityMap[distanceMinTileX++][distanceMinTileZ]) {
+						state = true;
+						break;
 					}
 				}
-			} else if (local19.type == 4) {
-				local30 = local19.minY - cameraY2;
-				if (local30 > 128) {
-					local43 = local19.minTileZ + 25 - screenCenterY;
-					if (local43 < 0) {
-						local43 = 0;
+
+				if (!state) {
+					continue;
+				}
+
+				int deltaMinZ = eyeZ - occluder.minZ;
+				if (deltaMinZ > 32) {
+					occluder.mode = 3;
+				} else {
+					if (deltaMinZ >= -32) {
+						continue;
 					}
-					local54 = local19.maxTileZ + 25 - screenCenterY;
-					if (local54 > 50) {
-						local54 = 50;
+
+					occluder.mode = 4;
+					deltaMinZ = -deltaMinZ;
+				}
+
+				occluder.minDeltaX = (occluder.minX - eyeX << 8) / deltaMinZ;
+				occluder.maxDeltaX = (occluder.maxX - eyeX << 8) / deltaMinZ;
+				occluder.minDeltaY = (occluder.minY - eyeY << 8) / deltaMinZ;
+				occluder.maxDeltaY = (occluder.maxY - eyeY << 8) / deltaMinZ;
+				activeOccluders[activeOccluderCount++] = occluder;
+			} else if (occluder.type == Occluder.TYPE_GROUND) {
+				int deltaMaxY = occluder.minY - eyeY;
+				if (deltaMaxY <= 128) {
+					continue;
+				}
+
+				int deltaMinTileZ = occluder.minTileZ + 25 - screenCenterY;
+				if (deltaMinTileZ < 0) {
+					deltaMinTileZ = 0;
+				}
+
+				int deltaMaxTileZ = occluder.maxTileZ + 25 - screenCenterY;
+				if (deltaMaxTileZ > 50) {
+					deltaMaxTileZ = 50;
+				}
+
+				if (deltaMinTileZ > deltaMaxTileZ) {
+					continue;
+				}
+
+				@Pc(330) int deltaMinTileX = occluder.minTileX + 25 - screenCenterX;
+				if (deltaMinTileX < 0) {
+					deltaMinTileX = 0;
+				}
+
+				int deltaMaxTileX = occluder.maxTileX + 25 - screenCenterX;
+				if (deltaMaxTileX > 50) {
+					deltaMaxTileX = 50;
+				}
+
+				@Pc(348) boolean state = false;
+
+				find_visible_tile:
+				for (@Pc(350) int x = deltaMinTileX; x <= deltaMaxTileX; x++) {
+					for (@Pc(354) int z = deltaMinTileZ; z <= deltaMaxTileZ; z++) {
+						if (visibilityMap[x][z]) {
+							state = true;
+							break find_visible_tile;
+						}
 					}
-					if (local43 <= local54) {
-						@Pc(330) int local330 = local19.minTileX + 25 - screenCenterX;
-						if (local330 < 0) {
-							local330 = 0;
-						}
-						local84 = local19.maxTileX + 25 - screenCenterX;
-						if (local84 > 50) {
-							local84 = 50;
-						}
-						@Pc(348) boolean local348 = false;
-						label149:
-						for (@Pc(350) int local350 = local330; local350 <= local84; local350++) {
-							for (@Pc(354) int local354 = local43; local354 <= local54; local354++) {
-								if (visibilityMap[local350][local354]) {
-									local348 = true;
-									break label149;
-								}
-							}
-						}
-						if (local348) {
-							local19.testDirection = 5;
-							local19.minNormalX = (local19.minX - cameraX2 << 8) / local30;
-							local19.maxNormalX = (local19.maxX - cameraX2 << 8) / local30;
-							local19.minNormalZ = (local19.minZ - cameraZ2 << 8) / local30;
-							local19.maxNormalZ = (local19.maxZ - cameraZ2 << 8) / local30;
-							activeOccluders[activeOccluderCount++] = local19;
-						}
-					}
+				}
+
+				if (state) {
+					occluder.mode = 5;
+					occluder.minDeltaX = (occluder.minX - eyeX << 8) / deltaMaxY;
+					occluder.maxDeltaX = (occluder.maxX - eyeX << 8) / deltaMaxY;
+					occluder.minDeltaZ = (occluder.minZ - eyeZ << 8) / deltaMaxY;
+					occluder.maxDeltaZ = (occluder.maxZ - eyeZ << 8) / deltaMaxY;
+					activeOccluders[activeOccluderCount++] = occluder;
 				}
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!r", name = "g", descriptor = "(III)Z")
-	private boolean isTileOccluded(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2) {
-		@Pc(8) int local8 = this.levelTileCycles[arg0][arg1][arg2];
-		if (local8 == -activeLevel) {
+	private boolean isTileVisible(@OriginalArg(0) int plane, @OriginalArg(1) int x, @OriginalArg(2) int z) {
+		@Pc(8) int cycle = this.levelTileCycles[plane][x][z];
+		if (cycle == -activeLevel) {
 			return false;
-		} else if (local8 == activeLevel) {
+		}
+
+		if (cycle == activeLevel) {
+			return true;
+		}
+		
+		@Pc(23) int sx = x << 7;
+		@Pc(27) int sz = z << 7;
+
+		if (this.isOccluded(sx + 1, this.heightmap[plane][x][z], sz + 1) && this.isOccluded(sx + 128 - 1, this.heightmap[plane][x + 1][z], sz + 1) && this.isOccluded(sx + 128 - 1, this.heightmap[plane][x + 1][z + 1], sz + 128 - 1) && this.isOccluded(sx + 1, this.heightmap[plane][x][z + 1], sz + 128 - 1)) {
+			this.levelTileCycles[plane][x][z] = activeLevel;
 			return true;
 		} else {
-			@Pc(23) int local23 = arg1 << 7;
-			@Pc(27) int local27 = arg2 << 7;
-			if (this.isOccluded(local23 + 1, this.heightmap[arg0][arg1][arg2], local27 + 1) && this.isOccluded(local23 + 128 - 1, this.heightmap[arg0][arg1 + 1][arg2], local27 + 1) && this.isOccluded(local23 + 128 - 1, this.heightmap[arg0][arg1 + 1][arg2 + 1], local27 + 128 - 1) && this.isOccluded(local23 + 1, this.heightmap[arg0][arg1][arg2 + 1], local27 + 128 - 1)) {
-				this.levelTileCycles[arg0][arg1][arg2] = activeLevel;
-				return true;
-			} else {
-				this.levelTileCycles[arg0][arg1][arg2] = -activeLevel;
-				return false;
-			}
+			this.levelTileCycles[plane][x][z] = -activeLevel;
+			return false;
 		}
 	}
 
 	@OriginalMember(owner = "client!r", name = "i", descriptor = "(IIII)Z")
-	private boolean isWallOccluded(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
-		if (!this.isTileOccluded(arg0, arg1, arg2)) {
+	private boolean isWallVisible(@OriginalArg(0) int plane, @OriginalArg(1) int tileX, @OriginalArg(2) int tileZ, @OriginalArg(3) int type) {
+		if (!this.isTileVisible(plane, tileX, tileZ)) {
 			return false;
 		}
-		@Pc(11) int local11 = arg1 << 7;
-		@Pc(15) int local15 = arg2 << 7;
-		@Pc(26) int local26 = this.heightmap[arg0][arg1][arg2] - 1;
-		@Pc(30) int local30 = local26 - 120;
-		@Pc(34) int local34 = local26 - 230;
-		@Pc(38) int local38 = local26 - 238;
-		if (arg3 < 16) {
-			if (arg3 == 1) {
-				if (local11 > cameraX2) {
-					if (!this.isOccluded(local11, local26, local15)) {
+
+		@Pc(11) int sceneX = tileX << 7;
+		@Pc(15) int sceneZ = tileZ << 7;
+		@Pc(26) int sceneY = this.heightmap[plane][tileX][tileZ] - 1;
+
+		@Pc(30) int y0 = sceneY - 120;
+		@Pc(34) int y1 = sceneY - 230;
+		@Pc(38) int y2 = sceneY - 238;
+
+		if (type < 16) {
+			if (type == 1) {
+				if (sceneX > eyeX) {
+					if (!this.isOccluded(sceneX, sceneY, sceneZ)) {
 						return false;
 					}
-					if (!this.isOccluded(local11, local26, local15 + 128)) {
-						return false;
-					}
-				}
-				if (arg0 > 0) {
-					if (!this.isOccluded(local11, local30, local15)) {
-						return false;
-					}
-					if (!this.isOccluded(local11, local30, local15 + 128)) {
+
+					if (!this.isOccluded(sceneX, sceneY, sceneZ + 128)) {
 						return false;
 					}
 				}
-				if (!this.isOccluded(local11, local34, local15)) {
+
+				if (plane > 0) {
+					if (!this.isOccluded(sceneX, y0, sceneZ)) {
+						return false;
+					}
+
+					if (!this.isOccluded(sceneX, y0, sceneZ + 128)) {
+						return false;
+					}
+				}
+
+				if (!this.isOccluded(sceneX, y1, sceneZ)) {
 					return false;
 				}
-				if (!this.isOccluded(local11, local34, local15 + 128)) {
+
+				if (!this.isOccluded(sceneX, y1, sceneZ + 128)) {
 					return false;
 				}
+
 				return true;
 			}
-			if (arg3 == 2) {
-				if (local15 < cameraZ2) {
-					if (!this.isOccluded(local11, local26, local15 + 128)) {
+
+			if (type == 2) {
+				if (sceneZ < eyeZ) {
+					if (!this.isOccluded(sceneX, sceneY, sceneZ + 128)) {
 						return false;
 					}
-					if (!this.isOccluded(local11 + 128, local26, local15 + 128)) {
-						return false;
-					}
-				}
-				if (arg0 > 0) {
-					if (!this.isOccluded(local11, local30, local15 + 128)) {
-						return false;
-					}
-					if (!this.isOccluded(local11 + 128, local30, local15 + 128)) {
+
+					if (!this.isOccluded(sceneX + 128, sceneY, sceneZ + 128)) {
 						return false;
 					}
 				}
-				if (!this.isOccluded(local11, local34, local15 + 128)) {
+
+				if (plane > 0) {
+					if (!this.isOccluded(sceneX, y0, sceneZ + 128)) {
+						return false;
+					}
+
+					if (!this.isOccluded(sceneX + 128, y0, sceneZ + 128)) {
+						return false;
+					}
+				}
+
+				if (!this.isOccluded(sceneX, y1, sceneZ + 128)) {
 					return false;
 				}
-				if (!this.isOccluded(local11 + 128, local34, local15 + 128)) {
+
+				if (!this.isOccluded(sceneX + 128, y1, sceneZ + 128)) {
 					return false;
 				}
+
 				return true;
 			}
-			if (arg3 == 4) {
-				if (local11 < cameraX2) {
-					if (!this.isOccluded(local11 + 128, local26, local15)) {
+			if (type == 4) {
+				if (sceneX < eyeX) {
+					if (!this.isOccluded(sceneX + 128, sceneY, sceneZ)) {
 						return false;
 					}
-					if (!this.isOccluded(local11 + 128, local26, local15 + 128)) {
-						return false;
-					}
-				}
-				if (arg0 > 0) {
-					if (!this.isOccluded(local11 + 128, local30, local15)) {
-						return false;
-					}
-					if (!this.isOccluded(local11 + 128, local30, local15 + 128)) {
+
+					if (!this.isOccluded(sceneX + 128, sceneY, sceneZ + 128)) {
 						return false;
 					}
 				}
-				if (!this.isOccluded(local11 + 128, local34, local15)) {
+
+				if (plane > 0) {
+					if (!this.isOccluded(sceneX + 128, y0, sceneZ)) {
+						return false;
+					}
+
+					if (!this.isOccluded(sceneX + 128, y0, sceneZ + 128)) {
+						return false;
+					}
+				}
+
+				if (!this.isOccluded(sceneX + 128, y1, sceneZ)) {
 					return false;
 				}
-				if (!this.isOccluded(local11 + 128, local34, local15 + 128)) {
+
+				if (!this.isOccluded(sceneX + 128, y1, sceneZ + 128)) {
 					return false;
 				}
+
 				return true;
 			}
-			if (arg3 == 8) {
-				if (local15 > cameraZ2) {
-					if (!this.isOccluded(local11, local26, local15)) {
+
+			if (type == 8) {
+				if (sceneZ > eyeZ) {
+					if (!this.isOccluded(sceneX, sceneY, sceneZ)) {
 						return false;
 					}
-					if (!this.isOccluded(local11 + 128, local26, local15)) {
-						return false;
-					}
-				}
-				if (arg0 > 0) {
-					if (!this.isOccluded(local11, local30, local15)) {
-						return false;
-					}
-					if (!this.isOccluded(local11 + 128, local30, local15)) {
+
+					if (!this.isOccluded(sceneX + 128, sceneY, sceneZ)) {
 						return false;
 					}
 				}
-				if (!this.isOccluded(local11, local34, local15)) {
+
+				if (plane > 0) {
+					if (!this.isOccluded(sceneX, y0, sceneZ)) {
+						return false;
+					}
+
+					if (!this.isOccluded(sceneX + 128, y0, sceneZ)) {
+						return false;
+					}
+				}
+
+				if (!this.isOccluded(sceneX, y1, sceneZ)) {
 					return false;
 				}
-				if (!this.isOccluded(local11 + 128, local34, local15)) {
+
+				if (!this.isOccluded(sceneX + 128, y1, sceneZ)) {
 					return false;
 				}
+
 				return true;
 			}
 		}
-		if (!this.isOccluded(local11 + 64, local38, local15 + 64)) {
+
+		if (!this.isOccluded(sceneX + 64, y2, sceneZ + 64)) {
 			return false;
-		} else if (arg3 == 16) {
-			return this.isOccluded(local11, local34, local15 + 128);
-		} else if (arg3 == 32) {
-			return this.isOccluded(local11 + 128, local34, local15 + 128);
-		} else if (arg3 == 64) {
-			return this.isOccluded(local11 + 128, local34, local15);
-		} else if (arg3 == 128) {
-			return this.isOccluded(local11, local34, local15);
+		} else if (type == 16) {
+			return this.isOccluded(sceneX, y1, sceneZ + 128);
+		} else if (type == 32) {
+			return this.isOccluded(sceneX + 128, y1, sceneZ + 128);
+		} else if (type == 64) {
+			return this.isOccluded(sceneX + 128, y1, sceneZ);
+		} else if (type == 128) {
+			return this.isOccluded(sceneX, y1, sceneZ);
 		} else {
 			System.out.println("Warning unsupported wall type");
 			return true;
@@ -2176,7 +2235,7 @@ public class MapSquare {
 
 	@OriginalMember(owner = "client!r", name = "j", descriptor = "(IIII)Z")
 	private boolean isOccluded(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3) {
-		if (this.isTileOccluded(arg0, arg1, arg2)) {
+		if (this.isTileVisible(arg0, arg1, arg2)) {
 			@Pc(11) int local11 = arg1 << 7;
 			@Pc(15) int local15 = arg2 << 7;
 			return this.isOccluded(local11 + 1, this.heightmap[arg0][arg1][arg2] - arg3, local15 + 1) && this.isOccluded(local11 + 128 - 1, this.heightmap[arg0][arg1 + 1][arg2] - arg3, local15 + 1) && this.isOccluded(local11 + 128 - 1, this.heightmap[arg0][arg1 + 1][arg2 + 1] - arg3, local15 + 128 - 1) && this.isOccluded(local11 + 1, this.heightmap[arg0][arg1][arg2 + 1] - arg3, local15 + 128 - 1);
@@ -2215,7 +2274,7 @@ public class MapSquare {
 			} else {
 				return false;
 			}
-		} else if (this.isTileOccluded(arg0, arg1, arg3)) {
+		} else if (this.isTileVisible(arg0, arg1, arg3)) {
 			local19 = arg1 << 7;
 			local23 = arg3 << 7;
 			return this.isOccluded(local19 + 1, this.heightmap[arg0][arg1][arg3] - arg5, local23 + 1) && this.isOccluded(local19 + 128 - 1, this.heightmap[arg0][arg1 + 1][arg3] - arg5, local23 + 1) && this.isOccluded(local19 + 128 - 1, this.heightmap[arg0][arg1 + 1][arg3 + 1] - arg5, local23 + 128 - 1) && this.isOccluded(local19 + 1, this.heightmap[arg0][arg1][arg3 + 1] - arg5, local23 + 128 - 1);
@@ -2233,57 +2292,57 @@ public class MapSquare {
 			@Pc(38) int local38;
 			@Pc(48) int local48;
 			@Pc(58) int local58;
-			if (local7.testDirection == 1) {
+			if (local7.mode == 1) {
 				local16 = local7.minX - arg0;
 				if (local16 > 0) {
-					local28 = local7.minZ + (local7.minNormalZ * local16 >> 8);
-					local38 = local7.maxZ + (local7.maxNormalZ * local16 >> 8);
-					local48 = local7.minY + (local7.minNormalY * local16 >> 8);
-					local58 = local7.maxY + (local7.maxNormalY * local16 >> 8);
+					local28 = local7.minZ + (local7.minDeltaZ * local16 >> 8);
+					local38 = local7.maxZ + (local7.maxDeltaZ * local16 >> 8);
+					local48 = local7.minY + (local7.minDeltaY * local16 >> 8);
+					local58 = local7.maxY + (local7.maxDeltaY * local16 >> 8);
 					if (arg2 >= local28 && arg2 <= local38 && arg1 >= local48 && arg1 <= local58) {
 						return true;
 					}
 				}
-			} else if (local7.testDirection == 2) {
+			} else if (local7.mode == 2) {
 				local16 = arg0 - local7.minX;
 				if (local16 > 0) {
-					local28 = local7.minZ + (local7.minNormalZ * local16 >> 8);
-					local38 = local7.maxZ + (local7.maxNormalZ * local16 >> 8);
-					local48 = local7.minY + (local7.minNormalY * local16 >> 8);
-					local58 = local7.maxY + (local7.maxNormalY * local16 >> 8);
+					local28 = local7.minZ + (local7.minDeltaZ * local16 >> 8);
+					local38 = local7.maxZ + (local7.maxDeltaZ * local16 >> 8);
+					local48 = local7.minY + (local7.minDeltaY * local16 >> 8);
+					local58 = local7.maxY + (local7.maxDeltaY * local16 >> 8);
 					if (arg2 >= local28 && arg2 <= local38 && arg1 >= local48 && arg1 <= local58) {
 						return true;
 					}
 				}
-			} else if (local7.testDirection == 3) {
+			} else if (local7.mode == 3) {
 				local16 = local7.minZ - arg2;
 				if (local16 > 0) {
-					local28 = local7.minX + (local7.minNormalX * local16 >> 8);
-					local38 = local7.maxX + (local7.maxNormalX * local16 >> 8);
-					local48 = local7.minY + (local7.minNormalY * local16 >> 8);
-					local58 = local7.maxY + (local7.maxNormalY * local16 >> 8);
+					local28 = local7.minX + (local7.minDeltaX * local16 >> 8);
+					local38 = local7.maxX + (local7.maxDeltaX * local16 >> 8);
+					local48 = local7.minY + (local7.minDeltaY * local16 >> 8);
+					local58 = local7.maxY + (local7.maxDeltaY * local16 >> 8);
 					if (arg0 >= local28 && arg0 <= local38 && arg1 >= local48 && arg1 <= local58) {
 						return true;
 					}
 				}
-			} else if (local7.testDirection == 4) {
+			} else if (local7.mode == 4) {
 				local16 = arg2 - local7.minZ;
 				if (local16 > 0) {
-					local28 = local7.minX + (local7.minNormalX * local16 >> 8);
-					local38 = local7.maxX + (local7.maxNormalX * local16 >> 8);
-					local48 = local7.minY + (local7.minNormalY * local16 >> 8);
-					local58 = local7.maxY + (local7.maxNormalY * local16 >> 8);
+					local28 = local7.minX + (local7.minDeltaX * local16 >> 8);
+					local38 = local7.maxX + (local7.maxDeltaX * local16 >> 8);
+					local48 = local7.minY + (local7.minDeltaY * local16 >> 8);
+					local58 = local7.maxY + (local7.maxDeltaY * local16 >> 8);
 					if (arg0 >= local28 && arg0 <= local38 && arg1 >= local48 && arg1 <= local58) {
 						return true;
 					}
 				}
-			} else if (local7.testDirection == 5) {
+			} else if (local7.mode == 5) {
 				local16 = arg1 - local7.minY;
 				if (local16 > 0) {
-					local28 = local7.minX + (local7.minNormalX * local16 >> 8);
-					local38 = local7.maxX + (local7.maxNormalX * local16 >> 8);
-					local48 = local7.minZ + (local7.minNormalZ * local16 >> 8);
-					local58 = local7.maxZ + (local7.maxNormalZ * local16 >> 8);
+					local28 = local7.minX + (local7.minDeltaX * local16 >> 8);
+					local38 = local7.maxX + (local7.maxDeltaX * local16 >> 8);
+					local48 = local7.minZ + (local7.minDeltaZ * local16 >> 8);
+					local58 = local7.maxZ + (local7.maxDeltaZ * local16 >> 8);
 					if (arg0 >= local28 && arg0 <= local38 && arg2 >= local48 && arg2 <= local58) {
 						return true;
 					}

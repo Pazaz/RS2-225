@@ -2,5 +2,7 @@
 /.idea/
 
 build/
+bin/
+target/
 
 *.class

@@ -17,10 +17,98 @@ import org.openrs2.deob.annotation.Pc;
 public class Scene {
 
 	@OriginalMember(owner = "client!c", name = "w", descriptor = "[I")
-	public static final int[] WALL_ROTATION_TYPE1 = new int[] { 0x1, 0x2, 0x4, 0x8 };
+	public static final int[] ROTATION_WALL_TYPE = new int[] {
+		1 << 0,
+		1 << 1,
+		1 << 2,
+		1 << 3,
+	};
 
 	@OriginalMember(owner = "client!c", name = "x", descriptor = "[I")
-	public static final int[] WALL_ROTATION_TYPE2 = new int[] { 0x10, 0x20, 0x40, 0x80 };
+	public static final int[] ROTATION_WALL_CORNER_TYPE = new int[] {
+		1 << 4,
+		1 << 5,
+		1 << 6,
+		1 << 7,
+	};
+
+	public static final int[] FRONT_WALL_TYPES = {
+			0b00010011, // eyeTileX >  tileX  &&  eyeTileZ <  tileZ
+			0b00110111, // eyeTileX == tileX  &&  eyeTileZ <  tileZ
+			0b00100110, // eyeTileX <  tileX  &&  eyeTileZ <  tileZ
+			0b10011011, // eyeTileX >  tileX  &&  eyeTileZ == tileZ
+			0b11111111, // eyeTileX == tileX  &&  eyeTileZ == tileZ
+			0b01101110, // eyeTileX <  tileX  &&  eyeTileZ == tileZ
+			0b10001001, // eyeTileX >  tileX  &&  eyeTileZ >  tileZ
+			0b11001101, // eyeTileX =  tileX  &&  eyeTileZ >  tileZ
+			0b01001100, // eyeTileX <  tileX  &&  eyeTileZ >  tileZ
+	};
+	public static final int[] DIRECTION_ALLOW_WALL_CORNER_TYPE = {
+			0b10100000, // eyeTileX >  tileX  &&  eyeTileZ <  tileZ
+			0b11000000, // eyeTileX == tileX  &&  eyeTileZ <  tileZ
+			0b01010000, // eyeTileX <  tileX  &&  eyeTileZ <  tileZ
+			0b01100000, // eyeTileX >  tileX  &&  eyeTileZ == tileZ
+			0b00000000, // eyeTileX =  tileX  &&  eyeTileZ == tileZ
+			0b10010000, // eyeTileX <  tileX  &&  eyeTileZ == tileZ
+			0b01010000, // eyeTileX >  tileX  &&  eyeTileZ >  tileZ
+			0b00110000, // eyeTileX =  tileX  &&  eyeTileZ >  tileZ
+			0b10100000, // eyeTileX <  tileX  &&  eyeTileZ >  tileZ
+	};
+	public static final int[] BACK_WALL_TYPES = {
+			0b01001100, // eyeTileX >  tileX  &&  eyeTileZ <  tileZ
+			0b00001000, // eyeTileX == tileX  &&  eyeTileZ <  tileZ
+			0b10001001, // eyeTileX <  tileX  &&  eyeTileZ <  tileZ
+			0b00000100, // eyeTileX >  tileX  &&  eyeTileZ == tileZ
+			0b00000000, // eyeTileX =  tileX  &&  eyeTileZ == tileZ
+			0b00000001, // eyeTileX <  tileX  &&  eyeTileZ == tileZ
+			0b00100110, // eyeTileX >  tileX  &&  eyeTileZ >  tileZ
+			0b00000010, // eyeTileX =  tileX  &&  eyeTileZ >  tileZ
+			0b00010011, // eyeTileX <  tileX  &&  eyeTileZ >  tileZ
+	};
+	public static final int[] WALL_CORNER_TYPE_16_BLOCK_LOC_SPANS = {
+			0b0000, // eyeTileX >  tileX  &&  eyeTileZ <  tileZ
+			0b0000, // eyeTileX == tileX  &&  eyeTileZ <  tileZ
+			0b0010, // eyeTileX <  tileX  &&  eyeTileZ <  tileZ
+			0b0000, // eyeTileX >  tileX  &&  eyeTileZ == tileZ
+			0b0000, // eyeTileX =  tileX  &&  eyeTileZ == tileZ
+			0b0010, // eyeTileX <  tileX  &&  eyeTileZ == tileZ
+			0b0001, // eyeTileX >  tileX  &&  eyeTileZ >  tileZ
+			0b0001, // eyeTileX =  tileX  &&  eyeTileZ >  tileZ
+			0b0000, // eyeTileX <  tileX  &&  eyeTileZ >  tileZ
+	};
+	public static final int[] WALL_CORNER_TYPE_32_BLOCK_LOC_SPANS = {
+			0b0010, // eyeTileX >  tileX  &&  eyeTileZ <  tileZ
+			0b0000, // eyeTileX == tileX  &&  eyeTileZ <  tileZ
+			0b0000, // eyeTileX <  tileX  &&  eyeTileZ <  tileZ
+			0b0010, // eyeTileX >  tileX  &&  eyeTileZ == tileZ
+			0b0000, // eyeTileX =  tileX  &&  eyeTileZ == tileZ
+			0b0000, // eyeTileX <  tileX  &&  eyeTileZ == tileZ
+			0b0000, // eyeTileX >  tileX  &&  eyeTileZ >  tileZ
+			0b0100, // eyeTileX =  tileX  &&  eyeTileZ >  tileZ
+			0b0100, // eyeTileX <  tileX  &&  eyeTileZ >  tileZ
+	};
+	public static final int[] WALL_CORNER_TYPE_64_BLOCK_LOC_SPANS = {
+			0b0000, // eyeTileX >  tileX  &&  eyeTileZ <  tileZ
+			0b0100, // eyeTileX == tileX  &&  eyeTileZ <  tileZ
+			0b0100, // eyeTileX <  tileX  &&  eyeTileZ <  tileZ
+			0b1000, // eyeTileX >  tileX  &&  eyeTileZ == tileZ
+			0b0000, // eyeTileX =  tileX  &&  eyeTileZ == tileZ
+			0b0000, // eyeTileX <  tileX  &&  eyeTileZ == tileZ
+			0b1000, // eyeTileX >  tileX  &&  eyeTileZ >  tileZ
+			0b0000, // eyeTileX =  tileX  &&  eyeTileZ >  tileZ
+			0b0000, // eyeTileX <  tileX  &&  eyeTileZ >  tileZ
+	};
+	public static final int[] WALL_CORNER_TYPE_128_BLOCK_LOC_SPANS = {
+			0b0001, // eyeTileX >  tileX  &&  eyeTileZ <  tileZ
+			0b0001, // eyeTileX == tileX  &&  eyeTileZ <  tileZ
+			0b0000, // eyeTileX <  tileX  &&  eyeTileZ <  tileZ
+			0b0000, // eyeTileX >  tileX  &&  eyeTileZ == tileZ
+			0b0000, // eyeTileX =  tileX  &&  eyeTileZ == tileZ
+			0b1000, // eyeTileX <  tileX  &&  eyeTileZ == tileZ
+			0b0000, // eyeTileX >  tileX  &&  eyeTileZ >  tileZ
+			0b0000, // eyeTileX =  tileX  &&  eyeTileZ >  tileZ
+			0b1000, // eyeTileX <  tileX  &&  eyeTileZ >  tileZ
+	};
 
 	@OriginalMember(owner = "client!c", name = "y", descriptor = "[I")
 	public static final int[] WALL_DECO_ROT_SIZE_X_DIR = new int[] { 1, 0, -1, 0 };
@@ -248,7 +336,7 @@ public class Scene {
 			}
 		} else if (type == LocType.WALL_STRAIGHT) {
 			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
-			mapSquare.addWall(0, y, plane, WALL_ROTATION_TYPE1[orientation], model, null, x, bitset, z, info);
+			mapSquare.addWall(0, y, plane, ROTATION_WALL_TYPE[orientation], model, null, x, bitset, z, info);
 
 			if (loc.blockwalk) {
 				collision.setWall(orientation, z, x, loc.blockrange, type);
@@ -259,7 +347,7 @@ public class Scene {
 			}
 		} else if (type == LocType.WALL_DIAGONALCORNER) {
 			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
-			mapSquare.addWall(0, y, plane, WALL_ROTATION_TYPE2[orientation], model, null, x, bitset, z, info);
+			mapSquare.addWall(0, y, plane, ROTATION_WALL_CORNER_TYPE[orientation], model, null, x, bitset, z, info);
 
 			if (loc.blockwalk) {
 				collision.setWall(orientation, z, x, loc.blockrange, type);
@@ -273,7 +361,7 @@ public class Scene {
 
 			@Pc(442) Model model1 = loc.getModel(type, orientation + 4, heightSW, heightSE, heightNE, heightNW, -1);
 			Model model2 = loc.getModel(2, nextOrientation, heightSW, heightSE, heightNE, heightNW, -1);
-			mapSquare.addWall(WALL_ROTATION_TYPE1[nextOrientation], y, plane, WALL_ROTATION_TYPE1[orientation], model1, model2, x, bitset, z, info);
+			mapSquare.addWall(ROTATION_WALL_TYPE[nextOrientation], y, plane, ROTATION_WALL_TYPE[orientation], model1, model2, x, bitset, z, info);
 
 			if (loc.blockwalk) {
 				collision.setWall(orientation, z, x, loc.blockrange, type);
@@ -284,7 +372,7 @@ public class Scene {
 			}
 		} else if (type == LocType.WALL_SQUARECORNER) {
 			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
-			mapSquare.addWall(0, y, plane, WALL_ROTATION_TYPE2[orientation], model, null, x, bitset, z, info);
+			mapSquare.addWall(0, y, plane, ROTATION_WALL_CORNER_TYPE[orientation], model, null, x, bitset, z, info);
 
 			if (loc.blockwalk) {
 				collision.setWall(orientation, z, x, loc.blockrange, type);
@@ -306,7 +394,7 @@ public class Scene {
 			}
 		} else if (type == LocType.WALLDECOR_STRAIGHT) {
 			Model model = loc.getModel(type, CollisionMap.NORTH_WEST, heightSW, heightSE, heightNE, heightNW, -1);
-			mapSquare.addWallDecoration(y, z, 0, bitset, orientation * 512, WALL_ROTATION_TYPE1[orientation], 0, x, model, info, plane);
+			mapSquare.addWallDecoration(y, z, 0, bitset, orientation * 512, ROTATION_WALL_TYPE[orientation], 0, x, model, info, plane);
 
 			if (loc.anim != -1) {
 				anims.pushNext(new LocEntity(true, locId, plane, 1, SeqType.instances[loc.anim], z, x));
@@ -319,8 +407,8 @@ public class Scene {
 				wallOffset = LocType.get(wallBitset >> 14 & 0x7FFF).walloff;
 			}
 
-			Model model2 = loc.getModel(4, CollisionMap.NORTH_WEST, heightSW, heightSE, heightNE, heightNW, -1);
-			mapSquare.addWallDecoration(y, z, WALL_DECO_ROT_SIZE_Y_DIR[orientation] * wallOffset, bitset, orientation * 512, WALL_ROTATION_TYPE1[orientation], WALL_DECO_ROT_SIZE_X_DIR[orientation] * wallOffset, x, model2, info, plane);
+			Model model2 = loc.getModel(LocType.WALLDECOR_STRAIGHT, CollisionMap.NORTH_WEST, heightSW, heightSE, heightNE, heightNW, -1);
+			mapSquare.addWallDecoration(y, z, WALL_DECO_ROT_SIZE_Y_DIR[orientation] * wallOffset, bitset, orientation * 512, ROTATION_WALL_TYPE[orientation], WALL_DECO_ROT_SIZE_X_DIR[orientation] * wallOffset, x, model2, info, plane);
 
 			if (loc.anim != -1) {
 				anims.pushNext(new LocEntity(true, locId, plane, 1, SeqType.instances[loc.anim], z, x));
@@ -590,7 +678,7 @@ public class Scene {
 			}
 		} else if (type == LocType.WALL_STRAIGHT) {
 			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
-			mapSquare.addWall(0, y, level, WALL_ROTATION_TYPE1[orientation], model, null, x, bitset, z, info);
+			mapSquare.addWall(0, y, level, ROTATION_WALL_TYPE[orientation], model, null, x, bitset, z, info);
 
 			if (orientation == CollisionMap.NORTH_WEST) {
 				if (loc.active) {
@@ -643,7 +731,7 @@ public class Scene {
 			}
 		} else if (type == LocType.WALL_DIAGONALCORNER) {
 			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
-			mapSquare.addWall(0, y, level, WALL_ROTATION_TYPE2[orientation], model, null, x, bitset, z, info);
+			mapSquare.addWall(0, y, level, ROTATION_WALL_CORNER_TYPE[orientation], model, null, x, bitset, z, info);
 
 			if (loc.active) {
 				if (orientation == CollisionMap.NORTH_WEST) {
@@ -669,7 +757,7 @@ public class Scene {
 
 			@Pc(822) Model model1 = loc.getModel(type, orientation + 4, heightSW, heightSE, heightNE, heightNW, -1);
 			Model model2 = loc.getModel(type, nextOrientation, heightSW, heightSE, heightNE, heightNW, -1);
-			mapSquare.addWall(WALL_ROTATION_TYPE1[nextOrientation], y, level, WALL_ROTATION_TYPE1[orientation], model1, model2, x, bitset, z, info);
+			mapSquare.addWall(ROTATION_WALL_TYPE[nextOrientation], y, level, ROTATION_WALL_TYPE[orientation], model1, model2, x, bitset, z, info);
 
 			if (loc.occlude) {
 				if (orientation == CollisionMap.NORTH_WEST) {
@@ -700,7 +788,7 @@ public class Scene {
 			}
 		} else if (type == LocType.WALL_SQUARECORNER) {
 			Model model = loc.getModel(type, orientation, heightSW, heightSE, heightNE, heightNW, -1);
-			mapSquare.addWall(0, y, level, WALL_ROTATION_TYPE2[orientation], model, null, x, bitset, z, info);
+			mapSquare.addWall(0, y, level, ROTATION_WALL_CORNER_TYPE[orientation], model, null, x, bitset, z, info);
 
 			if (loc.active) {
 				if (orientation == CollisionMap.NORTH_WEST) {
@@ -734,7 +822,7 @@ public class Scene {
 			}
 		} else if (type == LocType.WALLDECOR_STRAIGHT) {
 			Model model = loc.getModel(type, CollisionMap.NORTH_WEST, heightSW, heightSE, heightNE, heightNW, -1);
-			mapSquare.addWallDecoration(y, z, 0, bitset, orientation * 512, WALL_ROTATION_TYPE1[orientation], 0, x, model, info, level);
+			mapSquare.addWallDecoration(y, z, 0, bitset, orientation * 512, ROTATION_WALL_TYPE[orientation], 0, x, model, info, level);
 
 			if (loc.anim != -1) {
 				anim.pushNext(new LocEntity(true, locId, level, 1, SeqType.instances[loc.anim], z, x));
@@ -748,7 +836,7 @@ public class Scene {
 			}
 
 			Model model2 = loc.getModel(LocType.WALLDECOR_STRAIGHT, 0, heightSW, heightSE, heightNE, heightNW, -1);
-			mapSquare.addWallDecoration(y, z, WALL_DECO_ROT_SIZE_Y_DIR[orientation] * wallOffset, bitset, orientation * 512, WALL_ROTATION_TYPE1[orientation], WALL_DECO_ROT_SIZE_X_DIR[orientation] * wallOffset, x, model2, info, level);
+			mapSquare.addWallDecoration(y, z, WALL_DECO_ROT_SIZE_Y_DIR[orientation] * wallOffset, bitset, orientation * 512, ROTATION_WALL_TYPE[orientation], WALL_DECO_ROT_SIZE_X_DIR[orientation] * wallOffset, x, model2, info, level);
 
 			if (loc.anim != -1) {
 				anim.pushNext(new LocEntity(true, locId, level, 1, SeqType.instances[loc.anim], z, x));
