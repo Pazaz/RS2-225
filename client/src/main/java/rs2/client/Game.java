@@ -1233,6 +1233,7 @@ public class Game extends GameShell {
 	public static void main(@OriginalArg(0) String[] arg0) {
 		try {
 			System.out.println("RS2 user client - release #" + 225);
+
 			if (arg0.length == 4) {
 				nodeId = Integer.parseInt(arg0[0]);
 				gamePortOffset = Integer.parseInt(arg0[1]);
@@ -1244,6 +1245,7 @@ public class Game extends GameShell {
 					System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
 					return;
 				}
+
 				if (arg0[3].equals("free")) {
 					members = false;
 				} else if (arg0[3].equals("members")) {
@@ -1252,12 +1254,16 @@ public class Game extends GameShell {
 					System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
 					return;
 				}
-				SignedLink.startpriv(InetAddress.getLocalHost());
-				@Pc(82) Game local82 = new Game();
-				local82.initApplication(532, 789);
 			} else {
-				System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
+				nodeId = 10;
+				gamePortOffset = 0;
+				setHighMemory();
+				members = true;
 			}
+
+			SignedLink.startpriv(InetAddress.getLocalHost());
+			@Pc(82) Game game = new Game();
+			game.initApplication(532, 789);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
