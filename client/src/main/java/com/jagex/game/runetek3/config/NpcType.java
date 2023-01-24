@@ -217,7 +217,7 @@ public class NpcType {
 		if (model == null) {
 			@Pc(16) Model[] models = new Model[this.models.length];
 			for (@Pc(18) int i = 0; i < this.models.length; i++) {
-				models[i] = new Model(false, this.models[i]);
+				models[i] = new Model(this.models[i]);
 			}
 
 			if (models.length == 1) {
@@ -232,24 +232,24 @@ public class NpcType {
 				}
 			}
 
-			model.applyGroup();
-			model.applyLighting(64, 850, -30, -50, -30, true);
+			model.createLabelReferences();
+			model.calculateNormals(64, 850, -30, -50, -30, true);
 			builtModels.put(this.id, model);
 		}
 
 		model = new Model(model, !this.disposeAlpha);
 		if (scaleX != -1 && scaleY != -1) {
-			model.applyFrames(scaleY, scaleX, scaleZ);
+			model.applyTransforms(scaleY, scaleX, scaleZ);
 		} else if (scaleX != -1) {
-			model.applyFrame(scaleX);
+			model.applyTransform(scaleX);
 		}
 
 		if (this.resizex != 128 || this.resizez != 128) {
 			model.scale(this.resizex, this.resizez, this.resizex);
 		}
 
-		model.calculateYBoundaries();
-		model.skinTriangle = null;
+		model.calculateBoundsCylinder();
+		model.labelFaces = null;
 		model.labelVertices = null;
 
 		if (this.size == 1) {
@@ -267,7 +267,7 @@ public class NpcType {
 
 		@Pc(17) Model[] models = new Model[this.headModels.length];
 		for (@Pc(19) int i = 0; i < this.headModels.length; i++) {
-			models[i] = new Model(false, this.headModels[i]);
+			models[i] = new Model(this.headModels[i]);
 		}
 
 		@Pc(46) Model model;

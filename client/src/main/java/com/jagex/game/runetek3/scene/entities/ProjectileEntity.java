@@ -47,7 +47,7 @@ public class ProjectileEntity extends Entity {
 	private int frameCycle;
 
 	@OriginalMember(owner = "client!ab", name = "r", descriptor = "Z")
-	private boolean isMobile = false;
+	private boolean mobile = false;
 
 	@OriginalMember(owner = "client!ab", name = "g", descriptor = "Lclient!kc;")
 	private final SpotAnimType spotAnim;
@@ -56,57 +56,56 @@ public class ProjectileEntity extends Entity {
 	public final int level;
 
 	@OriginalMember(owner = "client!ab", name = "i", descriptor = "I")
-	private final int sourceX;
+	private final int srcX;
 
 	@OriginalMember(owner = "client!ab", name = "j", descriptor = "I")
-	private final int sourceY;
+	private final int srcY;
 
 	@OriginalMember(owner = "client!ab", name = "k", descriptor = "I")
-	private final int sourceZ;
+	private final int srcZ;
 
 	@OriginalMember(owner = "client!ab", name = "m", descriptor = "I")
-	public final int firstCycle;
+	public final int startCycle;
 
 	@OriginalMember(owner = "client!ab", name = "n", descriptor = "I")
 	public final int lastCycle;
 
 	@OriginalMember(owner = "client!ab", name = "o", descriptor = "I")
-	private final int elevationPitch;
+	private final int peakPitch;
 
 	@OriginalMember(owner = "client!ab", name = "p", descriptor = "I")
-	private final int arcScale;
+	private final int arc;
 
 	@OriginalMember(owner = "client!ab", name = "q", descriptor = "I")
-	public final int targetIndex;
+	public final int target;
 
 	@OriginalMember(owner = "client!ab", name = "l", descriptor = "I")
-	public final int baseZ;
+	public final int offsetY;
 
 	@OriginalMember(owner = "client!ab", name = "<init>", descriptor = "(IIIIIIIIIIII)V")
-	public ProjectileEntity(@OriginalArg(0) int baseZ, @OriginalArg(1) int elevationPitch, @OriginalArg(2) int sourceY, @OriginalArg(3) int lastCycle, @OriginalArg(4) int level, @OriginalArg(5) int targetIndex, @OriginalArg(6) int firstCycle, @OriginalArg(7) int arcScale, @OriginalArg(9) int sourceZ, @OriginalArg(10) int spotanim, @OriginalArg(11) int sourceX) {
+	public ProjectileEntity(@OriginalArg(0) int offsetY, @OriginalArg(1) int peakPitch, @OriginalArg(2) int srcY, @OriginalArg(3) int lastCycle, @OriginalArg(4) int level, @OriginalArg(5) int target, @OriginalArg(6) int startCycle, @OriginalArg(7) int arc, @OriginalArg(9) int srcZ, @OriginalArg(10) int spotanim, @OriginalArg(11) int srcX) {
 		this.spotAnim = SpotAnimType.instances[spotanim];
 		this.level = level;
-		this.sourceX = sourceX;
-		this.sourceY = sourceY;
-		this.sourceZ = sourceZ;
-		this.firstCycle = firstCycle;
+		this.srcX = srcX;
+		this.srcY = srcY;
+		this.srcZ = srcZ;
+		this.startCycle = startCycle;
 		this.lastCycle = lastCycle;
-		this.elevationPitch = elevationPitch;
-		this.arcScale = arcScale;
-		this.targetIndex = targetIndex;
-		this.baseZ = baseZ;
-		this.isMobile = false;
+		this.peakPitch = peakPitch;
+		this.arc = arc;
+		this.target = target;
+		this.offsetY = offsetY;
 	}
 
 	@OriginalMember(owner = "client!ab", name = "a", descriptor = "(IIIII)V")
 	public void setTarget(@OriginalArg(0) int destZ, @OriginalArg(1) int destY, @OriginalArg(2) int destX, @OriginalArg(4) int cycle) {
-		if (!this.isMobile) {
-			@Pc(8) double dx = destX - this.sourceX;
-			@Pc(14) double dy = destY - this.sourceY;
+		if (!this.mobile) {
+			@Pc(8) double dx = destX - this.srcX;
+			@Pc(14) double dy = destY - this.srcY;
 			@Pc(23) double d = Math.sqrt(dx * dx + dy * dy);
-			this.x = (double) this.sourceX + dx * (double) this.arcScale / d;
-			this.y = (double) this.sourceY + dy * (double) this.arcScale / d;
-			this.z = this.sourceZ;
+			this.x = (double) this.srcX + dx * (double) this.arc / d;
+			this.y = (double) this.srcY + dy * (double) this.arc / d;
+			this.z = this.srcZ;
 		}
 
 		double dt = this.lastCycle + 1 - cycle;
@@ -114,8 +113,8 @@ public class ProjectileEntity extends Entity {
 		this.velocityY = ((double) destY - this.y) / dt;
 		this.velocity = Math.sqrt(this.velocityX * this.velocityX + this.velocityY * this.velocityY);
 
-		if (!this.isMobile) {
-			this.velocityZ = -this.velocity * Math.tan((double) this.elevationPitch * 0.02454369D);
+		if (!this.mobile) {
+			this.velocityZ = -this.velocity * Math.tan((double) this.peakPitch * 0.02454369D);
 		}
 
 		this.accelerationZ = ((double) destZ - this.z - this.velocityZ * dt) * 2.0D / (dt * dt);
@@ -123,7 +122,7 @@ public class ProjectileEntity extends Entity {
 
 	@OriginalMember(owner = "client!ab", name = "a", descriptor = "(BI)V")
 	public void update(@OriginalArg(1) int cycle) {
-		this.isMobile = true;
+		this.mobile = true;
 
 		this.x += this.velocityX * (double) cycle;
 		this.y += this.velocityY * (double) cycle;
@@ -152,9 +151,9 @@ public class ProjectileEntity extends Entity {
 
 		@Pc(19) Model m = new Model(model, true, !this.spotAnim.disposeAlpha, false);
 		if (this.spotAnim.seq != null) {
-			m.applyGroup();
-			m.applyFrame(this.spotAnim.seq.primaryFrames[this.seqFrame]);
-			m.skinTriangle = null;
+			m.createLabelReferences();
+			m.applyTransform(this.spotAnim.seq.primaryFrames[this.seqFrame]);
+			m.labelFaces = null;
 			m.labelVertices = null;
 		}
 
@@ -162,8 +161,8 @@ public class ProjectileEntity extends Entity {
 			m.scale(this.spotAnim.resizeh, this.spotAnim.resizev, this.spotAnim.resizeh);
 		}
 
-		m.rotatePitch(this.pitch);
-		m.applyLighting(this.spotAnim.ambient + 64, this.spotAnim.contrast + 850, -30, -50, -30, true);
+		m.rotateX(this.pitch);
+		m.calculateNormals(this.spotAnim.ambient + 64, this.spotAnim.contrast + 850, -30, -50, -30, true);
 		return m;
 	}
 }

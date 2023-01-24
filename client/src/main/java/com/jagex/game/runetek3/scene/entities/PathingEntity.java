@@ -106,13 +106,13 @@ public class PathingEntity extends Entity {
 	public int dstYaw;
 
 	@OriginalMember(owner = "client!x", name = "bb", descriptor = "I")
-	public int pathRemaining;
+	public int pathLength;
 
 	@OriginalMember(owner = "client!x", name = "fb", descriptor = "I")
-	public int int1; // TODO
+	public int seqTrigger;
 
 	@OriginalMember(owner = "client!x", name = "j", descriptor = "Z")
-	public boolean animationStretches = false;
+	public boolean needsForwardDrawPadding = false;
 
 	@OriginalMember(owner = "client!x", name = "k", descriptor = "I")
 	public int index = 1;
@@ -139,10 +139,10 @@ public class PathingEntity extends Entity {
 	public int turnLeftSeq = -1;
 
 	@OriginalMember(owner = "client!x", name = "t", descriptor = "I")
-	public int textCycle = 100;
+	public int chatTimer = 100;
 
 	@OriginalMember(owner = "client!x", name = "y", descriptor = "I")
-	public int lastCombatCycle = -1000;
+	public int combatCycle = -1000;
 
 	@OriginalMember(owner = "client!x", name = "B", descriptor = "I")
 	public int targetEntity = -1;
@@ -176,11 +176,11 @@ public class PathingEntity extends Entity {
 			@Pc(29) int dz = z - this.pathTileZ[0];
 
 			if (dx >= -8 && dx <= 8 && dz >= -8 && dz <= 8) {
-				if (this.pathRemaining < 9) {
-					this.pathRemaining++;
+				if (this.pathLength < 9) {
+					this.pathLength++;
 				}
 
-				for (@Pc(54) int i = this.pathRemaining; i > 0; i--) {
+				for (@Pc(54) int i = this.pathLength; i > 0; i--) {
 					this.pathTileX[i] = this.pathTileX[i - 1];
 					this.pathTileZ[i] = this.pathTileZ[i - 1];
 					this.pathRunning[i] = this.pathRunning[i - 1];
@@ -193,8 +193,8 @@ public class PathingEntity extends Entity {
 			}
 		}
 
-		this.pathRemaining = 0;
-		this.int1 = 0;
+		this.pathLength = 0;
+		this.seqTrigger = 0;
 		this.pathTileX[0] = x;
 		this.pathTileZ[0] = z;
 		this.x = this.pathTileX[0] * 128 + this.index * 64;
@@ -203,52 +203,52 @@ public class PathingEntity extends Entity {
 
 	@OriginalMember(owner = "client!x", name = "a", descriptor = "(ZIB)V")
 	public final void walk(@OriginalArg(0) boolean running, @OriginalArg(1) int direction) {
-		@Pc(6) int x = this.pathTileX[0];
-		@Pc(11) int z = this.pathTileZ[0];
+		@Pc(6) int nextX = this.pathTileX[0];
+		@Pc(11) int nextZ = this.pathTileZ[0];
 
 		if (direction == 0) {
-			x--;
-			z++;
+			nextX--;
+			nextZ++;
 		} else if (direction == 1) {
-			z++;
+			nextZ++;
 		} else if (direction == 2) {
-			x++;
-			z++;
+			nextX++;
+			nextZ++;
 		} else if (direction == 3) {
-			x--;
+			nextX--;
 		} else if (direction == 4) {
-			x++;
+			nextX++;
 		} else if (direction == 5) {
-			x--;
-			z--;
+			nextX--;
+			nextZ--;
 		} else if (direction == 6) {
-			z--;
+			nextZ--;
 		} else if (direction == 7) {
-			x++;
-			z--;
+			nextX++;
+			nextZ--;
 		}
 
 		if (this.primarySeq != -1 && SeqType.instances[this.primarySeq].priority <= 1) {
 			this.primarySeq = -1;
 		}
 
-		if (this.pathRemaining < 9) {
-			this.pathRemaining++;
+		if (this.pathLength < 9) {
+			this.pathLength++;
 		}
 
-		for (@Pc(83) int i = this.pathRemaining; i > 0; i--) {
+		for (@Pc(83) int i = this.pathLength; i > 0; i--) {
 			this.pathTileX[i] = this.pathTileX[i - 1];
 			this.pathTileZ[i] = this.pathTileZ[i - 1];
 			this.pathRunning[i] = this.pathRunning[i - 1];
 		}
 
-		this.pathTileX[0] = x;
-		this.pathTileZ[0] = z;
+		this.pathTileX[0] = nextX;
+		this.pathTileZ[0] = nextZ;
 		this.pathRunning[0] = running;
 	}
 
 	@OriginalMember(owner = "client!x", name = "b", descriptor = "(Z)Z")
-	public boolean isValid() {
+	public boolean isVisible() {
 		return false;
 	}
 }

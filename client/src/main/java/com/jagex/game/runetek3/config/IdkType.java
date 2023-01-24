@@ -90,7 +90,7 @@ public class IdkType {
 
 		@Pc(11) Model[] models = new Model[this.models.length];
 		for (@Pc(13) int i = 0; i < this.models.length; i++) {
-			models[i] = new Model(false, this.models[i]);
+			models[i] = new Model(this.models[i]);
 		}
 
 		@Pc(40) Model m;
@@ -113,7 +113,7 @@ public class IdkType {
 		@Pc(6) int count = 0;
 		for (@Pc(8) int i = 0; i < 5; i++) {
 			if (this.heads[i] != -1) {
-				models[count++] = new Model(false, this.heads[i]);
+				models[count++] = new Model(this.heads[i]);
 			}
 		}
 

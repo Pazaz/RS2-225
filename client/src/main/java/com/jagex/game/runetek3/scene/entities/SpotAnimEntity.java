@@ -35,7 +35,7 @@ public class SpotAnimEntity extends Entity {
 	public final int height;
 
 	@OriginalMember(owner = "client!bb", name = "h", descriptor = "I")
-	public final int firstCycle;
+	public final int startCycle;
 
 	@OriginalMember(owner = "client!bb", name = "<init>", descriptor = "(IIZIIIII)V")
 	public SpotAnimEntity(@OriginalArg(0) int x, @OriginalArg(1) int id, @OriginalArg(3) int z, @OriginalArg(4) int duration, @OriginalArg(5) int height, @OriginalArg(6) int plane, @OriginalArg(7) int startCycle) {
@@ -44,8 +44,7 @@ public class SpotAnimEntity extends Entity {
 		this.x = x;
 		this.z = z;
 		this.height = height;
-		this.firstCycle = startCycle + duration;
-		this.finished = false;
+		this.startCycle = startCycle + duration;
 	}
 
 	@OriginalMember(owner = "client!bb", name = "a", descriptor = "(II)V")
@@ -69,9 +68,9 @@ public class SpotAnimEntity extends Entity {
 		@Pc(19) Model m = new Model(this.spotanim.getModel(), true, !this.spotanim.disposeAlpha, false);
 
 		if (!this.finished) {
-			m.applyGroup();
-			m.applyFrame(this.spotanim.seq.primaryFrames[this.seqFrame]);
-			m.skinTriangle = null;
+			m.createLabelReferences();
+			m.applyTransform(this.spotanim.seq.primaryFrames[this.seqFrame]);
+			m.labelFaces = null;
 			m.labelVertices = null;
 		}
 
@@ -81,18 +80,18 @@ public class SpotAnimEntity extends Entity {
 
 		if (this.spotanim.orientation != 0) {
 			if (this.spotanim.orientation == 90) {
-				m.rotateCounterClockwise();
+				m.rotateY90();
 			} else if (this.spotanim.orientation == 180) {
-				m.rotateCounterClockwise();
-				m.rotateCounterClockwise();
+				m.rotateY90();
+				m.rotateY90();
 			} else if (this.spotanim.orientation == 270) {
-				m.rotateCounterClockwise();
-				m.rotateCounterClockwise();
-				m.rotateCounterClockwise();
+				m.rotateY90();
+				m.rotateY90();
+				m.rotateY90();
 			}
 		}
 
-		m.applyLighting(this.spotanim.ambient + 64, this.spotanim.contrast + 850, -30, -50, -30, true);
+		m.calculateNormals(this.spotanim.ambient + 64, this.spotanim.contrast + 850, -30, -50, -30, true);
 		return m;
 	}
 }

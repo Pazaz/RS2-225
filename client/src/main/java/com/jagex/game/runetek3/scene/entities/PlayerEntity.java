@@ -204,14 +204,14 @@ public class PlayerEntity extends PathingEntity {
 			@Pc(35) SpotAnimType spot = SpotAnimType.instances[super.spotAnimIndex];
 			@Pc(51) Model m = new Model(spot.getModel(), true, !spot.disposeAlpha, false);
 			m.translate(-super.spotAnimOffsetY, 0, 0);
-			m.applyGroup();
-			m.applyFrame(spot.seq.primaryFrames[super.spotAnimFrame]);
-			m.skinTriangle = null;
+			m.createLabelReferences();
+			m.applyTransform(spot.seq.primaryFrames[super.spotAnimFrame]);
+			m.labelFaces = null;
 			m.labelVertices = null;
 			if (spot.resizeh != 128 || spot.resizev != 128) {
 				m.scale(spot.resizeh, spot.resizev, spot.resizeh);
 			}
-			m.applyLighting(spot.ambient + 64, spot.contrast + 850, -30, -50, -30, true);
+			m.calculateNormals(spot.ambient + 64, spot.contrast + 850, -30, -50, -30, true);
 
 			@Pc(119) Model[] models = new Model[] { model, m };
 			model = new Model(models, 2, true);
@@ -226,28 +226,28 @@ public class PlayerEntity extends PathingEntity {
 				@Pc(148) Model m = this.model;
 				m.translate(this.sceneY - this.plane, this.sceneX - super.x, this.sceneZ - super.z);
 				if (super.dstYaw == 512) {
-					m.rotateCounterClockwise();
-					m.rotateCounterClockwise();
-					m.rotateCounterClockwise();
+					m.rotateY90();
+					m.rotateY90();
+					m.rotateY90();
 				} else if (super.dstYaw == 1024) {
-					m.rotateCounterClockwise();
-					m.rotateCounterClockwise();
+					m.rotateY90();
+					m.rotateY90();
 				} else if (super.dstYaw == 1536) {
-					m.rotateCounterClockwise();
+					m.rotateY90();
 				}
 
 				@Pc(211) Model[] models = new Model[] { model, m };
 				model = new Model(models, 2, true);
 
 				if (super.dstYaw == 512) {
-					m.rotateCounterClockwise();
+					m.rotateY90();
 				} else if (super.dstYaw == 1024) {
-					m.rotateCounterClockwise();
-					m.rotateCounterClockwise();
+					m.rotateY90();
+					m.rotateY90();
 				} else if (super.dstYaw == 1536) {
-					m.rotateCounterClockwise();
-					m.rotateCounterClockwise();
-					m.rotateCounterClockwise();
+					m.rotateY90();
+					m.rotateY90();
+					m.rotateY90();
 				}
 				m.translate(this.plane - this.sceneY, super.x - this.sceneX, super.z - this.sceneZ);
 			}
@@ -325,8 +325,8 @@ public class PlayerEntity extends PathingEntity {
 				}
 			}
 
-			m.applyGroup();
-			m.applyLighting(64, 850, -30, -50, -30, true);
+			m.createLabelReferences();
+			m.calculateNormals(64, 850, -30, -50, -30, true);
 			PlayerEntity.models.put(bitset, m);
 		}
 
@@ -336,12 +336,12 @@ public class PlayerEntity extends PathingEntity {
 
 		@Pc(249) Model m2 = new Model(m, true);
 		if (primaryFrame != -1 && secondaryFrame != -1) {
-			m2.applyFrames(secondaryFrame, primaryFrame, SeqType.instances[super.primarySeq].labelGroups);
+			m2.applyTransforms(secondaryFrame, primaryFrame, SeqType.instances[super.primarySeq].labelGroups);
 		} else if (primaryFrame != -1) {
-			m2.applyFrame(primaryFrame);
+			m2.applyTransform(primaryFrame);
 		}
-		m2.calculateYBoundaries();
-		m2.skinTriangle = null;
+		m2.calculateBoundsCylinder();
+		m2.labelFaces = null;
 		m2.labelVertices = null;
 		return m2;
 	}
@@ -385,7 +385,7 @@ public class PlayerEntity extends PathingEntity {
 
 	@OriginalMember(owner = "client!z", name = "b", descriptor = "(Z)Z")
 	@Override
-	public boolean isValid() {
+	public boolean isVisible() {
 		return this.visible;
 	}
 

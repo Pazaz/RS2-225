@@ -17,10 +17,10 @@ public class WallDecoration {
 	public int z;
 
 	@OriginalMember(owner = "client!h", name = "d", descriptor = "I")
-	public int type0;
+	public int typeA;
 
 	@OriginalMember(owner = "client!h", name = "e", descriptor = "I")
-	public int type1;
+	public int typeB;
 
 	@OriginalMember(owner = "client!h", name = "f", descriptor = "Lclient!eb;")
 	public Model model;

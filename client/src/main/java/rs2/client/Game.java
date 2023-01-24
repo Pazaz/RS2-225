@@ -11,8 +11,8 @@ import com.jagex.core.util.LinkedList;
 import com.jagex.game.runetek3.BufferedStream;
 import com.jagex.game.runetek3.GameShell;
 import com.jagex.game.runetek3.InputTracking;
-import com.jagex.game.runetek3.animation.AnimBase;
-import com.jagex.game.runetek3.animation.AnimFrame;
+import com.jagex.game.runetek3.animation.SeqBase;
+import com.jagex.game.runetek3.animation.SeqFrame;
 import com.jagex.game.runetek3.audio.SoundTrack;
 import com.jagex.game.runetek3.config.*;
 import com.jagex.game.runetek3.graphics.Component;
@@ -1362,7 +1362,7 @@ public class Game extends GameShell {
 			} else {
 				local23 = this.npcEntities[this.npcIndices[local15 - this.playerCount]];
 			}
-			if (local23 != null && local23.isValid()) {
+			if (local23 != null && local23.isVisible()) {
 				if (local15 < this.playerCount) {
 					local63 = 30;
 					@Pc(66) PlayerEntity local66 = (PlayerEntity) local23;
@@ -1398,7 +1398,7 @@ public class Game extends GameShell {
 						this.chatScreenY[this.chatCount] = this.drawY;
 						this.chatColors[this.chatCount] = local23.spokenColor;
 						this.chatStyles[this.chatCount] = local23.spokenEffect;
-						this.chatTimers[this.chatCount] = local23.textCycle;
+						this.chatTimers[this.chatCount] = local23.chatTimer;
 						this.chatMessages[this.chatCount++] = local23.spoken;
 						if (this.chatEffects == 0 && local23.spokenEffect == 1) {
 							this.chatHeight[this.chatCount] += 10;
@@ -1409,7 +1409,7 @@ public class Game extends GameShell {
 						}
 					}
 				}
-				if (local23.lastCombatCycle > clientClock + 100) {
+				if (local23.combatCycle > clientClock + 100) {
 					this.setDrawPos(local23.height + 15, local23);
 					if (this.drawX > -1) {
 						local63 = local23.currentHealth * 30 / local23.maxHealth;
@@ -1420,7 +1420,7 @@ public class Game extends GameShell {
 						Draw2D.fillRect(this.drawY - 3, this.drawX - 15 + local63, 16711680, 30 - local63, 5);
 					}
 				}
-				if (local23.lastCombatCycle > clientClock + 330) {
+				if (local23.combatCycle > clientClock + 330) {
 					this.setDrawPos(local23.height / 2, local23);
 					if (this.drawX > -1) {
 						this.hitmarks[local23.damageType].draw(this.drawY - 12, this.drawX - 12);
@@ -1633,7 +1633,7 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(Lclient!kb;II)V")
-	private void updateNpcMasks(@OriginalArg(0) Buffer arg0, @OriginalArg(1) int arg1) {
+	private void readNpcUpdates(@OriginalArg(0) Buffer arg0, @OriginalArg(1) int arg1) {
 		for (@Pc(1) int local1 = 0; local1 < this.updateCount; local1++) {
 			@Pc(8) int local8 = this.entityUpdateIndices[local1];
 			@Pc(13) NpcEntity local13 = this.npcEntities[local8];
@@ -1664,12 +1664,12 @@ public class Game extends GameShell {
 			}
 			if ((local16 & 0x8) == 8) {
 				local13.spoken = arg0.gstr();
-				local13.textCycle = 100;
+				local13.chatTimer = 100;
 			}
 			if ((local16 & 0x10) == 16) {
 				local13.damageTaken = arg0.g1();
 				local13.damageType = arg0.g1();
-				local13.lastCombatCycle = clientClock + 400;
+				local13.combatCycle = clientClock + 400;
 				local13.currentHealth = arg0.g1();
 				local13.maxHealth = arg0.g1();
 			}
@@ -1829,7 +1829,7 @@ public class Game extends GameShell {
 				}
 			}
 		} else {
-			@Pc(395) ObjStackEntity local395;
+			@Pc(395) ObjEntity local395;
 			if (opcode == ZoneProt.OBJ_REVEAL) {
 				local15 = arg1.g1();
 				local24 = this.localPosX + (local15 >> 4 & 0x7);
@@ -1837,9 +1837,9 @@ public class Game extends GameShell {
 				local34 = arg1.g2();
 				local38 = arg1.g2();
 				if (local24 >= 0 && local31 >= 0 && local24 < 104 && local31 < 104) {
-					local395 = new ObjStackEntity();
+					local395 = new ObjEntity();
 					local395.id = local34;
-					local395.amount = local38;
+					local395.count = local38;
 					if (this.objects[this.currentPlane][local24][local31] == null) {
 						this.objects[this.currentPlane][local24][local31] = new LinkedList();
 					}
@@ -1854,7 +1854,7 @@ public class Game extends GameShell {
 				if (local24 >= 0 && local31 >= 0 && local24 < 104 && local31 < 104) {
 					@Pc(485) LinkedList local485 = this.objects[this.currentPlane][local24][local31];
 					if (local485 != null) {
-						for (local395 = (ObjStackEntity) local485.peekPrevious(); local395 != null; local395 = (ObjStackEntity) local485.getPrevious()) {
+						for (local395 = (ObjEntity) local485.peekPrevious(); local395 != null; local395 = (ObjEntity) local485.getPrevious()) {
 							if (local395.id == (local34 & 0x7FFF)) {
 								local395.unlink();
 								break;
@@ -1913,9 +1913,9 @@ public class Game extends GameShell {
 					local38 = arg1.g2();
 					local42 = arg1.g2();
 					if (local24 >= 0 && local31 >= 0 && local24 < 104 && local31 < 104 && local42 != this.selfPlayerId) {
-						@Pc(807) ObjStackEntity local807 = new ObjStackEntity();
+						@Pc(807) ObjEntity local807 = new ObjEntity();
 						local807.id = local34;
-						local807.amount = local38;
+						local807.count = local38;
 						if (this.objects[this.currentPlane][local24][local31] == null) {
 							this.objects[this.currentPlane][local24][local31] = new LinkedList();
 						}
@@ -1994,9 +1994,9 @@ public class Game extends GameShell {
 						if (local24 >= 0 && local31 >= 0 && local24 < 104 && local31 < 104) {
 							@Pc(1178) LinkedList local1178 = this.objects[this.currentPlane][local24][local31];
 							if (local1178 != null) {
-								for (@Pc(1184) ObjStackEntity local1184 = (ObjStackEntity) local1178.peekPrevious(); local1184 != null; local1184 = (ObjStackEntity) local1178.getPrevious()) {
-									if (local1184.id == (local34 & 0x7FFF) && local1184.amount == local38) {
-										local1184.amount = local42;
+								for (@Pc(1184) ObjEntity local1184 = (ObjEntity) local1178.peekPrevious(); local1184 != null; local1184 = (ObjEntity) local1178.getPrevious()) {
+									if (local1184.id == (local34 & 0x7FFF) && local1184.count == local38) {
+										local1184.count = local42;
 										break;
 									}
 								}
@@ -2672,7 +2672,7 @@ public class Game extends GameShell {
 				local30 = this.playerEntities[this.playerIndices[local22]];
 				local35 = this.playerIndices[local22] << 14;
 			}
-			if (local30 != null && local30.isValid()) {
+			if (local30 != null && local30.isVisible()) {
 				local30.lowMemory = false;
 				if ((lowMemory && this.playerCount > 50 || this.playerCount > 200) && local22 != -1 && local30.secondarySeq == local30.standSeq) {
 					local30.lowMemory = true;
@@ -2688,7 +2688,7 @@ public class Game extends GameShell {
 							this.tileRenderCount[local87][local92] = this.sceneCycle;
 						}
 						local30.plane = this.getLandY(this.currentPlane, local30.x, local30.z);
-						this.mapSquare.add(local30.z, 60, local30.animationDelay, local30.x, local35, local30.animationStretches, null, local30, local30.plane, this.currentPlane);
+						this.mapSquare.add(local30.z, 60, local30.animationDelay, local30.x, local35, local30.needsForwardDrawPadding, null, local30, local30.plane, this.currentPlane);
 					} else {
 						local30.lowMemory = false;
 						local30.plane = this.getLandY(this.currentPlane, local30.x, local30.z);
@@ -2978,7 +2978,7 @@ public class Game extends GameShell {
 								this.self.spoken = this.input;
 								this.self.spokenColor = local496;
 								this.self.spokenEffect = local654;
-								this.self.textCycle = 150;
+								this.self.chatTimer = 150;
 								this.addMessage(2, this.self.spoken, this.self.name);
 								if (this.chatPublicSetting == 2) {
 									this.chatPublicSetting = 3;
@@ -3247,7 +3247,7 @@ public class Game extends GameShell {
 			}
 			local17.pixels = local39;
 			this.tmpTexels = local36;
-			Draw3D.updateTexture(17);
+			Draw3D.pushTexture(17);
 		} else if (Draw3D.textureCycles[24] >= arg0) {
 			local17 = Draw3D.textures[24];
 			local25 = local17.spriteWidth * local17.spriteHeight - 1;
@@ -3259,7 +3259,7 @@ public class Game extends GameShell {
 			}
 			local17.pixels = local39;
 			this.tmpTexels = local36;
-			Draw3D.updateTexture(24);
+			Draw3D.pushTexture(24);
 		}
 	}
 
@@ -3351,7 +3351,7 @@ public class Game extends GameShell {
 		}
 		for (local124 = 0; local124 < this.npcCount; local124++) {
 			@Pc(189) NpcEntity local189 = this.npcEntities[this.npcIndices[local124]];
-			if (local189 != null && local189.isValid() && local189.type.visonmap) {
+			if (local189 != null && local189.isVisible() && local189.type.visonmap) {
 				local26 = local189.x / 32 - this.self.x / 32;
 				local34 = local189.z / 32 - this.self.z / 32;
 				this.drawOnMinimap(local34, this.mapdot1, local26);
@@ -3359,7 +3359,7 @@ public class Game extends GameShell {
 		}
 		for (@Pc(235) int local235 = 0; local235 < this.playerCount; local235++) {
 			@Pc(245) PlayerEntity local245 = this.playerEntities[this.playerIndices[local235]];
-			if (local245 != null && local245.isValid()) {
+			if (local245 != null && local245.isVisible()) {
 				local26 = local245.x / 32 - this.self.x / 32;
 				local34 = local245.z / 32 - this.self.z / 32;
 				@Pc(275) boolean local275 = false;
@@ -3628,27 +3628,30 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(Lclient!kb;IZ)V")
-	private void updateNpcs(@OriginalArg(0) Buffer arg0, @OriginalArg(1) int arg1) {
+	private void readNpcInfo(@OriginalArg(0) Buffer buf, @OriginalArg(1) int size) {
 		this.deadEntityCount = 0;
 		this.updateCount = 0;
-		this.updateNpcList(arg0, arg1);
-		this.updateLocalNpcs(arg0, arg1);
-		this.updateNpcMasks(arg0, arg1);
-		@Pc(36) int local36;
-		for (@Pc(29) int local29 = 0; local29 < this.deadEntityCount; local29++) {
-			local36 = this.deadEntityIndices[local29];
-			if (this.npcEntities[local36].removeTimer != clientClock) {
-				this.npcEntities[local36].type = null;
-				this.npcEntities[local36] = null;
+		this.readNpcs(buf, size);
+		this.readNewNpcs(buf, size);
+		this.readNpcUpdates(buf, size);
+
+		@Pc(36) int index;
+		for (@Pc(29) int i = 0; i < this.deadEntityCount; i++) {
+			index = this.deadEntityIndices[i];
+			if (this.npcEntities[index].removeTimer != clientClock) {
+				this.npcEntities[index].type = null;
+				this.npcEntities[index] = null;
 			}
 		}
-		if (arg0.pos != arg1) {
-			SignedLink.reporterror(this.username + " size mismatch in getnpcpos - pos:" + arg0.pos + " psize:" + arg1);
+
+		if (buf.pos != size) {
+			SignedLink.reporterror(this.username + " size mismatch in getnpcpos - pos:" + buf.pos + " psize:" + size);
 			throw new RuntimeException("eek");
 		}
-		for (local36 = 0; local36 < this.npcCount; local36++) {
-			if (this.npcEntities[this.npcIndices[local36]] == null) {
-				SignedLink.reporterror(this.username + " null entry in npc list - pos:" + local36 + " size:" + this.npcCount);
+
+		for (index = 0; index < this.npcCount; index++) {
+			if (this.npcEntities[this.npcIndices[index]] == null) {
+				SignedLink.reporterror(this.username + " null entry in npc list - pos:" + index + " size:" + this.npcCount);
 				throw new RuntimeException("eek");
 			}
 		}
@@ -3730,7 +3733,7 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ILclient!kb;I)V")
-	private void updateOtherPlayers(@OriginalArg(1) int arg0, @OriginalArg(1) Buffer arg1) {
+	private void readPlayers(@OriginalArg(1) int arg0, @OriginalArg(1) Buffer arg1) {
 		@Pc(6) int local6 = arg1.gBit(8);
 		@Pc(10) int local10;
 		if (local6 < this.playerCount) {
@@ -3833,7 +3836,7 @@ public class Game extends GameShell {
 		for (@Pc(1) int local1 = 0; local1 < this.npcCount; local1++) {
 			@Pc(11) NpcEntity local11 = this.npcEntities[this.npcIndices[local1]];
 			@Pc(20) int local20 = (this.npcIndices[local1] << 14) + 536870912;
-			if (local11 != null && local11.isValid()) {
+			if (local11 != null && local11.isVisible()) {
 				@Pc(31) int local31 = local11.x >> 7;
 				@Pc(36) int local36 = local11.z >> 7;
 				if (local31 >= 0 && local31 < 104 && local36 >= 0 && local36 < 104) {
@@ -3843,7 +3846,7 @@ public class Game extends GameShell {
 						}
 						this.tileRenderCount[local31][local36] = this.sceneCycle;
 					}
-					this.mapSquare.add(local11.z, (local11.index - 1) * 64 + 60, local11.animationDelay, local11.x, local20, local11.animationStretches, null, local11, this.getLandY(this.currentPlane, local11.x, local11.z), this.currentPlane);
+					this.mapSquare.add(local11.z, (local11.index - 1) * 64 + 60, local11.animationDelay, local11.x, local20, local11.needsForwardDrawPadding, null, local11, this.getLandY(this.currentPlane, local11.x, local11.z), this.currentPlane);
 				}
 			}
 		}
@@ -3957,7 +3960,7 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(IILclient!kb;)V")
-	private void updateNewPlayers(@OriginalArg(1) int arg1, @OriginalArg(2) Buffer arg2) {
+	private void readNewPlayers(@OriginalArg(1) int arg1, @OriginalArg(2) Buffer arg2) {
 		@Pc(9) int local9;
 		while (arg2.bitOffset + 10 < arg1 * 8) {
 			local9 = arg2.gBit(11);
@@ -4206,7 +4209,7 @@ public class Game extends GameShell {
 								local846 = local84.getModel(local852.primaryFrames[local84.seqFrame], local852.secondaryFrames[local84.seqFrame], local827);
 							}
 							if (local846 != null) {
-								local846.draw(0, local84.yan, 0, local84.xan, 0, local171, local182);
+								local846.drawSimple(0, local84.yan, 0, local84.xan, 0, local171, local182);
 							}
 							Draw3D.centerX3D = local165;
 							Draw3D.centerY3D = local167;
@@ -4245,7 +4248,7 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ZILclient!kb;)V")
-	private void updatePlayerMasks(@OriginalArg(2) Buffer arg2, @OriginalArg(1) int arg1) {
+	private void readPlayerUpdates(@OriginalArg(2) Buffer arg2, @OriginalArg(1) int arg1) {
 		for (@Pc(1) int local1 = 0; local1 < this.updateCount; local1++) {
 			@Pc(8) int local8 = this.entityUpdateIndices[local1];
 			@Pc(13) PlayerEntity local13 = this.playerEntities[local8];
@@ -4343,55 +4346,56 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "i", descriptor = "(Z)V")
-	private void updateNpcEntity() {
-		for (@Pc(7) int local7 = 0; local7 < this.npcCount; local7++) {
-			@Pc(14) int local14 = this.npcIndices[local7];
-			@Pc(19) NpcEntity local19 = this.npcEntities[local14];
-			if (local19 != null) {
-				this.updateEntity(local19, local19.type.size);
+	private void updateNpcs() {
+		for (@Pc(7) int i = 0; i < this.npcCount; i++) {
+			@Pc(14) int index = this.npcIndices[i];
+			@Pc(19) NpcEntity npc = this.npcEntities[index];
+
+			if (npc != null) {
+				this.updateEntity(npc, npc.type.size);
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(Lclient!x;BI)V")
-	private void updateEntity(@OriginalArg(0) PathingEntity arg0, @OriginalArg(2) int arg2) {
-		if (arg0.x < 128 || arg0.z < 128 || arg0.x >= 13184 || arg0.z >= 13184) {
-			arg0.primarySeq = -1;
-			arg0.spotAnimIndex = -1;
-			arg0.firstMoveCycle = 0;
-			arg0.lastMoveCycle = 0;
-			arg0.x = arg0.pathTileX[0] * 128 + arg0.index * 64;
-			arg0.z = arg0.pathTileZ[0] * 128 + arg0.index * 64;
-			arg0.pathRemaining = 0;
+	private void updateEntity(@OriginalArg(0) PathingEntity entity, @OriginalArg(2) int arg2) {
+		if (entity.x < 128 || entity.z < 128 || entity.x >= 13184 || entity.z >= 13184) {
+			entity.primarySeq = -1;
+			entity.spotAnimIndex = -1;
+			entity.firstMoveCycle = 0;
+			entity.lastMoveCycle = 0;
+			entity.x = entity.pathTileX[0] * 128 + entity.index * 64;
+			entity.z = entity.pathTileZ[0] * 128 + entity.index * 64;
+			entity.pathLength = 0;
 		}
-		if (arg0 == this.self && (arg0.x < 1536 || arg0.z < 1536 || arg0.x >= 11776 || arg0.z >= 11776)) {
-			arg0.primarySeq = -1;
-			arg0.spotAnimIndex = -1;
-			arg0.firstMoveCycle = 0;
-			arg0.lastMoveCycle = 0;
-			arg0.x = arg0.pathTileX[0] * 128 + arg0.index * 64;
-			arg0.z = arg0.pathTileZ[0] * 128 + arg0.index * 64;
-			arg0.pathRemaining = 0;
+		if (entity == this.self && (entity.x < 1536 || entity.z < 1536 || entity.x >= 11776 || entity.z >= 11776)) {
+			entity.primarySeq = -1;
+			entity.spotAnimIndex = -1;
+			entity.firstMoveCycle = 0;
+			entity.lastMoveCycle = 0;
+			entity.x = entity.pathTileX[0] * 128 + entity.index * 64;
+			entity.z = entity.pathTileZ[0] * 128 + entity.index * 64;
+			entity.pathLength = 0;
 		}
-		if (arg0.firstMoveCycle > clientClock) {
-			this.moveEntity1(arg0);
-		} else if (arg0.lastMoveCycle >= clientClock) {
-			this.moveEntity2(arg0);
+		if (entity.firstMoveCycle > clientClock) {
+			this.updateForceMovement(entity);
+		} else if (entity.lastMoveCycle >= clientClock) {
+			this.startForceMovement(entity);
 		} else {
-			this.moveEntity3(arg0);
+			this.updateMovement(entity);
 		}
-		this.updateEntity2(arg0);
-		this.updateEntity3(arg0);
+		this.updateFacingDirection(entity);
+		this.updateSequences(entity);
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(Lclient!x;I)V")
-	private void moveEntity1(@OriginalArg(0) PathingEntity arg0) {
+	private void updateForceMovement(@OriginalArg(0) PathingEntity arg0) {
 		@Pc(4) int local4 = arg0.firstMoveCycle - clientClock;
 		@Pc(14) int local14 = arg0.srcTileX * 128 + arg0.index * 64;
 		@Pc(24) int local24 = arg0.srcTileZ * 128 + arg0.index * 64;
 		arg0.x += (local14 - arg0.x) / local4;
 		arg0.z += (local24 - arg0.z) / local4;
-		arg0.int1 = 0;
+		arg0.seqTrigger = 0;
 		if (arg0.faceDirection == 0) {
 			arg0.dstYaw = 1024;
 		}
@@ -4407,201 +4411,201 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "b", descriptor = "(Lclient!x;I)V")
-	private void moveEntity2(@OriginalArg(0) PathingEntity arg0) {
-		if (arg0.lastMoveCycle == clientClock || arg0.primarySeq == -1 || arg0.primarySeqDelay != 0 || arg0.primarySeqCycle + 1 > SeqType.instances[arg0.primarySeq].frameDelay[arg0.primarySeqFrame]) {
-			@Pc(35) int local35 = arg0.lastMoveCycle - arg0.firstMoveCycle;
-			@Pc(40) int local40 = clientClock - arg0.firstMoveCycle;
-			@Pc(50) int local50 = arg0.srcTileX * 128 + arg0.index * 64;
-			@Pc(60) int local60 = arg0.srcTileZ * 128 + arg0.index * 64;
-			@Pc(70) int local70 = arg0.dstTileX * 128 + arg0.index * 64;
-			@Pc(80) int local80 = arg0.dstTileZ * 128 + arg0.index * 64;
-			arg0.x = (local50 * (local35 - local40) + local70 * local40) / local35;
-			arg0.z = (local60 * (local35 - local40) + local80 * local40) / local35;
+	private void startForceMovement(@OriginalArg(0) PathingEntity entity) {
+		if (entity.lastMoveCycle == clientClock || entity.primarySeq == -1 || entity.primarySeqDelay != 0 || entity.primarySeqCycle + 1 > SeqType.instances[entity.primarySeq].frameDelay[entity.primarySeqFrame]) {
+			@Pc(35) int duration = entity.lastMoveCycle - entity.firstMoveCycle;
+			@Pc(40) int delta = clientClock - entity.firstMoveCycle;
+			@Pc(50) int dx0 = entity.srcTileX * 128 + entity.index * 64;
+			@Pc(60) int dz0 = entity.srcTileZ * 128 + entity.index * 64;
+			@Pc(70) int dx1 = entity.dstTileX * 128 + entity.index * 64;
+			@Pc(80) int dz1 = entity.dstTileZ * 128 + entity.index * 64;
+			entity.x = (dx0 * (duration - delta) + dx1 * delta) / duration;
+			entity.z = (dz0 * (duration - delta) + dz1 * delta) / duration;
 		}
-		arg0.int1 = 0;
-		if (arg0.faceDirection == 0) {
-			arg0.dstYaw = 1024;
+		entity.seqTrigger = 0;
+		if (entity.faceDirection == 0) {
+			entity.dstYaw = 1024;
 		}
-		if (arg0.faceDirection == 1) {
-			arg0.dstYaw = 1536;
+		if (entity.faceDirection == 1) {
+			entity.dstYaw = 1536;
 		}
-		if (arg0.faceDirection == 2) {
-			arg0.dstYaw = 0;
+		if (entity.faceDirection == 2) {
+			entity.dstYaw = 0;
 		}
-		if (arg0.faceDirection == 3) {
-			arg0.dstYaw = 512;
+		if (entity.faceDirection == 3) {
+			entity.dstYaw = 512;
 		}
-		arg0.animationDelay = arg0.dstYaw;
+		entity.animationDelay = entity.dstYaw;
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ILclient!x;)V")
-	private void moveEntity3(@OriginalArg(1) PathingEntity arg1) {
-		arg1.secondarySeq = arg1.standSeq;
-		if (arg1.pathRemaining == 0) {
-			arg1.int1 = 0;
+	private void updateMovement(@OriginalArg(1) PathingEntity entity) {
+		entity.secondarySeq = entity.standSeq;
+		if (entity.pathLength == 0) {
+			entity.seqTrigger = 0;
 		} else {
-			if (arg1.primarySeq != -1 && arg1.primarySeqDelay == 0) {
-				@Pc(28) SeqType local28 = SeqType.instances[arg1.primarySeq];
+			if (entity.primarySeq != -1 && entity.primarySeqDelay == 0) {
+				@Pc(28) SeqType local28 = SeqType.instances[entity.primarySeq];
 				if (local28.labelGroups == null) {
-					arg1.int1++;
+					entity.seqTrigger++;
 					return;
 				}
 			}
-			@Pc(41) int local41 = arg1.x;
-			@Pc(44) int local44 = arg1.z;
-			@Pc(59) int local59 = arg1.pathTileX[arg1.pathRemaining - 1] * 128 + arg1.index * 64;
-			@Pc(74) int local74 = arg1.pathTileZ[arg1.pathRemaining - 1] * 128 + arg1.index * 64;
-			if (local59 - local41 <= 256 && local59 - local41 >= -256 && local74 - local44 <= 256 && local74 - local44 >= -256) {
-				if (local41 < local59) {
-					if (local44 < local74) {
-						arg1.dstYaw = 1280;
-					} else if (local44 > local74) {
-						arg1.dstYaw = 1792;
+			@Pc(41) int x = entity.x;
+			@Pc(44) int z = entity.z;
+			@Pc(59) int dstX = entity.pathTileX[entity.pathLength - 1] * 128 + entity.index * 64;
+			@Pc(74) int dstZ = entity.pathTileZ[entity.pathLength - 1] * 128 + entity.index * 64;
+			if (dstX - x <= 256 && dstX - x >= -256 && dstZ - z <= 256 && dstZ - z >= -256) {
+				if (x < dstX) {
+					if (z < dstZ) {
+						entity.dstYaw = 1280;
+					} else if (z > dstZ) {
+						entity.dstYaw = 1792;
 					} else {
-						arg1.dstYaw = 1536;
+						entity.dstYaw = 1536;
 					}
-				} else if (local41 > local59) {
-					if (local44 < local74) {
-						arg1.dstYaw = 768;
-					} else if (local44 > local74) {
-						arg1.dstYaw = 256;
+				} else if (x > dstX) {
+					if (z < dstZ) {
+						entity.dstYaw = 768;
+					} else if (z > dstZ) {
+						entity.dstYaw = 256;
 					} else {
-						arg1.dstYaw = 512;
+						entity.dstYaw = 512;
 					}
-				} else if (local44 < local74) {
-					arg1.dstYaw = 1024;
+				} else if (z < dstZ) {
+					entity.dstYaw = 1024;
 				} else {
-					arg1.dstYaw = 0;
+					entity.dstYaw = 0;
 				}
-				@Pc(168) int local168 = arg1.dstYaw - arg1.animationDelay & 0x7FF;
+				@Pc(168) int local168 = entity.dstYaw - entity.animationDelay & 0x7FF;
 				if (local168 > 1024) {
 					local168 -= 2048;
 				}
-				@Pc(175) int local175 = arg1.walkSeq;
+				@Pc(175) int local175 = entity.walkSeq;
 				if (local168 >= -256 && local168 <= 256) {
-					local175 = arg1.runSeq;
+					local175 = entity.runSeq;
 				} else if (local168 >= 256 && local168 < 768) {
-					local175 = arg1.turnRightSeq;
+					local175 = entity.turnRightSeq;
 				} else if (local168 >= -768 && local168 <= -256) {
-					local175 = arg1.turnAroundSeq;
+					local175 = entity.turnAroundSeq;
 				}
 				if (local175 == -1) {
-					local175 = arg1.runSeq;
+					local175 = entity.runSeq;
 				}
-				arg1.secondarySeq = local175;
-				@Pc(217) int local217 = 4;
-				if (arg1.animationDelay != arg1.dstYaw && arg1.targetEntity == -1) {
-					local217 = 2;
+				entity.secondarySeq = local175;
+				@Pc(217) int moveSpeed = 4;
+				if (entity.animationDelay != entity.dstYaw && entity.targetEntity == -1) {
+					moveSpeed = 2;
 				}
-				if (arg1.pathRemaining > 2) {
-					local217 = 6;
+				if (entity.pathLength > 2) {
+					moveSpeed = 6;
 				}
-				if (arg1.pathRemaining > 3) {
-					local217 = 8;
+				if (entity.pathLength > 3) {
+					moveSpeed = 8;
 				}
-				if (arg1.int1 > 0 && arg1.pathRemaining > 1) {
-					local217 = 8;
-					arg1.int1--;
+				if (entity.seqTrigger > 0 && entity.pathLength > 1) {
+					moveSpeed = 8;
+					entity.seqTrigger--;
 				}
-				if (arg1.pathRunning[arg1.pathRemaining - 1]) {
-					local217 <<= 0x1;
+				if (entity.pathRunning[entity.pathLength - 1]) {
+					moveSpeed <<= 0x1;
 				}
-				if (local217 >= 8 && arg1.secondarySeq == arg1.runSeq && arg1.turnLeftSeq != -1) {
-					arg1.secondarySeq = arg1.turnLeftSeq;
+				if (moveSpeed >= 8 && entity.secondarySeq == entity.runSeq && entity.turnLeftSeq != -1) {
+					entity.secondarySeq = entity.turnLeftSeq;
 				}
-				if (local41 < local59) {
-					arg1.x += local217;
-					if (arg1.x > local59) {
-						arg1.x = local59;
+				if (x < dstX) {
+					entity.x += moveSpeed;
+					if (entity.x > dstX) {
+						entity.x = dstX;
 					}
-				} else if (local41 > local59) {
-					arg1.x -= local217;
-					if (arg1.x < local59) {
-						arg1.x = local59;
-					}
-				}
-				if (local44 < local74) {
-					arg1.z += local217;
-					if (arg1.z > local74) {
-						arg1.z = local74;
-					}
-				} else if (local44 > local74) {
-					arg1.z -= local217;
-					if (arg1.z < local74) {
-						arg1.z = local74;
+				} else if (x > dstX) {
+					entity.x -= moveSpeed;
+					if (entity.x < dstX) {
+						entity.x = dstX;
 					}
 				}
-				if (arg1.x == local59 && arg1.z == local74) {
-					arg1.pathRemaining--;
+				if (z < dstZ) {
+					entity.z += moveSpeed;
+					if (entity.z > dstZ) {
+						entity.z = dstZ;
+					}
+				} else if (z > dstZ) {
+					entity.z -= moveSpeed;
+					if (entity.z < dstZ) {
+						entity.z = dstZ;
+					}
+				}
+				if (entity.x == dstX && entity.z == dstZ) {
+					entity.pathLength--;
 				}
 			} else {
-				arg1.x = local59;
-				arg1.z = local74;
+				entity.x = dstX;
+				entity.z = dstZ;
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(Lclient!x;B)V")
-	private void updateEntity2(@OriginalArg(0) PathingEntity arg0) {
+	private void updateFacingDirection(@OriginalArg(0) PathingEntity entity) {
 		@Pc(30) int local30;
 		@Pc(36) int local36;
-		if (arg0.targetEntity != -1 && arg0.targetEntity < 32768) {
-			@Pc(22) NpcEntity local22 = this.npcEntities[arg0.targetEntity];
-			if (local22 != null) {
-				local30 = arg0.x - local22.x;
-				local36 = arg0.z - local22.z;
+		if (entity.targetEntity != -1 && entity.targetEntity < 32768) {
+			@Pc(22) NpcEntity npc = this.npcEntities[entity.targetEntity];
+			if (npc != null) {
+				local30 = entity.x - npc.x;
+				local36 = entity.z - npc.z;
 				if (local30 != 0 || local36 != 0) {
-					arg0.dstYaw = (int) (Math.atan2(local30, local36) * 325.949D) & 0x7FF;
+					entity.dstYaw = (int) (Math.atan2(local30, local36) * 325.949D) & 0x7FF;
 				}
 			}
 		}
 		@Pc(61) int local61;
-		if (arg0.targetEntity >= 32768) {
-			local61 = arg0.targetEntity - 32768;
+		if (entity.targetEntity >= 32768) {
+			local61 = entity.targetEntity - 32768;
 			if (local61 == this.selfPlayerId) {
 				local61 = this.LOCAL_PLAYER_INDEX;
 			}
 			@Pc(73) PlayerEntity local73 = this.playerEntities[local61];
 			if (local73 != null) {
-				local36 = arg0.x - local73.x;
-				@Pc(87) int local87 = arg0.z - local73.z;
+				local36 = entity.x - local73.x;
+				@Pc(87) int local87 = entity.z - local73.z;
 				if (local36 != 0 || local87 != 0) {
-					arg0.dstYaw = (int) (Math.atan2(local36, local87) * 325.949D) & 0x7FF;
+					entity.dstYaw = (int) (Math.atan2(local36, local87) * 325.949D) & 0x7FF;
 				}
 			}
 		}
-		if ((arg0.focusX != 0 || arg0.focusZ != 0) && (arg0.pathRemaining == 0 || arg0.int1 > 0)) {
-			local61 = arg0.x - (arg0.focusX - this.baseTileX - this.baseTileX) * 64;
-			local30 = arg0.z - (arg0.focusZ - this.baseTileZ - this.baseTileZ) * 64;
+		if ((entity.focusX != 0 || entity.focusZ != 0) && (entity.pathLength == 0 || entity.seqTrigger > 0)) {
+			local61 = entity.x - (entity.focusX - this.baseTileX - this.baseTileX) * 64;
+			local30 = entity.z - (entity.focusZ - this.baseTileZ - this.baseTileZ) * 64;
 			if (local61 != 0 || local30 != 0) {
-				arg0.dstYaw = (int) (Math.atan2(local61, local30) * 325.949D) & 0x7FF;
+				entity.dstYaw = (int) (Math.atan2(local61, local30) * 325.949D) & 0x7FF;
 			}
-			arg0.focusX = 0;
-			arg0.focusZ = 0;
+			entity.focusX = 0;
+			entity.focusZ = 0;
 		}
-		local61 = arg0.dstYaw - arg0.animationDelay & 0x7FF;
+		local61 = entity.dstYaw - entity.animationDelay & 0x7FF;
 		if (local61 != 0) {
 			if (local61 < 32 || local61 > 2016) {
-				arg0.animationDelay = arg0.dstYaw;
+				entity.animationDelay = entity.dstYaw;
 			} else if (local61 > 1024) {
-				arg0.animationDelay -= 32;
+				entity.animationDelay -= 32;
 			} else {
-				arg0.animationDelay += 32;
+				entity.animationDelay += 32;
 			}
-			arg0.animationDelay &= 0x7FF;
-			if (arg0.secondarySeq == arg0.standSeq && arg0.animationDelay != arg0.dstYaw) {
-				if (arg0.turnSeq != -1) {
-					arg0.secondarySeq = arg0.turnSeq;
+			entity.animationDelay &= 0x7FF;
+			if (entity.secondarySeq == entity.standSeq && entity.animationDelay != entity.dstYaw) {
+				if (entity.turnSeq != -1) {
+					entity.secondarySeq = entity.turnSeq;
 					return;
 				}
-				arg0.secondarySeq = arg0.runSeq;
+				entity.secondarySeq = entity.runSeq;
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ZLclient!x;)V")
-	private void updateEntity3(@OriginalArg(1) PathingEntity arg1) {
-		arg1.animationStretches = false;
+	private void updateSequences(@OriginalArg(1) PathingEntity arg1) {
+		arg1.needsForwardDrawPadding = false;
 		@Pc(16) SeqType local16;
 		if (arg1.secondarySeq != -1) {
 			local16 = SeqType.instances[arg1.secondarySeq];
@@ -4632,7 +4636,7 @@ public class Game extends GameShell {
 					arg1.primarySeq = -1;
 				}
 			}
-			arg1.animationStretches = local16.stretches;
+			arg1.needsForwardDrawPadding = local16.stretches;
 		}
 		if (arg1.primarySeqDelay > 0) {
 			arg1.primarySeqDelay--;
@@ -5636,9 +5640,9 @@ public class Game extends GameShell {
 						}
 					}
 				}
-				local241.applyGroup();
-				local241.applyFrame(SeqType.instances[this.self.standSeq].primaryFrames[0]);
-				local241.applyLighting(64, 850, -30, -50, -30, true);
+				local241.createLabelReferences();
+				local241.applyTransform(SeqType.instances[this.self.standSeq].primaryFrames[0]);
+				local241.calculateNormals(64, 850, -30, -50, -30, true);
 				arg1.model = local241;
 			}
 		} else if (local4 == 324) {
@@ -5762,7 +5766,7 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ZLclient!kb;I)V")
-	private void updateLocalNpcs(@OriginalArg(1) Buffer arg1, @OriginalArg(2) int arg2) {
+	private void readNewNpcs(@OriginalArg(1) Buffer arg1, @OriginalArg(2) int arg2) {
 		while (arg1.bitOffset + 21 < arg2 * 8) {
 			@Pc(16) int local16 = arg1.gBit(13);
 			if (local16 == 8191) {
@@ -6127,11 +6131,11 @@ public class Game extends GameShell {
 			this.showProgress("Unpacking textures", 80);
 			Draw3D.unpackTextures(texturesArchive);
 			Draw3D.setBrightness(0.8D);
-			Draw3D.setupPools(20);
+			Draw3D.initPool(20);
 			this.showProgress("Unpacking models", 83);
 			Model.unpack(modelsArchive);
-			AnimBase.unpack(modelsArchive);
-			AnimFrame.unpack(modelsArchive);
+			SeqBase.unpack(modelsArchive);
+			SeqFrame.unpack(modelsArchive);
 			this.showProgress("Unpacking config", 86);
 			SeqType.unpack(configArchive);
 			LocType.unpack(configArchive);
@@ -6188,12 +6192,12 @@ public class Game extends GameShell {
 				this.minimapLeft[local1166 - 9] = local1168 - 21;
 				this.minimapLineWidth[local1166 - 9] = local1170 - local1168;
 			}
-			Draw3D.prepareOffsets(96, 479);
-			this.chatOffsets = Draw3D.offsets;
-			Draw3D.prepareOffsets(261, 190);
-			this.sidebarOffsets = Draw3D.offsets;
-			Draw3D.prepareOffsets(334, 512);
-			this.viewportOffsets = Draw3D.offsets;
+			Draw3D.init3D(96, 479);
+			this.chatOffsets = Draw3D.lineOffsets;
+			Draw3D.init3D(261, 190);
+			this.sidebarOffsets = Draw3D.lineOffsets;
+			Draw3D.init3D(334, 512);
+			this.viewportOffsets = Draw3D.lineOffsets;
 			@Pc(1312) int[] local1312 = new int[9];
 			for (local1170 = 0; local1170 < 9; local1170++) {
 				local1228 = local1170 * 32 + 128 + 15;
@@ -6411,15 +6415,15 @@ public class Game extends GameShell {
 		for (@Pc(12) ProjectileEntity local12 = (ProjectileEntity) this.projectiles.peekPrevious(); local12 != null; local12 = (ProjectileEntity) this.projectiles.getPrevious()) {
 			if (local12.level != this.currentPlane || clientClock > local12.lastCycle) {
 				local12.unlink();
-			} else if (clientClock >= local12.firstCycle) {
-				if (local12.targetIndex > 0) {
-					@Pc(42) NpcEntity local42 = this.npcEntities[local12.targetIndex - 1];
+			} else if (clientClock >= local12.startCycle) {
+				if (local12.target > 0) {
+					@Pc(42) NpcEntity local42 = this.npcEntities[local12.target - 1];
 					if (local42 != null) {
-						local12.setTarget(this.getLandY(local12.level, local42.x, local42.z) - local12.baseZ, local42.z, local42.x, clientClock);
+						local12.setTarget(this.getLandY(local12.level, local42.x, local42.z) - local12.offsetY, local42.z, local42.x, clientClock);
 					}
 				}
-				if (local12.targetIndex < 0) {
-					@Pc(73) int local73 = -local12.targetIndex - 1;
+				if (local12.target < 0) {
+					@Pc(73) int local73 = -local12.target - 1;
 					@Pc(80) PlayerEntity local80;
 					if (local73 == this.selfPlayerId) {
 						local80 = this.self;
@@ -6427,7 +6431,7 @@ public class Game extends GameShell {
 						local80 = this.playerEntities[local73];
 					}
 					if (local80 != null) {
-						local12.setTarget(this.getLandY(local12.level, local80.x, local80.z) - local12.baseZ, local80.z, local80.x, clientClock);
+						local12.setTarget(this.getLandY(local12.level, local80.x, local80.z) - local12.offsetY, local80.z, local80.x, clientClock);
 					}
 				}
 				local12.update(this.sceneDelta);
@@ -7195,8 +7199,8 @@ public class Game extends GameShell {
 		Draw3D.unload();
 		MapSquare.unload();
 		Model.unload();
-		AnimBase.instances = null;
-		AnimFrame.instances = null;
+		SeqBase.instances = null;
+		SeqFrame.instances = null;
 		System.gc();
 	}
 
@@ -7346,7 +7350,7 @@ public class Game extends GameShell {
 				this.reconnect();
 			}
 			this.updatePlayers();
-			this.updateNpcEntity();
+			this.updateNpcs();
 			this.updateEntityVoices();
 			this.updateTemporaryLocs();
 			if ((super.keyDown[1] == 1 || super.keyDown[2] == 1 || super.keyDown[3] == 1 || super.keyDown[4] == 1) && this.cameraMovedWrite++ > 5) {
@@ -7563,7 +7567,7 @@ public class Game extends GameShell {
 		for (@Pc(13) SpotAnimEntity local13 = (SpotAnimEntity) this.spotanims.peekPrevious(); local13 != null; local13 = (SpotAnimEntity) this.spotanims.getPrevious()) {
 			if (local13.plane != this.currentPlane || local13.finished) {
 				local13.unlink();
-			} else if (clientClock >= local13.firstCycle) {
+			} else if (clientClock >= local13.startCycle) {
 				local13.update(this.sceneDelta);
 				if (local13.finished) {
 					local13.unlink();
@@ -7787,27 +7791,30 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "b", descriptor = "(Lclient!kb;II)V")
-	private void updatePlayers(@OriginalArg(0) Buffer arg0, @OriginalArg(1) int arg1) {
+	private void readPlayerInfo(@OriginalArg(0) Buffer buf, @OriginalArg(1) int size) {
 		this.deadEntityCount = 0;
 		this.updateCount = 0;
-		this.updateLocalPlayer(arg1, arg0);
-		this.updateOtherPlayers(arg1, arg0);
-		this.updateNewPlayers(arg1, arg0);
-		this.updatePlayerMasks(arg0, arg1);
-		@Pc(36) int local36;
-		for (@Pc(29) int local29 = 0; local29 < this.deadEntityCount; local29++) {
-			local36 = this.deadEntityIndices[local29];
-			if (this.playerEntities[local36].removeTimer != clientClock) {
-				this.playerEntities[local36] = null;
+
+		this.readLocalPlayer(size, buf);
+		this.readPlayers(size, buf);
+		this.readNewPlayers(size, buf);
+		this.readPlayerUpdates(buf, size);
+
+		@Pc(36) int index;
+		for (@Pc(29) int i = 0; i < this.deadEntityCount; i++) {
+			index = this.deadEntityIndices[i];
+			if (this.playerEntities[index].removeTimer != clientClock) {
+				this.playerEntities[index] = null;
 			}
 		}
-		if (arg0.pos != arg1) {
-			SignedLink.reporterror("Error packet size mismatch in getplayer pos:" + arg0.pos + " psize:" + arg1);
+
+		if (buf.pos != size) {
+			SignedLink.reporterror("Error packet size mismatch in getplayer pos:" + buf.pos + " psize:" + size);
 			throw new RuntimeException("eek");
 		}
-		for (local36 = 0; local36 < this.playerCount; local36++) {
-			if (this.playerEntities[this.playerIndices[local36]] == null) {
-				SignedLink.reporterror(this.username + " null entry in pl list - pos:" + local36 + " size:" + this.playerCount);
+		for (index = 0; index < this.playerCount; index++) {
+			if (this.playerEntities[this.playerIndices[index]] == null) {
+				SignedLink.reporterror(this.username + " null entry in pl list - pos:" + index + " size:" + this.playerCount);
 				throw new RuntimeException("eek");
 			}
 		}
@@ -8280,7 +8287,7 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "b", descriptor = "(ILclient!kb;I)V")
-	private void updateNpcList(@OriginalArg(1) Buffer arg1, @OriginalArg(2) int arg2) {
+	private void readNpcs(@OriginalArg(1) Buffer arg1, @OriginalArg(2) int arg2) {
 		arg1.accessBits();
 		@Pc(14) int local14 = arg1.gBit(8);
 		@Pc(20) int local20;
@@ -8418,14 +8425,14 @@ public class Game extends GameShell {
 			return;
 		}
 		@Pc(21) int local21 = -99999999;
-		@Pc(23) ObjStackEntity local23 = null;
-		@Pc(27) ObjStackEntity local27;
+		@Pc(23) ObjEntity local23 = null;
+		@Pc(27) ObjEntity local27;
 		@Pc(35) int local35;
-		for (local27 = (ObjStackEntity) local9.peekPrevious(); local27 != null; local27 = (ObjStackEntity) local9.getPrevious()) {
+		for (local27 = (ObjEntity) local9.peekPrevious(); local27 != null; local27 = (ObjEntity) local9.getPrevious()) {
 			@Pc(32) ObjType local32 = ObjType.get(local27.id);
 			local35 = local32.cost;
 			if (local32.stackable) {
-				local35 *= local27.amount + 1;
+				local35 *= local27.count + 1;
 			}
 			if (local35 > local21) {
 				local21 = local35;
@@ -8437,14 +8444,14 @@ public class Game extends GameShell {
 		local35 = -1;
 		@Pc(69) int local69 = 0;
 		@Pc(71) int local71 = 0;
-		for (local27 = (ObjStackEntity) local9.peekPrevious(); local27 != null; local27 = (ObjStackEntity) local9.getPrevious()) {
+		for (local27 = (ObjEntity) local9.peekPrevious(); local27 != null; local27 = (ObjEntity) local9.getPrevious()) {
 			if (local27.id != local23.id && local65 == -1) {
 				local65 = local27.id;
-				local69 = local27.amount;
+				local69 = local27.count;
 			}
 			if (local27.id != local23.id && local27.id != local65 && local35 == -1) {
 				local35 = local27.id;
-				local71 = local27.amount;
+				local71 = local27.count;
 			}
 		}
 		@Pc(118) Model local118 = null;
@@ -8457,7 +8464,7 @@ public class Game extends GameShell {
 		}
 		@Pc(144) int local144 = arg0 + (arg1 << 7) + 0x60000000;
 		@Pc(148) ObjType local148 = ObjType.get(local23.id);
-		this.mapSquare.addObject(local148.getModel(local23.amount), local118, this.getLandY(this.currentPlane, arg0 * 128 + 64, arg1 * 128 + 64), this.currentPlane, local144, arg1, arg0, local128);
+		this.mapSquare.addObject(local148.getModel(local23.count), local118, this.getLandY(this.currentPlane, arg0 * 128 + 64, arg1 * 128 + 64), this.currentPlane, local144, arg1, arg0, local128);
 	}
 
 	@OriginalMember(owner = "client!client", name = "D", descriptor = "(I)V")
@@ -8468,7 +8475,7 @@ public class Game extends GameShell {
 			this.locList.clear();
 			this.spotanims.clear();
 			this.projectiles.clear();
-			Draw3D.clearPools();
+			Draw3D.clearTexels();
 			this.clearCaches();
 			this.mapSquare.reset();
 			for (@Pc(28) int local28 = 0; local28 < 4; local28++) {
@@ -8525,8 +8532,8 @@ public class Game extends GameShell {
 			this.outBuffer.p1isaac(108);
 			for (@Pc(301) LocEntity local301 = (LocEntity) this.locList.peekPrevious(); local301 != null; local301 = (LocEntity) this.locList.getPrevious()) {
 				if ((this.levelRenderFlags[1][local301.x][local301.z] & 0x2) == 2) {
-					local301.level--;
-					if (local301.level < 0) {
+					local301.y--;
+					if (local301.y < 0) {
 						local301.unlink();
 					}
 				}
@@ -8543,7 +8550,7 @@ public class Game extends GameShell {
 		}
 		LocType.modelCache.clear();
 		System.gc();
-		Draw3D.setupPools(20);
+		Draw3D.initPool(20);
 	}
 
 	@OriginalMember(owner = "client!client", name = "b", descriptor = "(I)V")
@@ -8569,9 +8576,9 @@ public class Game extends GameShell {
 				local16 = this.playerIndices[local8];
 			}
 			@Pc(28) PlayerEntity local28 = this.playerEntities[local16];
-			if (local28 != null && local28.textCycle > 0) {
-				local28.textCycle--;
-				if (local28.textCycle == 0) {
+			if (local28 != null && local28.chatTimer > 0) {
+				local28.chatTimer--;
+				if (local28.chatTimer == 0) {
 					local28.spoken = null;
 				}
 			}
@@ -8579,9 +8586,9 @@ public class Game extends GameShell {
 		for (local16 = 0; local16 < this.npcCount; local16++) {
 			@Pc(59) int local59 = this.npcIndices[local16];
 			@Pc(64) NpcEntity local64 = this.npcEntities[local59];
-			if (local64 != null && local64.textCycle > 0) {
-				local64.textCycle--;
-				if (local64.textCycle == 0) {
+			if (local64 != null && local64.chatTimer > 0) {
+				local64.chatTimer--;
+				if (local64.chatTimer == 0) {
 					local64.spoken = null;
 				}
 			}
@@ -8807,28 +8814,28 @@ public class Game extends GameShell {
 				local14 = false;
 			}
 			if (local14) {
-				@Pc(96) int local96 = local10.level;
+				@Pc(96) int local96 = local10.y;
 				@Pc(99) int local99 = local10.x;
 				@Pc(102) int local102 = local10.z;
 				@Pc(104) int local104 = 0;
-				if (local10.classType == 0) {
+				if (local10.kind == 0) {
 					local104 = this.mapSquare.getWallBitset(local96, local99, local102);
 				}
-				if (local10.classType == 1) {
+				if (local10.kind == 1) {
 					local104 = this.mapSquare.getWallDecorationBitset(local96, local102, local99);
 				}
-				if (local10.classType == 2) {
+				if (local10.kind == 2) {
 					local104 = this.mapSquare.getLocationBitset(local96, local99, local102);
 				}
-				if (local10.classType == 3) {
+				if (local10.kind == 3) {
 					local104 = this.mapSquare.getGroundDecorationBitset(local96, local99, local102);
 				}
-				if (local104 != 0 && (local104 >> 14 & 0x7FFF) == local10.locIndex) {
+				if (local104 != 0 && (local104 >> 14 & 0x7FFF) == local10.id) {
 					@Pc(171) int local171 = this.levelHeightMaps[local96][local99][local102];
 					@Pc(182) int local182 = this.levelHeightMaps[local96][local99 + 1][local102];
 					@Pc(195) int local195 = this.levelHeightMaps[local96][local99 + 1][local102 + 1];
 					@Pc(206) int local206 = this.levelHeightMaps[local96][local99][local102 + 1];
-					@Pc(210) LocType local210 = LocType.get(local10.locIndex);
+					@Pc(210) LocType local210 = LocType.get(local10.id);
 					@Pc(212) int local212 = -1;
 					if (local10.seqFrame != -1) {
 						local212 = local10.seq.primaryFrames[local10.seqFrame];
@@ -8837,7 +8844,7 @@ public class Game extends GameShell {
 					@Pc(239) int local239;
 					@Pc(243) int local243;
 					@Pc(258) Model local258;
-					if (local10.classType == 2) {
+					if (local10.kind == 2) {
 						local235 = this.mapSquare.getInfo(local96, local99, local102, local104);
 						local239 = local235 & 0x1F;
 						local243 = local235 >> 6;
@@ -8846,10 +8853,10 @@ public class Game extends GameShell {
 						}
 						local258 = local210.getModel(local239, local243, local171, local182, local195, local206, local212);
 						this.mapSquare.setLocModel(local99, local258, local96, local102);
-					} else if (local10.classType == 1) {
+					} else if (local10.kind == 1) {
 						@Pc(282) Model local282 = local210.getModel(4, 0, local171, local182, local195, local206, local212);
 						this.mapSquare.setWallDecorationModel(local102, local99, local282, local96);
-					} else if (local10.classType == 0) {
+					} else if (local10.kind == 0) {
 						local235 = this.mapSquare.getInfo(local96, local99, local102, local104);
 						local239 = local235 & 0x1F;
 						local243 = local235 >> 6;
@@ -8862,7 +8869,7 @@ public class Game extends GameShell {
 							local258 = local210.getModel(local239, local243, local171, local182, local195, local206, local212);
 							this.mapSquare.setWallModel(local258, local102, local99, local96);
 						}
-					} else if (local10.classType == 3) {
+					} else if (local10.kind == 3) {
 						local235 = this.mapSquare.getInfo(local96, local99, local102, local104);
 						local239 = local235 >> 6;
 						@Pc(400) Model local400 = local210.getModel(22, local239, local171, local182, local195, local206, local212);
@@ -8904,7 +8911,7 @@ public class Game extends GameShell {
 		}
 		@Pc(41) int local41 = -1;
 		for (@Pc(52) int local52 = 0; local52 < Model.resourceCount; local52++) {
-			@Pc(58) int local58 = Model.hoveredBitsets[local52];
+			@Pc(58) int local58 = Model.pickedBitsets[local52];
 			@Pc(62) int local62 = local58 & 0x7F;
 			@Pc(68) int local68 = local58 >> 7 & 0x7F;
 			@Pc(74) int local74 = local58 >> 29 & 0x3;
@@ -8997,7 +9004,7 @@ public class Game extends GameShell {
 				if (local74 == 3) {
 					@Pc(565) LinkedList local565 = this.objects[this.currentPlane][local62][local68];
 					if (local565 != null) {
-						for (@Pc(572) ObjStackEntity local572 = (ObjStackEntity) local565.peekNext(); local572 != null; local572 = (ObjStackEntity) local565.getNext()) {
+						for (@Pc(572) ObjEntity local572 = (ObjEntity) local565.peekNext(); local572 != null; local572 = (ObjEntity) local565.getNext()) {
 							@Pc(578) ObjType local578 = ObjType.get(local572.id);
 							if (this.selectedObject == 1) {
 								this.options[this.optionCount] = "Use " + this.selectedObjName + " with @lre@" + local578.name;
@@ -9110,7 +9117,7 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "b", descriptor = "(IILclient!kb;)V")
-	private void updateLocalPlayer(@OriginalArg(1) int arg1, @OriginalArg(2) Buffer arg2) {
+	private void readLocalPlayer(@OriginalArg(1) int arg1, @OriginalArg(2) Buffer arg2) {
 		arg2.accessBits();
 		@Pc(7) int local7 = arg2.gBit(1);
 		if (local7 != 0) {
@@ -9157,7 +9164,7 @@ public class Game extends GameShell {
 	@OriginalMember(owner = "client!client", name = "o", descriptor = "(Z)V")
 	private void drawChatback() {
 		this.areaChatback.makeTarget();
-		Draw3D.offsets = this.chatOffsets;
+		Draw3D.lineOffsets = this.chatOffsets;
 		this.chatback.draw(0, 0);
 		if (this.showSocialInput) {
 			this.bold12.drawCentered(40, 0, this.socialMessage, 239);
@@ -9249,7 +9256,7 @@ public class Game extends GameShell {
 		}
 		this.areaChatback.drawAt(375, super.graphics, 22);
 		this.areaViewport.makeTarget();
-		Draw3D.offsets = this.viewportOffsets;
+		Draw3D.lineOffsets = this.viewportOffsets;
 	}
 
 	@OriginalMember(owner = "client!client", name = "p", descriptor = "(Z)Z")
@@ -9392,7 +9399,7 @@ public class Game extends GameShell {
 				return true;
 			}
 			if (this.packetOpcode == ServerProt.NPC_INFO) {
-				this.updateNpcs(this.inBuffer, this.packetLength);
+				this.readNpcInfo(this.inBuffer, this.packetLength);
 				this.packetOpcode = -1;
 				return true;
 			}
@@ -10018,7 +10025,7 @@ public class Game extends GameShell {
 			if (this.packetOpcode == ServerProt.IF_SETMODEL) {
 				local159 = this.inBuffer.g2();
 				local462 = this.inBuffer.g2();
-				Component.instances[local159].model = new Model(false, local462);
+				Component.instances[local159].model = new Model(local462);
 				this.packetOpcode = -1;
 				return true;
 			}
@@ -10283,7 +10290,7 @@ public class Game extends GameShell {
 				return true;
 			}
 			if (this.packetOpcode == ServerProt.PLAYER_INFO) {
-				this.updatePlayers(this.inBuffer, this.packetLength);
+				this.readPlayerInfo(this.inBuffer, this.packetLength);
 				if (this.sceneState == 1) {
 					this.sceneState = 2;
 					Scene.levelBuilt = this.currentPlane;
@@ -10322,7 +10329,7 @@ public class Game extends GameShell {
 	@OriginalMember(owner = "client!client", name = "s", descriptor = "(B)V")
 	private void drawInventory() {
 		this.areaInvback.makeTarget();
-		Draw3D.offsets = this.sidebarOffsets;
+		Draw3D.lineOffsets = this.sidebarOffsets;
 		this.invback.draw(0, 0);
 		if (this.sidebarInterfaceId != -1) {
 			this.drawInterface(0, 0, Component.instances[this.sidebarInterfaceId], 0);
@@ -10334,7 +10341,7 @@ public class Game extends GameShell {
 		}
 		this.areaInvback.drawAt(231, super.graphics, 562);
 		this.areaViewport.makeTarget();
-		Draw3D.offsets = this.viewportOffsets;
+		Draw3D.lineOffsets = this.viewportOffsets;
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ILjava/lang/String;)Z")
@@ -10413,13 +10420,13 @@ public class Game extends GameShell {
 			arg4.spoken = arg3.gstr();
 			arg4.spokenColor = 0;
 			arg4.spokenEffect = 0;
-			arg4.textCycle = 150;
+			arg4.chatTimer = 150;
 			this.addMessage(2, arg4.spoken, arg4.name);
 		}
 		if ((arg2 & 0x10) == 16) {
 			arg4.damageTaken = arg3.g1();
 			arg4.damageType = arg3.g1();
-			arg4.lastCombatCycle = clientClock + 400;
+			arg4.combatCycle = clientClock + 400;
 			arg4.currentHealth = arg3.g1();
 			arg4.maxHealth = arg3.g1();
 		}
@@ -10450,7 +10457,7 @@ public class Game extends GameShell {
 						arg4.spoken = local248;
 						arg4.spokenColor = local19 >> 8;
 						arg4.spokenEffect = local19 & 0xFF;
-						arg4.textCycle = 150;
+						arg4.chatTimer = 150;
 						if (local66 > 1) {
 							this.addMessage(1, local248, arg4.name);
 						} else {
@@ -10485,7 +10492,7 @@ public class Game extends GameShell {
 			arg4.firstMoveCycle = arg3.g2() + clientClock;
 			arg4.lastMoveCycle = arg3.g2() + clientClock;
 			arg4.faceDirection = arg3.g1();
-			arg4.pathRemaining = 0;
+			arg4.pathLength = 0;
 			arg4.pathTileX[0] = arg4.dstTileX;
 			arg4.pathTileZ[0] = arg4.dstTileZ;
 		}

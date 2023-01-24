@@ -31,7 +31,7 @@ public class Draw2D extends CacheableNode {
 	public static int right;
 
 	@OriginalMember(owner = "client!fb", name = "r", descriptor = "I")
-	public static int safeX;
+	public static int boundX;
 
 	@OriginalMember(owner = "client!fb", name = "s", descriptor = "I")
 	public static int centerX;
@@ -57,7 +57,7 @@ public class Draw2D extends CacheableNode {
 		top = 0;
 		right = width;
 		bottom = height;
-		safeX = right - 1;
+		boundX = right - 1;
 		centerX = right / 2;
 	}
 
@@ -83,7 +83,7 @@ public class Draw2D extends CacheableNode {
 		top = y0;
 		right = x1;
 		bottom = y1;
-		safeX = right - 1;
+		boundX = right - 1;
 		centerX = right / 2;
 		centerY = bottom / 2;
 	}

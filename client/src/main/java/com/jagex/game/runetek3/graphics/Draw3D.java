@@ -22,7 +22,7 @@ public class Draw3D extends Draw2D {
 	public static int[] cos = new int[2048];
 
 	@OriginalMember(owner = "client!gb", name = "B", descriptor = "Z")
-	public static boolean testX;
+	public static boolean clipX;
 
 	@OriginalMember(owner = "client!gb", name = "E", descriptor = "I")
 	public static int alpha;
@@ -34,7 +34,7 @@ public class Draw3D extends Draw2D {
 	public static int centerY3D;
 
 	@OriginalMember(owner = "client!gb", name = "L", descriptor = "[I")
-	public static int[] offsets;
+	public static int[] lineOffsets;
 
 	@OriginalMember(owner = "client!gb", name = "U", descriptor = "I")
 	public static int cycle;
@@ -99,7 +99,7 @@ public class Draw3D extends Draw2D {
 		reciprical16 = null;
 		sin = null;
 		cos = null;
-		offsets = null;
+		lineOffsets = null;
 		textures = null;
 		textureHasTransparency = null;
 		textureColors = null;
@@ -111,27 +111,27 @@ public class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "c", descriptor = "(I)V")
-	public static void prepareOffsets() {
-		offsets = new int[height];
+	public static void init2D() {
+		lineOffsets = new int[height];
 		for (@Pc(5) int line = 0; line < height; line++) {
-			offsets[line] = width * line;
+			lineOffsets[line] = width * line;
 		}
 		centerX3D = width / 2;
 		centerY3D = height / 2;
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(III)V")
-	public static void prepareOffsets(@OriginalArg(0) int y, @OriginalArg(1) int x) {
-		offsets = new int[y];
-		for (@Pc(12) int line = 0; line < y; line++) {
-			offsets[line] = x * line;
+	public static void init3D(@OriginalArg(0) int height, @OriginalArg(1) int width) {
+		lineOffsets = new int[height];
+		for (@Pc(12) int y = 0; y < height; y++) {
+			lineOffsets[y] = width * y;
 		}
-		centerX3D = x / 2;
-		centerY3D = y / 2;
+		centerX3D = width / 2;
+		centerY3D = height / 2;
 	}
 
 	@OriginalMember(owner = "client!gb", name = "b", descriptor = "(Z)V")
-	public static void clearPools() {
+	public static void clearTexels() {
 		texelPool = null;
 		for (@Pc(6) int i = 0; i < 50; i++) {
 			activeTexels[i] = null;
@@ -139,7 +139,7 @@ public class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(II)V")
-	public static void setupPools(@OriginalArg(0) int size) {
+	public static void initPool(@OriginalArg(0) int size) {
 		if (texelPool != null) {
 			return;
 		}
@@ -191,7 +191,7 @@ public class Draw3D extends Draw2D {
 		}
 
 		@Pc(80) int rgb = (r / length << 16) + (g / length << 8) + b / length;
-		rgb = powRgb(rgb, 1.4D);
+		rgb = setGamma(rgb, 1.4D);
 		if (rgb == 0) {
 			rgb = 1;
 		}
@@ -201,7 +201,7 @@ public class Draw3D extends Draw2D {
 	}
 
 	@OriginalMember(owner = "client!gb", name = "c", descriptor = "(II)V")
-	public static void updateTexture(@OriginalArg(0) int id) {
+	public static void pushTexture(@OriginalArg(0) int id) {
 		if (activeTexels[id] != null) {
 			texelPool[poolSize++] = activeTexels[id];
 			activeTexels[id] = null;
@@ -353,7 +353,7 @@ public class Draw3D extends Draw2D {
 				@Pc(269) int intB = (int) (b * 256.0D);
 
 				@Pc(279) int rgb = (intR << 16) + (intG << 8) + intB;
-				rgb = powRgb(rgb, brightness);
+				rgb = setGamma(rgb, brightness);
 				palette[offset++] = rgb;
 			}
 		}
@@ -364,18 +364,18 @@ public class Draw3D extends Draw2D {
 				texturePalettes[id] = new int[palette.length];
 
 				for (@Pc(317) int i = 0; i < palette.length; i++) {
-					texturePalettes[id][i] = powRgb(palette[i], brightness);
+					texturePalettes[id][i] = setGamma(palette[i], brightness);
 				}
 			}
 		}
 
 		for (@Pc(344) int id = 0; id < 50; id++) {
-			updateTexture(id);
+			pushTexture(id);
 		}
 	}
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "(ID)I")
-	private static int powRgb(@OriginalArg(0) int color, @OriginalArg(1) double brightness) {
+	private static int setGamma(@OriginalArg(0) int color, @OriginalArg(1) double brightness) {
 		@Pc(6) double r = (double) (color >> 16) / 256.0D;
 		@Pc(15) double g = (double) (color >> 8 & 0xFF) / 256.0D;
 		@Pc(22) double b = (double) (color & 0xFF) / 256.0D;
@@ -449,7 +449,7 @@ public class Draw3D extends Draw2D {
 					yC -= yB;
 					yB -= yA;
 
-					yA = offsets[yA];
+					yA = lineOffsets[yA];
 					while (--yB >= 0) {
 						drawGouraudScanline(data, yA, xC >> 16, xA >> 16, colorC >> 7, colorA >> 7);
 						xC += xStepAC;
@@ -470,7 +470,7 @@ public class Draw3D extends Draw2D {
 					yC -= yB;
 					yB -= yA;
 
-					yA = offsets[yA];
+					yA = lineOffsets[yA];
 					while (--yB >= 0) {
 						drawGouraudScanline(data, yA, xA >> 16, xC >> 16, colorA >> 7, colorC >> 7);
 						xC += xStepAC;
@@ -512,7 +512,7 @@ public class Draw3D extends Draw2D {
 					yB -= yC;
 					yC -= yA;
 
-					yA = offsets[yA];
+					yA = lineOffsets[yA];
 					while (--yC >= 0) {
 						drawGouraudScanline(data, yA, xB >> 16, xA >> 16, colorB >> 7, colorA >> 7);
 						xB += xStepAC;
@@ -534,7 +534,7 @@ public class Draw3D extends Draw2D {
 					yB -= yC;
 					yC -= yA;
 
-					yA = offsets[yA];
+					yA = lineOffsets[yA];
 					while (--yC >= 0) {
 						drawGouraudScanline(data, yA, xA >> 16, xB >> 16, colorA >> 7, colorB >> 7);
 						xB += xStepAC;
@@ -590,7 +590,7 @@ public class Draw3D extends Draw2D {
 					yA -= yC;
 					yC -= yB;
 
-					yB = offsets[yB];
+					yB = lineOffsets[yB];
 					while (--yC >= 0) {
 						drawGouraudScanline(data, yB, xA >> 16, xB >> 16, colorA >> 7, colorB >> 7);
 						xA += xStepAB;
@@ -612,7 +612,7 @@ public class Draw3D extends Draw2D {
 					yA -= yC;
 					yC -= yB;
 
-					yB = offsets[yB];
+					yB = lineOffsets[yB];
 					while (--yC >= 0) {
 						drawGouraudScanline(data, yB, xB >> 16, xA >> 16, colorB >> 7, colorA >> 7);
 						xA += xStepAB;
@@ -654,7 +654,7 @@ public class Draw3D extends Draw2D {
 					yC -= yA;
 					yA -= yB;
 
-					yB = offsets[yB];
+					yB = lineOffsets[yB];
 					while (--yA >= 0) {
 						drawGouraudScanline(data, yB, xC >> 16, xB >> 16, colorC >> 7, colorB >> 7);
 						xC += xStepAB;
@@ -676,7 +676,7 @@ public class Draw3D extends Draw2D {
 					yC -= yA;
 					yA -= yB;
 
-					yB = offsets[yB];
+					yB = lineOffsets[yB];
 					while (--yA >= 0) {
 						drawGouraudScanline(data, yB, xB >> 16, xC >> 16, colorB >> 7, colorC >> 7);
 						xC += xStepAB;
@@ -728,7 +728,7 @@ public class Draw3D extends Draw2D {
 					yB -= yA;
 					yA -= yC;
 
-					yC = offsets[yC];
+					yC = lineOffsets[yC];
 					while (--yA >= 0) {
 						drawGouraudScanline(data, yC, xB >> 16, xC >> 16, colorB >> 7, colorC >> 7);
 						xB += xStepBC;
@@ -750,7 +750,7 @@ public class Draw3D extends Draw2D {
 					yB -= yA;
 					yA -= yC;
 
-					yC = offsets[yC];
+					yC = lineOffsets[yC];
 					while (--yA >= 0) {
 						drawGouraudScanline(data, yC, xC >> 16, xB >> 16, colorC >> 7, colorB >> 7);
 						xB += xStepBC;
@@ -792,7 +792,7 @@ public class Draw3D extends Draw2D {
 					yA -= yB;
 					yB -= yC;
 
-					yC = offsets[yC];
+					yC = lineOffsets[yC];
 					while (--yB >= 0) {
 						drawGouraudScanline(data, yC, xA >> 16, xC >> 16, colorA >> 7, colorC >> 7);
 						xA += xStepBC;
@@ -814,7 +814,7 @@ public class Draw3D extends Draw2D {
 					yA -= yB;
 					yB -= yC;
 
-					yC = offsets[yC];
+					yC = lineOffsets[yC];
 					while (--yB >= 0) {
 						drawGouraudScanline(data, yC, xC >> 16, xA >> 16, colorC >> 7, colorA >> 7);
 						xA += xStepBC;
@@ -846,15 +846,15 @@ public class Draw3D extends Draw2D {
 		@Pc(130) int length;
 
 		if (jagged) {
-			if (testX) {
+			if (clipX) {
 				if (rightX - leftX > 3) {
 					colorStep = (rightColor - leftColor) / (rightX - leftX);
 				} else {
 					colorStep = 0;
 				}
 
-				if (rightX > safeX) {
-					rightX = safeX;
+				if (rightX > boundX) {
+					rightX = boundX;
 				}
 
 				if (leftX < 0) {
@@ -930,9 +930,9 @@ public class Draw3D extends Draw2D {
 		} else if (leftX < rightX) {
 			colorStep = (rightColor - leftColor) / (rightX - leftX);
 
-			if (testX) {
-				if (rightX > safeX) {
-					rightX = safeX;
+			if (clipX) {
+				if (rightX > boundX) {
+					rightX = boundX;
 				}
 
 				if (leftX < 0) {
@@ -1004,7 +1004,7 @@ public class Draw3D extends Draw2D {
 					if (arg0 != arg1 && local33 < local3 || arg0 == arg1 && local33 > local18) {
 						arg2 -= arg1;
 						arg1 -= arg0;
-						arg0 = offsets[arg0];
+						arg0 = lineOffsets[arg0];
 						while (true) {
 							arg1--;
 							if (arg1 < 0) {
@@ -1027,7 +1027,7 @@ public class Draw3D extends Draw2D {
 					} else {
 						arg2 -= arg1;
 						arg1 -= arg0;
-						arg0 = offsets[arg0];
+						arg0 = lineOffsets[arg0];
 						while (true) {
 							arg1--;
 							if (arg1 < 0) {
@@ -1063,7 +1063,7 @@ public class Draw3D extends Draw2D {
 					if (arg0 != arg2 && local33 < local3 || arg0 == arg2 && local18 > local3) {
 						arg1 -= arg2;
 						arg2 -= arg0;
-						arg0 = offsets[arg0];
+						arg0 = lineOffsets[arg0];
 						while (true) {
 							arg2--;
 							if (arg2 < 0) {
@@ -1086,7 +1086,7 @@ public class Draw3D extends Draw2D {
 					} else {
 						arg1 -= arg2;
 						arg2 -= arg0;
-						arg0 = offsets[arg0];
+						arg0 = lineOffsets[arg0];
 						while (true) {
 							arg2--;
 							if (arg2 < 0) {
@@ -1132,7 +1132,7 @@ public class Draw3D extends Draw2D {
 					if (arg1 != arg2 && local3 < local18 || arg1 == arg2 && local3 > local33) {
 						arg0 -= arg2;
 						arg2 -= arg1;
-						arg1 = offsets[arg1];
+						arg1 = lineOffsets[arg1];
 						while (true) {
 							arg2--;
 							if (arg2 < 0) {
@@ -1155,7 +1155,7 @@ public class Draw3D extends Draw2D {
 					} else {
 						arg0 -= arg2;
 						arg2 -= arg1;
-						arg1 = offsets[arg1];
+						arg1 = lineOffsets[arg1];
 						while (true) {
 							arg2--;
 							if (arg2 < 0) {
@@ -1191,7 +1191,7 @@ public class Draw3D extends Draw2D {
 					if (local3 < local18) {
 						arg2 -= arg0;
 						arg0 -= arg1;
-						arg1 = offsets[arg1];
+						arg1 = lineOffsets[arg1];
 						while (true) {
 							arg0--;
 							if (arg0 < 0) {
@@ -1214,7 +1214,7 @@ public class Draw3D extends Draw2D {
 					} else {
 						arg2 -= arg0;
 						arg0 -= arg1;
-						arg1 = offsets[arg1];
+						arg1 = lineOffsets[arg1];
 						while (true) {
 							arg0--;
 							if (arg0 < 0) {
@@ -1259,7 +1259,7 @@ public class Draw3D extends Draw2D {
 				if (local18 < local33) {
 					arg1 -= arg0;
 					arg0 -= arg2;
-					arg2 = offsets[arg2];
+					arg2 = lineOffsets[arg2];
 					while (true) {
 						arg0--;
 						if (arg0 < 0) {
@@ -1282,7 +1282,7 @@ public class Draw3D extends Draw2D {
 				} else {
 					arg1 -= arg0;
 					arg0 -= arg2;
-					arg2 = offsets[arg2];
+					arg2 = lineOffsets[arg2];
 					while (true) {
 						arg0--;
 						if (arg0 < 0) {
@@ -1318,7 +1318,7 @@ public class Draw3D extends Draw2D {
 				if (local18 < local33) {
 					arg0 -= arg1;
 					arg1 -= arg2;
-					arg2 = offsets[arg2];
+					arg2 = lineOffsets[arg2];
 					while (true) {
 						arg1--;
 						if (arg1 < 0) {
@@ -1341,7 +1341,7 @@ public class Draw3D extends Draw2D {
 				} else {
 					arg0 -= arg1;
 					arg1 -= arg2;
-					arg2 = offsets[arg2];
+					arg2 = lineOffsets[arg2];
 					while (true) {
 						arg1--;
 						if (arg1 < 0) {
@@ -1368,9 +1368,9 @@ public class Draw3D extends Draw2D {
 
 	@OriginalMember(owner = "client!gb", name = "a", descriptor = "([IIIIII)V")
 	private static void drawScanline(@OriginalArg(0) int[] arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5) {
-		if (testX) {
-			if (arg5 > safeX) {
-				arg5 = safeX;
+		if (clipX) {
+			if (arg5 > boundX) {
+				arg5 = boundX;
 			}
 			if (arg4 < 0) {
 				arg4 = 0;
@@ -1500,7 +1500,7 @@ public class Draw3D extends Draw2D {
 					if (arg0 != arg1 && local182 < local128 || arg0 == arg1 && local182 > local155) {
 						arg2 -= arg1;
 						arg1 -= arg0;
-						arg0 = offsets[arg0];
+						arg0 = lineOffsets[arg0];
 						while (true) {
 							arg1--;
 							if (arg1 < 0) {
@@ -1533,7 +1533,7 @@ public class Draw3D extends Draw2D {
 					} else {
 						arg2 -= arg1;
 						arg1 -= arg0;
-						arg0 = offsets[arg0];
+						arg0 = lineOffsets[arg0];
 						while (true) {
 							arg1--;
 							if (arg1 < 0) {
@@ -1588,7 +1588,7 @@ public class Draw3D extends Draw2D {
 					if ((arg0 == arg2 || local182 >= local128) && (arg0 != arg2 || local155 <= local128)) {
 						arg1 -= arg2;
 						arg2 -= arg0;
-						arg0 = offsets[arg0];
+						arg0 = lineOffsets[arg0];
 						while (true) {
 							arg2--;
 							if (arg2 < 0) {
@@ -1621,7 +1621,7 @@ public class Draw3D extends Draw2D {
 					} else {
 						arg1 -= arg2;
 						arg2 -= arg0;
-						arg0 = offsets[arg0];
+						arg0 = lineOffsets[arg0];
 						while (true) {
 							arg2--;
 							if (arg2 < 0) {
@@ -1686,7 +1686,7 @@ public class Draw3D extends Draw2D {
 					if (arg1 != arg2 && local128 < local155 || arg1 == arg2 && local128 > local182) {
 						arg0 -= arg2;
 						arg2 -= arg1;
-						arg1 = offsets[arg1];
+						arg1 = lineOffsets[arg1];
 						while (true) {
 							arg2--;
 							if (arg2 < 0) {
@@ -1719,7 +1719,7 @@ public class Draw3D extends Draw2D {
 					} else {
 						arg0 -= arg2;
 						arg2 -= arg1;
-						arg1 = offsets[arg1];
+						arg1 = lineOffsets[arg1];
 						while (true) {
 							arg2--;
 							if (arg2 < 0) {
@@ -1774,7 +1774,7 @@ public class Draw3D extends Draw2D {
 					if (local128 < local155) {
 						arg2 -= arg0;
 						arg0 -= arg1;
-						arg1 = offsets[arg1];
+						arg1 = lineOffsets[arg1];
 						while (true) {
 							arg0--;
 							if (arg0 < 0) {
@@ -1807,7 +1807,7 @@ public class Draw3D extends Draw2D {
 					} else {
 						arg2 -= arg0;
 						arg0 -= arg1;
-						arg1 = offsets[arg1];
+						arg1 = lineOffsets[arg1];
 						while (true) {
 							arg0--;
 							if (arg0 < 0) {
@@ -1871,7 +1871,7 @@ public class Draw3D extends Draw2D {
 				if (local155 < local182) {
 					arg1 -= arg0;
 					arg0 -= arg2;
-					arg2 = offsets[arg2];
+					arg2 = lineOffsets[arg2];
 					while (true) {
 						arg0--;
 						if (arg0 < 0) {
@@ -1904,7 +1904,7 @@ public class Draw3D extends Draw2D {
 				} else {
 					arg1 -= arg0;
 					arg0 -= arg2;
-					arg2 = offsets[arg2];
+					arg2 = lineOffsets[arg2];
 					while (true) {
 						arg0--;
 						if (arg0 < 0) {
@@ -1959,7 +1959,7 @@ public class Draw3D extends Draw2D {
 				if (local155 < local182) {
 					arg0 -= arg1;
 					arg1 -= arg2;
-					arg2 = offsets[arg2];
+					arg2 = lineOffsets[arg2];
 					while (true) {
 						arg1--;
 						if (arg1 < 0) {
@@ -1992,7 +1992,7 @@ public class Draw3D extends Draw2D {
 				} else {
 					arg0 -= arg1;
 					arg1 -= arg2;
-					arg2 = offsets[arg2];
+					arg2 = lineOffsets[arg2];
 					while (true) {
 						arg1--;
 						if (arg1 < 0) {
@@ -2034,10 +2034,10 @@ public class Draw3D extends Draw2D {
 		}
 		@Pc(15) int local15;
 		@Pc(40) int local40;
-		if (testX) {
+		if (clipX) {
 			local15 = (arg8 - arg7) / (arg6 - arg5);
-			if (arg6 > safeX) {
-				arg6 = safeX;
+			if (arg6 > boundX) {
+				arg6 = boundX;
 			}
 			if (arg5 < 0) {
 				arg7 -= arg5 * local15;

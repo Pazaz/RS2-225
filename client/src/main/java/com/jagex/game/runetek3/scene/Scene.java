@@ -1082,7 +1082,7 @@ public class Scene {
 
 			for (int z = 1; z < this.tileCountZ - 1; z++) {
 				for (int x = 1; x < this.tileCountX - 1; x++) {
-					mapSquare.setPhysicalLevel(plane, x, z, this.getRenderLevel(plane, x, z));
+					mapSquare.setDrawLevel(plane, x, z, this.getRenderLevel(plane, x, z));
 				}
 			}
 		}
@@ -1156,7 +1156,7 @@ public class Scene {
 									int minY = this.heightmap[maxLevel][x][minTileZ] - 240;
 									int maxY = this.heightmap[minLevel][x][minTileZ];
 
-									MapSquare.addOcclude(maxTileZ * 128 + 128, x * 128, maxY, 1, x * 128, topLevel, minY, minTileZ * 128);
+									MapSquare.addOccluder(maxTileZ * 128 + 128, x * 128, maxY, 1, x * 128, topLevel, minY, minTileZ * 128);
 
 									for (int tileLevel = minLevel; tileLevel <= maxLevel; tileLevel++) {
 										for (int tileZ = minTileZ; tileZ <= maxTileZ; tileZ++) {
@@ -1208,7 +1208,7 @@ public class Scene {
 									int normalY = this.heightmap[maxLevel][minTileX][z] - 240;
 									int normalZ = this.heightmap[minLevel][minTileX][z];
 
-									MapSquare.addOcclude(z * 128, minTileX * 128, normalZ, 2, maxTileX * 128 + 128, topLevel, normalY, z * 128);
+									MapSquare.addOccluder(z * 128, minTileX * 128, normalZ, 2, maxTileX * 128 + 128, topLevel, normalY, z * 128);
 
 									for (int tileLevel = minLevel; tileLevel <= maxLevel; tileLevel++) {
 										for (int tileX = minTileX; tileX <= maxTileX; tileX++) {
@@ -1258,7 +1258,7 @@ public class Scene {
 								if ((maxTileX + 1 - minTileX) * (maxTileZ + 1 - minTileZ) >= 4) {
 									int y = this.heightmap[level][minTileX][minTileZ];
 
-									MapSquare.addOcclude(maxTileZ * 128 + 128, minTileX * 128, y, 4, maxTileX * 128 + 128, topLevel, y, minTileZ * 128);
+									MapSquare.addOccluder(maxTileZ * 128 + 128, minTileX * 128, y, 4, maxTileX * 128 + 128, topLevel, y, minTileZ * 128);
 
 									for (int tileX = minTileX; tileX <= maxTileX; tileX++) {
 										for (int tileZ = minTileZ; tileZ <= maxTileZ; tileZ++) {

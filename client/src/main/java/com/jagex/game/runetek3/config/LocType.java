@@ -399,9 +399,9 @@ public class LocType {
 
 			@Pc(200) Model m2 = (Model) modelCache.get(modelIndex);
 			if (m2 == null) {
-				m2 = new Model(false, modelIndex & 0xFFFF);
+				m2 = new Model(modelIndex & 0xFFFF);
 				if (flipBackwards) {
-					m2.flipBackwards();
+					m2.rotateY180();
 				}
 				modelCache.put(modelIndex, m2);
 			}
@@ -422,14 +422,14 @@ public class LocType {
 
 			@Pc(284) Model m3 = new Model(m2, this.recol_s == null, !this.disposeAlpha, orientation == 0 && seqFrame == -1 && !rescale && !move);
 			if (seqFrame != -1) {
-				m3.applyGroup();
-				m3.applyFrame(seqFrame);
-				m3.skinTriangle = null;
+				m3.createLabelReferences();
+				m3.applyTransform(seqFrame);
+				m3.labelFaces = null;
 				m3.labelVertices = null;
 			}
 
 			while (orientation-- > 0) {
-				m3.rotateCounterClockwise();
+				m3.rotateY90();
 			}
 
 			if (this.recol_s != null) {
@@ -446,7 +446,7 @@ public class LocType {
 				m3.translate(this.yoff, this.xoff, this.zoff);
 			}
 
-			m3.applyLighting(this.ambient + 64, this.contrast * 5 + 768, -50, -10, -50, !this.computeVertexColors);
+			m3.calculateNormals(this.ambient + 64, this.contrast * 5 + 768, -50, -10, -50, !this.computeVertexColors);
 			if (this.blockwalk) {
 				m3.collisionPoint = m3.maxBoundY;
 			}

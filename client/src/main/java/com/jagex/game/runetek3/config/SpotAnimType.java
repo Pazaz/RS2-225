@@ -121,7 +121,7 @@ public class SpotAnimType {
 			return m;
 		}
 
-		m = new Model(false, this.model);
+		m = new Model(this.model);
 		for (@Pc(19) int i = 0; i < 6; i++) {
 			if (this.recol_s[0] != 0) {
 				m.recolor(this.recol_s[i], this.recol_d[i]);

@@ -67,14 +67,14 @@ public class SoundEnvelope {
 	}
 
 	@OriginalMember(owner = "client!xb", name = "a", descriptor = "(ZI)I")
-	public int evaluate(@OriginalArg(1) int arg1) {
+	public int evaluate(@OriginalArg(1) int delta) {
 		if (this.ticks >= this.threshold) {
 			this.amplitude = this.shapePeak[this.position++] << 15;
 			if (this.position >= this.length) {
 				this.position = this.length - 1;
 			}
 
-			this.threshold = (int) ((double) this.shapeDelta[this.position] / 65536.0D * (double) arg1);
+			this.threshold = (int) ((double) this.shapeDelta[this.position] / 65536.0D * (double) delta);
 			if (this.threshold > this.ticks) {
 				this.delta = ((this.shapePeak[this.position] << 15) - this.amplitude) / (this.threshold - this.ticks);
 			}

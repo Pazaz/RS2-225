@@ -29,16 +29,16 @@ public class NpcEntity extends PathingEntity {
 		@Pc(25) SpotAnimType spotanim = SpotAnimType.instances[super.spotAnimIndex];
 		@Pc(41) Model spot = new Model(spotanim.getModel(), true, !spotanim.disposeAlpha, false);
 		spot.translate(-super.spotAnimOffsetY, 0, 0);
-		spot.applyGroup();
-		spot.applyFrame(spotanim.seq.primaryFrames[super.spotAnimFrame]);
-		spot.skinTriangle = null;
+		spot.createLabelReferences();
+		spot.applyTransform(spotanim.seq.primaryFrames[super.spotAnimFrame]);
+		spot.labelFaces = null;
 		spot.labelVertices = null;
 
 		if (spotanim.resizeh != 128 || spotanim.resizev != 128) {
 			spot.scale(spotanim.resizeh, spotanim.resizev, spotanim.resizeh);
 		}
 
-		spot.applyLighting(spotanim.ambient + 64, spotanim.contrast + 850, -30, -50, -30, true);
+		spot.calculateNormals(spotanim.ambient + 64, spotanim.contrast + 850, -30, -50, -30, true);
 		@Pc(115) Model[] models = new Model[] { self, spot };
 		@Pc(123) Model model = new Model(models, 2, true);
 
@@ -72,7 +72,7 @@ public class NpcEntity extends PathingEntity {
 
 	@OriginalMember(owner = "client!y", name = "b", descriptor = "(Z)Z")
 	@Override
-	public boolean isValid() {
+	public boolean isVisible() {
 		return this.type != null;
 	}
 }

@@ -8,22 +8,22 @@ import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
 
 @OriginalClass("client!g")
-public class AnimFrame {
+public class SeqFrame {
 
 	@OriginalMember(owner = "client!g", name = "a", descriptor = "[Lclient!g;")
-	public static AnimFrame[] instances;
+	public static SeqFrame[] instances;
 
 	@OriginalMember(owner = "client!g", name = "b", descriptor = "I")
 	public int delay;
 
 	@OriginalMember(owner = "client!g", name = "c", descriptor = "Lclient!f;")
-	public AnimBase transform;
+	public SeqBase base;
 
 	@OriginalMember(owner = "client!g", name = "d", descriptor = "I")
-	public int groupCount;
+	public int length;
 
 	@OriginalMember(owner = "client!g", name = "e", descriptor = "[I")
-	public int[] groups;
+	public int[] bases;
 
 	@OriginalMember(owner = "client!g", name = "f", descriptor = "[I")
 	public int[] x;
@@ -44,77 +44,79 @@ public class AnimFrame {
 		@Pc(50) int frameCount = head.g2();
 		@Pc(53) int totalFrames = head.g2();
 
-		instances = new AnimFrame[totalFrames + 1];
+		instances = new SeqFrame[totalFrames + 1];
 
-		@Pc(61) int[] labels = new int[500];
+		@Pc(61) int[] bases = new int[500];
 		@Pc(64) int[] x = new int[500];
 		@Pc(67) int[] y = new int[500];
 		@Pc(70) int[] z = new int[500];
 		for (@Pc(72) int i = 0; i < frameCount; i++) {
-			@Pc(85) AnimFrame frame = instances[head.g2()] = new AnimFrame();
+			@Pc(85) SeqFrame frame = instances[head.g2()] = new SeqFrame();
 			frame.delay = del.g1();
 
-			@Pc(96) AnimBase base = AnimBase.instances[head.g2()];
-			frame.transform = base;
+			@Pc(96) SeqBase base = SeqBase.instances[head.g2()];
+			frame.base = base;
 
-			@Pc(102) int groupCount = head.g1();
-			@Pc(104) int lastGroup = -1;
+			@Pc(102) int baseCount = head.g1();
+			@Pc(104) int lastBase = -1;
 			@Pc(106) int count = 0;
 
-			for (@Pc(108) int j = 0; j < groupCount; j++) {
+			for (@Pc(108) int b = 0; b < baseCount; b++) {
 				@Pc(113) int flags = tran1.g1();
-				if (flags > 0) {
-					if (base.types[j] != 0) {
-						for (@Pc(124) int group = j - 1; group > lastGroup; group--) {
-							if (base.types[group] == 0) {
-								labels[count] = group;
-								x[count] = 0;
-								y[count] = 0;
-								z[count] = 0;
-								count++;
-								break;
-							}
+				if (flags <= 0) {
+					continue;
+				}
+
+				if (base.types[b] != SeqBase.OP_BASE) {
+					for (@Pc(124) int group = b - 1; group > lastBase; group--) {
+						if (base.types[group] == SeqBase.OP_BASE) {
+							bases[count] = group;
+							x[count] = 0;
+							y[count] = 0;
+							z[count] = 0;
+							count++;
+							break;
 						}
 					}
-
-					labels[count] = j;
-
-					@Pc(160) short defaultValue = 0;
-					if (base.types[labels[count]] == 3) {
-						defaultValue = 128;
-					}
-
-					if ((flags & 0x1) == 0) {
-						x[count] = defaultValue;
-					} else {
-						x[count] = tran2.gsmart();
-					}
-
-					if ((flags & 0x2) == 0) {
-						y[count] = defaultValue;
-					} else {
-						y[count] = tran2.gsmart();
-					}
-
-					if ((flags & 0x4) == 0) {
-						z[count] = defaultValue;
-					} else {
-						z[count] = tran2.gsmart();
-					}
-
-					lastGroup = j;
-					count++;
 				}
+
+				bases[count] = b;
+
+				@Pc(160) int defaultValue = 0;
+				if (base.types[bases[count]] == SeqBase.OP_SCALE) {
+					defaultValue = 128;
+				}
+
+				if ((flags & 0x1) == 0) {
+					x[count] = defaultValue;
+				} else {
+					x[count] = tran2.gsmart();
+				}
+
+				if ((flags & 0x2) == 0) {
+					y[count] = defaultValue;
+				} else {
+					y[count] = tran2.gsmart();
+				}
+
+				if ((flags & 0x4) == 0) {
+					z[count] = defaultValue;
+				} else {
+					z[count] = tran2.gsmart();
+				}
+
+				lastBase = b;
+				count++;
 			}
 
-			frame.groupCount = count;
-			frame.groups = new int[count];
+			frame.length = count;
+			frame.bases = new int[count];
 			frame.x = new int[count];
 			frame.y = new int[count];
 			frame.z = new int[count];
 
 			for (int j = 0; j < count; j++) {
-				frame.groups[j] = labels[j];
+				frame.bases[j] = bases[j];
 				frame.x[j] = x[j];
 				frame.y[j] = y[j];
 				frame.z[j] = z[j];

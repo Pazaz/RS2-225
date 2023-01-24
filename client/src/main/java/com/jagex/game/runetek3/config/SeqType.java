@@ -2,7 +2,7 @@ package com.jagex.game.runetek3.config;
 
 import com.jagex.core.io.Buffer;
 import com.jagex.core.io.FileArchive;
-import com.jagex.game.runetek3.animation.AnimFrame;
+import com.jagex.game.runetek3.animation.SeqFrame;
 import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
@@ -91,7 +91,7 @@ public class SeqType {
 
 					this.frameDelay[i] = dat.g2();
 					if (this.frameDelay[i] == 0) {
-						this.frameDelay[i] = AnimFrame.instances[this.primaryFrames[i]].delay;
+						this.frameDelay[i] = SeqFrame.instances[this.primaryFrames[i]].delay;
 					}
 
 					if (this.frameDelay[i] == 0) {

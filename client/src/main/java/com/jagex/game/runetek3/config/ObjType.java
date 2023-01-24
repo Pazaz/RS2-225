@@ -236,7 +236,7 @@ public class ObjType {
 		centerX = Draw3D.centerX3D;
 		cenetrY = Draw3D.centerY3D;
 
-		@Pc(80) int[] offsets = Draw3D.offsets;
+		@Pc(80) int[] offsets = Draw3D.lineOffsets;
 		@Pc(82) int[] data = Draw2D.data;
 		@Pc(84) int width = Draw2D.width;
 		@Pc(86) int height = Draw2D.height;
@@ -248,12 +248,12 @@ public class ObjType {
 		Draw3D.jagged = false;
 		Draw2D.prepare(32, icon.pixels, 32);
 		Draw2D.fillRect(0, 0, 0, 32, 32);
-		Draw3D.prepareOffsets();
+		Draw3D.init2D();
 
 		@Pc(115) Model m = obj.getModel(1);
 		@Pc(125) int cameraY = Draw3D.sin[obj.xan2d] * obj.zoom2d >> 16;
 		@Pc(135) int cameraZ = Draw3D.cos[obj.xan2d] * obj.zoom2d >> 16;
-		m.draw(0, obj.yan2d, obj.zan2d, obj.xan2d, obj.xof2d, cameraY + m.maxBoundY / 2 + obj.yof2d, cameraZ + obj.yof2d);
+		m.drawSimple(0, obj.yan2d, obj.zan2d, obj.xan2d, obj.xof2d, cameraY + m.maxBoundY / 2 + obj.yof2d, cameraZ + obj.yof2d);
 
 		for (@Pc(168) int x = 31; x >= 0; x--) {
 			for (int y = 31; y >= 0; y--) {
@@ -295,7 +295,7 @@ public class ObjType {
 		Draw2D.setBounds(bottom, top, right, left);
 		Draw3D.centerX3D = centerX;
 		Draw3D.centerY3D = cenetrY;
-		Draw3D.offsets = offsets;
+		Draw3D.lineOffsets = offsets;
 		Draw3D.jagged = true;
 		if (obj.stackable) {
 			icon.clipWidth = 33;
@@ -494,13 +494,13 @@ public class ObjType {
 			return m;
 		}
 
-		m = new Model(false, this.model);
+		m = new Model(this.model);
 		if (this.recol_s != null) {
 			for (int i = 0; i < this.recol_s.length; i++) {
 				m.recolor(this.recol_s[i], this.recol_d[i]);
 			}
 		}
-		m.applyLighting(64, 768, -50, -10, -50, true);
+		m.calculateNormals(64, 768, -50, -10, -50, true);
 		m.pickable = true;
 		models.put(this.id, m);
 		return m;
@@ -522,16 +522,16 @@ public class ObjType {
 			return null;
 		}
 
-		@Pc(43) Model m = new Model(false, m0);
+		@Pc(43) Model m = new Model(m0);
 		if (m1 != -1) {
 			@Pc(55) Model model1;
 			if (m2 == -1) {
-				model1 = new Model(false, m1);
+				model1 = new Model(m1);
 				@Pc(102) Model[] models = new Model[] { m, model1 };
 				m = new Model(models, 2);
 			} else {
-				model1 = new Model(false, m1);
-				@Pc(61) Model model2 = new Model(false, m2);
+				model1 = new Model(m1);
+				@Pc(61) Model model2 = new Model(m2);
 				@Pc(76) Model[] models = new Model[] { m, model1, model2 };
 				m = new Model(models, 3);
 			}
@@ -567,9 +567,9 @@ public class ObjType {
 			return null;
 		}
 
-		@Pc(34) Model model1 = new Model(false, m0);
+		@Pc(34) Model model1 = new Model(m0);
 		if (m1 != -1) {
-			@Pc(43) Model model2 = new Model(false, m1);
+			@Pc(43) Model model2 = new Model(m1);
 			@Pc(54) Model[] models = new Model[] { model1, model2 };
 			model1 = new Model(models, 2);
 		}

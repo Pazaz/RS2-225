@@ -479,7 +479,7 @@ public class Component {
 			return m;
 		}
 
-		m = new Model(false, id);
+		m = new Model(id);
 		modelCache.put(id, m);
 		return m;
 	}
@@ -495,24 +495,24 @@ public class Component {
 			return null;
 		}
 
-		if (primaryFrame == -1 && secondaryFrame == -1 && m.unmodifiedTriangleColor == null) {
+		if (primaryFrame == -1 && secondaryFrame == -1 && m.faceColor == null) {
 			return m;
 		}
 		
 		m = new Model(m, true, true, false);
 		if (primaryFrame != -1 || secondaryFrame != -1) {
-			m.applyGroup();
+			m.createLabelReferences();
 		}
 
 		if (primaryFrame != -1) {
-			m.applyFrame(primaryFrame);
+			m.applyTransform(primaryFrame);
 		}
 
 		if (secondaryFrame != -1) {
-			m.applyFrame(secondaryFrame);
+			m.applyTransform(secondaryFrame);
 		}
 
-		m.applyLighting(64, 768, -50, -10, -50, true);
+		m.calculateNormals(64, 768, -50, -10, -50, true);
 		return m;
 	}
 }

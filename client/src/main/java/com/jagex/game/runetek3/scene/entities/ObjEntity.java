@@ -1,33 +1,15 @@
 package com.jagex.game.runetek3.scene.entities;
 
-import com.jagex.game.runetek3.graphics.Model;
+import com.jagex.core.util.Node;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 
-@OriginalClass("client!k")
-public class ObjEntity {
+@OriginalClass("client!v")
+public class ObjEntity extends Node {
 
-	@OriginalMember(owner = "client!k", name = "a", descriptor = "I")
-	public int plane;
+	@OriginalMember(owner = "client!v", name = "e", descriptor = "I")
+	public int id;
 
-	@OriginalMember(owner = "client!k", name = "b", descriptor = "I")
-	public int x;
-
-	@OriginalMember(owner = "client!k", name = "c", descriptor = "I")
-	public int z;
-
-	@OriginalMember(owner = "client!k", name = "d", descriptor = "Lclient!eb;")
-	public Model model0;
-
-	@OriginalMember(owner = "client!k", name = "e", descriptor = "Lclient!eb;")
-	public Model model1;
-
-	@OriginalMember(owner = "client!k", name = "f", descriptor = "Lclient!eb;")
-	public Model model2;
-
-	@OriginalMember(owner = "client!k", name = "g", descriptor = "I")
-	public int bitset;
-
-	@OriginalMember(owner = "client!k", name = "h", descriptor = "I")
-	public int offsetY;
+	@OriginalMember(owner = "client!v", name = "f", descriptor = "I")
+	public int count;
 }

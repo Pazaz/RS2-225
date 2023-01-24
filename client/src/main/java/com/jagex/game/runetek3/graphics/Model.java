@@ -3,8 +3,8 @@ package com.jagex.game.runetek3.graphics;
 import com.jagex.core.io.Buffer;
 import com.jagex.core.io.FileArchive;
 import com.jagex.core.util.CacheableNode;
-import com.jagex.game.runetek3.animation.AnimBase;
-import com.jagex.game.runetek3.animation.AnimFrame;
+import com.jagex.game.runetek3.animation.SeqBase;
+import com.jagex.game.runetek3.animation.SeqFrame;
 import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
@@ -14,16 +14,16 @@ import org.openrs2.deob.annotation.Pc;
 public class Model extends CacheableNode {
 
 	@OriginalMember(owner = "client!eb", name = "Cb", descriptor = "[I")
-	public static final int[] tmpX = new int[10];
+	public static final int[] clippedX = new int[10];
 
 	@OriginalMember(owner = "client!eb", name = "Db", descriptor = "[I")
-	public static final int[] tmpY = new int[10];
+	public static final int[] clippedY = new int[10];
 
 	@OriginalMember(owner = "client!eb", name = "Eb", descriptor = "[I")
-	public static final int[] tmpZ = new int[10];
+	public static final int[] clippedZ = new int[10];
 
 	@OriginalMember(owner = "client!eb", name = "Mb", descriptor = "[I")
-	public static final int[] hoveredBitsets = new int[1000];
+	public static final int[] pickedBitsets = new int[1000];
 
 	@OriginalMember(owner = "client!eb", name = "Y", descriptor = "[Lclient!l;")
 	public static Metadata[] metadata;
@@ -68,13 +68,13 @@ public class Model extends CacheableNode {
 	public static Buffer axis;
 
 	@OriginalMember(owner = "client!eb", name = "Fb", descriptor = "I")
-	public static int transformX;
+	public static int baseX;
 
 	@OriginalMember(owner = "client!eb", name = "Gb", descriptor = "I")
-	public static int transformY;
+	public static int baseY;
 
 	@OriginalMember(owner = "client!eb", name = "Hb", descriptor = "I")
-	public static int transformZ;
+	public static int baseZ;
 
 	@OriginalMember(owner = "client!eb", name = "Ib", descriptor = "Z")
 	public static boolean allowInput;
@@ -89,10 +89,10 @@ public class Model extends CacheableNode {
 	public static int resourceCount;
 
 	@OriginalMember(owner = "client!eb", name = "nb", descriptor = "[Z")
-	public static boolean[] testTriangleX = new boolean[4096];
+	public static boolean[] faceClippedX = new boolean[4096];
 
 	@OriginalMember(owner = "client!eb", name = "ob", descriptor = "[Z")
-	public static boolean[] projectTriangle = new boolean[4096];
+	public static boolean[] faceNearClipped = new boolean[4096];
 
 	@OriginalMember(owner = "client!eb", name = "pb", descriptor = "[I")
 	public static int[] vertexScreenX = new int[4096];
@@ -110,7 +110,7 @@ public class Model extends CacheableNode {
 	public static int[] projectSceneY = new int[4096];
 
 	@OriginalMember(owner = "client!eb", name = "ub", descriptor = "[I")
-	public static int[] projectSceneZ = new int[4096];
+	public static int[] vertexViewSpaceZ = new int[4096];
 
 	@OriginalMember(owner = "client!eb", name = "vb", descriptor = "[I")
 	public static int[] depthTriangleCount = new int[1500];
@@ -149,13 +149,13 @@ public class Model extends CacheableNode {
 	private static Buffer head;
 
 	@OriginalMember(owner = "client!eb", name = "v", descriptor = "[I")
-	private int[] colorA;
+	private int[] faceColorA;
 
 	@OriginalMember(owner = "client!eb", name = "w", descriptor = "[I")
-	private int[] colorB;
+	private int[] faceColorB;
 
 	@OriginalMember(owner = "client!eb", name = "x", descriptor = "[I")
-	private int[] colorC;
+	private int[] faceColorC;
 
 	@OriginalMember(owner = "client!eb", name = "H", descriptor = "I")
 	public int minBoundX;
@@ -191,10 +191,10 @@ public class Model extends CacheableNode {
 	public int[][] labelVertices;
 
 	@OriginalMember(owner = "client!eb", name = "U", descriptor = "[[I")
-	public int[][] skinTriangle;
+	public int[][] labelFaces;
 
 	@OriginalMember(owner = "client!eb", name = "W", descriptor = "[Lclient!n;")
-	public VertexNormal[] vertexNormals;
+	public VertexNormal[] vertexNormal;
 
 	@OriginalMember(owner = "client!eb", name = "X", descriptor = "[Lclient!n;")
 	public VertexNormal[] vertexNormalOriginal;
@@ -206,7 +206,7 @@ public class Model extends CacheableNode {
 	public int vertexCount;
 
 	@OriginalMember(owner = "client!eb", name = "r", descriptor = "I")
-	public int triangleCount;
+	public int faceCount;
 
 	@OriginalMember(owner = "client!eb", name = "D", descriptor = "I")
 	private int texturedCount;
@@ -221,13 +221,13 @@ public class Model extends CacheableNode {
 	public int[] vertexZ;
 
 	@OriginalMember(owner = "client!eb", name = "s", descriptor = "[I")
-	public int[] triangleVertexA;
+	public int[] faceVertexA;
 
 	@OriginalMember(owner = "client!eb", name = "t", descriptor = "[I")
-	public int[] triangleVertexB;
+	public int[] faceVertexB;
 
 	@OriginalMember(owner = "client!eb", name = "u", descriptor = "[I")
-	public int[] triangleVertexC;
+	public int[] faceVertexC;
 
 	@OriginalMember(owner = "client!eb", name = "E", descriptor = "[I")
 	private int[] textureVertexA;
@@ -242,266 +242,318 @@ public class Model extends CacheableNode {
 	private int[] vertexLabel;
 
 	@OriginalMember(owner = "client!eb", name = "y", descriptor = "[I")
-	public int[] triangleInfo;
+	public int[] faceInfo;
 
 	@OriginalMember(owner = "client!eb", name = "z", descriptor = "[I")
-	private int[] trianglePriorities;
+	private int[] facePriority;
 
 	@OriginalMember(owner = "client!eb", name = "C", descriptor = "I")
 	private int priority;
 
 	@OriginalMember(owner = "client!eb", name = "A", descriptor = "[I")
-	private int[] triangleAlpha;
+	private int[] faceAlpha;
 
 	@OriginalMember(owner = "client!eb", name = "S", descriptor = "[I")
-	private int[] triangleSkin;
+	private int[] faceLabel;
 
 	@OriginalMember(owner = "client!eb", name = "B", descriptor = "[I")
-	public int[] unmodifiedTriangleColor;
+	public int[] faceColor;
+
+
+	@OriginalClass("client!l")
+	public static class Metadata {
+
+		@OriginalMember(owner = "client!l", name = "a", descriptor = "I")
+		public int vertexCount;
+
+		@OriginalMember(owner = "client!l", name = "b", descriptor = "I")
+		public int faceCount;
+
+		@OriginalMember(owner = "client!l", name = "c", descriptor = "I")
+		public int texturedCount;
+
+		@OriginalMember(owner = "client!l", name = "d", descriptor = "I")
+		public int vertexFlagsOffset;
+
+		@OriginalMember(owner = "client!l", name = "e", descriptor = "I")
+		public int vertexXOffset;
+
+		@OriginalMember(owner = "client!l", name = "f", descriptor = "I")
+		public int vertexYOffset;
+
+		@OriginalMember(owner = "client!l", name = "g", descriptor = "I")
+		public int vertexZOffset;
+
+		@OriginalMember(owner = "client!l", name = "h", descriptor = "I")
+		public int vertexLabelsOffset;
+
+		@OriginalMember(owner = "client!l", name = "i", descriptor = "I")
+		public int faceVerticesOffset;
+
+		@OriginalMember(owner = "client!l", name = "j", descriptor = "I")
+		public int faceOrientationsOffset;
+
+		@OriginalMember(owner = "client!l", name = "k", descriptor = "I")
+		public int faceColorsOffset;
+
+		@OriginalMember(owner = "client!l", name = "l", descriptor = "I")
+		public int faceInfosOffset;
+
+		@OriginalMember(owner = "client!l", name = "m", descriptor = "I")
+		public int facePrioritiesOffset;
+
+		@OriginalMember(owner = "client!l", name = "n", descriptor = "I")
+		public int faceAlphasOffset;
+
+		@OriginalMember(owner = "client!l", name = "o", descriptor = "I")
+		public int faceLabelOffset;
+
+		@OriginalMember(owner = "client!l", name = "p", descriptor = "I")
+		public int faceTextureAxisOffset;
+	}
 
 	@OriginalMember(owner = "client!eb", name = "<init>", descriptor = "(ZI)V")
-	public Model(@OriginalArg(0) boolean arg0, @OriginalArg(1) int arg1) {
-		if (metadata != null) {
-			@Pc(28) Metadata local28 = metadata[arg1];
-			if (local28 == null) {
-				System.out.println("Error model:" + arg1 + " not found!");
+	public Model(@OriginalArg(1) int id) {
+		if (metadata == null) {
+			return;
+		}
+
+		@Pc(28) Metadata meta = metadata[id];
+		if (meta == null) {
+			System.out.println("Error model:" + id + " not found!");
+		} else {
+			this.vertexCount = meta.vertexCount;
+			this.faceCount = meta.faceCount;
+			this.texturedCount = meta.texturedCount;
+			this.vertexX = new int[this.vertexCount];
+			this.vertexY = new int[this.vertexCount];
+			this.vertexZ = new int[this.vertexCount];
+			this.faceVertexA = new int[this.faceCount];
+			this.faceVertexB = new int[this.faceCount];
+			this.faceVertexC = new int[this.faceCount];
+			this.textureVertexA = new int[this.texturedCount];
+			this.textureVertexB = new int[this.texturedCount];
+			this.textureVertexC = new int[this.texturedCount];
+			if (meta.vertexLabelsOffset >= 0) {
+				this.vertexLabel = new int[this.vertexCount];
+			}
+			if (meta.faceInfosOffset >= 0) {
+				this.faceInfo = new int[this.faceCount];
+			}
+			if (meta.facePrioritiesOffset >= 0) {
+				this.facePriority = new int[this.faceCount];
 			} else {
-				this.vertexCount = local28.vertexCount;
-				this.triangleCount = local28.triangleCount;
-				this.texturedCount = local28.texturedCount;
-				this.vertexX = new int[this.vertexCount];
-				this.vertexY = new int[this.vertexCount];
-				this.vertexZ = new int[this.vertexCount];
-				this.triangleVertexA = new int[this.triangleCount];
-				this.triangleVertexB = new int[this.triangleCount];
-				this.triangleVertexC = new int[this.triangleCount];
-				this.textureVertexA = new int[this.texturedCount];
-				this.textureVertexB = new int[this.texturedCount];
-				this.textureVertexC = new int[this.texturedCount];
-				if (local28.vertexLabelDataOffset >= 0) {
-					this.vertexLabel = new int[this.vertexCount];
-				}
-				if (local28.triangleInfoDataOffset >= 0) {
-					this.triangleInfo = new int[this.triangleCount];
-				}
-				if (local28.trianglePriorityDataOffset >= 0) {
-					this.trianglePriorities = new int[this.triangleCount];
-				} else {
-					this.priority = -local28.trianglePriorityDataOffset - 1;
-				}
-				if (local28.triangleAlphaDataOffset >= 0) {
-					this.triangleAlpha = new int[this.triangleCount];
-				}
-				if (local28.triangleSkinDataOffset >= 0) {
-					this.triangleSkin = new int[this.triangleCount];
-				}
-				this.unmodifiedTriangleColor = new int[this.triangleCount];
-				point1.pos = local28.vertexFlagDataOffset;
-				point2.pos = local28.vertexXDataOffset;
-				point3.pos = local28.vertexYDataOffset;
-				point4.pos = local28.vertexZDataOffset;
-				point5.pos = local28.vertexLabelDataOffset;
-				@Pc(175) int local175 = 0;
-				@Pc(177) int local177 = 0;
-				@Pc(179) int local179 = 0;
-				@Pc(186) int local186;
-				@Pc(188) int local188;
-				@Pc(197) int local197;
-				@Pc(206) int local206;
-				for (@Pc(181) int local181 = 0; local181 < this.vertexCount; local181++) {
-					local186 = point1.g1();
-					local188 = 0;
-					if ((local186 & 0x1) != 0) {
-						local188 = point2.gsmart();
-					}
-					local197 = 0;
-					if ((local186 & 0x2) != 0) {
-						local197 = point3.gsmart();
-					}
-					local206 = 0;
-					if ((local186 & 0x4) != 0) {
-						local206 = point4.gsmart();
-					}
-					this.vertexX[local181] = local175 + local188;
-					this.vertexY[local181] = local177 + local197;
-					this.vertexZ[local181] = local179 + local206;
-					local175 = this.vertexX[local181];
-					local177 = this.vertexY[local181];
-					local179 = this.vertexZ[local181];
-					if (this.vertexLabel != null) {
-						this.vertexLabel[local181] = point5.g1();
-					}
-				}
-				face1.pos = local28.triangleColorDataOffset;
-				face2.pos = local28.triangleInfoDataOffset;
-				face3.pos = local28.trianglePriorityDataOffset;
-				face4.pos = local28.triangleAlphaDataOffset;
-				face5.pos = local28.triangleSkinDataOffset;
-				for (local186 = 0; local186 < this.triangleCount; local186++) {
-					this.unmodifiedTriangleColor[local186] = face1.g2();
-					if (this.triangleInfo != null) {
-						this.triangleInfo[local186] = face2.g1();
-					}
-					if (this.trianglePriorities != null) {
-						this.trianglePriorities[local186] = face3.g1();
-					}
-					if (this.triangleAlpha != null) {
-						this.triangleAlpha[local186] = face4.g1();
-					}
-					if (this.triangleSkin != null) {
-						this.triangleSkin[local186] = face5.g1();
-					}
-				}
-				vertex1.pos = local28.vertexIndexDataOffset;
-				vertex2.pos = local28.triangleTypeDataOffset;
+				this.priority = -meta.facePrioritiesOffset - 1;
+			}
+			if (meta.faceAlphasOffset >= 0) {
+				this.faceAlpha = new int[this.faceCount];
+			}
+			if (meta.faceLabelOffset >= 0) {
+				this.faceLabel = new int[this.faceCount];
+			}
+			this.faceColor = new int[this.faceCount];
+			point1.pos = meta.vertexFlagsOffset;
+			point2.pos = meta.vertexXOffset;
+			point3.pos = meta.vertexYOffset;
+			point4.pos = meta.vertexZOffset;
+			point5.pos = meta.vertexLabelsOffset;
+			@Pc(175) int local175 = 0;
+			@Pc(177) int local177 = 0;
+			@Pc(179) int local179 = 0;
+			@Pc(186) int local186;
+			@Pc(188) int local188;
+			@Pc(197) int local197;
+			@Pc(206) int local206;
+			for (@Pc(181) int local181 = 0; local181 < this.vertexCount; local181++) {
+				local186 = point1.g1();
 				local188 = 0;
+				if ((local186 & 0x1) != 0) {
+					local188 = point2.gsmart();
+				}
 				local197 = 0;
+				if ((local186 & 0x2) != 0) {
+					local197 = point3.gsmart();
+				}
 				local206 = 0;
-				@Pc(350) int local350 = 0;
-				@Pc(357) int local357;
-				for (@Pc(352) int local352 = 0; local352 < this.triangleCount; local352++) {
-					local357 = vertex2.g1();
-					if (local357 == 1) {
-						local188 = vertex1.gsmart() + local350;
-						local197 = vertex1.gsmart() + local188;
-						local206 = vertex1.gsmart() + local197;
-						local350 = local206;
-						this.triangleVertexA[local352] = local188;
-						this.triangleVertexB[local352] = local197;
-						this.triangleVertexC[local352] = local206;
-					}
-					if (local357 == 2) {
-						local188 = local188;
-						local197 = local206;
-						local206 = vertex1.gsmart() + local350;
-						local350 = local206;
-						this.triangleVertexA[local352] = local188;
-						this.triangleVertexB[local352] = local197;
-						this.triangleVertexC[local352] = local206;
-					}
-					if (local357 == 3) {
-						local188 = local206;
-						local197 = local197;
-						local206 = vertex1.gsmart() + local350;
-						local350 = local206;
-						this.triangleVertexA[local352] = local188;
-						this.triangleVertexB[local352] = local197;
-						this.triangleVertexC[local352] = local206;
-					}
-					if (local357 == 4) {
-						@Pc(459) int local459 = local188;
-						local188 = local197;
-						local197 = local459;
-						local206 = vertex1.gsmart() + local350;
-						local350 = local206;
-						this.triangleVertexA[local352] = local188;
-						this.triangleVertexB[local352] = local459;
-						this.triangleVertexC[local352] = local206;
-					}
+				if ((local186 & 0x4) != 0) {
+					local206 = point4.gsmart();
 				}
-				if (arg0) {
-					throw new NullPointerException();
+				this.vertexX[local181] = local175 + local188;
+				this.vertexY[local181] = local177 + local197;
+				this.vertexZ[local181] = local179 + local206;
+				local175 = this.vertexX[local181];
+				local177 = this.vertexY[local181];
+				local179 = this.vertexZ[local181];
+				if (this.vertexLabel != null) {
+					this.vertexLabel[local181] = point5.g1();
 				}
-				axis.pos = local28.triangleTextureDataOffset * 6;
-				for (local357 = 0; local357 < this.texturedCount; local357++) {
-					this.textureVertexA[local357] = axis.g2();
-					this.textureVertexB[local357] = axis.g2();
-					this.textureVertexC[local357] = axis.g2();
+			}
+			face1.pos = meta.faceColorsOffset;
+			face2.pos = meta.faceInfosOffset;
+			face3.pos = meta.facePrioritiesOffset;
+			face4.pos = meta.faceAlphasOffset;
+			face5.pos = meta.faceLabelOffset;
+			for (local186 = 0; local186 < this.faceCount; local186++) {
+				this.faceColor[local186] = face1.g2();
+				if (this.faceInfo != null) {
+					this.faceInfo[local186] = face2.g1();
 				}
+				if (this.facePriority != null) {
+					this.facePriority[local186] = face3.g1();
+				}
+				if (this.faceAlpha != null) {
+					this.faceAlpha[local186] = face4.g1();
+				}
+				if (this.faceLabel != null) {
+					this.faceLabel[local186] = face5.g1();
+				}
+			}
+			vertex1.pos = meta.faceVerticesOffset;
+			vertex2.pos = meta.faceOrientationsOffset;
+			local188 = 0;
+			local197 = 0;
+			local206 = 0;
+			@Pc(350) int local350 = 0;
+			@Pc(357) int local357;
+			for (@Pc(352) int local352 = 0; local352 < this.faceCount; local352++) {
+				local357 = vertex2.g1();
+				if (local357 == 1) {
+					local188 = vertex1.gsmart() + local350;
+					local197 = vertex1.gsmart() + local188;
+					local206 = vertex1.gsmart() + local197;
+					local350 = local206;
+					this.faceVertexA[local352] = local188;
+					this.faceVertexB[local352] = local197;
+					this.faceVertexC[local352] = local206;
+				}
+				if (local357 == 2) {
+					local188 = local188;
+					local197 = local206;
+					local206 = vertex1.gsmart() + local350;
+					local350 = local206;
+					this.faceVertexA[local352] = local188;
+					this.faceVertexB[local352] = local197;
+					this.faceVertexC[local352] = local206;
+				}
+				if (local357 == 3) {
+					local188 = local206;
+					local197 = local197;
+					local206 = vertex1.gsmart() + local350;
+					local350 = local206;
+					this.faceVertexA[local352] = local188;
+					this.faceVertexB[local352] = local197;
+					this.faceVertexC[local352] = local206;
+				}
+				if (local357 == 4) {
+					@Pc(459) int local459 = local188;
+					local188 = local197;
+					local197 = local459;
+					local206 = vertex1.gsmart() + local350;
+					local350 = local206;
+					this.faceVertexA[local352] = local188;
+					this.faceVertexB[local352] = local459;
+					this.faceVertexC[local352] = local206;
+				}
+			}
+			axis.pos = meta.faceTextureAxisOffset * 6;
+			for (local357 = 0; local357 < this.texturedCount; local357++) {
+				this.textureVertexA[local357] = axis.g2();
+				this.textureVertexB[local357] = axis.g2();
+				this.textureVertexC[local357] = axis.g2();
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!eb", name = "<init>", descriptor = "(I[Lclient!eb;I)V")
 	public Model(@OriginalArg(1) Model[] arg1, @OriginalArg(2) int arg2) {
-		@Pc(23) boolean local23 = false;
-		@Pc(25) boolean local25 = false;
-		@Pc(27) boolean local27 = false;
-		@Pc(29) boolean local29 = false;
+		@Pc(23) boolean copyInfo = false;
+		@Pc(25) boolean copyPriority = false;
+		@Pc(27) boolean copyAlpha = false;
+		@Pc(29) boolean copyLabels = false;
 		this.vertexCount = 0;
-		this.triangleCount = 0;
+		this.faceCount = 0;
 		this.texturedCount = 0;
 		this.priority = -1;
 		for (@Pc(43) int local43 = 0; local43 < arg2; local43++) {
 			@Pc(49) Model local49 = arg1[local43];
 			if (local49 != null) {
 				this.vertexCount += local49.vertexCount;
-				this.triangleCount += local49.triangleCount;
+				this.faceCount += local49.faceCount;
 				this.texturedCount += local49.texturedCount;
-				local23 |= local49.triangleInfo != null;
-				if (local49.trianglePriorities == null) {
+				copyInfo |= local49.faceInfo != null;
+				if (local49.facePriority == null) {
 					if (this.priority == -1) {
 						this.priority = local49.priority;
 					}
 					if (this.priority != local49.priority) {
-						local25 = true;
+						copyPriority = true;
 					}
 				} else {
-					local25 = true;
+					copyPriority = true;
 				}
-				local27 |= local49.triangleAlpha != null;
-				local29 |= local49.triangleSkin != null;
+				copyAlpha |= local49.faceAlpha != null;
+				copyLabels |= local49.faceLabel != null;
 			}
 		}
 		this.vertexX = new int[this.vertexCount];
 		this.vertexY = new int[this.vertexCount];
 		this.vertexZ = new int[this.vertexCount];
 		this.vertexLabel = new int[this.vertexCount];
-		this.triangleVertexA = new int[this.triangleCount];
-		this.triangleVertexB = new int[this.triangleCount];
-		this.triangleVertexC = new int[this.triangleCount];
+		this.faceVertexA = new int[this.faceCount];
+		this.faceVertexB = new int[this.faceCount];
+		this.faceVertexC = new int[this.faceCount];
 		this.textureVertexA = new int[this.texturedCount];
 		this.textureVertexB = new int[this.texturedCount];
 		this.textureVertexC = new int[this.texturedCount];
-		if (local23) {
-			this.triangleInfo = new int[this.triangleCount];
+		if (copyInfo) {
+			this.faceInfo = new int[this.faceCount];
 		}
-		if (local25) {
-			this.trianglePriorities = new int[this.triangleCount];
+		if (copyPriority) {
+			this.facePriority = new int[this.faceCount];
 		}
-		if (local27) {
-			this.triangleAlpha = new int[this.triangleCount];
+		if (copyAlpha) {
+			this.faceAlpha = new int[this.faceCount];
 		}
-		if (local29) {
-			this.triangleSkin = new int[this.triangleCount];
+		if (copyLabels) {
+			this.faceLabel = new int[this.faceCount];
 		}
-		this.unmodifiedTriangleColor = new int[this.triangleCount];
+		this.faceColor = new int[this.faceCount];
 		this.vertexCount = 0;
-		this.triangleCount = 0;
+		this.faceCount = 0;
 		this.texturedCount = 0;
 		for (@Pc(225) int local225 = 0; local225 < arg2; local225++) {
 			@Pc(231) Model local231 = arg1[local225];
 			if (local231 != null) {
-				for (@Pc(235) int local235 = 0; local235 < local231.triangleCount; local235++) {
-					if (local23) {
-						if (local231.triangleInfo == null) {
-							this.triangleInfo[this.triangleCount] = 0;
+				for (@Pc(235) int local235 = 0; local235 < local231.faceCount; local235++) {
+					if (copyInfo) {
+						if (local231.faceInfo == null) {
+							this.faceInfo[this.faceCount] = 0;
 						} else {
-							this.triangleInfo[this.triangleCount] = local231.triangleInfo[local235];
+							this.faceInfo[this.faceCount] = local231.faceInfo[local235];
 						}
 					}
-					if (local25) {
-						if (local231.trianglePriorities == null) {
-							this.trianglePriorities[this.triangleCount] = local231.priority;
+					if (copyPriority) {
+						if (local231.facePriority == null) {
+							this.facePriority[this.faceCount] = local231.priority;
 						} else {
-							this.trianglePriorities[this.triangleCount] = local231.trianglePriorities[local235];
+							this.facePriority[this.faceCount] = local231.facePriority[local235];
 						}
 					}
-					if (local27) {
-						if (local231.triangleAlpha == null) {
-							this.triangleAlpha[this.triangleCount] = 0;
+					if (copyAlpha) {
+						if (local231.faceAlpha == null) {
+							this.faceAlpha[this.faceCount] = 0;
 						} else {
-							this.triangleAlpha[this.triangleCount] = local231.triangleAlpha[local235];
+							this.faceAlpha[this.faceCount] = local231.faceAlpha[local235];
 						}
 					}
-					if (local29 && local231.triangleSkin != null) {
-						this.triangleSkin[this.triangleCount] = local231.triangleSkin[local235];
+					if (copyLabels && local231.faceLabel != null) {
+						this.faceLabel[this.faceCount] = local231.faceLabel[local235];
 					}
-					this.unmodifiedTriangleColor[this.triangleCount] = local231.unmodifiedTriangleColor[local235];
-					this.triangleVertexA[this.triangleCount] = this.copyVertex(local231, local231.triangleVertexA[local235]);
-					this.triangleVertexB[this.triangleCount] = this.copyVertex(local231, local231.triangleVertexB[local235]);
-					this.triangleVertexC[this.triangleCount] = this.copyVertex(local231, local231.triangleVertexC[local235]);
-					this.triangleCount++;
+					this.faceColor[this.faceCount] = local231.faceColor[local235];
+					this.faceVertexA[this.faceCount] = this.copyVertex(local231, local231.faceVertexA[local235]);
+					this.faceVertexB[this.faceCount] = this.copyVertex(local231, local231.faceVertexB[local235]);
+					this.faceVertexC[this.faceCount] = this.copyVertex(local231, local231.faceVertexC[local235]);
+					this.faceCount++;
 				}
 				for (@Pc(376) int local376 = 0; local376 < local231.texturedCount; local376++) {
 					this.textureVertexA[this.texturedCount] = this.copyVertex(local231, local231.textureVertexA[local376]);
@@ -514,250 +566,264 @@ public class Model extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!eb", name = "<init>", descriptor = "([Lclient!eb;BIZ)V")
-	public Model(@OriginalArg(0) Model[] arg0, @OriginalArg(2) int arg2, @OriginalArg(3) boolean arg3) {
-		@Pc(23) boolean local23 = false;
-		@Pc(25) boolean local25 = false;
-		@Pc(27) boolean local27 = false;
-		@Pc(29) boolean local29 = false;
+	public Model(@OriginalArg(0) Model[] models, @OriginalArg(2) int count, @OriginalArg(3) boolean dummy) {
+		@Pc(23) boolean copyInfo = false;
+		@Pc(25) boolean copyPriority = false;
+		@Pc(27) boolean copyAlpha = false;
+		@Pc(29) boolean copyColor = false;
+
 		this.vertexCount = 0;
-		this.triangleCount = 0;
+		this.faceCount = 0;
 		this.texturedCount = 0;
 		this.priority = -1;
-		for (@Pc(43) int local43 = 0; local43 < arg2; local43++) {
-			@Pc(49) Model local49 = arg0[local43];
-			if (local49 != null) {
-				this.vertexCount += local49.vertexCount;
-				this.triangleCount += local49.triangleCount;
-				this.texturedCount += local49.texturedCount;
-				local23 |= local49.triangleInfo != null;
-				if (local49.trianglePriorities == null) {
-					if (this.priority == -1) {
-						this.priority = local49.priority;
-					}
-					if (this.priority != local49.priority) {
-						local25 = true;
-					}
-				} else {
-					local25 = true;
-				}
-				local27 |= local49.triangleAlpha != null;
-				local29 |= local49.unmodifiedTriangleColor != null;
+
+		for (@Pc(43) int i = 0; i < count; i++) {
+			@Pc(49) Model model = models[i];
+			if (model == null) {
+				continue;
 			}
+
+			this.vertexCount += model.vertexCount;
+			this.faceCount += model.faceCount;
+			this.texturedCount += model.texturedCount;
+
+			copyInfo |= model.faceInfo != null;
+			if (model.facePriority == null) {
+				if (this.priority == -1) {
+					this.priority = model.priority;
+				}
+				if (this.priority != model.priority) {
+					copyPriority = true;
+				}
+			} else {
+				copyPriority = true;
+			}
+
+			copyAlpha |= model.faceAlpha != null;
+			copyColor |= model.faceColor != null;
 		}
+
 		this.vertexX = new int[this.vertexCount];
 		this.vertexY = new int[this.vertexCount];
 		this.vertexZ = new int[this.vertexCount];
-		this.triangleVertexA = new int[this.triangleCount];
-		this.triangleVertexB = new int[this.triangleCount];
-		this.triangleVertexC = new int[this.triangleCount];
-		this.colorA = new int[this.triangleCount];
-		this.colorB = new int[this.triangleCount];
-		this.colorC = new int[this.triangleCount];
+		this.faceVertexA = new int[this.faceCount];
+		this.faceVertexB = new int[this.faceCount];
+		this.faceVertexC = new int[this.faceCount];
+		this.faceColorA = new int[this.faceCount];
+		this.faceColorB = new int[this.faceCount];
+		this.faceColorC = new int[this.faceCount];
 		this.textureVertexA = new int[this.texturedCount];
 		this.textureVertexB = new int[this.texturedCount];
 		this.textureVertexC = new int[this.texturedCount];
-		if (local23) {
-			this.triangleInfo = new int[this.triangleCount];
+
+		if (copyInfo) {
+			this.faceInfo = new int[this.faceCount];
 		}
-		if (local25) {
-			this.trianglePriorities = new int[this.triangleCount];
+
+		if (copyPriority) {
+			this.facePriority = new int[this.faceCount];
 		}
-		if (local27) {
-			this.triangleAlpha = new int[this.triangleCount];
+
+		if (copyAlpha) {
+			this.faceAlpha = new int[this.faceCount];
 		}
-		if (local29) {
-			this.unmodifiedTriangleColor = new int[this.triangleCount];
+
+		if (copyColor) {
+			this.faceColor = new int[this.faceCount];
 		}
+
 		this.vertexCount = 0;
-		this.triangleCount = 0;
+		this.faceCount = 0;
 		this.texturedCount = 0;
-		@Pc(227) int local227;
-		for (local227 = 0; local227 < arg2; local227++) {
-			@Pc(240) Model local240 = arg0[local227];
-			if (local240 != null) {
-				@Pc(245) int local245 = this.vertexCount;
-				for (@Pc(247) int local247 = 0; local247 < local240.vertexCount; local247++) {
-					this.vertexX[this.vertexCount] = local240.vertexX[local247];
-					this.vertexY[this.vertexCount] = local240.vertexY[local247];
-					this.vertexZ[this.vertexCount] = local240.vertexZ[local247];
-					this.vertexCount++;
+
+		for (int i = 0; i < count; i++) {
+			@Pc(240) Model model = models[i];
+			if (model == null) {
+				continue;
+			}
+
+			@Pc(245) int vertexCount = this.vertexCount;
+			for (@Pc(247) int j = 0; j < model.vertexCount; j++) {
+				this.vertexX[this.vertexCount] = model.vertexX[j];
+				this.vertexY[this.vertexCount] = model.vertexY[j];
+				this.vertexZ[this.vertexCount] = model.vertexZ[j];
+				this.vertexCount++;
+			}
+			for (@Pc(289) int j = 0; j < model.faceCount; j++) {
+				this.faceVertexA[this.faceCount] = model.faceVertexA[j] + vertexCount;
+				this.faceVertexB[this.faceCount] = model.faceVertexB[j] + vertexCount;
+				this.faceVertexC[this.faceCount] = model.faceVertexC[j] + vertexCount;
+				this.faceColorA[this.faceCount] = model.faceColorA[j];
+				this.faceColorB[this.faceCount] = model.faceColorB[j];
+				this.faceColorC[this.faceCount] = model.faceColorC[j];
+				if (copyInfo) {
+					if (model.faceInfo == null) {
+						this.faceInfo[this.faceCount] = 0;
+					} else {
+						this.faceInfo[this.faceCount] = model.faceInfo[j];
+					}
 				}
-				for (@Pc(289) int local289 = 0; local289 < local240.triangleCount; local289++) {
-					this.triangleVertexA[this.triangleCount] = local240.triangleVertexA[local289] + local245;
-					this.triangleVertexB[this.triangleCount] = local240.triangleVertexB[local289] + local245;
-					this.triangleVertexC[this.triangleCount] = local240.triangleVertexC[local289] + local245;
-					this.colorA[this.triangleCount] = local240.colorA[local289];
-					this.colorB[this.triangleCount] = local240.colorB[local289];
-					this.colorC[this.triangleCount] = local240.colorC[local289];
-					if (local23) {
-						if (local240.triangleInfo == null) {
-							this.triangleInfo[this.triangleCount] = 0;
-						} else {
-							this.triangleInfo[this.triangleCount] = local240.triangleInfo[local289];
-						}
+				if (copyPriority) {
+					if (model.facePriority == null) {
+						this.facePriority[this.faceCount] = model.priority;
+					} else {
+						this.facePriority[this.faceCount] = model.facePriority[j];
 					}
-					if (local25) {
-						if (local240.trianglePriorities == null) {
-							this.trianglePriorities[this.triangleCount] = local240.priority;
-						} else {
-							this.trianglePriorities[this.triangleCount] = local240.trianglePriorities[local289];
-						}
-					}
-					if (local27) {
-						if (local240.triangleAlpha == null) {
-							this.triangleAlpha[this.triangleCount] = 0;
-						} else {
-							this.triangleAlpha[this.triangleCount] = local240.triangleAlpha[local289];
-						}
-					}
-					if (local29 && local240.unmodifiedTriangleColor != null) {
-						this.unmodifiedTriangleColor[this.triangleCount] = local240.unmodifiedTriangleColor[local289];
-					}
-					this.triangleCount++;
 				}
-				for (@Pc(445) int local445 = 0; local445 < local240.texturedCount; local445++) {
-					this.textureVertexA[this.texturedCount] = local240.textureVertexA[local445] + local245;
-					this.textureVertexB[this.texturedCount] = local240.textureVertexB[local445] + local245;
-					this.textureVertexC[this.texturedCount] = local240.textureVertexC[local445] + local245;
-					this.texturedCount++;
+				if (copyAlpha) {
+					if (model.faceAlpha == null) {
+						this.faceAlpha[this.faceCount] = 0;
+					} else {
+						this.faceAlpha[this.faceCount] = model.faceAlpha[j];
+					}
 				}
+				if (copyColor && model.faceColor != null) {
+					this.faceColor[this.faceCount] = model.faceColor[j];
+				}
+				this.faceCount++;
+			}
+			for (@Pc(445) int j = 0; j < model.texturedCount; j++) {
+				this.textureVertexA[this.texturedCount] = model.textureVertexA[j] + vertexCount;
+				this.textureVertexB[this.texturedCount] = model.textureVertexB[j] + vertexCount;
+				this.textureVertexC[this.texturedCount] = model.textureVertexC[j] + vertexCount;
+				this.texturedCount++;
 			}
 		}
-		this.calculateYBoundaries();
+		this.calculateBoundsCylinder();
 	}
 
 	@OriginalMember(owner = "client!eb", name = "<init>", descriptor = "(Lclient!eb;ZZIZ)V")
-	public Model(@OriginalArg(0) Model arg0, @OriginalArg(1) boolean arg1, @OriginalArg(2) boolean arg2, @OriginalArg(4) boolean arg4) {
-		this.vertexCount = arg0.vertexCount;
-		this.triangleCount = arg0.triangleCount;
-		this.texturedCount = arg0.texturedCount;
+	public Model(@OriginalArg(0) Model from, @OriginalArg(1) boolean arg1, @OriginalArg(2) boolean arg2, @OriginalArg(4) boolean arg4) {
+		this.vertexCount = from.vertexCount;
+		this.faceCount = from.faceCount;
+		this.texturedCount = from.texturedCount;
 		@Pc(66) int local66;
 		if (arg4) {
-			this.vertexX = arg0.vertexX;
-			this.vertexY = arg0.vertexY;
-			this.vertexZ = arg0.vertexZ;
+			this.vertexX = from.vertexX;
+			this.vertexY = from.vertexY;
+			this.vertexZ = from.vertexZ;
 		} else {
 			this.vertexX = new int[this.vertexCount];
 			this.vertexY = new int[this.vertexCount];
 			this.vertexZ = new int[this.vertexCount];
 			for (local66 = 0; local66 < this.vertexCount; local66++) {
-				this.vertexX[local66] = arg0.vertexX[local66];
-				this.vertexY[local66] = arg0.vertexY[local66];
-				this.vertexZ[local66] = arg0.vertexZ[local66];
+				this.vertexX[local66] = from.vertexX[local66];
+				this.vertexY[local66] = from.vertexY[local66];
+				this.vertexZ[local66] = from.vertexZ[local66];
 			}
 		}
 		if (arg1) {
-			this.unmodifiedTriangleColor = arg0.unmodifiedTriangleColor;
+			this.faceColor = from.faceColor;
 		} else {
-			this.unmodifiedTriangleColor = new int[this.triangleCount];
-			for (local66 = 0; local66 < this.triangleCount; local66++) {
-				this.unmodifiedTriangleColor[local66] = arg0.unmodifiedTriangleColor[local66];
+			this.faceColor = new int[this.faceCount];
+			for (local66 = 0; local66 < this.faceCount; local66++) {
+				this.faceColor[local66] = from.faceColor[local66];
 			}
 		}
 		if (arg2) {
-			this.triangleAlpha = arg0.triangleAlpha;
+			this.faceAlpha = from.faceAlpha;
 		} else {
-			this.triangleAlpha = new int[this.triangleCount];
-			if (arg0.triangleAlpha == null) {
-				for (local66 = 0; local66 < this.triangleCount; local66++) {
-					this.triangleAlpha[local66] = 0;
+			this.faceAlpha = new int[this.faceCount];
+			if (from.faceAlpha == null) {
+				for (local66 = 0; local66 < this.faceCount; local66++) {
+					this.faceAlpha[local66] = 0;
 				}
 			} else {
-				for (local66 = 0; local66 < this.triangleCount; local66++) {
-					this.triangleAlpha[local66] = arg0.triangleAlpha[local66];
+				for (local66 = 0; local66 < this.faceCount; local66++) {
+					this.faceAlpha[local66] = from.faceAlpha[local66];
 				}
 			}
 		}
-		this.vertexLabel = arg0.vertexLabel;
-		this.triangleSkin = arg0.triangleSkin;
-		this.triangleInfo = arg0.triangleInfo;
-		this.triangleVertexA = arg0.triangleVertexA;
-		this.triangleVertexB = arg0.triangleVertexB;
-		this.triangleVertexC = arg0.triangleVertexC;
-		this.trianglePriorities = arg0.trianglePriorities;
-		this.priority = arg0.priority;
-		this.textureVertexA = arg0.textureVertexA;
-		this.textureVertexB = arg0.textureVertexB;
-		this.textureVertexC = arg0.textureVertexC;
+		this.vertexLabel = from.vertexLabel;
+		this.faceLabel = from.faceLabel;
+		this.faceInfo = from.faceInfo;
+		this.faceVertexA = from.faceVertexA;
+		this.faceVertexB = from.faceVertexB;
+		this.faceVertexC = from.faceVertexC;
+		this.facePriority = from.facePriority;
+		this.priority = from.priority;
+		this.textureVertexA = from.textureVertexA;
+		this.textureVertexB = from.textureVertexB;
+		this.textureVertexC = from.textureVertexC;
 	}
 
 	@OriginalMember(owner = "client!eb", name = "<init>", descriptor = "(Lclient!eb;BZZ)V")
-	public Model(@OriginalArg(0) Model arg0, @OriginalArg(2) boolean arg2, @OriginalArg(3) boolean arg3) {
-		this.vertexCount = arg0.vertexCount;
-		this.triangleCount = arg0.triangleCount;
-		this.texturedCount = arg0.texturedCount;
+	public Model(@OriginalArg(0) Model from, @OriginalArg(2) boolean arg2, @OriginalArg(3) boolean arg3) {
+		this.vertexCount = from.vertexCount;
+		this.faceCount = from.faceCount;
+		this.texturedCount = from.texturedCount;
 		@Pc(42) int local42;
 		if (arg2) {
 			this.vertexY = new int[this.vertexCount];
 			for (local42 = 0; local42 < this.vertexCount; local42++) {
-				this.vertexY[local42] = arg0.vertexY[local42];
+				this.vertexY[local42] = from.vertexY[local42];
 			}
 		} else {
-			this.vertexY = arg0.vertexY;
+			this.vertexY = from.vertexY;
 		}
 		if (arg3) {
-			this.colorA = new int[this.triangleCount];
-			this.colorB = new int[this.triangleCount];
-			this.colorC = new int[this.triangleCount];
-			for (local42 = 0; local42 < this.triangleCount; local42++) {
-				this.colorA[local42] = arg0.colorA[local42];
-				this.colorB[local42] = arg0.colorB[local42];
-				this.colorC[local42] = arg0.colorC[local42];
+			this.faceColorA = new int[this.faceCount];
+			this.faceColorB = new int[this.faceCount];
+			this.faceColorC = new int[this.faceCount];
+			for (local42 = 0; local42 < this.faceCount; local42++) {
+				this.faceColorA[local42] = from.faceColorA[local42];
+				this.faceColorB[local42] = from.faceColorB[local42];
+				this.faceColorC[local42] = from.faceColorC[local42];
 			}
-			this.triangleInfo = new int[this.triangleCount];
+			this.faceInfo = new int[this.faceCount];
 			@Pc(122) int local122;
-			if (arg0.triangleInfo == null) {
-				for (local122 = 0; local122 < this.triangleCount; local122++) {
-					this.triangleInfo[local122] = 0;
+			if (from.faceInfo == null) {
+				for (local122 = 0; local122 < this.faceCount; local122++) {
+					this.faceInfo[local122] = 0;
 				}
 			} else {
-				for (local122 = 0; local122 < this.triangleCount; local122++) {
-					this.triangleInfo[local122] = arg0.triangleInfo[local122];
+				for (local122 = 0; local122 < this.faceCount; local122++) {
+					this.faceInfo[local122] = from.faceInfo[local122];
 				}
 			}
-			this.vertexNormals = new VertexNormal[this.vertexCount];
+			this.vertexNormal = new VertexNormal[this.vertexCount];
 			for (local122 = 0; local122 < this.vertexCount; local122++) {
-				@Pc(170) VertexNormal local170 = this.vertexNormals[local122] = new VertexNormal();
-				@Pc(175) VertexNormal local175 = arg0.vertexNormals[local122];
+				@Pc(170) VertexNormal local170 = this.vertexNormal[local122] = new VertexNormal();
+				@Pc(175) VertexNormal local175 = from.vertexNormal[local122];
 				local170.x = local175.x;
 				local170.y = local175.y;
 				local170.z = local175.z;
 				local170.magnitude = local175.magnitude;
 			}
-			this.vertexNormalOriginal = arg0.vertexNormalOriginal;
+			this.vertexNormalOriginal = from.vertexNormalOriginal;
 		} else {
-			this.colorA = arg0.colorA;
-			this.colorB = arg0.colorB;
-			this.colorC = arg0.colorC;
-			this.triangleInfo = arg0.triangleInfo;
+			this.faceColorA = from.faceColorA;
+			this.faceColorB = from.faceColorB;
+			this.faceColorC = from.faceColorC;
+			this.faceInfo = from.faceInfo;
 		}
-		this.vertexX = arg0.vertexX;
-		this.vertexZ = arg0.vertexZ;
-		this.unmodifiedTriangleColor = arg0.unmodifiedTriangleColor;
-		this.triangleAlpha = arg0.triangleAlpha;
-		this.trianglePriorities = arg0.trianglePriorities;
-		this.priority = arg0.priority;
-		this.triangleVertexA = arg0.triangleVertexA;
-		this.triangleVertexB = arg0.triangleVertexB;
-		this.triangleVertexC = arg0.triangleVertexC;
-		this.textureVertexA = arg0.textureVertexA;
-		this.textureVertexB = arg0.textureVertexB;
-		this.textureVertexC = arg0.textureVertexC;
-		this.maxBoundY = arg0.maxBoundY;
-		this.minBoundY = arg0.minBoundY;
-		this.lengthXZ = arg0.lengthXZ;
-		this.minDepth = arg0.minDepth;
-		this.maxDepth = arg0.maxDepth;
-		this.minBoundX = arg0.minBoundX;
-		this.maxBoundZ = arg0.maxBoundZ;
-		this.minBoundZ = arg0.minBoundZ;
-		this.maxBoundX = arg0.maxBoundX;
+		this.vertexX = from.vertexX;
+		this.vertexZ = from.vertexZ;
+		this.faceColor = from.faceColor;
+		this.faceAlpha = from.faceAlpha;
+		this.facePriority = from.facePriority;
+		this.priority = from.priority;
+		this.faceVertexA = from.faceVertexA;
+		this.faceVertexB = from.faceVertexB;
+		this.faceVertexC = from.faceVertexC;
+		this.textureVertexA = from.textureVertexA;
+		this.textureVertexB = from.textureVertexB;
+		this.textureVertexC = from.textureVertexC;
+		this.maxBoundY = from.maxBoundY;
+		this.minBoundY = from.minBoundY;
+		this.lengthXZ = from.lengthXZ;
+		this.minDepth = from.minDepth;
+		this.maxDepth = from.maxDepth;
+		this.minBoundX = from.minBoundX;
+		this.maxBoundZ = from.maxBoundZ;
+		this.minBoundZ = from.minBoundZ;
+		this.maxBoundX = from.maxBoundX;
 	}
 
 	@OriginalMember(owner = "client!eb", name = "<init>", descriptor = "(ILclient!eb;Z)V")
 	public Model(@OriginalArg(1) Model arg1, @OriginalArg(2) boolean arg2) {
 		this.vertexCount = arg1.vertexCount;
-		this.triangleCount = arg1.triangleCount;
+		this.faceCount = arg1.faceCount;
 		this.texturedCount = arg1.texturedCount;
 		this.vertexX = new int[this.vertexCount];
 		this.vertexY = new int[this.vertexCount];
@@ -768,32 +834,32 @@ public class Model extends CacheableNode {
 			this.vertexZ[local50] = arg1.vertexZ[local50];
 		}
 		if (arg2) {
-			this.triangleAlpha = arg1.triangleAlpha;
+			this.faceAlpha = arg1.faceAlpha;
 		} else {
-			this.triangleAlpha = new int[this.triangleCount];
+			this.faceAlpha = new int[this.faceCount];
 			@Pc(99) int local99;
-			if (arg1.triangleAlpha == null) {
-				for (local99 = 0; local99 < this.triangleCount; local99++) {
-					this.triangleAlpha[local99] = 0;
+			if (arg1.faceAlpha == null) {
+				for (local99 = 0; local99 < this.faceCount; local99++) {
+					this.faceAlpha[local99] = 0;
 				}
 			} else {
-				for (local99 = 0; local99 < this.triangleCount; local99++) {
-					this.triangleAlpha[local99] = arg1.triangleAlpha[local99];
+				for (local99 = 0; local99 < this.faceCount; local99++) {
+					this.faceAlpha[local99] = arg1.faceAlpha[local99];
 				}
 			}
 		}
-		this.triangleInfo = arg1.triangleInfo;
-		this.unmodifiedTriangleColor = arg1.unmodifiedTriangleColor;
-		this.trianglePriorities = arg1.trianglePriorities;
+		this.faceInfo = arg1.faceInfo;
+		this.faceColor = arg1.faceColor;
+		this.facePriority = arg1.facePriority;
 		this.priority = arg1.priority;
-		this.skinTriangle = arg1.skinTriangle;
+		this.labelFaces = arg1.labelFaces;
 		this.labelVertices = arg1.labelVertices;
-		this.triangleVertexA = arg1.triangleVertexA;
-		this.triangleVertexB = arg1.triangleVertexB;
-		this.triangleVertexC = arg1.triangleVertexC;
-		this.colorA = arg1.colorA;
-		this.colorB = arg1.colorB;
-		this.colorC = arg1.colorC;
+		this.faceVertexA = arg1.faceVertexA;
+		this.faceVertexB = arg1.faceVertexB;
+		this.faceVertexC = arg1.faceVertexC;
+		this.faceColorA = arg1.faceColorA;
+		this.faceColorB = arg1.faceColorB;
+		this.faceColorC = arg1.faceColorC;
 		this.textureVertexA = arg1.textureVertexA;
 		this.textureVertexB = arg1.textureVertexB;
 		this.textureVertexC = arg1.textureVertexC;
@@ -816,14 +882,14 @@ public class Model extends CacheableNode {
 		vertex1 = null;
 		vertex2 = null;
 		axis = null;
-		testTriangleX = null;
-		projectTriangle = null;
+		faceClippedX = null;
+		faceNearClipped = null;
 		vertexScreenX = null;
 		vertexScreenY = null;
 		vertexDepth = null;
 		projectSceneX = null;
 		projectSceneY = null;
-		projectSceneZ = null;
+		vertexViewSpaceZ = null;
 		depthTriangleCount = null;
 		depthTriangles = null;
 		priorityTriangleCounts = null;
@@ -876,14 +942,14 @@ public class Model extends CacheableNode {
 				@Pc(198) int local198 = head.g2();
 				@Pc(206) Metadata local206 = metadata[local198] = new Metadata();
 				local206.vertexCount = head.g2();
-				local206.triangleCount = head.g2();
+				local206.faceCount = head.g2();
 				local206.texturedCount = head.g1();
-				local206.vertexFlagDataOffset = point1.pos;
-				local206.vertexXDataOffset = point2.pos;
-				local206.vertexYDataOffset = point3.pos;
-				local206.vertexZDataOffset = point4.pos;
-				local206.vertexIndexDataOffset = vertex1.pos;
-				local206.triangleTypeDataOffset = vertex2.pos;
+				local206.vertexFlagsOffset = point1.pos;
+				local206.vertexXOffset = point2.pos;
+				local206.vertexYOffset = point3.pos;
+				local206.vertexZOffset = point4.pos;
+				local206.faceVerticesOffset = vertex1.pos;
+				local206.faceOrientationsOffset = vertex2.pos;
 				@Pc(245) int local245 = head.g1();
 				@Pc(248) int local248 = head.g1();
 				@Pc(251) int local251 = head.g1();
@@ -902,7 +968,7 @@ public class Model extends CacheableNode {
 						point4.gsmart();
 					}
 				}
-				for (local264 = 0; local264 < local206.triangleCount; local264++) {
+				for (local264 = 0; local264 < local206.faceCount; local264++) {
 					@Pc(297) int local297 = vertex2.g1();
 					if (local297 == 1) {
 						vertex1.gsmart();
@@ -910,39 +976,39 @@ public class Model extends CacheableNode {
 					}
 					vertex1.gsmart();
 				}
-				local206.triangleColorDataOffset = local183;
-				local183 += local206.triangleCount * 2;
+				local206.faceColorsOffset = local183;
+				local183 += local206.faceCount * 2;
 				if (local245 == 1) {
-					local206.triangleInfoDataOffset = local185;
-					local185 += local206.triangleCount;
+					local206.faceInfosOffset = local185;
+					local185 += local206.faceCount;
 				} else {
-					local206.triangleInfoDataOffset = -1;
+					local206.faceInfosOffset = -1;
 				}
 				if (local248 == 255) {
-					local206.trianglePriorityDataOffset = local187;
-					local187 += local206.triangleCount;
+					local206.facePrioritiesOffset = local187;
+					local187 += local206.faceCount;
 				} else {
-					local206.trianglePriorityDataOffset = -local248 - 1;
+					local206.facePrioritiesOffset = -local248 - 1;
 				}
 				if (local251 == 1) {
-					local206.triangleAlphaDataOffset = local189;
-					local189 += local206.triangleCount;
+					local206.faceAlphasOffset = local189;
+					local189 += local206.faceCount;
 				} else {
-					local206.triangleAlphaDataOffset = -1;
+					local206.faceAlphasOffset = -1;
 				}
 				if (local254 == 1) {
-					local206.triangleSkinDataOffset = local191;
-					local191 += local206.triangleCount;
+					local206.faceLabelOffset = local191;
+					local191 += local206.faceCount;
 				} else {
-					local206.triangleSkinDataOffset = -1;
+					local206.faceLabelOffset = -1;
 				}
 				if (local257 == 1) {
-					local206.vertexLabelDataOffset = local181;
+					local206.vertexLabelsOffset = local181;
 					local181 += local206.vertexCount;
 				} else {
-					local206.vertexLabelDataOffset = -1;
+					local206.vertexLabelsOffset = -1;
 				}
-				local206.triangleTextureDataOffset = local179;
+				local206.faceTextureAxisOffset = local179;
 				local179 += local206.texturedCount;
 			}
 		} catch (@Pc(421) Exception ex) {
@@ -995,7 +1061,7 @@ public class Model extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!eb", name = "a", descriptor = "(I)V")
-	public void calculateYBoundaries() {
+	public void calculateBoundsCylinder() {
 		this.maxBoundY = 0;
 		this.lengthXZ = 0;
 		this.minBoundY = 0;
@@ -1037,7 +1103,7 @@ public class Model extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!eb", name = "a", descriptor = "(B)V")
-	private void calculateBoundaries() {
+	private void calculateBoundsAABB() {
 		this.maxBoundY = 0;
 		this.lengthXZ = 0;
 		this.minBoundY = 0;
@@ -1078,7 +1144,7 @@ public class Model extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!eb", name = "c", descriptor = "(I)V")
-	public void applyGroup() {
+	public void createLabelReferences() {
 		@Pc(11) int[] local11;
 		@Pc(26) int local26;
 		@Pc(13) int local13;
@@ -1108,128 +1174,128 @@ public class Model extends CacheableNode {
 			}
 			this.vertexLabel = null;
 		}
-		if (this.triangleSkin != null) {
+		if (this.faceLabel != null) {
 			local11 = new int[256];
 			local13 = 0;
-			for (local15 = 0; local15 < this.triangleCount; local15++) {
-				local22 = this.triangleSkin[local15];
+			for (local15 = 0; local15 < this.faceCount; local15++) {
+				local22 = this.faceLabel[local15];
 				local26 = local11[local22]++;
 				if (local22 > local13) {
 					local13 = local22;
 				}
 			}
-			this.skinTriangle = new int[local13 + 1][];
+			this.labelFaces = new int[local13 + 1][];
 			for (local22 = 0; local22 <= local13; local22++) {
-				this.skinTriangle[local22] = new int[local11[local22]];
+				this.labelFaces[local22] = new int[local11[local22]];
 				local11[local22] = 0;
 			}
 			local67 = 0;
-			while (local67 < this.triangleCount) {
-				local74 = this.triangleSkin[local67];
-				this.skinTriangle[local74][local11[local74]++] = local67++;
+			while (local67 < this.faceCount) {
+				local74 = this.faceLabel[local67];
+				this.labelFaces[local74][local11[local74]++] = local67++;
 			}
-			this.triangleSkin = null;
+			this.faceLabel = null;
 		}
 	}
 
 	@OriginalMember(owner = "client!eb", name = "a", descriptor = "(II)V")
-	public void applyFrame(@OriginalArg(1) int arg1) {
+	public void applyTransform(@OriginalArg(1) int arg1) {
 		if (this.labelVertices == null || arg1 == -1) {
 			return;
 		}
 
-		@Pc(11) AnimFrame local11 = AnimFrame.instances[arg1];
-		@Pc(14) AnimBase local14 = local11.transform;
-		transformX = 0;
-		transformY = 0;
-		transformZ = 0;
-		for (@Pc(22) int local22 = 0; local22 < local11.groupCount; local22++) {
-			@Pc(29) int local29 = local11.groups[local22];
-			this.transform(local14.types[local29], local14.groupLabels[local29], local11.x[local22], local11.y[local22], local11.z[local22]);
+		@Pc(11) SeqFrame local11 = SeqFrame.instances[arg1];
+		@Pc(14) SeqBase local14 = local11.base;
+		baseX = 0;
+		baseY = 0;
+		baseZ = 0;
+		for (@Pc(22) int local22 = 0; local22 < local11.length; local22++) {
+			@Pc(29) int local29 = local11.bases[local22];
+			this.applyTransform(local14.types[local29], local14.labels[local29], local11.x[local22], local11.y[local22], local11.z[local22]);
 		}
 	}
 
 	@OriginalMember(owner = "client!eb", name = "a", descriptor = "(III[I)V")
-	public void applyFrames(@OriginalArg(0) int arg0, @OriginalArg(2) int arg2, @OriginalArg(3) int[] arg3) {
+	public void applyTransforms(@OriginalArg(0) int arg0, @OriginalArg(2) int arg2, @OriginalArg(3) int[] arg3) {
 		if (arg3 == null || arg0 == -1) {
-			this.applyFrame(arg2);
+			this.applyTransform(arg2);
 		} else {
-			@Pc(19) AnimFrame local19 = AnimFrame.instances[arg2];
-			@Pc(32) AnimFrame local32 = AnimFrame.instances[arg0];
-			@Pc(35) AnimBase local35 = local19.transform;
-			transformX = 0;
-			transformY = 0;
-			transformZ = 0;
+			@Pc(19) SeqFrame local19 = SeqFrame.instances[arg2];
+			@Pc(32) SeqFrame local32 = SeqFrame.instances[arg0];
+			@Pc(35) SeqBase local35 = local19.base;
+			baseX = 0;
+			baseY = 0;
+			baseZ = 0;
 			@Pc(43) byte local43 = 0;
 			@Pc(46) int local46 = local43 + 1;
 			@Pc(48) int local48 = arg3[local43];
 			@Pc(57) int local57;
-			for (@Pc(50) int local50 = 0; local50 < local19.groupCount; local50++) {
-				local57 = local19.groups[local50];
+			for (@Pc(50) int local50 = 0; local50 < local19.length; local50++) {
+				local57 = local19.bases[local50];
 				while (local57 > local48) {
 					local48 = arg3[local46++];
 				}
 				if (local57 != local48 || local35.types[local57] == 0) {
-					this.transform(local35.types[local57], local35.groupLabels[local57], local19.x[local50], local19.y[local50], local19.z[local50]);
+					this.applyTransform(local35.types[local57], local35.labels[local57], local19.x[local50], local19.y[local50], local19.z[local50]);
 				}
 			}
-			transformX = 0;
-			transformY = 0;
-			transformZ = 0;
+			baseX = 0;
+			baseY = 0;
+			baseZ = 0;
 			local43 = 0;
 			local46 = local43 + 1;
 			local48 = arg3[local43];
-			for (local57 = 0; local57 < local32.groupCount; local57++) {
-				@Pc(124) int local124 = local32.groups[local57];
+			for (local57 = 0; local57 < local32.length; local57++) {
+				@Pc(124) int local124 = local32.bases[local57];
 				while (local124 > local48) {
 					local48 = arg3[local46++];
 				}
 				if (local124 == local48 || local35.types[local124] == 0) {
-					this.transform(local35.types[local124], local35.groupLabels[local124], local32.x[local57], local32.y[local57], local32.z[local57]);
+					this.applyTransform(local35.types[local124], local35.labels[local124], local32.x[local57], local32.y[local57], local32.z[local57]);
 				}
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!eb", name = "a", descriptor = "(I[IIII)V")
-	private void transform(@OriginalArg(0) int arg0, @OriginalArg(1) int[] arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
+	private void applyTransform(@OriginalArg(0) int type, @OriginalArg(1) int[] arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
 		@Pc(4) int local4 = arg1.length;
 		@Pc(8) int local8;
 		@Pc(16) int local16;
 		@Pc(34) int local34;
 		@Pc(40) int local40;
-		if (arg0 == 0) {
+		if (type == SeqBase.OP_BASE) {
 			local8 = 0;
-			transformX = 0;
-			transformY = 0;
-			transformZ = 0;
+			baseX = 0;
+			baseY = 0;
+			baseZ = 0;
 			for (local16 = 0; local16 < local4; local16++) {
 				@Pc(22) int local22 = arg1[local16];
 				if (local22 < this.labelVertices.length) {
 					@Pc(32) int[] local32 = this.labelVertices[local22];
 					for (local34 = 0; local34 < local32.length; local34++) {
 						local40 = local32[local34];
-						transformX += this.vertexX[local40];
-						transformY += this.vertexY[local40];
-						transformZ += this.vertexZ[local40];
+						baseX += this.vertexX[local40];
+						baseY += this.vertexY[local40];
+						baseZ += this.vertexZ[local40];
 						local8++;
 					}
 				}
 			}
 			if (local8 > 0) {
-				transformX = transformX / local8 + arg2;
-				transformY = transformY / local8 + arg3;
-				transformZ = transformZ / local8 + arg4;
+				baseX = baseX / local8 + arg2;
+				baseY = baseY / local8 + arg3;
+				baseZ = baseZ / local8 + arg4;
 			} else {
-				transformX = arg2;
-				transformY = arg3;
-				transformZ = arg4;
+				baseX = arg2;
+				baseY = arg3;
+				baseZ = arg4;
 			}
 			return;
 		}
 		@Pc(120) int[] local120;
 		@Pc(122) int local122;
-		if (arg0 == 1) {
+		if (type == SeqBase.OP_TRANSLATE) {
 			for (local8 = 0; local8 < local4; local8++) {
 				local16 = arg1[local8];
 				if (local16 < this.labelVertices.length) {
@@ -1242,16 +1308,16 @@ public class Model extends CacheableNode {
 					}
 				}
 			}
-		} else if (arg0 == 2) {
+		} else if (type == SeqBase.OP_ROTATE) {
 			for (local8 = 0; local8 < local4; local8++) {
 				local16 = arg1[local8];
 				if (local16 < this.labelVertices.length) {
 					local120 = this.labelVertices[local16];
 					for (local122 = 0; local122 < local120.length; local122++) {
 						local34 = local120[local122];
-						this.vertexX[local34] -= transformX;
-						this.vertexY[local34] -= transformY;
-						this.vertexZ[local34] -= transformZ;
+						this.vertexX[local34] -= baseX;
+						this.vertexY[local34] -= baseY;
+						this.vertexZ[local34] -= baseZ;
 						local40 = (arg2 & 0xFF) * 8;
 						@Pc(227) int local227 = (arg3 & 0xFF) * 8;
 						@Pc(233) int local233 = (arg4 & 0xFF) * 8;
@@ -1279,44 +1345,44 @@ public class Model extends CacheableNode {
 							this.vertexZ[local34] = this.vertexZ[local34] * local243 - this.vertexX[local34] * local239 >> 16;
 							this.vertexX[local34] = local259;
 						}
-						this.vertexX[local34] += transformX;
-						this.vertexY[local34] += transformY;
-						this.vertexZ[local34] += transformZ;
+						this.vertexX[local34] += baseX;
+						this.vertexY[local34] += baseY;
+						this.vertexZ[local34] += baseZ;
 					}
 				}
 			}
-		} else if (arg0 == 3) {
+		} else if (type == SeqBase.OP_SCALE) {
 			for (local8 = 0; local8 < local4; local8++) {
 				local16 = arg1[local8];
 				if (local16 < this.labelVertices.length) {
 					local120 = this.labelVertices[local16];
 					for (local122 = 0; local122 < local120.length; local122++) {
 						local34 = local120[local122];
-						this.vertexX[local34] -= transformX;
-						this.vertexY[local34] -= transformY;
-						this.vertexZ[local34] -= transformZ;
+						this.vertexX[local34] -= baseX;
+						this.vertexY[local34] -= baseY;
+						this.vertexZ[local34] -= baseZ;
 						this.vertexX[local34] = this.vertexX[local34] * arg2 / 128;
 						this.vertexY[local34] = this.vertexY[local34] * arg3 / 128;
 						this.vertexZ[local34] = this.vertexZ[local34] * arg4 / 128;
-						this.vertexX[local34] += transformX;
-						this.vertexY[local34] += transformY;
-						this.vertexZ[local34] += transformZ;
+						this.vertexX[local34] += baseX;
+						this.vertexY[local34] += baseY;
+						this.vertexZ[local34] += baseZ;
 					}
 				}
 			}
-		} else if (arg0 == 5 && (this.skinTriangle != null && this.triangleAlpha != null)) {
+		} else if (type == SeqBase.OP_ALPHA && (this.labelFaces != null && this.faceAlpha != null)) {
 			for (local8 = 0; local8 < local4; local8++) {
 				local16 = arg1[local8];
-				if (local16 < this.skinTriangle.length) {
-					local120 = this.skinTriangle[local16];
+				if (local16 < this.labelFaces.length) {
+					local120 = this.labelFaces[local16];
 					for (local122 = 0; local122 < local120.length; local122++) {
 						local34 = local120[local122];
-						this.triangleAlpha[local34] += arg2 * 8;
-						if (this.triangleAlpha[local34] < 0) {
-							this.triangleAlpha[local34] = 0;
+						this.faceAlpha[local34] += arg2 * 8;
+						if (this.faceAlpha[local34] < 0) {
+							this.faceAlpha[local34] = 0;
 						}
-						if (this.triangleAlpha[local34] > 255) {
-							this.triangleAlpha[local34] = 255;
+						if (this.faceAlpha[local34] > 255) {
+							this.faceAlpha[local34] = 255;
 						}
 					}
 				}
@@ -1325,7 +1391,7 @@ public class Model extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!eb", name = "d", descriptor = "(I)V")
-	public void rotateCounterClockwise() {
+	public void rotateY90() {
 		for (@Pc(6) int local6 = 0; local6 < this.vertexCount; local6++) {
 			@Pc(13) int local13 = this.vertexX[local6];
 			this.vertexX[local6] = this.vertexZ[local6];
@@ -1334,7 +1400,7 @@ public class Model extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!eb", name = "a", descriptor = "(BI)V")
-	public void rotatePitch(@OriginalArg(1) int arg1) {
+	public void rotateX(@OriginalArg(1) int arg1) {
 		@Pc(3) int local3 = sin[arg1];
 		@Pc(7) int local7 = cos[arg1];
 		for (@Pc(9) int local9 = 0; local9 < this.vertexCount; local9++) {
@@ -1355,23 +1421,23 @@ public class Model extends CacheableNode {
 
 	@OriginalMember(owner = "client!eb", name = "b", descriptor = "(II)V")
 	public void recolor(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1) {
-		for (@Pc(1) int local1 = 0; local1 < this.triangleCount; local1++) {
-			if (this.unmodifiedTriangleColor[local1] == arg0) {
-				this.unmodifiedTriangleColor[local1] = arg1;
+		for (@Pc(1) int local1 = 0; local1 < this.faceCount; local1++) {
+			if (this.faceColor[local1] == arg0) {
+				this.faceColor[local1] = arg1;
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!eb", name = "e", descriptor = "(I)V")
-	public void flipBackwards() {
+	public void rotateY180() {
 		for (@Pc(3) int local3 = 0; local3 < this.vertexCount; local3++) {
 			this.vertexZ[local3] = -this.vertexZ[local3];
 		}
 		@Pc(28) int local28;
-		for (@Pc(21) int local21 = 0; local21 < this.triangleCount; local21++) {
-			local28 = this.triangleVertexA[local21];
-			this.triangleVertexA[local21] = this.triangleVertexC[local21];
-			this.triangleVertexC[local21] = local28;
+		for (@Pc(21) int local21 = 0; local21 < this.faceCount; local21++) {
+			local28 = this.faceVertexA[local21];
+			this.faceVertexA[local21] = this.faceVertexC[local21];
+			this.faceVertexC[local21] = local28;
 		}
 	}
 
@@ -1385,26 +1451,26 @@ public class Model extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!eb", name = "a", descriptor = "(IIIIIZ)V")
-	public void applyLighting(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) boolean arg5) {
+	public void calculateNormals(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) boolean arg5) {
 		@Pc(16) int local16 = (int) Math.sqrt(arg2 * arg2 + arg3 * arg3 + arg4 * arg4);
 		@Pc(22) int local22 = arg1 * local16 >> 8;
-		if (this.colorA == null) {
-			this.colorA = new int[this.triangleCount];
-			this.colorB = new int[this.triangleCount];
-			this.colorC = new int[this.triangleCount];
+		if (this.faceColorA == null) {
+			this.faceColorA = new int[this.faceCount];
+			this.faceColorB = new int[this.faceCount];
+			this.faceColorC = new int[this.faceCount];
 		}
 		@Pc(50) int local50;
-		if (this.vertexNormals == null) {
-			this.vertexNormals = new VertexNormal[this.vertexCount];
+		if (this.vertexNormal == null) {
+			this.vertexNormal = new VertexNormal[this.vertexCount];
 			for (local50 = 0; local50 < this.vertexCount; local50++) {
-				this.vertexNormals[local50] = new VertexNormal();
+				this.vertexNormal[local50] = new VertexNormal();
 			}
 		}
 		@Pc(73) int local73;
-		for (local50 = 0; local50 < this.triangleCount; local50++) {
-			local73 = this.triangleVertexA[local50];
-			@Pc(78) int local78 = this.triangleVertexB[local50];
-			@Pc(83) int local83 = this.triangleVertexC[local50];
+		for (local50 = 0; local50 < this.faceCount; local50++) {
+			local73 = this.faceVertexA[local50];
+			@Pc(78) int local78 = this.faceVertexB[local50];
+			@Pc(83) int local83 = this.faceVertexC[local50];
 			@Pc(93) int local93 = this.vertexX[local78] - this.vertexX[local73];
 			@Pc(103) int local103 = this.vertexY[local78] - this.vertexY[local73];
 			@Pc(113) int local113 = this.vertexZ[local78] - this.vertexZ[local73];
@@ -1425,98 +1491,98 @@ public class Model extends CacheableNode {
 			local151 = local151 * 256 / local214;
 			local159 = local159 * 256 / local214;
 			local167 = local167 * 256 / local214;
-			if (this.triangleInfo == null || (this.triangleInfo[local50] & 0x1) == 0) {
-				@Pc(251) VertexNormal local251 = this.vertexNormals[local73];
+			if (this.faceInfo == null || (this.faceInfo[local50] & 0x1) == 0) {
+				@Pc(251) VertexNormal local251 = this.vertexNormal[local73];
 				local251.x += local151;
 				local251.y += local159;
 				local251.z += local167;
 				local251.magnitude++;
-				@Pc(280) VertexNormal local280 = this.vertexNormals[local78];
+				@Pc(280) VertexNormal local280 = this.vertexNormal[local78];
 				local280.x += local151;
 				local280.y += local159;
 				local280.z += local167;
 				local280.magnitude++;
-				@Pc(309) VertexNormal local309 = this.vertexNormals[local83];
+				@Pc(309) VertexNormal local309 = this.vertexNormal[local83];
 				local309.x += local151;
 				local309.y += local159;
 				local309.z += local167;
 				local309.magnitude++;
 			} else {
 				@Pc(355) int local355 = arg0 + (arg2 * local151 + arg3 * local159 + arg4 * local167) / (local22 + local22 / 2);
-				this.colorA[local50] = adjustHslLightness(this.unmodifiedTriangleColor[local50], local355, this.triangleInfo[local50]);
+				this.faceColorA[local50] = adjustHslLightness(this.faceColor[local50], local355, this.faceInfo[local50]);
 			}
 		}
 		if (arg5) {
-			this.calculateLighting(arg0, local22, arg2, arg3, arg4);
+			this.applyLighting(arg0, local22, arg2, arg3, arg4);
 		} else {
 			this.vertexNormalOriginal = new VertexNormal[this.vertexCount];
 			for (local73 = 0; local73 < this.vertexCount; local73++) {
-				@Pc(399) VertexNormal local399 = this.vertexNormals[local73];
-				@Pc(408) VertexNormal local408 = this.vertexNormalOriginal[local73] = new VertexNormal();
-				local408.x = local399.x;
-				local408.y = local399.y;
-				local408.z = local399.z;
-				local408.magnitude = local399.magnitude;
+				@Pc(399) VertexNormal normal = this.vertexNormal[local73];
+				@Pc(408) VertexNormal copy = this.vertexNormalOriginal[local73] = new VertexNormal();
+				copy.x = normal.x;
+				copy.y = normal.y;
+				copy.z = normal.z;
+				copy.magnitude = normal.magnitude;
 			}
 		}
 		if (arg5) {
-			this.calculateYBoundaries();
+			this.calculateBoundsCylinder();
 		} else {
-			this.calculateBoundaries();
+			this.calculateBoundsAABB();
 		}
 	}
 
 	@OriginalMember(owner = "client!eb", name = "a", descriptor = "(IIIII)V")
-	public void calculateLighting(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
+	public void applyLighting(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4) {
 		@Pc(10) int local10;
-		for (@Pc(3) int local3 = 0; local3 < this.triangleCount; local3++) {
-			local10 = this.triangleVertexA[local3];
-			@Pc(15) int local15 = this.triangleVertexB[local3];
-			@Pc(20) int local20 = this.triangleVertexC[local3];
+		for (@Pc(3) int local3 = 0; local3 < this.faceCount; local3++) {
+			local10 = this.faceVertexA[local3];
+			@Pc(15) int local15 = this.faceVertexB[local3];
+			@Pc(20) int local20 = this.faceVertexC[local3];
 			@Pc(33) VertexNormal local33;
 			@Pc(55) int local55;
 			@Pc(28) int local28;
-			if (this.triangleInfo == null) {
-				local28 = this.unmodifiedTriangleColor[local3];
-				local33 = this.vertexNormals[local10];
+			if (this.faceInfo == null) {
+				local28 = this.faceColor[local3];
+				local33 = this.vertexNormal[local10];
 				local55 = arg0 + (arg2 * local33.x + arg3 * local33.y + arg4 * local33.z) / (arg1 * local33.magnitude);
-				this.colorA[local3] = adjustHslLightness(local28, local55, 0);
-				@Pc(68) VertexNormal local68 = this.vertexNormals[local15];
+				this.faceColorA[local3] = adjustHslLightness(local28, local55, 0);
+				@Pc(68) VertexNormal local68 = this.vertexNormal[local15];
 				@Pc(90) int local90 = arg0 + (arg2 * local68.x + arg3 * local68.y + arg4 * local68.z) / (arg1 * local68.magnitude);
-				this.colorB[local3] = adjustHslLightness(local28, local90, 0);
-				@Pc(103) VertexNormal local103 = this.vertexNormals[local20];
+				this.faceColorB[local3] = adjustHslLightness(local28, local90, 0);
+				@Pc(103) VertexNormal local103 = this.vertexNormal[local20];
 				@Pc(125) int local125 = arg0 + (arg2 * local103.x + arg3 * local103.y + arg4 * local103.z) / (arg1 * local103.magnitude);
-				this.colorC[local3] = adjustHslLightness(local28, local125, 0);
-			} else if ((this.triangleInfo[local3] & 0x1) == 0) {
-				local28 = this.unmodifiedTriangleColor[local3];
-				@Pc(152) int local152 = this.triangleInfo[local3];
-				local33 = this.vertexNormals[local10];
+				this.faceColorC[local3] = adjustHslLightness(local28, local125, 0);
+			} else if ((this.faceInfo[local3] & 0x1) == 0) {
+				local28 = this.faceColor[local3];
+				@Pc(152) int local152 = this.faceInfo[local3];
+				local33 = this.vertexNormal[local10];
 				local55 = arg0 + (arg2 * local33.x + arg3 * local33.y + arg4 * local33.z) / (arg1 * local33.magnitude);
-				this.colorA[local3] = adjustHslLightness(local28, local55, local152);
-				local33 = this.vertexNormals[local15];
+				this.faceColorA[local3] = adjustHslLightness(local28, local55, local152);
+				local33 = this.vertexNormal[local15];
 				local55 = arg0 + (arg2 * local33.x + arg3 * local33.y + arg4 * local33.z) / (arg1 * local33.magnitude);
-				this.colorB[local3] = adjustHslLightness(local28, local55, local152);
-				local33 = this.vertexNormals[local20];
+				this.faceColorB[local3] = adjustHslLightness(local28, local55, local152);
+				local33 = this.vertexNormal[local20];
 				local55 = arg0 + (arg2 * local33.x + arg3 * local33.y + arg4 * local33.z) / (arg1 * local33.magnitude);
-				this.colorC[local3] = adjustHslLightness(local28, local55, local152);
+				this.faceColorC[local3] = adjustHslLightness(local28, local55, local152);
 			}
 		}
-		this.vertexNormals = null;
+		this.vertexNormal = null;
 		this.vertexNormalOriginal = null;
 		this.vertexLabel = null;
-		this.triangleSkin = null;
-		if (this.triangleInfo != null) {
-			for (local10 = 0; local10 < this.triangleCount; local10++) {
-				if ((this.triangleInfo[local10] & 0x2) == 2) {
+		this.faceLabel = null;
+		if (this.faceInfo != null) {
+			for (local10 = 0; local10 < this.faceCount; local10++) {
+				if ((this.faceInfo[local10] & 0x2) == 2) {
 					return;
 				}
 			}
 		}
-		this.unmodifiedTriangleColor = null;
+		this.faceColor = null;
 	}
 
 	@OriginalMember(owner = "client!eb", name = "a", descriptor = "(IIIIIII)V")
-	public void draw(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
+	public void drawSimple(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
 		@Pc(1) int local1 = Draw3D.centerX3D;
 		@Pc(3) int local3 = Draw3D.centerY3D;
 		@Pc(7) int local7 = sin[arg0];
@@ -1559,7 +1625,7 @@ public class Model extends CacheableNode {
 			if (this.texturedCount > 0) {
 				projectSceneX[local47] = local54;
 				projectSceneY[local47] = local76;
-				projectSceneZ[local47] = local64;
+				vertexViewSpaceZ[local47] = local64;
 			}
 		}
 		try {
@@ -1629,7 +1695,7 @@ public class Model extends CacheableNode {
 			local208 = cursorY - Draw3D.centerY3D;
 			if (local204 > local56 && local204 < local69 && local208 > local121 && local208 < local99) {
 				if (this.pickable) {
-					hoveredBitsets[resourceCount++] = arg8;
+					pickedBitsets[resourceCount++] = arg8;
 				} else {
 					local147 = true;
 				}
@@ -1672,7 +1738,7 @@ public class Model extends CacheableNode {
 			if (local138 || this.texturedCount > 0) {
 				projectSceneX[local255] = local262;
 				projectSceneY[local255] = local284;
-				projectSceneZ[local255] = local272;
+				vertexViewSpaceZ[local255] = local272;
 			}
 		}
 		try {
@@ -1682,7 +1748,7 @@ public class Model extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!eb", name = "a", descriptor = "(ZZI)V")
-	private void draw(@OriginalArg(0) boolean arg0, @OriginalArg(1) boolean arg1, @OriginalArg(2) int arg2) {
+	private void draw(@OriginalArg(0) boolean clipped, @OriginalArg(1) boolean picking, @OriginalArg(2) int bitset) {
 		for (@Pc(3) int local3 = 0; local3 < this.maxDepth; local3++) {
 			depthTriangleCount[local3] = 0;
 		}
@@ -1693,29 +1759,29 @@ public class Model extends CacheableNode {
 		@Pc(50) int local50;
 		@Pc(54) int local54;
 		@Pc(86) int local86;
-		for (@Pc(16) int local16 = 0; local16 < this.triangleCount; local16++) {
-			if (this.triangleInfo == null || this.triangleInfo[local16] != -1) {
-				local32 = this.triangleVertexA[local16];
-				local37 = this.triangleVertexB[local16];
-				local42 = this.triangleVertexC[local16];
+		for (@Pc(16) int local16 = 0; local16 < this.faceCount; local16++) {
+			if (this.faceInfo == null || this.faceInfo[local16] != -1) {
+				local32 = this.faceVertexA[local16];
+				local37 = this.faceVertexB[local16];
+				local42 = this.faceVertexC[local16];
 				local46 = vertexScreenX[local32];
 				local50 = vertexScreenX[local37];
 				local54 = vertexScreenX[local42];
-				if (arg0 && (local46 == -5000 || local50 == -5000 || local54 == -5000)) {
-					projectTriangle[local16] = true;
+				if (clipped && (local46 == -5000 || local50 == -5000 || local54 == -5000)) {
+					faceNearClipped[local16] = true;
 					local86 = (vertexDepth[local32] + vertexDepth[local37] + vertexDepth[local42]) / 3 + this.minDepth;
 					depthTriangles[local86][depthTriangleCount[local86]++] = local16;
 				} else {
-					if (arg1 && this.pointWithinTriangle(cursorX, cursorY, vertexScreenY[local32], vertexScreenY[local37], vertexScreenY[local42], local46, local50, local54)) {
-						hoveredBitsets[resourceCount++] = arg2;
-						arg1 = false;
+					if (picking && this.pointWithinTriangle(cursorX, cursorY, vertexScreenY[local32], vertexScreenY[local37], vertexScreenY[local42], local46, local50, local54)) {
+						pickedBitsets[resourceCount++] = bitset;
+						picking = false;
 					}
 					if ((local46 - local50) * (vertexScreenY[local42] - vertexScreenY[local37]) - (vertexScreenY[local32] - vertexScreenY[local37]) * (local54 - local50) > 0) {
-						projectTriangle[local16] = false;
-						if (local46 >= 0 && local50 >= 0 && local54 >= 0 && local46 <= Draw2D.safeX && local50 <= Draw2D.safeX && local54 <= Draw2D.safeX) {
-							testTriangleX[local16] = false;
+						faceNearClipped[local16] = false;
+						if (local46 >= 0 && local50 >= 0 && local54 >= 0 && local46 <= Draw2D.boundX && local50 <= Draw2D.boundX && local54 <= Draw2D.boundX) {
+							faceClippedX[local16] = false;
 						} else {
-							testTriangleX[local16] = true;
+							faceClippedX[local16] = true;
 						}
 						local86 = (vertexDepth[local32] + vertexDepth[local37] + vertexDepth[local42]) / 3 + this.minDepth;
 						depthTriangles[local86][depthTriangleCount[local86]++] = local16;
@@ -1723,13 +1789,13 @@ public class Model extends CacheableNode {
 				}
 			}
 		}
-		if (this.trianglePriorities == null) {
+		if (this.facePriority == null) {
 			for (local32 = this.maxDepth - 1; local32 >= 0; local32--) {
 				local37 = depthTriangleCount[local32];
 				if (local37 > 0) {
 					@Pc(238) int[] local238 = depthTriangles[local32];
 					for (local46 = 0; local46 < local37; local46++) {
-						this.drawTriangle(local238[local46]);
+						this.drawFace(local238[local46]);
 					}
 				}
 			}
@@ -1746,7 +1812,7 @@ public class Model extends CacheableNode {
 				@Pc(288) int[] local288 = depthTriangles[local37];
 				for (local50 = 0; local50 < local42; local50++) {
 					local54 = local288[local50];
-					local86 = this.trianglePriorities[local54];
+					local86 = this.facePriority[local54];
 					local310 = priorityTriangleCounts[local86]++;
 					priorityTriangles[local86][local310] = local54;
 					if (local86 < 10) {
@@ -1788,7 +1854,7 @@ public class Model extends CacheableNode {
 		}
 		for (@Pc(466) int local466 = 0; local466 < 10; local466++) {
 			while (local466 == 0 && local54 > local42) {
-				this.drawTriangle(local436[local86++]);
+				this.drawFace(local436[local86++]);
 				if (local86 == local310 && local436 != priorityTriangles[11]) {
 					local86 = 0;
 					local310 = priorityTriangleCounts[11];
@@ -1802,7 +1868,7 @@ public class Model extends CacheableNode {
 				}
 			}
 			while (local466 == 3 && local54 > local46) {
-				this.drawTriangle(local436[local86++]);
+				this.drawFace(local436[local86++]);
 				if (local86 == local310 && local436 != priorityTriangles[11]) {
 					local86 = 0;
 					local310 = priorityTriangleCounts[11];
@@ -1816,7 +1882,7 @@ public class Model extends CacheableNode {
 				}
 			}
 			while (local466 == 5 && local54 > local50) {
-				this.drawTriangle(local436[local86++]);
+				this.drawFace(local436[local86++]);
 				if (local86 == local310 && local436 != priorityTriangles[11]) {
 					local86 = 0;
 					local310 = priorityTriangleCounts[11];
@@ -1832,11 +1898,11 @@ public class Model extends CacheableNode {
 			@Pc(604) int local604 = priorityTriangleCounts[local466];
 			@Pc(608) int[] local608 = priorityTriangles[local466];
 			for (@Pc(610) int local610 = 0; local610 < local604; local610++) {
-				this.drawTriangle(local608[local610]);
+				this.drawFace(local608[local610]);
 			}
 		}
 		while (local54 != -1000) {
-			this.drawTriangle(local436[local86++]);
+			this.drawFace(local436[local86++]);
 			if (local86 == local310 && local436 != priorityTriangles[11]) {
 				local86 = 0;
 				local436 = priorityTriangles[11];
@@ -1852,211 +1918,211 @@ public class Model extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!eb", name = "f", descriptor = "(I)V")
-	private void drawTriangle(@OriginalArg(0) int arg0) {
-		if (projectTriangle[arg0]) {
-			this.drawProjectedTriangle(arg0);
+	private void drawFace(@OriginalArg(0) int arg0) {
+		if (faceNearClipped[arg0]) {
+			this.drawNearClippedFace(arg0);
 			return;
 		}
-		@Pc(14) int local14 = this.triangleVertexA[arg0];
-		@Pc(19) int local19 = this.triangleVertexB[arg0];
-		@Pc(24) int local24 = this.triangleVertexC[arg0];
-		Draw3D.testX = testTriangleX[arg0];
-		if (this.triangleAlpha == null) {
+		@Pc(14) int local14 = this.faceVertexA[arg0];
+		@Pc(19) int local19 = this.faceVertexB[arg0];
+		@Pc(24) int local24 = this.faceVertexC[arg0];
+		Draw3D.clipX = faceClippedX[arg0];
+		if (this.faceAlpha == null) {
 			Draw3D.alpha = 0;
 		} else {
-			Draw3D.alpha = this.triangleAlpha[arg0];
+			Draw3D.alpha = this.faceAlpha[arg0];
 		}
 		@Pc(45) int local45;
-		if (this.triangleInfo == null) {
+		if (this.faceInfo == null) {
 			local45 = 0;
 		} else {
-			local45 = this.triangleInfo[arg0] & 0x3;
+			local45 = this.faceInfo[arg0] & 0x3;
 		}
 		if (local45 == 0) {
-			Draw3D.fillGouraudTriangle(vertexScreenY[local14], vertexScreenY[local19], vertexScreenY[local24], vertexScreenX[local14], vertexScreenX[local19], vertexScreenX[local24], this.colorA[arg0], this.colorB[arg0], this.colorC[arg0]);
+			Draw3D.fillGouraudTriangle(vertexScreenY[local14], vertexScreenY[local19], vertexScreenY[local24], vertexScreenX[local14], vertexScreenX[local19], vertexScreenX[local24], this.faceColorA[arg0], this.faceColorB[arg0], this.faceColorC[arg0]);
 		} else if (local45 == 1) {
-			Draw3D.fillTriangle(vertexScreenY[local14], vertexScreenY[local19], vertexScreenY[local24], vertexScreenX[local14], vertexScreenX[local19], vertexScreenX[local24], palette[this.colorA[arg0]]);
+			Draw3D.fillTriangle(vertexScreenY[local14], vertexScreenY[local19], vertexScreenY[local24], vertexScreenX[local14], vertexScreenX[local19], vertexScreenX[local24], palette[this.faceColorA[arg0]]);
 		} else {
 			@Pc(127) int local127;
 			@Pc(132) int local132;
 			@Pc(137) int local137;
 			@Pc(142) int local142;
 			if (local45 == 2) {
-				local127 = this.triangleInfo[arg0] >> 2;
+				local127 = this.faceInfo[arg0] >> 2;
 				local132 = this.textureVertexA[local127];
 				local137 = this.textureVertexB[local127];
 				local142 = this.textureVertexC[local127];
-				Draw3D.fillTexturedTriangle(vertexScreenY[local14], vertexScreenY[local19], vertexScreenY[local24], vertexScreenX[local14], vertexScreenX[local19], vertexScreenX[local24], this.colorA[arg0], this.colorB[arg0], this.colorC[arg0], projectSceneX[local132], projectSceneX[local137], projectSceneX[local142], projectSceneY[local132], projectSceneY[local137], projectSceneY[local142], projectSceneZ[local132], projectSceneZ[local137], projectSceneZ[local142], this.unmodifiedTriangleColor[arg0]);
+				Draw3D.fillTexturedTriangle(vertexScreenY[local14], vertexScreenY[local19], vertexScreenY[local24], vertexScreenX[local14], vertexScreenX[local19], vertexScreenX[local24], this.faceColorA[arg0], this.faceColorB[arg0], this.faceColorC[arg0], projectSceneX[local132], projectSceneX[local137], projectSceneX[local142], projectSceneY[local132], projectSceneY[local137], projectSceneY[local142], vertexViewSpaceZ[local132], vertexViewSpaceZ[local137], vertexViewSpaceZ[local142], this.faceColor[arg0]);
 			} else if (local45 == 3) {
-				local127 = this.triangleInfo[arg0] >> 2;
+				local127 = this.faceInfo[arg0] >> 2;
 				local132 = this.textureVertexA[local127];
 				local137 = this.textureVertexB[local127];
 				local142 = this.textureVertexC[local127];
-				Draw3D.fillTexturedTriangle(vertexScreenY[local14], vertexScreenY[local19], vertexScreenY[local24], vertexScreenX[local14], vertexScreenX[local19], vertexScreenX[local24], this.colorA[arg0], this.colorA[arg0], this.colorA[arg0], projectSceneX[local132], projectSceneX[local137], projectSceneX[local142], projectSceneY[local132], projectSceneY[local137], projectSceneY[local142], projectSceneZ[local132], projectSceneZ[local137], projectSceneZ[local142], this.unmodifiedTriangleColor[arg0]);
+				Draw3D.fillTexturedTriangle(vertexScreenY[local14], vertexScreenY[local19], vertexScreenY[local24], vertexScreenX[local14], vertexScreenX[local19], vertexScreenX[local24], this.faceColorA[arg0], this.faceColorA[arg0], this.faceColorA[arg0], projectSceneX[local132], projectSceneX[local137], projectSceneX[local142], projectSceneY[local132], projectSceneY[local137], projectSceneY[local142], vertexViewSpaceZ[local132], vertexViewSpaceZ[local137], vertexViewSpaceZ[local142], this.faceColor[arg0]);
 			}
 		}
 	}
 
 	@OriginalMember(owner = "client!eb", name = "g", descriptor = "(I)V")
-	private void drawProjectedTriangle(@OriginalArg(0) int arg0) {
+	private void drawNearClippedFace(@OriginalArg(0) int arg0) {
 		@Pc(3) int local3 = Draw3D.centerX3D;
 		@Pc(5) int local5 = Draw3D.centerY3D;
 		@Pc(7) int local7 = 0;
-		@Pc(12) int local12 = this.triangleVertexA[arg0];
-		@Pc(17) int local17 = this.triangleVertexB[arg0];
-		@Pc(22) int local22 = this.triangleVertexC[arg0];
-		@Pc(26) int local26 = projectSceneZ[local12];
-		@Pc(30) int local30 = projectSceneZ[local17];
-		@Pc(34) int local34 = projectSceneZ[local22];
+		@Pc(12) int local12 = this.faceVertexA[arg0];
+		@Pc(17) int local17 = this.faceVertexB[arg0];
+		@Pc(22) int local22 = this.faceVertexC[arg0];
+		@Pc(26) int local26 = vertexViewSpaceZ[local12];
+		@Pc(30) int local30 = vertexViewSpaceZ[local17];
+		@Pc(34) int local34 = vertexViewSpaceZ[local22];
 		@Pc(63) int local63;
 		@Pc(67) int local67;
 		@Pc(72) int local72;
 		@Pc(85) int local85;
 		if (local26 >= 50) {
-			tmpX[local7] = vertexScreenX[local12];
-			tmpY[local7] = vertexScreenY[local12];
-			tmpZ[local7++] = this.colorA[arg0];
+			clippedX[local7] = vertexScreenX[local12];
+			clippedY[local7] = vertexScreenY[local12];
+			clippedZ[local7++] = this.faceColorA[arg0];
 		} else {
 			local63 = projectSceneX[local12];
 			local67 = projectSceneY[local12];
-			local72 = this.colorA[arg0];
+			local72 = this.faceColorA[arg0];
 			if (local34 >= 50) {
 				local85 = (50 - local26) * reciprical16[local34 - local26];
-				tmpX[local7] = local3 + (local63 + ((projectSceneX[local22] - local63) * local85 >> 16) << 9) / 50;
-				tmpY[local7] = local5 + (local67 + ((projectSceneY[local22] - local67) * local85 >> 16) << 9) / 50;
-				tmpZ[local7++] = local72 + ((this.colorC[arg0] - local72) * local85 >> 16);
+				clippedX[local7] = local3 + (local63 + ((projectSceneX[local22] - local63) * local85 >> 16) << 9) / 50;
+				clippedY[local7] = local5 + (local67 + ((projectSceneY[local22] - local67) * local85 >> 16) << 9) / 50;
+				clippedZ[local7++] = local72 + ((this.faceColorC[arg0] - local72) * local85 >> 16);
 			}
 			if (local30 >= 50) {
 				local85 = (50 - local26) * reciprical16[local30 - local26];
-				tmpX[local7] = local3 + (local63 + ((projectSceneX[local17] - local63) * local85 >> 16) << 9) / 50;
-				tmpY[local7] = local5 + (local67 + ((projectSceneY[local17] - local67) * local85 >> 16) << 9) / 50;
-				tmpZ[local7++] = local72 + ((this.colorB[arg0] - local72) * local85 >> 16);
+				clippedX[local7] = local3 + (local63 + ((projectSceneX[local17] - local63) * local85 >> 16) << 9) / 50;
+				clippedY[local7] = local5 + (local67 + ((projectSceneY[local17] - local67) * local85 >> 16) << 9) / 50;
+				clippedZ[local7++] = local72 + ((this.faceColorB[arg0] - local72) * local85 >> 16);
 			}
 		}
 		if (local30 >= 50) {
-			tmpX[local7] = vertexScreenX[local17];
-			tmpY[local7] = vertexScreenY[local17];
-			tmpZ[local7++] = this.colorB[arg0];
+			clippedX[local7] = vertexScreenX[local17];
+			clippedY[local7] = vertexScreenY[local17];
+			clippedZ[local7++] = this.faceColorB[arg0];
 		} else {
 			local63 = projectSceneX[local17];
 			local67 = projectSceneY[local17];
-			local72 = this.colorB[arg0];
+			local72 = this.faceColorB[arg0];
 			if (local26 >= 50) {
 				local85 = (50 - local30) * reciprical16[local26 - local30];
-				tmpX[local7] = local3 + (local63 + ((projectSceneX[local12] - local63) * local85 >> 16) << 9) / 50;
-				tmpY[local7] = local5 + (local67 + ((projectSceneY[local12] - local67) * local85 >> 16) << 9) / 50;
-				tmpZ[local7++] = local72 + ((this.colorA[arg0] - local72) * local85 >> 16);
+				clippedX[local7] = local3 + (local63 + ((projectSceneX[local12] - local63) * local85 >> 16) << 9) / 50;
+				clippedY[local7] = local5 + (local67 + ((projectSceneY[local12] - local67) * local85 >> 16) << 9) / 50;
+				clippedZ[local7++] = local72 + ((this.faceColorA[arg0] - local72) * local85 >> 16);
 			}
 			if (local34 >= 50) {
 				local85 = (50 - local30) * reciprical16[local34 - local30];
-				tmpX[local7] = local3 + (local63 + ((projectSceneX[local22] - local63) * local85 >> 16) << 9) / 50;
-				tmpY[local7] = local5 + (local67 + ((projectSceneY[local22] - local67) * local85 >> 16) << 9) / 50;
-				tmpZ[local7++] = local72 + ((this.colorC[arg0] - local72) * local85 >> 16);
+				clippedX[local7] = local3 + (local63 + ((projectSceneX[local22] - local63) * local85 >> 16) << 9) / 50;
+				clippedY[local7] = local5 + (local67 + ((projectSceneY[local22] - local67) * local85 >> 16) << 9) / 50;
+				clippedZ[local7++] = local72 + ((this.faceColorC[arg0] - local72) * local85 >> 16);
 			}
 		}
 		if (local34 >= 50) {
-			tmpX[local7] = vertexScreenX[local22];
-			tmpY[local7] = vertexScreenY[local22];
-			tmpZ[local7++] = this.colorC[arg0];
+			clippedX[local7] = vertexScreenX[local22];
+			clippedY[local7] = vertexScreenY[local22];
+			clippedZ[local7++] = this.faceColorC[arg0];
 		} else {
 			local63 = projectSceneX[local22];
 			local67 = projectSceneY[local22];
-			local72 = this.colorC[arg0];
+			local72 = this.faceColorC[arg0];
 			if (local30 >= 50) {
 				local85 = (50 - local34) * reciprical16[local30 - local34];
-				tmpX[local7] = local3 + (local63 + ((projectSceneX[local17] - local63) * local85 >> 16) << 9) / 50;
-				tmpY[local7] = local5 + (local67 + ((projectSceneY[local17] - local67) * local85 >> 16) << 9) / 50;
-				tmpZ[local7++] = local72 + ((this.colorB[arg0] - local72) * local85 >> 16);
+				clippedX[local7] = local3 + (local63 + ((projectSceneX[local17] - local63) * local85 >> 16) << 9) / 50;
+				clippedY[local7] = local5 + (local67 + ((projectSceneY[local17] - local67) * local85 >> 16) << 9) / 50;
+				clippedZ[local7++] = local72 + ((this.faceColorB[arg0] - local72) * local85 >> 16);
 			}
 			if (local26 >= 50) {
 				local85 = (50 - local34) * reciprical16[local26 - local34];
-				tmpX[local7] = local3 + (local63 + ((projectSceneX[local12] - local63) * local85 >> 16) << 9) / 50;
-				tmpY[local7] = local5 + (local67 + ((projectSceneY[local12] - local67) * local85 >> 16) << 9) / 50;
-				tmpZ[local7++] = local72 + ((this.colorA[arg0] - local72) * local85 >> 16);
+				clippedX[local7] = local3 + (local63 + ((projectSceneX[local12] - local63) * local85 >> 16) << 9) / 50;
+				clippedY[local7] = local5 + (local67 + ((projectSceneY[local12] - local67) * local85 >> 16) << 9) / 50;
+				clippedZ[local7++] = local72 + ((this.faceColorA[arg0] - local72) * local85 >> 16);
 			}
 		}
-		local63 = tmpX[0];
-		local67 = tmpX[1];
-		local72 = tmpX[2];
-		local85 = tmpY[0];
-		@Pc(582) int local582 = tmpY[1];
-		@Pc(586) int local586 = tmpY[2];
+		local63 = clippedX[0];
+		local67 = clippedX[1];
+		local72 = clippedX[2];
+		local85 = clippedY[0];
+		@Pc(582) int local582 = clippedY[1];
+		@Pc(586) int local586 = clippedY[2];
 		if ((local63 - local67) * (local586 - local582) - (local85 - local582) * (local72 - local67) <= 0) {
 			return;
 		}
-		Draw3D.testX = false;
+		Draw3D.clipX = false;
 		@Pc(629) int local629;
 		@Pc(686) int local686;
 		@Pc(691) int local691;
 		@Pc(696) int local696;
 		@Pc(701) int local701;
 		if (local7 == 3) {
-			if (local63 < 0 || local67 < 0 || local72 < 0 || local63 > Draw2D.safeX || local67 > Draw2D.safeX || local72 > Draw2D.safeX) {
-				Draw3D.testX = true;
+			if (local63 < 0 || local67 < 0 || local72 < 0 || local63 > Draw2D.boundX || local67 > Draw2D.boundX || local72 > Draw2D.boundX) {
+				Draw3D.clipX = true;
 			}
-			if (this.triangleInfo == null) {
+			if (this.faceInfo == null) {
 				local629 = 0;
 			} else {
-				local629 = this.triangleInfo[arg0] & 0x3;
+				local629 = this.faceInfo[arg0] & 0x3;
 			}
 			if (local629 == 0) {
-				Draw3D.fillGouraudTriangle(local85, local582, local586, local63, local67, local72, tmpZ[0], tmpZ[1], tmpZ[2]);
+				Draw3D.fillGouraudTriangle(local85, local582, local586, local63, local67, local72, clippedZ[0], clippedZ[1], clippedZ[2]);
 			} else if (local629 == 1) {
-				Draw3D.fillTriangle(local85, local582, local586, local63, local67, local72, palette[this.colorA[arg0]]);
+				Draw3D.fillTriangle(local85, local582, local586, local63, local67, local72, palette[this.faceColorA[arg0]]);
 			} else if (local629 == 2) {
-				local686 = this.triangleInfo[arg0] >> 2;
+				local686 = this.faceInfo[arg0] >> 2;
 				local691 = this.textureVertexA[local686];
 				local696 = this.textureVertexB[local686];
 				local701 = this.textureVertexC[local686];
-				Draw3D.fillTexturedTriangle(local85, local582, local586, local63, local67, local72, tmpZ[0], tmpZ[1], tmpZ[2], projectSceneX[local691], projectSceneX[local696], projectSceneX[local701], projectSceneY[local691], projectSceneY[local696], projectSceneY[local701], projectSceneZ[local691], projectSceneZ[local696], projectSceneZ[local701], this.unmodifiedTriangleColor[arg0]);
+				Draw3D.fillTexturedTriangle(local85, local582, local586, local63, local67, local72, clippedZ[0], clippedZ[1], clippedZ[2], projectSceneX[local691], projectSceneX[local696], projectSceneX[local701], projectSceneY[local691], projectSceneY[local696], projectSceneY[local701], vertexViewSpaceZ[local691], vertexViewSpaceZ[local696], vertexViewSpaceZ[local701], this.faceColor[arg0]);
 			} else if (local629 == 3) {
-				local686 = this.triangleInfo[arg0] >> 2;
+				local686 = this.faceInfo[arg0] >> 2;
 				local691 = this.textureVertexA[local686];
 				local696 = this.textureVertexB[local686];
 				local701 = this.textureVertexC[local686];
-				Draw3D.fillTexturedTriangle(local85, local582, local586, local63, local67, local72, this.colorA[arg0], this.colorA[arg0], this.colorA[arg0], projectSceneX[local691], projectSceneX[local696], projectSceneX[local701], projectSceneY[local691], projectSceneY[local696], projectSceneY[local701], projectSceneZ[local691], projectSceneZ[local696], projectSceneZ[local701], this.unmodifiedTriangleColor[arg0]);
+				Draw3D.fillTexturedTriangle(local85, local582, local586, local63, local67, local72, this.faceColorA[arg0], this.faceColorA[arg0], this.faceColorA[arg0], projectSceneX[local691], projectSceneX[local696], projectSceneX[local701], projectSceneY[local691], projectSceneY[local696], projectSceneY[local701], vertexViewSpaceZ[local691], vertexViewSpaceZ[local696], vertexViewSpaceZ[local701], this.faceColor[arg0]);
 			}
 		}
 		if (local7 != 4) {
 			return;
 		}
-		if (local63 < 0 || local67 < 0 || local72 < 0 || local63 > Draw2D.safeX || local67 > Draw2D.safeX || local72 > Draw2D.safeX || tmpX[3] < 0 || tmpX[3] > Draw2D.safeX) {
-			Draw3D.testX = true;
+		if (local63 < 0 || local67 < 0 || local72 < 0 || local63 > Draw2D.boundX || local67 > Draw2D.boundX || local72 > Draw2D.boundX || clippedX[3] < 0 || clippedX[3] > Draw2D.boundX) {
+			Draw3D.clipX = true;
 		}
-		if (this.triangleInfo == null) {
+		if (this.faceInfo == null) {
 			local629 = 0;
 		} else {
-			local629 = this.triangleInfo[arg0] & 0x3;
+			local629 = this.faceInfo[arg0] & 0x3;
 		}
 		if (local629 == 0) {
-			Draw3D.fillGouraudTriangle(local85, local582, local586, local63, local67, local72, tmpZ[0], tmpZ[1], tmpZ[2]);
-			Draw3D.fillGouraudTriangle(local85, local586, tmpY[3], local63, local72, tmpX[3], tmpZ[0], tmpZ[2], tmpZ[3]);
+			Draw3D.fillGouraudTriangle(local85, local582, local586, local63, local67, local72, clippedZ[0], clippedZ[1], clippedZ[2]);
+			Draw3D.fillGouraudTriangle(local85, local586, clippedY[3], local63, local72, clippedX[3], clippedZ[0], clippedZ[2], clippedZ[3]);
 			return;
 		}
 		if (local629 == 1) {
-			local686 = palette[this.colorA[arg0]];
+			local686 = palette[this.faceColorA[arg0]];
 			Draw3D.fillTriangle(local85, local582, local586, local63, local67, local72, local686);
-			Draw3D.fillTriangle(local85, local586, tmpY[3], local63, local72, tmpX[3], local686);
+			Draw3D.fillTriangle(local85, local586, clippedY[3], local63, local72, clippedX[3], local686);
 			return;
 		}
 		if (local629 == 2) {
-			local686 = this.triangleInfo[arg0] >> 2;
+			local686 = this.faceInfo[arg0] >> 2;
 			local691 = this.textureVertexA[local686];
 			local696 = this.textureVertexB[local686];
 			local701 = this.textureVertexC[local686];
-			Draw3D.fillTexturedTriangle(local85, local582, local586, local63, local67, local72, tmpZ[0], tmpZ[1], tmpZ[2], projectSceneX[local691], projectSceneX[local696], projectSceneX[local701], projectSceneY[local691], projectSceneY[local696], projectSceneY[local701], projectSceneZ[local691], projectSceneZ[local696], projectSceneZ[local701], this.unmodifiedTriangleColor[arg0]);
-			Draw3D.fillTexturedTriangle(local85, local586, tmpY[3], local63, local72, tmpX[3], tmpZ[0], tmpZ[2], tmpZ[3], projectSceneX[local691], projectSceneX[local696], projectSceneX[local701], projectSceneY[local691], projectSceneY[local696], projectSceneY[local701], projectSceneZ[local691], projectSceneZ[local696], projectSceneZ[local701], this.unmodifiedTriangleColor[arg0]);
+			Draw3D.fillTexturedTriangle(local85, local582, local586, local63, local67, local72, clippedZ[0], clippedZ[1], clippedZ[2], projectSceneX[local691], projectSceneX[local696], projectSceneX[local701], projectSceneY[local691], projectSceneY[local696], projectSceneY[local701], vertexViewSpaceZ[local691], vertexViewSpaceZ[local696], vertexViewSpaceZ[local701], this.faceColor[arg0]);
+			Draw3D.fillTexturedTriangle(local85, local586, clippedY[3], local63, local72, clippedX[3], clippedZ[0], clippedZ[2], clippedZ[3], projectSceneX[local691], projectSceneX[local696], projectSceneX[local701], projectSceneY[local691], projectSceneY[local696], projectSceneY[local701], vertexViewSpaceZ[local691], vertexViewSpaceZ[local696], vertexViewSpaceZ[local701], this.faceColor[arg0]);
 			return;
 		}
 		if (local629 != 3) {
 			return;
 		}
-		local686 = this.triangleInfo[arg0] >> 2;
+		local686 = this.faceInfo[arg0] >> 2;
 		local691 = this.textureVertexA[local686];
 		local696 = this.textureVertexB[local686];
 		local701 = this.textureVertexC[local686];
-		Draw3D.fillTexturedTriangle(local85, local582, local586, local63, local67, local72, this.colorA[arg0], this.colorA[arg0], this.colorA[arg0], projectSceneX[local691], projectSceneX[local696], projectSceneX[local701], projectSceneY[local691], projectSceneY[local696], projectSceneY[local701], projectSceneZ[local691], projectSceneZ[local696], projectSceneZ[local701], this.unmodifiedTriangleColor[arg0]);
-		Draw3D.fillTexturedTriangle(local85, local586, tmpY[3], local63, local72, tmpX[3], this.colorA[arg0], this.colorA[arg0], this.colorA[arg0], projectSceneX[local691], projectSceneX[local696], projectSceneX[local701], projectSceneY[local691], projectSceneY[local696], projectSceneY[local701], projectSceneZ[local691], projectSceneZ[local696], projectSceneZ[local701], this.unmodifiedTriangleColor[arg0]);
+		Draw3D.fillTexturedTriangle(local85, local582, local586, local63, local67, local72, this.faceColorA[arg0], this.faceColorA[arg0], this.faceColorA[arg0], projectSceneX[local691], projectSceneX[local696], projectSceneX[local701], projectSceneY[local691], projectSceneY[local696], projectSceneY[local701], vertexViewSpaceZ[local691], vertexViewSpaceZ[local696], vertexViewSpaceZ[local701], this.faceColor[arg0]);
+		Draw3D.fillTexturedTriangle(local85, local586, clippedY[3], local63, local72, clippedX[3], this.faceColorA[arg0], this.faceColorA[arg0], this.faceColorA[arg0], projectSceneX[local691], projectSceneX[local696], projectSceneX[local701], projectSceneY[local691], projectSceneY[local696], projectSceneY[local701], vertexViewSpaceZ[local691], vertexViewSpaceZ[local696], vertexViewSpaceZ[local701], this.faceColor[arg0]);
 	}
 
 	@OriginalMember(owner = "client!eb", name = "a", descriptor = "(IIIIIIII)Z")
@@ -2071,4 +2137,5 @@ public class Model extends CacheableNode {
 			return arg0 <= arg5 || arg0 <= arg6 || arg0 <= arg7;
 		}
 	}
+
 }

@@ -17,16 +17,16 @@ public class Wall {
 	public int z;
 
 	@OriginalMember(owner = "client!q", name = "d", descriptor = "I")
-	public int type0;
+	public int typeA;
 
 	@OriginalMember(owner = "client!q", name = "e", descriptor = "I")
-	public int type1;
+	public int typeB;
 
 	@OriginalMember(owner = "client!q", name = "f", descriptor = "Lclient!eb;")
-	public Model model0;
+	public Model modelA;
 
 	@OriginalMember(owner = "client!q", name = "g", descriptor = "Lclient!eb;")
-	public Model model1;
+	public Model modelB;
 
 	@OriginalMember(owner = "client!q", name = "h", descriptor = "I")
 	public int bitset;
