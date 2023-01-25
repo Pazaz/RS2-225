@@ -40,7 +40,7 @@ public class BufferedStream {
 
 		this.client.onClose(new EventListener<CloseEvent>(){
 			public void handleEvent(CloseEvent event) {
-				System.out.println(event.getCode() + " " + event.getReason());
+				System.out.println("Closed: " + event.getCode() + " " + event.getReason());
 			}
 		});
 
