@@ -1,13 +1,11 @@
-name: Java CI with Gradle
-
 on:
   push:
     branches:
      - main
 
 jobs:
-  build:
-    name: Build
+  client:
+    name: Build Client
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

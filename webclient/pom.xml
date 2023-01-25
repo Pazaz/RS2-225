@@ -74,6 +74,7 @@
               <goal>compile</goal>
             </goals>
             <configuration>
+              <targetDirectory>${project.build.directory}/js</targetDirectory>
               <mainClass>rs2.client.Game</mainClass>
               <minifying>true</minifying>
               <debugInformationGenerated>true</debugInformationGenerated>
