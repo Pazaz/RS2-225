@@ -226,8 +226,7 @@ public class Font extends Draw2D {
 			return;
 		}
 
-		this.random.setSeed(seed);
-		@Pc(17) int alpha = (this.random.nextInt() & 0x1F) + 192;
+		@Pc(17) int alpha = 192;
 
 		y -= this.fontHeight;
 		for (@Pc(30) int i = 0; i < str.length(); i++) {
@@ -245,10 +244,6 @@ public class Font extends Draw2D {
 				}
 
 				x += this.charSpace[c];
-
-				if ((this.random.nextInt() & 0x3) == 0) {
-					x++;
-				}
 			}
 		}
 	}
