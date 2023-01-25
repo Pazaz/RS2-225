@@ -141,25 +141,25 @@ public class Scene {
 	private final int[][][] heightmap;
 
 	@OriginalMember(owner = "client!c", name = "j", descriptor = "[[[B")
-	private final byte[][][] renderFlags;
+	private final int[][][] renderFlags;
 
 	@OriginalMember(owner = "client!c", name = "k", descriptor = "[[[B")
-	private final byte[][][] planeUnderlayFloorIndices;
+	private final int[][][] planeUnderlayFloorIndices;
 
 	@OriginalMember(owner = "client!c", name = "l", descriptor = "[[[B")
-	private final byte[][][] planeOverlayFloorIndices;
+	private final int[][][] planeOverlayFloorIndices;
 
 	@OriginalMember(owner = "client!c", name = "m", descriptor = "[[[B")
-	private final byte[][][] planeOverlayTypes;
+	private final int[][][] planeOverlayTypes;
 
 	@OriginalMember(owner = "client!c", name = "n", descriptor = "[[[B")
-	private final byte[][][] planeOverlayRotations;
+	private final int[][][] planeOverlayRotations;
 
 	@OriginalMember(owner = "client!c", name = "v", descriptor = "[[[I")
 	private final int[][][] occludeFlags;
 
 	@OriginalMember(owner = "client!c", name = "o", descriptor = "[[[B")
-	private final byte[][][] shadowmap;
+	private final int[][][] shadowmap;
 
 	@OriginalMember(owner = "client!c", name = "p", descriptor = "[[I")
 	private final int[][] lightmap;
@@ -180,17 +180,17 @@ public class Scene {
 	private final int[] blendMagnitude;
 
 	@OriginalMember(owner = "client!c", name = "<init>", descriptor = "(I[[[BI[[[II)V")
-	public Scene(@OriginalArg(0) int sizeZ, @OriginalArg(1) byte[][][] renderFlags, @OriginalArg(2) int sizeX, @OriginalArg(3) int[][][] heightmap) {
+	public Scene(@OriginalArg(0) int sizeZ, @OriginalArg(1) int[][][] renderFlags, @OriginalArg(2) int sizeX, @OriginalArg(3) int[][][] heightmap) {
 		this.tileCountX = sizeX;
 		this.tileCountZ = sizeZ;
 		this.heightmap = heightmap;
 		this.renderFlags = renderFlags;
-		this.planeUnderlayFloorIndices = new byte[4][this.tileCountX][this.tileCountZ];
-		this.planeOverlayFloorIndices = new byte[4][this.tileCountX][this.tileCountZ];
-		this.planeOverlayTypes = new byte[4][this.tileCountX][this.tileCountZ];
-		this.planeOverlayRotations = new byte[4][this.tileCountX][this.tileCountZ];
+		this.planeUnderlayFloorIndices = new int[4][this.tileCountX][this.tileCountZ];
+		this.planeOverlayFloorIndices = new int[4][this.tileCountX][this.tileCountZ];
+		this.planeOverlayTypes = new int[4][this.tileCountX][this.tileCountZ];
+		this.planeOverlayRotations = new int[4][this.tileCountX][this.tileCountZ];
 		this.occludeFlags = new int[4][this.tileCountX + 1][this.tileCountZ + 1];
-		this.shadowmap = new byte[4][this.tileCountX + 1][this.tileCountZ + 1];
+		this.shadowmap = new int[4][this.tileCountX + 1][this.tileCountZ + 1];
 		this.lightmap = new int[this.tileCountX + 1][this.tileCountZ + 1];
 		this.blendChroma = new int[this.tileCountZ];
 		this.blendSaturation = new int[this.tileCountZ];
@@ -901,7 +901,7 @@ public class Scene {
 		}
 
 		for (int plane = 0; plane < 4; plane++) {
-			@Pc(108) byte[][] shadowmap = this.shadowmap[plane];
+			@Pc(108) int[][] shadowmap = this.shadowmap[plane];
 			@Pc(110) byte lightAmbient = 96;
 			@Pc(112) short lightAttenuation = 768;
 			@Pc(114) byte lightX = -50;
@@ -1055,7 +1055,7 @@ public class Scene {
 								mapSquare.addTile(plane, x0, z0, 0, 0, -1, heightSW, heightSE, heightNE, heightNW, mulHSL(baseColor, lightSW), mulHSL(baseColor, lightSE), mulHSL(baseColor, lightNE), mulHSL(baseColor, lightNW), 0, 0, 0, 0, shadeColor, 0);
 							} else {
 								int shape = this.planeOverlayTypes[plane][x0][z0] + 1;
-								@Pc(919) byte rotation = this.planeOverlayRotations[plane][x0][z0];
+								@Pc(919) int rotation = this.planeOverlayRotations[plane][x0][z0] & 0xFF;
 								@Pc(925) FloType flo = FloType.instances[overlayId - 1];
 								@Pc(928) int textureId = flo.texture;
 								@Pc(936) int hsl;
