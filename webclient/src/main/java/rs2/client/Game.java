@@ -9,14 +9,13 @@ import com.jagex.core.stringtools.TextEncoder;
 import com.jagex.core.stringtools.WordPack;
 import com.jagex.core.util.LinkedList;
 import com.jagex.game.runetek3.BufferedStream;
+import com.jagex.game.runetek3.FileDownloadStream;
 import com.jagex.game.runetek3.GameShell;
 import com.jagex.game.runetek3.InputTracking;
 import com.jagex.game.runetek3.animation.SeqBase;
 import com.jagex.game.runetek3.animation.SeqFrame;
 import com.jagex.game.runetek3.audio.SoundTrack;
 import com.jagex.game.runetek3.config.*;
-import com.jagex.game.runetek3.graphics.Component;
-import com.jagex.game.runetek3.graphics.Font;
 import com.jagex.game.runetek3.graphics.*;
 import com.jagex.game.runetek3.scene.*;
 import com.jagex.game.runetek3.scene.entities.*;
@@ -27,12 +26,8 @@ import org.openrs2.deob.annotation.Pc;
 import rs2.shared.network.ServerProt;
 import rs2.shared.network.ZoneProt;
 
-import java.awt.*;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.net.InetAddress;
-import java.net.Socket;
 import java.net.URL;
 
 @OriginalClass("client!client")
@@ -42,6 +37,8 @@ public class Game extends GameShell {
 
 	public static final String SERVER_ADDRESS = "localhost";
 	// public static final String SERVER_ADDRESS = "lostcity.runewiki.org";
+
+	public static Game instance = null;
 
 	@OriginalMember(owner = "client!client", name = "F", descriptor = "Ljava/lang/String;")
 	public static final String ASCII_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
@@ -311,13 +308,13 @@ public class Game extends GameShell {
 	private int objGrabY;
 
 	@OriginalMember(owner = "client!client", name = "cd", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer areaBackbase1;
+	private TeaFrameBuffer areaBackbase1;
 
 	@OriginalMember(owner = "client!client", name = "dd", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer areaBackbase2;
+	private TeaFrameBuffer areaBackbase2;
 
 	@OriginalMember(owner = "client!client", name = "ed", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer areaBackhmid1;
+	private TeaFrameBuffer areaBackhmid1;
 
 	@OriginalMember(owner = "client!client", name = "fd", descriptor = "I")
 	private int privateMessageCount;
@@ -557,34 +554,34 @@ public class Game extends GameShell {
 	private String selectedObjName;
 
 	@OriginalMember(owner = "client!client", name = "cg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer backleft1;
+	private TeaFrameBuffer backleft1;
 
 	@OriginalMember(owner = "client!client", name = "dg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer backleft2;
+	private TeaFrameBuffer backleft2;
 
 	@OriginalMember(owner = "client!client", name = "eg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer backright1;
+	private TeaFrameBuffer backright1;
 
 	@OriginalMember(owner = "client!client", name = "fg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer backright2;
+	private TeaFrameBuffer backright2;
 
 	@OriginalMember(owner = "client!client", name = "gg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer backtop1;
+	private TeaFrameBuffer backtop1;
 
 	@OriginalMember(owner = "client!client", name = "hg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer backtop2;
+	private TeaFrameBuffer backtop2;
 
 	@OriginalMember(owner = "client!client", name = "ig", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer backvmid1;
+	private TeaFrameBuffer backvmid1;
 
 	@OriginalMember(owner = "client!client", name = "jg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer backvmid2;
+	private TeaFrameBuffer backvmid2;
 
 	@OriginalMember(owner = "client!client", name = "kg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer backvmid3;
+	private TeaFrameBuffer backvmid3;
 
 	@OriginalMember(owner = "client!client", name = "lg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer backhmid2;
+	private TeaFrameBuffer backhmid2;
 
 	@OriginalMember(owner = "client!client", name = "ng", descriptor = "I")
 	private int waveCount;
@@ -602,31 +599,31 @@ public class Game extends GameShell {
 	private String selectedSpellPrefix;
 
 	@OriginalMember(owner = "client!client", name = "yg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer titleTop;
+	private TeaFrameBuffer titleTop;
 
 	@OriginalMember(owner = "client!client", name = "zg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer titleBottom;
+	private TeaFrameBuffer titleBottom;
 
 	@OriginalMember(owner = "client!client", name = "Ag", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer titleCenter;
+	private TeaFrameBuffer titleCenter;
 
 	@OriginalMember(owner = "client!client", name = "Bg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer titleLeft;
+	private TeaFrameBuffer titleLeft;
 
 	@OriginalMember(owner = "client!client", name = "Cg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer titleRight;
+	private TeaFrameBuffer titleRight;
 
 	@OriginalMember(owner = "client!client", name = "Dg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer titleBottomLeft;
+	private TeaFrameBuffer titleBottomLeft;
 
 	@OriginalMember(owner = "client!client", name = "Eg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer titleBottomRight;
+	private TeaFrameBuffer titleBottomRight;
 
 	@OriginalMember(owner = "client!client", name = "Fg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer titleLeftSpace;
+	private TeaFrameBuffer titleLeftSpace;
 
 	@OriginalMember(owner = "client!client", name = "Gg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer titleRightSpace;
+	private TeaFrameBuffer titleRightSpace;
 
 	@OriginalMember(owner = "client!client", name = "Jg", descriptor = "Lclient!ib;")
 	private IndexedSprite redstone1v;
@@ -644,16 +641,16 @@ public class Game extends GameShell {
 	private IndexedSprite redstone2vh;
 
 	@OriginalMember(owner = "client!client", name = "Pg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer areaInvback;
+	private TeaFrameBuffer areaInvback;
 
 	@OriginalMember(owner = "client!client", name = "Qg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer areaMapback;
+	private TeaFrameBuffer areaMapback;
 
 	@OriginalMember(owner = "client!client", name = "Rg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer areaViewport;
+	private TeaFrameBuffer areaViewport;
 
 	@OriginalMember(owner = "client!client", name = "Sg", descriptor = "Lclient!qb;")
-	private ImageProducerFrameBuffer areaChatback;
+	private TeaFrameBuffer areaChatback;
 
 	@OriginalMember(owner = "client!client", name = "Ug", descriptor = "I")
 	private int flagTileX;
@@ -1264,8 +1261,9 @@ public class Game extends GameShell {
 				members = true;
 			}
 
-			SignedLink.startpriv(InetAddress.getByName(SERVER_ADDRESS)); // InetAddress.getLocalHost());
+			SignedLink.startpriv(SERVER_ADDRESS);
 			@Pc(82) Game game = new Game();
+			instance = game;
 			game.initApplication(532, 789);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -2191,7 +2189,7 @@ public class Game extends GameShell {
 		this.drawTileHint();
 		this.updateAnimatedTextures(local264);
 		this.drawViewport3d();
-		this.areaViewport.drawAt(11, super.graphics, 8);
+		this.areaViewport.drawAt(11, 8);
 		this.cameraX = local73;
 		this.cameraY = local122;
 		this.cameraZ = local209;
@@ -2229,21 +2227,10 @@ public class Game extends GameShell {
 				}
 				if (local52 == null) {
 					try {
-						@Pc(91) DataInputStream local91 = this.openStream(local19 + "_" + local22 + ".mid");
-						local52 = new byte[local25];
-						@Pc(106) int local106;
-						for (@Pc(96) int local96 = 0; local96 < local25; local96 += local106) {
-							local106 = local91.read(local52, local96, local25 - local96);
-							if (local106 == -1) {
-								@Pc(112) byte[] local112 = new byte[local96];
-								System.arraycopy(local52, 0, local112, 0, local96);
-								local52 = local112;
-								local25 = local96;
-								break;
-							}
-						}
-						local91.close();
-						SignedLink.cachesave(local19 + ".mid", local52);
+						// @Pc(91) FileDownloadStream local91 = this.openStream(local19 + "_" + local22 + ".mid");
+						// local52 = new byte[local25];
+						// local91.readFully(local52, 0, local25);
+						// SignedLink.cachesave(local19 + ".mid", local52);
 					} catch (@Pc(153) Exception local153) {
 					}
 				}
@@ -2320,7 +2307,7 @@ public class Game extends GameShell {
 			}
 			local183 += local202;
 		}
-		this.titleLeft.drawAt(0, super.graphics, 0);
+		this.titleLeft.drawAt(0, 0);
 		for (local198 = 0; local198 < 33920; local198++) {
 			this.titleRight.pixels[local198] = this.imageFlamesRight.pixels[local198];
 		}
@@ -2345,7 +2332,7 @@ public class Game extends GameShell {
 			local181 += 128 - local220;
 			local183 += 128 - local220 - local212;
 		}
-		this.titleRight.drawAt(0, super.graphics, 661);
+		this.titleRight.drawAt(0, 661);
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(IIILclient!hc;III)V")
@@ -2901,9 +2888,7 @@ public class Game extends GameShell {
 							this.redrawChatback = true;
 						}
 						if ((local13 == 13 || local13 == 10) && this.input.length() > 0) {
-							if (this.input.equals("::clientdrop") && (super.frame != null || this.getHost().indexOf("192.168.1.") != -1)) {
-								this.reconnect();
-							} else if (this.input.startsWith("::")) {
+							if (this.input.startsWith("::")) {
 								this.outBuffer.p1isaac(4);
 								this.outBuffer.p1(this.input.length() - 1);
 								this.outBuffer.pjstr(this.input.substring(2));
@@ -3110,62 +3095,57 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(Ljava/lang/String;ILjava/lang/String;II)Lclient!ub;")
-	private FileArchive loadArchive(@OriginalArg(0) String arg0, @OriginalArg(1) int arg1, @OriginalArg(2) String arg2, @OriginalArg(3) int arg3) {
-		@Pc(3) int local3 = 5;
-		@Pc(6) byte[] local6 = SignedLink.cacheload(arg2);
-		@Pc(20) int local20;
-		if (local6 != null) {
-			local20 = Buffer.getcrc(local6);
-			if (local20 != arg1) {
-				local6 = null;
+	private FileArchive loadArchive(@OriginalArg(0) String displayName, @OriginalArg(1) int expectedCrc, @OriginalArg(2) String name, @OriginalArg(3) int progress) {
+		@Pc(3) int nextRetry = 5;
+		@Pc(6) byte[] data = SignedLink.cacheload(name);
+
+		@Pc(20) int crc;
+		if (data != null) {
+			crc = Buffer.getcrc(data);
+			if (crc != expectedCrc) {
+				data = null;
 			}
 		}
-		if (local6 != null) {
-			return new FileArchive(local6);
+
+		if (data != null) {
+			return new FileArchive(data);
 		}
-		while (local6 == null) {
-			this.showProgress("Requesting " + arg0, arg3);
+
+		while (data == null) {
+			this.showProgress("Requesting " + displayName, progress);
+
 			try {
-				local20 = 0;
-				@Pc(60) DataInputStream local60 = this.openStream(arg2 + arg1);
-				@Pc(63) byte[] local63 = new byte[6];
-				local60.readFully(local63, 0, 6);
-				@Pc(74) Buffer local74 = new Buffer(local63);
-				local74.pos = 3;
-				@Pc(82) int local82 = local74.g3() + 6;
-				@Pc(84) int local84 = 6;
-				local6 = new byte[local82];
-				System.arraycopy(local63, 0, local6, 0, 6);
-				while (local84 < local82) {
-					@Pc(107) int local107 = local82 - local84;
-					if (local107 > 1000) {
-						local107 = 1000;
-					}
-					local84 += local60.read(local6, local84, local107);
-					@Pc(126) int local126 = local84 * 100 / local82;
-					if (local126 != local20) {
-						this.showProgress("Loading " + arg0 + " - " + local126 + "%", arg3);
-					}
-					local20 = local126;
-				}
-				local60.close();
+				crc = 0;
+				@Pc(60) FileDownloadStream stream = this.openStream(name + expectedCrc);
+
+				@Pc(63) byte[] header = new byte[6];
+				stream.readFully(header, 0, 6);
+				@Pc(74) Buffer headerStream = new Buffer(header);
+				headerStream.pos = 3;
+				@Pc(82) int archiveSize = headerStream.g3() + 6;
+
+				data = new byte[archiveSize];
+				System.arraycopy(header, 0, data, 0, header.length);
+				stream.readFully(data, header.length, archiveSize);
+				this.showProgress("Loading " + displayName + " - 100%", progress);
 			} catch (@Pc(155) IOException local155) {
-				local6 = null;
-				for (local20 = local3; local20 > 0; local20--) {
-					this.showProgress("Error loading - Will retry in " + local20 + " secs.", arg3);
+				data = null;
+				for (crc = nextRetry; crc > 0; crc--) {
+					this.showProgress("Error loading - Will retry in " + crc + " secs.", progress);
 					try {
 						Thread.sleep(1000L);
 					} catch (@Pc(178) Exception local178) {
 					}
 				}
-				local3 *= 2;
-				if (local3 > 60) {
-					local3 = 60;
+				nextRetry *= 2;
+				if (nextRetry > 60) {
+					nextRetry = 60;
 				}
 			}
 		}
-		SignedLink.cachesave(arg2, local6);
-		return new FileArchive(local6);
+
+		SignedLink.cachesave(name, data);
+		return new FileArchive(data);
 	}
 
 	@OriginalMember(owner = "client!client", name = "f", descriptor = "(Z)V")
@@ -3384,16 +3364,6 @@ public class Game extends GameShell {
 		}
 		Draw2D.fillRect(82, 93, 16777215, 3, 3);
 		this.areaViewport.makeTarget();
-	}
-
-	@OriginalMember(owner = "client!client", name = "b", descriptor = "(B)Ljava/awt/Component;")
-	@Override
-	protected java.awt.Component getBaseComponent() {
-		if (SignedLink.mainapp == null) {
-			return this;
-		} else {
-			return SignedLink.mainapp;
-		}
 	}
 
 	@OriginalMember(owner = "client!client", name = "m", descriptor = "(I)V")
@@ -3660,11 +3630,7 @@ public class Game extends GameShell {
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(Ljava/lang/Runnable;I)V")
 	@Override
 	public void startThread(@OriginalArg(0) Runnable runnable, @OriginalArg(1) int priority) {
-		if (SignedLink.mainapp == null) {
-			super.startThread(runnable, priority);
-		} else {
-			SignedLink.startthread(runnable, priority);
-		}
+		super.startThread(runnable, priority);
 	}
 
 	@OriginalMember(owner = "client!client", name = "n", descriptor = "(I)V")
@@ -3919,15 +3885,15 @@ public class Game extends GameShell {
 			this.titlebutton.draw(local56 - 20, local50 - 73);
 			this.bold12.drawCentered(local50, 16777215, true, local56 + 5, "Cancel");
 		}
-		this.titleCenter.drawAt(186, super.graphics, 214);
+		this.titleCenter.drawAt(186, 214);
 		if (this.redrawTitleBackground) {
 			this.redrawTitleBackground = false;
-			this.titleTop.drawAt(0, super.graphics, 128);
-			this.titleBottom.drawAt(386, super.graphics, 214);
-			this.titleBottomLeft.drawAt(265, super.graphics, 0);
-			this.titleBottomRight.drawAt(265, super.graphics, 574);
-			this.titleLeftSpace.drawAt(186, super.graphics, 128);
-			this.titleRightSpace.drawAt(186, super.graphics, 574);
+			this.titleTop.drawAt(0, 128);
+			this.titleBottom.drawAt(386, 214);
+			this.titleBottomLeft.drawAt(265, 0);
+			this.titleBottomRight.drawAt(265, 574);
+			this.titleLeftSpace.drawAt(186, 128);
+			this.titleRightSpace.drawAt(186, 574);
 		}
 	}
 
@@ -3945,16 +3911,16 @@ public class Game extends GameShell {
 			this.titleBottomRight = null;
 			this.titleLeftSpace = null;
 			this.titleRightSpace = null;
-			this.areaChatback = new ImageProducerFrameBuffer(this.getBaseComponent(), 479, 96);
-			this.areaMapback = new ImageProducerFrameBuffer(this.getBaseComponent(), 168, 160);
+			this.areaChatback = new TeaFrameBuffer(479, 96);
+			this.areaMapback = new TeaFrameBuffer(168, 160);
 			Draw2D.clear();
 			this.mapback.draw(0, 0);
-			this.areaInvback = new ImageProducerFrameBuffer(this.getBaseComponent(), 190, 261);
-			this.areaViewport = new ImageProducerFrameBuffer(this.getBaseComponent(), 512, 334);
+			this.areaInvback = new TeaFrameBuffer(190, 261);
+			this.areaViewport = new TeaFrameBuffer(512, 334);
 			Draw2D.clear();
-			this.areaBackbase1 = new ImageProducerFrameBuffer(this.getBaseComponent(), 501, 61);
-			this.areaBackbase2 = new ImageProducerFrameBuffer(this.getBaseComponent(), 288, 40);
-			this.areaBackhmid1 = new ImageProducerFrameBuffer(this.getBaseComponent(), 269, 66);
+			this.areaBackbase1 = new TeaFrameBuffer(501, 61);
+			this.areaBackbase2 = new TeaFrameBuffer(288, 40);
+			this.areaBackhmid1 = new TeaFrameBuffer(269, 66);
 			this.redrawTitleBackground = true;
 		}
 	}
@@ -4663,23 +4629,23 @@ public class Game extends GameShell {
 	private void drawGame() {
 		if (this.redrawTitleBackground) {
 			this.redrawTitleBackground = false;
-			this.backleft1.drawAt(11, super.graphics, 0);
-			this.backleft2.drawAt(375, super.graphics, 0);
-			this.backright1.drawAt(5, super.graphics, 729);
-			this.backright2.drawAt(231, super.graphics, 752);
-			this.backtop1.drawAt(0, super.graphics, 0);
-			this.backtop2.drawAt(0, super.graphics, 561);
-			this.backvmid1.drawAt(11, super.graphics, 520);
-			this.backvmid2.drawAt(231, super.graphics, 520);
-			this.backvmid3.drawAt(375, super.graphics, 501);
-			this.backhmid2.drawAt(345, super.graphics, 0);
+			this.backleft1.drawAt(11, 0);
+			this.backleft2.drawAt(375, 0);
+			this.backright1.drawAt(5, 729);
+			this.backright2.drawAt(231, 752);
+			this.backtop1.drawAt(0, 0);
+			this.backtop2.drawAt(0, 561);
+			this.backvmid1.drawAt(11, 520);
+			this.backvmid2.drawAt(231, 520);
+			this.backvmid3.drawAt(375, 501);
+			this.backhmid2.drawAt(345, 0);
 			this.redrawSidebar = true;
 			this.redrawChatback = true;
 			this.sidebarRedrawIcons = true;
 			this.redrawChat = true;
 			if (this.sceneState != 2) {
-				this.areaViewport.drawAt(11, super.graphics, 8);
-				this.areaMapback.drawAt(5, super.graphics, 561);
+				this.areaViewport.drawAt(11, 8);
+				this.areaMapback.drawAt(5, 561);
 			}
 		}
 		if (this.sceneState == 2) {
@@ -4746,7 +4712,7 @@ public class Game extends GameShell {
 		}
 		if (this.sceneState == 2) {
 			this.drawMinimap();
-			this.areaMapback.drawAt(5, super.graphics, 561);
+			this.areaMapback.drawAt(5, 561);
 		}
 		if (this.flashingSidebarId != -1) {
 			this.sidebarRedrawIcons = true;
@@ -4806,7 +4772,7 @@ public class Game extends GameShell {
 					this.sideicons[6].draw(34, 212);
 				}
 			}
-			this.areaBackhmid1.drawAt(165, super.graphics, 520);
+			this.areaBackhmid1.drawAt(165, 520);
 			this.areaBackbase2.makeTarget();
 			this.backbase2.draw(0, 0);
 			if (this.sidebarInterfaceId == -1) {
@@ -4852,7 +4818,7 @@ public class Game extends GameShell {
 					this.sideicons[12].draw(2, 230);
 				}
 			}
-			this.areaBackbase2.drawAt(492, super.graphics, 501);
+			this.areaBackbase2.drawAt(492, 501);
 			this.areaViewport.makeTarget();
 		}
 		if (this.redrawChat) {
@@ -4893,7 +4859,7 @@ public class Game extends GameShell {
 				this.plain12.drawCentered(326, 16711680, true, 46, "Off");
 			}
 			this.plain12.drawCentered(462, 16777215, true, 38, "Report abuse");
-			this.areaBackbase1.drawAt(471, super.graphics, 0);
+			this.areaBackbase1.drawAt(471, 0);
 			this.areaViewport.makeTarget();
 		}
 		this.sceneDelta = 0;
@@ -5489,11 +5455,7 @@ public class Game extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "s", descriptor = "(I)Ljava/lang/String;")
 	private String getHost() {
-		if (SignedLink.mainapp == null) {
-			return super.frame == null ? super.getDocumentBase().getHost().toLowerCase() : "runescape.com";
-		} else {
-			return SignedLink.mainapp.getDocumentBase().getHost().toLowerCase();
-		}
+		return SERVER_ADDRESS;
 	}
 
 	@OriginalMember(owner = "client!client", name = "t", descriptor = "(I)V")
@@ -5940,49 +5902,48 @@ public class Game extends GameShell {
 			return;
 		}
 		alreadyStarted = true;
-		@Pc(34) boolean local34 = false;
-		@Pc(38) String local38 = this.getHost();
-		if (local38.endsWith("jagex.com")) {
-			local34 = true;
-		}
-		if (local38.endsWith("runescape.com")) {
-			local34 = true;
-		}
-		if (local38.endsWith("192.168.1.2")) {
-			local34 = true;
-		}
-		if (local38.endsWith("192.168.1.249")) {
-			local34 = true;
-		}
-		if (local38.endsWith("192.168.1.252")) {
-			local34 = true;
-		}
-		if (local38.endsWith("192.168.1.253")) {
-			local34 = true;
-		}
-		if (local38.endsWith("192.168.1.254")) {
-			local34 = true;
-		}
-		if (local38.endsWith("127.0.0.1")) {
-			local34 = true;
-		}
-		if (!local34) {
-			this.errorHost = true;
-			return;
-		}
+		// @Pc(34) boolean local34 = false;
+		// @Pc(38) String local38 = this.getHost();
+		// if (local38.endsWith("jagex.com")) {
+		// 	local34 = true;
+		// }
+		// if (local38.endsWith("runescape.com")) {
+		// 	local34 = true;
+		// }
+		// if (local38.endsWith("192.168.1.2")) {
+		// 	local34 = true;
+		// }
+		// if (local38.endsWith("192.168.1.249")) {
+		// 	local34 = true;
+		// }
+		// if (local38.endsWith("192.168.1.252")) {
+		// 	local34 = true;
+		// }
+		// if (local38.endsWith("192.168.1.253")) {
+		// 	local34 = true;
+		// }
+		// if (local38.endsWith("192.168.1.254")) {
+		// 	local34 = true;
+		// }
+		// if (local38.endsWith("127.0.0.1")) {
+		// 	local34 = true;
+		// }
+		// if (!local34) {
+		// 	this.errorHost = true;
+		// 	return;
+		// }
 		try {
 			@Pc(94) int local94 = 5;
 			this.archiveChecksums[8] = 0;
 			while (this.archiveChecksums[8] == 0) {
 				this.showProgress("Connecting to fileserver", 10);
 				try {
-					@Pc(119) DataInputStream local119 = this.openStream("crc" + (int) (Math.random() * 9.9999999E7D));
+					@Pc(119) FileDownloadStream local119 = this.openStream("crc" + (int) (Math.random() * 9.9999999E7D));
 					@Pc(126) Buffer local126 = new Buffer(new byte[36]);
 					local119.readFully(local126.data, 0, 36);
 					for (@Pc(134) int local134 = 0; local134 < 9; local134++) {
 						this.archiveChecksums[local134] = local126.g4();
 					}
-					local119.close();
 				} catch (@Pc(150) IOException local150) {
 					for (@Pc(152) int local152 = local94; local152 > 0; local152--) {
 						this.showProgress("Error loading - Will retry in " + local152 + " secs.", 10);
@@ -6087,34 +6048,34 @@ public class Game extends GameShell {
 			this.redstone2vh.flipHorizontally();
 			this.redstone2vh.flipVertically();
 			@Pc(725) Sprite local725 = new Sprite(mediaArchive, "backleft1", 0);
-			this.backleft1 = new ImageProducerFrameBuffer(this.getBaseComponent(), local725.spriteWidth, local725.spriteHeight);
+			this.backleft1 = new TeaFrameBuffer(local725.spriteWidth, local725.spriteHeight);
 			local725.drawOpaque(0, 0);
 			@Pc(750) Sprite local750 = new Sprite(mediaArchive, "backleft2", 0);
-			this.backleft2 = new ImageProducerFrameBuffer(this.getBaseComponent(), local750.spriteWidth, local750.spriteHeight);
+			this.backleft2 = new TeaFrameBuffer(local750.spriteWidth, local750.spriteHeight);
 			local750.drawOpaque(0, 0);
 			@Pc(775) Sprite local775 = new Sprite(mediaArchive, "backright1", 0);
-			this.backright1 = new ImageProducerFrameBuffer(this.getBaseComponent(), local775.spriteWidth, local775.spriteHeight);
+			this.backright1 = new TeaFrameBuffer(local775.spriteWidth, local775.spriteHeight);
 			local775.drawOpaque(0, 0);
 			@Pc(800) Sprite local800 = new Sprite(mediaArchive, "backright2", 0);
-			this.backright2 = new ImageProducerFrameBuffer(this.getBaseComponent(), local800.spriteWidth, local800.spriteHeight);
+			this.backright2 = new TeaFrameBuffer(local800.spriteWidth, local800.spriteHeight);
 			local800.drawOpaque(0, 0);
 			@Pc(825) Sprite local825 = new Sprite(mediaArchive, "backtop1", 0);
-			this.backtop1 = new ImageProducerFrameBuffer(this.getBaseComponent(), local825.spriteWidth, local825.spriteHeight);
+			this.backtop1 = new TeaFrameBuffer(local825.spriteWidth, local825.spriteHeight);
 			local825.drawOpaque(0, 0);
 			@Pc(850) Sprite local850 = new Sprite(mediaArchive, "backtop2", 0);
-			this.backtop2 = new ImageProducerFrameBuffer(this.getBaseComponent(), local850.spriteWidth, local850.spriteHeight);
+			this.backtop2 = new TeaFrameBuffer(local850.spriteWidth, local850.spriteHeight);
 			local850.drawOpaque(0, 0);
 			@Pc(875) Sprite local875 = new Sprite(mediaArchive, "backvmid1", 0);
-			this.backvmid1 = new ImageProducerFrameBuffer(this.getBaseComponent(), local875.spriteWidth, local875.spriteHeight);
+			this.backvmid1 = new TeaFrameBuffer(local875.spriteWidth, local875.spriteHeight);
 			local875.drawOpaque(0, 0);
 			@Pc(900) Sprite local900 = new Sprite(mediaArchive, "backvmid2", 0);
-			this.backvmid2 = new ImageProducerFrameBuffer(this.getBaseComponent(), local900.spriteWidth, local900.spriteHeight);
+			this.backvmid2 = new TeaFrameBuffer(local900.spriteWidth, local900.spriteHeight);
 			local900.drawOpaque(0, 0);
 			@Pc(925) Sprite local925 = new Sprite(mediaArchive, "backvmid3", 0);
-			this.backvmid3 = new ImageProducerFrameBuffer(this.getBaseComponent(), local925.spriteWidth, local925.spriteHeight);
+			this.backvmid3 = new TeaFrameBuffer(local925.spriteWidth, local925.spriteHeight);
 			local925.drawOpaque(0, 0);
 			@Pc(950) Sprite local950 = new Sprite(mediaArchive, "backhmid2", 0);
-			this.backhmid2 = new ImageProducerFrameBuffer(this.getBaseComponent(), local950.spriteWidth, local950.spriteHeight);
+			this.backhmid2 = new TeaFrameBuffer(local950.spriteWidth, local950.spriteHeight);
 			local950.drawOpaque(0, 0);
 			@Pc(975) int local975 = (int) (Math.random() * 21.0D) - 10;
 			@Pc(982) int local982 = (int) (Math.random() * 21.0D) - 10;
@@ -6440,12 +6401,6 @@ public class Game extends GameShell {
 		}
 	}
 
-	@OriginalMember(owner = "client!client", name = "c", descriptor = "(I)V")
-	@Override
-	protected void refresh() {
-		this.redrawTitleBackground = true;
-	}
-
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(IILclient!hb;I)V")
 	private void drawOnMinimap(@OriginalArg(0) int arg0, @OriginalArg(2) Sprite arg2, @OriginalArg(3) int arg3) {
 		@Pc(7) int local7 = this.cameraYaw + this.minimapAnticheatAngle & 0x7FF;
@@ -6628,8 +6583,8 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(Ljava/lang/String;)Ljava/io/DataInputStream;")
-	private DataInputStream openStream(@OriginalArg(0) String arg0) throws IOException {
-		return SignedLink.mainapp == null ? new DataInputStream((new URL(this.getCodeBase(), arg0)).openStream()) : SignedLink.openurl(arg0);
+	private FileDownloadStream openStream(@OriginalArg(0) String url) throws IOException {
+		return SignedLink.openurl(url);
 	}
 
 	@OriginalMember(owner = "client!client", name = "j", descriptor = "(B)V")
@@ -6643,23 +6598,23 @@ public class Game extends GameShell {
 			this.areaBackbase1 = null;
 			this.areaBackbase2 = null;
 			this.areaBackhmid1 = null;
-			this.titleLeft = new ImageProducerFrameBuffer(this.getBaseComponent(), 128, 265);
+			this.titleLeft = new TeaFrameBuffer(128, 265);
 			Draw2D.clear();
-			this.titleRight = new ImageProducerFrameBuffer(this.getBaseComponent(), 128, 265);
+			this.titleRight = new TeaFrameBuffer(128, 265);
 			Draw2D.clear();
-			this.titleTop = new ImageProducerFrameBuffer(this.getBaseComponent(), 533, 186);
+			this.titleTop = new TeaFrameBuffer(533, 186);
 			Draw2D.clear();
-			this.titleBottom = new ImageProducerFrameBuffer(this.getBaseComponent(), 360, 146);
+			this.titleBottom = new TeaFrameBuffer(360, 146);
 			Draw2D.clear();
-			this.titleCenter = new ImageProducerFrameBuffer(this.getBaseComponent(), 360, 200);
+			this.titleCenter = new TeaFrameBuffer(360, 200);
 			Draw2D.clear();
-			this.titleBottomLeft = new ImageProducerFrameBuffer(this.getBaseComponent(), 214, 267);
+			this.titleBottomLeft = new TeaFrameBuffer(214, 267);
 			Draw2D.clear();
-			this.titleBottomRight = new ImageProducerFrameBuffer(this.getBaseComponent(), 215, 267);
+			this.titleBottomRight = new TeaFrameBuffer(215, 267);
 			Draw2D.clear();
-			this.titleLeftSpace = new ImageProducerFrameBuffer(this.getBaseComponent(), 86, 79);
+			this.titleLeftSpace = new TeaFrameBuffer(86, 79);
 			Draw2D.clear();
-			this.titleRightSpace = new ImageProducerFrameBuffer(this.getBaseComponent(), 87, 79);
+			this.titleRightSpace = new TeaFrameBuffer(87, 79);
 			Draw2D.clear();
 			if (this.titleArchive != null) {
 				this.loadTitleBackground();
@@ -6755,7 +6710,7 @@ public class Game extends GameShell {
 				this.loginMessage2 = "Connecting to server...";
 				this.drawTitleScreen();
 			}
-			this.stream = new BufferedStream(this, this.opensocket(gamePortOffset + 43594));
+			this.stream = opensocket(gamePortOffset + 43595);
 			this.stream.read(this.inBuffer.data, 0, 8);
 			this.inBuffer.pos = 0;
 			this.serverSeed = this.inBuffer.g8();
@@ -7205,8 +7160,8 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "A", descriptor = "(I)Ljava/net/Socket;")
-	private Socket opensocket(@OriginalArg(0) int arg0) throws IOException {
-		return SignedLink.mainapp == null ? new Socket(InetAddress.getByName(this.getCodeBase().getHost()), arg0) : SignedLink.opensocket(arg0);
+	private BufferedStream opensocket(@OriginalArg(0) int port) throws IOException {
+		return SignedLink.opensocket(port);
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ZIILclient!z;I)V")
@@ -7536,8 +7491,6 @@ public class Game extends GameShell {
 					this.outBuffer.pos = 0;
 					this.keepaliveCounter = 0;
 				}
-			} catch (@Pc(1001) IOException local1001) {
-				this.reconnect();
 			} catch (@Pc(1006) Exception local1006) {
 				this.disconnect();
 			}
@@ -7576,21 +7529,6 @@ public class Game extends GameShell {
 				}
 			}
 		}
-	}
-
-	@OriginalMember(owner = "client!client", name = "getCodeBase", descriptor = "()Ljava/net/URL;")
-	@Override
-	public URL getCodeBase() {
-		if (SignedLink.mainapp != null) {
-			return SignedLink.mainapp.getCodeBase();
-		}
-		try {
-			if (super.frame != null) {
-				return new URL("http://" + SERVER_ADDRESS + ":" + (gamePortOffset + 80));
-			}
-		} catch (@Pc(21) Exception local21) {
-		}
-		return super.getCodeBase();
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(IIZIIIIIIIII)Z")
@@ -8345,12 +8283,6 @@ public class Game extends GameShell {
 		}
 	}
 
-	@OriginalMember(owner = "client!client", name = "getParameter", descriptor = "(Ljava/lang/String;)Ljava/lang/String;")
-	@Override
-	public String getParameter(@OriginalArg(0) String arg0) {
-		return SignedLink.mainapp == null ? super.getParameter(arg0) : SignedLink.mainapp.getParameter(arg0);
-	}
-
 	@OriginalMember(owner = "client!client", name = "l", descriptor = "(Z)V")
 	private void reconnect() {
 		if (this.idleTimeout > 0) {
@@ -8363,7 +8295,7 @@ public class Game extends GameShell {
 		this.plain12.drawCentered(143, 16777215, "Connection lost", 256);
 		this.plain12.drawCentered(159, 0, "Please wait - attempting to reestablish", 257);
 		this.plain12.drawCentered(158, 16777215, "Please wait - attempting to reestablish", 256);
-		this.areaViewport.drawAt(11, super.graphics, 8);
+		this.areaViewport.drawAt(11, 8);
 		this.flagTileX = 0;
 		@Pc(60) BufferedStream local60 = this.stream;
 		this.ingame = false;
@@ -8680,64 +8612,25 @@ public class Game extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "m", descriptor = "(Z)V")
 	private void drawErrorScreen() {
-		@Pc(4) Graphics local4 = this.getBaseComponent().getGraphics();
-		local4.setColor(Color.black);
-		local4.fillRect(0, 0, 789, 532);
 		this.setLoopRate(1);
-		@Pc(40) byte local40;
-		@Pc(46) int local46;
+
 		if (this.errorLoading) {
 			this.flameActive = false;
-			local4.setFont(new java.awt.Font("Helvetica", java.awt.Font.BOLD, 16));
-			local4.setColor(Color.yellow);
-			local40 = 35;
-			local4.drawString("Sorry, an error has occured whilst loading RuneScape", 30, local40);
-			local46 = local40 + 50;
-			local4.setColor(Color.white);
-			local4.drawString("To fix this try the following (in order):", 30, local46);
-			@Pc(55) int local55 = local46 + 50;
-			local4.setColor(Color.white);
-			local4.setFont(new java.awt.Font("Helvetica", java.awt.Font.BOLD, 12));
-			local4.drawString("1: Try closing ALL open web-browser windows, and reloading", 30, local55);
-			@Pc(72) int local72 = local55 + 30;
-			local4.drawString("2: Try clearing your web-browsers cache from tools->internet options", 30, local72);
-			@Pc(78) int local78 = local72 + 30;
-			local4.drawString("3: Try using a different game-world", 30, local78);
-			@Pc(84) int local84 = local78 + 30;
-			local4.drawString("4: Try rebooting your computer", 30, local84);
-			@Pc(90) int local90 = local84 + 30;
-			local4.drawString("5: Try selecting a different version of Java from the play-game menu", 30, local90);
 		}
+
 		if (this.errorHost) {
 			this.flameActive = false;
-			local4.setFont(new java.awt.Font("Helvetica", java.awt.Font.BOLD, 20));
-			local4.setColor(Color.white);
-			local4.drawString("Error - unable to load game!", 50, 50);
-			local4.drawString("To play RuneScape make sure you play from", 50, 100);
-			local4.drawString("http://www.runescape.com", 50, 150);
 		}
+
 		if (this.errorStarted) {
 			this.flameActive = false;
-			local4.setColor(Color.yellow);
-			local40 = 35;
-			local4.drawString("Error a copy of RuneScape already appears to be loaded", 30, local40);
-			local46 = local40 + 50;
-			local4.setColor(Color.white);
-			local4.drawString("To fix this try the following (in order):", 30, local46);
-			local46 += 50;
-			local4.setColor(Color.white);
-			local4.setFont(new java.awt.Font("Helvetica", java.awt.Font.BOLD, 12));
-			local4.drawString("1: Try closing ALL open web-browser windows, and reloading", 30, local46);
-			local46 += 30;
-			local4.drawString("2: Try rebooting your computer, and reloading", 30, local46);
-			local46 += 30;
 		}
 	}
 
 	@OriginalMember(owner = "client!client", name = "p", descriptor = "(B)V")
 	private void loadTitleBackground() {
 		@Pc(8) byte[] local8 = this.titleArchive.read("title.dat", null);
-		@Pc(14) Sprite local14 = new Sprite(local8, this);
+		@Pc(14) Sprite local14 = new Sprite(local8);
 		this.titleLeft.makeTarget();
 		local14.drawOpaque(0, 0);
 		this.titleRight.makeTarget();
@@ -9254,7 +9147,7 @@ public class Game extends GameShell {
 		if (this.menuVisible && this.mouseArea == 2) {
 			this.drawMenu();
 		}
-		this.areaChatback.drawAt(375, super.graphics, 22);
+		this.areaChatback.drawAt(375, 22);
 		this.areaViewport.makeTarget();
 		Draw3D.lineOffsets = this.viewportOffsets;
 	}
@@ -9419,7 +9312,7 @@ public class Game extends GameShell {
 				this.areaViewport.makeTarget();
 				this.plain12.drawCentered(151, 0, "Loading - please wait.", 257);
 				this.plain12.drawCentered(150, 16777215, "Loading - please wait.", 256);
-				this.areaViewport.drawAt(11, super.graphics, 8);
+				this.areaViewport.drawAt(11, 8);
 				SignedLink.looprate(5);
 				local211 = (this.packetLength - 2) / 10;
 				this.sceneMapLandData = new byte[local211][];
@@ -9478,7 +9371,7 @@ public class Game extends GameShell {
 					this.plain12.drawCentered(166, 0, "Map area updated since last visit, so load will take longer this time only", 257);
 					this.plain12.drawCentered(165, 16777215, "Map area updated since last visit, so load will take longer this time only", 256);
 				}
-				this.areaViewport.drawAt(11, super.graphics, 8);
+				this.areaViewport.drawAt(11, 8);
 				local650 = this.baseTileX - this.mapLastBaseX;
 				local321 = this.baseTileZ - this.mapLastBaseZ;
 				this.mapLastBaseX = this.baseTileX;
@@ -10300,7 +10193,7 @@ public class Game extends GameShell {
 					this.areaViewport.makeTarget();
 					this.plain12.drawCentered(151, 0, "Loading - please wait.", 257);
 					this.plain12.drawCentered(150, 16777215, "Loading - please wait.", 256);
-					this.areaViewport.drawAt(11, super.graphics, 8);
+					this.areaViewport.drawAt(11, 8);
 					Scene.levelBuilt = this.currentPlane;
 					this.createScene();
 				}
@@ -10313,8 +10206,6 @@ public class Game extends GameShell {
 			}
 			SignedLink.reporterror("T1 - " + this.packetOpcode + "," + this.packetLength + " - " + this.secondMostRecentOpcode + "," + this.thirdMostRecentOpcode);
 			this.disconnect();
-		} catch (@Pc(3862) IOException local3862) {
-			this.reconnect();
 		} catch (@Pc(3867) Exception local3867) {
 			local1264 = "T2 - " + this.packetOpcode + "," + this.secondMostRecentOpcode + "," + this.thirdMostRecentOpcode + " - " + this.packetLength + "," + (this.baseTileX + this.self.pathTileX[0]) + "," + (this.baseTileZ + this.self.pathTileZ[0]) + " - ";
 			for (local462 = 0; local462 < this.packetLength && local462 < 50; local462++) {
@@ -10339,7 +10230,7 @@ public class Game extends GameShell {
 		if (this.menuVisible && this.mouseArea == 1) {
 			this.drawMenu();
 		}
-		this.areaInvback.drawAt(231, super.graphics, 562);
+		this.areaInvback.drawAt(231, 562);
 		this.areaViewport.makeTarget();
 		Draw3D.lineOffsets = this.viewportOffsets;
 	}
@@ -10359,26 +10250,6 @@ public class Game extends GameShell {
 		} else {
 			return false;
 		}
-	}
-
-	@OriginalMember(owner = "client!client", name = "init", descriptor = "()V")
-	@Override
-	public void init() {
-		nodeId = Integer.parseInt(this.getParameter("nodeid"));
-		gamePortOffset = Integer.parseInt(this.getParameter("portoff"));
-		@Pc(15) String local15 = this.getParameter("lowmem");
-		if (local15 != null && local15.equals("1")) {
-			setLowMemory();
-		} else {
-			setHighMemory();
-		}
-		@Pc(31) String local31 = this.getParameter("free");
-		if (local31 != null && local31.equals("1")) {
-			members = false;
-		} else {
-			members = true;
-		}
-		this.initApplet(532, 789);
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ZIILclient!kb;Lclient!z;)V")
@@ -10501,6 +10372,8 @@ public class Game extends GameShell {
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ZLjava/lang/String;I)V")
 	@Override
 	protected void showProgress(@OriginalArg(1) String str, @OriginalArg(2) int progress) {
+		System.out.println(str);
+
 		this.prepareTitleScreen();
 		if (this.titleArchive == null) {
 			super.showProgress(str, progress);
@@ -10516,19 +10389,19 @@ public class Game extends GameShell {
 			Draw2D.fillRect(local51 + 2, local17 / 2 - 150, 9179409, progress * 3, 30);
 			Draw2D.fillRect(local51 + 2, local17 / 2 - 150 + progress * 3, 0, 300 - progress * 3, 30);
 			this.bold12.drawCentered(local19 / 2 + 5 - local21, 16777215, str, local17 / 2);
-			this.titleCenter.drawAt(186, super.graphics, 214);
+			this.titleCenter.drawAt(186, 214);
 			if (this.redrawTitleBackground) {
 				this.redrawTitleBackground = false;
 				if (!this.flameActive) {
-					this.titleLeft.drawAt(0, super.graphics, 0);
-					this.titleRight.drawAt(0, super.graphics, 661);
+					this.titleLeft.drawAt(0, 0);
+					this.titleRight.drawAt(0, 661);
 				}
-				this.titleTop.drawAt(0, super.graphics, 128);
-				this.titleBottom.drawAt(386, super.graphics, 214);
-				this.titleBottomLeft.drawAt(265, super.graphics, 0);
-				this.titleBottomRight.drawAt(265, super.graphics, 574);
-				this.titleLeftSpace.drawAt(186, super.graphics, 128);
-				this.titleRightSpace.drawAt(186, super.graphics, 574);
+				this.titleTop.drawAt(0, 128);
+				this.titleBottom.drawAt(386, 214);
+				this.titleBottomLeft.drawAt(265, 0);
+				this.titleBottomRight.drawAt(265, 574);
+				this.titleLeftSpace.drawAt(186, 128);
+				this.titleRightSpace.drawAt(186, 574);
 			}
 		}
 	}

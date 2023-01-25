@@ -1,184 +1,161 @@
 package com.jagex.game.runetek3;
 
-import org.openrs2.deob.annotation.OriginalArg;
-import org.openrs2.deob.annotation.OriginalClass;
-import org.openrs2.deob.annotation.OriginalMember;
-import org.openrs2.deob.annotation.Pc;
+import org.teavm.interop.Async;
+import org.teavm.interop.AsyncCallback;
+import org.teavm.jso.dom.events.Event;
+import org.teavm.jso.dom.events.EventListener;
+import org.teavm.jso.dom.events.MessageEvent;
+import org.teavm.jso.typedarrays.Int8Array;
+import org.teavm.jso.websocket.CloseEvent;
+import org.teavm.jso.websocket.WebSocket;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
+import java.util.ArrayList;
 
-@OriginalClass("client!d")
-public class BufferedStream implements Runnable {
+interface SocketCallback {
+	void run(int result);
+}
 
-	@OriginalMember(owner = "client!d", name = "g", descriptor = "[B")
-	private byte[] buffer;
+public class BufferedStream {
+	private String host;
+	private int port;
+	private WebSocket client;
+	private boolean connected = false;
+	private int bytesAvailable = 0;
+	private ArrayList<Int8Array> buffers = new ArrayList<Int8Array>();
+	private Int8Array currentBuffer;
+	private int offset = 0;
+	private int bytesLeft = 0;
 
-	@OriginalMember(owner = "client!d", name = "h", descriptor = "I")
-	private int length;
-
-	@OriginalMember(owner = "client!d", name = "i", descriptor = "I")
-	private int offset;
-
-	@OriginalMember(owner = "client!d", name = "e", descriptor = "Z")
-	private boolean closed = false;
-
-	@OriginalMember(owner = "client!d", name = "j", descriptor = "Z")
-	private boolean writing = false;
-
-	@OriginalMember(owner = "client!d", name = "k", descriptor = "Z")
-	private boolean exception = false;
-
-	@OriginalMember(owner = "client!d", name = "f", descriptor = "Lclient!a;")
-	private final GameShell shell;
-
-	@OriginalMember(owner = "client!d", name = "d", descriptor = "Ljava/net/Socket;")
-	private final Socket socket;
-
-	@OriginalMember(owner = "client!d", name = "b", descriptor = "Ljava/io/InputStream;")
-	private final InputStream in;
-
-	@OriginalMember(owner = "client!d", name = "c", descriptor = "Ljava/io/OutputStream;")
-	private final OutputStream out;
-
-	@OriginalMember(owner = "client!d", name = "<init>", descriptor = "(Lclient!a;BLjava/net/Socket;)V")
-	public BufferedStream(@OriginalArg(0) GameShell shell, @OriginalArg(2) Socket socket) throws IOException {
-		this.shell = shell;
-		this.socket = socket;
-		this.socket.setSoTimeout(30000);
-		this.socket.setTcpNoDelay(true);
-		this.in = this.socket.getInputStream();
-		this.out = this.socket.getOutputStream();
+	public BufferedStream(String host, int port) {
+		this.host = host;
+		this.port = port;
 	}
 
-	@OriginalMember(owner = "client!d", name = "a", descriptor = "()V")
-	public void close() {
-		this.closed = true;
+	@Async
+	public native int connect();
+	public void connect(AsyncCallback<Integer> callback) {
+		this.client = WebSocket.create("ws://" + this.host + ":" + this.port, "binary");
+		this.client.setBinaryType("arraybuffer");
+
+		this.client.onClose(new EventListener<CloseEvent>(){
+			public void handleEvent(CloseEvent event) {
+				System.out.println(event.getCode() + " " + event.getReason());
+			}
+		});
+
+		this.client.onMessage(new EventListener<MessageEvent>(){
+			public void handleEvent(MessageEvent event) {
+				Int8Array toAdd = Int8Array.create(event.getDataAsArray());
+				buffers.add(toAdd);
+				bytesAvailable += toAdd.getLength();
+				refreshCurrentBuffer();
+			};
+		});
+
+		this.client.onOpen(new EventListener<MessageEvent>(){
+			public void handleEvent(MessageEvent event) {
+				connected = true;
+				callback.complete(1);
+			}
+		});
+
+		this.client.onError(new EventListener<Event>(){
+			public void handleEvent(Event event) {
+				callback.error(new IOException("WebSocket error"));
+			}
+		});
+	}
+
+	public void write(byte[] bytes, int length, int offset) {
+		Int8Array toSend = Int8Array.create(length);
+
+		for (int i = 0; i < length; i += 1) {
+			toSend.set(i, bytes[offset + i]);
+		}
+
+		this.client.send(toSend);
+	}
+
+	private void refreshCurrentBuffer() {
+		if (this.bytesLeft == 0 && this.bytesAvailable > 0) {
+			this.currentBuffer = this.buffers.remove(0);
+			this.offset = 0;
+
+			if (this.currentBuffer != null && this.currentBuffer.getLength() > 0) {
+				this.bytesLeft = this.currentBuffer.getLength();
+			} else {
+				this.bytesLeft = 0;
+			}
+		}
+	}
+
+	public int read() {
+		if (!this.connected) {
+			return -1;
+		}
+
+		if (this.bytesLeft > 0) {
+			this.bytesLeft--;
+			this.bytesAvailable--;
+			return this.currentBuffer.get(this.offset++) & 0xff;
+		}
+
 		try {
-			if (this.in != null) {
-				this.in.close();
-			}
-			if (this.out != null) {
-				this.out.close();
-			}
-			if (this.socket != null) {
-				this.socket.close();
-			}
-		} catch (@Pc(22) IOException ignored) {
-			System.out.println("Error closing stream");
+			Thread.sleep(5);
+		} catch (InterruptedException e) {
 		}
-		this.writing = false;
-		synchronized (this) {
-			this.notify();
+
+		return this.read();
+	}
+
+	public int read(byte[] destination, int off, int length) {
+		if (!this.connected) {
+			return -1;
 		}
-		this.buffer = null;
+
+		if (this.bytesAvailable >= length) {
+			while (length > 0) {
+				destination[off++] = this.currentBuffer.get(this.offset++);
+				this.bytesLeft -= 1;
+				this.bytesAvailable -= 1;
+				length -= 1;
+
+				if (this.bytesLeft == 0) {
+					this.refreshCurrentBuffer();
+				}
+			}
+
+			return length;
+		}
+
+		try {
+			Thread.sleep(5);
+		} catch (InterruptedException e) {
+		}
+
+		return this.read(destination, offset, length);
 	}
 
-	@OriginalMember(owner = "client!d", name = "b", descriptor = "()I")
-	public int read() throws IOException {
-		return this.closed ? 0 : this.in.read();
-	}
-
-	@OriginalMember(owner = "client!d", name = "c", descriptor = "()I")
-	public int available() throws IOException {
-		return this.closed ? 0 : this.in.available();
-	}
-
-	@OriginalMember(owner = "client!d", name = "a", descriptor = "([BII)V")
-	public void read(@OriginalArg(0) byte[] dst, @OriginalArg(1) int off, @OriginalArg(2) int len) throws IOException {
-		if (this.closed) {
+	public void close() {
+		if (!this.connected) {
 			return;
 		}
 
-		while (len > 0) {
-			@Pc(11) int read = this.in.read(dst, off, len);
-			if (read <= 0) {
-				throw new IOException("EOF");
-			}
-
-			off += read;
-			len -= read;
-		}
+		this.client.close();
 	}
 
-	@OriginalMember(owner = "client!d", name = "a", descriptor = "([BIZI)V")
-	public void write(@OriginalArg(0) byte[] src, @OriginalArg(1) int len, @OriginalArg(3) int off) throws IOException {
-		if (this.closed) {
-			return;
-		}
-
-		if (this.exception) {
-			this.exception = false;
-			throw new IOException("Error in writer thread");
-		}
-
-		if (this.buffer == null) {
-			this.buffer = new byte[5000];
-		}
-
-		synchronized (this) {
-			for (@Pc(31) int i = 0; i < len; i++) {
-				this.buffer[this.offset] = src[i + off];
-				this.offset = (this.offset + 1) % 5000;
-				if (this.offset == (this.length + 4900) % 5000) {
-					throw new IOException("buffer overflow");
-				}
-			}
-
-			if (!this.writing) {
-				this.writing = true;
-				this.shell.startThread(this, 2);
-			}
-
-			this.notify();
-		}
+	public int available() {
+		return this.bytesAvailable;
 	}
 
-	@OriginalMember(owner = "client!d", name = "run", descriptor = "()V")
-	@Override
-	public void run() {
-		while (this.writing) {
-			@Pc(38) int off;
-			@Pc(27) int len;
-			synchronized (this) {
-				if (this.offset == this.length) {
-					try {
-						this.wait();
-					} catch (@Pc(16) InterruptedException ignored) {
-					}
-				}
-
-				if (!this.writing) {
-					return;
-				}
-
-				len = this.length;
-				if (this.offset >= this.length) {
-					off = this.offset - this.length;
-				} else {
-					off = 5000 - this.length;
-				}
-			}
-
-			if (off > 0) {
-				try {
-					this.out.write(this.buffer, len, off);
-				} catch (@Pc(62) IOException ignored) {
-					this.exception = true;
-				}
-
-				this.length = (this.length + off) % 5000;
-
-				try {
-					if (this.offset == this.length) {
-						this.out.flush();
-					}
-				} catch (@Pc(83) IOException ignored) {
-					this.exception = true;
-				}
-			}
+	public void clear() {
+		if (this.connected) {
+			this.client.close();
 		}
+
+		this.currentBuffer = null;
+		this.buffers.clear();
+		this.bytesLeft = 0;
 	}
 }

@@ -1,18 +1,22 @@
 package com.jagex.game.runetek3;
 
-import com.jagex.game.runetek3.graphics.ImageProducerFrameBuffer;
 import com.jagex.game.runetek3.graphics.Sprite;
+import com.jagex.game.runetek3.graphics.TeaFrameBuffer;
 import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
-
-import java.applet.Applet;
-import java.awt.*;
-import java.awt.event.*;
+import org.teavm.jso.canvas.CanvasRenderingContext2D;
+import org.teavm.jso.canvas.ImageData;
+import org.teavm.jso.dom.events.EventListener;
+import org.teavm.jso.dom.events.KeyboardEvent;
+import org.teavm.jso.dom.events.MouseEvent;
+import org.teavm.jso.dom.html.HTMLCanvasElement;
+import org.teavm.jso.dom.html.HTMLDocument;
+import org.teavm.jso.dom.html.TextRectangle;
 
 @OriginalClass("client!a")
-public class GameShell extends Applet implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
+public class GameShell implements Runnable {
 
 	public static int KEY_LEFT = 1;
 	public static int KEY_RIGHT = 2;
@@ -38,14 +42,8 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	@OriginalMember(owner = "client!a", name = "m", descriptor = "I")
 	protected int gameHeight;
 
-	@OriginalMember(owner = "client!a", name = "n", descriptor = "Ljava/awt/Graphics;")
-	protected Graphics graphics;
-
 	@OriginalMember(owner = "client!a", name = "o", descriptor = "Lclient!qb;")
-	protected ImageProducerFrameBuffer frameBuffer;
-
-	@OriginalMember(owner = "client!a", name = "q", descriptor = "Lclient!b;")
-	protected GameFrame frame;
+	protected TeaFrameBuffer frameBuffer;
 
 	@OriginalMember(owner = "client!a", name = "s", descriptor = "I")
 	protected int idleCycles;
@@ -95,37 +93,94 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	@OriginalMember(owner = "client!a", name = "A", descriptor = "[I")
 	private final int[] pressedKeys = new int[128];
 
+	public HTMLCanvasElement canvas;
+	public CanvasRenderingContext2D context;
+	public ImageData imageData;
+
+	private void setMousePosition(MouseEvent event) {
+		TextRectangle boundingRect = canvas.getBoundingClientRect();
+		double scaleX = (double) canvas.getWidth() / boundingRect.getWidth();
+		double scaleY = (double) canvas.getHeight() / boundingRect.getHeight();
+
+		this.mouseX = (int) ((event.getClientX() - boundingRect.getLeft()) * scaleX);
+		this.mouseY = (int) ((event.getClientY() - boundingRect.getTop()) * scaleY);
+	}
+
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "(III)V")
 	protected final void initApplication(@OriginalArg(0) int height, @OriginalArg(1) int width) {
 		this.gameWidth = width;
 		this.gameHeight = height;
-		this.setPreferredSize(new Dimension(this.gameWidth, this.gameHeight));
 
-		this.frame = new GameFrame(this);
-		this.graphics = this.getBaseComponent().getGraphics();
-		this.frameBuffer = new ImageProducerFrameBuffer(this.getBaseComponent(), this.gameWidth, this.gameHeight);
-		this.startThread(this, 1);
-	}
+		this.canvas = (HTMLCanvasElement) HTMLDocument.current().getElementById("game");
+		this.canvas.setAttribute("tabindex", "-1");
+		this.canvas.setWidth(gameWidth);
+		this.canvas.setHeight(gameHeight);
 
-	@OriginalMember(owner = "client!a", name = "a", descriptor = "(IZI)V")
-	protected final void initApplet(@OriginalArg(0) int height, @OriginalArg(2) int width) {
-		this.gameWidth = width;
-		this.gameHeight = height;
-		this.graphics = this.getBaseComponent().getGraphics();
-		this.frameBuffer = new ImageProducerFrameBuffer(this.getBaseComponent(), this.gameWidth, this.gameHeight);
-		this.startThread(this, 1);
+		this.context = (CanvasRenderingContext2D) this.canvas.getContext("2d");
+		imageData = context.createImageData(gameWidth, gameHeight);
+
+		this.canvas.addEventListener("mousedown", new EventListener<MouseEvent>() {
+			public void handleEvent(MouseEvent event) {
+				setMousePosition(event);
+				mousePressed(event.getButton() == 2 ? 2 : 1);
+			}
+		});
+
+		this.canvas.addEventListener("mouseup", new EventListener<MouseEvent>() {
+			public void handleEvent(MouseEvent event) {
+				setMousePosition(event);
+				mouseReleased(event.getButton() == 2 ? 2 : 1);
+			}
+		});
+
+		this.canvas.addEventListener("mousemove", new EventListener<MouseEvent>() {
+			public void handleEvent(MouseEvent event) {
+				setMousePosition(event);
+				mouseMoved();
+			}
+		});
+
+		this.canvas.addEventListener("contextmenu", new EventListener<MouseEvent>() {
+			public void handleEvent(MouseEvent event) {
+				event.preventDefault();
+			}
+		});
+
+		this.canvas.addEventListener("keydown", new EventListener<KeyboardEvent>() {
+			public void handleEvent(KeyboardEvent event) {
+				int code = event.getKeyCode();
+
+				char charCode = event.getKey().length() == 1 ? event.getKey().charAt(0) : 65535;
+
+				if (code == 8 || code == 13 || code == 10 || code == 9) {
+					charCode = (char) code;
+				}
+
+				keyPressed(charCode, code);
+			}
+		});
+
+		this.canvas.addEventListener("keyup", new EventListener<KeyboardEvent>() {
+			public void handleEvent(KeyboardEvent event) {
+				int code = event.getKeyCode();
+
+				char charCode = event.getKey().length() == 1 ? event.getKey().charAt(0) : 65535;
+
+				if (code == 8 || code == 13 || code == 10 || code == 9) {
+					charCode = (char) code;
+				}
+
+				keyReleased(charCode, code);
+			}
+		});
+
+		start();
+		run();
 	}
 
 	@OriginalMember(owner = "client!a", name = "run", descriptor = "()V")
 	@Override
 	public void run() {
-		this.getBaseComponent().addMouseListener(this);
-		this.getBaseComponent().addMouseMotionListener(this);
-		this.getBaseComponent().addKeyListener(this);
-		this.getBaseComponent().addFocusListener(this);
-		if (this.frame != null) {
-			this.frame.addWindowListener(this);
-		}
 		this.showProgress("Loading...", 0);
 		this.load();
 
@@ -217,11 +272,6 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 			Thread.sleep(1000L);
 		} catch (@Pc(21) Exception ex) {
 		}
-
-		try {
-			System.exit(0);
-		} catch (@Pc(25) Throwable ex) {
-		}
 	}
 
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "(II)V")
@@ -230,69 +280,18 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	}
 
 	@OriginalMember(owner = "client!a", name = "start", descriptor = "()V")
-	@Override
 	public final void start() {
 		if (this.state >= 0) {
 			this.state = 0;
 		}
 	}
 
-	@OriginalMember(owner = "client!a", name = "stop", descriptor = "()V")
-	@Override
-	public final void stop() {
-		if (this.state >= 0) {
-			this.state = 4000 / this.deltime;
-		}
-	}
-
-	@OriginalMember(owner = "client!a", name = "destroy", descriptor = "()V")
-	@Override
-	public final void destroy() {
-		this.state = -1;
-
-		try {
-			Thread.sleep(5000L);
-		} catch (@Pc(6) Exception ex) {
-		}
-
-		if (this.state == -1) {
-			this.shutdown();
-		}
-	}
-
-	@OriginalMember(owner = "client!a", name = "update", descriptor = "(Ljava/awt/Graphics;)V")
-	@Override
-	public final void update(@OriginalArg(0) Graphics g) {
-		if (this.graphics == null) {
-			this.graphics = g;
-		}
-
-		this.refresh = true;
-		this.refresh();
-	}
-
-	@OriginalMember(owner = "client!a", name = "paint", descriptor = "(Ljava/awt/Graphics;)V")
-	@Override
-	public final void paint(@OriginalArg(0) Graphics g) {
-		if (this.graphics == null) {
-			this.graphics = g;
-		}
-
-		this.refresh = true;
-		this.refresh();
-	}
-
-	@OriginalMember(owner = "client!a", name = "mousePressed", descriptor = "(Ljava/awt/event/MouseEvent;)V")
-	@Override
-	public final void mousePressed(@OriginalArg(0) MouseEvent e) {
-		@Pc(2) int x = e.getX();
-		@Pc(5) int y = e.getY();
-
+	public final void mousePressed(int button) {
 		this.idleCycles = 0;
-		this.clickX = x;
-		this.clickY = y;
+		this.clickX = this.mouseX;
+		this.clickY = this.mouseY;
 
-		if ((e.getModifiersEx() & MouseEvent.BUTTON3_DOWN_MASK) != 0) {
+		if (button != 1) {
 			this.mouseButton = 2;
 			this.dragButton = 2;
 		} else {
@@ -301,111 +300,62 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 		}
 
 		if (InputTracking.enabled) {
-			InputTracking.mousePressed(x, (e.getModifiersEx() & MouseEvent.BUTTON3_DOWN_MASK) != 0 ? 1 : 0, y);
+			InputTracking.mousePressed(this.clickX, button, this.clickY);
 		}
 	}
 
-	@OriginalMember(owner = "client!a", name = "mouseReleased", descriptor = "(Ljava/awt/event/MouseEvent;)V")
-	@Override
-	public final void mouseReleased(@OriginalArg(0) MouseEvent e) {
+	public final void mouseReleased(int button) {
 		this.idleCycles = 0;
 		this.dragButton = 0;
 
 		if (InputTracking.enabled) {
-			InputTracking.mouseReleased(e.isMetaDown() ? 1 : 0);
+			InputTracking.mouseReleased(button);
 		}
 	}
 
-	@OriginalMember(owner = "client!a", name = "mouseClicked", descriptor = "(Ljava/awt/event/MouseEvent;)V")
-	@Override
-	public final void mouseClicked(@OriginalArg(0) MouseEvent e) {
-	}
-
-	@OriginalMember(owner = "client!a", name = "mouseEntered", descriptor = "(Ljava/awt/event/MouseEvent;)V")
-	@Override
-	public final void mouseEntered(@OriginalArg(0) MouseEvent e) {
-		if (InputTracking.enabled) {
-			InputTracking.mouseEntered();
-		}
-	}
-
-	@OriginalMember(owner = "client!a", name = "mouseExited", descriptor = "(Ljava/awt/event/MouseEvent;)V")
-	@Override
-	public final void mouseExited(@OriginalArg(0) MouseEvent e) {
-		if (InputTracking.enabled) {
-			InputTracking.mouseExited();
-		}
-	}
-
-	@OriginalMember(owner = "client!a", name = "mouseDragged", descriptor = "(Ljava/awt/event/MouseEvent;)V")
-	@Override
-	public final void mouseDragged(@OriginalArg(0) MouseEvent e) {
-		@Pc(2) int x = e.getX();
-		@Pc(5) int y = e.getY();
-
+	public final void mouseMoved() {
 		this.idleCycles = 0;
-		this.mouseX = x;
-		this.mouseY = y;
 
 		if (InputTracking.enabled) {
-			InputTracking.mouseMoved(y, x);
+			InputTracking.mouseMoved(this.mouseY, this.mouseX);
 		}
 	}
 
-	@OriginalMember(owner = "client!a", name = "mouseMoved", descriptor = "(Ljava/awt/event/MouseEvent;)V")
-	@Override
-	public final void mouseMoved(@OriginalArg(0) MouseEvent e) {
-		@Pc(2) int x = e.getX();
-		@Pc(5) int y = e.getY();
-
+	public final void keyPressed(int ch, int code) {
 		this.idleCycles = 0;
-		this.mouseX = x;
-		this.mouseY = y;
-
-		if (InputTracking.enabled) {
-			InputTracking.mouseMoved(y, x);
-		}
-	}
-
-	@OriginalMember(owner = "client!a", name = "keyPressed", descriptor = "(Ljava/awt/event/KeyEvent;)V")
-	@Override
-	public final void keyPressed(@OriginalArg(0) KeyEvent e) {
-		this.idleCycles = 0;
-		@Pc(7) int code = e.getKeyCode();
-		@Pc(10) int ch = e.getKeyChar();
 
 		if (ch < 30) {
 			ch = 0;
 		}
 
-		if (code == KeyEvent.VK_LEFT) {
+		if (code == 37) {
 			ch = KEY_LEFT;
-		} else if (code == KeyEvent.VK_RIGHT) {
+		} else if (code == 39) {
 			ch = KEY_RIGHT;
-		} else if (code == KeyEvent.VK_UP) {
+		} else if (code == 38) {
 			ch = KEY_UP;
-		} else if (code == KeyEvent.VK_DOWN) {
+		} else if (code == 40) {
 			ch = KEY_DOWN;
-		} else if (code == KeyEvent.VK_CONTROL) {
+		} else if (code == 17) {
 			ch = KEY_CONTROL;
-		} else if (code == KeyEvent.VK_BACK_SPACE) {
+		} else if (code == 8) {
 			ch = KEY_DELETE;
-		} else if (code == KeyEvent.VK_DELETE) {
+		} else if (code == 127) {
 			ch = KEY_DELETE;
-		} else if (code == KeyEvent.VK_TAB) {
+		} else if (code == 9) {
 			ch = KEY_TAB;
-		} else if (code == KeyEvent.VK_ENTER) {
+		} else if (code == 10) {
 			ch = KEY_ENTER;
-		} else if (code == KeyEvent.VK_HOME) {
+		} else if (code == 36) {
 			ch = KEY_HOME;
-		} else if (code == KeyEvent.VK_END) {
+		} else if (code == 35) {
 			ch = KEY_END;
-		} else if (code == KeyEvent.VK_PAGE_UP) {
+		} else if (code == 33) {
 			ch = 1002;
-		} else if (code == KeyEvent.VK_PAGE_DOWN) {
+		} else if (code == 34) {
 			ch = 1003;
-		} else if (code >= KeyEvent.VK_F1 && code <= KeyEvent.VK_F12) {
-			ch = (1008 + code) - KeyEvent.VK_F1;
+		} else if (code >= 112 && code <= 123) {
+			ch = (1008 + code) - 112;
 		}
 
 		if (ch > 0 && ch < 128) {
@@ -422,45 +372,41 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 		}
 	}
 
-	@OriginalMember(owner = "client!a", name = "keyReleased", descriptor = "(Ljava/awt/event/KeyEvent;)V")
-	@Override
-	public final void keyReleased(@OriginalArg(0) KeyEvent e) {
+	public final void keyReleased(int ch, int code) {
 		this.idleCycles = 0;
-		@Pc(5) int code = e.getKeyCode();
-		@Pc(8) int ch = e.getKeyChar();
 
 		if (ch < 30) {
 			ch = 0;
 		}
 
-		if (code == KeyEvent.VK_LEFT) {
-			ch = 1;
-		} else if (code == KeyEvent.VK_RIGHT) {
-			ch = 2;
-		} else if (code == KeyEvent.VK_UP) {
-			ch = 3;
-		} else if (code == KeyEvent.VK_DOWN) {
-			ch = 4;
-		} else if (code == KeyEvent.VK_CONTROL) {
-			ch = 5;
-		} else if (code == KeyEvent.VK_BACK_SPACE) {
-			ch = 8;
-		} else if (code == KeyEvent.VK_DELETE) {
-			ch = 8;
-		} else if (code == KeyEvent.VK_TAB) {
-			ch = 9;
-		} else if (code == KeyEvent.VK_ENTER) {
-			ch = 10;
-		} else if (code == KeyEvent.VK_HOME) {
+		if (code == 37) {
+			ch = KEY_LEFT;
+		} else if (code == 39) {
+			ch = KEY_RIGHT;
+		} else if (code == 38) {
+			ch = KEY_UP;
+		} else if (code == 40) {
+			ch = KEY_DOWN;
+		} else if (code == 17) {
+			ch = KEY_CONTROL;
+		} else if (code == 8) {
+			ch = KEY_DELETE;
+		} else if (code == 127) {
+			ch = KEY_DELETE;
+		} else if (code == 9) {
+			ch = KEY_TAB;
+		} else if (code == 10) {
+			ch = KEY_ENTER;
+		} else if (code == 36) {
 			ch = KEY_HOME;
-		} else if (code == KeyEvent.VK_END) {
+		} else if (code == 35) {
 			ch = KEY_END;
-		} else if (code == KeyEvent.VK_PAGE_UP) {
+		} else if (code == 33) {
 			ch = 1002;
-		} else if (code == KeyEvent.VK_PAGE_DOWN) {
+		} else if (code == 34) {
 			ch = 1003;
-		} else if (code >= KeyEvent.VK_F1 && code <= KeyEvent.VK_F12) {
-			ch = (1008 + code) - KeyEvent.VK_F1;
+		} else if (code >= 112 && code <= 123) {
+			ch = (1008 + code) - 112;
 		}
 
 		if (ch > 0 && ch < 128) {
@@ -469,30 +415,6 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 
 		if (InputTracking.enabled) {
 			InputTracking.keyReleased(ch);
-		}
-	}
-
-	@OriginalMember(owner = "client!a", name = "keyTyped", descriptor = "(Ljava/awt/event/KeyEvent;)V")
-	@Override
-	public final void keyTyped(@OriginalArg(0) KeyEvent e) {
-	}
-
-	@OriginalMember(owner = "client!a", name = "focusGained", descriptor = "(Ljava/awt/event/FocusEvent;)V")
-	@Override
-	public final void focusGained(@OriginalArg(0) FocusEvent e) {
-		this.refresh = true;
-		this.refresh();
-
-		if (InputTracking.enabled) {
-			InputTracking.focusGained();
-		}
-	}
-
-	@OriginalMember(owner = "client!a", name = "focusLost", descriptor = "(Ljava/awt/event/FocusEvent;)V")
-	@Override
-	public final void focusLost(@OriginalArg(0) FocusEvent e) {
-		if (InputTracking.enabled) {
-			InputTracking.focusLost();
 		}
 	}
 
@@ -506,42 +428,6 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 		}
 
 		return key;
-	}
-
-	@OriginalMember(owner = "client!a", name = "windowActivated", descriptor = "(Ljava/awt/event/WindowEvent;)V")
-	@Override
-	public final void windowActivated(@OriginalArg(0) WindowEvent e) {
-	}
-
-	@OriginalMember(owner = "client!a", name = "windowClosed", descriptor = "(Ljava/awt/event/WindowEvent;)V")
-	@Override
-	public final void windowClosed(@OriginalArg(0) WindowEvent e) {
-	}
-
-	@OriginalMember(owner = "client!a", name = "windowClosing", descriptor = "(Ljava/awt/event/WindowEvent;)V")
-	@Override
-	public final void windowClosing(@OriginalArg(0) WindowEvent e) {
-		this.destroy();
-	}
-
-	@OriginalMember(owner = "client!a", name = "windowDeactivated", descriptor = "(Ljava/awt/event/WindowEvent;)V")
-	@Override
-	public final void windowDeactivated(@OriginalArg(0) WindowEvent e) {
-	}
-
-	@OriginalMember(owner = "client!a", name = "windowDeiconified", descriptor = "(Ljava/awt/event/WindowEvent;)V")
-	@Override
-	public final void windowDeiconified(@OriginalArg(0) WindowEvent e) {
-	}
-
-	@OriginalMember(owner = "client!a", name = "windowIconified", descriptor = "(Ljava/awt/event/WindowEvent;)V")
-	@Override
-	public final void windowIconified(@OriginalArg(0) WindowEvent e) {
-	}
-
-	@OriginalMember(owner = "client!a", name = "windowOpened", descriptor = "(Ljava/awt/event/WindowEvent;)V")
-	@Override
-	public final void windowOpened(@OriginalArg(0) WindowEvent e) {
 	}
 
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "()V")
@@ -560,15 +446,6 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 	protected void draw() {
 	}
 
-	@OriginalMember(owner = "client!a", name = "c", descriptor = "(I)V")
-	protected void refresh() {
-	}
-
-	@OriginalMember(owner = "client!a", name = "b", descriptor = "(B)Ljava/awt/Component;")
-	protected Component getBaseComponent() {
-		return this;
-	}
-
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "(Ljava/lang/Runnable;I)V")
 	public void startThread(@OriginalArg(0) Runnable runnable, @OriginalArg(1) int priority) {
 		@Pc(4) Thread thread = new Thread(runnable);
@@ -578,41 +455,8 @@ public class GameShell extends Applet implements Runnable, MouseListener, MouseM
 
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "(ZLjava/lang/String;I)V")
 	protected void showProgress(@OriginalArg(1) String str, @OriginalArg(2) int progress) {
-		while (this.graphics == null) {
-			this.graphics = this.getBaseComponent().getGraphics();
-
-			try {
-				this.getBaseComponent().repaint();
-			} catch (@Pc(22) Exception ex) {
-			}
-
-			try {
-				Thread.sleep(1000L);
-			} catch (@Pc(26) Exception ex) {
-			}
-		}
-
-		@Pc(37) Font helvetica = new Font("Helvetica", java.awt.Font.BOLD, 13);
-		@Pc(44) FontMetrics metrics = this.getBaseComponent().getFontMetrics(helvetica);
-
 		if (this.refresh) {
-			this.graphics.setColor(Color.black);
-			this.graphics.fillRect(0, 0, this.gameWidth, this.gameHeight);
 			this.refresh = false;
 		}
-
-		@Pc(91) int y = this.gameHeight / 2 - 18;
-
-		@Pc(84) Color color = new Color(140, 17, 17);
-		this.graphics.setColor(color);
-		this.graphics.drawRect(this.gameWidth / 2 - 152, y, 304, 34);
-		this.graphics.fillRect(this.gameWidth / 2 - 150, y + 2, progress * 3, 30);
-
-		this.graphics.setColor(Color.black);
-		this.graphics.fillRect(this.gameWidth / 2 + progress * 3 - 150, y + 2, 300 - progress * 3, 30);
-
-		this.graphics.setFont(helvetica);
-		this.graphics.setColor(Color.white);
-		this.graphics.drawString(str, (this.gameWidth - metrics.stringWidth(str)) / 2, y + 22);
 	}
 }

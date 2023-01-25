@@ -6,11 +6,17 @@ import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
+import org.teavm.interop.Async;
+import org.teavm.interop.AsyncCallback;
+import org.teavm.jso.JSBody;
+import org.teavm.jso.JSObject;
+import org.teavm.jso.browser.Window;
+import org.teavm.jso.canvas.CanvasRenderingContext2D;
+import org.teavm.jso.canvas.ImageData;
+import org.teavm.jso.dom.html.HTMLImageElement;
+import org.teavm.jso.typedarrays.Uint8Array;
+import org.teavm.jso.typedarrays.Uint8ClampedArray;
 import rs2.client.Game;
-
-import java.awt.Component;
-import java.awt.*;
-import java.awt.image.PixelGrabber;
 
 @OriginalClass("client!hb")
 public class Sprite extends Draw2D {
@@ -44,22 +50,49 @@ public class Sprite extends Draw2D {
 		this.clipX = this.clipY = 0;
 	}
 
-	@OriginalMember(owner = "client!hb", name = "<init>", descriptor = "([BLjava/awt/Component;)V")
-	public Sprite(@OriginalArg(0) byte[] src, @OriginalArg(1) Component c) {
+	@JSBody(params = {"arr", "type"}, script = "return new Blob([arr], {type:type});")
+	public static native JSObject blobify(Uint8Array arr, String type);
+
+	@JSBody(params = {"blob"}, script = "return (window.URL || window.webkitURL).createObjectURL(blob);")
+	public static native String createObjectUrl(JSObject blob);
+
+	@JSBody(params = {"url"}, script = "return (window.URL || window.webkitURL).revokeObjectURL(url);")
+	public static native void revokeObjectURL(String url);
+
+	@Async
+	private static native HTMLImageElement load(String url);
+	private static void load(String url, AsyncCallback<HTMLImageElement> callback) {
+		HTMLImageElement img = Window.current().getDocument().createElement("img").cast();
+		img.addEventListener("load", evt -> callback.complete(img));
+		img.setSrc(url);
+	}
+
+	public Sprite(byte[] src) {
 		try {
-			@Pc(17) Image image = Toolkit.getDefaultToolkit().createImage(src);
-			@Pc(22) MediaTracker media = new MediaTracker(c);
-			media.addImage(image, 0);
-			media.waitForAll();
-			this.spriteWidth = image.getWidth(c);
-			this.spriteHeight = image.getHeight(c);
-			this.clipWidth = this.spriteWidth;
-			this.clipHeight = this.spriteHeight;
+			Uint8Array arr = Uint8Array.create(src.length);
+			arr.set(src);
+			JSObject blob = blobify(arr, "image/jpeg");
+			String objUrl = createObjectUrl(blob);
+			HTMLImageElement img = load(objUrl);
+			CanvasRenderingContext2D ctx = Game.instance.context.cast();
+			ctx.drawImage(img, 0, 0);
+			ImageData rawData = ctx.getImageData(0, 0, img.getWidth(), img.getHeight());
+			revokeObjectURL(objUrl);
+			Uint8ClampedArray raw = rawData.getData();
+
+			this.spriteWidth = img.getWidth();
+			this.spriteHeight = img.getHeight();
+			this.clipWidth = spriteWidth;
+			this.clipHeight = spriteHeight;
 			this.clipX = 0;
 			this.clipY = 0;
-			this.pixels = new int[this.spriteWidth * this.spriteHeight];
-			@Pc(76) PixelGrabber grabber = new PixelGrabber(image, 0, 0, this.spriteWidth, this.spriteHeight, this.pixels, 0, this.spriteWidth);
-			grabber.grabPixels();
+			this.pixels = new int[spriteWidth * spriteHeight];
+			for (int i = 0, off = 0; i < img.getWidth() * img.getHeight() * 4; i += 4) {
+				int r = raw.get(i);
+				int g = raw.get(i + 1);
+				int b = raw.get(i + 2);
+				this.pixels[off++] = (r << 16) | (g << 8) | b;
+			}
 		} catch (@Pc(81) Exception ignored) {
 			System.out.println("Error converting jpg");
 		}
