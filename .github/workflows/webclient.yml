@@ -24,10 +24,8 @@ jobs:
     - name: Build with Maven
       run: mvn package
 
-    - run: cd target && zip -r webclient.zip js
-
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
-        name: rs2-client
-        path: webclient/target/webclient.zip
+        name: rs2-webclient
+        path: webclient/target/js
