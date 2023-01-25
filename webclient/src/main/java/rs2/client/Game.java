@@ -35,8 +35,8 @@ public class Game extends GameShell {
 
 	public static final boolean MINIMAP_BILINEAR_FILTERING = true;
 
-	public static final String SERVER_ADDRESS = "localhost";
-	// public static final String SERVER_ADDRESS = "lostcity.runewiki.org";
+	// public static final String SERVER_ADDRESS = "localhost";
+	public static final String SERVER_ADDRESS = "lostcity.runewiki.org";
 
 	public static Game instance = null;
 
