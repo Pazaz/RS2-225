@@ -149,11 +149,14 @@ public class GameShell implements Runnable {
 		this.canvas.addEventListener("keydown", new EventListener<KeyboardEvent>() {
 			public void handleEvent(KeyboardEvent event) {
 				int code = event.getKeyCode();
+				int charCode = event.getKey().length() == 1 ? event.getKey().charAt(0) : 65535;
 
-				char charCode = event.getKey().length() == 1 ? event.getKey().charAt(0) : 65535;
+				if (code == 13) {
+					code = 10; // convert \r to \n (enter key)
+				}
 
-				if (code == 8 || code == 13 || code == 10 || code == 9) {
-					charCode = (char) code;
+				if (code == 8 || code == 10 || code == 9) {
+					charCode = code;
 				}
 
 				keyPressed(charCode, code);
@@ -163,11 +166,14 @@ public class GameShell implements Runnable {
 		this.canvas.addEventListener("keyup", new EventListener<KeyboardEvent>() {
 			public void handleEvent(KeyboardEvent event) {
 				int code = event.getKeyCode();
+				int charCode = event.getKey().length() == 1 ? event.getKey().charAt(0) : 65535;
 
-				char charCode = event.getKey().length() == 1 ? event.getKey().charAt(0) : 65535;
+				if (code == 13) {
+					code = 10; // convert \r to \n (enter key)
+				}
 
-				if (code == 8 || code == 13 || code == 10 || code == 9) {
-					charCode = (char) code;
+				if (code == 8 || code == 10 || code == 9) {
+					charCode = code;
 				}
 
 				keyReleased(charCode, code);
