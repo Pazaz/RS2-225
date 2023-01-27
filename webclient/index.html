@@ -3,6 +3,25 @@
 
 <head>
     <title>RuneScape 2</title>
+
+    <script>
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
+
+        function playWave(data) {
+            try {
+                audioCtx.decodeAudioData(Uint8Array.from(data).buffer).then(buffer => {
+                    var track = audioCtx.createBufferSource();
+                    track.buffer = buffer;
+                    track.connect(audioCtx.destination);
+                    track.start(0);
+                });
+            } catch (err) {
+                // console.log(err);
+            }
+        }
+    </script>
+
     <script type="text/javascript" charset="utf-8" src="target/js/classes.js"></script>
 </head>
 

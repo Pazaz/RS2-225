@@ -6,6 +6,14 @@ import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
+import org.teavm.jso.JSBody;
+import org.teavm.jso.typedarrays.ArrayBuffer;
+import org.teavm.jso.typedarrays.ArrayBufferView;
+import org.teavm.jso.typedarrays.Uint8Array;
+import org.teavm.jso.webaudio.AudioBuffer;
+import org.teavm.jso.webaudio.AudioBufferSourceNode;
+import org.teavm.jso.webaudio.AudioContext;
+import org.teavm.jso.webaudio.GainNode;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -324,8 +332,8 @@ public class SignedLink implements Runnable {
 		System.out.println("Error: " + err);
 	}
 
-	public void playMidi(String music) {
-	}
+	@JSBody(params = { "data" }, script = "playWave(data)")
+	public static native void jsPlayWave(byte[] data);
 
 	// adapted from play_members.html's JS loop
 	private void audioLoop() {
@@ -356,10 +364,13 @@ public class SignedLink implements Runnable {
 
 		try {
 			if (!Objects.equals(wave, "none")) {
+				if (savebuf != null) {
+					SignedLink.jsPlayWave(savebuf); // needs to stick around long enough for the JS to play it
+				}
+
 				wave = "none";
 			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -406,7 +417,7 @@ public class SignedLink implements Runnable {
 					midiplay = false;
 				}
 
-				savebuf = null;
+				// savebuf = null;
 				savereq = null;
 			} else if (urlreq != null) {
 				try {

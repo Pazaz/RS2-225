@@ -7252,7 +7252,7 @@ public class Game extends GameShell {
 				if (this.waveDelay[local46] <= 0) {
 					@Pc(55) boolean local55 = false;
 					try {
-						if (this.waveId[local46] != this.lastWaveId || this.waveLoops[local46] != this.lastWaveLoops) {
+//						if (this.waveId[local46] != this.lastWaveId || this.waveLoops[local46] != this.lastWaveLoops) {
 							@Pc(89) Buffer local89 = SoundTrack.generate(this.waveLoops[local46], this.waveId[local46]);
 							if (System.currentTimeMillis() + (long) (local89.pos / 22) > this.lastWaveStartTime + (long) (this.lastWaveLength / 22)) {
 								this.lastWaveLength = local89.pos;
@@ -7264,9 +7264,9 @@ public class Game extends GameShell {
 									local55 = true;
 								}
 							}
-						} else if (!this.wavereplay()) {
-							local55 = true;
-						}
+//						} else if (!this.wavereplay()) {
+//							local55 = true;
+//						}
 					} catch (@Pc(139) Exception local139) {
 					}
 					if (local55 && this.waveDelay[local46] != -5) {
