@@ -20,6 +20,19 @@
                 // console.log(err);
             }
         }
+
+        function playMidi(data) {
+            let raw = Uint8Array.from(data);
+            console.log(raw);
+        }
+
+        function setMidiVolume(vol) {
+            console.log(vol);
+        }
+
+        function stopMidi() {
+            console.log('stopping');
+        }
     </script>
 
     <script type="text/javascript" charset="utf-8" src="target/js/classes.js"></script>

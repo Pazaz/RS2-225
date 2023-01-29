@@ -335,6 +335,15 @@ public class SignedLink implements Runnable {
 	@JSBody(params = { "data" }, script = "playWave(data)")
 	public static native void jsPlayWave(byte[] data);
 
+	@JSBody(params = { "data" }, script = "playMidi(data)")
+	public static native void jsPlayMidi(byte[] data);
+
+	@JSBody(script = "stopMidi()")
+	public static native void jsStopMidi();
+
+	@JSBody(params = { "int" }, script = "setMidiVolume(vol)")
+	public static native void jsSetMidiVolume(int vol);
+
 	// adapted from play_members.html's JS loop
 	private void audioLoop() {
 		if (midiFadingIn) {
@@ -343,6 +352,7 @@ public class SignedLink implements Runnable {
 				midiFadeVol = midivol;
 			}
 
+			SignedLink.jsSetMidiVolume(midiFadeVol);
 			if (midiFadeVol == midivol) {
 				midiFadingIn = false;
 			}
@@ -352,10 +362,25 @@ public class SignedLink implements Runnable {
 				midiFadeVol = 0;
 			}
 
+			SignedLink.jsSetMidiVolume(midiFadeVol);
 			if (midiFadeVol == 0) {
 				midiFadingOut = false;
 				midiFadingIn = true;
 			}
+		}
+
+		try {
+			if (!Objects.equals(midi, "none")) {
+				if (Objects.equals(midi, "stop")) {
+					SignedLink.jsStopMidi();
+				} else if (Objects.equals(midi, "voladjust")) {
+					SignedLink.jsSetMidiVolume(midivol);
+				} else if (savebuf != null) {
+					SignedLink.jsPlayMidi(savebuf);
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 
 		if (!midiFadingOut) {
@@ -370,7 +395,8 @@ public class SignedLink implements Runnable {
 
 				wave = "none";
 			}
-		} catch (Exception ignored) {
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 

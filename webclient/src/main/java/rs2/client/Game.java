@@ -2227,10 +2227,10 @@ public class Game extends GameShell {
 				}
 				if (local52 == null) {
 					try {
-						// @Pc(91) FileDownloadStream local91 = this.openStream(local19 + "_" + local22 + ".mid");
-						// local52 = new byte[local25];
-						// local91.readFully(local52, 0, local25);
-						// SignedLink.cachesave(local19 + ".mid", local52);
+						 @Pc(91) FileDownloadStream local91 = this.openStream(local19 + "_" + local22 + ".mid");
+						 local52 = new byte[local25];
+						 local91.readFully(local52, 0, local25);
+						 SignedLink.cachesave(local19 + ".mid", local52);
 					} catch (@Pc(153) Exception local153) {
 					}
 				}
