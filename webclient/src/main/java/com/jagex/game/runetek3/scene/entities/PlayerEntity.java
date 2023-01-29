@@ -187,7 +187,7 @@ public class PlayerEntity extends PathingEntity {
 
 	@OriginalMember(owner = "client!z", name = "a", descriptor = "(Z)Lclient!eb;")
 	@Override
-	public Model getDrawMethod() {
+	public Model getDrawMethod(int currentCycle) {
 		if (!this.visible) {
 			return null;
 		}

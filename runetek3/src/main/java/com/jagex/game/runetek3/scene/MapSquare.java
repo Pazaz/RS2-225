@@ -1078,7 +1078,7 @@ public class MapSquare {
 	}
 
 	@OriginalMember(owner = "client!r", name = "a", descriptor = "(IIIIIII)V")
-	public void draw(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6) {
+	public void draw(@OriginalArg(0) int arg0, @OriginalArg(1) int arg1, @OriginalArg(2) int arg2, @OriginalArg(3) int arg3, @OriginalArg(4) int arg4, @OriginalArg(5) int arg5, @OriginalArg(6) int arg6, int currentCycle) {
 		if (arg1 < 0) {
 			arg1 = 0;
 		} else if (arg1 >= this.tileCountX * 128) {
@@ -1166,13 +1166,13 @@ public class MapSquare {
 							if (local272 >= minTileZ) {
 								local288 = local246[local254][local272];
 								if (local288 != null && local288.draw) {
-									this.draw(local288, true);
+									this.draw(local288, true, currentCycle);
 								}
 							}
 							if (local276 < maxTileZ) {
 								local288 = local246[local254][local276];
 								if (local288 != null && local288.draw) {
-									this.draw(local288, true);
+									this.draw(local288, true, currentCycle);
 								}
 							}
 						}
@@ -1180,13 +1180,13 @@ public class MapSquare {
 							if (local272 >= minTileZ) {
 								local288 = local246[local258][local272];
 								if (local288 != null && local288.draw) {
-									this.draw(local288, true);
+									this.draw(local288, true, currentCycle);
 								}
 							}
 							if (local276 < maxTileZ) {
 								local288 = local246[local258][local276];
 								if (local288 != null && local288.draw) {
-									this.draw(local288, true);
+									this.draw(local288, true, currentCycle);
 								}
 							}
 						}
@@ -1212,13 +1212,13 @@ public class MapSquare {
 							if (local276 >= minTileZ) {
 								local422 = local380[local258][local276];
 								if (local422 != null && local422.draw) {
-									this.draw(local422, false);
+									this.draw(local422, false, currentCycle);
 								}
 							}
 							if (local410 < maxTileZ) {
 								local422 = local380[local258][local410];
 								if (local422 != null && local422.draw) {
-									this.draw(local422, false);
+									this.draw(local422, false, currentCycle);
 								}
 							}
 						}
@@ -1226,13 +1226,13 @@ public class MapSquare {
 							if (local276 >= minTileZ) {
 								local422 = local380[local266][local276];
 								if (local422 != null && local422.draw) {
-									this.draw(local422, false);
+									this.draw(local422, false, currentCycle);
 								}
 							}
 							if (local410 < maxTileZ) {
 								local422 = local380[local266][local410];
 								if (local422 != null && local422.draw) {
-									this.draw(local422, false);
+									this.draw(local422, false, currentCycle);
 								}
 							}
 						}
@@ -1247,7 +1247,7 @@ public class MapSquare {
 	}
 
 	@OriginalMember(owner = "client!r", name = "a", descriptor = "(Lclient!cb;Z)V")
-	private void draw(@OriginalArg(0) Tile arg0, @OriginalArg(1) boolean arg1) {
+	private void draw(@OriginalArg(0) Tile arg0, @OriginalArg(1) boolean arg1, int currentCycle) {
 		tileQueue.pushNext(arg0);
 		while (true) {
 			@Pc(8) Tile local8;
@@ -1345,7 +1345,7 @@ public class MapSquare {
 													if (var12 != null) {
 														@Pc(265) Model local265 = var12.model;
 														if (local265 == null) {
-															local265 = var12.entity.getDrawMethod();
+															local265 = var12.entity.getDrawMethod(currentCycle);
 														}
 														local265.draw(var12.yaw, pitchsin, pitchcos, yawsin, yawcos, var12.x - eyeX, var12.y - eyeY, var12.z - eyeZ, var12.bitset);
 													}
@@ -1573,7 +1573,7 @@ public class MapSquare {
 											local1154.cycle = activeLevel;
 											@Pc(1184) Model local1184 = local1154.model;
 											if (local1184 == null) {
-												local1184 = local1154.entity.getDrawMethod();
+												local1184 = local1154.entity.getDrawMethod(currentCycle);
 											}
 											if (!this.isAreaOccluded(local26, local1154.minSceneTileX, local1154.maxSceneTileX, local1154.minSceneTileZ, local1154.maxSceneTileZ, local1184.maxBoundY)) {
 												local1184.draw(local1154.yaw, pitchsin, pitchcos, yawsin, yawcos, local1154.x - eyeX, local1154.y - eyeY, local1154.z - eyeZ, local1154.bitset);

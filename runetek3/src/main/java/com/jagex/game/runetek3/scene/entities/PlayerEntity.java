@@ -12,7 +12,6 @@ import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
-import rs2.client.Game;
 
 @OriginalClass("client!z")
 public class PlayerEntity extends PathingEntity {
@@ -187,7 +186,7 @@ public class PlayerEntity extends PathingEntity {
 
 	@OriginalMember(owner = "client!z", name = "a", descriptor = "(Z)Lclient!eb;")
 	@Override
-	public Model getDrawMethod() {
+	public Model getDrawMethod(int currentCycle) {
 		if (!this.visible) {
 			return null;
 		}
@@ -218,11 +217,11 @@ public class PlayerEntity extends PathingEntity {
 		}
 
 		if (this.model != null) {
-			if (Game.clientClock >= this.lastCycle) {
+			if (currentCycle >= this.lastCycle) {
 				this.model = null;
 			}
 
-			if (Game.clientClock >= this.firstCycle && Game.clientClock < this.lastCycle) {
+			if (currentCycle >= this.firstCycle && currentCycle < this.lastCycle) {
 				@Pc(148) Model m = this.model;
 				m.translate(this.sceneY - this.plane, this.sceneX - super.x, this.sceneZ - super.z);
 				if (super.dstYaw == 512) {

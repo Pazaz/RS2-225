@@ -26,6 +26,7 @@ import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
 import rs2.shared.network.ServerProt;
 import rs2.shared.network.ZoneProt;
+import rs2.client.GlobalConfig;
 
 import java.awt.*;
 import java.io.DataInputStream;
@@ -38,19 +39,8 @@ import java.net.URL;
 @OriginalClass("client!client")
 public class Game extends GameShell {
 
-	public static final boolean MINIMAP_BILINEAR_FILTERING = true;
-
-	// public static final String SERVER_ADDRESS = "localhost";
-	public static final String SERVER_ADDRESS = "lostcity.runewiki.org";
-
 	@OriginalMember(owner = "client!client", name = "F", descriptor = "Ljava/lang/String;")
 	public static final String ASCII_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
-
-	@OriginalMember(owner = "client!client", name = "ue", descriptor = "Ljava/math/BigInteger;")
-	public static final BigInteger RSA_EXPONENT = new BigInteger("58778699976184461502525193738213253649000149147835990136706041084440742975821");
-
-	@OriginalMember(owner = "client!client", name = "fh", descriptor = "Ljava/math/BigInteger;")
-	public static final BigInteger RSA_MODULUS = new BigInteger("7162900525229798032761816791230527296329313291232324290237849263501208207972894053929065636522363163621000728841182238772712427862772219676577293600221789");
 
 	@OriginalMember(owner = "client!client", name = "od", descriptor = "[I")
 	private static final int[] EXPERIENCE_TABLE = new int[99];
@@ -1264,7 +1254,7 @@ public class Game extends GameShell {
 				members = true;
 			}
 
-			SignedLink.startpriv(InetAddress.getByName(SERVER_ADDRESS)); // InetAddress.getLocalHost());
+			SignedLink.startpriv(InetAddress.getByName(GlobalConfig.SERVER_ADDRESS));
 			@Pc(82) Game game = new Game();
 			game.initApplication(532, 789);
 		} catch (Exception ex) {
@@ -2185,7 +2175,7 @@ public class Game extends GameShell {
 		Model.cursorX = super.mouseX - 8;
 		Model.cursorY = super.mouseY - 11;
 		Draw2D.clear();
-		this.mapSquare.draw(this.cameraOrbitYaw, this.cameraX, local34, this.cameraPitch, this.cameraY, this.cameraZ, 0);
+		this.mapSquare.draw(this.cameraOrbitYaw, this.cameraX, local34, this.cameraPitch, this.cameraY, this.cameraZ, 0, clientClock);
 		this.mapSquare.clearFrameLocs();
 		this.drawViewport2d();
 		this.drawTileHint();
@@ -6769,7 +6759,7 @@ public class Game extends GameShell {
 			this.outBuffer.p4(SignedLink.uid);
 			this.outBuffer.pjstr(arg0);
 			this.outBuffer.pjstr(arg1);
-			this.outBuffer.rsaenc(RSA_MODULUS, RSA_EXPONENT);
+			this.outBuffer.rsaenc(GlobalConfig.RSA_MODULUS, GlobalConfig.RSA_EXPONENT);
 			this.loginBuffer.pos = 0;
 			if (arg2) {
 				this.loginBuffer.p1(18);
@@ -7586,7 +7576,7 @@ public class Game extends GameShell {
 		}
 		try {
 			if (super.frame != null) {
-				return new URL("http://" + SERVER_ADDRESS + ":" + (gamePortOffset + 80));
+				return new URL("http://" + GlobalConfig.SERVER_ADDRESS + ":" + (gamePortOffset + 80));
 			}
 		} catch (@Pc(21) Exception local21) {
 		}

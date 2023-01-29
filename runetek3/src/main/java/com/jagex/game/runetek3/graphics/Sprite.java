@@ -6,11 +6,12 @@ import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
-import rs2.client.Game;
 
 import java.awt.Component;
 import java.awt.*;
 import java.awt.image.PixelGrabber;
+
+import rs2.client.GlobalConfig;
 
 @OriginalClass("client!hb")
 public class Sprite extends Draw2D {
@@ -498,7 +499,7 @@ public class Sprite extends Draw2D {
 				@Pc(105) int dstY = originY - sin * start;
 
 				for (x = -lineWidth[y]; x < 0; x++) {
-					if (Game.MINIMAP_BILINEAR_FILTERING) {
+					if (GlobalConfig.MINIMAP_BILINEAR_FILTERING) {
 						int x1 = dstX >> 16;
 						int y1 = dstY >> 16;
 						int x2 = x1 + 1;
