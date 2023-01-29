@@ -6,6 +6,8 @@ import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
 
+import rs2.client.GlobalConfig;
+
 @OriginalClass("client!fb")
 public class Draw2D extends CacheableNode {
 
@@ -57,7 +59,11 @@ public class Draw2D extends CacheableNode {
 		top = 0;
 		right = width;
 		bottom = height;
-		boundX = right - 1;
+		if (GlobalConfig.FULL_512PX_VIEWPORT) {
+			boundX = right;
+		} else {
+			boundX = right - 1;
+		}
 		centerX = right / 2;
 	}
 
@@ -83,7 +89,11 @@ public class Draw2D extends CacheableNode {
 		top = y0;
 		right = x1;
 		bottom = y1;
-		boundX = right - 1;
+		if (GlobalConfig.FULL_512PX_VIEWPORT) {
+			boundX = right;
+		} else {
+			boundX = right - 1;
+		}
 		centerX = right / 2;
 		centerY = bottom / 2;
 	}

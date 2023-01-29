@@ -6,6 +6,8 @@ import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
 
+import rs2.client.GlobalConfig;
+
 @OriginalClass("client!gb")
 public class Draw3D extends Draw2D {
 
@@ -903,28 +905,49 @@ public class Draw3D extends Draw2D {
 				alpha = Draw3D.alpha;
 				invAlpha = 256 - Draw3D.alpha;
 
-				while (--length >= 0) {
-					color = palette[leftColor >> 8];
-					leftColor += colorStep;
-					color = ((color & 0xFF00FF) * invAlpha >> 8 & 0xFF00FF) + ((color & 0xFF00) * invAlpha >> 8 & 0xFF00);
-					pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
-					offset++; // post-increment to fix a transparency bug resulting in overlapping lines
-					pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
-					offset++;
-					pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
-					offset++;
-					pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
-					offset++;
-				}
-
-				length = rightX - leftX & 0x3;
-				if (length > 0) {
-					color = palette[leftColor >> 8];
-					color = ((color & 0xFF00FF) * invAlpha >> 8 & 0xFF00FF) + ((color & 0xFF00) * invAlpha >> 8 & 0xFF00);
-					do {
+				if (GlobalConfig.FIX_TRANSPARENCY_OVERFLOW) {
+					while (--length >= 0) {
+						color = palette[leftColor >> 8];
+						leftColor += colorStep;
+						color = ((color & 0xFF00FF) * invAlpha >> 8 & 0xFF00FF) + ((color & 0xFF00) * invAlpha >> 8 & 0xFF00);
 						pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
 						offset++;
-					} while (--length > 0);
+						pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+						offset++;
+						pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+						offset++;
+						pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+						offset++;
+					}
+
+					length = rightX - leftX & 0x3;
+					if (length > 0) {
+						color = palette[leftColor >> 8];
+						color = ((color & 0xFF00FF) * invAlpha >> 8 & 0xFF00FF) + ((color & 0xFF00) * invAlpha >> 8 & 0xFF00);
+						do {
+							pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+							offset++;
+						} while (--length > 0);
+					}
+				} else {
+					while (--length >= 0) {
+						color = palette[leftColor >> 8];
+						leftColor += colorStep;
+						color = ((color & 0xFF00FF) * invAlpha >> 8 & 0xFF00FF) + ((color & 0xFF00) * invAlpha >> 8 & 0xFF00);
+						pixels[offset++] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+						pixels[offset++] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+						pixels[offset++] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+						pixels[offset++] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+					}
+
+					length = rightX - leftX & 0x3;
+					if (length > 0) {
+						color = palette[leftColor >> 8];
+						color = ((color & 0xFF00FF) * invAlpha >> 8 & 0xFF00FF) + ((color & 0xFF00) * invAlpha >> 8 & 0xFF00);
+						do {
+							pixels[offset++] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+						} while (--length > 0);
+					}
 				}
 			}
 		} else if (leftX < rightX) {
@@ -956,13 +979,22 @@ public class Draw3D extends Draw2D {
 				alpha = Draw3D.alpha;
 				invAlpha = 256 - Draw3D.alpha;
 
-				do {
-					color = palette[leftColor >> 8];
-					leftColor += colorStep;
-					color = ((color & 0xFF00FF) * invAlpha >> 8 & 0xFF00FF) + ((color & 0xFF00) * invAlpha >> 8 & 0xFF00);
-					pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
-					offset++; // post-increment to fix a transparency bug resulting in overlapping lines
-				} while (--length > 0);
+				if (GlobalConfig.FIX_TRANSPARENCY_OVERFLOW) {
+					do {
+						color = palette[leftColor >> 8];
+						leftColor += colorStep;
+						color = ((color & 0xFF00FF) * invAlpha >> 8 & 0xFF00FF) + ((color & 0xFF00) * invAlpha >> 8 & 0xFF00);
+						pixels[offset] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+						offset++;
+					} while (--length > 0);
+				} else {
+					do {
+						color = palette[leftColor >> 8];
+						leftColor += colorStep;
+						color = ((color & 0xFF00FF) * invAlpha >> 8 & 0xFF00FF) + ((color & 0xFF00) * invAlpha >> 8 & 0xFF00);
+						pixels[offset++] = color + ((pixels[offset] & 0xFF00FF) * alpha >> 8 & 0xFF00FF) + ((pixels[offset] & 0xFF00) * alpha >> 8 & 0xFF00);
+					} while (--length > 0);
+				}
 			}
 		}
 	}
