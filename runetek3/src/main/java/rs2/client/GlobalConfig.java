@@ -1,9 +1,6 @@
 package rs2.client;
 
-import org.openrs2.deob.annotation.OriginalArg;
-import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
-import org.openrs2.deob.annotation.Pc;
 
 import java.math.BigInteger;
 
@@ -13,11 +10,14 @@ public class GlobalConfig {
 	// smooths rotated minimaps/sprites
     public static boolean MINIMAP_BILINEAR_FILTERING = true;
 
-	// the pixel offset was incremented before accessing and caused transparent edges to overlap, this flag post-increments
+	// the pixel offset was incremented before accessing and caused transparent edges to overlap. this flag post-increments instead
 	public static boolean FIX_TRANSPARENCY_OVERFLOW = true;
 
-	// the bounds were set to 512-1, this flag sets the bounds to 512
+	// the bounds were set to 512-1. this flag sets the bounds to 512
 	public static boolean FULL_512PX_VIEWPORT = true;
+
+	// in this revision item/spell highlighting wasn't a thing, that was added 1 month later in june 2004. this flag adds the later behavior in
+	public static boolean SHOW_HIGHLIGHT_OUTLINE = true;
 
 	// public static final String SERVER_ADDRESS = "localhost";
 	public static final String SERVER_ADDRESS = "lostcity.runewiki.org";

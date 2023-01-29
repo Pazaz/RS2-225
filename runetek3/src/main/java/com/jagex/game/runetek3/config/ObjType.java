@@ -11,6 +11,7 @@ import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
+import rs2.client.GlobalConfig;
 
 @OriginalClass("client!cc")
 public class ObjType {
@@ -202,39 +203,49 @@ public class ObjType {
 	}
 
 	@OriginalMember(owner = "client!cc", name = "a", descriptor = "(III)Lclient!hb;")
-	public static Sprite getSprite(@OriginalArg(0) int id, @OriginalArg(2) int amount) {
-		@Pc(7) Sprite icon = (Sprite) icons.get(id);
-		if (icon != null && icon.clipHeight != amount && icon.clipHeight != -1) {
-			icon.unlink();
-			icon = null;
-		}
+	public static Sprite getSprite(@OriginalArg(0) int id, @OriginalArg(2) int amount, int outlineColor) {
+		if (!GlobalConfig.SHOW_HIGHLIGHT_OUTLINE || outlineColor == 0) {
+			// only cache icons with no outline
+			@Pc(7) Sprite icon = (Sprite) icons.get(id);
 
-		if (icon != null) {
-			return icon;
+			if (icon != null && icon.clipHeight != amount && icon.clipHeight != -1) {
+				icon.unlink();
+				icon = null;
+			}
+
+			if (icon != null) {
+				return icon;
+			}
 		}
 
 		@Pc(28) ObjType obj = get(id);
+
 		if (obj.countobj == null) {
 			amount = -1;
 		}
 
-		@Pc(38) int centerX;
-		@Pc(40) int cenetrY;
 		if (amount > 1) {
-			centerX = -1;
-			for (cenetrY = 0; cenetrY < 10; cenetrY++) {
-				if (amount >= obj.countco[cenetrY] && obj.countco[cenetrY] != 0) {
-					centerX = obj.countobj[cenetrY];
+			int newId = -1;
+
+			for (int stack = 0; stack < 10; stack++) {
+				if (amount >= obj.countco[stack] && obj.countco[stack] != 0) {
+					newId = obj.countobj[stack];
 				}
 			}
-			if (centerX != -1) {
-				obj = get(centerX);
+
+			if (newId != -1) {
+				obj = get(newId);
 			}
 		}
 
-		icon = new Sprite(32, 32);
-		centerX = Draw3D.centerX3D;
-		cenetrY = Draw3D.centerY3D;
+		@Pc(115) Model m = obj.getModel(1);
+		if (m == null) {
+			return null;
+		}
+
+		Sprite icon = new Sprite(32, 32);
+		int centerX = Draw3D.centerX3D;
+		int centerY = Draw3D.centerY3D;
 
 		@Pc(80) int[] offsets = Draw3D.lineOffsets;
 		@Pc(82) int[] data = Draw2D.data;
@@ -250,10 +261,22 @@ public class ObjType {
 		Draw2D.fillRect(0, 0, 0, 32, 32);
 		Draw3D.init2D();
 
-		@Pc(115) Model m = obj.getModel(1);
-		@Pc(125) int cameraY = Draw3D.sin[obj.xan2d] * obj.zoom2d >> 16;
-		@Pc(135) int cameraZ = Draw3D.cos[obj.xan2d] * obj.zoom2d >> 16;
-		m.drawSimple(0, obj.yan2d, obj.zan2d, obj.xan2d, obj.xof2d, cameraY + m.maxBoundY / 2 + obj.yof2d, cameraZ + obj.yof2d);
+		int zoom = obj.zoom2d;
+
+		if (GlobalConfig.SHOW_HIGHLIGHT_OUTLINE) {
+			if (outlineColor == -1) {
+				zoom = (int) ((double) zoom * 1.5D);
+			}
+
+			if (outlineColor > 0) {
+				zoom = (int) ((double) zoom * 1.04D);
+			}
+		}
+
+		@Pc(125) int sinPitch = (Draw3D.sin[obj.xan2d] * zoom) >> 16;
+		@Pc(135) int cosPitch = (Draw3D.cos[obj.xan2d] * zoom) >> 16;
+
+		m.drawSimple(0, obj.yan2d, obj.zan2d, obj.xan2d, obj.xof2d, sinPitch + m.maxBoundY / 2 + obj.yof2d, cosPitch + obj.yof2d);
 
 		for (@Pc(168) int x = 31; x >= 0; x--) {
 			for (int y = 31; y >= 0; y--) {
@@ -271,16 +294,38 @@ public class ObjType {
 			}
 		}
 
-		for (@Pc(291) int x = 31; x >= 0; x--) {
-			for (int y = 31; y >= 0; y--) {
-				if (icon.pixels[x + y * 32] == 0 && x > 0 && y > 0 && icon.pixels[x + (y - 1) * 32 - 1] > 0) {
-					icon.pixels[x + y * 32] = 0x302020;
+		if (GlobalConfig.SHOW_HIGHLIGHT_OUTLINE) {
+			if (outlineColor > 0) {
+				for (@Pc(168) int x = 31; x >= 0; x--) {
+					for (int y = 31; y >= 0; y--) {
+						if (icon.pixels[x + y * 32] == 0) {
+							if (x > 0 && icon.pixels[x + y * 32 - 1] == 1) {
+								icon.pixels[x + y * 32] = outlineColor;
+							} else if (y > 0 && icon.pixels[x + (y - 1) * 32] == 1) {
+								icon.pixels[x + y * 32] = outlineColor;
+							} else if (x < 31 && icon.pixels[x + y * 32 + 1] == 1) {
+								icon.pixels[x + y * 32] = outlineColor;
+							} else if (y < 31 && icon.pixels[x + (y + 1) * 32] == 1) {
+								icon.pixels[x + y * 32] = outlineColor;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		if (!GlobalConfig.SHOW_HIGHLIGHT_OUTLINE || outlineColor <= 0) {
+			for (@Pc(291) int x = 31; x >= 0; x--) {
+				for (int y = 31; y >= 0; y--) {
+					if (icon.pixels[x + y * 32] == 0 && x > 0 && y > 0 && icon.pixels[x + (y - 1) * 32 - 1] > 0) {
+						icon.pixels[x + y * 32] = 0x302020;
+					}
 				}
 			}
 		}
 
 		if (obj.certtemplate != -1) {
-			@Pc(348) Sprite mini = getSprite(obj.certlink, 10);
+			@Pc(348) Sprite mini = getSprite(obj.certlink, 10, -1);
 			@Pc(351) int tempW = mini.clipWidth;
 			@Pc(354) int tempH = mini.clipHeight;
 			mini.clipWidth = 32;
@@ -290,18 +335,23 @@ public class ObjType {
 			mini.clipHeight = tempH;
 		}
 
-		icons.put(id, icon);
+		if (!GlobalConfig.SHOW_HIGHLIGHT_OUTLINE || outlineColor == 0) {
+			icons.put(id, icon);
+		}
+
 		Draw2D.prepare(width, data, height);
 		Draw2D.setBounds(bottom, top, right, left);
 		Draw3D.centerX3D = centerX;
-		Draw3D.centerY3D = cenetrY;
+		Draw3D.centerY3D = centerY;
 		Draw3D.lineOffsets = offsets;
 		Draw3D.jagged = true;
+
 		if (obj.stackable) {
 			icon.clipWidth = 33;
 		} else {
 			icon.clipWidth = 32;
 		}
+
 		icon.clipHeight = amount;
 		return icon;
 	}
