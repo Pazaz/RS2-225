@@ -243,6 +243,15 @@ public class ObjType {
 			return null;
 		}
 
+		Sprite linkedIcon = null;
+		if (obj.certlink != -1) {
+			linkedIcon = getSprite(obj.certlink, 10, -1);
+
+			if (linkedIcon == null) {
+				return null;
+			}
+		}
+
 		Sprite icon = new Sprite(32, 32);
 		int centerX = Draw3D.centerX3D;
 		int centerY = Draw3D.centerY3D;
@@ -278,61 +287,67 @@ public class ObjType {
 
 		m.drawSimple(0, obj.yan2d, obj.zan2d, obj.xan2d, obj.xof2d, sinPitch + m.maxBoundY / 2 + obj.yof2d, cosPitch + obj.yof2d);
 
-		for (@Pc(168) int x = 31; x >= 0; x--) {
+		for (int x = 31; x >= 0; x--) {
 			for (int y = 31; y >= 0; y--) {
-				if (icon.pixels[x + y * 32] == 0) {
-					if (x > 0 && icon.pixels[x + y * 32 - 1] > 1) {
-						icon.pixels[x + y * 32] = 1;
-					} else if (y > 0 && icon.pixels[x + (y - 1) * 32] > 1) {
-						icon.pixels[x + y * 32] = 1;
-					} else if (x < 31 && icon.pixels[x + y * 32 + 1] > 1) {
-						icon.pixels[x + y * 32] = 1;
-					} else if (y < 31 && icon.pixels[x + (y + 1) * 32] > 1) {
-						icon.pixels[x + y * 32] = 1;
+				if (icon.pixels[x + (y * 32)] != 0) {
+					continue;
+				}
+
+				if (x > 0 && icon.pixels[(x - 1) + (y * 32)] > 1) {
+					icon.pixels[x + (y * 32)] = 1;
+				} else if (y > 0 && icon.pixels[x + ((y - 1) * 32)] > 1) {
+					icon.pixels[x + (y * 32)] = 1;
+				} else if (x < 31 && icon.pixels[(x + 1) + (y * 32)] > 1) {
+					icon.pixels[x + (y * 32)] = 1;
+				} else if (y < 31 && icon.pixels[x + ((y + 1) * 32)] > 1) {
+					icon.pixels[x + (y * 32)] = 1;
+				}
+			}
+		}
+
+		if (GlobalConfig.SHOW_HIGHLIGHT_OUTLINE && outlineColor > 0) {
+			for (int x = 31; x >= 0; x--) {
+				for (int y = 31; y >= 0; y--) {
+					if (icon.pixels[x + (y * 32)] != 0) {
+						continue;
+					}
+
+					if (x > 0 && icon.pixels[(x - 1) + (y * 32)] == 1) {
+						icon.pixels[x + (y * 32)] = outlineColor;
+					} else if (y > 0 && icon.pixels[x + ((y - 1) * 32)] == 1) {
+						icon.pixels[x + (y * 32)] = outlineColor;
+					} else if (x < 31 && icon.pixels[(x + 1) + (y * 32)] == 1) {
+						icon.pixels[x + (y * 32)] = outlineColor;
+					} else if (y < 31 && icon.pixels[x + ((y + 1) * 32)] == 1) {
+						icon.pixels[x + (y * 32)] = outlineColor;
 					}
 				}
 			}
 		}
 
-		if (GlobalConfig.SHOW_HIGHLIGHT_OUTLINE) {
-			if (outlineColor > 0) {
-				for (@Pc(168) int x = 31; x >= 0; x--) {
-					for (int y = 31; y >= 0; y--) {
-						if (icon.pixels[x + y * 32] == 0) {
-							if (x > 0 && icon.pixels[x + y * 32 - 1] == 1) {
-								icon.pixels[x + y * 32] = outlineColor;
-							} else if (y > 0 && icon.pixels[x + (y - 1) * 32] == 1) {
-								icon.pixels[x + y * 32] = outlineColor;
-							} else if (x < 31 && icon.pixels[x + y * 32 + 1] == 1) {
-								icon.pixels[x + y * 32] = outlineColor;
-							} else if (y < 31 && icon.pixels[x + (y + 1) * 32] == 1) {
-								icon.pixels[x + y * 32] = outlineColor;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		if (!GlobalConfig.SHOW_HIGHLIGHT_OUTLINE || outlineColor <= 0) {
+		if (!GlobalConfig.SHOW_HIGHLIGHT_OUTLINE || outlineColor == 0) {
 			for (@Pc(291) int x = 31; x >= 0; x--) {
 				for (int y = 31; y >= 0; y--) {
-					if (icon.pixels[x + y * 32] == 0 && x > 0 && y > 0 && icon.pixels[x + (y - 1) * 32 - 1] > 0) {
-						icon.pixels[x + y * 32] = 0x302020;
+					if (icon.pixels[x + (y * 32)] == 0 && x > 0 && y > 0 && icon.pixels[(x - 1) + (y - 1) * 32] > 0) {
+						icon.pixels[x + (y * 32)] = 0x302020;
 					}
 				}
 			}
 		}
 
 		if (obj.certtemplate != -1) {
-			@Pc(348) Sprite mini = getSprite(obj.certlink, 10, -1);
-			@Pc(351) int tempW = mini.clipWidth;
-			@Pc(354) int tempH = mini.clipHeight;
-			mini.clipWidth = 32;
-			mini.clipHeight = 32;
-			mini.crop(22, 5, 22, 5);
-			mini.clipWidth = tempW;
-			mini.clipHeight = tempH;
+			@Pc(351) int w = linkedIcon.clipWidth;
+			@Pc(354) int h = linkedIcon.clipHeight;
+
+			linkedIcon.clipWidth = 32;
+			linkedIcon.clipHeight = 32;
+			if (GlobalConfig.SHOW_HIGHLIGHT_OUTLINE) {
+				linkedIcon.draw(0, 0);
+			} else {
+				linkedIcon.crop(22, 5, 22, 5);
+			}
+			linkedIcon.clipWidth = w;
+			linkedIcon.clipHeight = h;
 		}
 
 		if (!GlobalConfig.SHOW_HIGHLIGHT_OUTLINE || outlineColor == 0) {
