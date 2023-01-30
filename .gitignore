@@ -1,5 +1,7 @@
-/.gradle/
+.gradle/
 .idea/
+
+dependency-reduced-pom.xml
 
 build/
 bin/

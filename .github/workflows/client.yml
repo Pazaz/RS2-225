@@ -16,27 +16,22 @@ jobs:
         java-version: '8'
         distribution: 'temurin'
 
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
-      with:
-        arguments: build
+    - name: Build with Maven
+      run: mvn package
 
-    - run: mv client/build/libs/client-*.jar client/build/libs/rs2-client.jar
-    - run: sha256sum client/build/libs/rs2-client.jar | cut -d ' ' -f 1 | tr -d '\n' > client/build/libs/rs2-client.jar.sha256
+    - run: mv client/target/client-1.0.jar client/target/rs2-client.jar
+    - run: sha256sum client/target/rs2-client.jar | cut -d ' ' -f 1 | tr -d '\n' > client/target/rs2-client.jar.sha256
 
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.0
+      uses: actions/upload-artifact@v3
       with:
         name: rs2-client
-        path: client/build/libs/*
-
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
-      with:
-        arguments: webclient:teavmc
+        path: |
+          client/target/rs2-client.jar
+          client/target/rs2-client.jar.sha256
 
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.0
+      uses: actions/upload-artifact@v3
       with:
         name: rs2-webclient
-        path: webclient/build/teavm
+        path: webclient/target/js

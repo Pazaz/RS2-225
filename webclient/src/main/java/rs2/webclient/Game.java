@@ -272,7 +272,7 @@ public class Game extends GameShell {
 	private int centerSectorZ;
 
 	@OriginalMember(owner = "client!client", name = "Qc", descriptor = "[[[B")
-	private byte[][][] levelRenderFlags;
+	private int[][][] levelRenderFlags;
 
 	@OriginalMember(owner = "client!client", name = "Rc", descriptor = "[I")
 	private int[] flameBuffer1;
@@ -5982,7 +5982,7 @@ public class Game extends GameShell {
 			@Pc(299) FileArchive texturesArchive = this.loadArchive("textures", this.archiveChecksums[6], "textures", 60);
 			@Pc(310) FileArchive wordencArchive = this.loadArchive("chat system", this.archiveChecksums[7], "wordenc", 65);
 			@Pc(321) FileArchive soundsArchive = this.loadArchive("sound effects", this.archiveChecksums[8], "sounds", 70);
-			this.levelRenderFlags = new byte[4][104][104];
+			this.levelRenderFlags = new int[4][104][104];
 			this.levelHeightMaps = new int[4][105][105];
 			this.mapSquare = new MapSquare(this.levelHeightMaps, 104, 4, 104);
 			for (@Pc(346) int local346 = 0; local346 < 4; local346++) {
