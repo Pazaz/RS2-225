@@ -2,9 +2,13 @@ package com.jagex.game.runetek3.graphics;
 
 import org.teavm.jso.canvas.ImageData;
 import org.teavm.jso.typedarrays.Uint8ClampedArray;
-import rs2.client.Game;
+import rs2.webclient.Game;
 
-public class TeaFrameBuffer extends FrameBuffer {
+public class TeaFrameBuffer {
+
+	public int width;
+	public int height;
+	public int[] pixels;
 
 	private final ImageData imageData;
 	private final Uint8ClampedArray rgbPixels;
@@ -18,12 +22,10 @@ public class TeaFrameBuffer extends FrameBuffer {
 		makeTarget();
 	}
 
-	@Override
 	public void makeTarget() {
 		Draw2D.prepare(this.width, this.pixels, this.height);
 	}
 
-	@Override
 	public void drawAt(int y, int x) {
 		for (int i = 0; i < width * height * 4; i += 4) {
 			int pixel = this.pixels[i / 4];

@@ -1,19 +1,12 @@
-package rs2.client;
+package rs2.webclient;
 
-import com.jagex.game.runetek3.BufferedStream;
-import com.jagex.game.runetek3.FileDownloadStream;
+import com.jagex.core.io.BufferedWebStream;
+import com.jagex.core.io.FileDownloadStream;
 import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
 import org.teavm.jso.JSBody;
-import org.teavm.jso.typedarrays.ArrayBuffer;
-import org.teavm.jso.typedarrays.ArrayBufferView;
-import org.teavm.jso.typedarrays.Uint8Array;
-import org.teavm.jso.webaudio.AudioBuffer;
-import org.teavm.jso.webaudio.AudioBufferSourceNode;
-import org.teavm.jso.webaudio.AudioContext;
-import org.teavm.jso.webaudio.GainNode;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -67,7 +60,7 @@ public class SignedLink implements Runnable {
 	public static int wavevol;
 
 	@OriginalMember(owner = "client!sign/signlink", name = "socket", descriptor = "Ljava/net/Socket;")
-	private static BufferedStream socket = null;
+	private static BufferedWebStream socket = null;
 
 	@OriginalMember(owner = "client!sign/signlink", name = "threadreqpri", descriptor = "I")
 	private static int threadreqpri = 1;
@@ -233,7 +226,7 @@ public class SignedLink implements Runnable {
 	}
 
 	@OriginalMember(owner = "client!sign/signlink", name = "opensocket", descriptor = "(I)Ljava/net/Socket;")
-	public static synchronized BufferedStream opensocket(@OriginalArg(0) int port) throws IOException {
+	public static synchronized BufferedWebStream opensocket(@OriginalArg(0) int port) throws IOException {
 		socketreq = port;
 
 		while (socketreq != 0) {
@@ -414,9 +407,10 @@ public class SignedLink implements Runnable {
 
 			if (socketreq != 0) {
 				try {
-					socket = new BufferedStream(socketip, socketreq);
+					socket = new BufferedWebStream(socketip, socketreq);
 					socket.connect();
-				} catch (@Pc(19) Exception ignored) {
+				} catch (@Pc(19) Exception ex) {
+					ex.printStackTrace();
 					socket = null;
 				}
 				socketreq = 0;

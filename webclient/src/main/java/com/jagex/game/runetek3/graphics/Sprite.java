@@ -16,9 +16,8 @@ import org.teavm.jso.canvas.ImageData;
 import org.teavm.jso.dom.html.HTMLImageElement;
 import org.teavm.jso.typedarrays.Uint8Array;
 import org.teavm.jso.typedarrays.Uint8ClampedArray;
-import rs2.client.Game;
-
 import rs2.client.GlobalConfig;
+import rs2.webclient.Game;
 
 @OriginalClass("client!hb")
 public class Sprite extends Draw2D {

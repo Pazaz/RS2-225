@@ -1,4 +1,4 @@
-package rs2.client;
+package rs2.webclient;
 
 import com.jagex.core.bzip2.BZip2InputStream;
 import com.jagex.core.crypto.IsaacRandom;
@@ -8,16 +8,14 @@ import com.jagex.core.stringtools.StringUtils;
 import com.jagex.core.stringtools.TextEncoder;
 import com.jagex.core.stringtools.WordPack;
 import com.jagex.core.util.LinkedList;
-import com.jagex.game.runetek3.BufferedStream;
-import com.jagex.game.runetek3.FileDownloadStream;
+import com.jagex.core.io.BufferedWebStream;
+import com.jagex.core.io.FileDownloadStream;
 import com.jagex.game.runetek3.GameShell;
 import com.jagex.game.runetek3.InputTracking;
 import com.jagex.game.runetek3.animation.SeqBase;
 import com.jagex.game.runetek3.animation.SeqFrame;
 import com.jagex.game.runetek3.audio.SoundTrack;
 import com.jagex.game.runetek3.config.*;
-import com.jagex.game.runetek3.graphics.Component;
-import com.jagex.game.runetek3.graphics.Font;
 import com.jagex.game.runetek3.graphics.*;
 import com.jagex.game.runetek3.scene.*;
 import com.jagex.game.runetek3.scene.entities.*;
@@ -25,13 +23,11 @@ import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
+import rs2.client.GlobalConfig;
 import rs2.shared.network.ServerProt;
 import rs2.shared.network.ZoneProt;
-import rs2.client.GlobalConfig;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.net.URL;
 
 @OriginalClass("client!client")
 public class Game extends GameShell {
@@ -276,7 +272,7 @@ public class Game extends GameShell {
 	private int centerSectorZ;
 
 	@OriginalMember(owner = "client!client", name = "Qc", descriptor = "[[[B")
-	private int[][][] levelRenderFlags;
+	private byte[][][] levelRenderFlags;
 
 	@OriginalMember(owner = "client!client", name = "Rc", descriptor = "[I")
 	private int[] flameBuffer1;
@@ -525,7 +521,7 @@ public class Game extends GameShell {
 	private Sprite mapflags;
 
 	@OriginalMember(owner = "client!client", name = "Uf", descriptor = "Lclient!d;")
-	private BufferedStream stream;
+	private BufferedWebStream stream;
 
 	@OriginalMember(owner = "client!client", name = "Vf", descriptor = "[[B")
 	private byte[][] sceneMapLocData;
@@ -1223,43 +1219,39 @@ public class Game extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "main", descriptor = "([Ljava/lang/String;)V")
 	public static void main(@OriginalArg(0) String[] arg0) {
-		try {
-			System.out.println("RS2 user client - release #" + 225);
+		System.out.println("RS2 user client - release #" + 225);
 
-			if (arg0.length == 4) {
-				nodeId = Integer.parseInt(arg0[0]);
-				gamePortOffset = Integer.parseInt(arg0[1]);
-				if (arg0[2].equals("lowmem")) {
-					setLowMemory();
-				} else if (arg0[2].equals("highmem")) {
-					setHighMemory();
-				} else {
-					System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
-					return;
-				}
-
-				if (arg0[3].equals("free")) {
-					members = false;
-				} else if (arg0[3].equals("members")) {
-					members = true;
-				} else {
-					System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
-					return;
-				}
-			} else {
-				nodeId = 10;
-				gamePortOffset = 0;
+		if (arg0.length == 4) {
+			nodeId = Integer.parseInt(arg0[0]);
+			gamePortOffset = Integer.parseInt(arg0[1]);
+			if (arg0[2].equals("lowmem")) {
+				setLowMemory();
+			} else if (arg0[2].equals("highmem")) {
 				setHighMemory();
-				members = true;
+			} else {
+				System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
+				return;
 			}
 
-			SignedLink.startpriv(GlobalConfig.SERVER_ADDRESS);
-			@Pc(82) Game game = new Game();
-			instance = game;
-			game.initApplication(532, 789);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			if (arg0[3].equals("free")) {
+				members = false;
+			} else if (arg0[3].equals("members")) {
+				members = true;
+			} else {
+				System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
+				return;
+			}
+		} else {
+			nodeId = 10;
+			gamePortOffset = 0;
+			setHighMemory();
+			members = true;
 		}
+
+		SignedLink.startpriv(GlobalConfig.SERVER_ADDRESS);
+		@Pc(82) Game game = new Game();
+		instance = game;
+		game.initApplication(532, 789);
 	}
 
 	@OriginalMember(owner = "client!client", name = "d", descriptor = "(Z)V")
@@ -5990,7 +5982,7 @@ public class Game extends GameShell {
 			@Pc(299) FileArchive texturesArchive = this.loadArchive("textures", this.archiveChecksums[6], "textures", 60);
 			@Pc(310) FileArchive wordencArchive = this.loadArchive("chat system", this.archiveChecksums[7], "wordenc", 65);
 			@Pc(321) FileArchive soundsArchive = this.loadArchive("sound effects", this.archiveChecksums[8], "sounds", 70);
-			this.levelRenderFlags = new int[4][104][104];
+			this.levelRenderFlags = new byte[4][104][104];
 			this.levelHeightMaps = new int[4][105][105];
 			this.mapSquare = new MapSquare(this.levelHeightMaps, 104, 4, 104);
 			for (@Pc(346) int local346 = 0; local346 < 4; local346++) {
@@ -7178,7 +7170,7 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "A", descriptor = "(I)Ljava/net/Socket;")
-	private BufferedStream opensocket(@OriginalArg(0) int port) throws IOException {
+	private BufferedWebStream opensocket(@OriginalArg(0) int port) throws IOException {
 		return SignedLink.opensocket(port);
 	}
 
@@ -8311,7 +8303,7 @@ public class Game extends GameShell {
 		this.plain12.drawCentered(158, 16777215, "Please wait - attempting to reestablish", 256);
 		this.areaViewport.drawAt(11, 8);
 		this.flagTileX = 0;
-		@Pc(60) BufferedStream local60 = this.stream;
+		@Pc(60) BufferedWebStream local60 = this.stream;
 		this.ingame = false;
 		this.login(this.username, this.password, true);
 		if (!this.ingame) {

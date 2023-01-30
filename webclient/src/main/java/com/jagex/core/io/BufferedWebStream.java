@@ -1,4 +1,4 @@
-package com.jagex.game.runetek3;
+package com.jagex.core.io;
 
 import org.teavm.interop.Async;
 import org.teavm.interop.AsyncCallback;
@@ -16,7 +16,7 @@ interface SocketCallback {
 	void run(int result);
 }
 
-public class BufferedStream {
+public class BufferedWebStream {
 	private String host;
 	private int port;
 	private WebSocket client;
@@ -27,7 +27,7 @@ public class BufferedStream {
 	private int offset = 0;
 	private int bytesLeft = 0;
 
-	public BufferedStream(String host, int port) {
+	public BufferedWebStream(String host, int port) {
 		this.host = host;
 		this.port = port;
 	}

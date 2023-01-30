@@ -1,5 +1,6 @@
-package com.jagex.game.runetek3;
+package com.jagex.core.io;
 
+import com.jagex.game.runetek3.GameShell;
 import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
