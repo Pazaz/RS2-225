@@ -200,7 +200,7 @@ public class Buffer extends CacheableNode {
 	}
 
 	@OriginalMember(owner = "client!kb", name = "b", descriptor = "(II)V")
-	public void psize1(@OriginalArg(1) int len) {
+	public void p1len(@OriginalArg(1) int len) {
 		this.data[this.pos - len - 1] = (byte) len;
 	}
 

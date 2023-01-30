@@ -1712,281 +1712,257 @@ public class Game extends GameShell {
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(BLclient!kb;I)V")
-	private void readZonePacket(@OriginalArg(1) Buffer arg1, @OriginalArg(2) int opcode) {
-		@Pc(15) int local15;
-		@Pc(24) int local24;
-		@Pc(31) int local31;
-		@Pc(34) int local34;
-		@Pc(38) int local38;
-		@Pc(42) int local42;
-		@Pc(47) int local47;
-		@Pc(52) int local52;
-		@Pc(108) int local108;
-		@Pc(110) int local110;
-		@Pc(112) int local112;
+	private void readZonePacket(@OriginalArg(1) Buffer buffer, @OriginalArg(2) int opcode) {
+		int tile = buffer.g1();
+		int x = this.localPosX + (tile >> 4 & 0x7);
+		int z = this.localPosZ + (tile & 0x7);
+		if (x < 0 || z < 0 || x >= 104 || z >= 104) {
+			return;
+		}
+
 		if (opcode == ZoneProt.LOC_ADD || opcode == ZoneProt.LOC_DEL) {
-			local15 = arg1.g1();
-			local24 = this.localPosX + (local15 >> 4 & 0x7);
-			local31 = this.localPosZ + (local15 & 0x7);
-			local34 = arg1.g1();
-			local38 = local34 >> 2;
-			local42 = local34 & 0x3;
-			local47 = this.objectGroups[local38];
+			int info = buffer.g1();
+			int type = info >> 2;
+			int orientation = info & 0x3;
+			int group = this.objectGroups[type];
+
+			int locIndex;
 			if (opcode == ZoneProt.LOC_DEL) {
-				local52 = -1;
+				locIndex = -1;
 			} else {
-				local52 = arg1.g2();
+				locIndex = buffer.g2();
 			}
-			if (local24 >= 0 && local31 >= 0 && local24 < 104 && local31 < 104) {
-				@Pc(69) SpawnedLoc local69 = null;
-				for (@Pc(74) SpawnedLoc local74 = (SpawnedLoc) this.spawnedLocations.peekPrevious(); local74 != null; local74 = (SpawnedLoc) this.spawnedLocations.getPrevious()) {
-					if (local74.plane == this.currentPlane && local74.x == local24 && local74.z == local31 && local74.classType == local47) {
-						local69 = local74;
+
+			@Pc(69) SpawnedLoc loc = null;
+			for (@Pc(74) SpawnedLoc l = (SpawnedLoc) this.spawnedLocations.peekPrevious(); l != null; l = (SpawnedLoc) this.spawnedLocations.getPrevious()) {
+				if (l.plane == this.currentPlane && l.x == x && l.z == z && l.classType == group) {
+					loc = l;
+					break;
+				}
+			}
+
+			if (loc == null) {
+				int bitset = 0;
+				int lastLocIndex = -1;
+				int lastType = 0;
+				@Pc(114) int lastOrientation = 0;
+
+				if (group == 0) {
+					bitset = this.mapSquare.getWallBitset(this.currentPlane, x, z);
+				} else if (group == 1) {
+					bitset = this.mapSquare.getWallDecorationBitset(this.currentPlane, z, x);
+				} else if (group == 2) {
+					bitset = this.mapSquare.getLocationBitset(this.currentPlane, x, z);
+				} else if (group == 3) {
+					bitset = this.mapSquare.getGroundDecorationBitset(this.currentPlane, x, z);
+				}
+
+				if (bitset != 0) {
+					info = this.mapSquare.getInfo(this.currentPlane, x, z, bitset);
+					lastLocIndex = bitset >> 14 & 0x7FFF;
+					lastType = info & 0x1F;
+					lastOrientation = info >> 6;
+				}
+
+				loc = new SpawnedLoc();
+				loc.plane = this.currentPlane;
+				loc.classType = group;
+				loc.x = x;
+				loc.z = z;
+				loc.lastLocIndex = lastLocIndex;
+				loc.lastType = lastType;
+				loc.lastOrientation = lastOrientation;
+				this.spawnedLocations.pushNext(loc);
+			}
+
+			loc.locIndex = locIndex;
+			loc.type = type;
+			loc.orientation = orientation;
+			this.addLoc(orientation, x, z, group, locIndex, type, this.currentPlane);
+		} else if (opcode == ZoneProt.LOC_ANIM) {
+			int info = buffer.g1();
+			int type = info >> 2;
+			int group = this.objectGroups[type];
+			int seqId = buffer.g2();
+
+			int bitset = 0;
+			if (group == 0) {
+				bitset = this.mapSquare.getWallBitset(this.currentPlane, x, z);
+			} else if (group == 1) {
+				bitset = this.mapSquare.getWallDecorationBitset(this.currentPlane, z, x);
+			} else if (group == 2) {
+				bitset = this.mapSquare.getLocationBitset(this.currentPlane, x, z);
+			} else if (group == 3) {
+				bitset = this.mapSquare.getGroundDecorationBitset(this.currentPlane, x, z);
+			}
+
+			if (bitset != 0) {
+				@Pc(348) LocEntity loc = new LocEntity(false, bitset >> 14 & 0x7FFF, this.currentPlane, group, SeqType.instances[seqId], z, x);
+				this.locList.pushNext(loc);
+			}
+		} else if (opcode == ZoneProt.OBJ_REVEAL) {
+			int id = buffer.g2();
+			int count = buffer.g2();
+
+			ObjEntity obj = new ObjEntity();
+			obj.id = id;
+			obj.count = count;
+
+			if (this.objects[this.currentPlane][x][z] == null) {
+				this.objects[this.currentPlane][x][z] = new LinkedList();
+			}
+
+			this.objects[this.currentPlane][x][z].pushNext(obj);
+			this.updateObjectStack(x, z);
+		} else if (opcode == ZoneProt.OBJ_DEL) {
+			int id = buffer.g2();
+
+			@Pc(485) LinkedList obj = this.objects[this.currentPlane][x][z];
+			if (obj != null) {
+				for (ObjEntity o = (ObjEntity) obj.peekPrevious(); o != null; o = (ObjEntity) obj.getPrevious()) {
+					if (o.id == (id & 0x7FFF)) {
+						o.unlink();
 						break;
 					}
 				}
-				if (local69 == null) {
-					local108 = 0;
-					local110 = -1;
-					local112 = 0;
-					@Pc(114) int local114 = 0;
-					if (local47 == 0) {
-						local108 = this.mapSquare.getWallBitset(this.currentPlane, local24, local31);
-					}
-					if (local47 == 1) {
-						local108 = this.mapSquare.getWallDecorationBitset(this.currentPlane, local31, local24);
-					}
-					if (local47 == 2) {
-						local108 = this.mapSquare.getLocationBitset(this.currentPlane, local24, local31);
-					}
-					if (local47 == 3) {
-						local108 = this.mapSquare.getGroundDecorationBitset(this.currentPlane, local24, local31);
-					}
-					if (local108 != 0) {
-						@Pc(169) int local169 = this.mapSquare.getInfo(this.currentPlane, local24, local31, local108);
-						local110 = local108 >> 14 & 0x7FFF;
-						local112 = local169 & 0x1F;
-						local114 = local169 >> 6;
-					}
-					local69 = new SpawnedLoc();
-					local69.plane = this.currentPlane;
-					local69.classType = local47;
-					local69.x = local24;
-					local69.z = local31;
-					local69.lastLocIndex = local110;
-					local69.lastType = local112;
-					local69.lastOrientation = local114;
-					this.spawnedLocations.pushNext(local69);
+
+				if (obj.peekPrevious() == null) {
+					this.objects[this.currentPlane][x][z] = null;
 				}
-				local69.locIndex = local52;
-				local69.type = local38;
-				local69.orientation = local42;
-				this.addLoc(local42, local24, local31, local47, local52, local38, this.currentPlane);
+
+				this.updateObjectStack(x, z);
 			}
-		} else if (opcode == ZoneProt.LOC_ANIM) {
-			local15 = arg1.g1();
-			local24 = this.localPosX + (local15 >> 4 & 0x7);
-			local31 = this.localPosZ + (local15 & 0x7);
-			local34 = arg1.g1();
-			local38 = local34 >> 2;
-			local42 = this.objectGroups[local38];
-			local47 = arg1.g2();
-			if (local24 >= 0 && local31 >= 0 && local24 < 104 && local31 < 104) {
-				local52 = 0;
-				if (local42 == 0) {
-					local52 = this.mapSquare.getWallBitset(this.currentPlane, local24, local31);
-				}
-				if (local42 == 1) {
-					local52 = this.mapSquare.getWallDecorationBitset(this.currentPlane, local31, local24);
-				}
-				if (local42 == 2) {
-					local52 = this.mapSquare.getLocationBitset(this.currentPlane, local24, local31);
-				}
-				if (local42 == 3) {
-					local52 = this.mapSquare.getGroundDecorationBitset(this.currentPlane, local24, local31);
-				}
-				if (local52 != 0) {
-					@Pc(348) LocEntity local348 = new LocEntity(false, local52 >> 14 & 0x7FFF, this.currentPlane, local42, SeqType.instances[local47], local31, local24);
-					this.locList.pushNext(local348);
-				}
+		} else if (opcode == ZoneProt.MAP_PROJANIM) {
+			int dstX = x + buffer.g1b();
+			int dstZ = z + buffer.g1b();
+			int target = buffer.g2b();
+			int spotanim = buffer.g2();
+			int offsetY = buffer.g1();
+			int baseY = buffer.g1();
+			int startCycle = buffer.g2();
+			int endCycle = buffer.g2();
+			int elevationPitch = buffer.g1();
+			int arcScale = buffer.g1();
+
+			if (dstX >= 0 && dstZ >= 0 && dstX < 104 && dstZ < 104) {
+				x = x * 128 + 64;
+				z = z * 128 + 64;
+				dstX = dstX * 128 + 64;
+				dstZ = dstZ * 128 + 64;
+				@Pc(657) ProjectileEntity local657 = new ProjectileEntity(baseY, elevationPitch, z, endCycle + clientClock, this.currentPlane, target, startCycle + clientClock, arcScale, this.getLandY(this.currentPlane, x, z) - offsetY, spotanim, x);
+				local657.setTarget(this.getLandY(this.currentPlane, dstX, dstZ) - baseY, dstZ, dstX, startCycle + clientClock);
+				this.projectiles.pushNext(local657);
 			}
-		} else {
-			@Pc(395) ObjEntity local395;
-			if (opcode == ZoneProt.OBJ_REVEAL) {
-				local15 = arg1.g1();
-				local24 = this.localPosX + (local15 >> 4 & 0x7);
-				local31 = this.localPosZ + (local15 & 0x7);
-				local34 = arg1.g2();
-				local38 = arg1.g2();
-				if (local24 >= 0 && local31 >= 0 && local24 < 104 && local31 < 104) {
-					local395 = new ObjEntity();
-					local395.id = local34;
-					local395.count = local38;
-					if (this.objects[this.currentPlane][local24][local31] == null) {
-						this.objects[this.currentPlane][local24][local31] = new LinkedList();
-					}
-					this.objects[this.currentPlane][local24][local31].pushNext(local395);
-					this.updateObjectStack(local24, local31);
+		} else if (opcode == ZoneProt.SPOTANIM_SPECIFIC) {
+			int id = buffer.g2();
+			int height = buffer.g1();
+			int duration = buffer.g2();
+
+			x = x * 128 + 64;
+			z = z * 128 + 64;
+			@Pc(753) SpotAnimEntity spot = new SpotAnimEntity(x, id, z, duration, this.getLandY(this.currentPlane, x, z) - height, this.currentPlane, clientClock);
+			this.spotanims.pushNext(spot);
+		} else if (opcode == ZoneProt.OBJ_ADD) {
+			int id = buffer.g2();
+			int count = buffer.g2();
+			int pid = buffer.g2();
+
+			if (pid != this.selfPlayerId) {
+				@Pc(807) ObjEntity obj = new ObjEntity();
+				obj.id = id;
+				obj.count = count;
+
+				if (this.objects[this.currentPlane][x][z] == null) {
+					this.objects[this.currentPlane][x][z] = new LinkedList();
 				}
-			} else if (opcode == ZoneProt.OBJ_DEL) {
-				local15 = arg1.g1();
-				local24 = this.localPosX + (local15 >> 4 & 0x7);
-				local31 = this.localPosZ + (local15 & 0x7);
-				local34 = arg1.g2();
-				if (local24 >= 0 && local31 >= 0 && local24 < 104 && local31 < 104) {
-					@Pc(485) LinkedList local485 = this.objects[this.currentPlane][local24][local31];
-					if (local485 != null) {
-						for (local395 = (ObjEntity) local485.peekPrevious(); local395 != null; local395 = (ObjEntity) local485.getPrevious()) {
-							if (local395.id == (local34 & 0x7FFF)) {
-								local395.unlink();
-								break;
-							}
-						}
-						if (local485.peekPrevious() == null) {
-							this.objects[this.currentPlane][local24][local31] = null;
-						}
-						this.updateObjectStack(local24, local31);
-					}
-				}
+
+				this.objects[this.currentPlane][x][z].pushNext(obj);
+				this.updateObjectStack(x, z);
+			}
+		} else if (opcode == ZoneProt.LOC_ADD_CHANGE) {
+			int info = buffer.g1();
+			int type = info >> 2;
+			int orientation = info & 0x3;
+			int group = this.objectGroups[type];
+
+			int locIndex = buffer.g2();
+			int firstCycle = buffer.g2();
+			int lastCycle = buffer.g2();
+			int pid = buffer.g2();
+
+			@Pc(905) byte minX = buffer.g1b();
+			@Pc(908) byte maxX = buffer.g1b();
+			@Pc(911) byte minZ = buffer.g1b();
+			@Pc(914) byte maxZ = buffer.g1b();
+
+			@Pc(921) PlayerEntity player;
+			if (pid == this.selfPlayerId) {
+				player = this.self;
 			} else {
-				@Pc(572) int local572;
-				@Pc(575) int local575;
-				if (opcode == ZoneProt.MAP_PROJANIM) {
-					local15 = arg1.g1();
-					local24 = this.localPosX + (local15 >> 4 & 0x7);
-					local31 = this.localPosZ + (local15 & 0x7);
-					local34 = local24 + arg1.g1b();
-					local38 = local31 + arg1.g1b();
-					local42 = arg1.g2b();
-					local47 = arg1.g2();
-					local52 = arg1.g1();
-					local572 = arg1.g1();
-					local575 = arg1.g2();
-					local108 = arg1.g2();
-					local110 = arg1.g1();
-					local112 = arg1.g1();
-					if (local24 >= 0 && local31 >= 0 && local24 < 104 && local31 < 104 && local34 >= 0 && local38 >= 0 && local34 < 104 && local38 < 104) {
-						local24 = local24 * 128 + 64;
-						local31 = local31 * 128 + 64;
-						local34 = local34 * 128 + 64;
-						local38 = local38 * 128 + 64;
-						@Pc(657) ProjectileEntity local657 = new ProjectileEntity(local572, local110, local31, local108 + clientClock, this.currentPlane, local42, local575 + clientClock, local112, this.getLandY(this.currentPlane, local24, local31) - local52, local47, local24);
-						local657.setTarget(this.getLandY(this.currentPlane, local34, local38) - local572, local38, local34, local575 + clientClock);
-						this.projectiles.pushNext(local657);
-					}
-				} else if (opcode == ZoneProt.SPOTANIM_SPECIFIC) {
-					local15 = arg1.g1();
-					local24 = this.localPosX + (local15 >> 4 & 0x7);
-					local31 = this.localPosZ + (local15 & 0x7);
-					local34 = arg1.g2();
-					local38 = arg1.g1();
-					local42 = arg1.g2();
-					if (local24 >= 0 && local31 >= 0 && local24 < 104 && local31 < 104) {
-						local24 = local24 * 128 + 64;
-						local31 = local31 * 128 + 64;
-						@Pc(753) SpotAnimEntity local753 = new SpotAnimEntity(local24, local34, local31, local42, this.getLandY(this.currentPlane, local24, local31) - local38, this.currentPlane, clientClock);
-						this.spotanims.pushNext(local753);
-					}
-				} else if (opcode == ZoneProt.OBJ_ADD) {
-					local15 = arg1.g1();
-					local24 = this.localPosX + (local15 >> 4 & 0x7);
-					local31 = this.localPosZ + (local15 & 0x7);
-					local34 = arg1.g2();
-					local38 = arg1.g2();
-					local42 = arg1.g2();
-					if (local24 >= 0 && local31 >= 0 && local24 < 104 && local31 < 104 && local42 != this.selfPlayerId) {
-						@Pc(807) ObjEntity local807 = new ObjEntity();
-						local807.id = local34;
-						local807.count = local38;
-						if (this.objects[this.currentPlane][local24][local31] == null) {
-							this.objects[this.currentPlane][local24][local31] = new LinkedList();
-						}
-						this.objects[this.currentPlane][local24][local31].pushNext(local807);
-						this.updateObjectStack(local24, local31);
-					}
-				} else {
-					if (opcode == ZoneProt.LOC_ADD_CHANGE) {
-						local15 = arg1.g1();
-						local24 = this.localPosX + (local15 >> 4 & 0x7);
-						local31 = this.localPosZ + (local15 & 0x7);
-						local34 = arg1.g1();
-						local38 = local34 >> 2;
-						local42 = local34 & 0x3;
-						local47 = this.objectGroups[local38];
-						local52 = arg1.g2();
-						local572 = arg1.g2();
-						local575 = arg1.g2();
-						local108 = arg1.g2();
-						@Pc(905) byte local905 = arg1.g1b();
-						@Pc(908) byte local908 = arg1.g1b();
-						@Pc(911) byte local911 = arg1.g1b();
-						@Pc(914) byte local914 = arg1.g1b();
-						@Pc(921) PlayerEntity local921;
-						if (local108 == this.selfPlayerId) {
-							local921 = this.self;
-						} else {
-							local921 = this.playerEntities[local108];
-						}
-						if (local921 != null) {
-							@Pc(946) TemporaryLoc local946 = new TemporaryLoc(this.currentPlane, local42, local31, local572 + clientClock, local38, -1, local24, local47);
-							this.temporaryLocs.pushNext(local946);
-							@Pc(966) TemporaryLoc local966 = new TemporaryLoc(this.currentPlane, local42, local31, local575 + clientClock, local38, local52, local24, local47);
-							this.temporaryLocs.pushNext(local966);
-							@Pc(980) int local980 = this.levelHeightMaps[this.currentPlane][local24][local31];
-							@Pc(992) int local992 = this.levelHeightMaps[this.currentPlane][local24 + 1][local31];
-							@Pc(1006) int local1006 = this.levelHeightMaps[this.currentPlane][local24 + 1][local31 + 1];
-							@Pc(1018) int local1018 = this.levelHeightMaps[this.currentPlane][local24][local31 + 1];
-							@Pc(1021) LocType local1021 = LocType.get(local52);
-							local921.firstCycle = local572 + clientClock;
-							local921.lastCycle = local575 + clientClock;
-							local921.model = local1021.getModel(local38, local42, local980, local992, local1006, local1018, -1);
-							@Pc(1045) int local1045 = local1021.sizeX;
-							@Pc(1048) int local1048 = local1021.sizeZ;
-							if (local42 == 1 || local42 == 3) {
-								local1045 = local1021.sizeZ;
-								local1048 = local1021.sizeX;
-							}
-							local921.sceneX = local24 * 128 + local1045 * 64;
-							local921.sceneZ = local31 * 128 + local1048 * 64;
-							local921.sceneY = this.getLandY(this.currentPlane, local921.sceneX, local921.sceneZ);
-							@Pc(1094) byte local1094;
-							if (local905 > local911) {
-								local1094 = local905;
-								local905 = local911;
-								local911 = local1094;
-							}
-							if (local908 > local914) {
-								local1094 = local908;
-								local908 = local914;
-								local914 = local1094;
-							}
-							local921.minTileX = local24 + local905;
-							local921.maxTileX = local24 + local911;
-							local921.minTileZ = local31 + local908;
-							local921.maxTileZ = local31 + local914;
-						}
-					}
-					if (opcode == ZoneProt.OBJ_COUNT) {
-						local15 = arg1.g1();
-						local24 = this.localPosX + (local15 >> 4 & 0x7);
-						local31 = this.localPosZ + (local15 & 0x7);
-						local34 = arg1.g2();
-						local38 = arg1.g2();
-						local42 = arg1.g2();
-						if (local24 >= 0 && local31 >= 0 && local24 < 104 && local31 < 104) {
-							@Pc(1178) LinkedList local1178 = this.objects[this.currentPlane][local24][local31];
-							if (local1178 != null) {
-								for (@Pc(1184) ObjEntity local1184 = (ObjEntity) local1178.peekPrevious(); local1184 != null; local1184 = (ObjEntity) local1178.getPrevious()) {
-									if (local1184.id == (local34 & 0x7FFF) && local1184.count == local38) {
-										local1184.count = local42;
-										break;
-									}
-								}
-								this.updateObjectStack(local24, local31);
-							}
-						}
+				player = this.playerEntities[pid];
+			}
+
+			if (player != null) {
+				@Pc(946) TemporaryLoc loc1 = new TemporaryLoc(this.currentPlane, orientation, z, firstCycle + clientClock, type, -1, x, group);
+				this.temporaryLocs.pushNext(loc1);
+
+				@Pc(966) TemporaryLoc loc2 = new TemporaryLoc(this.currentPlane, orientation, z, lastCycle + clientClock, type, locIndex, x, group);
+				this.temporaryLocs.pushNext(loc2);
+
+				@Pc(980) int height = this.levelHeightMaps[this.currentPlane][x][z];
+				@Pc(992) int heightE = this.levelHeightMaps[this.currentPlane][x + 1][z];
+				@Pc(1006) int heightNE = this.levelHeightMaps[this.currentPlane][x + 1][z + 1];
+				@Pc(1018) int heightN = this.levelHeightMaps[this.currentPlane][x][z + 1];
+
+				@Pc(1021) LocType loc = LocType.get(locIndex);
+				player.firstCycle = firstCycle + clientClock;
+				player.lastCycle = lastCycle + clientClock;
+				player.model = loc.getModel(type, orientation, height, heightE, heightNE, heightN, -1);
+
+				@Pc(1045) int sizeX = loc.sizeX;
+				@Pc(1048) int sizeZ = loc.sizeZ;
+				if (orientation == 1 || orientation == 3) {
+					sizeX = loc.sizeZ;
+					sizeZ = loc.sizeX;
+				}
+
+				player.sceneX = x * 128 + sizeX * 64;
+				player.sceneZ = z * 128 + sizeZ * 64;
+				player.sceneY = this.getLandY(this.currentPlane, player.sceneX, player.sceneZ);
+
+				@Pc(1094) byte temp;
+				if (minX > minZ) {
+					temp = minX;
+					minX = minZ;
+					minZ = temp;
+				}
+
+				if (maxX > maxZ) {
+					temp = maxX;
+					maxX = maxZ;
+					maxZ = temp;
+				}
+
+				player.minTileX = x + minX;
+				player.maxTileX = x + minZ;
+				player.minTileZ = z + maxX;
+				player.maxTileZ = z + maxZ;
+			}
+		} else if (opcode == ZoneProt.OBJ_COUNT) {
+			int id = buffer.g2();
+			int oldCount = buffer.g2();
+			int newCount = buffer.g2();
+
+			@Pc(1178) LinkedList objs = this.objects[this.currentPlane][x][z];
+			if (objs != null) {
+				for (@Pc(1184) ObjEntity obj = (ObjEntity) objs.peekPrevious(); obj != null; obj = (ObjEntity) objs.getPrevious()) {
+					if (obj.id == (id & 0x7FFF) && obj.count == oldCount) {
+						obj.count = newCount;
+						break;
 					}
 				}
+
+				this.updateObjectStack(x, z);
 			}
 		}
 	}
@@ -2121,7 +2097,7 @@ public class Game extends GameShell {
 					this.outBuffer.p2(57856);
 				}
 				this.outBuffer.p2((int) (Math.random() * 65536.0D));
-				this.outBuffer.psize1(this.outBuffer.pos - local122);
+				this.outBuffer.p1len(this.outBuffer.pos - local122);
 			}
 		}
 		if (this.cameraOriented) {
@@ -2818,7 +2794,7 @@ public class Game extends GameShell {
 								local193 = this.outBuffer.pos;
 								this.outBuffer.p8(this.socialName37);
 								TextEncoder.write(this.outBuffer, true, this.socialInput);
-								this.outBuffer.psize1(this.outBuffer.pos - local193);
+								this.outBuffer.p1len(this.outBuffer.pos - local193);
 								this.socialInput = StringUtils.toSentenceCase(this.socialInput);
 								this.socialInput = WordPack.getFiltered(this.socialInput);
 								this.addMessage(6, this.socialInput, StringUtils.formatName(StringUtils.fromBase37(this.socialName37)));
@@ -2977,7 +2953,7 @@ public class Game extends GameShell {
 								this.outBuffer.p1(local496);
 								this.outBuffer.p1(local654);
 								TextEncoder.write(this.outBuffer, true, this.input);
-								this.outBuffer.psize1(this.outBuffer.pos - local693);
+								this.outBuffer.p1len(this.outBuffer.pos - local693);
 								this.input = StringUtils.toSentenceCase(this.input);
 								this.input = WordPack.getFiltered(this.input);
 								this.self.spoken = this.input;
@@ -9002,7 +8978,7 @@ public class Game extends GameShell {
 			this.outBuffer.p1(100);
 			this.outBuffer.p1(94);
 			this.outBuffer.p2(35521);
-			this.outBuffer.psize1(this.outBuffer.pos - local17);
+			this.outBuffer.p1len(this.outBuffer.pos - local17);
 		}
 	}
 
@@ -9378,7 +9354,7 @@ public class Game extends GameShell {
 						}
 					}
 				}
-				this.outBuffer.psize1(local466);
+				this.outBuffer.p1len(local466);
 				SignedLink.looprate(50);
 				this.areaViewport.makeTarget();
 				if (this.sceneState == 0) {
