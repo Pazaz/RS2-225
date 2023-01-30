@@ -325,16 +325,19 @@ public class SignedLink implements Runnable {
 		System.out.println("Error: " + err);
 	}
 
-	@JSBody(params = { "data" }, script = "playWave(data)")
-	public static native void jsPlayWave(byte[] data);
+	@JSBody(params = { "data", "vol" }, script = "playWave(data, vol)")
+	public static native void jsPlayWave(byte[] data, int vol);
 
-	@JSBody(params = { "data" }, script = "playMidi(data)")
-	public static native void jsPlayMidi(byte[] data);
+	@JSBody(params = { "vol" }, script = "setWaveVolume(vol)")
+	public static native void jsSetWaveVolume(int vol);
+
+	@JSBody(params = { "data", "vol" }, script = "playMidi(data, vol)")
+	public static native void jsPlayMidi(byte[] data, int vol);
 
 	@JSBody(script = "stopMidi()")
 	public static native void jsStopMidi();
 
-	@JSBody(params = { "int" }, script = "setMidiVolume(vol)")
+	@JSBody(params = { "vol" }, script = "setMidiVolume(vol)")
 	public static native void jsSetMidiVolume(int vol);
 
 	// adapted from play_members.html's JS loop
@@ -369,7 +372,7 @@ public class SignedLink implements Runnable {
 				} else if (Objects.equals(midi, "voladjust")) {
 					SignedLink.jsSetMidiVolume(midivol);
 				} else if (savebuf != null) {
-					SignedLink.jsPlayMidi(savebuf);
+					SignedLink.jsPlayMidi(savebuf, midivol);
 				}
 			}
 		} catch (Exception ex) {
@@ -383,7 +386,7 @@ public class SignedLink implements Runnable {
 		try {
 			if (!Objects.equals(wave, "none")) {
 				if (savebuf != null) {
-					SignedLink.jsPlayWave(savebuf); // needs to stick around long enough for the JS to play it
+					SignedLink.jsPlayWave(savebuf, wavevol); // needs to stick around long enough for the JS to play it
 				}
 
 				wave = "none";

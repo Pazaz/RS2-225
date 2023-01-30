@@ -4319,19 +4319,19 @@ public class Game extends GameShell {
 			if (local8 == 4) {
 				if (local16 == 0) {
 					this.effectsEnabled = true;
-					this.wavevol(0);
+					this.wavevol(256);
 				}
 				if (local16 == 1) {
 					this.effectsEnabled = true;
-					this.wavevol(-400);
+					this.wavevol(192);
 				}
 				if (local16 == 2) {
 					this.effectsEnabled = true;
-					this.wavevol(-800);
+					this.wavevol(96);
 				}
 				if (local16 == 3) {
 					this.effectsEnabled = true;
-					this.wavevol(-1200);
+					this.wavevol(32);
 				}
 				if (local16 == 4) {
 					this.effectsEnabled = false;
@@ -5765,6 +5765,7 @@ public class Game extends GameShell {
 	@OriginalMember(owner = "client!client", name = "g", descriptor = "(II)V")
 	private void wavevol(@OriginalArg(0) int arg0) {
 		SignedLink.wavevol = arg0;
+		SignedLink.jsSetWaveVolume(SignedLink.wavevol);
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(ZLclient!kb;I)V")

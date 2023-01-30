@@ -38,22 +38,27 @@
                     channels: 2,
                     sampleRate: 22050
                 });
-
-                let raw = Uint8Array.from(data);
-                const pcm = tinyMidiPCM.render(data);
+                player.volume(vol / 256);
 
                 if (window.tinyMidiPCM) {
                     const pcm = tinyMidiPCM.render(data);
-                    player.feed(pcm);
+                    if (pcm.length > 0) {
+                        player.feed(pcm);
+                    }
                 }
             }
 
             function setMidiVolume(vol) {
-                console.log(vol);
+                if (player) {
+                    player.volume(vol / 256);
+                }
             }
 
             function stopMidi() {
-                console.log('stopping');
+                if (player) {
+                    player.pause();
+                    player.destroy();
+                }
             }
         </script>
 
