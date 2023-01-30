@@ -16,7 +16,7 @@ public class NpcEntity extends PathingEntity {
 
 	@OriginalMember(owner = "client!y", name = "a", descriptor = "(Z)Lclient!eb;")
 	@Override
-	public Model getDrawMethod(int currentCycle) {
+	public Model getDrawMethod() {
 		if (this.type == null) {
 			return null;
 		}

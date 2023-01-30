@@ -64,7 +64,7 @@ public class SpotAnimEntity extends Entity {
 
 	@OriginalMember(owner = "client!bb", name = "a", descriptor = "(Z)Lclient!eb;")
 	@Override
-	public Model getDrawMethod(int currentCycle) {
+	public Model getDrawMethod() {
 		@Pc(19) Model m = new Model(this.spotanim.getModel(), true, !this.spotanim.disposeAlpha, false);
 
 		if (!this.finished) {
