@@ -1,45 +1,88 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>RuneScape 2</title>
 
-<head>
-    <title>RuneScape 2</title>
+        <script src="https://unpkg.com/pcm-player"></script>
 
-    <script>
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        const audioCtx = new AudioContext();
-
-        function playWave(data) {
-            try {
-                audioCtx.decodeAudioData(Uint8Array.from(data).buffer).then(buffer => {
-                    var track = audioCtx.createBufferSource();
-                    track.buffer = buffer;
-                    track.connect(audioCtx.destination);
-                    track.start(0);
-                });
-            } catch (err) {
-                // console.log(err);
+        <script>
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            const audioCtx = new AudioContext();
+    
+            function playWave(data, vol) {
+                try {
+                    audioCtx.decodeAudioData(Uint8Array.from(data).buffer).then(buffer => {
+                        var track = audioCtx.createBufferSource();
+                        track.buffer = buffer;
+                        track.connect(audioCtx.destination);
+                        track.start(0);
+                    });
+                } catch (err) {
+                    // console.log(err);
+                }
             }
-        }
 
-        function playMidi(data) {
-            let raw = Uint8Array.from(data);
-            console.log(raw);
-        }
+            function setWaveVolume(vol) {
+                console.log(vol);
+            }
 
-        function setMidiVolume(vol) {
-            console.log(vol);
-        }
+            let player = undefined;
+            function playMidi(data, vol) {
+                if (player) {
+                    player.pause();
+                    player.destroy();
+                }
 
-        function stopMidi() {
-            console.log('stopping');
-        }
-    </script>
+                player = new PCMPlayer({
+                    inputCodec: 'Int16',
+                    channels: 2,
+                    sampleRate: 22050
+                });
 
-    <script type="text/javascript" charset="utf-8" src="target/js/classes.js"></script>
-</head>
+                let raw = Uint8Array.from(data);
+                const pcm = tinyMidiPCM.render(data);
 
-<body style="background-color: black;" onload="main()">
-    <canvas id="game" width="789" height="532"></canvas>
-</body>
+                if (window.tinyMidiPCM) {
+                    const pcm = tinyMidiPCM.render(data);
+                    player.feed(pcm);
+                }
+            }
 
+            function setMidiVolume(vol) {
+                console.log(vol);
+            }
+
+            function stopMidi() {
+                console.log('stopping');
+            }
+        </script>
+
+        <script type="text/javascript" charset="utf-8" src="build/teavm/classes.js"></script>
+
+        <script type="module">
+            import TinyMidiPCM from './index.js';
+
+            (async () => {
+                const tinyMidiPCM = new TinyMidiPCM();
+
+                await tinyMidiPCM.init();
+
+                const soundfontRes = await fetch('/gm.sf2');
+
+                const soundfontBuffer = new Uint8Array(
+                    await soundfontRes.arrayBuffer()
+                );
+
+                tinyMidiPCM.setSoundfont(soundfontBuffer);
+
+                window.tinyMidiPCM = tinyMidiPCM;
+
+                window.main();
+            })();
+        </script>
+    </head>
+
+    <body style="background-color: black">
+        <canvas id="game" width="789" height="532"></canvas>
+    </body>
 </html>
