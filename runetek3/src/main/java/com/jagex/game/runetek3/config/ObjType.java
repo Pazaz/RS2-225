@@ -341,11 +341,8 @@ public class ObjType {
 
 			linkedIcon.clipWidth = 32;
 			linkedIcon.clipHeight = 32;
-			if (GlobalConfig.SHOW_HIGHLIGHT_OUTLINE) {
-				linkedIcon.draw(0, 0);
-			} else {
-				linkedIcon.crop(22, 5, 22, 5);
-			}
+			linkedIcon.draw(0, 0); // the original line (below) resulted in some poor artifacts on noted items
+			// linkedIcon.crop(22, 5, 22, 5); // but it's so poor quality that it's objectively not worth adding a toggle for...
 			linkedIcon.clipWidth = w;
 			linkedIcon.clipHeight = h;
 		}

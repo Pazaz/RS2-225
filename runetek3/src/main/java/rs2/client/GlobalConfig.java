@@ -19,6 +19,9 @@ public class GlobalConfig {
 	// in this revision item/spell highlighting wasn't a thing, that was added 1 month later in june 2004. this flag adds the later behavior in
 	public static boolean SHOW_HIGHLIGHT_OUTLINE = true;
 
+	// there were 2 different chatbox styles before this revision
+	public static int CHATBOX_ERA = 3;
+
 	// public static final String SERVER_ADDRESS = "localhost";
 	public static final String SERVER_ADDRESS = "lostcity.runewiki.org";
 

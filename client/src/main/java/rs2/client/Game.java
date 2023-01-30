@@ -2893,6 +2893,40 @@ public class Game extends GameShell {
 						if ((local13 == 13 || local13 == 10) && this.input.length() > 0) {
 							if (this.input.equals("::clientdrop") && (super.frame != null || this.getHost().indexOf("192.168.1.") != -1)) {
 								this.reconnect();
+							} else if (this.input.equals("::outline")) {
+								GlobalConfig.SHOW_HIGHLIGHT_OUTLINE = !GlobalConfig.SHOW_HIGHLIGHT_OUTLINE;
+								this.redrawSidebar = true;
+							} else if (this.input.equals("::bilinear")) {
+								GlobalConfig.MINIMAP_BILINEAR_FILTERING = !GlobalConfig.MINIMAP_BILINEAR_FILTERING;
+							} else if (this.input.equals("::viewport")) {
+								GlobalConfig.FULL_512PX_VIEWPORT = !GlobalConfig.FULL_512PX_VIEWPORT;
+							} else if (this.input.equals("::transparency")) {
+								GlobalConfig.FIX_TRANSPARENCY_OVERFLOW = !GlobalConfig.FIX_TRANSPARENCY_OVERFLOW;
+							} else if (input.equals("::chat 1")) {
+								GlobalConfig.CHATBOX_ERA = 1;
+								this.redrawChat = true;
+							} else if (input.equals("::chat 2")) {
+								GlobalConfig.CHATBOX_ERA = 2;
+								this.redrawChat = true;
+							} else if (input.equals("::chat 3")) {
+								GlobalConfig.CHATBOX_ERA = 3;
+								this.redrawChat = true;
+							} else if (this.input.equals("::authentic")) {
+								GlobalConfig.SHOW_HIGHLIGHT_OUTLINE = false;
+								GlobalConfig.MINIMAP_BILINEAR_FILTERING = false;
+								GlobalConfig.FULL_512PX_VIEWPORT = false;
+								GlobalConfig.FIX_TRANSPARENCY_OVERFLOW = false;
+								GlobalConfig.CHATBOX_ERA = 3;
+								this.redrawSidebar = true;
+								this.redrawChat = true;
+							} else if (this.input.equals("::qol")) {
+								GlobalConfig.SHOW_HIGHLIGHT_OUTLINE = true;
+								GlobalConfig.MINIMAP_BILINEAR_FILTERING = true;
+								GlobalConfig.FULL_512PX_VIEWPORT = true;
+								GlobalConfig.FIX_TRANSPARENCY_OVERFLOW = true;
+								GlobalConfig.CHATBOX_ERA = 3;
+								this.redrawSidebar = true;
+								this.redrawChat = true;
 							} else if (this.input.startsWith("::")) {
 								this.outBuffer.p1isaac(4);
 								this.outBuffer.p1(this.input.length() - 1);
@@ -9188,75 +9222,82 @@ public class Game extends GameShell {
 		} else if (this.chatbackComponentId != -1) {
 			this.drawInterface(0, 0, Component.instances[this.chatbackComponentId], 0);
 		} else if (this.stickyChatbackComponentId == -1) {
-			@Pc(135) Font local135 = this.plain12;
-			@Pc(137) int local137 = 0;
+			@Pc(135) Font font = this.plain12;
+			if (GlobalConfig.CHATBOX_ERA == 1) {
+				font = this.quill8;
+			}
+
+			@Pc(137) int i = 0;
 			Draw2D.setBounds(77, 0, 463, 0);
-			for (@Pc(145) int local145 = 0; local145 < 100; local145++) {
-				if (this.chatMessage[local145] != null) {
-					@Pc(157) int local157 = this.chatMessageType[local145];
-					@Pc(166) int local166 = this.chatScrollAmount + 70 - local137 * 14;
-					if (local157 == 0) {
+			for (@Pc(145) int line = 0; line < 100; line++) {
+				if (this.chatMessage[line] != null) {
+					@Pc(157) int type = this.chatMessageType[line];
+					@Pc(166) int local166 = this.chatScrollAmount + 70 - i * 14;
+					if (type == 0) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 0, this.chatMessage[local145]);
+							font.draw(4, local166, 0, this.chatMessage[line]);
 						}
-						local137++;
-					}
-					if (local157 == 1) {
+						i++;
+					} else if (type == 1) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 16777215, this.chatMessagePrefix[local145] + ":");
-							local135.draw(local135.stringWidth(this.chatMessagePrefix[local145]) + 12, local166, 255, this.chatMessage[local145]);
+							font.draw(4, local166, 16777215, this.chatMessagePrefix[line] + ":");
+							font.draw(font.stringWidth(this.chatMessagePrefix[line]) + 12, local166, 255, this.chatMessage[line]);
 						}
-						local137++;
-					}
-					if (local157 == 2 && (this.chatPublicSetting == 0 || this.chatPublicSetting == 1 && this.isFriend(this.chatMessagePrefix[local145]))) {
+						i++;
+					} else if (type == 2 && (this.chatPublicSetting == 0 || this.chatPublicSetting == 1 && this.isFriend(this.chatMessagePrefix[line]))) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 0, this.chatMessagePrefix[local145] + ":");
-							local135.draw(local135.stringWidth(this.chatMessagePrefix[local145]) + 12, local166, 255, this.chatMessage[local145]);
+							font.draw(4, local166, 0, this.chatMessagePrefix[line] + ":");
+							font.draw(font.stringWidth(this.chatMessagePrefix[line]) + 12, local166, 255, this.chatMessage[line]);
 						}
-						local137++;
-					}
-					if ((local157 == 3 || local157 == 7) && this.splitPrivateChat == 0 && (local157 == 7 || this.chatPrivateSetting == 0 || this.chatPrivateSetting == 1 && this.isFriend(this.chatMessagePrefix[local145]))) {
+						i++;
+					} else if ((type == 3 || type == 7) && this.splitPrivateChat == 0 && (type == 7 || this.chatPrivateSetting == 0 || this.chatPrivateSetting == 1 && this.isFriend(this.chatMessagePrefix[line]))) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 0, "From " + this.chatMessagePrefix[local145] + ":");
-							local135.draw(local135.stringWidth("From " + this.chatMessagePrefix[local145]) + 12, local166, 8388608, this.chatMessage[local145]);
+							font.draw(4, local166, 0, "From " + this.chatMessagePrefix[line] + ":");
+							font.draw(font.stringWidth("From " + this.chatMessagePrefix[line]) + 12, local166, 8388608, this.chatMessage[line]);
 						}
-						local137++;
-					}
-					if (local157 == 4 && (this.chatTradeDuelSetting == 0 || this.chatTradeDuelSetting == 1 && this.isFriend(this.chatMessagePrefix[local145]))) {
+						i++;
+					} else if (type == 4 && (this.chatTradeDuelSetting == 0 || this.chatTradeDuelSetting == 1 && this.isFriend(this.chatMessagePrefix[line]))) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 8388736, this.chatMessagePrefix[local145] + " " + this.chatMessage[local145]);
+							font.draw(4, local166, 8388736, this.chatMessagePrefix[line] + " " + this.chatMessage[line]);
 						}
-						local137++;
-					}
-					if (local157 == 5 && this.splitPrivateChat == 0 && this.chatPrivateSetting < 2) {
+						i++;
+					} else if (type == 5 && this.splitPrivateChat == 0 && this.chatPrivateSetting < 2) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 8388608, this.chatMessage[local145]);
+							font.draw(4, local166, 8388608, this.chatMessage[line]);
 						}
-						local137++;
-					}
-					if (local157 == 6 && this.splitPrivateChat == 0 && this.chatPrivateSetting < 2) {
+						i++;
+					} else if (type == 6 && this.splitPrivateChat == 0 && this.chatPrivateSetting < 2) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 0, "To " + this.chatMessagePrefix[local145] + ":");
-							local135.draw(local135.stringWidth("To " + this.chatMessagePrefix[local145]) + 12, local166, 8388608, this.chatMessage[local145]);
+							font.draw(4, local166, 0, "To " + this.chatMessagePrefix[line] + ":");
+							font.draw(font.stringWidth("To " + this.chatMessagePrefix[line]) + 12, local166, 8388608, this.chatMessage[line]);
 						}
-						local137++;
-					}
-					if (local157 == 8 && (this.chatTradeDuelSetting == 0 || this.chatTradeDuelSetting == 1 && this.isFriend(this.chatMessagePrefix[local145]))) {
+						i++;
+					} else if (type == 8 && (this.chatTradeDuelSetting == 0 || this.chatTradeDuelSetting == 1 && this.isFriend(this.chatMessagePrefix[line]))) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 13350793, this.chatMessagePrefix[local145] + " " + this.chatMessage[local145]);
+							font.draw(4, local166, 13350793, this.chatMessagePrefix[line] + " " + this.chatMessage[line]);
 						}
-						local137++;
+						i++;
 					}
 				}
 			}
+
 			Draw2D.resetBounds();
-			this.chatScrollY = local137 * 14 + 7;
+			this.chatScrollY = i * 14 + 7;
 			if (this.chatScrollY < 78) {
 				this.chatScrollY = 78;
 			}
+
 			this.drawScrollbar(463, 0, this.chatScrollY - this.chatScrollAmount - 77, this.chatScrollY, 77);
-			local135.draw(4, 90, 0, StringUtils.formatName(this.username) + ":");
-			local135.draw(local135.stringWidth(this.username + ": ") + 6, 90, 255, this.input + "*");
+
+			if (GlobalConfig.CHATBOX_ERA < 3) {
+				// 186-??? draw: (no username)
+				font.draw(3, 90, 0, this.input + "*");
+			} else {
+				// 225 draw: (username, blue chat message)
+				font.draw(4, 90, 0, StringUtils.formatName(this.username) + ":");
+				font.draw(font.stringWidth(this.username + ": ") + 6, 90, 255, this.input + "*");
+			}
+
 			Draw2D.drawHorizontalLine(0, 77, 479, 0);
 		} else {
 			this.drawInterface(0, 0, Component.instances[this.stickyChatbackComponentId], 0);
