@@ -29,5 +29,12 @@ dependencies {
 }
 
 teavm {
-    mainClass = 'rs2.client.Game'
+    mainClass = 'rs2.webclient.Game'
+
+    // minifying = false
+    // debugInformationGenerated = true
+    // sourceMapsGenerated = true
+
+    maxHeapSize = 256;
+    processMemory = 1024;
 }
