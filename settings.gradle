@@ -3,6 +3,9 @@ rootProject.name = "rs2"
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
+        maven {
+            url "https://teavm.org/maven/repository"
+        }
         flatDir {
             dirs 'lib'
         }
@@ -11,6 +14,7 @@ dependencyResolutionManagement {
 
 include(
     "deob-annotations",
+    "runetek3",
     "client",
-    "runetek3"
+    "webclient"
 )

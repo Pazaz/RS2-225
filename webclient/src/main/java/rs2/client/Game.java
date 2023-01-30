@@ -16,6 +16,8 @@ import com.jagex.game.runetek3.animation.SeqBase;
 import com.jagex.game.runetek3.animation.SeqFrame;
 import com.jagex.game.runetek3.audio.SoundTrack;
 import com.jagex.game.runetek3.config.*;
+import com.jagex.game.runetek3.graphics.Component;
+import com.jagex.game.runetek3.graphics.Font;
 import com.jagex.game.runetek3.graphics.*;
 import com.jagex.game.runetek3.scene.*;
 import com.jagex.game.runetek3.scene.entities.*;
@@ -25,6 +27,7 @@ import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
 import rs2.shared.network.ServerProt;
 import rs2.shared.network.ZoneProt;
+import rs2.client.GlobalConfig;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -33,21 +36,10 @@ import java.net.URL;
 @OriginalClass("client!client")
 public class Game extends GameShell {
 
-	public static final boolean MINIMAP_BILINEAR_FILTERING = true;
-
-	// public static final String SERVER_ADDRESS = "localhost";
-	public static final String SERVER_ADDRESS = "lostcity.runewiki.org";
-
 	public static Game instance = null;
 
 	@OriginalMember(owner = "client!client", name = "F", descriptor = "Ljava/lang/String;")
 	public static final String ASCII_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()-_=+[{]};:'@#~,<.>/?\\| ";
-
-	@OriginalMember(owner = "client!client", name = "ue", descriptor = "Ljava/math/BigInteger;")
-	public static final BigInteger RSA_EXPONENT = new BigInteger("58778699976184461502525193738213253649000149147835990136706041084440742975821");
-
-	@OriginalMember(owner = "client!client", name = "fh", descriptor = "Ljava/math/BigInteger;")
-	public static final BigInteger RSA_MODULUS = new BigInteger("7162900525229798032761816791230527296329313291232324290237849263501208207972894053929065636522363163621000728841182238772712427862772219676577293600221789");
 
 	@OriginalMember(owner = "client!client", name = "od", descriptor = "[I")
 	private static final int[] EXPERIENCE_TABLE = new int[99];
@@ -1261,7 +1253,7 @@ public class Game extends GameShell {
 				members = true;
 			}
 
-			SignedLink.startpriv(SERVER_ADDRESS);
+			SignedLink.startpriv(GlobalConfig.SERVER_ADDRESS);
 			@Pc(82) Game game = new Game();
 			instance = game;
 			game.initApplication(532, 789);
@@ -2183,7 +2175,7 @@ public class Game extends GameShell {
 		Model.cursorX = super.mouseX - 8;
 		Model.cursorY = super.mouseY - 11;
 		Draw2D.clear();
-		this.mapSquare.draw(this.cameraOrbitYaw, this.cameraX, local34, this.cameraPitch, this.cameraY, this.cameraZ, 0);
+		this.mapSquare.draw(this.cameraOrbitYaw, this.cameraX, local34, this.cameraPitch, this.cameraY, this.cameraZ, 0, clientClock);
 		this.mapSquare.clearFrameLocs();
 		this.drawViewport2d();
 		this.drawTileHint();
@@ -2227,10 +2219,10 @@ public class Game extends GameShell {
 				}
 				if (local52 == null) {
 					try {
-						 @Pc(91) FileDownloadStream local91 = this.openStream(local19 + "_" + local22 + ".mid");
-						 local52 = new byte[local25];
-						 local91.readFully(local52, 0, local25);
-						 SignedLink.cachesave(local19 + ".mid", local52);
+						@Pc(91) FileDownloadStream local91 = this.openStream(local19 + "_" + local22 + ".mid");
+						local52 = new byte[local25];
+						local91.readFully(local52, 0, local25);
+						SignedLink.cachesave(local19 + ".mid", local52);
 					} catch (@Pc(153) Exception local153) {
 					}
 				}
@@ -2888,7 +2880,43 @@ public class Game extends GameShell {
 							this.redrawChatback = true;
 						}
 						if ((local13 == 13 || local13 == 10) && this.input.length() > 0) {
-							if (this.input.startsWith("::")) {
+							if (this.input.equals("::clientdrop")) {
+								this.reconnect();
+							} else if (this.input.equals("::outline")) {
+								GlobalConfig.SHOW_HIGHLIGHT_OUTLINE = !GlobalConfig.SHOW_HIGHLIGHT_OUTLINE;
+								this.redrawSidebar = true;
+							} else if (this.input.equals("::bilinear")) {
+								GlobalConfig.MINIMAP_BILINEAR_FILTERING = !GlobalConfig.MINIMAP_BILINEAR_FILTERING;
+							} else if (this.input.equals("::viewport")) {
+								GlobalConfig.FULL_512PX_VIEWPORT = !GlobalConfig.FULL_512PX_VIEWPORT;
+							} else if (this.input.equals("::transparency")) {
+								GlobalConfig.FIX_TRANSPARENCY_OVERFLOW = !GlobalConfig.FIX_TRANSPARENCY_OVERFLOW;
+							} else if (input.equals("::chat 1")) {
+								GlobalConfig.CHATBOX_ERA = 1;
+								this.redrawChat = true;
+							} else if (input.equals("::chat 2")) {
+								GlobalConfig.CHATBOX_ERA = 2;
+								this.redrawChat = true;
+							} else if (input.equals("::chat 3")) {
+								GlobalConfig.CHATBOX_ERA = 3;
+								this.redrawChat = true;
+							} else if (this.input.equals("::authentic")) {
+								GlobalConfig.SHOW_HIGHLIGHT_OUTLINE = false;
+								GlobalConfig.MINIMAP_BILINEAR_FILTERING = false;
+								GlobalConfig.FULL_512PX_VIEWPORT = false;
+								GlobalConfig.FIX_TRANSPARENCY_OVERFLOW = false;
+								GlobalConfig.CHATBOX_ERA = 3;
+								this.redrawSidebar = true;
+								this.redrawChat = true;
+							} else if (this.input.equals("::qol")) {
+								GlobalConfig.SHOW_HIGHLIGHT_OUTLINE = true;
+								GlobalConfig.MINIMAP_BILINEAR_FILTERING = true;
+								GlobalConfig.FULL_512PX_VIEWPORT = true;
+								GlobalConfig.FIX_TRANSPARENCY_OVERFLOW = true;
+								GlobalConfig.CHATBOX_ERA = 3;
+								this.redrawSidebar = true;
+								this.redrawChat = true;
+							} else if (this.input.startsWith("::")) {
 								this.outBuffer.p1isaac(4);
 								this.outBuffer.p1(this.input.length() - 1);
 								this.outBuffer.pjstr(this.input.substring(2));
@@ -3997,215 +4025,234 @@ public class Game extends GameShell {
 			for (@Pc(59) int local59 = 0; local59 < local57; local59++) {
 				@Pc(68) int local68 = arg3.childX[local59] + arg1;
 				@Pc(77) int local77 = arg3.childY[local59] + arg0 - arg4;
-				@Pc(84) Component local84 = Component.instances[arg3.children[local59]];
-				@Pc(89) int local89 = local68 + local84.x;
-				@Pc(94) int local94 = local77 + local84.y;
-				if (local84.clientcode > 0) {
-					this.updateComponentContent(local84);
+				@Pc(84) Component iface = Component.instances[arg3.children[local59]];
+				@Pc(89) int local89 = local68 + iface.x;
+				@Pc(94) int local94 = local77 + iface.y;
+				if (iface.clientcode > 0) {
+					this.updateComponentContent(iface);
 				}
-				if (local84.type == 0) {
-					if (local84.scrollY > local84.scrollHeight - local84.height) {
-						local84.scrollY = local84.scrollHeight - local84.height;
+				if (iface.type == 0) {
+					if (iface.scrollY > iface.scrollHeight - iface.height) {
+						iface.scrollY = iface.scrollHeight - iface.height;
 					}
-					if (local84.scrollY < 0) {
-						local84.scrollY = 0;
+					if (iface.scrollY < 0) {
+						iface.scrollY = 0;
 					}
-					this.drawInterface(local94, local89, local84, local84.scrollY);
-					if (local84.scrollHeight > local84.height) {
-						this.drawScrollbar(local89 + local84.width, local94, local84.scrollY, local84.scrollHeight, local84.height);
+					this.drawInterface(local94, local89, iface, iface.scrollY);
+					if (iface.scrollHeight > iface.height) {
+						this.drawScrollbar(local89 + iface.width, local94, iface.scrollY, iface.scrollHeight, iface.height);
 					}
-				} else if (local84.type != 1) {
+				} else if (iface.type != 1) {
 					@Pc(167) int local167;
 					@Pc(171) int local171;
-					@Pc(182) int local182;
-					@Pc(217) int local217;
-					@Pc(224) int local224;
-					@Pc(165) int local165;
-					@Pc(191) int local191;
-					@Pc(215) int local215;
-					if (local84.type == 2) {
-						local165 = 0;
-						for (local167 = 0; local167 < local84.height; local167++) {
-							for (local171 = 0; local171 < local84.width; local171++) {
-								local182 = local89 + local171 * (local84.inventoryMarginX + 32);
-								local191 = local94 + local167 * (local84.inventoryMarginY + 32);
-								if (local165 < 20) {
-									local182 += local84.inventoryOffsetX[local165];
-									local191 += local84.inventoryOffsetY[local165];
+					@Pc(182) int slotX;
+					@Pc(217) int dy;
+					@Pc(224) int objId;
+					@Pc(165) int slot;
+					@Pc(191) int slotY;
+					@Pc(215) int dx;
+
+					if (iface.type == 2) {
+						slot = 0;
+						for (local167 = 0; local167 < iface.height; local167++) {
+							for (local171 = 0; local171 < iface.width; local171++) {
+								slotX = local89 + local171 * (iface.inventoryMarginX + 32);
+								slotY = local94 + local167 * (iface.inventoryMarginY + 32);
+
+								if (slot < 20) {
+									slotX += iface.inventoryOffsetX[slot];
+									slotY += iface.inventoryOffsetY[slot];
 								}
-								if (local84.inventoryIndices[local165] > 0) {
-									local215 = 0;
-									local217 = 0;
-									local224 = local84.inventoryIndices[local165] - 1;
-									if (local182 >= -32 && local182 <= 512 && local191 >= -32 && local191 <= 334 || this.objDragArea != 0 && this.objDragSlot == local165) {
-										@Pc(251) Sprite local251 = ObjType.getSprite(local224, local84.inventoryAmount[local165]);
-										if (this.objDragArea != 0 && this.objDragSlot == local165 && this.objDragComponentId == local84.id) {
-											local215 = super.mouseX - this.objGrabX;
-											local217 = super.mouseY - this.objGrabY;
-											if (local215 < 5 && local215 > -5) {
-												local215 = 0;
+
+								if (iface.inventoryIndices[slot] > 0) {
+									dx = 0;
+									dy = 0;
+									objId = iface.inventoryIndices[slot] - 1;
+
+									if (slotX >= -32 && slotX <= 512 && slotY >= -32 && slotY <= 334 || this.objDragArea != 0 && this.objDragSlot == slot) {
+										int outlineColor = 0;
+
+										if (GlobalConfig.SHOW_HIGHLIGHT_OUTLINE) {
+											if (this.selectedObject == 1 && slot == this.selectedObjSlot && iface.id == this.selectedObjInterface) {
+												outlineColor = 0xFFFFFF;
 											}
-											if (local217 < 5 && local217 > -5) {
-												local217 = 0;
-											}
-											if (this.objDragCycles < 5) {
-												local215 = 0;
-												local217 = 0;
-											}
-											local251.drawAlpha(128, local182 + local215, local191 + local217);
-										} else if (this.selectedArea != 0 && this.selectedItem == local165 && this.selectedInterface == local84.id) {
-											local251.drawAlpha(128, local182, local191);
-										} else {
-											local251.draw(local191, local182);
 										}
-										if (local251.clipWidth == 33 || local84.inventoryAmount[local165] != 1) {
-											@Pc(351) int local351 = local84.inventoryAmount[local165];
-											this.plain11.draw(local182 + local215 + 1, local191 + 10 + local217, 0, formatObjAmount(local351));
-											this.plain11.draw(local182 + local215, local191 + 9 + local217, 16776960, formatObjAmount(local351));
+
+										@Pc(251) Sprite icon = ObjType.getSprite(objId, iface.inventoryAmount[slot], outlineColor);
+										if (icon != null) {
+											if (this.objDragArea != 0 && this.objDragSlot == slot && this.objDragComponentId == iface.id) {
+												dx = super.mouseX - this.objGrabX;
+												dy = super.mouseY - this.objGrabY;
+
+												if (dx < 5 && dx > -5) {
+													dx = 0;
+												}
+
+												if (dy < 5 && dy > -5) {
+													dy = 0;
+												}
+
+												if (this.objDragCycles < 5) {
+													dx = 0;
+													dy = 0;
+												}
+
+												icon.drawAlpha(128, slotX + dx, slotY + dy);
+											} else if (this.selectedArea != 0 && this.selectedItem == slot && this.selectedInterface == iface.id) {
+												icon.drawAlpha(128, slotX, slotY);
+											} else {
+												icon.draw(slotY, slotX);
+											}
+
+											if (icon.clipWidth == 33 || iface.inventoryAmount[slot] != 1) {
+												@Pc(351) int count = iface.inventoryAmount[slot];
+												this.plain11.draw(slotX + dx + 1, slotY + 10 + dy, 0, formatObjAmount(count));
+												this.plain11.draw(slotX + dx, slotY + 9 + dy, 16776960, formatObjAmount(count));
+											}
 										}
 									}
-								} else if (local84.inventorySprite != null && local165 < 20) {
-									@Pc(398) Sprite local398 = local84.inventorySprite[local165];
+								} else if (iface.inventorySprite != null && slot < 20) {
+									@Pc(398) Sprite local398 = iface.inventorySprite[slot];
 									if (local398 != null) {
-										local398.draw(local191, local182);
+										local398.draw(slotY, slotX);
 									}
 								}
-								local165++;
+								slot++;
 							}
 						}
-					} else if (local84.type != 3) {
+					} else if (iface.type != 3) {
 						@Pc(456) Font local456;
-						if (local84.type == 4) {
-							local456 = local84.font;
-							local167 = local84.colour;
-							@Pc(462) String local462 = local84.text;
-							if ((this.chatHoveredInterfaceIndex == local84.id || this.sidebarHoveredInterfaceIndex == local84.id || this.viewportHoveredInterfaceIndex == local84.id) && local84.overcolour != 0) {
-								local167 = local84.overcolour;
+						if (iface.type == 4) {
+							local456 = iface.font;
+							local167 = iface.colour;
+							@Pc(462) String local462 = iface.text;
+							if ((this.chatHoveredInterfaceIndex == iface.id || this.sidebarHoveredInterfaceIndex == iface.id || this.viewportHoveredInterfaceIndex == iface.id) && iface.overcolour != 0) {
+								local167 = iface.overcolour;
 							}
-							if (this.isInterfaceEnabled(local84)) {
-								local167 = local84.activecolour;
-								if (local84.activetext.length() > 0) {
-									local462 = local84.activetext;
+							if (this.isInterfaceEnabled(iface)) {
+								local167 = iface.activecolour;
+								if (iface.activetext.length() > 0) {
+									local462 = iface.activetext;
 								}
 							}
-							if (local84.buttontype == 6 && this.chatContinuingDialogue) {
+							if (iface.buttontype == 6 && this.chatContinuingDialogue) {
 								local462 = "Please wait...";
-								local167 = local84.colour;
+								local167 = iface.colour;
 							}
-							local191 = local94 + local456.fontHeight;
+							slotY = local94 + local456.fontHeight;
 							while (local462.length() > 0) {
 								if (local462.indexOf("%") != -1) {
 									label264:
 									while (true) {
-										local215 = local462.indexOf("%1");
-										if (local215 == -1) {
+										dx = local462.indexOf("%1");
+										if (dx == -1) {
 											while (true) {
-												local215 = local462.indexOf("%2");
-												if (local215 == -1) {
+												dx = local462.indexOf("%2");
+												if (dx == -1) {
 													while (true) {
-														local215 = local462.indexOf("%3");
-														if (local215 == -1) {
+														dx = local462.indexOf("%3");
+														if (dx == -1) {
 															while (true) {
-																local215 = local462.indexOf("%4");
-																if (local215 == -1) {
+																dx = local462.indexOf("%4");
+																if (dx == -1) {
 																	while (true) {
-																		local215 = local462.indexOf("%5");
-																		if (local215 == -1) {
+																		dx = local462.indexOf("%5");
+																		if (dx == -1) {
 																			break label264;
 																		}
-																		local462 = local462.substring(0, local215) + this.getIntString(this.executeInterface(local84, 4)) + local462.substring(local215 + 2);
+																		local462 = local462.substring(0, dx) + this.getIntString(this.executeInterface(iface, 4)) + local462.substring(dx + 2);
 																	}
 																}
-																local462 = local462.substring(0, local215) + this.getIntString(this.executeInterface(local84, 3)) + local462.substring(local215 + 2);
+																local462 = local462.substring(0, dx) + this.getIntString(this.executeInterface(iface, 3)) + local462.substring(dx + 2);
 															}
 														}
-														local462 = local462.substring(0, local215) + this.getIntString(this.executeInterface(local84, 2)) + local462.substring(local215 + 2);
+														local462 = local462.substring(0, dx) + this.getIntString(this.executeInterface(iface, 2)) + local462.substring(dx + 2);
 													}
 												}
-												local462 = local462.substring(0, local215) + this.getIntString(this.executeInterface(local84, 1)) + local462.substring(local215 + 2);
+												local462 = local462.substring(0, dx) + this.getIntString(this.executeInterface(iface, 1)) + local462.substring(dx + 2);
 											}
 										}
-										local462 = local462.substring(0, local215) + this.getIntString(this.executeInterface(local84, 0)) + local462.substring(local215 + 2);
+										local462 = local462.substring(0, dx) + this.getIntString(this.executeInterface(iface, 0)) + local462.substring(dx + 2);
 									}
 								}
-								local215 = local462.indexOf("\\n");
+								dx = local462.indexOf("\\n");
 								@Pc(704) String local704;
-								if (local215 == -1) {
+								if (dx == -1) {
 									local704 = local462;
 									local462 = "";
 								} else {
-									local704 = local462.substring(0, local215);
-									local462 = local462.substring(local215 + 2);
+									local704 = local462.substring(0, dx);
+									local462 = local462.substring(dx + 2);
 								}
-								if (local84.halign) {
-									local456.drawCentered(local89 + local84.width / 2, local167, local84.shadowed, local191, local704);
+								if (iface.halign) {
+									local456.drawCentered(local89 + iface.width / 2, local167, iface.shadowed, slotY, local704);
 								} else {
-									local456.draw(local89, local191, local704, local84.shadowed, local167);
+									local456.draw(local89, slotY, local704, iface.shadowed, local167);
 								}
-								local191 += local456.fontHeight;
+								slotY += local456.fontHeight;
 							}
-						} else if (local84.type == 5) {
+						} else if (iface.type == 5) {
 							@Pc(766) Sprite local766;
-							if (this.isInterfaceEnabled(local84)) {
-								local766 = local84.activegraphic;
+							if (this.isInterfaceEnabled(iface)) {
+								local766 = iface.activegraphic;
 							} else {
-								local766 = local84.graphic;
+								local766 = iface.graphic;
 							}
 							if (local766 != null) {
 								local766.draw(local94, local89);
 							}
-						} else if (local84.type == 6) {
-							local165 = Draw3D.centerX3D;
+						} else if (iface.type == 6) {
+							slot = Draw3D.centerX3D;
 							local167 = Draw3D.centerY3D;
-							Draw3D.centerX3D = local89 + local84.width / 2;
-							Draw3D.centerY3D = local94 + local84.height / 2;
-							local171 = Draw3D.sin[local84.xan] * local84.zoom >> 16;
-							local182 = Draw3D.cos[local84.xan] * local84.zoom >> 16;
-							@Pc(827) boolean local827 = this.isInterfaceEnabled(local84);
+							Draw3D.centerX3D = local89 + iface.width / 2;
+							Draw3D.centerY3D = local94 + iface.height / 2;
+							local171 = Draw3D.sin[iface.xan] * iface.zoom >> 16;
+							slotX = Draw3D.cos[iface.xan] * iface.zoom >> 16;
+							@Pc(827) boolean local827 = this.isInterfaceEnabled(iface);
 							if (local827) {
-								local215 = local84.activeanim;
+								dx = iface.activeanim;
 							} else {
-								local215 = local84.anim;
+								dx = iface.anim;
 							}
 							@Pc(846) Model local846;
-							if (local215 == -1) {
-								local846 = local84.getModel(-1, -1, local827);
+							if (dx == -1) {
+								local846 = iface.getModel(-1, -1, local827);
 							} else {
-								@Pc(852) SeqType local852 = SeqType.instances[local215];
-								local846 = local84.getModel(local852.primaryFrames[local84.seqFrame], local852.secondaryFrames[local84.seqFrame], local827);
+								@Pc(852) SeqType local852 = SeqType.instances[dx];
+								local846 = iface.getModel(local852.primaryFrames[iface.seqFrame], local852.secondaryFrames[iface.seqFrame], local827);
 							}
 							if (local846 != null) {
-								local846.drawSimple(0, local84.yan, 0, local84.xan, 0, local171, local182);
+								local846.drawSimple(0, iface.yan, 0, iface.xan, 0, local171, slotX);
 							}
-							Draw3D.centerX3D = local165;
+							Draw3D.centerX3D = slot;
 							Draw3D.centerY3D = local167;
-						} else if (local84.type == 7) {
-							local456 = local84.font;
+						} else if (iface.type == 7) {
+							local456 = iface.font;
 							local167 = 0;
-							for (local171 = 0; local171 < local84.height; local171++) {
-								for (local182 = 0; local182 < local84.width; local182++) {
-									if (local84.inventoryIndices[local167] > 0) {
-										@Pc(915) ObjType local915 = ObjType.get(local84.inventoryIndices[local167] - 1);
+							for (local171 = 0; local171 < iface.height; local171++) {
+								for (slotX = 0; slotX < iface.width; slotX++) {
+									if (iface.inventoryIndices[local167] > 0) {
+										@Pc(915) ObjType local915 = ObjType.get(iface.inventoryIndices[local167] - 1);
 										@Pc(918) String local918 = local915.name;
-										if (local915.stackable || local84.inventoryAmount[local167] != 1) {
-											local918 = local918 + " x" + formatNumber(local84.inventoryAmount[local167]);
+										if (local915.stackable || iface.inventoryAmount[local167] != 1) {
+											local918 = local918 + " x" + formatNumber(iface.inventoryAmount[local167]);
 										}
-										local217 = local89 + local182 * (local84.inventoryMarginX + 115);
-										local224 = local94 + local171 * (local84.inventoryMarginY + 12);
-										if (local84.halign) {
-											local456.drawCentered(local217 + local84.width / 2, local84.colour, local84.shadowed, local224, local918);
+										dy = local89 + slotX * (iface.inventoryMarginX + 115);
+										objId = local94 + local171 * (iface.inventoryMarginY + 12);
+										if (iface.halign) {
+											local456.drawCentered(dy + iface.width / 2, iface.colour, iface.shadowed, objId, local918);
 										} else {
-											local456.draw(local217, local224, local918, local84.shadowed, local84.colour);
+											local456.draw(dy, objId, local918, iface.shadowed, iface.colour);
 										}
 									}
 									local167++;
 								}
 							}
 						}
-					} else if (local84.fill) {
-						Draw2D.fillRect(local94, local89, local84.colour, local84.width, local84.height);
+					} else if (iface.fill) {
+						Draw2D.fillRect(local94, local89, iface.colour, iface.width, iface.height);
 					} else {
-						Draw2D.drawRect(local89, local84.colour, local84.height, local94, local84.width);
+						Draw2D.drawRect(local89, iface.colour, iface.height, local94, iface.width);
 					}
 				}
 			}
@@ -5448,6 +5495,7 @@ public class Game extends GameShell {
 					}
 					this.selectedObject = 0;
 					this.selectedSpell = 0;
+					this.redrawSidebar = true; // added to fix sidebar not updating when drawing item outlines
 				}
 			}
 		}
@@ -5455,7 +5503,7 @@ public class Game extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "s", descriptor = "(I)Ljava/lang/String;")
 	private String getHost() {
-		return SERVER_ADDRESS;
+		return GlobalConfig.SERVER_ADDRESS;
 	}
 
 	@OriginalMember(owner = "client!client", name = "t", descriptor = "(I)V")
@@ -5902,36 +5950,6 @@ public class Game extends GameShell {
 			return;
 		}
 		alreadyStarted = true;
-		// @Pc(34) boolean local34 = false;
-		// @Pc(38) String local38 = this.getHost();
-		// if (local38.endsWith("jagex.com")) {
-		// 	local34 = true;
-		// }
-		// if (local38.endsWith("runescape.com")) {
-		// 	local34 = true;
-		// }
-		// if (local38.endsWith("192.168.1.2")) {
-		// 	local34 = true;
-		// }
-		// if (local38.endsWith("192.168.1.249")) {
-		// 	local34 = true;
-		// }
-		// if (local38.endsWith("192.168.1.252")) {
-		// 	local34 = true;
-		// }
-		// if (local38.endsWith("192.168.1.253")) {
-		// 	local34 = true;
-		// }
-		// if (local38.endsWith("192.168.1.254")) {
-		// 	local34 = true;
-		// }
-		// if (local38.endsWith("127.0.0.1")) {
-		// 	local34 = true;
-		// }
-		// if (!local34) {
-		// 	this.errorHost = true;
-		// 	return;
-		// }
 		try {
 			@Pc(94) int local94 = 5;
 			this.archiveChecksums[8] = 0;
@@ -6724,7 +6742,7 @@ public class Game extends GameShell {
 			this.outBuffer.p4(SignedLink.uid);
 			this.outBuffer.pjstr(arg0);
 			this.outBuffer.pjstr(arg1);
-			this.outBuffer.rsaenc(RSA_MODULUS, RSA_EXPONENT);
+			this.outBuffer.rsaenc(GlobalConfig.RSA_MODULUS, GlobalConfig.RSA_EXPONENT);
 			this.loginBuffer.pos = 0;
 			if (arg2) {
 				this.loginBuffer.p1(18);
@@ -7252,21 +7270,17 @@ public class Game extends GameShell {
 				if (this.waveDelay[local46] <= 0) {
 					@Pc(55) boolean local55 = false;
 					try {
-//						if (this.waveId[local46] != this.lastWaveId || this.waveLoops[local46] != this.lastWaveLoops) {
-							@Pc(89) Buffer local89 = SoundTrack.generate(this.waveLoops[local46], this.waveId[local46]);
-							if (System.currentTimeMillis() + (long) (local89.pos / 22) > this.lastWaveStartTime + (long) (this.lastWaveLength / 22)) {
-								this.lastWaveLength = local89.pos;
-								this.lastWaveStartTime = System.currentTimeMillis();
-								if (this.wavesave(local89.data, local89.pos)) {
-									this.lastWaveId = this.waveId[local46];
-									this.lastWaveLoops = this.waveLoops[local46];
-								} else {
-									local55 = true;
-								}
+						@Pc(89) Buffer local89 = SoundTrack.generate(this.waveLoops[local46], this.waveId[local46]);
+						if (System.currentTimeMillis() + (long) (local89.pos / 22) > this.lastWaveStartTime + (long) (this.lastWaveLength / 22)) {
+							this.lastWaveLength = local89.pos;
+							this.lastWaveStartTime = System.currentTimeMillis();
+							if (this.wavesave(local89.data, local89.pos)) {
+								this.lastWaveId = this.waveId[local46];
+								this.lastWaveLoops = this.waveLoops[local46];
+							} else {
+								local55 = true;
 							}
-//						} else if (!this.wavereplay()) {
-//							local55 = true;
-//						}
+						}
 					} catch (@Pc(139) Exception local139) {
 					}
 					if (local55 && this.waveDelay[local46] != -5) {
@@ -9071,75 +9085,82 @@ public class Game extends GameShell {
 		} else if (this.chatbackComponentId != -1) {
 			this.drawInterface(0, 0, Component.instances[this.chatbackComponentId], 0);
 		} else if (this.stickyChatbackComponentId == -1) {
-			@Pc(135) Font local135 = this.plain12;
-			@Pc(137) int local137 = 0;
+			@Pc(135) Font font = this.plain12;
+			if (GlobalConfig.CHATBOX_ERA == 1) {
+				font = this.quill8;
+			}
+
+			@Pc(137) int i = 0;
 			Draw2D.setBounds(77, 0, 463, 0);
-			for (@Pc(145) int local145 = 0; local145 < 100; local145++) {
-				if (this.chatMessage[local145] != null) {
-					@Pc(157) int local157 = this.chatMessageType[local145];
-					@Pc(166) int local166 = this.chatScrollAmount + 70 - local137 * 14;
-					if (local157 == 0) {
+			for (@Pc(145) int line = 0; line < 100; line++) {
+				if (this.chatMessage[line] != null) {
+					@Pc(157) int type = this.chatMessageType[line];
+					@Pc(166) int local166 = this.chatScrollAmount + 70 - i * 14;
+					if (type == 0) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 0, this.chatMessage[local145]);
+							font.draw(4, local166, 0, this.chatMessage[line]);
 						}
-						local137++;
-					}
-					if (local157 == 1) {
+						i++;
+					} else if (type == 1) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 16777215, this.chatMessagePrefix[local145] + ":");
-							local135.draw(local135.stringWidth(this.chatMessagePrefix[local145]) + 12, local166, 255, this.chatMessage[local145]);
+							font.draw(4, local166, 16777215, this.chatMessagePrefix[line] + ":");
+							font.draw(font.stringWidth(this.chatMessagePrefix[line]) + 12, local166, 255, this.chatMessage[line]);
 						}
-						local137++;
-					}
-					if (local157 == 2 && (this.chatPublicSetting == 0 || this.chatPublicSetting == 1 && this.isFriend(this.chatMessagePrefix[local145]))) {
+						i++;
+					} else if (type == 2 && (this.chatPublicSetting == 0 || this.chatPublicSetting == 1 && this.isFriend(this.chatMessagePrefix[line]))) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 0, this.chatMessagePrefix[local145] + ":");
-							local135.draw(local135.stringWidth(this.chatMessagePrefix[local145]) + 12, local166, 255, this.chatMessage[local145]);
+							font.draw(4, local166, 0, this.chatMessagePrefix[line] + ":");
+							font.draw(font.stringWidth(this.chatMessagePrefix[line]) + 12, local166, 255, this.chatMessage[line]);
 						}
-						local137++;
-					}
-					if ((local157 == 3 || local157 == 7) && this.splitPrivateChat == 0 && (local157 == 7 || this.chatPrivateSetting == 0 || this.chatPrivateSetting == 1 && this.isFriend(this.chatMessagePrefix[local145]))) {
+						i++;
+					} else if ((type == 3 || type == 7) && this.splitPrivateChat == 0 && (type == 7 || this.chatPrivateSetting == 0 || this.chatPrivateSetting == 1 && this.isFriend(this.chatMessagePrefix[line]))) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 0, "From " + this.chatMessagePrefix[local145] + ":");
-							local135.draw(local135.stringWidth("From " + this.chatMessagePrefix[local145]) + 12, local166, 8388608, this.chatMessage[local145]);
+							font.draw(4, local166, 0, "From " + this.chatMessagePrefix[line] + ":");
+							font.draw(font.stringWidth("From " + this.chatMessagePrefix[line]) + 12, local166, 8388608, this.chatMessage[line]);
 						}
-						local137++;
-					}
-					if (local157 == 4 && (this.chatTradeDuelSetting == 0 || this.chatTradeDuelSetting == 1 && this.isFriend(this.chatMessagePrefix[local145]))) {
+						i++;
+					} else if (type == 4 && (this.chatTradeDuelSetting == 0 || this.chatTradeDuelSetting == 1 && this.isFriend(this.chatMessagePrefix[line]))) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 8388736, this.chatMessagePrefix[local145] + " " + this.chatMessage[local145]);
+							font.draw(4, local166, 8388736, this.chatMessagePrefix[line] + " " + this.chatMessage[line]);
 						}
-						local137++;
-					}
-					if (local157 == 5 && this.splitPrivateChat == 0 && this.chatPrivateSetting < 2) {
+						i++;
+					} else if (type == 5 && this.splitPrivateChat == 0 && this.chatPrivateSetting < 2) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 8388608, this.chatMessage[local145]);
+							font.draw(4, local166, 8388608, this.chatMessage[line]);
 						}
-						local137++;
-					}
-					if (local157 == 6 && this.splitPrivateChat == 0 && this.chatPrivateSetting < 2) {
+						i++;
+					} else if (type == 6 && this.splitPrivateChat == 0 && this.chatPrivateSetting < 2) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 0, "To " + this.chatMessagePrefix[local145] + ":");
-							local135.draw(local135.stringWidth("To " + this.chatMessagePrefix[local145]) + 12, local166, 8388608, this.chatMessage[local145]);
+							font.draw(4, local166, 0, "To " + this.chatMessagePrefix[line] + ":");
+							font.draw(font.stringWidth("To " + this.chatMessagePrefix[line]) + 12, local166, 8388608, this.chatMessage[line]);
 						}
-						local137++;
-					}
-					if (local157 == 8 && (this.chatTradeDuelSetting == 0 || this.chatTradeDuelSetting == 1 && this.isFriend(this.chatMessagePrefix[local145]))) {
+						i++;
+					} else if (type == 8 && (this.chatTradeDuelSetting == 0 || this.chatTradeDuelSetting == 1 && this.isFriend(this.chatMessagePrefix[line]))) {
 						if (local166 > 0 && local166 < 110) {
-							local135.draw(4, local166, 13350793, this.chatMessagePrefix[local145] + " " + this.chatMessage[local145]);
+							font.draw(4, local166, 13350793, this.chatMessagePrefix[line] + " " + this.chatMessage[line]);
 						}
-						local137++;
+						i++;
 					}
 				}
 			}
+
 			Draw2D.resetBounds();
-			this.chatScrollY = local137 * 14 + 7;
+			this.chatScrollY = i * 14 + 7;
 			if (this.chatScrollY < 78) {
 				this.chatScrollY = 78;
 			}
+
 			this.drawScrollbar(463, 0, this.chatScrollY - this.chatScrollAmount - 77, this.chatScrollY, 77);
-			local135.draw(4, 90, 0, StringUtils.formatName(this.username) + ":");
-			local135.draw(local135.stringWidth(this.username + ": ") + 6, 90, 255, this.input + "*");
+
+			if (GlobalConfig.CHATBOX_ERA < 3) {
+				// 186-??? draw: (no username)
+				font.draw(3, 90, 0, this.input + "*");
+			} else {
+				// 225 draw: (username, blue chat message)
+				font.draw(4, 90, 0, StringUtils.formatName(this.username) + ":");
+				font.draw(font.stringWidth(this.username + ": ") + 6, 90, 255, this.input + "*");
+			}
+
 			Draw2D.drawHorizontalLine(0, 77, 479, 0);
 		} else {
 			this.drawInterface(0, 0, Component.instances[this.stickyChatbackComponentId], 0);
