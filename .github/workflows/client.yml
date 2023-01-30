@@ -29,3 +29,14 @@ jobs:
       with:
         name: rs2-client
         path: client/build/libs/*
+
+    - name: Build with Gradle
+      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+      with:
+        arguments: webclient:teavmc
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: rs2-webclient
+        path: webclient/build/teavm
