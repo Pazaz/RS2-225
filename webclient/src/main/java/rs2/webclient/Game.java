@@ -6723,7 +6723,15 @@ public class Game extends GameShell {
 			}
 			this.loginBuffer.p1(this.outBuffer.pos + 36 + 1 + 1);
 			this.loginBuffer.p1(225);
-			this.loginBuffer.p1(lowMemory ? 1 : 0);
+
+			int info = 0;
+			if (lowMemory) {
+				info |= 1;
+			}
+			// webclient:
+			info |= 3;
+			this.loginBuffer.p1(info);
+
 			for (@Pc(168) int local168 = 0; local168 < 9; local168++) {
 				this.loginBuffer.p4(this.archiveChecksums[local168]);
 			}
