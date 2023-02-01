@@ -2207,6 +2207,8 @@ public class Game extends GameShell {
 
 	@OriginalMember(owner = "client!client", name = "e", descriptor = "(Z)V")
 	private void drawFlames() {
+		this.redrawTitleBackground = true;
+
 		@Pc(3) short local3 = 256;
 		@Pc(8) int local8;
 		if (this.flameCycle1 > 0) {

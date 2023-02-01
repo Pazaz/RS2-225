@@ -33,7 +33,7 @@ Module['ready'] = new Promise(function(resolve, reject) {
   readyPromiseResolve = resolve;
   readyPromiseReject = reject;
 });
-["_tinymidipcm_render_pcm","_malloc","_realloc","_free","_fflush","onRuntimeInitialized"].forEach((prop) => {
+["_tsf_load_memory","_tsf_set_output","_tsf_reset","_tsf_close","_tml_load_memory","_midi_render","_malloc","_realloc","_free","_fflush","onRuntimeInitialized"].forEach((prop) => {
   if (!Object.getOwnPropertyDescriptor(Module['ready'], prop)) {
     Object.defineProperty(Module['ready'], prop, {
       get: () => abort('You are getting ' + prop + ' on the Promise object, instead of the instance. Use .then() to get called back with the instance, see the MODULARIZE docs in src/settings.js'),
@@ -1411,61 +1411,6 @@ var ASM_CONSTS = {
       return false;
     }
 
-  var SYSCALLS = {varargs:undefined,get:function() {
-        assert(SYSCALLS.varargs != undefined);
-        SYSCALLS.varargs += 4;
-        var ret = HEAP32[(((SYSCALLS.varargs)-(4))>>2)];
-        return ret;
-      },getStr:function(ptr) {
-        var ret = UTF8ToString(ptr);
-        return ret;
-      }};
-  function _fd_close(fd) {
-      abort('fd_close called without SYSCALLS_REQUIRE_FILESYSTEM');
-    }
-
-  function convertI32PairToI53Checked(lo, hi) {
-      assert(lo == (lo >>> 0) || lo == (lo|0)); // lo should either be a i32 or a u32
-      assert(hi === (hi|0));                    // hi should be a i32
-      return ((hi + 0x200000) >>> 0 < 0x400001 - !!lo) ? (lo >>> 0) + hi * 4294967296 : NaN;
-    }
-  function _fd_seek(fd, offset_low, offset_high, whence, newOffset) {
-      return 70;
-    }
-
-  var printCharBuffers = [null,[],[]];
-  function printChar(stream, curr) {
-      var buffer = printCharBuffers[stream];
-      assert(buffer);
-      if (curr === 0 || curr === 10) {
-        (stream === 1 ? out : err)(UTF8ArrayToString(buffer, 0));
-        buffer.length = 0;
-      } else {
-        buffer.push(curr);
-      }
-    }
-  function flush_NO_FILESYSTEM() {
-      // flush anything remaining in the buffers during shutdown
-      _fflush(0);
-      if (printCharBuffers[1].length) printChar(1, 10);
-      if (printCharBuffers[2].length) printChar(2, 10);
-    }
-  function _fd_write(fd, iov, iovcnt, pnum) {
-      // hack to support printf in SYSCALLS_REQUIRE_FILESYSTEM=0
-      var num = 0;
-      for (var i = 0; i < iovcnt; i++) {
-        var ptr = HEAPU32[((iov)>>2)];
-        var len = HEAPU32[(((iov)+(4))>>2)];
-        iov += 8;
-        for (var j = 0; j < len; j++) {
-          printChar(fd, HEAPU8[ptr+j]);
-        }
-        num += len;
-      }
-      HEAPU32[((pnum)>>2)] = num;
-      return 0;
-    }
-
 
 var ASSERTIONS = true;
 
@@ -1474,10 +1419,7 @@ function checkIncomingModuleAPI() {
 }
 var asmLibraryArg = {
   "emscripten_memcpy_big": _emscripten_memcpy_big,
-  "emscripten_resize_heap": _emscripten_resize_heap,
-  "fd_close": _fd_close,
-  "fd_seek": _fd_seek,
-  "fd_write": _fd_write
+  "emscripten_resize_heap": _emscripten_resize_heap
 };
 var asm = createWasm();
 /** @type {function(...*):?} */
@@ -1490,10 +1432,25 @@ var _malloc = Module["_malloc"] = createExportWrapper("malloc");
 var _free = Module["_free"] = createExportWrapper("free");
 
 /** @type {function(...*):?} */
+var _tsf_load_memory = Module["_tsf_load_memory"] = createExportWrapper("tsf_load_memory");
+
+/** @type {function(...*):?} */
+var _tsf_close = Module["_tsf_close"] = createExportWrapper("tsf_close");
+
+/** @type {function(...*):?} */
+var _tsf_reset = Module["_tsf_reset"] = createExportWrapper("tsf_reset");
+
+/** @type {function(...*):?} */
+var _tsf_set_output = Module["_tsf_set_output"] = createExportWrapper("tsf_set_output");
+
+/** @type {function(...*):?} */
 var _realloc = Module["_realloc"] = createExportWrapper("realloc");
 
 /** @type {function(...*):?} */
-var _tinymidipcm_render_pcm = Module["_tinymidipcm_render_pcm"] = createExportWrapper("tinymidipcm_render_pcm");
+var _tml_load_memory = Module["_tml_load_memory"] = createExportWrapper("tml_load_memory");
+
+/** @type {function(...*):?} */
+var _midi_render = Module["_midi_render"] = createExportWrapper("midi_render");
 
 /** @type {function(...*):?} */
 var ___errno_location = Module["___errno_location"] = createExportWrapper("__errno_location");
@@ -1529,9 +1486,6 @@ var stackRestore = Module["stackRestore"] = createExportWrapper("stackRestore");
 
 /** @type {function(...*):?} */
 var stackAlloc = Module["stackAlloc"] = createExportWrapper("stackAlloc");
-
-/** @type {function(...*):?} */
-var dynCall_jiji = Module["dynCall_jiji"] = createExportWrapper("dynCall_jiji");
 
 
 
@@ -1826,6 +1780,7 @@ var missingLibrarySymbols = [
   'readI53FromI64',
   'readI53FromU64',
   'convertI32PairToI53',
+  'convertI32PairToI53Checked',
   'convertU32PairToI53',
   'getCFunc',
   'ccall',
@@ -1903,6 +1858,7 @@ var missingLibrarySymbols = [
   'getCanvasElementSize',
   'getEnvStrings',
   'checkWasiClock',
+  'flush_NO_FILESYSTEM',
   'createDyncallWrapper',
   'setImmediateWrapped',
   'clearImmediateWrapped',
@@ -2022,7 +1978,7 @@ function checkUnflushedContent() {
     has = true;
   }
   try { // it doesn't matter if it fails
-    flush_NO_FILESYSTEM();
+    _fflush(0);
   } catch(e) {}
   out = oldOut;
   err = oldErr;
