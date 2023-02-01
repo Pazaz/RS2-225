@@ -2177,7 +2177,7 @@ public class Game extends GameShell {
 				this.midiSyncLen = 0;
 			}
 			if (local19 != null) {
-				@Pc(52) byte[] local52 = SignedLink.cacheload(local19 + ".mid");
+				@Pc(52) byte[] local52 = null; // SignedLink.cacheload(local19 + ".mid");
 				@Pc(69) int local69;
 				if (local52 != null && local22 != 12345678) {
 					local69 = Buffer.getcrc(local52);
@@ -3095,7 +3095,7 @@ public class Game extends GameShell {
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(Ljava/lang/String;ILjava/lang/String;II)Lclient!ub;")
 	private FileArchive loadArchive(@OriginalArg(0) String displayName, @OriginalArg(1) int expectedCrc, @OriginalArg(2) String name, @OriginalArg(3) int progress) {
 		@Pc(3) int nextRetry = 5;
-		@Pc(6) byte[] data = SignedLink.cacheload(name);
+		@Pc(6) byte[] data = null; // SignedLink.cacheload(name);
 
 		@Pc(20) int crc;
 		if (data != null) {
@@ -3142,7 +3142,7 @@ public class Game extends GameShell {
 			}
 		}
 
-		SignedLink.cachesave(name, data);
+		// SignedLink.cachesave(name, data);
 		return new FileArchive(data);
 	}
 
@@ -9286,7 +9286,7 @@ public class Game extends GameShell {
 					}
 				}
 				if (local211 != -1) {
-					SignedLink.cachesave("m" + local159 + "_" + local462, this.sceneMapLandData[local211]);
+					// SignedLink.cachesave("m" + local159 + "_" + local462, this.sceneMapLandData[local211]);
 					this.sceneState = 1;
 				}
 				this.packetOpcode = -1;
@@ -9329,9 +9329,9 @@ public class Game extends GameShell {
 					local354 = this.inBuffer.g4();
 					local662 = this.inBuffer.g4();
 					this.sceneMapIndex[local219] = (local650 << 8) + local321;
-					@Pc(686) byte[] local686;
+					@Pc(686) byte[] local686 = null;
 					if (local354 != 0) {
-						local686 = SignedLink.cacheload("m" + local650 + "_" + local321);
+						// local686 = SignedLink.cacheload("m" + local650 + "_" + local321);
 						if (local686 != null) {
 							if (Buffer.getcrc(local686) != local354) {
 								local686 = null;
@@ -9348,7 +9348,7 @@ public class Game extends GameShell {
 						}
 					}
 					if (local662 != 0) {
-						local686 = SignedLink.cacheload("l" + local650 + "_" + local321);
+						// local686 = SignedLink.cacheload("l" + local650 + "_" + local321);
 						if (local686 != null) {
 							if (Buffer.getcrc(local686) != local662) {
 								local686 = null;
@@ -9515,7 +9515,7 @@ public class Game extends GameShell {
 					}
 				}
 				if (local211 != -1) {
-					SignedLink.cachesave("l" + local159 + "_" + local462, this.sceneMapLocData[local211]);
+					// SignedLink.cachesave("l" + local159 + "_" + local462, this.sceneMapLocData[local211]);
 					this.sceneState = 1;
 				}
 				this.packetOpcode = -1;
