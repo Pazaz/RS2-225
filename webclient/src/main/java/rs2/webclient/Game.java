@@ -3039,7 +3039,7 @@ public class Game extends GameShell {
 			local24 = super.gameWidth / 2 + 80;
 			if (super.mouseButton == 1 && super.clickX >= local24 - 75 && super.clickX <= local24 + 75 && super.clickY >= local171 - 20 && super.clickY <= local171 + 20) {
 				this.titleState = 0;
-				this.username = "";
+				// this.username = "";
 				this.password = "";
 			}
 			while (true) {
@@ -3969,7 +3969,7 @@ public class Game extends GameShell {
 		this.stream = null;
 		this.ingame = false;
 		this.titleState = 0;
-		this.username = "";
+		// this.username = "";
 		this.password = "";
 		InputTracking.setDisabled();
 		this.clearCaches();
@@ -3981,6 +3981,7 @@ public class Game extends GameShell {
 		this.midistop();
 		this.currentMidi = null;
 		this.nextMusicDelay = 0;
+		this.setMidi(12345678, "scape_main", 40000);
 	}
 
 	@OriginalMember(owner = "client!client", name = "a", descriptor = "(IIILclient!hc;I)V")
