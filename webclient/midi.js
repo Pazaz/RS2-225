@@ -1,8 +1,9 @@
-import TinyMidiPCM from '/js/tinymidipcm/index.js';
+import TinyMidiPCM from './tinymidipcm/index.js';
 
 (async () => {
     let renderEndSeconds = 0;
     let playingMIDIBuffer = undefined;
+    let playingMIDIVolume = 1;
 
     const pcmPlayerOptions = {
         inputCodec: 'Float32',
@@ -10,15 +11,11 @@ import TinyMidiPCM from '/js/tinymidipcm/index.js';
         sampleRate: 44100,
         onended: () => {
             const timeSeconds = Math.floor(player.audioCtx.currentTime);
-
-            if (
-                renderEndSeconds > 0 &&
-                Math.abs(timeSeconds - renderEndSeconds) <= 2
-            ) {
+            if (renderEndSeconds > 0 && Math.abs(timeSeconds - renderEndSeconds) <= 2) {
                 renderEndSeconds = 0;
 
                 if (playingMIDIBuffer) {
-                    window._tinyMidiPlay(playingMIDIBuffer);
+                    window._tinyMidiPlay(playingMIDIBuffer, playingMIDIVolume);
                 }
             }
         },
@@ -29,7 +26,11 @@ import TinyMidiPCM from '/js/tinymidipcm/index.js';
 
     const tinyMidiPCM = new TinyMidiPCM({
         renderInterval: 100,
-        onPCMData: (pcm) => player.feed(pcm),
+        onPCMData: (pcm) => {
+            if (player.audioCtx) {
+                player.feed(pcm);
+            }
+        },
         onRenderEnd: (ms) => {
             renderEndSeconds = Math.floor(ms / 1000);
         },
@@ -38,8 +39,7 @@ import TinyMidiPCM from '/js/tinymidipcm/index.js';
 
     await tinyMidiPCM.init();
 
-    const soundfontRes = await fetch('/gm.sf2');
-
+    const soundfontRes = await fetch('/SCC1_Florestan.sf2');
     const soundfontBuffer = new Uint8Array(
         await soundfontRes.arrayBuffer()
     );
@@ -47,21 +47,27 @@ import TinyMidiPCM from '/js/tinymidipcm/index.js';
     tinyMidiPCM.setSoundfont(soundfontBuffer);
 
     window._tinyMidiStop = async () => {
-        await player.pause();
-
-        player.destroy();
+        if (player.audioCtx) {
+            await player.pause();
+            player.destroy();
+        }
 
         playingMIDIBuffer = undefined;
     };
 
-    window._tinyMidiPlay = async (midiBuffer) => {
+    window._tinyMidiPlay = async (midiBuffer, vol = 1) => {
         await window._tinyMidiStop();
 
         player.init(pcmPlayerOptions);
-        player.volume(1);
+        playingMIDIVolume = vol;
+        player.volume(vol);
 
         playingMIDIBuffer = midiBuffer;
-
         tinyMidiPCM.render(midiBuffer);
+    };
+
+    window._tinyMidiVolume = (vol = 1) => {
+        playingMIDIVolume = vol;
+        player.volume(vol);
     };
 })();

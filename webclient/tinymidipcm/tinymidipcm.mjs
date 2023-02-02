@@ -33,7 +33,7 @@ Module['ready'] = new Promise(function(resolve, reject) {
   readyPromiseResolve = resolve;
   readyPromiseReject = reject;
 });
-["_tsf_load_memory","_tsf_set_output","_tsf_reset","_tsf_close","_tml_load_memory","_midi_render","_malloc","_realloc","_free","_fflush","onRuntimeInitialized"].forEach((prop) => {
+["_tsf_load_memory","_tsf_set_output","_tsf_channel_set_bank_preset","_tsf_set_max_voices","_tsf_channel_set_presetnumber","_tsf_reset","_tsf_close","_tml_load_memory","_midi_render","_malloc","_realloc","_free","_fflush","onRuntimeInitialized"].forEach((prop) => {
   if (!Object.getOwnPropertyDescriptor(Module['ready'], prop)) {
     Object.defineProperty(Module['ready'], prop, {
       get: () => abort('You are getting ' + prop + ' on the Promise object, instead of the instance. Use .then() to get called back with the instance, see the MODULARIZE docs in src/settings.js'),
@@ -1444,7 +1444,16 @@ var _tsf_reset = Module["_tsf_reset"] = createExportWrapper("tsf_reset");
 var _tsf_set_output = Module["_tsf_set_output"] = createExportWrapper("tsf_set_output");
 
 /** @type {function(...*):?} */
+var _tsf_set_max_voices = Module["_tsf_set_max_voices"] = createExportWrapper("tsf_set_max_voices");
+
+/** @type {function(...*):?} */
 var _realloc = Module["_realloc"] = createExportWrapper("realloc");
+
+/** @type {function(...*):?} */
+var _tsf_channel_set_presetnumber = Module["_tsf_channel_set_presetnumber"] = createExportWrapper("tsf_channel_set_presetnumber");
+
+/** @type {function(...*):?} */
+var _tsf_channel_set_bank_preset = Module["_tsf_channel_set_bank_preset"] = createExportWrapper("tsf_channel_set_bank_preset");
 
 /** @type {function(...*):?} */
 var _tml_load_memory = Module["_tml_load_memory"] = createExportWrapper("tml_load_memory");

@@ -6,57 +6,43 @@
         <script src="https://unpkg.com/pcm-player"></script>
 
         <script>
-            const AudioContext =
-                window.AudioContext || window.webkitAudioContext;
-
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
             const audioCtx = new AudioContext();
 
-            function playWave(data, vol) {
-                try {
-                    audioCtx
-                        .decodeAudioData(Uint8Array.from(data).buffer)
-                        .then((buffer) => {
-                            var track = audioCtx.createBufferSource();
-                            track.buffer = buffer;
-                            track.connect(audioCtx.destination);
-                            track.start(0);
-                        });
-                } catch (err) {
-                    // console.log(err);
-                }
+            async function playWave(data, vol) {
+              try {
+                let buffer = await audioCtx.decodeAudioData(Uint8Array.from(data).buffer);
+      
+                var track = audioCtx.createBufferSource();
+                track.buffer = buffer;
+                track.connect(audioCtx.destination);
+                track.start(0);
+              } catch (err) {
+                console.log(err);
+              }
             }
 
             function setWaveVolume(vol) {
-                console.log(vol);
+              // console.log(vol);
             }
 
             function playMidi(data, vol) {
-                console.log('playmidi');
-
-                if (window._tinyMidiPlay) {
-                    window._tinyMidiPlay(data);
-                }
+              if (window._tinyMidiPlay) {
+                window._tinyMidiPlay(data, vol / 256);
+              }
             }
 
             function setMidiVolume(vol) {
-                console.log('midi volume', vol);
+              if (window._tinyMidiVolume) {
+                window._tinyMidiVolume(vol / 256);
+              }
             }
 
             function stopMidi() {
-                if (window._tinyMidiStop) {
-                    window._tinyMidiStop();
-                }
+              if (window._tinyMidiStop) {
+                window._tinyMidiStop();
+              }
             }
-
-            let _isLoaded = false;
-
-            window.onclick = () => {
-                if (!_isLoaded) {
-                    main();
-                }
-
-                _isLoaded = true;
-            };
         </script>
 
         <script type="module" src="/midi.js"></script>
@@ -68,7 +54,7 @@
         ></script>
     </head>
 
-    <body style="background-color: black">
+    <body style="background-color: black" onload="main()">
         <canvas id="game" width="789" height="532"></canvas>
     </body>
 </html>

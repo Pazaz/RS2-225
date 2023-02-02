@@ -38,7 +38,9 @@ class TinyMidiPCM {
         // http://philiplassen.com/2021/08/11/node-es6-emscripten.html
         if (typeof process !== 'undefined') {
             const { dirname } = await import(/* webpackIgnore: true */ 'path');
-            const { createRequire } = await import(/* webpackIgnore: true */ 'module');
+            const { createRequire } = await import(
+                /* webpackIgnore: true */ 'module'
+            );
 
             globalThis.__dirname = dirname(import.meta.url);
             globalThis.require = createRequire(import.meta.url);
@@ -66,18 +68,29 @@ class TinyMidiPCM {
     setSoundfont(buffer) {
         this.ensureInitialized();
 
-        const { _malloc, _free, _tsf_load_memory, _tsf_set_output } =
-            this.wasmModule;
+        const {
+            _malloc,
+            _free,
+            _tsf_load_memory,
+            _tsf_set_output,
+            _tsf_channel_set_bank_preset,
+            _tsf_set_max_voices,
+            _tsf_channel_set_presetnumber
+        } = this.wasmModule;
 
         _free(this.soundfontBufferPtr);
 
         this.soundfontBufferPtr = _malloc(buffer.length);
         this.wasmModule.HEAPU8.set(buffer, this.soundfontBufferPtr);
 
+        //_tsf_channel_set_bank_preset(this.soundfontPtr, 9, 128, 0);
+
         this.soundfontPtr = _tsf_load_memory(
             this.soundfontBufferPtr,
             buffer.length
         );
+
+        //_tsf_set_max_voices(this.soundfontPtr, 10);
 
         _tsf_set_output(
             this.soundfontPtr,
@@ -140,9 +153,14 @@ class TinyMidiPCM {
 
         setValue(this.msecsPtr, 0, 'double');
 
-        let midiMessagePtr = this.getMIDIMessagePtr(midiBuffer);
-
         this.wasmModule._tsf_reset(this.soundfontPtr);
+        this.wasmModule._tsf_channel_set_bank_preset(this.soundfontPtr, 9, 128, 0);
+
+        if (midiBuffer[0] == 'R'.charCodeAt(0)) {
+            // there is a RIFF header before the midi, quick hack
+            midiBuffer = midiBuffer.slice(0x14);
+        }
+        let midiMessagePtr = this.getMIDIMessagePtr(midiBuffer);
 
         const boundRender = function () {
             midiMessagePtr = this.renderMIDIMessage(midiMessagePtr);
