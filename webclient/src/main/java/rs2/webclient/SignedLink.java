@@ -2,6 +2,9 @@ package rs2.webclient;
 
 import com.jagex.core.io.BufferedWebStream;
 import com.jagex.core.io.FileDownloadStream;
+
+import rs2.client.GlobalConfig;
+
 import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
@@ -245,7 +248,7 @@ public class SignedLink implements Runnable {
 
 	@OriginalMember(owner = "client!sign/signlink", name = "openurl", descriptor = "(Ljava/lang/String;)Ljava/io/DataInputStream;")
 	public static synchronized FileDownloadStream openurl(@OriginalArg(0) String url) throws IOException {
-		urlreq = "http://" + socketip + ":80/" + url;
+		urlreq = GlobalConfig.SERVER_WEB_SCHEMA + "//" + socketip + ":" + GlobalConfig.SERVER_WEB_PORT + "/" + url;
 
 		while (urlreq != null) {
 			try {

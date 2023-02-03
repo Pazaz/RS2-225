@@ -23,6 +23,8 @@ import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
+import org.teavm.jso.JSBody;
+
 import rs2.client.GlobalConfig;
 import rs2.shared.network.ServerProt;
 import rs2.shared.network.ZoneProt;
@@ -1217,35 +1219,60 @@ public class Game extends GameShell {
 		}
 	}
 
+	@JSBody(script = "return window.location.hostname;")
+	public static native String getWebHost();
+
+	@JSBody(script = "return window.location.port.length ? window.location.port : (window.location.protocol == 'http:' ? 80 : 443);")
+	public static native int getWebPort();
+
+	@JSBody(script = "return window.location.protocol;")
+	public static native String getWebSchema();
+
+	@JSBody(script = "return window.location.search;")
+	public static native String getWebQuery();
+
 	@OriginalMember(owner = "client!client", name = "main", descriptor = "([Ljava/lang/String;)V")
-	public static void main(@OriginalArg(0) String[] arg0) {
+	public static void main(@OriginalArg(0) String[] args) {
 		System.out.println("RS2 user client - release #" + 225);
 
-		if (arg0.length == 4) {
-			nodeId = Integer.parseInt(arg0[0]);
-			gamePortOffset = Integer.parseInt(arg0[1]);
-			if (arg0[2].equals("lowmem")) {
-				setLowMemory();
-			} else if (arg0[2].equals("highmem")) {
-				setHighMemory();
-			} else {
-				System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
-				return;
-			}
-
-			if (arg0[3].equals("free")) {
-				members = false;
-			} else if (arg0[3].equals("members")) {
-				members = true;
-			} else {
-				System.out.println("Usage: node-id, port-offset, [lowmem/highmem], [free/members]");
-				return;
-			}
+		if (args != null && args.length > 0) {
+			nodeId = Integer.parseInt(args[0]);
 		} else {
 			nodeId = 10;
+		}
+
+		if (args != null && args.length > 1) {
+			gamePortOffset = Integer.parseInt(args[1]);
+		} else {
 			gamePortOffset = 0;
+		}
+
+		if (args != null && args.length > 2 && args[2].equals("lowmem")) {
+			setLowMemory();
+		} else {
 			setHighMemory();
+		}
+
+		if (args != null && args.length > 3 && args[3].equals("free")) {
+			members = false;
+		} else {
 			members = true;
+		}
+
+		if (args != null && args.length > 4 && args[4].equals("true")) {
+			// this argument describes whether the client should attempt to connect to the reference server,
+			// instead of whatever the current domain is. for the sake of index.html here we'll use the reference server
+			// and not do anything. this option should be used when a server isn't actually being ran
+			System.out.println("Connecting to reference server directly");
+		} else {
+			// but it's important normally so we don't have to rebuild for each domain
+			GlobalConfig.SERVER_ADDRESS = getWebHost();
+			GlobalConfig.SERVER_WEB_SCHEMA = getWebSchema();
+			GlobalConfig.SERVER_WEB_PORT = getWebPort(); // normally 80/443 is enough but we'll use the actual port just in case
+
+			if (GlobalConfig.SERVER_WEB_SCHEMA.equals("https:")) {
+				gamePortOffset++; // we want to use 43596* for wss:// connections, and keep ws:// on 43595 as a compatibility fallback
+			}
 		}
 
 		SignedLink.startpriv(GlobalConfig.SERVER_ADDRESS);
@@ -6700,7 +6727,7 @@ public class Game extends GameShell {
 				this.loginMessage2 = "Connecting to server...";
 				this.drawTitleScreen();
 			}
-			this.stream = opensocket(gamePortOffset + 43595);
+			this.stream = opensocket(43595 + gamePortOffset);
 			this.stream.read(this.inBuffer.data, 0, 8);
 			this.inBuffer.pos = 0;
 			this.serverSeed = this.inBuffer.g8();

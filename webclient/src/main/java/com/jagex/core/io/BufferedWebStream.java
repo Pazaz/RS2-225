@@ -9,6 +9,8 @@ import org.teavm.jso.typedarrays.Int8Array;
 import org.teavm.jso.websocket.CloseEvent;
 import org.teavm.jso.websocket.WebSocket;
 
+import rs2.client.GlobalConfig;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -35,7 +37,7 @@ public class BufferedWebStream {
 	@Async
 	public native int connect();
 	public void connect(AsyncCallback<Integer> callback) {
-		this.client = WebSocket.create("ws://" + this.host + ":" + this.port, "binary");
+		this.client = WebSocket.create((GlobalConfig.SERVER_WEB_SCHEMA.equals("http:") ? "ws" : "wss") + "://" + this.host + ":" + this.port, "binary");
 		this.client.setBinaryType("arraybuffer");
 
 		this.client.onClose(new EventListener<CloseEvent>(){

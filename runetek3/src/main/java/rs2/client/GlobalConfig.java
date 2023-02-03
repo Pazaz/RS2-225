@@ -22,8 +22,14 @@ public class GlobalConfig {
 	// there were 2 different chatbox styles before this revision
 	public static int CHATBOX_ERA = 3;
 
-	// public static final String SERVER_ADDRESS = "localhost";
-	public static final String SERVER_ADDRESS = "lostcity.runewiki.org";
+	// default server to connect to
+	public static String SERVER_ADDRESS = "lostcity.runewiki.org";
+
+	// default port to connect to
+	public static int SERVER_WEB_PORT = 80;
+
+	// http or https (for downloading and the websocket connection)
+	public static String SERVER_WEB_SCHEMA = "http:";
 
 	@OriginalMember(owner = "client!client", name = "ue", descriptor = "Ljava/math/BigInteger;")
 	public static final BigInteger RSA_EXPONENT = new BigInteger("58778699976184461502525193738213253649000149147835990136706041084440742975821");
