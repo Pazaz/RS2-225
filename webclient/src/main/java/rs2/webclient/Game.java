@@ -6756,7 +6756,7 @@ public class Game extends GameShell {
 				info |= 1;
 			}
 			// webclient:
-			info |= 3;
+			info |= 2;
 			this.loginBuffer.p1(info);
 
 			for (@Pc(168) int local168 = 0; local168 < 9; local168++) {
