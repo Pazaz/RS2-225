@@ -117,11 +117,6 @@ public class SignedLink implements Runnable {
 
 	private Position curPosition = Position.NORMAL;
 
-	// music
-	public boolean midiFadingIn = false;
-	public boolean midiFadingOut = false;
-	public int midiFadeVol = 0;
-
 	@OriginalMember(owner = "client!sign/signlink", name = "startpriv", descriptor = "(Ljava/net/InetAddress;)V")
 	public static void startpriv(@OriginalArg(0) String ip) {
 		threadliveid = (int) (Math.random() * 9.9999999E7D);
@@ -334,8 +329,8 @@ public class SignedLink implements Runnable {
 	@JSBody(params = { "vol" }, script = "setWaveVolume(vol)")
 	public static native void jsSetWaveVolume(int vol);
 
-	@JSBody(params = { "data", "vol" }, script = "playMidi(data, vol)")
-	public static native void jsPlayMidi(byte[] data, int vol);
+	@JSBody(params = { "data", "vol", "fade" }, script = "playMidi(data, vol, fade)")
+	public static native void jsPlayMidi(byte[] data, int vol, boolean fade);
 
 	@JSBody(script = "stopMidi()")
 	public static native void jsStopMidi();
@@ -345,29 +340,6 @@ public class SignedLink implements Runnable {
 
 	// adapted from play_members.html's JS loop
 	private void audioLoop() {
-		if (midiFadingIn) {
-			midiFadeVol += 8;
-			if (midiFadeVol > midivol) {
-				midiFadeVol = midivol;
-			}
-
-			SignedLink.jsSetMidiVolume(midiFadeVol);
-			if (midiFadeVol == midivol) {
-				midiFadingIn = false;
-			}
-		} else if (midiFadingOut) {
-			midiFadeVol -= 8;
-			if (midiFadeVol < 0) {
-				midiFadeVol = 0;
-			}
-
-			SignedLink.jsSetMidiVolume(midiFadeVol);
-			if (midiFadeVol == 0) {
-				midiFadingOut = false;
-				midiFadingIn = true;
-			}
-		}
-
 		try {
 			if (!Objects.equals(midi, "none")) {
 				if (Objects.equals(midi, "stop")) {
@@ -375,15 +347,13 @@ public class SignedLink implements Runnable {
 				} else if (Objects.equals(midi, "voladjust")) {
 					SignedLink.jsSetMidiVolume(midivol);
 				} else if (savebuf != null) {
-					SignedLink.jsPlayMidi(savebuf, midivol);
+					SignedLink.jsPlayMidi(savebuf, midivol, midifade);
 				}
+
+				midi = "none";
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		}
-
-		if (!midiFadingOut) {
-			midi = "none";
 		}
 
 		try {
