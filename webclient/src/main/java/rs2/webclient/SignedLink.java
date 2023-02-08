@@ -60,7 +60,7 @@ public class SignedLink implements Runnable {
 	private static int wavepos;
 
 	@OriginalMember(owner = "client!sign/signlink", name = "wavevol", descriptor = "I")
-	public static int wavevol;
+	public static int wavevol = 192;
 
 	@OriginalMember(owner = "client!sign/signlink", name = "socket", descriptor = "Ljava/net/Socket;")
 	private static BufferedWebStream socket = null;
