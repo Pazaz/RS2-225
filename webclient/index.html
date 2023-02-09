@@ -3,7 +3,8 @@
     <head>
         <title>RuneScape 2</title>
 
-        <script src="https://unpkg.com/pcm-player"></script>
+        <script src="/pcm-player.js"></script>
+        <script type="module" src="/midi.js"></script>
 
         <script>
             const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -45,12 +46,10 @@
             }
         </script>
 
-        <script type="module" src="/midi.js"></script>
-
         <script
             type="text/javascript"
             charset="utf-8"
-            src="target/js/classes.js"
+            src="/target/js/classes.js"
         ></script>
     </head>
 

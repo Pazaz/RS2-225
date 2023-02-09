@@ -1,6 +1,7 @@
 package rs2.webclient;
 
 import com.jagex.core.io.BufferedWebStream;
+import com.jagex.core.io.DatabaseStore;
 import com.jagex.core.io.FileDownloadStream;
 
 import rs2.client.GlobalConfig;
@@ -148,13 +149,9 @@ public class SignedLink implements Runnable {
 		}
 	}
 
-	@OriginalMember(owner = "client!sign/signlink", name = "findcachedir", descriptor = "()Ljava/lang/String;")
-	public static String findcachedir() {
-		return "";
-	}
-
 	@OriginalMember(owner = "client!sign/signlink", name = "getuid", descriptor = "(Ljava/lang/String;)I")
-	public static int getuid(@OriginalArg(0) String cachedir) {
+	public static int getuid() {
+		// TODO: read from DatabaseStore
 		return (int)(Math.random() * Integer.MAX_VALUE);
 	}
 
@@ -189,7 +186,7 @@ public class SignedLink implements Runnable {
 			return null;
 		}
 
-		loadreq = String.valueOf(gethash(name));
+		loadreq = String.valueOf(name); // gethash(name));
 		while (loadreq != null) {
 			try {
 				Thread.sleep(1L);
@@ -214,7 +211,7 @@ public class SignedLink implements Runnable {
 
 		savelen = src.length;
 		savebuf = src;
-		savereq = String.valueOf(gethash(name));
+		savereq = String.valueOf(name); // gethash(name));
 		while (savereq != null) {
 			try {
 				Thread.sleep(1L);
@@ -346,40 +343,40 @@ public class SignedLink implements Runnable {
 					SignedLink.jsStopMidi();
 				} else if (Objects.equals(midi, "voladjust")) {
 					SignedLink.jsSetMidiVolume(midivol);
-				} else if (savebuf != null) {
-					SignedLink.jsPlayMidi(savebuf, midivol, midifade);
+				} else {
+					byte[] data = DatabaseStore.getFile(midi);
+					SignedLink.jsPlayMidi(data, midivol, midifade);
 				}
-
-				midi = "none";
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+
+		midi = "none";
 
 		try {
 			if (!Objects.equals(wave, "none")) {
-				if (savebuf != null) {
-					SignedLink.jsPlayWave(savebuf, wavevol); // needs to stick around long enough for the JS to play it
-				}
-
-				wave = "none";
+				byte[] data = DatabaseStore.getFile(wave);
+				SignedLink.jsPlayWave(data, wavevol); // needs to stick around long enough for the JS to play it
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+
+		wave = "none";
 	}
 
 	@OriginalMember(owner = "client!sign/signlink", name = "run", descriptor = "()V")
 	@Override
 	public void run() {
-		active = true;
+		DatabaseStore.initDb();
 
-		@Pc(3) String cachedir = findcachedir();
-		uid = getuid(cachedir);
+		active = true;
+		uid = getuid();
 
 		@Pc(8) int threadid = threadliveid;
 		while (threadliveid == threadid) {
-			audioLoop(); // may want to live in another thread
+			audioLoop();
 
 			if (socketreq != 0) {
 				try {
@@ -401,19 +398,35 @@ public class SignedLink implements Runnable {
 				dnsreq = null;
 			} else if (loadreq != null) {
 				loadbuf = null;
+				try {
+					loadbuf = DatabaseStore.getFile(loadreq);
+					if (loadbuf != null && loadbuf.length == 0) {
+						System.out.println("Failed to load " + loadreq);
+						loadbuf = null;
+					}
+				} catch (@Pc(133) Exception ex) {
+					ex.printStackTrace();
+				}
 				loadreq = null;
 			} else if (savereq != null) {
+				if (savebuf != null) {
+					try {
+						DatabaseStore.putFile(savereq, savebuf);
+					} catch (@Pc(133) Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+
 				if (waveplay) {
-					wave = cachedir + savereq;
+					wave = savereq;
 					waveplay = false;
 				}
 
 				if (midiplay) {
-					midi = cachedir + savereq;
+					midi = savereq;
 					midiplay = false;
 				}
 
-				// savebuf = null;
 				savereq = null;
 			} else if (urlreq != null) {
 				try {
