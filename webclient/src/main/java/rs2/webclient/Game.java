@@ -8319,15 +8319,24 @@ public class Game extends GameShell {
 		this.plain12.drawCentered(158, 16777215, "Please wait - attempting to reestablish", 256);
 		this.areaViewport.drawAt(11, 8);
 		this.flagTileX = 0;
-		@Pc(60) BufferedWebStream local60 = this.stream;
+
+		@Pc(60) BufferedWebStream oldStream = this.stream;
 		this.ingame = false;
-		this.login(this.username, this.password, true);
+
+		// retry login 3 times before disconnecting
+		int retries = 0;
+		while (retries < 3 && !this.ingame) {
+			this.login(this.username, this.password, true);
+			retries++;
+		}
+
 		if (!this.ingame) {
 			this.disconnect();
 		}
+
 		try {
-			local60.close();
-		} catch (@Pc(80) Exception local80) {
+			oldStream.close();
+		} catch (@Pc(80) Exception ignored) {
 		}
 	}
 
@@ -8512,6 +8521,7 @@ public class Game extends GameShell {
 	protected void update() {
 		if (!this.errorStarted && !this.errorLoading && !this.errorHost) {
 			clientClock++;
+
 			if (this.ingame) {
 				this.updateGame();
 			} else {
