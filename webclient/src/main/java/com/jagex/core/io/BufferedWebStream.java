@@ -42,7 +42,7 @@ public class BufferedWebStream {
 
 		this.client.onClose(new EventListener<CloseEvent>(){
 			public void handleEvent(CloseEvent event) {
-				System.out.println("Closed: " + event.getCode() + " " + event.getReason());
+				connected = false;
 			}
 		});
 
@@ -64,12 +64,17 @@ public class BufferedWebStream {
 
 		this.client.onError(new EventListener<Event>(){
 			public void handleEvent(Event event) {
+				connected = false;
 				callback.error(new IOException("WebSocket error"));
 			}
 		});
 	}
 
-	public void write(byte[] bytes, int length, int offset) {
+	public void write(byte[] bytes, int length, int offset) throws IOException {
+		if (!this.connected) {
+			throw new IOException("Socket is not connected");
+		}
+
 		Int8Array toSend = Int8Array.create(length);
 
 		for (int i = 0; i < length; i += 1) {
@@ -92,9 +97,9 @@ public class BufferedWebStream {
 		}
 	}
 
-	public int read() {
+	public int read() throws IOException {
 		if (!this.connected) {
-			return -1;
+			throw new IOException("Socket is not connected");
 		}
 
 		if (this.bytesLeft > 0) {
@@ -111,9 +116,9 @@ public class BufferedWebStream {
 		return this.read();
 	}
 
-	public int read(byte[] destination, int off, int length) {
+	public int read(byte[] destination, int off, int length) throws IOException {
 		if (!this.connected) {
-			return -1;
+			throw new IOException("Socket is not connected");
 		}
 
 		if (this.bytesAvailable >= length) {

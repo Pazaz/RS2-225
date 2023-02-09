@@ -7604,7 +7604,7 @@ public class Game extends GameShell {
 		}
 		try {
 			if (super.frame != null) {
-				return new URL("http://" + GlobalConfig.SERVER_ADDRESS + ":" + (gamePortOffset + 80));
+				return new URL("http://" + GlobalConfig.SERVER_ADDRESS + ":" + 80);
 			}
 		} catch (@Pc(21) Exception local21) {
 		}

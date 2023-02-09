@@ -7513,7 +7513,8 @@ public class Game extends GameShell {
 					this.keepaliveCounter = 0;
 				}
 			} catch (@Pc(1006) Exception local1006) {
-				this.disconnect();
+				// System.out.println("Write reconnect");
+				this.reconnect();
 			}
 		}
 	}
@@ -10234,6 +10235,9 @@ public class Game extends GameShell {
 			}
 			SignedLink.reporterror("T1 - " + this.packetOpcode + "," + this.packetLength + " - " + this.secondMostRecentOpcode + "," + this.thirdMostRecentOpcode);
 			this.disconnect();
+		} catch (@Pc(3862) IOException local3862) {
+			// System.out.println("Read reconnect");
+			this.reconnect();
 		} catch (@Pc(3867) Exception local3867) {
 			local1264 = "T2 - " + this.packetOpcode + "," + this.secondMostRecentOpcode + "," + this.thirdMostRecentOpcode + " - " + this.packetLength + "," + (this.baseTileX + this.self.pathTileX[0]) + "," + (this.baseTileZ + this.self.pathTileZ[0]) + " - ";
 			for (local462 = 0; local462 < this.packetLength && local462 < 50; local462++) {
