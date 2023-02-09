@@ -6,6 +6,8 @@ import org.openrs2.deob.annotation.OriginalArg;
 import org.openrs2.deob.annotation.OriginalClass;
 import org.openrs2.deob.annotation.OriginalMember;
 import org.openrs2.deob.annotation.Pc;
+import org.teavm.jso.JSBody;
+import org.teavm.jso.browser.Window;
 import org.teavm.jso.canvas.CanvasRenderingContext2D;
 import org.teavm.jso.canvas.ImageData;
 import org.teavm.jso.dom.events.EventListener;
@@ -13,6 +15,7 @@ import org.teavm.jso.dom.events.KeyboardEvent;
 import org.teavm.jso.dom.events.MouseEvent;
 import org.teavm.jso.dom.html.HTMLCanvasElement;
 import org.teavm.jso.dom.html.HTMLDocument;
+import org.teavm.jso.dom.html.HTMLElement;
 import org.teavm.jso.dom.html.TextRectangle;
 
 @OriginalClass("client!a")
@@ -97,13 +100,47 @@ public class GameShell implements Runnable {
 	public CanvasRenderingContext2D context;
 	public ImageData imageData;
 
-	private void setMousePosition(MouseEvent event) {
-		TextRectangle boundingRect = canvas.getBoundingClientRect();
-		double scaleX = (double) canvas.getWidth() / boundingRect.getWidth();
-		double scaleY = (double) canvas.getHeight() / boundingRect.getHeight();
+	@JSBody(script = "return (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) != null")
+	public static native boolean isFullscreen();
 
-		this.mouseX = (int) ((event.getClientX() - boundingRect.getLeft()) * scaleX);
-		this.mouseY = (int) ((event.getClientY() - boundingRect.getTop()) * scaleY);
+	private static double mapCoord(double v, double n1, double n2, double m1, double m2) {
+		return (v - n1) * (m2 - m1) / (n2 - n1) + m1;
+	}
+
+	private void setMousePosition(MouseEvent event) {
+		int fixedWidth = 789;
+		int fixedHeight = 532;
+
+		if (isFullscreen()) {
+			HTMLElement element = (HTMLElement) event.getTarget();
+			TextRectangle br = element.getBoundingClientRect();
+			double ratio = (double) Window.current().getInnerHeight() / (double) canvas.getHeight();
+			double offset = ((double) Window.current().getInnerWidth() - ((double) canvas.getWidth() * ratio)) / 2.0;
+			this.mouseX = (int) mapCoord(((double) event.getClientX()) - ((double) br.getLeft()) - offset, 0, ((double) canvas.getWidth()) * ratio, 0, fixedWidth);
+			this.mouseY = (int) mapCoord(((double) event.getClientY()) - ((double) br.getTop()), 0, ((double) canvas.getHeight()) * ratio, 0, fixedHeight);
+		} else {
+			TextRectangle br = canvas.getBoundingClientRect();
+			double scaleX = (double) canvas.getWidth() / br.getWidth();
+			double scaleY = (double) canvas.getHeight() / br.getHeight();
+			this.mouseX = (int) ((event.getClientX() - br.getLeft()) * scaleX);
+			this.mouseY = (int) ((event.getClientY() - br.getTop()) * scaleY);
+		}
+
+		if (this.mouseX < 0) {
+			this.mouseX = 0;
+		}
+
+		if (this.mouseY < 0) {
+			this.mouseY = 0;
+		}
+
+		if (this.mouseX > fixedWidth) {
+			this.mouseX = fixedWidth;
+		}
+
+		if (this.mouseY > fixedHeight) {
+			this.mouseY = fixedHeight;
+		}
 	}
 
 	@OriginalMember(owner = "client!a", name = "a", descriptor = "(III)V")
