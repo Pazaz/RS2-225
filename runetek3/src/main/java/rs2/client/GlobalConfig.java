@@ -23,7 +23,7 @@ public class GlobalConfig {
 	public static int CHATBOX_ERA = 3;
 
 	// default server to connect to
-	public static String SERVER_ADDRESS = "lostcity.runewiki.org";
+	public static String SERVER_ADDRESS = "world2.runewiki.org";
 
 	// default port to connect to
 	public static int SERVER_WEB_PORT = 80;
