@@ -1,12 +1,9 @@
 # RS2-225
 
+This is an offline version of the client that hosts a small internal server to allow you to run around and listen to music.  
+[Go check out this branch for my latest work, just note it does not run a local server.](https://github.com/Pazaz/RS2-225/tree/main)
+
 ## Questions / Answers
-
-Q: What happened to the RS2-225 branch history that was here?  
-A: [You can find that under the oldmain branch](https://github.com/Pazaz/RS2-225/tree/oldmain).
-
-Q: What happened to the RT3-Client repo?  
-A: [You can find that repo under the rt3-deob branch](https://github.com/Pazaz/RS2-225/tree/rt3-deob).
 
 Q: How do I jump in and play around with things?  
 A: Clone the repo and run `./gradlew client:run --args='server'`. You can log in and run around, explore to your heart's desire (music included!). When I make jars to distribute I change `rs2.client.startServer` to `true` and build, so it works standalone/offline.
