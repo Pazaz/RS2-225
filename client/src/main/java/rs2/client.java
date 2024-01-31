@@ -46,7 +46,7 @@ import com.itspazaz.lostcity.Server;
 @OriginalClass("client!client")
 public class client extends GameShell {
 
-	public static boolean startServer = false;
+	public static boolean startServer = true;
 
 	public static int httpPortOffset = 0;
 

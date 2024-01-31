@@ -425,32 +425,37 @@ public class Player {
 
             boolean landExists = Files.isReadable(Paths.get(Server.dataDir.toString(), "maps", "m" + fileX + "_" + fileZ));
             boolean locExists = Files.isReadable(Paths.get(Server.dataDir.toString(), "maps", "l" + fileX + "_" + fileZ));
-            if (!landExists && !locExists) {
-                continue;
-            }
 
             con.out.p1(fileX);
             con.out.p1(fileZ);
 
-            try {
-                int landCrc = Buffer.crc32(Files.readAllBytes(Paths.get(Server.dataDir.toString(), "maps", "m" + fileX + "_" + fileZ)));
-                con.out.p4(landCrc);
+            if (landExists) {
+                try {
+                    int landCrc = Buffer.crc32(Files.readAllBytes(Paths.get(Server.dataDir.toString(), "maps", "m" + fileX + "_" + fileZ)));
+                    con.out.p4(landCrc);
 
-                if (con.webclient) {
-                    con.out.p2((int)Files.size(Paths.get(Server.dataDir.toString(), "maps", "m" + fileX + "_" + fileZ)));
+                    if (con.webclient) {
+                        con.out.p2((int)Files.size(Paths.get(Server.dataDir.toString(), "maps", "m" + fileX + "_" + fileZ)));
+                    }
+                } catch (Exception ex) {
+                    con.out.p4(0);
                 }
-            } catch (Exception ex) {
+            } else {
                 con.out.p4(0);
             }
 
-            try {
-                int locCrc = Buffer.crc32(Files.readAllBytes(Paths.get(Server.dataDir.toString(), "maps", "l" + fileX + "_" + fileZ)));
-                con.out.p4(locCrc);
+            if (locExists) {
+                try {
+                    int locCrc = Buffer.crc32(Files.readAllBytes(Paths.get(Server.dataDir.toString(), "maps", "l" + fileX + "_" + fileZ)));
+                    con.out.p4(locCrc);
 
-                if (con.webclient) {
-                    con.out.p2((int)Files.size(Paths.get(Server.dataDir.toString(), "maps", "l" + fileX + "_" + fileZ)));
+                    if (con.webclient) {
+                        con.out.p2((int)Files.size(Paths.get(Server.dataDir.toString(), "maps", "l" + fileX + "_" + fileZ)));
+                    }
+                } catch (Exception ex) {
+                    con.out.p4(0);
                 }
-            } catch (Exception ex) {
+            } else {
                 con.out.p4(0);
             }
         }
